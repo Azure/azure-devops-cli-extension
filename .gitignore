@@ -12,6 +12,12 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+# Python
+**/*.egg-info/
+env/**
+dist/
+lib/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

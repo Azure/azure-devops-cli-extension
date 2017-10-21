@@ -1,0 +1,19 @@
+;= ********************************************************************************
+;= * Macros file PowerShell
+;= *
+;= * Macros in this file are used for PowerShell only. If you have a macro which is
+;= * not specific to the PowerShell environment, please put it into macros.txt.
+;= *
+;= * WHEN YOU SAVE THIS FILE PLEASE MAKE SURE THAT A UTF-8 BOM IS NOT ADDED.
+;= ********************************************************************************
+
+;= ********************************************************************************
+;= * Navigation aids
+;= ********************************************************************************
+src=pushd $env:BUILDDIR
+
+;= ********************************************************************************
+;= * Please leave the following line in place, as it is part of the commenting
+;= * infrastructure in this file.
+;= ********************************************************************************
+;=
