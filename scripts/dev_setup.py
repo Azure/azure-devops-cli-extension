@@ -11,7 +11,7 @@ import os
 from subprocess import check_call, CalledProcessError
 
 root_dir = os.path.abspath(os.path.join(os.path.abspath(__file__), '..', '..'))
-
+os.chdir(root_dir)
 
 def exec_command(command):
     try:
