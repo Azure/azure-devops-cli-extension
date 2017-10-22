@@ -3,9 +3,9 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import keyring
 import logging
 import os
+import keyring
 
 
 from vsts._file_cache import get_cache
@@ -26,8 +26,8 @@ def get_credential(team_instance):
             return token
         else:
             return keyring.get_password(service_name, _username)
-    except RuntimeError as e:
-        logging.exception(e)
+    except RuntimeError as ex:
+        logging.exception(ex)
         if _credentials_cache[team_instance]:
             return _credentials_cache[team_instance]
         else:
@@ -37,8 +37,8 @@ def get_credential(team_instance):
 def set_credential(team_instance, token):
     try:
         keyring.set_password(_get_service_name(team_instance), _username, token)
-    except RuntimeError as e:
-        logging.exception(e)
+    except RuntimeError as ex:
+        logging.exception(ex)
         team_instance = normalize_url_for_key(team_instance)
         _credentials_cache[team_instance] = token
 
@@ -47,8 +47,8 @@ def clear_credential(team_instance):
     service_name = _get_service_name(team_instance)
     try:
         keyring.delete_password(service_name, _username)
-    except keyring.errors.PasswordDeleteError as e:
-        logging.exception(e)
+    except keyring.errors.PasswordDeleteError as ex:
+        logging.exception(ex)
         team_instance = normalize_url_for_key(team_instance)
         if _credentials_cache[team_instance]:
             del _credentials_cache[team_instance]
