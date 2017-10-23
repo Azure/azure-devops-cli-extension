@@ -4,10 +4,10 @@
 # --------------------------------------------------------------------------------------------
 
 
-from .uuid import is_uuid
-from .vsts import get_connection_data, get_identity_client
 from knack.util import CLIError
 from vsts._file_cache import get_cache
+from .uuid import is_uuid
+from .vsts import get_connection_data, get_identity_client
 
 
 def resolve_identity_as_id(identity_filter, team_instance):
@@ -47,16 +47,16 @@ def resolve_identity(identity_filter, team_instance):
     if identity_filter.find(' ') > 0 or identity_filter.find('@') > 0:
         identities = identity_client.read_identities(search_filter='General',
                                                      filter_value=identity_filter)
-        if identities is None or len(identities) == 0:
+        if identities is None or not identities:
             identities = identity_client.read_identities(search_filter='DirectoryAlias',
                                                          filter_value=identity_filter)
     else:
         identities = identity_client.read_identities(search_filter='DirectoryAlias',
                                                      filter_value=identity_filter)
-        if identities is None or len(identities) == 0:
+        if identities is None or not identities:
             identities = identity_client.read_identities(search_filter='General',
                                                          filter_value=identity_filter)
-    if identities is None or len(identities) == 0:
+    if identities is None or not identities:
         raise CLIError('Could not resolve identity: ' + identity_filter)
     elif len(identities) > 1:
         # prefer users with same domain
@@ -91,7 +91,7 @@ def ensure_display_names_in_cache(team_instance, identity_ids):
     for identity_id in identity_ids:
         if not _display_name_cache[identity_id]:
             ids_to_look_up.append(identity_id)
-    if len(ids_to_look_up) > 0:
+    if ids_to_look_up:
         resolved_identities = get_identities(team_instance, ','.join(ids_to_look_up))
         for identity in resolved_identities:
             _display_name_cache[identity.id] = get_display_name_from_identity(identity)

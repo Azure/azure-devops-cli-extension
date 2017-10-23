@@ -4,7 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 import logging
-import os
 import subprocess
 import sys
 import urllib.parse
@@ -23,9 +22,9 @@ def set_global_config(key, value):
 def get_current_branch_name():
     try:
         output = subprocess.check_output(['git', 'symbolic-ref', '--short', '-q', 'HEAD'])
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError as ex:
         logging.info('GitDetect: Could not detect current branch based on current working directory.')
-        logging.exception(e)
+        logging.exception(ex)
         return None
     return output.decode(sys.stdout.encoding).strip()
 
@@ -36,10 +35,10 @@ def get_remote_url(validation_function=None):
         if _ORIGIN_PUSH_KEY in remotes and (validation_function is None
                                             or validation_function(remotes[_ORIGIN_PUSH_KEY])):
             return remotes[_ORIGIN_PUSH_KEY]
-        for k, v in remotes.items():
+        for k, value in remotes.items():
             if k != _ORIGIN_PUSH_KEY and k.endswith('(push)') and (validation_function is None
-                                                                   or validation_function(v)):
-                return v
+                                                                   or validation_function(value)):
+                return value
     return None
 
 
@@ -50,9 +49,9 @@ def get_git_credentials(team_instance):
     standard_in = bytes('protocol={protocol}\nhost={host}'.format(protocol=protocol, host=host), 'utf-8')
     try:
         output = subprocess.check_output(['git', 'credential-manager', 'get'], input=standard_in)
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError as ex:
         logging.info('GitDetect: Could not detect git credentials for current working directory.')
-        logging.exception(e)
+        logging.exception(ex)
         return None
     lines = output.decode(sys.stdout.encoding).split(sep='\n')
     properties = {}
@@ -64,7 +63,7 @@ def get_git_credentials(team_instance):
 
 
 def get_git_remotes():
-    if len(_git_remotes) > 0:
+    if _git_remotes:
         return _git_remotes
     try:
         # Example output:
@@ -74,9 +73,9 @@ def get_git_remotes():
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (fetch)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (push)
         output = subprocess.check_output(['git', 'remote', '-v'])
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError as ex:
         logging.info('GitDetect: Could not detect current remotes based on current working directory.')
-        logging.exception(e)
+        logging.exception(ex)
         return None
     lines = output.decode(sys.stdout.encoding).split(sep='\n')
     for line in lines:
@@ -100,10 +99,8 @@ def resolve_git_ref_heads(ref):
 def setup_git_alias(alias, command):
     try:
         set_global_config(key='alias.' + alias,
-                          value='!f() { exec '
-                                + 'vsts.cmd '
-                                + command
-                                + ' \"$@\" --detect on; }; f')
+                          value='!f() { exec vsts.cmd '
+                          + command + ' \"$@\" --detect on; }; f')
     except OSError:
         raise CLIError('Setting the git alias failed. Ensure git is installed and in your path.')
 

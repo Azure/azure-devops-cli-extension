@@ -6,15 +6,15 @@
 import logging
 
 
-from .vsts import raise_authentication_error
 from knack.util import CLIError
 from vsts.exceptions import VstsAuthenticationError
+from .vsts import raise_authentication_error
 
 
 def handle_command_exception(exception):
     logging.exception(exception)
-    if type(exception) is CLIError:
+    if isinstance(exception, CLIError):
         raise exception
-    if type(exception) is VstsAuthenticationError:
+    if isinstance(exception, VstsAuthenticationError):
         raise_authentication_error(exception)
     raise CLIError(exception)

@@ -9,7 +9,7 @@ import webbrowser
 
 from knack.util import CLIError
 from vsts.exceptions import VstsServiceError
-from vsts.work_item_tracking.models.json_patch_operation import JsonPatchOperation
+from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
 from vsts.cli.common.arguments import should_detect
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.git import setup_git_alias
@@ -87,7 +87,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Reason', reason))
         if history is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.History', history))
-        if fields is not None and len(fields) > 0:
+        if fields is not None and fields:
             for field in fields:
                 kvp = field.split('=')
                 if len(kvp) == 2:
@@ -99,10 +99,10 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
         if open_browser:
             _open_work_item(work_item, team_instance)
         return work_item
-    except VstsServiceError as e:
-        _handle_vsts_service_error(e)
-    except Exception as e:
-        handle_command_exception(e)
+    except VstsServiceError as ex:
+        _handle_vsts_service_error(ex)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def update_work_item(work_item_id, title=None, description=None, assigned_to=None, state=None, area=None,
@@ -163,7 +163,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Reason', reason))
         if history is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.History', history))
-        if fields is not None and len(fields) > 0:
+        if fields is not None and fields:
             for field in fields:
                 kvp = field.split('=')
                 if len(kvp) == 2:
@@ -175,30 +175,30 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
         if open_browser:
             _open_work_item(work_item, team_instance)
         return work_item
-    except VstsServiceError as e:
-        _handle_vsts_service_error(e)
-    except Exception as e:
-        handle_command_exception(e)
+    except VstsServiceError as RuleValidationException:
+        _handle_vsts_service_error(ex)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
-def _handle_vsts_service_error(e):
-    logging.exception(e)
-    if e.type_key == 'RuleValidationException' and "FieldReferenceName" in e.custom_properties:
-        if e.message is not None:
-            message = e.message
-            if len(message) > 0 and message[len(message) - 1] != '.':
+def _handle_vsts_service_error(ex):
+    logging.exception(ex)
+    if ex.type_key == 'RuleValidationException' and "FieldReferenceName" in e.custom_properties:
+        if ex.message is not None:
+            message = ex.message
+            if message and message[len(message) - 1] != '.':
                 message += '.'
-            name = e.custom_properties["FieldReferenceName"]
+            name = ex.custom_properties["FieldReferenceName"]
             if name in _system_field_args:
                 message += ' Use the --{} argument to supply this value.'.format(_system_field_args[name])
             else:
                 message += ' To specify a value for this field, use the --field argument and set the name of the ' \
                            + 'name/value pair to {}.'.format(name)
         else:
-            message = "RuleValidationException for FieldReferenceName: " + e.custom_properties["FieldReferenceName"]
+            message = "RuleValidationException for FieldReferenceName: " + ex.custom_properties["FieldReferenceName"]
         raise CLIError(ValueError(message))
     else:
-        raise CLIError(e)
+        raise CLIError(ex)
 
 
 def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=None):
@@ -222,8 +222,8 @@ def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=
         if open_browser:
             _open_work_item(work_item, team_instance)
         return work_item
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def _open_work_item(work_item, team_instance):

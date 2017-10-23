@@ -7,17 +7,17 @@ import datetime
 import logging
 import threading
 
+from collections import OrderedDict
+from urllib.parse import urlparse
+from knack.util import CLIError
+from msrest.authentication import BasicAuthentication
+from msrest.serialization import Model
+from vsts._file_cache import get_cache
+from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
+from vsts.vss_connection import VssConnection
 from ._credentials import get_credential
 from .git import get_git_credentials, get_remote_url, GIT_CREDENTIALS_PASSWORD_KEY, GIT_CREDENTIALS_USERNAME_KEY
 from .version import VERSION
-from knack.util import CLIError
-from collections import OrderedDict
-from msrest.authentication import BasicAuthentication
-from msrest.serialization import Model
-from urllib.parse import urlparse
-from vsts._file_cache import get_cache
-from vsts.customer_intelligence.models.customer_intelligence_event import CustomerIntelligenceEvent
-from vsts.vss_connection import VssConnection
 
 
 def get_vss_connection(team_instance):
@@ -34,9 +34,9 @@ def get_vss_connection(team_instance):
             _vss_connection[team_instance] = _get_vss_connection(team_instance, credentials)
             _try_send_tracking_ci_event_async(team_instance)
             _vss_connection[team_instance].authenticate()
-        except Exception as e:
-            logging.exception(str(e))
-            raise CLIError(e)
+        except Exception as ex:
+            logging.exception(str(ex))
+            raise CLIError(ex)
     return _vss_connection[team_instance]
 
 
@@ -71,8 +71,8 @@ def _try_get_vss_connection_with_git_credentials(team_instance):
             else:
                 _git_hashes_cache[team_instance] = cache_hash + ",Invalid"
                 return None
-        except Exception as e:
-            logging.exception(str(e))
+        except Exception as ex:
+            logging.exception(str(ex))
     return None
 
 
@@ -87,37 +87,37 @@ def get_first_vss_instance_uri():
 
 def get_build_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.build.build_client.BuildClient')
+    return connection.get_client('vsts.build.v4_0.build_client.BuildClient')
 
 
 def get_ci_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.customer_intelligence.customer_intelligence_client.CustomerIntelligenceClient')
+    return connection.get_client('vsts.customer_intelligence.v4_0.customer_intelligence_client.CustomerIntelligenceClient')
 
 
 def get_git_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.git.git_client.GitClient')
+    return connection.get_client('vsts.git.v4_0.git_client.GitClient')
 
 
 def get_identity_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.identity.identity_client.IdentityClient')
+    return connection.get_client('vsts.identity.v4_0.identity_client.IdentityClient')
 
 
 def get_location_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.location.location_client.LocationClient')
+    return connection.get_client('vsts.location.v4_0.location_client.LocationClient')
 
 
 def get_policy_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.policy.policy_client.PolicyClient')
+    return connection.get_client('vsts.policy.v4_0.policy_client.PolicyClient')
 
 
 def get_work_item_tracking_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient')
+    return connection.get_client('vsts.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient')
 
 
 def get_base_url(team_instance):
@@ -175,28 +175,28 @@ def set_tracking_data(argv):
     try:
         vsts_tracking_data.area = 'CLI'
         vsts_tracking_data.properties = {}
-        if argv is not None and len(argv) > 0:
+        if argv is not None and argv:
             vsts_tracking_data.feature = argv[0]
             if len(argv) > 1:
                 command = []
                 args = []
                 command_populated = False
                 for arg in argv[1:]:
-                    if arg is not None and len(arg) > 0:
+                    if arg is not None and argv:
                         if not command_populated and arg[0] != '-':
                             command.append(arg)
                         elif arg[0] == '-':
                             args.append(arg.lstrip('-'))
                             command_populated = True
-                if len(command) > 0:
+                if command:
                     vsts_tracking_data.properties['Command'] = ' '.join(command)
                 else:
                     vsts_tracking_data.properties['Command'] = ''
                 vsts_tracking_data.properties['Args'] = args
         else:
             vsts_tracking_data.feature = 'Command'
-    except Exception as e:
-        logging.exception(e)
+    except Exception as ex:
+        logging.exception(ex)
 
 
 def _try_send_tracking_ci_event_async(team_instance=None):
@@ -204,9 +204,9 @@ def _try_send_tracking_ci_event_async(team_instance=None):
         try:
             thread = threading.Thread(target=_send_tracking_ci_event, args=[team_instance])
             thread.start()
-        except Exception as e:
+        except Exception as ex:
             # we should always continue if we fail to set tracking data
-            logging.exception(str(e))
+            logging.exception(str(ex))
 
 
 def _send_tracking_ci_event(team_instance=None, ci_client=None):
@@ -215,8 +215,8 @@ def _send_tracking_ci_event(team_instance=None, ci_client=None):
     try:
         ci_client.publish_events([vsts_tracking_data])
         return True
-    except Exception as e:
-        logging.exception(e)
+    except Exception as ex:
+        logging.exception(ex)
         return False
 
 
@@ -259,8 +259,8 @@ class VstsGitUrlInfo:
                 deserializer = Deserializer(models)
                 try:
                     remote_info = deserializer.deserialize_data(_git_remote_info_cache[remote_url], '_RemoteInfo')
-                except DeserializationError as e:
-                    logging.exception(str(e))
+                except DeserializationError as ex:
+                    logging.exception(str(ex))
                 if remote_info is not None:
                     self.project = remote_info.project
                     self.repo = remote_info.repository
@@ -291,8 +291,8 @@ class VstsGitUrlInfo:
                     try:
                         _git_remote_info_cache[remote_url] = \
                             serializer.serialize_data(self._RemoteInfo(self.project, self.repo, self.uri), '_RemoteInfo')
-                    except SerializationError as e:
-                        logging.exception(str(e))
+                    except SerializationError as ex:
+                        logging.exception(str(ex))
 
 
     @staticmethod
@@ -344,4 +344,3 @@ _git_hashes_cache = get_cache('valid_hashes', 3600 * 6)
 _git_remote_info_cache = get_cache('remotes', 0)
 _vss_connection = OrderedDict()
 vsts_tracking_data = CustomerIntelligenceEvent()
-

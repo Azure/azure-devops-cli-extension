@@ -8,8 +8,8 @@ import urllib
 import webbrowser
 
 
-from vsts.build.models.build import Build
-from vsts.build.models.definition_reference import DefinitionReference
+from vsts.build.v4_0.models.build import Build
+from vsts.build.v4_0.models.definition_reference import DefinitionReference
 from vsts.cli.common.arguments import should_detect
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.git import resolve_git_ref_heads, setup_git_alias
@@ -220,8 +220,9 @@ def _resolve_definition(definition, client, project):
         if len(definition_references) == 1:
             return definition_references[0].id
         elif len(definition_references) > 1:
-            raise ValueError("Multiple definitions were found matching name {} in project ''.  Try supplying the "
-                             + "definition ID.".format(definition, project))
+            message = 'Multiple definitions were found matching name "{}" in project "{}".  Try '\
+                      + 'supplying the definition ID.'
+            raise ValueError(message.format(definition, project))
         else:
             raise ValueError('There were no build definitions matching name "{}" in project "{}".'
                              .format(definition, project))

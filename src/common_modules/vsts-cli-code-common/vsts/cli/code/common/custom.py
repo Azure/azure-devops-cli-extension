@@ -9,14 +9,14 @@ import webbrowser
 
 from knack.util import CLIError
 from vsts.exceptions import VstsClientRequestError
-from vsts.git.models.git_pull_request import GitPullRequest
-from vsts.git.models.git_pull_request_completion_options import GitPullRequestCompletionOptions
-from vsts.git.models.git_pull_request_search_criteria import GitPullRequestSearchCriteria
-from vsts.git.models.identity_ref import IdentityRef
-from vsts.git.models.identity_ref_with_vote import IdentityRefWithVote
-from vsts.git.models.resource_ref import ResourceRef
-from vsts.work_item_tracking.models.json_patch_operation import JsonPatchOperation
-from vsts.work_item_tracking.models.work_item_relation import WorkItemRelation
+from vsts.git.v4_0.models.git_pull_request import GitPullRequest
+from vsts.git.v4_0.models.git_pull_request_completion_options import GitPullRequestCompletionOptions
+from vsts.git.v4_0.models.git_pull_request_search_criteria import GitPullRequestSearchCriteria
+from vsts.git.v4_0.models.identity_ref import IdentityRef
+from vsts.git.v4_0.models.identity_ref_with_vote import IdentityRefWithVote
+from vsts.git.v4_0.models.resource_ref import ResourceRef
+from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
+from vsts.work_item_tracking.v4_0.models.work_item_relation import WorkItemRelation
 from vsts.cli.common.arguments import resolve_on_off_switch, should_detect
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.git import get_current_branch_name, resolve_git_ref_heads, setup_git_alias
@@ -56,8 +56,8 @@ def show_pull_request(pull_request_id, open_browser=False, team_instance=None, d
         if open_browser:
             _open_pull_request(pr, team_instance)
         return pr
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def list_pull_requests(repository=None, creator=None, include_links=False, reviewer=None,
@@ -118,8 +118,8 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
             pr_list = client.get_pull_requests(project=project, repository_id=repository,
                                                search_criteria=search_criteria,
                                                skip=skip, top=top)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
     return pr_list
 
 
@@ -250,8 +250,8 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                                             pull_request_id=pr.pull_request_id)
         if open_browser:
             _open_pull_request(pr, team_instance)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
     return pr
 
 
@@ -319,8 +319,8 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
                                         project=existing_pr.repository.project.name,
                                         repository_id=existing_pr.repository.name,
                                         pull_request_id=pull_request_id)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
     return pr
 
 
@@ -393,8 +393,8 @@ def create_pull_request_reviewers(pull_request_id, reviewers, team_instance=None
                                                           project=pr.repository.project.id,
                                                           repository_id=pr.repository.id,
                                                           pull_request_id=pull_request_id)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
     return identities
 
 
@@ -426,8 +426,8 @@ def delete_pull_request_reviewers(pull_request_id, reviewers, team_instance=None
         return client.get_pull_request_reviewers(project=pr.repository.project.id,
                                                  repository_id=pr.repository.id,
                                                  pull_request_id=pull_request_id)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def list_pull_request_reviewers(pull_request_id, team_instance=None, detect=None):
@@ -450,8 +450,8 @@ def list_pull_request_reviewers(pull_request_id, team_instance=None, detect=None
         return client.get_pull_request_reviewers(project=pr.repository.project.id,
                                                  repository_id=pr.repository.id,
                                                  pull_request_id=pull_request_id)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def add_pull_request_work_items(pull_request_id, work_items, team_instance=None, detect=None):
@@ -490,11 +490,11 @@ def add_pull_request_work_items(pull_request_id, work_items, team_instance=None,
                 patch_document.append(patch_operation)
                 try:
                     wit_client.update_work_item(document=patch_document, id=work_item_id)
-                except VstsClientRequestError as e:
-                    logging.exception(e)
+                except VstsClientRequestError as ex:
+                    logging.exception(ex)
                     message = e.args[0]
                     if message != 'Relation already exists.':
-                        raise CLIError(e)
+                        raise CLIError(ex)
             refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
                                                       repository_id=existing_pr.repository.id,
                                                       pull_request_id=pull_request_id)
@@ -502,8 +502,8 @@ def add_pull_request_work_items(pull_request_id, work_items, team_instance=None,
         for ref in refs:
             ids.append(ref.id)
         return wit_client.get_work_items(ids=ids)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def remove_pull_request_work_items(pull_request_id, work_items, team_instance=None, detect=None):
@@ -525,11 +525,11 @@ def remove_pull_request_work_items(pull_request_id, work_items, team_instance=No
             team_instance = get_vsts_info_from_current_remote_url().uri
         client = get_git_client(team_instance)
         existing_pr = client.get_pull_request_by_id(pull_request_id)
-        if work_items is not None and len(work_items) > 0:
+        if work_items is not None and work_items:
             work_items = list(set(work_items))  # make distinct
             wit_client = get_work_item_tracking_client(team_instance)
             work_items_full = wit_client.get_work_items(ids=work_items, expand=1)
-            if len(work_items_full) > 0:
+            if work_items_full:
                 url = 'vstfs:///Git/PullRequestId/{project}%2F{repo}%2F{id}'.format(
                     project=existing_pr.repository.project.id, repo=existing_pr.repository.id, id=pull_request_id)
                 for work_item in work_items_full:
@@ -556,14 +556,14 @@ def remove_pull_request_work_items(pull_request_id, work_items, team_instance=No
                 refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
                                                           repository_id=existing_pr.repository.id,
                                                           pull_request_id=pull_request_id)
-                if len(refs) > 0:
+                if refs:
                     ids = []
                     for ref in refs:
                         ids.append(ref.id)
-                    if len(ids) > 0:
+                    if ids:
                         return wit_client.get_work_items(ids=ids)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def list_pull_request_work_items(pull_request_id, team_instance=None, detect=None):
@@ -586,14 +586,14 @@ def list_pull_request_work_items(pull_request_id, team_instance=None, detect=Non
         refs = client.get_pull_request_work_items(project=pr.repository.project.id,
                                                   repository_id=pr.repository.id,
                                                   pull_request_id=pull_request_id)
-        if len(refs) > 0:
+        if refs:
             ids = []
             for ref in refs:
                 ids.append(ref.id)
             wit_client = get_work_item_tracking_client(team_instance)
             return wit_client.get_work_items(ids=ids)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def _update_pull_request_status(pull_request_id, new_status, team_instance=None, detect=None):
@@ -609,8 +609,8 @@ def _update_pull_request_status(pull_request_id, new_status, team_instance=None,
                                         project=existing_pr.repository.project.name,
                                         repository_id=existing_pr.repository.name,
                                         pull_request_id=pull_request_id)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
     return pr
 
 
@@ -639,8 +639,8 @@ def vote_pull_request(pull_request_id, vote, team_instance=None, detect=None):
                                                                pull_request_id=pull_request_id,
                                                                reviewer_id=resolved_reviewer.id,
                                                                reviewer=resolved_reviewer)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
     return created_reviewer
 
 
@@ -685,12 +685,12 @@ def list_pr_policies(pull_request_id, team_instance=None, detect=None, top=None,
                                                     artifact_id=artifact_id,
                                                     top=top,
                                                     skip=skip)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
-def queue_pr_policy(pull_request_id, evaluation_id, team_instance=None, project=None, detect=None):
-    """Queue a Pull request policies.
+def queue_pr_policy(pull_request_id, evaluation_id, team_instance=None, detect=None):
+    """Queue a Pull request policy.
     :param pull_request_id: The ID of the pull request.
     :type pull_request_id: int
     :param evaluation_id: The evaluation ID of the policy to queue.
@@ -710,8 +710,8 @@ def queue_pr_policy(pull_request_id, evaluation_id, team_instance=None, project=
         policy_client = get_policy_client(team_instance)
         return policy_client.requeue_policy_evaluation(project=pr.repository.project.id,
                                                        evaluation_id=evaluation_id)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def setup_git_aliases():
@@ -727,7 +727,7 @@ def _resolve_reviewers_as_refs(reviewers, team_instance):
      <git.models.IdentityRefWithVote>`
     """
     resolved_reviewers = None
-    if reviewers is not None and len(reviewers) > 0:
+    if reviewers is not None and reviewers:
         resolved_reviewers = []
         for reviewer in reviewers:
             resolved_reviewers.append(IdentityRefWithVote(id=resolve_identity_as_id(reviewer, team_instance)))
@@ -739,7 +739,7 @@ def _resolve_reviewers_as_ids(reviewers, team_instance):
     and returns a list of IdentityRefWithVote objects.
     """
     resolved_reviewers = None
-    if reviewers is not None and len(reviewers) > 0:
+    if reviewers is not None and reviewers:
         resolved_reviewers = []
         for reviewer in reviewers:
             resolved_reviewers.append(resolve_identity_as_id(reviewer, team_instance))
