@@ -58,8 +58,8 @@ def build_queue(definition, source_branch=None, open_browser=False, team_instanc
         if open_browser:
             _open_build(queued_build, team_instance)
         return queued_build
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def build_show(build_id, open_browser=False, team_instance=None, project=None, detect=None):
@@ -92,8 +92,8 @@ def build_show(build_id, open_browser=False, team_instance=None, project=None, d
         if open_browser:
             _open_build(build, team_instance)
         return build
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def build_definition_list(name=None, top=None, team_instance=None, project=None, repository=None, detect=None):
@@ -142,8 +142,8 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
                                                        repository_type=repository_type, top=top,
                                                        query_order=query_order)
         return definition_references
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def build_definition_show(definition_id=None, name=None, open_browser=False, team_instance=None, project=None,
@@ -184,8 +184,8 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
         if open_browser:
             _open_definition(build_definition, team_instance)
         return build_definition
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def _open_build(build, team_instance):
