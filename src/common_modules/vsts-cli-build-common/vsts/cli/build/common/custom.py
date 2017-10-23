@@ -220,8 +220,8 @@ def _resolve_definition(definition, client, project):
         if len(definition_references) == 1:
             return definition_references[0].id
         elif len(definition_references) > 1:
-            message = 'Multiple definitions were found matching name "{}" in project "{}".  Try supplying the '
-                      + 'definition ID.'
+            message = 'Multiple definitions were found matching name "{}" in project "{}".  Try '\
+                      + 'supplying the definition ID.'
             raise ValueError(message.format(definition, project))
         else:
             raise ValueError('There were no build definitions matching name "{}" in project "{}".'
