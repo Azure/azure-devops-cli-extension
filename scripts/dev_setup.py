@@ -8,10 +8,12 @@ from __future__ import print_function
 import sys
 import glob
 import os
+from glob import glob
 from subprocess import check_call, CalledProcessError
 
 root_dir = os.path.abspath(os.path.join(os.path.abspath(__file__), '..', '..'))
 os.chdir(root_dir)
+
 
 def exec_command(command):
     try:
@@ -22,14 +24,15 @@ def exec_command(command):
         print(err, file=sys.stderr)
         sys.exit(1)
 
+
 vsts_python_api_repo = os.environ['vsts-python-api-repo']
 
 packages = []
 if os.path.isdir(vsts_python_api_repo):
     packages.append(vsts_python_api_repo + "/vsts")
 packages.append(root_dir + "/src/common_modules/vsts-cli-common")
-packages.extend(os.path.dirname(p) for p in glob.glob('src/common_modules/vsts-cli*/setup.py') if 'vsts-cli-common' not in p)
-packages.extend(os.path.dirname(p) for p in glob.glob('src/command_modules/vsts-cli*/setup.py'))
+packages.extend(os.path.dirname(p) for p in glob('src/common_modules/vsts-cli*/setup.py') if 'vsts-cli-common' not in p)
+packages.extend(os.path.dirname(p) for p in glob('src/command_modules/vsts-cli*/setup.py'))
 packages.append(root_dir + "/src/vsts-cli")
 
 # Extract nspkg and sort nspkg by number of "-"

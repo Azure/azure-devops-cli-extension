@@ -13,6 +13,7 @@ from subprocess import check_call, CalledProcessError
 root_dir = os.path.abspath(os.path.join(os.path.abspath(__file__), '..', '..'))
 os.chdir(root_dir)
 
+
 def exec_command(command, cwd):
     try:
         print('CWD: ' + cwd)
@@ -23,8 +24,9 @@ def exec_command(command, cwd):
         print(err, file=sys.stderr)
         sys.exit(1)
 
-setup_files = glob.glob('src/*/setup.py')
-setup_files.extend(glob.glob('src/*/*/setup.py'))
+
+setup_files = [setup_file for root, dirs, files in os.walk(root_dir)
+               for setup_file in glob.glob(os.path.join(root, 'setup.py'))]
 
 # sdist packages
 for file in setup_files:
