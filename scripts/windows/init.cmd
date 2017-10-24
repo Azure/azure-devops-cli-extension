@@ -11,7 +11,7 @@ REM Add the scripts directory to the path
 SET PATH=%SCRIPTSDIR%\windows;%SCRIPTSDIR%;%PATH%
 
 REM set title
-TITLE VSTS PYTHON API (in %BUILDDIR%)
+TITLE VSTS CLI (in %BUILDDIR%)
 
 REM setup common aliases
 REM NOTE: macros in macros.txt work in *BOTH* cmd and powershell. Keep it that way.
