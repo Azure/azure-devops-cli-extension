@@ -6,12 +6,13 @@
 from __future__ import print_function
 
 import sys
-import glob
 import os
 from glob import glob
 from subprocess import check_call, CalledProcessError
 
+print('Running dev setup...')
 root_dir = os.path.abspath(os.path.join(os.path.abspath(__file__), '..', '..'))
+print('Root directory \'{}\'\n'.format(root_dir))
 os.chdir(root_dir)
 
 
@@ -24,12 +25,11 @@ def exec_command(command):
         print(err, file=sys.stderr)
         sys.exit(1)
 
-
-vsts_python_api_repo = os.environ['vsts-python-api-repo']
-
 packages = []
-if os.path.isdir(vsts_python_api_repo):
-    packages.append(vsts_python_api_repo + "/vsts")
+if 'vsts-python-api-repo' in os.environ and os.path.isdir(os.environ['vsts-python-api-repo']):
+    packages.append(os.environ['vsts-python-api-repo'] + "/vsts")
+else:
+    exec_command("pip install vsts --upgrade --no-cache-dir --extra-index-url https://vstscli.azurewebsites.net")
 packages.append(root_dir + "/src/common_modules/vsts-cli-common")
 packages.extend(os.path.dirname(p) for p in glob('src/common_modules/vsts-cli*/setup.py') if 'vsts-cli-common' not in p)
 packages.extend(os.path.dirname(p) for p in glob('src/command_modules/vsts-cli*/setup.py'))
@@ -41,8 +41,6 @@ nspkg_packages.sort(key=lambda x: len([c for c in x if c == '-']))
 
 content_packages = [p for p in packages if p not in nspkg_packages]
 
-print('Running dev setup...')
-print('Root directory \'{}\'\n'.format(root_dir))
 
 # install general requirements
 if os.path.isfile('./requirements.txt'):
