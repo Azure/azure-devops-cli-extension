@@ -19,7 +19,7 @@ REQUIRES = [
     'keyring',
     'knack',
     'python-dateutil',
-    'vsts==0.1.0b0'
+    'vsts>=0.1.0b0.dev'
 ]
 
 setup(
