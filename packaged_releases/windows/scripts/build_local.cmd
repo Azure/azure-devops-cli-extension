@@ -40,7 +40,7 @@ echo TEMP_SCRATCH_FOLDER: %TEMP_SCRATCH_FOLDER%
 echo Arg1: %1
 
 :: look for python 3.x so we can build into the installer
-if not "%1"=="" (
+if not %1=="" (
    set PYTHON_DIR=%1
    set PYTHON_EXE=%1\python.exe
    goto PYTHON_FOUND
