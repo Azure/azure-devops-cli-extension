@@ -17,8 +17,13 @@ set WIX_DOWNLOAD_URL="https://azurecliprod.blob.core.windows.net/msi/wix310-bina
 :: Set up the output directory and temp. directories
 echo *** Cleaning previous build artifacts...
 set OUTPUT_DIR=%~dp0..\out
-if exist "%OUTPUT_DIR%" rmdir /s /q "%OUTPUT_DIR%"
-if %errorlevel% neq 0 goto ERROR
+if exist "%OUTPUT_DIR%" (
+    echo Deleting directory: %OUTPUT_DIR%
+    rmdir /s /q "%OUTPUT_DIR%"
+    if %errorlevel% neq 0 goto ERROR
+)
+
+echo Creating output directory: %OUTPUT_DIR%
 mkdir "%OUTPUT_DIR%"
 if %errorlevel% neq 0 goto ERROR
 
@@ -26,6 +31,13 @@ set TEMP_SCRATCH_FOLDER=%HOMEDRIVE%%HOMEPATH%\vstscli_scratch
 set BUILDING_DIR=%HOMEDRIVE%%HOMEPATH%\vstscli
 set WIX_DIR=%HOMEDRIVE%%HOMEPATH%\vstswix
 set REPO_ROOT=%~dp0..\..\..
+
+echo REPO_ROOT=%REPO_ROOT%
+echo BUILDING_DIR=: %BUILDING_DIR%
+echo WIX_DIR: %WIX_DIR%
+echo TEMP_SCRATCH_FOLDER: %TEMP_SCRATCH_FOLDER%
+
+echo Arg1: %1
 
 :: look for python 3.x so we can build into the installer
 if not "%1"=="" (
