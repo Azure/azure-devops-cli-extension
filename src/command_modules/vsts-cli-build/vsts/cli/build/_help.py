@@ -12,3 +12,9 @@ helps['build'] = """
     short-summary: Commands to work with and manage Visual Studio Team Services builds.
     long-summary:
 """
+
+helps['build queue'] = """
+    type: command
+    short-summary: Queue a new build.
+    long-summary: Queue a new build with an ID.
+"""

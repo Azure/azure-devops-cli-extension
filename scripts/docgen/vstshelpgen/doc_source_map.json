@@ -1,0 +1,6 @@
+{
+    "build": "src/command_modules/vsts-cli-build/vsts/cli/build/_help.py",
+    "code": "src/command_modules/vsts-cli-code/vsts/cli/code/_help.py",    
+    "team": "src/command_modules/vsts-cli-team/vsts/cli/team/_help.py",
+    "work": "src/command_modules/vsts-cli-work/vsts/cli/work/_help.py"
+}
