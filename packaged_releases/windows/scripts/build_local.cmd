@@ -113,36 +113,15 @@ if not exist "%WIX_DIR%" (
 robocopy %PYTHON_DIR% "%BUILDING_DIR%" /s /NFL /NDL
 if %errorlevel% gtr 1 goto ERROR
 
+"%BUILDING_DIR%\python.exe" -m pip install wheel
+if %errorlevel% neq 0 goto ERROR
+
 :: Build & install all the packages with bdist_wheel
 "%BUILDING_DIR%\python" "%~dp0build-packages.py" "%TEMP_SCRATCH_FOLDER%" "%REPO_ROOT%"
 if %errorlevel% neq 0 goto ERROR
 
-"%BUILDING_DIR%\python.exe" -m pip install wheel
-if %errorlevel% neq 0 goto ERROR
-
 :: Install them to the temp folder so to be packaged
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir vsts --upgrade --no-cache-dir --extra-index-url https://vstscli.azurewebsites.net
-if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-common"
-if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-build-common"
-if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-code-common"
-if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-team-common"
-if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-work-common"
-if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-build"
-if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-code"
-if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-team"
-if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-work"
-if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\vsts-cli"
-if %errorlevel% neq 0 goto ERROR
+
 "%BUILDING_DIR%\python.exe" -m pip install --force-reinstall --upgrade knack keyring msrest
 if %errorlevel% neq 0 goto ERROR
 
