@@ -11,10 +11,7 @@ import keyring
 from vsts._file_cache import get_cache
 
 
-try:
-    from azure.cli.core.util import CLIError
-except ImportError:
-    from knack.util import CLIError
+from knack.util import CLIError
 
 
 def get_credential(team_instance):
@@ -28,10 +25,7 @@ def get_credential(team_instance):
             return keyring.get_password(service_name, _username)
     except RuntimeError as ex:
         logging.exception(ex)
-        if _credentials_cache[team_instance]:
-            return _credentials_cache[team_instance]
-        else:
-            return None
+        raise CLIError(ex)
 
 
 def set_credential(team_instance, token):
@@ -39,8 +33,7 @@ def set_credential(team_instance, token):
         keyring.set_password(_get_service_name(team_instance), _username, token)
     except RuntimeError as ex:
         logging.exception(ex)
-        team_instance = normalize_url_for_key(team_instance)
-        _credentials_cache[team_instance] = token
+        raise CLIError(ex)
 
 
 def clear_credential(team_instance):
@@ -49,11 +42,7 @@ def clear_credential(team_instance):
         keyring.delete_password(service_name, _username)
     except keyring.errors.PasswordDeleteError as ex:
         logging.exception(ex)
-        team_instance = normalize_url_for_key(team_instance)
-        if _credentials_cache[team_instance]:
-            del _credentials_cache[team_instance]
-        else:
-            raise CLIError('The credential was not found')
+        raise CLIError('The credential was not found')
 
 
 def _get_service_name(team_instance):
@@ -77,6 +66,7 @@ def _transfer_file_storage_to_keyring():
         finally:
             logging.info('Deleting old token file: ' + _credentials_cache.file_name)
             os.remove(_credentials_cache.file_name)
+
 
 _credentials_cache = get_cache('tokens', 0)
 
