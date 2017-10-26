@@ -112,13 +112,13 @@ class VstsHelpGenDirective(Directive):
         node.document = self.state.document
         result = ViewList()
         for line in self.make_rst():
-            result.append(line, '<vstshelpgen>')
+            result.append(line, '<vsts>')
 
         nested_parse_with_titles(self.state, result, node)
         return node.children
 
 def setup(app):
-    app.add_directive('vstshelpgen', VstsHelpGenDirective)
+    app.add_directive('vsts', VstsHelpGenDirective)
 
 def _store_parsers(parser, parser_keys, parser_values, sub_parser_keys, sub_parser_values):
     for s in parser.subparsers.values():
@@ -131,7 +131,7 @@ def _store_parsers(parser, parser_keys, parser_values, sub_parser_keys, sub_pars
                 _store_parsers(c, parser_keys, parser_values, sub_parser_keys, sub_parser_values)
 
 def _load_doc_source_map():
-    with open('vstshelpgen/doc_source_map.json') as open_file:
+    with open('doc_source_map.json') as open_file:
         return json.load(open_file)
 
 def _is_group(parser):

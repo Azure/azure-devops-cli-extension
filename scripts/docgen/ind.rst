@@ -1,2 +1,2 @@
-.. vstshelpgen::
+.. vsts::
   
