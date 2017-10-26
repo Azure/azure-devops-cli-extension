@@ -18,7 +18,7 @@ VERSION = '0.1.0b0'
 REQUIRES = [
     'knack',
     'vsts-cli-common==' + VERSION,
-    'vsts_cli_build==' + VERSION,
+    'vsts-cli-build==' + VERSION,
     'vsts-cli-code==' + VERSION,
     'vsts-cli-team==' + VERSION,
     'vsts-cli-work==' + VERSION
