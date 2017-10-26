@@ -13,7 +13,7 @@ if "%CLIVERSION%"=="" (
         set CLIVERSION=0.1.0
     ) else (
         set CLIVERSION=0.1.0.%BUILD_BUILDID%
-    }
+    )
 )
 set PYTHON_VERSION=3.6.3
 
