@@ -22,6 +22,6 @@ def resolve_on_off_switch(switch):
 
 def should_detect(detect):
     if detect is None:
-        return False
+        return True
     else:
         return resolve_on_off_switch(detect)
