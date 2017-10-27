@@ -16,7 +16,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>367BBF81-A989-4F63-8D5F-127C25692320</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Microsoft VSTS CLI Preview</OutputName>
+    <OutputName>vsts-cli-$(CLIVERSION)</OutputName>
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
