@@ -3,7 +3,7 @@
 
   <?define ProductVersion="$(env.CLIVERSION)" ?>
 
-  <?define ProductName = "Microsoft VSTS CLI 1.0 Preview" ?>
+  <?define ProductName = "Microsoft VSTS CLI Preview" ?>
   <?define ProductDescription = "Command-line tools for Visual Studio Team Services." ?>
   <?define ProductAuthor = "Microsoft Corporation" ?>
   <?define ProductResources = ".\resources\" ?>
@@ -33,7 +33,7 @@
     <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
 
     <Feature Id="ProductFeature"
-             Title="Microsoft VSTS CLI 1.0 Preview"
+             Title="Microsoft VSTS CLI Preview"
              Level="1"
              AllowAdvertise="no">
       <ComponentGroupRef Id="ProductComponents" />

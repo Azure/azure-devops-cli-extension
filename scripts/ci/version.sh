@@ -8,7 +8,7 @@
 version=$1
 
 if [ -z ${version} ]; then
-    version=${BUILD_BUILDID}
+    version=`expr match "${BUILD_BUILDID}" '\([0-9]*\)'`
 fi
 
 if [ -z ${version} ]; then

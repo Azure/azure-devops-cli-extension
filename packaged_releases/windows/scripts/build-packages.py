@@ -51,17 +51,16 @@ def _build_package(path_to_package, dist_dir):
 
 def build_packages(clone_root, dist_dir):
     packages_to_build = [
-        os.path.join(clone_root, 'vsts-python-api/src/vsts'),
-        os.path.join(clone_root, 'vsts-cli/src/common_modules/vsts-cli-common'),
-        os.path.join(clone_root, 'vsts-cli/src/common_modules/vsts-cli-build-common'),
-        os.path.join(clone_root, 'vsts-cli/src/common_modules/vsts-cli-code-common'),
-        os.path.join(clone_root, 'vsts-cli/src/common_modules/vsts-cli-team-common'),
-        os.path.join(clone_root, 'vsts-cli/src/common_modules/vsts-cli-work-common'),
-        os.path.join(clone_root, 'vsts-cli/src/command_modules/vsts-cli-build'),
-        os.path.join(clone_root, 'vsts-cli/src/command_modules/vsts-cli-code'),
-        os.path.join(clone_root, 'vsts-cli/src/command_modules/vsts-cli-team'),
-        os.path.join(clone_root, 'vsts-cli/src/command_modules/vsts-cli-work'),
-        os.path.join(clone_root, 'vsts-cli/src/vsts-cli'),
+        os.path.join(clone_root, 'src/common_modules/vsts-cli-common'),
+        os.path.join(clone_root, 'src/common_modules/vsts-cli-build-common'),
+        os.path.join(clone_root, 'src/common_modules/vsts-cli-code-common'),
+        os.path.join(clone_root, 'src/common_modules/vsts-cli-team-common'),
+        os.path.join(clone_root, 'src/common_modules/vsts-cli-work-common'),
+        os.path.join(clone_root, 'src/command_modules/vsts-cli-build'),
+        os.path.join(clone_root, 'src/command_modules/vsts-cli-code'),
+        os.path.join(clone_root, 'src/command_modules/vsts-cli-team'),
+        os.path.join(clone_root, 'src/command_modules/vsts-cli-work'),
+        os.path.join(clone_root, 'src/vsts-cli'),
     ]
 
     for p in packages_to_build:
