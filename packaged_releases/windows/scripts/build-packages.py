@@ -33,7 +33,7 @@ def _get_tmp_file():
 
 
 def _exec_command(command_list, cwd=None, stdout=None):
-    """Returns True in the command was executed successfully"""
+    """Returns True if the command was executed successfully"""
     try:
         _print_status('Executing {}'.format(command_list))
         subprocess.check_call(command_list, stdout=stdout, cwd=cwd)
@@ -64,8 +64,12 @@ def build_packages(clone_root, dist_dir):
     ]
 
     for p in packages_to_build:
-        if os.path.isfile(os.path.join(p, 'setup.py')):
+        setupPath = os.path.join(p, 'setup.py')
+        if os.path.isfile(setupPath):
             _build_package(p, dist_dir)
+        else:
+            print('Failed to find file: ' + setupPath)
+            exit(1)
 
 
 if __name__ == '__main__':

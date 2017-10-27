@@ -121,7 +121,28 @@ if %errorlevel% neq 0 goto ERROR
 if %errorlevel% neq 0 goto ERROR
 
 :: Install them to the temp folder so to be packaged
-
+"%BUILDING_DIR%\python.exe" -m pip install vsts --upgrade --force-reinstall --no-cache-dir --extra-index-url https://vstscli.azurewebsites.net --no-cache-dir
+if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-common"
+if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-build-common"
+if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-code-common"
+if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-team-common"
+if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-work-common"
+if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-build"
+if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-code"
+if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-team"
+if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-work"
+if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\vsts-cli"
+if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install --force-reinstall --upgrade knack keyring msrest
 if %errorlevel% neq 0 goto ERROR
 
