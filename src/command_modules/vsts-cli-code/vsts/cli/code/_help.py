@@ -9,6 +9,6 @@ from knack.help_files import helps  # pylint: disable=unused-import
 
 helps['code'] = """
     type: group
-    short-summary: Commands to work with and manage Visual Studio Team Services code repositories.
+    short-summary: Commands to work with and manage code repositories.
     long-summary:
 """

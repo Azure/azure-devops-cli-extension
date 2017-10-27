@@ -9,6 +9,6 @@ from knack.help_files import helps  # pylint: disable=unused-import
 
 helps['work'] = """
     type: group
-    short-summary: Commands to work with and manage Visual Studio Team Services work items.
+    short-summary: Commands to work with and manage work items.
     long-summary:
 """

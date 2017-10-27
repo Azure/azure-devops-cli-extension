@@ -9,7 +9,7 @@ from knack.help_files import helps  # pylint: disable=unused-import
 
 helps['build'] = """
     type: group
-    short-summary: Commands to work with and manage Visual Studio Team Services builds.
+    short-summary: Commands to work with and manage builds.
     long-summary:
 """
 

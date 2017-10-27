@@ -7,8 +7,8 @@ from knack.help_files import helps  # pylint: disable=unused-import
 
 # pylint: disable=line-too-long
 
-helps['team'] = """
+helps['credential'] = """
     type: group
-    short-summary: Commands to work with and manage Visual Studio Team Services.
+    short-summary: Commands to set up and manage your credentials.
     long-summary:
 """

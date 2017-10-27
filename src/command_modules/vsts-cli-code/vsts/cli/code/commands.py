@@ -43,7 +43,7 @@ def load_code_commands(cli_command_loader):
                       table_transformer=transform_reviewers_table_output)
 
             # pr work item commands
-            g.command(' pr work-items add', 'add_pull_request_work_items',
+            g.command('pr work-items add', 'add_pull_request_work_items',
                       table_transformer=transform_work_items_table_output)
             g.command('pr work-items list', 'list_pull_request_work_items',
                       table_transformer=transform_work_items_table_output)
@@ -54,8 +54,8 @@ def load_code_commands(cli_command_loader):
             g.command('pr set-vote', 'vote_pull_request', table_transformer=transform_reviewer_table_output)
 
             # pr policy commands
-            g.command('code pr policies list', 'list_pr_policies', table_transformer=transform_policies_table_output)
-            g.command('code pr policies queue', 'queue_pr_policy', table_transformer=transform_policy_table_output)
+            g.command('pr policies list', 'list_pr_policies', table_transformer=transform_policies_table_output)
+            g.command('pr policies queue', 'queue_pr_policy', table_transformer=transform_policy_table_output)
 
             # git alias commands
             g.command('setup-git-aliases', 'setup_git_aliases')
