@@ -492,7 +492,7 @@ def add_pull_request_work_items(pull_request_id, work_items, team_instance=None,
                     wit_client.update_work_item(document=patch_document, id=work_item_id)
                 except VstsClientRequestError as ex:
                     logging.exception(ex)
-                    message = e.args[0]
+                    message = ex.args[0]
                     if message != 'Relation already exists.':
                         raise CLIError(ex)
             refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
