@@ -63,7 +63,7 @@ def build_queue(definition, source_branch=None, open_browser=False, team_instanc
 
 
 def build_show(build_id, open_browser=False, team_instance=None, project=None, detect=None):
-    """Queue a new build.
+    """Show a build.
     :param build_id: The id of the build.
     :type build_id: int
     :param open_browser: Open the work item in the default web browser.
