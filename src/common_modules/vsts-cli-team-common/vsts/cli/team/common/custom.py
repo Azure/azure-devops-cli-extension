@@ -40,8 +40,8 @@ def credential_set(token, team_instance=None, detect=None):
             logging.exception(e2)
             raise ValueError("Failed to authenticate using the supplied token.")
         set_credential(team_instance=team_instance, token=token)
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def credential_clear(team_instance=None, detect=None):
@@ -58,8 +58,8 @@ def credential_clear(team_instance=None, detect=None):
         team_instance = get_base_url(team_instance)
         clear_credential(team_instance)
         print('The credential was successfully cleared.')
-    except Exception as e:
-        handle_command_exception(e)
+    except Exception as ex:
+        handle_command_exception(ex)
 
 
 def setup_git_aliases():
