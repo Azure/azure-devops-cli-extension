@@ -175,7 +175,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
         if open_browser:
             _open_work_item(work_item, team_instance)
         return work_item
-    except VstsServiceError as RuleValidationException:
+    except VstsServiceError as ex:
         _handle_vsts_service_error(ex)
     except Exception as ex:
         handle_command_exception(ex)
@@ -183,7 +183,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
 
 def _handle_vsts_service_error(ex):
     logging.exception(ex)
-    if ex.type_key == 'RuleValidationException' and "FieldReferenceName" in e.custom_properties:
+    if ex.type_key == 'RuleValidationException' and "FieldReferenceName" in ex.custom_properties:
         if ex.message is not None:
             message = ex.message
             if message and message[len(message) - 1] != '.':
