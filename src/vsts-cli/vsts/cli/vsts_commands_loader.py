@@ -13,13 +13,13 @@ from vsts.cli.team.arguments import load_team_arguments
 from vsts.cli.work.commands import load_work_commands
 from vsts.cli.work.arguments import load_work_arguments
 
+
 class VstsCommandsLoader(CLICommandsLoader):
     def load_command_table(self, args):
         load_build_commands(self)
         load_code_commands(self)
         load_team_commands(self)
         load_work_commands(self)
-
         return super(VstsCommandsLoader, self).load_command_table(args)
 
     def load_arguments(self, command):

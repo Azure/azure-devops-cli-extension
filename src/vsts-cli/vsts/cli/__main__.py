@@ -7,6 +7,7 @@ import os
 import sys
 
 from .vsts_cli_help import VstsCLIHelp
+from .vsts_cli_version_info import show_version_info_exit
 from .vsts_commands_loader import VstsCommandsLoader
 from knack import CLI
 from vsts.cli.common.vsts import set_tracking_data
@@ -20,7 +21,15 @@ try:
                   commands_loader_cls=VstsCommandsLoader,
                   help_cls=VstsCLIHelp)
     set_tracking_data(sys.argv[1:])
+
+    if len(sys.argv) > 1 and sys.argv[1] and (sys.argv[1] == '--version' or sys.argv[1] == '-v'):
+        show_version_info_exit(sys.stdout)
+        exit(0)
+
     exit_code = vstscli.invoke(sys.argv[1:])
     sys.exit(exit_code)
 except KeyboardInterrupt:
     sys.exit(1)
+
+
+
