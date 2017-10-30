@@ -22,7 +22,11 @@ def get_credential(team_instance):
         if token is not None:
             return token
         else:
-            return keyring.get_password(service_name, _username)
+            token = keyring.get_password(service_name, _username)
+            if token is not None:
+                return token
+            else:
+                return keyring.get_password(_get_service_name(team_instance=None), _username)
     except RuntimeError as ex:
         logging.exception(ex)
         raise CLIError(ex)
@@ -46,7 +50,10 @@ def clear_credential(team_instance):
 
 
 def _get_service_name(team_instance):
-    return 'vsts-cli:' + normalize_url_for_key(team_instance)
+    if team_instance is not None:
+        return 'vsts-cli:' + normalize_url_for_key(team_instance)
+    else:
+        return 'vsts-cli: default'
 
 
 def normalize_url_for_key(url):
