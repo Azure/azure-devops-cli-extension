@@ -98,7 +98,7 @@
       </Component>
       <Component Id="VstsCliSystemPath"
                  Directory="DynamicCliDir"
-                 Guid="{1927CFEC-F85D-486D-96F5-343293DA22A1}">
+                 Guid="{52845AC4-A5B9-46F9-AA3A-3DB5F1FF301F}">
         <Environment Id="VstsCliAddedToPATH"
                      Name="PATH"
                      Value="[DynamicCliDir]wbin"
