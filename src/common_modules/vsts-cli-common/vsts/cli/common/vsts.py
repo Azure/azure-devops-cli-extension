@@ -92,17 +92,18 @@ def get_base_url(team_instance):
 
 
 def _raise_team_team_instance_arg_error():
-    raise CLIError('--team-instance must be specified. The value should be the URI of your Team Services account, ' +
-                   'for example: https://<account>.visualstudio.com. You can set a default value by running: az ' +
-                   'configure --defaults team-instance=https://<account>.visualstudio.com. For auto detection to ' +
-                   'work (--detect on), you must be in a local Git directory that has a "remote" referencing a Team ' +
-                   'Services hosted repository.')
+    raise CLIError('--instance must be specified. The value should be the URI of your VSTS account, ' +
+                   'for example: https://<account>.visualstudio.com or your TFS proiject collection. ' +
+                   'You can set a default value by running: vsts configure --defaults ' +
+                   'instance=https://<account>.visualstudio.com. For auto detection to ' +
+                   'work (--detect on), you must be in a local Git directory that has a "remote" referencing a VSTS ' +
+                   'or TFS repository.')
 
 
 def _raise_team_project_arg_error():
-    raise CLIError('--team-project must be specified. The value should be the ID or name of a Team Services project. ' +
+    raise CLIError('--project must be specified. The value should be the ID or name of a VSTS project. ' +
                    'For auto detection to work (--detect on), you must be in a local Git directory that has a ' +
-                   '"remote" referencing a Team Services hosted repository.')
+                   '"remote" referencing a VSTS or TFS repository.')
 
 
 def resolve_team_instance_uri(team_instance):
@@ -299,8 +300,8 @@ class VstsGitUrlInfo:
 
 
 _DEFAULTS_SECTION = 'defaults'
-_TEAM_INSTANCE_DEFAULT = 'team-instance'
-_TEAM_PROJECT_DEFAULT = 'team-project'
+_TEAM_INSTANCE_DEFAULT = 'instance'
+_TEAM_PROJECT_DEFAULT = 'project'
 
 _connection_data = {}
 _git_hashes_cache = get_cache('valid_hashes', 3600 * 6)
