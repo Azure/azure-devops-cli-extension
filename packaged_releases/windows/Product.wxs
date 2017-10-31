@@ -21,14 +21,14 @@
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." Schedule="afterInstallInitialize" />
 
-    <Media Id="1" Cabinet="WindowsAzureCLI.cab" EmbedCab="yes" CompressionLevel="high" />
+    <Media Id="1" Cabinet="WindowsVstsCLI.cab" EmbedCab="yes" CompressionLevel="high" />
 
     <Icon Id="AzureIcon" SourceFile="$(var.ProductResources)windowsazure.ico" />
 
     <Property Id="ARPPRODUCTICON" Value="AzureIcon" />
-    <Property Id="ARPHELPLINK" Value="https://docs.microsoft.com/en-us/cli/azure" />
-    <Property Id="ARPURLINFOABOUT" Value="https://docs.microsoft.com/en-us/cli/azure/overview" />
-    <Property Id="ARPURLUPDATEINFO" Value="https://docs.microsoft.com/en-us/cli/azure/overview" />
+    <Property Id="ARPHELPLINK" Value="https://docs.microsoft.com/en-us/cli/vsts" />
+    <Property Id="ARPURLINFOABOUT" Value="https://docs.microsoft.com/en-us/cli/vsts/overview" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://docs.microsoft.com/en-us/cli/vsts/overview" />
     <Property Id="ApplicationFolderName" Value="Microsoft SDKs\VstsCli" />
     <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
 
@@ -66,9 +66,13 @@
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
         <Directory Id="SDKFOLDER" Name="Microsoft SDKs">
-          <Directory Id="VSTSCLIFOLDER" Name="VstsCli">
+          <Directory Id="VSTSFOLDER" Name="Vsts">
+            <Directory Id="VSTSCLIFOLDER" Name="CLI">
               <Directory Id="DynamicCliDir"/>
               <Directory Id="BIN" Name="Bin" />
+            </Directory>
+          </Directory>
+          <Directory Id="OLDVSTSCLIFOLDER" Name="VstsCli">
           </Directory>
         </Directory>
       </Directory>
@@ -84,8 +88,13 @@
       </Component>
       <Component Id="RemoveVstsCLIFolder"
                  Directory="VSTSCLIFOLDER"
-                 Guid="{A957F551-BE97-4A37-A9AC-87A6AEC1F203}">
+                 Guid="{7CF0CCA5-D20D-450C-8140-B41107DCBB5C}">
         <RemoveFolder Id="VSTSCLIFOLDER" On="uninstall" />
+      </Component>
+      <Component Id="RemoveOldVstsCLIFolder"
+                 Directory="OLDVSTSCLIFOLDER"
+                 Guid="{A957F551-BE97-4A37-A9AC-87A6AEC1F203}">
+        <RemoveFolder Id="OLDVSTSCLIFOLDER" On="uninstall" />
       </Component>
       <Component Id="VstsCliSystemPath"
                  Directory="DynamicCliDir"
