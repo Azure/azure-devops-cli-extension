@@ -39,6 +39,9 @@ class VstsHelpGenDirective(Directive):
         loader = vstscli.commands_loader_cls()
         loader.__init__(vstscli)
         loader.load_command_table([])
+        for command in loader.command_table:
+            loader.load_arguments(command)
+
         global_parser = vstscli.parser_cls.create_global_parser(cli_ctx=vstscli)
         parser = vstscli.parser_cls(cli_ctx=vstscli, prog=vstscli.name, parents=[global_parser])
         parser.load_command_table(loader.command_table)
