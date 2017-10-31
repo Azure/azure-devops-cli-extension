@@ -29,7 +29,8 @@ def build_queue(definition, source_branch=None, open_browser=False, team_instanc
     :type source_branch: str
     :param open_browser: Open the work item in the default web browser.
     :type open_browser: bool
-    :param team_instance: Name of the Visual Studio Team Services account.
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
@@ -68,7 +69,8 @@ def build_show(build_id, open_browser=False, team_instance=None, project=None, d
     :type build_id: int
     :param open_browser: Open the work item in the default web browser.
     :type open_browser: bool
-    :param team_instance: Name of the Visual Studio Team Services account.
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
@@ -103,7 +105,8 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
     :type name: bool
     :param top: The maximum number of definitions to return.
     :type top: int
-    :param team_instance: Name of the Visual Studio Team Services account.
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
@@ -155,7 +158,8 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
     :type name: str
     :param open_browser: Open the work item in the default web browser.
     :type open_browser: bool
-    :param team_instance: Name of the Visual Studio Team Services account.
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str

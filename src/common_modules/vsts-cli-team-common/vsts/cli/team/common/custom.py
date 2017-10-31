@@ -8,16 +8,17 @@ import logging
 
 from msrest.authentication import BasicAuthentication
 from vsts.cli.common._credentials import clear_credential, set_credential
+from vsts.cli.common.configure import handle_configure
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.vsts import (_get_vss_connection,
-                                  get_base_url)
+from vsts.cli.common.vsts import _get_vss_connection, get_base_url
 
 
 def credential_set(token, team_instance=None):
     """Set the credential (PAT) to use for a particular account
     :param token:
     :type token: str
-    :param team_instance: The URI of the Team Services account.
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
     :type team_instance: str
     """
     try:
@@ -39,7 +40,8 @@ def credential_set(token, team_instance=None):
 
 def credential_clear(team_instance=None):
     """Clear the credential for a particular account
-    :param team_instance: The URI of the Team Services account.
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
     :type team_instance: str
     """
     try:
@@ -57,7 +59,7 @@ def configure(defaults=None):
         e.g. '--defaults output=table arg=value' Use '' to clear the defaults, e.g. --defaults output=''.
     :type defaults: str
     """
-    pass
+    handle_configure(defaults=defaults)
 
 
 def feedback():

@@ -46,7 +46,8 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
     :type fields: [str]
     :param open_browser: Open the work item in the default web browser.
     :type open_browser: bool
-    :param team_instance: The URI of the Team Services account.
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
@@ -131,7 +132,8 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
     :type fields: [str]
     :param open_browser: Open the work item in the default web browser.
     :type open_browser: bool
-    :param team_instance: The URI of the Team Services account.
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
     :type team_instance: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
@@ -207,7 +209,8 @@ def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=
     :type work_item_id: int
     :param open_browser: Open the work item in the default web browser.
     :type open_browser: bool
-    :param team_instance: The URI of the Team Services account.
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
     :type team_instance: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
