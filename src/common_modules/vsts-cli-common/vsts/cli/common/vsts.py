@@ -40,42 +40,6 @@ def get_vss_connection(team_instance):
     return _vss_connection[team_instance]
 
 
-def _try_get_vss_connection_with_git_credentials(team_instance):
-    import hashlib
-    start = datetime.datetime.now()
-    credential_info = get_git_credentials(team_instance)
-    end = datetime.datetime.now()
-    duration = end - start
-    logging.info('Look up Git Credentials took: ' + str(duration))
-    if credential_info is not None and GIT_CREDENTIALS_USERNAME_KEY in credential_info \
-            and GIT_CREDENTIALS_PASSWORD_KEY in credential_info:
-        try:
-            password = credential_info[GIT_CREDENTIALS_PASSWORD_KEY];
-            credentials = BasicAuthentication(credential_info[GIT_CREDENTIALS_USERNAME_KEY], password)
-            connection = _get_vss_connection(team_instance, credentials)
-            cache_hash = hashlib.sha512(bytes(password, 'utf-8')).hexdigest()
-            if team_instance in _git_hashes_cache:
-
-                cached_value = _git_hashes_cache[team_instance]
-                if len(cached_value) > len(cache_hash) and cached_value.startswith(cache_hash + ","):
-                    if cached_value.endswith(",Valid"):
-                        _try_send_tracking_ci_event_async(team_instance)
-                        return connection
-                    else:
-                        return None
-            ci_client = connection.get_client(
-                'vsts.customer_intelligence.customer_intelligence_client.CustomerIntelligenceClient')
-            if _send_tracking_ci_event(ci_client=ci_client):
-                _git_hashes_cache[team_instance] = cache_hash + ",Valid"
-                return connection
-            else:
-                _git_hashes_cache[team_instance] = cache_hash + ",Invalid"
-                return None
-        except Exception as ex:
-            logging.exception(str(ex))
-    return None
-
-
 def _get_vss_connection(team_instance, credentials):
     return VssConnection(get_base_url(team_instance), creds=credentials, user_agent='vstscli/{}'.format(VERSION))
 
@@ -137,9 +101,8 @@ def _raise_team_team_instance_arg_error():
 
 def _raise_team_project_arg_error():
     raise CLIError('--team-project must be specified. The value should be the ID or name of a Team Services project. ' +
-                   'You can set a default value by running: az configure --defaults team-project=Fabrikam. For auto ' +
-                   'detection to work (--detect on), you must be in a local Git directory that has a "remote" ' +
-                   'referencing a Team Services hosted repository.')
+                   'For auto detection to work (--detect on), you must be in a local Git directory that has a ' +
+                   '"remote" referencing a Team Services hosted repository.')
 
 
 def resolve_team_instance_uri(team_instance):
