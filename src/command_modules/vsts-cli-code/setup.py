@@ -25,7 +25,7 @@ setup(
     version=VERSION,
     description="VSTS Code Command Line Interface",
     author="Ted Chambers",
-    author_email="tedchamb@microsoft.com",
+    author_email="vstscli@microsoft.com",
     url="https://github.com/Microsoft/vsts-cli",
     keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI", "Code"],
     install_requires=REQUIRES,
