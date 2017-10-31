@@ -94,7 +94,7 @@
       <Component Id="RemoveOldVstsCLIFolder"
                  Directory="OLDVSTSCLIFOLDER"
                  Guid="{A957F551-BE97-4A37-A9AC-87A6AEC1F203}">
-        <RemoveFolder Id="OLDVSTSCLIFOLDER" On="uninstall" />
+        <RemoveFolder Id="OLDVSTSCLIFOLDER" On="both" />
       </Component>
       <Component Id="VstsCliSystemPath"
                  Directory="DynamicCliDir"
