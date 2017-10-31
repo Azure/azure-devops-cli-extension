@@ -15,3 +15,7 @@ def load_team_commands(cli_command_loader):
     cli_command_loader.command_table['feedback'] = \
         cli_command_loader.create_command(module_name='team', name='feedback',
                                           operation='vsts.cli.team.common.custom#feedback')
+
+    cli_command_loader.command_table['configure'] = \
+        cli_command_loader.create_command(module_name='team', name='configure',
+                                          operation='vsts.cli.team.common.custom#configure')

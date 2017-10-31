@@ -53,8 +53,8 @@ def _handle_global_configuration():
         answers['output_type_prompt'] = output_index
         answers['output_type_options'] = str(OUTPUT_LIST)
         enable_file_logging = prompt_y_n(MSG_PROMPT_FILE_LOGGING, default='n')
-        allow_telemetry = prompt_y_n(MSG_PROMPT_TELEMETRY, default='y')
-        answers['telemetry_prompt'] = allow_telemetry
+        # allow_telemetry = prompt_y_n(MSG_PROMPT_TELEMETRY, default='y')
+        # answers['telemetry_prompt'] = allow_telemetry
         # save the global config
         try:
             global_config.add_section('core')
@@ -65,7 +65,7 @@ def _handle_global_configuration():
         except configparser.DuplicateSectionError:
             pass
         global_config.set('core', 'output', OUTPUT_LIST[output_index]['name'])
-        global_config.set('core', 'collect_telemetry', 'yes' if allow_telemetry else 'no')
+        # global_config.set('core', 'collect_telemetry', 'yes' if allow_telemetry else 'no')
         global_config.set('logging', 'enable_log_file', 'yes' if enable_file_logging else 'no')
         set_global_config(global_config)
 
