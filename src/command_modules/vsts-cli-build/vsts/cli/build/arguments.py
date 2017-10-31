@@ -12,8 +12,8 @@ _on_off_switch_values = ['on', 'off']
 def load_build_arguments(cli_command_loader):
     with ArgumentsContext(cli_command_loader, 'build') as ac:
         ac.argument('open_browser', options_list='--open')
-        ac.argument('project', options_list=('--team-project', '-p'))
-        ac.argument('team_instance', options_list=('--team-instance', '-i'))
+        ac.argument('project', options_list=('--project', '-p'))
+        ac.argument('team_instance', options_list=('--instance', '-i'))
         ac.argument('detect', **enum_choice_list(_on_off_switch_values))
 
     with ArgumentsContext(cli_command_loader, 'build show') as ac:

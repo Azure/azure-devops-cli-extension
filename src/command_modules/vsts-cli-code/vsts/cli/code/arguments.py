@@ -14,8 +14,8 @@ _pr_status_values = ['all', 'active', 'completed', 'abandoned']
 def load_code_arguments(cli_command_loader):
     with ArgumentsContext(cli_command_loader, 'code') as ac:
         ac.argument('open_browser', options_list='--open')
-        ac.argument('project', options_list=('--team-project', '-p'))
-        ac.argument('team_instance', options_list=('--team-instance', '-i'))
+        ac.argument('project', options_list=('--project', '-p'))
+        ac.argument('team_instance', options_list=('--instance', '-i'))
         ac.argument('reviewers', nargs='*')
         ac.argument('detect', **enum_choice_list(_on_off_switch_values))
 
