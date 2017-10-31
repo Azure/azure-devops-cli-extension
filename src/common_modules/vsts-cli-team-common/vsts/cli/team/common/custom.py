@@ -49,3 +49,19 @@ def credential_clear(team_instance=None):
         print('The credential was successfully cleared.')
     except Exception as ex:
         handle_command_exception(ex)
+
+
+def configure(defaults=None):
+    """Configure the VSTS CLI or view your configuration.
+    :param defaults: Space separated 'name=value' pairs for common arguments defaults,
+        e.g. '--defaults output=table arg=value' Use '' to clear the defaults, e.g. --defaults output=''.
+    :type defaults: str
+    """
+    pass
+
+
+def feedback():
+    """Displays information on how to provide feedback to the VSTS CLI team.
+    """
+    print('Thank you for taking the time to share your feedback. Please submit your feedback on the following web ' +
+          'page: https://aka.ms/vsts-cli-feedback')
