@@ -29,7 +29,7 @@
     <Property Id="ARPHELPLINK" Value="https://docs.microsoft.com/en-us/cli/vsts" />
     <Property Id="ARPURLINFOABOUT" Value="https://docs.microsoft.com/en-us/cli/vsts/overview" />
     <Property Id="ARPURLUPDATEINFO" Value="https://docs.microsoft.com/en-us/cli/vsts/overview" />
-    <Property Id="ApplicationFolderName" Value="Microsoft SDKs\VstsCli" />
+    <Property Id="ApplicationFolderName" Value="Microsoft SDKs\Vsts\Cli" />
     <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
 
     <Feature Id="ProductFeature"
@@ -94,7 +94,7 @@
       <Component Id="RemoveOldVstsCLIFolder"
                  Directory="OLDVSTSCLIFOLDER"
                  Guid="{A957F551-BE97-4A37-A9AC-87A6AEC1F203}">
-        <RemoveFolder Id="OLDVSTSCLIFOLDER" On="uninstall" />
+        <RemoveFolder Id="OLDVSTSCLIFOLDER" On="both" />
       </Component>
       <Component Id="VstsCliSystemPath"
                  Directory="DynamicCliDir"
