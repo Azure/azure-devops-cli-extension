@@ -6,9 +6,3 @@
 from knack.help_files import helps  # pylint: disable=unused-import
 
 # pylint: disable=line-too-long
-
-helps['credential'] = """
-    type: group
-    short-summary: Commands to set up and manage your credentials.
-    long-summary:
-"""
