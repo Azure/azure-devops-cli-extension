@@ -11,7 +11,10 @@ _on_off_switch_values = ['on', 'off']
 
 
 def load_team_arguments(cli_command_loader):
-    with ArgumentsContext(cli_command_loader, 'team') as ac:
+    with ArgumentsContext(cli_command_loader, 'login') as ac:
+        ac.argument('team_instance', options_list=('--instance', '-i'))
+        ac.argument('detect', **enum_choice_list(_on_off_switch_values))
+    with ArgumentsContext(cli_command_loader, 'logout') as ac:
         ac.argument('team_instance', options_list=('--instance', '-i'))
         ac.argument('detect', **enum_choice_list(_on_off_switch_values))
     with ArgumentsContext(cli_command_loader, 'configure') as ac:

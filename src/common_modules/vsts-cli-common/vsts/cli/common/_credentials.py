@@ -15,6 +15,7 @@ from knack.util import CLIError
 
 
 def get_credential(team_instance):
+    logging.debug('Looking up credential for instance: %s', team_instance)
     service_name = _get_service_name(team_instance)
     try:
         token = keyring.get_password(service_name, _username)
