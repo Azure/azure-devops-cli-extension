@@ -12,7 +12,6 @@ from urllib.parse import urlparse
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from msrest.serialization import Model
-from six.moves import configparser
 from vsts._file_cache import get_cache
 from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
 from vsts.vss_connection import VssConnection
@@ -34,10 +33,9 @@ def get_vss_connection(team_instance):
             raise_authentication_error('Before you can run VSTS commands, you need to sign in or setup credentials.')
         try:
             _vss_connection[team_instance] = _get_vss_connection(team_instance, credentials)
-            try:
+            collect_telemetry = None
+            if vsts_config.has_option('core', 'collect_telemetry'):
                 collect_telemetry = vsts_config.get('core', 'collect_telemetry')
-            except configparser.NoOptionError:
-                collect_telemetry = None
             if collect_telemetry is None or collect_telemetry != 'no':
                 _try_send_tracking_ci_event_async(team_instance)
             _vss_connection[team_instance].authenticate()
@@ -114,20 +112,20 @@ def _raise_team_project_arg_error():
 
 
 def resolve_team_instance_uri(team_instance):
-    # from azure.cli.core._config import az_config
+    from .config import vsts_config
     if team_instance is None:
-        # if az_config.has_option(_DEFAULTS_SECTION, _TEAM_INSTANCE_DEFAULT):
-            # team_instance = az_config.get(_DEFAULTS_SECTION, _TEAM_INSTANCE_DEFAULT)
+        if vsts_config.has_option(_DEFAULTS_SECTION, _TEAM_INSTANCE_DEFAULT):
+            team_instance = vsts_config.get(_DEFAULTS_SECTION, _TEAM_INSTANCE_DEFAULT)
         if team_instance is None or team_instance == '':
             _raise_team_team_instance_arg_error()
     return team_instance
 
 
 def resolve_project(project):
-    # from azure.cli.core._config import az_config
+    from .config import vsts_config
     if project is None:
-        # if az_config.has_option(_DEFAULTS_SECTION, _TEAM_PROJECT_DEFAULT):
-            # project = az_config.get(_DEFAULTS_SECTION, _TEAM_PROJECT_DEFAULT)
+        if vsts_config.has_option(_DEFAULTS_SECTION, _TEAM_PROJECT_DEFAULT):
+            project = vsts_config.get(_DEFAULTS_SECTION, _TEAM_PROJECT_DEFAULT)
         if project is None or project == '':
             _raise_team_project_arg_error()
     return project
