@@ -12,7 +12,7 @@ from vsts._file_cache import get_cache_dir
 GLOBAL_CONFIG_DIR = get_cache_dir()
 CONFIG_FILE_NAME = 'config'
 GLOBAL_CONFIG_PATH = os.path.join(GLOBAL_CONFIG_DIR, CONFIG_FILE_NAME)
-ENV_VAR_PREFIX = 'VSTS_'
+ENV_VAR_PREFIX = 'VSTSCLI_'
 DEFAULTS_SECTION = 'defaults'
 
 _UNSET = object()
@@ -20,7 +20,8 @@ _ENV_VAR_FORMAT = ENV_VAR_PREFIX + '{section}_{option}'
 
 
 class VstsConfig(CLIConfig):
-    def __init__(self):
+    def __init__(self, config_dir=GLOBAL_CONFIG_DIR, config_env_var_prefix=ENV_VAR_PREFIX):
+        CLIConfig.__init__(self, config_dir=config_dir, config_env_var_prefix=config_env_var_prefix)
         self.config_parser = get_config_parser()
 
 

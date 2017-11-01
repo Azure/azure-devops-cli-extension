@@ -8,8 +8,8 @@ import os
 from six.moves import configparser
 
 
-from ._config import (GLOBAL_CONFIG_PATH, ENV_VAR_PREFIX, set_global_config,
-                      set_global_config_value, DEFAULTS_SECTION)
+from .config import (GLOBAL_CONFIG_PATH, ENV_VAR_PREFIX, set_global_config,
+                     set_global_config_value, DEFAULTS_SECTION)
 from knack.config import get_config_parser
 from knack.util import CLIError
 from knack.prompting import prompt_y_n, prompt_choice_list, NoTTYException
@@ -53,8 +53,8 @@ def _handle_global_configuration():
         answers['output_type_prompt'] = output_index
         answers['output_type_options'] = str(OUTPUT_LIST)
         enable_file_logging = prompt_y_n(MSG_PROMPT_FILE_LOGGING, default='n')
-        # allow_telemetry = prompt_y_n(MSG_PROMPT_TELEMETRY, default='y')
-        # answers['telemetry_prompt'] = allow_telemetry
+        allow_telemetry = prompt_y_n(MSG_PROMPT_TELEMETRY, default='y')
+        answers['telemetry_prompt'] = allow_telemetry
         # save the global config
         try:
             global_config.add_section('core')
@@ -65,7 +65,7 @@ def _handle_global_configuration():
         except configparser.DuplicateSectionError:
             pass
         global_config.set('core', 'output', OUTPUT_LIST[output_index]['name'])
-        # global_config.set('core', 'collect_telemetry', 'yes' if allow_telemetry else 'no')
+        global_config.set('core', 'collect_telemetry', 'yes' if allow_telemetry else 'no')
         global_config.set('logging', 'enable_log_file', 'yes' if enable_file_logging else 'no')
         set_global_config(global_config)
 
@@ -131,6 +131,6 @@ MSG_PROMPT_LOGIN = '\nHow would you like to log in to access your subscriptions?
 MSG_PROMPT_TELEMETRY = '\nMicrosoft would like to collect anonymous VSTS CLI usage data to ' \
                        'improve our CLI.  Participation is voluntary and when you choose to ' \
                        'participate, your device automatically sends information to Microsoft ' \
-                       'about how you use VSTS CLI.  To update your choice, run "vsts configure" ' \
+                       'about how you use the VSTS CLI.  To update your choice, run "vsts configure" ' \
                        'again.\nSelect y to enable data collection.'
 MSG_PROMPT_FILE_LOGGING = '\nWould you like to enable logging to file?'
