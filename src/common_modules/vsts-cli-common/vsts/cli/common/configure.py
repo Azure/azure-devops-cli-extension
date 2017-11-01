@@ -131,6 +131,7 @@ MSG_PROMPT_LOGIN = '\nHow would you like to log in to access your subscriptions?
 MSG_PROMPT_TELEMETRY = '\nMicrosoft would like to collect anonymous VSTS CLI usage data to ' \
                        'improve our CLI.  Participation is voluntary and when you choose to ' \
                        'participate, your device automatically sends information to Microsoft ' \
-                       'about how you use the VSTS CLI.  To update your choice, run "vsts configure" ' \
-                       'again.\nSelect y to enable data collection.'
+                       'about how you use the VSTS CLI.  The data is anonymous and does not ' \
+                       'include commandline argument values.  To update your choice, run "vsts ' \
+                       'configure" again.\nSelect y to enable data collection.'
 MSG_PROMPT_FILE_LOGGING = '\nWould you like to enable logging to file?'
