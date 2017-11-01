@@ -40,5 +40,5 @@ def show_version_info_exit(out_file):
     print(file=out_file)
     print('Python ({}) {}'.format(platform.system(), sys.version), file=out_file)
     print(file=out_file)
-    print('Legal docs and information: aka.ms/VstsCliLegal', file=out_file)
+    print('Legal docs and information: https://aka.ms/vsts-cli-eula', file=out_file)
     print(file=out_file)
