@@ -12,11 +12,13 @@ from urllib.parse import urlparse
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from msrest.serialization import Model
+from six.moves import configparser
 from vsts._file_cache import get_cache
 from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
 from vsts.vss_connection import VssConnection
+from .config import vsts_config
 from ._credentials import get_credential
-from .git import get_git_credentials, get_remote_url, GIT_CREDENTIALS_PASSWORD_KEY, GIT_CREDENTIALS_USERNAME_KEY
+from .git import get_remote_url
 from .version import VERSION
 
 
@@ -32,7 +34,12 @@ def get_vss_connection(team_instance):
             raise_authentication_error('Before you can run VSTS commands, you need to sign in or setup credentials.')
         try:
             _vss_connection[team_instance] = _get_vss_connection(team_instance, credentials)
-            _try_send_tracking_ci_event_async(team_instance)
+            try:
+                collect_telemetry = vsts_config.get('core', 'collect_telemetry')
+            except configparser.NoOptionError:
+                collect_telemetry = None
+            if collect_telemetry is None or collect_telemetry != 'no':
+                _try_send_tracking_ci_event_async(team_instance)
             _vss_connection[team_instance].authenticate()
         except Exception as ex:
             logging.exception(str(ex))
