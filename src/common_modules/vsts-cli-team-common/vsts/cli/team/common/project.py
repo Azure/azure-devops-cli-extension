@@ -101,6 +101,48 @@ def create_project(name, team_instance=None, process=None, source_control='git',
         handle_command_exception(ex)
 
 
+def show_project(id, team_instance=None, detect=None):
+    """Get project with the specified id or name.
+    :param id: Name or id of the project to show.
+    :type id: str
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
+    :type team_instance: str
+    """
+    try:
+        if should_detect(detect):
+            if team_instance is None:
+                git_info = get_vsts_info_from_current_remote_url()
+                team_instance = git_info.uri
+        core_client = get_core_client(team_instance)
+        team_project = core_client.get_project(project_id=id, include_capabilities=True)
+        return team_project
+    except Exception as ex:
+        handle_command_exception(ex)
+
+
+def list_projects(team_instance=None, top=None, skip=None, detect=None):
+    """Get project with the specified id or name.
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
+    :type team_instance: str
+    :param top:
+    :type top: int
+    :param skip:
+    :type skip: int
+    """
+    try:
+        if should_detect(detect):
+            if team_instance is None:
+                git_info = get_vsts_info_from_current_remote_url()
+                team_instance = git_info.uri
+        core_client = get_core_client(team_instance)
+        team_projects = core_client.get_projects(state_filter='all', top=top, skip=skip)
+        return team_projects
+    except Exception as ex:
+        handle_command_exception(ex)
+
+
 # capability keys
 VERSION_CONTROL_CAPABILITY_NAME = 'versioncontrol'
 VERSION_CONTROL_CAPABILITY_ATTRIBUTE_NAME = 'sourceControlType'

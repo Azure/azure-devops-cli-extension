@@ -8,9 +8,15 @@ import dateutil.tz
 
 from collections import OrderedDict
 from vsts.cli.team.common.project import (PROCESS_TEMPLATE_CAPABILITY_NAME,
-                                          PROCESS_TEMPLATE_CAPABILITY_TEMPLATE_TYPE_ID_ATTRIBUTE_NAME,
                                           VERSION_CONTROL_CAPABILITY_NAME,
                                           VERSION_CONTROL_CAPABILITY_ATTRIBUTE_NAME)
+
+
+def transform_projects_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_project_row(item))
+    return table_output
 
 
 def transform_project_table_output(result):

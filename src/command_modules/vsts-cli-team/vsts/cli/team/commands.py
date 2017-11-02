@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from ._format import transform_project_table_output
+from ._format import transform_project_table_output, transform_projects_table_output
 
 
 def load_team_commands(cli_command_loader):
@@ -27,3 +27,11 @@ def load_team_commands(cli_command_loader):
         cli_command_loader.create_command(module_name='team', name='project create',
                                           operation='vsts.cli.team.common.project#create_project',
                                           table_transformer=transform_project_table_output)
+    cli_command_loader.command_table['project show'] = \
+        cli_command_loader.create_command(module_name='team', name='project show',
+                                          operation='vsts.cli.team.common.project#show_project',
+                                          table_transformer=transform_project_table_output)
+    cli_command_loader.command_table['project list'] = \
+        cli_command_loader.create_command(module_name='team', name='project list',
+                                          operation='vsts.cli.team.common.project#list_projects',
+                                          table_transformer=transform_projects_table_output)
