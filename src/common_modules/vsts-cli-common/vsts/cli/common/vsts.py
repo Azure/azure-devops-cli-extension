@@ -5,6 +5,7 @@
 
 import datetime
 import logging
+import os
 import threading
 
 from collections import OrderedDict
@@ -14,6 +15,7 @@ from msrest.authentication import BasicAuthentication
 from msrest.serialization import Model
 from vsts._file_cache import get_cache
 from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
+from vsts.exceptions import VstsClientRequestError
 from vsts.vss_connection import VssConnection
 from .config import vsts_config
 from ._credentials import get_credential
@@ -24,25 +26,36 @@ from .version import VERSION
 def get_vss_connection(team_instance):
     team_instance = resolve_team_instance_uri(team_instance)
     if team_instance not in _vss_connection:
-        pat = get_credential(team_instance)
-        if pat is not None:
-            logging.info("Creating connection with personal access token.")
-            credentials = BasicAuthentication('', pat)
-        else:
-            # todo: need to add back az login fallback here.
-            raise_authentication_error('Before you can run VSTS commands, you need to sign in or setup credentials.')
+        credentials = _get_credentials(team_instance)
         try:
             _vss_connection[team_instance] = _get_vss_connection(team_instance, credentials)
             collect_telemetry = None
             if vsts_config.has_option('core', 'collect_telemetry'):
                 collect_telemetry = vsts_config.get('core', 'collect_telemetry')
             if collect_telemetry is None or collect_telemetry != 'no':
+                logging.debug('Telemetry enabled.')
                 _try_send_tracking_ci_event_async(team_instance)
-            _vss_connection[team_instance].authenticate()
+            else:
+                logging.debug('Telemetry disabled.')
+            # _vss_connection[team_instance].authenticate()
         except Exception as ex:
             logging.exception(str(ex))
             raise CLIError(ex)
     return _vss_connection[team_instance]
+
+
+def _get_credentials(team_instance):
+    if _PAT_ENV_VARIABLE_NAME in os.environ:
+        pat = os.environ[_PAT_ENV_VARIABLE_NAME]
+    else:
+        pat = get_credential(team_instance)
+    if pat is not None:
+        logging.info("Creating connection with personal access token.")
+        credentials = BasicAuthentication('', pat)
+        return credentials
+    else:
+        # todo: need to add back az login fallback here.
+        raise_authentication_error('Before you can run VSTS commands, you need to sign in or setup credentials.')
 
 
 def _get_vss_connection(team_instance, credentials):
@@ -199,13 +212,6 @@ def get_connection_data(team_instance):
         return _connection_data[team_instance]
 
 
-def normalize_url_for_key(url):
-    if url.endswith("/"):
-        url = url[:-1]
-    url = url.lower()
-    return url
-
-
 def raise_authentication_error(message):
     raise CLIError(str(message) + "  Please see https://aka.ms/vsts-cli-auth for more information.")
 
@@ -220,8 +226,9 @@ class VstsGitUrlInfo:
         self.repo = None
         self.uri = None
         if remote_url is not None:
+            logging.debug("Remote url: %s", remote_url)
             models = {'_RemoteInfo': self._RemoteInfo}
-            components = urlparse(remote_url)
+
             remote_url = remote_url.lower()
             remote_info = None
             if _git_remote_info_cache[remote_url]:
@@ -235,33 +242,40 @@ class VstsGitUrlInfo:
                     self.repo = remote_info.repository
                     self.uri = remote_info.server_url
             if remote_info is None:
-                if components.scheme == 'ssh':
-                    # Convert to https url.
-                    netloc = VstsGitUrlInfo.convert_ssh_netloc_to_https_netloc(components.netloc)
-                    uri = 'https://' + netloc
-                    ssh = True
-                else:
-                    uri = components.scheme + '://' + components.netloc
-                    ssh = False
-                git_client = get_git_client(team_instance=uri)
-                relative_url = components.path
-                if ssh:
-                    ssh_path_segment = '_ssh/'
-                    ssh_path_segment_pos = relative_url.find(ssh_path_segment)
-                    if ssh_path_segment_pos >= 0:
-                        relative_url = relative_url[0:ssh_path_segment_pos] + '_git/'\
-                                       + relative_url[(ssh_path_segment_pos + len(ssh_path_segment)):]
-                vsts_info = git_client.get_vsts_info(relative_url)
+                vsts_info = self.get_vsts_info(remote_url)
                 if vsts_info is not None:
                     self.project = vsts_info.repository.project.id
                     self.repo = vsts_info.repository.id
-                    self.uri = vsts_info.server_url
+                    apis_path_segment = '/_apis/'
+                    apis_path_segment_pos = vsts_info.repository.url.find(apis_path_segment)
+                    if apis_path_segment_pos >= 0:
+                        self.uri = vsts_info.repository.url[:apis_path_segment_pos]
+                    else:
+                        self.uri = vsts_info.server_url
                     serializer = Serializer(models)
                     try:
                         _git_remote_info_cache[remote_url] = \
-                            serializer.serialize_data(self._RemoteInfo(self.project, self.repo, self.uri), '_RemoteInfo')
+                            serializer.serialize_data(self._RemoteInfo(self.project, self.repo, self.uri),
+                                                      '_RemoteInfo')
                     except SerializationError as ex:
                         logging.exception(str(ex))
+
+    @staticmethod
+    def get_vsts_info(remote_url):
+        from vsts.git.v4_0.git_client import GitClient
+        components = urlparse(remote_url.lower())
+        if components.scheme == 'ssh':
+            # Convert to https url.
+            netloc = VstsGitUrlInfo.convert_ssh_netloc_to_https_netloc(components.netloc)
+            uri = 'https://' + netloc + '/' + components.path
+            ssh_path_segment = '_ssh/'
+            ssh_path_segment_pos = uri.find(ssh_path_segment)
+            if ssh_path_segment_pos >= 0:
+                uri = uri[:ssh_path_segment_pos] + '_git/' + uri[ssh_path_segment_pos + len(ssh_path_segment):]
+        else:
+            uri = remote_url
+        credentials = _get_credentials(uri)
+        return GitClient.get_vsts_info_by_remote_url(uri, credentials=credentials)
 
 
     @staticmethod
@@ -307,6 +321,8 @@ class VstsGitUrlInfo:
 _DEFAULTS_SECTION = 'defaults'
 _TEAM_INSTANCE_DEFAULT = 'instance'
 _TEAM_PROJECT_DEFAULT = 'project'
+_PAT_ENV_VARIABLE_NAME = 'VSTS_CLI_PAT'
+_AUTH_TOKEN_ENV_VARIABLE_NAME = 'VSTS_CLI_AUTH_TOKEN'
 
 _connection_data = {}
 _git_hashes_cache = get_cache('valid_hashes', 3600 * 6)
