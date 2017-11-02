@@ -7,26 +7,25 @@ import logging
 import os
 import keyring
 
-
+from knack.util import CLIError
+from urllib.parse import urlparse
 from vsts._file_cache import get_cache
 
 
-from knack.util import CLIError
-
-
 def get_credential(team_instance):
-    logging.debug('Looking up credential for instance: %s', team_instance)
-    service_name = _get_service_name(team_instance)
+    key = _get_service_name(team_instance)
+    logging.debug('Getting credential: %s', key)
     try:
-        token = keyring.get_password(service_name, _username)
+        token = keyring.get_password(key, _username)
         _transfer_file_storage_to_keyring()
         if token is not None:
             return token
         else:
-            token = keyring.get_password(service_name, _username)
+            token = keyring.get_password(key, _username)
             if token is not None:
                 return token
             else:
+                logging.debug('Getting default credential')
                 return keyring.get_password(_get_service_name(team_instance=None), _username)
     except RuntimeError as ex:
         logging.exception(ex)
@@ -35,16 +34,25 @@ def get_credential(team_instance):
 
 def set_credential(team_instance, token):
     try:
-        keyring.set_password(_get_service_name(team_instance), _username, token)
+        key = _get_service_name(team_instance)
+
+        # check for and delete existing credential
+        old_token = keyring.get_password(key, _username)
+        if old_token is not None:
+            keyring.delete_password(key, _username)
+
+        logging.debug('Setting credential: %s', key)
+        keyring.set_password(key, _username, token)
     except RuntimeError as ex:
         logging.exception(ex)
         raise CLIError(ex)
 
 
 def clear_credential(team_instance):
-    service_name = _get_service_name(team_instance)
+    key = _get_service_name(team_instance)
+    logging.debug('Clearing credential: %s', key)
     try:
-        keyring.delete_password(service_name, _username)
+        keyring.delete_password(key, _username)
     except keyring.errors.PasswordDeleteError as ex:
         logging.exception(ex)
         raise CLIError('The credential was not found')
@@ -58,10 +66,8 @@ def _get_service_name(team_instance):
 
 
 def normalize_url_for_key(url):
-    if url.endswith('/'):
-        url = url[:-1]
-    url = url.lower()
-    return url
+    components = urlparse(url)
+    return components.scheme.lower() + '://' + components.netloc.lower()
 
 
 def _transfer_file_storage_to_keyring():
