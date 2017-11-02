@@ -14,3 +14,4 @@
 
 # Shell scripts
 *.sh eol=lf
+*.completion eol=lf
