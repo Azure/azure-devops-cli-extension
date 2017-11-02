@@ -15,7 +15,6 @@ from msrest.authentication import BasicAuthentication
 from msrest.serialization import Model
 from vsts._file_cache import get_cache
 from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
-from vsts.exceptions import VstsClientRequestError
 from vsts.vss_connection import VssConnection
 from .config import vsts_config
 from ._credentials import get_credential
@@ -77,6 +76,11 @@ def get_ci_client(team_instance=None):
     return connection.get_client('vsts.customer_intelligence.v4_0.customer_intelligence_client.CustomerIntelligenceClient')
 
 
+def get_core_client(team_instance=None):
+    connection = get_vss_connection(team_instance)
+    return connection.get_client('vsts.core.v4_0.core_client.CoreClient')
+
+
 def get_git_client(team_instance=None):
     connection = get_vss_connection(team_instance)
     return connection.get_client('vsts.git.v4_0.git_client.GitClient')
@@ -90,6 +94,11 @@ def get_identity_client(team_instance=None):
 def get_location_client(team_instance=None):
     connection = get_vss_connection(team_instance)
     return connection.get_client('vsts.location.v4_0.location_client.LocationClient')
+
+
+def get_operations_client(team_instance=None):
+    connection = get_vss_connection(team_instance)
+    return connection.get_client('vsts.operations.v4_0.operations_client.OperationsClient')
 
 
 def get_policy_client(team_instance=None):
