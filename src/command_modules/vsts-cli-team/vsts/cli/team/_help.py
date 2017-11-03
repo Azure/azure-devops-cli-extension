@@ -6,3 +6,9 @@
 from knack.help_files import helps  # pylint: disable=unused-import
 
 # pylint: disable=line-too-long
+
+helps['project'] = """
+    type: group
+    short-summary: Commands to work with and manage team projects.
+    long-summary:
+"""
