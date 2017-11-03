@@ -26,7 +26,7 @@ class VstsCLI(CLI):
 
     def invoke(self, args, initial_invocation_data=None, out_file=None):
         set_tracking_data(args)
-        CLI.invoke(self, args, initial_invocation_data, out_file)
+        return CLI.invoke(self, args, initial_invocation_data, out_file)
 
     def get_cli_version(self):
         cli_info = None
