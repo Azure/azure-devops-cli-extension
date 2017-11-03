@@ -28,6 +28,13 @@ def _transform_work_items_row(row):
             table_row['Type'] = row['fields']['System.WorkItemType']
         else:
             table_row['Type'] = ' '
+        if 'System.Title' in row['fields']:
+            title = row['fields']['System.Title']
+            if len(title) > _work_item_title_truncation_length:
+                title = title[0:_work_item_title_truncation_length - 3] + '...'
+            table_row['Title'] = title
+        else:
+            table_row['Title'] = ' '
         if 'System.AssignedTo' in row['fields']:
             table_row['Assigned To'] = row['fields']['System.AssignedTo']
         else:
@@ -36,15 +43,10 @@ def _transform_work_items_row(row):
             table_row['State'] = row['fields']['System.State']
         else:
             table_row['State'] = ' '
-        if 'System.Title' in row['fields']:
-            title = row['fields']['System.Title']
-            if len(title) > _work_item_title_truncation_length:
-                title = title[0:_work_item_title_truncation_length - 3] + '...'
-            table_row['Title'] = title
-        else:
-            table_row['Title'] = ' '
+
     else:
+        table_row['Type'] = ' '
+        table_row['Title'] = ' '
         table_row['Assigned To'] = ' '
         table_row['State'] = ' '
-        table_row['Title'] = ' '
     return table_row

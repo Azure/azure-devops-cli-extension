@@ -66,7 +66,7 @@
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
         <Directory Id="SDKFOLDER" Name="Microsoft SDKs">
-          <Directory Id="VSTSFOLDER" Name="Vsts">
+          <Directory Id="VSTSFOLDER" Name="VSTS">
             <Directory Id="VSTSCLIFOLDER" Name="CLI">
               <Directory Id="DynamicCliDir"/>
               <Directory Id="BIN" Name="Bin" />
