@@ -101,21 +101,29 @@ def create_project(name, team_instance=None, process=None, source_control='git',
         handle_command_exception(ex)
 
 
-def show_project(id, team_instance=None, detect=None):
+def show_project(project_id=None, name=None, team_instance=None, detect=None):
     """Get project with the specified id or name.
-    :param id: Name or id of the project to show.
-    :type id: str
+    :param project_id: The id (UUID) of the project to show. Required if the --name argument is not specified.
+    :type project_id: str
+    :param name: Name of the project to show. Ignored if the --id argument is specified.
+    :type name: str
     :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
                           collection.
     :type team_instance: str
     """
     try:
+        if project_id is None and name is None:
+            raise CLIError('Either the --name argument or the --id argument needs to be specified.')
+        if project_id is not None:
+            identifier = project_id
+        else:
+            identifier = name
         if should_detect(detect):
             if team_instance is None:
                 git_info = get_vsts_info_from_current_remote_url()
                 team_instance = git_info.uri
         core_client = get_core_client(team_instance)
-        team_project = core_client.get_project(project_id=id, include_capabilities=True)
+        team_project = core_client.get_project(project_id=identifier, include_capabilities=True)
         return team_project
     except Exception as ex:
         handle_command_exception(ex)
