@@ -41,7 +41,7 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".\resources\windowsazure.ico" />
+    <None Include=".\resources\VstsCli.ico" />
   </ItemGroup>
   <!-- UI -->
   <ItemGroup>
