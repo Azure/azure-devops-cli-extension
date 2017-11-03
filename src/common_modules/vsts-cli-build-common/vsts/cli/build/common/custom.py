@@ -243,8 +243,4 @@ def _resolve_repository_as_id(repository, team_instance, project):
                 return found_repository.id
 
 
-def setup_git_aliases():
-    setup_git_alias('build', 'build')
-
-
 _integer_regex = re.compile('^\\d+$')
