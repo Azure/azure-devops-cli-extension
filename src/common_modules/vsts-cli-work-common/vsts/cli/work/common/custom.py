@@ -253,10 +253,6 @@ def _create_work_item_field_patch_operation(op, field, value):
     return _create_patch_operation(op=op, path=path, value=value)
 
 
-def setup_git_aliases():
-    setup_git_alias('work', 'work')
-
-
 _system_field_args = {'System.Title': 'title',
                       'System.Description': 'description',
                       'System.AssignedTo': 'assigned-to',

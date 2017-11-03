@@ -23,6 +23,3 @@ def load_build_commands(cli_command_loader):
                       table_transformer=transform_definitions_table_output)
             g.command('definition show', 'build_definition_show',
                       table_transformer=transform_definition_table_output)
-
-            # git alias commands
-            g.command('setup-git-aliases', 'setup_git_aliases')

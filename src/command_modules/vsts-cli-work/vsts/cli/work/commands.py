@@ -16,4 +16,3 @@ def load_work_commands(cli_command_loader):
                       table_transformer=transform_work_item_table_output)
             g.command('item update', 'update_work_item',
                       table_transformer=transform_work_item_table_output)
-            g.command('setup-git-aliases', 'setup_git_aliases')
