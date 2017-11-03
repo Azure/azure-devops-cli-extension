@@ -71,7 +71,8 @@ def normalize_url_for_key(url):
 
 
 def _transfer_file_storage_to_keyring():
-    old_cache_dir = get_old_cache_dir()
+    old_cache_dir = os.getenv('VSTS_CACHE_DIR', None) or os.path.expanduser(
+            os.path.join('~', '.vsts', 'cache'))
     if os.path.exists(old_cache_dir):
         credentials_cache = get_cache('tokens', 0, old_cache_dir)
         if os.path.exists(credentials_cache.file_name):
@@ -83,14 +84,6 @@ def _transfer_file_storage_to_keyring():
             finally:
                 logging.info('Deleting old token file: %s', credentials_cache.file_name)
                 os.remove(credentials_cache.file_name)
-
-
-def get_old_cache_dir():
-    vsts_cache_dir = os.getenv('VSTS_CACHE_DIR', None) or os.path.expanduser(
-            os.path.join('~', '.vsts', 'cache'))
-    if not os.path.exists(vsts_cache_dir):
-        os.makedirs(vsts_cache_dir)
-    return vsts_cache_dir
 
 
 # a value is required for the python config file that gets generated on some operating systems.
