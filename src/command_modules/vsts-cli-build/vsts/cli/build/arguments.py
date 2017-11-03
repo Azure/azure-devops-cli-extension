@@ -19,5 +19,5 @@ def load_build_arguments(cli_command_loader):
     with ArgumentsContext(cli_command_loader, 'build show') as ac:
         ac.argument('build_id', options_list='--id', type=int)
 
-    with ArgumentsContext(cli_command_loader, 'build show') as ac:
+    with ArgumentsContext(cli_command_loader, 'build definition show') as ac:
         ac.argument('definition_id', options_list='--id')
