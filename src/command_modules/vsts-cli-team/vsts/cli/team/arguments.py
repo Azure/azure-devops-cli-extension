@@ -12,7 +12,6 @@ _source_control_values = ['git', 'tfvc']
 _state_values = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting', 'createpending']
 
 
-
 def load_team_arguments(cli_command_loader):
     with ArgumentsContext(cli_command_loader, 'login') as ac:
         ac.argument('team_instance', options_list=('--instance', '-i'))
@@ -30,3 +29,4 @@ def load_team_arguments(cli_command_loader):
         ac.argument('description', options_list=('--description', '-d'))
         ac.argument('detect', **enum_choice_list(_on_off_switch_values))
         ac.argument('state', **enum_choice_list(_state_values))
+        ac.argument('project_id', options_list='--id')
