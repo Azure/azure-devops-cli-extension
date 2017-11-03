@@ -7,16 +7,25 @@ import stat
 from six.moves import configparser
 
 from knack.config import CLIConfig, get_config_parser
-from vsts._file_cache import get_cache_dir
 
-GLOBAL_CONFIG_DIR = get_cache_dir()
+
 CONFIG_FILE_NAME = 'config'
-GLOBAL_CONFIG_PATH = os.path.join(GLOBAL_CONFIG_DIR, CONFIG_FILE_NAME)
 ENV_VAR_PREFIX = 'VSTSCLI_'
 DEFAULTS_SECTION = 'defaults'
 
 _UNSET = object()
 _ENV_VAR_FORMAT = ENV_VAR_PREFIX + '{section}_{option}'
+
+
+def _get_config_dir():
+    vsts_config_dir = os.getenv('VSTS_CONFIG_DIR', None) or os.path.expanduser(os.path.join('~', '.vsts', 'cli'))
+    if not os.path.exists(vsts_config_dir):
+        os.makedirs(vsts_config_dir)
+    return vsts_config_dir
+
+
+GLOBAL_CONFIG_DIR = _get_config_dir()
+GLOBAL_CONFIG_PATH = os.path.join(GLOBAL_CONFIG_DIR, CONFIG_FILE_NAME)
 
 
 class VstsConfig(CLIConfig):

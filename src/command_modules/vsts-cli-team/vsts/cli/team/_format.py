@@ -35,7 +35,7 @@ def _transform_project_row(row):
         if PROCESS_TEMPLATE_CAPABILITY_NAME in capabilities:
             process_capabilities = capabilities[PROCESS_TEMPLATE_CAPABILITY_NAME]
             if 'templateName' in process_capabilities:
-                table_row['Template'] = process_capabilities['templateName']
+                table_row['Process'] = process_capabilities['templateName']
         if VERSION_CONTROL_CAPABILITY_NAME in capabilities:
             version_capabilities = capabilities[VERSION_CONTROL_CAPABILITY_NAME]
             if VERSION_CONTROL_CAPABILITY_ATTRIBUTE_NAME in version_capabilities:

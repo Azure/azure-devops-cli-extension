@@ -13,11 +13,11 @@ from urllib.parse import urlparse
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from msrest.serialization import Model
-from vsts._file_cache import get_cache
 from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
 from vsts.vss_connection import VssConnection
 from .config import vsts_config
 from ._credentials import get_credential
+from .file_cache import get_cli_cache
 from .git import get_remote_url
 from .version import VERSION
 
@@ -286,7 +286,6 @@ class VstsGitUrlInfo:
         credentials = _get_credentials(uri)
         return GitClient.get_vsts_info_by_remote_url(uri, credentials=credentials)
 
-
     @staticmethod
     def convert_ssh_netloc_to_https_netloc(netloc):
         if netloc is None:
@@ -297,7 +296,6 @@ class VstsGitUrlInfo:
         if match is not None:
             return match.group(1) + match.group(2)
         return None
-
 
     @staticmethod
     def is_vsts_url_candidate(url):
@@ -334,7 +332,7 @@ _PAT_ENV_VARIABLE_NAME = 'VSTS_CLI_PAT'
 _AUTH_TOKEN_ENV_VARIABLE_NAME = 'VSTS_CLI_AUTH_TOKEN'
 
 _connection_data = {}
-_git_hashes_cache = get_cache('valid_hashes', 3600 * 6)
-_git_remote_info_cache = get_cache('remotes', 0)
+_git_hashes_cache = get_cli_cache('valid_hashes', 3600 * 6)
+_git_remote_info_cache = get_cli_cache('remotes', 0)
 _vss_connection = OrderedDict()
 vsts_tracking_data = CustomerIntelligenceEvent()

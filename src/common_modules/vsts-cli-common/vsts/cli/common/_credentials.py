@@ -16,17 +16,17 @@ def get_credential(team_instance):
     key = _get_service_name(team_instance)
     logging.debug('Getting credential: %s', key)
     try:
-        token = keyring.get_password(key, _username)
+        token = keyring.get_password(key, _USERNAME)
         _transfer_file_storage_to_keyring()
         if token is not None:
             return token
         else:
-            token = keyring.get_password(key, _username)
+            token = keyring.get_password(key, _USERNAME)
             if token is not None:
                 return token
             else:
                 logging.debug('Getting default credential')
-                return keyring.get_password(_get_service_name(team_instance=None), _username)
+                return keyring.get_password(_get_service_name(team_instance=None), _USERNAME)
     except RuntimeError as ex:
         logging.exception(ex)
         raise CLIError(ex)
@@ -37,12 +37,12 @@ def set_credential(team_instance, token):
         key = _get_service_name(team_instance)
 
         # check for and delete existing credential
-        old_token = keyring.get_password(key, _username)
+        old_token = keyring.get_password(key, _USERNAME)
         if old_token is not None:
-            keyring.delete_password(key, _username)
+            keyring.delete_password(key, _USERNAME)
 
         logging.debug('Setting credential: %s', key)
-        keyring.set_password(key, _username, token)
+        keyring.set_password(key, _USERNAME, token)
     except RuntimeError as ex:
         logging.exception(ex)
         raise CLIError(ex)
@@ -52,7 +52,7 @@ def clear_credential(team_instance):
     key = _get_service_name(team_instance)
     logging.debug('Clearing credential: %s', key)
     try:
-        keyring.delete_password(key, _username)
+        keyring.delete_password(key, _USERNAME)
     except keyring.errors.PasswordDeleteError as ex:
         logging.exception(ex)
         raise CLIError('The credential was not found')
@@ -71,18 +71,20 @@ def normalize_url_for_key(url):
 
 
 def _transfer_file_storage_to_keyring():
-    if os.path.exists(_credentials_cache.file_name):
-        try:
-            for entry in _credentials_cache:
-                logging.info('Moving token to keyring for team instance: ' + entry)
-                if keyring.get_password(_get_service_name(entry), _username) is None:
-                    set_credential(entry, _credentials_cache[entry])
-        finally:
-            logging.info('Deleting old token file: ' + _credentials_cache.file_name)
-            os.remove(_credentials_cache.file_name)
+    old_cache_dir = os.getenv('VSTS_CACHE_DIR', None) or os.path.expanduser(
+            os.path.join('~', '.vsts', 'cache'))
+    if os.path.exists(old_cache_dir):
+        credentials_cache = get_cache('tokens', 0, old_cache_dir)
+        if os.path.exists(credentials_cache.file_name):
+            try:
+                for entry in credentials_cache:
+                    logging.info('Moving token to keyring for instance: %s', entry)
+                    if keyring.get_password(_get_service_name(entry), _USERNAME) is None:
+                        set_credential(entry, credentials_cache[entry])
+            finally:
+                logging.info('Deleting old token file: %s', credentials_cache.file_name)
+                os.remove(credentials_cache.file_name)
 
-
-_credentials_cache = get_cache('tokens', 0)
 
 # a value is required for the python config file that gets generated on some operating systems.
-_username = 'Personal Access Token'
+_USERNAME = 'Personal Access Token'

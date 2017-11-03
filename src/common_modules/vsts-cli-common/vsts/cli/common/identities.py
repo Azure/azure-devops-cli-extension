@@ -5,7 +5,7 @@
 
 
 from knack.util import CLIError
-from vsts._file_cache import get_cache
+from .file_cache import get_cli_cache
 from .uuid import is_uuid
 from .vsts import get_connection_data, get_identity_client
 
@@ -114,4 +114,4 @@ def get_display_name_from_identity(identity):
 
 
 ME = 'me'
-_display_name_cache = get_cache('identity_display_names', 3600 * 6)
+_display_name_cache = get_cli_cache('identity_display_names', 3600 * 6)
