@@ -23,9 +23,9 @@
 
     <Media Id="1" Cabinet="WindowsVstsCLI.cab" EmbedCab="yes" CompressionLevel="high" />
 
-    <Icon Id="AzureIcon" SourceFile="$(var.ProductResources)windowsazure.ico" />
+    <Icon Id="VstsCliIcon" SourceFile="$(var.ProductResources)VstsCli.ico" />
 
-    <Property Id="ARPPRODUCTICON" Value="AzureIcon" />
+    <Property Id="ARPPRODUCTICON" Value="VstsCliIcon" />
     <Property Id="ARPHELPLINK" Value="https://docs.microsoft.com/en-us/cli/vsts" />
     <Property Id="ARPURLINFOABOUT" Value="https://docs.microsoft.com/en-us/cli/vsts/overview" />
     <Property Id="ARPURLUPDATEINFO" Value="https://docs.microsoft.com/en-us/cli/vsts/overview" />
@@ -72,8 +72,6 @@
               <Directory Id="BIN" Name="Bin" />
             </Directory>
           </Directory>
-          <Directory Id="OLDVSTSCLIFOLDER" Name="VstsCli">
-          </Directory>
         </Directory>
       </Directory>
     </Directory>
@@ -90,11 +88,6 @@
                  Directory="VSTSCLIFOLDER"
                  Guid="{7CF0CCA5-D20D-450C-8140-B41107DCBB5C}">
         <RemoveFolder Id="VSTSCLIFOLDER" On="uninstall" />
-      </Component>
-      <Component Id="RemoveOldVstsCLIFolder"
-                 Directory="OLDVSTSCLIFOLDER"
-                 Guid="{A957F551-BE97-4A37-A9AC-87A6AEC1F203}">
-        <RemoveFolder Id="OLDVSTSCLIFOLDER" On="both" />
       </Component>
       <Component Id="VstsCliSystemPath"
                  Directory="DynamicCliDir"
