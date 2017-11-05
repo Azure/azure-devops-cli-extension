@@ -15,8 +15,12 @@ except ImportError:
     from knack.util import CLIError
 
 
-def set_global_config(key, value):
-    subprocess.check_output(['git', 'config', key, value])
+def set_config(key, value, local=True):
+    if local:
+        scope = '--local'
+    else:
+        scope = '--global'
+    subprocess.check_output(['git', 'config', scope, key, value])
 
 
 def get_current_branch_name():
@@ -96,11 +100,11 @@ def resolve_git_ref_heads(ref):
     return ref
 
 
-def setup_git_alias(alias, command):
+def setup_git_alias(alias, command, local=False):
     try:
-        set_global_config(key='alias.' + alias,
-                          value='!f() { exec vsts.cmd '
-                          + command + ' \"$@\" --detect on; }; f')
+        set_config(key='alias.' + alias,
+                   value='!f() { exec vsts.cmd '
+                   + command + ' \"$@\"; }; f', local=local)
     except OSError:
         raise CLIError('Setting the git alias failed. Ensure git is installed and in your path.')
 

@@ -155,12 +155,13 @@ copy "%REPO_ROOT%\packaged_releases\windows\resources\CLI_LICENSE.rtf" "%BUILDIN
 if %errorlevel% gtr 1 goto ERROR
 copy "%REPO_ROOT%\packaged_releases\windows\resources\ThirdPartyNotices.txt" "%BUILDING_DIR%"
 if %errorlevel% gtr 1 goto ERROR
-del "%BUILDING_DIR%\Scripts\pip.exe"
-if %errorlevel% gtr 1 goto ERROR
-del "%BUILDING_DIR%\Scripts\pip3.exe"
-if %errorlevel% gtr 1 goto ERROR
-del "%BUILDING_DIR%\Scripts\pip3.6.exe"
-if %errorlevel% gtr 1 goto ERROR
+
+if exist "%BUILDING_DIR%\Scripts\pip.exe" del "%BUILDING_DIR%\Scripts\pip.exe"
+if %errorlevel% neq 0 goto ERROR
+if exist "%BUILDING_DIR%\Scripts\pip3.exe" del "%BUILDING_DIR%\Scripts\pip3.exe"
+if %errorlevel% neq 0 goto ERROR
+if exist "%BUILDING_DIR%\Scripts\pip3.6.exe" del "%BUILDING_DIR%\Scripts\pip3.6.exe"
+if %errorlevel% neq 0 goto ERROR
 
 echo *** Building MSI...
 if "%msbuildpath%" == "" (
