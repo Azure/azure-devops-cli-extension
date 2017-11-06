@@ -1,4 +1,8 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "python.envFile": "${workspaceRoot}/env"
+    "python.envFile": "${workspaceRoot}/env",
+    "files.exclude": {
+        "**/*__pycache__": true,
+        "**/*.egg-info": true
+    }
 }
