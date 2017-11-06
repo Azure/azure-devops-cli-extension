@@ -15,6 +15,7 @@ from msrest.authentication import BasicAuthentication
 from msrest.serialization import Model
 from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
 from vsts.vss_connection import VssConnection
+from .arguments import should_detect
 from .config import vsts_config
 from ._credentials import get_credential
 from .file_cache import get_cli_cache
@@ -23,7 +24,6 @@ from .version import VERSION
 
 
 def get_vss_connection(team_instance):
-    team_instance = resolve_team_instance_uri(team_instance)
     if team_instance not in _vss_connection:
         credentials = _get_credentials(team_instance)
         try:
@@ -128,12 +128,43 @@ def _raise_team_team_instance_arg_error():
 
 
 def _raise_team_project_arg_error():
-    raise CLIError('--project must be specified. The value should be the ID or name of a VSTS project. ' +
-                   'For auto detection to work (--detect on), you must be in a local Git directory that has a ' +
-                   '"remote" referencing a VSTS or TFS repository.')
+    raise CLIError('--project must be specified. The value should be the ID or name of a VSTS project.')
 
 
-def resolve_team_instance_uri(team_instance):
+def resolve_instance_project_and_repo(detect, team_instance, project=None, project_required=True, repo=None):
+    if team_instance is None:
+        if should_detect(detect):
+            git_info = get_vsts_info_from_current_remote_url()
+            team_instance = git_info.uri
+            if project is None:
+                project = git_info.project
+                if repo is None:
+                    repo = git_info.repo
+        if team_instance is None:
+            team_instance = _resolve_instance_from_config(team_instance)
+        if project is None:
+            project = _resolve_project_from_config(project, project_required)
+    if project is None:
+        _raise_team_project_arg_error()
+    return team_instance, project, repo
+
+
+def resolve_instance_and_project(detect, team_instance, project=None, project_required=True):
+    team_instance, project, _ = resolve_instance_project_and_repo(detect=detect,
+                                                                  team_instance=team_instance,
+                                                                  project=project,
+                                                                  project_required=project_required)
+    return team_instance, project
+
+
+def resolve_instance(detect, team_instance):
+    team_instance, _ = resolve_instance_and_project(detect=detect,
+                                                    team_instance=team_instance,
+                                                    project_required=False)
+    return team_instance
+
+
+def _resolve_instance_from_config(team_instance):
     from .config import vsts_config
     if team_instance is None:
         if vsts_config.has_option(_DEFAULTS_SECTION, _TEAM_INSTANCE_DEFAULT):
@@ -143,12 +174,12 @@ def resolve_team_instance_uri(team_instance):
     return team_instance
 
 
-def resolve_project(project):
+def _resolve_project_from_config(project, project_required=True):
     from .config import vsts_config
     if project is None:
         if vsts_config.has_option(_DEFAULTS_SECTION, _TEAM_PROJECT_DEFAULT):
             project = vsts_config.get(_DEFAULTS_SECTION, _TEAM_PROJECT_DEFAULT)
-        if project is None or project == '':
+        if project_required and (project is None or project == ''):
             _raise_team_project_arg_error()
     return project
 

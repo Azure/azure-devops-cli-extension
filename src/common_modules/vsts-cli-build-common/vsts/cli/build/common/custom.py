@@ -10,15 +10,14 @@ import webbrowser
 
 from vsts.build.v4_0.models.build import Build
 from vsts.build.v4_0.models.definition_reference import DefinitionReference
-from vsts.cli.common.arguments import should_detect
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.git import resolve_git_ref_heads, setup_git_alias
+from vsts.cli.common.git import resolve_git_ref_heads
 from vsts.cli.common.uuid import is_uuid
 from vsts.cli.common.vsts import (get_base_url,
                                   get_build_client,
                                   get_git_client,
-                                  get_vsts_info_from_current_remote_url,
-                                  resolve_project)
+                                  resolve_instance_and_project,
+                                  resolve_instance_project_and_repo)
 
 
 def build_queue(definition, source_branch=None, open_browser=False, team_instance=None, project=None, detect=None):
@@ -37,18 +36,12 @@ def build_queue(definition, source_branch=None, open_browser=False, team_instanc
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`<Build> <build.models.Build>`
+    :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
     try:
-        if should_detect(detect):
-            if team_instance is None or project is None:
-                git_info = get_vsts_info_from_current_remote_url()
-                if team_instance is None:
-                    team_instance = git_info.uri
-                if project is None:
-                    project = git_info.project
-        if project is None:
-            project = resolve_project(project)
+        team_instance = resolve_instance_and_project(detect=detect,
+                                                     team_instance=team_instance,
+                                                     project=project)
         client = get_build_client(team_instance)
         definition_id = _resolve_definition(definition, client, project)
         definition_reference = DefinitionReference(id=definition_id)
@@ -77,18 +70,12 @@ def build_show(build_id, open_browser=False, team_instance=None, project=None, d
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`<Build> <build.models.Build>`
+    :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
     try:
-        if should_detect(detect):
-            if team_instance is None or project is None:
-                git_info = get_vsts_info_from_current_remote_url()
-                if team_instance is None:
-                    team_instance = git_info.uri
-                if project is None:
-                    project = git_info.project
-        if project is None:
-            project = resolve_project(project)
+        team_instance = resolve_instance_and_project(detect=detect,
+                                                     team_instance=team_instance,
+                                                     project=project)
         client = get_build_client(team_instance)
         build = client.get_build(build_id=build_id, project=project)
         if open_browser:
@@ -118,17 +105,10 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
     :rtype: [BuildDefinitionReference]
     """
     try:
-        if should_detect(detect):
-            if team_instance is None or project is None or repository is None:
-                git_info = get_vsts_info_from_current_remote_url()
-                if team_instance is None:
-                    team_instance = git_info.uri
-                if project is None:
-                    project = git_info.project
-                if repository is None:
-                    repository = git_info.repo
-        if project is None:
-            project = resolve_project(project)
+        team_instance, project, repo = resolve_instance_project_and_repo(detect=detect,
+                                                                         team_instance=team_instance,
+                                                                         project=project,
+                                                                         repo=repository)
         client = get_build_client(team_instance)
         query_order = 'DefinitionNameAscending'
         repository_type = None
@@ -166,18 +146,12 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: [BuildDefinitionReference]
+    :rtype: BuildDefinitionReference
     """
     try:
-        if should_detect(detect):
-            if team_instance is None or project is None:
-                git_info = get_vsts_info_from_current_remote_url()
-                if team_instance is None:
-                    team_instance = git_info.uri
-                if project is None:
-                    project = git_info.project
-        if project is None:
-            project = resolve_project(project)
+        team_instance = resolve_instance_and_project(detect=detect,
+                                                     team_instance=team_instance,
+                                                     project=project)
         client = get_build_client(team_instance)
         if definition_id is None:
             if name is not None:
@@ -194,7 +168,7 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
 
 def _open_build(build, team_instance):
     """Opens the work item in the default browser.
-    :param :class:`<Build> <build.models.Build>` build:
+    :param :class:`<Build> <build.v4_0.models.Build>` build:
     :param str team_instance:
     """
     # https://mseng.visualstudio.com/vsts-cli/_build/index?buildId=4053990
@@ -206,7 +180,7 @@ def _open_build(build, team_instance):
 
 def _open_definition(definition, team_instance):
     """Opens the work item in the default browser.
-    :param :class:`<Build> <build.models.Build>` build:
+    :param :class:`<BuildDefinitionReference> <build.v4_0.models.BuildDefinitionReference>` definition:
     :param str team_instance:
     """
     # https://mseng.visualstudio.com/vsts-cli/_build/index?definitionId=5419

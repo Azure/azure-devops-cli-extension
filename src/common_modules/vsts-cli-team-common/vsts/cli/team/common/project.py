@@ -4,33 +4,12 @@
 # --------------------------------------------------------------------------------------------
 
 
-import logging
-import urllib
-import webbrowser
-
 from knack.util import CLIError
 from vsts.core.v4_0.models.team_project import TeamProject
-from vsts.exceptions import VstsClientRequestError
-from vsts.git.v4_0.models.git_pull_request import GitPullRequest
-from vsts.git.v4_0.models.git_pull_request_completion_options import GitPullRequestCompletionOptions
-from vsts.git.v4_0.models.git_pull_request_search_criteria import GitPullRequestSearchCriteria
-from vsts.git.v4_0.models.identity_ref import IdentityRef
-from vsts.git.v4_0.models.identity_ref_with_vote import IdentityRefWithVote
-from vsts.git.v4_0.models.resource_ref import ResourceRef
-from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
-from vsts.work_item_tracking.v4_0.models.work_item_relation import WorkItemRelation
-from vsts.cli.common.arguments import resolve_on_off_switch, should_detect
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.operations import wait_for_long_running_operation
-from vsts.cli.common.git import get_current_branch_name, resolve_git_ref_heads, setup_git_alias
-from vsts.cli.common.identities import ME, resolve_identity_as_id
-from vsts.cli.common.uuid import EMPTY_UUID
-from vsts.cli.common.vsts import (get_base_url,
-                                  get_core_client,
-                                  get_operations_client,
-                                  get_vsts_info_from_current_remote_url,
-                                  get_work_item_tracking_client,
-                                  resolve_project)
+from vsts.cli.common.vsts import (get_core_client,
+                                  resolve_instance)
 
 
 def create_project(name, team_instance=None, process=None, source_control='git', description=None, detect=None):
@@ -47,16 +26,19 @@ def create_project(name, team_instance=None, process=None, source_control='git',
     :type source_control: str
     :param description: Description for the new project.
     :type description: str
+    :param detect: When 'On' unsupplied arg values will be detected from the current working
+                   directory's repo.
+    :type detect: str
+    :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
     try:
-        if should_detect(detect):
-            if team_instance is None:
-                git_info = get_vsts_info_from_current_remote_url()
-                team_instance = git_info.uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
 
         team_project = TeamProject()
         team_project.name = name
         team_project.description = description
+
+        # private is the only allowed value by vsts right now.
         team_project.visibility = 'private'
 
         core_client = get_core_client(team_instance)
@@ -110,6 +92,10 @@ def show_project(project_id=None, name=None, team_instance=None, detect=None):
     :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
                           collection.
     :type team_instance: str
+    :param detect: When 'On' unsupplied arg values will be detected from the current working
+                   directory's repo.
+    :type detect: str
+    :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
     try:
         if project_id is None and name is None:
@@ -118,10 +104,7 @@ def show_project(project_id=None, name=None, team_instance=None, detect=None):
             identifier = project_id
         else:
             identifier = name
-        if should_detect(detect):
-            if team_instance is None:
-                git_info = get_vsts_info_from_current_remote_url()
-                team_instance = git_info.uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         core_client = get_core_client(team_instance)
         team_project = core_client.get_project(project_id=identifier, include_capabilities=True)
         return team_project
@@ -138,12 +121,13 @@ def list_projects(team_instance=None, top=None, skip=None, detect=None):
     :type top: int
     :param skip:
     :type skip: int
+    :param detect: When 'On' unsupplied arg values will be detected from the current working
+                   directory's repo.
+    :type detect: str
+    :rtype: list of :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
     try:
-        if should_detect(detect):
-            if team_instance is None:
-                git_info = get_vsts_info_from_current_remote_url()
-                team_instance = git_info.uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         core_client = get_core_client(team_instance)
         team_projects = core_client.get_projects(state_filter='all', top=top, skip=skip)
         return team_projects

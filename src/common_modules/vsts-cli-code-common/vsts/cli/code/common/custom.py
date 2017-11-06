@@ -25,9 +25,9 @@ from vsts.cli.common.uuid import EMPTY_UUID
 from vsts.cli.common.vsts import (get_base_url,
                                   get_git_client,
                                   get_policy_client,
-                                  get_vsts_info_from_current_remote_url,
                                   get_work_item_tracking_client,
-                                  resolve_project)
+                                  resolve_instance,
+                                  resolve_instance_project_and_repo)
 
 
 def show_pull_request(pull_request_id, open_browser=False, team_instance=None, detect=None):
@@ -42,11 +42,10 @@ def show_pull_request(pull_request_id, open_browser=False, team_instance=None, d
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`GitPullRequest <git.models.GitPullRequest>`
+    :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_git_client(team_instance)
         pr = client.get_pull_request_by_id(pull_request_id)
         pr = client.get_pull_request(project=pr.repository.project.id,
@@ -91,21 +90,13 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: list of :class:`VssJsonCollectionWrapper <git.models.VssJsonCollectionWrapper>`
+    :rtype: list of :class:`VssJsonCollectionWrapper <git.v4_0.models.VssJsonCollectionWrapper>`
     """
     try:
-        if should_detect(detect):
-            if team_instance is None or project is None or repository is None:
-                git_info = get_vsts_info_from_current_remote_url()
-                if git_info is not None:
-                    if team_instance is None:
-                        team_instance = git_info.uri
-                    if project is None:
-                        project = git_info.project
-                    if repository is None:
-                        repository = git_info.repo
-        if project is None:
-            project = resolve_project(project)
+        team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
+                                                                               team_instance=team_instance,
+                                                                               project=project,
+                                                                               repo=repository)
         search_criteria = GitPullRequestSearchCriteria(creator_id=resolve_identity_as_id(creator, team_instance),
                                                        include_links=include_links,
                                                        reviewer_id=resolve_identity_as_id(reviewer, team_instance),
@@ -172,18 +163,14 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`GitPullRequest <git.models.GitPullRequest>`
+    :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
+        team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
+                                                                               team_instance=team_instance,
+                                                                               project=project,
+                                                                               repo=repository)
         if should_detect(detect):
-            if team_instance is None or project is None or repository is None:
-                git_info = get_vsts_info_from_current_remote_url()
-                if team_instance is None:
-                    team_instance = git_info.uri
-                if project is None:
-                    project = git_info.project
-                if repository is None:
-                    repository = git_info.repo
             if source_branch is None:
                 source_branch = get_current_branch_name()
                 if source_branch is None:
@@ -200,8 +187,6 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                 raise ValueError('--source-branch is a required argument.')
             if target_branch is None:
                 raise ValueError('--target-branch is a required argument.')
-        if project is None:
-            project = resolve_project(project)
         client = get_git_client(team_instance)
         pr = GitPullRequest(description=description, source_ref_name=source_branch,
                             target_ref_name=target_branch)
@@ -289,11 +274,10 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`GitPullRequest <git.models.GitPullRequest>`
+    :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_git_client(team_instance)
         existing_pr = client.get_pull_request_by_id(pull_request_id)
         pr = GitPullRequest(title=title, description=description)
@@ -338,7 +322,7 @@ def complete_pull_request(pull_request_id, team_instance=None, detect=None):
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`GitPullRequest <git.models.GitPullRequest>`
+    :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     return _update_pull_request_status(pull_request_id=pull_request_id, new_status='completed',
                                        team_instance=team_instance, detect=detect)
@@ -354,7 +338,7 @@ def abandon_pull_request(pull_request_id, team_instance=None, detect=None):
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`GitPullRequest <git.models.GitPullRequest>`
+    :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     return _update_pull_request_status(pull_request_id=pull_request_id, new_status='abandoned',
                                        team_instance=team_instance, detect=detect)
@@ -370,7 +354,7 @@ def reactivate_pull_request(pull_request_id, team_instance=None, detect=None):
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`GitPullRequest <git.models.GitPullRequest>`
+    :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     return _update_pull_request_status(pull_request_id=pull_request_id, new_status='active',
                                        team_instance=team_instance, detect=detect)
@@ -388,12 +372,10 @@ def create_pull_request_reviewers(pull_request_id, reviewers, team_instance=None
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: list of :class:`IdentityRefWithVote
-     <git.models.IdentityRefWithVote>`
+    :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_git_client(team_instance)
         pr = client.get_pull_request_by_id(pull_request_id)
         resolved_reviewers = _resolve_reviewers_as_refs(reviewers, team_instance)
@@ -418,12 +400,10 @@ def delete_pull_request_reviewers(pull_request_id, reviewers, team_instance=None
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: list of :class:`IdentityRefWithVote
-     <git.models.IdentityRefWithVote>`
+    :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_git_client(team_instance)
         pr = client.get_pull_request_by_id(pull_request_id)
         resolved_reviewers = _resolve_reviewers_as_ids(reviewers, team_instance)
@@ -449,12 +429,10 @@ def list_pull_request_reviewers(pull_request_id, team_instance=None, detect=None
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: list of :class:`IdentityRefWithVote
-     <git.models.IdentityRefWithVote>`
+    :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_git_client(team_instance)
         pr = client.get_pull_request_by_id(pull_request_id)
         return client.get_pull_request_reviewers(project=pr.repository.project.id,
@@ -476,12 +454,10 @@ def add_pull_request_work_items(pull_request_id, work_items, team_instance=None,
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: list of :class:`AssociatedWorkItem
-     <git.models.AssociatedWorkItem>`
+    :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_git_client(team_instance)
         existing_pr = client.get_pull_request_by_id(pull_request_id)
         if work_items is not None and len(work_items) > 0:
@@ -529,12 +505,10 @@ def remove_pull_request_work_items(pull_request_id, work_items, team_instance=No
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: list of :class:`AssociatedWorkItem
-     <git.models.AssociatedWorkItem>`
+    :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_git_client(team_instance)
         existing_pr = client.get_pull_request_by_id(pull_request_id)
         if work_items is not None and work_items:
@@ -588,12 +562,10 @@ def list_pull_request_work_items(pull_request_id, team_instance=None, detect=Non
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: list of :class:`AssociatedWorkItem
-     <git.models.AssociatedWorkItem>`
+    :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_git_client(team_instance)
         pr = client.get_pull_request_by_id(pull_request_id)
         refs = client.get_pull_request_work_items(project=pr.repository.project.id,
@@ -611,8 +583,7 @@ def list_pull_request_work_items(pull_request_id, team_instance=None, detect=Non
 
 def _update_pull_request_status(pull_request_id, new_status, team_instance=None, detect=None):
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_git_client(team_instance)
         existing_pr = client.get_pull_request_by_id(pull_request_id)
         pr = GitPullRequest(status=new_status)
@@ -639,11 +610,10 @@ def vote_pull_request(pull_request_id, vote, team_instance=None, detect=None):
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`IdentityRefWithVote <git.models.IdentityRefWithVote>`
+    :rtype: :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_git_client(team_instance)
         pr = client.get_pull_request_by_id(pull_request_id)
         resolved_reviewer = IdentityRefWithVote(id=resolve_identity_as_id(ME, team_instance))
@@ -686,11 +656,10 @@ def list_pr_policies(pull_request_id, team_instance=None, detect=None, top=None,
     :type top: int
     :param skip: Number of results to skip.
     :type skip: int
-    :rtype: list of :class:`PolicyEvaluationRecord <policy.models.PolicyEvaluationRecord>`
+    :rtype: list of :class:`PolicyEvaluationRecord <policy.v4_0.models.PolicyEvaluationRecord>`
     """
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         git_client = get_git_client(team_instance)
         pr = git_client.get_pull_request_by_id(pull_request_id)
         policy_client = get_policy_client(team_instance)
@@ -716,11 +685,10 @@ def queue_pr_policy(pull_request_id, evaluation_id, team_instance=None, detect=N
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`PolicyEvaluationRecord <policy.models.PolicyEvaluationRecord>`
+    :rtype: :class:`PolicyEvaluationRecord <policy.v4_0.models.PolicyEvaluationRecord>`
     """
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         git_client = get_git_client(team_instance)
         pr = git_client.get_pull_request_by_id(pull_request_id)
         policy_client = get_policy_client(team_instance)
@@ -744,8 +712,7 @@ def _resolve_reviewers_as_refs(reviewers, team_instance):
     :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
                           collection.
     :type team_instance: str
-    :rtype: list of :class:`IdentityRefWithVote
-     <git.models.IdentityRefWithVote>`
+    :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     resolved_reviewers = None
     if reviewers is not None and reviewers:

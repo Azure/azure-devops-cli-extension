@@ -10,14 +10,12 @@ import webbrowser
 from knack.util import CLIError
 from vsts.exceptions import VstsServiceError
 from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
-from vsts.cli.common.arguments import should_detect
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.git import setup_git_alias
 from vsts.cli.common.identities import resolve_identity_as_display_name
 from vsts.cli.common.vsts import (get_base_url,
-                                  get_vsts_info_from_current_remote_url,
                                   get_work_item_tracking_client,
-                                  resolve_project)
+                                  resolve_instance,
+                                  resolve_instance_and_project)
 
 
 def create_work_item(work_item_type, title, description=None, assigned_to=None, state=None, area=None,
@@ -54,17 +52,13 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`<WorkItem> <work-item-tracking.models.WorkItem>`
+    :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:
-        if should_detect(detect) and (team_instance is None or project is None):
-            git_info = get_vsts_info_from_current_remote_url()
-            if team_instance is None:
-                team_instance = git_info.uri
-            if project is None:
-                project = git_info.project
-        if project is None:
-            project = resolve_project(project)
+        team_instance, project = resolve_instance_and_project(detect=detect,
+                                                              team_instance=team_instance,
+                                                              project=project,
+                                                              project_required=True)
         patch_document = []
         if title is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Title', title))
@@ -138,12 +132,10 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`<WorkItem> <work-item-tracking.models.WorkItem>`
+    :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:
-        if should_detect(detect) and team_instance is None:
-            git_info = get_vsts_info_from_current_remote_url()
-            team_instance = git_info.uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         patch_document = []
         if title is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Title', title))
@@ -215,11 +207,10 @@ def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :rtype: :class:`<WorkItem> <work-item-tracking.models.WorkItem>`
+    :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:
-        if team_instance is None and should_detect(detect):
-            team_instance = get_vsts_info_from_current_remote_url().uri
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_work_item_tracking_client(team_instance)
         work_item = client.get_work_item(work_item_id)
         if open_browser:
@@ -232,7 +223,7 @@ def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=
 def _open_work_item(work_item, team_instance):
     """Opens the work item in the default browser.
     :param work_item: The work item to open.
-    :type work_item: :class:`<WorkItem> <work-item-tracking.models.WorkItem>`
+    :type work_item: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     project = work_item.fields['System.TeamProject']
     url = urllib.parse.urljoin(get_base_url(team_instance), urllib.parse.quote(project) + '/_workitems?id='
