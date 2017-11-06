@@ -68,7 +68,10 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Description', description))
         if assigned_to is not None:
             # 'assigned to' does not take an identity id.  Display name works.
-            resolved_assigned_to = resolve_identity_as_display_name(assigned_to, team_instance)
+            if assigned_to == '':
+                resolved_assigned_to = ''
+            else:
+                resolved_assigned_to = resolve_identity_as_display_name(assigned_to, team_instance)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
