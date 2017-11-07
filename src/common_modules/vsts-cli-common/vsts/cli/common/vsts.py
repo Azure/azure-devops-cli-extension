@@ -204,7 +204,7 @@ def set_tracking_data(argv):
                 args = []
                 command_populated = False
                 for arg in argv[1:]:
-                    if arg is not None and argv:
+                    if arg is not None and argv and len(arg) > 0:
                         if not command_populated and arg[0] != '-':
                             command.append(arg)
                         elif arg[0] == '-':

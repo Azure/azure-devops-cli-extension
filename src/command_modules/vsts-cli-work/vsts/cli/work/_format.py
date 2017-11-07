@@ -50,3 +50,30 @@ def _transform_work_items_row(row):
         table_row['Assigned To'] = ' '
         table_row['State'] = ' '
     return table_row
+
+
+def transform_work_item_query_result_table_output(result):
+    table_output = []
+    for item in result:
+        if 'fields' in item:
+            table_output.append(transform_work_item_query_result_row_output(item['fields']))
+    return table_output
+
+
+def transform_work_item_query_result_row_output(row):
+    table_row = OrderedDict()
+    max_columns = 5
+    i = 0
+    system_prefix = 'System.'
+    length_system_prefix = len(system_prefix)
+    for key in row:
+        if key.startswith(system_prefix):
+            column_header = key[length_system_prefix:]
+        else:
+            column_header = key
+        table_row[column_header] = row[key]
+        i += 1
+        if i >= max_columns:
+            # limit number of columns in table view
+            break
+    return table_row

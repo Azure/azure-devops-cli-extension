@@ -10,6 +10,7 @@ import webbrowser
 from knack.util import CLIError
 from vsts.exceptions import VstsServiceError
 from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
+from vsts.work_item_tracking.v4_0.models.wiql import Wiql
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.identities import resolve_identity_as_display_name
 from vsts.cli.common.vsts import (get_base_url,
@@ -68,7 +69,10 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Description', description))
         if assigned_to is not None:
             # 'assigned to' does not take an identity id.  Display name works.
-            resolved_assigned_to = resolve_identity_as_display_name(assigned_to, team_instance)
+            if assigned_to == '':
+                resolved_assigned_to = ''
+            else:
+                resolved_assigned_to = resolve_identity_as_display_name(assigned_to, team_instance)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
@@ -143,7 +147,10 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Description', description))
         if assigned_to is not None:
             # 'assigned to' does not take an identity id.  Display name works.
-            resolved_assigned_to = resolve_identity_as_display_name(assigned_to, team_instance)
+            if assigned_to == '':
+                resolved_assigned_to = ''
+            else:
+                resolved_assigned_to = resolve_identity_as_display_name(assigned_to, team_instance)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
@@ -216,6 +223,79 @@ def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=
         if open_browser:
             _open_work_item(work_item, team_instance)
         return work_item
+    except Exception as ex:
+        handle_command_exception(ex)
+
+
+def query_work_items(wiql, team_instance=None, detect=None):
+    """Show details for a work item.
+    :param wiql:
+    :type wiql: str
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
+    :type team_instance: str
+    :param detect: When 'On' unsupplied arg values will be detected from the current working
+                   directory's repo.
+    :type detect: str
+    :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
+    """
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        client = get_work_item_tracking_client(team_instance)
+        wiql_object = Wiql()
+        wiql_object.query = wiql
+        query_result = client.query_by_wiql(wiql=wiql_object)
+        if query_result.work_items:
+            safety_buffer = 100  # a buffer in the max url length to protect going over the limit
+            remaining_url_length = 2048 - safety_buffer
+            remaining_url_length -= len(team_instance)
+            # following subtracts relative url, the asof parameter and beginning of id and field parameters.
+            # asof value length will vary, but this should be the longest possible
+            remaining_url_length -=\
+                len('/_apis/wit/workItems?ids=&fields=&asOf=2017-11-07T17%3A05%3A34.06699999999999999Z')
+            fields = []
+            fields_length_in_url = 0
+            if query_result.columns:
+                for field_ref in query_result.columns:
+                    fields.append(field_ref.reference_name)
+                    if fields_length_in_url > 0:
+                        fields_length_in_url += 3  # add 3 for %2C delimiter
+                    fields_length_in_url += len(urllib.parse.quote(field_ref.reference_name))
+                    if fields_length_in_url > 800:
+                        logging.info("Not retrieving all fields due to max url length.")
+                        break
+            remaining_url_length -= fields_length_in_url
+            max_work_items = 1000
+            current_batch = []
+            work_items = []
+            work_item_url_length = 0
+            for work_item_ref in query_result.work_items:
+                if len(work_items) >= max_work_items:
+                    logging.info("Only retrieving the first %s work items.", max_work_items)
+                    break
+                if work_item_url_length > 0:
+                    work_item_url_length += 3  # add 3 for %2C delimiter
+                work_item_url_length += len(str(work_item_ref.id))
+                current_batch.append(work_item_ref.id)
+
+                if remaining_url_length - work_item_url_length <= 0:
+                    # url is near max length, go ahead and send first request for details.
+                    # url can go over by an id length because we have a safety buffer
+                    current_batched_items = client.get_work_items(ids=current_batch,
+                                                                  as_of=query_result.as_of,
+                                                                  fields=fields)
+                    for work_item in current_batched_items:
+                        work_items.append(work_item)
+                    current_batch = []
+                    work_item_url_length = 0
+
+            if len(current_batch) > 0:
+                current_batched_items = client.get_work_items(ids=current_batch,
+                                                              as_of=query_result.as_of,
+                                                              fields=fields)
+                for work_item in current_batched_items:
+                    work_items.append(work_item)
+            return work_items
     except Exception as ex:
         handle_command_exception(ex)
 
