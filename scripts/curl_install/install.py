@@ -42,8 +42,9 @@ except NameError:
 CLI_PACKAGE = 'vsts-name'
 CLI_MODULE = 'vsts.cli'
 CLI_SHORT_NAME = 'vsts'
+EXECUTABLE_NAME = CLI_SHORT_NAME
 CLI_NAME = CLI_SHORT_NAME + '-cli'
-CLI_PACKAGE_INDEX_URL = 'https://vstscli.azurewebsites.net/"
+CLI_PACKAGE_INDEX_URL = 'https://vstscli.azurewebsites.net/'
 
 CLI_DISPATCH_TEMPLATE = """#!/usr/bin/env bash
 {install_dir}/bin/python -m vsts.cli "$@"
@@ -284,7 +285,7 @@ def handle_path_and_tab_completion(completion_file_path, exec_filepath, exec_dir
         _modify_rc(rc_file_path, line_to_add)
         print_status('Tab completion set up complete.')
         print_status("If tab completion is not activated, verify that '{}' is sourced by your shell.".format(rc_file_path))
-        warn_other_azs_on_path(exec_dir, exec_filepath)
+        warn_other_clis_on_path(exec_dir, exec_filepath)
         print_status()
         print_status('** Run `exec -l $SHELL` to restart your shell. **')
         print_status()

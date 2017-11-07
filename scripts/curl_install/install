@@ -9,7 +9,7 @@
 # Bash script to install the Azure CLI
 #
 INSTALL_SCRIPT_URL="https://vstscli.azurewebsites.net/curl/install.py"
-INSTALL_SCRIPT_SHA256=7419f49b066015d863f398198c4ac5ad026f5aa3705e898b552e4e03fc352552
+INSTALL_SCRIPT_SHA256=1448f522253b650fd4ed130c1c49afb1dfddb3fdf112a8f2af2d06c0e5cac041
 _TTY=/dev/tty
 
 install_script=$(mktemp -t vsts_cli_install_tmp_XXXX) || exit
