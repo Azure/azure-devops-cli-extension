@@ -3,7 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from ._format import transform_work_item_table_output
+from ._format import (transform_work_item_table_output,
+                      transform_work_item_query_result_table_output)
 from knack.commands import CommandSuperGroup
 
 
@@ -14,5 +15,7 @@ def load_work_commands(cli_command_loader):
                       table_transformer=transform_work_item_table_output)
             g.command('item create', 'create_work_item',
                       table_transformer=transform_work_item_table_output)
+            g.command('item query', 'query_work_items',
+                      table_transformer=transform_work_item_query_result_table_output)
             g.command('item update', 'update_work_item',
                       table_transformer=transform_work_item_table_output)
