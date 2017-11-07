@@ -33,16 +33,17 @@ RUN apk add --no-cache bash gcc make openssl-dev libffi-dev musl-dev jq openssh 
    ca-certificates wget openssl git && update-ca-certificates
 
 # get keyring related dependencies
-RUN apk add --no-cache dbus dbus-dev dbus-glib-dev gnome-keyring libsecret
+# RUN apk add --no-cache dbus dbus-dev dbus-glib-dev gnome-keyring libsecret
 
 # install the VSTS CLI package and its dependencies
 RUN pip install --no-cache-dir --pre "vsts-cli==$CLI_VERSION" --extra-index-url https://vstscli.azurewebsites.net/
+RUN pip install --no-cache-dir keyrings.alt
 
 # install dbus (needed by keyring)
-RUN pip install --no-cache-dir dbus-python
+# RUN pip install --no-cache-dir dbus-python
 
 # setup tab completion
-RUN cat /vsts-cli/vsts.completion > ~/.bashrc
+# RUN cat /vsts-cli/vsts.completion > ~/.bashrc
 
 # add vsts shortcut script
 RUN cp /vsts-cli/vsts.sh /usr/bin/vsts
