@@ -21,18 +21,31 @@ REM the cmd and Powershell development environments remain functionally identica
 doskey /MACROFILE=scripts\windows\macros.txt
 doskey /MACROFILE=scripts\windows\macros.cmd.txt
 
-IF EXIST "%BUILD_BINARIESDIRECTORY%\python.3.6.2\tools\python.exe" (
+
+if not "%~1" == "" (
+   SET PYTHONDIR=%1
+   SET PYTHONEXE=%1\python.exe
+) ELSE IF EXIST "%BUILD_BINARIESDIRECTORY%\python.3.6.2\tools\python.exe" (
     REM Build step installs Python here.
     SET PYTHONEXE=%BUILD_BINARIESDIRECTORY%\python.3.6.2\tools\python.exe
 ) ELSE (
     SET PYTHONEXE=python.exe
 )
 
-SET VDIR=%BUILDDIR%\env
+if not "%~2" == "" (
+    SET VDIR=%2
+) ELSE (
+    SET VDIR=%BUILDDIR%\env
+)
 
 IF NOT EXIST "%VDIR%" (
     echo Creating new virtual environment under %VDIR%
     "%PYTHONEXE%" -m venv "%VDIR%"
+    if ERRORLEVEL 1 (
+        if not "%PYTHONDIR%" == "" (
+            "%PYTHONDIR%\scripts\virtualenv" "%VDIR%"
+        )
+    )
     IF ERRORLEVEL 1 GOTO FAIL
 )
 

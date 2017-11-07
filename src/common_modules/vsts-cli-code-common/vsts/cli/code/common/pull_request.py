@@ -698,14 +698,6 @@ def queue_pr_policy(pull_request_id, evaluation_id, team_instance=None, detect=N
         handle_command_exception(ex)
 
 
-def setup_git_aliases(local=False):
-    """Configure aliases for Git (to enable commands like 'git pr list')
-    :param local: Sets the alias in the local git config rather than the global config.
-    :type local: bool
-    """
-    setup_git_alias('pr', 'code pr', local=local)
-
-
 def _resolve_reviewers_as_refs(reviewers, team_instance):
     """Takes a list containing identity names, emails, and ids,
     and return a list of IdentityRefWithVote objects.
@@ -750,3 +742,4 @@ def _get_default_branch(team_instance, project, repository):
     client = get_git_client(team_instance)
     repo = client.get_repository(project=project, repository_id=repository)
     return repo.default_branch
+
