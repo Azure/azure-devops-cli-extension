@@ -26,7 +26,7 @@ def create_repo(name, team_instance=None, project=None, detect=None, open_browse
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :param open_browser: Open the pull request in the default web browser.
+    :param open_browser: Open the repository in the default web browser.
     :type open_browser: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
@@ -83,7 +83,7 @@ def show_repo(repo_id=None, name=None, team_instance=None, project=None, detect=
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :param open_browser: Open the pull request in the default web browser.
+    :param open_browser: Open the repository in the default web browser.
     :type open_browser: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
