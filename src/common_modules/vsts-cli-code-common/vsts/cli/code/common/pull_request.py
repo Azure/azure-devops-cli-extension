@@ -731,7 +731,7 @@ def _open_pull_request(pull_request, team_instance):
     :param pull_request: The pull request to open.
     :type pull_request: str
     """
-    url = team_instance.rstrip('/') + urllib.parse.quote(pull_request.repository.project.name)\
+    url = team_instance.rstrip('/') + '/' + urllib.parse.quote(pull_request.repository.project.name)\
         + '/_git/' + urllib.parse.quote(pull_request.repository.name) + '/pullrequest/'\
         + str(pull_request.pull_request_id)
     webbrowser.open_new(url=url)
