@@ -349,8 +349,9 @@ def _open_work_item(work_item, team_instance):
     :type work_item: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     project = work_item.fields['System.TeamProject']
-    url = urllib.parse.urljoin(get_base_url(team_instance), urllib.parse.quote(project) + '/_workitems?id='
-                               + urllib.parse.quote(str(work_item.id)))
+    url = team_instance.rstrip('/') + '/' + urllib.parse.quote(project) + '/_workitems?id='\
+        + urllib.parse.quote(str(work_item.id))
+    logging.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)
 
 

@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import logging
 import re
 import urllib
 import webbrowser
@@ -39,9 +40,9 @@ def build_queue(definition, source_branch=None, open_browser=False, team_instanc
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
     try:
-        team_instance = resolve_instance_and_project(detect=detect,
-                                                     team_instance=team_instance,
-                                                     project=project)
+        team_instance, project = resolve_instance_and_project(detect=detect,
+                                                              team_instance=team_instance,
+                                                              project=project)
         client = get_build_client(team_instance)
         definition_id = _resolve_definition(definition, client, project)
         definition_reference = DefinitionReference(id=definition_id)
@@ -73,9 +74,9 @@ def build_show(build_id, open_browser=False, team_instance=None, project=None, d
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
     try:
-        team_instance = resolve_instance_and_project(detect=detect,
-                                                     team_instance=team_instance,
-                                                     project=project)
+        team_instance, project = resolve_instance_and_project(detect=detect,
+                                                              team_instance=team_instance,
+                                                              project=project)
         client = get_build_client(team_instance)
         build = client.get_build(build_id=build_id, project=project)
         if open_browser:
@@ -149,9 +150,9 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
     :rtype: BuildDefinitionReference
     """
     try:
-        team_instance = resolve_instance_and_project(detect=detect,
-                                                     team_instance=team_instance,
-                                                     project=project)
+        team_instance, project = resolve_instance_and_project(detect=detect,
+                                                              team_instance=team_instance,
+                                                              project=project)
         client = get_build_client(team_instance)
         if definition_id is None:
             if name is not None:
@@ -167,26 +168,28 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
 
 
 def _open_build(build, team_instance):
-    """Opens the work item in the default browser.
+    """Opens the build in the default browser.
     :param :class:`<Build> <build.v4_0.models.Build>` build:
     :param str team_instance:
     """
     # https://mseng.visualstudio.com/vsts-cli/_build/index?buildId=4053990
     project = build.project.name
-    url = urllib.parse.urljoin(get_base_url(team_instance), urllib.parse.quote(project) + '/_build/index?buildid='
-                               + urllib.parse.quote(str(build.build_number)))
+    url = team_instance.rstrip('/') + '/' + urllib.parse.quote(project) + '/_build/index?buildid='\
+        + urllib.parse.quote(str(build.build_number))
+    logging.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)
 
 
 def _open_definition(definition, team_instance):
-    """Opens the work item in the default browser.
+    """Opens the build definition in the default browser.
     :param :class:`<BuildDefinitionReference> <build.v4_0.models.BuildDefinitionReference>` definition:
     :param str team_instance:
     """
     # https://mseng.visualstudio.com/vsts-cli/_build/index?definitionId=5419
     project = definition.project.name
-    url = urllib.parse.urljoin(get_base_url(team_instance), urllib.parse.quote(project) + '/_build/index?definitionId='
-                               + urllib.parse.quote(str(definition.id)))
+    url = team_instance.rstrip('/') + '/' + urllib.parse.quote(project) + '/_build/index?definitionId='\
+        + urllib.parse.quote(str(definition.id))
+    logging.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)
 
 

@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import logging
 import urllib
 import webbrowser
 
@@ -111,7 +112,7 @@ def _open_repository(repository, team_instance):
     :param repository: The repository to open.
     :type repository: str
     """
-    url = urllib.parse.urljoin(get_base_url(team_instance),
-                               urllib.parse.quote(repository.project.name)
-                               + '/_git/' + urllib.parse.quote(repository.name))
+    url = team_instance.rstrip('/') + '/' + urllib.parse.quote(repository.project.name)\
+        + '/_git/' + urllib.parse.quote(repository.name)
+    logging.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)

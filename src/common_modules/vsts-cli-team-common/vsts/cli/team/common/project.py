@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-
+import logging
 import urllib
 import webbrowser
 
@@ -86,7 +86,7 @@ def create_project(name, team_instance=None, process=None, source_control='git',
 
         team_project = core_client.get_project(project_id=name, include_capabilities=True)
         if open_browser:
-            _open_project(team_project, team_instance)
+            _open_project(team_project)
         return team_project
     except Exception as ex:
         handle_command_exception(ex)
@@ -119,7 +119,7 @@ def show_project(project_id=None, name=None, team_instance=None, detect=None, op
         core_client = get_core_client(team_instance)
         team_project = core_client.get_project(project_id=identifier, include_capabilities=True)
         if open_browser:
-            _open_project(team_project, team_instance)
+            _open_project(team_project)
         return team_project
     except Exception as ex:
         handle_command_exception(ex)
@@ -148,12 +148,17 @@ def list_projects(team_instance=None, top=None, skip=None, detect=None):
         handle_command_exception(ex)
 
 
-def _open_project(project, team_instance):
+def _open_project(project):
     """Opens the project in the default browser.
     """
-    url = urllib.parse.urljoin(get_base_url(team_instance),
-                               urllib.parse.quote(project.name))
-    webbrowser.open_new(url=url)
+    api_segment = '/_apis/'
+    pos = project.url.find(api_segment)
+    if pos >= 0:
+        url = project.url[:pos + 1] + urllib.parse.quote(project.name)
+        logging.debug('Opening web page: %s', url)
+        webbrowser.open_new(url=url)
+    else:
+        raise CLIError("Failed to open web browser, due to unrecognized url in response.")
 
 
 # capability keys
