@@ -144,7 +144,7 @@ def resolve_instance_project_and_repo(detect, team_instance, project=None, proje
             team_instance = _resolve_instance_from_config(team_instance)
         if project is None:
             project = _resolve_project_from_config(project, project_required)
-    if project is None:
+    if project_required and project is None:
         _raise_team_project_arg_error()
     return team_instance, project, repo
 
