@@ -246,6 +246,7 @@ def query_work_items(wiql, team_instance=None, detect=None):
         wiql_object.query = wiql
         query_result = client.query_by_wiql(wiql=wiql_object)
         if query_result.work_items:
+            _last_query_result[_LAST_QUERY_RESULT_KEY] = query_result  # store query result for table view
             safety_buffer = 100  # a buffer in the max url length to protect going over the limit
             remaining_url_length = 2048 - safety_buffer
             remaining_url_length -= len(team_instance)
@@ -295,9 +296,32 @@ def query_work_items(wiql, team_instance=None, detect=None):
                                                               fields=fields)
                 for work_item in current_batched_items:
                     work_items.append(work_item)
+            # put items in the same order they appeared in the initial query results
+            work_items = sorted(work_items, key=_get_sort_key_from_last_query_results)
             return work_items
     except Exception as ex:
         handle_command_exception(ex)
+
+
+def _get_sort_key_from_last_query_results(work_item):
+    work_items = get_last_query_result().work_items
+    i = 0
+    num_items = len(work_items)
+    while i < num_items:
+        if work_items[i].id == work_item.id:
+            return i
+        i += 1
+    # following lines should never be reached
+    raise CLIError("Work Item {} was not found in the original query results.".format(work_item.id))
+
+
+_last_query_result = {}
+_LAST_QUERY_RESULT_KEY = 'value'
+
+
+def get_last_query_result():
+    if _LAST_QUERY_RESULT_KEY in _last_query_result:
+        return _last_query_result[_LAST_QUERY_RESULT_KEY]
 
 
 def _open_work_item(work_item, team_instance):
