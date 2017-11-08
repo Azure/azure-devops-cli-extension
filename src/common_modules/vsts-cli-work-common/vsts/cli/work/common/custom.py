@@ -227,24 +227,43 @@ def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=
         handle_command_exception(ex)
 
 
-def query_work_items(wiql, team_instance=None, detect=None):
+def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, project=None, detect=None):
     """Show details for a work item.
-    :param wiql:
+    :param wiql: The query in Work Item Query Language format.  Ignored of --id or --path is specified.
     :type wiql: str
+    :param query_id: The UUID of an existing query.  Required unless--path or --wiql are specified.
+    :type query_id: str
+    :param path: The path of an existing query.  Ignored if --id is specified.
+    :type path: str
     :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
                           collection.
     :type team_instance: str
+    :param project: Name or ID of the team project.
+    :type project: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:
-        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        if wiql is None and path is None and query_id is None:
+            raise CLIError("Either the --wiql, --id, or --name argument must be specified.")
+        team_instance, project = resolve_instance_and_project(detect=detect,
+                                                              team_instance=team_instance,
+                                                              project=project,
+                                                              project_required=False)
         client = get_work_item_tracking_client(team_instance)
-        wiql_object = Wiql()
-        wiql_object.query = wiql
-        query_result = client.query_by_wiql(wiql=wiql_object)
+        if query_id is None and path is not None:
+            if project is None:
+                raise CLIError("The --project argument must be specified for this query.")
+            query = client.get_query(project=project, query=path)
+            query_id = query.id
+        if query_id is not None:
+            query_result = client.query_by_id(id=query_id)
+        else:
+            wiql_object = Wiql()
+            wiql_object.query = wiql
+            query_result = client.query_by_wiql(wiql=wiql_object)
         if query_result.work_items:
             _last_query_result[_LAST_QUERY_RESULT_KEY] = query_result  # store query result for table view
             safety_buffer = 100  # a buffer in the max url length to protect going over the limit
