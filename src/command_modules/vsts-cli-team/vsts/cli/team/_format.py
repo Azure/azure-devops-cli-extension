@@ -45,4 +45,4 @@ def _transform_project_row(row):
 
 
 def _get_project_key(project_row):
-    return project_row['name']
+    return project_row['name'].lower()
