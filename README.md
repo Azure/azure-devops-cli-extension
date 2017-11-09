@@ -8,7 +8,7 @@ We're excited to introduce *VSTS CLI*, a new command line interface for Visual S
 VSTS CLI is also supported on Team Foundatio Server 2017 update 2 and later.
 
 # Features
-A robust set of commands to work with and manage builds, code repositories, and work items in your Visual Studio Team Services account. 
+A robust set of commands to work with and manage builds, code repositories, projects and work items in your Visual Studio Team Services account. This set of commands will continue to grow over time.
 
 ## Installation
 
@@ -27,10 +27,7 @@ vsts code -h
 
 ### Highlights
 
-Here is a feature that can help you get the most out of the VSTS CLI 
-
-The following example shows using the `--output table` format command. You can change your default settings using the `vsts configure` command.
-
+Here are some feature that can help you get the most out of the VSTS CLI 
 
 #### Query
 
@@ -44,6 +41,19 @@ Result
 Fabrikam Fiber
 ```
 
+#### Default settinngs
+
+You can change your default settings using the `vsts configure` command.
+
+```bash
+What default output format would you like?
+ [1] json - JSON formatted output that most closely matches API responses
+ [2] jsonc - Colored JSON formatted output that most closely matches API responses
+ [3] table - Human-readable output format
+ [4] tsv - Tab and Newline delimited, great for GREP, AWK, etc.
+Please enter a choice [1]: 
+```
+
 #### More Samples and Snippets
 For more usage examples, take a look at our [documentation](https://aka.ms/vsts-cli-docs-overview).
 
@@ -51,7 +61,7 @@ For more usage examples, take a look at our [documentation](https://aka.ms/vsts-
 
 If you encounter any bugs with the tool please report an issue on the [VSTS Developer Community](https://developercommunity.visualstudio.com/spaces/21/index.html?page=1&pageSize=15&sort=votes) using the vsts-cli tag.
 
-To provide feedback from the command line, try the `vsts feedback` command.
+To find where to provide feedback from the command line, use the `vsts feedback` command.
 
 ## Developer Installation
 
