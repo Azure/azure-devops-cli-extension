@@ -5,7 +5,7 @@
 
 We're excited to introduce *VSTS CLI*, a new command line interface for Visual Studio Team Services. VSTS CLI is currently in preview and we are working towards making this feature Generally Available. 
 
-VSTS CLI is supported on Team Foundatio Server 2017 update 2 and later.
+VSTS CLI is also supported on Team Foundatio Server 2017 update 2 and later.
 
 # Features
 A robust set of commands to work with and manage builds, code repositories, and work items in your Visual Studio Team Services account. 
