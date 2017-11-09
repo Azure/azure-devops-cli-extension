@@ -3,7 +3,9 @@
 
 # Microsoft VSTS CLI 
 
-We're excited to introduce *VSTS CLI*, a new command line interface for Visual Studio Team Services. VSTS CLI is currently in preview. 
+We're excited to introduce *VSTS CLI*, a new command line interface for Visual Studio Team Services. VSTS CLI is currently in preview and we are working towards making this feature Generally Available. 
+
+VSTS CLI is supported on Team Foundatio Server 2017 update 2 and later.
 
 # Features
 A robust set of commands to work with and manage builds, code repositories, and work items in your Visual Studio Team Services account. 
@@ -25,11 +27,9 @@ vsts code -h
 
 ### Highlights
 
-Here are a few features and concepts that can help you get the most out of the Azure CLI 2.0
+Here is a feature that can help you get the most out of the VSTS CLI 
 
-![Azure CLI 2.0 Highlight Reel](doc/assets/AzBlogAnimation4.gif)
-
-The following examples are showing using the `--output table` format, you can change your default using the `vsts configure` command.
+The following example shows using the `--output table` format command. You can change your default settings using the `vsts configure` command.
 
 
 #### Query
