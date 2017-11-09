@@ -8,6 +8,8 @@ from knack.arguments import ArgumentsContext, enum_choice_list
 
 # CUSTOM CHOICE LISTS
 _on_off_switch_values = ['on', 'off']
+_yes_no_switch_values = ['yes', 'no']
+_output_options = ['json', 'jsonc', 'table', 'tsv']
 _source_control_values = ['git', 'tfvc']
 _state_values = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting', 'createpending']
 
@@ -30,3 +32,9 @@ def load_team_arguments(cli_command_loader):
         ac.argument('detect', **enum_choice_list(_on_off_switch_values))
         ac.argument('state', **enum_choice_list(_state_values))
         ac.argument('project_id', options_list='--id')
+    with ArgumentsContext(cli_command_loader, 'configure') as ac:
+        ac.argument('collect_telemetry', **enum_choice_list(_yes_no_switch_values))
+        ac.argument('enable_log_file', **enum_choice_list(_yes_no_switch_values))
+        ac.argument('use_git_aliases', **enum_choice_list(_yes_no_switch_values))
+        ac.argument('default_output', **enum_choice_list(_output_options))
+        ac.argument('list_config', options_list=('--list', '-l'))

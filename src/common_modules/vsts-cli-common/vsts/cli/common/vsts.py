@@ -39,7 +39,6 @@ def get_vss_connection(team_instance):
                 _try_send_tracking_ci_event_async(team_instance)
             else:
                 logging.debug('Telemetry disabled.')
-            # _vss_connection[team_instance].authenticate()
         except Exception as ex:
             logging.exception(str(ex))
             raise CLIError(ex)
