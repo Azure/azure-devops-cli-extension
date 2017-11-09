@@ -3,16 +3,21 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import logging
+import urllib
+import webbrowser
 
 from knack.util import CLIError
 from vsts.core.v4_0.models.team_project import TeamProject
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.operations import wait_for_long_running_operation
-from vsts.cli.common.vsts import (get_core_client,
+from vsts.cli.common.vsts import (get_base_url,
+                                  get_core_client,
                                   resolve_instance)
 
 
-def create_project(name, team_instance=None, process=None, source_control='git', description=None, detect=None):
+def create_project(name, team_instance=None, process=None, source_control='git', description=None, detect=None,
+                   open_browser=False):
     """Create a team project.
     :param name: Name of the new project.
     :type name: str
@@ -29,6 +34,8 @@ def create_project(name, team_instance=None, process=None, source_control='git',
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
+    :param open_browser: Open the team project in the default web browser.
+    :type open_browser: bool
     :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
     try:
@@ -78,12 +85,14 @@ def create_project(name, team_instance=None, process=None, source_control='git',
             raise CLIError('Project creation was cancelled.')
 
         team_project = core_client.get_project(project_id=name, include_capabilities=True)
+        if open_browser:
+            _open_project(team_project)
         return team_project
     except Exception as ex:
         handle_command_exception(ex)
 
 
-def show_project(project_id=None, name=None, team_instance=None, detect=None):
+def show_project(project_id=None, name=None, team_instance=None, detect=None, open_browser=False):
     """Get project with the specified id or name.
     :param project_id: The id (UUID) of the project to show. Required if the --name argument is not specified.
     :type project_id: str
@@ -95,6 +104,8 @@ def show_project(project_id=None, name=None, team_instance=None, detect=None):
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
+    :param open_browser: Open the team project in the default web browser.
+    :type open_browser: bool
     :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
     try:
@@ -107,6 +118,8 @@ def show_project(project_id=None, name=None, team_instance=None, detect=None):
         team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         core_client = get_core_client(team_instance)
         team_project = core_client.get_project(project_id=identifier, include_capabilities=True)
+        if open_browser:
+            _open_project(team_project)
         return team_project
     except Exception as ex:
         handle_command_exception(ex)
@@ -133,6 +146,19 @@ def list_projects(team_instance=None, top=None, skip=None, detect=None):
         return team_projects
     except Exception as ex:
         handle_command_exception(ex)
+
+
+def _open_project(project):
+    """Opens the project in the default browser.
+    """
+    api_segment = '/_apis/'
+    pos = project.url.find(api_segment)
+    if pos >= 0:
+        url = project.url[:pos + 1] + urllib.parse.quote(project.name)
+        logging.debug('Opening web page: %s', url)
+        webbrowser.open_new(url=url)
+    else:
+        raise CLIError("Failed to open web browser, due to unrecognized url in response.")
 
 
 # capability keys

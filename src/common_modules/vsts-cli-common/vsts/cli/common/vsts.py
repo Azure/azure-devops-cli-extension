@@ -144,7 +144,7 @@ def resolve_instance_project_and_repo(detect, team_instance, project=None, proje
             team_instance = _resolve_instance_from_config(team_instance)
         if project is None:
             project = _resolve_project_from_config(project, project_required)
-    if project is None:
+    if project_required and project is None:
         _raise_team_project_arg_error()
     return team_instance, project, repo
 
@@ -204,7 +204,7 @@ def set_tracking_data(argv):
                 args = []
                 command_populated = False
                 for arg in argv[1:]:
-                    if arg is not None and argv:
+                    if arg is not None and argv and len(arg) > 0:
                         if not command_populated and arg[0] != '-':
                             command.append(arg)
                         elif arg[0] == '-':

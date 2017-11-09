@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from collections import OrderedDict
+from vsts.cli.work.common.custom import get_last_query_result
 
 _work_item_title_truncation_length = 70
 
@@ -49,4 +50,32 @@ def _transform_work_items_row(row):
         table_row['Title'] = ' '
         table_row['Assigned To'] = ' '
         table_row['State'] = ' '
+    return table_row
+
+
+def transform_work_item_query_result_table_output(result):
+    table_output = []
+    for item in result:
+        if 'fields' in item:
+            table_output.append(transform_work_item_query_result_row_output(item['fields']))
+    return table_output
+
+
+def transform_work_item_query_result_row_output(row):
+    table_row = OrderedDict()
+    max_columns = 5
+    i = 0
+    for field_reference in get_last_query_result().columns:
+        if field_reference.reference_name in row:
+            if row[field_reference.reference_name] == 0:
+                # knack hides column values that are equal to numeric 0.
+                table_row[field_reference.name] = '0'
+            else:
+                table_row[field_reference.name] = row[field_reference.reference_name]
+        else:
+            table_row[field_reference.name] = ' '
+        i += 1
+        if i >= max_columns:
+            # limit number of columns in table view
+            break
     return table_row

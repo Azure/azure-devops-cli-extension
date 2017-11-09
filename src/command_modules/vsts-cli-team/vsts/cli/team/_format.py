@@ -14,7 +14,7 @@ from vsts.cli.team.common.project import (PROCESS_TEMPLATE_CAPABILITY_NAME,
 
 def transform_projects_table_output(result):
     table_output = []
-    for item in result:
+    for item in sorted(result, key=_get_project_key):
         table_output.append(_transform_project_row(item))
     return table_output
 
@@ -42,3 +42,7 @@ def _transform_project_row(row):
                 table_row['Source Control'] = version_capabilities[VERSION_CONTROL_CAPABILITY_ATTRIBUTE_NAME]
 
     return table_row
+
+
+def _get_project_key(project_row):
+    return project_row['name']

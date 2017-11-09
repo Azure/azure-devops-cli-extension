@@ -50,3 +50,6 @@ def load_code_arguments(cli_command_loader):
 
     with ArgumentsContext(cli_command_loader, 'code pr set-vote') as ac:
         ac.argument('vote', **enum_choice_list(_vote_values))
+
+    with ArgumentsContext(cli_command_loader, 'code repo') as ac:
+        ac.argument('repo_id', options_list='--id')

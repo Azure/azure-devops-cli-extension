@@ -227,3 +227,28 @@ def _convert_policy_status(status):
         return ' '
     else:
         return status.capitalize()
+
+
+def transform_repos_table_output(result):
+    table_output = []
+    for item in sorted(result, key=_get_repo_key):
+        table_output.append(_transform_repo_row(item))
+    return table_output
+
+
+def transform_repo_table_output(result):
+    table_output = [_transform_repo_row(result)]
+    return table_output
+
+
+def _transform_repo_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Name'] = row['name']
+    table_row['Default Branch'] = row['defaultBranch']
+    table_row['Is fork'] = row['isFork']
+    return table_row
+
+
+def _get_repo_key(repo_row):
+    return repo_row['name']

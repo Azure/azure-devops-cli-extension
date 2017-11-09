@@ -10,6 +10,7 @@ import webbrowser
 from knack.util import CLIError
 from vsts.exceptions import VstsServiceError
 from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
+from vsts.work_item_tracking.v4_0.models.wiql import Wiql
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.identities import resolve_identity_as_display_name
 from vsts.cli.common.vsts import (get_base_url,
@@ -68,7 +69,10 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Description', description))
         if assigned_to is not None:
             # 'assigned to' does not take an identity id.  Display name works.
-            resolved_assigned_to = resolve_identity_as_display_name(assigned_to, team_instance)
+            if assigned_to == '':
+                resolved_assigned_to = ''
+            else:
+                resolved_assigned_to = resolve_identity_as_display_name(assigned_to, team_instance)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
@@ -143,7 +147,10 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Description', description))
         if assigned_to is not None:
             # 'assigned to' does not take an identity id.  Display name works.
-            resolved_assigned_to = resolve_identity_as_display_name(assigned_to, team_instance)
+            if assigned_to == '':
+                resolved_assigned_to = ''
+            else:
+                resolved_assigned_to = resolve_identity_as_display_name(assigned_to, team_instance)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
@@ -220,14 +227,131 @@ def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=
         handle_command_exception(ex)
 
 
+def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, project=None, detect=None):
+    """Show details for a work item.
+    :param wiql: The query in Work Item Query Language format.  Ignored of --id or --path is specified.
+    :type wiql: str
+    :param query_id: The UUID of an existing query.  Required unless--path or --wiql are specified.
+    :type query_id: str
+    :param path: The path of an existing query.  Ignored if --id is specified.
+    :type path: str
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
+    :type team_instance: str
+    :param project: Name or ID of the team project.
+    :type project: str
+    :param detect: When 'On' unsupplied arg values will be detected from the current working
+                   directory's repo.
+    :type detect: str
+    :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
+    """
+    try:
+        if wiql is None and path is None and query_id is None:
+            raise CLIError("Either the --wiql, --id, or --name argument must be specified.")
+        team_instance, project = resolve_instance_and_project(detect=detect,
+                                                              team_instance=team_instance,
+                                                              project=project,
+                                                              project_required=False)
+        client = get_work_item_tracking_client(team_instance)
+        if query_id is None and path is not None:
+            if project is None:
+                raise CLIError("The --project argument must be specified for this query.")
+            query = client.get_query(project=project, query=path)
+            query_id = query.id
+        if query_id is not None:
+            query_result = client.query_by_id(id=query_id)
+        else:
+            wiql_object = Wiql()
+            wiql_object.query = wiql
+            query_result = client.query_by_wiql(wiql=wiql_object)
+        if query_result.work_items:
+            _last_query_result[_LAST_QUERY_RESULT_KEY] = query_result  # store query result for table view
+            safety_buffer = 100  # a buffer in the max url length to protect going over the limit
+            remaining_url_length = 2048 - safety_buffer
+            remaining_url_length -= len(team_instance)
+            # following subtracts relative url, the asof parameter and beginning of id and field parameters.
+            # asof value length will vary, but this should be the longest possible
+            remaining_url_length -=\
+                len('/_apis/wit/workItems?ids=&fields=&asOf=2017-11-07T17%3A05%3A34.06699999999999999Z')
+            fields = []
+            fields_length_in_url = 0
+            if query_result.columns:
+                for field_ref in query_result.columns:
+                    fields.append(field_ref.reference_name)
+                    if fields_length_in_url > 0:
+                        fields_length_in_url += 3  # add 3 for %2C delimiter
+                    fields_length_in_url += len(urllib.parse.quote(field_ref.reference_name))
+                    if fields_length_in_url > 800:
+                        logging.info("Not retrieving all fields due to max url length.")
+                        break
+            remaining_url_length -= fields_length_in_url
+            max_work_items = 1000
+            current_batch = []
+            work_items = []
+            work_item_url_length = 0
+            for work_item_ref in query_result.work_items:
+                if len(work_items) >= max_work_items:
+                    logging.info("Only retrieving the first %s work items.", max_work_items)
+                    break
+                if work_item_url_length > 0:
+                    work_item_url_length += 3  # add 3 for %2C delimiter
+                work_item_url_length += len(str(work_item_ref.id))
+                current_batch.append(work_item_ref.id)
+
+                if remaining_url_length - work_item_url_length <= 0:
+                    # url is near max length, go ahead and send first request for details.
+                    # url can go over by an id length because we have a safety buffer
+                    current_batched_items = client.get_work_items(ids=current_batch,
+                                                                  as_of=query_result.as_of,
+                                                                  fields=fields)
+                    for work_item in current_batched_items:
+                        work_items.append(work_item)
+                    current_batch = []
+                    work_item_url_length = 0
+
+            if len(current_batch) > 0:
+                current_batched_items = client.get_work_items(ids=current_batch,
+                                                              as_of=query_result.as_of,
+                                                              fields=fields)
+                for work_item in current_batched_items:
+                    work_items.append(work_item)
+            # put items in the same order they appeared in the initial query results
+            work_items = sorted(work_items, key=_get_sort_key_from_last_query_results)
+            return work_items
+    except Exception as ex:
+        handle_command_exception(ex)
+
+
+def _get_sort_key_from_last_query_results(work_item):
+    work_items = get_last_query_result().work_items
+    i = 0
+    num_items = len(work_items)
+    while i < num_items:
+        if work_items[i].id == work_item.id:
+            return i
+        i += 1
+    # following lines should never be reached
+    raise CLIError("Work Item {} was not found in the original query results.".format(work_item.id))
+
+
+_last_query_result = {}
+_LAST_QUERY_RESULT_KEY = 'value'
+
+
+def get_last_query_result():
+    if _LAST_QUERY_RESULT_KEY in _last_query_result:
+        return _last_query_result[_LAST_QUERY_RESULT_KEY]
+
+
 def _open_work_item(work_item, team_instance):
     """Opens the work item in the default browser.
     :param work_item: The work item to open.
     :type work_item: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     project = work_item.fields['System.TeamProject']
-    url = urllib.parse.urljoin(get_base_url(team_instance), urllib.parse.quote(project) + '/_workitems?id='
-                               + urllib.parse.quote(str(work_item.id)))
+    url = team_instance.rstrip('/') + '/' + urllib.parse.quote(project) + '/_workitems?id='\
+        + urllib.parse.quote(str(work_item.id))
+    logging.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)
 
 
