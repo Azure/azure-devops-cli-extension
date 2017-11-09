@@ -10,8 +10,10 @@ from knack.config import CLIConfig, get_config_parser
 
 
 CONFIG_FILE_NAME = 'config'
-ENV_VAR_PREFIX = 'VSTSCLI_'
+ENV_VAR_PREFIX = 'VSTS_CLI_'
+CORE_SECTION = 'core'
 DEFAULTS_SECTION = 'defaults'
+LOGGING_SECTION = 'logging'
 
 _UNSET = object()
 _ENV_VAR_FORMAT = ENV_VAR_PREFIX + '{section}_{option}'
@@ -55,5 +57,11 @@ def set_global_config_value(section, option, value):
         config.add_section(section)
     except configparser.DuplicateSectionError:
         pass
-    config.set(section, option, value)
+    config.set(section, option, _normalize_config_value(value))
     set_global_config(config)
+
+
+def _normalize_config_value(value):
+    if value:
+        value = '' if value in ["''", '""'] else value
+    return value

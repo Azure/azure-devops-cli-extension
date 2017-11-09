@@ -9,9 +9,8 @@ from __future__ import print_function
 import logging
 import os
 
+from .config import GLOBAL_CONFIG_PATH, ENV_VAR_PREFIX, set_global_config
 from six.moves import configparser
-from .config import (GLOBAL_CONFIG_PATH, ENV_VAR_PREFIX, set_global_config,
-                     set_global_config_value, DEFAULTS_SECTION)
 from knack.config import get_config_parser
 from knack.util import CLIError
 from knack.prompting import prompt_y_n, prompt_choice_list, NoTTYException
@@ -19,8 +18,10 @@ from knack.prompting import prompt_y_n, prompt_choice_list, NoTTYException
 answers = {}
 
 
-def _print_cur_configuration(file_config):
-    print(MSG_HEADING_CURRENT_CONFIG_INFO)
+def print_current_configuration(file_config=None):
+    if file_config is None:
+        file_config = get_config_parser()
+        file_config.read([GLOBAL_CONFIG_PATH])
     for section in file_config.sections():
         print()
         print('[{}]'.format(section))
@@ -43,7 +44,8 @@ def _handle_global_configuration():
     should_modify_global_config = False
     if config_exists:
         # print current config and prompt to allow global config modification
-        _print_cur_configuration(file_config)
+        print(MSG_HEADING_CURRENT_CONFIG_INFO)
+        print_current_configuration(file_config)
         should_modify_global_config = prompt_y_n(MSG_PROMPT_MANAGE_GLOBAL, default='n')
         answers['modify_global_prompt'] = should_modify_global_config
     if not config_exists or should_modify_global_config:
@@ -60,10 +62,6 @@ def _handle_global_configuration():
                 setup_aliases = prompt_y_n(MSG_PROMPT_GIT_ALIAS, default='n')
                 if setup_aliases:
                     setup_git_aliases()
-            else:
-                clear_aliases = prompt_y_n(MSG_PROMPT_CLEAR_GIT_ALIAS, default='n')
-                if clear_aliases:
-                    clear_git_aliases()
         except ModuleNotFoundError:
             logging.debug('Skipping git alias configuration, because module was not found.')
         enable_file_logging = prompt_y_n(MSG_PROMPT_FILE_LOGGING, default='n')
@@ -84,16 +82,7 @@ def _handle_global_configuration():
         set_global_config(global_config)
 
 
-def handle_configure(defaults=None):
-    if defaults:
-        for default in defaults:
-            parts = default.split('=', 1)
-            if len(parts) == 1:
-                raise CLIError('usage error: --defaults STRING=STRING STRING=STRING ...')
-            set_global_config_value(DEFAULTS_SECTION, parts[0], _normalize_config_value(parts[1]))
-        return
-
-    # if nothing supplied, we go interactively
+def interactive_configure():
     try:
         print(MSG_INTRO)
         _handle_global_configuration()
@@ -102,12 +91,6 @@ def handle_configure(defaults=None):
         raise CLIError('This command is interactive and no tty available.')
     except (EOFError, KeyboardInterrupt):
         print()
-
-
-def _normalize_config_value(value):
-    if value:
-        value = '' if value in ["''", '""'] else value
-    return value
 
 
 def get_default_from_config(config, section, option, choice_list, fallback=1):
@@ -141,7 +124,6 @@ MSG_HEADING_ENV_VARS = '\nEnvironment variables:'
 
 MSG_PROMPT_MANAGE_GLOBAL = '\nDo you wish to change your settings?'
 MSG_PROMPT_GLOBAL_OUTPUT = '\nWhat default output format would you like?'
-MSG_PROMPT_LOGIN = '\nHow would you like to log in to access your subscriptions?'
 MSG_PROMPT_TELEMETRY = '\nMicrosoft would like to collect anonymous VSTS CLI usage data to ' \
                        'improve our CLI.  Participation is voluntary and when you choose to ' \
                        'participate, your device automatically sends information to Microsoft ' \
