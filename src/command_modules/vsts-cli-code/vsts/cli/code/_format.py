@@ -60,7 +60,7 @@ def _get_reviewer_table_key(row):
         key = '0'
     else:
         key = '1'
-    key += row['displayName']
+    key += row['displayName'].lower()
     return key
 
 
@@ -178,7 +178,7 @@ def _get_policy_table_key(row):
         key = '0'
     else:
         key = '1'
-    key += row['Policy']
+    key += row['Policy'].lower()
     return key
 
 
