@@ -155,10 +155,13 @@ def install_cli(install_dir, tmp_dir):
     exec_command(fixupcmd)
 
 def create_executable(exec_dir, install_dir):
+    actual_exec_filepath = os.path.join(install_dir, 'bin', EXECUTABLE_NAME)
+
     create_dir(exec_dir)
     exec_filepath = os.path.join(exec_dir, EXECUTABLE_NAME)
-    with open(exec_filepath, 'w') as exec_file:
-        exec_file.write(CLI_DISPATCH_TEMPLATE.format(install_dir=install_dir))
+
+    os.symlink(actual_exec_filepath, exec_filepath)
+
     cur_stat = os.stat(exec_filepath)
     os.chmod(exec_filepath, cur_stat.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
     print_status("The executable is available at '{}'.".format(exec_filepath))
@@ -365,16 +368,13 @@ def main():
     verify_install_dir_exec_path_conflict(install_dir, exec_path)
     create_virtualenv(tmp_dir, install_dir)
     install_cli(install_dir, tmp_dir)
-    #exec_filepath = create_executable(exec_dir, install_dir)
-
-    exec_filepath = "vsts"
-
+    exec_filepath = create_executable(exec_dir, install_dir)
     completion_file_path = os.path.join(install_dir, COMPLETION_FILENAME)
     create_tab_completion_file(completion_file_path)
-    #try:
-    #   handle_path_and_tab_completion(completion_file_path, exec_filepath, exec_dir)
-    #except Exception as e:
-    #    print_status("Unable to set up tab completion. ERROR: {}".format(str(e)))
+    try:
+       handle_path_and_tab_completion(completion_file_path, exec_filepath, exec_dir)
+    except Exception as e:
+        print_status("Unable to set up tab completion. ERROR: {}".format(str(e)))
     
     shutil.rmtree(tmp_dir)
     

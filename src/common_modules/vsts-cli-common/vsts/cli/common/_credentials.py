@@ -8,7 +8,10 @@ import os
 import keyring
 
 from knack.util import CLIError
-from urllib.parse import urlparse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+     from urlparse import urlparse
 from vsts._file_cache import get_cache
 
 

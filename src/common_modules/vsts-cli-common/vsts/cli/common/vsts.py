@@ -9,7 +9,10 @@ import os
 import threading
 
 from collections import OrderedDict
-from urllib.parse import urlparse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+     from urlparse import urlparse
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from msrest.serialization import Model

@@ -3,6 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from __future__ import print_function
+
 from .vsts_cli_help import VstsCLIHelp
 from .vsts_commands_loader import VstsCommandsLoader
 from knack import CLI

@@ -6,7 +6,10 @@
 import logging
 import subprocess
 import sys
-import urllib.parse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+     from urlparse import urlparse
 
 
 try:
@@ -63,7 +66,7 @@ def get_remote_url(validation_function=None):
 
 
 def get_git_credentials(team_instance):
-    parse_result = urllib.parse.urlparse(team_instance)
+    parse_result = urlparse(team_instance)
     protocol = parse_result.scheme
     host = parse_result.netloc
     standard_in = bytes('protocol={protocol}\nhost={host}'.format(protocol=protocol, host=host), 'utf-8')
