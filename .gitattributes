@@ -15,3 +15,4 @@
 # Shell scripts
 *.sh eol=lf
 *.completion eol=lf
+install eol=lf

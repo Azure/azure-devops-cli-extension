@@ -34,6 +34,11 @@ setup(
     keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI"],
     install_requires=REQUIRES,
     packages=find_packages(),
+    entry_points={
+        'console_scripts': [
+            'vsts = vsts.cli.__main__:main'
+        ]
+    },
     include_package_data=True,
     long_description="""\
     """
