@@ -23,6 +23,22 @@ def set_config(key, value, local=True):
     subprocess.check_output(['git', 'config', scope, key, value])
 
 
+def unset_config(key, local=True):
+    if local:
+        scope = '--local'
+    else:
+        scope = '--global'
+    subprocess.check_output(['git', 'config', scope, '--unset', key])
+
+
+def get_config(key, local=True):
+    if local:
+        scope = '--local'
+    else:
+        scope = '--global'
+    return subprocess.check_output(['git', 'config', scope, key])
+
+
 def get_current_branch_name():
     try:
         output = subprocess.check_output(['git', 'symbolic-ref', '--short', '-q', 'HEAD'])
@@ -102,11 +118,34 @@ def resolve_git_ref_heads(ref):
 
 def setup_git_alias(alias, command, local=False):
     try:
-        set_config(key='alias.' + alias,
-                   value='!f() { exec vsts.cmd '
-                   + command + ' \"$@\"; }; f', local=local)
+        set_config(key=_get_alias_key(alias),
+                   value=_get_alias_value(command),
+                   local=local)
     except OSError:
         raise CLIError('Setting the git alias failed. Ensure git is installed and in your path.')
+
+
+def clear_git_alias(alias, local=False):
+    unset_config(key=_get_alias_key(alias), local=local)
+
+
+def is_git_alias_setup(alias, command, local=False):
+    try:
+        try:
+            value = get_config(key=_get_alias_key(alias), local=local)
+        except subprocess.CalledProcessError:
+            return False
+        return _get_alias_value(command) == value.decode(sys.stdout.encoding).strip()
+    except OSError:
+        raise CLIError('Checking the git config values failed. Ensure git is installed and in your path.')
+
+
+def _get_alias_key(alias):
+    return 'alias.' + alias
+
+
+def _get_alias_value(command):
+    return '!f() { exec vsts.cmd ' + command + ' \"$@\"; }; f'
 
 
 _git_remotes = {}

@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from vsts.cli.common.git import setup_git_alias
+from vsts.cli.common.git import is_git_alias_setup, setup_git_alias, clear_git_alias
 
 
 def setup_git_aliases(local=False):
@@ -11,5 +11,30 @@ def setup_git_aliases(local=False):
     :param local: Sets the alias in the local git config rather than the global config.
     :type local: bool
     """
-    setup_git_alias('pr', 'code pr', local=local)
-    setup_git_alias('repo', 'code repo', local=local)
+    for key in git_aliases:
+        setup_git_alias(key, git_aliases[key], local=local)
+
+
+def clear_git_aliases(local=False):
+    """
+    :param local: Checks the alias in the local git config rather than the global config.
+    :type local: bool
+    """
+    for key in git_aliases:
+        if is_git_alias_setup(key, git_aliases[key], local=local):
+            clear_git_alias(alias=key, local=local)
+
+
+def are_git_aliases_setup(local=False):
+    """
+    :param local: Checks the alias in the local git config rather than the global config.
+    :type local: bool
+    """
+    for key in git_aliases:
+        if not is_git_alias_setup(key, git_aliases[key], local=local):
+            return False
+    return True
+
+
+git_aliases = {'pr': 'code pr',
+               'repo': 'code repo'}

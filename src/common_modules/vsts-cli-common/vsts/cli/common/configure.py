@@ -3,11 +3,13 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+
 from __future__ import print_function
+
+import logging
 import os
+
 from six.moves import configparser
-
-
 from .config import (GLOBAL_CONFIG_PATH, ENV_VAR_PREFIX, set_global_config,
                      set_global_config_value, DEFAULTS_SECTION)
 from knack.config import get_config_parser
@@ -52,6 +54,18 @@ def _handle_global_configuration():
                                                                           OUTPUT_LIST))
         answers['output_type_prompt'] = output_index
         answers['output_type_options'] = str(OUTPUT_LIST)
+        try:
+            from vsts.cli.code.common.git_alias import setup_git_aliases, are_git_aliases_setup, clear_git_aliases
+            if not are_git_aliases_setup():
+                setup_aliases = prompt_y_n(MSG_PROMPT_GIT_ALIAS, default='n')
+                if setup_aliases:
+                    setup_git_aliases()
+            else:
+                clear_aliases = prompt_y_n(MSG_PROMPT_CLEAR_GIT_ALIAS, default='n')
+                if clear_aliases:
+                    clear_git_aliases()
+        except ModuleNotFoundError:
+            logging.debug('Skipping git alias configuration, because module was not found.')
         enable_file_logging = prompt_y_n(MSG_PROMPT_FILE_LOGGING, default='n')
         allow_telemetry = prompt_y_n(MSG_PROMPT_TELEMETRY, default='y')
         answers['telemetry_prompt'] = allow_telemetry
@@ -134,4 +148,6 @@ MSG_PROMPT_TELEMETRY = '\nMicrosoft would like to collect anonymous VSTS CLI usa
                        'about how you use the VSTS CLI.  The data is anonymous and does not ' \
                        'include commandline argument values.  To update your choice, run "vsts ' \
                        'configure" again.\nSelect y to enable data collection.'
+MSG_PROMPT_GIT_ALIAS = '\nConfigure aliases for Git (to enable commands like "git pr list")?'
+MSG_PROMPT_CLEAR_GIT_ALIAS = '\nGit aliases are configured, would you like to clear them?'
 MSG_PROMPT_FILE_LOGGING = '\nWould you like to enable logging to file?'
