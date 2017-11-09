@@ -4,8 +4,8 @@
 # Except for src
 !src
 
-# Make an exception for tab completion vsts script
-!vsts.completion
+# Except for tab completion
+!scripts/vsts.completion
 
 # Make an exception for the license file
 !LICENSE

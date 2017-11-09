@@ -54,7 +54,7 @@ RUN pip install \
 RUN pip install --no-cache-dir keyrings.alt
 
 # setup tab completion
-RUN cat /vsts-cli/vsts.completion > ~/.bashrc
+RUN cat /vsts-cli/scripts/vsts.completion > ~/.bashrc
 
 WORKDIR /
 

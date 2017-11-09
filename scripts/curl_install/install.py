@@ -39,7 +39,7 @@ except NameError:
     pass
 
 
-CLI_PACKAGE = 'vsts-name'
+CLI_PACKAGE = 'vsts-cli'
 CLI_MODULE = 'vsts.cli'
 CLI_SHORT_NAME = 'vsts'
 EXECUTABLE_NAME = CLI_SHORT_NAME
@@ -365,14 +365,19 @@ def main():
     verify_install_dir_exec_path_conflict(install_dir, exec_path)
     create_virtualenv(tmp_dir, install_dir)
     install_cli(install_dir, tmp_dir)
-    exec_filepath = create_executable(exec_dir, install_dir)
+    #exec_filepath = create_executable(exec_dir, install_dir)
+
+    exec_filepath = "vsts"
+
     completion_file_path = os.path.join(install_dir, COMPLETION_FILENAME)
     create_tab_completion_file(completion_file_path)
-    try:
-        handle_path_and_tab_completion(completion_file_path, exec_filepath, exec_dir)
-    except Exception as e:
-        print_status("Unable to set up tab completion. ERROR: {}".format(str(e)))
+    #try:
+    #   handle_path_and_tab_completion(completion_file_path, exec_filepath, exec_dir)
+    #except Exception as e:
+    #    print_status("Unable to set up tab completion. ERROR: {}".format(str(e)))
+    
     shutil.rmtree(tmp_dir)
+    
     print_status("Installation successful.")
     print_status("Run the CLI with {} --help".format(exec_filepath))
 
