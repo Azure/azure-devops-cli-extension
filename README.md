@@ -1,21 +1,17 @@
-# Microsoft VSTS CLI 1.0 (Preview)
+# Microsoft VSTS CLI 
 
-[![Python](https://img.shields.io/pypi/pyversions/azure-cli.svg?maxAge=2592000)](https://pypi.python.org/pypi/azure-cli)
-[![Travis](https://travis-ci.org/Azure/azure-cli.svg?branch=master)](https://travis-ci.org/Azure/azure-cli)
-
-
-We're excited to introduce *VSTS CLI 1.0*, a new command line interface for Visual Studio Team Services.
+We're excited to introduce *VSTS CLI*, a new command line interface for Visual Studio Team Services. VSTS CLI is currently in preview. 
 
 # Features
 A robust set of commands to work with and manage builds, code repositories, and work items in your Visual Studio Team Services account. 
 
 ## Installation
 
-Please refer to the [install guide](https://docs.microsoft.com/en-us/cli/vsts/install) for detailed install instructions.
+Please refer to the [install guide](https://aka.ms/vsts-cli-docs-install) for detailed install instructions.
 
 ### Get Started
 
-Please refer to the ["get started" guide](https://docs.microsoft.com/en-us/cli/vsts/get-started) for in-depth instructions.
+Please refer to the ["get started" guide](https://aka.ms/vsts-cli-docs-getstarted) for in-depth instructions.
 
 For help content, pass in the `-h` parameter, for example:
 
@@ -46,7 +42,7 @@ Fabrikam Fiber
 ```
 
 #### More Samples and Snippets
-For more usage examples, take a look at our [documentation](https://docs.microsoft.com/en-us/cli/vsts/overview).
+For more usage examples, take a look at our [documentation](https://aka.ms/vsts-cli-docs-overview).
 
 ## Reporting issues and feedback
 
@@ -72,8 +68,6 @@ All command modules are included in this version as the image is built directly 
 # vsts -v
 # vsts --help
 ```
-
-See our [Docker tags](https://hub.docker.com/r/azuresdk/azure-cli-python/tags/) for available versions.
 
 ## Developer Setup
 If you would like to setup a development environment and contribute to the CLI, see 
@@ -107,7 +101,14 @@ MIT License
     SOFTWARE
 ```
 # Telemetry
-VSTS CLI collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/en-us/privacystatement) to learn more. To disable telemtry xyz.
+VSTS CLI collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/en-us/privacystatement) to learn more. 
+
+To disable telemtry use the `vsts configure` command. You will be prompted with the following message:
+
+```bash
+Microsoft would like to collect anonymous VSTS CLI usage data to improve our CLI.  Participation is voluntary and when you choose to participate, your device automatically sends information to Microsoft about how you use the VSTS CLI.  The data is anonymous and does not include commandline argument values.  To update your choice, run "vsts configure" again.
+Select y to enable data collection. (Y/n): N
+```
 
 # Contributing
 
