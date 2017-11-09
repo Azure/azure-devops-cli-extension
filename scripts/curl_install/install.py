@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # --------------------------------------------------------------------------------------------
 # Copyright (c) Microsoft Corporation. All rights reserved.
@@ -160,8 +160,11 @@ def create_executable(exec_dir, install_dir):
     create_dir(exec_dir)
     exec_filepath = os.path.join(exec_dir, EXECUTABLE_NAME)
 
-    os.symlink(actual_exec_filepath, exec_filepath)
-
+    try:
+        os.symlink(actual_exec_filepath, exec_filepath)
+    except (OSError, IOError):
+        pass
+    
     cur_stat = os.stat(exec_filepath)
     os.chmod(exec_filepath, cur_stat.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
     print_status("The executable is available at '{}'.".format(exec_filepath))
