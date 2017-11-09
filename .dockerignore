@@ -6,7 +6,6 @@
 
 # Make an exception for tab completion vsts script
 !vsts.completion
-!vsts.sh
 
 # Make an exception for the license file
 !LICENSE
