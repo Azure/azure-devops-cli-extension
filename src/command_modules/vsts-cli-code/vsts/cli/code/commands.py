@@ -63,6 +63,3 @@ def load_code_commands(cli_command_loader):
             g.command('repo create', 'repository#create_repo', table_transformer=transform_repo_table_output)
             g.command('repo list', 'repository#list_repos', table_transformer=transform_repos_table_output)
             g.command('repo show', 'repository#show_repo', table_transformer=transform_repo_table_output)
-
-            # git alias commands
-            g.command('setup-git-aliases', 'git_alias#setup_git_aliases')
