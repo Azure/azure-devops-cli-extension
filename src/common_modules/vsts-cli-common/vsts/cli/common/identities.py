@@ -7,7 +7,7 @@
 from knack.util import CLIError
 from .file_cache import get_cli_cache
 from .uuid import is_uuid
-from .vsts import get_connection_data, get_identity_client
+from .services import get_connection_data, get_identity_client
 
 
 def resolve_identity_as_id(identity_filter, team_instance):

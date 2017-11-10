@@ -8,9 +8,8 @@ import dateutil.parser
 import dateutil.tz
 
 from vsts.cli.common.identities import (ensure_display_names_in_cache,
-                                        get_display_name_from_identity_id,
-                                        get_identities)
-from vsts.cli.common.vsts import get_first_vss_instance_uri
+                                        get_display_name_from_identity_id)
+from vsts.cli.common.services import get_first_vss_instance_uri
 from collections import OrderedDict
 
 _pr_title_truncation_length = 50

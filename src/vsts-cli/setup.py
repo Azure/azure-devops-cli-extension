@@ -24,16 +24,29 @@ REQUIRES = [
     'vsts-cli-work==' + VERSION
 ]
 
+CLASSIFIERS = [
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Developers',
+    'Intended Audience :: System Administrators',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 2',
+    'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.6',
+    'License :: OSI Approved :: MIT License',
+]
+
 setup(
     name=NAME,
     version=VERSION,
     description="VSTS Command Line Interface",
-    author="Ted Chambers",
+    author="Microsoft Corporation",
     author_email="vstscli@microsoft.com",
     url="https://github.com/Microsoft/vsts-cli",
     keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI"],
     install_requires=REQUIRES,
     packages=find_packages(),
+    classifiers=CLASSIFIERS,
     entry_points={
         'console_scripts': [
             'vsts = vsts.cli.__main__:main'
