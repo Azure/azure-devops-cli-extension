@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # --------------------------------------------------------------------------------------------
 # Copyright (c) Microsoft Corporation. All rights reserved.
@@ -361,17 +361,46 @@ def verify_install_dir_exec_path_conflict(install_dir, exec_path):
     if install_dir == exec_path:
         raise CLIInstallError("The executable file '{}' would clash with the install directory of '{}'. Choose either a different install directory or directory to place the executable.".format(exec_path, install_dir))
 
+def verify_python_executable(install_dir):
+    # Workaround for issue on Mac where copied python executable gets modified and requires to be signed
+    # Instead of signing, we will instead copy the Python executable that the install script is running in
+    
+    executing_python = sys.executable
+    installed_python = os.path.join(install_dir, 'bin/python')
+    print_status("Current executable {}".format(executing_python))
+    print_status("Installed executable {}".format(installed_python))
+    
+    if 'Python.framework' in sys.prefix:
+        print_status("Is Python.framework")
+        if os.path.exists(installed_python):
+            print_status("Installed Python executable exists")
+            try:       
+                # backup the python executable that was placed in the install directory (vsts-cli/bin)
+                shutil.copyfile(installed_python, installed_python + '.backup')
+                print_status("Created backup of installed Python executable")
+
+                # replace with the currently executing python executable
+                shutil.copyfile(executing_python, installed_python)
+                print_status("Replaced installed Python executable")
+            except (OSError, IOError):
+                print_status("Failed to replace installed Python executable:".format(str(e)))
+                pass
+
 def main():
     verify_python_version()
     verify_native_dependencies()
+
     tmp_dir = create_tmp_dir()
     install_dir = get_install_dir()
     exec_dir = get_exec_dir()
     exec_path = os.path.join(exec_dir, EXECUTABLE_NAME)
     verify_install_dir_exec_path_conflict(install_dir, exec_path)
     create_virtualenv(tmp_dir, install_dir)
+    verify_python_executable(install_dir)
+    
     install_cli(install_dir, tmp_dir)
     exec_filepath = create_executable(exec_dir, install_dir)
+
     completion_file_path = os.path.join(install_dir, COMPLETION_FILENAME)
     create_tab_completion_file(completion_file_path)
     try:
