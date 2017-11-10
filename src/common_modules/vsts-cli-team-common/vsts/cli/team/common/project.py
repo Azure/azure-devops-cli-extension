@@ -4,16 +4,15 @@
 # --------------------------------------------------------------------------------------------
 
 import logging
-import urllib
 import webbrowser
 
 from knack.util import CLIError
 from vsts.core.v4_0.models.team_project import TeamProject
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.operations import wait_for_long_running_operation
-from vsts.cli.common.vsts import (get_base_url,
-                                  get_core_client,
-                                  resolve_instance)
+from vsts.cli.common.services import (get_core_client,
+                                      resolve_instance)
+from vsts.cli.common.uri import uri_quote
 
 
 def create_project(name, team_instance=None, process=None, source_control='git', description=None, detect=None,
@@ -154,7 +153,7 @@ def _open_project(project):
     api_segment = '/_apis/'
     pos = project.url.find(api_segment)
     if pos >= 0:
-        url = project.url[:pos + 1] + urllib.parse.quote(project.name)
+        url = project.url[:pos + 1] + uri_quote(project.name)
         logging.debug('Opening web page: %s', url)
         webbrowser.open_new(url=url)
     else:

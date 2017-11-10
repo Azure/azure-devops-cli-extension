@@ -5,7 +5,7 @@
 
 import time
 
-from vsts.cli.common.vsts import (get_operations_client)
+from .services import get_operations_client
 
 
 def wait_for_long_running_operation(team_instance, operation_id, interval_seconds=5):

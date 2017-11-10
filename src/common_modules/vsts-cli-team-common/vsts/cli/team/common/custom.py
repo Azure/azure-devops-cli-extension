@@ -1,7 +1,9 @@
+# coding=utf-8
 # --------------------------------------------------------------------------------------------
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
+
 
 import logging
 
@@ -15,7 +17,7 @@ from vsts.cli.common.config import (set_global_config_value,
                                     LOGGING_SECTION)
 from vsts.cli.common.configure import interactive_configure, print_current_configuration
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.vsts import _get_vss_connection, get_base_url
+from vsts.cli.common.services import _get_vss_connection, get_base_url
 
 
 def credential_set(token, team_instance=None):

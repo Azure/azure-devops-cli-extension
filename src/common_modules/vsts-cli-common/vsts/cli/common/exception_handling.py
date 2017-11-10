@@ -8,7 +8,7 @@ import logging
 
 from knack.util import CLIError
 from vsts.exceptions import VstsAuthenticationError
-from .vsts import raise_authentication_error
+from .services import raise_authentication_error
 
 
 def handle_command_exception(exception):

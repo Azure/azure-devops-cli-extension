@@ -5,7 +5,6 @@
 
 import logging
 import re
-import urllib
 import webbrowser
 
 
@@ -14,11 +13,11 @@ from vsts.build.v4_0.models.definition_reference import DefinitionReference
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.git import resolve_git_ref_heads
 from vsts.cli.common.uuid import is_uuid
-from vsts.cli.common.vsts import (get_base_url,
-                                  get_build_client,
-                                  get_git_client,
-                                  resolve_instance_and_project,
-                                  resolve_instance_project_and_repo)
+from vsts.cli.common.services import (get_build_client,
+                                      get_git_client,
+                                      resolve_instance_and_project,
+                                      resolve_instance_project_and_repo)
+from vsts.cli.common.uri import uri_quote
 
 
 def build_queue(definition, source_branch=None, open_browser=False, team_instance=None, project=None, detect=None):
@@ -174,8 +173,8 @@ def _open_build(build, team_instance):
     """
     # https://mseng.visualstudio.com/vsts-cli/_build/index?buildId=4053990
     project = build.project.name
-    url = team_instance.rstrip('/') + '/' + urllib.parse.quote(project) + '/_build/index?buildid='\
-        + urllib.parse.quote(str(build.build_number))
+    url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_build/index?buildid='\
+        + uri_quote(str(build.build_number))
     logging.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)
 
@@ -187,8 +186,8 @@ def _open_definition(definition, team_instance):
     """
     # https://mseng.visualstudio.com/vsts-cli/_build/index?definitionId=5419
     project = definition.project.name
-    url = team_instance.rstrip('/') + '/' + urllib.parse.quote(project) + '/_build/index?definitionId='\
-        + urllib.parse.quote(str(definition.id))
+    url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_build/index?definitionId='\
+        + uri_quote(str(definition.id))
     logging.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)
 

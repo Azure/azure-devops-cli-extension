@@ -8,11 +8,8 @@ import os
 import keyring
 
 from knack.util import CLIError
-try:
-    from urllib.parse import urlparse
-except ImportError:
-     from urlparse import urlparse
 from vsts._file_cache import get_cache
+from .uri import uri_parse
 
 
 def get_credential(team_instance):
@@ -69,7 +66,7 @@ def _get_service_name(team_instance):
 
 
 def normalize_url_for_key(url):
-    components = urlparse(url)
+    components = uri_parse(url)
     return components.scheme.lower() + '://' + components.netloc.lower()
 
 

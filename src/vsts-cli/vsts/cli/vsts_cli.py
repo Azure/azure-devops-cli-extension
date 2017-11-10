@@ -5,11 +5,11 @@
 
 from __future__ import print_function
 
-from .vsts_cli_help import VstsCLIHelp
-from .vsts_commands_loader import VstsCommandsLoader
 from knack import CLI
 from vsts.cli.common.config import GLOBAL_CONFIG_DIR
-from vsts.cli.common.vsts import set_tracking_data
+from vsts.cli.common.services import set_tracking_data
+from .vsts_cli_help import VstsCLIHelp
+from .vsts_commands_loader import VstsCommandsLoader
 
 
 CLI_NAME = "vsts"
