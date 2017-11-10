@@ -25,19 +25,20 @@
 
 1. From the `vsts-cli` directory, create a new virtual environment:
    ```bash
-   $ virtualenv env
+   virtualenv env
    ```
 
 2. Activate the new virtual environment:
+   On Linux:
    ```bash
    source env/Scripts/activate
    ```
-   Or on Windows:
+   On Windows:
    ```bash
    env\Scripts\activate.bat
    ```
 
-3. Run the provided `dev_setup.py` script to install the VSTS CLI packages, VSTS Python SDK package, and other dependencies into your virtual environment:
+3. Run the `dev_setup.py` script to install the VSTS CLI packages, VSTS Python SDK package, and other dependencies into your virtual environment:
    ```
    python scripts/dev_setup.py
    ```
