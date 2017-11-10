@@ -1,0 +1,5 @@
+#!/bin/bash
+
+SOURCE="${BASH_SOURCE[0]}"
+
+"$(dirname "$SOURCE")/../python" -m vsts.cli "$@"
