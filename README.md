@@ -24,7 +24,19 @@ vsts code -h
 
 Use the VSTS CLI to work with and manage build, code repositories, projects, work items, and more in your VSTS account or on-premises Team Foundation Server collection.
 
-See the list of [available commands](https://aka.ms/vsts-cli-commands).
+Here are just a few of the comamnds:
+
+* vsts build queue
+* vsts code pr create
+* vsts code pr list
+* vsts code pr complete
+* vsts code pr reviewers add
+* vsts code pr work-items list
+* vsts project create
+* vsts work item create
+* vsts work item update
+
+See the full list of [available commands](https://aka.ms/vsts-cli-commands).
 
 ### Login (setup credentials)
 
