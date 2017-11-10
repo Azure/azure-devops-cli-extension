@@ -84,7 +84,7 @@ def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_g
     :type list_config: bool
     """
     if defaults is None and collect_telemetry is None and enable_log_file is None\
-            and use_git_aliases is None and default_output is None and list_config is None:
+            and use_git_aliases is None and default_output is None and list_config is False:
         interactive_configure()
         return
     if defaults:
