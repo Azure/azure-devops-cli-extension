@@ -149,7 +149,7 @@ if %errorlevel% neq 0 goto ERROR
 echo *** Creating the wbin (Windows binaries) folder that will be added to the path...
 mkdir "%BUILDING_DIR%\wbin"
 if %errorlevel% neq 0 goto ERROR
-copy "%REPO_ROOT%\packaged_releases\windows\scripts\vsts.cmd" "%BUILDING_DIR%\wbin\"
+copy "%REPO_ROOT%\packaged_releases\windows\scripts\vsts.bat" "%BUILDING_DIR%\wbin\"
 if %errorlevel% gtr 1 goto ERROR
 copy "%REPO_ROOT%\packaged_releases\windows\resources\CLI_LICENSE.rtf" "%BUILDING_DIR%"
 if %errorlevel% gtr 1 goto ERROR
