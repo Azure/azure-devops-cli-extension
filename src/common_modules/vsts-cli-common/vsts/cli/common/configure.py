@@ -59,7 +59,7 @@ def _handle_global_configuration():
         try:
             from vsts.cli.code.common.git_alias import setup_git_aliases, are_git_aliases_setup, clear_git_aliases
             if not are_git_aliases_setup():
-                setup_aliases = prompt_y_n(MSG_PROMPT_GIT_ALIAS, default='n')
+                setup_aliases = prompt_y_n(MSG_PROMPT_GIT_ALIAS, default='y')
                 if setup_aliases:
                     setup_git_aliases()
         except ModuleNotFoundError:
