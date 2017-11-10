@@ -1,37 +1,53 @@
 [![Visual Studio Team services](https://mseng.visualstudio.com/_apis/public/build/definitions/698eacea-9ea2-4eb8-80a4-d06170edf6bc/5908/badge)]()
 [![Python](https://img.shields.io/pypi/pyversions/vsts-cli.svg?maxAge=2592000)](https://pypi.python.org/pypi/vsts-cli)
 
-# Microsoft VSTS CLI 
+# Microsoft Visual Studio Team Services CLI 
 
-We're excited to introduce *VSTS CLI*, a new command line interface for Visual Studio Team Services. VSTS CLI is currently in preview and we are working towards making this feature Generally Available. 
+VSTS CLI is a new command line interface for [Visual Studio Team Services](https://www.visualstudio.com/team-services/) (VSTS) and [Team Foundation Server](https://www.visualstudio.com/tfs/) (TFS) 2017 Update 2 and later.
 
-VSTS CLI is also supported on Team Foundatio Server 2017 update 2 and later.
+> VSTS CLI is currently in preview but we encourage you to give it a try and provide feedback (or contribute). 
 
-# Features
-A robust set of commands to work with and manage builds, code repositories, projects and work items in your Visual Studio Team Services account. This set of commands will continue to grow over time.
+## Get started
 
-## Installation
+Refer to the [install guide](https://aka.ms/vsts-cli-docs-install) for detailed install instructions for Windows, Mac, and Linux.
 
-Please refer to the [install guide](https://aka.ms/vsts-cli-docs-install) for detailed install instructions.
+Also refer to the ["get started" guide](https://aka.ms/vsts-cli-docs-getstarted) for in-depth instructions including first-time setup steps.
 
-### Get Started
-
-Please refer to the ["get started" guide](https://aka.ms/vsts-cli-docs-getstarted) for in-depth instructions.
-
-For help content, pass in the `-h` parameter, for example:
+For help, pass the `-h` or `--help` argument, for example:
 
 ```bash
 vsts -h
 vsts code -h
 ```
 
-### Highlights
+### Commands
 
-Here are some feature that can help you get the most out of the VSTS CLI 
+Use the VSTS CLI to work with and manage build, code repositories, projects, work items, and more in your VSTS account or on-premises Team Foundation Server collection.
 
-#### Query
+See the list of [available commands](https://aka.ms/vsts-cli-commands).
 
-You can use the `--query` parameter and the [JMESPath](http://jmespath.org/) query syntax to customize your output.
+### Login (setup credentials)
+
+Create a personal access token and provide to the VSTS CLI via the login command:
+
+```bash
+vsts login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
+```
+
+### Configure defaults, Git aliases, and more
+
+You can change your default settings using the `vsts configure` command, for example you can set the default output format for all commands. The options are:
+
+* JSON
+* JSON (with color highlighting)
+* Table (human-readable tabular output)
+* TSV (tab and new line delimited)
+
+You can also add alises in Git for certain VSTS CLI commands. For example, `git pr list` will be an alias for `vsts code pr list`.
+
+### Querying and filtering output
+
+You can use the `--query` parameter and the [JMESPath](http://jmespath.org/) query syntax to customize your output, for example:
 
 ```bash
 Result
@@ -41,50 +57,13 @@ Result
 Fabrikam Fiber
 ```
 
-#### Default settinngs
+### Examples and snippets
 
-You can change your default settings using the `vsts configure` command.
+For more usage examples, see the official VSTS CLI [documentation](https://aka.ms/vsts-cli-docs-overview).
 
-```bash
-What default output format would you like?
- [1] json - JSON formatted output that most closely matches API responses
- [2] jsonc - Colored JSON formatted output that most closely matches API responses
- [3] table - Human-readable output format
- [4] tsv - Tab and Newline delimited, great for GREP, AWK, etc.
-Please enter a choice [1]: 
-```
+## Developer setup
 
-#### More Samples and Snippets
-For more usage examples, take a look at our [documentation](https://aka.ms/vsts-cli-docs-overview).
-
-## Reporting issues and feedback
-
-If you encounter any bugs with the tool please report an issue on the [VSTS Developer Community](https://developercommunity.visualstudio.com/spaces/21/index.html?page=1&pageSize=15&sort=votes) using the vsts-cli tag.
-
-To find where to provide feedback from the command line, use the `vsts feedback` command.
-
-## Developer Installation
-
-### Docker
-Use `docker build` to create the image.
-
-```bash
-$ export CLI_VERSION=0.1.0b0.dev4335832
-$ docker build --no-cache --build-arg BUILD_DATE="`date -u +"%Y-%m-%dT%H:%M:%SZ"`" --build-arg CLI_VERSION=${CLI_VERSION} -f DockerFile . --tag vsts:${CLI_VERSION}
-```
-
-All command modules are included in this version as the image is built directly from the Git repository. Use `docker run` to create and run an instance of the new image. 
-
-```bash
- $ docker run -it vsts:${CLI_VERSION}
-
-# vsts -v
-# vsts --help
-```
-
-## Developer Setup
-If you would like to setup a development environment and contribute to the CLI, see 
-[Configuring Your Machine](https://github.com/Microsoft/vsts-cli/blob/master/doc/configuring_your_machine.md).
+To contribute or to just play with the CLI in your development environment, see [developer setup](./doc/dev_setup.md) 
 
 ## License
 
@@ -113,17 +92,20 @@ MIT License
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE
 ```
-# Telemetry
+
+## Telemetry
+
 VSTS CLI collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/en-us/privacystatement) to learn more. 
 
-To disable telemtry use the `vsts configure` command. You will be prompted with the following message:
+To disable telemtry use the `vsts configure` command.
 
-```bash
-Microsoft would like to collect anonymous VSTS CLI usage data to improve our CLI.  Participation is voluntary and when you choose to participate, your device automatically sends information to Microsoft about how you use the VSTS CLI.  The data is anonymous and does not include commandline argument values.  To update your choice, run "vsts configure" again.
-Select y to enable data collection. (Y/n): N
-```
+## Feedback
 
-# Contributing
+If you encounter any bugs with the tool please report an issue on the [VSTS Developer Community](https://developercommunity.visualstudio.com/spaces/21/index.html?page=1&pageSize=15&sort=votes) using the vsts-cli tag.
+
+To find where to provide feedback from the CLI, run `vsts feedback`.
+
+## Contribute
 
 This project welcomes contributions and suggestions. Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
