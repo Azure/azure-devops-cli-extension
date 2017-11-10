@@ -83,8 +83,8 @@ All command modules are included in this version as the image is built directly 
 ```
 
 ## Developer Setup
-If you would like to setup a development environment and contribute to the CLI, see 
-[Configuring Your Machine](https://github.com/Microsoft/vsts-cli/blob/master/doc/configuring_your_machine.md).
+If you would like to setup a development environment and contribute to the CLI, see our 
+[Developer Setup](https://github.com/Microsoft/vsts-cli/blob/master/doc/dev_setup.md) documentation.
 
 ## License
 
