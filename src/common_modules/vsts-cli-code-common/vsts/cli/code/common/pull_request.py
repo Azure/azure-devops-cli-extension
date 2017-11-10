@@ -4,7 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 import logging
-import urllib
 import webbrowser
 
 from knack.util import CLIError
@@ -21,13 +20,13 @@ from vsts.cli.common.arguments import resolve_on_off_switch, should_detect
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.git import get_current_branch_name, resolve_git_ref_heads, setup_git_alias
 from vsts.cli.common.identities import ME, resolve_identity_as_id
+from vsts.cli.common.uri import uri_quote
 from vsts.cli.common.uuid import EMPTY_UUID
-from vsts.cli.common.vsts import (get_base_url,
-                                  get_git_client,
-                                  get_policy_client,
-                                  get_work_item_tracking_client,
-                                  resolve_instance,
-                                  resolve_instance_project_and_repo)
+from vsts.cli.common.services import (get_git_client,
+                                      get_policy_client,
+                                      get_work_item_tracking_client,
+                                      resolve_instance,
+                                      resolve_instance_project_and_repo)
 
 
 def show_pull_request(pull_request_id, open_browser=False, team_instance=None, detect=None):
@@ -731,8 +730,8 @@ def _open_pull_request(pull_request, team_instance):
     :param pull_request: The pull request to open.
     :type pull_request: str
     """
-    url = team_instance.rstrip('/') + '/' + urllib.parse.quote(pull_request.repository.project.name)\
-        + '/_git/' + urllib.parse.quote(pull_request.repository.name) + '/pullrequest/'\
+    url = team_instance.rstrip('/') + '/' + uri_quote(pull_request.repository.project.name)\
+        + '/_git/' + uri_quote(pull_request.repository.name) + '/pullrequest/'\
         + str(pull_request.pull_request_id)
     webbrowser.open_new(url=url)
 

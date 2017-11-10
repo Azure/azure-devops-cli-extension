@@ -4,15 +4,14 @@
 # --------------------------------------------------------------------------------------------
 
 import logging
-import urllib
 import webbrowser
 
 from knack.util import CLIError
 from vsts.git.v4_0.models.git_repository_create_options import GitRepositoryCreateOptions
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.vsts import (get_base_url,
-                                  get_git_client,
-                                  resolve_instance_and_project)
+from vsts.cli.common.services import (get_git_client,
+                                      resolve_instance_and_project)
+from vsts.cli.common.uri import uri_quote
 
 
 def create_repo(name, team_instance=None, project=None, detect=None, open_browser=False):
@@ -112,7 +111,7 @@ def _open_repository(repository, team_instance):
     :param repository: The repository to open.
     :type repository: str
     """
-    url = team_instance.rstrip('/') + '/' + urllib.parse.quote(repository.project.name)\
-        + '/_git/' + urllib.parse.quote(repository.name)
+    url = team_instance.rstrip('/') + '/' + uri_quote(repository.project.name)\
+        + '/_git/' + uri_quote(repository.name)
     logging.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)

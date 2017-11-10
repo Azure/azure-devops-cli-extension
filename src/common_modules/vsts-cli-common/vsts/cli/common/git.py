@@ -6,16 +6,10 @@
 import logging
 import subprocess
 import sys
-try:
-    from urllib.parse import urlparse
-except ImportError:
-     from urlparse import urlparse
 
 
-try:
-    from azure.cli.core.util import CLIError
-except ImportError:
-    from knack.util import CLIError
+from knack.util import CLIError
+from .uri import uri_parse
 
 
 def set_config(key, value, local=True):
@@ -49,7 +43,11 @@ def get_current_branch_name():
         logging.info('GitDetect: Could not detect current branch based on current working directory.')
         logging.exception(ex)
         return None
-    return output.decode(sys.stdout.encoding).strip()
+    if sys.stdout.encoding is not None:
+        result = output.decode(sys.stdout.encoding)
+    else:
+        result = output.decode()
+    return result.strip()
 
 
 def get_remote_url(validation_function=None):
@@ -66,7 +64,7 @@ def get_remote_url(validation_function=None):
 
 
 def get_git_credentials(team_instance):
-    parse_result = urlparse(team_instance)
+    parse_result = uri_parse(team_instance)
     protocol = parse_result.scheme
     host = parse_result.netloc
     standard_in = bytes('protocol={protocol}\nhost={host}'.format(protocol=protocol, host=host), 'utf-8')
@@ -76,7 +74,10 @@ def get_git_credentials(team_instance):
         logging.info('GitDetect: Could not detect git credentials for current working directory.')
         logging.exception(ex)
         return None
-    lines = output.decode(sys.stdout.encoding).split(sep='\n')
+    if sys.stdout.encoding is not None:
+        lines = output.decode(sys.stdout.encoding).split('\n')
+    else:
+        lines = output.decode().split('\n')
     properties = {}
     for line in lines:
         equal_position = line.find('=')
@@ -100,7 +101,10 @@ def get_git_remotes():
         logging.info('GitDetect: Could not detect current remotes based on current working directory.')
         logging.exception(ex)
         return None
-    lines = output.decode(sys.stdout.encoding).split(sep='\n')
+    if sys.stdout.encoding is not None:
+        lines = output.decode(sys.stdout.encoding).split('\n')
+    else:
+        lines = output.decode().split('\n')
     for line in lines:
         components = line.strip().split()
         if len(components) == 3:

@@ -15,6 +15,7 @@
 # Python
 **/*.egg-info/
 env/**
+env2/**
 dist/
 lib/
 

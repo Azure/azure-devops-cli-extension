@@ -4,7 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 import logging
-import urllib
 import webbrowser
 
 from knack.util import CLIError
@@ -13,10 +12,10 @@ from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOp
 from vsts.work_item_tracking.v4_0.models.wiql import Wiql
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.identities import resolve_identity_as_display_name
-from vsts.cli.common.vsts import (get_base_url,
-                                  get_work_item_tracking_client,
-                                  resolve_instance,
-                                  resolve_instance_and_project)
+from vsts.cli.common.services import (get_work_item_tracking_client,
+                                      resolve_instance,
+                                      resolve_instance_and_project)
+from vsts.cli.common.uri import uri_quote
 
 
 def create_work_item(work_item_type, title, description=None, assigned_to=None, state=None, area=None,
@@ -280,7 +279,7 @@ def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, pr
                     fields.append(field_ref.reference_name)
                     if fields_length_in_url > 0:
                         fields_length_in_url += 3  # add 3 for %2C delimiter
-                    fields_length_in_url += len(urllib.parse.quote(field_ref.reference_name))
+                    fields_length_in_url += len(uri_quote(field_ref.reference_name))
                     if fields_length_in_url > 800:
                         logging.info("Not retrieving all fields due to max url length.")
                         break
@@ -349,8 +348,8 @@ def _open_work_item(work_item, team_instance):
     :type work_item: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     project = work_item.fields['System.TeamProject']
-    url = team_instance.rstrip('/') + '/' + urllib.parse.quote(project) + '/_workitems?id='\
-        + urllib.parse.quote(str(work_item.id))
+    url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_workitems?id='\
+        + uri_quote(str(work_item.id))
     logging.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)
 
