@@ -46,10 +46,6 @@ EXECUTABLE_NAME = CLI_SHORT_NAME
 CLI_NAME = CLI_SHORT_NAME + '-cli'
 CLI_PACKAGE_INDEX_URL = 'https://vstscli.azurewebsites.net/'
 
-CLI_DISPATCH_TEMPLATE = """#!/usr/bin/env bash
-{install_dir}/bin/python -m vsts.cli "$@"
-"""
-
 VIRTUALENV_VERSION = '15.0.0'
 VIRTUALENV_ARCHIVE = 'virtualenv-'+VIRTUALENV_VERSION+'.tar.gz'
 VIRTUALENV_DOWNLOAD_URL = 'https://pypi.python.org/packages/source/v/virtualenv/'+VIRTUALENV_ARCHIVE
@@ -72,6 +68,19 @@ _python_argcomplete() {
     fi
 }
 complete -o nospace -F _python_argcomplete "vsts"
+"""
+
+CHECK_CREDENTIAL_STORAGE_SCRIPT = """
+from __future__ import print_function
+from vsts.cli.common._credentials import get_credential
+from knack.util import CLIError
+import sys
+
+try:
+    cred = get_credential(team_instance=None)
+    sys.exit()
+except CLIError as e:
+    sys.exit(999)
 """
 
 class CLIInstallError(Exception):
@@ -149,10 +158,6 @@ def install_cli(install_dir, tmp_dir):
     path_to_pip = os.path.join(install_dir, 'bin', 'pip')
     cmd = [path_to_pip, 'install', '--cache-dir', tmp_dir, '--pre', CLI_PACKAGE, '--upgrade', '--extra-index-url', CLI_PACKAGE_INDEX_URL]
     exec_command(cmd)
-    # Temporary fix to make sure that we have empty __init__.py files for the azure site-packages folder.
-    # (including the pkg_resources/declare namespace significantly impacts startup perf for the CLI)
-    fixupcmd = [path_to_pip, 'install', '--cache-dir', tmp_dir, '--upgrade', '--force-reinstall', 'azure-nspkg', 'azure-mgmt-nspkg']
-    exec_command(fixupcmd)
 
 def create_executable(exec_dir, install_dir):
     actual_exec_filepath = os.path.join(install_dir, 'bin', EXECUTABLE_NAME)
@@ -386,6 +391,25 @@ def verify_python_executable(install_dir):
                 print_status("Failed to replace installed Python executable:".format(str(e)))
                 pass
 
+
+def verify_keyring_access(install_dir, tmp_dir):
+    # Script to verify credentials can be accessed. When this fails, its normally a sign of a keyring problem.
+    # If a keyring problem, fallback and install keyrings.alt
+    with open(os.path.join(tmp_dir, 'cli-check-credential-storage.py'), 'w') as f:
+        f.write(CHECK_CREDENTIAL_STORAGE_SCRIPT)
+    
+    installed_python = os.path.join(install_dir, 'bin/python')
+    cmd = [installed_python, f.name]
+    
+    try:
+        exec_command(cmd, cwd=os.path.dirname(installed_python))
+    except subprocess.CalledProcessError as e:
+        #print_status("Return code: {}".format(str(e)))
+        pip = os.path.join(install_dir, 'bin/pip')
+        cmd = [ pip, "install", "keyrings.alt" ]
+        exec_command(cmd, cwd=os.path.dirname(pip))
+
+
 def main():
     verify_python_version()
     verify_native_dependencies()
@@ -400,6 +424,8 @@ def main():
     
     install_cli(install_dir, tmp_dir)
     exec_filepath = create_executable(exec_dir, install_dir)
+
+    verify_keyring_access(install_dir, tmp_dir)
 
     completion_file_path = os.path.join(install_dir, COMPLETION_FILENAME)
     create_tab_completion_file(completion_file_path)
