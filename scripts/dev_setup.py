@@ -26,31 +26,22 @@ def exec_command(command):
         sys.exit(1)
 
 packages = []
+
+# VSTS Python SDK package (from either local directory or latest)
 if 'vsts-python-api-repo' in os.environ and os.path.isdir(os.environ['vsts-python-api-repo']):
     packages.append(os.environ['vsts-python-api-repo'] + "/vsts")
 else:
     exec_command("pip install vsts --upgrade --no-cache-dir --extra-index-url https://vstscli.azurewebsites.net")
-packages.append(root_dir + "/src/common_modules/vsts-cli-common")
+
+# VSTS CLI packages (from local directory)
+packages.append("src/common_modules/vsts-cli-common")
 packages.extend(os.path.dirname(p) for p in glob('src/common_modules/vsts-cli*/setup.py') if 'vsts-cli-common' not in p)
 packages.extend(os.path.dirname(p) for p in glob('src/command_modules/vsts-cli*/setup.py'))
-packages.append(root_dir + "/src/vsts-cli")
-
-# Extract nspkg and sort nspkg by number of "-"
-nspkg_packages = [p for p in packages if "nspkg" in p]
-nspkg_packages.sort(key=lambda x: len([c for c in x if c == '-']))
-
-content_packages = [p for p in packages if p not in nspkg_packages]
-
+packages.append("src/vsts-cli")
 
 # install general requirements
 if os.path.isfile('./requirements.txt'):
     exec_command('pip install -r requirements.txt')
 
 # install packages
-for package_list in [nspkg_packages, content_packages]:
-    for package_name in package_list:
-        exec_command('pip install -e {}'.format(package_name))
-
-# install packaging requirements
-if os.path.isfile('./scripts/packaging_requirements.txt'):
-    exec_command('pip install -r scripts/packaging_requirements.txt')
+exec_command('pip install -e {}'.format(' -e '.join(packages)))
