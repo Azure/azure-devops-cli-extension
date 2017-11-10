@@ -151,6 +151,8 @@ mkdir "%BUILDING_DIR%\wbin"
 if %errorlevel% neq 0 goto ERROR
 copy "%REPO_ROOT%\packaged_releases\windows\scripts\vsts.bat" "%BUILDING_DIR%\wbin\"
 if %errorlevel% gtr 1 goto ERROR
+copy "%REPO_ROOT%\packaged_releases\windows\scripts\vsts" "%BUILDING_DIR%\wbin\"
+if %errorlevel% gtr 1 goto ERROR
 copy "%REPO_ROOT%\packaged_releases\windows\resources\CLI_LICENSE.rtf" "%BUILDING_DIR%"
 if %errorlevel% gtr 1 goto ERROR
 copy "%REPO_ROOT%\packaged_releases\windows\resources\ThirdPartyNotices.txt" "%BUILDING_DIR%"
