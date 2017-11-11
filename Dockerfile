@@ -3,8 +3,9 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 #---------------------------------------------------------------------------------------------
 
-FROM python:2.7.14-alpine
-# Alternatively, FROM python:2.7.14-alpine
+#FROM python:2.7.14-alpine
+# Alternatively, 
+FROM python:3.6.3-alpine
 
 ARG CLI_VERSION
 ARG BUILD_DATE

@@ -37,4 +37,8 @@ curl -# $INSTALL_SCRIPT_URL > $install_script || exit
 
 chmod 775 $install_script
 
-$install_script < $_TTY
+if command -v python3 2>/dev/null; then
+   python3 $install_script < $_TTY
+else
+   $install_script < $_TTY
+fi

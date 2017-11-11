@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # --------------------------------------------------------------------------------------------
 # Copyright (c) Microsoft Corporation. All rights reserved.
@@ -46,10 +46,6 @@ EXECUTABLE_NAME = CLI_SHORT_NAME
 CLI_NAME = CLI_SHORT_NAME + '-cli'
 CLI_PACKAGE_INDEX_URL = 'https://vstscli.azurewebsites.net/'
 
-CLI_DISPATCH_TEMPLATE = """#!/usr/bin/env bash
-{install_dir}/bin/python -m vsts.cli "$@"
-"""
-
 VIRTUALENV_VERSION = '15.0.0'
 VIRTUALENV_ARCHIVE = 'virtualenv-'+VIRTUALENV_VERSION+'.tar.gz'
 VIRTUALENV_DOWNLOAD_URL = 'https://pypi.python.org/packages/source/v/virtualenv/'+VIRTUALENV_ARCHIVE
@@ -72,6 +68,19 @@ _python_argcomplete() {
     fi
 }
 complete -o nospace -F _python_argcomplete "vsts"
+"""
+
+CHECK_CREDENTIAL_STORAGE_SCRIPT = """
+from __future__ import print_function
+from vsts.cli.common._credentials import get_credential
+from knack.util import CLIError
+import sys
+
+try:
+    cred = get_credential(team_instance=None)
+    sys.exit()
+except CLIError as e:
+    sys.exit(999)
 """
 
 class CLIInstallError(Exception):
@@ -149,10 +158,6 @@ def install_cli(install_dir, tmp_dir):
     path_to_pip = os.path.join(install_dir, 'bin', 'pip')
     cmd = [path_to_pip, 'install', '--cache-dir', tmp_dir, '--pre', CLI_PACKAGE, '--upgrade', '--extra-index-url', CLI_PACKAGE_INDEX_URL]
     exec_command(cmd)
-    # Temporary fix to make sure that we have empty __init__.py files for the azure site-packages folder.
-    # (including the pkg_resources/declare namespace significantly impacts startup perf for the CLI)
-    fixupcmd = [path_to_pip, 'install', '--cache-dir', tmp_dir, '--upgrade', '--force-reinstall', 'azure-nspkg', 'azure-mgmt-nspkg']
-    exec_command(fixupcmd)
 
 def create_executable(exec_dir, install_dir):
     actual_exec_filepath = os.path.join(install_dir, 'bin', EXECUTABLE_NAME)
@@ -361,17 +366,67 @@ def verify_install_dir_exec_path_conflict(install_dir, exec_path):
     if install_dir == exec_path:
         raise CLIInstallError("The executable file '{}' would clash with the install directory of '{}'. Choose either a different install directory or directory to place the executable.".format(exec_path, install_dir))
 
+def verify_python_executable(install_dir):
+    # Workaround for issue on Mac where copied python executable gets modified and requires to be signed
+    # Instead of signing, we will instead copy the Python executable that the install script is running in
+    
+    executing_python = sys.executable
+    installed_python = os.path.join(install_dir, 'bin/python')
+    print_status("Current executable {}".format(executing_python))
+    print_status("Installed executable {}".format(installed_python))
+    
+    if 'Python.framework' in sys.prefix:
+        print_status("Is Python.framework")
+        if os.path.exists(installed_python):
+            print_status("Installed Python executable exists")
+            try:       
+                # backup the python executable that was placed in the install directory (vsts-cli/bin)
+                shutil.copyfile(installed_python, installed_python + '.backup')
+                print_status("Created backup of installed Python executable")
+
+                # replace with the currently executing python executable
+                shutil.copyfile(executing_python, installed_python)
+                print_status("Replaced installed Python executable")
+            except (OSError, IOError):
+                print_status("Failed to replace installed Python executable:".format(str(e)))
+                pass
+
+
+def verify_keyring_access(install_dir, tmp_dir):
+    # Script to verify credentials can be accessed. When this fails, its normally a sign of a keyring problem.
+    # If a keyring problem, fallback and install keyrings.alt
+    with open(os.path.join(tmp_dir, 'cli-check-credential-storage.py'), 'w') as f:
+        f.write(CHECK_CREDENTIAL_STORAGE_SCRIPT)
+    
+    installed_python = os.path.join(install_dir, 'bin/python')
+    cmd = [installed_python, f.name]
+    
+    try:
+        exec_command(cmd, cwd=os.path.dirname(installed_python))
+    except subprocess.CalledProcessError as e:
+        #print_status("Return code: {}".format(str(e)))
+        pip = os.path.join(install_dir, 'bin/pip')
+        cmd = [ pip, "install", "keyrings.alt" ]
+        exec_command(cmd, cwd=os.path.dirname(pip))
+
+
 def main():
     verify_python_version()
     verify_native_dependencies()
+
     tmp_dir = create_tmp_dir()
     install_dir = get_install_dir()
     exec_dir = get_exec_dir()
     exec_path = os.path.join(exec_dir, EXECUTABLE_NAME)
     verify_install_dir_exec_path_conflict(install_dir, exec_path)
     create_virtualenv(tmp_dir, install_dir)
+    verify_python_executable(install_dir)
+    
     install_cli(install_dir, tmp_dir)
     exec_filepath = create_executable(exec_dir, install_dir)
+
+    verify_keyring_access(install_dir, tmp_dir)
+
     completion_file_path = os.path.join(install_dir, COMPLETION_FILENAME)
     create_tab_completion_file(completion_file_path)
     try:
