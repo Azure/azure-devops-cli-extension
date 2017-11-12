@@ -9,7 +9,7 @@ from __future__ import print_function
 import logging
 import os
 
-from .config import GLOBAL_CONFIG_PATH, ENV_VAR_PREFIX, set_global_config
+from .config import GLOBAL_CONFIG_PATH, CLI_ENV_VARIABLE_PREFIX, set_global_config
 from six.moves import configparser
 from knack.config import get_config_parser
 from knack.util import CLIError
@@ -27,7 +27,7 @@ def print_current_configuration(file_config=None):
         print('[{}]'.format(section))
         for option in file_config.options(section):
             print('{} = {}'.format(option, file_config.get(section, option)))
-    env_vars = [ev for ev in os.environ if ev.startswith(ENV_VAR_PREFIX)]
+    env_vars = [ev for ev in os.environ if ev.startswith(CLI_ENV_VARIABLE_PREFIX)]
     if env_vars:
         print(MSG_HEADING_ENV_VARS)
         print('\n'.join(['{} = {}'.format(ev, os.environ[ev]) for ev in env_vars]))

@@ -6,7 +6,7 @@
 from __future__ import print_function
 
 from knack import CLI
-from vsts.cli.common.config import GLOBAL_CONFIG_DIR
+from vsts.cli.common.config import GLOBAL_CONFIG_DIR, CLI_ENV_VARIABLE_PREFIX
 from vsts.cli.common.services import set_tracking_data
 from .vsts_cli_help import VstsCLIHelp
 from .vsts_commands_loader import VstsCommandsLoader
@@ -22,7 +22,7 @@ class VstsCLI(CLI):
         CLI.__init__(self,
                      cli_name=CLI_NAME,
                      config_dir=GLOBAL_CONFIG_DIR,
-                     config_env_var_prefix=CLI_NAME + "_",
+                     config_env_var_prefix=CLI_ENV_VARIABLE_PREFIX,
                      commands_loader_cls=VstsCommandsLoader,
                      help_cls=VstsCLIHelp)
 
