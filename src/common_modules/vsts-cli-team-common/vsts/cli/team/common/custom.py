@@ -4,6 +4,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from __future__ import print_function
 
 import logging
 
@@ -113,4 +114,4 @@ def feedback():
     """Displays information on how to provide feedback to the VSTS CLI team.
     """
     print('Thank you for taking the time to share your feedback. Please submit your feedback on the following web ' +
-          'page: https://aka.ms/vsts-cli-feedback')
+          'page: https://aka.ms/vsts-cli-feedback')
