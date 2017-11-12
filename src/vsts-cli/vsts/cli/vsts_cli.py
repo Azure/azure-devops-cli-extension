@@ -8,6 +8,7 @@ from __future__ import print_function
 from knack import CLI
 from vsts.cli.common.config import GLOBAL_CONFIG_DIR
 from vsts.cli.common.services import set_tracking_data
+from vsts.cli.common.version import should_prompt_for_update
 from .vsts_cli_help import VstsCLIHelp
 from .vsts_commands_loader import VstsCommandsLoader
 
@@ -28,6 +29,7 @@ class VstsCLI(CLI):
 
     def invoke(self, args, initial_invocation_data=None, out_file=None):
         set_tracking_data(args)
+        VstsCLI.version_check()
         return CLI.invoke(self, args, initial_invocation_data, out_file)
 
     def get_cli_version(self):
@@ -52,6 +54,12 @@ class VstsCLI(CLI):
         print(version_info, file=self.out_file)
 
     @staticmethod
+    def version_check():
+        should_prompt, data = should_prompt_for_update()
+        if should_prompt:
+            print('There is an updated version')
+
+    @staticmethod
     def get_component_version_text():
         installed_dists = VstsCLI.get_installed_dists()
         component_version_info = sorted([{'name': dist.key,
@@ -61,7 +69,6 @@ class VstsCLI(CLI):
                                          or dist.key == "knack"],
                                         key=lambda x: x['name'])
         return '\n'.join(['{} ({})'.format(c['name'], c['version']) for c in component_version_info])
-
 
     @staticmethod
     def get_legal_text():

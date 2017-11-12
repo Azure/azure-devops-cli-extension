@@ -4,6 +4,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from __future__ import print_function
 
 import logging
 
@@ -61,7 +62,7 @@ def credential_clear(team_instance=None):
 
 
 def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_git_aliases=None,
-              default_output=None, list_config=False):
+              default_output=None, suppress_update_message=None, list_config=False):
     """Configure the VSTS CLI or view your configuration.
     :param defaults: Space separated 'name=value' pairs for common arguments defaults,
         e.g. '--defaults output=table arg=value' Use '' to clear the defaults, e.g. --defaults output=''.
@@ -80,11 +81,14 @@ def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_g
     :type use_git_aliases: str
     :param default_output: Specifies the default output format for commands.
     :type default_output: str
+    :param suppress_update_message: Set to 'yes' to suppress update notifications.
+    :type suppress_update_message: str
     :param list_config: Lists the contents of the config file.
     :type list_config: bool
     """
     if defaults is None and collect_telemetry is None and enable_log_file is None\
-            and use_git_aliases is None and default_output is None and list_config is False:
+            and use_git_aliases is None and default_output is None\
+            and suppress_update_message is None and list_config is False:
         interactive_configure()
         return
     if defaults:
@@ -99,6 +103,8 @@ def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_g
         set_global_config_value(LOGGING_SECTION, 'enable_log_file', enable_log_file)
     if default_output is not None:
         set_global_config_value(CORE_SECTION, 'output', default_output)
+    if suppress_update_message:
+        set_global_config_value(CORE_SECTION, 'suppress_update_message', suppress_update_message)
     if use_git_aliases is not None:
         from vsts.cli.code.common.git_alias import setup_git_aliases, clear_git_aliases
         if use_git_aliases == 'yes':
@@ -113,4 +119,4 @@ def feedback():
     """Displays information on how to provide feedback to the VSTS CLI team.
     """
     print('Thank you for taking the time to share your feedback. Please submit your feedback on the following web ' +
-          'page: https://aka.ms/vsts-cli-feedback')
+          'page: https://aka.ms/vsts-cli-feedback')
