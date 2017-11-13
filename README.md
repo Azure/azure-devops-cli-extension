@@ -113,7 +113,7 @@ To disable telemtry use the `vsts configure` command.
 
 ## Feedback
 
-If you encounter any bugs with the tool please report an issue on the [VSTS Developer Community](https://developercommunity.visualstudio.com/spaces/21/index.html?page=1&pageSize=15&sort=votes) using the vsts-cli tag.
+If you encounter any bugs with the tool please report an issue on the [VSTS Developer Community](https://aka.ms/vsts-cli-devcom) using the vsts-cli tag.
 
 To find where to provide feedback from the CLI, run `vsts feedback`.
 
