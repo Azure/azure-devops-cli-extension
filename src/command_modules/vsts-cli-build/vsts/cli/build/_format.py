@@ -25,8 +25,10 @@ def transform_build_table_output(result):
 
 def _transform_build_row(row):
     table_row = OrderedDict()
-    table_row['Build ID'] = row['buildNumber']
-    table_row['Definition'] = row['definition']['name']
+    table_row['ID'] = row['id']
+    table_row['Number'] = row['buildNumber']
+    table_row['Definition ID'] = row['definition']['id']
+    table_row['Definition Name'] = row['definition']['name']
     source_branch = row['sourceBranch']
     if source_branch[0:len(REF_HEADS_PREFIX)] == REF_HEADS_PREFIX:
         source_branch = source_branch[len(REF_HEADS_PREFIX):]
@@ -55,22 +57,21 @@ def _transform_definition_row(row):
     table_row = OrderedDict()
     table_row['ID'] = row['id']
     table_row['Name'] = row['name']
-    if row['type']:
-        table_row['Type'] = row['type']
+    if row['quality'] == 'draft':
+        table_row['Draft'] = True
     else:
-        table_row['Type'] = ' '
-    table_row['Type'] = row['type']
-    if row['quality'] != 'definition':
-        table_row['Quality'] = row['quality']
+        table_row['Draft'] = ' '
+    if row['queueStatus']:
+        table_row['Status'] = row['queueStatus']
     else:
-        table_row['Quality'] = ' '
+        table_row['Status'] = ' '
     if row['queue']:
-        table_row['Queue'] = row['queue']['name']
+        table_row['Default Queue'] = row['queue']['name']
     else:
-        table_row['Queue'] = ' '
+        table_row['Default Queue'] = ' '
     table_row['Created'] = dateutil.parser.parse(row['createdDate']).astimezone(dateutil.tz.tzlocal()).date()
     if row['authoredBy']:
-        table_row['Author'] = row['authoredBy']['displayName']
+        table_row['Last Modified By'] = row['authoredBy']['displayName']
     else:
-        table_row['Author'] = ' '
+        table_row['Last Modified By'] = ' '
     return table_row

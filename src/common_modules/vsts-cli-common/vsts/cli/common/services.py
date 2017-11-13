@@ -16,7 +16,6 @@ from vsts.vss_connection import VssConnection
 from .arguments import should_detect
 from .config import vsts_config
 from ._credentials import get_credential
-from .file_cache import get_cli_cache
 from .git import get_remote_url
 from .version import VERSION
 from .vsts_git_url_info import VstsGitUrlInfo
@@ -262,6 +261,5 @@ _PAT_ENV_VARIABLE_NAME = 'VSTS_CLI_PAT'
 _AUTH_TOKEN_ENV_VARIABLE_NAME = 'VSTS_CLI_AUTH_TOKEN'
 
 _connection_data = {}
-_git_hashes_cache = get_cli_cache('valid_hashes', 3600 * 6)
 _vss_connection = OrderedDict()
 vsts_tracking_data = CustomerIntelligenceEvent()
