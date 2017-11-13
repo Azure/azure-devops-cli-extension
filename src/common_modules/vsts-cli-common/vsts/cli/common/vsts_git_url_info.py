@@ -12,7 +12,7 @@ from .file_cache import get_cli_cache
 from .uri import uri_parse
 
 
-class VstsGitUrlInfo:
+class VstsGitUrlInfo(object):
     """ VstsGitUrlInfo.
     """
     def __init__(self, remote_url):

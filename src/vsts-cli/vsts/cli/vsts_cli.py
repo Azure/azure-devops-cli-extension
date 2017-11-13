@@ -6,9 +6,10 @@
 from __future__ import print_function
 
 from knack import CLI
+from knack.events import EVENT_CLI_PRE_EXECUTE
 from vsts.cli.common.config import GLOBAL_CONFIG_DIR, CLI_ENV_VARIABLE_PREFIX
 from vsts.cli.common.services import set_tracking_data
-from vsts.cli.common.version import should_prompt_for_update
+from vsts.cli.common.version import display_version_update_info_if_necessary
 from .vsts_cli_help import VstsCLIHelp
 from .vsts_commands_loader import VstsCommandsLoader
 
@@ -20,17 +21,22 @@ COMPONENT_PREFIX = 'vsts-cli-'
 
 class VstsCLI(CLI):
     def __init__(self):
-        CLI.__init__(self,
-                     cli_name=CLI_NAME,
-                     config_dir=GLOBAL_CONFIG_DIR,
-                     config_env_var_prefix=CLI_ENV_VARIABLE_PREFIX,
-                     commands_loader_cls=VstsCommandsLoader,
-                     help_cls=VstsCLIHelp)
+        super(VstsCLI, self).__init__(cli_name=CLI_NAME,
+                                      config_dir=GLOBAL_CONFIG_DIR,
+                                      config_env_var_prefix=CLI_ENV_VARIABLE_PREFIX,
+                                      commands_loader_cls=VstsCommandsLoader,
+                                      help_cls=VstsCLIHelp)
+        self.args = None
 
     def invoke(self, args, initial_invocation_data=None, out_file=None):
-        set_tracking_data(args)
-        VstsCLI.version_check()
+        self.args = args
+        self.register_event(event_name=EVENT_CLI_PRE_EXECUTE, handler=self.pre_execute)
         return CLI.invoke(self, args, initial_invocation_data, out_file)
+
+    @staticmethod
+    def pre_execute(cli_ctx, **kwargs):
+        set_tracking_data(cli_ctx.args)
+        display_version_update_info_if_necessary()
 
     def get_cli_version(self):
         cli_info = None
@@ -52,12 +58,6 @@ class VstsCLI(CLI):
         version_info += '\n'
         version_info += self.get_legal_text()
         print(version_info, file=self.out_file)
-
-    @staticmethod
-    def version_check():
-        should_prompt, data = should_prompt_for_update()
-        if should_prompt:
-            print('There is an updated version')
 
     @staticmethod
     def get_component_version_text():

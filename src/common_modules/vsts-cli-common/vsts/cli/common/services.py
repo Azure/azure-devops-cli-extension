@@ -71,7 +71,8 @@ def get_build_client(team_instance=None):
 
 def get_ci_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.customer_intelligence.v4_0.customer_intelligence_client.CustomerIntelligenceClient')
+    return connection.get_client(
+        'vsts.customer_intelligence.v4_0.customer_intelligence_client.CustomerIntelligenceClient')
 
 
 def get_core_client(team_instance=None):
@@ -252,9 +253,6 @@ def get_connection_data(team_instance):
 
 def raise_authentication_error(message):
     raise CLIError(str(message) + "  Please see https://aka.ms/vsts-cli-auth for more information.")
-
-
-
 
 
 _DEFAULTS_SECTION = 'defaults'
