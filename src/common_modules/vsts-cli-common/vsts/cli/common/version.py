@@ -105,53 +105,72 @@ UPDATE_MESSAGE_LINK = 'https://aka.ms/get-vsts-cli'
 
 
 def is_version_later_than_current(latest_version):
+    return _is_version_less_than(VERSION, latest_version)
+
+
+def _is_version_less_than(current_version, latest_version):
     from re import match
 
-    # Full match	0-17	`0.1.0b0dev3762863`
+    # Full match	0-18	`0.1.0b0.dev3762863`
     # Group 1.	0-1	`0`
     # Group 2.	2-3	`1`
     # Group 3.	4-5	`0`
     # Group 4.	5-6	`b`
     # Group 5.	6-7	`0`
-    # Group 6.	7-10	`dev`
-    # Group 7.	10-17	`3762863`
-    pattern = '^(\d+)\.(\d+)\.(\d+)([ab]|rc)?(\d*).(dev|post)?(\d*)$'
-    current_match = match(pattern, VERSION)
+    # Group 6.	7-11	`.dev`
+    # Group 7.	8-11	`dev`
+    # Group 8.	11-18	`3762863`
+    pattern = '^(\d+)\.(\d+)\.(\d+)([ab]|rc)?(\d+)?(\.(dev|post))?(\d+)?$'
+    current_match = match(pattern, current_version)
     if current_match is None:
-        logging.debug('Could not parse the current version: %s', VERSION)
+        logging.debug('Could not parse the current version: %s', current_version)
         return False
     latest_match = match(pattern, latest_version)
     if latest_match is None:
         logging.debug('Could not parse the latest version: %s', latest_version)
         return False
-    if int(current_match.group(1) < latest_match.group(1)):
-        return True
-    if int(current_match.group(2) < latest_match.group(2)):
-        return True
-    if int(current_match.group(3) < latest_match.group(3)):
-        return True
 
-    # group 4 is a, b, rc or ''.
-    if latest_match.group(4) == '':
-        return current_match.group(4) != '', latest_version
-    if current_match.group(4) == '':
-        return False
-    if current_match.group(4) < latest_match.group(4):
-        # rc > b > a, so we can use standard string compare here.
-        return True
-    if int(current_match.group(5) < latest_match.group(5)):
-        return True
+    if int(current_match.group(1)) != int(latest_match.group(1)):
+        return int(current_match.group(1)) < int(latest_match.group(1))
 
-    # group 6 is dev, post or ''.
-    if latest_match.group(6) == '':
-        return current_match.group(6) != '', latest_version
-    if current_match.group(6) == '':
+    if int(current_match.group(2)) != int(latest_match.group(2)):
+        return int(current_match.group(2)) < int(latest_match.group(2))
+
+    if int(current_match.group(3)) != int(latest_match.group(3)):
+        return int(current_match.group(3)) < int(latest_match.group(3))
+
+    # group 4 is a, b, rc or None.
+    if latest_match.group(4) is None:
+        return current_match.group(4) is not None
+    if current_match.group(4) is None:
         return False
-    if current_match.group(6) < latest_match.group(4):
+    # rc > b > a, so we can use standard string compare here.
+    if current_match.group(4) != latest_match.group(4):
+        return current_match.group(4) < latest_match.group(4)
+
+    # group 5 is next number.  Any number is greater than no number.
+    if latest_match.group(5) is None:
+        return False
+    if current_match.group(5) is None:
+        return True
+    if int(current_match.group(5)) != int(latest_match.group(5)):
+        return int(current_match.group(5)) < int(latest_match.group(5))
+
+    # group 7 is dev, post or None.
+    if latest_match.group(7) is None:
+        return False
+    if current_match.group(7) is None:
+        return True
+    if current_match.group(7) != latest_match.group(7):
         # post > dev, so we can use standard string compare here.
-        return True
+        return current_match.group(7) < latest_match.group(7)
 
-    if int(current_match.group(7) < latest_match.group(7)):
+    # group 8 is final number.  No number is greater than having a number.
+    if latest_match.group(8) is None:
+        return current_match.group(8) is not None
+    if current_match.group(8) is None:
+        return False
+    if int(current_match.group(8)) < int(latest_match.group(8)):
         return True
     return False
 
