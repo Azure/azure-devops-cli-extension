@@ -33,7 +33,7 @@ GLOBAL_CONFIG_PATH = os.path.join(GLOBAL_CONFIG_DIR, CONFIG_FILE_NAME)
 
 class VstsConfig(CLIConfig):
     def __init__(self, config_dir=GLOBAL_CONFIG_DIR, config_env_var_prefix=CLI_ENV_VARIABLE_PREFIX):
-        CLIConfig.__init__(self, config_dir=config_dir, config_env_var_prefix=config_env_var_prefix)
+        super(VstsConfig, self).__init__(config_dir=config_dir, config_env_var_prefix=config_env_var_prefix)
         self.config_parser = get_config_parser()
 
 

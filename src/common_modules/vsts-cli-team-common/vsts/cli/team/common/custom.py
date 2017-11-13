@@ -19,6 +19,7 @@ from vsts.cli.common.config import (set_global_config_value,
 from vsts.cli.common.configure import interactive_configure, print_current_configuration
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.services import _get_vss_connection, get_base_url
+from vsts.cli.common.version import DISABLE_VERSION_CHECK_SETTING
 
 
 def credential_set(token, team_instance=None):
@@ -62,7 +63,7 @@ def credential_clear(team_instance=None):
 
 
 def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_git_aliases=None,
-              default_output=None, list_config=False):
+              default_output=None, disable_version_check=None, list_config=False):
     """Configure the VSTS CLI or view your configuration.
     :param defaults: Space separated 'name=value' pairs for common arguments defaults,
         e.g. '--defaults output=table arg=value' Use '' to clear the defaults, e.g. --defaults output=''.
@@ -81,11 +82,14 @@ def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_g
     :type use_git_aliases: str
     :param default_output: Specifies the default output format for commands.
     :type default_output: str
+    :param disable_version_check: Set to 'yes' to disable checking for updated versions of the CLI.
+    :type disable_version_check: str
     :param list_config: Lists the contents of the config file.
     :type list_config: bool
     """
     if defaults is None and collect_telemetry is None and enable_log_file is None\
-            and use_git_aliases is None and default_output is None and list_config is False:
+            and use_git_aliases is None and default_output is None\
+            and disable_version_check is None and list_config is False:
         interactive_configure()
         return
     if defaults:
@@ -100,6 +104,8 @@ def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_g
         set_global_config_value(LOGGING_SECTION, 'enable_log_file', enable_log_file)
     if default_output is not None:
         set_global_config_value(CORE_SECTION, 'output', default_output)
+    if disable_version_check:
+        set_global_config_value(CORE_SECTION, DISABLE_VERSION_CHECK_SETTING, disable_version_check)
     if use_git_aliases is not None:
         from vsts.cli.code.common.git_alias import setup_git_aliases, clear_git_aliases
         if use_git_aliases == 'yes':

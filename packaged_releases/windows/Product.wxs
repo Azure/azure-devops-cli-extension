@@ -26,9 +26,9 @@
     <Icon Id="VstsCliIcon" SourceFile="$(var.ProductResources)VstsCli.ico" />
 
     <Property Id="ARPPRODUCTICON" Value="VstsCliIcon" />
-    <Property Id="ARPHELPLINK" Value="https://docs.microsoft.com/en-us/cli/vsts" />
-    <Property Id="ARPURLINFOABOUT" Value="https://docs.microsoft.com/en-us/cli/vsts/overview" />
-    <Property Id="ARPURLUPDATEINFO" Value="https://docs.microsoft.com/en-us/cli/vsts/overview" />
+    <Property Id="ARPHELPLINK" Value="https://aka.ms/vsts-cli-msi-help" />
+    <Property Id="ARPURLINFOABOUT" Value="https://aka.ms/vsts-cli-msi-info-about" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://aka.ms/vsts-cli-msi-update-info" />
     <Property Id="ApplicationFolderName" Value="Microsoft SDKs\Vsts\Cli" />
     <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
 

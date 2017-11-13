@@ -12,33 +12,34 @@ from knack.util import CLIError
 from .uri import uri_parse
 
 
+_GIT_EXE = 'git'
+
+
 def set_config(key, value, local=True):
-    if local:
-        scope = '--local'
-    else:
-        scope = '--global'
-    subprocess.check_output(['git', 'config', scope, key, value])
+    scope = _get_git_config_scope_arg(local)
+    subprocess.check_output([_GIT_EXE, 'config', scope, key, value])
 
 
 def unset_config(key, local=True):
-    if local:
-        scope = '--local'
-    else:
-        scope = '--global'
-    subprocess.check_output(['git', 'config', scope, '--unset', key])
+    scope = _get_git_config_scope_arg(local)
+    subprocess.check_output([_GIT_EXE, 'config', scope, '--unset', key])
 
 
 def get_config(key, local=True):
+    scope = _get_git_config_scope_arg(local)
+    return subprocess.check_output([_GIT_EXE, 'config', scope, key])
+
+
+def _get_git_config_scope_arg(local):
     if local:
-        scope = '--local'
+        return '--local'
     else:
-        scope = '--global'
-    return subprocess.check_output(['git', 'config', scope, key])
+        return '--global'
 
 
 def get_current_branch_name():
     try:
-        output = subprocess.check_output(['git', 'symbolic-ref', '--short', '-q', 'HEAD'])
+        output = subprocess.check_output([_GIT_EXE, 'symbolic-ref', '--short', '-q', 'HEAD'])
     except subprocess.CalledProcessError as ex:
         logging.info('GitDetect: Could not detect current branch based on current working directory.')
         logging.exception(ex)
@@ -69,7 +70,7 @@ def get_git_credentials(team_instance):
     host = parse_result.netloc
     standard_in = bytes('protocol={protocol}\nhost={host}'.format(protocol=protocol, host=host), 'utf-8')
     try:
-        output = subprocess.check_output(['git', 'credential-manager', 'get'], input=standard_in)
+        output = subprocess.check_output([_GIT_EXE, 'credential-manager', 'get'], input=standard_in)
     except subprocess.CalledProcessError as ex:
         logging.info('GitDetect: Could not detect git credentials for current working directory.')
         logging.exception(ex)
@@ -96,7 +97,7 @@ def get_git_remotes():
         # full  https://mseng.visualstudio.com/DefaultCollection/VSOnline/_git/_full/VSO (push)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (fetch)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (push)
-        output = subprocess.check_output(['git', 'remote', '-v'], stderr=subprocess.STDOUT)
+        output = subprocess.check_output([_GIT_EXE, 'remote', '-v'], stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as ex:
         logging.info('GitDetect: Could not detect current remotes based on current working directory.')
         logging.exception(ex)
@@ -162,7 +163,7 @@ GIT_CREDENTIALS_USERNAME_KEY = 'username'
 GIT_CREDENTIALS_PASSWORD_KEY = 'password'
 
 
-class GitRemote:
+class GitRemote(object):
     """ GitRemote.
     """
     def __init__(self, name, url, direction):
