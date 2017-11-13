@@ -92,7 +92,7 @@ def create_project(name, team_instance=None, process=None, source_control='git',
 
 
 def show_project(project_id=None, name=None, team_instance=None, detect=None, open_browser=False):
-    """Get project with the specified id or name.
+    """Show team project.
     :param project_id: The id (UUID) of the project to show. Required if the --name argument is not specified.
     :type project_id: str
     :param name: Name of the project to show. Ignored if the --id argument is specified.
@@ -125,13 +125,13 @@ def show_project(project_id=None, name=None, team_instance=None, detect=None, op
 
 
 def list_projects(team_instance=None, top=None, skip=None, detect=None):
-    """Get project with the specified id or name.
+    """List team projects
     :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
                           collection.
     :type team_instance: str
-    :param top:
+    :param top: Maximum number of results to list.
     :type top: int
-    :param skip:
+    :param skip: Number of results to skip.
     :type skip: int
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
