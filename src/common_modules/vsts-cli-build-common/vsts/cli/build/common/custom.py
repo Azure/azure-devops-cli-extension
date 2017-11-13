@@ -4,26 +4,26 @@
 # --------------------------------------------------------------------------------------------
 
 import logging
-import re
-import webbrowser
-
 
 from vsts.build.v4_0.models.build import Build
 from vsts.build.v4_0.models.definition_reference import DefinitionReference
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.git import resolve_git_ref_heads
-from vsts.cli.common.uuid import is_uuid
 from vsts.cli.common.services import (get_build_client,
                                       get_git_client,
                                       resolve_instance_and_project,
                                       resolve_instance_project_and_repo)
 from vsts.cli.common.uri import uri_quote
+from vsts.cli.common.uuid import is_uuid
+from webbrowser import open_new
 
 
-def build_queue(definition, source_branch=None, open_browser=False, team_instance=None, project=None, detect=None):
+def build_queue(definition_id=None, name=None, source_branch=None, open_browser=False, team_instance=None, project=None, detect=None):
     """Queue a new build.
-    :param definition: The name or id of the build definition.
-    :type definition: bool
+    :param definition_id: The id of the build definition.  Required if --name is not supplied.
+    :type definition_id: str
+    :param name: The name of the build definition.  Ignored if --id is supplied.
+    :type name: str
     :param source_branch: The source branch to build.
     :type source_branch: str
     :param open_browser: Open the work item in the default web browser.
@@ -42,8 +42,11 @@ def build_queue(definition, source_branch=None, open_browser=False, team_instanc
         team_instance, project = resolve_instance_and_project(detect=detect,
                                                               team_instance=team_instance,
                                                               project=project)
+        if definition_id is None and name is None:
+            raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
         client = get_build_client(team_instance)
-        definition_id = _resolve_definition(definition, client, project)
+        if definition_id is None:
+            definition_id = get_definition_id_from_name(name, client, project)
         definition_reference = DefinitionReference(id=definition_id)
         build = Build(definition=definition_reference)
         if source_branch is not None:
@@ -131,7 +134,7 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
 
 def build_definition_show(definition_id=None, name=None, open_browser=False, team_instance=None, project=None,
                           detect=None):
-    """Lists build definitions
+    """Shows details of a build definition.
     :param definition_id: The ID of the Build Definition.
     :type definition_id: int
     :param name: The name of the Build Definition.  Ignored if id is supplied.
@@ -155,7 +158,7 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
         client = get_build_client(team_instance)
         if definition_id is None:
             if name is not None:
-                definition_id = _resolve_definition(name, client, project)
+                definition_id = get_definition_id_from_name(name, client, project)
             else:
                 raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
         build_definition = client.get_definition(definition_id=definition_id, project=project)
@@ -174,9 +177,9 @@ def _open_build(build, team_instance):
     # https://mseng.visualstudio.com/vsts-cli/_build/index?buildId=4053990
     project = build.project.name
     url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_build/index?buildid='\
-        + uri_quote(str(build.build_number))
+        + uri_quote(str(build.id))
     logging.debug('Opening web page: %s', url)
-    webbrowser.open_new(url=url)
+    open_new(url=url)
 
 
 def _open_definition(definition, team_instance):
@@ -189,23 +192,22 @@ def _open_definition(definition, team_instance):
     url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_build/index?definitionId='\
         + uri_quote(str(definition.id))
     logging.debug('Opening web page: %s', url)
-    webbrowser.open_new(url=url)
+    open_new(url=url)
 
 
-def _resolve_definition(definition, client, project):
-    if _integer_regex.match(definition):
-        return definition
+def get_definition_id_from_name(name, client, project):
+    definition_references = client.get_definitions(project=project, name=name)
+    if len(definition_references) == 1:
+        return definition_references[0].id
+    elif len(definition_references) > 1:
+        if is_uuid(project):
+            project = definition_references[0].project.name
+        message = 'Multiple definitions were found matching name "{name}" in project "{project}".  Try '\
+                  + 'supplying the definition ID.'
+        raise ValueError(message.format(name=name, project=project))
     else:
-        definition_references = client.get_definitions(project=project, name=definition)
-        if len(definition_references) == 1:
-            return definition_references[0].id
-        elif len(definition_references) > 1:
-            message = 'Multiple definitions were found matching name "{}" in project "{}".  Try '\
-                      + 'supplying the definition ID.'
-            raise ValueError(message.format(definition, project))
-        else:
-            raise ValueError('There were no build definitions matching name "{}" in project "{}".'
-                             .format(definition, project))
+        raise ValueError('There were no build definitions matching name "{name}" in project "{project}".'
+                         .format(name=name, project=project))
 
 
 def _resolve_repository_as_id(repository, team_instance, project):
@@ -217,6 +219,3 @@ def _resolve_repository_as_id(repository, team_instance, project):
         for found_repository in repositories:
             if found_repository.name.lower() == repository.lower():
                 return found_repository.id
-
-
-_integer_regex = re.compile('^\\d+$')
