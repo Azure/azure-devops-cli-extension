@@ -37,6 +37,7 @@ CLASSIFIERS = [
 setup(
     name=NAME,
     version=VERSION,
+    license='MIT',
     description="VSTS Command Line Common",
     author="Microsoft Corporation",
     author_email="vstscli@microsoft.com",
