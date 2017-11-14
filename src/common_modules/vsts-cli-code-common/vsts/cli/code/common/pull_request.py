@@ -18,7 +18,7 @@ from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOp
 from vsts.work_item_tracking.v4_0.models.work_item_relation import WorkItemRelation
 from vsts.cli.common.arguments import resolve_on_off_switch, should_detect
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.git import get_current_branch_name, resolve_git_ref_heads, setup_git_alias
+from vsts.cli.common.git import get_current_branch_name, resolve_git_ref_heads
 from vsts.cli.common.identities import ME, resolve_identity_as_id
 from vsts.cli.common.uri import uri_quote
 from vsts.cli.common.uuid import EMPTY_UUID
@@ -740,4 +740,3 @@ def _get_default_branch(team_instance, project, repository):
     client = get_git_client(team_instance)
     repo = client.get_repository(project=project, repository_id=repository)
     return repo.default_branch
-
