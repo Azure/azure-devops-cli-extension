@@ -6,7 +6,7 @@
 from collections import OrderedDict
 from vsts.cli.work.common.custom import get_last_query_result
 
-_work_item_title_truncation_length = 70
+_WORK_ITEM_TITLE_TRUNCATION_LENGTH = 70
 
 
 def transform_work_items_table_output(result):
@@ -31,8 +31,8 @@ def _transform_work_items_row(row):
             table_row['Type'] = ' '
         if 'System.Title' in row['fields']:
             title = row['fields']['System.Title']
-            if len(title) > _work_item_title_truncation_length:
-                title = title[0:_work_item_title_truncation_length - 3] + '...'
+            if len(title) > _WORK_ITEM_TITLE_TRUNCATION_LENGTH:
+                title = title[0:_WORK_ITEM_TITLE_TRUNCATION_LENGTH - 3] + '...'
             table_row['Title'] = title
         else:
             table_row['Title'] = ' '
@@ -71,7 +71,13 @@ def transform_work_item_query_result_row_output(row):
                 # knack hides column values that are equal to numeric 0.
                 table_row[field_reference.name] = '0'
             else:
-                table_row[field_reference.name] = row[field_reference.reference_name]
+                if field_reference.reference_name == 'System.Title':
+                    title = row[field_reference.reference_name]
+                    if len(title) > _WORK_ITEM_TITLE_TRUNCATION_LENGTH:
+                        title = title[0:_WORK_ITEM_TITLE_TRUNCATION_LENGTH - 3] + '...'
+                    table_row[field_reference.name] = title
+                else:
+                    table_row[field_reference.name] = row[field_reference.reference_name]
         else:
             table_row[field_reference.name] = ' '
         i += 1

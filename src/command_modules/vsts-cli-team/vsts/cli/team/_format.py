@@ -3,9 +3,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import dateutil.parser
-import dateutil.tz
-
 from collections import OrderedDict
 from vsts.cli.team.common.project import (PROCESS_TEMPLATE_CAPABILITY_NAME,
                                           VERSION_CONTROL_CAPABILITY_NAME,

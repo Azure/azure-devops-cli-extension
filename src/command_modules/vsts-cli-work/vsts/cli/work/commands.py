@@ -3,9 +3,9 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from knack.commands import CommandSuperGroup
 from ._format import (transform_work_item_table_output,
                       transform_work_item_query_result_table_output)
-from knack.commands import CommandSuperGroup
 
 
 def load_work_commands(cli_command_loader):

@@ -438,7 +438,7 @@ def add_pull_request_work_items(pull_request_id, work_items, team_instance=None,
         team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_git_client(team_instance)
         existing_pr = client.get_pull_request_by_id(pull_request_id)
-        if work_items is not None and len(work_items) > 0:
+        if work_items is not None and work_items:
             work_items = list(set(work_items))  # make distinct
             wit_client = get_work_item_tracking_client(team_instance)
             pr_url = 'vstfs:///Git/PullRequestId/{project}%2F{repo}%2F{id}'.format(

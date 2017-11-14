@@ -72,7 +72,7 @@ def normalize_url_for_key(url):
 
 def _transfer_file_storage_to_keyring():
     old_cache_dir = os.getenv('VSTS_CACHE_DIR', None) or os.path.expanduser(
-            os.path.join('~', '.vsts', 'cache'))
+        os.path.join('~', '.vsts', 'cache'))
     if os.path.exists(old_cache_dir):
         credentials_cache = get_cache('tokens', 0, old_cache_dir)
         if os.path.exists(credentials_cache.file_name):

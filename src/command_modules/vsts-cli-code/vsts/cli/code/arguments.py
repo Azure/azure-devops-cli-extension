@@ -6,9 +6,9 @@
 from knack.arguments import enum_choice_list, ArgumentsContext
 
 # CUSTOM CHOICE LISTS
-_on_off_switch_values = ['on', 'off']
-_vote_values = ['approve', 'approve-with-suggestions', 'reset', 'wait-for-author', 'reject']
-_pr_status_values = ['all', 'active', 'completed', 'abandoned']
+_ON_OFF_SWITCH_VALUES = ['on', 'off']
+_VOTE_VALUES = ['approve', 'approve-with-suggestions', 'reset', 'wait-for-author', 'reject']
+_PR_STATUS_VALUES = ['all', 'active', 'completed', 'abandoned']
 
 
 def load_code_arguments(cli_command_loader):
@@ -17,7 +17,7 @@ def load_code_arguments(cli_command_loader):
         ac.argument('project', options_list=('--project', '-p'))
         ac.argument('team_instance', options_list=('--instance', '-i'))
         ac.argument('reviewers', nargs='*')
-        ac.argument('detect', **enum_choice_list(_on_off_switch_values))
+        ac.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with ArgumentsContext(cli_command_loader, 'code pr') as ac:
         ac.argument('description', type=str, options_list=('--description', '-d'))
@@ -31,7 +31,7 @@ def load_code_arguments(cli_command_loader):
         ac.argument('work_items', nargs='*')
 
     with ArgumentsContext(cli_command_loader, 'code pr list') as ac:
-        ac.argument('status', **enum_choice_list(_pr_status_values))
+        ac.argument('status', **enum_choice_list(_PR_STATUS_VALUES))
 
     with ArgumentsContext(cli_command_loader, 'code pr reviewers') as ac:
         ac.argument('reviewers', nargs='+')
@@ -40,16 +40,16 @@ def load_code_arguments(cli_command_loader):
         ac.argument('work_items', nargs='+')
         
     with ArgumentsContext(cli_command_loader, 'code pr update') as ac:
-        ac.argument('auto_complete', **enum_choice_list(_on_off_switch_values))
-        ac.argument('squash', **enum_choice_list(_on_off_switch_values))
-        ac.argument('delete_source_branch', **enum_choice_list(_on_off_switch_values))
-        ac.argument('bypass_policy', **enum_choice_list(_on_off_switch_values))
+        ac.argument('auto_complete', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
+        ac.argument('squash', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
+        ac.argument('delete_source_branch', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
+        ac.argument('bypass_policy', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with ArgumentsContext(cli_command_loader, 'code pr policies') as ac:
         ac.argument('evaluation_id', options_list=('--evaluation-id', '-e'))
 
     with ArgumentsContext(cli_command_loader, 'code pr set-vote') as ac:
-        ac.argument('vote', **enum_choice_list(_vote_values))
+        ac.argument('vote', **enum_choice_list(_VOTE_VALUES))
 
     with ArgumentsContext(cli_command_loader, 'code repo') as ac:
         ac.argument('repo_id', options_list='--id')

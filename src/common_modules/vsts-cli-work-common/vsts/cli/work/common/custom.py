@@ -190,8 +190,8 @@ def _handle_vsts_service_error(ex):
                 message += '.'
             name = ex.custom_properties["FieldReferenceName"]
             if name is not None:
-                if name in _system_field_args:
-                    message += ' Use the --{} argument to supply this value.'.format(_system_field_args[name])
+                if name in _SYSTEM_FIELD_ARGS:
+                    message += ' Use the --{} argument to supply this value.'.format(_SYSTEM_FIELD_ARGS[name])
                 else:
                     message += ' To specify a value for this field, use the --field argument and set the name of the ' \
                                + 'name/value pair to {}.'.format(name)
@@ -309,7 +309,7 @@ def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, pr
                     current_batch = []
                     work_item_url_length = 0
 
-            if len(current_batch) > 0:
+            if current_batch:
                 current_batched_items = client.get_work_items(ids=current_batch,
                                                               as_of=query_result.as_of,
                                                               fields=fields)
@@ -368,7 +368,7 @@ def _create_work_item_field_patch_operation(op, field, value):
     return _create_patch_operation(op=op, path=path, value=value)
 
 
-_system_field_args = {'System.Title': 'title',
+_SYSTEM_FIELD_ARGS = {'System.Title': 'title',
                       'System.Description': 'description',
                       'System.AssignedTo': 'assigned-to',
                       'System.State': 'state',

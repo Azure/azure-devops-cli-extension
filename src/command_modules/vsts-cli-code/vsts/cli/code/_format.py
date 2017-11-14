@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-
+from collections import OrderedDict
 import dateutil.parser
 import dateutil.tz
 
@@ -11,10 +11,9 @@ from vsts.cli.common.identities import (ensure_display_names_in_cache,
                                         get_display_name_from_identity_id)
 from vsts.cli.common.git import get_branch_name_from_ref
 from vsts.cli.common.services import get_first_vss_instance_uri
-from collections import OrderedDict
 
-_pr_title_truncation_length = 50
-_work_item_title_truncation_length = 70
+_PR_TITLE_TRUNCATION_LENGTH = 50
+_WORK_ITEM_TITLE_TRUNCATION_LENGTH = 70
 
 
 def transform_pull_requests_table_output(result):
@@ -35,8 +34,8 @@ def _transform_pull_request_row(row):
     table_row['Created'] = dateutil.parser.parse(row['creationDate']).astimezone(dateutil.tz.tzlocal()).date()
     table_row['Creator'] = row['createdBy']['uniqueName']
     title = row['title']
-    if len(title) > _pr_title_truncation_length:
-        title = title[0:_pr_title_truncation_length - 3] + '...'
+    if len(title) > _PR_TITLE_TRUNCATION_LENGTH:
+        title = title[0:_PR_TITLE_TRUNCATION_LENGTH - 3] + '...'
     table_row['Title'] = title
     table_row['Status'] = row['status'].capitalize()
     table_row['Repository'] = row['repository']['name']
@@ -64,13 +63,13 @@ def _get_reviewer_table_key(row):
     return key
 
 
-_unique_name_group_prefix = 'vstfs:///'
+_UNIQUE_NAME_GROUP_PREFIX = 'vstfs:///'
 
 
 def _transform_reviewer_row(row):
     table_row = OrderedDict()
     table_row['Name'] = row['displayName']
-    if row['uniqueName'][0:len(_unique_name_group_prefix)] != _unique_name_group_prefix:
+    if row['uniqueName'][0:len(_UNIQUE_NAME_GROUP_PREFIX)] != _UNIQUE_NAME_GROUP_PREFIX:
         table_row['Email'] = row['uniqueName']
     else:
         table_row['Email'] = ' '
@@ -113,8 +112,8 @@ def _transform_work_items_row(row):
             table_row['State'] = ' '
         if 'System.Title' in row['fields']:
             title = row['fields']['System.Title']
-            if len(title) > _work_item_title_truncation_length:
-                title = title[0:_work_item_title_truncation_length - 3] + '...'
+            if len(title) > _WORK_ITEM_TITLE_TRUNCATION_LENGTH:
+                title = title[0:_WORK_ITEM_TITLE_TRUNCATION_LENGTH - 3] + '...'
             table_row['Title'] = title
         else:
             table_row['Title'] = ' '
