@@ -61,7 +61,12 @@ def _handle_global_configuration():
             if not are_git_aliases_setup():
                 setup_aliases = prompt_y_n(MSG_PROMPT_GIT_ALIAS, default='y')
                 if setup_aliases:
+                    answers['git_aliases'] = True
                     setup_git_aliases()
+                else:
+                    answers['git_aliases'] = False
+            else:
+                answers['git_aliases'] = True
         except ModuleNotFoundError:
             logging.debug('Skipping git alias configuration, because module was not found.')
         enable_file_logging = prompt_y_n(MSG_PROMPT_FILE_LOGGING, default='n')
@@ -86,7 +91,11 @@ def interactive_configure():
     try:
         print(MSG_INTRO)
         _handle_global_configuration()
-        print(MSG_CLOSING)
+        if 'git_aliases' in answers and answers['git_aliases']:
+            message = MSG_CLOSING.format(MSG_CLOSING_GIT_COMMAND)
+        else:
+            message = MSG_CLOSING.format('')
+        print(message)
     except NoTTYException:
         raise CLIError('This command is interactive and no tty available.')
     except (EOFError, KeyboardInterrupt):
@@ -110,12 +119,13 @@ OUTPUT_LIST = [
     {'name': 'tsv', 'desc': 'Tab and Newline delimited, great for GREP, AWK, etc.'}
 ]
 
-MSG_INTRO = '\nWelcome to the VSTS CLI! This command will guide you through logging in and ' \
-            'setting some default values.\n'
+MSG_INTRO = '\nWelcome to the VSTS CLI! This command will guide you through setting some default values.\n'
 MSG_CLOSING = '\nYou\'re all set! Here are some commands to try:\n' \
               ' $ vsts login\n' \
-              ' $ vsts code pr create --help\n' \
+              ' $ vsts code pr list\n{}' \
               ' $ vsts feedback\n'
+
+MSG_CLOSING_GIT_COMMAND = ' $ git pr list\n'
 
 MSG_GLOBAL_SETTINGS_LOCATION = 'Your settings can be found at {}'
 

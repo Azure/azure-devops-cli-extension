@@ -21,7 +21,7 @@ from vsts.cli.common.uri import uri_quote
 def create_work_item(work_item_type, title, description=None, assigned_to=None, state=None, area=None,
                      iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
                      team_instance=None, project=None, detect=None):
-    """Create a new work item.
+    """Create a work item.
     :param work_item_type: Name of the work item type (e.g. Bug).
     :type work_item_type: str
     :param title: Title of the work item.
@@ -229,9 +229,9 @@ def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=
 
 def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, project=None, detect=None):
     """Query for a list of work items.
-    :param wiql: The query in Work Item Query Language format.  Ignored of --id or --path is specified.
+    :param wiql: The query in Work Item Query Language format.  Ignored if --id or --path is specified.
     :type wiql: str
-    :param query_id: The UUID of an existing query.  Required unless--path or --wiql are specified.
+    :param query_id: The UUID of an existing query.  Required unless --path or --wiql are specified.
     :type query_id: str
     :param path: The path of an existing query.  Ignored if --id is specified.
     :type path: str

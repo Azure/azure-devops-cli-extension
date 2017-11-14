@@ -124,6 +124,17 @@ def resolve_git_ref_heads(ref):
     return ref
 
 
+def get_branch_name_from_ref(ref):
+    """Removes 'refs/heads/' prefix from ref str if there.
+    :param ref: The text to validate.
+    :type ref: str
+    :rtype: str
+    """
+    if ref is not None and ref.startswith(REF_HEADS_PREFIX):
+        ref = ref[len(REF_HEADS_PREFIX):]
+    return ref
+
+
 def setup_git_alias(alias, command, local=False):
     try:
         set_config(key=_get_alias_key(alias),

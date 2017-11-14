@@ -9,6 +9,7 @@ import dateutil.tz
 
 from vsts.cli.common.identities import (ensure_display_names_in_cache,
                                         get_display_name_from_identity_id)
+from vsts.cli.common.git import get_branch_name_from_ref
 from vsts.cli.common.services import get_first_vss_instance_uri
 from collections import OrderedDict
 
@@ -244,8 +245,11 @@ def _transform_repo_row(row):
     table_row = OrderedDict()
     table_row['ID'] = row['id']
     table_row['Name'] = row['name']
-    table_row['Default Branch'] = row['defaultBranch']
-    table_row['Is fork'] = row['isFork']
+    if row['defaultBranch']:
+        table_row['Default Branch'] = get_branch_name_from_ref(row['defaultBranch'])
+    else:
+        table_row['Default Branch'] = ' '
+    table_row['Project'] = row['project']['name']
     return table_row
 
 
