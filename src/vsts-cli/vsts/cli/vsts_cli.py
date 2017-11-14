@@ -5,6 +5,9 @@
 
 from __future__ import print_function
 
+import platform
+import sys
+
 from knack import CLI
 from knack.events import EVENT_CLI_PRE_EXECUTE
 from vsts.cli.common.config import GLOBAL_CONFIG_DIR, CLI_ENV_VARIABLE_PREFIX
@@ -58,6 +61,14 @@ class VstsCLI(CLI):
         version_info += '\n'
         version_info += self.get_legal_text()
         print(version_info, file=self.out_file)
+
+    def get_runtime_version(self):  # pylint: disable=no-self-use
+        version_info = '\n\n'
+        version_info += 'Python ({}) {}'.format(platform.system(), sys.version)
+        version_info += '\n\n'
+        version_info += 'Python location: {}'.format(sys.executable)
+        version_info += '\n'
+        return version_info
 
     @staticmethod
     def get_component_version_text():
