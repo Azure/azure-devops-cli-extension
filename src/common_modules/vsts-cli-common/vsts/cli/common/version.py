@@ -7,17 +7,25 @@ from __future__ import print_function
 
 import logging
 import os
+import sys
 
 
 from datetime import datetime, timedelta
 from vsts._file_cache import get_file_json
 from .file_cache import DEFAULT_CACHE_DIR
 
+VERSION = "0.1.0b0"
 
 DISABLE_VERSION_CHECK_SETTING = "disable_version_check"
-VERSION = "0.1.0b0"
 _VERSION_INFO_LINK = "https://aka.ms/vsts-cli-update-json"
 _VERSION_INFO_LOCAL_FILE_PATH = os.path.join(DEFAULT_CACHE_DIR, 'version.json')
+_UPDATE_MESSAGE_FORMAT = '\nA newer version of the VSTS CLI is available ({version}). Go to {url} to download. ' +\
+            'To disable version checks going forward, run "vsts configure ' +\
+            '--disable_version_check yes" or set environment variable {env_var} to "true".\n'
+UPDATE_MESSAGE_LINK = 'https://aka.ms/get-vsts-cli'
+SUPPRESS_UPDATE_MESSAGE = "VSTS_CLI_DISABLE_VERSION_CHECK"
+
+_disabled = []
 
 
 def download_latest_version_info():
@@ -69,6 +77,8 @@ def get_latest_version_info():
 
 
 def should_prompt_for_update():
+    if len(_disabled) > 0 and _disabled[0]:
+        return False, None
     if SUPPRESS_UPDATE_MESSAGE in os.environ:
         if os.environ[SUPPRESS_UPDATE_MESSAGE] != 'false':
             return False, None
@@ -86,7 +96,7 @@ def display_version_update_info_if_necessary():
         if 'upgradeMessage' in data and len(data['upgradeMessage']) > 0:
             message = data['upgradeMessage']
         else:
-            message = UPDATE_MESSAGE_FORMAT
+            message = _UPDATE_MESSAGE_FORMAT
         if 'upgradeLink' in data and len(data['upgradeLink']) > 0:
             upgrade_link = data['upgradeLink']
         else:
@@ -95,13 +105,11 @@ def display_version_update_info_if_necessary():
                   version=data['latestReleasedVersion'],
                   url=upgrade_link,
                   env_var=SUPPRESS_UPDATE_MESSAGE
-              ))
+              ), file=sys.stderr)
 
 
-UPDATE_MESSAGE_FORMAT = 'A newer version of the VSTS CLI is available ({version}). Go to {url} to download. ' +\
-            'To disable version checks going forward, run "vsts configure ' +\
-            '--disable_version_check yes" or set environment variable {env_var} to "true".\n'
-UPDATE_MESSAGE_LINK = 'https://aka.ms/get-vsts-cli'
+def disable_command_version_checking():
+    _disabled.append(True)
 
 
 def is_version_later_than_current(latest_version):
@@ -173,6 +181,3 @@ def _is_version_less_than(current_version, latest_version):
     if int(current_match.group(8)) < int(latest_match.group(8)):
         return True
     return False
-
-
-SUPPRESS_UPDATE_MESSAGE = "VSTS_CLI_DISABLE_VERSION_CHECK"
