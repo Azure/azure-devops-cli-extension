@@ -18,7 +18,7 @@ from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOp
 from vsts.work_item_tracking.v4_0.models.work_item_relation import WorkItemRelation
 from vsts.cli.common.arguments import resolve_on_off_switch, should_detect
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.git import get_current_branch_name, resolve_git_ref_heads, setup_git_alias
+from vsts.cli.common.git import get_current_branch_name, resolve_git_ref_heads
 from vsts.cli.common.identities import ME, resolve_identity_as_id
 from vsts.cli.common.uri import uri_quote
 from vsts.cli.common.uuid import EMPTY_UUID
@@ -147,7 +147,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type bypass_policy: bool
     :param bypass_policy_reason: Justification for bypassing the required policies.
     :type bypass_policy_reason: str
-    :param merge_commit_message:
+    :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
     :param reviewers: Additional users or groups to include as reviewers for the new pull request.
                       Space separated.
@@ -265,7 +265,7 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
     :type bypass_policy: str
     :param bypass_policy_reason: Justification for bypassing the required policies.
     :type bypass_policy_reason: str
-    :param merge_commit_message:
+    :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
     :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
                           collection.
@@ -388,7 +388,7 @@ def create_pull_request_reviewers(pull_request_id, reviewers, team_instance=None
 
 
 def delete_pull_request_reviewers(pull_request_id, reviewers, team_instance=None, detect=None):
-    """Adds reviewers to a git pull request.
+    """Remove reviewers from a pull request.
     :param pull_request_id: The ID of the pull request.
     :type pull_request_id: int
     :param reviewers: Users or groups to remove as reviewers on a pull request. Space separated.
@@ -419,7 +419,7 @@ def delete_pull_request_reviewers(pull_request_id, reviewers, team_instance=None
 
 
 def list_pull_request_reviewers(pull_request_id, team_instance=None, detect=None):
-    """Adds reviewers to a git pull request.
+    """List reviewers of a pull request.
     :param pull_request_id: The ID of the pull request.
     :type pull_request_id: int
     :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
@@ -442,7 +442,7 @@ def list_pull_request_reviewers(pull_request_id, team_instance=None, detect=None
 
 
 def add_pull_request_work_items(pull_request_id, work_items, team_instance=None, detect=None):
-    """Adds reviewers to a git pull request.
+    """Add work items to a pull request.
     :param pull_request_id: The ID of the pull request.
     :type pull_request_id: int
     :param work_items: Work item IDs to link to a pull request. Space separated.
@@ -493,7 +493,7 @@ def add_pull_request_work_items(pull_request_id, work_items, team_instance=None,
 
 
 def remove_pull_request_work_items(pull_request_id, work_items, team_instance=None, detect=None):
-    """Adds reviewers to a git pull request.
+    """Remove work items from a pull request.
     :param pull_request_id: The ID of the pull request.
     :type pull_request_id: int
     :param work_items: Work item IDs to unlink from a pull request. Space separated.
@@ -552,7 +552,7 @@ def remove_pull_request_work_items(pull_request_id, work_items, team_instance=No
 
 
 def list_pull_request_work_items(pull_request_id, team_instance=None, detect=None):
-    """Adds reviewers to a git pull request.
+    """List work items associated with pull requests.
     :param pull_request_id: The ID of the pull request.
     :type pull_request_id: int
     :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
@@ -740,4 +740,3 @@ def _get_default_branch(team_instance, project, repository):
     client = get_git_client(team_instance)
     repo = client.get_repository(project=project, repository_id=repository)
     return repo.default_branch
-

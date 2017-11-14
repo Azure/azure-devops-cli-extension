@@ -19,27 +19,27 @@ from vsts.cli.common.uri import uri_quote
 
 
 def create_work_item(work_item_type, title, description=None, assigned_to=None, state=None, area=None,
-                     iteration=None, reason=None, history=None, fields=None, open_browser=False,
+                     iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
                      team_instance=None, project=None, detect=None):
     """Create a new work item.
     :param work_item_type: Name of the work item type (e.g. Bug).
     :type work_item_type: str
-    :param title:
+    :param title: Title of the work item.
     :type title: str
-    :param description:
+    :param description: Description of the work item.
     :type description: str
-    :param assigned_to:
+    :param assigned_to: Name of the person the work item is assigned-to (e.g. fabrikam).
     :type assigned_to: str
-    :param state:
+    :param state: State of the work item (e.g. active)
     :type state: str
-    :param area:
+    :param area: Area the work item is assigned to (e.g. Demos)
     :type area: str
-    :param iteration:
+    :param iteration: Iteration path of the work item (e.g. Demos\Iteration 1).
     :type iteration: str
-    :param reason:
+    :param reason: Reason for the state work item.
     :type reason: str
-    :param history:
-    :type history: str
+    :param discussion: Comment to add to a discussion in a work item.
+    :type discussion: str
     :param fields: Space separated "field=value" pairs for custom fields you would like to set.
     :type fields: [str]
     :param open_browser: Open the work item in the default web browser.
@@ -83,8 +83,8 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.IterationPath', iteration))
         if reason is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Reason', reason))
-        if history is not None:
-            patch_document.append(_create_work_item_field_patch_operation('add', 'System.History', history))
+        if discussion is not None:
+            patch_document.append(_create_work_item_field_patch_operation('add', 'System.History', discussion))
         if fields is not None and fields:
             for field in fields:
                 kvp = field.split('=')
@@ -104,27 +104,27 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
 
 
 def update_work_item(work_item_id, title=None, description=None, assigned_to=None, state=None, area=None,
-                     iteration=None, reason=None, history=None, fields=None, open_browser=False,
+                     iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
                      team_instance=None, detect=None):
-    """Create a new work item.
+    """Update work items.
     :param work_item_id: The id of the work item to update.
     :type work_item_id: str
-    :param title:
+    :param title: Title of the work item.
     :type title: str
-    :param description:
+    :param description: Description of the work item.
     :type description: str
-    :param assigned_to:
+    :param assigned_to: Name of the person the work item is assigned-to (e.g. fabrikam).
     :type assigned_to: str
-    :param state:
+    :param state: State of the work item (e.g. active).
     :type state: str
-    :param area:
+    :param area: Area the work item is assigned to (e.g. Demos).
     :type area: str
-    :param iteration:
+    :param iteration: Iteration path of the work item (e.g. Demos\Iteration 1).
     :type iteration: str
-    :param reason:
+    :param reason: Reason for the state work item.
     :type reason: str
-    :param history:
-    :type history: str
+    :param discussion: Comment to add to a discussion in a work item.
+    :type discussion: str
     :param fields: Space separated "field=value" pairs for custom fields you would like to set.
     :type fields: [str]
     :param open_browser: Open the work item in the default web browser.
@@ -161,8 +161,8 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.IterationPath', iteration))
         if reason is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Reason', reason))
-        if history is not None:
-            patch_document.append(_create_work_item_field_patch_operation('add', 'System.History', history))
+        if discussion is not None:
+            patch_document.append(_create_work_item_field_patch_operation('add', 'System.History', discussion))
         if fields is not None and fields:
             for field in fields:
                 kvp = field.split('=')
@@ -189,11 +189,12 @@ def _handle_vsts_service_error(ex):
             if message and message[len(message) - 1] != '.':
                 message += '.'
             name = ex.custom_properties["FieldReferenceName"]
-            if name in _system_field_args:
-                message += ' Use the --{} argument to supply this value.'.format(_system_field_args[name])
-            else:
-                message += ' To specify a value for this field, use the --field argument and set the name of the ' \
-                           + 'name/value pair to {}.'.format(name)
+            if name is not None:
+                if name in _system_field_args:
+                    message += ' Use the --{} argument to supply this value.'.format(_system_field_args[name])
+                else:
+                    message += ' To specify a value for this field, use the --field argument and set the name of the ' \
+                               + 'name/value pair to {}.'.format(name)
         else:
             message = "RuleValidationException for FieldReferenceName: " + ex.custom_properties["FieldReferenceName"]
         raise CLIError(ValueError(message))
@@ -227,7 +228,7 @@ def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=
 
 
 def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, project=None, detect=None):
-    """Show details for a work item.
+    """Query for a list of work items.
     :param wiql: The query in Work Item Query Language format.  Ignored of --id or --path is specified.
     :type wiql: str
     :param query_id: The UUID of an existing query.  Required unless--path or --wiql are specified.
@@ -246,7 +247,7 @@ def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, pr
     """
     try:
         if wiql is None and path is None and query_id is None:
-            raise CLIError("Either the --wiql, --id, or --name argument must be specified.")
+            raise CLIError("Either the --wiql, --id, or --path argument must be specified.")
         team_instance, project = resolve_instance_and_project(detect=detect,
                                                               team_instance=team_instance,
                                                               project=project,

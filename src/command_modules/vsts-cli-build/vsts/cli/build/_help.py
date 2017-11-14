@@ -13,6 +13,12 @@ helps['build'] = """
     long-summary:
 """
 
+helps['build definition'] = """
+    type: group
+    short-summary: Manage build definitions.
+    long-summary:
+"""
+
 helps['build queue'] = """
     type: command
     short-summary: Queue a new build.

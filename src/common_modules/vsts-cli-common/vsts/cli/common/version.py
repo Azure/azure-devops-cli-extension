@@ -158,9 +158,9 @@ def _is_version_less_than(current_version, latest_version):
 
     # group 7 is dev, post or None.
     if latest_match.group(7) is None:
-        return False
+        return current_match.group(7) is not None
     if current_match.group(7) is None:
-        return True
+        return False
     if current_match.group(7) != latest_match.group(7):
         # post > dev, so we can use standard string compare here.
         return current_match.group(7) < latest_match.group(7)

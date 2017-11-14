@@ -9,6 +9,7 @@ from vsts.build.v4_0.models.build import Build
 from vsts.build.v4_0.models.definition_reference import DefinitionReference
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.git import resolve_git_ref_heads
+from vsts.cli.common.identities import resolve_identity_as_id
 from vsts.cli.common.services import (get_build_client,
                                       get_git_client,
                                       resolve_instance_and_project,
@@ -18,12 +19,12 @@ from vsts.cli.common.uuid import is_uuid
 from webbrowser import open_new
 
 
-def build_queue(definition_id=None, name=None, source_branch=None, open_browser=False, team_instance=None, project=None, detect=None):
+def build_queue(definition_id=None, definition_name=None, source_branch=None, open_browser=False, team_instance=None, project=None, detect=None):
     """Queue a new build.
     :param definition_id: The id of the build definition.  Required if --name is not supplied.
-    :type definition_id: str
-    :param name: The name of the build definition.  Ignored if --id is supplied.
-    :type name: str
+    :type definition_id: int
+    :param definition_name: The name of the build definition.  Ignored if --id is supplied.
+    :type definition_name: str
     :param source_branch: The source branch to build.
     :type source_branch: str
     :param open_browser: Open the work item in the default web browser.
@@ -42,11 +43,12 @@ def build_queue(definition_id=None, name=None, source_branch=None, open_browser=
         team_instance, project = resolve_instance_and_project(detect=detect,
                                                               team_instance=team_instance,
                                                               project=project)
-        if definition_id is None and name is None:
-            raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
+        if definition_id is None and definition_name is None:
+            raise ValueError('Either the --definition-id argument or the --definition-name argument ' +
+                             'must be supplied for this command.')
         client = get_build_client(team_instance)
         if definition_id is None:
-            definition_id = get_definition_id_from_name(name, client, project)
+            definition_id = get_definition_id_from_name(definition_name, client, project)
         definition_reference = DefinitionReference(id=definition_id)
         build = Build(definition=definition_reference)
         if source_branch is not None:
@@ -84,6 +86,58 @@ def build_show(build_id, open_browser=False, team_instance=None, project=None, d
         if open_browser:
             _open_build(build, team_instance)
         return build
+    except Exception as ex:
+        handle_command_exception(ex)
+
+
+def build_list(definition_ids=None, branch=None, team_instance=None, project=None, detect=None, top=None,
+               result=None, status=None, reason=None, tags=None, requested_for=None):
+    """List build results.
+    :param definition_ids: Definition IDs to list builds for. Space separated.
+    :type definition_ids: list of int
+    :param branch: Branch to list builds for.
+    :type branch: str
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
+    :type team_instance: str
+    :param project: Name or ID of the team project.
+    :type project: str
+    :param detect: When 'On' unsupplied arg values will be detected from the current working
+                   directory's repo.
+    :type detect: str
+    :param top: Maximum number of results to list.
+    :type top: int
+    :param result: The build result to filter by.
+    :type result: str
+    :param status: The build status to filter by.
+    :type status: str
+    :param reason: The build reason to filter by.
+    :type reason: str
+    :param tags: Tags to list builds for. Space separated.
+    :type tags: list of str
+    :param requested_for: The requested for identity to filter by.
+    :type requested_for: str
+    :rtype: :class:`<Build> <build.v4_0.models.Build>`
+    """
+    try:
+        team_instance, project = resolve_instance_and_project(detect=detect,
+                                                              team_instance=team_instance,
+                                                              project=project)
+        client = get_build_client(team_instance)
+        if definition_ids is not None and len(definition_ids) > 0:
+            definition_ids = list(set(definition_ids))  # make distinct
+        if tags is not None and len(tags) > 0:
+            tags = list(set(tags))  # make distinct
+        builds = client.get_builds(definitions=definition_ids,
+                                   project=project,
+                                   branch_name=resolve_git_ref_heads(branch),
+                                   top=top,
+                                   result_filter=result,
+                                   status_filter=status,
+                                   reason_filter=reason,
+                                   tag_filters=tags,
+                                   requested_for=resolve_identity_as_id(requested_for, team_instance))
+        return builds
     except Exception as ex:
         handle_command_exception(ex)
 
@@ -134,7 +188,7 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
 
 def build_definition_show(definition_id=None, name=None, open_browser=False, team_instance=None, project=None,
                           detect=None):
-    """Shows details of a build definition.
+    """Show build definition.
     :param definition_id: The ID of the Build Definition.
     :type definition_id: int
     :param name: The name of the Build Definition.  Ignored if id is supplied.

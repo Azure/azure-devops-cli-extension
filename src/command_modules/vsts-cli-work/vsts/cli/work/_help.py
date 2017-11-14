@@ -12,3 +12,9 @@ helps['work'] = """
     short-summary: Commands to work with and manage work items.
     long-summary:
 """
+
+helps['work item'] = """
+    type: group
+    short-summary: Manage work items.
+    long-summary:
+"""
