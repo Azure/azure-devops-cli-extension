@@ -21,5 +21,3 @@ DEFAULT_CACHE_DIR = _get_cache_dir()
 
 def get_cli_cache(name, max_age=DEFAULT_MAX_AGE, cache_dir=DEFAULT_CACHE_DIR):
     return get_cache(name, max_age, cache_dir)
-
-

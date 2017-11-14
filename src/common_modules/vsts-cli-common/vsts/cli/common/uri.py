@@ -4,13 +4,9 @@
 # --------------------------------------------------------------------------------------------
 
 try:
-    from urllib.parse import urlparse
+    from urllib.parse import urlparse, quote
 except ImportError:
     from urlparse import urlparse
-
-try:
-    from urllib.parse import quote
-except ImportError:
     from urllib import quote
 
 

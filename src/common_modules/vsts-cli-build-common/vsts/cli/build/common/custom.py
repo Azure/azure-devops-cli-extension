@@ -5,6 +5,7 @@
 
 import logging
 
+from webbrowser import open_new
 from vsts.build.v4_0.models.build import Build
 from vsts.build.v4_0.models.definition_reference import DefinitionReference
 from vsts.cli.common.exception_handling import handle_command_exception
@@ -16,7 +17,6 @@ from vsts.cli.common.services import (get_build_client,
                                       resolve_instance_project_and_repo)
 from vsts.cli.common.uri import uri_quote
 from vsts.cli.common.uuid import is_uuid
-from webbrowser import open_new
 
 
 def build_queue(definition_id=None, definition_name=None, source_branch=None, open_browser=False, team_instance=None, project=None, detect=None):
@@ -118,9 +118,9 @@ def build_list(definition_ids=None, branch=None, team_instance=None, project=Non
                                                               team_instance=team_instance,
                                                               project=project)
         client = get_build_client(team_instance)
-        if definition_ids is not None and len(definition_ids) > 0:
+        if definition_ids is not None and definition_ids:
             definition_ids = list(set(definition_ids))  # make distinct
-        if tags is not None and len(tags) > 0:
+        if tags is not None and tags:
             tags = list(set(tags))  # make distinct
         builds = client.get_builds(definitions=definition_ids,
                                    project=project,
@@ -153,10 +153,10 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
     :rtype: [BuildDefinitionReference]
     """
     try:
-        team_instance, project, repo = resolve_instance_project_and_repo(detect=detect,
-                                                                         team_instance=team_instance,
-                                                                         project=project,
-                                                                         repo=repository)
+        team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
+                                                                               team_instance=team_instance,
+                                                                               project=project,
+                                                                               repo=repository)
         client = get_build_client(team_instance)
         query_order = 'DefinitionNameAscending'
         repository_type = None

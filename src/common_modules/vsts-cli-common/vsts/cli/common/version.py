@@ -77,7 +77,7 @@ def get_latest_version_info():
 
 
 def should_prompt_for_update():
-    if len(_disabled) > 0 and _disabled[0]:
+    if _disabled and _disabled[0]:
         return False, None
     if SUPPRESS_UPDATE_MESSAGE in os.environ:
         if os.environ[SUPPRESS_UPDATE_MESSAGE] != 'false':
@@ -93,7 +93,7 @@ def should_prompt_for_update():
 def display_version_update_info_if_necessary():
     should_prompt, data = should_prompt_for_update()
     if should_prompt and data is not None:
-        if 'upgradeMessage' in data and len(data['upgradeMessage']) > 0:
+        if 'upgradeMessage' in data and data['upgradeMessage']:
             message = data['upgradeMessage']
         else:
             message = _UPDATE_MESSAGE_FORMAT
