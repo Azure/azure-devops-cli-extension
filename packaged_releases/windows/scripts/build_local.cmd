@@ -17,7 +17,7 @@ if "%CLIVERSION%"=="" (
 )
 set PYTHON_VERSION=3.6.3
 
-set WIX_DOWNLOAD_URL="https://vstscli.blob.core.windows.net/modules/wix311-binaries-mirror.zip"
+set WIX_DOWNLOAD_URL="https://vstscli.blob.core.windows.net/msi/wix311-binaries-mirror.zip"
 
 :: Set up the output directory and temp. directories
 echo *** Cleaning previous build artifacts...
