@@ -19,7 +19,7 @@ from vsts.cli.common.config import (set_global_config_value,
 from vsts.cli.common.configure import interactive_configure, print_current_configuration
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.services import _get_vss_connection, get_base_url
-from vsts.cli.common.version import DISABLE_VERSION_CHECK_SETTING
+from vsts.cli.common.version import disable_command_version_checking, DISABLE_VERSION_CHECK_SETTING
 
 
 def credential_set(token, team_instance=None):
@@ -31,6 +31,7 @@ def credential_set(token, team_instance=None):
     :type team_instance: str
     """
     try:
+        disable_command_version_checking()
         credentials = BasicAuthentication('', token)
         if team_instance is not None:
             team_instance = get_base_url(team_instance)
@@ -54,6 +55,7 @@ def credential_clear(team_instance=None):
     :type team_instance: str
     """
     try:
+        disable_command_version_checking()
         if team_instance is not None:
             team_instance = get_base_url(team_instance)
         clear_credential(team_instance)
@@ -87,6 +89,7 @@ def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_g
     :param list_config: Lists the contents of the config file.
     :type list_config: bool
     """
+    disable_command_version_checking()
     if defaults is None and collect_telemetry is None and enable_log_file is None\
             and use_git_aliases is None and default_output is None\
             and disable_version_check is None and list_config is False:
@@ -121,3 +124,4 @@ def feedback():
     """
     print('Thank you for taking the time to share your feedback. Please submit your feedback on the following web ' +
           'page: https://aka.ms/vsts-cli-feedback')
+    disable_command_version_checking()

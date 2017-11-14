@@ -9,7 +9,7 @@ import platform
 import sys
 
 from knack import CLI
-from knack.events import EVENT_CLI_PRE_EXECUTE
+from knack.events import EVENT_CLI_POST_EXECUTE, EVENT_CLI_PRE_EXECUTE
 from vsts.cli.common.config import GLOBAL_CONFIG_DIR, CLI_ENV_VARIABLE_PREFIX
 from vsts.cli.common.services import set_tracking_data
 from vsts.cli.common.version import display_version_update_info_if_necessary
@@ -34,12 +34,22 @@ class VstsCLI(CLI):
     def invoke(self, args, initial_invocation_data=None, out_file=None):
         self.args = args
         self.register_event(event_name=EVENT_CLI_PRE_EXECUTE, handler=self.pre_execute)
+        self.register_event(event_name=EVENT_CLI_POST_EXECUTE, handler=self.post_execute)
         return CLI.invoke(self, args, initial_invocation_data, out_file)
 
     @staticmethod
     def pre_execute(cli_ctx, **kwargs):
         set_tracking_data(cli_ctx.args)
-        display_version_update_info_if_necessary()
+
+    @staticmethod
+    def post_execute(cli_ctx, **kwargs):
+        # only check for version update when output is set to 'table', which
+        # would be typical for human readable output. Other options for output
+        # imply that the command is most likely being run from a script, and
+        # we will try to avoid affecting the output in that case.
+        if cli_ctx.invocation is not None and cli_ctx.invocation.data is not None and \
+                'output' in cli_ctx.invocation.data and cli_ctx.invocation.data['output'] == 'table':
+            display_version_update_info_if_necessary()
 
     def get_cli_version(self):
         cli_info = None
