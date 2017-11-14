@@ -6,7 +6,7 @@
 from setuptools import setup, find_packages
 
 NAME = 'vsts-cli-common'
-VERSION = '0.1.0b0'
+VERSION = '0.1.0b1'
 
 # To install the library, run the following
 #
@@ -19,7 +19,7 @@ REQUIRES = [
     'keyring',
     'knack',
     'python-dateutil',
-    'vsts>=0.1.0b0.dev'
+    'vsts~=0.1.0b1.dev'
 ]
 
 CLASSIFIERS = [
