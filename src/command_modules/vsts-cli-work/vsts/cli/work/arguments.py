@@ -6,7 +6,7 @@
 
 from knack.arguments import enum_choice_list, ArgumentsContext
 
-_on_off_switch_values = ['on', 'off']
+_ON_OFF_SWITCH_VALUES = ['on', 'off']
 
 
 def load_work_arguments(cli_command_loader):
@@ -14,7 +14,7 @@ def load_work_arguments(cli_command_loader):
         ac.argument('open_browser', options_list='--open')
         ac.argument('project', options_list=('--project', '-p'))
         ac.argument('team_instance', options_list=('--instance', '-i'))
-        ac.argument('detect', **enum_choice_list(_on_off_switch_values))
+        ac.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with ArgumentsContext(cli_command_loader, 'work item') as ac:
         ac.argument('work_item_id', type=int, options_list='--id')

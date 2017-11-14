@@ -42,9 +42,12 @@ function Write-CommitMap {
 
 # Run Sphinx to generate XML for VSTS CLI commands
 function Invoke-PyToXml {   
+    Push-Location $DocGenBase
     Invoke-Expression "python -m sphinx.__init__ -E -b xml -d $DocGenOutput/doctrees . $DocGenOutput/xml/latest"
+    Pop-Location
 }
 
+# Run XML to YAML conversion
 function Invoke-XmlToYml {
     if(!(test-path $DocGenTools))
     {
@@ -61,16 +64,24 @@ function Invoke-XmlToYml {
     Pop-Location
 }
 
+# Install docgen Python dependences
 function Install-PreReqs {
     python -m pip install sphinx==1.5.6
 }
 
-if(!(test-path $DocGenOutput))
-{
-    New-Item -ItemType Directory -Force -Path $DocGenOutput
+function Main {
+    # Create output directory
+    if(!(test-path $DocGenOutput))
+    {
+        New-Item -ItemType Directory -Force -Path $DocGenOutput
+    }
+
+    # Run tasks
+    Install-PreReqs
+    Write-CommitMap
+    Invoke-PyToXml
+    Invoke-XmlToYml
 }
 
-Install-PreReqs
-Write-CommitMap
-Invoke-PyToXml
-Invoke-XmlToYml
+Main
+

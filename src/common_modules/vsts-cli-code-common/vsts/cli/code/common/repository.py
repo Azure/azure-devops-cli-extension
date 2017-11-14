@@ -15,18 +15,16 @@ from vsts.cli.common.uri import uri_quote
 
 
 def create_repo(name, team_instance=None, project=None, detect=None, open_browser=False):
-    """Creates a new repository on the server
-    :param name: The name of the new repository.
+    """Create a Git repository in a team project.
+    :param name: Name for the new repository.
     :type name: int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
-    :param open_browser: Open the repository in the default web browser.
+    :param open_browser: Open the repository page in your web browser.
     :type open_browser: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
@@ -47,14 +45,12 @@ def create_repo(name, team_instance=None, project=None, detect=None, open_browse
 
 
 def list_repos(team_instance=None, project=None, detect=None):
-    """List all the repositories in the specified team project.
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    """List Git repositories of a team project.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
     :rtype: list of :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
@@ -70,20 +66,18 @@ def list_repos(team_instance=None, project=None, detect=None):
 
 
 def show_repo(repo_id=None, name=None, team_instance=None, project=None, detect=None, open_browser=False):
-    """Shows information about a repository.
-    :param repo_id: The UUID of the Repository to show.  Required if --name is not specified.
+    """Get the details of a Git repository.
+    :param repo_id: ID of the repository. Required if --name is not specified.
     :type repo_id: int
-    :param name: The name of the repository to show.  Ignored if --id is specified.
+    :param name: Name of the repository. Ignored if --id is specified.
     :type name: int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
-    :param open_browser: Open the repository in the default web browser.
+    :param open_browser: Open the repository page in your web browser.
     :type open_browser: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """

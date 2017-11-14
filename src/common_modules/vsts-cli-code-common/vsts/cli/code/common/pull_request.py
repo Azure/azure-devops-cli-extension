@@ -30,16 +30,14 @@ from vsts.cli.common.services import (get_git_client,
 
 
 def show_pull_request(pull_request_id, open_browser=False, team_instance=None, detect=None):
-    """Show details for a pull request.
-    :param pull_request_id: The ID of the pull request.
+    """Get the details of a pull request.
+    :param pull_request_id: ID of the pull request.
     :type pull_request_id: int
-    :param open_browser: Open the pull request in the default web browser.
+    :param open_browser: Open the pull request in your web browser.
     :type open_browser: bool
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
@@ -67,11 +65,11 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     :type repository: str
     :param creator: Limit results to pull requests created by this user.
     :type creator: str
-    :param include_links: Whether to include the _links field on the shallow references
+    :param include_links: Include _links for each pull request.
     :type include_links: bool
     :param reviewer: Limit results to pull requests where this user is a reviewer.
     :type reviewer: str
-    :param source_branch: Limit results to pull requests originating from this source branch.
+    :param source_branch: Limit results to pull requests that originate from this source branch.
     :type source_branch: str
     :param status: Limit results to pull requests with this status.
     :type status: str
@@ -79,15 +77,13 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     :type target_branch: str
     :param project: Name or ID of the project.
     :type project: str
-    :param skip: Number of results to skip.
+    :param skip: Number of pull requests to skip.
     :type skip: int
-    :param top: Maximum number of results to list.
+    :param top: Maximum number of pull requests to list.
     :type top: int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
     :rtype: list of :class:`VssJsonCollectionWrapper <git.v4_0.models.VssJsonCollectionWrapper>`
     """
@@ -120,19 +116,19 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
                         merge_commit_message=None, reviewers=None, work_items=None,
                         open_browser=False, team_instance=None, detect=None):
-    """Create a new pull request.
+    """Create a pull request.
     :param project: Name or ID of the team project.
     :type project: str
     :param repository: Name or ID of the repository to create the pull request in.
     :type repository: str
-    :param source_branch: Name of the source branch.
+    :param source_branch: Name of the source branch. Example: "dev".
     :type source_branch: str
-    :param target_branch: Name of the target branch. Defaults to the default branch of the target
-                          repository if not specified.
+    :param target_branch: Name of the target branch. If not specified, defaults to the
+                          default branch of the target repository.
     :type target_branch: str
-    :param title: Short title for the new pull request.
+    :param title: Title for the new pull request.
     :type title: str
-    :param description: Longer description for the new pull request. Can include markdown.
+    :param description: Description for the new pull request. Can include markdown.
     :type description: str
     :param auto_complete: Set the pull request to complete automatically when all policies have passed and
                           the source branch can be merged into the target branch.
@@ -145,22 +141,21 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :param bypass_policy: Bypass required policies (if any) and completes the pull request once it
                           can be merged.
     :type bypass_policy: bool
-    :param bypass_policy_reason: Justification for bypassing the required policies.
+    :param bypass_policy_reason: Reason for bypassing the required policies.
     :type bypass_policy_reason: str
     :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
-    :param reviewers: Additional users or groups to include as reviewers for the new pull request.
+    :param reviewers: Additional users or groups to include as reviewers on the new pull request.
                       Space separated.
     :type reviewers: list of str
-    :param work_items: Work items to link to the new pull request.
+    :param work_items: IDs of the work items to link to the new pull request. Space separated.
     :type work_items: list of str
-    :param open_browser: Open the pull request in the default web browser after it has been created.
+    :param open_browser: Open the pull request in your web browser.
     :type open_browser: bool
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance, project, repository, source and target branches
+                   if these values are not specified. Default is "on".
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
@@ -246,7 +241,7 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
                         squash=None, delete_source_branch=None, bypass_policy=None,
                         bypass_policy_reason=None, merge_commit_message=None, team_instance=None, detect=None):
     """Update a pull request.
-    :param pull_request_id: The ID of the pull request to update
+    :param pull_request_id: ID of the pull request.
     :type pull_request_id: int
     :param title: New title for the pull request.
     :type title: str
@@ -263,15 +258,13 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
     :param bypass_policy: Bypass required policies (if any) and completes the pull request once it
                           can be merged.
     :type bypass_policy: str
-    :param bypass_policy_reason: Justification for bypassing the required policies.
+    :param bypass_policy_reason: Reason for bypassing the required policies.
     :type bypass_policy_reason: str
     :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
@@ -313,13 +306,11 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
 
 def complete_pull_request(pull_request_id, team_instance=None, detect=None):
     """Complete a pull request.
-    :param pull_request_id: The ID of the pull request to complete.
+    :param pull_request_id: ID of the pull request to complete.
     :type pull_request_id: int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
@@ -329,13 +320,11 @@ def complete_pull_request(pull_request_id, team_instance=None, detect=None):
 
 def abandon_pull_request(pull_request_id, team_instance=None, detect=None):
     """Abandon a pull request.
-    :param pull_request_id: The ID of the pull request to abandon.
+    :param pull_request_id: ID of the pull request to abandon.
     :type pull_request_id: int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
@@ -345,13 +334,11 @@ def abandon_pull_request(pull_request_id, team_instance=None, detect=None):
 
 def reactivate_pull_request(pull_request_id, team_instance=None, detect=None):
     """Reactivate an abandoned pull request.
-    :param pull_request_id: The ID of the pull request to reactivate.
+    :param pull_request_id: ID of the pull request to reactivate.
     :type pull_request_id: int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
@@ -360,16 +347,14 @@ def reactivate_pull_request(pull_request_id, team_instance=None, detect=None):
 
 
 def create_pull_request_reviewers(pull_request_id, reviewers, team_instance=None, detect=None):
-    """Adds reviewers to a git pull request.
-    :param pull_request_id: The ID of the pull request.
+    """Add one or more reviewers to a pull request.
+    :param pull_request_id: ID of the pull request.
     :type pull_request_id: int
     :param reviewers: Users or groups to include as reviewers on a pull request. Space separated.
     :type reviewers: list of str
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
@@ -388,16 +373,14 @@ def create_pull_request_reviewers(pull_request_id, reviewers, team_instance=None
 
 
 def delete_pull_request_reviewers(pull_request_id, reviewers, team_instance=None, detect=None):
-    """Remove reviewers from a pull request.
-    :param pull_request_id: The ID of the pull request.
+    """Remove one or more reviewers from a pull request.
+    :param pull_request_id: ID of the pull request.
     :type pull_request_id: int
     :param reviewers: Users or groups to remove as reviewers on a pull request. Space separated.
     :type reviewers: list of str
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
@@ -420,13 +403,11 @@ def delete_pull_request_reviewers(pull_request_id, reviewers, team_instance=None
 
 def list_pull_request_reviewers(pull_request_id, team_instance=None, detect=None):
     """List reviewers of a pull request.
-    :param pull_request_id: The ID of the pull request.
+    :param pull_request_id: ID of the pull request.
     :type pull_request_id: int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
@@ -442,16 +423,14 @@ def list_pull_request_reviewers(pull_request_id, team_instance=None, detect=None
 
 
 def add_pull_request_work_items(pull_request_id, work_items, team_instance=None, detect=None):
-    """Add work items to a pull request.
-    :param pull_request_id: The ID of the pull request.
+    """Link one or more work items to a pull request.
+    :param pull_request_id: ID of the pull request.
     :type pull_request_id: int
-    :param work_items: Work item IDs to link to a pull request. Space separated.
+    :param work_items: IDs of the work items to link. Space separated.
     :type work_items: list of int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
@@ -459,7 +438,7 @@ def add_pull_request_work_items(pull_request_id, work_items, team_instance=None,
         team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_git_client(team_instance)
         existing_pr = client.get_pull_request_by_id(pull_request_id)
-        if work_items is not None and len(work_items) > 0:
+        if work_items is not None and work_items:
             work_items = list(set(work_items))  # make distinct
             wit_client = get_work_item_tracking_client(team_instance)
             pr_url = 'vstfs:///Git/PullRequestId/{project}%2F{repo}%2F{id}'.format(
@@ -493,16 +472,14 @@ def add_pull_request_work_items(pull_request_id, work_items, team_instance=None,
 
 
 def remove_pull_request_work_items(pull_request_id, work_items, team_instance=None, detect=None):
-    """Remove work items from a pull request.
-    :param pull_request_id: The ID of the pull request.
+    """Unlink one or more work items from a pull request.
+    :param pull_request_id: ID of the pull request.
     :type pull_request_id: int
-    :param work_items: Work item IDs to unlink from a pull request. Space separated.
+    :param work_items: IDs of the work items to unlink. Space separated.
     :type work_items: list of int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
@@ -552,14 +529,12 @@ def remove_pull_request_work_items(pull_request_id, work_items, team_instance=No
 
 
 def list_pull_request_work_items(pull_request_id, team_instance=None, detect=None):
-    """List work items associated with pull requests.
-    :param pull_request_id: The ID of the pull request.
+    """List linked work items for a pull request.
+    :param pull_request_id: ID of the pull request.
     :type pull_request_id: int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
@@ -599,15 +574,13 @@ def _update_pull_request_status(pull_request_id, new_status, team_instance=None,
 
 def vote_pull_request(pull_request_id, vote, team_instance=None, detect=None):
     """Vote on a pull request.
-    :param pull_request_id: The ID of the pull request.
+    :param pull_request_id: ID of the pull request.
     :type pull_request_id: int
-    :param vote: The new vote value for the pull request.
+    :param vote: New vote value for the pull request.
     :type vote: int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
@@ -642,18 +615,16 @@ def _convert_vote_to_int(vote):
 
 
 def list_pr_policies(pull_request_id, team_instance=None, detect=None, top=None, skip=None):
-    """List Pull request policies.
-    :param pull_request_id: The ID of the pull request.
+    """List policies of a pull request.
+    :param pull_request_id: ID of the pull request.
     :type pull_request_id: int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
-    :param top: Maximum number of results to list.
+    :param top: Maximum number of policies to list.
     :type top: int
-    :param skip: Number of results to skip.
+    :param skip: Number of policies to skip.
     :type skip: int
     :rtype: list of :class:`PolicyEvaluationRecord <policy.v4_0.models.PolicyEvaluationRecord>`
     """
@@ -673,16 +644,14 @@ def list_pr_policies(pull_request_id, team_instance=None, detect=None, top=None,
 
 
 def queue_pr_policy(pull_request_id, evaluation_id, team_instance=None, detect=None):
-    """Queue a Pull request policy.
-    :param pull_request_id: The ID of the pull request.
+    """Queue an evaluation of a policy for a pull request.
+    :param pull_request_id: ID of the pull request.
     :type pull_request_id: int
-    :param evaluation_id: The evaluation ID of the policy to queue.
+    :param evaluation_id: ID of the policy evaluation to queue.
     :type evaluation_id: str
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     :rtype: :class:`PolicyEvaluationRecord <policy.v4_0.models.PolicyEvaluationRecord>`
     """

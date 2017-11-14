@@ -1,22 +1,29 @@
-VSTS CLI Docker
-===============
+# VSTS CLI Docker Image
 
-
-Create the image 
-----------------
+## Create the image
 
 1. Use `docker build` to create the image:
-   ```
-   $ export CLI_VERSION=0.1.0b0.dev4347880
+   ```bash
+   export CLI_VERSION=0.1.0b0.dev4347880
    
-   $ docker build --no-cache --build-arg BUILD_DATE="`date -u +"%Y-%m-%dT%H:%M:%SZ"`" --build-arg CLI_VERSION=${CLI_VERSION} -f DockerFile . --tag vsts:${CLI_VERSION}
+   docker build --no-cache --build-arg BUILD_DATE="`date -u +"%Y-%m-%dT%H:%M:%SZ"`" --build-arg CLI_VERSION=${CLI_VERSION} -f DockerFile . --tag microsoft/vsts-cli:${CLI_VERSION}
    ```
 
-2. Use `docker run` to create and run an instance of the new image:
-   ```
-   $ docker run -it vsts:${CLI_VERSION}
+## Verify the image
 
-   # vsts -v
-   # vsts --help
+1. Use `docker run` to create and start an instance of the image:
+   ```
+   docker run -it microsoft/vsts-cli:${CLI_VERSION}
    ```
 
+2. Verify the CLI works as expected:
+   ```
+   vsts -v
+   ```
+
+## Publish the image
+
+1. Use `docker push` to publish the image to Docker Hub:
+   ```
+   docker push microsoft/vsts-cli:${CLI_VERSION}
+   ```
