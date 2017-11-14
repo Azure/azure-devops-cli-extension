@@ -1,8 +1,8 @@
 $DocGenBase = $PSScriptRoot
 $DocGenOutput = "$DocGenBase\_output"
 $DocGenTools = "$DocGenBase\_tools"
-$DocRepoUrl = "https://github.com/MicrosoftDocs/vsts-docs-cli-python"
-$DocRepoBranch = "master"
+$CliSourceRepoUrl = "https://github.com/Microsoft/vsts-cli"
+$CliSourceRepoBranch = "master"
 $RepoRoot = "$DocGenBase\..\.."
 
 function Write-CommitMap {
@@ -57,7 +57,7 @@ function Invoke-XmlToYml {
 
     Push-Location -Path "$DocGenTools/azure.cli.doc.xml2yml/tools"
     #Install-Package -Name azure.cli.doc.xml2yml -Source https://ci.appveyor.com/nuget/azure-docs-cli-pre-process -
-    Invoke-Expression ".\AzCliDocPreprocessor.exe -s $DocGenOutput\xml\latest -d $DocGenOutput\yml\latest -r $DocRepoUrl -b $DocRepoBranch -c $DocGenOutput\doc_commit_map.json -g ""vsts"" -v 1"
+    Invoke-Expression ".\AzCliDocPreprocessor.exe -s $DocGenOutput\xml\latest -d $DocGenOutput\yml\latest -r $CliSourceRepoUrl -b $CliSourceRepoBranch -c $DocGenOutput\doc_commit_map.json -g ""vsts"" -v 1"
     Pop-Location
 }
 

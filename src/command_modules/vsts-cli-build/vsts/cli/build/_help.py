@@ -18,9 +18,3 @@ helps['build definition'] = """
     short-summary: Manage build definitions.
     long-summary:
 """
-
-helps['build queue'] = """
-    type: command
-    short-summary: Queue a new build.
-    long-summary: Queue a new build with an ID.
-"""

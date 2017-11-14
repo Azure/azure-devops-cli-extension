@@ -20,22 +20,20 @@ from webbrowser import open_new
 
 
 def build_queue(definition_id=None, definition_name=None, source_branch=None, open_browser=False, team_instance=None, project=None, detect=None):
-    """Queue a new build.
-    :param definition_id: The id of the build definition.  Required if --name is not supplied.
+    """Request (queue) a build.
+    :param definition_id: ID of the definition to queue. Required if --name is not supplied.
     :type definition_id: int
-    :param definition_name: The name of the build definition.  Ignored if --id is supplied.
+    :param definition_name: Name of the definition to queue. Ignored if --id is supplied.
     :type definition_name: str
-    :param source_branch: The source branch to build.
+    :param source_branch: Branch to build. Example: "dev".
     :type source_branch: str
-    :param open_browser: Open the work item in the default web browser.
+    :param open_browser: Open the build results page in your web browser.
     :type open_browser: bool
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
@@ -62,18 +60,16 @@ def build_queue(definition_id=None, definition_name=None, source_branch=None, op
 
 
 def build_show(build_id, open_browser=False, team_instance=None, project=None, detect=None):
-    """Show a build.
-    :param build_id: The id of the build.
+    """Get the details of a build.
+    :param build_id: ID of the build.
     :type build_id: int
-    :param open_browser: Open the work item in the default web browser.
+    :param open_browser: Open the build results page in your web browser.
     :type open_browser: bool
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
@@ -93,29 +89,27 @@ def build_show(build_id, open_browser=False, team_instance=None, project=None, d
 def build_list(definition_ids=None, branch=None, team_instance=None, project=None, detect=None, top=None,
                result=None, status=None, reason=None, tags=None, requested_for=None):
     """List build results.
-    :param definition_ids: Definition IDs to list builds for. Space separated.
+    :param definition_ids: IDs (space separated) of definitions to list builds for.
     :type definition_ids: list of int
-    :param branch: Branch to list builds for.
+    :param branch: Filter by builds for this branch.
     :type branch: str
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
-    :param top: Maximum number of results to list.
+    :param top: Maximum number of builds to list.
     :type top: int
-    :param result: The build result to filter by.
+    :param result: Limit to builds with this result.  
     :type result: str
-    :param status: The build status to filter by.
+    :param status: Limit to builds with this status.
     :type status: str
-    :param reason: The build reason to filter by.
+    :param reason: Limit to builds with this reason.
     :type reason: str
-    :param tags: Tags to list builds for. Space separated.
+    :param tags: Limit to builds with each of the specified tags. Space separated.
     :type tags: list of str
-    :param requested_for: The requested for identity to filter by.
+    :param requested_for: Limit to builds requested for this user or group.
     :type requested_for: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
@@ -143,21 +137,18 @@ def build_list(definition_ids=None, branch=None, team_instance=None, project=Non
 
 
 def build_definition_list(name=None, top=None, team_instance=None, project=None, repository=None, detect=None):
-    """Lists build definitions
-    :param name: Filters to definitions whose names equal this value. Append a * to filter to definitions whose names
-                 start with this value. For example: MS*
+    """List build definitions.
+    :param name: Limit results to definitions with this name or starting with this name. Examples: "FabCI" or "Fab*"
     :type name: bool
-    :param top: The maximum number of definitions to return.
+    :param top: Maximum number of definitions to list.
     :type top: int
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
-    :param repository: Name or ID of the repository.
+    :param repository: Limit results to definitions associated with this repository.
     :type repository: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect values for instance and project. Default is "on".
     :type detect: str
     :rtype: [BuildDefinitionReference]
     """
@@ -188,20 +179,18 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
 
 def build_definition_show(definition_id=None, name=None, open_browser=False, team_instance=None, project=None,
                           detect=None):
-    """Show build definition.
-    :param definition_id: The ID of the Build Definition.
+    """Get the details of a build definition.
+    :param definition_id: ID of the definition.
     :type definition_id: int
-    :param name: The name of the Build Definition.  Ignored if id is supplied.
+    :param name: Name of the definition. Ignored if --id is supplied.
     :type name: str
-    :param open_browser: Open the work item in the default web browser.
+    :param open_browser: Open the definition summary page in your web browser.
     :type open_browser: bool
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect values for instance and project. Default is "on".
     :type detect: str
     :rtype: BuildDefinitionReference
     """
@@ -224,7 +213,7 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
 
 
 def _open_build(build, team_instance):
-    """Opens the build in the default browser.
+    """Open the build results page in your web browser.
     :param :class:`<Build> <build.v4_0.models.Build>` build:
     :param str team_instance:
     """

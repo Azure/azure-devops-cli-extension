@@ -16,6 +16,7 @@
 **/*.egg-info/
 env/**
 env2/**
+venv/**
 dist/
 lib/
 
