@@ -40,7 +40,7 @@ def _get_git_config_scope_arg(local):
 def get_current_branch_name():
     try:
         output = subprocess.check_output([_GIT_EXE, 'symbolic-ref', '--short', '-q', 'HEAD'])
-    except subprocess.CalledProcessError as ex:
+    except Exception as ex:
         logging.info('GitDetect: Could not detect current branch based on current working directory.')
         logging.exception(ex)
         return None
@@ -71,7 +71,7 @@ def get_git_credentials(team_instance):
     standard_in = bytes('protocol={protocol}\nhost={host}'.format(protocol=protocol, host=host), 'utf-8')
     try:
         output = subprocess.check_output([_GIT_EXE, 'credential-manager', 'get'], input=standard_in)
-    except subprocess.CalledProcessError as ex:
+    except Exception as ex:
         logging.info('GitDetect: Could not detect git credentials for current working directory.')
         logging.exception(ex)
         return None
@@ -98,7 +98,7 @@ def get_git_remotes():
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (fetch)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (push)
         output = subprocess.check_output([_GIT_EXE, 'remote', '-v'], stderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError as ex:
+    except Exception as ex:
         logging.info('GitDetect: Could not detect current remotes based on current working directory.')
         logging.exception(ex)
         return None
