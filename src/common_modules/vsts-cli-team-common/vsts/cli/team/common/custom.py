@@ -24,7 +24,7 @@ from vsts.cli.common.version import disable_command_version_checking, DISABLE_VE
 
 def credential_set(token, team_instance=None):
     """Set the credential (PAT) to use for a particular account
-    :param token: PAT token for the VSTS account (https://.visualstudio.com) or your TFS project collection.
+    :param token: PAT token for the VSTS account or your TFS project collection.
     :type token: str
     :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
                           collection.
