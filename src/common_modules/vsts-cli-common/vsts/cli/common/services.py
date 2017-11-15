@@ -51,7 +51,7 @@ def _get_credentials(team_instance):
         return credentials
     else:
         # todo: need to add back az login fallback here.
-        raise_authentication_error('Before you can run VSTS commands, you need to sign in or setup credentials.')
+        raise_authentication_error('Before you can run VSTS commands, you need to run the login command to setup credentials.')
 
 
 def _get_vss_connection(team_instance, credentials):
