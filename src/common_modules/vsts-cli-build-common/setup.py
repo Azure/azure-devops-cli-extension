@@ -6,7 +6,7 @@
 from setuptools import setup, find_packages
 
 NAME = 'vsts-cli-build-common'
-VERSION = '0.1.0b1'
+VERSION = '0.1.0b2'
 
 # To install the library, run the following
 #
@@ -18,7 +18,7 @@ VERSION = '0.1.0b1'
 REQUIRES = [
     'knack',
     'python-dateutil',
-    'vsts~=0.1.0b1.dev',
+    'vsts~=0.1.0b2.dev',
     'vsts-cli-common==' + VERSION
 ]
 

@@ -1,5 +1,5 @@
 [![Visual Studio Team services](https://mseng.visualstudio.com/_apis/public/build/definitions/698eacea-9ea2-4eb8-80a4-d06170edf6bc/5908/badge)]()
-[![Python](https://img.shields.io/pypi/pyversions/vsts-cli.svg?maxAge=2592000)](https://pypi.python.org/pypi/vsts-cli)
+[![Python](https://img.shields.io/pypi/pyversions/vsts-cli.svg)](https://pypi.python.org/pypi/vsts-cli)
 
 # Microsoft Visual Studio Team Services CLI 
 

@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 from vsts._file_cache import get_file_json
 from .file_cache import DEFAULT_CACHE_DIR
 
-VERSION = "0.1.0b0"
+VERSION = "0.1.0b2"
 
 DISABLE_VERSION_CHECK_SETTING = "disable_version_check"
 _VERSION_INFO_LINK = "https://aka.ms/vsts-cli-update-json"
