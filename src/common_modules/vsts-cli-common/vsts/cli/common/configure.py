@@ -67,7 +67,7 @@ def _handle_global_configuration():
                     answers['git_aliases'] = False
             else:
                 answers['git_aliases'] = True
-        except ModuleNotFoundError:
+        except (ModuleNotFoundError, CLIError):
             logging.debug('Skipping git alias configuration, because module was not found.')
         enable_file_logging = prompt_y_n(MSG_PROMPT_FILE_LOGGING, default='n')
         allow_telemetry = prompt_y_n(MSG_PROMPT_TELEMETRY, default='y')
