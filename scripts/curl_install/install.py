@@ -16,6 +16,7 @@
 
 from __future__ import print_function
 import os
+import stat
 import sys
 import platform
 import tarfile
@@ -69,6 +70,11 @@ _python_argcomplete() {
 }
 complete -o nospace -F _python_argcomplete "vsts"
 """
+
+CLI_EXEC_TEMPLATE = """#!/usr/bin/env bash
+{install_dir}/bin/python -m vsts.cli "$@"
+"""
+
 
 CHECK_CREDENTIAL_STORAGE_SCRIPT = """
 from __future__ import print_function
@@ -163,10 +169,17 @@ def create_virtualenv(tmp_dir, install_dir):
     exec_command(cmd, cwd=working_dir)
 
 def install_cli(install_dir, tmp_dir):
-    path_to_pip = os.path.join(install_dir, 'bin', 'pip')
+    cli_python = os.path.join(install_dir, 'bin', 'python')
     #cmd = [path_to_pip, 'install', '--cache-dir', tmp_dir, '--pre', CLI_PACKAGE, '--upgrade', '--extra-index-url', CLI_PACKAGE_INDEX_URL]
-    cmd = [path_to_pip, 'install', '--cache-dir', tmp_dir, CLI_PACKAGE, '--upgrade']    
-    exec_command(cmd)
+    cmd = [cli_python, '-m', 'pip', 'install', '--force-reinstall', '--cache-dir', tmp_dir, CLI_PACKAGE, '--upgrade']    
+    exec_command(cmd, cwd=os.path.dirname(cli_python))
+
+def create_executable(exec_filepath, install_dir):
+    with open(exec_filepath, 'w') as exec_file:
+        exec_file.write(CLI_EXEC_TEMPLATE.format(install_dir=install_dir))
+    cur_stat = os.stat(exec_filepath)
+    os.chmod(exec_filepath, cur_stat.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+    log_status("The executable is available at '{}'.".format(exec_filepath))
 
 def get_install_dir():
     install_dir = None
@@ -429,7 +442,12 @@ def main():
 
     exec_filepath = os.path.join(install_dir, 'bin', EXECUTABLE_NAME)
     if not os.path.isfile(exec_filepath):
-        log_error("VSTS CLI executable not found: {}".format(exec_filepath))
+        log_error("VSTS CLI executable not found: {}. Attempting to create it.".format(exec_filepath))
+        try:
+            create_executable(exec_filepath, install_dir)
+        except Exception as e:
+            log_error("Unable to create executable {}: {}".format(exec_filepath, str(e)))
+            pass
 
     verify_keyring_access(install_dir, tmp_dir)
 
@@ -453,7 +471,7 @@ def main():
     if exec_on_path and not other_clis_on_path:
         log_message("To run VSTS CLI: {}".format(EXECUTABLE_NAME))
         log_message("")
-        log_message(" Note: you may need to restart your shell (exec -l $SHELL)")
+        log_message("Note: you may need to restart your shell (exec -l $SHELL)")
     else:
         log_message("To run VSTS CLI: {}".format(exec_filepath))
     log_message("")
