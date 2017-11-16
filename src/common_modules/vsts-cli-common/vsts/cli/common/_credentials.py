@@ -11,7 +11,11 @@ from knack.util import CLIError
 from vsts._file_cache import get_cache
 from .uri import uri_parse
 
-
+#
+# IMPORTANT: This function is called by the install script (scripts/curl_install/install.py)
+#            to verify that credentials can be accessed. Be careful when changing this method
+#            so it does not impact install.
+#
 def get_credential(team_instance):
     key = _get_service_name(team_instance)
     logging.debug('Getting credential: %s', key)
