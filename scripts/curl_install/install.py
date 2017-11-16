@@ -18,7 +18,6 @@ from __future__ import print_function
 import os
 import sys
 import platform
-import stat
 import tarfile
 import tempfile
 import shutil
@@ -123,7 +122,7 @@ def prompt_y_n(msg, default=None):
 
 def exec_command(command_list, cwd=None, env=None):
     log_status('Executing: '+str(command_list))
-    subprocess.check_output(command_list, cwd=cwd, env=env, stderr=subprocess.STDOUT)
+    subprocess.check_call(command_list, cwd=cwd, env=env, stderr=subprocess.STDOUT)
 
 def create_tmp_dir():
     tmp_dir = tempfile.mkdtemp()
@@ -168,26 +167,6 @@ def install_cli(install_dir, tmp_dir):
     #cmd = [path_to_pip, 'install', '--cache-dir', tmp_dir, '--pre', CLI_PACKAGE, '--upgrade', '--extra-index-url', CLI_PACKAGE_INDEX_URL]
     cmd = [path_to_pip, 'install', '--cache-dir', tmp_dir, CLI_PACKAGE, '--upgrade']    
     exec_command(cmd)
-
-def create_executable(exec_dir, install_dir):
-    actual_exec_filepath = os.path.join(install_dir, 'bin', EXECUTABLE_NAME)
-
-    create_dir(exec_dir)
-    exec_filepath = os.path.join(exec_dir, EXECUTABLE_NAME)
-
-    log_status("Creating executable link '{}' from '{}'".format(exec_filepath,actual_exec_filepath))
-
-    try:
-        os.symlink(actual_exec_filepath, exec_filepath)
-    except Exception as e:
-        log_status("Unable to create link from {} to {}: {}".format(actual_exec_filepath,exec_filepath, str(e)))
-        pass
-    
-    cur_stat = os.stat(exec_filepath)
-    os.chmod(exec_filepath, cur_stat.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-    log_status("The executable is available at '{}'.".format(exec_filepath))
-    
-    return exec_filepath
 
 def get_install_dir():
     install_dir = None
@@ -286,10 +265,11 @@ def get_rc_file_path():
             log_status("The file '{}' could not be found.".format(rc_file_path))
     return None
 
-def warn_other_clis_on_path(exec_dir, exec_filepath):
+def check_other_clis_on_path(exec_filepath):
     env_path = os.environ.get('PATH')
     conflicting_paths = []
     if env_path:
+        exec_dir = os.path.dirname(exec_filepath)
         for p in env_path.split(':'):
             p_to_cli = os.path.join(p, EXECUTABLE_NAME)
             if p != exec_dir and os.path.isfile(p_to_cli):
@@ -298,24 +278,32 @@ def warn_other_clis_on_path(exec_dir, exec_filepath):
         log_message("WARNING: Other '{}' executables exist on your $PATH".format(EXECUTABLE_NAME))
         log_message("  {}".format(', '.join(conflicting_paths)))
         log_message("To run this installation use: {}".format(exec_filepath))
+        return True
+    else:
+        return False
 
-def handle_path_and_tab_completion(completion_file_path, exec_filepath, exec_dir):
+def handle_path_and_tab_completion(completion_file_path, exec_filepath):
     ans_yes = prompt_y_n('Add VSTS CLI to your $PATH and enable tab completion', 'y')
     if ans_yes:
         rc_file_path = get_rc_file_path()
         if not rc_file_path:
             raise CLIInstallError('No suitable profile file found.')
         _backup_rc(rc_file_path)
+
+        exec_dir = os.path.dirname(exec_filepath)
         line_to_add = "export PATH=$PATH:{}".format(exec_dir)
         _modify_rc(rc_file_path, line_to_add)
+
         line_to_add = "source '{}'".format(completion_file_path)
         _modify_rc(rc_file_path, line_to_add)
+        
         log_status('Tab completion set up complete.')
         log_status("If tab completion is not activated, verify that '{}' is sourced by your shell.".format(rc_file_path))
-        log_status('** Run `exec -l $SHELL` to restart your shell. **')
+
+        return True
     else:
         log_status("If you change your mind, add 'source {}' to your rc file and restart your shell to enable tab completion.".format(completion_file_path))
-        log_status("You can run the CLI with '{}'.".format(exec_filepath))
+        return False
 
 def verify_python_version():
     log_status('Verifying Python version.')
@@ -329,12 +317,12 @@ def verify_python_version():
 
 def _native_dependencies_for_dist(verify_cmd_args, install_cmd_args, dep_list):
     try:
-        log_status("Executing: '{} {}'".format(' '.join(verify_cmd_args), ' '.join(dep_list)))
+        log_status(" Executing: '{} {}'".format(' '.join(verify_cmd_args), ' '.join(dep_list)))
         subprocess.check_output(verify_cmd_args + dep_list, stderr=subprocess.STDOUT)
-        log_status('Native dependencies okay.')
+        log_status(' Native dependencies OK')
     except subprocess.CalledProcessError:
         log_message('')
-        log_message('Missed required dependencies:')
+        log_message(' Missed required dependencies:')
         log_message(' {}'.format(' '.join(dep_list)))
         ans_yes = prompt_y_n('Continue anyway', 'n')
         if not ans_yes:
@@ -359,7 +347,7 @@ def verify_native_dependencies():
         python_dep = 'python3-dev' if is_python3 else 'python-dev'
         if distname == 'ubuntu' and version in ['12.04', '14.04'] or distname == 'debian' and version.startswith('7'):
             dep_list = ['libssl-dev', 'libffi-dev', python_dep]
-        elif distname == 'ubuntu' and version in ['15.10', '16.04']or distname == 'debian' and version.startswith('8'):
+        else:
             dep_list = ['libssl-dev', 'libffi-dev', python_dep, 'build-essential']
     elif any(x in distname for x in ['centos', 'rhel', 'red hat']):
         verify_cmd_args = ['rpm', '-q']
@@ -377,18 +365,14 @@ def verify_native_dependencies():
     else:
         log_status("Unable to verify native dependencies. dist={}, version={}. Continuing...".format(distname, version))
 
-def verify_install_dir_exec_path_conflict(install_dir, exec_path):
-    if install_dir == exec_path:
-        raise CLIInstallError("The executable file '{}' would clash with the install directory of '{}'. Choose either a different install directory or directory to place the executable.".format(exec_path, install_dir))
-
 def verify_python_executable(install_dir):
     # Workaround for issue on Mac where copied python executable gets modified and requires to be signed
     # Instead of signing, we will instead copy the Python executable that the install script is running in
     
     executing_python = sys.executable
     installed_python = os.path.join(install_dir, 'bin/python')
-    log_status("Current executable {}".format(executing_python))
-    log_status("Installed executable {}".format(installed_python))
+    log_status("Current Python executable: {}".format(executing_python))
+    log_status("Installed Python executable: {}".format(installed_python))
     
     if 'Python.framework' in sys.prefix:
         log_status("Is Python.framework")
@@ -427,46 +411,51 @@ def verify_keyring_access(install_dir, tmp_dir):
 
 def main():
     log_message("")
-    log_message("Microsoft Visual Studio Team Services CLI (0.1.0) Install")
+    log_message("Microsoft Visual Studio Team Services CLI Install")
 
     verify_python_version()
     verify_native_dependencies()
 
     tmp_dir = create_tmp_dir()
     install_dir = get_install_dir()
-    exec_dir = get_exec_dir()
-        
-    log_status("The executable will be in '{}'.".format(exec_dir))
-
-    exec_path = os.path.join(exec_dir, EXECUTABLE_NAME)
-    verify_install_dir_exec_path_conflict(install_dir, exec_path)
-
+  
     log_message("")
     log_message("Installing. This may take a few minutes...")
 
     create_virtualenv(tmp_dir, install_dir)
     verify_python_executable(install_dir)
-    
+
     install_cli(install_dir, tmp_dir)
-    exec_filepath = create_executable(exec_dir, install_dir)
+
+    exec_filepath = os.path.join(install_dir, 'bin', EXECUTABLE_NAME)
+    if not os.path.isfile(exec_filepath):
+        log_error("VSTS CLI executable not found: {}".format(exec_filepath))
 
     verify_keyring_access(install_dir, tmp_dir)
 
     completion_file_path = os.path.join(install_dir, COMPLETION_FILENAME)
     create_tab_completion_file(completion_file_path)
+    exec_on_path = False
     try:
-       handle_path_and_tab_completion(completion_file_path, exec_filepath, exec_dir)
-       warn_other_clis_on_path(exec_dir, exec_filepath)
+       exec_on_path = handle_path_and_tab_completion(completion_file_path, exec_filepath)
+       other_clis_on_path = check_other_clis_on_path(exec_filepath)
     except Exception as e:
-        log_error("Unable to configure tab completion: {}".format(str(e)))
+        log_error("Problem configuring tab completion and adding to $PATH: {}".format(str(e)))
     
-    shutil.rmtree(tmp_dir)
+    try:
+        shutil.rmtree(tmp_dir)
+    except:
+        pass
     
     log_message("")
     log_message("Installation successful!")
-    log_message("Note: you may need to restart your shell (exec -l $SHELL)")
     log_message("")
-    log_message("To run VSTS CLI: {} --help".format(EXECUTABLE_NAME))
+    if exec_on_path and not other_clis_on_path:
+        log_message("To run VSTS CLI: {}".format(EXECUTABLE_NAME))
+        log_message("")
+        log_message(" Note: you may need to restart your shell (exec -l $SHELL)")
+    else:
+        log_message("To run VSTS CLI: {}".format(exec_filepath))
     log_message("")
 
 if __name__ == '__main__':
