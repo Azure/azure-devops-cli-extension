@@ -24,7 +24,7 @@ vsts code -h
 
 Use the VSTS CLI to work with and manage build, code repositories, projects, work items, and more in your VSTS account or on-premises Team Foundation Server collection.
 
-Here are just a few of the comamnds:
+Here are just a few of the commands:
 
 * vsts build queue
 * vsts code pr create
@@ -55,7 +55,7 @@ You can change your default settings using the `vsts configure` command, for exa
 * Table (human-readable tabular output)
 * TSV (tab and new line delimited)
 
-You can also add alises in Git for certain VSTS CLI commands. For example, `git pr list` will be an alias for `vsts code pr list`.
+You can also add aliases in Git for certain VSTS CLI commands. For example, `git pr list` will be an alias for `vsts code pr list`.
 
 ### Querying and filtering output
 
@@ -109,7 +109,7 @@ MIT License
 
 VSTS CLI collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/en-us/privacystatement) to learn more. 
 
-To disable telemtry use the `vsts configure` command.
+To disable telemetry use the `vsts configure` command.
 
 ## Feedback
 
