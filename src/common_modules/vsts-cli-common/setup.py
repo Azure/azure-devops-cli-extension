@@ -17,7 +17,7 @@ VERSION = '0.1.0b2'
 
 REQUIRES = [
     'keyring',
-    'knack',
+    'knack==0.2.0',
     'python-dateutil',
     'vsts~=0.1.0b2.dev'
 ]
