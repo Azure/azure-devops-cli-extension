@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from collections import OrderedDict
-from vsts.cli.work.common.custom import get_last_query_result
+
 
 _WORK_ITEM_TITLE_TRUNCATION_LENGTH = 70
 
@@ -62,6 +62,7 @@ def transform_work_item_query_result_table_output(result):
 
 
 def transform_work_item_query_result_row_output(row):
+    from vsts.cli.work.common.custom import get_last_query_result
     table_row = OrderedDict()
     max_columns = 5
     i = 0
