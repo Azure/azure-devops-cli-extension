@@ -126,7 +126,7 @@ def _raise_team_team_instance_arg_error():
 
 
 def _raise_team_project_arg_error():
-    raise CLIError('--project must be specified. The value should be the ID or name of a team project.' +
+    raise CLIError('--project must be specified. The value should be the ID or name of a team project. ' +
                    'You can set a default value by running: vsts configure --defaults project=<ProjectName>.')
 
 
