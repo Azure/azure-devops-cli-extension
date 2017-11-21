@@ -7,11 +7,11 @@ from ._format import (transform_build_table_output,
                       transform_builds_table_output,
                       transform_definition_table_output,
                       transform_definitions_table_output)
-from knack.commands import CommandSuperGroup
+from knack.commands import CommandGroup
 
 
 def load_build_commands(cli_command_loader):
-    with CommandSuperGroup(__name__, cli_command_loader, 'vsts.cli.build.common.custom#{}') as sg:
+    with CommandGroup(__name__, cli_command_loader, 'vsts.cli.build.common.custom#{}') as sg:
         with sg.group('build') as g:
             # basic vsts_cli_build commands
             g.command('list', 'build_list',
