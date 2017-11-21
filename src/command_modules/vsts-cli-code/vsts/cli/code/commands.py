@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.commands import CommandSuperGroup
+from knack.commands import CommandGroup
 from ._format import (transform_pull_request_table_output,
                       transform_pull_requests_table_output,
                       transform_repo_table_output,
@@ -16,7 +16,7 @@ from ._format import (transform_pull_request_table_output,
 
 
 def load_code_commands(cli_command_loader):
-    with CommandSuperGroup(__name__, cli_command_loader, 'vsts.cli.code.common.{}') as sg:
+    with CommandGroup(__name__, cli_command_loader, 'vsts.cli.code.common.{}') as sg:
         with sg.group('code') as g:
             # basic pr commands
             g.command('pr create', 'pull_request#create_pull_request',
