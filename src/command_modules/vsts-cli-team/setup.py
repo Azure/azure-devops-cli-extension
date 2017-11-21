@@ -6,7 +6,7 @@
 from setuptools import setup, find_packages
 
 NAME = 'vsts-cli-team'
-VERSION = '0.1.0b2'
+VERSION = '0.1.0b3'
 
 # To install the library, run the following
 #
