@@ -19,14 +19,15 @@ from vsts.cli.common.uri import uri_quote
 from vsts.cli.common.uuid import is_uuid
 
 
-def build_queue(definition_id=None, definition_name=None, source_branch=None, open_browser=False, team_instance=None, project=None, detect=None):
+def build_queue(definition_id=None, definition_name=None, branch=None, open_browser=False, team_instance=None,
+                project=None, detect=None, source_branch=None):
     """Request (queue) a build.
     :param definition_id: ID of the definition to queue. Required if --name is not supplied.
     :type definition_id: int
     :param definition_name: Name of the definition to queue. Ignored if --id is supplied.
     :type definition_name: str
-    :param source_branch: Branch to build. If not supplied, it will be attempted to be determined. Example: "dev".
-    :type source_branch: str
+    :param branch: Branch to build. If not supplied, it will be attempted to be determined. Example: "dev".
+    :type branch: str
     :param open_browser: Open the build results page in your web browser.
     :type open_browser: bool
     :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
@@ -35,9 +36,13 @@ def build_queue(definition_id=None, definition_name=None, source_branch=None, op
     :type project: str
     :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
+    :param source_branch: Obsolete. Use --branch instead.
+    :type source_branch: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
     try:
+        if branch is None:
+            branch = source_branch
         team_instance, project = resolve_instance_and_project(detect=detect,
                                                               team_instance=team_instance,
                                                               project=project)
@@ -49,11 +54,11 @@ def build_queue(definition_id=None, definition_name=None, source_branch=None, op
             definition_id = get_definition_id_from_name(definition_name, client, project)
         definition_reference = DefinitionReference(id=definition_id)
         build = Build(definition=definition_reference)
-        if source_branch is None:
+        if branch is None:
             build.source_branch = resolve_git_ref_heads(get_current_branch_name())
-            if source_branch is None:
-                raise ValueError('The source branch could not be detected, please '
-                                 + 'provide the --source-branch argument.')
+            if build.source_branch is None:
+                raise ValueError('The branch could not be detected, please '
+                                 + 'provide the --branch argument.')
         else:
             build.source_branch = resolve_git_ref_heads(source_branch)
         queued_build = client.queue_build(build=build, project=project)
