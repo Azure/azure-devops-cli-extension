@@ -164,12 +164,12 @@ if "%msbuildpath%" == "" (
     set msbuildpath=msbuild
 )
 
-goto end
-
 "%msbuildpath%" /t:rebuild /p:Configuration=Release "%REPO_ROOT%\packaged_releases\windows\vsts-cli.wixproj"
 if %errorlevel% neq 0 goto ERROR
 
 dir /s /b "%OUTPUT_DIR%"\*.msi
+
+goto end
 
 :INSTALLWIX
 
