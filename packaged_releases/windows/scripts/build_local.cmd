@@ -10,9 +10,9 @@ set "PATH=%PATH%;%ProgramFiles%\Git\bin;%ProgramFiles%\Git\usr\bin"
 
 if "%CLIVERSION%"=="" (
     if "%BUILD_BUILDID%" == "" (
-        set CLIVERSION=0.1.0
+        set CLIVERSION=0.1.1
     ) else (
-        set CLIVERSION=0.1.0.%BUILD_BUILDID%
+        set CLIVERSION=0.1.1.%BUILD_BUILDID%
     )
 )
 set PYTHON_VERSION=3.6.3
@@ -164,12 +164,12 @@ if "%msbuildpath%" == "" (
     set msbuildpath=msbuild
 )
 
-goto end
-
 "%msbuildpath%" /t:rebuild /p:Configuration=Release "%REPO_ROOT%\packaged_releases\windows\vsts-cli.wixproj"
 if %errorlevel% neq 0 goto ERROR
 
-start "%OUTPUT_DIR%"
+dir /s /b "%OUTPUT_DIR%"\*.msi
+
+goto end
 
 :INSTALLWIX
 
