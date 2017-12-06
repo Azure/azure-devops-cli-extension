@@ -46,6 +46,10 @@ Create a personal access token and provide to the VSTS CLI via the login command
 vsts login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
 ```
 
+### Using VSTS CLI Behind a Proxy
+
+The vsts cli picks the network proxy configuration from the environment variables `HTTP_PROXY`, and `HTTPS_PROXY`. 
+
 ### Configure defaults, Git aliases, and more
 
 You can change your default settings using the `vsts configure` command, for example you can set the default output format for all commands. The options are:
