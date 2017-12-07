@@ -9,7 +9,7 @@ from webbrowser import open_new
 from vsts.build.v4_0.models.build import Build
 from vsts.build.v4_0.models.definition_reference import DefinitionReference
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.git import resolve_git_ref_heads
+from vsts.cli.common.git import get_current_branch_name, resolve_git_ref_heads
 from vsts.cli.common.identities import resolve_identity_as_id
 from vsts.cli.common.services import (get_build_client,
                                       get_git_client,
@@ -26,7 +26,7 @@ def build_queue(definition_id=None, definition_name=None, branch=None, open_brow
     :type definition_id: int
     :param definition_name: Name of the definition to queue. Ignored if --id is supplied.
     :type definition_name: str
-    :param branch: Branch to build. Example: "dev".
+    :param branch: Branch to build. If not supplied, it will be attempted to be determined. Example: "dev".
     :type branch: str
     :param open_browser: Open the build results page in your web browser.
     :type open_browser: bool
@@ -54,8 +54,13 @@ def build_queue(definition_id=None, definition_name=None, branch=None, open_brow
             definition_id = get_definition_id_from_name(definition_name, client, project)
         definition_reference = DefinitionReference(id=definition_id)
         build = Build(definition=definition_reference)
-        if branch is not None:
-            build.source_branch = resolve_git_ref_heads(branch)
+        if branch is None:
+            build.source_branch = resolve_git_ref_heads(get_current_branch_name())
+            if build.source_branch is None:
+                raise ValueError('The branch could not be detected, please '
+                                 + 'provide the --branch argument.')
+        else:
+            build.source_branch = resolve_git_ref_heads(source_branch)
         queued_build = client.queue_build(build=build, project=project)
         if open_browser:
             _open_build(queued_build, team_instance)
