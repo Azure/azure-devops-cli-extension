@@ -34,13 +34,15 @@ def _transform_build_row(row):
         table_row['Result'] = ' '
     table_row['Definition ID'] = row['definition']['id']
     table_row['Definition Name'] = row['definition']['name']
-    source_branch = row['sourceBranch']
-    if source_branch is not None:
+
+    if row['sourceBranch']:
+        source_branch = row['sourceBranch']
         if source_branch[0:len(REF_HEADS_PREFIX)] == REF_HEADS_PREFIX:
             source_branch = source_branch[len(REF_HEADS_PREFIX):]
         table_row['Source Branch'] = source_branch
     else:
         table_row['Source Branch'] = ' '
+
     queued_time = dateutil.parser.parse(row['queueTime']).astimezone(dateutil.tz.tzlocal())
     table_row['Queued Time'] = str(queued_time.date()) + ' ' + str(queued_time.time())
     table_row['Reason'] = row['reason']
