@@ -9,7 +9,7 @@ from ._format import (transform_work_item_table_output,
 
 
 def load_work_commands(cli_command_loader):
-    with CommandGroup(cli_command_loader, 'work', 'vsts.cli.work.common.custom#{}') as g:
+    with CommandGroup(cli_command_loader, 'work', 'vsts.cli.work.common.work_item#{}') as g:
         g.command('item show', 'show_work_item',
                   table_transformer=transform_work_item_table_output)
         g.command('item create', 'create_work_item',
