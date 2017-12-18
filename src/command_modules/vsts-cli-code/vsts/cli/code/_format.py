@@ -254,3 +254,17 @@ def _transform_repo_row(row):
 
 def _get_repo_key(repo_row):
     return repo_row['name']
+
+
+def transform_tag_table_output(result):
+    table_output = [_transform_tag_row(result)]
+    return table_output
+
+
+def _transform_tag_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['objectId']
+    table_row['Name'] = row['name']
+    if row['message']:
+        table_row['Message'] = row['message']
+    return table_row

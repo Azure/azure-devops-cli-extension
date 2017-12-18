@@ -38,7 +38,7 @@ def load_code_arguments(cli_command_loader):
 
     with ArgumentsContext(cli_command_loader, 'code pr work-items') as ac:
         ac.argument('work_items', nargs='+')
-        
+
     with ArgumentsContext(cli_command_loader, 'code pr update') as ac:
         ac.argument('auto_complete', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         ac.argument('squash', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
@@ -53,3 +53,11 @@ def load_code_arguments(cli_command_loader):
 
     with ArgumentsContext(cli_command_loader, 'code repo') as ac:
         ac.argument('repo_id', options_list='--id')
+
+    with ArgumentsContext(cli_command_loader, 'code tag') as ac:
+        ac.argument('repository', options_list=('--repository', '-r'))
+        ac.argument('object-id', options_list=('--object-id'))
+
+    with ArgumentsContext(cli_command_loader, 'code tag create') as ac:
+        ac.argument('name', options_list=('--name', '-n'))
+        ac.argument('message', options_list=('--message', '-m'))

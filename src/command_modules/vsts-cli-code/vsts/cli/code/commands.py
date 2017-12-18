@@ -12,6 +12,7 @@ from ._format import (transform_pull_request_table_output,
                       transform_reviewer_table_output,
                       transform_policies_table_output,
                       transform_policy_table_output,
+                      transform_tag_table_output,
                       transform_work_items_table_output)
 
 
@@ -62,3 +63,7 @@ def load_code_commands(cli_command_loader):
         g.command('repo create', 'repository#create_repo', table_transformer=transform_repo_table_output)
         g.command('repo list', 'repository#list_repos', table_transformer=transform_repos_table_output)
         g.command('repo show', 'repository#show_repo', table_transformer=transform_repo_table_output)
+
+        # tag commands
+        g.command('tag create', 'tag#create_tag', table_transformer=transform_tag_table_output)
+        g.command('tag show', 'tag#show_tag', table_transformer=transform_tag_table_output)

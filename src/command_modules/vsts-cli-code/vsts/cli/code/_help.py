@@ -42,3 +42,9 @@ helps['code repo'] = """
     short-summary: Manage repositories.
     long-summary:
 """
+
+helps['code tag'] = """
+    type: group
+    short-summary: Manage annotated tags.
+    long-summary:
+"""
