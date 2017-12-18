@@ -6,6 +6,8 @@
 from knack.commands import CommandGroup
 from ._format import (transform_pull_request_table_output,
                       transform_pull_requests_table_output,
+                      transform_refs_table_output,
+                      transform_ref_table_output,
                       transform_repo_table_output,
                       transform_repos_table_output,
                       transform_reviewers_table_output,
@@ -57,6 +59,12 @@ def load_code_commands(cli_command_loader):
         # pr policy commands
         g.command('pr policies list', 'pull_request#list_pr_policies', table_transformer=transform_policies_table_output)
         g.command('pr policies queue', 'pull_request#queue_pr_policy', table_transformer=transform_policy_table_output)
+
+        # refs commands
+        g.command('ref create', 'ref#create_ref', table_transformer=transform_ref_table_output)
+        g.command('ref delete', 'ref#delete_ref', table_transformer=transform_ref_table_output)
+        g.command('ref list', 'ref#list_refs', table_transformer=transform_refs_table_output)
+        g.command('ref update', 'ref#update_ref', table_transformer=transform_ref_table_output)
 
         # repository commands
         g.command('repo create', 'repository#create_repo', table_transformer=transform_repo_table_output)

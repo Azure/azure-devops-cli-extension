@@ -37,6 +37,12 @@ helps['code pr work-items'] = """
     long-summary:
 """
 
+helps['code ref'] = """
+    type: group
+    short-summary: Manage references.
+    long-summary:
+"""
+
 helps['code repo'] = """
     type: group
     short-summary: Manage repositories.
