@@ -227,6 +227,17 @@ def _convert_policy_status(status):
         return status.capitalize()
 
 
+def transform_push_table_output(result):
+    table_output = [_transform_push_row(result)]
+    return table_output
+
+
+def _transform_push_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['pushId']
+    table_row['Date'] = row['date']
+    return table_row
+
 def transform_repos_table_output(result):
     table_output = []
     for item in sorted(result, key=_get_repo_key):
