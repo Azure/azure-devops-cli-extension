@@ -59,12 +59,16 @@ def load_code_commands(cli_command_loader):
         g.command('pr policies list', 'pull_request#list_pr_policies', table_transformer=transform_policies_table_output)
         g.command('pr policies queue', 'pull_request#queue_pr_policy', table_transformer=transform_policy_table_output)
 
-        g.command('push create add', 'push#create_push_add', table_transformer=transform_push_table_output)
-        g.command('push create update', 'push#create_push_update', table_transformer=transform_push_table_output)
-        g.command('push create delete', 'push#create_push_delete', table_transformer=transform_push_table_output)
-        g.command('push create rename', 'push#create_push_rename', table_transformer=transform_push_table_output)
-        g.command('push create move', 'push#create_push_move', table_transformer=transform_push_table_output)
-        g.command('push show', 'push#show_push', table_transformer=transform_push_table_output)
+        g.command('push create add', 'push#create_push_add',
+                  table_transformer=transform_push_table_output)
+        g.command('push create update', 'push#create_push_update',
+                  table_transformer=transform_push_table_output)
+        g.command('push create delete', 'push#create_push_delete',
+                  table_transformer=transform_push_table_output)
+        g.command('push create rename', 'push#create_push_rename',
+                  table_transformer=transform_push_table_output)
+        g.command('push show', 'push#show_push',
+                  table_transformer=transform_push_table_output)
 
         # repository commands
         g.command('repo create', 'repository#create_repo', table_transformer=transform_repo_table_output)
