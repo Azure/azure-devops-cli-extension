@@ -202,10 +202,11 @@ def _handle_vsts_service_error(ex):
         raise CLIError(ex)
 
 
-def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=None):
+def show_work_item(work_item_id, expand=None, open_browser=False, team_instance=None, detect=None):
     """Show details for a work item.
     :param work_item_id: The ID of the work item
     :type work_item_id: int
+    :param str expand: Either 'relations' or 'all' to show expanded fields.
     :param open_browser: Open the work item in the default web browser.
     :type open_browser: bool
     :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
@@ -219,7 +220,7 @@ def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=
     try:
         team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_work_item_tracking_client(team_instance)
-        work_item = client.get_work_item(work_item_id)
+        work_item = client.get_work_item(id=work_item_id, expand=expand) #, expand=WorkItemExpand('relations'))
         if open_browser:
             _open_work_item(work_item, team_instance)
         return work_item
