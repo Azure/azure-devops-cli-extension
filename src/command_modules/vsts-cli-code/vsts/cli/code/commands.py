@@ -43,6 +43,10 @@ def load_code_commands(cli_command_loader):
         g.command('pr reviewers remove', 'pull_request#delete_pull_request_reviewers',
                   table_transformer=transform_reviewers_table_output)
 
+        # pr status commands
+        g.command('pr statuses list', 'pull_request#list_pull_request_statuses')
+        g.command('pr statuses create', 'pull_request#create_pull_request_status')
+
         # pr work item commands
         g.command('pr work-items add', 'pull_request#add_pull_request_work_items',
                   table_transformer=transform_work_items_table_output)

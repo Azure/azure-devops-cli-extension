@@ -11,6 +11,8 @@ from vsts.exceptions import VstsClientRequestError
 from vsts.git.v4_0.models.git_pull_request import GitPullRequest
 from vsts.git.v4_0.models.git_pull_request_completion_options import GitPullRequestCompletionOptions
 from vsts.git.v4_0.models.git_pull_request_search_criteria import GitPullRequestSearchCriteria
+from vsts.git.v4_0.models.git_pull_request_status import GitPullRequestStatus
+from vsts.git.v4_0.models.git_status_context import GitStatusContext
 from vsts.git.v4_0.models.identity_ref import IdentityRef
 from vsts.git.v4_0.models.identity_ref_with_vote import IdentityRefWithVote
 from vsts.git.v4_0.models.resource_ref import ResourceRef
@@ -707,3 +709,74 @@ def _get_default_branch(team_instance, project, repository):
     client = get_git_client(team_instance)
     repo = client.get_repository(project=project, repository_id=repository)
     return repo.default_branch
+
+#
+# PR Statuses
+#
+
+def list_pull_request_statuses(pull_request_id, iteration_id=None, repository=None, team_instance=None, project=None, detect=None):
+    """Get all the statuses associated with a pull request.
+    :param int pull_request_id: ID of the pull request.
+    :param int iteration_id: ID of the iteration to associate status with. Minimum value is 1.
+    :param str repository: Name or ID of the repository.
+    :param str team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project collection.
+    :param str project: Name or ID of the project.
+    :param str detect: When 'On' unsupplied arg values will be detected from the current working directory's repo.
+    """
+    try:
+        team_instance, project, repository = resolve_instance_project_and_repo(
+                                                detect=detect,
+                                                team_instance=team_instance,
+                                                project=project,
+                                                repo=repository)
+        git_client = get_git_client(team_instance)
+        if iteration_id is not None:
+            return git_client.get_pull_request_iteration_status(repository_id=repository,
+                                                    pull_request_id=pull_request_id,
+                                                    iteration_id=iteration_id,
+                                                    project=project)
+        return git_client.get_pull_request_statuses(repository_id=repository,
+                                                    pull_request_id=pull_request_id,
+                                                    project=project)
+    except Exception as ex:
+        handle_command_exception(ex)
+
+
+def create_pull_request_status(pull_request_id, state, name, description=None, genre=None, target_url=None, iteration_id=None, repository=None, team_instance=None, project=None, detect=None):
+    """Create a pull request status.
+    :param int pull_request_id: ID of the pull request.
+    :param str state: State of the status, supported are ['notSet', 'pending', 'succeeded', 'failed', 'error']
+    :param str name: Name identifier of the status, cannot be null or empty.
+    :param str description: Status description. Typically describes current state of the status.
+    :param str genre: Genre of the status. Typically name of the service/tool generating the status, can be empty.
+    :param str target_url: URL with status details.
+    :param int iteration_id: ID of the iteration to associate status with. Minimum value is 1.
+    :param str repository: Name or ID of the repository.
+    :param str team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project collection.
+    :param str project: Name or ID of the project.
+    :param str detect: When 'On' unsupplied arg values will be detected from the current working directory's repo.
+    """
+    try:
+        team_instance, project, repository = resolve_instance_project_and_repo(
+                                                detect=detect,
+                                                team_instance=team_instance,
+                                                project=project,
+                                                repo=repository)
+        git_client = get_git_client(team_instance)
+        context = GitStatusContext(genre=genre, name=name)
+        status = GitPullRequestStatus(context=context,
+                                      state=state,
+                                      description=description,
+                                      target_url=target_url)
+        if iteration_id is not None:
+            return git_client.create_pull_request_iteration_status(status=status,
+                                                                   repository_id=repository,
+                                                                   pull_request_id=pull_request_id,
+                                                                   iteration_id=iteration_id,
+                                                                   project=project)
+        return git_client.create_pull_request_status(status=status,
+                                                     repository_id=repository,
+                                                     pull_request_id=pull_request_id,
+                                                     project=project)
+    except Exception as ex:
+        handle_command_exception(ex)

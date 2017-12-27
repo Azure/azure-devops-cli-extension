@@ -31,6 +31,12 @@ helps['code pr reviewers'] = """
     long-summary:
 """
 
+helps['code pr statuses'] = """
+    type: group
+    short-summary: Manage pull request statuses.
+    long-summary:
+"""
+
 helps['code pr work-items'] = """
     type: group
     short-summary: Manage work items associated with pull requests.
