@@ -20,7 +20,7 @@ def load_work_commands(cli_command_loader):
         g.command('item update', 'update_work_item',
                   table_transformer=transform_work_item_table_output)
 
-    with CommandGroup(cli_command_loader, 'work', 'vsts.cli.work.common.work_item_relation#{}') as g:
+    with CommandGroup(cli_command_loader, 'work', 'vsts.cli.work.common.work_item#{}') as g:
         g.command('item relation show', 'show_work_item_relations',
                   table_transformer=transform_work_item_relations_table_output)
         g.command('item relation add', 'add_work_item_relations',
