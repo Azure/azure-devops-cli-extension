@@ -5,7 +5,8 @@
 
 from knack.commands import CommandGroup
 from ._format import (transform_work_item_table_output,
-                      transform_work_item_query_result_table_output)
+                      transform_work_item_query_result_table_output,
+                      transform_work_item_relations_table_output)
 
 
 def load_work_commands(cli_command_loader):
@@ -18,3 +19,11 @@ def load_work_commands(cli_command_loader):
                   table_transformer=transform_work_item_query_result_table_output)
         g.command('item update', 'update_work_item',
                   table_transformer=transform_work_item_table_output)
+
+    with CommandGroup(cli_command_loader, 'work', 'vsts.cli.work.common.work_item_relation#{}') as g:
+        g.command('item relation show', 'show_work_item_relations',
+                  table_transformer=transform_work_item_relations_table_output)
+        g.command('item relation add', 'add_work_item_relations',
+                  table_transformer=transform_work_item_relations_table_output)
+        g.command('item relation remove', 'remove_work_item_relations',
+                  table_transformer=transform_work_item_relations_table_output)

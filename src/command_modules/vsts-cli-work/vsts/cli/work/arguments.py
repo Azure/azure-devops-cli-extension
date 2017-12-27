@@ -23,3 +23,12 @@ def load_work_arguments(cli_command_loader):
 
     with ArgumentsContext(cli_command_loader, 'work item query') as ac:
         ac.argument('query_id', type=str, options_list='--id')
+
+    with ArgumentsContext(cli_command_loader, 'work item relation') as ac:
+        ac.argument('work_item_id', type=int, options_list='--id')
+
+    with ArgumentsContext(cli_command_loader, 'work item relation add') as ac:
+        ac.argument('relations', nargs='*', options_list=('--relations', '-r'))
+
+    with ArgumentsContext(cli_command_loader, 'work item relation remove') as ac:
+        ac.argument('indexes', type=str, options_list=('--indexes'))

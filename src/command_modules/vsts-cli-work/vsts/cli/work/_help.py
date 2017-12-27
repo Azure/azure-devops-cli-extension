@@ -18,3 +18,9 @@ helps['work item'] = """
     short-summary: Manage work items.
     long-summary:
 """
+
+helps['work item relation'] = """
+    type: group
+    short-summary: Manage work item relations.
+    long-summary:
+"""

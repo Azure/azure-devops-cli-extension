@@ -8,7 +8,6 @@ import webbrowser
 
 from knack.util import CLIError
 from vsts.exceptions import VstsServiceError
-from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
 from vsts.work_item_tracking.v4_0.models.wiql import Wiql
 from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.identities import resolve_identity_as_display_name
@@ -16,11 +15,13 @@ from vsts.cli.common.services import (get_work_item_tracking_client,
                                       resolve_instance,
                                       resolve_instance_and_project)
 from vsts.cli.common.uri import uri_quote
+from vsts.cli.work.common.work_item_relation import (create_work_item_relation_patch_operation,
+                                                     create_patch_operation)
 
 
-def create_work_item(work_item_type, title, description=None, assigned_to=None, state=None, area=None,
-                     iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
-                     team_instance=None, project=None, detect=None):
+def create_work_item(work_item_type, title, description=None, parent=None, assigned_to=None,
+                     state=None, area=None, iteration=None, reason=None, discussion=None,
+                     fields=None, open_browser=False, team_instance=None, project=None, detect=None):
     """Create a work item.
     :param work_item_type: Name of the work item type (e.g. Bug).
     :type work_item_type: str
@@ -66,6 +67,8 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             raise ValueError('--title is a required argument.')
         if description is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Description', description))
+        if parent is not None:
+            patch_document.append(create_work_item_relation_patch_operation('parent', parent, 'add', team_instance))
         if assigned_to is not None:
             # 'assigned to' does not take an identity id.  Display name works.
             if assigned_to == '':
@@ -220,7 +223,7 @@ def show_work_item(work_item_id, expand=None, open_browser=False, team_instance=
     try:
         team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_work_item_tracking_client(team_instance)
-        work_item = client.get_work_item(id=work_item_id, expand=expand) #, expand=WorkItemExpand('relations'))
+        work_item = client.get_work_item(id=work_item_id, expand=expand)
         if open_browser:
             _open_work_item(work_item, team_instance)
         return work_item
@@ -356,17 +359,9 @@ def _open_work_item(work_item, team_instance):
     webbrowser.open_new(url=url)
 
 
-def _create_patch_operation(op, path, value):
-    patch_operation = JsonPatchOperation()
-    patch_operation.op = op
-    patch_operation.path = path
-    patch_operation.value = value
-    return patch_operation
-
-
 def _create_work_item_field_patch_operation(op, field, value):
     path = '/fields/{field}'.format(field=field)
-    return _create_patch_operation(op=op, path=path, value=value)
+    return create_patch_operation(op=op, path=path, value=value)
 
 
 _SYSTEM_FIELD_ARGS = {'System.Title': 'title',

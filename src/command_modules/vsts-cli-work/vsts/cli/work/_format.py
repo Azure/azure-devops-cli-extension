@@ -86,3 +86,23 @@ def transform_work_item_query_result_row_output(row):
             # limit number of columns in table view
             break
     return table_row
+
+
+def transform_work_item_relations_table_output(result):
+    table_output = []
+    for idx, item in enumerate(result):
+        table_output.append(_tranform_work_item_relations_row(idx=idx, row=item))
+    return table_output
+
+
+def transform_work_item_relation_table_output(result):
+    table_output = [_tranform_work_item_relations_row(idx=0, row=result)]
+    return table_output
+
+
+def _tranform_work_item_relations_row(idx, row):
+    table_row = OrderedDict()
+    table_row['INDEX'] = str(idx)
+    table_row['REL'] = row['rel']
+    table_row['URL'] = row['url']
+    return table_row
