@@ -29,6 +29,7 @@ def create_work_item(work_item_type, title, description=None, parent=None, assig
     :type title: str
     :param description: Description of the work item.
     :type description: str
+    :param int parent: ID of the work item's parent.
     :param assigned_to: Name of the person the work item is assigned-to (e.g. fabrikam).
     :type assigned_to: str
     :param state: State of the work item (e.g. active)
