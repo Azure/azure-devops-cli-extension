@@ -12,13 +12,15 @@ from vsts.cli.common.services import (get_git_client,
                                       resolve_instance_project_and_repo)
 
 
-def create_tag(name, object_id, message=None, repository=None, project=None, team_instance=None, detect=None):
+def create_tag(name, object_id, message=None, repository=None, team_instance=None, project=None, detect=None):
     """Create a tag.
     :param str name: Name of the annotated tag.
     :param str object_id: ID of the object the tag is pointing to.
     :param str message: Message of the annotated tag.
-    :param str project: Name or ID of the team project.
-    :param str repository: Name or ID of the repository to create the tag in.
+    :param str repository: Name or ID of the repository.
+    :param str team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project collection.
+    :param str project: Name or ID of the project.
+    :param str detect: When 'On' unsupplied arg values will be detected from the current working directory's repo.
     """
     try:
         team_instance, project, repository = resolve_instance_project_and_repo(
@@ -34,11 +36,13 @@ def create_tag(name, object_id, message=None, repository=None, project=None, tea
         handle_command_exception(ex)
 
 
-def show_tag(object_id, repository=None, project=None, team_instance=None, detect=None):
+def show_tag(object_id, repository=None, team_instance=None, project=None, detect=None):
     """Get the details of a tag.
     :param str object_id: ID of the tag.
-    :param str project: Name or ID of the team project.
     :param str repository: Name or ID of the repository.
+    :param str team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project collection.
+    :param str project: Name or ID of the project.
+    :param str detect: When 'On' unsupplied arg values will be detected from the current working directory's repo.
     """
     try:
         team_instance, project, repository = resolve_instance_project_and_repo(
