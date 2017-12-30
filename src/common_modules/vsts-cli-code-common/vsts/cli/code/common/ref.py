@@ -10,11 +10,13 @@ from vsts.cli.common.services import (get_git_client,
                                       resolve_instance,
                                       resolve_instance_project_and_repo)
 
-def list_refs(filter=None, repository=None, project=None, team_instance=None, detect=None):
+def list_refs(filter=None, repository=None, team_instance=None, project=None, detect=None):
     """List the references.
     :param str filter: Filter to apply to the refs.
-    :param str project: Name or ID of the team project.
     :param str repository: Name or ID of the repository.
+    :param str team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project collection.
+    :param str project: Name or ID of the project.
+    :param str detect: When 'On' unsupplied arg values will be detected from the current working directory's repo.
     """
     try:
         team_instance, project, repository = resolve_instance_project_and_repo(
@@ -27,13 +29,15 @@ def list_refs(filter=None, repository=None, project=None, team_instance=None, de
         handle_command_exception(ex)
 
 
-def create_ref(name, object_id, locked=False, repository=None, project=None, team_instance=None, detect=None):
+def create_ref(name, object_id, locked=False, repository=None, team_instance=None, project=None, detect=None):
     """Create a reference.
     :param str name: Name of the reference to create (example: heads/my_branch).
     :param str object_id: id of the object to create the reference from.
     :param bool locked: If the reference is locked (default False)
-    :param str project: Name or ID of the team project.
     :param str repository: Name or ID of the repository.
+    :param str team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project collection.
+    :param str project: Name or ID of the project.
+    :param str detect: When 'On' unsupplied arg values will be detected from the current working directory's repo.
     """
     try:
         team_instance, project, repository = resolve_instance_project_and_repo(
@@ -48,12 +52,14 @@ def create_ref(name, object_id, locked=False, repository=None, project=None, tea
         handle_command_exception(ex)
 
 
-def delete_ref(name, object_id, repository=None, project=None, team_instance=None, detect=None):
+def delete_ref(name, object_id, repository=None, team_instance=None, project=None, detect=None):
     """Delete a reference.
     :param str name: Name of the reference to create (example: heads/my_branch).
     :param str object_id: id of the reference to delete.
-    :param str project: Name or ID of the team project.
     :param str repository: Name or ID of the repository.
+    :param str team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project collection.
+    :param str project: Name or ID of the project.
+    :param str detect: When 'On' unsupplied arg values will be detected from the current working directory's repo.
     """
     try:
         team_instance, project, repository = resolve_instance_project_and_repo(
@@ -67,13 +73,15 @@ def delete_ref(name, object_id, repository=None, project=None, team_instance=Non
         handle_command_exception(ex)
 
 
-def update_ref(name, old_object_id, new_object_id, repository=None, project=None, team_instance=None, detect=None):
+def update_ref(name, old_object_id, new_object_id, repository=None, team_instance=None, project=None, detect=None):
     """Update a reference.
     :param str name: Name of the reference to create (example: heads/my_branch).
     :param str old_object_id: id of the old reference.
     :param str new_object_id: id of the new reference.
-    :param str project: Name or ID of the team project.
     :param str repository: Name or ID of the repository.
+    :param str team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project collection.
+    :param str project: Name or ID of the project.
+    :param str detect: When 'On' unsupplied arg values will be detected from the current working directory's repo.
     """
     try:
         team_instance, project, repository = resolve_instance_project_and_repo(
