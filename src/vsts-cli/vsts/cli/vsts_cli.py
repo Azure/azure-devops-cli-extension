@@ -40,7 +40,8 @@ class VstsCLI(CLI):
     @staticmethod
     def post_parse_args(cli_ctx, **kwargs):
         # we need to set tracking data only after we know that all args are valid,
-        # otherwise we may log EUII data that a user inadvertently sent as an argument.
+        # otherwise we may log EUII data that a user inadvertently sent as an argument
+        # name.  We already don't log argument values.
         set_tracking_data(cli_ctx.args)
 
     @staticmethod
