@@ -24,7 +24,7 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type definition_id: int
     :param definition_name: Name of the definition to queue. Ignored if --id is supplied.
     :type definition_name: str
-    :param branch: Branch to build. Defaults to the current branch if run from a valid git directory. Example: "dev".
+    :param branch: Branch to build. Required if there is not a default branch set up on the definition. Example: "dev".
     :type branch: str
     :param variables: Space separated "name=value" pairs for the variables you would like to set.
     :type variables: [str]
@@ -54,13 +54,7 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
             definition_id = get_definition_id_from_name(definition_name, client, project)
         definition_reference = DefinitionReference(id=definition_id)
         build = Build(definition=definition_reference)
-        if branch is None:
-            build.source_branch = resolve_git_ref_heads(get_current_branch_name())
-            # If build.source_branch is None it will fall back to the default branch for the build
-            # definition. If there is no default branch on the build def, then we refer to the exception
-            # returned from the service.
-        else:
-            build.source_branch = resolve_git_ref_heads(branch)
+        build.source_branch = resolve_git_ref_heads(branch)
         if variables is not None and variables:
             build.parameters = {}
             for variable in variables:
