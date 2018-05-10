@@ -101,8 +101,8 @@ class VstsCLI(CLI):
     @staticmethod
     def get_installed_dists():
         if VstsCLI._installed_dists is None:
-            from pip import get_installed_distributions
-            _installed_dists = get_installed_distributions(local_only=True)
+            import pkg_resources
+            _installed_dists = [d for d in pkg_resources.working_set]
         return _installed_dists
 
     _installed_dists = None
