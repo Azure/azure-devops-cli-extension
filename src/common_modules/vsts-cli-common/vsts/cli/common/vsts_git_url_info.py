@@ -6,7 +6,6 @@
 
 import logging
 
-
 from msrest.serialization import Model
 from .file_cache import get_cli_cache
 from .uri import uri_parse
@@ -64,6 +63,8 @@ class VstsGitUrlInfo(object):
         if components.scheme == 'ssh':
             # Convert to https url.
             netloc = VstsGitUrlInfo.convert_ssh_netloc_to_https_netloc(components.netloc)
+            if netloc is None:
+                return None
             uri = 'https://' + netloc + '/' + components.path
             ssh_path_segment = '_ssh/'
             ssh_path_segment_pos = uri.find(ssh_path_segment)
@@ -78,12 +79,19 @@ class VstsGitUrlInfo(object):
     def convert_ssh_netloc_to_https_netloc(netloc):
         if netloc is None:
             return None
-        import re
-        regex = re.compile('([^@]+)@[^\.]+(\.[^:]+)')
-        match = regex.match(netloc)
-        if match is not None:
-            return match.group(1) + match.group(2)
-        return None
+        if netloc.find('@') < 0:
+            # on premise url
+            logging.warning('TFS SSH URLs are not supported for repo auto-detection yet. See the following issue for ' +
+                            'latest updates: https://github.com/Microsoft/vsts-cli/issues/142')
+            return None
+        else:
+            # hosted url
+            import re
+            regex = re.compile('([^@]+)@[^\.]+(\.[^:]+)')
+            match = regex.match(netloc)
+            if match is not None:
+                return match.group(1) + match.group(2)
+            return None
 
     @staticmethod
     def is_vsts_url_candidate(url):
