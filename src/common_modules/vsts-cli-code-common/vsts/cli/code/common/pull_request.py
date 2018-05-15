@@ -170,17 +170,15 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                 if source_branch is None:
                     raise ValueError('The source branch could not be detected, please '
                                      + 'provide the --source-branch argument.')
-            if target_branch is None:
-                if project is not None:
-                    target_branch = _get_default_branch(team_instance, project, repository)
-                if target_branch is None:
-                    raise ValueError('The target branch could not be detected, please '
-                                     + 'provide the --target-branch argument.')
         else:
             if source_branch is None:
                 raise ValueError('--source-branch is a required argument.')
+        if target_branch is None:
+            if project is not None and repository is not None:
+                target_branch = _get_default_branch(team_instance, project, repository)
             if target_branch is None:
-                raise ValueError('--target-branch is a required argument.')
+                raise ValueError('The target branch could not be detected, please '
+                                 + 'provide the --target-branch argument.')
         client = get_git_client(team_instance)
         pr = GitPullRequest(description=description, source_ref_name=source_branch,
                             target_ref_name=target_branch)

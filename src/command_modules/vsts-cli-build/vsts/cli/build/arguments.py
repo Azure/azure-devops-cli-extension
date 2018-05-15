@@ -22,6 +22,7 @@ def load_build_arguments(cli_command_loader):
 
     with ArgumentsContext(cli_command_loader, 'build queue') as ac:
         ac.argument('definition_id', type=int)
+        ac.argument('variables', nargs='*')
 
     with ArgumentsContext(cli_command_loader, 'build show') as ac:
         ac.argument('build_id', options_list='--id', type=int)

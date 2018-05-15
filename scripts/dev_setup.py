@@ -25,6 +25,10 @@ def exec_command(command):
         print(err, file=sys.stderr)
         sys.exit(1)
 
+
+exec_command('python -m pip install --upgrade pip')
+exec_command('python -m pip install --upgrade wheel')
+
 packages = []
 
 # VSTS Python SDK package (from either local directory or latest)

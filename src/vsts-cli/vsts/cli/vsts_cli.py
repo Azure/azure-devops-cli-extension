@@ -9,7 +9,7 @@ import platform
 import sys
 
 from knack import CLI
-from knack.events import EVENT_CLI_POST_EXECUTE, EVENT_CLI_PRE_EXECUTE
+from knack.events import EVENT_CLI_POST_EXECUTE, EVENT_INVOKER_POST_PARSE_ARGS
 from vsts.cli.common.config import GLOBAL_CONFIG_DIR, CLI_ENV_VARIABLE_PREFIX
 from vsts.cli.common.services import set_tracking_data
 from vsts.cli.common.version import display_version_update_info_if_necessary
@@ -33,12 +33,15 @@ class VstsCLI(CLI):
 
     def invoke(self, args, initial_invocation_data=None, out_file=None):
         self.args = args
-        self.register_event(event_name=EVENT_CLI_PRE_EXECUTE, handler=self.pre_execute)
+        self.register_event(event_name=EVENT_INVOKER_POST_PARSE_ARGS, handler=self.post_parse_args)
         self.register_event(event_name=EVENT_CLI_POST_EXECUTE, handler=self.post_execute)
         return CLI.invoke(self, args, initial_invocation_data, out_file)
 
     @staticmethod
-    def pre_execute(cli_ctx, **kwargs):
+    def post_parse_args(cli_ctx, **kwargs):
+        # we need to set tracking data only after we know that all args are valid,
+        # otherwise we may log EUII data that a user inadvertently sent as an argument
+        # name.  We already don't log argument values.
         set_tracking_data(cli_ctx.args)
 
     @staticmethod
@@ -98,8 +101,8 @@ class VstsCLI(CLI):
     @staticmethod
     def get_installed_dists():
         if VstsCLI._installed_dists is None:
-            from pip import get_installed_distributions
-            _installed_dists = get_installed_distributions(local_only=True)
+            import pkg_resources
+            _installed_dists = [d for d in pkg_resources.working_set]
         return _installed_dists
 
     _installed_dists = None

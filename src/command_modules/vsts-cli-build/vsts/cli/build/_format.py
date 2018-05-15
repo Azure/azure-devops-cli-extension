@@ -8,7 +8,6 @@ import dateutil
 
 
 from collections import OrderedDict
-from vsts.cli.common.git import REF_HEADS_PREFIX
 
 
 def transform_builds_table_output(result):
@@ -24,6 +23,7 @@ def transform_build_table_output(result):
 
 
 def _transform_build_row(row):
+    from vsts.cli.common.git import REF_HEADS_PREFIX
     table_row = OrderedDict()
     table_row['ID'] = row['id']
     table_row['Number'] = row['buildNumber']
@@ -34,10 +34,15 @@ def _transform_build_row(row):
         table_row['Result'] = ' '
     table_row['Definition ID'] = row['definition']['id']
     table_row['Definition Name'] = row['definition']['name']
-    source_branch = row['sourceBranch']
-    if source_branch[0:len(REF_HEADS_PREFIX)] == REF_HEADS_PREFIX:
-        source_branch = source_branch[len(REF_HEADS_PREFIX):]
-    table_row['Source Branch'] = source_branch
+
+    if row['sourceBranch']:
+        source_branch = row['sourceBranch']
+        if source_branch[0:len(REF_HEADS_PREFIX)] == REF_HEADS_PREFIX:
+            source_branch = source_branch[len(REF_HEADS_PREFIX):]
+        table_row['Source Branch'] = source_branch
+    else:
+        table_row['Source Branch'] = ' '
+
     queued_time = dateutil.parser.parse(row['queueTime']).astimezone(dateutil.tz.tzlocal())
     table_row['Queued Time'] = str(queued_time.date()) + ' ' + str(queued_time.time())
     table_row['Reason'] = row['reason']

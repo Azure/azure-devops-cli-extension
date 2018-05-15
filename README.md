@@ -1,4 +1,4 @@
-[![Visual Studio Team services](https://mseng.visualstudio.com/_apis/public/build/definitions/698eacea-9ea2-4eb8-80a4-d06170edf6bc/5908/badge)]()
+[![Visual Studio Team services](https://mseng.visualstudio.com/_apis/public/build/definitions/698eacea-9ea2-4eb8-80a4-d06170edf6bc/5908/badge)](https://mseng.visualstudio.com/vsts-cli/_build/index?context=mine&path=%5C&definitionId=6169&_a=completed)
 [![Python](https://img.shields.io/pypi/pyversions/vsts-cli.svg)](https://pypi.python.org/pypi/vsts-cli)
 
 # Microsoft Visual Studio Team Services CLI 
@@ -45,6 +45,10 @@ Create a personal access token and provide to the VSTS CLI via the login command
 ```bash
 vsts login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
 ```
+
+### Using VSTS CLI Behind a Proxy
+
+The VSTS CLI picks the network proxy configuration from the environment variables `HTTP_PROXY`, and `HTTPS_PROXY`. 
 
 ### Configure defaults, Git aliases, and more
 

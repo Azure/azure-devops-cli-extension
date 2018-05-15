@@ -4,9 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 from collections import OrderedDict
-from vsts.cli.team.common.project import (PROCESS_TEMPLATE_CAPABILITY_NAME,
-                                          VERSION_CONTROL_CAPABILITY_NAME,
-                                          VERSION_CONTROL_CAPABILITY_ATTRIBUTE_NAME)
 
 
 def transform_projects_table_output(result):
@@ -22,6 +19,9 @@ def transform_project_table_output(result):
 
 
 def _transform_project_row(row):
+    from vsts.cli.team.common.project import (PROCESS_TEMPLATE_CAPABILITY_NAME,
+                                              VERSION_CONTROL_CAPABILITY_NAME,
+                                              VERSION_CONTROL_CAPABILITY_ATTRIBUTE_NAME)
     table_row = OrderedDict()
     table_row['ID'] = row['id']
     table_row['Name'] = row['name']
