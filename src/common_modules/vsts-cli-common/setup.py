@@ -16,7 +16,7 @@ VERSION = '0.1.1'
 # http://pypi.python.org/pypi/setuptools
 
 REQUIRES = [
-    'keyring~=10.5.0',
+    'keyring~=12.2.1',
     'knack==0.3.3',
     'python-dateutil==2.7.3',
     'vsts~=0.1.6.dev'
