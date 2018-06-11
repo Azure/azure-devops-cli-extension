@@ -117,7 +117,7 @@ To disable telemetry use the `vsts configure` command.
 
 ## Feedback
 
-If you encounter any bugs with the tool please report an issue on the [VSTS Developer Community](https://aka.ms/vsts-cli-devcom) using the vsts-cli tag.
+If you encounter any bugs with the tool please file an issue on this github repo using the `bug`  tag.
 
 To find where to provide feedback from the CLI, run `vsts feedback`.
 
