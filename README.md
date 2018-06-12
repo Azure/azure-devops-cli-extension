@@ -127,4 +127,4 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-This project follows the same contibution guidelines outlined by the Azure CLI. If you would like to become an active contributor, please follow the instructions provided in [Microsoft Azure Projects Contribution Guidelines](http://azure.github.io/guidelines.html).
+This project follows the same contribution guidelines outlined by the Azure CLI. If you would like to become an active contributor, please follow the instructions provided in [Microsoft Azure Projects Contribution Guidelines](http://azure.github.io/guidelines.html).
