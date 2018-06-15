@@ -41,10 +41,12 @@ RUN pip install vsts --upgrade --no-cache-dir --extra-index-url https://vstscli.
    /vsts-cli/src/common_modules/vsts-cli-common \
    /vsts-cli/src/common_modules/vsts-cli-build-common \
    /vsts-cli/src/common_modules/vsts-cli-code-common \
+   /vsts-cli/src/common_modules/vsts-cli-package-common \
    /vsts-cli/src/common_modules/vsts-cli-team-common \
    /vsts-cli/src/common_modules/vsts-cli-work-common \
    /vsts-cli/src/command_modules/vsts-cli-build \
    /vsts-cli/src/command_modules/vsts-cli-code \
+   /vsts-cli/src/command_modules/vsts-cli-package \
    /vsts-cli/src/command_modules/vsts-cli-team \
    /vsts-cli/src/command_modules/vsts-cli-work \
    /vsts-cli/src/vsts-cli
