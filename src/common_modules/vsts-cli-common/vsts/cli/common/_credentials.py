@@ -11,6 +11,7 @@ from knack.util import CLIError
 from vsts._file_cache import get_cache
 from .uri import uri_parse
 
+
 #
 # IMPORTANT: This function is called by the install script (scripts/curl_install/install.py)
 #            to verify that credentials can be accessed. Be careful when changing this method
