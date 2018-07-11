@@ -4,11 +4,18 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.arguments import ArgumentsContext
+from argparse import ArgumentTypeError
 
 def load_package_arguments(cli_command_loader):
     with ArgumentsContext(cli_command_loader, 'package upack') as ac:
         ac.argument('team_instance', options_list=('--instance'))
-        ac.argument('feed', options_list=('--feed'))
-        ac.argument('package_name', options_list=('--package-name'))
-        ac.argument('package_version', options_list=('--package-version'))
-        ac.argument('description', options_list=('--description'))
+        ac.argument('feed', type=nonempty_str)
+        ac.argument('name', type=nonempty_str)
+        ac.argument('version', type=nonempty_str)
+        ac.argument('path', type=nonempty_str)
+        ac.argument('description')
+
+def nonempty_str(s):
+    if not s.strip():
+        raise ArgumentTypeError("value must not be empty")
+    return s
