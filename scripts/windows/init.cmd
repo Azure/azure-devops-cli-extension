@@ -40,6 +40,7 @@ if not "%~2" == "" (
 
 IF NOT EXIST "%VDIR%" (
     echo Creating new virtual environment under %VDIR%
+    "%PYTHONEXE%" -m pip install virtualenv
     "%PYTHONEXE%" -m venv "%VDIR%"
     if ERRORLEVEL 1 (
         if not "%PYTHONDIR%" == "" (

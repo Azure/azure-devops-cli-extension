@@ -1,10 +1,15 @@
+# --------------------------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for license information.
+# --------------------------------------------------------------------------------------------
+
 import unittest
 from ..common.version import _is_version_less_than
 
 
 class TestVersionMethods(unittest.TestCase):
 
-    def test__is_version_less_than(self):
+    def test_is_version_less_than(self):
         _test_version_compare('1.1.1', '1.1.1', False)
         _test_version_compare('2.1.1', '1.9.9', False)
         _test_version_compare('1.9.9', '2.0.0', True)
