@@ -104,6 +104,11 @@ def get_policy_client(team_instance=None):
     return connection.get_client('vsts.policy.v4_0.policy_client.PolicyClient')
 
 
+def get_task_agent_client(team_instance=None):
+    connection = get_vss_connection(team_instance)
+    return connection.get_client('vsts.task_agent.v4_0.task_agent_client.TaskAgentClient')
+
+
 def get_work_item_tracking_client(team_instance=None):
     connection = get_vss_connection(team_instance)
     return connection.get_client('vsts.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient')

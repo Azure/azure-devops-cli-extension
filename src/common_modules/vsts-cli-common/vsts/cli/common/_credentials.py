@@ -17,21 +17,18 @@ from .uri import uri_parse
 #            to verify that credentials can be accessed. Be careful when changing this method
 #            so it does not impact install.
 #
-def get_credential(team_instance):
+def get_credential(team_instance, fall_back_to_default=True):
+    token = _get_credential(team_instance)
+    if token is None and team_instance is not None and fall_back_to_default:
+        token = _get_credential(team_instance=None)
+    return token
+
+
+def _get_credential(team_instance):
     key = _get_service_name(team_instance)
     logging.debug('Getting credential: %s', key)
     try:
-        token = keyring.get_password(key, _USERNAME)
-        _transfer_file_storage_to_keyring()
-        if token is not None:
-            return token
-        else:
-            token = keyring.get_password(key, _USERNAME)
-            if token is not None:
-                return token
-            else:
-                logging.debug('Getting default credential')
-                return keyring.get_password(_get_service_name(team_instance=None), _USERNAME)
+        return keyring.get_password(key, _USERNAME)
     except RuntimeError as ex:
         logging.exception(ex)
         raise CLIError(ex)
@@ -73,22 +70,6 @@ def _get_service_name(team_instance):
 def normalize_url_for_key(url):
     components = uri_parse(url)
     return components.scheme.lower() + '://' + components.netloc.lower()
-
-
-def _transfer_file_storage_to_keyring():
-    old_cache_dir = os.getenv('VSTS_CACHE_DIR', None) or os.path.expanduser(
-        os.path.join('~', '.vsts', 'cache'))
-    if os.path.exists(old_cache_dir):
-        credentials_cache = get_cache('tokens', 0, old_cache_dir)
-        if os.path.exists(credentials_cache.file_name):
-            try:
-                for entry in credentials_cache:
-                    logging.info('Moving token to keyring for instance: %s', entry)
-                    if keyring.get_password(_get_service_name(entry), _USERNAME) is None:
-                        set_credential(entry, credentials_cache[entry])
-            finally:
-                logging.info('Deleting old token file: %s', credentials_cache.file_name)
-                os.remove(credentials_cache.file_name)
 
 
 # a value is required for the python config file that gets generated on some operating systems.

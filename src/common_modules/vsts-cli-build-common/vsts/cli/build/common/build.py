@@ -9,7 +9,7 @@ from webbrowser import open_new
 from vsts.build.v4_0.models.build import Build
 from vsts.build.v4_0.models.definition_reference import DefinitionReference
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.git import get_current_branch_name, resolve_git_ref_heads
+from vsts.cli.common.git import resolve_git_ref_heads
 from vsts.cli.common.identities import resolve_identity_as_id
 from vsts.cli.common.services import (get_build_client,
                                       resolve_instance_and_project)
