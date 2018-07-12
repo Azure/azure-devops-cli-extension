@@ -1,4 +1,8 @@
-import logging
+# --------------------------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for license information.
+# --------------------------------------------------------------------------------------------
+
 import unittest
 import uuid
 from ..common._credentials import (get_credential,
@@ -9,8 +13,6 @@ from ..common._credentials import (get_credential,
 class TestCredentialsMethods(unittest.TestCase):
 
     def test_get_set_clear_credential(self):
-        logging.basicConfig(level=logging.DEBUG)
-
         team_instance = 'https://' + str(uuid.uuid4()) + '.visualstudio.com/'
         token = str(uuid.uuid4())
         retrieved_token = get_credential(team_instance, fall_back_to_default=False)
@@ -26,8 +28,6 @@ class TestCredentialsMethods(unittest.TestCase):
         self.assertEqual(None, retrieved_token)
 
     def test_get_set_clear_default_credential(self):
-        logging.basicConfig(level=logging.DEBUG)
-
         team_instance = None
         token = str(uuid.uuid4())
 
@@ -58,8 +58,6 @@ class TestCredentialsMethods(unittest.TestCase):
                 set_credential(team_instance, original_token)
 
     def test_get_credential_fallback(self):
-        logging.basicConfig(level=logging.DEBUG)
-
         team_instance = 'https://' + str(uuid.uuid4()) + '.visualstudio.com/'
         token = str(uuid.uuid4())
         token_default = str(uuid.uuid4())

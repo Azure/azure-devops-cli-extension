@@ -6,7 +6,9 @@
 from ._format import (transform_build_table_output,
                       transform_builds_table_output,
                       transform_definition_table_output,
-                      transform_definitions_table_output)
+                      transform_definitions_table_output,
+                      transform_tasks_table_output,
+                      transform_task_table_output)
 from knack.commands import CommandGroup
 
 
@@ -25,3 +27,7 @@ def load_build_commands(cli_command_loader):
                   table_transformer=transform_definitions_table_output)
         g.command('definition show', 'build_definition#build_definition_show',
                   table_transformer=transform_definition_table_output)
+
+        # basic vsts_cli_build task commands
+        g.command('task list', 'task#task_list', table_transformer=transform_tasks_table_output)
+        g.command('task show', 'task#task_show', table_transformer=transform_task_table_output)
