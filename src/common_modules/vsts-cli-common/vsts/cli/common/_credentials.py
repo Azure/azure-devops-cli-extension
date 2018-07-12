@@ -4,11 +4,9 @@
 # --------------------------------------------------------------------------------------------
 
 import logging
-import os
 import keyring
 
 from knack.util import CLIError
-from vsts._file_cache import get_cache
 from .uri import uri_parse
 
 
