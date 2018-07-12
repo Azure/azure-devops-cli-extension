@@ -34,6 +34,21 @@ def resolve_identity_as_display_name(identity_filter, team_instance):
             return get_display_name_from_identity(identity)
 
 
+def resolve_identity_as_unique_user_id(identity_filter, team_instance):
+    """Takes an identity name, email, alias, or id, and returns the unique_user_id.
+    """
+    if identity_filter.lower() == ME:
+        identity = get_current_identity(team_instance)
+    else:
+        identity = resolve_identity(identity_filter, team_instance)
+    if identity is not None:
+        descriptor = identity.descriptor
+        semi_pos = identity.descriptor.find(';')
+        if semi_pos >= 0:
+            descriptor = descriptor[semi_pos + 1:]
+        return descriptor
+
+
 def resolve_identity(identity_filter, team_instance):
     """Takes an identity name, email, alias, or id, and returns the identity.
     """

@@ -11,7 +11,7 @@ from vsts.exceptions import VstsServiceError
 from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
 from vsts.work_item_tracking.v4_0.models.wiql import Wiql
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.identities import resolve_identity_as_display_name
+from vsts.cli.common.identities import resolve_identity_as_unique_user_id
 from vsts.cli.common.services import (get_work_item_tracking_client,
                                       resolve_instance,
                                       resolve_instance_and_project)
@@ -71,7 +71,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             if assigned_to == '':
                 resolved_assigned_to = ''
             else:
-                resolved_assigned_to = resolve_identity_as_display_name(assigned_to, team_instance)
+                resolved_assigned_to = resolve_identity_as_unique_user_id(assigned_to, team_instance)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
@@ -149,7 +149,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
             if assigned_to == '':
                 resolved_assigned_to = ''
             else:
-                resolved_assigned_to = resolve_identity_as_display_name(assigned_to, team_instance)
+                resolved_assigned_to = resolve_identity_as_unique_user_id(assigned_to, team_instance)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
