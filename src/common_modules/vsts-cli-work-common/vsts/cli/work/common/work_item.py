@@ -11,7 +11,7 @@ from vsts.exceptions import VstsServiceError
 from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
 from vsts.work_item_tracking.v4_0.models.wiql import Wiql
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.identities import resolve_identity_as_unique_user_id
+from vsts.cli.common.identities import (ME, get_current_identity, resolve_identity)
 from vsts.cli.common.services import (get_work_item_tracking_client,
                                       resolve_instance,
                                       resolve_instance_and_project)
@@ -71,7 +71,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             if assigned_to == '':
                 resolved_assigned_to = ''
             else:
-                resolved_assigned_to = resolve_identity_as_unique_user_id(assigned_to, team_instance)
+                resolved_assigned_to = _resolve_identity_as_unique_user_id(assigned_to, team_instance)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
@@ -149,7 +149,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
             if assigned_to == '':
                 resolved_assigned_to = ''
             else:
-                resolved_assigned_to = resolve_identity_as_unique_user_id(assigned_to, team_instance)
+                resolved_assigned_to = _resolve_identity_as_unique_user_id(assigned_to, team_instance)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
@@ -366,6 +366,21 @@ def _create_patch_operation(op, path, value):
 def _create_work_item_field_patch_operation(op, field, value):
     path = '/fields/{field}'.format(field=field)
     return _create_patch_operation(op=op, path=path, value=value)
+
+
+def _resolve_identity_as_unique_user_id(identity_filter, team_instance):
+    """Takes an identity name, email, alias, or id, and returns the unique_user_id.
+    """
+    if identity_filter.lower() == ME:
+        identity = get_current_identity(team_instance)
+    else:
+        identity = resolve_identity(identity_filter, team_instance)
+    if identity is not None:
+        descriptor = identity.descriptor
+        semi_pos = identity.descriptor.find(';')
+        if semi_pos >= 0:
+            descriptor = descriptor[semi_pos + 1:]
+        return descriptor
 
 
 _SYSTEM_FIELD_ARGS = {'System.Title': 'title',
