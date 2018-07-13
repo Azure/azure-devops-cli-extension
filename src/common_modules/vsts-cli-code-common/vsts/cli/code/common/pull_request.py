@@ -115,7 +115,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
                         merge_commit_message=None, reviewers=None, work_items=None,
-                        open_browser=False, team_instance=None, detect=None):
+                        open_browser=False, team_instance=None, detect=None, transition_work_items=False):
     """Create a pull request.
     :param project: Name or ID of the team project.
     :type project: str
@@ -157,6 +157,9 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :param detect: Automatically detect instance, project, repository, source and target branches
                    if these values are not specified. Default is "on".
     :type detect: str
+    :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
+                   (e.g. Active -> Resolved)
+    :type transition_work_items: bool
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
@@ -206,9 +209,12 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                                                       project=project)
             if len(commits) == 1:
                 title_from_commit = commits[0].comment
-        set_completion_options = (bypass_policy is not None or bypass_policy_reason is not None
-                                  or bypass_policy or squash or merge_commit_message is not None
-                                  or delete_source_branch)
+        set_completion_options = (bypass_policy
+                                  or bypass_policy_reason is not None
+                                  or squash
+                                  or merge_commit_message is not None
+                                  or delete_source_branch
+                                  or transition_work_items)
         if auto_complete or set_completion_options or title_from_commit is not None:
             pr_for_update = GitPullRequest()
             if auto_complete:
@@ -221,6 +227,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                 completion_options.delete_source_branch = delete_source_branch
                 completion_options.squash_merge = squash
                 completion_options.merge_commit_message = merge_commit_message
+                completion_options.transition_work_items = transition_work_items
                 pr_for_update.completion_options = completion_options
             if title_from_commit is not None:
                 pr_for_update.title = title_from_commit
@@ -237,7 +244,8 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
 
 def update_pull_request(pull_request_id, title=None, description=None, auto_complete=None,
                         squash=None, delete_source_branch=None, bypass_policy=None,
-                        bypass_policy_reason=None, merge_commit_message=None, team_instance=None, detect=None):
+                        bypass_policy_reason=None, merge_commit_message=None, team_instance=None, detect=None,
+                        transition_work_items=None):
     """Update a pull request.
     :param pull_request_id: ID of the pull request.
     :type pull_request_id: int
@@ -264,6 +272,9 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
     :type team_instance: str
     :param detect: Automatically detect instance. Default is "on".
     :type detect: str
+    :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
+                   (e.g. Active -> Resolved)
+    :type transition_work_items: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
@@ -271,9 +282,12 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
         client = get_git_client(team_instance)
         existing_pr = client.get_pull_request_by_id(pull_request_id)
         pr = GitPullRequest(title=title, description=description)
-        if (bypass_policy is not None or bypass_policy_reason is not None or
-            bypass_policy is not None or squash is not None or merge_commit_message
-                is not None or delete_source_branch is not None):
+        if (bypass_policy is not None
+                or bypass_policy_reason is not None
+                or squash is not None
+                or merge_commit_message is not None
+                or delete_source_branch is not None
+                or transition_work_items is not None):
             completion_options = existing_pr.completion_options
             if completion_options is None:
                 completion_options = GitPullRequestCompletionOptions()
@@ -287,6 +301,8 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
                 completion_options.squash_merge = resolve_on_off_switch(squash)
             if merge_commit_message is not None:
                 completion_options.merge_commit_message = merge_commit_message
+            if transition_work_items is not None:
+                completion_options.transition_work_items = resolve_on_off_switch(transition_work_items)
             pr.completion_options = completion_options
         if auto_complete is not None:
             if resolve_on_off_switch(auto_complete):
