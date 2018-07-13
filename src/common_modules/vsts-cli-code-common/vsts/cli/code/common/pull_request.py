@@ -274,7 +274,7 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
     :type detect: str
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
                    (e.g. Active -> Resolved)
-    :type transition_work_items: bool
+    :type transition_work_items: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
