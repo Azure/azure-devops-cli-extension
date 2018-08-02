@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 import logging
+import sys
 
 import colorama
 from vsts.cli.common.exception_handling import handle_command_exception
@@ -15,8 +16,10 @@ from .external_tool import ProgressReportingExternalToolInvoker
 
 logger = logging.getLogger('vsts.packaging')
 
+_UNIVERSAL_PREVIEW_MESSAGE = colorama.Fore.YELLOW + 'Universal Packages is currently in preview.\n' + colorama.Fore.RESET
+
 def publish_package(feed, name, version, path, description=None, team_instance=None, detect=None):
-    """Publish a package to a feed.
+    """(PREVIEW) Publish a package to a feed.
     :param feed: Name or ID of the feed.
     :type feed: str
     :param name: Name of the package, e.g. 'foo-package'.
@@ -34,6 +37,7 @@ def publish_package(feed, name, version, path, description=None, team_instance=N
     """
     try:
         colorama.init() # Needed for humanfriendly spinner to display correctly
+        sys.stderr.write(_UNIVERSAL_PREVIEW_MESSAGE)
         team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         artifact_tool.publish_universal(team_instance, feed, name, version, description, path)
@@ -41,7 +45,7 @@ def publish_package(feed, name, version, path, description=None, team_instance=N
         handle_command_exception(ex)
       
 def download_package(feed, name, version, path, team_instance=None, detect=None):
-    """Download a package.
+    """(PREVIEW) Download a package.
     :param feed: Name or ID of the feed.
     :type feed: str
     :param name: Name of the package, e.g. 'foo-package'.
@@ -57,6 +61,7 @@ def download_package(feed, name, version, path, team_instance=None, detect=None)
     """
     try:
         colorama.init() # Needed for humanfriendly spinner to display correctly
+        sys.stderr.write(_UNIVERSAL_PREVIEW_MESSAGE)
         team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         artifact_tool.download_universal(team_instance, feed, name, version, path)
