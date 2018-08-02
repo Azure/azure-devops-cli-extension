@@ -15,6 +15,6 @@ helps['package'] = """
 
 helps['package universal'] = """
     type: group
-    short-summary: Manage Universal Packages
+    short-summary: (PREVIEW) Manage Universal Packages
     long-summary:
 """
