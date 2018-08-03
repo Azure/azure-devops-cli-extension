@@ -3,17 +3,17 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import logging
-
 from webbrowser import open_new
+
+from knack.log import get_logger
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.services import (get_build_client,
-                                      get_git_client,
+from vsts.cli.common.services import (get_build_client, get_git_client,
                                       resolve_instance_and_project,
                                       resolve_instance_project_and_repo)
 from vsts.cli.common.uri import uri_quote
 from vsts.cli.common.uuid import is_uuid
 
+logger = get_logger(__name__)
 
 def build_definition_list(name=None, top=None, team_instance=None, project=None, repository=None, detect=None):
     """List build definitions.
@@ -100,7 +100,7 @@ def _open_definition(definition, team_instance):
     project = definition.project.name
     url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_build/index?definitionId='\
         + uri_quote(str(definition.id))
-    logging.debug('Opening web page: %s', url)
+    logger.debug('Opening web page: %s', url)
     open_new(url=url)
 
 

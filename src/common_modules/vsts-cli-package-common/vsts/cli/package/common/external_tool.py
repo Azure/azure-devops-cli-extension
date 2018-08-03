@@ -3,7 +3,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import logging
 import os
 import signal
 import subprocess
@@ -11,9 +10,10 @@ import sys
 import threading
 
 import humanfriendly
+from knack.log import get_logger
 from knack.util import CLIError
 
-logger = logging.getLogger()
+logger = get_logger(__name__)
 
 class ExternalToolInvoker:
     _proc = None

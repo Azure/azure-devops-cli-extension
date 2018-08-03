@@ -4,11 +4,11 @@
 # --------------------------------------------------------------------------------------------
 
 import datetime
-import logging
 import os
 import threading
 
 from collections import OrderedDict
+from knack.log import get_logger
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
@@ -20,6 +20,7 @@ from .git import get_remote_url
 from .version import VERSION
 from .vsts_git_url_info import VstsGitUrlInfo
 
+logger = get_logger(__name__)
 
 def get_vss_connection(team_instance):
     if team_instance not in _vss_connection:
@@ -30,12 +31,12 @@ def get_vss_connection(team_instance):
             if vsts_config.has_option('core', 'collect_telemetry'):
                 collect_telemetry = vsts_config.get('core', 'collect_telemetry')
             if collect_telemetry is None or collect_telemetry != 'no':
-                logging.debug('Telemetry enabled.')
+                logger.debug('Telemetry enabled.')
                 _try_send_tracking_ci_event_async(team_instance)
             else:
-                logging.debug('Telemetry disabled.')
+                logger.debug('Telemetry disabled.')
         except Exception as ex:
-            logging.exception(str(ex))
+            logger.exception(str(ex))
             raise CLIError(ex)
     return _vss_connection[team_instance]
 
@@ -46,7 +47,7 @@ def _get_credentials(team_instance):
     else:
         pat = get_credential(team_instance)
     if pat is not None:
-        logging.info("Creating connection with personal access token.")
+        logger.info("Creating connection with personal access token.")
         credentials = BasicAuthentication('', pat)
         return credentials
     else:
@@ -203,7 +204,7 @@ def get_vsts_info_from_current_remote_url():
     info = VstsGitUrlInfo(get_remote_url(VstsGitUrlInfo.is_vsts_url_candidate))
     end = datetime.datetime.now()
     duration = end - start
-    logging.info("Detect: Url discovery took " + str(duration))
+    logger.info("Detect: Url discovery took " + str(duration))
     return info
 
 
@@ -232,7 +233,7 @@ def set_tracking_data(argv):
         else:
             vsts_tracking_data.feature = 'Command'
     except Exception as ex:
-        logging.exception(ex)
+        logger.exception(ex)
 
 
 def _try_send_tracking_ci_event_async(team_instance=None):
@@ -242,7 +243,7 @@ def _try_send_tracking_ci_event_async(team_instance=None):
             thread.start()
         except Exception as ex:
             # we should always continue if we fail to set tracking data
-            logging.exception(str(ex))
+            logger.exception(str(ex))
 
 
 def _send_tracking_ci_event(team_instance=None, ci_client=None):
@@ -252,7 +253,7 @@ def _send_tracking_ci_event(team_instance=None, ci_client=None):
         ci_client.publish_events([vsts_tracking_data])
         return True
     except Exception as ex:
-        logging.exception(ex)
+        logger.exception(ex)
         return False
 
 

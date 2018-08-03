@@ -3,7 +3,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import logging
 import webbrowser
 
 from knack.util import CLIError
@@ -13,6 +12,8 @@ from vsts.cli.common.services import (get_git_client,
                                       resolve_instance_and_project)
 from vsts.cli.common.uri import uri_quote
 
+from knack.log import get_logger
+logger = get_logger(__name__)
 
 def create_repo(name, team_instance=None, project=None, detect=None, open_browser=False):
     """Create a Git repository in a team project.
@@ -107,5 +108,5 @@ def _open_repository(repository, team_instance):
     """
     url = team_instance.rstrip('/') + '/' + uri_quote(repository.project.name)\
         + '/_git/' + uri_quote(repository.name)
-    logging.debug('Opening web page: %s', url)
+    logger.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)

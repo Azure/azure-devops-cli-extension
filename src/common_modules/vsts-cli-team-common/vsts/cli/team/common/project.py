@@ -3,9 +3,9 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import logging
 import webbrowser
 
+from knack.log import get_logger
 from knack.util import CLIError
 from vsts.core.v4_0.models.team_project import TeamProject
 from vsts.cli.common.exception_handling import handle_command_exception
@@ -14,6 +14,7 @@ from vsts.cli.common.services import (get_core_client,
                                       resolve_instance)
 from vsts.cli.common.uri import uri_quote
 
+logger = get_logger(__name__)
 
 def create_project(name, team_instance=None, process=None, source_control='git', description=None, detect=None,
                    open_browser=False):
@@ -154,7 +155,7 @@ def _open_project(project):
     pos = project.url.find(api_segment)
     if pos >= 0:
         url = project.url[:pos + 1] + uri_quote(project.name)
-        logging.debug('Opening web page: %s', url)
+        logger.debug('Opening web page: %s', url)
         webbrowser.open_new(url=url)
     else:
         raise CLIError("Failed to open web browser, due to unrecognized url in response.")

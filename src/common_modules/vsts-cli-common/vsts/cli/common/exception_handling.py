@@ -3,16 +3,16 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import logging
-
-
+from knack.log import get_logger
 from knack.util import CLIError
 from vsts.exceptions import VstsAuthenticationError
+
 from .services import raise_authentication_error
 
+logger = get_logger(__name__)
 
 def handle_command_exception(exception):
-    logging.exception(exception)
+    logger.exception(exception)
     if isinstance(exception, CLIError):
         raise exception
     if isinstance(exception, VstsAuthenticationError):

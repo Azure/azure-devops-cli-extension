@@ -4,7 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 import io
-import logging
 import os
 import platform
 import shutil
@@ -16,10 +15,12 @@ import zipfile
 
 import humanfriendly
 import requests
+
+from knack.log import get_logger
 from knack.util import CLIError
 from vsts.cli.common.services import get_vss_connection
 
-logger = logging.getLogger('vsts.packaging')
+logger = get_logger(__name__)
 
 class ArtifactToolUpdater:
     ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY = "VSTS_CLI_ARTIFACTTOOL_OVERRIDE_PATH"
