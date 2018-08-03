@@ -20,7 +20,7 @@ REQUIRES = [
     'humanfriendly==4.7',
     'knack==0.4.1',
     'python-dateutil==2.7.3',
-    'vsts~=0.1.1.dev',
+    'vsts~=0.1.14.dev',
     'vsts-cli-common==' + VERSION
 ]
 
