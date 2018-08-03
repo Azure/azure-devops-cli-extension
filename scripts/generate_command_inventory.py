@@ -20,10 +20,10 @@ sys.argv = sys.argv[:1]
 
 cli_name = "vsts"
 vstscli = CLI(cli_name=cli_name,
-        config_dir=os.path.join('~', '.{}'.format(cli_name)),
-        config_env_var_prefix=cli_name,
-        commands_loader_cls=VstsCommandsLoader,
-        help_cls=VstsCLIHelp)
+              config_dir=os.path.join('~', '.{}'.format(cli_name)),
+              config_env_var_prefix=cli_name,
+              commands_loader_cls=VstsCommandsLoader,
+              help_cls=VstsCLIHelp)
 
 loader = vstscli.commands_loader_cls()
 loader.__init__(vstscli)
