@@ -4,14 +4,14 @@
 # --------------------------------------------------------------------------------------------
 
 import json
-import logging
 import os
 
+from knack.log import get_logger
 from knack.util import CLIError
 
 from vsts.cli.common.services import _get_credentials
 
-logger = logging.getLogger('vsts.packaging')
+logger = get_logger(__name__)
 
 class ArtifactToolInvoker:
     def __init__(self, tool_invoker, artifacttool_updater):
@@ -21,13 +21,13 @@ class ArtifactToolInvoker:
     PATVAR = "VSTS_ARTIFACTTOOL_PATVAR"
 
     def download_universal(self, team_instance, feed, package_name, package_version, path):
-        self.run_artifacttool(team_instance, ["universal", "download", "--service", team_instance, "--patvar", self.PATVAR, "--feed", feed, "--package-name", package_name, "--package-version", package_version, "--path", path], "Downloading")
+        return self.run_artifacttool(team_instance, ["universal", "download", "--service", team_instance, "--patvar", self.PATVAR, "--feed", feed, "--package-name", package_name, "--package-version", package_version, "--path", path], "Downloading")
 
     def publish_universal(self, team_instance, feed, package_name, package_version, description, path):
         args = ["universal", "publish", "--service", team_instance, "--patvar", self.PATVAR, "--feed", feed, "--package-name", package_name, "--package-version", package_version, "--path", path]
         if description:
             args.extend(["--description", description])
-        self.run_artifacttool(team_instance, args, "Publishing")
+        return self.run_artifacttool(team_instance, args, "Publishing")
 
     def run_artifacttool(self, team_instance, args, initial_progress_message):
         # Download ArtifactTool if necessary, and return the path
@@ -43,7 +43,13 @@ class ArtifactToolInvoker:
         command_args = [artifacttool_binary_path] + args
         proc = self._tool_invoker.run(command_args, new_env, initial_progress_message, self._process_stderr)
         if proc:
-            print(proc.stdout.read().decode('utf-8'))
+            output = proc.stdout.read().decode('utf-8')
+            try:
+                return json.loads(output)
+            except json.decoder.JSONDecodeError:
+                if output:
+                    logger.warning("Failed to parse the output of ArtifactTool as JSON. The output was:\n{}".format(output))
+                return None
 
     def _process_stderr(self, line, update_progress_callback):
         try:

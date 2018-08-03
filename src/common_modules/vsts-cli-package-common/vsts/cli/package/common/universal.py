@@ -40,7 +40,7 @@ def publish_package(feed, name, version, path, description=None, team_instance=N
         sys.stderr.write(_UNIVERSAL_PREVIEW_MESSAGE)
         team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-        artifact_tool.publish_universal(team_instance, feed, name, version, description, path)
+        return artifact_tool.publish_universal(team_instance, feed, name, version, description, path)
     except Exception as ex:
         handle_command_exception(ex)
       
@@ -64,6 +64,6 @@ def download_package(feed, name, version, path, team_instance=None, detect=None)
         sys.stderr.write(_UNIVERSAL_PREVIEW_MESSAGE)
         team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-        artifact_tool.download_universal(team_instance, feed, name, version, path)
+        return artifact_tool.download_universal(team_instance, feed, name, version, path)
     except Exception as ex:
         handle_command_exception(ex)
