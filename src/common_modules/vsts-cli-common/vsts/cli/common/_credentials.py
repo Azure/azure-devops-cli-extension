@@ -3,12 +3,13 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import logging
 import keyring
 
 from knack.util import CLIError
 from .uri import uri_parse
 
+from knack.log import get_logger
+logger = get_logger(__name__)
 
 #
 # IMPORTANT: This function is called by the install script (scripts/curl_install/install.py)
@@ -24,11 +25,11 @@ def get_credential(team_instance, fall_back_to_default=True):
 
 def _get_credential(team_instance):
     key = _get_service_name(team_instance)
-    logging.debug('Getting credential: %s', key)
+    logger.debug('Getting credential: %s', key)
     try:
         return keyring.get_password(key, _USERNAME)
     except RuntimeError as ex:
-        logging.exception(ex)
+        logger.exception(ex)
         raise CLIError(ex)
 
 
@@ -41,20 +42,20 @@ def set_credential(team_instance, token):
         if old_token is not None:
             keyring.delete_password(key, _USERNAME)
 
-        logging.debug('Setting credential: %s', key)
+        logger.debug('Setting credential: %s', key)
         keyring.set_password(key, _USERNAME, token)
     except RuntimeError as ex:
-        logging.exception(ex)
+        logger.exception(ex)
         raise CLIError(ex)
 
 
 def clear_credential(team_instance):
     key = _get_service_name(team_instance)
-    logging.debug('Clearing credential: %s', key)
+    logger.debug('Clearing credential: %s', key)
     try:
         keyring.delete_password(key, _USERNAME)
     except keyring.errors.PasswordDeleteError as ex:
-        logging.exception(ex)
+        logger.exception(ex)
         raise CLIError('The credential was not found')
 
 

@@ -3,9 +3,9 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import logging
 import webbrowser
 
+from knack.log import get_logger
 from knack.util import CLIError
 from vsts.exceptions import VstsServiceError
 from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
@@ -17,6 +17,7 @@ from vsts.cli.common.services import (get_work_item_tracking_client,
                                       resolve_instance_and_project)
 from vsts.cli.common.uri import uri_quote
 
+logger = get_logger(__name__)
 
 def create_work_item(work_item_type, title, description=None, assigned_to=None, state=None, area=None,
                      iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
@@ -182,7 +183,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
 
 
 def _handle_vsts_service_error(ex):
-    logging.exception(ex)
+    logger.exception(ex)
     if ex.type_key == 'RuleValidationException' and "FieldReferenceName" in ex.custom_properties:
         if ex.message is not None:
             message = ex.message
@@ -282,7 +283,7 @@ def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, pr
                         fields_length_in_url += 3  # add 3 for %2C delimiter
                     fields_length_in_url += len(uri_quote(field_ref.reference_name))
                     if fields_length_in_url > 800:
-                        logging.info("Not retrieving all fields due to max url length.")
+                        logger.info("Not retrieving all fields due to max url length.")
                         break
             remaining_url_length -= fields_length_in_url
             max_work_items = 1000
@@ -291,7 +292,7 @@ def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, pr
             work_item_url_length = 0
             for work_item_ref in query_result.work_items:
                 if len(work_items) >= max_work_items:
-                    logging.info("Only retrieving the first %s work items.", max_work_items)
+                    logger.info("Only retrieving the first %s work items.", max_work_items)
                     break
                 if work_item_url_length > 0:
                     work_item_url_length += 3  # add 3 for %2C delimiter
@@ -351,7 +352,7 @@ def _open_work_item(work_item, team_instance):
     project = work_item.fields['System.TeamProject']
     url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_workitems?id='\
         + uri_quote(str(work_item.id))
-    logging.debug('Opening web page: %s', url)
+    logger.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)
 
 

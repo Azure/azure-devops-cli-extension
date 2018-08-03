@@ -3,9 +3,9 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import logging
 import webbrowser
 
+from knack.log import get_logger
 from knack.util import CLIError
 from vsts.exceptions import VstsClientRequestError
 from vsts.git.v4_0.models.git_pull_request import GitPullRequest
@@ -28,6 +28,7 @@ from vsts.cli.common.services import (get_git_client,
                                       resolve_instance,
                                       resolve_instance_project_and_repo)
 
+logger = get_logger(__name__)
 
 def show_pull_request(pull_request_id, open_browser=False, team_instance=None, detect=None):
     """Get the details of a pull request.
@@ -470,7 +471,7 @@ def add_pull_request_work_items(pull_request_id, work_items, team_instance=None,
                 try:
                     wit_client.update_work_item(document=patch_document, id=work_item_id)
                 except VstsClientRequestError as ex:
-                    logging.exception(ex)
+                    logger.exception(ex)
                     message = ex.args[0]
                     if message != 'Relation already exists.':
                         raise CLIError(ex)

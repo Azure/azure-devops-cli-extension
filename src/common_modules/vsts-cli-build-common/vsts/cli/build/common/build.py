@@ -3,9 +3,9 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import logging
-
 from webbrowser import open_new
+
+from knack.log import get_logger
 from vsts.build.v4_0.models.build import Build
 from vsts.build.v4_0.models.definition_reference import DefinitionReference
 from vsts.cli.common.exception_handling import handle_command_exception
@@ -16,6 +16,7 @@ from vsts.cli.common.services import (get_build_client,
 from vsts.cli.common.uri import uri_quote
 from .build_definition import get_definition_id_from_name
 
+logger = get_logger(__name__)
 
 def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open_browser=False,
                 team_instance=None, project=None, detect=None, source_branch=None):
@@ -157,5 +158,5 @@ def _open_build(build, team_instance):
     project = build.project.name
     url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_build/index?buildid='\
         + uri_quote(str(build.id))
-    logging.debug('Opening web page: %s', url)
+    logger.debug('Opening web page: %s', url)
     open_new(url=url)

@@ -6,17 +6,18 @@
 
 from __future__ import print_function
 
-import logging
 import os
 
 from .config import GLOBAL_CONFIG_PATH, CLI_ENV_VARIABLE_PREFIX, set_global_config
 from six.moves import configparser
 from knack.config import get_config_parser
+from knack.log import get_logger
 from knack.util import CLIError
 from knack.prompting import prompt_y_n, prompt_choice_list, NoTTYException
 
-answers = {}
+logger = get_logger(__name__)
 
+answers = {}
 
 def print_current_configuration(file_config=None):
     if file_config is None:
@@ -68,7 +69,7 @@ def _handle_global_configuration():
             else:
                 answers['git_aliases'] = True
         except (ModuleNotFoundError, CLIError):
-            logging.debug('Skipping git alias configuration, because module was not found.')
+            logger.debug('Skipping git alias configuration, because module was not found.')
         enable_file_logging = prompt_y_n(MSG_PROMPT_FILE_LOGGING, default='n')
         allow_telemetry = prompt_y_n(MSG_PROMPT_TELEMETRY, default='y')
         answers['telemetry_prompt'] = allow_telemetry
