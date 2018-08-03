@@ -16,10 +16,10 @@ VERSION = '0.1.1'
 # http://pypi.python.org/pypi/setuptools
 
 REQUIRES = [
-    'keyring~=12.2.1',
-    'knack==0.3.3',
+    'keyring~=13.2.1',
+    'knack==0.4.1',
     'python-dateutil==2.7.3',
-    'vsts~=0.1.10.dev'
+    'vsts~=0.1.13.dev'
 ]
 
 CLASSIFIERS = [

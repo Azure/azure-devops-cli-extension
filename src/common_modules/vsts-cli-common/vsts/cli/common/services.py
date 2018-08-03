@@ -94,6 +94,11 @@ def get_location_client(team_instance=None):
     return connection.get_client('vsts.location.v4_0.location_client.LocationClient')
 
 
+def get_member_entitlement_management_client(team_instance=None):
+    connection = get_vss_connection(team_instance)
+    return connection.get_client('vsts.member_entitlement_management.v4_1.member_entitlement_management_client.MemberEntitlementManagementClient')
+
+
 def get_operations_client(team_instance=None):
     connection = get_vss_connection(team_instance)
     return connection.get_client('vsts.operations.v4_0.operations_client.OperationsClient')
@@ -102,6 +107,11 @@ def get_operations_client(team_instance=None):
 def get_policy_client(team_instance=None):
     connection = get_vss_connection(team_instance)
     return connection.get_client('vsts.policy.v4_0.policy_client.PolicyClient')
+
+
+def get_settings_client(team_instance=None):
+    connection = get_vss_connection(team_instance)
+    return connection.get_client('vsts.settings.v4_0.settings_client.SettingsClient')
 
 
 def get_task_agent_client(team_instance=None):
