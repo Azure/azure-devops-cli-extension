@@ -5,7 +5,7 @@
 
 from setuptools import setup, find_packages
 
-NAME = 'vsts-cli-team-common'
+NAME = 'vsts-cli-admin-common'
 VERSION = '0.1.1'
 
 # To install the library, run the following
@@ -38,11 +38,11 @@ setup(
     name=NAME,
     version=VERSION,
     license='MIT',
-    description="VSTS Team Command Line Interface",
+    description="VSTS Administration Command Line Interface Common",
     author="Microsoft Corporation",
     author_email="vstscli@microsoft.com",
     url="https://github.com/Microsoft/vsts-cli",
-    keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI", "Team"],
+    keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI", "Admin", "Administration"],
     install_requires=REQUIRES,
     classifiers=CLASSIFIERS,
     packages=find_packages(),

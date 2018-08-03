@@ -45,6 +45,7 @@ fproj=findstr /ips /c:"$*" *.*proj
 ;= * Testing
 ;= ********************************************************************************
 ut=run_unit_tests.cmd
+l0=run_unit_tests.cmd
 
 ;= ********************************************************************************
 ;= * Please leave the following line in place, as it is part of the commenting

@@ -16,7 +16,7 @@ VERSION = '0.1.1'
 # http://pypi.python.org/pypi/setuptools
 
 REQUIRES = [
-    'knack==0.3.3',
+    'knack==0.4.1',
     'python-dateutil==2.7.3',
     'vsts-cli-build-common==' + VERSION
 ]
