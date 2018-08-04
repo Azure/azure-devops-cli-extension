@@ -67,7 +67,7 @@ class ProgressReportingExternalToolInvoker(ExternalToolInvoker):
             # Start the process, process stderr for progress reporting, check the process result
             self.start(command_args, env)
             try:
-                for line in self._proc.stderr:
+                for line in iter(self._proc.stderr.readline, b''):
                     stderr_handler(line, self._update_progress)
                 return self.wait()
             except IOError as ex:
