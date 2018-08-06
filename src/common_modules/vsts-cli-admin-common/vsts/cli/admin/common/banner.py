@@ -9,7 +9,7 @@ from .setting import setting_add_or_update, setting_list, setting_remove, GLOBAL
 
 
 def banner_list(team_instance=None, detect=None):
-    """List Banners.
+    """List banners.
     :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
     :param detect: Automatically detect instance and project. Default is "on".
@@ -41,12 +41,12 @@ def banner_show(message_id, team_instance=None, detect=None):
         handle_command_exception(ex)
 
 
-def banner_add(message, level=None, message_id=None, expiration=None, team_instance=None, detect=None):
+def banner_add(message, banner_type=None, message_id=None, expiration=None, team_instance=None, detect=None):
     """Add a new banner and immediately show it.
     :param message: Message (string) to show in the banner.
     :type message: str
-    :param level: Influences the color and icon presented with the message. Valid values: info, warning, error
-    :type level: str
+    :param banner_type: Type of banner to present. Defaults is "info".
+    :type banner_type: str
     :param message_id: Identifier for the new banner. This identifier is needed to change or remove the message later. A
                        unique identifier is automatically created if one is not specified.
     :type message_id: str
@@ -71,8 +71,8 @@ def banner_add(message, level=None, message_id=None, expiration=None, team_insta
                 "message": message
             }
         }
-        if level is not None:
-            entries[setting_key]['level'] = level
+        if banner_type is not None:
+            entries[setting_key]['level'] = banner_type
         if expiration is not None:
             entries[setting_key]['expirationDate'] = expiration
         setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST, team_instance=team_instance, detect=detect)
@@ -81,12 +81,12 @@ def banner_add(message, level=None, message_id=None, expiration=None, team_insta
         handle_command_exception(ex)
 
 
-def banner_update(message=None, level=None, message_id=None, expiration=None, team_instance=None, detect=None):
+def banner_update(message=None, banner_type=None, message_id=None, expiration=None, team_instance=None, detect=None):
     """Update the message, level, or expiration date for a banner.
     :param message: Message (string) to show in the banner.
     :type message: str
-    :param level: Influences the color and icon presented with the message. Valid values: info, warning, error
-    :type level: str
+    :param banner_type: Type of banner to present. Defaults is "info".
+    :type banner_type: str
     :param message_id: ID of the banner to update.
     :type message_id: str
     :param expiration: Date/time when the banner should no longer be presented to users. To unset the expiration for the
@@ -101,10 +101,13 @@ def banner_update(message=None, level=None, message_id=None, expiration=None, te
     try:
         if expiration is not None:
             validate_iso8601_argument_value(expiration)
-        if message is None and level is None and expiration is None:
-            raise ValueError('At least one of the following arguments need to be supplied: --message, --level, ' +
+        if message is None and banner_type is None and expiration is None:
+            raise ValueError('At least one of the following arguments need to be supplied: --message, --type, ' +
                              '--expiration.')
-        existing_entries = setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY, team_instance=team_instance, detect=detect)
+        existing_entries = setting_list(user_scope='host',
+                                        key=GLOBAL_MESSAGE_BANNERS_KEY,
+                                        team_instance=team_instance,
+                                        detect=detect)
         if message_id not in existing_entries:
             raise ValueError('The following banner was not found: %s' % message_id)
         existing_entry = existing_entries[message_id]
@@ -119,8 +122,8 @@ def banner_update(message=None, level=None, message_id=None, expiration=None, te
         elif 'message' in existing_entry:
             entries[setting_key]['message'] = existing_entry['message']
 
-        if level is not None:
-            entries[setting_key]['level'] = message
+        if banner_type is not None:
+            entries[setting_key]['level'] = banner_type
         elif 'level' in existing_entry:
             entries[setting_key]['level'] = existing_entry['level']
 
