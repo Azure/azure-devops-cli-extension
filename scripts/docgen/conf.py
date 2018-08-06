@@ -62,7 +62,7 @@ master_doc = 'ind'
 
 # General information about the project.
 project = 'vsts-cli'
-copyright = '2017, msft'
+copyright = '2018, msft'
 author = 'msft'
 
 # The version info for the project you're documenting, acts as replacement for
