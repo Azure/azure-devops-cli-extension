@@ -12,9 +12,9 @@ from .services import raise_authentication_error
 logger = get_logger(__name__)
 
 def handle_command_exception(exception):
-    logger.exception(exception)
     if isinstance(exception, CLIError):
         raise exception
     if isinstance(exception, VstsAuthenticationError):
         raise_authentication_error(exception)
+    logger.exception(exception)
     raise CLIError(exception)
