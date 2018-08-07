@@ -29,13 +29,15 @@ def should_detect(detect):
         return resolve_on_off_switch(detect)
 
 
-def validate_iso8601_argument_value(argument, value):
-    import isodate
+def convert_date_string_to_iso8601(value, argument=None):
+    import dateutil.parser
+    from dateutil.tz import tzlocal
     try:
-        if value.find('T') >= 0:
-            isodate.isodatetime.parse_datetime(value)
-        else:
-            isodate.isodates.parse_date(value)
+        d = dateutil.parser.parse(value)
     except Exception as ex:
         logging.info(msg=ex)
-        raise ValueError('The --%s argument must be a valid ISO 8601 string.' % argument)
+        if argument is None:
+            raise ValueError('The string "%s" must be a valid date or datetime string.' % value)
+        else:
+            raise ValueError('The --%s argument must be a valid ISO 8601 string.' % argument)
+    return d.astimezone(tzlocal()).isoformat()

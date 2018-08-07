@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.arguments import validate_iso8601_argument_value
+from vsts.cli.common.arguments import convert_date_string_to_iso8601
 from .setting import setting_add_or_update, setting_list, setting_remove, GLOBAL_MESSAGE_BANNERS_KEY, USER_SCOPE_HOST
 
 
@@ -61,7 +61,7 @@ def banner_add(message, banner_type=None, message_id=None, expiration=None, team
     """
     try:
         if expiration is not None:
-            validate_iso8601_argument_value(expiration)
+            expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
         if message_id is None or message_id == '':
             import uuid
             message_id = str(uuid.uuid4())
@@ -73,8 +73,8 @@ def banner_add(message, banner_type=None, message_id=None, expiration=None, team
         }
         if banner_type is not None:
             entries[setting_key]['level'] = banner_type
-        if expiration is not None:
-            entries[setting_key]['expirationDate'] = expiration
+        if expiration_iso8601 is not None:
+            entries[setting_key]['expirationDate'] = expiration_iso8601
         setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST, team_instance=team_instance, detect=detect)
         return {message_id: entries[setting_key]}
     except Exception as ex:
@@ -99,11 +99,11 @@ def banner_update(message=None, banner_type=None, message_id=None, expiration=No
     :rtype: [object]
     """
     try:
-        if expiration is not None:
-            validate_iso8601_argument_value(expiration)
         if message is None and banner_type is None and expiration is None:
             raise ValueError('At least one of the following arguments need to be supplied: --message, --type, ' +
                              '--expiration.')
+        if expiration is not None:
+            expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
         existing_entries = setting_list(user_scope='host',
                                         key=GLOBAL_MESSAGE_BANNERS_KEY,
                                         team_instance=team_instance,
@@ -127,8 +127,8 @@ def banner_update(message=None, banner_type=None, message_id=None, expiration=No
         elif 'level' in existing_entry:
             entries[setting_key]['level'] = existing_entry['level']
 
-        if expiration is not None:
-            entries[setting_key]['expirationDate'] = expiration
+        if expiration_iso8601 is not None:
+            entries[setting_key]['expirationDate'] = expiration_iso8601
         elif 'expirationDate' in existing_entry:
             entries[setting_key]['expirationDate'] = existing_entry['expirationDate']
 
