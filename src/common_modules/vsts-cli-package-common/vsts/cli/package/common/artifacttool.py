@@ -46,7 +46,7 @@ class ArtifactToolInvoker:
             output = proc.stdout.read().decode('utf-8')
             try:
                 return json.loads(output)
-            except json.decoder.JSONDecodeError:
+            except ValueError: # JSONDecodeError but not available on Python 2.7
                 if output:
                     logger.warning("Failed to parse the output of ArtifactTool as JSON. The output was:\n{}".format(output))
                 return None
