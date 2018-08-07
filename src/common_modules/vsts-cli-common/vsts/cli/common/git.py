@@ -42,7 +42,7 @@ def get_current_branch_name():
         output = subprocess.check_output([_GIT_EXE, 'symbolic-ref', '--short', '-q', 'HEAD'])
     except Exception as ex:
         logger.info('GitDetect: Could not detect current branch based on current working directory.')
-        logger.exception(ex)
+        logger.debug(ex, exc_info=True)
         return None
     if sys.stdout.encoding is not None:
         result = output.decode(sys.stdout.encoding)
@@ -73,7 +73,7 @@ def get_git_credentials(team_instance):
         output = subprocess.check_output([_GIT_EXE, 'credential-manager', 'get'], input=standard_in)
     except Exception as ex:
         logger.info('GitDetect: Could not detect git credentials for current working directory.')
-        logger.exception(ex)
+        logger.debug(ex, exc_info=True)
         return None
     if sys.stdout.encoding is not None:
         lines = output.decode(sys.stdout.encoding).split('\n')
@@ -100,7 +100,7 @@ def get_git_remotes():
         output = subprocess.check_output([_GIT_EXE, 'remote', '-v'], stderr=subprocess.STDOUT)
     except Exception as ex:
         logger.info('GitDetect: Could not detect current remotes based on current working directory.')
-        logger.exception(ex)
+        logger.debug(ex, exc_info=True)
         return None
     if sys.stdout.encoding is not None:
         lines = output.decode(sys.stdout.encoding).split('\n')

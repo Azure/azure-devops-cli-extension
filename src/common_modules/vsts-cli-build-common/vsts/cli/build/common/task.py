@@ -4,7 +4,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.services import (get_task_agent_client,
                                       resolve_instance)
 from vsts.cli.common.uuid import is_uuid
@@ -19,15 +18,12 @@ def task_list(team_instance=None, task_id=None, detect=None):
     :type detect: str
     :rtype: [TaskDefinition]
     """
-    try:
-        if task_id is not None and not is_uuid(task_id):
-            raise ValueError("The --id argument must be a UUID.")
-        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-        client = get_task_agent_client(team_instance)
-        definition_references = client.get_task_definitions(task_id=task_id)
-        return definition_references
-    except Exception as ex:
-        handle_command_exception(ex)
+    if task_id is not None and not is_uuid(task_id):
+        raise ValueError("The --id argument must be a UUID.")
+    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+    client = get_task_agent_client(team_instance)
+    definition_references = client.get_task_definitions(task_id=task_id)
+    return definition_references
 
 
 def task_show(task_id, version, team_instance=None, detect=None):
@@ -40,14 +36,11 @@ def task_show(task_id, version, team_instance=None, detect=None):
     :type detect: str
     :rtype: TaskDefinition
     """
-    try:
-        if not is_uuid(task_id):
-            raise ValueError("The --id argument must be a UUID.")
-        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-        client = get_task_agent_client(team_instance)
-        definition_references = client.get_task_definition(task_id=task_id,
-                                                           version_string=version)
-        return definition_references
-    except Exception as ex:
-        handle_command_exception(ex)
+    if not is_uuid(task_id):
+        raise ValueError("The --id argument must be a UUID.")
+    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+    client = get_task_agent_client(team_instance)
+    definition_references = client.get_task_definition(task_id=task_id,
+                                                        version_string=version)
+    return definition_references
 

@@ -38,7 +38,7 @@ def download_latest_version_info():
         with open(_VERSION_INFO_LOCAL_FILE_PATH, 'wb') as file:
             file.write(response.content)
     except Exception as ex:
-        logger.exception(str(ex))
+        logger.debug(ex, exc_info=True)
 
 
 def get_latest_version_info_date():
@@ -58,7 +58,7 @@ def get_latest_version_info():
     try:
         download_latest_version_info()
     except Exception as ex:
-        logger.exception(str(ex))
+        logger.debug(ex, exc_info=True)
     data = None
     if os.path.isfile(_VERSION_INFO_LOCAL_FILE_PATH):
         # load the latest download, or if the last download failed,
@@ -67,7 +67,7 @@ def get_latest_version_info():
             data = get_file_json(_VERSION_INFO_LOCAL_FILE_PATH, False) or {}
         except Exception as ex:
             # file is corrupt, delete it.
-            logger.exception(str(ex))
+            logger.debug(ex, exc_info=True)
             os.remove(_VERSION_INFO_LOCAL_FILE_PATH)
     if data is None:
         # failed to download file, so write an empty file so we don't

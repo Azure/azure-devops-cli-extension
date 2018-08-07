@@ -31,7 +31,7 @@ class VstsGitUrlInfo(object):
                 try:
                     remote_info = deserializer.deserialize_data(_git_remote_info_cache[remote_url], '_RemoteInfo')
                 except DeserializationError as ex:
-                    logger.exception(str(ex))
+                    logger.debug(ex, exc_info=True)
                 if remote_info is not None:
                     self.project = remote_info.project
                     self.repo = remote_info.repository
@@ -53,7 +53,7 @@ class VstsGitUrlInfo(object):
                             serializer.serialize_data(self._RemoteInfo(self.project, self.repo, self.uri),
                                                       '_RemoteInfo')
                     except SerializationError as ex:
-                        logger.exception(str(ex))
+                        logger.debug(ex, exc_info=True)
 
     @staticmethod
     def get_vsts_info(remote_url):

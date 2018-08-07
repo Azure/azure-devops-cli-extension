@@ -29,7 +29,7 @@ def _get_credential(team_instance):
     try:
         return keyring.get_password(key, _USERNAME)
     except RuntimeError as ex:
-        logger.exception(ex)
+        logger.debug(ex, exc_info=True)
         raise CLIError(ex)
 
 
@@ -45,7 +45,7 @@ def set_credential(team_instance, token):
         logger.debug('Setting credential: %s', key)
         keyring.set_password(key, _USERNAME, token)
     except RuntimeError as ex:
-        logger.exception(ex)
+        logger.debug(ex, exc_info=True)
         raise CLIError(ex)
 
 
@@ -55,7 +55,6 @@ def clear_credential(team_instance):
     try:
         keyring.delete_password(key, _USERNAME)
     except keyring.errors.PasswordDeleteError as ex:
-        logger.exception(ex)
         raise CLIError('The credential was not found')
 
 
