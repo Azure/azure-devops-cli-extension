@@ -62,6 +62,8 @@ def banner_add(message, banner_type=None, message_id=None, expiration=None, team
     try:
         if expiration is not None:
             expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
+        else:
+            expiration_iso8601 = None
         if message_id is None or message_id == '':
             import uuid
             message_id = str(uuid.uuid4())
@@ -104,6 +106,8 @@ def banner_update(message=None, banner_type=None, message_id=None, expiration=No
                              '--expiration.')
         if expiration is not None:
             expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
+        else:
+            expiration_iso8601 = None
         existing_entries = setting_list(user_scope='host',
                                         key=GLOBAL_MESSAGE_BANNERS_KEY,
                                         team_instance=team_instance,
