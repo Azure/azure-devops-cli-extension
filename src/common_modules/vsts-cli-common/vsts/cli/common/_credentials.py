@@ -55,7 +55,6 @@ def clear_credential(team_instance):
     try:
         keyring.delete_password(key, _USERNAME)
     except keyring.errors.PasswordDeleteError as ex:
-        logger.exception(ex)
         raise CLIError('The credential was not found')
 
 
