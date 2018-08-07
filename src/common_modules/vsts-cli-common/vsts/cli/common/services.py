@@ -36,7 +36,7 @@ def get_vss_connection(team_instance):
             else:
                 logger.debug('Telemetry disabled.')
         except Exception as ex:
-            logger.exception(str(ex))
+            logger.debug(ex, exc_info=True)
             raise CLIError(ex)
     return _vss_connection[team_instance]
 
@@ -233,7 +233,7 @@ def set_tracking_data(argv):
         else:
             vsts_tracking_data.feature = 'Command'
     except Exception as ex:
-        logger.exception(ex)
+        logger.debug(ex, exc_info=True)
 
 
 def _try_send_tracking_ci_event_async(team_instance=None):
@@ -243,7 +243,7 @@ def _try_send_tracking_ci_event_async(team_instance=None):
             thread.start()
         except Exception as ex:
             # we should always continue if we fail to set tracking data
-            logger.exception(str(ex))
+            logger.debug(ex, exc_info=True)
 
 
 def _send_tracking_ci_event(team_instance=None, ci_client=None):
@@ -253,7 +253,7 @@ def _send_tracking_ci_event(team_instance=None, ci_client=None):
         ci_client.publish_events([vsts_tracking_data])
         return True
     except Exception as ex:
-        logger.exception(ex)
+        logger.debug(ex, exc_info=True)
         return False
 
 
@@ -267,8 +267,12 @@ def get_connection_data(team_instance):
         return _connection_data[team_instance]
 
 
+def get_authentication_error(message):
+    return CLIError(str(message) + "  Please see https://aka.ms/vsts-cli-auth for more information.")
+
+
 def raise_authentication_error(message):
-    raise CLIError(str(message) + "  Please see https://aka.ms/vsts-cli-auth for more information.")
+    raise get_authentication_error(message)
 
 
 _DEFAULTS_SECTION = 'defaults'

@@ -10,7 +10,6 @@ from knack.util import CLIError
 from vsts.exceptions import VstsServiceError
 from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
 from vsts.work_item_tracking.v4_0.models.wiql import Wiql
-from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.identities import (ME, get_current_identity, resolve_identity)
 from vsts.cli.common.services import (get_work_item_tracking_client,
                                       resolve_instance,
@@ -100,8 +99,6 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
         return work_item
     except VstsServiceError as ex:
         _handle_vsts_service_error(ex)
-    except Exception as ex:
-        handle_command_exception(ex)
 
 
 def update_work_item(work_item_id, title=None, description=None, assigned_to=None, state=None, area=None,
@@ -178,12 +175,10 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
         return work_item
     except VstsServiceError as ex:
         _handle_vsts_service_error(ex)
-    except Exception as ex:
-        handle_command_exception(ex)
 
 
 def _handle_vsts_service_error(ex):
-    logger.exception(ex)
+    logger.debug(ex, exc_info=True)
     if ex.type_key == 'RuleValidationException' and "FieldReferenceName" in ex.custom_properties:
         if ex.message is not None:
             message = ex.message
@@ -217,15 +212,12 @@ def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=
     :type detect: str
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
-    try:
-        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-        client = get_work_item_tracking_client(team_instance)
-        work_item = client.get_work_item(work_item_id)
-        if open_browser:
-            _open_work_item(work_item, team_instance)
-        return work_item
-    except Exception as ex:
-        handle_command_exception(ex)
+    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+    client = get_work_item_tracking_client(team_instance)
+    work_item = client.get_work_item(work_item_id)
+    if open_browser:
+        _open_work_item(work_item, team_instance)
+    return work_item
 
 
 def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, project=None, detect=None):
@@ -246,81 +238,78 @@ def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, pr
     :type detect: str
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
-    try:
-        if wiql is None and path is None and query_id is None:
-            raise CLIError("Either the --wiql, --id, or --path argument must be specified.")
-        team_instance, project = resolve_instance_and_project(detect=detect,
-                                                              team_instance=team_instance,
-                                                              project=project,
-                                                              project_required=False)
-        client = get_work_item_tracking_client(team_instance)
-        if query_id is None and path is not None:
-            if project is None:
-                raise CLIError("The --project argument must be specified for this query.")
-            query = client.get_query(project=project, query=path)
-            query_id = query.id
-        if query_id is not None:
-            query_result = client.query_by_id(id=query_id)
-        else:
-            wiql_object = Wiql()
-            wiql_object.query = wiql
-            query_result = client.query_by_wiql(wiql=wiql_object)
-        if query_result.work_items:
-            _last_query_result[_LAST_QUERY_RESULT_KEY] = query_result  # store query result for table view
-            safety_buffer = 100  # a buffer in the max url length to protect going over the limit
-            remaining_url_length = 2048 - safety_buffer
-            remaining_url_length -= len(team_instance)
-            # following subtracts relative url, the asof parameter and beginning of id and field parameters.
-            # asof value length will vary, but this should be the longest possible
-            remaining_url_length -=\
-                len('/_apis/wit/workItems?ids=&fields=&asOf=2017-11-07T17%3A05%3A34.06699999999999999Z')
-            fields = []
-            fields_length_in_url = 0
-            if query_result.columns:
-                for field_ref in query_result.columns:
-                    fields.append(field_ref.reference_name)
-                    if fields_length_in_url > 0:
-                        fields_length_in_url += 3  # add 3 for %2C delimiter
-                    fields_length_in_url += len(uri_quote(field_ref.reference_name))
-                    if fields_length_in_url > 800:
-                        logger.info("Not retrieving all fields due to max url length.")
-                        break
-            remaining_url_length -= fields_length_in_url
-            max_work_items = 1000
-            current_batch = []
-            work_items = []
-            work_item_url_length = 0
-            for work_item_ref in query_result.work_items:
-                if len(work_items) >= max_work_items:
-                    logger.info("Only retrieving the first %s work items.", max_work_items)
+    if wiql is None and path is None and query_id is None:
+        raise CLIError("Either the --wiql, --id, or --path argument must be specified.")
+    team_instance, project = resolve_instance_and_project(detect=detect,
+                                                            team_instance=team_instance,
+                                                            project=project,
+                                                            project_required=False)
+    client = get_work_item_tracking_client(team_instance)
+    if query_id is None and path is not None:
+        if project is None:
+            raise CLIError("The --project argument must be specified for this query.")
+        query = client.get_query(project=project, query=path)
+        query_id = query.id
+    if query_id is not None:
+        query_result = client.query_by_id(id=query_id)
+    else:
+        wiql_object = Wiql()
+        wiql_object.query = wiql
+        query_result = client.query_by_wiql(wiql=wiql_object)
+    if query_result.work_items:
+        _last_query_result[_LAST_QUERY_RESULT_KEY] = query_result  # store query result for table view
+        safety_buffer = 100  # a buffer in the max url length to protect going over the limit
+        remaining_url_length = 2048 - safety_buffer
+        remaining_url_length -= len(team_instance)
+        # following subtracts relative url, the asof parameter and beginning of id and field parameters.
+        # asof value length will vary, but this should be the longest possible
+        remaining_url_length -=\
+            len('/_apis/wit/workItems?ids=&fields=&asOf=2017-11-07T17%3A05%3A34.06699999999999999Z')
+        fields = []
+        fields_length_in_url = 0
+        if query_result.columns:
+            for field_ref in query_result.columns:
+                fields.append(field_ref.reference_name)
+                if fields_length_in_url > 0:
+                    fields_length_in_url += 3  # add 3 for %2C delimiter
+                fields_length_in_url += len(uri_quote(field_ref.reference_name))
+                if fields_length_in_url > 800:
+                    logger.info("Not retrieving all fields due to max url length.")
                     break
-                if work_item_url_length > 0:
-                    work_item_url_length += 3  # add 3 for %2C delimiter
-                work_item_url_length += len(str(work_item_ref.id))
-                current_batch.append(work_item_ref.id)
+        remaining_url_length -= fields_length_in_url
+        max_work_items = 1000
+        current_batch = []
+        work_items = []
+        work_item_url_length = 0
+        for work_item_ref in query_result.work_items:
+            if len(work_items) >= max_work_items:
+                logger.info("Only retrieving the first %s work items.", max_work_items)
+                break
+            if work_item_url_length > 0:
+                work_item_url_length += 3  # add 3 for %2C delimiter
+            work_item_url_length += len(str(work_item_ref.id))
+            current_batch.append(work_item_ref.id)
 
-                if remaining_url_length - work_item_url_length <= 0:
-                    # url is near max length, go ahead and send first request for details.
-                    # url can go over by an id length because we have a safety buffer
-                    current_batched_items = client.get_work_items(ids=current_batch,
-                                                                  as_of=query_result.as_of,
-                                                                  fields=fields)
-                    for work_item in current_batched_items:
-                        work_items.append(work_item)
-                    current_batch = []
-                    work_item_url_length = 0
-
-            if current_batch:
+            if remaining_url_length - work_item_url_length <= 0:
+                # url is near max length, go ahead and send first request for details.
+                # url can go over by an id length because we have a safety buffer
                 current_batched_items = client.get_work_items(ids=current_batch,
-                                                              as_of=query_result.as_of,
-                                                              fields=fields)
+                                                                as_of=query_result.as_of,
+                                                                fields=fields)
                 for work_item in current_batched_items:
                     work_items.append(work_item)
-            # put items in the same order they appeared in the initial query results
-            work_items = sorted(work_items, key=_get_sort_key_from_last_query_results)
-            return work_items
-    except Exception as ex:
-        handle_command_exception(ex)
+                current_batch = []
+                work_item_url_length = 0
+
+        if current_batch:
+            current_batched_items = client.get_work_items(ids=current_batch,
+                                                            as_of=query_result.as_of,
+                                                            fields=fields)
+            for work_item in current_batched_items:
+                work_items.append(work_item)
+        # put items in the same order they appeared in the initial query results
+        work_items = sorted(work_items, key=_get_sort_key_from_last_query_results)
+        return work_items
 
 
 def _get_sort_key_from_last_query_results(work_item):
