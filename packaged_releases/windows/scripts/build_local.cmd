@@ -10,9 +10,9 @@ set "PATH=%PATH%;%ProgramFiles%\Git\bin;%ProgramFiles%\Git\usr\bin"
 
 if "%CLIVERSION%"=="" (
     if "%BUILD_BUILDID%" == "" (
-        set CLIVERSION=0.1.1
+        set CLIVERSION=0.1.2
     ) else (
-        set CLIVERSION=0.1.1.%BUILD_BUILDID%
+        set CLIVERSION=0.1.2.%BUILD_BUILDID%
     )
 )
 set PYTHON_VERSION=3.6.3

@@ -6,7 +6,7 @@
 from setuptools import setup, find_packages
 
 NAME = 'vsts-cli-package-common'
-VERSION = '0.1.1'
+VERSION = '0.1.2'
 
 # To install the library, run the following
 #
