@@ -100,7 +100,7 @@ class VstsCLI(CLI):
         if isinstance(ex, CLIError):
             logger.debug(ex, exc_info=True)          
 
-        return super().exception_handler(ex)
+        return super(VstsCLI, self).exception_handler(ex)
 
     @staticmethod
     def get_component_version_text():
