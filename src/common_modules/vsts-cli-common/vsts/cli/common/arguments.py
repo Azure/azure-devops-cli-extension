@@ -31,7 +31,6 @@ def should_detect(detect):
 
 def convert_date_string_to_iso8601(value, argument=None):
     import dateutil.parser
-    from dateutil.tz import tzlocal
     try:
         d = dateutil.parser.parse(value)
     except Exception as ex:
@@ -40,4 +39,8 @@ def convert_date_string_to_iso8601(value, argument=None):
             raise ValueError('The string "%s" must be a valid date or datetime string.' % value)
         else:
             raise ValueError('The --%s argument must be a valid ISO 8601 string.' % argument)
-    return d.astimezone(tzlocal()).isoformat()
+    if d.tzinfo is None:
+        from dateutil.tz import tzlocal
+        d = d.replace(tzinfo=tzlocal())
+        d = d.isoformat()
+    return d
