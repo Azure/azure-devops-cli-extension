@@ -22,6 +22,7 @@ from .vsts_git_url_info import VstsGitUrlInfo
 
 logger = get_logger(__name__)
 
+
 def get_vss_connection(team_instance):
     if team_instance not in _vss_connection:
         credentials = _get_credentials(team_instance)

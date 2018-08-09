@@ -19,6 +19,7 @@ logger = get_logger(__name__)
 
 answers = {}
 
+
 def print_current_configuration(file_config=None):
     if file_config is None:
         file_config = get_config_parser()

@@ -11,7 +11,7 @@ _TYPE_FOR_BANNER = ['info', 'warning', 'error']
 
 def load_admin_arguments(cli_command_loader):
     with ArgumentsContext(cli_command_loader, 'admin') as ac:
-        ac.argument('team-instance', options_list=['-i', '--instance'])
+        ac.argument('team_instance', options_list=['-i', '--instance'])
     with ArgumentsContext(cli_command_loader, 'admin user') as ac:
         ac.argument('user_id', options_list='--id')
         ac.argument('access_level', **enum_choice_list(_ORGANIZATION_LICENSE_TYPES_FOR_ADD))
