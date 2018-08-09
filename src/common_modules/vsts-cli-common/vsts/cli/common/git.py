@@ -3,14 +3,14 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import logging
 import subprocess
 import sys
 
-
+from knack.log import get_logger
 from knack.util import CLIError
 from .uri import uri_parse
 
+logger = get_logger(__name__)
 
 _GIT_EXE = 'git'
 
@@ -41,8 +41,8 @@ def get_current_branch_name():
     try:
         output = subprocess.check_output([_GIT_EXE, 'symbolic-ref', '--short', '-q', 'HEAD'])
     except Exception as ex:
-        logging.info('GitDetect: Could not detect current branch based on current working directory.')
-        logging.exception(ex)
+        logger.info('GitDetect: Could not detect current branch based on current working directory.')
+        logger.debug(ex, exc_info=True)
         return None
     if sys.stdout.encoding is not None:
         result = output.decode(sys.stdout.encoding)
@@ -72,8 +72,8 @@ def get_git_credentials(team_instance):
     try:
         output = subprocess.check_output([_GIT_EXE, 'credential-manager', 'get'], input=standard_in)
     except Exception as ex:
-        logging.info('GitDetect: Could not detect git credentials for current working directory.')
-        logging.exception(ex)
+        logger.info('GitDetect: Could not detect git credentials for current working directory.')
+        logger.debug(ex, exc_info=True)
         return None
     if sys.stdout.encoding is not None:
         lines = output.decode(sys.stdout.encoding).split('\n')
@@ -99,8 +99,8 @@ def get_git_remotes():
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (push)
         output = subprocess.check_output([_GIT_EXE, 'remote', '-v'], stderr=subprocess.STDOUT)
     except Exception as ex:
-        logging.info('GitDetect: Could not detect current remotes based on current working directory.')
-        logging.exception(ex)
+        logger.info('GitDetect: Could not detect current remotes based on current working directory.')
+        logger.debug(ex, exc_info=True)
         return None
     if sys.stdout.encoding is not None:
         lines = output.decode(sys.stdout.encoding).split('\n')

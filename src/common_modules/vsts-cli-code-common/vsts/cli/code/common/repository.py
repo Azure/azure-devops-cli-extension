@@ -3,16 +3,16 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import logging
 import webbrowser
 
 from knack.util import CLIError
 from vsts.git.v4_0.models.git_repository_create_options import GitRepositoryCreateOptions
-from vsts.cli.common.exception_handling import handle_command_exception
 from vsts.cli.common.services import (get_git_client,
                                       resolve_instance_and_project)
 from vsts.cli.common.uri import uri_quote
 
+from knack.log import get_logger
+logger = get_logger(__name__)
 
 def create_repo(name, team_instance=None, project=None, detect=None, open_browser=False):
     """Create a Git repository in a team project.
@@ -28,20 +28,17 @@ def create_repo(name, team_instance=None, project=None, detect=None, open_browse
     :type open_browser: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
-    try:
-        team_instance, project = resolve_instance_and_project(detect=detect,
-                                                              team_instance=team_instance,
-                                                              project=project)
-        git_client = get_git_client(team_instance)
-        create_options = GitRepositoryCreateOptions()
-        create_options.name = name
-        repository = git_client.create_repository(git_repository_to_create=create_options,
-                                                  project=project)
-        if open_browser:
-            _open_repository(repository, team_instance)
-        return repository
-    except Exception as ex:
-        handle_command_exception(ex)
+    team_instance, project = resolve_instance_and_project(detect=detect,
+                                                            team_instance=team_instance,
+                                                            project=project)
+    git_client = get_git_client(team_instance)
+    create_options = GitRepositoryCreateOptions()
+    create_options.name = name
+    repository = git_client.create_repository(git_repository_to_create=create_options,
+                                                project=project)
+    if open_browser:
+        _open_repository(repository, team_instance)
+    return repository
 
 
 def list_repos(team_instance=None, project=None, detect=None):
@@ -54,16 +51,12 @@ def list_repos(team_instance=None, project=None, detect=None):
     :type detect: str
     :rtype: list of :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
-    try:
-        team_instance, project = resolve_instance_and_project(detect=detect,
-                                                              team_instance=team_instance,
-                                                              project=project)
-        git_client = get_git_client(team_instance)
-        repository = git_client.get_repositories(project=project)
-        return repository
-    except Exception as ex:
-        handle_command_exception(ex)
-
+    team_instance, project = resolve_instance_and_project(detect=detect,
+                                                            team_instance=team_instance,
+                                                            project=project)
+    git_client = get_git_client(team_instance)
+    repository = git_client.get_repositories(project=project)
+    return repository
 
 def show_repo(repo_id=None, name=None, team_instance=None, project=None, detect=None, open_browser=False):
     """Get the details of a Git repository.
@@ -81,23 +74,20 @@ def show_repo(repo_id=None, name=None, team_instance=None, project=None, detect=
     :type open_browser: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
-    try:
-        if repo_id is None and name is None:
-            raise CLIError('Either the --name argument or the --id argument needs to be specified.')
-        if repo_id is not None:
-            identifier = repo_id
-        else:
-            identifier = name
-        team_instance, project = resolve_instance_and_project(detect=detect,
-                                                              team_instance=team_instance,
-                                                              project=project)
-        git_client = get_git_client(team_instance)
-        repository = git_client.get_repository(project=project, repository_id=identifier)
-        if open_browser:
-            _open_repository(repository, team_instance)
-        return repository
-    except Exception as ex:
-        handle_command_exception(ex)
+    if repo_id is None and name is None:
+        raise CLIError('Either the --name argument or the --id argument needs to be specified.')
+    if repo_id is not None:
+        identifier = repo_id
+    else:
+        identifier = name
+    team_instance, project = resolve_instance_and_project(detect=detect,
+                                                            team_instance=team_instance,
+                                                            project=project)
+    git_client = get_git_client(team_instance)
+    repository = git_client.get_repository(project=project, repository_id=identifier)
+    if open_browser:
+        _open_repository(repository, team_instance)
+    return repository
 
 
 def _open_repository(repository, team_instance):
@@ -107,5 +97,5 @@ def _open_repository(repository, team_instance):
     """
     url = team_instance.rstrip('/') + '/' + uri_quote(repository.project.name)\
         + '/_git/' + uri_quote(repository.name)
-    logging.debug('Opening web page: %s', url)
+    logger.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)

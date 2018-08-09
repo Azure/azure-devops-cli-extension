@@ -29,3 +29,6 @@ def load_build_arguments(cli_command_loader):
 
     with ArgumentsContext(cli_command_loader, 'build definition show') as ac:
         ac.argument('definition_id', options_list='--id', type=int)
+
+    with ArgumentsContext(cli_command_loader, 'build task') as ac:
+        ac.argument('task_id', options_list='--id', type=str)

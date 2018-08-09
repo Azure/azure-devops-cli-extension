@@ -3,17 +3,16 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import logging
-
 from webbrowser import open_new
-from vsts.cli.common.exception_handling import handle_command_exception
-from vsts.cli.common.services import (get_build_client,
-                                      get_git_client,
+
+from knack.log import get_logger
+from vsts.cli.common.services import (get_build_client, get_git_client,
                                       resolve_instance_and_project,
                                       resolve_instance_project_and_repo)
 from vsts.cli.common.uri import uri_quote
 from vsts.cli.common.uuid import is_uuid
 
+logger = get_logger(__name__)
 
 def build_definition_list(name=None, top=None, team_instance=None, project=None, repository=None, detect=None):
     """List build definitions.
@@ -31,29 +30,26 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
     :type detect: str
     :rtype: [BuildDefinitionReference]
     """
-    try:
-        team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
-                                                                               team_instance=team_instance,
-                                                                               project=project,
-                                                                               repo=repository)
-        client = get_build_client(team_instance)
-        query_order = 'DefinitionNameAscending'
-        repository_type = None
-        if repository is not None:
-            resolved_repository = _resolve_repository_as_id(repository, team_instance, project)
-            if resolved_repository is None:
-                raise ValueError("Could not find a repository with name, '{}', in project, '{}'.".format(repository,
-                                                                                                         project))
-            else:
-                repository_type = 'TfsGit'
+    team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
+                                                                            team_instance=team_instance,
+                                                                            project=project,
+                                                                            repo=repository)
+    client = get_build_client(team_instance)
+    query_order = 'DefinitionNameAscending'
+    repository_type = None
+    if repository is not None:
+        resolved_repository = _resolve_repository_as_id(repository, team_instance, project)
+        if resolved_repository is None:
+            raise ValueError("Could not find a repository with name, '{}', in project, '{}'.".format(repository,
+                                                                                                        project))
         else:
-            resolved_repository = None
-        definition_references = client.get_definitions(project=project, name=name, repository_id=resolved_repository,
-                                                       repository_type=repository_type, top=top,
-                                                       query_order=query_order)
-        return definition_references
-    except Exception as ex:
-        handle_command_exception(ex)
+            repository_type = 'TfsGit'
+    else:
+        resolved_repository = None
+    definition_references = client.get_definitions(project=project, name=name, repository_id=resolved_repository,
+                                                    repository_type=repository_type, top=top,
+                                                    query_order=query_order)
+    return definition_references
 
 
 def build_definition_show(definition_id=None, name=None, open_browser=False, team_instance=None, project=None,
@@ -73,22 +69,19 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
     :type detect: str
     :rtype: BuildDefinitionReference
     """
-    try:
-        team_instance, project = resolve_instance_and_project(detect=detect,
-                                                              team_instance=team_instance,
-                                                              project=project)
-        client = get_build_client(team_instance)
-        if definition_id is None:
-            if name is not None:
-                definition_id = get_definition_id_from_name(name, client, project)
-            else:
-                raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
-        build_definition = client.get_definition(definition_id=definition_id, project=project)
-        if open_browser:
-            _open_definition(build_definition, team_instance)
-        return build_definition
-    except Exception as ex:
-        handle_command_exception(ex)
+    team_instance, project = resolve_instance_and_project(detect=detect,
+                                                            team_instance=team_instance,
+                                                            project=project)
+    client = get_build_client(team_instance)
+    if definition_id is None:
+        if name is not None:
+            definition_id = get_definition_id_from_name(name, client, project)
+        else:
+            raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
+    build_definition = client.get_definition(definition_id=definition_id, project=project)
+    if open_browser:
+        _open_definition(build_definition, team_instance)
+    return build_definition
 
 
 def _open_definition(definition, team_instance):
@@ -100,7 +93,7 @@ def _open_definition(definition, team_instance):
     project = definition.project.name
     url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_build/index?definitionId='\
         + uri_quote(str(definition.id))
-    logging.debug('Opening web page: %s', url)
+    logger.debug('Opening web page: %s', url)
     open_new(url=url)
 
 

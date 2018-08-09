@@ -10,10 +10,12 @@ from vsts.cli.common.version import VERSION
 class VstsCLIHelp(CLIHelp):
     def __init__(self, cli_ctx=None):
         # import command group help
+        import vsts.cli.admin._help
         import vsts.cli.build._help
         import vsts.cli.code._help
         import vsts.cli.team._help
         import vsts.cli.work._help
+        import vsts.cli.package._help
         super(VstsCLIHelp, self).__init__(cli_ctx=cli_ctx,
                                           privacy_statement=PRIVACY_STATEMENT,
                                           welcome_message=WELCOME_MESSAGE)

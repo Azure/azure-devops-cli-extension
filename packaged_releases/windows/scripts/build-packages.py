@@ -52,23 +52,27 @@ def _build_package(path_to_package, dist_dir):
 def build_packages(clone_root, dist_dir):
     packages_to_build = [
         os.path.join(clone_root, 'src/common_modules/vsts-cli-common'),
+        os.path.join(clone_root, 'src/common_modules/vsts-cli-admin-common'),
         os.path.join(clone_root, 'src/common_modules/vsts-cli-build-common'),
         os.path.join(clone_root, 'src/common_modules/vsts-cli-code-common'),
+        os.path.join(clone_root, 'src/common_modules/vsts-cli-package-common'),
         os.path.join(clone_root, 'src/common_modules/vsts-cli-team-common'),
         os.path.join(clone_root, 'src/common_modules/vsts-cli-work-common'),
+        os.path.join(clone_root, 'src/command_modules/vsts-cli-admin'),
         os.path.join(clone_root, 'src/command_modules/vsts-cli-build'),
         os.path.join(clone_root, 'src/command_modules/vsts-cli-code'),
+        os.path.join(clone_root, 'src/command_modules/vsts-cli-package'),
         os.path.join(clone_root, 'src/command_modules/vsts-cli-team'),
         os.path.join(clone_root, 'src/command_modules/vsts-cli-work'),
         os.path.join(clone_root, 'src/vsts-cli'),
     ]
 
     for p in packages_to_build:
-        setupPath = os.path.join(p, 'setup.py')
-        if os.path.isfile(setupPath):
+        setup_path = os.path.join(p, 'setup.py')
+        if os.path.isfile(setup_path):
             _build_package(p, dist_dir)
         else:
-            print('Failed to find file: ' + setupPath)
+            print('Failed to find file: ' + setup_path)
             exit(1)
 
 

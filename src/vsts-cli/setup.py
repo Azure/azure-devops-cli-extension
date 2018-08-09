@@ -6,7 +6,7 @@
 from setuptools import setup, find_packages
 
 NAME = 'vsts-cli'
-VERSION = '0.1.1'
+VERSION = '0.1.2'
 
 # To install the library, run the following
 #
@@ -16,12 +16,14 @@ VERSION = '0.1.1'
 # http://pypi.python.org/pypi/setuptools
 
 REQUIRES = [
-    'knack==0.3.3',
+    'knack==0.4.1',
     'setuptools',
     'vsts-cli-common==' + VERSION,
+    'vsts-cli-admin==' + VERSION,
     'vsts-cli-build==' + VERSION,
     'vsts-cli-code==' + VERSION,
     'vsts-cli-team==' + VERSION,
+    'vsts-cli-package==' + VERSION,
     'vsts-cli-work==' + VERSION
 ]
 

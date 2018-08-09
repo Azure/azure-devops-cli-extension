@@ -5,16 +5,18 @@
 
 from __future__ import print_function
 
-import logging
 import os
 import sys
-
-
 from datetime import datetime, timedelta
+
+from knack.log import get_logger
 from vsts._file_cache import get_file_json
+
 from .file_cache import DEFAULT_CACHE_DIR
 
-VERSION = "0.1.1"
+logger = get_logger(__name__)
+
+VERSION = "0.1.2"
 
 DISABLE_VERSION_CHECK_SETTING = "disable_version_check"
 _VERSION_INFO_LINK = "https://aka.ms/vsts-cli-update-json"
@@ -31,12 +33,12 @@ _disabled = []
 def download_latest_version_info():
     try:
         from requests import get
-        logging.debug('Downloading version info from: %s', _VERSION_INFO_LINK)
+        logger.debug('Downloading version info from: %s', _VERSION_INFO_LINK)
         response = get(_VERSION_INFO_LINK, allow_redirects=True)
         with open(_VERSION_INFO_LOCAL_FILE_PATH, 'wb') as file:
             file.write(response.content)
     except Exception as ex:
-        logging.exception(str(ex))
+        logger.debug(ex, exc_info=True)
 
 
 def get_latest_version_info_date():
@@ -56,7 +58,7 @@ def get_latest_version_info():
     try:
         download_latest_version_info()
     except Exception as ex:
-        logging.exception(str(ex))
+        logger.debug(ex, exc_info=True)
     data = None
     if os.path.isfile(_VERSION_INFO_LOCAL_FILE_PATH):
         # load the latest download, or if the last download failed,
@@ -65,7 +67,7 @@ def get_latest_version_info():
             data = get_file_json(_VERSION_INFO_LOCAL_FILE_PATH, False) or {}
         except Exception as ex:
             # file is corrupt, delete it.
-            logging.exception(str(ex))
+            logger.debug(ex, exc_info=True)
             os.remove(_VERSION_INFO_LOCAL_FILE_PATH)
     if data is None:
         # failed to download file, so write an empty file so we don't
@@ -85,7 +87,7 @@ def should_prompt_for_update():
     if should_check_version():
         data = get_latest_version_info()
         if data is not None and 'latestReleasedVersion' in data:
-            logging.debug('Latest version available: %s', data['latestReleasedVersion'])
+            logger.debug('Latest version available: %s', data['latestReleasedVersion'])
             return is_version_later_than_current(data['latestReleasedVersion']), data
     return False, None
 
@@ -131,11 +133,11 @@ def _is_version_less_than(current_version, latest_version):
     pattern = '^(\d+)\.(\d+)\.(\d+)([ab]|rc)?(\d+)?(\.(dev|post))?(\d+)?$'
     current_match = match(pattern, current_version)
     if current_match is None:
-        logging.debug('Could not parse the current version: %s', current_version)
+        logger.debug('Could not parse the current version: %s', current_version)
         return False
     latest_match = match(pattern, latest_version)
     if latest_match is None:
-        logging.debug('Could not parse the latest version: %s', latest_version)
+        logger.debug('Could not parse the latest version: %s', latest_version)
         return False
 
     if int(current_match.group(1)) != int(latest_match.group(1)):

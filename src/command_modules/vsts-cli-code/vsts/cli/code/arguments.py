@@ -44,6 +44,7 @@ def load_code_arguments(cli_command_loader):
         ac.argument('squash', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         ac.argument('delete_source_branch', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         ac.argument('bypass_policy', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
+        ac.argument('transition_work_items', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with ArgumentsContext(cli_command_loader, 'code pr policies') as ac:
         ac.argument('evaluation_id', options_list=('--evaluation-id', '-e'))

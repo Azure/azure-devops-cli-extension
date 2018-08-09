@@ -4,11 +4,11 @@
 # --------------------------------------------------------------------------------------------
 
 import datetime
-import logging
 import os
 import threading
 
 from collections import OrderedDict
+from knack.log import get_logger
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
@@ -20,6 +20,8 @@ from .git import get_remote_url
 from .version import VERSION
 from .vsts_git_url_info import VstsGitUrlInfo
 
+logger = get_logger(__name__)
+
 
 def get_vss_connection(team_instance):
     if team_instance not in _vss_connection:
@@ -30,12 +32,12 @@ def get_vss_connection(team_instance):
             if vsts_config.has_option('core', 'collect_telemetry'):
                 collect_telemetry = vsts_config.get('core', 'collect_telemetry')
             if collect_telemetry is None or collect_telemetry != 'no':
-                logging.debug('Telemetry enabled.')
+                logger.debug('Telemetry enabled.')
                 _try_send_tracking_ci_event_async(team_instance)
             else:
-                logging.debug('Telemetry disabled.')
+                logger.debug('Telemetry disabled.')
         except Exception as ex:
-            logging.exception(str(ex))
+            logger.debug(ex, exc_info=True)
             raise CLIError(ex)
     return _vss_connection[team_instance]
 
@@ -46,7 +48,7 @@ def _get_credentials(team_instance):
     else:
         pat = get_credential(team_instance)
     if pat is not None:
-        logging.info("Creating connection with personal access token.")
+        logger.info("Creating connection with personal access token.")
         credentials = BasicAuthentication('', pat)
         return credentials
     else:
@@ -94,6 +96,11 @@ def get_location_client(team_instance=None):
     return connection.get_client('vsts.location.v4_0.location_client.LocationClient')
 
 
+def get_member_entitlement_management_client(team_instance=None):
+    connection = get_vss_connection(team_instance)
+    return connection.get_client('vsts.member_entitlement_management.v4_1.member_entitlement_management_client.MemberEntitlementManagementClient')
+
+
 def get_operations_client(team_instance=None):
     connection = get_vss_connection(team_instance)
     return connection.get_client('vsts.operations.v4_0.operations_client.OperationsClient')
@@ -102,6 +109,16 @@ def get_operations_client(team_instance=None):
 def get_policy_client(team_instance=None):
     connection = get_vss_connection(team_instance)
     return connection.get_client('vsts.policy.v4_0.policy_client.PolicyClient')
+
+
+def get_settings_client(team_instance=None):
+    connection = get_vss_connection(team_instance)
+    return connection.get_client('vsts.settings.v4_0.settings_client.SettingsClient')
+
+
+def get_task_agent_client(team_instance=None):
+    connection = get_vss_connection(team_instance)
+    return connection.get_client('vsts.task_agent.v4_0.task_agent_client.TaskAgentClient')
 
 
 def get_work_item_tracking_client(team_instance=None):
@@ -188,7 +205,7 @@ def get_vsts_info_from_current_remote_url():
     info = VstsGitUrlInfo(get_remote_url(VstsGitUrlInfo.is_vsts_url_candidate))
     end = datetime.datetime.now()
     duration = end - start
-    logging.info("Detect: Url discovery took " + str(duration))
+    logger.info("Detect: Url discovery took " + str(duration))
     return info
 
 
@@ -217,7 +234,7 @@ def set_tracking_data(argv):
         else:
             vsts_tracking_data.feature = 'Command'
     except Exception as ex:
-        logging.exception(ex)
+        logger.debug(ex, exc_info=True)
 
 
 def _try_send_tracking_ci_event_async(team_instance=None):
@@ -227,7 +244,7 @@ def _try_send_tracking_ci_event_async(team_instance=None):
             thread.start()
         except Exception as ex:
             # we should always continue if we fail to set tracking data
-            logging.exception(str(ex))
+            logger.debug(ex, exc_info=True)
 
 
 def _send_tracking_ci_event(team_instance=None, ci_client=None):
@@ -237,7 +254,7 @@ def _send_tracking_ci_event(team_instance=None, ci_client=None):
         ci_client.publish_events([vsts_tracking_data])
         return True
     except Exception as ex:
-        logging.exception(ex)
+        logger.debug(ex, exc_info=True)
         return False
 
 
@@ -251,8 +268,12 @@ def get_connection_data(team_instance):
         return _connection_data[team_instance]
 
 
+def get_authentication_error(message):
+    return CLIError(str(message) + "  Please see https://aka.ms/vsts-cli-auth for more information.")
+
+
 def raise_authentication_error(message):
-    raise CLIError(str(message) + "  Please see https://aka.ms/vsts-cli-auth for more information.")
+    raise get_authentication_error(message)
 
 
 _DEFAULTS_SECTION = 'defaults'

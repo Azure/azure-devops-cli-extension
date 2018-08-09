@@ -10,9 +10,9 @@ set "PATH=%PATH%;%ProgramFiles%\Git\bin;%ProgramFiles%\Git\usr\bin"
 
 if "%CLIVERSION%"=="" (
     if "%BUILD_BUILDID%" == "" (
-        set CLIVERSION=0.1.1
+        set CLIVERSION=0.1.2
     ) else (
-        set CLIVERSION=0.1.1.%BUILD_BUILDID%
+        set CLIVERSION=0.1.2.%BUILD_BUILDID%
     )
 )
 set PYTHON_VERSION=3.6.3
@@ -119,17 +119,25 @@ if %errorlevel% neq 0 goto ERROR
 if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-common"
 if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-admin-common"
+if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-build-common"
 if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-code-common"
+if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-package-common"
 if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-team-common"
 if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-work-common"
 if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-admin"
+if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-build"
 if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-code"
+if %errorlevel% neq 0 goto ERROR
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-package"
 if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-team"
 if %errorlevel% neq 0 goto ERROR

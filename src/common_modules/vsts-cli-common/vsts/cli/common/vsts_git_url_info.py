@@ -3,13 +3,13 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-
-import logging
-
+from knack.log import get_logger
 from msrest.serialization import Model
+
 from .file_cache import get_cli_cache
 from .uri import uri_parse
 
+logger = get_logger(__name__)
 
 class VstsGitUrlInfo(object):
     """ VstsGitUrlInfo.
@@ -21,7 +21,7 @@ class VstsGitUrlInfo(object):
         self.repo = None
         self.uri = None
         if remote_url is not None:
-            logging.debug("Remote url: %s", remote_url)
+            logger.debug("Remote url: %s", remote_url)
             models = {'_RemoteInfo': self._RemoteInfo}
 
             remote_url = remote_url.lower()
@@ -31,7 +31,7 @@ class VstsGitUrlInfo(object):
                 try:
                     remote_info = deserializer.deserialize_data(_git_remote_info_cache[remote_url], '_RemoteInfo')
                 except DeserializationError as ex:
-                    logging.exception(str(ex))
+                    logger.debug(ex, exc_info=True)
                 if remote_info is not None:
                     self.project = remote_info.project
                     self.repo = remote_info.repository
@@ -53,7 +53,7 @@ class VstsGitUrlInfo(object):
                             serializer.serialize_data(self._RemoteInfo(self.project, self.repo, self.uri),
                                                       '_RemoteInfo')
                     except SerializationError as ex:
-                        logging.exception(str(ex))
+                        logger.debug(ex, exc_info=True)
 
     @staticmethod
     def get_vsts_info(remote_url):
@@ -81,7 +81,7 @@ class VstsGitUrlInfo(object):
             return None
         if netloc.find('@') < 0:
             # on premise url
-            logging.warning('TFS SSH URLs are not supported for repo auto-detection yet. See the following issue for ' +
+            logger.warning('TFS SSH URLs are not supported for repo auto-detection yet. See the following issue for ' +
                             'latest updates: https://github.com/Microsoft/vsts-cli/issues/142')
             return None
         else:
