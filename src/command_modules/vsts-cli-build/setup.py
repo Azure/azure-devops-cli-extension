@@ -6,7 +6,7 @@
 from setuptools import setup, find_packages
 
 NAME = 'vsts-cli-build'
-VERSION = '0.1.2'
+VERSION = '0.1.3'
 
 # To install the library, run the following
 #
