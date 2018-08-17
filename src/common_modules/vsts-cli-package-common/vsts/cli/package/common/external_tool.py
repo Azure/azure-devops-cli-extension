@@ -46,7 +46,7 @@ class ExternalToolInvoker:
         if self._proc.returncode != 0 and not self._terminating:
             stderr = self._proc.stderr.read().strip()
             if stderr != "":
-                stderr = "\n" + stderr
+                stderr = "\n{}".format(stderr)
             raise CLIError("Process {proc} with PID {pid} exited with return code {code}{err}".format(proc=self._args, pid=self._proc.pid, code=self._proc.returncode, err=stderr))
         return self._proc
 
@@ -68,7 +68,7 @@ class ProgressReportingExternalToolInvoker(ExternalToolInvoker):
             self.start(command_args, env)
             try:
                 for line in iter(self._proc.stderr.readline, b''):
-                    stderr_handler(line, self._update_progress)
+                    stderr_handler(str(line), self._update_progress)
                 return self.wait()
             except IOError as ex:
                 if not self._terminating:
