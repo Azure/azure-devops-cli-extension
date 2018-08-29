@@ -24,9 +24,9 @@ def _transform_banner_row(key, value):
         level = value['level']
         if level is not None and level != '':
             level = level[0:1].upper() + level[1:]
-        table_row['Level'] = level
+        table_row['Type'] = level
     else:
-        table_row['Level'] = 'Info'
+        table_row['Type'] = 'Info'
     if 'expirationDate' in value:
         table_row['Expiration Date'] = value['expirationDate']
     else:
