@@ -43,11 +43,11 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     if branch is None:
         branch = source_branch
     team_instance, project = resolve_instance_and_project(detect=detect,
-                                                            team_instance=team_instance,
-                                                            project=project)
+                                                          team_instance=team_instance,
+                                                          project=project)
     if definition_id is None and definition_name is None:
         raise ValueError('Either the --definition-id argument or the --definition-name argument ' +
-                            'must be supplied for this command.')
+                         'must be supplied for this command.')
     client = get_build_client(team_instance)
     if definition_id is None:
         definition_id = get_definition_id_from_name(definition_name, client, project)
@@ -57,9 +57,9 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     if variables is not None and variables:
         build.parameters = {}
         for variable in variables:
-            kvp = variable.split('=')
-            if len(kvp) == 2:
-                build.parameters[kvp[0]] = kvp[1]
+            separator_pos = variable.find('=')
+            if separator_pos >= 0:
+                build.parameters[variable[:separator_pos]] = variable[separator_pos + 1:]
             else:
                 raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
     queued_build = client.queue_build(build=build, project=project)
