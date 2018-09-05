@@ -122,8 +122,9 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type target_branch: str
     :param title: Title for the new pull request.
     :type title: str
-    :param description: Description for the new pull request. Can include markdown.
-    :type description: str
+    :param description: Description for the new pull request. Can include markdown. Each value sent to this arg will be a new line.
+                        For example: --description "First Line" "Second Line"
+    :type description: list of str
     :param auto_complete: Set the pull request to complete automatically when all policies have passed and
                           the source branch can be merged into the target branch.
     :type auto_complete: bool
@@ -174,9 +175,13 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
             target_branch = _get_default_branch(team_instance, project, repository)
         if target_branch is None:
             raise ValueError('The target branch could not be detected, please '
-                                + 'provide the --target-branch argument.')
+                             + 'provide the --target-branch argument.')
     client = get_git_client(team_instance)
-    pr = GitPullRequest(description=description, source_ref_name=source_branch,
+    if description is not None:
+        multi_line_description = '\n'.join(description)
+    else:
+        multi_line_description = None
+    pr = GitPullRequest(description=multi_line_description, source_ref_name=source_branch,
                         target_ref_name=target_branch)
     if title is not None:
         pr.title = title
@@ -242,8 +247,9 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
     :type pull_request_id: int
     :param title: New title for the pull request.
     :type title: str
-    :param description: New description for the pull request.
-    :type description: str
+    :param description: New description for the pull request.  Can include markdown.  Each value sent to this
+                        arg will be a new line. For example: --description "First Line" "Second Line"
+    :type description: list of str
     :param auto_complete: Set the pull request to complete automatically when all policies have passed and
                           the source branch can be merged into the target branch.
     :type auto_complete: str
@@ -271,7 +277,11 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
     team_instance = resolve_instance(detect=detect, team_instance=team_instance)
     client = get_git_client(team_instance)
     existing_pr = client.get_pull_request_by_id(pull_request_id)
-    pr = GitPullRequest(title=title, description=description)
+    if description is not None:
+        multi_line_description = '\n'.join(description)
+    else:
+        multi_line_description = None
+    pr = GitPullRequest(title=title, description=multi_line_description)
     if (bypass_policy is not None
             or bypass_policy_reason is not None
             or squash is not None
