@@ -20,6 +20,7 @@ def load_work_arguments(cli_command_loader):
         ac.argument('work_item_id', type=int, options_list='--id')
         ac.argument('work_item_type', type=str, options_list='--type')
         ac.argument('fields', nargs='*', options_list=('--fields', '-f'))
+        ac.argument('description', options_list=('--description', '-d'))
 
     with ArgumentsContext(cli_command_loader, 'work item query') as ac:
         ac.argument('query_id', type=str, options_list='--id')

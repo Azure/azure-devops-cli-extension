@@ -20,7 +20,7 @@ def load_code_arguments(cli_command_loader):
         ac.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with ArgumentsContext(cli_command_loader, 'code pr') as ac:
-        ac.argument('description', type=str, options_list=('--description', '-d'))
+        ac.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
         ac.argument('pull_request_id', type=int, options_list='--id')
         ac.argument('repository', options_list=('--repository', '-r'))
         ac.argument('source_branch', options_list=('--source-branch', '-s'))
