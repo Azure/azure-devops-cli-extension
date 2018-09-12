@@ -18,7 +18,7 @@ VERSION = '0.1.3'
 REQUIRES = [
     'knack==0.4.1',
     'python-dateutil==2.7.3',
-    'vsts~=0.1.15.dev',
+    'vsts~=0.1.16.dev',
     'vsts-cli-common==' + VERSION
 ]
 
