@@ -294,8 +294,8 @@ def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, pr
                 # url is near max length, go ahead and send first request for details.
                 # url can go over by an id length because we have a safety buffer
                 current_batched_items = client.get_work_items(ids=current_batch,
-                                                                as_of=query_result.as_of,
-                                                                fields=fields)
+                                                              as_of=query_result.as_of,
+                                                              fields=fields)
                 for work_item in current_batched_items:
                     work_items.append(work_item)
                 current_batch = []
@@ -303,8 +303,8 @@ def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, pr
 
         if current_batch:
             current_batched_items = client.get_work_items(ids=current_batch,
-                                                            as_of=query_result.as_of,
-                                                            fields=fields)
+                                                          as_of=query_result.as_of,
+                                                          fields=fields)
             for work_item in current_batched_items:
                 work_items.append(work_item)
         # put items in the same order they appeared in the initial query results
