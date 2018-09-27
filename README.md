@@ -1,11 +1,16 @@
-[![Visual Studio Team services](https://mseng.visualstudio.com/_apis/public/build/definitions/698eacea-9ea2-4eb8-80a4-d06170edf6bc/5908/badge)](https://mseng.visualstudio.com/vsts-cli/_build/index?context=mine&path=%5C&definitionId=6169&_a=completed)
+Windows: [![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/Master%20Branch%20-%20Windows)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=6)
+
+Mac: [![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/Master%20Branch%20-%20Mac)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=7)
+
+Ubuntu: [![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/Master%20Branch%20-%20Ubuntu)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=5)
+
 [![Python](https://img.shields.io/pypi/pyversions/vsts-cli.svg)](https://pypi.python.org/pypi/vsts-cli)
 
-# Microsoft Visual Studio Team Services CLI 
+# Azure Devops
 
-VSTS CLI is a new command line interface for [Visual Studio Team Services](https://www.visualstudio.com/team-services/) (VSTS) and [Team Foundation Server](https://www.visualstudio.com/tfs/) (TFS) 2017 Update 2 and later.
+Azure Devops CLI is a new command line interface for [Azure Devops Service](https://azure.microsoft.com/en-in/services/devops/) 
 
-> VSTS CLI is currently in preview but we encourage you to give it a try and provide feedback (or contribute). 
+> Azure Devops CLI is currently in preview but we encourage you to give it a try and provide feedback (or contribute). 
 
 ## Get started
 
@@ -16,50 +21,49 @@ Also refer to the ["get started" guide](https://aka.ms/vsts-cli-docs-getstarted)
 For help, pass the `-h` or `--help` argument, for example:
 
 ```bash
-vsts -h
-vsts code -h
+az dev -h
+az dev code -h
 ```
 
 ### Commands
 
-Use the VSTS CLI to work with and manage build, code repositories, projects, work items, and more in your VSTS account or on-premises Team Foundation Server collection.
+Use the Azure Devops CLI to work with and manage build, code repositories, projects, work items, and more in your Azure Devops account or on-premises Team Foundation Server collection.
 
 Here are just a few of the commands:
 
-* vsts build queue
-* vsts code pr create
-* vsts code pr list
-* vsts code pr complete
-* vsts code pr reviewers add
-* vsts code pr work-items list
-* vsts project create
-* vsts work item create
-* vsts work item update
+* az dev build queue
+* az dev code pr list
+* az dev code pr complete
+* az dev code pr reviewers add
+* az dev code pr work-items list
+* az dev project create
+* az dev work item create
+* az dev work item update
 
 See the full list of [available commands](https://aka.ms/vsts-cli-commands).
 
 ### Login (setup credentials)
 
-Create a personal access token and provide to the VSTS CLI via the login command:
+Create a personal access token and provide to the Azure Devops CLI via the login command:
 
 ```bash
-vsts login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
+az dev login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
 ```
 
-### Using VSTS CLI Behind a Proxy
+### Using Azure Devops CLI Behind a Proxy
 
-The VSTS CLI picks the network proxy configuration from the environment variables `HTTP_PROXY`, and `HTTPS_PROXY`. 
+The Azure Devops CLI picks the network proxy configuration from the environment variables `HTTP_PROXY`, and `HTTPS_PROXY`. 
 
 ### Configure defaults, Git aliases, and more
 
-You can change your default settings using the `vsts configure` command, for example you can set the default output format for all commands. The options are:
+You can change your default settings using the `az dev configure` command, for example you can set the default output format for all commands. The options are:
 
 * JSON
 * JSON (with color highlighting)
 * Table (human-readable tabular output)
 * TSV (tab and new line delimited)
 
-You can also add aliases in Git for certain VSTS CLI commands. For example, `git pr list` will be an alias for `vsts code pr list`.
+You can also add aliases in Git for certain Azure Devops CLI commands. For example, `git pr list` will be an alias for `az dev code pr list`.
 
 ### Querying and filtering output
 
@@ -75,7 +79,7 @@ Fabrikam Fiber
 
 ### Examples and snippets
 
-For more usage examples, see the official VSTS CLI [documentation](https://aka.ms/vsts-cli-docs-overview).
+For more usage examples, see the official Azure Devops CLI [documentation](https://aka.ms/vsts-cli-docs-overview).
 
 ## Developer setup
 
@@ -84,7 +88,7 @@ To contribute or to just play with the CLI in your development environment, see 
 ## License
 
 ```
-VSTS CLI
+Azure Devops CLI
 
 MIT License
 
@@ -111,15 +115,15 @@ MIT License
 
 ## Telemetry
 
-VSTS CLI collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/en-us/privacystatement) to learn more. 
+Azure Devops CLI collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/en-us/privacystatement) to learn more. 
 
-To disable telemetry use the `vsts configure` command.
+To disable telemetry use the `az dev configure` command.
 
 ## Feedback
 
 If you have any issues, questions, comments, or feature requests regarding this tool, please file an issue within this github repo using our contribution guidelines. 
 
-To find where to provide feedback from the CLI, run `vsts feedback`.
+To find where to provide feedback from the CLI, run `az dev feedback`.
 
 ## Contribute
 

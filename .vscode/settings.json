@@ -5,5 +5,5 @@
         "**/*__pycache__": true,
         "**/*.egg-info": true
     },
-    "python.pythonPath": "${workspaceRoot}/env/Scripts/python"
+    "python.pythonPath": "C:\\Users\\gsaral\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe"
 }
