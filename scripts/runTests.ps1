@@ -1,3 +1,5 @@
+param([Boolean]$outputTestResultAsJunit=$false)
+
 $rootPath = Get-Location
 $extensionDirectory = Join-Path -Path $rootPath -ChildPath "azure-dev-cli-extensions"
 
@@ -12,6 +14,7 @@ Set-Location $rootPath
 
 $ErrorActionPreference = "Continue"
 try {
+    Write-Host "trying to uninstall extension of az dev extension was installed"
     $uninstallCommand = "az extension remove -n azure-cli-dev **2>&1 | Write-Host**"
     Invoke-Expression $uninstallCommand
     Write-Host "extension was installed and it was removed"
@@ -29,7 +32,21 @@ Write-Host "done"
 
 az dev -h
 
-$testDirectory = Join-Path -Path $rootPath -ChildPath "tests"
+$testFiles = @()
 
+$testDirectory = Join-Path -Path $rootPath -ChildPath "tests"
 $basicPrTests = Join-Path -Path $testDirectory -ChildPath "basicPrTest.py"
-pytest $basicPrTests
+$testFiles +=  $basicPrTests
+
+foreach($testFile in $testFiles){
+    if($outputTestResultAsJunit -eq $true)
+    {
+        $leafFile = Split-Path $testFile -leaf
+        $testResultFile = "TEST-" + $leafFile + ".xml"
+        Write-Host "test result output at " $testResultFile
+        pytest $testFile --junitxml $testResultFile
+    }
+    else{
+        pytest $testFile
+    }
+}
