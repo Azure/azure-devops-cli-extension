@@ -39,7 +39,7 @@ def load_code_commands(self, _):
         g.custom_command('pr create', 'dev.repos.pull_request.create_pull_request', table_transformer=transform_pull_request_table_output)
         g.custom_command('pr update', 'dev.repos.pull_request.update_pull_request', table_transformer=transform_pull_request_table_output)
         g.custom_command('pr show', 'dev.repos.pull_request.show_pull_request', table_transformer=transform_pull_request_table_output)
-        g.custom_command('pr list', 'dev.repos.pull_request.list_pull_requests', table_transformer=transform_pull_request_table_output)
+        g.custom_command('pr list', 'dev.repos.pull_request.list_pull_requests', table_transformer=transform_pull_requests_table_output)
 
         # pr status update commands
         g.custom_command('pr complete', 'dev.repos.pull_request.complete_pull_request', table_transformer=transform_pull_request_table_output)
