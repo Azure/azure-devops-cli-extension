@@ -10,7 +10,7 @@ from ._format import (transform_work_item_table_output,
 from .work_item import show_work_item, create_work_item, query_work_items, update_work_item
 
 def load_work_commands(self, _):
-    with self.command_group('dev work item') as g:
+    with self.command_group('boards') as g:
         g.custom_command('show', 'dev.boards.work_item.show_work_item', table_transformer=transform_work_item_table_output)
         g.custom_command('create', 'dev.boards.work_item.create_work_item', table_transformer=transform_work_item_table_output)
         g.custom_command('query', 'dev.boards.work_item.query_work_items', table_transformer=transform_work_item_query_result_table_output)

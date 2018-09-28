@@ -16,7 +16,7 @@ from .build_definition import build_definition_list, build_definition_show
 from .task import task_list, task_show
 
 def load_build_commands(self, _):
-    with self.command_group('dev') as g:
+    with self.command_group('pipelines') as g:
         # basic vsts_cli_build commands
         g.custom_command('build list', 'dev.pipelines.build.build_list', table_transformer=transform_builds_table_output)
         g.custom_command('build queue', 'dev.pipelines.build.build_queue', table_transformer=transform_build_table_output)

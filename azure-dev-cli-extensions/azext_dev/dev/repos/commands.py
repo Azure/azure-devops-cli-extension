@@ -34,7 +34,7 @@ from .pull_request import (create_pull_request,
 from .repository import create_repo, list_repos, show_repo
 
 def load_code_commands(self, _):
-    with self.command_group('dev code') as g:
+    with self.command_group('repos') as g:
         # basic pr commands
         g.custom_command('pr create', 'dev.repos.pull_request.create_pull_request', table_transformer=transform_pull_request_table_output)
         g.custom_command('pr update', 'dev.repos.pull_request.update_pull_request', table_transformer=transform_pull_request_table_output)

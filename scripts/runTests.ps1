@@ -15,7 +15,7 @@ Set-Location $rootPath
 $ErrorActionPreference = "Continue"
 try {
     Write-Host "trying to uninstall extension of az dev extension was installed"
-    $uninstallCommand = "az extension remove -n azure-cli-dev **2>&1 | Write-Host**"
+    $uninstallCommand = "az extension remove -n azure-dev-cli-extensions **2>&1 | Write-Host**"
     Invoke-Expression $uninstallCommand
     Write-Host "extension was installed and it was removed"
 }
@@ -30,6 +30,7 @@ $extensions = Get-ChildItem -Path $sourceDir -Filter "*.whl" -Recurse | Select-O
 az extension add --source $extensions[0].FullName -y
 Write-Host "done"
 
+az -h
 az dev -h
 
 $testFiles = @()

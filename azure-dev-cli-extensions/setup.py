@@ -8,7 +8,7 @@ import re
 from codecs import open
 from setuptools import setup, find_packages
 
-NAME = 'azure-cli-dev'
+NAME = 'azure-dev-cli-extensions'
 
 # To install the library, run the following
 #
@@ -31,6 +31,9 @@ REQUIRES = [
 with open(os.path.join('azext_dev', 'version.py'), 'r') as fd:
     VERSION = re.search(r'^VERSION\s*=\s*[\'"]([^\'"]*)[\'"]',
                         fd.read(), re.MULTILINE).group(1)
+
+if not VERSION:
+    raise RuntimeError('Cannot find version information')
 
 CLASSIFIERS = [
     'Development Status :: 4 - Beta',
