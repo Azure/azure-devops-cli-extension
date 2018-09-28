@@ -8,14 +8,14 @@ from knack.help_files import helps  # pylint: disable=unused-import
 # pylint: disable=line-too-long
 
 def load_pipelines_help():
-    helps['dev build'] = """
+    helps['pipelines'] = """
     type: group
-    short-summary: Commands to work with and manage builds.
+    short-summary: Commands to work with and manage pipelines.
     long-summary:
     """
 
-    helps['dev build definition'] = """
+    helps['pipelines definition'] = """
     type: group
-    short-summary: Manage build definitions.
+    short-summary: Manage build pipelines definitions.
     long-summary:
     """
