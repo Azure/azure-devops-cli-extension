@@ -40,6 +40,25 @@ def create_repo(name, team_instance=None, project=None, detect=None, open_browse
         _open_repository(repository, team_instance)
     return repository
 
+def delete_repo(repo_id=None, team_instance=None, project=None, detect=None):
+    """
+    :param repo_id: ID of the repository.
+    :type repo_id: int
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :type team_instance: str
+    :param project: Name or ID of the team project.
+    :type project: str
+    :param detect: Automatically detect instance and project. Default is "on".
+    :type detect: str
+    """
+    if repo_id is None:
+        raise CLIError('--id argument needs to be specified.')
+    team_instance, project = resolve_instance_and_project(detect=detect,
+                                                            team_instance=team_instance,
+                                                            project=project)
+    git_client = get_git_client(team_instance)
+    git_client.delete_repository(project=project, repository_id=repo_id)
+
 
 def list_repos(team_instance=None, project=None, detect=None):
     """List Git repositories of a team project.

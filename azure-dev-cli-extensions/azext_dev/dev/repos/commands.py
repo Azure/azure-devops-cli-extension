@@ -65,5 +65,6 @@ def load_code_commands(self, _):
 
         # repository commands
         g.custom_command('repo create', 'dev.repos.repository.create_repo', table_transformer=transform_repo_table_output)
+        g.custom_command('repo delete', 'dev.repos.repository.delete_repo')
         g.custom_command('repo list', 'dev.repos.repository.list_repos', table_transformer=transform_repo_table_output)
         g.custom_command('repo show', 'dev.repos.repository.show_repo', table_transformer=transform_repo_table_output)

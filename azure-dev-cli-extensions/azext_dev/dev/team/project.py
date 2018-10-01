@@ -87,6 +87,25 @@ def create_project(name, team_instance=None, process=None, source_control='git',
         _open_project(team_project)
     return team_project
 
+def delete_project(project_id=None, team_instance=None, detect=None):
+    """Delete team project.
+    :param project_id: The id (UUID) of the project to show.
+    :pram team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+                          collection.
+    :type detect: str
+    """
+    if project_id is None:
+        raise CLIError('--id argument needs to be specified.')
+    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+    core_client = get_core_client(team_instance)
+    operation_reference = core_client.queue_delete_project(project_id=project_id)
+    operation = wait_for_long_running_operation(team_instance, operation_reference.id, 1)
+    status = operation.status.lower()
+    if status == 'failed':
+        raise CLIError('Project deletion failed.')
+    elif status == 'cancelled':
+        raise CLIError('Project deletion was cancelled.')
+
 
 def show_project(project_id=None, name=None, team_instance=None, detect=None, open_browser=False):
     """Show team project.

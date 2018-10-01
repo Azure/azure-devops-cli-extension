@@ -17,5 +17,6 @@ def load_team_commands(self, _):
         g.custom_command('feedback', 'dev.team.feedback.feedback')
         g.custom_command('configure', 'dev.team.configure.configure')
         g.custom_command('project create', 'dev.team.project.create_project', table_transformer=transform_project_table_output)
+        g.custom_command('project delete', 'dev.team.project.delete_project')
         g.custom_command('project show', 'dev.team.project.show_project', table_transformer=transform_project_table_output)
         g.custom_command('project list', 'dev.team.project.list_projects', table_transformer=transform_projects_table_output)
