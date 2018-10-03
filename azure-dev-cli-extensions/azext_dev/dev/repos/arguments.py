@@ -54,3 +54,6 @@ def load_code_arguments(self, _):
 
     with self.argument_context('repos repo') as context:
         context.argument('repo_id', options_list='--id')
+
+    with self.argument_context('repos repo delete') as context:
+        context.argument('yes', options_list=['--yes', '-y'], action='store_true', help='Do not prompt for confirmation.')

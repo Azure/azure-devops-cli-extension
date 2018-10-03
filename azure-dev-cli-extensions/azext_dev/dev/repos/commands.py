@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.commands import CommandGroup
+from knack.prompting import prompt_y_n
 from ._format import (transform_pull_request_table_output,
                       transform_pull_requests_table_output,
                       transform_repo_table_output,
@@ -31,7 +32,10 @@ from .pull_request import (create_pull_request,
                            list_pr_policies,
                            queue_pr_policy)
 
-from .repository import create_repo, list_repos, show_repo
+from .repository import create_repo, list_repos, show_repo, delete_repo
+
+def repo_delete_confirmation(command_args):
+    return bool(prompt_y_n('Are you sure you want to delete this repository?'))
 
 def load_code_commands(self, _):
     with self.command_group('repos') as g:
@@ -65,6 +69,6 @@ def load_code_commands(self, _):
 
         # repository commands
         g.custom_command('repo create', 'dev.repos.repository.create_repo', table_transformer=transform_repo_table_output)
-        g.custom_command('repo delete', 'dev.repos.repository.delete_repo')
+        g.custom_command('repo delete', 'dev.repos.repository.delete_repo', confirmation=repo_delete_confirmation)
         g.custom_command('repo list', 'dev.repos.repository.list_repos', table_transformer=transform_repo_table_output)
         g.custom_command('repo show', 'dev.repos.repository.show_repo', table_transformer=transform_repo_table_output)
