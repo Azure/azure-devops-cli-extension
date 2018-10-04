@@ -1,0 +1,3 @@
+#basic
+msrestazure~=0.4.11
+azure-cli>=2.0.46
