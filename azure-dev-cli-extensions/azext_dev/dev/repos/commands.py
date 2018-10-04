@@ -32,6 +32,8 @@ from .pull_request import (create_pull_request,
                            list_pr_policies,
                            queue_pr_policy)
 
+from .import_request import create_import_request
+
 from .repository import create_repo, list_repos, show_repo, delete_repo
 
 def repo_delete_confirmation(command_args):
@@ -72,3 +74,6 @@ def load_code_commands(self, _):
         g.custom_command('repo delete', 'dev.repos.repository.delete_repo', confirmation=repo_delete_confirmation)
         g.custom_command('repo list', 'dev.repos.repository.list_repos', table_transformer=transform_repo_table_output)
         g.custom_command('repo show', 'dev.repos.repository.show_repo', table_transformer=transform_repo_table_output)
+
+        #import request
+        g.custom_command('import create', 'dev.repos.import_request.create_import_request')

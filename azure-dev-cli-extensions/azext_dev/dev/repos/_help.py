@@ -43,3 +43,9 @@ def load_repos_help():
     short-summary: Manage repositories.
     long-summary:
     """
+
+    helps['repos import create'] = """
+    type: command
+    short-summary: Create git import request
+    long-summary: Currently only supports public git source to git import
+    """
