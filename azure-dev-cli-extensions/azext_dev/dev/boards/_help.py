@@ -13,9 +13,15 @@ def load_boards_help():
     short-summary: Commands to work with and manage work items.
     long-summary:
     """
-
-    helps['boards item'] = """
+    
+    helps['boards work-item'] = """
     type: group
     short-summary: Manage work items.
+    long-summary:
+    """
+
+    helps['boards query'] = """
+    type: command
+    short-summary: Manage queries.
     long-summary:
     """

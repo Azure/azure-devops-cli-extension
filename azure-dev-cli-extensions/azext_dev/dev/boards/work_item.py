@@ -176,7 +176,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
     except VstsServiceError as ex:
         _handle_vsts_service_error(ex)
 
-def delete_work_item(work_item_id,destroy=False,team_instance=None, project=None, detect=None):
+def delete_work_item(work_item_id, destroy=False, team_instance=None, project=None, detect=None):
     """Delete a work item.
     :param work_item_id: Unique id of the work item.
     :type work_item_id: str
