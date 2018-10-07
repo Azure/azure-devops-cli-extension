@@ -40,6 +40,42 @@ def create_repo(name, team_instance=None, project=None, detect=None, open_browse
         _open_repository(repository, team_instance)
     return repository
 
+def update_repo(repo_id=None, name=None, defaultBranch=None, team_instance=None, project=None, detect=None, open_browser=False):
+    """Update the details of a Git repository.
+    :param repo_id: ID of the repository. Required if --name is not specified.
+    :type repo_id: int
+    :param name: Name of the repository. Ignored if --id is specified.
+    :type name: int
+    :param defaultBranch: Name of the branch that need to be set as default branch.
+    :type defaulatBranch: str
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :type team_instance: str
+    :param project: Name or ID of the team project.
+    :type project: str
+    :param detect: Automatically detect instance and project. Default is "on".
+    :type detect: str
+    :param open_browser: Open the repository page in your web browser.
+    :type open_browser: bool
+    :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
+    """
+    if repo_id is None and name is None:
+        raise CLIError('Either the --name argument or the --id argument needs to be specified.')
+    if defaultBranch is None:
+        raise CLIError('--defaultBranch argument needs to be specified.')
+    if repo_id is not None:
+        identifier = repo_id
+    else:
+        identifier = name
+    team_instance, project = resolve_instance_and_project(detect=detect,
+                                                            team_instance=team_instance,
+                                                            project=project)
+    git_client = get_git_client(team_instance)
+    repository = git_client.get_repository(project=project, repository_id=identifier)
+    repository.default_branch = 'refs/heads/' + defaultBranch
+    repository = git_client.update_repository(new_repository_info=repository, repository_id=repository.id, project=project)
+    if open_browser:
+        _open_repository(repository, team_instance)
+    return repository
 
 def list_repos(team_instance=None, project=None, detect=None):
     """List Git repositories of a team project.

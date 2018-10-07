@@ -60,5 +60,6 @@ def load_code_commands(cli_command_loader):
 
         # repository commands
         g.command('repo create', 'repository#create_repo', table_transformer=transform_repo_table_output)
+        g.command('repo update', 'repository#update_repo', table_transformer=transform_repo_table_output)
         g.command('repo list', 'repository#list_repos', table_transformer=transform_repos_table_output)
         g.command('repo show', 'repository#show_repo', table_transformer=transform_repo_table_output)
