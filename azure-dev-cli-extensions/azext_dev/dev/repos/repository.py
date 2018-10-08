@@ -17,7 +17,7 @@ logger = get_logger(__name__)
 def create_repo(name, team_instance=None, project=None, detect=None, open_browser=False):
     """Create a Git repository in a team project.
     :param name: Name for the new repository.
-    :type name: int
+    :type name: str
     :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
     :param project: Name or ID of the team project.
@@ -41,9 +41,9 @@ def create_repo(name, team_instance=None, project=None, detect=None, open_browse
     return repository
 
 def delete_repo(repo_id=None, team_instance=None, project=None, detect=None):
-    """
+    """Delete a Git repository in a team project.
     :param repo_id: ID of the repository.
-    :type repo_id: int
+    :type repo_id: str
     :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
     :param project: Name or ID of the team project.
@@ -57,7 +57,7 @@ def delete_repo(repo_id=None, team_instance=None, project=None, detect=None):
                                                             team_instance=team_instance,
                                                             project=project)
     git_client = get_git_client(team_instance)
-    git_client.delete_repository(project=project, repository_id=repo_id)
+    return git_client.delete_repository(project=project, repository_id=repo_id)
 
 
 def list_repos(team_instance=None, project=None, detect=None):
@@ -80,9 +80,9 @@ def list_repos(team_instance=None, project=None, detect=None):
 def show_repo(repo_id=None, name=None, team_instance=None, project=None, detect=None, open_browser=False):
     """Get the details of a Git repository.
     :param repo_id: ID of the repository. Required if --name is not specified.
-    :type repo_id: int
+    :type repo_id: str
     :param name: Name of the repository. Ignored if --id is specified.
-    :type name: int
+    :type name: str
     :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
     :type team_instance: str
     :param project: Name or ID of the team project.

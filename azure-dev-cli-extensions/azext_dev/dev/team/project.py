@@ -89,9 +89,13 @@ def create_project(name, team_instance=None, process=None, source_control='git',
 
 def delete_project(project_id=None, team_instance=None, detect=None):
     """Delete team project.
-    :param project_id: The id (UUID) of the project to show.
-    :pram team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
+    :param project_id: The id (UUID) of the project to delete.
+    :type project_id: str
+    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
                           collection.
+    :type team_instance: str
+    :param detect: When 'On' unsupplied arg values will be detected from the current working
+                   directory's repo.
     :type detect: str
     """
     if project_id is None:
@@ -105,6 +109,7 @@ def delete_project(project_id=None, team_instance=None, detect=None):
         raise CLIError('Project deletion failed.')
     elif status == 'cancelled':
         raise CLIError('Project deletion was cancelled.')
+    return operation
 
 
 def show_project(project_id=None, name=None, team_instance=None, detect=None, open_browser=False):
