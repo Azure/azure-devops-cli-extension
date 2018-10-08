@@ -42,6 +42,9 @@ $testFiles +=  $basicPrTests
 $reposTests = Join-Path -Path $testDirectory -ChildPath "reposRepoTest.py"
 $testFiles += $reposTests
 
+$boardsTests = Join-Path -Path $testDirectory -ChildPath "boardsWorkItemTest.py"
+$testFiles +=  $boardsTests
+
 foreach($testFile in $testFiles){
     if($outputTestResultAsJunit -eq $true)
     {
