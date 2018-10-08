@@ -239,6 +239,14 @@ def transform_repo_table_output(result):
     return table_output
 
 
+def transform_repo_import_table_output(result):
+    table_output = OrderedDict()
+    table_output['Name'] = result['repository']['name']
+    table_output['Project'] = result['repository']['project']['name']
+    table_output['Import Status'] =  result['status']
+    return table_output
+
+
 def _transform_repo_row(row):
     from azext_dev.dev.common.git import get_branch_name_from_ref
     table_row = OrderedDict()

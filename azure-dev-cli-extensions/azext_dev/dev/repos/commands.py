@@ -13,7 +13,8 @@ from ._format import (transform_pull_request_table_output,
                       transform_reviewer_table_output,
                       transform_policies_table_output,
                       transform_policy_table_output,
-                      transform_work_items_table_output)
+                      transform_work_items_table_output,
+                      transform_repo_import_table_output)
 
 from .pull_request import (create_pull_request,
                            update_pull_request,
@@ -76,4 +77,4 @@ def load_code_commands(self, _):
         g.custom_command('repo show', 'dev.repos.repository.show_repo', table_transformer=transform_repo_table_output)
 
         #import request
-        g.custom_command('import create', 'dev.repos.import_request.create_import_request')
+        g.custom_command('import create', 'dev.repos.import_request.create_import_request', table_transformer=transform_repo_import_table_output)
