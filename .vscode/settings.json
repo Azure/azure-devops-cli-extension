@@ -1,9 +1,0 @@
-// Place your settings in this file to overwrite default and user settings.
-{
-    "python.envFile": "${workspaceRoot}/env",
-    "files.exclude": {
-        "**/*__pycache__": true,
-        "**/*.egg-info": true
-    },
-    "python.pythonPath": "C:\\Users\\gsaral\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe"
-}

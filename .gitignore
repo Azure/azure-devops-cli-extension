@@ -298,3 +298,6 @@ paket-files/
 
 #pytest
 .pytest_cache/
+
+#vscode 
+.vscode/*
