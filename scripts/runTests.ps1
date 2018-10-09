@@ -36,6 +36,20 @@ pip install msrest==0.5.5
 az -h
 az dev -h
 
+$testFailureFound = $false
+
+if($outputTestResultAsJunit -eq $true)
+{
+    pytest $testFile --junitxml "TEST-results.xml"
+}
+else{
+    pytest $testFile
+}
+
+if ($LastExitCode -ne 0) {
+    $testFailureFound = $true
+}
+
 $testFiles = @()
 
 $testDirectory = Join-Path -Path $rootPath -ChildPath "tests"
@@ -47,8 +61,6 @@ $testFiles += $reposTests
 
 $boardsTests = Join-Path -Path $testDirectory -ChildPath "boardsWorkItemTest.py"
 $testFiles +=  $boardsTests
-
-$testFailureFound = $false
 
 foreach($testFile in $testFiles){
     if($outputTestResultAsJunit -eq $true)
