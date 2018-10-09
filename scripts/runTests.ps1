@@ -48,6 +48,8 @@ $testFiles += $reposTests
 $boardsTests = Join-Path -Path $testDirectory -ChildPath "boardsWorkItemTest.py"
 $testFiles +=  $boardsTests
 
+$testFailureFound = $false
+
 foreach($testFile in $testFiles){
     if($outputTestResultAsJunit -eq $true)
     {
@@ -59,4 +61,12 @@ foreach($testFile in $testFiles){
     else{
         pytest $testFile
     }
+
+    if ($LastExitCode -ne 0) {
+        $testFailureFound = $true
+      }
+}
+
+if($testFailureFound -eq $true){
+    exit 1
 }
