@@ -39,8 +39,8 @@ az dev -h
 $testFiles = @()
 
 $testDirectory = Join-Path -Path $rootPath -ChildPath "tests"
-$basicPrTests = Join-Path -Path $testDirectory -ChildPath "basicPrTest.py"
-$testFiles +=  $basicPrTests
+$reposPrTest = Join-Path -Path $testDirectory -ChildPath "reposPrTest.py"
+$testFiles +=  $reposPrTest
 
 $reposTests = Join-Path -Path $testDirectory -ChildPath "reposRepoTest.py"
 $testFiles += $reposTests
