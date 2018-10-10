@@ -30,9 +30,6 @@ $extensions = Get-ChildItem -Path $sourceDir -Filter "*.whl" -Recurse | Select-O
 az extension add --source $extensions[0].FullName -y
 Write-Host "done"
 
-pip uninstall msrest -y
-pip install msrest==0.5.5
-
 az -h
 az dev -h
 
