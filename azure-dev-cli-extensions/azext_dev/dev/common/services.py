@@ -43,6 +43,16 @@ def get_vss_connection(team_instance):
     return _vss_connection[team_instance]
 
 def _get_credentials(team_instance):
+    token_from_az_login = get_token_from_az_login()
+    if token_from_az_login:
+        logger.info("Creating connection with token from az login.")
+        credentials = BasicAuthentication('', token_from_az_login)
+        if(validate_token_for_instance(team_instance, credentials)):
+            logger.info("able to make connection using az dev token")
+            return credentials
+        else:
+            logger.info("unable to make connection using az dev token")
+
     if _PAT_ENV_VARIABLE_NAME in os.environ:
         pat = os.environ[_PAT_ENV_VARIABLE_NAME]
         logger.info("received PAT from environment variable")
@@ -51,16 +61,24 @@ def _get_credentials(team_instance):
     if pat is not None:
         logger.info("Creating connection with personal access token.")
         credentials = BasicAuthentication('', pat)
-        return credentials
-
-    token_from_az_login = get_token_from_az_login()
-    if token_from_az_login:
-        logger.info("Creating connection with token from az login.")
-        credentials = BasicAuthentication('', token_from_az_login)
-        return credentials  
+        if(validate_token_for_instance(team_instance, credentials)):
+            logger.info("able to make connection using PAT token")
+            return credentials
+        else:
+            logger.info("unable to make connection using PAT token")
    
-    raise_authentication_error('Before you can run VSTS commands, you need to run the login (az login if org is AAD backed else az dev login) command to setup credentials.')
+    raise_authentication_error('Before you can run VSTS commands, you need to run the login command (az login if org is AAD backed else az dev login) to setup credentials.')
 
+def validate_token_for_instance(team_instance, credentials):
+    connection = _get_vss_connection(team_instance, credentials)
+    location_client = connection.get_client('vsts.location.v4_0.location_client.LocationClient')
+    try:
+        location_client.get_connection_data()
+        return True
+    except Exception as ex2:
+        logger.debug(ex2, exc_info=True)
+        logger.info("Failed to connect using provided credentials")
+    return False    
 
 def get_token_from_az_login():
     try:
