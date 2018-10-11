@@ -11,6 +11,7 @@ from collections import OrderedDict
 from knack.log import get_logger
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
+from azure.cli.core._profile import Profile
 from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
 from vsts.vss_connection import VssConnection
 from .arguments import should_detect
@@ -41,19 +42,36 @@ def get_vss_connection(team_instance):
             raise CLIError(ex)
     return _vss_connection[team_instance]
 
-
 def _get_credentials(team_instance):
     if _PAT_ENV_VARIABLE_NAME in os.environ:
         pat = os.environ[_PAT_ENV_VARIABLE_NAME]
+        logger.info("received PAT from environment variable")
     else:
         pat = get_credential(team_instance)
     if pat is not None:
         logger.info("Creating connection with personal access token.")
         credentials = BasicAuthentication('', pat)
         return credentials
-    else:
-        # todo: need to add back az login fallback here.
-        raise_authentication_error('Before you can run VSTS commands, you need to run the login command to setup credentials.')
+
+    token_from_az_login = get_token_from_az_login()
+    if token_from_az_login:
+        logger.info("Creating connection with token from az login.")
+        credentials = BasicAuthentication('', token_from_az_login)
+        return credentials  
+   
+    raise_authentication_error('Before you can run VSTS commands, you need to run the login (az login if org is AAD backed else az dev login) command to setup credentials.')
+
+
+def get_token_from_az_login():
+    try:
+        profile = Profile()
+        user = profile.get_current_account_user()
+        auth_token = profile.get_access_token_for_resource(user, None, '499b84ac-1321-427f-aa17-267ca6975798')
+        return auth_token
+    except Exception as ex:
+        logger.debug('not able to get token from az login')
+        logger.debug(ex, exc_info=True)
+        return ""
 
 
 def _get_vss_connection(team_instance, credentials):
