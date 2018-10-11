@@ -5,7 +5,7 @@ from azext_dev.dev.common.services import (get_work_item_tracking_client,
 def delete_work_item(work_item_id, destroy=False, team_instance=None, project=None, detect=None):
     """Delete a work item.
     :param work_item_id: Unique id of the work item.
-    :type work_item_id: str
+    :type work_item_id: int
     :param destroy: Permanently delete this work item.
     :type destroy: bool
     :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project

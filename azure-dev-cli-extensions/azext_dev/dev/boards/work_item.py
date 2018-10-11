@@ -106,7 +106,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
                      team_instance=None, detect=None):
     """Update work items.
     :param work_item_id: The id of the work item to update.
-    :type work_item_id: str
+    :type work_item_id: int
     :param title: Title of the work item.
     :type title: str
     :param description: Description of the work item.
