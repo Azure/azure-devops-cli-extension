@@ -11,6 +11,7 @@ _ON_OFF_SWITCH_VALUES = ['on', 'off']
 _YES_NO_SWITCH_VALUES = ['yes', 'no']
 _OUTPUT_VALUES = ['json', 'jsonc', 'table', 'tsv']
 _SOURCE_CONTROL_VALUES = ['git', 'tfvc']
+_PROJECT_VISIBILITY_VALUES = ['private', 'public']
 _STATE_VALUES = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting', 'createpending']
 
 
@@ -32,6 +33,7 @@ def load_team_arguments(self, _):
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         context.argument('state', **enum_choice_list(_STATE_VALUES))
         context.argument('project_id', options_list='--id')
+        context.argument('visibility',**enum_choice_list(_PROJECT_VISIBILITY_VALUES))
     with self.argument_context('dev project delete') as context:
         context.argument('yes', options_list=['--yes', '-y'], action='store_true', help='Do not prompt for confirmation.')
     with self.argument_context('dev configure') as context:

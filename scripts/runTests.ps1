@@ -48,16 +48,8 @@ if ($LastExitCode -ne 0) {
 }
 
 $testFiles = @()
-
 $testDirectory = Join-Path -Path $rootPath -ChildPath "tests"
-$reposPrTest = Join-Path -Path $testDirectory -ChildPath "reposPrTest.py"
-$testFiles +=  $reposPrTest
-
-$reposTests = Join-Path -Path $testDirectory -ChildPath "reposRepoTest.py"
-$testFiles += $reposTests
-
-$boardsTests = Join-Path -Path $testDirectory -ChildPath "boardsWorkItemTest.py"
-$testFiles +=  $boardsTests
+$testFiles = Get-ChildItem -path $testDirectory -Recurse -Depth 0 -file -filter *Test.py | Select -ExpandProperty FullName
 
 foreach($testFile in $testFiles){
     if($outputTestResultAsJunit -eq $true)

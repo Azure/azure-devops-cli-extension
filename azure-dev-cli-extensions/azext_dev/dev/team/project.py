@@ -15,8 +15,8 @@ from azext_dev.dev.common.uri import uri_quote
 
 logger = get_logger(__name__)
 
-def create_project(name, team_instance=None, process=None, source_control='git', description=None, detect=None,
-                   open_browser=False):
+def create_project(name, team_instance=None, process=None, source_control='git', description=None, visibility='private',
+                    detect=None, open_browser=False):
     """Create a team project.
     :param name: Name of the new project.
     :type name: str
@@ -26,10 +26,11 @@ def create_project(name, team_instance=None, process=None, source_control='git',
     :param process: Process to use. Default if not specified.
     :type process: str
     :param source_control: Source control type of the initial code repository created.
-                           Valid options: git (the default) and tfvc.
     :type source_control: str
     :param description: Description for the new project.
     :type description: str
+    :param visibility: Project visibility. 
+    :type visibility: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
@@ -44,7 +45,7 @@ def create_project(name, team_instance=None, process=None, source_control='git',
     team_project.description = description
 
     # private is the only allowed value by vsts right now.
-    team_project.visibility = 'private'
+    team_project.visibility = visibility
 
     core_client = get_core_client(team_instance)
 

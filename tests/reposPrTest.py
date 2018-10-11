@@ -6,8 +6,6 @@
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 
-import string 
-import random
 from datetime import datetime
 from .utilities.helper import get_random_name
 
