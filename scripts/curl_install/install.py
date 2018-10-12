@@ -171,7 +171,7 @@ def create_virtualenv(tmp_dir, install_dir):
 def install_cli(install_dir, tmp_dir):
     cli_python = os.path.join(install_dir, 'bin', 'python')
     #cmd = [path_to_pip, 'install', '--cache-dir', tmp_dir, '--pre', CLI_PACKAGE, '--upgrade', '--extra-index-url', CLI_PACKAGE_INDEX_URL]
-    cmd = [cli_python, '-m', 'pip', 'install', '--force-reinstall', '--cache-dir', tmp_dir, CLI_PACKAGE, '--upgrade']    
+    cmd = [cli_python, '-m', 'pip', 'install', '--force-reinstall', '--user', '--cache-dir', tmp_dir, CLI_PACKAGE, '--upgrade']    
     exec_command(cmd, cwd=os.path.dirname(cli_python))
 
 def create_executable(exec_filepath, install_dir):
