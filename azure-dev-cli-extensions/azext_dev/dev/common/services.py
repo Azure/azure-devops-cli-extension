@@ -12,6 +12,7 @@ from knack.log import get_logger
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from azure.cli.core._profile import Profile
+from azure.cli.core.api import load_subscriptions
 from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
 from vsts.vss_connection import VssConnection
 from .arguments import should_detect
@@ -43,15 +44,14 @@ def get_vss_connection(team_instance):
     return _vss_connection[team_instance]
 
 def _get_credentials(team_instance):
-    token_from_az_login = get_token_from_az_login()
-    if token_from_az_login:
-        logger.info("Creating connection with token from az login.")
-        credentials = BasicAuthentication('', token_from_az_login)
-        if(validate_token_for_instance(team_instance, credentials)):
-            logger.info("able to make connection using az dev token")
+    try:
+        token_from_az_login = get_token_from_az_logins(team_instance)
+        if token_from_az_login:
+            credentials = BasicAuthentication('', token_from_az_login)
             return credentials
-        else:
-            logger.info("unable to make connection using az dev token")
+    except Exception as ex:
+        logger.debug("az login is not present")
+        logger.debug(ex, exc_info=True)
 
     if _PAT_ENV_VARIABLE_NAME in os.environ:
         pat = os.environ[_PAT_ENV_VARIABLE_NAME]
@@ -71,20 +71,45 @@ def _get_credentials(team_instance):
 
 def validate_token_for_instance(team_instance, credentials):
     connection = _get_vss_connection(team_instance, credentials)
-    location_client = connection.get_client('vsts.location.v4_0.location_client.LocationClient')
+    core_client = connection.get_client('vsts.core.v4_0.core_client.CoreClient')
     try:
-        location_client.get_connection_data()
+        team_projects = core_client.get_projects(state_filter='all', top=1, skip=0)
         return True
     except Exception as ex2:
         logger.debug(ex2, exc_info=True)
-        logger.info("Failed to connect using provided credentials")
+        logger.debug("Failed to connect using provided credentials")
     return False    
 
-def get_token_from_az_login():
+def get_token_from_az_logins(team_instance):
+    profile = Profile()
+    user = profile.get_current_account_user()
+    subscriptions = profile.load_cached_subscriptions(False)
+    currentActiveSubscription = ''
+    tenantsDict = {}
+    for subscription in subscriptions:
+        tenantsDict[(subscription['tenantId'], subscription['user']['name'])] = ''
+
     try:
-        profile = Profile()
-        user = profile.get_current_account_user()
-        auth_token = profile.get_access_token_for_resource(user, None, '499b84ac-1321-427f-aa17-267ca6975798')
+        for key, value in tenantsDict.items():
+            try:
+                logger.debug('trying to get token for tenant %s and user %s ', key[0], key[1])
+                token = get_token_from_az_login(profile, key[1], key[0])
+                credentials = BasicAuthentication('', token)
+                if(validate_token_for_instance(team_instance, credentials)):
+                    return token
+                else:
+                    logger.debug('invalid token obtained for tenant %s', key[0])
+            except Exception as ex2:
+                logger.debug(ex2)
+                logger.debug('failed while trying to get token for tenant %s', key[0])
+    except Exception as ex:
+        logger.debug(ex)
+
+    return ''
+
+def get_token_from_az_login(profile, user, tenant):
+    try:
+        auth_token = profile.get_access_token_for_resource(user, tenant, '499b84ac-1321-427f-aa17-267ca6975798')
         return auth_token
     except Exception as ex:
         logger.debug('not able to get token from az login')
