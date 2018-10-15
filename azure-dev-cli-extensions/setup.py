@@ -18,13 +18,9 @@ NAME = 'azure-dev-cli-extensions'
 # http://pypi.python.org/pypi/setuptools
 
 REQUIRES = [
-    'knack==0.4.3',
     'python-dateutil==2.7.3',
     'vsts~=0.1.16.dev',
-    'keyring~=13.2.1',
-    'colorama>=0.3.9',
-    'humanfriendly==4.7',
-    'setuptools'
+    'keyring~=13.2.1'
 ]
 
 # Version extraction inspired from 'requests'
