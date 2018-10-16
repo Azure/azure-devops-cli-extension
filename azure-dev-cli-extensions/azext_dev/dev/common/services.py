@@ -21,6 +21,7 @@ from ._credentials import get_credential
 from .git import get_remote_url
 from .version import VERSION
 from .vsts_git_url_info import VstsGitUrlInfo
+from .uri import uri_parse_instance_from_git_uri
 
 logger = get_logger(__name__)
 
@@ -70,6 +71,9 @@ def _get_credentials(team_instance):
     raise_authentication_error('Before you can run VSTS commands, you need to run the login command (az login if org is AAD backed else az dev login) to setup credentials.')
 
 def validate_token_for_instance(team_instance, credentials):
+    logger.debug("instance recieved in validate_token_for_instance %s", team_instance)
+    team_instance = uri_parse_instance_from_git_uri(team_instance)
+    logger.debug("instance processed in validate_token_for_instance %s", team_instance)
     connection = _get_vss_connection(team_instance, credentials)
     core_client = connection.get_client('vsts.core.v4_0.core_client.CoreClient')
     try:
@@ -92,7 +96,7 @@ def get_token_from_az_logins(team_instance):
     try:
         for key, value in tenantsDict.items():
             try:
-                logger.debug('trying to get token for tenant %s and user %s ', key[0], key[1])
+                logger.debug('trying to get token (temp) for tenant %s and user %s ', key[0], key[1])
                 token = get_token_from_az_login(profile, key[1], key[0])
                 credentials = BasicAuthentication('', token)
                 if(validate_token_for_instance(team_instance, credentials)):

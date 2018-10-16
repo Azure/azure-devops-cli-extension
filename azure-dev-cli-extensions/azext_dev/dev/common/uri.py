@@ -16,3 +16,16 @@ def uri_parse(url):
 
 def uri_quote(query_data):
     return quote(query_data)
+
+def uri_parse_instance_from_git_uri(uri):
+    if("/_git" in uri):
+        parsed_uri = urlparse(uri)
+        #old Uri format
+        if("visualstudio.com" in uri):
+            return '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+        #new Uri format
+        if("dev.azure.com" in uri):
+            org_name = parsed_uri.path.strip("/").split("/")[0]
+            return parsed_uri.scheme + "://" + parsed_uri.hostname + "/" + org_name
+
+    return uri
