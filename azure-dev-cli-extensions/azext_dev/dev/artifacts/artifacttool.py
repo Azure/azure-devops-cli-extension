@@ -9,7 +9,7 @@ import os
 from knack.log import get_logger
 from knack.util import CLIError
 
-from vsts.cli.common.services import _get_credentials
+from azext_dev.dev.common.services import _get_credentials
 
 logger = get_logger(__name__)
 

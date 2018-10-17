@@ -3,8 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.arguments import ArgumentsContext
-
-def load_package_arguments(cli_command_loader):
-    with ArgumentsContext(cli_command_loader, 'package universal') as ac:
-        ac.argument('team_instance', options_list=('--instance', '-i'))
+def load_package_commands(cli_command_loader):
+    with self.command_group('artifacts universal') as g:
+        g.custom_command('publish', 'artifacts.universal.publish_package')
+        g.custom_command('download', 'artifacts.universal.download_package')

@@ -7,7 +7,7 @@ import sys
 
 import colorama
 from knack.log import get_logger
-from vsts.cli.common.services import get_core_client, resolve_instance
+from azext_dev.dev.common.services import get_core_client, resolve_instance
 
 from .artifacttool import ArtifactToolInvoker
 from .artifacttool_updater import ArtifactToolUpdater

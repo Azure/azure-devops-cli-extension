@@ -2,12 +2,18 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
+import pkg_resources
+pkg_resources.declare_namespace(__name__)
 
-import platform
+import knack.help # pylint: disable=unused-import
 
-from knack.commands import CommandGroup
+from ._help import load_artifacts_help
 
-def load_package_commands(cli_command_loader):
-    with CommandGroup(cli_command_loader, 'package universal', 'vsts.cli.package.common.universal#{}') as g:
-        g.command('publish', 'publish_package')
-        g.command('download', 'download_package')
+def load_params(_):
+    import knack.arguments # pylint: disable=redefined-outer-name
+
+
+def load_commands():
+    import knack.commands # pylint: disable=redefined-outer-name
+
+load_artifacts_help()

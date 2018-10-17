@@ -7,14 +7,15 @@ from knack.help_files import helps  # pylint: disable=unused-import
 
 # pylint: disable=line-too-long
 
-helps['package'] = """
-    type: group
-    short-summary: Commands to work with and manage packages
-    long-summary:
-"""
+def load_artifacts_help():
+    helps['artifacts'] = """
+        type: group
+        short-summary: Manage azure devops artifacts.
+        long-summary:
+    """
 
-helps['package universal'] = """
-    type: group
-    short-summary: (PREVIEW) Manage Universal Packages
-    long-summary:
-"""
+    helps['artifacts universal'] = """
+        type: group
+        short-summary: (PREVIEW) Manage Universal Packages
+        long-summary:
+    """
