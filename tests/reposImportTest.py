@@ -28,14 +28,23 @@ class ReposImportTests(ScenarioTest):
             import_repo_output = self.cmd(import_repo_command).get_output_in_json()
             import_repo_status = import_repo_output["status"]
             assert import_repo_status == 'completed'
+            list_repo_command = 'az repos repo list --project ImportRepoTest --output json --detect off'
+            verified_repo_list = False
+            list_repo_output_before_delete = self.cmd(list_repo_command).get_output_in_json()
+            for repos in list_repo_output_before_delete:
+                if(repos["id"] == created_repo_id):
+                    verified_repo_list = True
+            assert verified_repo_list == True
+            
 
         finally:
             #TestCleanup - Delete the temporary repo we created for the test
             list_repo_command = 'az repos repo list --project ImportRepoTest --output json --detect off'
-            list_repo_output_before_delete = self.cmd(list_repo_command).get_output_in_json()
             delete_repo_command = 'az repos repo delete --detect off --id ' + created_repo_id + ' --project ImportRepoTest -y --output json'
             self.cmd(delete_repo_command)
             
             #Verify Deletion
             list_repo_output_after_delete = self.cmd(list_repo_command).get_output_in_json()
-            assert len(list_repo_output_before_delete) == len(list_repo_output_after_delete) + 1
+            for repos in list_repo_output_after_delete:
+                if(repos["id"] == created_repo_id):
+                    assert 0
