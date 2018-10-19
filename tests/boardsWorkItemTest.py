@@ -3,17 +3,14 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from vsts.exceptions import VstsServiceError
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from vsts.exceptions import VstsServiceError
-from .utilities.workitem_helper import delete_work_item
-
 
 class AzureDevTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     def test_workItemCreateShowUpdateDelete(self):
         wi_name = 'samplebug'
-
         wi_test_project_name = 'WorkItemCreateShowUpdateDeleteTests'
         wi_account_instance='https://AzureDevOpsCliTest.visualstudio.com'
         wi_account_pat = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
@@ -45,4 +42,14 @@ class AzureDevTests(ScenarioTest):
 
         finally:
             #delete the work item created for test
-            delete_wi = delete_work_item(wi_id, False, wi_account_instance, wi_test_project_name,'off')
+            delete_wi_command = 'az boards work-item delete -i ' + wi_account_instance + ' --id ' + str(wi_id) + ' --yes --project ' + wi_test_project_name + ' --detect off --output json'
+            delete_wi_response = self.cmd(delete_wi_command , checks=[
+                self.check('id', wi_id)
+            ]).get_output_in_json()
+
+            # verify if the work item is deleted or not
+            with self.assertRaises(VstsServiceError) as wi_except:
+                wi_show = self.cmd(show_wi_command).get_output_in_json()
+            self.assertEqual(str(wi_except.exception), 'TF401232: Work item ' + str(wi_id) + ' does not exist, or you do not have permissions to read it.')
+
+
