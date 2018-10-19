@@ -18,7 +18,7 @@ import requests
 
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.cli.common.services import get_vss_connection
+from azext_dev.dev.common.services import get_vss_connection
 
 logger = get_logger(__name__)
 
@@ -70,7 +70,7 @@ class ArtifactToolUpdater:
 
     def _get_current_release(self, team_instance, override_version):
         connection = get_vss_connection(team_instance)
-        client = connection.get_client('vsts.cli.package.common.client_tool.client_tool_client.ClientToolClient')
+        client = connection.get_client('azext_dev.dev.artifacts.client_tool.client_tool_client.ClientToolClient')
         logger.debug("Looking up current version of ArtifactTool...")
         release = client.get_clienttool_release("ArtifactTool", os_name=platform.system(), arch=platform.machine(), version=override_version)
         return (release.uri, self._compute_id(release)) if release is not None else None

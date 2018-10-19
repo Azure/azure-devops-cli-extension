@@ -7,12 +7,6 @@ from knack.help_files import helps
 
 from azure.cli.core import AzCommandsLoader
 
-helps['hello world'] = """
-    type: command
-    short-summary: Say hello world.
-"""
-
-
 class DevCommandsLoader(AzCommandsLoader):
 
     def __init__(self, cli_ctx=None):
@@ -32,6 +26,8 @@ class DevCommandsLoader(AzCommandsLoader):
         load_code_commands(self, args)
         from azext_dev.dev.team.commands import load_team_commands
         load_team_commands(self, args)
+        from azext_dev.dev.artifacts.commands import load_package_commands
+        load_package_commands(self, args)
         return self.command_table
 
     def load_arguments(self, command):
@@ -45,5 +41,7 @@ class DevCommandsLoader(AzCommandsLoader):
         load_code_arguments(self, command)
         from azext_dev.dev.team.arguments import load_team_arguments
         load_team_arguments(self, command)
-
+        from azext_dev.dev.artifacts.arguments import load_package_arguments
+        load_package_arguments(self, command)
+        
 COMMAND_LOADER_CLS = DevCommandsLoader
