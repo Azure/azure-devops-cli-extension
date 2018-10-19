@@ -9,9 +9,9 @@ from azure_devtools.scenario_tests import AllowLargeResponse
 from datetime import datetime
 from .utilities.helper import get_random_name
 
-class AzureDevTests(ScenarioTest):
+class AzReposPrTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
-    def test_pull_request_createUpdateVoteListAbandonReactivateComplete(self):
+    def test_pull_request_createUpdateVoteListAbandonReactivateCompleteReviewers(self):
         self.cmd('az dev configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com')
         self.cmd('az dev login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
         #Generate random repo name
@@ -46,21 +46,12 @@ class AzureDevTests(ScenarioTest):
             update_pr_description = update_pr_output["description"]
             assert update_pr_description == updated_description
             
-            #Vote on PR 
-            vote_pr_command = 'az repos pr set-vote --id ' + create_pr_id + ' --vote approve --detect Off --output json'
-            vote_pr_output = self.cmd(vote_pr_command).get_output_in_json()
-            vote_pr_status = vote_pr_output["vote"]
-            #From API documentation 10 - approved 5 - approved with suggestions 0 - no vote -5 - waiting for author -10 - rejected
-            assert vote_pr_status == 10
-            
             #List PR
-            pr_list = self.cmd('az repos pr list --project PullRequestLiveTest --repository PullRequestLiveTest --detect Off --output json', checks=[
-                self.check("[0].createdBy.displayName", "Gaurav Saral"),
-                self.check("[0].description", 'Updated README.md'),
-                self.check("[1].description", 'Updated EXAMPLE'),
+            pr_list_output = self.cmd('az repos pr list -p PullRequestLiveTest -r ' + created_repo_id + ' --detect Off --output json', checks=[
+                self.check("[0].description", updated_description)
             ]).get_output_in_json()
-            assert len(pr_list) > 0
-            
+            assert len(pr_list_output) > 0
+
             #Show PR 
             show_pr_command = 'az repos pr show --id ' + create_pr_id + ' --detect Off --output json'
             show_pr_output = self.cmd(show_pr_command).get_output_in_json()
@@ -81,6 +72,31 @@ class AzureDevTests(ScenarioTest):
             reactivate_pr_status = reactivate_pr_output["status"]
             assert reactivate_pr_status == 'active'
             
+            #Reviewers test before completing the PR
+            #add pr reviewers
+            add_pr_reviewers_command = 'az repos pr reviewers add --id ' + create_pr_id + ' --reviewers atbagga --detect off --output json'
+            add_pr_reviewers_output = self.cmd(add_pr_reviewers_command).get_output_in_json()
+            assert len(add_pr_reviewers_output) > 0
+
+            #list pr reviewers
+            list_pr_reviewers_command = 'az repos pr reviewers list --id ' + create_pr_id + ' --detect off --output json'
+            list_pr_reviewers_output = self.cmd(list_pr_reviewers_command).get_output_in_json()
+            assert len(list_pr_reviewers_output) > 0
+
+            #Remove pr reviewers
+            remove_pr_reviewers_command = 'az repos pr reviewers remove --id ' + create_pr_id + ' --reviewers atbagga --detect off --output json'
+            self.cmd(remove_pr_reviewers_command).get_output_in_json()
+            #verify pr reviewers removed
+            list_pr_reviewers_output = self.cmd(list_pr_reviewers_command).get_output_in_json()
+            assert len(list_pr_reviewers_output) == 0
+
+            #Vote on PR 
+            vote_pr_command = 'az repos pr set-vote --id ' + create_pr_id + ' --vote approve --detect Off --output json'
+            vote_pr_output = self.cmd(vote_pr_command).get_output_in_json()
+            vote_pr_status = vote_pr_output["vote"]
+            #From API documentation 10 - approved 5 - approved with suggestions 0 - no vote -5 - waiting for author -10 - rejected
+            assert vote_pr_status == 10
+
             #Complete PR 
             complete_pr_command = 'az repos pr complete --id ' + create_pr_id + ' --detect Off --output json'
             complete_pr_output = self.cmd(complete_pr_command).get_output_in_json()
