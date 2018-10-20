@@ -138,6 +138,73 @@ def build_list(definition_ids=None, branch=None, team_instance=None, project=Non
                                 requested_for=resolve_identity_as_id(requested_for, team_instance))
     return builds
 
+def add_build_tags(build_id, tags, team_instance=None, project=None, detect=None):
+    """Adds the tag(s) for a build.
+    :param build_id: ID of the build.
+    :type build_id: int
+    :param tags: Tag(s) to be added to the build. [Comma seperated values]
+    :type tags: str
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :type team_instance: str
+    :param project: Name or ID of the team project.
+    :type project: str
+    :param detect: Automatically detect instance and project. Default is "on".
+    :type detect: str
+    :rtype: list of str
+    """
+    team_instance, project = resolve_instance_and_project(detect=detect,
+                                                            team_instance=team_instance,
+                                                            project=project)
+    client = get_build_client(team_instance)
+    tags = list(map(str, tags.split(',')))
+    if len(tags) == 1:
+        tags = client.add_build_tag(project=project, build_id=build_id, tag=tags[0])
+    else:
+        tags = client.add_build_tags(tags=tags, project=project, build_id=build_id)
+    return tags
+
+def delete_build_tag(build_id, tag, team_instance=None, project=None, detect=None):
+    """Deletes a tag from a build.
+    :param build_id: ID of the build.
+    :type build_id: int
+    :param tag: Tag to be deleted from the build.
+    :type tag: str
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :type team_instance: str
+    :param project: Name or ID of the team project.
+    :type project: str
+    :param detect: Automatically detect instance and project. Default is "on".
+    :type detect: str
+    :rtype: list of str
+    """
+    team_instance, project = resolve_instance_and_project(detect=detect,
+                                                            team_instance=team_instance,
+                                                            project=project)
+    client = get_build_client(team_instance)
+    tags = client.delete_build_tag(project=project, build_id=build_id, tag=tag)
+    return tags
+
+def get_build_tags(build_id, team_instance=None, project=None, detect=None):
+    """Gets the tags for a build
+    :param build_id: ID of the build.
+    :type build_id: int
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :type team_instance: str
+    :param project: Name or ID of the team project.
+    :type project: str
+    :param detect: Automatically detect instance and project. Default is "on".
+    :type detect: str
+    :rtype: list of str
+    """
+    team_instance, project = resolve_instance_and_project(detect=detect,
+                                                            team_instance=team_instance,
+                                                            project=project)
+    client = get_build_client(team_instance)
+    if build_id is None:
+        tags = client.get_tags(project)
+    else:
+        tags = client.get_build_tags(build_id=build_id, project=project)
+    return tags
 
 def _open_build(build, team_instance):
     """Open the build results page in your web browser.
