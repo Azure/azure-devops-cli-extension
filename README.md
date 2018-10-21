@@ -22,7 +22,7 @@ vsts code -h
 
 ### Commands
 
-Use the VSTS CLI to work with and manage build, code repositories, projects, work items, and more in your VSTS account or on-premises Team Foundation Server collection.
+Use the VSTS CLI to work with and manage to build, code repositories, projects, work items, and more in your VSTS account or on-premises Team Foundation Server collection.
 
 Here are just a few of the commands:
 
@@ -52,12 +52,12 @@ The VSTS CLI picks the network proxy configuration from the environment variable
 
 ### Configure defaults, Git aliases, and more
 
-You can change your default settings using the `vsts configure` command, for example you can set the default output format for all commands. The options are:
+You can change your default settings using the `vsts configure` command, for example, you can set the default output format for all commands. The options are:
 
 * JSON
 * JSON (with color highlighting)
 * Table (human-readable tabular output)
-* TSV (tab and new line delimited)
+* TSV (tab and newline delimited)
 
 You can also add aliases in Git for certain VSTS CLI commands. For example, `git pr list` will be an alias for `vsts code pr list`.
 
@@ -117,7 +117,7 @@ To disable telemetry use the `vsts configure` command.
 
 ## Feedback
 
-If you have any issues, questions, comments, or feature requests regarding this tool, please file an issue within this github repo using our contribution guidelines. 
+If you have any issues, questions, comments, or feature requests regarding this tool, please file an issue within this GitHub repo using our contribution guidelines. 
 
 To find where to provide feedback from the CLI, run `vsts feedback`.
 
