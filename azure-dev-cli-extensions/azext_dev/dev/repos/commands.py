@@ -68,7 +68,7 @@ def load_code_commands(self, _):
 
         # pr policy commands
         g.custom_command('pr policies list', 'dev.repos.pull_request.list_pr_policies', table_transformer=transform_policies_table_output)
-        g.custom_command('pr policies queue', 'dev.repos.pull_request.queue_pr_policy', table_transformer=transform_policies_table_output)
+        g.custom_command('pr policies queue', 'dev.repos.pull_request.queue_pr_policy', table_transformer=transform_policy_table_output)
 
         # repository commands
         g.custom_command('repo create', 'dev.repos.repository.create_repo', table_transformer=transform_repo_table_output)

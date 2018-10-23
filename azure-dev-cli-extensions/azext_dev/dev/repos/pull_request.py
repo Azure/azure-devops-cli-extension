@@ -547,6 +547,8 @@ def list_pull_request_work_items(pull_request_id, team_instance=None, detect=Non
             ids.append(ref.id)
         wit_client = get_work_item_tracking_client(team_instance)
         return wit_client.get_work_items(ids=ids)
+    else:
+        return refs
 
 
 def _update_pull_request_status(pull_request_id, new_status, team_instance=None, detect=None):

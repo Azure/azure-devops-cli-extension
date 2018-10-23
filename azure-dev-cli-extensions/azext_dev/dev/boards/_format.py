@@ -62,7 +62,7 @@ def transform_work_item_query_result_table_output(result):
 
 
 def transform_work_item_query_result_row_output(row):
-    from azext_dev.dev.common.work_item import get_last_query_result
+    from azext_dev.dev.boards.work_item import get_last_query_result
     table_row = OrderedDict()
     max_columns = 5
     i = 0
