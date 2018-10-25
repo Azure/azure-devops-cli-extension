@@ -89,7 +89,13 @@ def get_token_from_az_logins(team_instance):
     user = profile.get_current_account_user()
     subscriptions = profile.load_cached_subscriptions(False)
     currentActiveSubscription = ''
-    tenantsDict = {}
+    tenantsDict = OrderedDict()
+
+    # first loop to make sure the first identity we try with is coming from selected subscription
+    for subscription in subscriptions:
+        if(subscription['isDefault'] == "true"):
+            tenantsDict[(subscription['tenantId'], subscription['user']['name'])] = ''
+
     for subscription in subscriptions:
         tenantsDict[(subscription['tenantId'], subscription['user']['name'])] = ''
 
