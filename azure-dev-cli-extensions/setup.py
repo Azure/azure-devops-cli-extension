@@ -19,7 +19,7 @@ NAME = 'azure-dev-cli-extensions'
 
 REQUIRES = [
     'python-dateutil==2.7.3',
-    'vsts==0.1.18',
+    'vsts==0.1.20',
     'keyring~=13.2.1'
 ]
 
