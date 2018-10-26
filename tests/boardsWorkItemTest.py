@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from vsts.exceptions import VstsServiceError
+from knack.util import CLIError
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 
@@ -48,7 +48,7 @@ class AzureDevTests(ScenarioTest):
             ]).get_output_in_json()
 
             # verify if the work item is deleted or not
-            with self.assertRaises(VstsServiceError) as wi_except:
+            with self.assertRaises(CLIError) as wi_except:
                 wi_show = self.cmd(show_wi_command).get_output_in_json()
             self.assertEqual(str(wi_except.exception), 'TF401232: Work item ' + str(wi_id) + ' does not exist, or you do not have permissions to read it.')
 

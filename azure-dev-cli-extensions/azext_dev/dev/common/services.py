@@ -347,6 +347,10 @@ def raise_authentication_error(message):
     raise get_authentication_error(message)
 
 
+def clear_connection_cache():
+    _vss_connection.clear()
+
+
 _DEFAULTS_SECTION = 'defaults'
 _TEAM_INSTANCE_DEFAULT = 'instance'
 _TEAM_PROJECT_DEFAULT = 'project'

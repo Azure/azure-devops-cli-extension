@@ -236,8 +236,12 @@ def show_work_item(work_item_id, open_browser=False, team_instance=None, detect=
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    client = get_work_item_tracking_client(team_instance)
-    work_item = client.get_work_item(work_item_id)
+    try:
+        client = get_work_item_tracking_client(team_instance)
+        work_item = client.get_work_item(work_item_id)
+    except VstsServiceError as ex:
+        _handle_vsts_service_error(ex)
+
     if open_browser:
         _open_work_item(work_item, team_instance)
     return work_item
