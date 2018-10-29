@@ -59,7 +59,7 @@ def _handle_global_configuration():
         answers['output_type_prompt'] = output_index
         answers['output_type_options'] = str(OUTPUT_LIST)
         try:
-            from vsts.cli.code.common.git_alias import setup_git_aliases, are_git_aliases_setup
+            from azext_dev.dev.repos.git_alias import setup_git_aliases, are_git_aliases_setup
             if not are_git_aliases_setup():
                 setup_aliases = prompt_y_n(MSG_PROMPT_GIT_ALIAS, default='y')
                 if setup_aliases:
