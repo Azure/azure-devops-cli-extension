@@ -9,15 +9,15 @@ from azure_devtools.scenario_tests import AllowLargeResponse
 class DevopsProjectTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     def test_devops_projects_CreateListShowDelete(self):
-        self.cmd('az dev configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com')
-        self.cmd('az dev login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
+        self.cmd('az devops configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com')
+        self.cmd('az devops login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
         
         random_project_name = self.create_random_name(prefix='projectTest', length=15)
         try:
             project_description = 'This is a sample project description'
             source_control_type = 'git'
             project_visibility = 'public'
-            create_project_command = ('az dev project create --name ' + random_project_name + ' -d "' + project_description + 
+            create_project_command = ('az devops project create --name ' + random_project_name + ' -d "' + project_description + 
             '" --source-control ' + source_control_type + ' --visibility ' + project_visibility + ' --output json --detect off')
             project_create_output = self.cmd(create_project_command).get_output_in_json()
             created_project_id = project_create_output["id"]
@@ -26,7 +26,7 @@ class DevopsProjectTests(ScenarioTest):
             assert project_visibility == project_create_output["visibility"].lower()
             assert source_control_type == project_create_output["capabilities"]["versioncontrol"]["sourceControlType"].lower()
             
-            list_project_command = 'az dev project list --output json --detect off'
+            list_project_command = 'az devops project list --output json --detect off'
             list_project_output = self.cmd(list_project_command).get_output_in_json()
             verified_project_list = False
             assert len(list_project_output) > 1
@@ -35,18 +35,18 @@ class DevopsProjectTests(ScenarioTest):
                     verified_project_list = True
             assert verified_project_list == True
             
-            show_project_command = 'az dev project show --id ' + created_project_id + ' --output json --detect off'
+            show_project_command = 'az devops project show --id ' + created_project_id + ' --output json --detect off'
             show_project_output = self.cmd(show_project_command).get_output_in_json()
             assert show_project_output["id"] == created_project_id
             assert show_project_output["name"] == random_project_name
 
         finally:
             #Delete the project create for the test
-            delete_project_command = 'az dev project delete --id ' + created_project_id + ' -y --output json --detect off'
+            delete_project_command = 'az devops project delete --id ' + created_project_id + ' -y --output json --detect off'
             self.cmd(delete_project_command)
             
             #Verify Deletion
-            list_project_command = 'az dev project list --output json --detect off'
+            list_project_command = 'az devops project list --output json --detect off'
             list_project_output_after_delete = self.cmd(list_project_command).get_output_in_json()
             for project in list_project_output_after_delete:
                 if (project["id"] == created_project_id):

@@ -21,8 +21,8 @@ Also refer to the ["get started" guide](https://aka.ms/vsts-cli-docs-getstarted)
 For help, pass the `-h` or `--help` argument, for example:
 
 ```bash
-az dev -h
-az dev code -h
+az devops -h
+az devops code -h
 ```
 
 ### Commands
@@ -31,14 +31,14 @@ Use the Azure Devops CLI to work with and manage build, code repositories, proje
 
 Here are just a few of the commands:
 
-* az dev build queue
-* az dev code pr list
-* az dev code pr complete
-* az dev code pr reviewers add
-* az dev code pr work-items list
-* az dev project create
-* az dev work item create
-* az dev work item update
+* az devops build queue
+* az devops code pr list
+* az devops code pr complete
+* az devops code pr reviewers add
+* az devops code pr work-items list
+* az devops project create
+* az devops work item create
+* az devops work item update
 
 See the full list of [available commands](https://aka.ms/vsts-cli-commands).
 
@@ -47,7 +47,7 @@ See the full list of [available commands](https://aka.ms/vsts-cli-commands).
 Create a personal access token and provide to the Azure Devops CLI via the login command:
 
 ```bash
-az dev login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
+az devops login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
 ```
 
 ### Using Azure Devops CLI Behind a Proxy
@@ -56,14 +56,14 @@ The Azure Devops CLI picks the network proxy configuration from the environment 
 
 ### Configure defaults, Git aliases, and more
 
-You can change your default settings using the `az dev configure` command, for example you can set the default output format for all commands. The options are:
+You can change your default settings using the `az devops configure` command, for example you can set the default output format for all commands. The options are:
 
 * JSON
 * JSON (with color highlighting)
 * Table (human-readable tabular output)
 * TSV (tab and new line delimited)
 
-You can also add aliases in Git for certain Azure Devops CLI commands. For example, `git pr list` will be an alias for `az dev code pr list`.
+You can also add aliases in Git for certain Azure Devops CLI commands. For example, `git pr list` will be an alias for `az devops code pr list`.
 
 ### Querying and filtering output
 
@@ -117,13 +117,13 @@ MIT License
 
 Azure Devops CLI collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/en-us/privacystatement) to learn more. 
 
-To disable telemetry use the `az dev configure` command.
+To disable telemetry use the `az devops configure` command.
 
 ## Feedback
 
 If you have any issues, questions, comments, or feature requests regarding this tool, please file an issue within this github repo using our contribution guidelines. 
 
-To find where to provide feedback from the CLI, run `az dev feedback`.
+To find where to provide feedback from the CLI, run `az devops feedback`.
 
 ## Contribute
 

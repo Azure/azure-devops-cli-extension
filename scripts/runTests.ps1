@@ -1,7 +1,7 @@
 param([Boolean]$outputTestResultAsJunit=$false)
 
 $rootPath = Get-Location
-$extensionDirectory = Join-Path -Path $rootPath -ChildPath "azure-dev-cli-extensions"
+$extensionDirectory = Join-Path -Path $rootPath -ChildPath "Azure-DevOps-Cli-Extensions"
 
 Set-Location $extensionDirectory
 Write-Host "installing azure dev cli extension"
@@ -14,8 +14,8 @@ Set-Location $rootPath
 
 $ErrorActionPreference = "Continue"
 try {
-    Write-Host "trying to uninstall extension of az dev extension was installed"
-    $uninstallCommand = "az extension remove -n azure-dev-cli-extensions **2>&1 | Write-Host**"
+    Write-Host "trying to uninstall extension of az devops extension was installed"
+    $uninstallCommand = "az extension remove -n Azure-DevOps-Cli-Extensions **2>&1 | Write-Host**"
     Invoke-Expression $uninstallCommand
     Write-Host "extension was installed and it was removed"
 }
@@ -31,7 +31,7 @@ az extension add --source $extensions[0].FullName -y
 Write-Host "done"
 
 az -h
-az dev -h
+az devops -h
 
 $testFailureFound = $false
 

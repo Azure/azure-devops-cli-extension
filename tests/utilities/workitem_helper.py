@@ -1,4 +1,4 @@
-from azext_dev.dev.common.services import (get_work_item_tracking_client,
+from azext_devops.dev.common.services import (get_work_item_tracking_client,
                                       resolve_instance,
                                       resolve_instance_and_project)
 

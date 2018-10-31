@@ -22,7 +22,7 @@ Write-Output "Installed."
 az --h
 
 try{
-    $logoutCommand = "az dev logout **2>&1 | Write-Host**"
+    $logoutCommand = "az devops logout **2>&1 | Write-Host**"
     Invoke-Expression $logoutCommand
     Write-Host "logout done"
 }

@@ -9,8 +9,8 @@ from azure_devtools.scenario_tests import AllowLargeResponse
 class PipelinesBuildTaskTests(ScenarioTest): 
     @AllowLargeResponse(size_kb=3072)
     def test_build_task_listShow(self):
-        self.cmd('az dev configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com project=buildtests')
-        self.cmd('az dev login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
+        self.cmd('az devops configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com project=buildtests')
+        self.cmd('az devops login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
 
         list_task_command = 'az pipelines build task list --detect off --output json'
         list_task_output = self.cmd(list_task_command).get_output_in_json()

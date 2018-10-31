@@ -1,0 +1,47 @@
+# --------------------------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for license information.
+# --------------------------------------------------------------------------------------------
+ 
+from knack.help_files import helps
+
+from azure.cli.core import AzCommandsLoader
+
+class DevCommandsLoader(AzCommandsLoader):
+
+    def __init__(self, cli_ctx=None):
+        from azure.cli.core.commands import CliCommandType
+        custom_type = CliCommandType(operations_tmpl='azext_devops#{}')
+        super(DevCommandsLoader, self).__init__(cli_ctx=cli_ctx,
+                                                       custom_command_type=custom_type)
+
+    def load_command_table(self, args):
+        from azext_devops.dev.admin.commands import load_admin_commands
+        load_admin_commands(self, args)
+        from azext_devops.dev.boards.commands import load_work_commands
+        load_work_commands(self, args)
+        from azext_devops.dev.pipelines.commands import load_build_commands
+        load_build_commands(self, args)
+        from azext_devops.dev.repos.commands import load_code_commands
+        load_code_commands(self, args)
+        from azext_devops.dev.team.commands import load_team_commands
+        load_team_commands(self, args)
+        from azext_devops.dev.artifacts.commands import load_package_commands
+        load_package_commands(self, args)
+        return self.command_table
+
+    def load_arguments(self, command):
+        from azext_devops.dev.admin.arguments import load_admin_arguments
+        load_admin_arguments(self, command)
+        from azext_devops.dev.boards.arguments import load_work_arguments
+        load_work_arguments(self, command)
+        from azext_devops.dev.pipelines.arguments import load_build_arguments
+        load_build_arguments(self, command)
+        from azext_devops.dev.repos.arguments import load_code_arguments
+        load_code_arguments(self, command)
+        from azext_devops.dev.team.arguments import load_team_arguments
+        load_team_arguments(self, command)
+        from azext_devops.dev.artifacts.arguments import load_package_arguments
+        load_package_arguments(self, command)
+        
+COMMAND_LOADER_CLS = DevCommandsLoader

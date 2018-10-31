@@ -15,8 +15,8 @@ class AzureDevTests(ScenarioTest):
         wi_account_instance='https://AzureDevOpsCliTest.visualstudio.com'
         wi_account_pat = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
 
-        self.cmd('az dev configure --defaults instance=' + wi_account_instance)
-        self.cmd('az dev login --token ' + wi_account_pat)
+        self.cmd('az devops configure --defaults instance=' + wi_account_instance)
+        self.cmd('az devops login --token ' + wi_account_pat)
 
         try:
             create_wi_command = 'az boards work-item create --project '+ wi_test_project_name +' --title ' + wi_name +' --type Bug  --detect off --output json'

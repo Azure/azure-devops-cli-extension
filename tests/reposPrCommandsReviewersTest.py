@@ -12,8 +12,8 @@ from .utilities.helper import get_random_name
 class AzReposPrTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     def test_pull_request_createUpdateVoteListAbandonReactivateCompleteReviewers(self):
-        self.cmd('az dev configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com')
-        self.cmd('az dev login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
+        self.cmd('az devops configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com')
+        self.cmd('az devops login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
         #Generate random repo name
         random_repo_name = get_random_name(8) 
         

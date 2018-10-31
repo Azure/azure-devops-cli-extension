@@ -12,8 +12,8 @@ from .utilities.helper import get_random_name
 class AzReposPrPolicyTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     def test_pull_request_policies_workitems(self):
-        self.cmd('az dev configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com')
-        self.cmd('az dev login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
+        self.cmd('az devops configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com')
+        self.cmd('az devops login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
         
         #List PR
         pr_list = self.cmd('az repos pr list --project PullRequestLiveTest --repository PullRequestLiveTest --detect off --output json', checks=[

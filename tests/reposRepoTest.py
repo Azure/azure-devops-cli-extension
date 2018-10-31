@@ -12,8 +12,8 @@ class ReposRepoTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     def test_repos_createListShowDelete(self):
         random_name = get_random_name(8)
-        self.cmd('az dev configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com')
-        self.cmd('az dev login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
+        self.cmd('az devops configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com')
+        self.cmd('az devops login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
         try:
             create_repo_command = 'az repos repo create --name ' + random_name +' --project RepoCreateListShowDeleteTests --output json --detect off'
             repo_create_output = self.cmd(create_repo_command).get_output_in_json()
