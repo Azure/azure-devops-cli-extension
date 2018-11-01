@@ -1,5 +1,5 @@
-[![Azure DevOps Services](https://mseng.visualstudio.com/_apis/public/build/definitions/698eacea-9ea2-4eb8-80a4-d06170edf6bc/5908/badge)](https://mseng.visualstudio.com/azdos-cli/_build/index?context=mine&path=%5C&definitionId=6169&_a=completed)
-[![Python](https://img.shields.io/pypi/pyversions/azdos-cli.svg)](https://pypi.python.org/pypi/azdos-cli)
+[![Azure DevOps Services](https://mseng.visualstudio.com/_apis/public/build/definitions/698eacea-9ea2-4eb8-80a4-d06170edf6bc/5908/badge)](https://mseng.visualstudio.com/vsts-cli/_build/index?context=mine&path=%5C&definitionId=6169&_a=completed)
+[![Python](https://img.shields.io/pypi/pyversions/vsts-cli.svg)](https://pypi.python.org/pypi/vsts-cli)
 
 # Microsoft Azure DevOps Services CLI 
 
@@ -9,15 +9,15 @@ Azure DevOps CLI is a new command line interface for [Azure DevOps Services](htt
 
 ## Get started
 
-Refer to the [install guide](https://aka.ms/azdos-cli-docs-install) for detailed install instructions for Windows, Mac, and Linux.
+Refer to the [install guide](https://aka.ms/vsts-cli-docs-install) for detailed install instructions for Windows, Mac, and Linux.
 
-Also refer to the ["get started" guide](https://aka.ms/azdos-cli-docs-getstarted) for in-depth instructions including first-time setup steps.
+Also refer to the ["get started" guide](https://aka.ms/vsts-cli-docs-getstarted) for in-depth instructions including first-time setup steps.
 
 For help, pass the `-h` or `--help` argument, for example:
 
 ```bash
-azdos -h
-azdos code -h
+vsts -h
+vsts code -h
 ```
 
 ### Commands
@@ -26,24 +26,24 @@ Use the Azure DevOps CLI to work with and manage build, code repositories, proje
 
 Here are just a few of the commands:
 
-* azdos build queue
-* azdos code pr create
-* azdos code pr list
-* azdos code pr complete
-* azdos code pr reviewers add
-* azdos code pr work-items list
-* azdos project create
-* azdos work item create
-* azdos work item update
+* vsts build queue
+* vsts code pr create
+* vsts code pr list
+* vsts code pr complete
+* vsts code pr reviewers add
+* vsts code pr work-items list
+* vsts project create
+* vsts work item create
+* vsts work item update
 
-See the full list of [available commands](https://aka.ms/azdos-cli-commands).
+See the full list of [available commands](https://aka.ms/vsts-cli-commands).
 
 ### Login (setup credentials)
 
 Create a personal access token and provide to the Azure DevOps/VSTS CLI via the login command:
 
 ```bash
-azdos login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
+vsts login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
 ```
 
 ### Using Azure DevOps CLI Behind a Proxy
@@ -52,14 +52,14 @@ The Azure DevOps CLI picks the network proxy configuration from the environment 
 
 ### Configure defaults, Git aliases, and more
 
-You can change your default settings using the `azdos configure` command, for example you can set the default output format for all commands. The options are:
+You can change your default settings using the `vsts configure` command, for example you can set the default output format for all commands. The options are:
 
 * JSON
 * JSON (with color highlighting)
 * Table (human-readable tabular output)
 * TSV (tab and new line delimited)
 
-You can also add aliases in Git for certain Azure DevOps Services CLI commands. For example, `git pr list` will be an alias for `azdos code pr list`.
+You can also add aliases in Git for certain Azure DevOps Services CLI commands. For example, `git pr list` will be an alias for `vsts code pr list`.
 
 ### Querying and filtering output
 
@@ -75,7 +75,7 @@ Fabrikam Fiber
 
 ### Examples and snippets
 
-For more usage examples, see the official Azure DevOps Services CLI [documentation](https://aka.ms/azdos-cli-docs-overview).
+For more usage examples, see the official Azure DevOps Services CLI [documentation](https://aka.ms/vsts-cli-docs-overview).
 
 ## Developer setup
 
@@ -113,13 +113,13 @@ MIT License
 
 Azure DevOps CLI collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/en-us/privacystatement) to learn more. 
 
-To disable telemetry use the `azdos configure` command.
+To disable telemetry use the `vsts configure` command.
 
 ## Feedback
 
 If you have any issues, questions, comments, or feature requests regarding this tool, please file an issue within this github repo using our contribution guidelines. 
 
-To find where to provide feedback from the CLI, run `azdos feedback`.
+To find where to provide feedback from the CLI, run `vsts feedback`.
 
 ## Contribute
 
