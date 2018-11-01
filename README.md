@@ -16,8 +16,8 @@ Also refer to the ["get started" guide](https://aka.ms/vsts-cli-docs-getstarted)
 For help, pass the `-h` or `--help` argument, for example:
 
 ```bash
-vsts -h
-vsts code -h
+azdos -h
+azdos code -h
 ```
 
 ### Commands
@@ -26,15 +26,15 @@ Use the Azure DevOps CLI to work with and manage build, code repositories, proje
 
 Here are just a few of the commands:
 
-* vsts build queue
-* vsts code pr create
-* vsts code pr list
-* vsts code pr complete
-* vsts code pr reviewers add
-* vsts code pr work-items list
-* vsts project create
-* vsts work item create
-* vsts work item update
+* azdos build queue
+* azdos code pr create
+* azdos code pr list
+* azdos code pr complete
+* azdos code pr reviewers add
+* azdos code pr work-items list
+* azdos project create
+* azdos work item create
+* azdos work item update
 
 See the full list of [available commands](https://aka.ms/vsts-cli-commands).
 
@@ -43,7 +43,7 @@ See the full list of [available commands](https://aka.ms/vsts-cli-commands).
 Create a personal access token and provide to the Azure DevOps/VSTS CLI via the login command:
 
 ```bash
-vsts login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
+azdos login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
 ```
 
 ### Using Azure DevOps CLI Behind a Proxy
@@ -59,7 +59,7 @@ You can change your default settings using the `vsts configure` command, for exa
 * Table (human-readable tabular output)
 * TSV (tab and new line delimited)
 
-You can also add aliases in Git for certain Azure DevOps/VSTS CLI commands. For example, `git pr list` will be an alias for `vsts code pr list`.
+You can also add aliases in Git for certain Azure DevOps/VSTS CLI commands. For example, `git pr list` will be an alias for `azdos code pr list`.
 
 ### Querying and filtering output
 
