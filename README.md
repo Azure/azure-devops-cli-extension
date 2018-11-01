@@ -3,9 +3,9 @@
 
 # Microsoft Azure DevOps Services CLI 
 
-Azure DevOps/VSTS CLI is a new command line interface for [Azure DevOps Services](https://www.visualstudio.com/team-services/) (VSTS) and [Azure DevOps Server](https://www.visualstudio.com/tfs/) (TFS) 2017 Update 2 and later.
+Azure DevOps CLI is a new command line interface for [Azure DevOps Services](https://www.visualstudio.com/team-services/) (VSTS) and [Azure DevOps Server](https://www.visualstudio.com/tfs/) (TFS) 2017 Update 2 and later.
 
-> Azure DevOps/VSTS CLI is currently in preview but we encourage you to give it a try and provide feedback (or contribute). 
+> Azure DevOps CLI is currently in preview but we encourage you to give it a try and provide feedback (or contribute). 
 
 ## Get started
 
@@ -22,7 +22,7 @@ vsts code -h
 
 ### Commands
 
-Use the Azure DevOps/VSTS CLI to work with and manage build, code repositories, projects, work items, and more in your VSTS account or on-premises Team Foundation Server collection.
+Use the Azure DevOps CLI to work with and manage build, code repositories, projects, work items, and more in your Azure DevOps Services account or on-premises Azure DevOps Server collection.
 
 Here are just a few of the commands:
 
@@ -46,9 +46,9 @@ Create a personal access token and provide to the Azure DevOps/VSTS CLI via the 
 vsts login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
 ```
 
-### Using Azure DevOps/VSTS CLI Behind a Proxy
+### Using Azure DevOps CLI Behind a Proxy
 
-The Azure DevOps/VSTS CLI picks the network proxy configuration from the environment variables `HTTP_PROXY`, and `HTTPS_PROXY`. 
+The Azure DevOps CLI picks the network proxy configuration from the environment variables `HTTP_PROXY`, and `HTTPS_PROXY`. 
 
 ### Configure defaults, Git aliases, and more
 
@@ -75,7 +75,7 @@ Fabrikam Fiber
 
 ### Examples and snippets
 
-For more usage examples, see the official Azure DevOps/VSTS CLI [documentation](https://aka.ms/vsts-cli-docs-overview).
+For more usage examples, see the official Azure DevOps CLI [documentation](https://aka.ms/vsts-cli-docs-overview).
 
 ## Developer setup
 
@@ -84,7 +84,7 @@ To contribute or to just play with the CLI in your development environment, see 
 ## License
 
 ```
-Azure DevOps/VSTS CLI
+Azure DevOps CLI
 
 MIT License
 
@@ -111,7 +111,7 @@ MIT License
 
 ## Telemetry
 
-Azure DevOps/VSTS CLI collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/en-us/privacystatement) to learn more. 
+Azure DevOps CLI collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/en-us/privacystatement) to learn more. 
 
 To disable telemetry use the `vsts configure` command.
 
