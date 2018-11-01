@@ -60,9 +60,9 @@ def clear_credential(team_instance):
 
 def _get_service_name(team_instance):
     if team_instance is not None:
-        return 'vsts-cli:' + normalize_url_for_key(team_instance)
+        return 'azdos-cli:' + normalize_url_for_key(team_instance)
     else:
-        return 'vsts-cli: default'
+        return 'azdos-cli: default'
 
 
 def normalize_url_for_key(url):

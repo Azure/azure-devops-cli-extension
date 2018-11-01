@@ -7,12 +7,12 @@
 from __future__ import print_function
 
 from knack.util import CLIError
-from vsts.cli.common.config import (set_global_config_value,
+from azdos.cli.common.config import (set_global_config_value,
                                     CORE_SECTION,
                                     DEFAULTS_SECTION,
                                     LOGGING_SECTION)
-from vsts.cli.common.configure import interactive_configure, print_current_configuration
-from vsts.cli.common.version import disable_command_version_checking, DISABLE_VERSION_CHECK_SETTING
+from azdos.cli.common.configure import interactive_configure, print_current_configuration
+from azdos.cli.common.version import disable_command_version_checking, DISABLE_VERSION_CHECK_SETTING
 
 
 def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_git_aliases=None,
@@ -61,7 +61,7 @@ def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_g
     if disable_version_check:
         set_global_config_value(CORE_SECTION, DISABLE_VERSION_CHECK_SETTING, disable_version_check)
     if use_git_aliases is not None:
-        from vsts.cli.code.common.git_alias import setup_git_aliases, clear_git_aliases
+        from azdos.cli.code.common.git_alias import setup_git_aliases, clear_git_aliases
         if use_git_aliases == 'yes':
             setup_git_aliases()
         elif use_git_aliases == 'no':

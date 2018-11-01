@@ -23,7 +23,7 @@ def transform_build_table_output(result):
 
 
 def _transform_build_row(row):
-    from vsts.cli.common.git import REF_HEADS_PREFIX
+    from azdos.cli.common.git import REF_HEADS_PREFIX
     table_row = OrderedDict()
     table_row['ID'] = row['id']
     table_row['Number'] = row['buildNumber']

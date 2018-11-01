@@ -12,18 +12,18 @@ ARG BUILD_DATE
 LABEL maintainer="Microsoft" \
       org.label-schema.schema-version="1.0" \
       org.label-schema.vendor="Microsoft" \
-      org.label-schema.name="Microsoft Visual Studio Team Services CLI" \
+      org.label-schema.name="Azure DevOps Services CLI" \
       org.label-schema.version=$CLI_VERSION \
       org.label-schema.license="MIT" \
-      org.label-schema.description="Command line interface for Microsoft Visual Studio Team Services and Team Foundation Server." \
-      org.label-schema.url="https://aka.ms/vsts-cli" \
-      org.label-schema.usage="https://docs.microsoft.com/cli/vsts/install" \
+      org.label-schema.description="Command line interface for Azure DevOps Services and Azure DevOps Server." \
+      org.label-schema.url="https://aka.ms/azdos-cli" \
+      org.label-schema.usage="https://docs.microsoft.com/cli/azdos/install" \
       org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.vcs-url="https://github.com/Microsoft/vsts-cli.git" \
-      org.label-schema.docker.cmd="docker run -v \${HOME}/.vsts:/root/.vsts -it microsoft/vsts-cli:$CLI_VERSION"
+      org.label-schema.vcs-url="https://github.com/Microsoft/azdos-cli.git" \
+      org.label-schema.docker.cmd="docker run -v \${HOME}/.azdos:/root/.azdos -it microsoft/azdos-cli:$CLI_VERSION"
 
-WORKDIR vsts-cli
-COPY . /vsts-cli
+WORKDIR azdos-cli
+COPY . /azdos-cli
 
 # Install dependencies. Most of these are needed for building and setup.
 # bash gcc make openssl-dev libffi-dev musl-dev - dependencies required for CLI
@@ -34,28 +34,28 @@ RUN apk add --no-cache bash gcc make openssl-dev libffi-dev musl-dev jq openssh 
                        ca-certificates wget openssl git && update-ca-certificates
 
 # Install the VSTS Python API package
-RUN pip install vsts --upgrade --no-cache-dir --extra-index-url https://vstscli.azurewebsites.net
+RUN pip install azdos --upgrade --no-cache-dir --extra-index-url https://azdoscli.azurewebsites.net
 
 # Install the VSTS CLI packages
  RUN pip install \
-   /vsts-cli/src/common_modules/vsts-cli-common \
-   /vsts-cli/src/common_modules/vsts-cli-build-common \
-   /vsts-cli/src/common_modules/vsts-cli-code-common \
-   /vsts-cli/src/common_modules/vsts-cli-package-common \
-   /vsts-cli/src/common_modules/vsts-cli-team-common \
-   /vsts-cli/src/common_modules/vsts-cli-work-common \
-   /vsts-cli/src/command_modules/vsts-cli-build \
-   /vsts-cli/src/command_modules/vsts-cli-code \
-   /vsts-cli/src/command_modules/vsts-cli-package \
-   /vsts-cli/src/command_modules/vsts-cli-team \
-   /vsts-cli/src/command_modules/vsts-cli-work \
-   /vsts-cli/src/vsts-cli
+   /azdos-cli/src/common_modules/azdos-cli-common \
+   /azdos-cli/src/common_modules/azdos-cli-build-common \
+   /azdos-cli/src/common_modules/azdos-cli-code-common \
+   /azdos-cli/src/common_modules/azdos-cli-package-common \
+   /azdos-cli/src/common_modules/azdos-cli-team-common \
+   /azdos-cli/src/common_modules/azdos-cli-work-common \
+   /azdos-cli/src/command_modules/azdos-cli-build \
+   /azdos-cli/src/command_modules/azdos-cli-code \
+   /azdos-cli/src/command_modules/azdos-cli-package \
+   /azdos-cli/src/command_modules/azdos-cli-team \
+   /azdos-cli/src/command_modules/azdos-cli-work \
+   /azdos-cli/src/azdos-cli
 
 # Install alternate keyring backend
 RUN pip install --no-cache-dir keyrings.alt
 
 # Setup tab completion
-RUN cat /vsts-cli/scripts/vsts.completion > ~/.bashrc
+RUN cat /azdos-cli/scripts/azdos.completion > ~/.bashrc
 
 WORKDIR /
 

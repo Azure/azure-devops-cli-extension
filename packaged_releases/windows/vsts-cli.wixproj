@@ -2,11 +2,11 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Local WiX -->
   <PropertyGroup>
-    <LocalWixRoot>$(HOMEDRIVE)$(HOMEPATH)\vstswix\</LocalWixRoot>
+    <LocalWixRoot>$(HOMEDRIVE)$(HOMEPATH)\azdoswix\</LocalWixRoot>
     <WixToolPath>$(LocalWixRoot)</WixToolPath>
     <WixTargetsPath>$(WixToolPath)Wix.targets</WixTargetsPath>
     <WixTasksPath>wixtasks.dll</WixTasksPath>
-    <VstsCliSource>$(HOMEDRIVE)$(HOMEPATH)\vstscli</VstsCliSource>
+    <AzdosCliSource>$(HOMEDRIVE)$(HOMEPATH)\azdoscli</AzdosCliSource>
     <LinkerAdditionalOptions>-fv</LinkerAdditionalOptions>
   </PropertyGroup>
   <!-- Project -->
@@ -16,7 +16,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>367BBF81-A989-4F63-8D5F-127C25692320</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>vsts-cli-$(CLIVERSION)</OutputName>
+    <OutputName>azdos-cli-$(CLIVERSION)</OutputName>
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
@@ -24,24 +24,24 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>out\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>out\obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug;VstsCliSource=$(VstsCliSource)</DefineConstants>
+    <DefineConstants>Debug;AzdosCliSource=$(AzdosCliSource)</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>out\</OutputPath>
     <IntermediateOutputPath>out\obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>VstsCliSource=$(VstsCliSource)</DefineConstants>
+    <DefineConstants>AzdosCliSource=$(AzdosCliSource)</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(SuppressValidation)' == 'true' ">
     <SuppressValidation>true</SuppressValidation>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="out\vsts-cli.wxs">
-      <Link>vsts-cli.wxs</Link>
+    <Compile Include="out\azdos-cli.wxs">
+      <Link>azdos-cli.wxs</Link>
     </Compile>
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".\resources\VstsCli.ico" />
+    <None Include=".\resources\AzdosCli.ico" />
   </ItemGroup>
   <!-- UI -->
   <ItemGroup>
@@ -52,6 +52,6 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <Target Name="BeforeBuild">
-    <HeatDirectory Directory="$(VstsCliSource)" ToolPath="$(WixToolPath)" AutogenerateGuids="true" ComponentGroupName="VstsCliComponentGroup" SuppressRootDirectory="true" DirectoryRefId="DynamicCliDir" OutputFile="out\vsts-cli.wxs" PreprocessorVariable="var.VstsCliSource" />
+    <HeatDirectory Directory="$(AzdosCliSource)" ToolPath="$(WixToolPath)" AutogenerateGuids="true" ComponentGroupName="AzdosCliComponentGroup" SuppressRootDirectory="true" DirectoryRefId="DynamicCliDir" OutputFile="out\azdos-cli.wxs" PreprocessorVariable="var.AzdosCliSource" />
   </Target>
 </Project>

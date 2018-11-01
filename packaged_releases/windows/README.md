@@ -19,7 +19,7 @@ Prerequisites
     https://www.microsoft.com/en-us/download/details.aspx?id=48159
 
 5. Clone the repository.
-    - git clone https://github.com/Microsoft/vsts-cli
+    - git clone https://github.com/Microsoft/azdos-cli
 
 Note: The above can be done on a Windows 10 VM.
 

@@ -5,7 +5,7 @@
 
 from setuptools import setup, find_packages
 
-NAME = 'vsts-cli'
+NAME = 'azdos-cli'
 VERSION = '0.1.3'
 
 # To install the library, run the following
@@ -18,13 +18,13 @@ VERSION = '0.1.3'
 REQUIRES = [
     'knack==0.4.1',
     'setuptools',
-    'vsts-cli-common==' + VERSION,
-    'vsts-cli-admin==' + VERSION,
-    'vsts-cli-build==' + VERSION,
-    'vsts-cli-code==' + VERSION,
-    'vsts-cli-team==' + VERSION,
-    'vsts-cli-package==' + VERSION,
-    'vsts-cli-work==' + VERSION
+    'azdos-cli-common==' + VERSION,
+    'azdos-cli-admin==' + VERSION,
+    'azdos-cli-build==' + VERSION,
+    'azdos-cli-code==' + VERSION,
+    'azdos-cli-team==' + VERSION,
+    'azdos-cli-package==' + VERSION,
+    'azdos-cli-work==' + VERSION
 ]
 
 CLASSIFIERS = [
@@ -45,15 +45,15 @@ setup(
     license='MIT',
     description="VSTS Command Line Interface",
     author="Microsoft Corporation",
-    author_email="vstscli@microsoft.com",
-    url="https://github.com/Microsoft/vsts-cli",
-    keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI"],
+    author_email="azdoscli@microsoft.com",
+    url="https://github.com/Microsoft/azdos-cli",
+    keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI","Azure DevOps Services", "Azure DevOps Server"],
     install_requires=REQUIRES,
     packages=find_packages(),
     classifiers=CLASSIFIERS,
     entry_points={
         'console_scripts': [
-            'vsts = vsts.cli.__main__:main'
+            'azdos = azdos.cli.__main__:main'
         ]
     },
     include_package_data=True,

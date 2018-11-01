@@ -13,17 +13,17 @@
 
 1. Clone the VSTS CLI repository:
    ```bash
-   git clone https://github.com/Microsoft/vsts-cli
+   git clone https://github.com/Microsoft/azdos-cli
    ```
 
 2. Optionally, clone the VSTS Python SDK repository:
    ```bash
-   git clone https://github.com/Microsoft/vsts-python-api
+   git clone https://github.com/Microsoft/azdos-python-api
    ```
 
 ## Create a virtual environment
 
-1. From the `vsts-cli` directory, create a new virtual environment:
+1. From the `azdos-cli` directory, create a new virtual environment:
    ```bash
    virtualenv env
    ```
@@ -45,6 +45,6 @@
 
 ## Start coding
 
-Run `vsts --version` to verify your environment is setup properly. Any code change will be picked up automatically.
+Run `azdos --version` to verify your environment is setup properly. Any code change will be picked up automatically.
 
 

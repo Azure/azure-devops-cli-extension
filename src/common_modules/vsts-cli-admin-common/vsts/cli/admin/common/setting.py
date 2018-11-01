@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from vsts.cli.common.services import (get_settings_client,
+from azdos.cli.common.services import (get_settings_client,
                                       resolve_instance)
 
 

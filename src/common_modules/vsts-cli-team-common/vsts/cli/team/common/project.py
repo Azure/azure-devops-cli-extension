@@ -7,11 +7,11 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.core.v4_0.models.team_project import TeamProject
-from vsts.cli.common.operations import wait_for_long_running_operation
-from vsts.cli.common.services import (get_core_client,
+from azdos.core.v4_0.models.team_project import TeamProject
+from azdos.cli.common.operations import wait_for_long_running_operation
+from azdos.cli.common.services import (get_core_client,
                                       resolve_instance)
-from vsts.cli.common.uri import uri_quote
+from azdos.cli.common.uri import uri_quote
 
 logger = get_logger(__name__)
 
@@ -43,7 +43,7 @@ def create_project(name, team_instance=None, process=None, source_control='git',
     team_project.name = name
     team_project.description = description
 
-    # private is the only allowed value by vsts right now.
+    # private is the only allowed value by azdos right now.
     team_project.visibility = 'private'
 
     core_client = get_core_client(team_instance)

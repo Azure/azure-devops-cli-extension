@@ -59,7 +59,7 @@ def _handle_global_configuration():
         answers['output_type_prompt'] = output_index
         answers['output_type_options'] = str(OUTPUT_LIST)
         try:
-            from vsts.cli.code.common.git_alias import setup_git_aliases, are_git_aliases_setup
+            from azdos.cli.code.common.git_alias import setup_git_aliases, are_git_aliases_setup
             if not are_git_aliases_setup():
                 setup_aliases = prompt_y_n(MSG_PROMPT_GIT_ALIAS, default='y')
                 if setup_aliases:
@@ -123,9 +123,9 @@ OUTPUT_LIST = [
 
 MSG_INTRO = '\nWelcome to the VSTS CLI! This command will guide you through setting some default values.\n'
 MSG_CLOSING = '\nYou\'re all set! Here are some commands to try:\n' \
-              ' $ vsts login\n' \
-              ' $ vsts code pr list\n{}' \
-              ' $ vsts feedback\n'
+              ' $ azdos login\n' \
+              ' $ azdos code pr list\n{}' \
+              ' $ azdos feedback\n'
 
 MSG_CLOSING_GIT_COMMAND = ' $ git pr list\n'
 
@@ -140,7 +140,7 @@ MSG_PROMPT_TELEMETRY = '\nMicrosoft would like to collect anonymous VSTS CLI usa
                        'improve our CLI.  Participation is voluntary and when you choose to ' \
                        'participate, your device automatically sends information to Microsoft ' \
                        'about how you use the VSTS CLI.  The data is anonymous and does not ' \
-                       'include commandline argument values.  To update your choice, run "vsts ' \
+                       'include commandline argument values.  To update your choice, run "azdos ' \
                        'configure" again.\nSelect y to enable data collection.'
 MSG_PROMPT_GIT_ALIAS = '\nConfigure aliases for Git (to enable commands like "git pr list")?'
 MSG_PROMPT_CLEAR_GIT_ALIAS = '\nGit aliases are configured, would you like to clear them?'

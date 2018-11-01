@@ -40,12 +40,12 @@ except NameError:
     pass
 
 
-CLI_PACKAGE = 'vsts-cli'
-CLI_MODULE = 'vsts.cli'
-CLI_SHORT_NAME = 'vsts'
+CLI_PACKAGE = 'azdos-cli'
+CLI_MODULE = 'azdos.cli'
+CLI_SHORT_NAME = 'azdos'
 EXECUTABLE_NAME = CLI_SHORT_NAME
 CLI_NAME = CLI_SHORT_NAME + '-cli'
-CLI_PACKAGE_INDEX_URL = 'https://vstscli.azurewebsites.net/'
+CLI_PACKAGE_INDEX_URL = 'https://azdoscli.azurewebsites.net/'
 
 VIRTUALENV_VERSION = '15.0.0'
 VIRTUALENV_ARCHIVE = 'virtualenv-'+VIRTUALENV_VERSION+'.tar.gz'
@@ -68,17 +68,17 @@ _python_argcomplete() {
         unset COMPREPLY
     fi
 }
-complete -o nospace -F _python_argcomplete "vsts"
+complete -o nospace -F _python_argcomplete "azdos"
 """
 
 CLI_EXEC_TEMPLATE = """#!/usr/bin/env bash
-{install_dir}/bin/python -m vsts.cli "$@"
+{install_dir}/bin/python -m azdos.cli "$@"
 """
 
 
 CHECK_CREDENTIAL_STORAGE_SCRIPT = """
 from __future__ import print_function
-from vsts.cli.common._credentials import get_credential
+from azdos.cli.common._credentials import get_credential
 from knack.util import CLIError
 import sys
 
@@ -392,7 +392,7 @@ def verify_python_executable(install_dir):
         if os.path.exists(installed_python):
             log_status("Installed Python executable exists")
             try:       
-                # backup the python executable that was placed in the install directory (vsts-cli/bin)
+                # backup the python executable that was placed in the install directory (azdos-cli/bin)
                 shutil.copyfile(installed_python, installed_python + '.backup')
                 log_status("Created backup of installed Python executable")
 

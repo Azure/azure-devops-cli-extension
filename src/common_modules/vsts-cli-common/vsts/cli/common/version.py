@@ -10,7 +10,7 @@ import sys
 from datetime import datetime, timedelta
 
 from knack.log import get_logger
-from vsts._file_cache import get_file_json
+from azdos._file_cache import get_file_json
 
 from .file_cache import DEFAULT_CACHE_DIR
 
@@ -19,12 +19,12 @@ logger = get_logger(__name__)
 VERSION = "0.1.3"
 
 DISABLE_VERSION_CHECK_SETTING = "disable_version_check"
-_VERSION_INFO_LINK = "https://aka.ms/vsts-cli-update-json"
+_VERSION_INFO_LINK = "https://aka.ms/azdos-cli-update-json"
 _VERSION_INFO_LOCAL_FILE_PATH = os.path.join(DEFAULT_CACHE_DIR, 'version.json')
 _UPDATE_MESSAGE_FORMAT = '\nA newer version of the VSTS CLI is available ({version}). Go to {url} to download. ' +\
-            'To disable version checks going forward, run "vsts configure ' +\
+            'To disable version checks going forward, run "azdos configure ' +\
             '--disable_version_check yes" or set environment variable {env_var} to "true".\n'
-UPDATE_MESSAGE_LINK = 'https://aka.ms/get-vsts-cli'
+UPDATE_MESSAGE_LINK = 'https://aka.ms/get-azdos-cli'
 SUPPRESS_UPDATE_MESSAGE = "VSTS_CLI_DISABLE_VERSION_CHECK"
 
 _disabled = []

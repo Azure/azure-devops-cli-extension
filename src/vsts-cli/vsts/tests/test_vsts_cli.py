@@ -4,15 +4,15 @@
 # --------------------------------------------------------------------------------------------
 
 import unittest
-from ..cli.vsts_cli import VstsCLI
+from ..cli.azdos_cli import AzdosCLI
 
 
-class TestVstsCliMethods(unittest.TestCase):
+class TestAzdosCliMethods(unittest.TestCase):
 
-    def test_vsts_cli(self):
-        vsts_cli = VstsCLI()
-        vsts_cli.show_version()
-        vsts_cli.invoke(args=[])
+    def test_azdos_cli(self):
+        azdos_cli = AzdosCLI()
+        azdos_cli.show_version()
+        azdos_cli.invoke(args=[])
 
 
 if __name__ == '__main__':

@@ -5,12 +5,12 @@
 
 import sys
 
-from .vsts_cli import VstsCLI
+from .azdos_cli import AzdosCLI
 
 def main():
     try:
-        vsts_cli = VstsCLI()
-        exit_code = vsts_cli.invoke(sys.argv[1:])
+        azdos_cli = AzdosCLI()
+        exit_code = azdos_cli.invoke(sys.argv[1:])
         sys.exit(exit_code)
     except KeyboardInterrupt:
         sys.exit(1)

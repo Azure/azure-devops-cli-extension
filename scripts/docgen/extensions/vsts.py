@@ -16,8 +16,8 @@ from docutils.statemachine import ViewList
 from sphinx.util.compat import Directive
 from sphinx.util.nodes import nested_parse_with_titles
 
-from vsts.cli.vsts_cli_help import VstsCLIHelp
-from vsts.cli.vsts_commands_loader import VstsCommandsLoader
+from azdos.cli.azdos_cli_help import AzdosCLIHelp
+from azdos.cli.azdos_commands_loader import AzdosCommandsLoader
 
 from knack import CLI
 from knack import help as _help
@@ -25,32 +25,32 @@ from knack.help import GroupHelpFile, CommandHelpFile, ArgumentGroupRegistry
 
 USER_HOME = expanduser('~')
 
-class VstsHelpGenDirective(Directive):
+class AzdosHelpGenDirective(Directive):
     def make_rst(self):
         INDENT = '   '
         DOUBLEINDENT = INDENT * 2
         # similar to what the Application object provides for in "az"
-        cli_name = "vsts"
-        vsts_cli = CLI(cli_name=cli_name,
+        cli_name = "azdos"
+        azdos_cli = CLI(cli_name=cli_name,
                 config_dir=os.path.join('~', '.{}'.format(cli_name)),
                 config_env_var_prefix=cli_name,
-                commands_loader_cls=VstsCommandsLoader,
-                help_cls=VstsCLIHelp)
+                commands_loader_cls=AzdosCommandsLoader,
+                help_cls=AzdosCLIHelp)
 
-        help_files = get_help_files(vsts_cli)
+        help_files = get_help_files(azdos_cli)
 
         doc_source_map = _load_doc_source_map()
 
         for help_file in help_files:
             is_command = isinstance(help_file, CommandHelpFile)
-            yield '.. cli{}:: {}'.format('command' if is_command else 'group', help_file.command if help_file.command else 'vsts') #it is top level group az if command is empty
+            yield '.. cli{}:: {}'.format('command' if is_command else 'group', help_file.command if help_file.command else 'azdos') #it is top level group az if command is empty
             yield ''
             yield '{}:summary: {}'.format(INDENT, help_file.short_summary)
             yield '{}:description: {}'.format(INDENT, help_file.long_summary)
             if help_file.deprecate_info:
                 yield '{}:deprecated: {}'.format(INDENT, help_file.deprecate_info._get_message(help_file.deprecate_info))
             if not is_command:
-                top_group_name = help_file.command.split()[0] if help_file.command else 'vsts' 
+                top_group_name = help_file.command.split()[0] if help_file.command else 'azdos' 
                 yield '{}:docsource: {}'.format(INDENT, doc_source_map[top_group_name] if top_group_name in doc_source_map else '')
             else:
                 top_command_name = help_file.command.split()[0] if help_file.command else ''
@@ -106,7 +106,7 @@ class VstsHelpGenDirective(Directive):
         node.document = self.state.document
         result = ViewList()
         for line in self.make_rst():
-            result.append(line, '<vsts>')
+            result.append(line, '<azdos>')
 
         nested_parse_with_titles(self.state, result, node)
         return node.children
@@ -143,7 +143,7 @@ def get_help_files(cli_ctx):
     return help_files
 
 def setup(app):
-    app.add_directive('vsts', VstsHelpGenDirective)
+    app.add_directive('azdos', AzdosHelpGenDirective)
 
 def _store_parsers(parser, parser_keys, parser_values, sub_parser_keys, sub_parser_values):
     for s in parser.subparsers.values():

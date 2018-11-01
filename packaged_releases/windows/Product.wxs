@@ -3,8 +3,8 @@
 
   <?define ProductVersion="$(env.CLIVERSION)" ?>
 
-  <?define ProductName = "Microsoft VSTS CLI Preview" ?>
-  <?define ProductDescription = "Command-line tools for Visual Studio Team Services." ?>
+  <?define ProductName = "Microsoft Azure DevOps Services CLI Preview" ?>
+  <?define ProductDescription = "Command-line tools for Azure DevOps Services." ?>
   <?define ProductAuthor = "Microsoft Corporation" ?>
   <?define ProductResources = ".\resources\" ?>
 
@@ -21,19 +21,19 @@
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." Schedule="afterInstallInitialize" />
 
-    <Media Id="1" Cabinet="WindowsVstsCLI.cab" EmbedCab="yes" CompressionLevel="high" />
+    <Media Id="1" Cabinet="WindowsAzdosCLI.cab" EmbedCab="yes" CompressionLevel="high" />
 
-    <Icon Id="VstsCliIcon" SourceFile="$(var.ProductResources)VstsCli.ico" />
+    <Icon Id="AzdosCliIcon" SourceFile="$(var.ProductResources)AzdosCli.ico" />
 
-    <Property Id="ARPPRODUCTICON" Value="VstsCliIcon" />
-    <Property Id="ARPHELPLINK" Value="https://aka.ms/vsts-cli-msi-help" />
-    <Property Id="ARPURLINFOABOUT" Value="https://aka.ms/vsts-cli-msi-info-about" />
-    <Property Id="ARPURLUPDATEINFO" Value="https://aka.ms/vsts-cli-msi-update-info" />
-    <Property Id="ApplicationFolderName" Value="Microsoft SDKs\Vsts\Cli" />
+    <Property Id="ARPPRODUCTICON" Value="AzdosCliIcon" />
+    <Property Id="ARPHELPLINK" Value="https://aka.ms/azdos-cli-msi-help" />
+    <Property Id="ARPURLINFOABOUT" Value="https://aka.ms/azdos-cli-msi-info-about" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://aka.ms/azdos-cli-msi-update-info" />
+    <Property Id="ApplicationFolderName" Value="Microsoft SDKs\Azdos\Cli" />
     <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
 
     <Feature Id="ProductFeature"
-             Title="Microsoft VSTS CLI Preview"
+             Title="Microsoft Azure DevOps Services CLI Preview"
              Level="1"
              AllowAdvertise="no">
       <ComponentGroupRef Id="ProductComponents" />
@@ -78,21 +78,21 @@
   </Fragment>
 
   <Fragment>
-    <ComponentGroup Id="VstsCliSettingsGroup">
+    <ComponentGroup Id="AzdosCliSettingsGroup">
       <Component Id="RemoveCLIFolder"
                  Directory="DynamicCliDir"
                  Guid="{ABAADB9C-3B1A-470B-AA0F-60419BBF77DB}">
         <RemoveFolder Id="DynamicCliDir" On="uninstall" />
       </Component>
-      <Component Id="RemoveVstsCLIFolder"
+      <Component Id="RemoveAzdosCLIFolder"
                  Directory="VSTSCLIFOLDER"
                  Guid="{7CF0CCA5-D20D-450C-8140-B41107DCBB5C}">
         <RemoveFolder Id="VSTSCLIFOLDER" On="uninstall" />
       </Component>
-      <Component Id="VstsCliSystemPath"
+      <Component Id="AzdosCliSystemPath"
                  Directory="DynamicCliDir"
                  Guid="{52845AC4-A5B9-46F9-AA3A-3DB5F1FF301F}">
-        <Environment Id="VstsCliAddedToPATH"
+        <Environment Id="AzdosCliAddedToPATH"
                      Name="PATH"
                      Value="[DynamicCliDir]wbin"
                      Permanent="no"
@@ -101,7 +101,7 @@
                      System="yes" />
         <CreateFolder />
       </Component>
-      <Component Id="VstsCliRegistry"
+      <Component Id="AzdosCliRegistry"
                  Directory="DynamicCliDir"
                  Guid="{4299BB94-27B9-40CF-B43C-1C0A58258CE0}">
         <RegistryValue Root="HKCU"
@@ -111,7 +111,7 @@
                        Value="1"
                        KeyPath="yes"/>
       </Component>
-      <Component Id="VstsCliVersion"
+      <Component Id="AzdosCliVersion"
                  Directory="DynamicCliDir"
                  Guid="{C28D146F-C395-43A3-A832-DFFF5F613D9D}">
         <RegistryValue Root="HKLM"
@@ -124,8 +124,8 @@
     </ComponentGroup>
 
     <ComponentGroup Id="ProductComponents">
-      <ComponentGroupRef Id="VstsCliComponentGroup"/>
-      <ComponentGroupRef Id="VstsCliSettingsGroup"/>
+      <ComponentGroupRef Id="AzdosCliComponentGroup"/>
+      <ComponentGroupRef Id="AzdosCliSettingsGroup"/>
     </ComponentGroup>
 
   </Fragment>

@@ -4,36 +4,36 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.help import CLIHelp
-from vsts.cli.common.version import VERSION
+from azdos.cli.common.version import VERSION
 
 
-class VstsCLIHelp(CLIHelp):
+class AzdosCLIHelp(CLIHelp):
     def __init__(self, cli_ctx=None):
         # import command group help
-        import vsts.cli.admin._help
-        import vsts.cli.build._help
-        import vsts.cli.code._help
-        import vsts.cli.team._help
-        import vsts.cli.work._help
-        import vsts.cli.package._help
-        super(VstsCLIHelp, self).__init__(cli_ctx=cli_ctx,
+        import azdos.cli.admin._help
+        import azdos.cli.build._help
+        import azdos.cli.code._help
+        import azdos.cli.team._help
+        import azdos.cli.work._help
+        import azdos.cli.package._help
+        super(AzdosCLIHelp, self).__init__(cli_ctx=cli_ctx,
                                           privacy_statement=PRIVACY_STATEMENT,
                                           welcome_message=WELCOME_MESSAGE)
 
 
-PRIVACY_STATEMENT = """Visual Studio Team Services CLI {}
+PRIVACY_STATEMENT = """Azure DevOps Services CLI {}
 
 Telemetry
 ---------
-The VSTS CLI collects usage data in order to improve your experience.
+The ADS CLI collects usage data in order to improve your experience.
 The data is anonymous and does not include commandline argument values.
 The data is collected by Microsoft.
 
-You can change your telemetry settings with `vsts configure`.
+You can change your telemetry settings with `azdos configure`.
 """.format(VERSION)
 
-WELCOME_MESSAGE = """Visual Studio Team Services CLI {}
+WELCOME_MESSAGE = """Azure DevOps Services CLI {}
 
-Use `vsts -h` to see available commands or go to https://aka.ms/vsts-cli.
+Use `azdos -h` to see available commands or go to https://aka.ms/azdos-cli.
 
 Available commands:""".format(VERSION)

@@ -12,29 +12,29 @@ import sys
 import os
 
 from knack import CLI
-from vsts.cli.vsts_cli_help import VstsCLIHelp
-from vsts.cli.vsts_commands_loader import VstsCommandsLoader
+from azdos.cli.azdos_cli_help import AzdosCLIHelp
+from azdos.cli.azdos_commands_loader import AzdosCommandsLoader
 
 # ignore the params passed in now so they aren't used by the cli
 sys.argv = sys.argv[:1]
 
-cli_name = "vsts"
-vstscli = CLI(cli_name=cli_name,
+cli_name = "azdos"
+azdoscli = CLI(cli_name=cli_name,
               config_dir=os.path.join('~', '.{}'.format(cli_name)),
               config_env_var_prefix=cli_name,
-              commands_loader_cls=VstsCommandsLoader,
-              help_cls=VstsCLIHelp)
+              commands_loader_cls=AzdosCommandsLoader,
+              help_cls=AzdosCLIHelp)
 
-loader = vstscli.commands_loader_cls()
-loader.__init__(vstscli)
+loader = azdoscli.commands_loader_cls()
+loader.__init__(azdoscli)
 cmd_table = loader.load_command_table([])
 for command in loader.command_table:
     loader.load_arguments(command)
 
-vstsclihelp = vstscli.help_cls(cli_ctx=vstscli)
+azdosclihelp = azdoscli.help_cls(cli_ctx=azdoscli)
 
-global_parser = vstscli.parser_cls.create_global_parser(cli_ctx=vstscli)
-parser = vstscli.parser_cls(cli_ctx=vstscli, prog=vstscli.name, parents=[global_parser])
+global_parser = azdoscli.parser_cls.create_global_parser(cli_ctx=azdoscli)
+parser = azdoscli.parser_cls(cli_ctx=azdoscli, prog=azdoscli.name, parents=[global_parser])
 parser.load_command_table(cmd_table)
 
 cmd_list = cmd_table.keys()

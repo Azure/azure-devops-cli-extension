@@ -12,27 +12,27 @@ from knack import CLI
 from knack.events import EVENT_CLI_POST_EXECUTE, EVENT_INVOKER_POST_PARSE_ARGS
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.cli.common.config import GLOBAL_CONFIG_DIR, CLI_ENV_VARIABLE_PREFIX
-from vsts.cli.common.services import set_tracking_data, get_authentication_error
-from vsts.cli.common.version import display_version_update_info_if_necessary
-from vsts.exceptions import VstsAuthenticationError, VstsClientRequestError
-from .vsts_cli_help import VstsCLIHelp
-from .vsts_commands_loader import VstsCommandsLoader
+from azdos.cli.common.config import GLOBAL_CONFIG_DIR, CLI_ENV_VARIABLE_PREFIX
+from azdos.cli.common.services import set_tracking_data, get_authentication_error
+from azdos.cli.common.version import display_version_update_info_if_necessary
+from azdos.exceptions import AzdosAuthenticationError, AzdosClientRequestError
+from .azdos_cli_help import AzdosCLIHelp
+from .azdos_commands_loader import AzdosCommandsLoader
 
 logger = get_logger(__name__)
 
-CLI_NAME = "vsts"
-CLI_PACKAGE_NAME = 'vsts-cli'
-COMPONENT_PREFIX = 'vsts-cli-'
+CLI_NAME = "azdos"
+CLI_PACKAGE_NAME = 'azdos-cli'
+COMPONENT_PREFIX = 'azdos-cli-'
 
 
-class VstsCLI(CLI):
+class AzdosCLI(CLI):
     def __init__(self):
-        super(VstsCLI, self).__init__(cli_name=CLI_NAME,
+        super(AzdosCLI, self).__init__(cli_name=CLI_NAME,
                                       config_dir=GLOBAL_CONFIG_DIR,
                                       config_env_var_prefix=CLI_ENV_VARIABLE_PREFIX,
-                                      commands_loader_cls=VstsCommandsLoader,
-                                      help_cls=VstsCLIHelp)
+                                      commands_loader_cls=AzdosCommandsLoader,
+                                      help_cls=AzdosCLIHelp)
         self.args = None
 
     def invoke(self, args, initial_invocation_data=None, out_file=None):
@@ -89,37 +89,37 @@ class VstsCLI(CLI):
 
     def exception_handler(self, ex):
         # Modify service errors to be CLIError (to not emit stacktrace)
-        if isinstance(ex, VstsClientRequestError):
+        if isinstance(ex, AzdosClientRequestError):
             ex = CLIError(ex)
 
         # Modify auth errors to be CLIError and have a helpful message
-        if isinstance(ex, VstsAuthenticationError):
+        if isinstance(ex, AzdosAuthenticationError):
             ex = get_authentication_error(ex)
 
         # Knack doesn't emit stacktraces for CLIErrors, but we want them on debug
         if isinstance(ex, CLIError):
             logger.debug(ex, exc_info=True)          
 
-        return super(VstsCLI, self).exception_handler(ex)
+        return super(AzdosCLI, self).exception_handler(ex)
 
     @staticmethod
     def get_component_version_text():
-        installed_dists = VstsCLI.get_installed_dists()
+        installed_dists = AzdosCLI.get_installed_dists()
         component_version_info = sorted([{'name': dist.key,
                                           'version': dist.version}
                                          for dist in installed_dists
-                                         if dist.key.startswith(COMPONENT_PREFIX) or dist.key == "vsts"
+                                         if dist.key.startswith(COMPONENT_PREFIX) or dist.key == "azdos"
                                          or dist.key == "knack"],
                                         key=lambda x: x['name'])
         return '\n'.join(['{} ({})'.format(c['name'], c['version']) for c in component_version_info])
 
     @staticmethod
     def get_legal_text():
-        return 'Legal docs and information: https://aka.ms/vsts-cli-eula'
+        return 'Legal docs and information: https://aka.ms/azdos-cli-eula'
 
     @staticmethod
     def get_installed_dists():
-        if VstsCLI._installed_dists is None:
+        if AzdosCLI._installed_dists is None:
             import pkg_resources
             _installed_dists = [d for d in pkg_resources.working_set]
         return _installed_dists

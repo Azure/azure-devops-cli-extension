@@ -8,6 +8,6 @@ import platform
 from knack.commands import CommandGroup
 
 def load_package_commands(cli_command_loader):
-    with CommandGroup(cli_command_loader, 'package universal', 'vsts.cli.package.common.universal#{}') as g:
+    with CommandGroup(cli_command_loader, 'package universal', 'azdos.cli.package.common.universal#{}') as g:
         g.command('publish', 'publish_package')
         g.command('download', 'download_package')

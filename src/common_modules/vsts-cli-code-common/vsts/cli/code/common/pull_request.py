@@ -7,21 +7,21 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.exceptions import VstsClientRequestError
-from vsts.git.v4_0.models.git_pull_request import GitPullRequest
-from vsts.git.v4_0.models.git_pull_request_completion_options import GitPullRequestCompletionOptions
-from vsts.git.v4_0.models.git_pull_request_search_criteria import GitPullRequestSearchCriteria
-from vsts.git.v4_0.models.identity_ref import IdentityRef
-from vsts.git.v4_0.models.identity_ref_with_vote import IdentityRefWithVote
-from vsts.git.v4_0.models.resource_ref import ResourceRef
-from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
-from vsts.work_item_tracking.v4_0.models.work_item_relation import WorkItemRelation
-from vsts.cli.common.arguments import resolve_on_off_switch, should_detect
-from vsts.cli.common.git import get_current_branch_name, resolve_git_ref_heads
-from vsts.cli.common.identities import ME, resolve_identity_as_id
-from vsts.cli.common.uri import uri_quote
-from vsts.cli.common.uuid import EMPTY_UUID
-from vsts.cli.common.services import (get_git_client,
+from azdos.exceptions import AzdosClientRequestError
+from azdos.git.v4_0.models.git_pull_request import GitPullRequest
+from azdos.git.v4_0.models.git_pull_request_completion_options import GitPullRequestCompletionOptions
+from azdos.git.v4_0.models.git_pull_request_search_criteria import GitPullRequestSearchCriteria
+from azdos.git.v4_0.models.identity_ref import IdentityRef
+from azdos.git.v4_0.models.identity_ref_with_vote import IdentityRefWithVote
+from azdos.git.v4_0.models.resource_ref import ResourceRef
+from azdos.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
+from azdos.work_item_tracking.v4_0.models.work_item_relation import WorkItemRelation
+from azdos.cli.common.arguments import resolve_on_off_switch, should_detect
+from azdos.cli.common.git import get_current_branch_name, resolve_git_ref_heads
+from azdos.cli.common.identities import ME, resolve_identity_as_id
+from azdos.cli.common.uri import uri_quote
+from azdos.cli.common.uuid import EMPTY_UUID
+from azdos.cli.common.services import (get_git_client,
                                       get_policy_client,
                                       get_work_item_tracking_client,
                                       resolve_instance,
@@ -457,7 +457,7 @@ def add_pull_request_work_items(pull_request_id, work_items, team_instance=None,
             patch_document.append(patch_operation)
             try:
                 wit_client.update_work_item(document=patch_document, id=work_item_id)
-            except VstsClientRequestError as ex:
+            except AzdosClientRequestError as ex:
                 logger.debug(ex, exc_info=True)
                 message = ex.args[0]
                 if message != 'Relation already exists.':

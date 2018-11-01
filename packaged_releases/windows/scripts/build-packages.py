@@ -51,20 +51,20 @@ def _build_package(path_to_package, dist_dir):
 
 def build_packages(clone_root, dist_dir):
     packages_to_build = [
-        os.path.join(clone_root, 'src/common_modules/vsts-cli-common'),
-        os.path.join(clone_root, 'src/common_modules/vsts-cli-admin-common'),
-        os.path.join(clone_root, 'src/common_modules/vsts-cli-build-common'),
-        os.path.join(clone_root, 'src/common_modules/vsts-cli-code-common'),
-        os.path.join(clone_root, 'src/common_modules/vsts-cli-package-common'),
-        os.path.join(clone_root, 'src/common_modules/vsts-cli-team-common'),
-        os.path.join(clone_root, 'src/common_modules/vsts-cli-work-common'),
-        os.path.join(clone_root, 'src/command_modules/vsts-cli-admin'),
-        os.path.join(clone_root, 'src/command_modules/vsts-cli-build'),
-        os.path.join(clone_root, 'src/command_modules/vsts-cli-code'),
-        os.path.join(clone_root, 'src/command_modules/vsts-cli-package'),
-        os.path.join(clone_root, 'src/command_modules/vsts-cli-team'),
-        os.path.join(clone_root, 'src/command_modules/vsts-cli-work'),
-        os.path.join(clone_root, 'src/vsts-cli'),
+        os.path.join(clone_root, 'src/common_modules/azdos-cli-common'),
+        os.path.join(clone_root, 'src/common_modules/azdos-cli-admin-common'),
+        os.path.join(clone_root, 'src/common_modules/azdos-cli-build-common'),
+        os.path.join(clone_root, 'src/common_modules/azdos-cli-code-common'),
+        os.path.join(clone_root, 'src/common_modules/azdos-cli-package-common'),
+        os.path.join(clone_root, 'src/common_modules/azdos-cli-team-common'),
+        os.path.join(clone_root, 'src/common_modules/azdos-cli-work-common'),
+        os.path.join(clone_root, 'src/command_modules/azdos-cli-admin'),
+        os.path.join(clone_root, 'src/command_modules/azdos-cli-build'),
+        os.path.join(clone_root, 'src/command_modules/azdos-cli-code'),
+        os.path.join(clone_root, 'src/command_modules/azdos-cli-package'),
+        os.path.join(clone_root, 'src/command_modules/azdos-cli-team'),
+        os.path.join(clone_root, 'src/command_modules/azdos-cli-work'),
+        os.path.join(clone_root, 'src/azdos-cli'),
     ]
 
     for p in packages_to_build:

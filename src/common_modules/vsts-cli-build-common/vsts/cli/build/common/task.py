@@ -4,9 +4,9 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from vsts.cli.common.services import (get_task_agent_client,
+from azdos.cli.common.services import (get_task_agent_client,
                                       resolve_instance)
-from vsts.cli.common.uuid import is_uuid
+from azdos.cli.common.uuid import is_uuid
 
 
 def task_list(team_instance=None, task_id=None, detect=None):

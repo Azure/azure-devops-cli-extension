@@ -6,12 +6,12 @@
 
 from __future__ import print_function
 
-from vsts.cli.common.version import disable_command_version_checking, DISABLE_VERSION_CHECK_SETTING
+from azdos.cli.common.version import disable_command_version_checking, DISABLE_VERSION_CHECK_SETTING
 
 
 def feedback():
     """Displays information on how to provide feedback to the VSTS CLI team.
     """
     print('Thank you for taking the time to share your feedback. Please submit your feedback on the following web ' +
-          'page: https://aka.ms/vsts-cli-feedback')
+          'page: https://aka.ms/azdos-cli-feedback')
     disable_command_version_checking()

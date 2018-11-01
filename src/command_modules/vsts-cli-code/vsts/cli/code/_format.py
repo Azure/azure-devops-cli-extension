@@ -134,9 +134,9 @@ def _get_vote_from_vote_number(number):
 
 
 def transform_policies_table_output(result):
-    from vsts.cli.common.identities import (ensure_display_names_in_cache,
+    from azdos.cli.common.identities import (ensure_display_names_in_cache,
                                             get_display_name_from_identity_id)
-    from vsts.cli.common.services import get_first_vss_instance_uri
+    from azdos.cli.common.services import get_first_vss_instance_uri
     table_output = []
     reviewer_ids = []
     for item in result:
@@ -240,7 +240,7 @@ def transform_repo_table_output(result):
 
 
 def _transform_repo_row(row):
-    from vsts.cli.common.git import get_branch_name_from_ref
+    from azdos.cli.common.git import get_branch_name_from_ref
     table_row = OrderedDict()
     table_row['ID'] = row['id']
     table_row['Name'] = row['name']

@@ -19,7 +19,7 @@ def transform_project_table_output(result):
 
 
 def _transform_project_row(row):
-    from vsts.cli.team.common.project import (PROCESS_TEMPLATE_CAPABILITY_NAME,
+    from azdos.cli.team.common.project import (PROCESS_TEMPLATE_CAPABILITY_NAME,
                                               VERSION_CONTROL_CAPABILITY_NAME,
                                               VERSION_CONTROL_CAPABILITY_ATTRIBUTE_NAME)
     table_row = OrderedDict()

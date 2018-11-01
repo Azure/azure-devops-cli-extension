@@ -9,4 +9,4 @@
 
 3. If successful, generated YAML files will be written to `scripts\docgen\_output\yml\latest`
 
-4. Copy the `docs-ref-autogen` folder from the output folder to the `vsts-docs-cli-python` repository.
+4. Copy the `docs-ref-autogen` folder from the output folder to the `azdos-docs-cli-python` repository.

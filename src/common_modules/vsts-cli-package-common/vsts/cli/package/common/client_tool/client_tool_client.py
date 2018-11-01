@@ -5,7 +5,7 @@
 
 from msrest import Serializer, Deserializer
 from msrest.serialization import Model
-from vsts.vss_client import VssClient
+from azdos.vss_client import VssClient
 
 from . import models
 class ClientToolClient(VssClient):

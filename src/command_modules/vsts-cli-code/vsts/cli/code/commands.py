@@ -16,7 +16,7 @@ from ._format import (transform_pull_request_table_output,
 
 
 def load_code_commands(cli_command_loader):
-    with CommandGroup(cli_command_loader, 'code', 'vsts.cli.code.common.{}') as g:
+    with CommandGroup(cli_command_loader, 'code', 'azdos.cli.code.common.{}') as g:
         # basic pr commands
         g.command('pr create', 'pull_request#create_pull_request',
                   table_transformer=transform_pull_request_table_output)

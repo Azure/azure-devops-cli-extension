@@ -5,7 +5,7 @@
 
 from setuptools import setup, find_packages
 
-NAME = 'vsts-cli-package'
+NAME = 'azdos-cli-package'
 VERSION = '0.1.3'
 
 # To install the library, run the following
@@ -18,7 +18,7 @@ VERSION = '0.1.3'
 REQUIRES = [
     'knack==0.4.1',
     'python-dateutil==2.7.3',
-    'vsts-cli-package-common==' + VERSION
+    'azdos-cli-package-common==' + VERSION
 ]
 
 CLASSIFIERS = [
@@ -39,8 +39,8 @@ setup(
     license='MIT',
     description="VSTS Packaging Command Line Interface",
     author="Microsoft Corporation",
-    author_email="vstscli@microsoft.com",
-    url="https://github.com/Microsoft/vsts-cli",
+    author_email="azdoscli@microsoft.com",
+    url="https://github.com/Microsoft/azdos-cli",
     keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI", "Package", "Packaging"],
     install_requires=REQUIRES,
     classifiers=CLASSIFIERS,

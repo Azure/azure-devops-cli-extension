@@ -1,7 +1,7 @@
 ﻿
 # Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{2EA7703F-7607-4D56-91F6-9E80A95902F8}") = "vsts-cli", "vsts-cli.wixproj", "{367BBF81-A989-4F63-8D5F-127C25692320"
+Project("{2EA7703F-7607-4D56-91F6-9E80A95902F8}") = "azdos-cli", "azdos-cli.wixproj", "{367BBF81-A989-4F63-8D5F-127C25692320"
 EndProject
 Global
     GlobalSection(SolutionConfigurationPlatforms) = preSolution

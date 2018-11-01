@@ -6,13 +6,13 @@
 from webbrowser import open_new
 
 from knack.log import get_logger
-from vsts.build.v4_0.models.build import Build
-from vsts.build.v4_0.models.definition_reference import DefinitionReference
-from vsts.cli.common.git import resolve_git_ref_heads
-from vsts.cli.common.identities import resolve_identity_as_id
-from vsts.cli.common.services import (get_build_client,
+from azdos.build.v4_0.models.build import Build
+from azdos.build.v4_0.models.definition_reference import DefinitionReference
+from azdos.cli.common.git import resolve_git_ref_heads
+from azdos.cli.common.identities import resolve_identity_as_id
+from azdos.cli.common.services import (get_build_client,
                                       resolve_instance_and_project)
-from vsts.cli.common.uri import uri_quote
+from azdos.cli.common.uri import uri_quote
 from .build_definition import get_definition_id_from_name
 
 logger = get_logger(__name__)
@@ -144,7 +144,7 @@ def _open_build(build, team_instance):
     :param :class:`<Build> <build.v4_0.models.Build>` build:
     :param str team_instance:
     """
-    # https://mseng.visualstudio.com/vsts-cli/_build/index?buildId=4053990
+    # https://mseng.visualstudio.com/azdos-cli/_build/index?buildId=4053990
     project = build.project.name
     url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_build/index?buildid='\
         + uri_quote(str(build.id))

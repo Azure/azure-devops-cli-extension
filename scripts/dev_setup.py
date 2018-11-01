@@ -32,16 +32,16 @@ exec_command('python -m pip install --upgrade wheel')
 packages = []
 
 # VSTS Python SDK package (from either local directory or latest)
-if 'vsts-python-api-repo' in os.environ and os.path.isdir(os.environ['vsts-python-api-repo']):
-    packages.append(os.environ['vsts-python-api-repo'] + "/vsts")
+if 'azdos-python-api-repo' in os.environ and os.path.isdir(os.environ['azdos-python-api-repo']):
+    packages.append(os.environ['azdos-python-api-repo'] + "/azdos")
 else:
-    exec_command("pip install vsts --upgrade --no-cache-dir --extra-index-url https://vstscli.azurewebsites.net")
+    exec_command("pip install azdos --upgrade --no-cache-dir --extra-index-url https://azdoscli.azurewebsites.net")
 
 # VSTS CLI packages (from local directory)
-packages.append("src/common_modules/vsts-cli-common")
-packages.extend(os.path.dirname(p) for p in glob('src/common_modules/vsts-cli*/setup.py') if 'vsts-cli-common' not in p)
-packages.extend(os.path.dirname(p) for p in glob('src/command_modules/vsts-cli*/setup.py'))
-packages.append("src/vsts-cli")
+packages.append("src/common_modules/azdos-cli-common")
+packages.extend(os.path.dirname(p) for p in glob('src/common_modules/azdos-cli*/setup.py') if 'azdos-cli-common' not in p)
+packages.extend(os.path.dirname(p) for p in glob('src/command_modules/azdos-cli*/setup.py'))
+packages.append("src/azdos-cli")
 
 # install general requirements
 if os.path.isfile('./requirements.txt'):

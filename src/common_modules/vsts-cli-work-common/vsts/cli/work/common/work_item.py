@@ -7,14 +7,14 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.exceptions import VstsServiceError
-from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
-from vsts.work_item_tracking.v4_0.models.wiql import Wiql
-from vsts.cli.common.identities import (ME, get_current_identity, resolve_identity)
-from vsts.cli.common.services import (get_work_item_tracking_client,
+from azdos.exceptions import AzdosServiceError
+from azdos.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
+from azdos.work_item_tracking.v4_0.models.wiql import Wiql
+from azdos.cli.common.identities import (ME, get_current_identity, resolve_identity)
+from azdos.cli.common.services import (get_work_item_tracking_client,
                                       resolve_instance,
                                       resolve_instance_and_project)
-from vsts.cli.common.uri import uri_quote
+from azdos.cli.common.uri import uri_quote
 
 logger = get_logger(__name__)
 
@@ -97,8 +97,8 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
         if open_browser:
             _open_work_item(work_item, team_instance)
         return work_item
-    except VstsServiceError as ex:
-        _handle_vsts_service_error(ex)
+    except AzdosServiceError as ex:
+        _handle_azdos_service_error(ex)
 
 
 def update_work_item(work_item_id, title=None, description=None, assigned_to=None, state=None, area=None,
@@ -173,11 +173,11 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
         if open_browser:
             _open_work_item(work_item, team_instance)
         return work_item
-    except VstsServiceError as ex:
-        _handle_vsts_service_error(ex)
+    except AzdosServiceError as ex:
+        _handle_azdos_service_error(ex)
 
 
-def _handle_vsts_service_error(ex):
+def _handle_azdos_service_error(ex):
     logger.debug(ex, exc_info=True)
     if ex.type_key == 'RuleValidationException' and "FieldReferenceName" in ex.custom_properties:
         if ex.message is not None:

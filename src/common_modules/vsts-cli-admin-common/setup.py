@@ -5,7 +5,7 @@
 
 from setuptools import setup, find_packages
 
-NAME = 'vsts-cli-admin-common'
+NAME = 'azdos-cli-admin-common'
 VERSION = '0.1.3'
 
 # To install the library, run the following
@@ -18,8 +18,8 @@ VERSION = '0.1.3'
 REQUIRES = [
     'knack==0.4.1',
     'python-dateutil==2.7.3',
-    'vsts~=0.1.16.dev',
-    'vsts-cli-common==' + VERSION
+    'azdos~=0.1.16.dev',
+    'azdos-cli-common==' + VERSION
 ]
 
 CLASSIFIERS = [
@@ -40,8 +40,8 @@ setup(
     license='MIT',
     description="VSTS Administration Command Line Interface Common",
     author="Microsoft Corporation",
-    author_email="vstscli@microsoft.com",
-    url="https://github.com/Microsoft/vsts-cli",
+    author_email="azdoscli@microsoft.com",
+    url="https://github.com/Microsoft/azdos-cli",
     keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI", "Admin", "Administration"],
     install_requires=REQUIRES,
     classifiers=CLASSIFIERS,

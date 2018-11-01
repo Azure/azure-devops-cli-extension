@@ -5,7 +5,7 @@
 !src
 
 # Except for tab completion
-!scripts/vsts.completion
+!scripts/azdos.completion
 
 # Make an exception for the license file
 !LICENSE

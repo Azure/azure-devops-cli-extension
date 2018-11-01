@@ -17,7 +17,7 @@ if "%CLIVERSION%"=="" (
 )
 set PYTHON_VERSION=3.6.3
 
-set WIX_DOWNLOAD_URL="https://vstscli.blob.core.windows.net/msi/wix311-binaries-mirror.zip"
+set WIX_DOWNLOAD_URL="https://azdoscli.blob.core.windows.net/msi/wix311-binaries-mirror.zip"
 
 :: Set up the output directory and temp. directories
 echo *** Cleaning previous build artifacts...
@@ -35,9 +35,9 @@ echo Creating output directory: %OUTPUT_DIR%
 mkdir "%OUTPUT_DIR%"
 if %errorlevel% neq 0 goto ERROR
 
-set TEMP_SCRATCH_FOLDER=%HOMEDRIVE%%HOMEPATH%\vstscli_scratch
-set BUILDING_DIR=%HOMEDRIVE%%HOMEPATH%\vstscli
-set WIX_DIR=%HOMEDRIVE%%HOMEPATH%\vstswix
+set TEMP_SCRATCH_FOLDER=%HOMEDRIVE%%HOMEPATH%\azdoscli_scratch
+set BUILDING_DIR=%HOMEDRIVE%%HOMEPATH%\azdoscli
+set WIX_DIR=%HOMEDRIVE%%HOMEPATH%\azdoswix
 set REPO_ROOT=%~dp0..\..\..
 
 echo REPO_ROOT=%REPO_ROOT%
@@ -115,35 +115,35 @@ if %errorlevel% neq 0 goto ERROR
 if %errorlevel% neq 0 goto ERROR
 
 :: Install them to the temp folder so to be packaged
-"%BUILDING_DIR%\python.exe" -m pip install vsts --upgrade --force-reinstall --no-cache-dir --extra-index-url https://vstscli.azurewebsites.net --no-cache-dir
+"%BUILDING_DIR%\python.exe" -m pip install azdos --upgrade --force-reinstall --no-cache-dir --extra-index-url https://azdoscli.azurewebsites.net --no-cache-dir
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-common"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\azdos-cli-common"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-admin-common"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\azdos-cli-admin-common"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-build-common"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\azdos-cli-build-common"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-code-common"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\azdos-cli-code-common"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-package-common"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\azdos-cli-package-common"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-team-common"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\azdos-cli-team-common"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-work-common"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\azdos-cli-work-common"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-admin"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\azdos-cli-admin"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-build"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\azdos-cli-build"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-code"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\azdos-cli-code"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-package"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\azdos-cli-package"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-team"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\azdos-cli-team"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-work"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\azdos-cli-work"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\vsts-cli"
+"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\azdos-cli"
 if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install --force-reinstall --upgrade knack keyring msrest
 if %errorlevel% neq 0 goto ERROR
@@ -151,9 +151,9 @@ if %errorlevel% neq 0 goto ERROR
 echo *** Creating the wbin (Windows binaries) folder that will be added to the path...
 mkdir "%BUILDING_DIR%\wbin"
 if %errorlevel% neq 0 goto ERROR
-copy "%REPO_ROOT%\packaged_releases\windows\scripts\vsts.bat" "%BUILDING_DIR%\wbin\"
+copy "%REPO_ROOT%\packaged_releases\windows\scripts\azdos.bat" "%BUILDING_DIR%\wbin\"
 if %errorlevel% gtr 1 goto ERROR
-copy "%REPO_ROOT%\packaged_releases\windows\scripts\vsts" "%BUILDING_DIR%\wbin\"
+copy "%REPO_ROOT%\packaged_releases\windows\scripts\azdos" "%BUILDING_DIR%\wbin\"
 if %errorlevel% gtr 1 goto ERROR
 copy "%REPO_ROOT%\packaged_releases\windows\resources\CLI_LICENSE.rtf" "%BUILDING_DIR%"
 if %errorlevel% gtr 1 goto ERROR
@@ -172,7 +172,7 @@ if "%msbuildpath%" == "" (
     set msbuildpath=msbuild
 )
 
-"%msbuildpath%" /t:rebuild /p:Configuration=Release "%REPO_ROOT%\packaged_releases\windows\vsts-cli.wixproj"
+"%msbuildpath%" /t:rebuild /p:Configuration=Release "%REPO_ROOT%\packaged_releases\windows\azdos-cli.wixproj"
 if %errorlevel% neq 0 goto ERROR
 
 dir /s /b "%OUTPUT_DIR%"\*.msi

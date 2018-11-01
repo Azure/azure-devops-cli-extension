@@ -10,9 +10,9 @@ from knack.log import get_logger
 from knack.prompting import NoTTYException, prompt_pass
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
-from vsts.cli.common._credentials import clear_credential, set_credential
-from vsts.cli.common.services import _get_vss_connection, get_base_url
-from vsts.cli.common.version import disable_command_version_checking, DISABLE_VERSION_CHECK_SETTING
+from azdos.cli.common._credentials import clear_credential, set_credential
+from azdos.cli.common.services import _get_vss_connection, get_base_url
+from azdos.cli.common.version import disable_command_version_checking, DISABLE_VERSION_CHECK_SETTING
 
 logger = get_logger(__name__)
 
@@ -37,7 +37,7 @@ def credential_set(token=None, team_instance=None):
         logger.info("Creating connection with personal access token.")
         credentials = BasicAuthentication('', token)
         connection = _get_vss_connection(team_instance, credentials)
-        location_client = connection.get_client('vsts.location.v4_1.location_client.LocationClient')
+        location_client = connection.get_client('azdos.location.v4_1.location_client.LocationClient')
         try:
             location_client.get_connection_data()
         except Exception as ex2:

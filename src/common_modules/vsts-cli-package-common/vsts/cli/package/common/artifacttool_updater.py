@@ -18,7 +18,7 @@ import requests
 
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.cli.common.services import get_vss_connection
+from azdos.cli.common.services import get_vss_connection
 
 logger = get_logger(__name__)
 
@@ -70,7 +70,7 @@ class ArtifactToolUpdater:
 
     def _get_current_release(self, team_instance, override_version):
         connection = get_vss_connection(team_instance)
-        client = connection.get_client('vsts.cli.package.common.client_tool.client_tool_client.ClientToolClient')
+        client = connection.get_client('azdos.cli.package.common.client_tool.client_tool_client.ClientToolClient')
         logger.debug("Looking up current version of ArtifactTool...")
         release = client.get_clienttool_release("ArtifactTool", os_name=platform.system(), arch=platform.machine(), version=override_version)
         return (release.uri, self._compute_id(release)) if release is not None else None
@@ -141,8 +141,8 @@ class ArtifactToolUpdater:
         return "{}_{}_{}".format(release.name, release.rid, release.version)
 
     def _compute_artifacttool_root(self):
-        vsts_cli_root = os.path.expanduser(os.path.join('~', '.vsts', 'cli', 'tools'))
-        return os.path.join(vsts_cli_root, "artifacttool")
+        azdos_cli_root = os.path.expanduser(os.path.join('~', '.azdos', 'cli', 'tools'))
+        return os.path.join(azdos_cli_root, "artifacttool")
 
     def _compute_release_dir(self, release_id):
         return os.path.join(self._compute_artifacttool_root(), release_id)

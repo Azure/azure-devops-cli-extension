@@ -11,8 +11,8 @@ from .uri import uri_parse
 
 logger = get_logger(__name__)
 
-class VstsGitUrlInfo(object):
-    """ VstsGitUrlInfo.
+class AzdosGitUrlInfo(object):
+    """ AzdosGitUrlInfo.
     """
     def __init__(self, remote_url):
         from msrest import Serializer, Deserializer
@@ -37,16 +37,16 @@ class VstsGitUrlInfo(object):
                     self.repo = remote_info.repository
                     self.uri = remote_info.server_url
             if remote_info is None:
-                vsts_info = self.get_vsts_info(remote_url)
-                if vsts_info is not None:
-                    self.project = vsts_info.repository.project.id
-                    self.repo = vsts_info.repository.id
+                azdos_info = self.get_azdos_info(remote_url)
+                if azdos_info is not None:
+                    self.project = azdos_info.repository.project.id
+                    self.repo = azdos_info.repository.id
                     apis_path_segment = '/_apis/'
-                    apis_path_segment_pos = vsts_info.repository.url.find(apis_path_segment)
+                    apis_path_segment_pos = azdos_info.repository.url.find(apis_path_segment)
                     if apis_path_segment_pos >= 0:
-                        self.uri = vsts_info.repository.url[:apis_path_segment_pos]
+                        self.uri = azdos_info.repository.url[:apis_path_segment_pos]
                     else:
-                        self.uri = vsts_info.server_url
+                        self.uri = azdos_info.server_url
                     serializer = Serializer(models)
                     try:
                         _git_remote_info_cache[remote_url] = \
@@ -56,13 +56,13 @@ class VstsGitUrlInfo(object):
                         logger.debug(ex, exc_info=True)
 
     @staticmethod
-    def get_vsts_info(remote_url):
-        from vsts.git.v4_0.git_client import GitClient
+    def get_azdos_info(remote_url):
+        from azdos.git.v4_0.git_client import GitClient
         from .services import _get_credentials
         components = uri_parse(remote_url.lower())
         if components.scheme == 'ssh':
             # Convert to https url.
-            netloc = VstsGitUrlInfo.convert_ssh_netloc_to_https_netloc(components.netloc)
+            netloc = AzdosGitUrlInfo.convert_ssh_netloc_to_https_netloc(components.netloc)
             if netloc is None:
                 return None
             uri = 'https://' + netloc + '/' + components.path
@@ -73,7 +73,7 @@ class VstsGitUrlInfo(object):
         else:
             uri = remote_url
         credentials = _get_credentials(uri)
-        return GitClient.get_vsts_info_by_remote_url(uri, credentials=credentials)
+        return GitClient.get_azdos_info_by_remote_url(uri, credentials=credentials)
 
     @staticmethod
     def convert_ssh_netloc_to_https_netloc(netloc):
@@ -82,7 +82,7 @@ class VstsGitUrlInfo(object):
         if netloc.find('@') < 0:
             # on premise url
             logger.warning('TFS SSH URLs are not supported for repo auto-detection yet. See the following issue for ' +
-                            'latest updates: https://github.com/Microsoft/vsts-cli/issues/142')
+                            'latest updates: https://github.com/Microsoft/azdos-cli/issues/142')
             return None
         else:
             # hosted url
@@ -94,7 +94,7 @@ class VstsGitUrlInfo(object):
             return None
 
     @staticmethod
-    def is_vsts_url_candidate(url):
+    def is_azdos_url_candidate(url):
         if url is None:
             return False
         components = uri_parse(url.lower())
@@ -115,7 +115,7 @@ class VstsGitUrlInfo(object):
         }
 
         def __init__(self, project=None, repository=None, server_url=None):
-            super(VstsGitUrlInfo._RemoteInfo, self).__init__()
+            super(AzdosGitUrlInfo._RemoteInfo, self).__init__()
             self.project = project
             self.repository = repository
             self.server_url = server_url

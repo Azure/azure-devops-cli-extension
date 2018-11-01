@@ -9,29 +9,29 @@ from ._format import transform_project_table_output, transform_projects_table_ou
 def load_team_commands(cli_command_loader):
     cli_command_loader.command_table['login'] = \
         cli_command_loader.create_command(module_name='team', name='login',
-                                          operation='vsts.cli.team.common.credentials#credential_set')
+                                          operation='azdos.cli.team.common.credentials#credential_set')
 
     cli_command_loader.command_table['logout'] = \
         cli_command_loader.create_command(module_name='team', name='logout',
-                                          operation='vsts.cli.team.common.credentials#credential_clear')
+                                          operation='azdos.cli.team.common.credentials#credential_clear')
 
     cli_command_loader.command_table['feedback'] = \
         cli_command_loader.create_command(module_name='team', name='feedback',
-                                          operation='vsts.cli.team.common.feedback#feedback')
+                                          operation='azdos.cli.team.common.feedback#feedback')
 
     cli_command_loader.command_table['configure'] = \
         cli_command_loader.create_command(module_name='team', name='configure',
-                                          operation='vsts.cli.team.common.configure#configure')
+                                          operation='azdos.cli.team.common.configure#configure')
 
     cli_command_loader.command_table['project create'] = \
         cli_command_loader.create_command(module_name='team', name='project create',
-                                          operation='vsts.cli.team.common.project#create_project',
+                                          operation='azdos.cli.team.common.project#create_project',
                                           table_transformer=transform_project_table_output)
     cli_command_loader.command_table['project show'] = \
         cli_command_loader.create_command(module_name='team', name='project show',
-                                          operation='vsts.cli.team.common.project#show_project',
+                                          operation='azdos.cli.team.common.project#show_project',
                                           table_transformer=transform_project_table_output)
     cli_command_loader.command_table['project list'] = \
         cli_command_loader.create_command(module_name='team', name='project list',
-                                          operation='vsts.cli.team.common.project#list_projects',
+                                          operation='azdos.cli.team.common.project#list_projects',
                                           table_transformer=transform_projects_table_output)

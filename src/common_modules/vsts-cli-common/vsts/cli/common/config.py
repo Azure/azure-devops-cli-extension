@@ -21,24 +21,24 @@ _ENV_VAR_FORMAT = CLI_ENV_VARIABLE_PREFIX + '{section}_{option}'
 
 
 def _get_config_dir():
-    vsts_config_dir = os.getenv('VSTS_CONFIG_DIR', None) or os.path.expanduser(os.path.join('~', '.vsts', 'cli'))
-    if not os.path.exists(vsts_config_dir):
-        os.makedirs(vsts_config_dir)
-    return vsts_config_dir
+    azdos_config_dir = os.getenv('VSTS_CONFIG_DIR', None) or os.path.expanduser(os.path.join('~', '.azdos', 'cli'))
+    if not os.path.exists(azdos_config_dir):
+        os.makedirs(azdos_config_dir)
+    return azdos_config_dir
 
 
 GLOBAL_CONFIG_DIR = _get_config_dir()
 GLOBAL_CONFIG_PATH = os.path.join(GLOBAL_CONFIG_DIR, CONFIG_FILE_NAME)
 
 
-class VstsConfig(CLIConfig):
+class AzdosConfig(CLIConfig):
     def __init__(self, config_dir=GLOBAL_CONFIG_DIR, config_env_var_prefix=CLI_ENV_VARIABLE_PREFIX):
-        super(VstsConfig, self).__init__(config_dir=config_dir, config_env_var_prefix=config_env_var_prefix)
+        super(AzdosConfig, self).__init__(config_dir=config_dir, config_env_var_prefix=config_env_var_prefix)
         self.config_parser = get_config_parser()
 
 
-vsts_config = VstsConfig()
-vsts_config.config_parser.read(GLOBAL_CONFIG_PATH)
+azdos_config = AzdosConfig()
+azdos_config.config_parser.read(GLOBAL_CONFIG_PATH)
 
 
 def set_global_config(config):
@@ -48,7 +48,7 @@ def set_global_config(config):
         config.write(configfile)
     os.chmod(GLOBAL_CONFIG_PATH, stat.S_IRUSR | stat.S_IWUSR)
     # reload config
-    vsts_config.config_parser.read(GLOBAL_CONFIG_PATH)
+    azdos_config.config_parser.read(GLOBAL_CONFIG_PATH)
 
 
 def set_global_config_value(section, option, value):

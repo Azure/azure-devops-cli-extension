@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from vsts.cli.common.git import is_git_alias_setup, setup_git_alias, clear_git_alias
+from azdos.cli.common.git import is_git_alias_setup, setup_git_alias, clear_git_alias
 
 
 def setup_git_aliases(local=False):
