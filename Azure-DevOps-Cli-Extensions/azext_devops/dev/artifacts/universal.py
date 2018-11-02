@@ -29,7 +29,7 @@ def publish_package(feed, name, version, path, description=None, team_instance=N
     :type description: str
     :param path: Directory containing the package contents.
     :type path: str
-    :param team_instance: VSTS account URL. Example: 'https://myaccount.visualstudio.com'.
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param detect: Automatically detect instance. Default is "on".
     :type detect: str
@@ -50,7 +50,7 @@ def download_package(feed, name, version, path, team_instance=None, detect=None)
     :type version: str
     :param path: Directory to place the package contents.
     :type path: str
-    :param team_instance: VSTS account URL. Example: 'https://myaccount.visualstudio.com'.
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param detect: Automatically detect instance. Default is "on".
     :type detect: str

@@ -18,7 +18,7 @@ def create_repo(name, team_instance=None, project=None, detect=None, open_browse
     """Create a Git repository in a team project.
     :param name: Name for the new repository.
     :type name: str
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
@@ -44,7 +44,7 @@ def delete_repo(repo_id=None, team_instance=None, project=None, detect=None):
     """Delete a Git repository in a team project.
     :param repo_id: ID of the repository.
     :type repo_id: str
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
@@ -62,7 +62,7 @@ def delete_repo(repo_id=None, team_instance=None, project=None, detect=None):
 
 def list_repos(team_instance=None, project=None, detect=None):
     """List Git repositories of a team project.
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
@@ -83,7 +83,7 @@ def show_repo(repo_id=None, name=None, team_instance=None, project=None, detect=
     :type repo_id: str
     :param name: Name of the repository. Ignored if --id is specified.
     :type name: str
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str

@@ -22,7 +22,7 @@ For help, pass the `-h` or `--help` argument, for example:
 
 ```bash
 az devops -h
-az devops code -h
+az devops repos -h
 ```
 
 ### Commands
@@ -31,14 +31,14 @@ Use the Azure Devops CLI to work with and manage build, code repositories, proje
 
 Here are just a few of the commands:
 
-* az devops build queue
-* az devops code pr list
-* az devops code pr complete
-* az devops code pr reviewers add
-* az devops code pr work-items list
+* az pipelines build queue
+* az repos pr list
+* az repos pr complete
+* az repos pr reviewers add
+* az repos pr work-items list
 * az devops project create
-* az devops work item create
-* az devops work item update
+* az boards work-item create
+* az boards work-item update
 
 See the full list of [available commands](https://aka.ms/vsts-cli-commands).
 
@@ -47,7 +47,7 @@ See the full list of [available commands](https://aka.ms/vsts-cli-commands).
 Create a personal access token and provide to the Azure Devops CLI via the login command:
 
 ```bash
-az devops login --instance https://MYACCOUNT.visualstudio.com --token MYTOKEN
+az devops login --instance https://dev.azure.com/MY-ORGANIZATION-NAME/ --token MYTOKEN
 ```
 
 ### Using Azure Devops CLI Behind a Proxy
@@ -63,7 +63,7 @@ You can change your default settings using the `az devops configure` command, fo
 * Table (human-readable tabular output)
 * TSV (tab and new line delimited)
 
-You can also add aliases in Git for certain Azure Devops CLI commands. For example, `git pr list` will be an alias for `az devops code pr list`.
+You can also add aliases in Git for certain Azure Devops CLI commands. For example, `git pr list` will be an alias for `az repos pr list`.
 
 ### Querying and filtering output
 

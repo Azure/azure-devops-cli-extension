@@ -11,7 +11,7 @@ from azext_devops.dev.common.uuid import is_uuid
 
 def task_list(team_instance=None, task_id=None, detect=None):
     """List tasks.
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param str task_id: The UUID of the task.
     :param detect: Automatically detect values for instance and project. Default is "on".
@@ -30,7 +30,7 @@ def task_show(task_id, version, team_instance=None, detect=None):
     """Show task.
     :param str task_id: The UUID of the task.
     :param str version: The version of the task.
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param detect: Automatically detect values for instance and project. Default is "on".
     :type detect: str

@@ -20,8 +20,7 @@ def create_project(name, team_instance=None, process=None, source_control='git',
     """Create a team project.
     :param name: Name of the new project.
     :type name: str
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param process: Process to use. Default if not specified.
     :type process: str
@@ -92,8 +91,7 @@ def delete_project(project_id=None, team_instance=None, detect=None):
     """Delete team project.
     :param project_id: The id (UUID) of the project to delete.
     :type project_id: str
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
@@ -119,8 +117,7 @@ def show_project(project_id=None, name=None, team_instance=None, detect=None, op
     :type project_id: str
     :param name: Name of the project to show. Ignored if the --id argument is specified.
     :type name: str
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
@@ -145,8 +142,7 @@ def show_project(project_id=None, name=None, team_instance=None, detect=None, op
 
 def list_projects(team_instance=None, top=None, skip=None, detect=None):
     """List team projects
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param top: Maximum number of results to list.
     :type top: int

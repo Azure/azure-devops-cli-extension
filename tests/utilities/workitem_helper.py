@@ -8,8 +8,7 @@ def delete_work_item(work_item_id, destroy=False, team_instance=None, project=No
     :type work_item_id: int
     :param destroy: Permanently delete this work item.
     :type destroy: bool
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str

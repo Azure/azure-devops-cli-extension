@@ -20,7 +20,7 @@ def create_import_request(project = None, repository = None, git_source_url = No
     :type repository: str
     :param git_source_url: Url of the source git repository
     :type git_source_url: str
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param detect: Automatically detect instance, project, repository, source and target branches
                    if these values are not specified. Default is "on".

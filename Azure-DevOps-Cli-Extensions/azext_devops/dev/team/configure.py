@@ -17,14 +17,14 @@ from azext_devops.dev.common.version import disable_command_version_checking, DI
 
 def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_git_aliases=None,
               default_output=None, disable_version_check=None, list_config=False):
-    """Configure the VSTS CLI or view your configuration.
+    """Configure the Azure DevOps CLI or view your configuration.
     :param defaults: Space separated 'name=value' pairs for common arguments defaults,
         e.g. '--defaults output=table arg=value' Use '' to clear the defaults, e.g. --defaults output=''.
     :type defaults: str
-    :param collect_telemetry: Microsoft would like to collect anonymous VSTS CLI usage data to
+    :param collect_telemetry: Microsoft would like to collect anonymous Azure DevOps CLI usage data to
         improve our CLI.  Participation is voluntary and when you choose to
         participate, your device automatically sends information to Microsoft
-        about how you use the VSTS CLI.  The data is anonymous and does not
+        about how you use the Azure DevOps CLI.  The data is anonymous and does not
         include commandline argument values.  Set to 'yes' to enable telemetry collection
         or 'no' to disable it.
     :type collect_telemetry: str

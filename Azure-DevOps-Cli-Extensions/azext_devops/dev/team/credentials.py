@@ -18,11 +18,10 @@ logger = get_logger(__name__)
 
 def credential_set(token=None, team_instance=None):
     """Set the credential (PAT) to use for a particular account
-    :param token: PAT token for the VSTS account or your TFS project collection.  If not supplied, you will be prompted
+    :param token: PAT token for the Azure DevOps account or your TFS project collection.  If not supplied, you will be prompted
                   for your token.
     :type token: str
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     """
     disable_command_version_checking()
@@ -48,8 +47,7 @@ def credential_set(token=None, team_instance=None):
 
 def credential_clear(team_instance=None):
     """Clear the credential for a particular account
-    :param team_instance: The URI for the VSTS account (https://<account>.visualstudio.com) or your TFS project
-                          collection.
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     """
     disable_command_version_checking()

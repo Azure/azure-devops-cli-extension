@@ -20,7 +20,7 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
     :type name: bool
     :param top: Maximum number of definitions to list.
     :type top: int
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
@@ -61,7 +61,7 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
     :type name: str
     :param open_browser: Open the definition summary page in your web browser.
     :type open_browser: bool
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str

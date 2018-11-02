@@ -10,7 +10,7 @@ from azext_devops.dev.common.version import disable_command_version_checking, DI
 
 
 def feedback():
-    """Displays information on how to provide feedback to the VSTS CLI team.
+    """Displays information on how to provide feedback to the Azure DevOps CLI team.
     """
     print('Thank you for taking the time to share your feedback. Please submit your feedback on the following web ' +
           'page: https://aka.ms/vsts-cli-feedback')

@@ -30,7 +30,7 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type variables: [str]
     :param open_browser: Open the build results page in your web browser.
     :type open_browser: bool
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
@@ -74,7 +74,7 @@ def build_show(build_id, open_browser=False, team_instance=None, project=None, d
     :type build_id: int
     :param open_browser: Open the build results page in your web browser.
     :type open_browser: bool
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
@@ -99,7 +99,7 @@ def build_list(definition_ids=None, branch=None, team_instance=None, project=Non
     :type definition_ids: list of int
     :param branch: Filter by builds for this branch.
     :type branch: str
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str

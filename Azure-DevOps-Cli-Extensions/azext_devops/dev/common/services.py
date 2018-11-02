@@ -205,17 +205,17 @@ def get_base_url(team_instance):
 
 
 def _raise_team_team_instance_arg_error():
-    raise CLIError('--instance must be specified. The value should be the URI of your VSTS account, ' +
-                   'for example: https://<account>.visualstudio.com or your TFS project collection. ' +
-                   'You can set a default value by running: vsts configure --defaults ' +
-                   'instance=https://<account>.visualstudio.com. For auto detection to ' +
-                   'work (--detect on), you must be in a local Git directory that has a "remote" referencing a VSTS ' +
+    raise CLIError('--instance must be specified. The value should be the URI of your Azure DevOps account, ' +
+                   'for example: https://dev.azure.com/MyOrganizationName/ or your TFS project collection. ' +
+                   'You can set a default value by running: az devops configure --defaults ' +
+                   'instance=https://dev.azure.com/MyOrganizationName/. For auto detection to ' +
+                   'work (--detect on), you must be in a local Git directory that has a "remote" referencing a Azure DevOps' +
                    'or TFS repository.')
 
 
 def _raise_team_project_arg_error():
     raise CLIError('--project must be specified. The value should be the ID or name of a team project. ' +
-                   'You can set a default value by running: vsts configure --defaults project=<ProjectName>.')
+                   'You can set a default value by running: az devops configure --defaults project=<ProjectName>.')
 
 
 def resolve_instance_project_and_repo(detect, team_instance, project=None, project_required=True, repo=None):

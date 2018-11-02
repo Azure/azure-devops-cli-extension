@@ -9,7 +9,7 @@ from .setting import setting_add_or_update, setting_list, setting_remove, GLOBAL
 
 def banner_list(team_instance=None, detect=None):
     """List banners.
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
@@ -22,7 +22,7 @@ def banner_show(message_id, team_instance=None, detect=None):
     """Show details for a banner.
     :param message_id: Identifier for the banner.
     :type message_id: str
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
@@ -46,7 +46,7 @@ def banner_add(message, banner_type=None, message_id=None, expiration=None, team
     :param expiration: Date/time when the banner should no longer be presented to users. If not set, the banner does not
                        automatically expire and must be removed with the remove command.
     :type expiration: date
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
@@ -84,7 +84,7 @@ def banner_update(message=None, banner_type=None, message_id=None, expiration=No
     :param expiration: Date/time when the banner should no longer be presented to users. To unset the expiration for the
                        banner, supply an empty value to this argument.
     :type expiration: date
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
@@ -133,7 +133,7 @@ def banner_remove(message_id, team_instance=None, detect=None):
     """Remove a banner.
     :param message_id: ID of the banner to remove.
     :type message_id: str
-    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
     :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
