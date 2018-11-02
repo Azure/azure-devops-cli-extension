@@ -6,7 +6,7 @@
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 
-from datetime import datetime
+from dateutil import parser
 from .utilities.helper import get_random_name
 
 class AzReposPrTests(ScenarioTest):
@@ -35,7 +35,7 @@ class AzReposPrTests(ScenarioTest):
             create_pr_command = 'az repos pr create -p PullRequestLiveTest -r ' + created_repo_id + ' -s testbranch -t master --title "' + pr_title + '" -d "Sample PR description" --detect Off --output json'
             create_pr_output = self.cmd(create_pr_command).get_output_in_json()
             create_pr_id = create_pr_output["pullRequestId"]
-            create_pr_datetime = datetime.strptime(create_pr_output["creationDate"], "%Y-%m-%dT%H:%M:%S.%f%z")
+            create_pr_datetime = parser.parse(create_pr_output["creationDate"])
             assert create_pr_id > 0
             create_pr_id = str(create_pr_id)
             
@@ -100,7 +100,7 @@ class AzReposPrTests(ScenarioTest):
             #Complete PR 
             complete_pr_command = 'az repos pr complete --id ' + create_pr_id + ' --detect Off --output json'
             complete_pr_output = self.cmd(complete_pr_command).get_output_in_json()
-            complete_pr_queued_time = datetime.strptime(complete_pr_output["completionQueueTime"], "%Y-%m-%dT%H:%M:%S.%f%z")
+            complete_pr_queued_time = parser.parse(complete_pr_output["completionQueueTime"])
             complete_pr_completion_options = complete_pr_output["completionOptions"]
             assert len(complete_pr_completion_options) > 0
             assert create_pr_datetime < complete_pr_queued_time
