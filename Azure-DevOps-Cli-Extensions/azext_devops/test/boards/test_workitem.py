@@ -4,7 +4,14 @@
 # --------------------------------------------------------------------------------------------
 
 import unittest
-from unittest.mock import patch
+
+try:
+    # Attempt to load mock (works on Python 3.3 and above)
+    from unittest.mock import patch
+except ImportError:
+    # Attempt to load mock (works on Python version below 3.3)
+    from mock import patch
+
 from azext_devops.dev.boards.work_item import (delete_work_item,
                                             show_work_item)
 from azext_devops.dev.common.services import clear_connection_cache

@@ -12,6 +12,9 @@ python setup.py bdist_wheel
 Write-Host "done"
 Set-Location $rootPath
 
+# only needed for running tests in environment with python version less that 3.3
+pip install mock
+
 $ErrorActionPreference = "Continue"
 try {
     Write-Host "trying to uninstall extension of az devops extension was installed"
