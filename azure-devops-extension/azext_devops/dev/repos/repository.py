@@ -8,7 +8,8 @@ import webbrowser
 from knack.util import CLIError
 from vsts.git.v4_0.models.git_repository_create_options import GitRepositoryCreateOptions
 from azext_devops.dev.common.services import (get_git_client,
-                                      resolve_instance_and_project)
+                                      resolve_instance_and_project,  
+                                      resolve_instance_project_and_repo)
 from azext_devops.dev.common.uri import uri_quote
 
 from knack.log import get_logger
@@ -87,23 +88,25 @@ def show_repo(repo_id=None, name=None, team_instance=None, project=None, detect=
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
-    :param detect: Automatically detect instance and project. Default is "on".
+    :param detect: Automatically detect instance, project and repository. Default is "on".
     :type detect: str
     :param open_browser: Open the repository page in your web browser.
     :type open_browser: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
-    if repo_id is None and name is None:
-        raise CLIError('Either the --name argument or the --id argument needs to be specified.')
     if repo_id is not None:
-        identifier = repo_id
+        repo_identifier = repo_id
     else:
-        identifier = name
-    team_instance, project = resolve_instance_and_project(detect=detect,
+        repo_identifier = name
+    team_instance, project, repo_identifier = resolve_instance_project_and_repo(detect=detect,
                                                             team_instance=team_instance,
-                                                            project=project)
+                                                            project=project,
+                                                            project_required=True,
+                                                            repo=repo_identifier)
+    if repo_identifier is None:
+        raise CLIError('Either the --name argument or the --id argument needs to be specified.')
     git_client = get_git_client(team_instance)
-    repository = git_client.get_repository(project=project, repository_id=identifier)
+    repository = git_client.get_repository(project=project, repository_id=repo_identifier)
     if open_browser:
         _open_repository(repository, team_instance)
     return repository

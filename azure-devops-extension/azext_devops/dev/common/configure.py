@@ -121,10 +121,10 @@ OUTPUT_LIST = [
     {'name': 'tsv', 'desc': 'Tab and Newline delimited, great for GREP, AWK, etc.'}
 ]
 
-MSG_INTRO = '\nWelcome to the Azure Dev CLI! This command will guide you through setting some default values.\n'
+MSG_INTRO = '\nWelcome to the Azure DevOps CLI! This command will guide you through setting some default values.\n'
 MSG_CLOSING = '\nYou\'re all set! Here are some commands to try:\n' \
               ' $ az devops login\n' \
-              ' $ az devops code pr list\n{}' \
+              ' $ az repos pr list\n{}' \
               ' $ az devops feedback\n'
 
 MSG_CLOSING_GIT_COMMAND = ' $ git pr list\n'
@@ -136,10 +136,10 @@ MSG_HEADING_ENV_VARS = '\nEnvironment variables:'
 
 MSG_PROMPT_MANAGE_GLOBAL = '\nDo you wish to change your settings?'
 MSG_PROMPT_GLOBAL_OUTPUT = '\nWhat default output format would you like?'
-MSG_PROMPT_TELEMETRY = '\nMicrosoft would like to collect anonymous Azure Devops CLI usage data to ' \
+MSG_PROMPT_TELEMETRY = '\nMicrosoft would like to collect anonymous Azure DevOps CLI usage data to ' \
                        'improve our CLI.  Participation is voluntary and when you choose to ' \
                        'participate, your device automatically sends information to Microsoft ' \
-                       'about how you use the Azure Devops CLI.  The data is anonymous and does not ' \
+                       'about how you use the Azure DevOps CLI.  The data is anonymous and does not ' \
                        'include commandline argument values.  To update your choice, run "az devops' \
                        'configure" again.\nSelect y to enable data collection.'
 MSG_PROMPT_GIT_ALIAS = '\nConfigure aliases for Git (to enable commands like "git pr list")?'

@@ -68,7 +68,7 @@ def _get_credentials(team_instance):
         else:
             logger.info("unable to make connection using PAT token")
    
-    raise_authentication_error('Before you can run VSTS commands, you need to run the login command (az login if using AAD/ MSA identity else az devops login if using PAT token) to setup credentials.')
+    raise_authentication_error('Before you can run Azure DevOps commands, you need to run the login command (az login if using AAD/ MSA identity else az devops login if using PAT token) to setup credentials.')
 
 def validate_token_for_instance(team_instance, credentials):
     logger.debug("instance recieved in validate_token_for_instance %s", team_instance)
