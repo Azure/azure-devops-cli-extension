@@ -10,7 +10,7 @@ from knack.help_files import helps  # pylint: disable=unused-import
 def load_team_help():
     helps['devops'] = """
     type: group
-    short-summary: Commands to work with Azure devopsOps Organization level operations.
+    short-summary: Commands to work with Azure DevOps Organization level operations.
     long-summary:
     """
 

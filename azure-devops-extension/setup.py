@@ -8,7 +8,7 @@ import re
 from codecs import open
 from setuptools import setup, find_packages
 
-NAME = 'Azure-DevOps-Cli-Extensions'
+NAME = 'azure-devops-extension'
 
 # To install the library, run the following
 #
@@ -52,7 +52,7 @@ setup(
     name=NAME,
     version=VERSION,
     license='MIT',
-    description="Azure Dev Command Line Interface",
+    description="Azure DevOps Command Line Interface",
     long_description=README + '\n\n' + HISTORY,
     author="Microsoft Corporation",
     author_email="vstscli@microsoft.com",

@@ -1,7 +1,7 @@
 param([Boolean]$outputTestResultAsJunit=$false)
 
 $rootPath = Get-Location
-$extensionDirectory = Join-Path -Path $rootPath -ChildPath "Azure-DevOps-Cli-Extensions"
+$extensionDirectory = Join-Path -Path $rootPath -ChildPath "azure-devops-extension"
 
 Set-Location $extensionDirectory
 Write-Host "installing azure dev cli extension"
@@ -18,7 +18,7 @@ pip install mock
 $ErrorActionPreference = "Continue"
 try {
     Write-Host "trying to uninstall extension of az devops extension was installed"
-    $uninstallCommand = "az extension remove -n Azure-DevOps-Cli-Extensions **2>&1 | Write-Host**"
+    $uninstallCommand = "az extension remove -n azure-devops-extension **2>&1 | Write-Host**"
     Invoke-Expression $uninstallCommand
     Write-Host "extension was installed and it was removed"
 }
