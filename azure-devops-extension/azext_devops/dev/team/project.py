@@ -7,6 +7,7 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
+from vsts.exceptions import VstsServiceError
 from vsts.core.v4_0.models.team_project import TeamProject
 from azext_devops.dev.common.operations import wait_for_long_running_operation
 from azext_devops.dev.common.services import (get_core_client,
@@ -37,55 +38,59 @@ def create_project(name, team_instance=None, process=None, source_control='git',
     :type open_browser: bool
     :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
 
-    team_project = TeamProject()
-    team_project.name = name
-    team_project.description = description
+        team_project = TeamProject()
+        team_project.name = name
+        team_project.description = description
 
-    # private is the only allowed value by vsts right now.
-    team_project.visibility = visibility
+        # private is the only allowed value by vsts right now.
+        team_project.visibility = visibility
 
-    core_client = get_core_client(team_instance)
+        core_client = get_core_client(team_instance)
 
-    # get process template id
-    process_id = None
-    process_list = core_client.get_processes()
-    if process is not None:
-        process_lower = process.lower()
-        for process in process_list:
-            if process.name.lower() == process_lower:
-                process_id = process.id
-                break
+        # get process template id
+        process_id = None
+        process_list = core_client.get_processes()
+        if process is not None:
+            process_lower = process.lower()
+            for process in process_list:
+                if process.name.lower() == process_lower:
+                    process_id = process.id
+                    break
+            if process_id is None:
+                raise CLIError('Could not find a process template with name: "{}"'.format(name))
         if process_id is None:
-            raise CLIError('Could not find a process template with name: "{}"'.format(name))
-    if process_id is None:
-        for process in process_list:
-            if process.is_default:
-                process_id = process.id
-                break
-        if process_id is None:
-            raise CLIError('Could not find a default process template: "{}"'.format(name))
+            for process in process_list:
+                if process.is_default:
+                    process_id = process.id
+                    break
+            if process_id is None:
+                raise CLIError('Could not find a default process template: "{}"'.format(name))
 
-    # build capabilities
-    version_control_capabilities = {VERSION_CONTROL_CAPABILITY_ATTRIBUTE_NAME: source_control}
-    process_capabilities = {PROCESS_TEMPLATE_CAPABILITY_TEMPLATE_TYPE_ID_ATTRIBUTE_NAME: process_id}
-    team_project.capabilities = {VERSION_CONTROL_CAPABILITY_NAME: version_control_capabilities,
-                                    PROCESS_TEMPLATE_CAPABILITY_NAME: process_capabilities}
+        # build capabilities
+        version_control_capabilities = {VERSION_CONTROL_CAPABILITY_ATTRIBUTE_NAME: source_control}
+        process_capabilities = {PROCESS_TEMPLATE_CAPABILITY_TEMPLATE_TYPE_ID_ATTRIBUTE_NAME: process_id}
+        team_project.capabilities = {VERSION_CONTROL_CAPABILITY_NAME: version_control_capabilities,
+                                        PROCESS_TEMPLATE_CAPABILITY_NAME: process_capabilities}
 
-    # queue project creation
-    operation_reference = core_client.queue_create_project(project_to_create=team_project)
-    operation = wait_for_long_running_operation(team_instance, operation_reference.id, 1)
-    status = operation.status.lower()
-    if status == 'failed':
-        raise CLIError('Project creation failed.')
-    elif status == 'cancelled':
-        raise CLIError('Project creation was cancelled.')
+        # queue project creation
+        operation_reference = core_client.queue_create_project(project_to_create=team_project)
+        operation = wait_for_long_running_operation(team_instance, operation_reference.id, 1)
+        status = operation.status.lower()
+        if status == 'failed':
+            raise CLIError('Project creation failed.')
+        elif status == 'cancelled':
+            raise CLIError('Project creation was cancelled.')
 
-    team_project = core_client.get_project(project_id=name, include_capabilities=True)
-    if open_browser:
-        _open_project(team_project)
-    return team_project
+        team_project = core_client.get_project(project_id=name, include_capabilities=True)
+        if open_browser:
+            _open_project(team_project)
+        return team_project
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
 
 def delete_project(project_id=None, team_instance=None, detect=None):
     """Delete team project.
@@ -97,19 +102,21 @@ def delete_project(project_id=None, team_instance=None, detect=None):
                    directory's repo.
     :type detect: str
     """
-    if project_id is None:
-        raise CLIError('--id argument needs to be specified.')
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    core_client = get_core_client(team_instance)
-    operation_reference = core_client.queue_delete_project(project_id=project_id)
-    operation = wait_for_long_running_operation(team_instance, operation_reference.id, 1)
-    status = operation.status.lower()
-    if status == 'failed':
-        raise CLIError('Project deletion failed.')
-    elif status == 'cancelled':
-        raise CLIError('Project deletion was cancelled.')
-    return operation
-
+    try:
+        if project_id is None:
+            raise CLIError('--id argument needs to be specified.')
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        core_client = get_core_client(team_instance)
+        operation_reference = core_client.queue_delete_project(project_id=project_id)
+        operation = wait_for_long_running_operation(team_instance, operation_reference.id, 1)
+        status = operation.status.lower()
+        if status == 'failed':
+            raise CLIError('Project deletion failed.')
+        elif status == 'cancelled':
+            raise CLIError('Project deletion was cancelled.')
+        return operation
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 def show_project(project_id=None, name=None, team_instance=None, detect=None, open_browser=False):
     """Show team project.
@@ -126,18 +133,21 @@ def show_project(project_id=None, name=None, team_instance=None, detect=None, op
     :type open_browser: bool
     :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
-    if project_id is None and name is None:
-        raise CLIError('Either the --name argument or the --id argument needs to be specified.')
-    if project_id is not None:
-        identifier = project_id
-    else:
-        identifier = name
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    core_client = get_core_client(team_instance)
-    team_project = core_client.get_project(project_id=identifier, include_capabilities=True)
-    if open_browser:
-        _open_project(team_project)
-    return team_project
+    try:
+        if project_id is None and name is None:
+            raise CLIError('Either the --name argument or the --id argument needs to be specified.')
+        if project_id is not None:
+            identifier = project_id
+        else:
+            identifier = name
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        core_client = get_core_client(team_instance)
+        team_project = core_client.get_project(project_id=identifier, include_capabilities=True)
+        if open_browser:
+            _open_project(team_project)
+        return team_project
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def list_projects(team_instance=None, top=None, skip=None, detect=None):
@@ -153,10 +163,13 @@ def list_projects(team_instance=None, top=None, skip=None, detect=None):
     :type detect: str
     :rtype: list of :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    core_client = get_core_client(team_instance)
-    team_projects = core_client.get_projects(state_filter='all', top=top, skip=skip)
-    return team_projects
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        core_client = get_core_client(team_instance)
+        team_projects = core_client.get_projects(state_filter='all', top=top, skip=skip)
+        return team_projects
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def _open_project(project):

@@ -6,6 +6,8 @@
 from webbrowser import open_new
 
 from knack.log import get_logger
+from knack.util import CLIError
+from vsts.exceptions import VstsServiceError
 from vsts.build.v4_0.models.build import Build
 from vsts.build.v4_0.models.definition_reference import DefinitionReference
 from azext_devops.dev.common.git import resolve_git_ref_heads
@@ -16,6 +18,7 @@ from azext_devops.dev.common.uri import uri_quote
 from .build_definition import get_definition_id_from_name
 
 logger = get_logger(__name__)
+
 
 def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open_browser=False,
                 team_instance=None, project=None, detect=None, source_branch=None):
@@ -40,32 +43,35 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type source_branch: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
-    if branch is None:
-        branch = source_branch
-    team_instance, project = resolve_instance_and_project(detect=detect,
-                                                          team_instance=team_instance,
-                                                          project=project)
-    if definition_id is None and definition_name is None:
-        raise ValueError('Either the --definition-id argument or the --definition-name argument ' +
-                         'must be supplied for this command.')
-    client = get_build_client(team_instance)
-    if definition_id is None:
-        definition_id = get_definition_id_from_name(definition_name, client, project)
-    definition_reference = DefinitionReference(id=definition_id)
-    build = Build(definition=definition_reference)
-    build.source_branch = resolve_git_ref_heads(branch)
-    if variables is not None and variables:
-        build.parameters = {}
-        for variable in variables:
-            separator_pos = variable.find('=')
-            if separator_pos >= 0:
-                build.parameters[variable[:separator_pos]] = variable[separator_pos + 1:]
-            else:
-                raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
-    queued_build = client.queue_build(build=build, project=project)
-    if open_browser:
-        _open_build(queued_build, team_instance)
-    return queued_build
+    try:
+        if branch is None:
+            branch = source_branch
+        team_instance, project = resolve_instance_and_project(detect=detect,
+                                                            team_instance=team_instance,
+                                                            project=project)
+        if definition_id is None and definition_name is None:
+            raise ValueError('Either the --definition-id argument or the --definition-name argument ' +
+                            'must be supplied for this command.')
+        client = get_build_client(team_instance)
+        if definition_id is None:
+            definition_id = get_definition_id_from_name(definition_name, client, project)
+        definition_reference = DefinitionReference(id=definition_id)
+        build = Build(definition=definition_reference)
+        build.source_branch = resolve_git_ref_heads(branch)
+        if variables is not None and variables:
+            build.parameters = {}
+            for variable in variables:
+                separator_pos = variable.find('=')
+                if separator_pos >= 0:
+                    build.parameters[variable[:separator_pos]] = variable[separator_pos + 1:]
+                else:
+                    raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
+        queued_build = client.queue_build(build=build, project=project)
+        if open_browser:
+            _open_build(queued_build, team_instance)
+        return queued_build
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def build_show(build_id, open_browser=False, team_instance=None, project=None, detect=None):
@@ -82,14 +88,17 @@ def build_show(build_id, open_browser=False, team_instance=None, project=None, d
     :type detect: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
-    team_instance, project = resolve_instance_and_project(detect=detect,
-                                                            team_instance=team_instance,
-                                                            project=project)
-    client = get_build_client(team_instance)
-    build = client.get_build(build_id=build_id, project=project)
-    if open_browser:
-        _open_build(build, team_instance)
-    return build
+    try:
+        team_instance, project = resolve_instance_and_project(detect=detect,
+                                                                team_instance=team_instance,
+                                                                project=project)
+        client = get_build_client(team_instance)
+        build = client.get_build(build_id=build_id, project=project)
+        if open_browser:
+            _open_build(build, team_instance)
+        return build
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def build_list(definition_ids=None, branch=None, team_instance=None, project=None, detect=None, top=None,
@@ -119,24 +128,27 @@ def build_list(definition_ids=None, branch=None, team_instance=None, project=Non
     :type requested_for: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
-    team_instance, project = resolve_instance_and_project(detect=detect,
-                                                            team_instance=team_instance,
-                                                            project=project)
-    client = get_build_client(team_instance)
-    if definition_ids is not None and definition_ids:
-        definition_ids = list(set(definition_ids))  # make distinct
-    if tags is not None and tags:
-        tags = list(set(tags))  # make distinct
-    builds = client.get_builds(definitions=definition_ids,
-                                project=project,
-                                branch_name=resolve_git_ref_heads(branch),
-                                top=top,
-                                result_filter=result,
-                                status_filter=status,
-                                reason_filter=reason,
-                                tag_filters=tags,
-                                requested_for=resolve_identity_as_id(requested_for, team_instance))
-    return builds
+    try:
+        team_instance, project = resolve_instance_and_project(detect=detect,
+                                                                team_instance=team_instance,
+                                                                project=project)
+        client = get_build_client(team_instance)
+        if definition_ids is not None and definition_ids:
+            definition_ids = list(set(definition_ids))  # make distinct
+        if tags is not None and tags:
+            tags = list(set(tags))  # make distinct
+        builds = client.get_builds(definitions=definition_ids,
+                                    project=project,
+                                    branch_name=resolve_git_ref_heads(branch),
+                                    top=top,
+                                    result_filter=result,
+                                    status_filter=status,
+                                    reason_filter=reason,
+                                    tag_filters=tags,
+                                    requested_for=resolve_identity_as_id(requested_for, team_instance))
+        return builds
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def _open_build(build, team_instance):

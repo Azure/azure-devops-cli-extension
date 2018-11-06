@@ -4,14 +4,15 @@
 # --------------------------------------------------------------------------------------------
 
 import time
-
+from knack.util import CLIError
+from vsts.exceptions import VstsServiceError
 from vsts.git.v4_0.models.git_import_request_parameters import GitImportRequestParameters
 from vsts.git.v4_0.models.git_import_git_source import GitImportGitSource
 from vsts.git.v4_0.models.git_import_request import GitImportRequest
 
 from azext_devops.dev.common.services import get_git_client, resolve_instance_project_and_repo
 
-def create_import_request(project = None, repository = None, git_source_url = None,
+def create_import_request(git_source_url, project = None, repository = None,
                           team_instance=None, detect=None):
     """Create a git import request (currently only supports import from public git source)
     :param project: Name or ID of the team project.
@@ -22,31 +23,34 @@ def create_import_request(project = None, repository = None, git_source_url = No
     :type git_source_url: str
     :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type team_instance: str
-    :param detect: Automatically detect instance, project, repository, source and target branches
-                   if these values are not specified. Default is "on".
+    :param detect: Automatically detect instance, project, repository if these values are not specified.
+                   Default is "on".
     :type detect: str
     """
-    team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
+    try:
+        team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
                                                                             team_instance=team_instance,
                                                                             project=project,
                                                                             repo=repository)
-    client = get_git_client(team_instance)
-    gitImportGitSource = GitImportGitSource(overwrite = False,url = git_source_url)
-    gitImportRequestParameter = GitImportRequestParameters(delete_service_endpoint_after_import_is_done = False,
-                                                           git_source = gitImportGitSource,
-                                                           service_endpoint_id = None,
-                                                           tfvc_source = None)
-    gitImportRequest = GitImportRequest(parameters = gitImportRequestParameter)
-    importRequest = client.create_import_request(import_request = gitImportRequest, project = project, repository_id = repository)
-    return wait_for_import_request(client, project, repository, importRequest.import_request_id)
+        client = get_git_client(team_instance)
+        gitImportGitSource = GitImportGitSource(overwrite = False,url = git_source_url)
+        gitImportRequestParameter = GitImportRequestParameters(delete_service_endpoint_after_import_is_done = False,
+                                                            git_source = gitImportGitSource,
+                                                            service_endpoint_id = None,
+                                                            tfvc_source = None)
+        gitImportRequest = GitImportRequest(parameters = gitImportRequestParameter)
+        importRequest = client.create_import_request(import_request = gitImportRequest, project = project, repository_id = repository)
+        return _wait_for_import_request(client, project, repository, importRequest.import_request_id)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
-def wait_for_import_request(client, project, repository, import_request_id, interval_seconds=5):
+def _wait_for_import_request(client, project, repository, import_request_id, interval_seconds=5):
     import_request = client.get_import_request(project, repository, import_request_id)
-    while not has_import_request_completed(import_request):
+    while not _has_import_request_completed(import_request):
         time.sleep(interval_seconds)
         import_request = client.get_import_request(project, repository, import_request_id)
     return import_request
 
-def has_import_request_completed(import_request):
+def _has_import_request_completed(import_request):
     status = import_request.status.lower()
     return status == 'completed' or status == 'failed' or status == 'abandoned'

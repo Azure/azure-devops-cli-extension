@@ -4,6 +4,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from knack.util import CLIError
+from vsts.exceptions import VstsServiceError
 from azext_devops.dev.common.services import (get_task_agent_client,
                                       resolve_instance)
 from azext_devops.dev.common.uuid import is_uuid
@@ -18,12 +20,15 @@ def task_list(team_instance=None, task_id=None, detect=None):
     :type detect: str
     :rtype: [TaskDefinition]
     """
-    if task_id is not None and not is_uuid(task_id):
-        raise ValueError("The --id argument must be a UUID.")
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    client = get_task_agent_client(team_instance)
-    definition_references = client.get_task_definitions(task_id=task_id)
-    return definition_references
+    try:
+        if task_id is not None and not is_uuid(task_id):
+            raise ValueError("The --id argument must be a UUID.")
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        client = get_task_agent_client(team_instance)
+        definition_references = client.get_task_definitions(task_id=task_id)
+        return definition_references
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def task_show(task_id, version, team_instance=None, detect=None):
@@ -36,11 +41,13 @@ def task_show(task_id, version, team_instance=None, detect=None):
     :type detect: str
     :rtype: TaskDefinition
     """
-    if not is_uuid(task_id):
-        raise ValueError("The --id argument must be a UUID.")
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    client = get_task_agent_client(team_instance)
-    definition_references = client.get_task_definition(task_id=task_id,
-                                                        version_string=version)
-    return definition_references
-
+    try:
+        if not is_uuid(task_id):
+            raise ValueError("The --id argument must be a UUID.")
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        client = get_task_agent_client(team_instance)
+        definition_references = client.get_task_definition(task_id=task_id,
+                                                            version_string=version)
+        return definition_references
+    except VstsServiceError as ex:
+        raise CLIError(ex)

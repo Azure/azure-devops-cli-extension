@@ -7,6 +7,8 @@ import sys
 
 import colorama
 from knack.log import get_logger
+from knack.util import CLIError
+from vsts.exceptions import VstsServiceError
 from azext_devops.dev.common.services import get_core_client, resolve_instance
 
 from .artifacttool import ArtifactToolInvoker
@@ -34,12 +36,16 @@ def publish_package(feed, name, version, path, description=None, team_instance=N
     :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     """
-    colorama.init() # Needed for humanfriendly spinner to display correctly
-    logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-    return artifact_tool.publish_universal(team_instance, feed, name, version, description, path)
-      
+    try:
+        colorama.init() # Needed for humanfriendly spinner to display correctly
+        logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
+        return artifact_tool.publish_universal(team_instance, feed, name, version, description, path)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
+
 def download_package(feed, name, version, path, team_instance=None, detect=None):
     """(PREVIEW) Download a package.
     :param feed: Name or ID of the feed.
@@ -55,8 +61,11 @@ def download_package(feed, name, version, path, team_instance=None, detect=None)
     :param detect: Automatically detect instance. Default is "on".
     :type detect: str
     """
-    colorama.init() # Needed for humanfriendly spinner to display correctly
-    logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-    return artifact_tool.download_universal(team_instance, feed, name, version, path)
+    try:
+        colorama.init() # Needed for humanfriendly spinner to display correctly
+        logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
+        return artifact_tool.download_universal(team_instance, feed, name, version, path)
+    except VstsServiceError as ex:
+        raise CLIError(ex)

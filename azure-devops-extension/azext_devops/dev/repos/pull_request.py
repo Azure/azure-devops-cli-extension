@@ -7,7 +7,7 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.exceptions import VstsClientRequestError
+from vsts.exceptions import VstsClientRequestError, VstsServiceError
 from vsts.git.v4_0.models.git_pull_request import GitPullRequest
 from vsts.git.v4_0.models.git_pull_request_completion_options import GitPullRequestCompletionOptions
 from vsts.git.v4_0.models.git_pull_request_search_criteria import GitPullRequestSearchCriteria
@@ -41,17 +41,20 @@ def show_pull_request(pull_request_id, open_browser=False, team_instance=None, d
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    client = get_git_client(team_instance)
-    pr = client.get_pull_request_by_id(pull_request_id)
-    pr = client.get_pull_request(project=pr.repository.project.id,
-                                    repository_id=pr.repository.id,
-                                    pull_request_id=pull_request_id,
-                                    include_commits=False,
-                                    include_work_item_refs=True)
-    if open_browser:
-        _open_pull_request(pr, team_instance)
-    return pr
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        client = get_git_client(team_instance)
+        pr = client.get_pull_request_by_id(pull_request_id)
+        pr = client.get_pull_request(project=pr.repository.project.id,
+                                        repository_id=pr.repository.id,
+                                        pull_request_id=pull_request_id,
+                                        include_commits=False,
+                                        include_work_item_refs=True)
+        if open_browser:
+            _open_pull_request(pr, team_instance)
+        return pr
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def list_pull_requests(repository=None, creator=None, include_links=False, reviewer=None,
@@ -84,25 +87,28 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     :type detect: str
     :rtype: list of :class:`VssJsonCollectionWrapper <git.v4_0.models.VssJsonCollectionWrapper>`
     """
-    team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
-                                                                            team_instance=team_instance,
-                                                                            project=project,
-                                                                            repo=repository)
-    search_criteria = GitPullRequestSearchCriteria(creator_id=resolve_identity_as_id(creator, team_instance),
-                                                    include_links=include_links,
-                                                    reviewer_id=resolve_identity_as_id(reviewer, team_instance),
-                                                    source_ref_name=resolve_git_ref_heads(source_branch),
-                                                    status=status,
-                                                    target_ref_name=resolve_git_ref_heads(target_branch))
-    client = get_git_client(team_instance)
-    if repository is None:
-        pr_list = client.get_pull_requests_by_project(project=project, search_criteria=search_criteria,
-                                                        skip=skip, top=top)
-    else:
-        pr_list = client.get_pull_requests(project=project, repository_id=repository,
-                                            search_criteria=search_criteria,
-                                            skip=skip, top=top)
-    return pr_list
+    try:
+        team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
+                                                                                team_instance=team_instance,
+                                                                                project=project,
+                                                                                repo=repository)
+        search_criteria = GitPullRequestSearchCriteria(creator_id=resolve_identity_as_id(creator, team_instance),
+                                                        include_links=include_links,
+                                                        reviewer_id=resolve_identity_as_id(reviewer, team_instance),
+                                                        source_ref_name=resolve_git_ref_heads(source_branch),
+                                                        status=status,
+                                                        target_ref_name=resolve_git_ref_heads(target_branch))
+        client = get_git_client(team_instance)
+        if repository is None:
+            pr_list = client.get_pull_requests_by_project(project=project, search_criteria=search_criteria,
+                                                            skip=skip, top=top)
+        else:
+            pr_list = client.get_pull_requests(project=project, repository_id=repository,
+                                                search_criteria=search_criteria,
+                                                skip=skip, top=top)
+        return pr_list
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
@@ -157,85 +163,88 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type transition_work_items: bool
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
-    team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
-                                                                            team_instance=team_instance,
-                                                                            project=project,
-                                                                            repo=repository)
-    if should_detect(detect):
-        if source_branch is None:
-            source_branch = get_current_branch_name()
+    try:
+        team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
+                                                                                team_instance=team_instance,
+                                                                                project=project,
+                                                                                repo=repository)
+        if should_detect(detect):
             if source_branch is None:
-                raise ValueError('The source branch could not be detected, please '
-                                    + 'provide the --source-branch argument.')
-    else:
-        if source_branch is None:
-            raise ValueError('--source-branch is a required argument.')
-    if target_branch is None:
-        if project is not None and repository is not None:
-            target_branch = _get_default_branch(team_instance, project, repository)
+                source_branch = get_current_branch_name()
+                if source_branch is None:
+                    raise ValueError('The source branch could not be detected, please '
+                                        + 'provide the --source-branch argument.')
+        else:
+            if source_branch is None:
+                raise ValueError('--source-branch is a required argument.')
         if target_branch is None:
-            raise ValueError('The target branch could not be detected, please '
-                             + 'provide the --target-branch argument.')
-    client = get_git_client(team_instance)
-    if description is not None:
-        multi_line_description = '\n'.join(description)
-    else:
-        multi_line_description = None
-    pr = GitPullRequest(description=multi_line_description, source_ref_name=source_branch,
-                        target_ref_name=target_branch)
-    if title is not None:
-        pr.title = title
-    else:
-        pr.title = 'Merge ' + source_branch + ' to ' + target_branch
-    pr.source_ref_name = resolve_git_ref_heads(source_branch)
-    pr.target_ref_name = resolve_git_ref_heads(target_branch)
-    if pr.source_ref_name == pr.target_ref_name:
-        raise CLIError('The source branch, "{}", can not be the same as the target branch.'.format
-                        (pr.source_ref_name))
-    pr.reviewers = _resolve_reviewers_as_refs(reviewers, team_instance)
-    if work_items is not None and len(work_items) > 0:
-        resolved_work_items = []
-        for work_item in work_items:
-            resolved_work_items.append(ResourceRef(id=work_item))
-        pr.work_item_refs = resolved_work_items
-    pr = client.create_pull_request(git_pull_request_to_create=pr, project=project,
-                                    repository_id=repository)
-    title_from_commit = None
-    if title is None:
-        # if title wasn't specified and only one commit, we will set the PR title to the comment of that commit
-        commits = client.get_pull_request_commits(repository_id=repository, pull_request_id=pr.pull_request_id,
-                                                    project=project)
-        if len(commits) == 1:
-            title_from_commit = commits[0].comment
-    set_completion_options = (bypass_policy
-                                or bypass_policy_reason is not None
-                                or squash
-                                or merge_commit_message is not None
-                                or delete_source_branch
-                                or transition_work_items)
-    if auto_complete or set_completion_options or title_from_commit is not None:
-        pr_for_update = GitPullRequest()
-        if auto_complete:
-            # auto-complete will not get set on create, so a subsequent update is required.
-            pr_for_update.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, team_instance))
-        if set_completion_options:
-            completion_options = GitPullRequestCompletionOptions()
-            completion_options.bypass_policy = bypass_policy
-            completion_options.bypass_reason = bypass_policy_reason
-            completion_options.delete_source_branch = delete_source_branch
-            completion_options.squash_merge = squash
-            completion_options.merge_commit_message = merge_commit_message
-            completion_options.transition_work_items = transition_work_items
-            pr_for_update.completion_options = completion_options
-        if title_from_commit is not None:
-            pr_for_update.title = title_from_commit
-        pr = client.update_pull_request(git_pull_request_to_update=pr_for_update,
-                                        project=pr.repository.project.id,
-                                        repository_id=pr.repository.id,
-                                        pull_request_id=pr.pull_request_id)
-    if open_browser:
-        _open_pull_request(pr, team_instance)
-    return pr
+            if project is not None and repository is not None:
+                target_branch = _get_default_branch(team_instance, project, repository)
+            if target_branch is None:
+                raise ValueError('The target branch could not be detected, please '
+                                + 'provide the --target-branch argument.')
+        client = get_git_client(team_instance)
+        if description is not None:
+            multi_line_description = '\n'.join(description)
+        else:
+            multi_line_description = None
+        pr = GitPullRequest(description=multi_line_description, source_ref_name=source_branch,
+                            target_ref_name=target_branch)
+        if title is not None:
+            pr.title = title
+        else:
+            pr.title = 'Merge ' + source_branch + ' to ' + target_branch
+        pr.source_ref_name = resolve_git_ref_heads(source_branch)
+        pr.target_ref_name = resolve_git_ref_heads(target_branch)
+        if pr.source_ref_name == pr.target_ref_name:
+            raise CLIError('The source branch, "{}", can not be the same as the target branch.'.format
+                            (pr.source_ref_name))
+        pr.reviewers = _resolve_reviewers_as_refs(reviewers, team_instance)
+        if work_items is not None and len(work_items) > 0:
+            resolved_work_items = []
+            for work_item in work_items:
+                resolved_work_items.append(ResourceRef(id=work_item))
+            pr.work_item_refs = resolved_work_items
+        pr = client.create_pull_request(git_pull_request_to_create=pr, project=project,
+                                        repository_id=repository)
+        title_from_commit = None
+        if title is None:
+            # if title wasn't specified and only one commit, we will set the PR title to the comment of that commit
+            commits = client.get_pull_request_commits(repository_id=repository, pull_request_id=pr.pull_request_id,
+                                                        project=project)
+            if len(commits) == 1:
+                title_from_commit = commits[0].comment
+        set_completion_options = (bypass_policy
+                                    or bypass_policy_reason is not None
+                                    or squash
+                                    or merge_commit_message is not None
+                                    or delete_source_branch
+                                    or transition_work_items)
+        if auto_complete or set_completion_options or title_from_commit is not None:
+            pr_for_update = GitPullRequest()
+            if auto_complete:
+                # auto-complete will not get set on create, so a subsequent update is required.
+                pr_for_update.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, team_instance))
+            if set_completion_options:
+                completion_options = GitPullRequestCompletionOptions()
+                completion_options.bypass_policy = bypass_policy
+                completion_options.bypass_reason = bypass_policy_reason
+                completion_options.delete_source_branch = delete_source_branch
+                completion_options.squash_merge = squash
+                completion_options.merge_commit_message = merge_commit_message
+                completion_options.transition_work_items = transition_work_items
+                pr_for_update.completion_options = completion_options
+            if title_from_commit is not None:
+                pr_for_update.title = title_from_commit
+            pr = client.update_pull_request(git_pull_request_to_update=pr_for_update,
+                                            project=pr.repository.project.id,
+                                            repository_id=pr.repository.id,
+                                            pull_request_id=pr.pull_request_id)
+        if open_browser:
+            _open_pull_request(pr, team_instance)
+        return pr
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def update_pull_request(pull_request_id, title=None, description=None, auto_complete=None,
@@ -274,46 +283,49 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
     :type transition_work_items: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    client = get_git_client(team_instance)
-    existing_pr = client.get_pull_request_by_id(pull_request_id)
-    if description is not None:
-        multi_line_description = '\n'.join(description)
-    else:
-        multi_line_description = None
-    pr = GitPullRequest(title=title, description=multi_line_description)
-    if (bypass_policy is not None
-            or bypass_policy_reason is not None
-            or squash is not None
-            or merge_commit_message is not None
-            or delete_source_branch is not None
-            or transition_work_items is not None):
-        completion_options = existing_pr.completion_options
-        if completion_options is None:
-            completion_options = GitPullRequestCompletionOptions()
-        if bypass_policy is not None:
-            completion_options.bypass_policy = resolve_on_off_switch(bypass_policy)
-        if bypass_policy_reason is not None:
-            completion_options.bypass_reason = bypass_policy_reason
-        if delete_source_branch is not None:
-            completion_options.delete_source_branch = resolve_on_off_switch(delete_source_branch)
-        if squash is not None:
-            completion_options.squash_merge = resolve_on_off_switch(squash)
-        if merge_commit_message is not None:
-            completion_options.merge_commit_message = merge_commit_message
-        if transition_work_items is not None:
-            completion_options.transition_work_items = resolve_on_off_switch(transition_work_items)
-        pr.completion_options = completion_options
-    if auto_complete is not None:
-        if resolve_on_off_switch(auto_complete):
-            pr.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, team_instance))
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        client = get_git_client(team_instance)
+        existing_pr = client.get_pull_request_by_id(pull_request_id)
+        if description is not None:
+            multi_line_description = '\n'.join(description)
         else:
-            pr.auto_complete_set_by = IdentityRef(id=EMPTY_UUID)
-    pr = client.update_pull_request(git_pull_request_to_update=pr,
-                                    project=existing_pr.repository.project.name,
-                                    repository_id=existing_pr.repository.name,
-                                    pull_request_id=pull_request_id)
-    return pr
+            multi_line_description = None
+        pr = GitPullRequest(title=title, description=multi_line_description)
+        if (bypass_policy is not None
+                or bypass_policy_reason is not None
+                or squash is not None
+                or merge_commit_message is not None
+                or delete_source_branch is not None
+                or transition_work_items is not None):
+            completion_options = existing_pr.completion_options
+            if completion_options is None:
+                completion_options = GitPullRequestCompletionOptions()
+            if bypass_policy is not None:
+                completion_options.bypass_policy = resolve_on_off_switch(bypass_policy)
+            if bypass_policy_reason is not None:
+                completion_options.bypass_reason = bypass_policy_reason
+            if delete_source_branch is not None:
+                completion_options.delete_source_branch = resolve_on_off_switch(delete_source_branch)
+            if squash is not None:
+                completion_options.squash_merge = resolve_on_off_switch(squash)
+            if merge_commit_message is not None:
+                completion_options.merge_commit_message = merge_commit_message
+            if transition_work_items is not None:
+                completion_options.transition_work_items = resolve_on_off_switch(transition_work_items)
+            pr.completion_options = completion_options
+        if auto_complete is not None:
+            if resolve_on_off_switch(auto_complete):
+                pr.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, team_instance))
+            else:
+                pr.auto_complete_set_by = IdentityRef(id=EMPTY_UUID)
+        pr = client.update_pull_request(git_pull_request_to_update=pr,
+                                        project=existing_pr.repository.project.name,
+                                        repository_id=existing_pr.repository.name,
+                                        pull_request_id=pull_request_id)
+        return pr
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def complete_pull_request(pull_request_id, team_instance=None, detect=None):
@@ -326,8 +338,11 @@ def complete_pull_request(pull_request_id, team_instance=None, detect=None):
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
-    return _update_pull_request_status(pull_request_id=pull_request_id, new_status='completed',
+    try:
+        return _update_pull_request_status(pull_request_id=pull_request_id, new_status='completed',
                                        team_instance=team_instance, detect=detect)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def abandon_pull_request(pull_request_id, team_instance=None, detect=None):
@@ -340,8 +355,11 @@ def abandon_pull_request(pull_request_id, team_instance=None, detect=None):
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
-    return _update_pull_request_status(pull_request_id=pull_request_id, new_status='abandoned',
+    try:
+        return _update_pull_request_status(pull_request_id=pull_request_id, new_status='abandoned',
                                        team_instance=team_instance, detect=detect)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def reactivate_pull_request(pull_request_id, team_instance=None, detect=None):
@@ -354,8 +372,11 @@ def reactivate_pull_request(pull_request_id, team_instance=None, detect=None):
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
-    return _update_pull_request_status(pull_request_id=pull_request_id, new_status='active',
+    try: 
+        return _update_pull_request_status(pull_request_id=pull_request_id, new_status='active',
                                        team_instance=team_instance, detect=detect)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def create_pull_request_reviewers(pull_request_id, reviewers, team_instance=None, detect=None):
@@ -370,15 +391,18 @@ def create_pull_request_reviewers(pull_request_id, reviewers, team_instance=None
     :type detect: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    client = get_git_client(team_instance)
-    pr = client.get_pull_request_by_id(pull_request_id)
-    resolved_reviewers = _resolve_reviewers_as_refs(reviewers, team_instance)
-    identities = client.create_pull_request_reviewers(reviewers=resolved_reviewers,
-                                                        project=pr.repository.project.id,
-                                                        repository_id=pr.repository.id,
-                                                        pull_request_id=pull_request_id)
-    return identities
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        client = get_git_client(team_instance)
+        pr = client.get_pull_request_by_id(pull_request_id)
+        resolved_reviewers = _resolve_reviewers_as_refs(reviewers, team_instance)
+        identities = client.create_pull_request_reviewers(reviewers=resolved_reviewers,
+                                                            project=pr.repository.project.id,
+                                                            repository_id=pr.repository.id,
+                                                            pull_request_id=pull_request_id)
+        return identities
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def delete_pull_request_reviewers(pull_request_id, reviewers, team_instance=None, detect=None):
@@ -393,18 +417,21 @@ def delete_pull_request_reviewers(pull_request_id, reviewers, team_instance=None
     :type detect: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    client = get_git_client(team_instance)
-    pr = client.get_pull_request_by_id(pull_request_id)
-    resolved_reviewers = _resolve_reviewers_as_ids(reviewers, team_instance)
-    for reviewer in resolved_reviewers:
-        client.delete_pull_request_reviewer(project=pr.repository.project.id,
-                                            repository_id=pr.repository.id,
-                                            pull_request_id=pull_request_id,
-                                            reviewer_id=reviewer)
-    return client.get_pull_request_reviewers(project=pr.repository.project.id,
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        client = get_git_client(team_instance)
+        pr = client.get_pull_request_by_id(pull_request_id)
+        resolved_reviewers = _resolve_reviewers_as_ids(reviewers, team_instance)
+        for reviewer in resolved_reviewers:
+            client.delete_pull_request_reviewer(project=pr.repository.project.id,
                                                 repository_id=pr.repository.id,
-                                                pull_request_id=pull_request_id)
+                                                pull_request_id=pull_request_id,
+                                                reviewer_id=reviewer)
+        return client.get_pull_request_reviewers(project=pr.repository.project.id,
+                                                    repository_id=pr.repository.id,
+                                                    pull_request_id=pull_request_id)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def list_pull_request_reviewers(pull_request_id, team_instance=None, detect=None):
@@ -417,12 +444,15 @@ def list_pull_request_reviewers(pull_request_id, team_instance=None, detect=None
     :type detect: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    client = get_git_client(team_instance)
-    pr = client.get_pull_request_by_id(pull_request_id)
-    return client.get_pull_request_reviewers(project=pr.repository.project.id,
-                                                repository_id=pr.repository.id,
-                                                pull_request_id=pull_request_id)
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        client = get_git_client(team_instance)
+        pr = client.get_pull_request_by_id(pull_request_id)
+        return client.get_pull_request_reviewers(project=pr.repository.project.id,
+                                                    repository_id=pr.repository.id,
+                                                    pull_request_id=pull_request_id)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def add_pull_request_work_items(pull_request_id, work_items, team_instance=None, detect=None):
@@ -437,38 +467,41 @@ def add_pull_request_work_items(pull_request_id, work_items, team_instance=None,
     :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    client = get_git_client(team_instance)
-    existing_pr = client.get_pull_request_by_id(pull_request_id)
-    if work_items is not None and work_items:
-        work_items = list(set(work_items))  # make distinct
-        wit_client = get_work_item_tracking_client(team_instance)
-        pr_url = 'vstfs:///Git/PullRequestId/{project}%2F{repo}%2F{id}'.format(
-                project=existing_pr.repository.project.id, repo=existing_pr.repository.id, id=pull_request_id)
-        for work_item_id in work_items:
-            patch_document = []
-            patch_operation = JsonPatchOperation()
-            patch_operation.op = 0
-            patch_operation.path = '/relations/-'
-            patch_operation.value = WorkItemRelation()
-            patch_operation.value.attributes = {'name': 'Pull Request'}
-            patch_operation.value.rel = 'ArtifactLink'
-            patch_operation.value.url = pr_url
-            patch_document.append(patch_operation)
-            try:
-                wit_client.update_work_item(document=patch_document, id=work_item_id)
-            except VstsClientRequestError as ex:
-                logger.debug(ex, exc_info=True)
-                message = ex.args[0]
-                if message != 'Relation already exists.':
-                    raise CLIError(ex)
-        refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
-                                                    repository_id=existing_pr.repository.id,
-                                                    pull_request_id=pull_request_id)
-    ids = []
-    for ref in refs:
-        ids.append(ref.id)
-    return wit_client.get_work_items(ids=ids)
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        client = get_git_client(team_instance)
+        existing_pr = client.get_pull_request_by_id(pull_request_id)
+        if work_items is not None and work_items:
+            work_items = list(set(work_items))  # make distinct
+            wit_client = get_work_item_tracking_client(team_instance)
+            pr_url = 'vstfs:///Git/PullRequestId/{project}%2F{repo}%2F{id}'.format(
+                    project=existing_pr.repository.project.id, repo=existing_pr.repository.id, id=pull_request_id)
+            for work_item_id in work_items:
+                patch_document = []
+                patch_operation = JsonPatchOperation()
+                patch_operation.op = 0
+                patch_operation.path = '/relations/-'
+                patch_operation.value = WorkItemRelation()
+                patch_operation.value.attributes = {'name': 'Pull Request'}
+                patch_operation.value.rel = 'ArtifactLink'
+                patch_operation.value.url = pr_url
+                patch_document.append(patch_operation)
+                try:
+                    wit_client.update_work_item(document=patch_document, id=work_item_id)
+                except VstsClientRequestError as ex:
+                    logger.debug(ex, exc_info=True)
+                    message = ex.args[0]
+                    if message != 'Relation already exists.':
+                        raise CLIError(ex)
+            refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
+                                                        repository_id=existing_pr.repository.id,
+                                                        pull_request_id=pull_request_id)
+        ids = []
+        for ref in refs:
+            ids.append(ref.id)
+        return wit_client.get_work_items(ids=ids)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def remove_pull_request_work_items(pull_request_id, work_items, team_instance=None, detect=None):
@@ -483,46 +516,49 @@ def remove_pull_request_work_items(pull_request_id, work_items, team_instance=No
     :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    client = get_git_client(team_instance)
-    existing_pr = client.get_pull_request_by_id(pull_request_id)
-    if work_items is not None and work_items:
-        work_items = list(set(work_items))  # make distinct
-        wit_client = get_work_item_tracking_client(team_instance)
-        work_items_full = wit_client.get_work_items(ids=work_items, expand=1)
-        if work_items_full:
-            url = 'vstfs:///Git/PullRequestId/{project}%2F{repo}%2F{id}'.format(
-                project=existing_pr.repository.project.id, repo=existing_pr.repository.id, id=pull_request_id)
-            for work_item in work_items_full:
-                if work_item.relations is not None:
-                    index = 0
-                    for relation in work_item.relations:
-                        if relation.url == url:
-                            patch_document = []
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        client = get_git_client(team_instance)
+        existing_pr = client.get_pull_request_by_id(pull_request_id)
+        if work_items is not None and work_items:
+            work_items = list(set(work_items))  # make distinct
+            wit_client = get_work_item_tracking_client(team_instance)
+            work_items_full = wit_client.get_work_items(ids=work_items, expand=1)
+            if work_items_full:
+                url = 'vstfs:///Git/PullRequestId/{project}%2F{repo}%2F{id}'.format(
+                    project=existing_pr.repository.project.id, repo=existing_pr.repository.id, id=pull_request_id)
+                for work_item in work_items_full:
+                    if work_item.relations is not None:
+                        index = 0
+                        for relation in work_item.relations:
+                            if relation.url == url:
+                                patch_document = []
 
-                            patch_test_operation = JsonPatchOperation()
-                            patch_test_operation.op = 'test'
-                            patch_test_operation.path = '/rev'
-                            patch_test_operation.value = work_item.rev
-                            patch_document.append(patch_test_operation)
+                                patch_test_operation = JsonPatchOperation()
+                                patch_test_operation.op = 'test'
+                                patch_test_operation.path = '/rev'
+                                patch_test_operation.value = work_item.rev
+                                patch_document.append(patch_test_operation)
 
-                            patch_operation = JsonPatchOperation()
-                            patch_operation.op = 1
-                            patch_operation.path = '/relations/{index}'.format(index=index)
-                            patch_document.append(patch_operation)
+                                patch_operation = JsonPatchOperation()
+                                patch_operation.op = 1
+                                patch_operation.path = '/relations/{index}'.format(index=index)
+                                patch_document.append(patch_operation)
 
-                            wit_client.update_work_item(document=patch_document, id=work_item.id)
-                        else:
-                            index += 1
-            refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
-                                                        repository_id=existing_pr.repository.id,
-                                                        pull_request_id=pull_request_id)
-            if refs:
-                ids = []
-                for ref in refs:
-                    ids.append(ref.id)
-                if ids:
-                    return wit_client.get_work_items(ids=ids)
+                                wit_client.update_work_item(document=patch_document, id=work_item.id)
+                            else:
+                                index += 1
+                refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
+                                                            repository_id=existing_pr.repository.id,
+                                                            pull_request_id=pull_request_id)
+                if refs:
+                    ids = []
+                    for ref in refs:
+                        ids.append(ref.id)
+                    if ids:
+                        return wit_client.get_work_items(ids=ids)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def list_pull_request_work_items(pull_request_id, team_instance=None, detect=None):
@@ -535,20 +571,23 @@ def list_pull_request_work_items(pull_request_id, team_instance=None, detect=Non
     :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    client = get_git_client(team_instance)
-    pr = client.get_pull_request_by_id(pull_request_id)
-    refs = client.get_pull_request_work_items(project=pr.repository.project.id,
-                                                repository_id=pr.repository.id,
-                                                pull_request_id=pull_request_id)
-    if refs:
-        ids = []
-        for ref in refs:
-            ids.append(ref.id)
-        wit_client = get_work_item_tracking_client(team_instance)
-        return wit_client.get_work_items(ids=ids)
-    else:
-        return refs
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        client = get_git_client(team_instance)
+        pr = client.get_pull_request_by_id(pull_request_id)
+        refs = client.get_pull_request_work_items(project=pr.repository.project.id,
+                                                    repository_id=pr.repository.id,
+                                                    pull_request_id=pull_request_id)
+        if refs:
+            ids = []
+            for ref in refs:
+                ids.append(ref.id)
+            wit_client = get_work_item_tracking_client(team_instance)
+            return wit_client.get_work_items(ids=ids)
+        else:
+            return refs
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def _update_pull_request_status(pull_request_id, new_status, team_instance=None, detect=None):
@@ -577,18 +616,20 @@ def vote_pull_request(pull_request_id, vote, team_instance=None, detect=None):
     :type detect: str
     :rtype: :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    client = get_git_client(team_instance)
-    pr = client.get_pull_request_by_id(pull_request_id)
-    resolved_reviewer = IdentityRefWithVote(id=resolve_identity_as_id(ME, team_instance))
-    resolved_reviewer.vote = _convert_vote_to_int(vote)
-    created_reviewer = client.create_pull_request_reviewer(project=pr.repository.project.id,
-                                                            repository_id=pr.repository.id,
-                                                            pull_request_id=pull_request_id,
-                                                            reviewer_id=resolved_reviewer.id,
-                                                            reviewer=resolved_reviewer)
-    return created_reviewer
-
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        client = get_git_client(team_instance)
+        pr = client.get_pull_request_by_id(pull_request_id)
+        resolved_reviewer = IdentityRefWithVote(id=resolve_identity_as_id(ME, team_instance))
+        resolved_reviewer.vote = _convert_vote_to_int(vote)
+        created_reviewer = client.create_pull_request_reviewer(project=pr.repository.project.id,
+                                                                repository_id=pr.repository.id,
+                                                                pull_request_id=pull_request_id,
+                                                                reviewer_id=resolved_reviewer.id,
+                                                                reviewer=resolved_reviewer)
+        return created_reviewer
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 def _convert_vote_to_int(vote):
     if vote.lower() == 'approve':
@@ -618,16 +659,19 @@ def list_pr_policies(pull_request_id, team_instance=None, detect=None, top=None,
     :type skip: int
     :rtype: list of :class:`PolicyEvaluationRecord <policy.v4_0.models.PolicyEvaluationRecord>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    git_client = get_git_client(team_instance)
-    pr = git_client.get_pull_request_by_id(pull_request_id)
-    policy_client = get_policy_client(team_instance)
-    artifact_id = "vstfs:///CodeReview/CodeReviewId/{project_id}/{pull_request_id}".format(
-            project_id=pr.repository.project.id, pull_request_id=pull_request_id)
-    return policy_client.get_policy_evaluations(project=pr.repository.project.id,
-                                                artifact_id=artifact_id,
-                                                top=top,
-                                                skip=skip)
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        git_client = get_git_client(team_instance)
+        pr = git_client.get_pull_request_by_id(pull_request_id)
+        policy_client = get_policy_client(team_instance)
+        artifact_id = "vstfs:///CodeReview/CodeReviewId/{project_id}/{pull_request_id}".format(
+                project_id=pr.repository.project.id, pull_request_id=pull_request_id)
+        return policy_client.get_policy_evaluations(project=pr.repository.project.id,
+                                                    artifact_id=artifact_id,
+                                                    top=top,
+                                                    skip=skip)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def queue_pr_policy(pull_request_id, evaluation_id, team_instance=None, detect=None):
@@ -642,12 +686,15 @@ def queue_pr_policy(pull_request_id, evaluation_id, team_instance=None, detect=N
     :type detect: str
     :rtype: :class:`PolicyEvaluationRecord <policy.v4_0.models.PolicyEvaluationRecord>`
     """
-    team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-    git_client = get_git_client(team_instance)
-    pr = git_client.get_pull_request_by_id(pull_request_id)
-    policy_client = get_policy_client(team_instance)
-    return policy_client.requeue_policy_evaluation(project=pr.repository.project.id,
-                                                    evaluation_id=evaluation_id)
+    try:
+        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
+        git_client = get_git_client(team_instance)
+        pr = git_client.get_pull_request_by_id(pull_request_id)
+        policy_client = get_policy_client(team_instance)
+        return policy_client.requeue_policy_evaluation(project=pr.repository.project.id,
+                                                        evaluation_id=evaluation_id)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def _resolve_reviewers_as_refs(reviewers, team_instance):
