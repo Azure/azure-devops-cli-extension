@@ -3,8 +3,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import keyring
-
 from knack.util import CLIError
 from .uri import uri_parse
 
@@ -24,6 +22,7 @@ def get_credential(team_instance, fall_back_to_default=True):
 
 
 def _get_credential(team_instance):
+    import keyring
     key = _get_service_name(team_instance)
     logger.debug('Getting credential: %s', key)
     try:
@@ -34,6 +33,7 @@ def _get_credential(team_instance):
 
 
 def set_credential(team_instance, token):
+    import keyring
     try:
         key = _get_service_name(team_instance)
 
@@ -50,6 +50,7 @@ def set_credential(team_instance, token):
 
 
 def clear_credential(team_instance):
+    import keyring
     key = _get_service_name(team_instance)
     logger.debug('Clearing credential: %s', key)
     try:

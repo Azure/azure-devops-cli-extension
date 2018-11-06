@@ -33,8 +33,11 @@ $extensions = Get-ChildItem -Path $sourceDir -Filter "*.whl" -Recurse | Select-O
 az extension add --source $extensions[0].FullName -y
 Write-Host "done"
 
+# Install this extension just so that we can compare the load time
+az extension add -n azure-batch-cli-extensions
+
 az -h
-az devops -h
+az devops -h --debug
 
 $testFailureFound = $false
 
