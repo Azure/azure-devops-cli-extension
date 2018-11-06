@@ -8,6 +8,13 @@ from knack.arguments import enum_choice_list, ArgumentsContext
 
 _ON_OFF_SWITCH_VALUES = ['on', 'off']
 
+_BUILD_REASON_VALUES = ['all', 'batchedCI', 'buildCompletion', 'checkInShelveset', 
+    'individualCI', 'manual', 'pullRequest', 'schedule', 
+    'triggered', 'userCreated', 'validateShelveset']	
+
+_BUILD_RESULT_VALUES = ['canceled', 'failed', 'none', 'partiallySucceeded',	'succeeded']
+
+_BUILD_STATUS_VALUES = [ 'all','cancelling', 'completed', 'inProgress', 'none', 'notStarted', 'postponed']
 
 def load_build_arguments(self, _):
     with self.argument_context('pipelines build') as context:
@@ -19,6 +26,9 @@ def load_build_arguments(self, _):
     with self.argument_context('pipelines build list') as context:
         context.argument('definition_ids', nargs='*', type=int)
         context.argument('tags', nargs='*')
+        context.argument('reason', **enum_choice_list(_BUILD_REASON_VALUES))
+        context.argument('result', **enum_choice_list(_BUILD_RESULT_VALUES))
+        context.argument('status', **enum_choice_list(_BUILD_STATUS_VALUES))
 
     with self.argument_context('pipelines build queue') as context:
         context.argument('definition_id', type=int)

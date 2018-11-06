@@ -25,7 +25,6 @@ def _transform_project_row(row):
     table_row = OrderedDict()
     table_row['ID'] = row['id']
     table_row['Name'] = row['name']
-    table_row['State'] = row['state'].capitalize()
     table_row['Visibility'] = row['visibility'].capitalize()
 
     if 'capabilities' in row:

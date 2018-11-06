@@ -140,7 +140,7 @@ MSG_PROMPT_TELEMETRY = '\nMicrosoft would like to collect anonymous Azure DevOps
                        'improve our CLI.  Participation is voluntary and when you choose to ' \
                        'participate, your device automatically sends information to Microsoft ' \
                        'about how you use the Azure DevOps CLI.  The data is anonymous and does not ' \
-                       'include commandline argument values.  To update your choice, run "az devops' \
+                       'include commandline argument values.  To update your choice, run "az devops ' \
                        'configure" again.\nSelect y to enable data collection.'
 MSG_PROMPT_GIT_ALIAS = '\nConfigure aliases for Git (to enable commands like "git pr list")?'
 MSG_PROMPT_CLEAR_GIT_ALIAS = '\nGit aliases are configured, would you like to clear them?'
