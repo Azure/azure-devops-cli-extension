@@ -57,7 +57,7 @@ class VstsGitUrlInfo(object):
 
     @staticmethod
     def get_vsts_info(remote_url):
-        from vsts.git.v4_0.git_client import GitClient
+        from vsts.git.v4_1.git_client import GitClient
         from .services import _get_credentials
         components = uri_parse(remote_url.lower())
         if components.scheme == 'ssh':
