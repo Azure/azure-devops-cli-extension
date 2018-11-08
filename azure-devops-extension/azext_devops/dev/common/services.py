@@ -45,8 +45,13 @@ def get_vss_connection(team_instance):
     return _vss_connection[team_instance]
 
 def _get_credentials(team_instance):
+    pat_token_present = False
+    if _PAT_ENV_VARIABLE_NAME in os.environ or get_credential(team_instance) is not None:
+        logger.debug("PAT is present which can be used against this instance")
+        pat_token_present = True
+
     try:
-        token_from_az_login = get_token_from_az_logins(team_instance)
+        token_from_az_login = get_token_from_az_logins(team_instance, pat_token_present)
         if token_from_az_login:
             credentials = BasicAuthentication('', token_from_az_login)
             return credentials
@@ -62,11 +67,9 @@ def _get_credentials(team_instance):
     if pat is not None:
         logger.info("Creating connection with personal access token.")
         credentials = BasicAuthentication('', pat)
-        if(validate_token_for_instance(team_instance, credentials)):
-            logger.info("able to make connection using PAT token")
-            return credentials
-        else:
-            logger.info("unable to make connection using PAT token")
+        # credentials can be incorrect but they are present then it means user has already done az devops login to set them 
+        # so let the user get a 401
+        return credentials
    
     raise_authentication_error('Before you can run Azure DevOps commands, you need to run the login command (az login if using AAD/MSA identity else az devops login if using PAT token) to setup credentials.')
 
@@ -84,7 +87,7 @@ def validate_token_for_instance(team_instance, credentials):
         logger.debug("Failed to connect using provided credentials")
     return False    
 
-def get_token_from_az_logins(team_instance):
+def get_token_from_az_logins(team_instance, pat_token_present):
     profile = Profile()
     user = profile.get_current_account_user()
     subscriptions = profile.load_cached_subscriptions(False)
@@ -99,13 +102,21 @@ def get_token_from_az_logins(team_instance):
     for subscription in subscriptions:
         tenantsDict[(subscription['tenantId'], subscription['user']['name'])] = ''
 
+    skipValidateToken = False
+    if pat_token_present is False and len(tenantsDict) == 1:
+        skipValidateToken = True
+
     try:
         for key, value in tenantsDict.items():
             try:
                 logger.debug('trying to get token (temp) for tenant %s and user %s ', key[0], key[1])
                 token = get_token_from_az_login(profile, key[1], key[0])
                 credentials = BasicAuthentication('', token)
-                if(validate_token_for_instance(team_instance, credentials)):
+
+                if skipValidateToken is True:
+                    return token
+                
+                if validate_token_for_instance(team_instance, credentials):
                     return token
                 else:
                     logger.debug('invalid token obtained for tenant %s', key[0])
