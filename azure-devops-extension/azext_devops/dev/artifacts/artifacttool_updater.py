@@ -27,17 +27,17 @@ class ArtifactToolUpdater:
     ARTIFACTTOOL_OVERRIDE_URL_ENVKEY = "VSTS_CLI_ARTIFACTTOOL_OVERRIDE_URL"
     ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY = "VSTS_CLI_ARTIFACTTOOL_OVERRIDE_VERSION"
 
-    def get_latest_artifacttool(self, team_instance):
+    def get_latest_artifacttool(self, devops_organization):
         artifacttool_binary_override_path = os.environ.get(self.ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY)
         if artifacttool_binary_override_path is not None:
             artifacttool_binary_path = artifacttool_binary_override_path
             logger.debug("ArtifactTool path was overriden to '{}' due to environment variable {}".format(artifacttool_binary_path, self.ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY))
         else:
             logger.debug("Checking for a new ArtifactTool")
-            artifacttool_binary_path = self._get_artifacttool(team_instance)
+            artifacttool_binary_path = self._get_artifacttool(devops_organization)
         return artifacttool_binary_path
 
-    def _get_artifacttool(self, team_instance):
+    def _get_artifacttool(self, devops_organization):
         logger.debug("Checking for ArtifactTool updates")
 
         # Call the auto-update API to find the current version of ArtifactTool
@@ -50,7 +50,7 @@ class ArtifactToolUpdater:
         else:
             override_version = os.environ.get(self.ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY)
             try:
-                release = self._get_current_release(team_instance, override_version)
+                release = self._get_current_release(devops_organization, override_version)
             except Exception as ex:
                 raise CLIError('Failed to update Universal Packages tooling.\n{}'.format(ex))
             release_uri, release_id = release
@@ -68,8 +68,8 @@ class ArtifactToolUpdater:
 
         return release_dir
 
-    def _get_current_release(self, team_instance, override_version):
-        connection = get_vss_connection(team_instance)
+    def _get_current_release(self, devops_organization, override_version):
+        connection = get_vss_connection(devops_organization)
         client = connection.get_client('azext_devops.dev.artifacts.client_tool.client_tool_client.ClientToolClient')
         logger.debug("Looking up current version of ArtifactTool...")
         release = client.get_clienttool_release("ArtifactTool", os_name=platform.system(), arch=platform.machine(), version=override_version)

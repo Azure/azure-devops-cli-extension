@@ -47,7 +47,7 @@ See the full list of [available commands](https://aka.ms/vsts-cli-commands).
 Create a personal access token and provide to the Azure Devops CLI via the login command:
 
 ```bash
-az devops login --instance https://dev.azure.com/MY-ORGANIZATION-NAME/ --token MYTOKEN
+az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/ --token MYTOKEN
 ```
 
 ### Using Azure Devops CLI Behind a Proxy

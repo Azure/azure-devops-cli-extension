@@ -83,7 +83,7 @@ from knack.util import CLIError
 import sys
 
 try:
-    cred = get_credential(team_instance=None)
+    cred = get_credential(devops_organization=None)
     sys.exit()
 except CLIError as e:
     sys.exit(999)

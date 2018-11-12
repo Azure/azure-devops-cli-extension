@@ -14,16 +14,16 @@ logger = get_logger(__name__)
 #            to verify that credentials can be accessed. Be careful when changing this method
 #            so it does not impact install.
 #
-def get_credential(team_instance, fall_back_to_default=True):
-    token = _get_credential(team_instance)
-    if token is None and team_instance is not None and fall_back_to_default:
-        token = _get_credential(team_instance=None)
+def get_credential(devops_organization, fall_back_to_default=True):
+    token = _get_credential(devops_organization)
+    if token is None and devops_organization is not None and fall_back_to_default:
+        token = _get_credential(devops_organization=None)
     return token
 
 
-def _get_credential(team_instance):
+def _get_credential(devops_organization):
     import keyring
-    key = _get_service_name(team_instance)
+    key = _get_service_name(devops_organization)
     logger.debug('Getting credential: %s', key)
     try:
         return keyring.get_password(key, _USERNAME)
@@ -32,10 +32,10 @@ def _get_credential(team_instance):
         raise CLIError(ex)
 
 
-def set_credential(team_instance, token):
+def set_credential(devops_organization, token):
     import keyring
     try:
-        key = _get_service_name(team_instance)
+        key = _get_service_name(devops_organization)
 
         # check for and delete existing credential
         old_token = keyring.get_password(key, _USERNAME)
@@ -49,9 +49,9 @@ def set_credential(team_instance, token):
         raise CLIError(ex)
 
 
-def clear_credential(team_instance):
+def clear_credential(devops_organization):
     import keyring
-    key = _get_service_name(team_instance)
+    key = _get_service_name(devops_organization)
     logger.debug('Clearing credential: %s', key)
     try:
         keyring.delete_password(key, _USERNAME)
@@ -59,9 +59,9 @@ def clear_credential(team_instance):
         raise CLIError('The credential was not found')
 
 
-def _get_service_name(team_instance):
-    if team_instance is not None:
-        return 'vsts-cli:' + normalize_url_for_key(team_instance)
+def _get_service_name(devops_organization):
+    if devops_organization is not None:
+        return 'vsts-cli:' + normalize_url_for_key(devops_organization)
     else:
         return 'vsts-cli: default'
 

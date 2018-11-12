@@ -11,10 +11,10 @@ from azext_devops.dev.common.services import (get_task_agent_client,
 from azext_devops.dev.common.uuid import is_uuid
 
 
-def task_list(team_instance=None, task_id=None, detect=None):
+def task_list(devops_organization=None, task_id=None, detect=None):
     """List tasks.
-    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type team_instance: str
+    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type devops_organization: str
     :param str task_id: The UUID of the task.
     :param detect: Automatically detect values for instance and project. Default is "on".
     :type detect: str
@@ -23,20 +23,20 @@ def task_list(team_instance=None, task_id=None, detect=None):
     try:
         if task_id is not None and not is_uuid(task_id):
             raise ValueError("The --id argument must be a UUID.")
-        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-        client = get_task_agent_client(team_instance)
+        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
+        client = get_task_agent_client(devops_organization)
         definition_references = client.get_task_definitions(task_id=task_id)
         return definition_references
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def task_show(task_id, version, team_instance=None, detect=None):
+def task_show(task_id, version, devops_organization=None, detect=None):
     """Show task.
     :param str task_id: The UUID of the task.
     :param str version: The version of the task.
-    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type team_instance: str
+    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type devops_organization: str
     :param detect: Automatically detect values for instance and project. Default is "on".
     :type detect: str
     :rtype: TaskDefinition
@@ -44,8 +44,8 @@ def task_show(task_id, version, team_instance=None, detect=None):
     try:
         if not is_uuid(task_id):
             raise ValueError("The --id argument must be a UUID.")
-        team_instance = resolve_instance(detect=detect, team_instance=team_instance)
-        client = get_task_agent_client(team_instance)
+        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
+        client = get_task_agent_client(devops_organization)
         definition_references = client.get_task_definition(task_id=task_id,
                                                             version_string=version)
         return definition_references

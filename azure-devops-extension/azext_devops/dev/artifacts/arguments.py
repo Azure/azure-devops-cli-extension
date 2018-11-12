@@ -11,7 +11,7 @@ _ON_OFF_SWITCH_VALUES = ['on', 'off']
 
 def load_package_arguments(self, _):
     with self.argument_context('artifacts universal') as context:
-        context.argument('team_instance', options_list=('--instance', '-i'))
+        context.argument('devops_organization', options_list=('--organization', '-org'))
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         context.argument('name', options_list=('--name', '-n'))
         context.argument('version', options_list=('--version', '-v'))

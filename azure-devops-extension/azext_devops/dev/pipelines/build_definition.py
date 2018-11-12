@@ -17,14 +17,14 @@ from azext_devops.dev.common.uuid import is_uuid
 logger = get_logger(__name__)
 
 
-def build_definition_list(name=None, top=None, team_instance=None, project=None, repository=None, detect=None):
+def build_definition_list(name=None, top=None, devops_organization=None, project=None, repository=None, detect=None):
     """List build definitions.
     :param name: Limit results to definitions with this name or starting with this name. Examples: "FabCI" or "Fab*"
     :type name: bool
     :param top: Maximum number of definitions to list.
     :type top: int
-    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type team_instance: str
+    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type devops_organization: str
     :param project: Name or ID of the team project.
     :type project: str
     :param repository: Limit results to definitions associated with this repository.
@@ -34,15 +34,15 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
     :rtype: [BuildDefinitionReference]
     """
     try:
-        team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
-                                                                                team_instance=team_instance,
+        devops_organization, project, repository = resolve_instance_project_and_repo(detect=detect,
+                                                                                devops_organization=devops_organization,
                                                                                 project=project,
                                                                                 repo=repository)
-        client = get_build_client(team_instance)
+        client = get_build_client(devops_organization)
         query_order = 'DefinitionNameAscending'
         repository_type = None
         if repository is not None:
-            resolved_repository = _resolve_repository_as_id(repository, team_instance, project)
+            resolved_repository = _resolve_repository_as_id(repository, devops_organization, project)
             if resolved_repository is None:
                 raise ValueError("Could not find a repository with name, '{}', in project, '{}'.".format(repository,
                                                                                                             project))
@@ -58,7 +58,7 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
         raise CLIError(ex)
 
 
-def build_definition_show(definition_id=None, name=None, open_browser=False, team_instance=None, project=None,
+def build_definition_show(definition_id=None, name=None, open_browser=False, devops_organization=None, project=None,
                           detect=None):
     """Get the details of a build definition.
     :param definition_id: ID of the definition.
@@ -67,8 +67,8 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
     :type name: str
     :param open_browser: Open the definition summary page in your web browser.
     :type open_browser: bool
-    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type team_instance: str
+    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type devops_organization: str
     :param project: Name or ID of the team project.
     :type project: str
     :param detect: Automatically detect values for instance and project. Default is "on".
@@ -76,10 +76,10 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
     :rtype: BuildDefinitionReference
     """
     try:
-        team_instance, project = resolve_instance_and_project(detect=detect,
-                                                                team_instance=team_instance,
+        devops_organization, project = resolve_instance_and_project(detect=detect,
+                                                                devops_organization=devops_organization,
                                                                 project=project)
-        client = get_build_client(team_instance)
+        client = get_build_client(devops_organization)
         if definition_id is None:
             if name is not None:
                 definition_id = get_definition_id_from_name(name, client, project)
@@ -87,20 +87,20 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, tea
                 raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
         build_definition = client.get_definition(definition_id=definition_id, project=project)
         if open_browser:
-            _open_definition(build_definition, team_instance)
+            _open_definition(build_definition, devops_organization)
         return build_definition
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def _open_definition(definition, team_instance):
+def _open_definition(definition, devops_organization):
     """Opens the build definition in the default browser.
     :param :class:`<BuildDefinitionReference> <build.v4_0.models.BuildDefinitionReference>` definition:
-    :param str team_instance:
+    :param str devops_organization:
     """
     # https://mseng.visualstudio.com/vsts-cli/_build/index?definitionId=5419
     project = definition.project.name
-    url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_build/index?definitionId='\
+    url = devops_organization.rstrip('/') + '/' + uri_quote(project) + '/_build/index?definitionId='\
         + uri_quote(str(definition.id))
     logger.debug('Opening web page: %s', url)
     open_new(url=url)
@@ -121,11 +121,11 @@ def get_definition_id_from_name(name, client, project):
                          .format(name=name, project=project))
 
 
-def _resolve_repository_as_id(repository, team_instance, project):
+def _resolve_repository_as_id(repository, devops_organization, project):
     if is_uuid(repository):
         return repository
     else:
-        git_client = get_git_client(team_instance)
+        git_client = get_git_client(devops_organization)
         repositories = git_client.get_repositories(project=project, include_links=False, include_all_urls=False)
         for found_repository in repositories:
             if found_repository.name.lower() == repository.lower():

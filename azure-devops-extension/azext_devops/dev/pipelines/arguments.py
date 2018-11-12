@@ -20,7 +20,7 @@ def load_build_arguments(self, _):
     with self.argument_context('pipelines build') as context:
         context.argument('open_browser', options_list='--open')
         context.argument('project', options_list=('--project', '-p'))
-        context.argument('team_instance', options_list=('--instance', '-i'))
+        context.argument('devops_organization', options_list=('--organization', '-org'))
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with self.argument_context('pipelines build list') as context:

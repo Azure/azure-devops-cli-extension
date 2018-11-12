@@ -16,13 +16,13 @@ from azext_devops.dev.common.version import disable_command_version_checking, DI
 
 logger = get_logger(__name__)
 
-def credential_set(token=None, team_instance=None):
+def credential_set(token=None, devops_organization=None):
     """Set the credential (PAT) to use for a particular account
     :param token: PAT token for the Azure DevOps account or your TFS project collection.  If not supplied, you will be prompted
                   for your token.
     :type token: str
-    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type team_instance: str
+    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type devops_organization: str
     """
     disable_command_version_checking()
     if token is None:
@@ -31,28 +31,28 @@ def credential_set(token=None, team_instance=None):
         except NoTTYException:
             raise CLIError('The token argument needs to be set when run in a non-interactive mode.')
 
-    if team_instance is not None:
-        team_instance = get_base_url(team_instance)
+    if devops_organization is not None:
+        devops_organization = get_base_url(devops_organization)
         logger.info("Creating connection with personal access token.")
         credentials = BasicAuthentication('', token)
-        connection = _get_vss_connection(team_instance, credentials)
+        connection = _get_vss_connection(devops_organization, credentials)
         location_client = connection.get_client('vsts.location.v4_1.location_client.LocationClient')
         try:
             location_client.get_connection_data()
         except Exception as ex2:
             logger.debug(ex2, exc_info=True)
             raise ValueError("Failed to authenticate using the supplied token.")
-    set_credential(team_instance=team_instance, token=token)
+    set_credential(devops_organization=devops_organization, token=token)
 
 
-def credential_clear(team_instance=None):
+def credential_clear(devops_organization=None):
     """Clear the credential for a particular account
-    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type team_instance: str
+    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type devops_organization: str
     """
     disable_command_version_checking()
-    if team_instance is not None:
-        team_instance = get_base_url(team_instance)
-    clear_credential(team_instance)
+    if devops_organization is not None:
+        devops_organization = get_base_url(devops_organization)
+    clear_credential(devops_organization)
     print('The credential was successfully cleared.')
 

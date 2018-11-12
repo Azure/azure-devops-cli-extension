@@ -8,8 +8,8 @@ import time
 from .services import get_operations_client
 
 
-def wait_for_long_running_operation(team_instance, operation_id, interval_seconds=5):
-    operation_client = get_operations_client(team_instance)
+def wait_for_long_running_operation(devops_organization, operation_id, interval_seconds=5):
+    operation_client = get_operations_client(devops_organization)
     operation = operation_client.get_operation(operation_id)
     while not has_operation_completed(operation):
         time.sleep(interval_seconds)

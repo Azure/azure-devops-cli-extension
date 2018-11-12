@@ -17,15 +17,15 @@ _STATE_VALUES = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting',
 
 def load_team_arguments(self, _):
     with self.argument_context('devops login') as context:
-        context.argument('team_instance', options_list=('--instance', '-i'))
+        context.argument('devops_organization', options_list=('--organization', '-org'))
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
     with self.argument_context('devops logout') as context:
-        context.argument('team_instance', options_list=('--instance', '-i'))
+        context.argument('devops_organization', options_list=('--organization', '-org'))
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
     with self.argument_context('devops configure') as context:
         context.argument('defaults', options_list=('--defaults', '-d'), nargs='*')
     with self.argument_context('devops project') as context:
-        context.argument('team_instance', options_list=('--instance', '-i'))
+        context.argument('devops_organization', options_list=('--organization', '-org'))
         context.argument('process', options_list=('--process', '-p'))
         context.argument('source_control', options_list=('--source-control', '-s'),
                     **enum_choice_list(_SOURCE_CONTROL_VALUES))

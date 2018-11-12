@@ -64,8 +64,8 @@ def get_remote_url(validation_function=None):
     return None
 
 
-def get_git_credentials(team_instance):
-    parse_result = uri_parse(team_instance)
+def get_git_credentials(devops_organization):
+    parse_result = uri_parse(devops_organization)
     protocol = parse_result.scheme
     host = parse_result.netloc
     standard_in = bytes('protocol={protocol}\nhost={host}'.format(protocol=protocol, host=host), 'utf-8')

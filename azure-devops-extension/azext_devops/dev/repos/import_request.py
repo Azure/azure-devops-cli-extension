@@ -13,7 +13,7 @@ from vsts.git.v4_0.models.git_import_request import GitImportRequest
 from azext_devops.dev.common.services import get_git_client, resolve_instance_project_and_repo
 
 def create_import_request(git_source_url, project = None, repository = None,
-                          team_instance=None, detect=None):
+                          devops_organization=None, detect=None):
     """Create a git import request (currently only supports import from public git source)
     :param project: Name or ID of the team project.
     :type project: str
@@ -21,18 +21,18 @@ def create_import_request(git_source_url, project = None, repository = None,
     :type repository: str
     :param git_source_url: Url of the source git repository
     :type git_source_url: str
-    :param team_instance: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type team_instance: str
-    :param detect: Automatically detect instance, project, repository if these values are not specified.
+    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type devops_organization: str
+    :param detect: Automatically detect organization, project, repository if these values are not specified.
                    Default is "on".
     :type detect: str
     """
     try:
-        team_instance, project, repository = resolve_instance_project_and_repo(detect=detect,
-                                                                            team_instance=team_instance,
+        devops_organization, project, repository = resolve_instance_project_and_repo(detect=detect,
+                                                                            devops_organization=devops_organization,
                                                                             project=project,
                                                                             repo=repository)
-        client = get_git_client(team_instance)
+        client = get_git_client(devops_organization)
         gitImportGitSource = GitImportGitSource(overwrite = False,url = git_source_url)
         gitImportRequestParameter = GitImportRequestParameters(delete_service_endpoint_after_import_is_done = False,
                                                             git_source = gitImportGitSource,

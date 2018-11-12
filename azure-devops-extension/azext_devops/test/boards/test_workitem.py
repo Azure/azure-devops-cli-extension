@@ -20,7 +20,7 @@ from azext_devops.dev.common.services import clear_connection_cache
 
 class TestWorkItemMethods(unittest.TestCase):
 
-    _TEST_TEAM_INSTANCE = 'https://AzureDevOpsCliTest.visualstudio.com'
+    _TEST_DEVOPS_ORGANIZATION = 'https://AzureDevOpsCliTest.visualstudio.com'
     _TEST_PAT_TOKEN = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
 
     def setUp(self):
@@ -62,11 +62,11 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_validate_token.return_value = True
         self.mock_get_WI.return_value.id = test_work_item_id
 
-        response = show_work_item(work_item_id=test_work_item_id, team_instance=self._TEST_TEAM_INSTANCE)
+        response = show_work_item(work_item_id=test_work_item_id, devops_organization=self._TEST_DEVOPS_ORGANIZATION)
 
         # assert
         self.mock_validate_token.assert_not_called()
-        self.mock_get_credential.assert_called_with(self._TEST_TEAM_INSTANCE)
+        self.mock_get_credential.assert_called_with(self._TEST_DEVOPS_ORGANIZATION)
         self.assertEqual(self.mock_get_credential.call_count, 2)
         self.mock_get_WI.assert_called_once_with(test_work_item_id)
         assert response.id == test_work_item_id
@@ -81,12 +81,12 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_validate_token.return_value = True
         self.mock_get_WI.return_value.id = test_work_item_id
 
-        response = show_work_item(work_item_id=test_work_item_id, open_browser=True, team_instance=self._TEST_TEAM_INSTANCE)
+        response = show_work_item(work_item_id=test_work_item_id, open_browser=True, devops_organization=self._TEST_DEVOPS_ORGANIZATION)
 
         # assert
-        self.mock_open_browser.assert_called_with(response,self._TEST_TEAM_INSTANCE)
+        self.mock_open_browser.assert_called_with(response,self._TEST_DEVOPS_ORGANIZATION)
         self.mock_validate_token.assert_not_called()
-        self.mock_get_credential.assert_called_with(self._TEST_TEAM_INSTANCE)
+        self.mock_get_credential.assert_called_with(self._TEST_DEVOPS_ORGANIZATION)
         self.assertEqual(self.mock_get_credential.call_count, 2)
         self.mock_get_WI.assert_called_once_with(test_work_item_id)
 
@@ -100,13 +100,13 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_get_WI.side_effect = Exception(r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         with self.assertRaises(Exception) as exc:
-            response = show_work_item(work_item_id=test_work_item_id, team_instance=self._TEST_TEAM_INSTANCE)
+            response = show_work_item(work_item_id=test_work_item_id, devops_organization=self._TEST_DEVOPS_ORGANIZATION)
         self.assertEqual(str(exc.exception),r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         #assert
         self.mock_get_WI.assert_called_once_with(test_work_item_id)
         self.mock_validate_token.assert_not_called()
-        self.mock_get_credential.assert_called_with(self._TEST_TEAM_INSTANCE)
+        self.mock_get_credential.assert_called_with(self._TEST_DEVOPS_ORGANIZATION)
         self.assertEqual(self.mock_get_credential.call_count, 2)
 
 
@@ -119,11 +119,11 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_validate_token.return_value = True
         self.mock_delete_WI.return_value.id = test_work_item_id
 
-        response = delete_work_item(work_item_id=test_work_item_id, destroy=False, team_instance=self._TEST_TEAM_INSTANCE, detect='Off')
+        response = delete_work_item(work_item_id=test_work_item_id, destroy=False, devops_organization=self._TEST_DEVOPS_ORGANIZATION, detect='Off')
 
         # assert
         self.mock_validate_token.assert_not_called()
-        self.mock_get_credential.assert_called_with(self._TEST_TEAM_INSTANCE)
+        self.mock_get_credential.assert_called_with(self._TEST_DEVOPS_ORGANIZATION)
         self.assertEqual(self.mock_get_credential.call_count, 2)
         self.mock_delete_WI.assert_called_once_with(test_work_item_id, False)
         assert response.id == test_work_item_id
@@ -138,12 +138,12 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_delete_WI.side_effect = Exception(r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         with self.assertRaises(Exception) as exc:
-            response = delete_work_item(work_item_id=test_work_item_id, team_instance=self._TEST_TEAM_INSTANCE)
+            response = delete_work_item(work_item_id=test_work_item_id, devops_organization=self._TEST_DEVOPS_ORGANIZATION)
         self.assertEqual(str(exc.exception),r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         self.mock_delete_WI.assert_called_once_with(test_work_item_id,False)
         self.mock_validate_token.assert_not_called()
-        self.mock_get_credential.assert_called_with(self._TEST_TEAM_INSTANCE)
+        self.mock_get_credential.assert_called_with(self._TEST_DEVOPS_ORGANIZATION)
         self.assertEqual(self.mock_get_credential.call_count, 2)
 
 

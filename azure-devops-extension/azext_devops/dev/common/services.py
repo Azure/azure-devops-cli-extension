@@ -26,32 +26,32 @@ from .uri import uri_parse_instance_from_git_uri
 logger = get_logger(__name__)
 
 
-def get_vss_connection(team_instance):
-    if team_instance not in _vss_connection:
-        credentials = _get_credentials(team_instance)
+def get_vss_connection(devops_organization):
+    if devops_organization not in _vss_connection:
+        credentials = _get_credentials(devops_organization)
         try:
-            _vss_connection[team_instance] = _get_vss_connection(team_instance, credentials)
+            _vss_connection[devops_organization] = _get_vss_connection(devops_organization, credentials)
             collect_telemetry = None
             if vsts_config.has_option('core', 'collect_telemetry'):
                 collect_telemetry = vsts_config.get('core', 'collect_telemetry')
             if collect_telemetry is None or collect_telemetry != 'no':
                 logger.debug('Telemetry enabled.')
-                _try_send_tracking_ci_event_async(team_instance)
+                _try_send_tracking_ci_event_async(devops_organization)
             else:
                 logger.debug('Telemetry disabled.')
         except Exception as ex:
             logger.debug(ex, exc_info=True)
             raise CLIError(ex)
-    return _vss_connection[team_instance]
+    return _vss_connection[devops_organization]
 
-def _get_credentials(team_instance):
+def _get_credentials(devops_organization):
     pat_token_present = False
-    if _PAT_ENV_VARIABLE_NAME in os.environ or get_credential(team_instance) is not None:
+    if _PAT_ENV_VARIABLE_NAME in os.environ or get_credential(devops_organization) is not None:
         logger.debug("PAT is present which can be used against this instance")
         pat_token_present = True
 
     try:
-        token_from_az_login = get_token_from_az_logins(team_instance, pat_token_present)
+        token_from_az_login = get_token_from_az_logins(devops_organization, pat_token_present)
         if token_from_az_login:
             credentials = BasicAuthentication('', token_from_az_login)
             return credentials
@@ -63,7 +63,7 @@ def _get_credentials(team_instance):
         pat = os.environ[_PAT_ENV_VARIABLE_NAME]
         logger.info("received PAT from environment variable")
     else:
-        pat = get_credential(team_instance)
+        pat = get_credential(devops_organization)
     if pat is not None:
         logger.info("Creating connection with personal access token.")
         credentials = BasicAuthentication('', pat)
@@ -73,11 +73,11 @@ def _get_credentials(team_instance):
    
     raise_authentication_error('Before you can run Azure DevOps commands, you need to run the login command (az login if using AAD/MSA identity else az devops login if using PAT token) to setup credentials.')
 
-def validate_token_for_instance(team_instance, credentials):
-    logger.debug("instance recieved in validate_token_for_instance %s", team_instance)
-    team_instance = uri_parse_instance_from_git_uri(team_instance)
-    logger.debug("instance processed in validate_token_for_instance %s", team_instance)
-    connection = _get_vss_connection(team_instance, credentials)
+def validate_token_for_instance(devops_organization, credentials):
+    logger.debug("instance recieved in validate_token_for_instance %s", devops_organization)
+    devops_organization = uri_parse_instance_from_git_uri(devops_organization)
+    logger.debug("instance processed in validate_token_for_instance %s", devops_organization)
+    connection = _get_vss_connection(devops_organization, credentials)
     core_client = connection.get_client('vsts.core.v4_0.core_client.CoreClient')
     try:
         team_projects = core_client.get_projects(state_filter='all', top=1, skip=0)
@@ -87,7 +87,7 @@ def validate_token_for_instance(team_instance, credentials):
         logger.debug("Failed to connect using provided credentials")
     return False    
 
-def get_token_from_az_logins(team_instance, pat_token_present):
+def get_token_from_az_logins(devops_organization, pat_token_present):
     profile = Profile()
     user = profile.get_current_account_user()
     subscriptions = profile.load_cached_subscriptions(False)
@@ -116,7 +116,7 @@ def get_token_from_az_logins(team_instance, pat_token_present):
                 if skipValidateToken is True:
                     return token
                 
-                if validate_token_for_instance(team_instance, credentials):
+                if validate_token_for_instance(devops_organization, credentials):
                     return token
                 else:
                     logger.debug('invalid token obtained for tenant %s', key[0])
@@ -138,8 +138,8 @@ def get_token_from_az_login(profile, user, tenant):
         return ""
 
 
-def _get_vss_connection(team_instance, credentials):
-    return VssConnection(get_base_url(team_instance), creds=credentials, user_agent='vstscli/{}'.format(VERSION))
+def _get_vss_connection(devops_organization, credentials):
+    return VssConnection(get_base_url(devops_organization), creds=credentials, user_agent='vstscli/{}'.format(VERSION))
 
 
 def get_first_vss_instance_uri():
@@ -147,77 +147,77 @@ def get_first_vss_instance_uri():
         return key
 
 
-def get_build_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
+def get_build_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.build.v4_0.build_client.BuildClient')
 
 
-def get_ci_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
+def get_ci_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
     return connection.get_client(
         'vsts.customer_intelligence.v4_0.customer_intelligence_client.CustomerIntelligenceClient')
 
 
-def get_core_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
+def get_core_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.core.v4_0.core_client.CoreClient')
 
 
-def get_git_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
+def get_git_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.git.v4_0.git_client.GitClient')
 
 
-def get_identity_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
+def get_identity_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.identity.v4_0.identity_client.IdentityClient')
 
 
-def get_location_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
+def get_location_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.location.v4_0.location_client.LocationClient')
 
 
-def get_member_entitlement_management_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
+def get_member_entitlement_management_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.member_entitlement_management.v4_1.member_entitlement_management_client.MemberEntitlementManagementClient')
 
 
-def get_operations_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
+def get_operations_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.operations.v4_0.operations_client.OperationsClient')
 
 
-def get_policy_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
+def get_policy_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.policy.v4_0.policy_client.PolicyClient')
 
 
-def get_settings_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
+def get_settings_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.settings.v4_0.settings_client.SettingsClient')
 
 
-def get_task_agent_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
+def get_task_agent_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.task_agent.v4_0.task_agent_client.TaskAgentClient')
 
 
-def get_work_item_tracking_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
+def get_work_item_tracking_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient')
 
 
-def get_base_url(team_instance):
-    if team_instance is not None:
-        return team_instance
+def get_base_url(devops_organization):
+    if devops_organization is not None:
+        return devops_organization
     else:
-        _raise_team_team_instance_arg_error()
+        _raise_team_devops_organization_arg_error()
 
 
-def _raise_team_team_instance_arg_error():
-    raise CLIError('--instance must be specified. The value should be the URI of your Azure DevOps account, ' +
-                   'for example: https://dev.azure.com/MyOrganizationName/ or your TFS project collection. ' +
+def _raise_team_devops_organization_arg_error():
+    raise CLIError('--organization must be specified. The value should be the URI of your Azure DevOps organization, ' +
+                   'for example: https://dev.azure.com/MyOrganizationName/ or your TFS project organization. ' +
                    'You can set a default value by running: az devops configure --defaults ' +
                    'instance=https://dev.azure.com/MyOrganizationName/. For auto detection to ' +
                    'work (--detect on), you must be in a local Git directory that has a "remote" referencing a Azure DevOps' +
@@ -229,47 +229,47 @@ def _raise_team_project_arg_error():
                    'You can set a default value by running: az devops configure --defaults project=<ProjectName>.')
 
 
-def resolve_instance_project_and_repo(detect, team_instance, project=None, project_required=True, repo=None):
-    if team_instance is None:
+def resolve_instance_project_and_repo(detect, devops_organization, project=None, project_required=True, repo=None):
+    if devops_organization is None:
         if should_detect(detect):
             git_info = get_vsts_info_from_current_remote_url()
-            team_instance = git_info.uri
+            devops_organization = git_info.uri
             if project is None:
                 project = git_info.project
                 if repo is None:
                     repo = git_info.repo
-        if team_instance is None:
-            team_instance = _resolve_instance_from_config(team_instance)
+        if devops_organization is None:
+            devops_organization = _resolve_instance_from_config(devops_organization)
         if project is None:
             project = _resolve_project_from_config(project, project_required)
     if project_required and project is None:
         _raise_team_project_arg_error()
-    return team_instance, project, repo
+    return devops_organization, project, repo
 
 
-def resolve_instance_and_project(detect, team_instance, project=None, project_required=True):
-    team_instance, project, _ = resolve_instance_project_and_repo(detect=detect,
-                                                                  team_instance=team_instance,
+def resolve_instance_and_project(detect, devops_organization, project=None, project_required=True):
+    devops_organization, project, _ = resolve_instance_project_and_repo(detect=detect,
+                                                                  devops_organization=devops_organization,
                                                                   project=project,
                                                                   project_required=project_required)
-    return team_instance, project
+    return devops_organization, project
 
 
-def resolve_instance(detect, team_instance):
-    team_instance, _ = resolve_instance_and_project(detect=detect,
-                                                    team_instance=team_instance,
+def resolve_instance(detect, devops_organization):
+    devops_organization, _ = resolve_instance_and_project(detect=detect,
+                                                    devops_organization=devops_organization,
                                                     project_required=False)
-    return team_instance
+    return devops_organization
 
 
-def _resolve_instance_from_config(team_instance):
+def _resolve_instance_from_config(devops_organization):
     from .config import vsts_config
-    if team_instance is None:
-        if vsts_config.has_option(_DEFAULTS_SECTION, _TEAM_INSTANCE_DEFAULT):
-            team_instance = vsts_config.get(_DEFAULTS_SECTION, _TEAM_INSTANCE_DEFAULT)
-        if team_instance is None or team_instance == '':
-            _raise_team_team_instance_arg_error()
-    return team_instance
+    if devops_organization is None:
+        if vsts_config.has_option(_DEFAULTS_SECTION, _devops_organization_DEFAULT):
+            devops_organization = vsts_config.get(_DEFAULTS_SECTION, _devops_organization_DEFAULT)
+        if devops_organization is None or devops_organization == '':
+            _raise_team_devops_organization_arg_error()
+    return devops_organization
 
 
 def _resolve_project_from_config(project, project_required=True):
@@ -319,19 +319,19 @@ def set_tracking_data(argv):
         logger.debug(ex, exc_info=True)
 
 
-def _try_send_tracking_ci_event_async(team_instance=None):
+def _try_send_tracking_ci_event_async(devops_organization=None):
     if vsts_tracking_data is not None and vsts_tracking_data.area is not None:
         try:
-            thread = threading.Thread(target=_send_tracking_ci_event, args=[team_instance])
+            thread = threading.Thread(target=_send_tracking_ci_event, args=[devops_organization])
             thread.start()
         except Exception as ex:
             # we should always continue if we fail to set tracking data
             logger.debug(ex, exc_info=True)
 
 
-def _send_tracking_ci_event(team_instance=None, ci_client=None):
+def _send_tracking_ci_event(devops_organization=None, ci_client=None):
     if ci_client is None:
-        ci_client = get_ci_client(team_instance=team_instance)
+        ci_client = get_ci_client(devops_organization=devops_organization)
     try:
         ci_client.publish_events([vsts_tracking_data])
         return True
@@ -340,14 +340,14 @@ def _send_tracking_ci_event(team_instance=None, ci_client=None):
         return False
 
 
-def get_connection_data(team_instance):
-    team_instance = team_instance.lower()
-    if team_instance in _connection_data:
-        return _connection_data[team_instance]
+def get_connection_data(devops_organization):
+    devops_organization = devops_organization.lower()
+    if devops_organization in _connection_data:
+        return _connection_data[devops_organization]
     else:
-        location_client = get_location_client(team_instance)
-        _connection_data[team_instance] = location_client.get_connection_data()
-        return _connection_data[team_instance]
+        location_client = get_location_client(devops_organization)
+        _connection_data[devops_organization] = location_client.get_connection_data()
+        return _connection_data[devops_organization]
 
 
 def get_authentication_error(message):
@@ -363,7 +363,7 @@ def clear_connection_cache():
 
 
 _DEFAULTS_SECTION = 'defaults'
-_TEAM_INSTANCE_DEFAULT = 'instance'
+_devops_organization_DEFAULT = 'instance'
 _TEAM_PROJECT_DEFAULT = 'project'
 _PAT_ENV_VARIABLE_NAME = 'VSTS_CLI_PAT'
 _AUTH_TOKEN_ENV_VARIABLE_NAME = 'VSTS_CLI_AUTH_TOKEN'
