@@ -24,7 +24,7 @@ class VstsCommandsLoader(CLICommandsLoader):
     def load_command_table(self, args):
         load_admin_commands(self)
         load_build_commands(self)
-		load_release_commands(self)
+        load_release_commands(self)
         load_code_commands(self)
         load_team_commands(self)
         load_work_commands(self)
@@ -34,7 +34,7 @@ class VstsCommandsLoader(CLICommandsLoader):
     def load_arguments(self, command):
         load_admin_arguments(self)
         load_build_arguments(self)
-		load_release_arguments(self)
+        load_release_arguments(self)
         load_code_arguments(self)
         load_team_arguments(self)
         load_work_arguments(self)
