@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from __future__ import print_function
 import webbrowser
 
 from knack.log import get_logger
@@ -193,7 +194,9 @@ def delete_work_item(work_item_id, destroy=False, team_instance=None, project=No
     try:
         team_instance = resolve_instance(detect=detect, team_instance=team_instance)
         client = get_work_item_tracking_client(team_instance)
-        return client.delete_work_item(work_item_id,destroy)
+        delete_response = client.delete_work_item(work_item_id,destroy)
+        print('Deleted work item {}'.format(work_item_id))
+        return delete_response
     except VstsServiceError as ex:
         _handle_vsts_service_error(ex)
 

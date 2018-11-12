@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from __future__ import print_function
 import webbrowser
 
 from knack.util import CLIError
@@ -66,7 +67,9 @@ def delete_repo(repo_id=None, team_instance=None, project=None, detect=None):
                                                                 team_instance=team_instance,
                                                                 project=project)
         git_client = get_git_client(team_instance)
-        return git_client.delete_repository(project=project, repository_id=repo_id)
+        delete_response = git_client.delete_repository(project=project, repository_id=repo_id)
+        print('Deleted repository {}'.format(repo_id))
+        return delete_response
     except VstsServiceError as ex:
         raise CLIError(ex)
 

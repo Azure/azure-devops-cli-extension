@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from __future__ import print_function
 import webbrowser
 
 from knack.log import get_logger
@@ -114,6 +115,7 @@ def delete_project(project_id=None, team_instance=None, detect=None):
             raise CLIError('Project deletion failed.')
         elif status == 'cancelled':
             raise CLIError('Project deletion was cancelled.')
+        print('Deleted project {}'.format(project_id))
         return operation
     except VstsServiceError as ex:
         raise CLIError(ex)
