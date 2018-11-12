@@ -27,7 +27,7 @@ __pycache__/
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
-Release/
+[Rr]elease/
 [Rr]eleases/
 x64/
 x86/
