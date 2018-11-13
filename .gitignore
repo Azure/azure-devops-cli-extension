@@ -295,3 +295,9 @@ paket-files/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# Except for the release folders which contains vsts release code
+!src/common_modules/vsts-cli-release-common/vsts/cli/release/
+src/common_modules/vsts-cli-release-common/vsts/cli/release/*/_pycache
+!src/command_modules/vsts-cli-release/vsts/cli/release/
+src/command_modules/vsts-cli-release/vsts/cli/release/*/_pycache
