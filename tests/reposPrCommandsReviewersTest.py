@@ -19,7 +19,7 @@ class AzReposPrTests(ScenarioTest):
         
         try:
             #Create a repo with random name
-            create_repo_command = 'az repos repo create --detect off --name ' + random_repo_name +' --project PullRequestLiveTest --output json'
+            create_repo_command = 'az repos create --detect off --name ' + random_repo_name +' --project PullRequestLiveTest --output json'
             repo_create_output = self.cmd(create_repo_command).get_output_in_json()
             created_repo_id = repo_create_output["id"]
             assert len(created_repo_id) > 0
@@ -107,11 +107,11 @@ class AzReposPrTests(ScenarioTest):
         
         finally:
             #TestCleanup - Delete the temporary repo we created for the test
-            delete_repo_command = 'az repos repo delete --detect off --id ' + created_repo_id + ' --project PullRequestLiveTest -y --output json'
+            delete_repo_command = 'az repos delete --detect off --id ' + created_repo_id + ' --project PullRequestLiveTest -y --output json'
             self.cmd(delete_repo_command)
             
             #Verify Deletion
-            list_repo_command = 'az repos repo list --project PullRequestLiveTest --output json --detect off'
+            list_repo_command = 'az repos list --project PullRequestLiveTest --output json --detect off'
             list_repo_output_after_delete = self.cmd(list_repo_command).get_output_in_json()
             for repos in list_repo_output_after_delete:
                 if(repos["id"] == created_repo_id):

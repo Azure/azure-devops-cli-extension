@@ -34,6 +34,13 @@ def repo_delete_confirmation(command_args):
     return bool(prompt_y_n('Are you sure you want to delete this repository?'))
 
 def load_code_commands(self, _):
+    with self.command_group('repos', command_type=reposRepositoryOps) as g:
+        # repository commands
+        g.command('create', 'create_repo', table_transformer=transform_repo_table_output)
+        g.command('delete', 'delete_repo', confirmation=repo_delete_confirmation)
+        g.command('list', 'list_repos', table_transformer=transform_repos_table_output)
+        g.command('show', 'show_repo', table_transformer=transform_repo_table_output)
+    
     with self.command_group('repos pr', command_type=reposPullRequestOps) as g:
         # basic pr commands
         g.command('create', 'create_pull_request', table_transformer=transform_pull_request_table_output)
@@ -62,13 +69,6 @@ def load_code_commands(self, _):
         # pr policy commands
         g.command('policies list', 'list_pr_policies', table_transformer=transform_policies_table_output)
         g.command('policies queue', 'queue_pr_policy', table_transformer=transform_policy_table_output)
-
-    with self.command_group('repos repo', command_type=reposRepositoryOps) as g:
-        # repository commands
-        g.command('create', 'create_repo', table_transformer=transform_repo_table_output)
-        g.command('delete', 'delete_repo', confirmation=repo_delete_confirmation)
-        g.command('list', 'list_repos', table_transformer=transform_repos_table_output)
-        g.command('show', 'show_repo', table_transformer=transform_repo_table_output)
 
     with self.command_group('repos import', command_type=reposImportOps) as g:
         #import request

@@ -37,13 +37,7 @@ def load_repos_help():
     short-summary: Manage work items associated with pull requests.
     long-summary:
     """
-
-    helps['repos repo'] = """
-    type: group
-    short-summary: Manage repositories.
-    long-summary:
-    """
-
+    
     helps['repos import'] = """
     type: group
     short-summary: Manage Git repositories import 

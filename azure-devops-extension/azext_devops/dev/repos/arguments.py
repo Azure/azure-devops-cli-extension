@@ -18,6 +18,7 @@ def load_code_arguments(self, _):
         context.argument('devops_organization', options_list=('--organization', '-org'))
         context.argument('reviewers', nargs='*')
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
+        context.argument('repo_id', options_list='--id')
 
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
@@ -52,10 +53,7 @@ def load_code_arguments(self, _):
     with self.argument_context('repos pr set-vote') as context:
         context.argument('vote', **enum_choice_list(_VOTE_VALUES))
 
-    with self.argument_context('repos repo') as context:
-        context.argument('repo_id', options_list='--id')
-
-    with self.argument_context('repos repo delete') as context:
+    with self.argument_context('repos delete') as context:
         context.argument('yes', options_list=['--yes', '-y'], action='store_true', help='Do not prompt for confirmation.')
 
     with self.argument_context('repos import create') as context:

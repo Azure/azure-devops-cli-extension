@@ -37,4 +37,4 @@ def are_git_aliases_setup(local=False):
 
 
 git_aliases = {'pr': 'repos pr',
-               'repo': 'repos repo'}
+               'repo': 'repos'}
