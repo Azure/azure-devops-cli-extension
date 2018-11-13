@@ -62,7 +62,7 @@ def release_definition_show(definition_id=None, name=None, open_browser=False, t
     client = get_release_client(team_instance)
     if definition_id is None:
         if name is not None:
-            definition_id = _get_definition_id_from_name(name, client, project)
+            definition_id = get_definition_id_from_name(name, client, project)
         else:
             raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
     release_definition = client.get_release_definition(definition_id=definition_id, project=project)
@@ -81,7 +81,7 @@ def _open_definition(definition):
         open_new(url=url)
 
 
-def _get_definition_id_from_name(name, client, project):
+def get_definition_id_from_name(name, client, project):
     definition_references = client.get_release_definitions(project=project, search_text=name)
     if len(definition_references) == 1:
         return definition_references[0].id
