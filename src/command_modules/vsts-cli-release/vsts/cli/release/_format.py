@@ -26,9 +26,9 @@ def _transform_release_row(row):
     table_row = OrderedDict()
     table_row['ID'] = row['id']
     table_row['Name'] = row['name']
-    table_row['Status'] = row['status']
-    table_row['Definition Name'] = row['releaseDefinition']['name']
+    table_row['CreatedBy'] = row['createdBy']['displayName']
     table_row['Created on'] = row['createdOn']
+    table_row['Description'] = row['description']
     return table_row
 
 
@@ -48,5 +48,6 @@ def _transform_release_definition_row(row):
     table_row = OrderedDict()
     table_row['ID'] = row['id']
     table_row['Name'] = row['name']
+    table_row['CreatedBy'] = row['createdBy']['displayName']
     table_row['Created On'] = row['createdOn']
     return table_row
