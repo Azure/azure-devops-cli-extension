@@ -28,4 +28,4 @@ if os.path.isfile('./requirements.txt'):
     exec_command('pip install -r requirements.txt')
 
 # upgrade to latest az-dev-cli
-exec_command(r'pip install --upgrade .\azure-dev-cli-extensions')
+exec_command(r'pip install --upgrade .\azure-devops-extension')
