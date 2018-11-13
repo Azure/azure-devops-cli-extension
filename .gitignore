@@ -298,5 +298,5 @@ paket-files/
 
 # Except for the release folders which contains vsts release code
 
-!/src/common_modules/vsts-cli-release-common/vsts/cli/release/common/*.py
-!/src/command_modules/vsts-cli-release/vsts/cli/release/*.py
+!src/common_modules/vsts-cli-release-common/vsts/cli/release/common/*.py
+!src/command_modules/vsts-cli-release/vsts/cli/release/*.py
