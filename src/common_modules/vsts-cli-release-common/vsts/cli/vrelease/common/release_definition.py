@@ -6,8 +6,7 @@
 from webbrowser import open_new
 
 from knack.log import get_logger
-from vsts.cli.common.services import (get_release_client, get_git_client,
-                                      resolve_instance_and_project)
+from vsts.cli.common.services import (get_release_client,resolve_instance_and_project)
 from vsts.cli.common.uri import uri_quote
 from vsts.cli.common.uuid import is_uuid
 
@@ -30,8 +29,8 @@ def release_definition_list(name=None, top=None, team_instance=None, project=Non
     :rtype: [ReleaseDefinitionReference]
     """
     team_instance, project = resolve_instance_and_project(detect=detect,
-	                                                      team_instance=team_instance,
-														  project=project)
+                                                          team_instance=team_instance,
+                                                          project=project)
     client = get_release_client(team_instance)
     query_order = 'nameAscending'
     definition_references = client.get_release_definitions(project=project, search_text=name, artifact_source_id=artifact_source_id,
@@ -68,21 +67,18 @@ def release_definition_show(definition_id=None, name=None, open_browser=False, t
             raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
     release_definition = client.get_release_definition(definition_id=definition_id, project=project)
     if open_browser:
-        _open_definition(release_definition, team_instance)
+        _open_definition(release_definition)
     return release_definition
 
 
-def _open_definition(definition, team_instance):
+def _open_definition(definition):
     """Opens the release definition in the default browser.
     :param :class:`<ReleaseDefinitionReference> <release.v4_0.models.ReleaseDefinitionReference>` definition:
-    :param str team_instance:
     """
-    # https://mseng.visualstudio.com/vsts-cli/_release/index?definitionId=5419
-    project = definition.project.name
-    url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_apis/release/definitions/' \
-        + uri_quote(str(definition.id))
-    logger.debug('Opening web page: %s', url)
-    open_new(url=url)
+    url = _get_release_definition_web_url(definition)
+    if url is not None and url:
+        logger.debug('Opening web page: %s', url)
+        open_new(url=url)
 
 
 def get_definition_id_from_name(name, client, project):
@@ -98,3 +94,13 @@ def get_definition_id_from_name(name, client, project):
     else:
         raise ValueError('There were no release definitions matching name "{name}" in project "{project}".'
                          .format(name=name, project=project))
+
+ 
+def _get_release_definition_web_url(definition):
+    links = definition._links
+    if links is not None and links:
+        properties = links.additional_properties
+        if properties is not None and properties:
+            web_url = properties.get('web')
+            if web_url is not None and web_url:
+                return web_url.get('href')

@@ -21,9 +21,9 @@ logger = get_logger(__name__)
 def release_create(definition_id=None, definition_name=None, artifact_metadata_list=None, description=None, open_browser=False,
                 team_instance=None, project=None, detect=None):
     """Request (create) a release.
-    :param definition_id: ID of the definition to create. Required if --name is not supplied.
+    :param definition_id: ID of the definition to create. Required if --definition-name is not supplied.
     :type definition_id: int
-    :param definition_name: Name of the definition to create. Ignored if --id is supplied.
+    :param definition_name: Name of the definition to create. Ignored if --definition-id is supplied.
     :type definition_name: str
     :param open_browser: Open the release results page in your web browser.
     :type open_browser: bool
@@ -33,7 +33,7 @@ def release_create(definition_id=None, definition_name=None, artifact_metadata_l
     :type project: str
     :param artifact_metadata_list: Space separated "alias=version_id" pairs.
     :type artifact_metadata_list: [str]
-	:param description: Description of the release.
+    :param description: Description of the release.
     :type description: str
     :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
@@ -67,7 +67,7 @@ def release_create(definition_id=None, definition_name=None, artifact_metadata_l
     created_release = client.create_release(release_start_metadata=release, project=project)
     
     if open_browser:
-        _open_release(created_release, team_instance)
+        _open_release(created_release)
     
     return created_release
 
@@ -92,7 +92,7 @@ def release_show(release_id, open_browser=False, team_instance=None, project=Non
     client = get_release_client(team_instance)
     release = client.get_release(release_id=release_id, project=project)
     if open_browser:
-        _open_release(release, team_instance)
+        _open_release(release)
     return release
 
 
@@ -130,14 +130,20 @@ def release_list(definition_id=None, source_branch=None, team_instance=None, pro
     return releases
 
 
-def _open_release(release, team_instance):
+def _open_release(release):
     """Open the release results page in your web browser.
     :param :class:`<Release> <release.v4_0.models.Release>` release:
-    :param str team_instance:
     """
-    # https://mseng.visualstudio.com/vsts-cli/_release/index?releaseId=4053990
-    project = release.project.name
-    url = team_instance.rstrip('/') + '/' + uri_quote(project) + '/_release/index?releaseid='\
-        + uri_quote(str(release.id))
-    logger.debug('Opening web page: %s', url)
-    open_new(url=url)
+    url = _get_release_web_url(release)
+    if url is not None and url:
+        logger.debug('Opening web page: %s', url)
+        open_new(url=url)
+
+def _get_release_web_url(release):
+   links = release._links
+   if links is not None and links:
+       properties = links.additional_properties
+       if properties is not None and properties:
+           web_url = properties.get('web')
+           if web_url is not None and web_url:
+               return web_url.get('href')
