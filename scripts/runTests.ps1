@@ -43,7 +43,7 @@ $testFailureFound = $false
 
 if($outputTestResultAsJunit -eq $true)
 {
-    pytest $testFile --junitxml "TEST-results.xml"
+    pytest $testFile --junitxml "TEST-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
 }
 else{
     pytest $testFile

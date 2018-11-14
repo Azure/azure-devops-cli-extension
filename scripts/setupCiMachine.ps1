@@ -7,6 +7,12 @@ Write-Output "done"
 Write-Output "installing pytest"
 pip install pytest
 Write-Output "done"
+Write-Output "installing coverage"
+pip install coverage
+Write-Output "done"
+Write-Output "installing pytest-cov"
+pip install pytest-cov
+Write-Output "done"
 
 pip install keyring
 pip install keyrings.alt
