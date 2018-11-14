@@ -82,7 +82,7 @@ def _open_definition(definition):
 
 
 def get_definition_id_from_name(name, client, project):
-    definition_references = client.get_release_definitions(project=project, search_text=name)
+    definition_references = client.get_release_definitions(project=project, search_text=name, is_exact_name_match='true')
     if len(definition_references) == 1:
         return definition_references[0].id
     elif len(definition_references) > 1:
