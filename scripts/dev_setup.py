@@ -15,19 +15,20 @@ root_dir = os.path.abspath(os.path.join(os.path.abspath(__file__), '..', '..'))
 print('Root directory \'{}\'\n'.format(root_dir))
 os.chdir(root_dir)
 
-
-def exec_command(command):
+def py_command(command):
     try:
-        print('Executing: ' + command)
-        check_call(command.split(), cwd=root_dir)
+        print('Executing: ' + sys.executable + ' ' + command)
+        check_call([sys.executable] + command.split(), cwd=root_dir)
         print()
     except CalledProcessError as err:
         print(err, file=sys.stderr)
         sys.exit(1)
 
+def pip_command(command):
+    py_command('-m pip ' + command)
 
-exec_command('python -m pip install --upgrade pip')
-exec_command('python -m pip install --upgrade wheel')
+pip_command('install --upgrade pip')
+pip_command('install --upgrade wheel')
 
 packages = []
 
@@ -35,7 +36,7 @@ packages = []
 if 'vsts-python-api-repo' in os.environ and os.path.isdir(os.environ['vsts-python-api-repo']):
     packages.append(os.environ['vsts-python-api-repo'] + "/vsts")
 else:
-    exec_command("pip install vsts --upgrade --no-cache-dir --extra-index-url https://vstscli.azurewebsites.net")
+    pip_command("install vsts --upgrade --no-cache-dir --extra-index-url https://vstscli.azurewebsites.net")
 
 # VSTS CLI packages (from local directory)
 packages.append("src/common_modules/vsts-cli-common")
@@ -45,7 +46,7 @@ packages.append("src/vsts-cli")
 
 # install general requirements
 if os.path.isfile('./requirements.txt'):
-    exec_command('pip install -r requirements.txt')
+    pip_command('install -r requirements.txt')
 
 # install packages
-exec_command('pip install -e {}'.format(' -e '.join(packages)))
+pip_command('install -e {}'.format(' -e '.join(packages)))
