@@ -3,6 +3,9 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import os
+import json
+
 from webbrowser import open_new
 
 from knack.log import get_logger
@@ -71,6 +74,38 @@ def release_definition_show(definition_id=None, name=None, open_browser=False, t
     return release_definition
 
 
+def release_definition_update(filename, open_browser=False, team_instance=None, project=None, detect=None):
+    """Update a release definition.
+    :param filename: file with the release definition, in JSON format.
+    :type filename: str
+    :param open_browser: Open the definition summary page in your web browser.
+    :type open_browser: bool
+    :param team_instance: VSTS account or TFS collection URL. Example: https://myaccount.visualstudio.com
+    :type team_instance: str
+    :param project: Name or ID of the team project.
+    :type project: str
+    :param detect: Automatically detect values for instance and project. Default is "on".
+    :type detect: str
+    :rtype: ReleaseDefinitionReference
+    """
+    if not os.path.exists(filename):
+        raise ValueError("File doesn't exist.")
+    team_instance, project = resolve_instance_and_project(detect=detect,
+                                                          team_instance=team_instance,
+                                                          project=project)
+    client = get_release_client(team_instance)
+
+    with open(filename, 'r') as content_file:
+        release_definition = json.load(content_file)
+
+    print(release_definition)
+    release_definition = client.update_release_definition(release_definition=release_definition, project=project)
+
+    if open_browser:
+        _open_definition(release_definition)
+    return release_definition
+
+
 def _open_definition(definition):
     """Opens the release definition in the default browser.
     :param :class:`<ReleaseDefinitionReference> <release.v4_0.models.ReleaseDefinitionReference>` definition:
@@ -95,7 +130,7 @@ def get_definition_id_from_name(name, client, project):
         raise ValueError('There were no release definitions matching name "{name}" in project "{project}".'
                          .format(name=name, project=project))
 
- 
+
 def _get_release_definition_web_url(definition):
     links = definition._links
     if links is not None and links:

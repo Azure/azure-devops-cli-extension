@@ -25,3 +25,5 @@ def load_release_commands(cli_command_loader):
                   table_transformer=transform_release_definitions_table_output)
         g.command('definition show', 'release_definition#release_definition_show',
                   table_transformer=transform_release_definition_table_output)
+        g.command('definition update', 'release_definition#release_definition_update',
+                  table_transformer=transform_release_definition_table_output)
