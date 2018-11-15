@@ -24,7 +24,13 @@ from azext_devops.dev.repos.pull_request import (create_pull_request,
                                                  reactivate_pull_request,
                                                  create_pull_request_reviewers,
                                                  delete_pull_request_reviewers,
-                                                 list_pull_request_reviewers)
+                                                 list_pull_request_reviewers,
+                                                 add_pull_request_work_items,
+                                                 list_pull_request_work_items,
+                                                 vote_pull_request,
+                                                 _convert_vote_to_int,
+                                                 list_pr_policies,
+                                                 queue_pr_policy)
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads
                                             
 from azext_devops.dev.common.services import clear_connection_cache
@@ -51,8 +57,10 @@ class TestPullRequestMethods(unittest.TestCase):
         self.get_PRsByProject_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_pull_requests_by_project')
         self.get_PRs_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_pull_requests')
         self.create_PR_reviewers_patcher = patch('vsts.git.v4_0.git_client.GitClient.create_pull_request_reviewers')
+        self.create_PR_reviewer_patcher = patch('vsts.git.v4_0.git_client.GitClient.create_pull_request_reviewer')
         self.delete_PR_reviewers_patcher = patch('vsts.git.v4_0.git_client.GitClient.delete_pull_request_reviewer')
         self.get_PR_reviewers_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_pull_request_reviewers')
+        self.get_PR_WIs_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_pull_request_work_items')
 
         self.resolve_identity_patcher = patch('azext_devops.dev.common.identities.resolve_identity_as_id')
 
@@ -63,6 +71,12 @@ class TestPullRequestMethods(unittest.TestCase):
         self.resolve_reviewers_as_refs_patcher = patch('azext_devops.dev.repos.pull_request._resolve_reviewers_as_refs')
         self.resolve_reviewers_as_ids = patch('azext_devops.dev.repos.pull_request._resolve_reviewers_as_ids')
 
+        self.update_WI_patcher = patch('vsts.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.update_work_item')
+        self.get_WIs_pacther = patch('vsts.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.get_work_items')
+
+        self.get_policy_evaluation_patcher = patch('vsts.policy.v4_0.policy_client.PolicyClient.get_policy_evaluations')
+        self.requeue_policy_evaluation_patcher = patch('vsts.policy.v4_0.policy_client.PolicyClient.requeue_policy_evaluation')
+
         #start the patchers
         self.mock_create_PR = self.create_PR_patcher.start()
         self.mock_update_PR = self.udpate_PR_patcher.start()
@@ -70,15 +84,21 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_get_PR = self.get_PR_patcher.start()
         self.mock_get_PRsByProject = self.get_PRsByProject_patcher.start()
         self.mock_get_PRs = self.get_PRs_patcher.start()
-        self.mock_create_PR_reviewer = self.create_PR_reviewers_patcher.start()
+        self.mock_create_PR_reviewers = self.create_PR_reviewers_patcher.start()
+        self.mock_create_PR_reviewer = self.create_PR_reviewer_patcher.start()
         self.mock_delete_PR_reviewer = self.delete_PR_reviewers_patcher.start()
         self.mock_get_PR_reviewer = self.get_PR_reviewers_patcher.start()
+        self.mock_get_PR_WIs = self.get_PR_WIs_patcher.start()
         self.mock_resolve_identity = self.resolve_identity_patcher.start()
         self.mock_get_credential = self.get_credential_patcher.start()
         self.mock_validate_token = self.validate_token_patcher.start()
         self.mock_open_browser = self.open_in_browser_patcher.start()
         self.mock_resolve_reviewers_as_refs = self.resolve_reviewers_as_refs_patcher.start()
         self.mock_resolve_reviewers_as_ids = self.resolve_reviewers_as_ids.start()
+        self.mock_udpate_WI = self.update_WI_patcher.start()
+        self.mock_get_WIs = self.get_WIs_pacther.start()
+        self.mock_get_policy_evaluation = self.get_policy_evaluation_patcher.start()
+        self.mock_requeue_policy_evaluation = self.requeue_policy_evaluation_patcher.start()
 
         #clear connection cache before running each test
         clear_connection_cache()
@@ -91,15 +111,21 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_get_PR.stop()
         self.mock_get_PRsByProject.stop()
         self.mock_get_PRs.stop()
+        self.mock_create_PR_reviewers.stop()
         self.mock_create_PR_reviewer.stop()
         self.mock_delete_PR_reviewer.stop()
         self.mock_get_PR_reviewer.stop()
+        self.mock_get_PR_WIs.stop()
         self.mock_resolve_identity.stop()
         self.mock_get_credential.stop()
         self.mock_validate_token.stop()
         self.mock_open_browser.stop()
         self.mock_resolve_reviewers_as_refs.stop()
         self.mock_resolve_reviewers_as_ids.stop()
+        self.mock_udpate_WI.stop()
+        self.mock_get_WIs.stop()
+        self.mock_get_policy_evaluation.stop()
+        self.mock_requeue_policy_evaluation.stop()
 
 
     def test_create_pull_request(self):
@@ -278,7 +304,7 @@ class TestPullRequestMethods(unittest.TestCase):
         detect='off')
 
         #assert
-        self.mock_create_PR_reviewer.assert_called_once()
+        self.mock_create_PR_reviewers.assert_called_once()
         self.mock_get_PR_byId.assert_called_once()
 
     def test_delete_pull_request_reviewers(self):
@@ -323,8 +349,97 @@ class TestPullRequestMethods(unittest.TestCase):
         #assert
         self.mock_get_PR_reviewer.assert_called_once()
 
+    def test_add_pull_request_work_items(self):
+        response = add_pull_request_work_items(pull_request_id = 1,
+        work_items = [2, 4],
+        devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+        detect='off')
 
+        #assert
+        self.mock_get_PR_byId.assert_called_once()
+        assert self.mock_udpate_WI.call_count == 2
+        self.mock_get_PR_WIs.assert_called_once()
+        self.mock_get_WIs.assert_called_once()
 
-        
+    def test_list_pull_request_work_items(self):
+        response = list_pull_request_work_items(pull_request_id = 1,
+        devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+        detect='off')
+
+        #assert
+        self.mock_get_PR_byId.assert_called_once()
+        self.mock_get_PR_WIs.assert_called_once()
+        self.mock_get_WIs.assert_called_once()
+
+    def test_vote_pull_request(self):
+        response = vote_pull_request(pull_request_id = 1,
+        vote = 'approve', 
+        devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+        detect='off')
+
+        #assert
+        self.mock_get_PR_byId.assert_called_once()
+        self.mock_create_PR_reviewer.assert_called_once()
+
+    def test_convert_vote_to_int(self):
+        assert _convert_vote_to_int('approve') == 10
+        assert _convert_vote_to_int('approve-with-suggestions') == 5
+        assert _convert_vote_to_int('reset') == 0
+        assert _convert_vote_to_int('wait-for-author') == -5
+        assert _convert_vote_to_int('reject') == -10
+
+    def test_list_pr_policies(self):
+        test_pr_id = 1
+        test_project_id = 20
+        test_repository_id = 25
+
+        # set return values
+        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
+        self.mock_validate_token.return_value = True
+
+        #big setup because this object is passed around
+        pr_to_return = GitPullRequest()
+        pr_to_return.pull_request_id = test_pr_id
+        pr_to_return.repository = GitRepository()
+        pr_to_return.repository.id = test_repository_id
+        pr_to_return.repository.project = TeamProjectReference()
+        pr_to_return.repository.project.id = test_project_id
+        self.mock_get_PR_byId.return_value = pr_to_return
+
+        response = list_pr_policies(pull_request_id = 1,
+        devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+        detect='off')
+
+        #assert
+        self.mock_get_PR_byId.assert_called_once()
+        self.mock_get_policy_evaluation.assert_called_once()
+
+    def test_queue_pr_policy(self):
+        test_pr_id = 1
+        test_project_id = 20
+        test_repository_id = 25
+
+        # set return values
+        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
+        self.mock_validate_token.return_value = True
+
+        #big setup because this object is passed around
+        pr_to_return = GitPullRequest()
+        pr_to_return.pull_request_id = test_pr_id
+        pr_to_return.repository = GitRepository()
+        pr_to_return.repository.id = test_repository_id
+        pr_to_return.repository.project = TeamProjectReference()
+        pr_to_return.repository.project.id = test_project_id
+        self.mock_get_PR_byId.return_value = pr_to_return
+
+        response = queue_pr_policy(pull_request_id = 1,
+        evaluation_id = 2,
+        devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+        detect='off')
+
+        #assert
+        self.mock_get_PR_byId.assert_called_once()
+        self.mock_requeue_policy_evaluation.assert_called_once()
+
 if __name__ == '__main__':
     unittest.main()
