@@ -58,7 +58,7 @@ class TestUniversalPackages(unittest.TestCase):
             [
                 'universal', 'publish', 
                 '--service', self._TEST_DEVOPS_ORGANIZATION, 
-                 '--patvar', 'VSTS_ARTIFACTTOOL_PATVAR', 
+                 '--patvar', 'AZURE_DEVOPS_CLI_ARTIFACTTOOL_PATVAR', 
                  '--feed', self._TEST_FEED_NAME, 
                  '--package-name', self._TEST_PACKAGE_NAME, 
                  '--package-version', self._TEST_PACKAGE_VERSION, 
@@ -80,7 +80,7 @@ class TestUniversalPackages(unittest.TestCase):
             [
                 'universal', 'download', 
                 '--service', self._TEST_DEVOPS_ORGANIZATION, 
-                    '--patvar', 'VSTS_ARTIFACTTOOL_PATVAR', 
+                    '--patvar', 'AZURE_DEVOPS_CLI_ARTIFACTTOOL_PATVAR', 
                     '--feed', self._TEST_FEED_NAME, 
                     '--package-name', self._TEST_PACKAGE_NAME, 
                     '--package-version', self._TEST_PACKAGE_VERSION, 

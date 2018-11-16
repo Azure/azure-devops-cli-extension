@@ -143,7 +143,7 @@ class ArtifactToolUpdater:
         return "{}_{}_{}".format(release.name, release.rid, release.version)
 
     def _compute_artifacttool_root(self):
-        az_devops_cli_root = os.path.join(GLOBAL_CONFIG_DIR, 'cli', 'tools'))
+        az_devops_cli_root = os.path.join(GLOBAL_CONFIG_DIR, 'cli', 'tools')
         return os.path.join(az_devops_cli_root, "artifacttool")
 
     def _compute_release_dir(self, release_id):
