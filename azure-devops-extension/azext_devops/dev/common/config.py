@@ -8,47 +8,46 @@ import stat
 from six.moves import configparser
 
 from knack.config import CLIConfig, get_config_parser
-
+from knack.util import ensure_dir
+from .const import (AZ_DEVOPS_CONFIG_DIR_ENVKEY,
+                    AZ_DEVOPS_CONFIG_DIR,
+                    CLI_ENV_VARIABLE_PREFIX)
 
 CONFIG_FILE_NAME = 'config'
-CLI_ENV_VARIABLE_PREFIX = 'VSTS_CLI_'
 CORE_SECTION = 'core'
 DEFAULTS_SECTION = 'defaults'
 LOGGING_SECTION = 'logging'
 
 _UNSET = object()
-_ENV_VAR_FORMAT = CLI_ENV_VARIABLE_PREFIX + '{section}_{option}'
 
 
 def _get_config_dir():
-    vsts_config_dir = os.getenv('VSTS_CONFIG_DIR', None) or os.path.expanduser(os.path.join('~', '.vsts', 'cli'))
-    if not os.path.exists(vsts_config_dir):
-        os.makedirs(vsts_config_dir)
-    return vsts_config_dir
+    azure_devops_config_dir = os.getenv(AZ_DEVOPS_CONFIG_DIR_ENVKEY, None) or AZ_DEVOPS_CONFIG_DIR
+    #Create a directory if it doesn't exist
+    ensure_dir(azure_devops_config_dir)
+    return azure_devops_config_dir
 
 
 GLOBAL_CONFIG_DIR = _get_config_dir()
 GLOBAL_CONFIG_PATH = os.path.join(GLOBAL_CONFIG_DIR, CONFIG_FILE_NAME)
 
-
-class VstsConfig(CLIConfig):
+class AzDevopsConfig(CLIConfig):
     def __init__(self, config_dir=GLOBAL_CONFIG_DIR, config_env_var_prefix=CLI_ENV_VARIABLE_PREFIX):
-        super(VstsConfig, self).__init__(config_dir=config_dir, config_env_var_prefix=config_env_var_prefix)
+        super(AzDevopsConfig, self).__init__(config_dir=config_dir, config_env_var_prefix=config_env_var_prefix)
         self.config_parser = get_config_parser()
 
 
-vsts_config = VstsConfig()
-vsts_config.config_parser.read(GLOBAL_CONFIG_PATH)
+azdevops_config = AzDevopsConfig()
+azdevops_config.config_parser.read(GLOBAL_CONFIG_PATH)
 
 
 def set_global_config(config):
-    if not os.path.isdir(GLOBAL_CONFIG_DIR):
-        os.makedirs(GLOBAL_CONFIG_DIR)
+    ensure_dir(GLOBAL_CONFIG_DIR)
     with open(GLOBAL_CONFIG_PATH, 'w') as configfile:
         config.write(configfile)
     os.chmod(GLOBAL_CONFIG_PATH, stat.S_IRUSR | stat.S_IWUSR)
     # reload config
-    vsts_config.config_parser.read(GLOBAL_CONFIG_PATH)
+    azdevops_config.config_parser.read(GLOBAL_CONFIG_PATH)
 
 
 def set_global_config_value(section, option, value):

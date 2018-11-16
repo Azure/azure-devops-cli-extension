@@ -12,7 +12,7 @@ from .utilities.helper import get_random_name
 class AzReposPrPolicyTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     def test_pull_request_policies_workitems(self):
-        self.cmd('az devops configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com')
+        self.cmd('az devops configure --defaults organization=https://AzureDevOpsCliTest.visualstudio.com')
         self.cmd('az devops login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
         
         #List PR

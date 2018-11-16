@@ -15,7 +15,7 @@ class AzureDevTests(ScenarioTest):
         wi_account_instance='https://AzureDevOpsCliTest.visualstudio.com'
         wi_account_pat = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
 
-        self.cmd('az devops configure --defaults instance=' + wi_account_instance)
+        self.cmd('az devops configure --defaults organization=' + wi_account_instance)
         self.cmd('az devops login --token ' + wi_account_pat)
 
         try:

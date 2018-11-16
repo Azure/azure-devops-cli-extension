@@ -29,7 +29,7 @@ def build_definition_list(name=None, top=None, devops_organization=None, project
     :type project: str
     :param repository: Limit results to definitions associated with this repository.
     :type repository: str
-    :param detect: Automatically detect values for instance and project. Default is "on".
+    :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
     :rtype: [BuildDefinitionReference]
     """

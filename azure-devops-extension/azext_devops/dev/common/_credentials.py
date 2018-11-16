@@ -9,11 +9,7 @@ from .uri import uri_parse
 from knack.log import get_logger
 logger = get_logger(__name__)
 
-#
-# IMPORTANT: This function is called by the install script (scripts/curl_install/install.py)
-#            to verify that credentials can be accessed. Be careful when changing this method
-#            so it does not impact install.
-#
+
 def get_credential(devops_organization, fall_back_to_default=True):
     token = _get_credential(devops_organization)
     if token is None and devops_organization is not None and fall_back_to_default:
@@ -61,9 +57,9 @@ def clear_credential(devops_organization):
 
 def _get_service_name(devops_organization):
     if devops_organization is not None:
-        return 'vsts-cli:' + normalize_url_for_key(devops_organization)
+        return 'azdevops-cli:' + normalize_url_for_key(devops_organization)
     else:
-        return 'vsts-cli: default'
+        return 'azdevops-cli: default'
 
 
 def normalize_url_for_key(url):

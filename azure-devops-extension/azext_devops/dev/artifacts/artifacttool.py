@@ -10,6 +10,7 @@ from knack.log import get_logger
 from knack.util import CLIError
 
 from azext_devops.dev.common.services import _get_credentials
+from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX
 
 logger = get_logger(__name__)
 
@@ -18,7 +19,7 @@ class ArtifactToolInvoker:
         self._tool_invoker = tool_invoker
         self._artifacttool_updater = artifacttool_updater
 
-    PATVAR = "VSTS_ARTIFACTTOOL_PATVAR"
+    PATVAR = CLI_ENV_VARIABLE_PREFIX + "ARTIFACTTOOL_PATVAR"
 
     def download_universal(self, devops_organization, feed, package_name, package_version, path):
         return self.run_artifacttool(devops_organization, ["universal", "download", "--service", devops_organization, "--patvar", self.PATVAR, "--feed", feed, "--package-name", package_name, "--package-version", package_version, "--path", path], "Downloading")
@@ -64,7 +65,7 @@ class ArtifactToolInvoker:
         self._log_message(json_line)
         self._process_event(json_line, update_progress_callback)
 
-    # Interpret the structured log line from ArtifactTool and emit the message to VSTS CLI logging
+    # Interpret the structured log line from ArtifactTool and emit the message to Azure devops CLI logging
     def _log_message(self, json_line):
         if json_line is not None and '@m' in json_line:
             log_level = json_line['@l'] if '@l' in json_line else "Information" # Serilog doesn't emit @l for Information it seems

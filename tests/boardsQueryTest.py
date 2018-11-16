@@ -13,7 +13,7 @@ class AzureDevTests(ScenarioTest):
         wi_account_instance='https://AzureDevOpsCliTest.visualstudio.com'
         wi_account_pat = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
 
-        self.cmd('az devops configure --defaults instance=' + wi_account_instance)
+        self.cmd('az devops configure --defaults organization=' + wi_account_instance)
         self.cmd('az devops login --token ' + wi_account_pat)
 
         show_query_command_with_id = 'az boards query -org https://AzureDevOpsCliTest.visualstudio.com --detect off -p ' + wi_test_project_name + ' --id 51a3e288-2372-4af7-b722-79806154084b --output json'

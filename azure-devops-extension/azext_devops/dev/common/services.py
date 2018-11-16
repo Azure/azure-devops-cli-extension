@@ -16,7 +16,8 @@ from azure.cli.core.api import load_subscriptions
 from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
 from vsts.vss_connection import VssConnection
 from .arguments import should_detect
-from .config import vsts_config
+from .config import azdevops_config
+from .const import CLI_ENV_VARIABLE_PREFIX
 from ._credentials import get_credential
 from .git import get_remote_url
 from .version import VERSION
@@ -32,8 +33,8 @@ def get_vss_connection(devops_organization):
         try:
             _vss_connection[devops_organization] = _get_vss_connection(devops_organization, credentials)
             collect_telemetry = None
-            if vsts_config.has_option('core', 'collect_telemetry'):
-                collect_telemetry = vsts_config.get('core', 'collect_telemetry')
+            if azdevops_config.has_option('core', 'collect_telemetry'):
+                collect_telemetry = azdevops_config.get('core', 'collect_telemetry')
             if collect_telemetry is None or collect_telemetry != 'no':
                 logger.debug('Telemetry enabled.')
                 _try_send_tracking_ci_event_async(devops_organization)
@@ -219,7 +220,7 @@ def _raise_team_devops_organization_arg_error():
     raise CLIError('--organization must be specified. The value should be the URI of your Azure DevOps organization, ' +
                    'for example: https://dev.azure.com/MyOrganizationName/ or your TFS project organization. ' +
                    'You can set a default value by running: az devops configure --defaults ' +
-                   'instance=https://dev.azure.com/MyOrganizationName/. For auto detection to ' +
+                   'organization=https://dev.azure.com/MyOrganizationName/. For auto detection to ' +
                    'work (--detect on), you must be in a local Git directory that has a "remote" referencing a Azure DevOps' +
                    'or TFS repository.')
 
@@ -263,20 +264,20 @@ def resolve_instance(detect, devops_organization):
 
 
 def _resolve_instance_from_config(devops_organization):
-    from .config import vsts_config
+    from .config import azdevops_config
     if devops_organization is None:
-        if vsts_config.has_option(_DEFAULTS_SECTION, _devops_organization_DEFAULT):
-            devops_organization = vsts_config.get(_DEFAULTS_SECTION, _devops_organization_DEFAULT)
+        if azdevops_config.has_option(_DEFAULTS_SECTION, _DEVOPS_ORGANIZATION_DEFAULT):
+            devops_organization = azdevops_config.get(_DEFAULTS_SECTION, _DEVOPS_ORGANIZATION_DEFAULT)
         if devops_organization is None or devops_organization == '':
             _raise_team_devops_organization_arg_error()
     return devops_organization
 
 
 def _resolve_project_from_config(project, project_required=True):
-    from .config import vsts_config
+    from .config import azdevops_config
     if project is None:
-        if vsts_config.has_option(_DEFAULTS_SECTION, _TEAM_PROJECT_DEFAULT):
-            project = vsts_config.get(_DEFAULTS_SECTION, _TEAM_PROJECT_DEFAULT)
+        if azdevops_config.has_option(_DEFAULTS_SECTION, _TEAM_PROJECT_DEFAULT):
+            project = azdevops_config.get(_DEFAULTS_SECTION, _TEAM_PROJECT_DEFAULT)
         if project_required and (project is None or project == ''):
             _raise_team_project_arg_error()
     return project
@@ -363,10 +364,10 @@ def clear_connection_cache():
 
 
 _DEFAULTS_SECTION = 'defaults'
-_devops_organization_DEFAULT = 'instance'
+_DEVOPS_ORGANIZATION_DEFAULT = 'organization'
 _TEAM_PROJECT_DEFAULT = 'project'
-_PAT_ENV_VARIABLE_NAME = 'VSTS_CLI_PAT'
-_AUTH_TOKEN_ENV_VARIABLE_NAME = 'VSTS_CLI_AUTH_TOKEN'
+_PAT_ENV_VARIABLE_NAME = CLI_ENV_VARIABLE_PREFIX + 'PAT'
+_AUTH_TOKEN_ENV_VARIABLE_NAME = CLI_ENV_VARIABLE_PREFIX + 'AUTH_TOKEN'
 
 _connection_data = {}
 _vss_connection = OrderedDict()

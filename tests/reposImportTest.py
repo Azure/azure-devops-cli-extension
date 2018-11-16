@@ -11,7 +11,7 @@ from .utilities.helper import get_random_name
 class ReposImportTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     def test_repos_import_create(self):
-        self.cmd('az devops configure --defaults instance=https://AzureDevOpsCliTest.visualstudio.com')
+        self.cmd('az devops configure --defaults organization=https://AzureDevOpsCliTest.visualstudio.com')
         self.cmd('az devops login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
         #Generate random repo name
         random_repo_name = get_random_name(8) 

@@ -19,13 +19,15 @@ import requests
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.services import get_vss_connection
+from azext_devops.dev.common.config import GLOBAL_CONFIG_DIR
+from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX
 
 logger = get_logger(__name__)
 
 class ArtifactToolUpdater:
-    ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY = "VSTS_CLI_ARTIFACTTOOL_OVERRIDE_PATH"
-    ARTIFACTTOOL_OVERRIDE_URL_ENVKEY = "VSTS_CLI_ARTIFACTTOOL_OVERRIDE_URL"
-    ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY = "VSTS_CLI_ARTIFACTTOOL_OVERRIDE_VERSION"
+    ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY = CLI_ENV_VARIABLE_PREFIX + "ARTIFACTTOOL_OVERRIDE_PATH"
+    ARTIFACTTOOL_OVERRIDE_URL_ENVKEY =  CLI_ENV_VARIABLE_PREFIX + "ARTIFACTTOOL_OVERRIDE_URL"
+    ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY =  CLI_ENV_VARIABLE_PREFIX + "ARTIFACTTOOL_OVERRIDE_VERSION"
 
     def get_latest_artifacttool(self, devops_organization):
         artifacttool_binary_override_path = os.environ.get(self.ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY)
@@ -41,7 +43,7 @@ class ArtifactToolUpdater:
         logger.debug("Checking for ArtifactTool updates")
 
         # Call the auto-update API to find the current version of ArtifactTool
-        # If VSTS_ARTIFACTTOOL_OVERRIDE_URL is set, instead always download from the URL
+        # If AZURE_DEVOPS_CLI_ARTIFACTTOOL_OVERRIDE_URL is set, instead always download from the URL
         artifacttool_override_url = os.environ.get(self.ARTIFACTTOOL_OVERRIDE_URL_ENVKEY)
         if artifacttool_override_url is not None:
             release_uri = artifacttool_override_url
@@ -141,8 +143,8 @@ class ArtifactToolUpdater:
         return "{}_{}_{}".format(release.name, release.rid, release.version)
 
     def _compute_artifacttool_root(self):
-        vsts_cli_root = os.path.expanduser(os.path.join('~', '.vsts', 'cli', 'tools'))
-        return os.path.join(vsts_cli_root, "artifacttool")
+        az_devops_cli_root = os.path.join(GLOBAL_CONFIG_DIR, 'cli', 'tools'))
+        return os.path.join(az_devops_cli_root, "artifacttool")
 
     def _compute_release_dir(self, release_id):
         return os.path.join(self._compute_artifacttool_root(), release_id)

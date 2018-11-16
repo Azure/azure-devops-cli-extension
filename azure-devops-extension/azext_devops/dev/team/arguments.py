@@ -9,7 +9,6 @@ from knack.arguments import ArgumentsContext, enum_choice_list
 # CUSTOM CHOICE LISTS
 _ON_OFF_SWITCH_VALUES = ['on', 'off']
 _YES_NO_SWITCH_VALUES = ['yes', 'no']
-_OUTPUT_VALUES = ['json', 'jsonc', 'table', 'tsv']
 _SOURCE_CONTROL_VALUES = ['git', 'tfvc']
 _PROJECT_VISIBILITY_VALUES = ['private', 'public']
 _STATE_VALUES = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting', 'createpending']
@@ -41,5 +40,4 @@ def load_team_arguments(self, _):
         context.argument('enable_log_file', **enum_choice_list(_YES_NO_SWITCH_VALUES))
         context.argument('use_git_aliases', **enum_choice_list(_YES_NO_SWITCH_VALUES))
         context.argument('suppress_update_message', **enum_choice_list(_YES_NO_SWITCH_VALUES))
-        context.argument('default_output', **enum_choice_list(_OUTPUT_VALUES))
         context.argument('list_config', options_list=('--list', '-l'))

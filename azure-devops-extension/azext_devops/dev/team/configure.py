@@ -16,10 +16,11 @@ from azext_devops.dev.common.version import disable_command_version_checking, DI
 
 
 def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_git_aliases=None,
-              default_output=None, disable_version_check=None, list_config=False):
+            disable_version_check=None, list_config=False):
     """Configure the Azure DevOps CLI or view your configuration.
     :param defaults: Space separated 'name=value' pairs for common arguments defaults,
-        e.g. '--defaults output=table arg=value' Use '' to clear the defaults, e.g. --defaults output=''.
+        e.g. '--defaults project=my-project-name organization=https://dev.azure.com/organizationName
+        arg=value' Use '' to clear the defaults, e.g. --defaults project=''.
     :type defaults: str
     :param collect_telemetry: Microsoft would like to collect anonymous Azure DevOps CLI usage data to
         improve our CLI.  Participation is voluntary and when you choose to
@@ -33,8 +34,6 @@ def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_g
     :param use_git_aliases: Set to 'yes' to configure Git aliases global git config file (to enable commands like "git pr list").
         Set to 'no' to remove any aliases set by the tool.
     :type use_git_aliases: str
-    :param default_output: Specifies the default output format for commands.
-    :type default_output: str
     :param disable_version_check: Set to 'yes' to disable checking for updated versions of the CLI.
     :type disable_version_check: str
     :param list_config: Lists the contents of the config file.
@@ -42,8 +41,8 @@ def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_g
     """
     disable_command_version_checking()
     if defaults is None and collect_telemetry is None and enable_log_file is None\
-            and use_git_aliases is None and default_output is None\
-            and disable_version_check is None and list_config is False:
+            and use_git_aliases is None and disable_version_check is None\
+            and list_config is False:
         interactive_configure()
         return
     if defaults:
@@ -56,8 +55,6 @@ def configure(defaults=None, collect_telemetry=None, enable_log_file=None, use_g
         set_global_config_value(CORE_SECTION, 'collect_telemetry', collect_telemetry)
     if enable_log_file is not None:
         set_global_config_value(LOGGING_SECTION, 'enable_log_file', enable_log_file)
-    if default_output is not None:
-        set_global_config_value(CORE_SECTION, 'output', default_output)
     if disable_version_check:
         set_global_config_value(CORE_SECTION, DISABLE_VERSION_CHECK_SETTING, disable_version_check)
     if use_git_aliases is not None:
