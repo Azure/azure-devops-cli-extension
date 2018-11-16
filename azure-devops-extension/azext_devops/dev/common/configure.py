@@ -8,7 +8,7 @@ from __future__ import print_function
 
 import os
 
-from .config import GLOBAL_CONFIG_PATH, set_global_config
+from .config import AZ_DEVOPS_GLOBAL_CONFIG_PATH, set_global_config
 from .const import CLI_ENV_VARIABLE_PREFIX
 from six.moves import configparser
 from knack.config import get_config_parser
@@ -24,7 +24,7 @@ answers = {}
 def print_current_configuration(file_config=None):
     if file_config is None:
         file_config = get_config_parser()
-        file_config.read([GLOBAL_CONFIG_PATH])
+        file_config.read([AZ_DEVOPS_GLOBAL_CONFIG_PATH])
     for section in file_config.sections():
         print()
         print('[{}]'.format(section))
@@ -38,12 +38,12 @@ def print_current_configuration(file_config=None):
 
 def _handle_global_configuration():
     # print location of global configuration
-    print(MSG_GLOBAL_SETTINGS_LOCATION.format(GLOBAL_CONFIG_PATH))
+    print(MSG_GLOBAL_SETTINGS_LOCATION.format(AZ_DEVOPS_GLOBAL_CONFIG_PATH))
     # set up the config parsers
     file_config = get_config_parser()
-    config_exists = file_config.read([GLOBAL_CONFIG_PATH])
+    config_exists = file_config.read([AZ_DEVOPS_GLOBAL_CONFIG_PATH])
     global_config = get_config_parser()
-    global_config.read(GLOBAL_CONFIG_PATH)
+    global_config.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
     should_modify_global_config = False
     if config_exists:
         # print current config and prompt to allow global config modification

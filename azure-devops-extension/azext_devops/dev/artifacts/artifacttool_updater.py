@@ -19,7 +19,7 @@ import requests
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.services import get_vss_connection
-from azext_devops.dev.common.config import GLOBAL_CONFIG_DIR
+from azext_devops.dev.common.config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
 from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX
 
 logger = get_logger(__name__)
@@ -143,7 +143,7 @@ class ArtifactToolUpdater:
         return "{}_{}_{}".format(release.name, release.rid, release.version)
 
     def _compute_artifacttool_root(self):
-        az_devops_cli_root = os.path.join(GLOBAL_CONFIG_DIR, 'cli', 'tools')
+        az_devops_cli_root = os.path.join(AZ_DEVOPS_GLOBAL_CONFIG_DIR, 'cli', 'tools')
         return os.path.join(az_devops_cli_root, "artifacttool")
 
     def _compute_release_dir(self, release_id):

@@ -5,13 +5,13 @@
 
 import os
 
-from .config import GLOBAL_CONFIG_DIR
+from .config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
 from vsts._file_cache import get_cache, DEFAULT_MAX_AGE
 
 from knack.util import ensure_dir
 
 def _get_cache_dir():
-    azdevops_config_dir = os.getenv('AZURE_DEVOPS_CACHE_DIR', None) or os.path.join(GLOBAL_CONFIG_DIR, 'cache')
+    azdevops_config_dir = os.getenv('AZURE_DEVOPS_CACHE_DIR', None) or os.path.join(AZ_DEVOPS_GLOBAL_CONFIG_DIR, 'cache')
     ensure_dir(azdevops_config_dir)
     return azdevops_config_dir
 

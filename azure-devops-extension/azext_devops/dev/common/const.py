@@ -8,9 +8,9 @@ import os
 from azure.cli.core._environment import get_config_dir
 
 # Config directory
-AZ_GLOBAL_CONFIG_DIR = get_config_dir()
-AZ_DEVOPS_CONFIG_DIR_NAME = 'azuredevops' 
-AZ_DEVOPS_CONFIG_DIR = os.path.join(AZ_GLOBAL_CONFIG_DIR, AZ_DEVOPS_CONFIG_DIR_NAME)
+AZ_CLI_GLOBAL_CONFIG_DIR = get_config_dir()
+_AZ_DEVOPS_CONFIG_DIR_NAME = 'azuredevops' 
+AZ_DEVOPS_DEFAULT_CONFIG_DIR = os.path.join(AZ_CLI_GLOBAL_CONFIG_DIR, _AZ_DEVOPS_CONFIG_DIR_NAME)
 
 
 # Environment Variables

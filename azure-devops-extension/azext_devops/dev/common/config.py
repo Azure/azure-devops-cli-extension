@@ -10,7 +10,7 @@ from six.moves import configparser
 from knack.config import CLIConfig, get_config_parser
 from knack.util import ensure_dir
 from .const import (AZ_DEVOPS_CONFIG_DIR_ENVKEY,
-                    AZ_DEVOPS_CONFIG_DIR,
+                    AZ_DEVOPS_DEFAULT_CONFIG_DIR,
                     CLI_ENV_VARIABLE_PREFIX)
 
 CONFIG_FILE_NAME = 'config'
@@ -22,37 +22,37 @@ _UNSET = object()
 
 
 def _get_config_dir():
-    azure_devops_config_dir = os.getenv(AZ_DEVOPS_CONFIG_DIR_ENVKEY, None) or AZ_DEVOPS_CONFIG_DIR
+    azure_devops_config_dir = os.getenv(AZ_DEVOPS_CONFIG_DIR_ENVKEY, None) or AZ_DEVOPS_DEFAULT_CONFIG_DIR
     #Create a directory if it doesn't exist
     ensure_dir(azure_devops_config_dir)
     return azure_devops_config_dir
 
 
-GLOBAL_CONFIG_DIR = _get_config_dir()
-GLOBAL_CONFIG_PATH = os.path.join(GLOBAL_CONFIG_DIR, CONFIG_FILE_NAME)
+AZ_DEVOPS_GLOBAL_CONFIG_DIR = _get_config_dir()
+AZ_DEVOPS_GLOBAL_CONFIG_PATH = os.path.join(AZ_DEVOPS_GLOBAL_CONFIG_DIR, CONFIG_FILE_NAME)
 
 class AzDevopsConfig(CLIConfig):
-    def __init__(self, config_dir=GLOBAL_CONFIG_DIR, config_env_var_prefix=CLI_ENV_VARIABLE_PREFIX):
+    def __init__(self, config_dir=AZ_DEVOPS_GLOBAL_CONFIG_DIR, config_env_var_prefix=CLI_ENV_VARIABLE_PREFIX):
         super(AzDevopsConfig, self).__init__(config_dir=config_dir, config_env_var_prefix=config_env_var_prefix)
         self.config_parser = get_config_parser()
 
 
 azdevops_config = AzDevopsConfig()
-azdevops_config.config_parser.read(GLOBAL_CONFIG_PATH)
+azdevops_config.config_parser.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
 
 
 def set_global_config(config):
-    ensure_dir(GLOBAL_CONFIG_DIR)
-    with open(GLOBAL_CONFIG_PATH, 'w') as configfile:
+    ensure_dir(AZ_DEVOPS_GLOBAL_CONFIG_DIR)
+    with open(AZ_DEVOPS_GLOBAL_CONFIG_PATH, 'w') as configfile:
         config.write(configfile)
-    os.chmod(GLOBAL_CONFIG_PATH, stat.S_IRUSR | stat.S_IWUSR)
+    os.chmod(AZ_DEVOPS_GLOBAL_CONFIG_PATH, stat.S_IRUSR | stat.S_IWUSR)
     # reload config
-    azdevops_config.config_parser.read(GLOBAL_CONFIG_PATH)
+    azdevops_config.config_parser.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
 
 
 def set_global_config_value(section, option, value):
     config = get_config_parser()
-    config.read(GLOBAL_CONFIG_PATH)
+    config.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
     try:
         config.add_section(section)
     except configparser.DuplicateSectionError:
