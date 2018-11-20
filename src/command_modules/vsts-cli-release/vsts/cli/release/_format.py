@@ -28,6 +28,7 @@ def _transform_release_row(row):
     table_row['Name'] = row['name']
     table_row['CreatedBy'] = row['createdBy']['displayName']
     table_row['Created on'] = row['createdOn']
+    table_row['Status'] = row['status']
     table_row['Description'] = row['description']
     return table_row
 

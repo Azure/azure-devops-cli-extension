@@ -17,7 +17,7 @@ def load_release_arguments(cli_command_loader):
         ac.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with ArgumentsContext(cli_command_loader, 'release list') as ac:
-        ac.argument('definition_id', nargs='*', type=int)
+        ac.argument('definition_id', type=int)
 
     with ArgumentsContext(cli_command_loader, 'release create') as ac:
         ac.argument('definition_id', type=int)
