@@ -17,7 +17,11 @@ from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import C
 from vsts.vss_connection import VssConnection
 from .arguments import should_detect
 from .config import azdevops_config
-from .const import CLI_ENV_VARIABLE_PREFIX
+from .const import (CLI_ENV_VARIABLE_PREFIX, 
+                    DEFAULTS_SECTION,
+                    DEVOPS_ORGANIZATION_DEFAULT,
+                    DEVOPS_TEAM_PROJECT_DEFAULT,
+                    PAT_ENV_VARIABLE_NAME)
 from ._credentials import get_credential
 from .git import get_remote_url
 from .version import VERSION
@@ -33,6 +37,7 @@ def get_vss_connection(devops_organization):
         try:
             _vss_connection[devops_organization] = _get_vss_connection(devops_organization, credentials)
             collect_telemetry = None
+            #todo - atbagga read from az config
             if azdevops_config.has_option('core', 'collect_telemetry'):
                 collect_telemetry = azdevops_config.get('core', 'collect_telemetry')
             if collect_telemetry is None or collect_telemetry != 'no':
@@ -45,9 +50,10 @@ def get_vss_connection(devops_organization):
             raise CLIError(ex)
     return _vss_connection[devops_organization]
 
+
 def _get_credentials(devops_organization):
     pat_token_present = False
-    if _PAT_ENV_VARIABLE_NAME in os.environ or get_credential(devops_organization) is not None:
+    if PAT_ENV_VARIABLE_NAME in os.environ or get_credential(devops_organization) is not None:
         logger.debug("PAT is present which can be used against this instance")
         pat_token_present = True
 
@@ -60,8 +66,8 @@ def _get_credentials(devops_organization):
         logger.debug("az login is not present")
         logger.debug(ex, exc_info=True)
 
-    if _PAT_ENV_VARIABLE_NAME in os.environ:
-        pat = os.environ[_PAT_ENV_VARIABLE_NAME]
+    if PAT_ENV_VARIABLE_NAME in os.environ:
+        pat = os.environ[PAT_ENV_VARIABLE_NAME]
         logger.info("received PAT from environment variable")
     else:
         pat = get_credential(devops_organization)
@@ -73,6 +79,7 @@ def _get_credentials(devops_organization):
         return credentials
    
     raise_authentication_error('Before you can run Azure DevOps commands, you need to run the login command (az login if using AAD/MSA identity else az devops login if using PAT token) to setup credentials.')
+
 
 def validate_token_for_instance(devops_organization, credentials):
     logger.debug("instance recieved in validate_token_for_instance %s", devops_organization)
@@ -87,6 +94,7 @@ def validate_token_for_instance(devops_organization, credentials):
         logger.debug(ex2, exc_info=True)
         logger.debug("Failed to connect using provided credentials")
     return False    
+
 
 def get_token_from_az_logins(devops_organization, pat_token_present):
     profile = Profile()
@@ -128,6 +136,7 @@ def get_token_from_az_logins(devops_organization, pat_token_present):
         logger.debug(ex)
 
     return ''
+
 
 def get_token_from_az_login(profile, user, tenant):
     try:
@@ -266,8 +275,8 @@ def resolve_instance(detect, devops_organization):
 def _resolve_instance_from_config(devops_organization):
     from .config import azdevops_config
     if devops_organization is None:
-        if azdevops_config.has_option(_DEFAULTS_SECTION, _DEVOPS_ORGANIZATION_DEFAULT):
-            devops_organization = azdevops_config.get(_DEFAULTS_SECTION, _DEVOPS_ORGANIZATION_DEFAULT)
+        if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT):
+            devops_organization = azdevops_config.get(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT)
         if devops_organization is None or devops_organization == '':
             _raise_team_devops_organization_arg_error()
     return devops_organization
@@ -276,8 +285,8 @@ def _resolve_instance_from_config(devops_organization):
 def _resolve_project_from_config(project, project_required=True):
     from .config import azdevops_config
     if project is None:
-        if azdevops_config.has_option(_DEFAULTS_SECTION, _TEAM_PROJECT_DEFAULT):
-            project = azdevops_config.get(_DEFAULTS_SECTION, _TEAM_PROJECT_DEFAULT)
+        if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_TEAM_PROJECT_DEFAULT):
+            project = azdevops_config.get(DEFAULTS_SECTION, DEVOPS_TEAM_PROJECT_DEFAULT)
         if project_required and (project is None or project == ''):
             _raise_team_project_arg_error()
     return project
@@ -362,12 +371,6 @@ def raise_authentication_error(message):
 def clear_connection_cache():
     _vss_connection.clear()
 
-
-_DEFAULTS_SECTION = 'defaults'
-_DEVOPS_ORGANIZATION_DEFAULT = 'organization'
-_TEAM_PROJECT_DEFAULT = 'project'
-_PAT_ENV_VARIABLE_NAME = CLI_ENV_VARIABLE_PREFIX + 'PAT'
-_AUTH_TOKEN_ENV_VARIABLE_NAME = CLI_ENV_VARIABLE_PREFIX + 'AUTH_TOKEN'
 
 _connection_data = {}
 _vss_connection = OrderedDict()

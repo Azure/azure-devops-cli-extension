@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 import unittest
-from azext_devops.dev.common.configure import (print_current_configuration)
+from azext_devops.dev.team.configure import (print_current_configuration)
 
 
 class TestConfigureMethods(unittest.TestCase):
