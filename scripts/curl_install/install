@@ -9,7 +9,7 @@
 # Bash script to install the VSTS CLI
 #
 
-INSTALL_SCRIPT_URL="https://vstscli.blob.core.windows.net/install/install.py"
+INSTALL_SCRIPT_URL="https://vstsclitool.blob.core.windows.net/install/install.py"
 INSTALL_SCRIPT_SHA256=264f6e73cd46052b0a0e494dbe304c0ea89926c1762cf6e80bca69be3d805c06
 _TTY=/dev/tty
 
