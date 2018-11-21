@@ -14,9 +14,9 @@ Azure Devops CLI is a new command line interface for [Azure Devops Service](http
 
 ## Get started
 
-Refer to the [install guide](https://aka.ms/vsts-cli-docs-install) for detailed install instructions for Windows, Mac, and Linux.
+Refer to the [install guide](https://aka.ms/azure-devops-cli-docs-install) for detailed install instructions for Windows, Mac, and Linux.
 
-Also refer to the ["get started" guide](https://aka.ms/vsts-cli-docs-getstarted) for in-depth instructions including first-time setup steps.
+Also refer to the ["get started" guide](https://aka.ms/azure-devops-cli-docs-getstarted) for in-depth instructions including first-time setup steps.
 
 For help, pass the `-h` or `--help` argument, for example:
 
@@ -40,7 +40,7 @@ Here are just a few of the commands:
 * az boards work-item create
 * az boards work-item update
 
-See the full list of [available commands](https://aka.ms/vsts-cli-commands).
+See the full list of [available commands](https://aka.ms/azure-devops-cli-commands).
 
 ### Login (setup credentials)
 
@@ -79,7 +79,7 @@ Fabrikam Fiber
 
 ### Examples and snippets
 
-For more usage examples, see the official Azure Devops CLI [documentation](https://aka.ms/vsts-cli-docs-overview).
+For more usage examples, see the official Azure Devops CLI [documentation](https://aka.ms/azure-devops-cli-docs-overview).
 
 ## Developer setup
 

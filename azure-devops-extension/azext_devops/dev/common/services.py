@@ -361,7 +361,7 @@ def get_connection_data(devops_organization):
 
 
 def get_authentication_error(message):
-    return CLIError(str(message) + "  Please see https://aka.ms/vsts-cli-auth for more information.")
+    return CLIError(str(message) + "  Please see https://aka.ms/azure-devops-cli-auth for more information.")
 
 
 def raise_authentication_error(message):
