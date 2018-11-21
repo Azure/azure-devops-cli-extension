@@ -14,7 +14,7 @@ logger = get_logger(__name__)
 
 def release_definition_list(name=None, top=None, team_instance=None, project=None, artifact_source_id=None, detect=None):
     """List release definitions.
-    :param name: Limit results to definitions with this name or starting with this name. Example: "FabCI"
+    :param name: Limit results to definitions with this name or contains this name. Example: "FabCI"
     :type name: str
     :param top: Maximum number of definitions to list.
     :type top: int
