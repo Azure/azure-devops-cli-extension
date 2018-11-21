@@ -28,7 +28,8 @@ def _transform_release_row(row):
     table_row['Name'] = row['name']
     table_row['DefinitionName'] = row['releaseDefinition']['name']
     table_row['CreatedBy'] = row['createdBy']['displayName']
-    table_row['CreatedOn'] = row['createdOn']
+    created_on = dateutil.parser.parse(row['createdOn']).astimezone(dateutil.tz.tzlocal())
+    table_row['CreatedOn'] = str(created_on.date()) + ' ' + str(created_on.time())
     table_row['Status'] = row['status']
     table_row['Description'] = row['description']
     return table_row
