@@ -22,9 +22,9 @@ def release_definition_list(name=None, top=None, team_instance=None, project=Non
     :type team_instance: str
     :param project: Name or ID of the team project.
     :type project: str
-	:param artifact_type: Release definitions with given artifactType will be returned. Values can be Build, Jenkins, GitHub, Nuget, Team Build (external), ExternalTFSBuild, Git, TFVC, ExternalTfsXamlBuild.
+    :param artifact_type: Release definitions with given artifactType will be returned.
     :type artifact_type: str
-	:param artifact_source_id: Limit results to definitions associated with this artifact_source_id.e.g. For build it would be {projectGuid}:{BuildDefinitionId}, for Jenkins it would be {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}. For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json at https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
+    :param artifact_source_id: Limit results to definitions associated with this artifact_source_id.e.g. For build it would be {projectGuid}:{BuildDefinitionId}, for Jenkins it would be {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}. For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json at https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
     :type artifact_source_id: str
     :param detect: Automatically detect values for instance and project. Default is "on".
     :type detect: str
@@ -36,9 +36,7 @@ def release_definition_list(name=None, top=None, team_instance=None, project=Non
     client = get_release_client(team_instance)
     query_order = 'nameAscending'
     definition_references = client.get_release_definitions(project=project, search_text=name, artifact_source_id=artifact_source_id,
-	                                                artifact_type=artifact_type,
-                                                    top=top,
-                                                    query_order=query_order)
+                                                           artifact_type=artifact_type, top=top, query_order=query_order)
     return definition_references
 
 

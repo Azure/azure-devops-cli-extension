@@ -26,7 +26,7 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
     :type project: str
     :param repository: Limit results to definitions associated with this repository.
     :type repository: str
-    :param repository_type: Limit results to definitions associated with this repository type.
+    :param repository_type: Limit results to definitions associated with this repository type. It is mandatory to pass 'repository' argument along with this argument.
     :type repository_type: str
     :param detect: Automatically detect values for instance and project. Default is "on".
     :type detect: str
@@ -47,7 +47,7 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
         else:
             resolved_repository = repository
         if resolved_repository is None:
-            raise ValueError("Could not find a repository with name, '{}', in project, '{}'.".format(repository, project))
+            raise ValueError("Could not find a repository with name '{}' in project '{}'.".format(repository, project))
     else:
         resolved_repository = None
     definition_references = client.get_definitions(project=project, name=name, repository_id=resolved_repository,

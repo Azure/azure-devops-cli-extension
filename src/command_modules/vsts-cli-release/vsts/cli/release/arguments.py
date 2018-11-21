@@ -28,3 +28,6 @@ def load_release_arguments(cli_command_loader):
 
     with ArgumentsContext(cli_command_loader, 'release definition show') as ac:
         ac.argument('definition_id', options_list='--id', type=int)
+
+    with ArgumentsContext(cli_command_loader, 'release definition list') as ac:
+        ac.argument('artifact_type', choices=['Build', 'Jenkins', 'GitHub', 'Nuget', 'Team Build (external)', 'ExternalTFSBuild', 'Git', 'TFVC', 'ExternalTfsXamlBuild'])
