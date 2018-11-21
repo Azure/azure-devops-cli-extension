@@ -17,7 +17,7 @@ Make it executable:
 
 chmod 775 cli-install
 
-To calculate hash for cli-install (SHA256: 1231e80b7f889cfcd4caf95ef8847a54af5fa87d9ba0c92477c201bc8a08e77c)
+To calculate hash for cli-install (SHA256: a72dbb33fcc4356ba4f8cd6b29fe2cad9d7b0f932e332cf6874498a7082c676b)
 
 Linux: 
 sha256sum cli-install
