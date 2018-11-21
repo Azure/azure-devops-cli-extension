@@ -24,7 +24,7 @@ from .const import (CLI_ENV_VARIABLE_PREFIX,
                     PAT_ENV_VARIABLE_NAME)
 from ._credentials import get_credential
 from .git import get_remote_url
-from .version import VERSION
+from azext_devops.version import VERSION
 from .vsts_git_url_info import VstsGitUrlInfo
 from .uri import uri_parse_instance_from_git_uri
 
@@ -149,7 +149,7 @@ def get_token_from_az_login(profile, user, tenant):
 
 
 def _get_vss_connection(devops_organization, credentials):
-    return VssConnection(get_base_url(devops_organization), creds=credentials, user_agent='vstscli/{}'.format(VERSION))
+    return VssConnection(get_base_url(devops_organization), creds=credentials, user_agent='devOpsCli/{}'.format(VERSION))
 
 
 def get_first_vss_instance_uri():

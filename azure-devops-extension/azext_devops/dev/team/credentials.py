@@ -12,7 +12,6 @@ from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from azext_devops.dev.common._credentials import clear_credential, set_credential
 from azext_devops.dev.common.services import _get_vss_connection, get_base_url
-from azext_devops.dev.common.version import disable_command_version_checking, DISABLE_VERSION_CHECK_SETTING
 
 logger = get_logger(__name__)
 
@@ -24,7 +23,6 @@ def credential_set(token=None, devops_organization=None):
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     """
-    disable_command_version_checking()
     if token is None:
         try:
             token = prompt_pass('Token: ', confirm=False, help_string="The token (PAT) to authenticate with.")
@@ -50,7 +48,6 @@ def credential_clear(devops_organization=None):
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     """
-    disable_command_version_checking()
     if devops_organization is not None:
         devops_organization = get_base_url(devops_organization)
     clear_credential(devops_organization)
