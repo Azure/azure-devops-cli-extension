@@ -26,8 +26,11 @@ def _transform_release_row(row):
     table_row = OrderedDict()
     table_row['ID'] = row['id']
     table_row['Name'] = row['name']
-    table_row['CreatedBy'] = row['createdBy']['displayName']
-    table_row['Created on'] = row['createdOn']
+    table_row['Definition Name'] = row['releaseDefinition']['name']
+    table_row['Created By'] = row['createdBy']['displayName']
+    created_on = dateutil.parser.parse(row['createdOn']).astimezone(dateutil.tz.tzlocal())
+    table_row['Created On'] = str(created_on.date()) + ' ' + str(created_on.time())
+    table_row['Status'] = row['status']
     table_row['Description'] = row['description']
     return table_row
 
