@@ -87,7 +87,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.History', discussion))
         if fields is not None and fields:
             for field in fields:
-                kvp = field.split('=')
+                kvp = field.split('=', 1)
                 if len(kvp) == 2:
                     patch_document.append(_create_work_item_field_patch_operation('add', kvp[0], kvp[1]))
                 else:
@@ -163,7 +163,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.History', discussion))
         if fields is not None and fields:
             for field in fields:
-                kvp = field.split('=')
+                kvp = field.split('=', 1)
                 if len(kvp) == 2:
                     patch_document.append(_create_work_item_field_patch_operation('add', kvp[0], kvp[1]))
                 else:
