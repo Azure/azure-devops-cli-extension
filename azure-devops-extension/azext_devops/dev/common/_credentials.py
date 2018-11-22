@@ -94,7 +94,9 @@ def _get_service_name(devops_organization):
 
 def normalize_url_for_key(url):
     components = uri_parse(url)
-    return components.scheme.lower() + '://' + components.netloc.lower()
+    normalized_url = components.scheme.lower() + '://' + components.netloc.lower() + components.path.lower()
+    normalized_url = normalized_url.rstrip('/')
+    return normalized_url
 
 def _get_config_parser():
     if sys.version_info.major == 3:
