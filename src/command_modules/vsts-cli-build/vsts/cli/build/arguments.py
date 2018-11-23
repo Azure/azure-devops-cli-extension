@@ -31,7 +31,7 @@ def load_build_arguments(cli_command_loader):
         ac.argument('definition_id', options_list='--id', type=int)
 
     with ArgumentsContext(cli_command_loader, 'build definition list') as ac:
-        ac.argument('repository_type', choices=['TfsVersionControl', 'TfsGit', 'Git', 'GitHub', 'GitHubEnterprise', 'Bitbucket', 'Svn'])
+        ac.argument('repository_type', choices=['tfsversioncontrol', 'tfsgit', 'git', 'github', 'githubenterprise', 'bitbucket', 'svn'], type=str.lower)
 
     with ArgumentsContext(cli_command_loader, 'build task') as ac:
         ac.argument('task_id', options_list='--id', type=str)
