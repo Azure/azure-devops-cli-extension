@@ -30,4 +30,4 @@ def load_release_arguments(cli_command_loader):
         ac.argument('definition_id', options_list='--id', type=int)
 
     with ArgumentsContext(cli_command_loader, 'release definition list') as ac:
-        ac.argument('artifact_type', choices=['Build', 'Jenkins', 'GitHub', 'Nuget', 'Team Build (external)', 'ExternalTFSBuild', 'Git', 'TFVC', 'ExternalTfsXamlBuild'])
+        ac.argument('artifact_type', choices=['build', 'jenkins', 'github', 'externaltfsbuild', 'git', 'tfvc'], type=str.lower)
