@@ -87,7 +87,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.History', discussion))
         if fields is not None and fields:
             for field in fields:
-                kvp = field.split('=')
+                kvp = field.split('=', 1)
                 if len(kvp) == 2:
                     patch_document.append(_create_work_item_field_patch_operation('add', kvp[0], kvp[1]))
                 else:
@@ -163,7 +163,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.History', discussion))
         if fields is not None and fields:
             for field in fields:
-                kvp = field.split('=')
+                kvp = field.split('=', 1)
                 if len(kvp) == 2:
                     patch_document.append(_create_work_item_field_patch_operation('add', kvp[0], kvp[1]))
                 else:
@@ -278,6 +278,7 @@ def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, pr
                     break
         remaining_url_length -= fields_length_in_url
         max_work_items = 1000
+        work_items_batch_size = 200
         current_batch = []
         work_items = []
         work_item_url_length = 0
@@ -290,7 +291,7 @@ def query_work_items(wiql=None, query_id=None, path=None, team_instance=None, pr
             work_item_url_length += len(str(work_item_ref.id))
             current_batch.append(work_item_ref.id)
 
-            if remaining_url_length - work_item_url_length <= 0:
+            if remaining_url_length - work_item_url_length <= 0 or len(current_batch) == work_items_batch_size :
                 # url is near max length, go ahead and send first request for details.
                 # url can go over by an id length because we have a safety buffer
                 current_batched_items = client.get_work_items(ids=current_batch,

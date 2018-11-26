@@ -5,7 +5,7 @@
 
 from setuptools import setup, find_packages
 
-NAME = 'vsts-cli-work-common'
+NAME = 'vsts-cli-release'
 VERSION = '0.1.4'
 
 # To install the library, run the following
@@ -18,8 +18,7 @@ VERSION = '0.1.4'
 REQUIRES = [
     'knack==0.4.1',
     'python-dateutil==2.7.3',
-    'vsts~=0.1.16.dev',
-    'vsts-cli-common==' + VERSION
+    'vsts-cli-release-common==' + VERSION
 ]
 
 CLASSIFIERS = [
@@ -38,11 +37,11 @@ setup(
     name=NAME,
     version=VERSION,
     license='MIT',
-    description="VSTS Work Command Line Interface Common",
+    description="VSTS Release Command Line Interface",
     author="Microsoft Corporation",
     author_email="vstscli@microsoft.com",
     url="https://github.com/Microsoft/vsts-cli",
-    keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI", "Work"],
+    keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI", "Release"],
     install_requires=REQUIRES,
     classifiers=CLASSIFIERS,
     packages=find_packages(),

@@ -16,7 +16,7 @@ from .file_cache import DEFAULT_CACHE_DIR
 
 logger = get_logger(__name__)
 
-VERSION = "0.1.3"
+VERSION = "0.1.4"
 
 DISABLE_VERSION_CHECK_SETTING = "disable_version_check"
 _VERSION_INFO_LINK = "https://aka.ms/vsts-cli-update-json"

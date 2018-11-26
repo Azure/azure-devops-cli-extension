@@ -9,8 +9,9 @@
 # Bash script to install the VSTS CLI
 #
 
-INSTALL_SCRIPT_URL="https://vstscli.blob.core.windows.net/install/install.py"
-INSTALL_SCRIPT_SHA256=264f6e73cd46052b0a0e494dbe304c0ea89926c1762cf6e80bca69be3d805c06
+INSTALL_SCRIPT_URL="https://vstsclitool.blob.core.windows.net/install/install.py"
+INSTALL_SCRIPT_SHA256=30616e61ce89f84e1f4617d757374b8dd33da953fed7e63bad2ca5c0c6161948
+
 _TTY=/dev/tty
 
 install_script=$(mktemp -t vsts_cli_install_tmp_XXXX) || exit
@@ -19,21 +20,21 @@ echo "Downloading Microsoft VSTS CLI install script from $INSTALL_SCRIPT_URL to 
 
 curl -# $INSTALL_SCRIPT_URL > $install_script || exit
 
-# Check validity of the script (temporarily turned off)
+# Check validity of the script
 
-#if command -v sha256sum >/dev/null 2>&1
-#then
-#  echo "$INSTALL_SCRIPT_SHA256  $install_script" | sha256sum -c - || exit
-#elif command -v shasum >/dev/null 2>&1
-#then
-#  echo "$INSTALL_SCRIPT_SHA256  $install_script" | shasum -a 256 -c - || exit
-#fi
-#if ! command -v python >/dev/null 2>&1
-#then
-#  echo "ERROR: Python not found. 'command -v python' returned failure."
-#  echo "If python is available on the system, add it to PATH. For example 'sudo ln -s /usr/bin/python3 /usr/bin/python'"
-#  exit 1
-#fi
+if command -v sha256sum >/dev/null 2>&1
+then
+ echo "$INSTALL_SCRIPT_SHA256  $install_script" | sha256sum -c - || exit
+elif command -v shasum >/dev/null 2>&1
+then
+ echo "$INSTALL_SCRIPT_SHA256  $install_script" | shasum -a 256 -c - || exit
+fi
+if ! command -v python >/dev/null 2>&1
+then
+ echo "ERROR: Python not found. 'command -v python' returned failure."
+ echo "If python is available on the system, add it to PATH. For example 'sudo ln -s /usr/bin/python3 /usr/bin/python'"
+ exit 1
+fi
 
 chmod 775 $install_script
 

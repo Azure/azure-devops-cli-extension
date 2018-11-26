@@ -5,7 +5,7 @@
 
 from setuptools import setup, find_packages
 
-NAME = 'vsts-cli-work-common'
+NAME = 'vsts-cli-release-common'
 VERSION = '0.1.4'
 
 # To install the library, run the following
@@ -38,11 +38,11 @@ setup(
     name=NAME,
     version=VERSION,
     license='MIT',
-    description="VSTS Work Command Line Interface Common",
+    description="VSTS Release Command Line Interface Common",
     author="Microsoft Corporation",
     author_email="vstscli@microsoft.com",
     url="https://github.com/Microsoft/vsts-cli",
-    keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI", "Work"],
+    keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI", "Release"],
     install_requires=REQUIRES,
     classifiers=CLASSIFIERS,
     packages=find_packages(),
