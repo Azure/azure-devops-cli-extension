@@ -69,10 +69,6 @@ def get_build_client(team_instance=None):
     connection = get_vss_connection(team_instance)
     return connection.get_client('vsts.build.v4_0.build_client.BuildClient')
 
-def get_release_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.release.v4_0.release_client.ReleaseClient')
-
 
 def get_ci_client(team_instance=None):
     connection = get_vss_connection(team_instance)

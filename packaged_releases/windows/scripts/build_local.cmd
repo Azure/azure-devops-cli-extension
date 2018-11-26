@@ -10,14 +10,14 @@ set "PATH=%PATH%;%ProgramFiles%\Git\bin;%ProgramFiles%\Git\usr\bin"
 
 if "%CLIVERSION%"=="" (
     if "%BUILD_BUILDID%" == "" (
-        set CLIVERSION=0.1.4
+        set CLIVERSION=0.1.3
     ) else (
-        set CLIVERSION=0.1.4.%BUILD_BUILDID%
+        set CLIVERSION=0.1.3.%BUILD_BUILDID%
     )
 )
 set PYTHON_VERSION=3.6.3
 
-set WIX_DOWNLOAD_URL="https://vstsclitool.blob.core.windows.net/msi/wix311-binaries-mirror.zip"
+set WIX_DOWNLOAD_URL="https://vstscli.blob.core.windows.net/msi/wix311-binaries-mirror.zip"
 
 :: Set up the output directory and temp. directories
 echo *** Cleaning previous build artifacts...
@@ -123,8 +123,6 @@ if %errorlevel% neq 0 goto ERROR
 if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-build-common"
 if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-release-common"
-if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-code-common"
 if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\common_modules\vsts-cli-package-common"
@@ -136,8 +134,6 @@ if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-admin"
 if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-build"
-if %errorlevel% neq 0 goto ERROR
-"%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-release"
 if %errorlevel% neq 0 goto ERROR
 "%BUILDING_DIR%\python.exe" -m pip install -f "%TEMP_SCRATCH_FOLDER%" --no-cache-dir "%REPO_ROOT%\src\command_modules\vsts-cli-code"
 if %errorlevel% neq 0 goto ERROR

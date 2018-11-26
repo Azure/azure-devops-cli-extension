@@ -1,7 +1,6 @@
 {
     "build": "src/command_modules/vsts-cli-build/vsts/cli/build/_help.py",
-    "release": "src/command_modules/vsts-cli-release/vsts/cli/release/_help.py",
-    "code": "src/command_modules/vsts-cli-code/vsts/cli/code/_help.py",
+    "code": "src/command_modules/vsts-cli-code/vsts/cli/code/_help.py",    
     "team": "src/command_modules/vsts-cli-team/vsts/cli/team/_help.py",
     "work": "src/command_modules/vsts-cli-work/vsts/cli/work/_help.py",
     "admin": "src/command_modules/vsts-cli-admin/vsts/cli/admin/_help.py",

@@ -14,7 +14,7 @@ from vsts.cli.common.uuid import is_uuid
 
 logger = get_logger(__name__)
 
-def build_definition_list(name=None, top=None, team_instance=None, project=None, repository=None, repository_type=None, detect=None):
+def build_definition_list(name=None, top=None, team_instance=None, project=None, repository=None, detect=None):
     """List build definitions.
     :param name: Limit results to definitions with this name or starting with this name. Examples: "FabCI" or "Fab*"
     :type name: bool
@@ -26,8 +26,6 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
     :type project: str
     :param repository: Limit results to definitions associated with this repository.
     :type repository: str
-    :param repository_type: Limit results to definitions associated with this repository type. It is mandatory to pass 'repository' argument along with this argument.
-    :type repository_type: str
     :param detect: Automatically detect values for instance and project. Default is "on".
     :type detect: str
     :rtype: [BuildDefinitionReference]
@@ -38,16 +36,14 @@ def build_definition_list(name=None, top=None, team_instance=None, project=None,
                                                                             repo=repository)
     client = get_build_client(team_instance)
     query_order = 'DefinitionNameAscending'
-
+    repository_type = None
     if repository is not None:
-        if repository_type is None:
-            repository_type = 'TfsGit'
-        if repository_type.lower() == 'tfsgit':            
-            resolved_repository = _resolve_repository_as_id(repository, team_instance, project)
-        else:
-            resolved_repository = repository
+        resolved_repository = _resolve_repository_as_id(repository, team_instance, project)
         if resolved_repository is None:
-            raise ValueError("Could not find a repository with name '{}' in project '{}'.".format(repository, project))
+            raise ValueError("Could not find a repository with name, '{}', in project, '{}'.".format(repository,
+                                                                                                        project))
+        else:
+            repository_type = 'TfsGit'
     else:
         resolved_repository = None
     definition_references = client.get_definitions(project=project, name=name, repository_id=resolved_repository,
