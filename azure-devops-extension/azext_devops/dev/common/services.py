@@ -182,6 +182,9 @@ def get_identity_client(devops_organization=None):
     connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.identity.v4_0.identity_client.IdentityClient')
 
+def get_service_endpoint_client(devops_organization=None):
+    connection = get_vss_connection(devops_organization)
+    return connection.get_client('vsts.service_endpoint.v4_1.service_endpoint_client.ServiceEndpointClient')
 
 def get_location_client(devops_organization=None):
     connection = get_vss_connection(devops_organization)

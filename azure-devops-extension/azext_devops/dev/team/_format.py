@@ -40,6 +40,24 @@ def _transform_project_row(row):
 
     return table_row
 
+def transform_service_endpoints_table_output(result):
+    table_output = []
+    for item in sorted(result, key=_get_service_endpoint_key):
+        table_output.append(_transform_service_endpoint_row(item))
+    return table_output
+
+def _transform_service_endpoint_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Name'] = row['name']
+    table_row['Type'] = row['type']
+    table_row['Is Ready'] = row['isReady']
+    table_row['Created By'] = row['createdBy']['displayName']
+
+    return table_row
+
+def _get_service_endpoint_key(service_endpoint_row):
+    return service_endpoint_row['name'].lower()
 
 def _get_project_key(project_row):
     return project_row['name'].lower()
