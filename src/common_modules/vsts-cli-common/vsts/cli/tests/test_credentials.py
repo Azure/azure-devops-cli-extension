@@ -7,7 +7,8 @@ import unittest
 import uuid
 from ..common._credentials import (get_credential,
                                    set_credential,
-                                   clear_credential)
+                                   clear_credential,
+                                   normalize_url_for_key)
 
 
 class TestCredentialsMethods(unittest.TestCase):
@@ -79,6 +80,16 @@ class TestCredentialsMethods(unittest.TestCase):
             if original_token is not None:
                 # restore original token
                 set_credential(None, original_token)
+
+     def test_normalize_url_for_key(self):
+        #new url
+        devops_organization = 'https://dev.azure.com/AzureDevOpsCliOrg'
+        normalized_url = normalize_url_for_key(devops_organization)
+        self.assertEqual(normalized_url , 'https://dev.azure.com/azuredevopscliorg')
+        #old url
+        devops_organization = 'https://mseng.visualstudio.com/'
+        normalized_url = normalize_url_for_key(devops_organization)
+        self.assertEqual(normalized_url , 'https://mseng.visualstudio.com')
 
 
 if __name__ == '__main__':
