@@ -55,8 +55,6 @@ RUN pip install vsts --upgrade --no-cache-dir --extra-index-url https://vstscli.
    /vsts-cli/src/command_modules/vsts-cli-release \
    /vsts-cli/src/vsts-cli
 
-# Install alternate keyring backend
-RUN pip install --no-cache-dir keyrings.alt
 
 # Setup tab completion
 RUN cat /vsts-cli/scripts/vsts.completion > ~/.bashrc
