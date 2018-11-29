@@ -81,7 +81,7 @@ class TestCredentialsMethods(unittest.TestCase):
                 # restore original token
                 set_credential(None, original_token)
 
-     def test_normalize_url_for_key(self):
+    def test_normalize_url_for_key(self):
         #new url
         devops_organization = 'https://dev.azure.com/AzureDevOpsCliOrg'
         normalized_url = normalize_url_for_key(devops_organization)
