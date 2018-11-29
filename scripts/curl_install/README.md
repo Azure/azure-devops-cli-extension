@@ -3,24 +3,43 @@ Curl Install Script Information
 
 The scripts in this directory are used for installing through curl and they point to the packages on PyPI.
 
-curl -L https://aka.ms/install-vsts-cli | bash
+1. Ensure prerequisites are installed
+   * Python 2 or 3
+   * Other packages: libssl-dev, libffi-dev, and python-dev
 
-To update these scripts, submit a PR.
+2. Download the install script
+   ```bash
+   curl -L https://aka.ms/install-vsts-cli >cli-install
+   ```
 
-To calculate hash for install script before running.
+3. Verify SHA256 hash of the install script before executing it
 
-Download the script:
+    * Calculate hash for cli-install. Output SHA256 hash in the below commands should match-
+        (SHA256: a72dbb33fcc4356ba4f8cd6b29fe2cad9d7b0f932e332cf6874498a7082c676b)
 
-curl -L https://aka.ms/install-vsts-cli >cli-install
+    Linux:
+    ```bash
+    sha256sum cli-install
+    ```
 
-Make it executable:
+    Mac:
+    ```bash
+    shasum -a 256 cli-install
+    ```
 
-chmod 775 cli-install
+    If the hash for the downloaded file does not match the provided hash. Please do not proceed with this method. 
+    Report the issue.
 
-To calculate hash for cli-install (SHA256: a72dbb33fcc4356ba4f8cd6b29fe2cad9d7b0f932e332cf6874498a7082c676b)
+4. Make it executable:
 
-Linux: 
-sha256sum cli-install
+   ```bash
+   chmod 775 cli-install
+   ```
 
-Mac: 
-shasum -a 256 cli-install
+5. Execute the install script:
+    ```bash
+   ./cli-install
+   ```
+
+> [!NOTE]
+> You will likely need to restart your shell for some changes to take effect. You can start a new shell instance by running `exec -l $SHELL`.
