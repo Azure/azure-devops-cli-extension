@@ -11,31 +11,33 @@ if($build_confirmation -like "yes"){
     Write-Host "done creating sdist"
 }
 
-$install_confirmation = Read-Host "Do you want to upload the packages to PyPi? [Yes/No]"
-if($install_confirmation -like "yes"){
-    Write-Host "Upgrade pip"
-    python -m pip install --upgrade pip
-    Write-Host "done - Upgrade pip"
-    
-    Write-Host "Install twine"
-    python -m pip install --user --upgrade twine    
-    Write-Host "done - install twine"
+$upload_confirmation = Read-Host "Do you want to upload the packages to PyPi? [Yes/No/DryRun]"
+if($upload_confirmation -like "yes" -or $upload_confirmation -like "dryrun"){
+    if($upload_confirmation -like "yes"){
+        Write-Host "Upgrade pip"
+        python -m pip install --upgrade pip
+        Write-Host "done - Upgrade pip"
+        
+        Write-Host "Install twine"
+        python -m pip install --user --upgrade twine    
+        Write-Host "done - install twine"
 
-    Write-Host "Publishing will start now - Your credentials can be read from Environment Variables (TWINE_USERNAME, TWINE_PASSWORD) or through user input."
+        Write-Host "Publishing will start now - Your credentials can be read from Environment Variables (TWINE_USERNAME, TWINE_PASSWORD) or through user input."
 
-    $pypi_username = $env:TWINE_USERNAME
-    $pypi_password = $env:TWINE_PASSWORD
+        $pypi_username = $env:TWINE_USERNAME
+        $pypi_password = $env:TWINE_PASSWORD
 
-    if ($pypi_username -like ''){
-        $pypi_username = Read-Host "Enter your PyPi username"
+        if ($pypi_username -like ''){
+            $pypi_username = Read-Host "Enter your PyPi username"
+        }
+
+        Write-Host "Using Pypi username:"  $pypi_username
+
+        if ($pypi_password -like ''){
+            $pypi_password = Read-Host "Enter your PyPi password" #-AsSecureString #There is some issue in auth when using the secure string password so disabling for now. 
+        }
     }
 
-    Write-Host "Using Pypi username:"  $pypi_username
-
-    if ($pypi_password -like ''){
-        $pypi_password = Read-Host "Enter your PyPi password" #-AsSecureString #There is some issue in auth when using the secure string password so disabling for now. 
-    }
-    
     $scriptPath = Get-Location
     $parentPath = Split-Path -parent $scriptPath
     $srcDirectory = Join-Path -Path $parentPath -ChildPath "src"
@@ -45,10 +47,11 @@ if($install_confirmation -like "yes"){
         Write-Host "Publishing package for " $setupFile.Directory.Name
         $setup_location = $setupFile.Directory
         Set-Location $setup_location
-        python -m twine upload dist/* -u $pypi_username -p $pypi_password
+        if($upload_confirmation -like "yes"){
+            python -m twine upload dist/* -u $pypi_username -p $pypi_password
+        }
     }
 }
 else {
     Write-Host "Exit without publish."
 }
-
