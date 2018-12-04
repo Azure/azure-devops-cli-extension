@@ -21,7 +21,7 @@ logger = get_logger(__name__)
 
 
 def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open_browser=False,
-                devops_organization=None, project=None, detect=None, source_branch=None):
+                devops_organization=None, project=None, detect=None, source_branch=None, commit_id=None):
     """Request (queue) a build.
     :param definition_id: ID of the definition to queue. Required if --name is not supplied.
     :type definition_id: int
@@ -41,6 +41,8 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type detect: str
     :param source_branch: Obsolete. Use --branch instead.
     :type source_branch: str
+    :param commit_id: Commit ID of the branch to build.
+    :type commit_id: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
     try:
@@ -58,6 +60,7 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
         definition_reference = DefinitionReference(id=definition_id)
         build = Build(definition=definition_reference)
         build.source_branch = resolve_git_ref_heads(branch)
+        build.source_version = commit_id
         if variables is not None and variables:
             build.parameters = {}
             for variable in variables:
