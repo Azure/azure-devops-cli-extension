@@ -40,5 +40,9 @@ def load_build_arguments(self, _):
     with self.argument_context('build definition show') as context:
         context.argument('definition_id', options_list='--id', type=int)
 
+    with self.argument_context('build definition list') as context:
+        context.argument('repository_type', choices=['tfsversioncontrol', 'tfsgit', 'git', 'github', 'githubenterprise', 'bitbucket', 'svn'],
+        type=str.lower)
+
     with self.argument_context('build task') as context:
         context.argument('task_id', options_list='--id', type=str)
