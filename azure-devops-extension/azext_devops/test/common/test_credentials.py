@@ -85,8 +85,29 @@ class TestCredentialsMethods(unittest.TestCase):
         devops_organization = 'https://dev.azure.com/AzureDevOpsCliOrg'
         normalized_url = normalize_url_for_key(devops_organization)
         self.assertEqual(normalized_url , 'https://dev.azure.com/azuredevopscliorg')
+
+        devops_organization = 'https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli'
+        normalized_url = normalize_url_for_key(devops_organization)
+        self.assertEqual(normalized_url , 'https://dev.azure.com/azuredevopscliorg')
+
+        devops_organization = 'https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_workitems/recentlycreated/'
+        normalized_url = normalize_url_for_key(devops_organization)
+        self.assertEqual(normalized_url , 'https://dev.azure.com/azuredevopscliorg')
+
+        devops_organization = 'https://dev.azure.com/AzureDevOpsCliOrg////'
+        normalized_url = normalize_url_for_key(devops_organization)
+        self.assertEqual(normalized_url , 'https://dev.azure.com/azuredevopscliorg')
+
         #old url
         devops_organization = 'https://mseng.visualstudio.com/'
+        normalized_url = normalize_url_for_key(devops_organization)
+        self.assertEqual(normalized_url , 'https://mseng.visualstudio.com')
+        
+        devops_organization = 'https://mseng.visualstudio.com///'
+        normalized_url = normalize_url_for_key(devops_organization)
+        self.assertEqual(normalized_url , 'https://mseng.visualstudio.com')
+    
+        devops_organization = 'https://mseng.visualstudio.com/dummyproj/'
         normalized_url = normalize_url_for_key(devops_organization)
         self.assertEqual(normalized_url , 'https://mseng.visualstudio.com')
 
