@@ -28,12 +28,12 @@ class AzureDevTests(ScenarioTest):
 
             wi_id = wi_create['id']
 
-            show_wi_command ='az boards work-item show -org ' + wi_account_instance + ' --id '+ str(wi_id) + ' --detect off --output json'
+            show_wi_command ='az boards work-item show --org ' + wi_account_instance + ' --id '+ str(wi_id) + ' --detect off --output json'
             self.cmd(show_wi_command, checks=[
                 self.check("id", wi_id)
             ]).get_output_in_json()
 
-            update_wi_command = 'az boards work-item update -org ' + wi_account_instance + ' --id '+ str(wi_id)+' --state Resolved --detect off --output json'
+            update_wi_command = 'az boards work-item update --org ' + wi_account_instance + ' --id '+ str(wi_id)+' --state Resolved --detect off --output json'
             self.cmd(update_wi_command, checks=[
                 self.check("id", wi_id),
                 self.check('fields."System.AreaPath"', wi_test_project_name),
@@ -42,7 +42,7 @@ class AzureDevTests(ScenarioTest):
 
         finally:
             #delete the work item created for test
-            delete_wi_command = 'az boards work-item delete -org ' + wi_account_instance + ' --id ' + str(wi_id) + ' --yes --project ' + wi_test_project_name + ' --detect off --output json'
+            delete_wi_command = 'az boards work-item delete --org ' + wi_account_instance + ' --id ' + str(wi_id) + ' --yes --project ' + wi_test_project_name + ' --detect off --output json'
             delete_wi_response = self.cmd(delete_wi_command , checks=[
                 self.check('id', wi_id)
             ]).get_output_in_json()
