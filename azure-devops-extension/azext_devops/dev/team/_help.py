@@ -19,3 +19,9 @@ def load_team_help():
     short-summary: Commands to work with and manage team projects.
     long-summary:
     """
+
+    helps['devops service-endpoint'] = """
+    type: group
+    short-summary: Commands to work with service endpoints/ service connections
+    long-summary: https://docs.microsoft.com/en-us/rest/api/azure/devops/serviceendpoint/endpoints
+    """

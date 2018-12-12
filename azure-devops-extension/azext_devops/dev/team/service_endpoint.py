@@ -66,7 +66,7 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
                             azure_rm_tenant_id=None, azure_rm_service_principal_id=None, azure_rm_service_prinicipal_key=None,
                             azure_rm_subscription_id=None, azure_rm_subscription_name=None,
                             devops_organization=None, project=None, detect=None):
-    """Creates a service endpoint
+    """Create a service endpoint
     :param service_endpoint_type: Type of service endpoint
     :type service_endpoint_type: str
     :param name: Name of service endpoint to create
