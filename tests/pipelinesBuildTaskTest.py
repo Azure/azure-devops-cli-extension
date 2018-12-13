@@ -3,14 +3,28 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import unittest
+
+try:
+    # Attempt to load mock (works on Python 3.3 and above)
+    from unittest.mock import patch
+except ImportError:
+    # Attempt to load mock (works on Python version below 3.3)
+    from mock import patch
+
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
+from azext_devops.dev.team.credentials import credential_set
+from .utilities.helper import ( DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN )
 
 class PipelinesBuildTaskTests(ScenarioTest): 
     @AllowLargeResponse(size_kb=3072)
     def test_build_task_listShow(self):
-        self.cmd('az devops configure --defaults organization=https://AzureDevOpsCliTest.visualstudio.com project=buildtests')
-        self.cmd('az devops login --token vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla')
+
+        with patch('azext_devops.dev.team.credentials._get_pat_token') as mock_pat_token:  
+            mock_pat_token.return_value = DEVOPS_CLI_TEST_PAT_TOKEN
+            self.cmd('az devops login')
+            self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION + ' project=buildtests')
 
         list_task_command = 'az pipelines build task list --detect off --output json'
         list_task_output = self.cmd(list_task_command).get_output_in_json()

@@ -9,3 +9,5 @@ import string
 def get_random_name(length):
     return ''.join(random.choice(string.ascii_letters) for m in range(length))
 
+DEVOPS_CLI_TEST_ORGANIZATION = 'https://AzureDevOpsCliTest.visualstudio.com'
+DEVOPS_CLI_TEST_PAT_TOKEN = 'vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla'
