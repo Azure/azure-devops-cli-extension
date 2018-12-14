@@ -8,6 +8,8 @@ Ubuntu: [![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/
 
 # Azure Devops
 
+Test Pipeline
+
 Azure Devops CLI is a new command line interface for [Azure Devops Service](https://azure.microsoft.com/en-in/services/devops/) 
 
 > Azure Devops CLI is currently in preview but we encourage you to give it a try and provide feedback (or contribute). 
