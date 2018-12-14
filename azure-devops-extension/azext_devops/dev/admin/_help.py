@@ -10,6 +10,6 @@ from knack.help_files import helps  # pylint: disable=unused-import
 def load_admin_help():
     helps['devops admin'] = """
     type: group
-    short-summary: Administration commands.
+    short-summary: Manage administration operations.
     long-summary:
     """

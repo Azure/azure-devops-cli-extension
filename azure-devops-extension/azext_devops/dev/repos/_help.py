@@ -10,7 +10,7 @@ from knack.help_files import helps  # pylint: disable=unused-import
 def load_repos_help():
     helps['repos'] = """
     type: group
-    short-summary: Commands to work with and manage code repositories.
+    short-summary: Manage Azure DevOps Repos.
     long-summary:
     """
 
