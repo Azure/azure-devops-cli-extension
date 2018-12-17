@@ -19,3 +19,15 @@ def load_pipelines_help():
     short-summary: Manage build pipelines definitions.
     long-summary:
     """
+
+    helps['pipelines release'] = """
+    type: group
+    short-summary: Manage releases.
+    long-summary:
+    """
+
+    helps['pipelines release definition'] = """
+    type: group
+    short-summary: Manage release definitions.
+    long-summary:
+    """
