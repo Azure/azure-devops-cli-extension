@@ -43,29 +43,32 @@
    python scripts/dev_setup.py
    ```
 
-## Start coding
+## Developing
 
 Run `az extension list` and `az devops -h` to verify your environment is setup properly. 
 
-Run following steps for any code change.
+1. Set the `AZURE_EXTENSION_DIR` environment variable to a directory that will hold the extension(s) being developed:
+    ```
+    export AZURE_EXTENSION_DIR=~/.azure/devcliextensions
+    ```
+    The CLI will now look in this directory for extensions.
 
-    1.You can create a wheel package locally from source to be used in Azure CLI. 
-      To build the wheel locally, ensure you have the Python `wheel` package installed i.e. `pip install wheel`. 
-    
-    2.Remove the old version of extension:
-        ```bash
-        az extension remove -n azure-devops-extension
-        ```
-    
-    3.Now run `python setup.py bdist_wheel' where the current directory is the extension root. The wheel (with .whl suffix) will be generated and available in the new `dist` folder.
+2. Install your extension into the extensions directory:
+    ```
+    pip install --upgrade --target ~/.azure/devcliextensions/azure-devops-extension ~/Dev/azure-devops-extension
+    ```
+    - `~/.azure/devcliextensions/azure-devops-extension` is the directory `pip` will install the extension to.
+    - `~/Dev/azure-devops-extension` is the directory with the source code of your extension.
 
-    4.Now run below command to install the extension with your latest code changes.
-     ```bash
-     az extension add --source <local file path to wheel.whl>
-     ```
-    
-    5. Run `az devops -h` again to verify if extension is installed properly.
+3. Continue to develop your extension:
+    Any time you make changes to your extension and want to see them reflected in the CLI, run the command from step 2 again.
 
-    6. Run 'tests\runTests.ps1' to run recorded tests.
+    
+4. Run `az devops -h` again to verify if extension is installed properly.
+
+5. Run `tests\runTests.ps1` to run recorded tests.
+
+
+
 
 
