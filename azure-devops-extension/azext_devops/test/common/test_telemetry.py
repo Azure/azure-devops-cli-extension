@@ -13,16 +13,14 @@ except ImportError:
     from mock import patch
 
 from azext_devops.dev.common.telemetry import (set_tracking_data, 
-    try_send_telemetry_data, _try_send_tracking_ci_event_async, _is_telemetry_enabled, vsts_tracking_data)
-
-from azext_devops.dev.common.services import get_ci_client, clear_connection_cache
+    try_send_telemetry_data, vsts_tracking_data)
 
 
 class TestTelemetryMethods(unittest.TestCase):
     
-    _TEST_DEVOPS_ORGANIZATION = 'https://AzureDevOpsCliTest.visualstudio.com'
+    _TEST_DEVOPS_ORGANIZATION = 'https://dev.azure.com/AzureDevOpsCliTest'
    
-    def test_send_telemetry_if_enabled(self):
+    def test_send_telemetry_should_send_if_enabled(self):
         with patch('azext_devops.dev.common.telemetry._is_telemetry_enabled') as mock_telemetry_enabled:  
             mock_telemetry_enabled.return_value = True
             with patch('azext_devops.dev.common.telemetry._try_send_tracking_ci_event_async') as mock_telemetry_send:
@@ -31,7 +29,7 @@ class TestTelemetryMethods(unittest.TestCase):
                 mock_telemetry_send.assert_called_once_with(self._TEST_DEVOPS_ORGANIZATION)
 
 
-    def test_send_telemetry_if_disabled(self):
+    def test_send_telemetry_should_not_send_if_disabled(self):
         with patch('azext_devops.dev.common.telemetry._is_telemetry_enabled') as mock_telemetry_enabled:  
             mock_telemetry_enabled.return_value = False
             with patch('azext_devops.dev.common.telemetry._try_send_tracking_ci_event_async') as mock_telemetry_send:
