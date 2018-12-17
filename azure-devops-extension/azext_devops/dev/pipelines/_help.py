@@ -10,7 +10,7 @@ from knack.help_files import helps  # pylint: disable=unused-import
 def load_pipelines_help():
     helps['pipelines'] = """
     type: group
-    short-summary: Commands to work with and manage pipelines.
+    short-summary: Manage Azure DevOps Pipelines.
     long-summary:
     """
 

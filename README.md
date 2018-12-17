@@ -1,10 +1,4 @@
-Windows: [![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/Master%20Branch%20-%20Windows)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=6)
-
-Mac: [![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/Master%20Branch%20-%20Mac)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=7)
-
-Ubuntu: [![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/Master%20Branch%20-%20Ubuntu)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=5)
-
-[![Python](https://img.shields.io/pypi/pyversions/vsts-cli.svg)](https://pypi.python.org/pypi/vsts-cli)
+[![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/Master%20Branch/Azure%20DevOps%20CLI%20-%20Merge%20GitHub?branchName=azuredevopscli-dev)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=25?branchName=azuredevopscli-dev)
 
 # Azure Devops
 
@@ -46,9 +40,22 @@ See the full list of [available commands](https://aka.ms/azure-devops-cli-comman
 
 Create a personal access token and provide to the Azure Devops CLI via the login command:
 
+Enter PAT token to be used againt default URL
 ```bash
-az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/ --token MYTOKEN
+az devops login
 ```
+    OR
+
+Enter credential for particular account
+```bash
+az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
+```
+
+In non-interactive mode: Fetch the PAT from a file and pass it on to login command
+```
+cat my_pat_token.txt | az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
+```
+ You can also store your PAT token in an environment variable called 'AZURE_DEVOPS_CLI_PAT' and skip 'az devops login' command for automation scenarios
 
 ### Using Azure Devops CLI Behind a Proxy
 
