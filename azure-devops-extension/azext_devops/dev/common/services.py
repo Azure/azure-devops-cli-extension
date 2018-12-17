@@ -147,6 +147,9 @@ def get_first_vss_instance_uri():
     for key in _vss_connection:
         return key
 
+def get_release_client(team_instance=None):
+    connection = get_vss_connection(team_instance)
+    return connection.get_client('vsts.release.v4_0.release_client.ReleaseClient')
 
 def get_build_client(devops_organization=None):
     connection = get_vss_connection(devops_organization)
