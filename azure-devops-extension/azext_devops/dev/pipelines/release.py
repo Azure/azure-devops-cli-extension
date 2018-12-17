@@ -35,7 +35,7 @@ def release_create(definition_id=None, definition_name=None, artifact_metadata_l
     :type artifact_metadata_list: [str]
     :param description: Description of the release.
     :type description: str
-    :param detect: Automatically detect instance and project. Default is "on".
+    :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
     :rtype: :class:`<ReleaseStartMetadata> <release.v4_0.models.ReleaseStartMetadata>`
     """
@@ -82,7 +82,7 @@ def release_show(release_id, open_browser=False, devops_organization=None, proje
     :type devops_organization: str
     :param project: Name or ID of the team project.
     :type project: str
-    :param detect: Automatically detect instance and project. Default is "on".
+    :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
     :rtype: :class:`<Release> <release.v4_0.models.Release>`
     """
@@ -107,7 +107,7 @@ def release_list(definition_id=None, source_branch=None, devops_organization=Non
     :type devops_organization: str
     :param project: Name or ID of the team project.
     :type project: str
-    :param detect: Automatically detect instance and project. Default is "on".
+    :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
     :param top: Maximum number of releases to list. Default is 50.
     :type top: int

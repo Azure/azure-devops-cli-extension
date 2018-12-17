@@ -26,7 +26,7 @@ def release_definition_list(name=None, top=None, devops_organization=None, proje
     :type artifact_type: str
     :param artifact_source_id: Limit results to definitions associated with this artifact_source_id.e.g. For build it would be {projectGuid}:{BuildDefinitionId}, for Jenkins it would be {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}. For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json at https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
     :type artifact_source_id: str
-    :param detect: Automatically detect values for instance and project. Default is "on".
+    :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
     :rtype: [ReleaseDefinitionReference]
     """
@@ -53,7 +53,7 @@ def release_definition_show(definition_id=None, name=None, open_browser=False, d
     :type devops_organization: str
     :param project: Name or ID of the team project.
     :type project: str
-    :param detect: Automatically detect values for instance and project. Default is "on".
+    :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
     :rtype: ReleaseDefinitionReference
     """
