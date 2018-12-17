@@ -22,7 +22,7 @@ def load_pipelines_help():
 
     helps['pipelines release'] = """
     type: group
-    short-summary: Commands to work with and manage releases.
+    short-summary: Manage releases.
     long-summary:
     """
 
