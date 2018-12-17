@@ -10,7 +10,7 @@ from knack.help_files import helps  # pylint: disable=unused-import
 def load_artifacts_help():
     helps['artifacts'] = """
         type: group
-        short-summary: Manage Azure DevOps Artifacts.
+        short-summary: Manage Azure Artifacts.
         long-summary:
     """
 

@@ -12,11 +12,11 @@ def load_team_help():
     type: group
     short-summary: Manage Azure DevOps organization level operations.
     long-summary: |
-        Other Related Groups 
-        az pipelines: Manage Azure DevOps Pipelines 
-        az boards: Manage Azure DevOps Boards
-        az repos: Manage Azure DevOps Repos
-        az artifacts: Manage Azure DevOps Artifacts
+        Related Groups 
+        az pipelines: Manage Azure Pipelines 
+        az boards: Manage Azure Boards
+        az repos: Manage Azure Repos
+        az artifacts: Manage Azure Artifacts
         """
 
     helps['devops project'] = """

@@ -10,7 +10,7 @@ from knack.help_files import helps  # pylint: disable=unused-import
 def load_boards_help():
     helps['boards'] = """
     type: group
-    short-summary: Manage Azure DevOps Boards.
+    short-summary: Manage Azure Boards.
     long-summary:
     """
     
