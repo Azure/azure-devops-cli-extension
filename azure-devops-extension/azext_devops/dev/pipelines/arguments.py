@@ -34,15 +34,37 @@ def load_build_arguments(self, _):
         context.argument('definition_id', type=int)
         context.argument('variables', nargs='*')
 
-    with self.argument_context('build show') as context:
+    with self.argument_context('pipelines build show') as context:
         context.argument('build_id', options_list='--id', type=int)
 
-    with self.argument_context('build definition show') as context:
+    with self.argument_context('pipelines build definition show') as context:
         context.argument('definition_id', options_list='--id', type=int)
 
-    with self.argument_context('build definition list') as context:
+    with self.argument_context('pipelines build definition list') as context:
         context.argument('repository_type', choices=['tfsversioncontrol', 'tfsgit', 'git', 'github', 'githubenterprise', 'bitbucket', 'svn'],
         type=str.lower)
 
-    with self.argument_context('build task') as context:
+    with self.argument_context('pipelines build task') as context:
         context.argument('task_id', options_list='--id', type=str)
+
+    with self.argument_context('pipelines release') as ac:
+        ac.argument('open_browser', options_list='--open')
+        ac.argument('project', options_list=('--project', '-p'))
+        ac.argument('team_instance', options_list=('--instance', '-i'))
+        ac.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
+
+    with self.argument_context('pipelines release list') as ac:
+        ac.argument('definition_id', type=int)
+
+    with self.argument_context('pipelines release create') as ac:
+        ac.argument('definition_id', type=int)
+        ac.argument('artifact_metadata_list', nargs='*')
+
+    with self.argument_context('pipelines release show') as ac:
+        ac.argument('release_id', options_list='--id', type=int)
+
+    with self.argument_context('pipelines release definition show') as ac:
+        ac.argument('definition_id', options_list='--id', type=int)
+
+    with self.argument_context('pipelines release definition list') as ac:
+        ac.argument('artifact_type', choices=['build', 'jenkins', 'github', 'externaltfsbuild', 'git', 'tfvc'], type=str.lower)
