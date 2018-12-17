@@ -38,7 +38,7 @@ def load_build_arguments(self, _):
         context.argument('build_id', options_list='--id', type=int)
 
     with self.argument_context('pipelines build definition show') as context:
-        context.argument('definition_id', options_list='--id', type=int)
+        context.argument('definition_id', options_list=('--definition-id', '--id'), type=int)
 
     with self.argument_context('pipelines build definition list') as context:
         context.argument('repository_type', choices=['tfsversioncontrol', 'tfsgit', 'git', 'github', 'githubenterprise', 'bitbucket', 'svn'],
