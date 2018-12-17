@@ -15,10 +15,11 @@ except ImportError:
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from azext_devops.dev.team.credentials import credential_set
-from .utilities.helper import ( DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN )
+from .utilities.helper import ( DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry )
 
 class PipelinesBuildTaskTests(ScenarioTest): 
     @AllowLargeResponse(size_kb=3072)
+    @disable_telemetry
     def test_build_task_listShow(self):
 
         with patch('azext_devops.dev.team.credentials._get_pat_token') as mock_pat_token:  
