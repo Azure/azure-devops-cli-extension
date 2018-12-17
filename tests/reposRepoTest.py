@@ -15,10 +15,11 @@ except ImportError:
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from azext_devops.dev.team.credentials import credential_set
-from .utilities.helper import ( get_random_name , DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN )
+from .utilities.helper import ( get_random_name , DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry )
 
 class ReposRepoTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
+    @disable_telemetry
     def test_repos_createListShowDelete(self):
         random_name = get_random_name(8)
 

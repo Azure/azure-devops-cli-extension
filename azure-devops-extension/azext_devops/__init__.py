@@ -6,6 +6,7 @@
 from knack.help_files import helps
 
 from azure.cli.core import AzCommandsLoader
+from knack.events import EVENT_INVOKER_POST_PARSE_ARGS
 
 class DevCommandsLoader(AzCommandsLoader):
 
@@ -14,6 +15,8 @@ class DevCommandsLoader(AzCommandsLoader):
         custom_type = CliCommandType(operations_tmpl='azext_devops#{}')
         super(DevCommandsLoader, self).__init__(cli_ctx=cli_ctx,
                                                        custom_command_type=custom_type)
+        self.cli_ctx.register_event(event_name=EVENT_INVOKER_POST_PARSE_ARGS, handler=self.post_parse_args)
+            
 
     def load_command_table(self, args):
         from azext_devops.dev.admin.commands import load_admin_commands
@@ -43,5 +46,16 @@ class DevCommandsLoader(AzCommandsLoader):
         load_team_arguments(self, command)
         from azext_devops.dev.artifacts.arguments import load_package_arguments
         load_package_arguments(self, command)
-        
+
+    @staticmethod
+    def post_parse_args(cli_ctx, **kwargs):
+        if(kwargs.get('command', None) and   
+        kwargs['command'].startswith(('devops', 'boards', 'artifacts', 'pipelines','repos'))):                  
+            from azext_devops.dev.common.telemetry import set_tracking_data
+            # we need to set tracking data only after we know that all args are valid,
+            # otherwise we may log EUII data that a user inadvertently sent as an argument
+            # name.  We already don't log argument values.
+            set_tracking_data(kwargs['command'].split())      
+
+
 COMMAND_LOADER_CLS = DevCommandsLoader

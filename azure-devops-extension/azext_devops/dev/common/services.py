@@ -5,7 +5,6 @@
 
 import datetime
 import os
-import threading
 
 from collections import OrderedDict
 from knack.log import get_logger
@@ -13,7 +12,6 @@ from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from azure.cli.core._profile import Profile
 from azure.cli.core.api import load_subscriptions
-from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
 from vsts.vss_connection import VssConnection
 from .arguments import should_detect
 from .config import azdevops_config
@@ -35,16 +33,9 @@ def get_vss_connection(devops_organization):
     if devops_organization not in _vss_connection:
         credentials = _get_credentials(devops_organization)
         try:
+            from .telemetry import try_send_telemetry_data
             _vss_connection[devops_organization] = _get_vss_connection(devops_organization, credentials)
-            collect_telemetry = None
-            #todo - atbagga read from az config
-            if azdevops_config.has_option('core', 'collect_telemetry'):
-                collect_telemetry = azdevops_config.get('core', 'collect_telemetry')
-            if collect_telemetry is None or collect_telemetry != 'no':
-                logger.debug('Telemetry enabled.')
-                _try_send_tracking_ci_event_async(devops_organization)
-            else:
-                logger.debug('Telemetry disabled.')
+            try_send_telemetry_data(devops_organization)            
         except Exception as ex:
             logger.debug(ex, exc_info=True)
             raise CLIError(ex)
@@ -304,55 +295,6 @@ def get_vsts_info_from_current_remote_url():
     return info
 
 
-def set_tracking_data(argv):
-    try:
-        vsts_tracking_data.area = 'CLI'
-        vsts_tracking_data.properties = {}
-        if argv is not None and argv:
-            vsts_tracking_data.feature = argv[0]
-            if len(argv) > 1:
-                command = []
-                args = []
-                command_populated = False
-                for arg in argv[1:]:
-                    if arg is not None and argv and len(arg) > 0:
-                        if not command_populated and arg[0] != '-':
-                            command.append(arg)
-                        elif arg[0] == '-':
-                            args.append(arg.lstrip('-'))
-                            command_populated = True
-                if command:
-                    vsts_tracking_data.properties['Command'] = ' '.join(command)
-                else:
-                    vsts_tracking_data.properties['Command'] = ''
-                vsts_tracking_data.properties['Args'] = args
-        else:
-            vsts_tracking_data.feature = 'Command'
-    except Exception as ex:
-        logger.debug(ex, exc_info=True)
-
-
-def _try_send_tracking_ci_event_async(devops_organization=None):
-    if vsts_tracking_data is not None and vsts_tracking_data.area is not None:
-        try:
-            thread = threading.Thread(target=_send_tracking_ci_event, args=[devops_organization])
-            thread.start()
-        except Exception as ex:
-            # we should always continue if we fail to set tracking data
-            logger.debug(ex, exc_info=True)
-
-
-def _send_tracking_ci_event(devops_organization=None, ci_client=None):
-    if ci_client is None:
-        ci_client = get_ci_client(devops_organization=devops_organization)
-    try:
-        ci_client.publish_events([vsts_tracking_data])
-        return True
-    except Exception as ex:
-        logger.debug(ex, exc_info=True)
-        return False
-
-
 def get_connection_data(devops_organization):
     devops_organization = devops_organization.lower()
     if devops_organization in _connection_data:
@@ -377,4 +319,3 @@ def clear_connection_cache():
 
 _connection_data = {}
 _vss_connection = OrderedDict()
-vsts_tracking_data = CustomerIntelligenceEvent()
