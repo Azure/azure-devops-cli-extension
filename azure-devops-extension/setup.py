@@ -61,5 +61,6 @@ setup(
     install_requires=REQUIRES,
     packages=find_packages(),
     classifiers=CLASSIFIERS,
+    package_data={'azext_devops': ['azext_metadata.json']},
     include_package_data=True,
 )
