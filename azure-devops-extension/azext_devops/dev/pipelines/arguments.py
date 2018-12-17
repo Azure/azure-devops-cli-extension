@@ -47,24 +47,24 @@ def load_build_arguments(self, _):
     with self.argument_context('pipelines build task') as context:
         context.argument('task_id', options_list='--id', type=str)
 
-    with self.argument_context('pipelines release') as ac:
-        ac.argument('open_browser', options_list='--open')
-        ac.argument('project', options_list=('--project', '-p'))
-        ac.argument('team_instance', options_list=('--instance', '-i'))
-        ac.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
+    with self.argument_context('pipelines release') as context:
+        context.argument('open_browser', options_list='--open')
+        context.argument('project', options_list=('--project', '-p'))
+        context.argument('devops_organization', options_list=('--organization', '--org'))
+        context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
-    with self.argument_context('pipelines release list') as ac:
-        ac.argument('definition_id', type=int)
+    with self.argument_context('pipelines release list') as context:
+        context.argument('definition_id', type=int)
 
-    with self.argument_context('pipelines release create') as ac:
-        ac.argument('definition_id', type=int)
-        ac.argument('artifact_metadata_list', nargs='*')
+    with self.argument_context('pipelines release create') as context:
+        context.argument('definition_id', type=int)
+        context.argument('artifact_metadata_list', nargs='*')
 
-    with self.argument_context('pipelines release show') as ac:
-        ac.argument('release_id', options_list='--id', type=int)
+    with self.argument_context('pipelines release show') as context:
+        context.argument('release_id', options_list='--id', type=int)
 
-    with self.argument_context('pipelines release definition show') as ac:
-        ac.argument('definition_id', options_list='--id', type=int)
+    with self.argument_context('pipelines release definition show') as context:
+        context.argument('definition_id', options_list='--id', type=int)
 
-    with self.argument_context('pipelines release definition list') as ac:
-        ac.argument('artifact_type', choices=['build', 'jenkins', 'github', 'externaltfsbuild', 'git', 'tfvc'], type=str.lower)
+    with self.argument_context('pipelines release definition list') as context:
+        context.argument('artifact_type', choices=['build', 'jenkins', 'github', 'externaltfsbuild', 'git', 'tfvc'], type=str.lower)
