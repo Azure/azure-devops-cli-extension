@@ -11,7 +11,7 @@
 
 ## Get the source
 
-Clone the Azure Devops CLI extension repository:
+1. Clone the Azure Devops CLI extension repository:
    ```bash
    git clone https://github.com/Microsoft/vsts-cli
    ```
