@@ -40,22 +40,24 @@ See the full list of [available commands](https://aka.ms/azure-devops-cli-comman
 
 Create a personal access token and provide to the Azure Devops CLI via the login command. You can follow any one of the below options for login:
 
-1. Enter PAT token to be used against default URL
+1. All AAD or MSA users can run `az login` and they shall be able to run devops commands. 
+
+2. Enter PAT token to be used against default URL
 ```bash
 az devops login
 ```
 
-2. Enter credential for particular account
+3. Enter credential for particular account
 ```bash
 az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
 ```
 
-3. In non-interactive mode: Fetch the PAT from a file and pass it on to login command
+4. In non-interactive mode: Fetch the PAT from a file and pass it on to login command
 ```
 cat my_pat_token.txt | az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
 ```
 
-4. You can also store your PAT token in an environment variable called 'AZURE_DEVOPS_CLI_PAT' and skip 'az devops login' command for automation scenarios
+5. You can also store your PAT token in an environment variable called 'AZURE_DEVOPS_CLI_PAT' and skip 'az devops login' command for automation scenarios
 
 ### Using Azure Devops CLI Behind a Proxy
 

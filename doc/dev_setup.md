@@ -64,7 +64,7 @@ Run following steps for any code change.
      az extension add --source <local file path to wheel.whl>
      ```
     
-    5. Run 'az devops -h' again to verify if extension is installed properly.
+    5. Run `az devops -h` again to verify if extension is installed properly.
 
     6. Run 'tests\runTests.ps1' to run recorded tests.
 
