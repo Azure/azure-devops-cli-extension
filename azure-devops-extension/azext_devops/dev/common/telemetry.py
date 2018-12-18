@@ -11,7 +11,6 @@ logger = get_logger(__name__)
 
 
 def try_send_telemetry_data(devops_organization):
-    from azure.cli.core import get_default_cli
     try:
         if(_is_telemetry_enabled()):
             logger.debug('Azure devops telemetry enabled.')
@@ -19,7 +18,7 @@ def try_send_telemetry_data(devops_organization):
         else:
             logger.debug('Azure devops telemetry disabled.')
     except:
-        logger.debug('Azure devops telemetry failed or not allowed.')
+        logger.debug('Azure devops telemetry sending failed.')
 
 
 def set_tracking_data(argv):
@@ -51,6 +50,7 @@ def set_tracking_data(argv):
 
 
 def _is_telemetry_enabled():
+    from azure.cli.core import get_default_cli
     collect_telemetry = None
     # Read the telemetry flag from az cli config file not the az devops extension config file
     az_cli_ctx = get_default_cli()
