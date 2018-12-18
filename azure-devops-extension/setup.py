@@ -39,6 +39,8 @@ CLASSIFIERS = [
     'Programming Language :: Python :: 2',
     'Programming Language :: Python :: 2.7',
     'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.4',
+    'Programming Language :: Python :: 3.5',
     'Programming Language :: Python :: 3.6',
     'License :: OSI Approved :: MIT License',
 ]
@@ -51,16 +53,14 @@ with open('HISTORY.rst', 'r', encoding='utf-8') as f:
 setup(
     name=NAME,
     version=VERSION,
-    license='MIT',
     description="Azure DevOps Command Line Interface",
     long_description=README + '\n\n' + HISTORY,
+    license='MIT',
     author="Microsoft",
     author_email="VSTS_Social@microsoft.com",
     url="https://github.com/Microsoft/vsts-cli/tree/azuredevopscli-dev",
-    keywords=["Microsoft", "VSTS", "Team Services", "SDK", "AzureTfs", "CLI", "Azure", "DevOps"],
-    install_requires=REQUIRES,
-    packages=find_packages(),
     classifiers=CLASSIFIERS,
     package_data={'azext_devops': ['azext_metadata.json']},
-    include_package_data=True,
+    packages=find_packages(),
+    install_requires=REQUIRES
 )
