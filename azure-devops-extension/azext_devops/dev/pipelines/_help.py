@@ -14,9 +14,21 @@ def load_pipelines_help():
     long-summary:
     """
 
-    helps['pipelines definition'] = """
+    helps['pipelines build'] = """
+    type: group
+    short-summary: Manage Azure Pipelines build.
+    long-summary:
+    """
+
+    helps['pipelines build definition'] = """
     type: group
     short-summary: Manage build pipelines definitions.
+    long-summary:
+    """
+
+    helps['pipelines build task'] = """
+    type: group
+    short-summary: Manage build pipelines task.
     long-summary:
     """
 
