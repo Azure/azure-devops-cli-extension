@@ -13,3 +13,9 @@ def load_admin_help():
     short-summary: Manage administration operations.
     long-summary:
     """
+
+    helps['devops admin banner'] = """
+    type: group
+    short-summary: Manage DevOps organization banner.
+    long-summary:
+    """

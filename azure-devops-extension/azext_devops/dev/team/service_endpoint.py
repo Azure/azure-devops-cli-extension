@@ -77,7 +77,7 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
     :type authorization_scheme: str
     :param github_access_token: PAT token of github for creating github service endpoint
     :type github_access_token: str
-    :pram github_url: Url for github for creating service endpoint
+    :param github_url: Url for github for creating service endpoint
     :type github_url: str
     :param azure_rm_tenant_id: tenant id for creating azure rm service endpoint
     :type azure_rm_tenant_id: str
