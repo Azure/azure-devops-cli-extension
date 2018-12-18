@@ -8,7 +8,7 @@ Write-Host "installing azure dev cli extension"
 pip install --upgrade .
 Write-Host "done"
 Write-Host "creating wheel"
-python setup.py bdist_wheel
+python setup.py sdist bdist_wheel
 Write-Host "done"
 Set-Location $rootPath
 
