@@ -11,7 +11,6 @@ from knack.log import get_logger
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from azure.cli.core._profile import Profile
-from azure.cli.core.api import load_subscriptions
 from vsts.vss_connection import VssConnection
 from .arguments import should_detect
 from .config import azdevops_config
