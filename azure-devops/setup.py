@@ -8,7 +8,7 @@ import re
 from codecs import open
 from setuptools import setup, find_packages
 
-NAME = 'azure-devops-extension'
+NAME = 'azure-devops'
 
 # To install the library, run the following
 #
@@ -53,7 +53,7 @@ with open('HISTORY.rst', 'r', encoding='utf-8') as f:
 setup(
     name=NAME,
     version=VERSION,
-    description="Azure DevOps Command Line Interface",
+    description="Tools for managing Azure DevOps.",
     long_description=README + '\n\n' + HISTORY,
     license='MIT',
     author="Microsoft",
