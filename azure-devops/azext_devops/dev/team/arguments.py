@@ -32,6 +32,7 @@ def load_team_arguments(self, _):
         context.argument('defaults', options_list=('--defaults', '-d'), nargs='*')
     with self.argument_context('devops project') as context:
         context.argument('devops_organization', options_list=('--organization', '--org'))
+        context.argument('open_browser', options_list='--open')
         context.argument('process', options_list=('--process', '-p'))
         context.argument('source_control', options_list=('--source-control', '-s'),
                     **enum_choice_list(_SOURCE_CONTROL_VALUES))
