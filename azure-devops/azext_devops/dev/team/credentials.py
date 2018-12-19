@@ -17,6 +17,7 @@ from azext_devops.dev.common.services import _get_vss_connection, get_base_url
 
 logger = get_logger(__name__)
 
+
 def credential_set(devops_organization=None):
     """Set the credential (PAT) to use for a particular account
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -35,6 +36,7 @@ def credential_set(devops_organization=None):
             logger.debug(ex2, exc_info=True)
             raise CLIError("Failed to authenticate using the supplied token.")
     set_credential(devops_organization=devops_organization, token=token)
+    _check_and_set_default_organization(devops_organization)
 
 
 def credential_clear(devops_organization=None):
@@ -46,6 +48,7 @@ def credential_clear(devops_organization=None):
         devops_organization = get_base_url(devops_organization)
     clear_credential(devops_organization)
     print('The credential was successfully cleared.')
+    _check_and_clear_default_organization(devops_organization)
 
 
 def _get_pat_token():
@@ -56,3 +59,34 @@ def _get_pat_token():
         token = sys.stdin.readline().rstrip()
     return token
 
+
+# Sets organization if the default is not set
+def _check_and_set_default_organization(devops_organization):
+    if(devops_organization is not None):
+        from azext_devops.dev.common.config import azdevops_config
+        from  azext_devops.dev.common.const import DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT
+        from .configure import configure
+        current_org_default = None
+        if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT):
+            current_org_default = azdevops_config.get(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT)
+        if current_org_default is None or current_org_default == '':
+            configure(defaults=['organization={}'.format(devops_organization)])
+            logger.debug("Setting this organization as default. No default was set earlier.")
+        else:
+            logger.debug("Another organization is already set as default.")
+
+
+# Clears organization if the default is set to same
+def _check_and_clear_default_organization(devops_organization):
+    if (devops_organization is not None):
+        from azext_devops.dev.common.config import azdevops_config
+        from  azext_devops.dev.common.const import DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT
+        from .configure import configure
+        current_org_default = None
+        if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT):
+            current_org_default = azdevops_config.get(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT)
+        if current_org_default == devops_organization  :
+            configure(defaults=["organization=''"])
+            logger.debug("Resetting default organization.")
+        else:
+            logger.debug("Default org not reset. Different organization is set as default.")
