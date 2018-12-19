@@ -16,12 +16,12 @@ For help, pass the `-h` or `--help` argument, for example:
 
 ```bash
 az devops -h
-az devops repos -h
+az repos -h
 ```
 
 ### Commands
 
-Use the Azure Devops CLI to work with and manage build, code repositories, projects, work items, and more in your Azure Devops account or on-premises Team Foundation Server collection.
+Use the Azure Devops CLI to work with and manage build, releases, code repositories, projects, work items, and more in your Azure Devops account or on-premises Team Foundation Server collection.
 
 Here are just a few of the commands:
 
@@ -38,24 +38,26 @@ See the full list of [available commands](https://aka.ms/azure-devops-cli-comman
 
 ### Login (setup credentials)
 
-Create a personal access token and provide to the Azure Devops CLI via the login command:
+Create a personal access token and provide to the Azure Devops CLI via the login command. You can follow any one of the below options for login:
 
-Enter PAT token to be used againt default URL
+1. All AAD or MSA users can run `az login` and they shall be able to run devops commands. 
+
+2. Enter PAT token to be used against default URL
 ```bash
 az devops login
 ```
-    OR
 
-Enter credential for particular account
+3. Enter credential for particular account
 ```bash
 az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
 ```
 
-In non-interactive mode: Fetch the PAT from a file and pass it on to login command
+4. In non-interactive mode: Fetch the PAT from a file and pass it on to login command
 ```
 cat my_pat_token.txt | az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
 ```
- You can also store your PAT token in an environment variable called 'AZURE_DEVOPS_CLI_PAT' and skip 'az devops login' command for automation scenarios
+
+5. You can also store your PAT token in an environment variable called 'AZURE_DEVOPS_CLI_PAT' and skip 'az devops login' command for automation scenarios
 
 ### Using Azure Devops CLI Behind a Proxy
 
