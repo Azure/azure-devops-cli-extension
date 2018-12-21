@@ -13,6 +13,7 @@ import tempfile
 import uuid
 import zipfile
 
+import distro
 import humanfriendly
 import requests
 
@@ -72,7 +73,10 @@ class ArtifactToolUpdater:
         connection = get_vss_connection(team_instance)
         client = connection.get_client('vsts.cli.package.common.client_tool.client_tool_client.ClientToolClient')
         logger.debug("Looking up current version of ArtifactTool...")
-        release = client.get_clienttool_release("ArtifactTool", os_name=platform.system(), arch=platform.machine(), version=override_version)
+        # Distro returns empty strings on Windows currently, so don't even send
+        distro_name = distro.id() or None
+        distro_version = distro.version() or None
+        release = client.get_clienttool_release("ArtifactTool", os_name=platform.system(), arch=platform.machine(), distro_name=distro_name, distro_version=distro_version, version=override_version)
         return (release.uri, self._compute_id(release)) if release is not None else None
 
     def _update_artifacttool(self, uri, release_id):
