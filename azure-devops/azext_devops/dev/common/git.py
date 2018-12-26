@@ -53,12 +53,12 @@ def get_current_branch_name():
 def get_remote_url(validation_function=None):
     remotes = get_git_remotes()
     if remotes is not None:
-        if _ORIGIN_PUSH_KEY in remotes and (validation_function is None
-                                            or validation_function(remotes[_ORIGIN_PUSH_KEY])):
+        if _ORIGIN_PUSH_KEY in remotes and (validation_function is None or
+                                            validation_function(remotes[_ORIGIN_PUSH_KEY])):
             return remotes[_ORIGIN_PUSH_KEY]
         for k, value in remotes.items():
-            if k != _ORIGIN_PUSH_KEY and k.endswith('(push)') and (validation_function is None
-                                                                   or validation_function(value)):
+            if k != _ORIGIN_PUSH_KEY and k.endswith('(push)') and (validation_function is None or
+                                                                   validation_function(value)):
                 return value
     return None
 

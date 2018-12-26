@@ -11,8 +11,8 @@ def load_team_help():
     type: group
     short-summary: Manage Azure DevOps organization level operations.
     long-summary: |
-        Related Groups 
-        az pipelines: Manage Azure Pipelines 
+        Related Groups
+        az pipelines: Manage Azure Pipelines
         az boards: Manage Azure Boards
         az repos: Manage Azure Repos
         az artifacts: Manage Azure Artifacts

@@ -29,8 +29,10 @@ reposImportOps = CliCommandType(
     operations_tmpl='azext_devops.dev.repos.import_request#{}'
 )
 
+
 def repo_delete_confirmation():
     return bool(prompt_y_n('Are you sure you want to delete this repository?'))
+
 
 def load_code_commands(self, _):
     with self.command_group('repos', command_type=reposRepositoryOps) as g:
@@ -73,5 +75,5 @@ def load_code_commands(self, _):
         g.command('policies queue', 'queue_pr_policy', table_transformer=transform_policy_table_output)
 
     with self.command_group('repos import', command_type=reposImportOps) as g:
-        #import request
+        # import request
         g.command('create', 'create_import_request', table_transformer=transform_repo_import_table_output)

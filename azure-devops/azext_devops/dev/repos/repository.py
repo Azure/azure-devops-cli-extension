@@ -94,6 +94,7 @@ def list_repos(devops_organization=None, project=None, detect=None):
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def show_repo(repo_id=None, name=None, devops_organization=None, project=None, detect=None, open_browser=False):
     """Get the details of a Git repository.
     :param repo_id: ID of the repository. Required if --name is not specified.

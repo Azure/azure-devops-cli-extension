@@ -17,6 +17,7 @@ from azext_devops.dev.common.uri import uri_quote
 
 logger = get_logger(__name__)
 
+
 def create_project(name, devops_organization=None, process=None, source_control='git', description=None,
                    visibility='private', detect=None, open_browser=False):
     """Create a team project.
@@ -119,6 +120,7 @@ def delete_project(project_id=None, devops_organization=None, detect=None):
         return operation
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 def show_project(project_id=None, name=None, devops_organization=None, detect=None, open_browser=False):
     """Show team project.

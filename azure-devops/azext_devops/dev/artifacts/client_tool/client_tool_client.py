@@ -36,4 +36,3 @@ class ClientToolClient(VssClient):
                               query_parameters=query_parameters)
 
         return self._deserialize('ClientToolRelease', response)
-        

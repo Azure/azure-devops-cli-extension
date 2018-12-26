@@ -135,4 +135,3 @@ def _resolve_repository_as_id(repository, devops_organization, project):
             if found_repository.name.lower() == repository.lower():
                 return found_repository.id
     return None
-    

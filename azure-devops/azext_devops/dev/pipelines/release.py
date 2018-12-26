@@ -14,6 +14,7 @@ from .release_definition import get_definition_id_from_name
 
 logger = get_logger(__name__)
 
+
 def release_create(definition_id=None, definition_name=None, artifact_metadata_list=None, description=None,
                    open_browser=False, devops_organization=None, project=None, detect=None):
     """Request (create) a release.
@@ -56,8 +57,8 @@ def release_create(definition_id=None, definition_name=None, artifact_metadata_l
                                             instance_reference=instance_reference)
                 artifacts.append(artifact)
             else:
-                raise ValueError('The --artifact_meta_data_list argument should consist' \
-                'of space separated "alias=version_id" pairs.' + artifact_metadata)
+                raise ValueError('The --artifact_meta_data_list argument should consist'
+                                 'of space separated "alias=version_id" pairs.' + artifact_metadata)
 
     release = ReleaseStartMetadata(definition_id=definition_id, artifacts=artifacts, description=description)
 
@@ -133,6 +134,7 @@ def _open_release(release):
     if url is not None and url:
         logger.debug('Opening web page: %s', url)
         open_new(url=url)
+
 
 def _get_release_web_url(release):
     links = release._links  # pylint: disable=protected-access

@@ -8,6 +8,7 @@ from knack.arguments import enum_choice_list
 _ORGANIZATION_LICENSE_TYPES_FOR_ADD = ['advanced', 'express', 'professional', 'stakeholder']
 _TYPE_FOR_BANNER = ['info', 'warning', 'error']
 
+
 def load_admin_arguments(self, _):
     with self.argument_context('devops admin') as context:
         context.argument('devops_organization', options_list=['--org', '--organization'])
@@ -18,4 +19,3 @@ def load_admin_arguments(self, _):
         context.argument('message', options_list=['-m', '--message'])
         context.argument('message_id', options_list='--id')
         context.argument('banner_type', options_list=['-t', '--type'], **enum_choice_list(_TYPE_FOR_BANNER))
-        

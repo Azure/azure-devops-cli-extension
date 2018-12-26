@@ -5,6 +5,7 @@
 
 from msrest.serialization import Model
 
+
 class ClientToolRelease(Model):
     _attribute_map = {
         'name': {'key': 'name', 'type': 'str'},
@@ -19,4 +20,3 @@ class ClientToolRelease(Model):
         self.rid = rid
         self.version = version
         self.uri = uri
-        

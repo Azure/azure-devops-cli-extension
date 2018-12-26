@@ -39,6 +39,6 @@ def load_repos_help():
 
     helps['repos import'] = """
     type: group
-    short-summary: Manage Git repositories import 
-    long-summary: 
+    short-summary: Manage Git repositories import
+    long-summary:
     """

@@ -10,6 +10,7 @@ bannerops = CliCommandType(
     operations_tmpl='azext_devops.dev.admin.banner#{}'
 )
 
+
 def load_admin_commands(self, _):
     with self.command_group('devops admin banner', command_type=bannerops) as g:
         g.command('list', 'banner_list', table_transformer=transform_banner_table_output)

@@ -11,6 +11,7 @@ from azext_devops.dev.common.uuid import is_uuid
 
 logger = get_logger(__name__)
 
+
 def release_definition_list(name=None, top=None, devops_organization=None, project=None,
                             artifact_type=None, artifact_source_id=None, detect=None):
     """List release definitions.

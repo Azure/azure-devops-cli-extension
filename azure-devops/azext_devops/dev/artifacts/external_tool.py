@@ -14,6 +14,7 @@ from knack.util import CLIError
 
 logger = get_logger(__name__)
 
+
 class ExternalToolInvoker:
     _proc = None
     _terminating = False
@@ -27,7 +28,7 @@ class ExternalToolInvoker:
             raise RuntimeError("Attempted to invoke already-running external tool")
         logger.debug("Running external command: %s", ' '.join(command_args))
 
-        DEVNULL = open(os.devnull, 'w') # Note: subprocess.DEVNULL not available on python 2.7
+        DEVNULL = open(os.devnull, 'w')  # Note: subprocess.DEVNULL not available on python 2.7
         self._args = command_args
         self._proc = subprocess.Popen(
             command_args,
@@ -58,6 +59,7 @@ class ExternalToolInvoker:
             # but that's hard to support on multiple platforms (esp Windows)
             logger.debug("Killing process %s", self._proc.pid)
             self._proc.kill()
+
 
 class ProgressReportingExternalToolInvoker(ExternalToolInvoker):
     _spinner = None

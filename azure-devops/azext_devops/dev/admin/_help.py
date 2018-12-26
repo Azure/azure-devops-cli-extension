@@ -18,4 +18,3 @@ def load_admin_help():
     short-summary: Manage organization banner.
     long-summary:
     """
-    

@@ -16,6 +16,7 @@ logger = get_logger(__name__)
 
 _UNIVERSAL_PREVIEW_MESSAGE = "Universal Packages is currently in preview."
 
+
 def publish_package(feed, name, version, path, description=None, devops_organization=None, detect=None):
     """(PREVIEW) Publish a package to a feed.
     :param feed: Name or ID of the feed.
@@ -34,7 +35,7 @@ def publish_package(feed, name, version, path, description=None, devops_organiza
     :type detect: str
     """
     try:
-        colorama.init() # Needed for humanfriendly spinner to display correctly
+        colorama.init()   # Needed for humanfriendly spinner to display correctly
         logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
@@ -59,11 +60,10 @@ def download_package(feed, name, version, path, devops_organization=None, detect
     :type detect: str
     """
     try:
-        colorama.init() # Needed for humanfriendly spinner to display correctly
+        colorama.init()  # Needed for humanfriendly spinner to display correctly
         logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         return artifact_tool.download_universal(devops_organization, feed, name, version, path)
     except VstsServiceError as ex:
         raise CLIError(ex)
-        

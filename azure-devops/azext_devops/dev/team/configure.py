@@ -21,6 +21,7 @@ logger = get_logger(__name__)
 
 CONFIG_VALID_DEFAULT_KEYS_LIST = [DEVOPS_ORGANIZATION_DEFAULT, DEVOPS_TEAM_PROJECT_DEFAULT]
 
+
 def configure(defaults=None, use_git_aliases=None, list_config=False):
     """Configure the Azure DevOps CLI or view your configuration.
     :param defaults: Space separated 'name=value' pairs for common arguments defaults,
@@ -35,8 +36,8 @@ def configure(defaults=None, use_git_aliases=None, list_config=False):
     :type list_config: bool
     """
     if defaults is None and use_git_aliases is None and list_config is False:
-        raise CLIError('usage error: atleast one of the options must be specified.' \
-        'For list of supported options see help using -h flag.')
+        raise CLIError('usage error: atleast one of the options must be specified.'
+                       'For list of supported options see help using -h flag.')
     if defaults:
         for default in defaults:
             parts = default.split('=', 1)

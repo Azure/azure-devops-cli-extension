@@ -10,19 +10,22 @@ from knack.prompting import verify_is_a_tty
 
 logger = get_logger(__name__)
 
+
 def _input(msg):
     return input(msg)
+
 
 def delete_last_line():
     "Use this function to delete the last line in the STDOUT"
     from colorama import init
     init()
 
-    #cursor up one line
+    # cursor up one line
     sys.stdout.write('\x1b[1A')
 
-    #delete last line
+    # delete last line
     sys.stdout.write('\x1b[2K')
+
 
 def prompt_user_friendly_choice_list(msg, a_list, default=1, help_string=None):
     """Prompt user to select from a list of possible choices.
@@ -57,7 +60,7 @@ def prompt_user_friendly_choice_list(msg, a_list, default=1, help_string=None):
             if ans in allowed_vals:
                 for x in range(0, linesToDelete):
                     delete_last_line()
-                print('Please enter a choice [Default choice({})]: {}'.format(default, a_list[ans -1]))
+                print('Please enter a choice [Default choice({})]: {}'.format(default, a_list[ans - 1]))
                 # array index is 0-based, user input is 1-based
                 return ans - 1
             raise ValueError
@@ -66,4 +69,3 @@ def prompt_user_friendly_choice_list(msg, a_list, default=1, help_string=None):
                 delete_last_line()
             print('Please enter a choice [Default choice({})]: {}'.format(default, val))
             logger.warning('Valid values are %s', allowed_vals)
-            

@@ -23,6 +23,7 @@ from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX
 
 logger = get_logger(__name__)
 
+
 # pylint: disable=too-few-public-methods
 class ArtifactToolUpdater:
     ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY = CLI_ENV_VARIABLE_PREFIX + "ARTIFACTTOOL_OVERRIDE_PATH"
@@ -82,7 +83,7 @@ def _update_artifacttool(uri, release_id):
             path = os.path.join(root, item)
             if os.path.isdir(path):
                 logger.debug("Trying to remove old release %s", item)
-                shutil.rmtree(path, ignore_errors=True) # Failing cleanup is not fatal
+                shutil.rmtree(path, ignore_errors=True)   # Failing cleanup is not fatal
 
     with humanfriendly.Spinner(label="Downloading Universal Packages tooling ({})"
                                .format(release_id), total=100, stream=sys.stderr) as spinner:
@@ -97,11 +98,11 @@ def _update_artifacttool(uri, release_id):
         # Do the download, updating the progress bar
         content = io.BytesIO()
         bytes_so_far = 0
-        for chunk in response.iter_content(chunk_size=1024*512):
+        for chunk in response.iter_content(chunk_size=1024 * 512):
             if chunk:
                 content.write(chunk)
                 bytes_so_far += len(chunk)
-                spinner.step(100 * float(bytes_so_far)/float(content_length))
+                spinner.step(100 * float(bytes_so_far) / float(content_length))
 
         # Extract the zip
         release_temp_dir = os.path.join(root, str(uuid.uuid4()))

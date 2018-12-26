@@ -70,7 +70,7 @@ def resolve_identity(identity_filter, devops_organization):
                     identities_with_tenant.append(identity)
         if len(identities_with_tenant) == 1:
             return identities_with_tenant[0]
-        raise CLIError('There are multiple identities found for "' + identity_filter + '" ' \
+        raise CLIError('There are multiple identities found for "' + identity_filter + '" '
                        'Please provide a more specific identifier for this identity.')
     else:
         return identities[0]

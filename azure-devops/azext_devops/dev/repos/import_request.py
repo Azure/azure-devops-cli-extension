@@ -12,6 +12,7 @@ from vsts.git.v4_0.models.git_import_request import GitImportRequest
 
 from azext_devops.dev.common.services import get_git_client, resolve_instance_project_and_repo
 
+
 def create_import_request(git_source_url, project=None, repository=None,
                           devops_organization=None, detect=None):
     """Create a git import request (currently only supports import from public git source)
@@ -47,12 +48,14 @@ def create_import_request(git_source_url, project=None, repository=None,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def _wait_for_import_request(client, project, repository, import_request_id, interval_seconds=5):
     import_request = client.get_import_request(project, repository, import_request_id)
     while not _has_import_request_completed(import_request):
         time.sleep(interval_seconds)
         import_request = client.get_import_request(project, repository, import_request_id)
     return import_request
+
 
 def _has_import_request_completed(import_request):
     status = import_request.status.lower()

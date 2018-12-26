@@ -12,10 +12,10 @@ from .config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
 
 logger = get_logger(__name__)
 
+
 class CredentialStore:
     def __init__(self):
         self._initialize_keyring()
-
 
     def set_password(self, key, token):
         import keyring
@@ -27,7 +27,7 @@ class CredentialStore:
             logger.debug('Setting credential: %s', key)
             keyring.set_password(key, self._USERNAME, token)
         except RuntimeError as ex:
-            #store credentials in azuredevops config directory if keyring is missing
+            # store credentials in azuredevops config directory if keyring is missing
             if sys.platform.startswith(self._LINUX_PLATFORM):
                 logger.debug('Keyring package not found. Hence, storing credentials in the file: %s', self._PAT_FILE)
                 creds_list = self._get_credentials_list()
@@ -39,13 +39,12 @@ class CredentialStore:
             else:
                 raise CLIError(ex)
 
-
     def get_password(self, key):
         import keyring
         try:
             return keyring.get_password(key, self._USERNAME)
         except RuntimeError as ex:
-            #fetch credentials from file if keyring is missing
+            # fetch credentials from file if keyring is missing
             if sys.platform.startswith(self._LINUX_PLATFORM):
                 ensure_dir(AZ_DEVOPS_GLOBAL_CONFIG_DIR)
                 logger.debug('Keyring package not found. Fetching credentials from the file: %s', self._PAT_FILE)
@@ -57,12 +56,11 @@ class CredentialStore:
             else:
                 raise CLIError(ex)
 
-
     def clear_password(self, key):
         import keyring
         try:
             keyring.delete_password(key, self._USERNAME)
-        except keyring.errors.PasswordDeleteError as ex:
+        except keyring.errors.PasswordDeleteError:
             raise CLIError('The credential was not found')
         except RuntimeError as ex:
             if sys.platform.startswith(self._LINUX_PLATFORM):
@@ -75,13 +73,11 @@ class CredentialStore:
             else:
                 raise CLIError(ex)
 
-
     @staticmethod
     def _get_config_parser():
         if sys.version_info.major == 3:
             return configparser.ConfigParser(interpolation=None)
         return configparser.ConfigParser()
-
 
     @staticmethod
     def _get_credentials_list():
@@ -92,20 +88,19 @@ class CredentialStore:
         except BaseException:
             return CredentialStore._get_config_parser()
 
-
     @staticmethod
     def _commit_change(credential_list):
         with open(CredentialStore._PAT_FILE, 'w+') as creds_file:
             credential_list.write(creds_file)
 
-
     @staticmethod
     def _initialize_keyring():
         import keyring
+
         def _only_builtin(backend):
             return (
-                backend.__module__.startswith('keyring.backends.')
-                and not 'chain' in backend.__module__
+                backend.__module__.startswith('keyring.backends.') and
+                'chain' not in backend.__module__
             )
 
         keyring.core.init_backend(_only_builtin)

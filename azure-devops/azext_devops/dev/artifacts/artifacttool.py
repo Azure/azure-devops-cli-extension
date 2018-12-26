@@ -14,6 +14,7 @@ from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX
 
 logger = get_logger(__name__)
 
+
 class ArtifactToolInvoker:
     def __init__(self, tool_invoker, artifacttool_updater):
         self._tool_invoker = tool_invoker
@@ -50,7 +51,7 @@ class ArtifactToolInvoker:
             output = proc.stdout.read().decode('utf-8')
             try:
                 return json.loads(output)
-            except ValueError: # JSONDecodeError but not available on Python 2.7
+            except ValueError:  # JSONDecodeError but not available on Python 2.7
                 if output:
                     logger.warning("Failed to parse the output of ArtifactTool as JSON. The output was:\n %s", output)
         return None
@@ -87,6 +88,7 @@ def _log_message(json_line):
             logger.info(message)
         else:
             logger.debug(message)
+
 
 # Inspect the structured log line for an event, and update the progress
 def _process_event(json_line, update_progress_callback):

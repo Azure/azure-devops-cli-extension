@@ -66,8 +66,9 @@ def _get_credentials(devops_organization):
         # so let the user get a 401
         return credentials
 
-    raise get_authentication_error('Before you can run Azure DevOps commands, you need to run the login command' \
-    '(az login if using AAD/MSA identity else az devops login if using PAT token) to setup credentials.')
+    raise get_authentication_error('Before you can run Azure DevOps commands, you need to run the login command'
+                                   '(az login if using AAD/MSA identity else az devops login if using PAT token) to '
+                                   'setup credentials.')
 
 
 def validate_token_for_instance(devops_organization, credentials):
@@ -87,7 +88,7 @@ def validate_token_for_instance(devops_organization, credentials):
 
 def get_token_from_az_logins(devops_organization, pat_token_present):
     profile = Profile()
-    dummy_user = profile.get_current_account_user()
+    dummy_user = profile.get_current_account_user()     # noqa: F841
     subscriptions = profile.load_cached_subscriptions(False)
     tenantsDict = OrderedDict()
 
@@ -143,9 +144,11 @@ def get_first_vss_instance_uri():
     for key in _vss_connection:
         return key
 
+
 def get_release_client(team_instance=None):
     connection = get_vss_connection(team_instance)
     return connection.get_client('vsts.release.v4_0.release_client.ReleaseClient')
+
 
 def get_build_client(devops_organization=None):
     connection = get_vss_connection(devops_organization)
@@ -172,9 +175,11 @@ def get_identity_client(devops_organization=None):
     connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.identity.v4_0.identity_client.IdentityClient')
 
+
 def get_service_endpoint_client(devops_organization=None):
     connection = get_vss_connection(devops_organization)
     return connection.get_client('vsts.service_endpoint.v4_1.service_endpoint_client.ServiceEndpointClient')
+
 
 def get_location_client(devops_organization=None):
     connection = get_vss_connection(devops_organization)
@@ -183,8 +188,8 @@ def get_location_client(devops_organization=None):
 
 def get_member_entitlement_management_client(devops_organization=None):
     connection = get_vss_connection(devops_organization)
-    return connection.get_client('vsts.member_entitlement_management.v4_1.member_entitlement_management_client.'\
-    'MemberEntitlementManagementClient')
+    return connection.get_client('vsts.member_entitlement_management.v4_1.member_entitlement_management_client.'
+                                 'MemberEntitlementManagementClient')
 
 
 def get_operations_client(devops_organization=None):
@@ -219,16 +224,16 @@ def get_base_url(devops_organization):
 
 
 def _team_devops_organization_arg_error():
-    return CLIError('--organization must be specified. The value should be the URI of your Azure DevOps ' \
-                   'organization, for example: https://dev.azure.com/MyOrganization/ or your TFS organization. ' \
-                   'You can set a default value by running: az devops configure --defaults ' \
-                   'organization=https://dev.azure.com/MyOrganization/. For auto detection to work ' \
-                   '(--detect on), you must be in a local Git directory that has a "remote" referencing a ' \
-                   'Azure DevOps or TFS repository.')
+    return CLIError('--organization must be specified. The value should be the URI of your Azure DevOps '
+                    'organization, for example: https://dev.azure.com/MyOrganization/ or your TFS organization. '
+                    'You can set a default value by running: az devops configure --defaults '
+                    'organization=https://dev.azure.com/MyOrganization/. For auto detection to work '
+                    '(--detect on), you must be in a local Git directory that has a "remote" referencing a '
+                    'Azure DevOps or TFS repository.')
 
 
 def _raise_team_project_arg_error():
-    raise CLIError('--project must be specified. The value should be the ID or name of a team project. ' \
+    raise CLIError('--project must be specified. The value should be the ID or name of a team project. '
                    'You can set a default value by running: az devops configure --defaults project=<ProjectName>.')
 
 

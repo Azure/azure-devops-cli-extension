@@ -29,6 +29,7 @@ from azext_devops.dev.common.services import (get_git_client,
 
 logger = get_logger(__name__)
 
+
 def show_pull_request(pull_request_id, open_browser=False, devops_organization=None, detect=None):
     """Get the details of a pull request.
     :param pull_request_id: ID of the pull request.
@@ -111,6 +112,7 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
         return pr_list
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 # pylint: disable=too-many-locals
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
@@ -205,12 +207,12 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                                                       project=project)
             if len(commits) == 1:
                 title_from_commit = commits[0].comment
-        set_completion_options = (bypass_policy
-                                  or bypass_policy_reason is not None
-                                  or squash
-                                  or merge_commit_message is not None
-                                  or delete_source_branch
-                                  or transition_work_items)
+        set_completion_options = (bypass_policy or
+                                  bypass_policy_reason is not None or
+                                  squash or
+                                  merge_commit_message is not None or
+                                  delete_source_branch or
+                                  transition_work_items)
         if auto_complete or set_completion_options or title_from_commit is not None:
             pr_for_update = GitPullRequest()
             if auto_complete:
@@ -243,8 +245,8 @@ def _get_branches_for_pull_request(devops_organization, project, repository, sou
         if source_branch is None:
             source_branch = get_current_branch_name()
             if source_branch is None:
-                raise ValueError('The source branch could not be detected,' \
-                'please provide the --source-branch argument.')
+                raise ValueError('The source branch could not be detected,'
+                                 'please provide the --source-branch argument.')
     else:
         if source_branch is None:
             raise ValueError('--source-branch is a required argument.')
@@ -252,8 +254,8 @@ def _get_branches_for_pull_request(devops_organization, project, repository, sou
         if project is not None and repository is not None:
             target_branch = _get_default_branch(devops_organization, project, repository)
         if target_branch is None:
-            raise ValueError('The target branch could not be detected,' \
-            'please provide the --target-branch argument.')
+            raise ValueError('The target branch could not be detected,'
+                             'please provide the --target-branch argument.')
     return source_branch, target_branch
 
 
@@ -302,12 +304,12 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
         else:
             multi_line_description = None
         pr = GitPullRequest(title=title, description=multi_line_description)
-        if (bypass_policy is not None # pylint: disable=too-many-boolean-expressions
-                or bypass_policy_reason is not None
-                or squash is not None
-                or merge_commit_message is not None
-                or delete_source_branch is not None
-                or transition_work_items is not None):
+        if (bypass_policy is not None or   # pylint: disable=too-many-boolean-expressions
+                bypass_policy_reason is not None or
+                squash is not None or
+                merge_commit_message is not None or
+                delete_source_branch is not None or
+                transition_work_items is not None):
             completion_options = existing_pr.completion_options
             if completion_options is None:
                 completion_options = GitPullRequestCompletionOptions()
@@ -642,6 +644,7 @@ def vote_pull_request(pull_request_id, vote, devops_organization=None, detect=No
         return created_reviewer
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 def _convert_vote_to_int(vote):
     if vote.lower() == 'approve':

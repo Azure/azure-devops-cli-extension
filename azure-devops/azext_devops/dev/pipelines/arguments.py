@@ -11,9 +11,10 @@ _BUILD_REASON_VALUES = ['all', 'batchedCI', 'buildCompletion', 'checkInShelveset
                         'individualCI', 'manual', 'pullRequest', 'schedule',
                         'triggered', 'userCreated', 'validateShelveset']
 
-_BUILD_RESULT_VALUES = ['canceled', 'failed', 'none', 'partiallySucceeded',	'succeeded']
+_BUILD_RESULT_VALUES = ['canceled', 'failed', 'none', 'partiallySucceeded', 'succeeded']
 
 _BUILD_STATUS_VALUES = ['all', 'cancelling', 'completed', 'inProgress', 'none', 'notStarted', 'postponed']
+
 
 def load_build_arguments(self, _):
     with self.argument_context('pipelines build') as context:
@@ -70,4 +71,3 @@ def load_build_arguments(self, _):
     with self.argument_context('pipelines release definition list') as context:
         context.argument('artifact_type', choices=['build', 'jenkins', 'github', 'externaltfsbuild', 'git', 'tfvc'],
                          type=str.lower)
-                        

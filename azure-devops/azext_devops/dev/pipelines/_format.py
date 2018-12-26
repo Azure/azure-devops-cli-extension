@@ -111,6 +111,7 @@ def _transform_task_row(row):
 def _get_task_key(row):
     return row['name'].lower()
 
+
 def transform_releases_table_output(result):
     table_output = []
     for item in result:

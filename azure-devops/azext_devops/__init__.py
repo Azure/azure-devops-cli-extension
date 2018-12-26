@@ -6,6 +6,7 @@
 from azure.cli.core import AzCommandsLoader
 from knack.events import EVENT_INVOKER_POST_PARSE_ARGS
 
+
 class DevCommandsLoader(AzCommandsLoader):
 
     def __init__(self, cli_ctx=None):
@@ -14,7 +15,6 @@ class DevCommandsLoader(AzCommandsLoader):
         super(DevCommandsLoader, self).__init__(cli_ctx=cli_ctx,
                                                 custom_command_type=custom_type)
         self.cli_ctx.register_event(event_name=EVENT_INVOKER_POST_PARSE_ARGS, handler=self.post_parse_args)
-
 
     def load_command_table(self, args):
         from azext_devops.dev.admin.commands import load_admin_commands

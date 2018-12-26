@@ -11,9 +11,11 @@ from .uri import uri_parse
 
 logger = get_logger(__name__)
 
+
 class VstsGitUrlInfo(object):
     """ VstsGitUrlInfo.
     """
+
     def __init__(self, remote_url):
         from msrest import Serializer, Deserializer
         from msrest.exceptions import DeserializationError, SerializationError
@@ -103,7 +105,6 @@ class VstsGitUrlInfo(object):
                 and (components.path.find('/_git/') >= 0 or components.path.find('/_ssh/') >= 0):
             return True
         return False
-
 
     class _RemoteInfo(Model):
 
