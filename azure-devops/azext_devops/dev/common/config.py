@@ -12,8 +12,7 @@ from knack.util import ensure_dir
 from .const import (AZ_DEVOPS_CONFIG_DIR_ENVKEY,
                     AZ_DEVOPS_DEFAULT_CONFIG_DIR,
                     CLI_ENV_VARIABLE_PREFIX,
-                    CONFIG_FILE_NAME,
-                    DEFAULTS_SECTION)
+                    CONFIG_FILE_NAME)
 
 
 _UNSET = object()

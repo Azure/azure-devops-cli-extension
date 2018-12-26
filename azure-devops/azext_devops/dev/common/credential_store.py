@@ -29,11 +29,11 @@ class CredentialStore:
         except RuntimeError as ex:
             #store credentials in azuredevops config directory if keyring is missing
             if sys.platform.startswith(self._LINUX_PLATFORM):
-                logger.debug('Keyring package not found. Hence, storing credentials in the file: %s', self._PAT_FILE)  
+                logger.debug('Keyring package not found. Hence, storing credentials in the file: %s', self._PAT_FILE)
                 creds_list = self._get_credentials_list()
                 if key not in creds_list.sections():
                     creds_list.add_section(key)
-                    logger.debug('Added new entry to PAT file : %s ',key)
+                    logger.debug('Added new entry to PAT file : %s ', key)
                 creds_list.set(key, self._USERNAME, token)
                 self._commit_change(creds_list)
             else:
@@ -55,7 +55,7 @@ class CredentialStore:
                 except (configparser.NoOptionError, configparser.NoSectionError):
                     return None
             else:
-                raise CLIError(ex)        
+                raise CLIError(ex)
 
 
     def clear_password(self, key):
@@ -64,12 +64,12 @@ class CredentialStore:
             keyring.delete_password(key, self._USERNAME)
         except keyring.errors.PasswordDeleteError as ex:
             raise CLIError('The credential was not found')
-        except RuntimeError as ex :        
+        except RuntimeError as ex:
             if sys.platform.startswith(self._LINUX_PLATFORM):
                 logger.debug('Keyring package not found. Checking file for credentials: %s', self._PAT_FILE)
                 creds_list = self._get_credentials_list()
                 if key not in creds_list.sections():
-                        raise CLIError('The credential was not found')
+                    raise CLIError('The credential was not found')
                 creds_list.remove_section(key)
                 self._commit_change(creds_list)
             else:
@@ -89,16 +89,16 @@ class CredentialStore:
             credential_list = CredentialStore._get_config_parser()
             credential_list.read(CredentialStore._PAT_FILE)
             return credential_list
-        except Exception: 
+        except BaseException:
             return CredentialStore._get_config_parser()
 
 
     @staticmethod
     def _commit_change(credential_list):
         with open(CredentialStore._PAT_FILE, 'w+') as creds_file:
-                credential_list.write(creds_file)
-                
-    
+            credential_list.write(creds_file)
+
+
     @staticmethod
     def _initialize_keyring():
         import keyring
@@ -107,7 +107,7 @@ class CredentialStore:
                 backend.__module__.startswith('keyring.backends.')
                 and not 'chain' in backend.__module__
             )
-        
+
         keyring.core.init_backend(_only_builtin)
         logger.debug('Keyring backend : %s', keyring.get_keyring())
 

@@ -25,15 +25,14 @@ def resolve_on_off_switch(switch):
 def should_detect(detect):
     if detect is None:
         return True
-    else:
-        return resolve_on_off_switch(detect)
+    return resolve_on_off_switch(detect)
 
 
 def convert_date_string_to_iso8601(value, argument=None):
     import dateutil.parser
     try:
         d = dateutil.parser.parse(value)
-    except Exception as ex:
+    except BaseException as ex:
         logging.info(msg=ex)
         if argument is None:
             raise ValueError('The string "%s" must be a valid date or datetime string.' % value)

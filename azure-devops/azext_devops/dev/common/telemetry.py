@@ -12,12 +12,13 @@ logger = get_logger(__name__)
 
 def try_send_telemetry_data(devops_organization):
     try:
-        if(_is_telemetry_enabled()):
+        if _is_telemetry_enabled():
             logger.debug('Azure devops telemetry enabled.')
             _try_send_tracking_ci_event_async(devops_organization)
         else:
             logger.debug('Azure devops telemetry disabled.')
-    except:
+    except BaseException as ex:
+        logger.debug(ex, exc_info=True)
         logger.debug('Azure devops telemetry sending failed.')
 
 
@@ -25,14 +26,14 @@ def set_tracking_data(argv):
     try:
         vsts_tracking_data.area = 'AzureDevopsCli'
         vsts_tracking_data.properties = {}
-        if argv is not None and argv:
+        if argv:
             vsts_tracking_data.feature = argv[0]
             if len(argv) > 1:
                 command = []
                 args = []
                 command_populated = False
                 for arg in argv[1:]:
-                    if arg is not None and argv and len(arg) > 0:
+                    if arg and argv:
                         if not command_populated and arg[0] != '-':
                             command.append(arg)
                         elif arg[0] == '-':
@@ -45,7 +46,7 @@ def set_tracking_data(argv):
                 vsts_tracking_data.properties['Args'] = args
         else:
             vsts_tracking_data.feature = 'Command'
-    except Exception as ex:
+    except BaseException as ex:
         logger.debug(ex, exc_info=True)
 
 
@@ -57,10 +58,7 @@ def _is_telemetry_enabled():
     az_config = az_cli_ctx.config
     if az_config.has_option('core', 'collect_telemetry'):
         collect_telemetry = az_config.get('core', 'collect_telemetry')
-    if collect_telemetry is None or collect_telemetry != 'no':
-        return True
-    else:
-        return False
+    return bool(collect_telemetry is None or collect_telemetry != 'no')
 
 
 def _try_send_tracking_ci_event_async(devops_organization=None):
@@ -69,7 +67,7 @@ def _try_send_tracking_ci_event_async(devops_organization=None):
         try:
             thread = threading.Thread(target=_send_tracking_ci_event, args=[devops_organization])
             thread.start()
-        except Exception as ex:
+        except BaseException as ex:
             # we should always continue if we fail to set tracking data
             logger.debug(ex, exc_info=True)
     else:
@@ -83,7 +81,7 @@ def _send_tracking_ci_event(devops_organization=None, ci_client=None):
     try:
         ci_client.publish_events([vsts_tracking_data])
         return True
-    except Exception as ex:
+    except BaseException as ex:
         logger.debug(ex, exc_info=True)
         return False
 

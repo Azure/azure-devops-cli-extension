@@ -66,3 +66,4 @@ def prompt_user_friendly_choice_list(msg, a_list, default=1, help_string=None):
                 delete_last_line()
             print('Please enter a choice [Default choice({})]: {}'.format(default, val))
             logger.warning('Valid values are %s', allowed_vals)
+            

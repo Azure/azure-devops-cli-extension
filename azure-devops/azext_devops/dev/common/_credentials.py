@@ -3,14 +3,10 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import os
-import sys
-from knack.config import CLIConfig
-from knack.util import CLIError, ensure_dir
-from six.moves import configparser
+from knack.log import get_logger
 from .uri import uri_parse
 from .credential_store import CredentialStore
-from knack.log import get_logger
+
 logger = get_logger(__name__)
 
 
@@ -33,6 +29,7 @@ def set_credential(devops_organization, token):
     cred_store = CredentialStore()
     cred_store.set_password(key, token)
 
+
 def clear_credential(devops_organization):
     key = _get_service_name(devops_organization)
     logger.debug('Clearing credential: %s', key)
@@ -43,16 +40,14 @@ def clear_credential(devops_organization):
 def _get_service_name(devops_organization):
     if devops_organization is not None:
         return 'azdevops-cli:' + normalize_url_for_key(devops_organization)
-    else:
-        return 'azdevops-cli: default'
+    return 'azdevops-cli: default'
 
 
 def normalize_url_for_key(url):
-	components = uri_parse(url)
-	normalized_url = components.scheme.lower() + '://' + components.netloc.lower()
-	organization_name = components.path.lower()	
-	if(organization_name and ('visualstudio.com' not in url.lower())):
-		organization_name = organization_name.split('/')[1]
-		normalized_url = normalized_url + '/' + organization_name
-	return normalized_url
-
+    components = uri_parse(url)
+    normalized_url = components.scheme.lower() + '://' + components.netloc.lower()
+    organization_name = components.path.lower()
+    if(organization_name and ('visualstudio.com' not in url.lower())):
+        organization_name = organization_name.split('/')[1]
+        normalized_url = normalized_url + '/' + organization_name
+    return normalized_url

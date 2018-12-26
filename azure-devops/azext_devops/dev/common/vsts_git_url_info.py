@@ -82,12 +82,12 @@ class VstsGitUrlInfo(object):
         if netloc.find('@') < 0:
             # on premise url
             logger.warning('TFS SSH URLs are not supported for repo auto-detection yet. See the following issue for ' +
-                            'latest updates: https://github.com/Microsoft/vsts-cli/issues/142')
+                           'latest updates: https://github.com/Microsoft/vsts-cli/issues/142')
             return None
         else:
             # hosted url
             import re
-            regex = re.compile('([^@]+)@[^\.]+(\.[^:]+)')
+            regex = re.compile(r'([^@]+)@[^\.]+(\.[^:]+)')
             match = regex.match(netloc)
             if match is not None:
                 return match.group(1) + match.group(2)

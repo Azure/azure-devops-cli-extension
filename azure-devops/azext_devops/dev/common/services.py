@@ -5,23 +5,21 @@
 
 import datetime
 import os
-
 from collections import OrderedDict
+
 from knack.log import get_logger
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from azure.cli.core._profile import Profile
 from vsts.vss_connection import VssConnection
+from azext_devops.version import VERSION
 from .arguments import should_detect
-from .config import azdevops_config
-from .const import (CLI_ENV_VARIABLE_PREFIX, 
-                    DEFAULTS_SECTION,
+from .const import (DEFAULTS_SECTION,
                     DEVOPS_ORGANIZATION_DEFAULT,
                     DEVOPS_TEAM_PROJECT_DEFAULT,
                     PAT_ENV_VARIABLE_NAME)
 from ._credentials import get_credential
 from .git import get_remote_url
-from azext_devops.version import VERSION
 from .vsts_git_url_info import VstsGitUrlInfo
 from .uri import uri_parse_instance_from_git_uri
 
@@ -34,7 +32,7 @@ def get_vss_connection(devops_organization):
         try:
             from .telemetry import try_send_telemetry_data
             _vss_connection[devops_organization] = _get_vss_connection(devops_organization, credentials)
-            try_send_telemetry_data(devops_organization)            
+            try_send_telemetry_data(devops_organization)
         except Exception as ex:
             logger.debug(ex, exc_info=True)
             raise CLIError(ex)
@@ -52,7 +50,7 @@ def _get_credentials(devops_organization):
         if token_from_az_login:
             credentials = BasicAuthentication('', token_from_az_login)
             return credentials
-    except Exception as ex:
+    except BaseException as ex:
         logger.debug("az login is not present")
         logger.debug(ex, exc_info=True)
 
@@ -64,11 +62,12 @@ def _get_credentials(devops_organization):
     if pat is not None:
         logger.info("Creating connection with personal access token.")
         credentials = BasicAuthentication('', pat)
-        # credentials can be incorrect but they are present then it means user has already done az devops login to set them 
+        # credentials can be incorrect but they are present then it means user has already done az devops login to set
         # so let the user get a 401
         return credentials
-   
-    raise_authentication_error('Before you can run Azure DevOps commands, you need to run the login command (az login if using AAD/MSA identity else az devops login if using PAT token) to setup credentials.')
+
+    raise get_authentication_error('Before you can run Azure DevOps commands, you need to run the login command' \
+    '(az login if using AAD/MSA identity else az devops login if using PAT token) to setup credentials.')
 
 
 def validate_token_for_instance(devops_organization, credentials):
@@ -78,24 +77,23 @@ def validate_token_for_instance(devops_organization, credentials):
     connection = _get_vss_connection(devops_organization, credentials)
     core_client = connection.get_client('vsts.core.v4_0.core_client.CoreClient')
     try:
-        team_projects = core_client.get_projects(state_filter='all', top=1, skip=0)
+        core_client.get_projects(state_filter='all', top=1, skip=0)
         return True
-    except Exception as ex2:
+    except BaseException as ex2:
         logger.debug(ex2, exc_info=True)
         logger.debug("Failed to connect using provided credentials")
-    return False    
+    return False
 
 
 def get_token_from_az_logins(devops_organization, pat_token_present):
     profile = Profile()
-    user = profile.get_current_account_user()
+    dummy_user = profile.get_current_account_user()
     subscriptions = profile.load_cached_subscriptions(False)
-    currentActiveSubscription = ''
     tenantsDict = OrderedDict()
 
     # first loop to make sure the first identity we try with is coming from selected subscription
     for subscription in subscriptions:
-        if(subscription['isDefault'] == "true"):
+        if subscription['isDefault'] == "true":
             tenantsDict[(subscription['tenantId'], subscription['user']['name'])] = ''
 
     for subscription in subscriptions:
@@ -106,7 +104,7 @@ def get_token_from_az_logins(devops_organization, pat_token_present):
         skipValidateToken = True
 
     try:
-        for key, value in tenantsDict.items():
+        for key, dummy_value in tenantsDict.items():
             try:
                 logger.debug('trying to get token (temp) for tenant %s and user %s ', key[0], key[1])
                 token = get_token_from_az_login(profile, key[1], key[0])
@@ -114,15 +112,13 @@ def get_token_from_az_logins(devops_organization, pat_token_present):
 
                 if skipValidateToken is True:
                     return token
-                
                 if validate_token_for_instance(devops_organization, credentials):
                     return token
-                else:
-                    logger.debug('invalid token obtained for tenant %s', key[0])
-            except Exception as ex2:
+                logger.debug('invalid token obtained for tenant %s', key[0])
+            except BaseException as ex2:
                 logger.debug(ex2)
                 logger.debug('failed while trying to get token for tenant %s', key[0])
-    except Exception as ex:
+    except BaseException as ex:
         logger.debug(ex)
 
     return ''
@@ -132,14 +128,15 @@ def get_token_from_az_login(profile, user, tenant):
     try:
         auth_token = profile.get_access_token_for_resource(user, tenant, '499b84ac-1321-427f-aa17-267ca6975798')
         return auth_token
-    except Exception as ex:
+    except BaseException as ex:
         logger.debug('not able to get token from az login')
         logger.debug(ex, exc_info=True)
         return ""
 
 
 def _get_vss_connection(devops_organization, credentials):
-    return VssConnection(get_base_url(devops_organization), creds=credentials, user_agent='devOpsCli/{}'.format(VERSION))
+    return VssConnection(get_base_url(devops_organization), creds=credentials,
+                         user_agent='devOpsCli/{}'.format(VERSION))
 
 
 def get_first_vss_instance_uri():
@@ -186,7 +183,8 @@ def get_location_client(devops_organization=None):
 
 def get_member_entitlement_management_client(devops_organization=None):
     connection = get_vss_connection(devops_organization)
-    return connection.get_client('vsts.member_entitlement_management.v4_1.member_entitlement_management_client.MemberEntitlementManagementClient')
+    return connection.get_client('vsts.member_entitlement_management.v4_1.member_entitlement_management_client.'\
+    'MemberEntitlementManagementClient')
 
 
 def get_operations_client(devops_organization=None):
@@ -217,21 +215,20 @@ def get_work_item_tracking_client(devops_organization=None):
 def get_base_url(devops_organization):
     if devops_organization is not None:
         return devops_organization
-    else:
-        _raise_team_devops_organization_arg_error()
+    raise _team_devops_organization_arg_error()
 
 
-def _raise_team_devops_organization_arg_error():
-    raise CLIError('--organization must be specified. The value should be the URI of your Azure DevOps organization, ' +
-                   'for example: https://dev.azure.com/MyOrganizationName/ or your TFS project organization. ' +
-                   'You can set a default value by running: az devops configure --defaults ' +
-                   'organization=https://dev.azure.com/MyOrganizationName/. For auto detection to ' +
-                   'work (--detect on), you must be in a local Git directory that has a "remote" referencing a Azure DevOps' +
-                   'or TFS repository.')
+def _team_devops_organization_arg_error():
+    return CLIError('--organization must be specified. The value should be the URI of your Azure DevOps ' \
+                   'organization, for example: https://dev.azure.com/MyOrganization/ or your TFS organization. ' \
+                   'You can set a default value by running: az devops configure --defaults ' \
+                   'organization=https://dev.azure.com/MyOrganization/. For auto detection to work ' \
+                   '(--detect on), you must be in a local Git directory that has a "remote" referencing a ' \
+                   'Azure DevOps or TFS repository.')
 
 
 def _raise_team_project_arg_error():
-    raise CLIError('--project must be specified. The value should be the ID or name of a team project. ' +
+    raise CLIError('--project must be specified. The value should be the ID or name of a team project. ' \
                    'You can set a default value by running: az devops configure --defaults project=<ProjectName>.')
 
 
@@ -254,17 +251,14 @@ def resolve_instance_project_and_repo(detect, devops_organization, project=None,
 
 
 def resolve_instance_and_project(detect, devops_organization, project=None, project_required=True):
-    devops_organization, project, _ = resolve_instance_project_and_repo(detect=detect,
-                                                                  devops_organization=devops_organization,
-                                                                  project=project,
-                                                                  project_required=project_required)
+    devops_organization, project, _ = resolve_instance_project_and_repo(
+        detect=detect, devops_organization=devops_organization, project=project, project_required=project_required)
     return devops_organization, project
 
 
 def resolve_instance(detect, devops_organization):
-    devops_organization, _ = resolve_instance_and_project(detect=detect,
-                                                    devops_organization=devops_organization,
-                                                    project_required=False)
+    devops_organization, _ = resolve_instance_and_project(
+        detect=detect, devops_organization=devops_organization, project_required=False)
     return devops_organization
 
 
@@ -274,7 +268,7 @@ def _resolve_instance_from_config(devops_organization):
         if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT):
             devops_organization = azdevops_config.get(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT)
         if devops_organization is None or devops_organization == '':
-            _raise_team_devops_organization_arg_error()
+            raise _team_devops_organization_arg_error()
     return devops_organization
 
 
@@ -293,7 +287,7 @@ def get_vsts_info_from_current_remote_url():
     info = VstsGitUrlInfo(get_remote_url(VstsGitUrlInfo.is_vsts_url_candidate))
     end = datetime.datetime.now()
     duration = end - start
-    logger.info("Detect: Url discovery took " + str(duration))
+    logger.info("Detect: Url discovery took %s", str(duration))
     return info
 
 
@@ -301,18 +295,13 @@ def get_connection_data(devops_organization):
     devops_organization = devops_organization.lower()
     if devops_organization in _connection_data:
         return _connection_data[devops_organization]
-    else:
-        location_client = get_location_client(devops_organization)
-        _connection_data[devops_organization] = location_client.get_connection_data()
-        return _connection_data[devops_organization]
+    location_client = get_location_client(devops_organization)
+    _connection_data[devops_organization] = location_client.get_connection_data()
+    return _connection_data[devops_organization]
 
 
 def get_authentication_error(message):
     return CLIError(str(message) + "  Please see https://aka.ms/azure-devops-cli-auth for more information.")
-
-
-def raise_authentication_error(message):
-    raise get_authentication_error(message)
 
 
 def clear_connection_cache():

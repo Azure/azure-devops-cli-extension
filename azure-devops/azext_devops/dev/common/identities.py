@@ -15,12 +15,12 @@ def resolve_identity_as_id(identity_filter, devops_organization):
     """
     if identity_filter is None or is_uuid(identity_filter):
         return identity_filter
-    elif identity_filter.lower() == ME:
+    if identity_filter.lower() == ME:
         return get_current_identity(devops_organization).id
-    else:
-        identity = resolve_identity(identity_filter, devops_organization)
-        if identity is not None:
-            return identity.id
+    identity = resolve_identity(identity_filter, devops_organization)
+    if identity is not None:
+        return identity.id
+    return None
 
 
 def resolve_identity_as_display_name(identity_filter, devops_organization):
@@ -30,15 +30,15 @@ def resolve_identity_as_display_name(identity_filter, devops_organization):
     if identity is not None:
         if identity_filter.lower() == ME:
             return get_current_identity(devops_organization).provider_display_name
-        else:
-            return get_display_name_from_identity(identity)
+        return get_display_name_from_identity(identity)
+    return None
 
 
 def resolve_identity(identity_filter, devops_organization):
     """Takes an identity name, email, alias, or id, and returns the identity.
     """
     if identity_filter is None:
-        return
+        return None
 
     if identity_filter.lower() == ME:
         return get_current_identity(devops_organization)
@@ -56,7 +56,7 @@ def resolve_identity(identity_filter, devops_organization):
         if identities is None or not identities:
             identities = identity_client.read_identities(search_filter='General',
                                                          filter_value=identity_filter)
-    if identities is None or not identities:
+    if not identities:
         raise CLIError('Could not resolve identity: ' + identity_filter)
     elif len(identities) > 1:
         # prefer users with same domain
@@ -70,9 +70,8 @@ def resolve_identity(identity_filter, devops_organization):
                     identities_with_tenant.append(identity)
         if len(identities_with_tenant) == 1:
             return identities_with_tenant[0]
-        else:
-            raise CLIError('There are multiple identities found for "' + identity_filter +
-                           '".  Please provide a more specific identifier for this identity.')
+        raise CLIError('There are multiple identities found for "' + identity_filter + '" ' \
+                       'Please provide a more specific identifier for this identity.')
     else:
         return identities[0]
 
@@ -102,15 +101,13 @@ def get_display_name_from_identity_id(devops_organization, identity_id):
         ensure_display_names_in_cache(devops_organization, [identity_id])
     if _display_name_cache[identity_id]:
         return _display_name_cache[identity_id]
-    else:
-        return None
+    return None
 
 
 def get_display_name_from_identity(identity):
     if identity.custom_display_name is not None and identity.custom_display_name != '':
         return identity.custom_display_name
-    else:
-        return identity.provider_display_name
+    return identity.provider_display_name
 
 
 ME = 'me'
