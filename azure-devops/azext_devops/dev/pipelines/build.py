@@ -5,15 +5,15 @@
 
 from webbrowser import open_new
 
-from knack.log import get_logger
-from knack.util import CLIError
 from vsts.exceptions import VstsServiceError
 from vsts.build.v4_0.models.build import Build
 from vsts.build.v4_0.models.definition_reference import DefinitionReference
+from knack.log import get_logger
+from knack.util import CLIError
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.identities import resolve_identity_as_id
 from azext_devops.dev.common.services import (get_build_client,
-                                      resolve_instance_and_project)
+                                              resolve_instance_and_project)
 from azext_devops.dev.common.uri import uri_quote
 from .build_definition import get_definition_id_from_name
 
@@ -48,12 +48,11 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     try:
         if branch is None:
             branch = source_branch
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                            devops_organization=devops_organization,
-                                                            project=project)
+        devops_organization, project = resolve_instance_and_project(
+            detect=detect, devops_organization=devops_organization, project=project)
         if definition_id is None and definition_name is None:
             raise ValueError('Either the --definition-id argument or the --definition-name argument ' +
-                            'must be supplied for this command.')
+                             'must be supplied for this command.')
         client = get_build_client(devops_organization)
         if definition_id is None:
             definition_id = get_definition_id_from_name(definition_name, client, project)
@@ -92,9 +91,8 @@ def build_show(build_id, open_browser=False, devops_organization=None, project=N
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                devops_organization=devops_organization,
-                                                                project=project)
+        devops_organization, project = resolve_instance_and_project(
+            detect=detect, devops_organization=devops_organization, project=project)
         client = get_build_client(devops_organization)
         build = client.get_build(build_id=build_id, project=project)
         if open_browser:
@@ -132,23 +130,22 @@ def build_list(definition_ids=None, branch=None, devops_organization=None, proje
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                devops_organization=devops_organization,
-                                                                project=project)
+        devops_organization, project = resolve_instance_and_project(
+            detect=detect, devops_organization=devops_organization, project=project)
         client = get_build_client(devops_organization)
         if definition_ids is not None and definition_ids:
             definition_ids = list(set(definition_ids))  # make distinct
         if tags is not None and tags:
             tags = list(set(tags))  # make distinct
         builds = client.get_builds(definitions=definition_ids,
-                                    project=project,
-                                    branch_name=resolve_git_ref_heads(branch),
-                                    top=top,
-                                    result_filter=result,
-                                    status_filter=status,
-                                    reason_filter=reason,
-                                    tag_filters=tags,
-                                    requested_for=resolve_identity_as_id(requested_for, devops_organization))
+                                   project=project,
+                                   branch_name=resolve_git_ref_heads(branch),
+                                   top=top,
+                                   result_filter=result,
+                                   status_filter=status,
+                                   reason_filter=reason,
+                                   tag_filters=tags,
+                                   requested_for=resolve_identity_as_id(requested_for, devops_organization))
         return builds
     except VstsServiceError as ex:
         raise CLIError(ex)

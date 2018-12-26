@@ -3,11 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-
-import dateutil
-
-
 from collections import OrderedDict
+import dateutil
 
 
 def transform_builds_table_output(result):

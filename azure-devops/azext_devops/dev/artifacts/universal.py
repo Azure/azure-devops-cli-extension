@@ -3,14 +3,11 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import sys
-
 import colorama
+from vsts.exceptions import VstsServiceError
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.exceptions import VstsServiceError
-from azext_devops.dev.common.services import get_core_client, resolve_instance
-
+from azext_devops.dev.common.services import resolve_instance
 from .artifacttool import ArtifactToolInvoker
 from .artifacttool_updater import ArtifactToolUpdater
 from .external_tool import ProgressReportingExternalToolInvoker
@@ -69,3 +66,4 @@ def download_package(feed, name, version, path, devops_organization=None, detect
         return artifact_tool.download_universal(devops_organization, feed, name, version, path)
     except VstsServiceError as ex:
         raise CLIError(ex)
+        

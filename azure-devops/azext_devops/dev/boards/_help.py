@@ -13,7 +13,7 @@ def load_boards_help():
     short-summary: Manage Azure Boards.
     long-summary:
     """
-    
+
     helps['boards work-item'] = """
     type: group
     short-summary: Manage work items.

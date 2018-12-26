@@ -3,8 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.util import CLIError
 from vsts.exceptions import VstsServiceError
+from knack.util import CLIError
 from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
 from .setting import setting_add_or_update, setting_list, setting_remove, GLOBAL_MESSAGE_BANNERS_KEY, USER_SCOPE_HOST
 
@@ -18,7 +18,8 @@ def banner_list(devops_organization=None, detect=None):
     :rtype: [object]
     """
     try:
-        return setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY, devops_organization=devops_organization, detect=detect)
+        return setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY,
+                            devops_organization=devops_organization, detect=detect)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -34,13 +35,14 @@ def banner_show(message_id, devops_organization=None, detect=None):
     :rtype: [object]
     """
     try:
-        existing_entries = setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY, devops_organization=devops_organization, detect=detect)
+        existing_entries = setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY,
+                                        devops_organization=devops_organization, detect=detect)
         if message_id not in existing_entries:
             raise ValueError('The following banner was not found: %s' % message_id)
         return {message_id: existing_entries[message_id]}
     except VstsServiceError as ex:
         raise CLIError(ex)
-        
+
 
 def banner_add(message, banner_type=None, message_id=None, expiration=None, devops_organization=None, detect=None):
     """Add a new banner and immediately show it.
@@ -78,13 +80,15 @@ def banner_add(message, banner_type=None, message_id=None, expiration=None, devo
             entries[setting_key]['level'] = banner_type
         if expiration_iso8601 is not None:
             entries[setting_key]['expirationDate'] = expiration_iso8601
-        setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST, devops_organization=devops_organization, detect=detect)
+        setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST,
+                              devops_organization=devops_organization, detect=detect)
         return {message_id: entries[setting_key]}
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def banner_update(message=None, banner_type=None, message_id=None, expiration=None, devops_organization=None, detect=None):
+def banner_update(message=None, banner_type=None, message_id=None, expiration=None, devops_organization=None,
+                  detect=None):
     """Update the message, level, or expiration date for a banner.
     :param message: Message (string) to show in the banner.
     :type message: str
@@ -103,8 +107,8 @@ def banner_update(message=None, banner_type=None, message_id=None, expiration=No
     """
     try:
         if message is None and banner_type is None and expiration is None:
-            raise ValueError('At least one of the following arguments need to be supplied: --message, --type, ' +
-                            '--expiration.')
+            raise ValueError('At least one of the following arguments need to be supplied: --message, --type, '  \
+                             '--expiration.')
         if expiration is not None:
             expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
         else:
@@ -137,7 +141,8 @@ def banner_update(message=None, banner_type=None, message_id=None, expiration=No
         elif 'expirationDate' in existing_entry:
             entries[setting_key]['expirationDate'] = existing_entry['expirationDate']
 
-        setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST, devops_organization=devops_organization, detect=detect)
+        setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST, devops_organization=devops_organization,
+                              detect=detect)
         return {message_id: entries[setting_key]}
     except VstsServiceError as ex:
         raise CLIError(ex)
@@ -162,4 +167,3 @@ def banner_remove(message_id, devops_organization=None, detect=None):
 
 def _get_banner_key(message_id):
     return GLOBAL_MESSAGE_BANNERS_KEY + '/' + message_id
-

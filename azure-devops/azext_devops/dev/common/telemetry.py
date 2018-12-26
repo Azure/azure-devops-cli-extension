@@ -4,8 +4,8 @@
 # --------------------------------------------------------------------------------------------
 
 import threading
-from knack.log import get_logger
 from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
+from knack.log import get_logger
 
 logger = get_logger(__name__)
 
@@ -28,24 +28,25 @@ def set_tracking_data(argv):
         vsts_tracking_data.properties = {}
         if argv:
             vsts_tracking_data.feature = argv[0]
-            if len(argv) > 1:
-                command = []
-                args = []
-                command_populated = False
-                for arg in argv[1:]:
-                    if arg and argv:
-                        if not command_populated and arg[0] != '-':
-                            command.append(arg)
-                        elif arg[0] == '-':
-                            args.append(arg.lstrip('-'))
-                            command_populated = True
-                if command:
-                    vsts_tracking_data.properties['Command'] = ' '.join(command)
-                else:
-                    vsts_tracking_data.properties['Command'] = ''
-                vsts_tracking_data.properties['Args'] = args
         else:
             vsts_tracking_data.feature = 'Command'
+        if len(argv) > 1:
+            command = []
+            args = []
+            command_populated = False
+            for arg in argv[1:]:
+                if arg and argv:
+                    if not command_populated and arg[0] != '-':
+                        command.append(arg)
+                    elif arg[0] == '-':
+                        args.append(arg.lstrip('-'))
+                        command_populated = True
+            if command:
+                vsts_tracking_data.properties['Command'] = ' '.join(command)
+            else:
+                vsts_tracking_data.properties['Command'] = ''
+            vsts_tracking_data.properties['Args'] = args
+
     except BaseException as ex:
         logger.debug(ex, exc_info=True)
 

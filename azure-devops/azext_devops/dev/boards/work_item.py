@@ -6,15 +6,15 @@
 from __future__ import print_function
 import webbrowser
 
-from knack.log import get_logger
-from knack.util import CLIError
 from vsts.exceptions import VstsServiceError
 from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
 from vsts.work_item_tracking.v4_0.models.wiql import Wiql
+from knack.log import get_logger
+from knack.util import CLIError
 from azext_devops.dev.common.identities import (ME, get_current_identity, resolve_identity)
 from azext_devops.dev.common.services import (get_work_item_tracking_client,
-                                      resolve_instance,
-                                      resolve_instance_and_project)
+                                              resolve_instance,
+                                              resolve_instance_and_project)
 from azext_devops.dev.common.uri import uri_quote
 
 logger = get_logger(__name__)
@@ -55,10 +55,8 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                              devops_organization=devops_organization,
-                                                              project=project,
-                                                              project_required=True)
+        devops_organization, project = resolve_instance_and_project(
+            detect=detect, devops_organization=devops_organization, project=project, project_required=True)
         patch_document = []
         if title is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Title', title))
@@ -176,7 +174,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
         _handle_vsts_service_error(ex)
 
 
-def delete_work_item(work_item_id, destroy=False, devops_organization=None, project=None, detect=None):
+def delete_work_item(work_item_id, destroy=False, devops_organization=None, detect=None):
     """Delete a work item.
     :param work_item_id: Unique id of the work item.
     :type work_item_id: int
@@ -184,8 +182,6 @@ def delete_work_item(work_item_id, destroy=False, devops_organization=None, proj
     :type destroy: bool
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
@@ -194,7 +190,7 @@ def delete_work_item(work_item_id, destroy=False, devops_organization=None, proj
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_work_item_tracking_client(devops_organization)
-        delete_response = client.delete_work_item(work_item_id,destroy)
+        delete_response = client.delete_work_item(work_item_id, destroy)
         print('Deleted work item {}'.format(work_item_id))
         return delete_response
     except VstsServiceError as ex:
@@ -250,6 +246,7 @@ def show_work_item(work_item_id, open_browser=False, devops_organization=None, d
         raise CLIError(ex)
 
 
+# pylint: disable=too-many-statements
 def query_work_items(wiql=None, query_id=None, path=None, devops_organization=None, project=None, detect=None):
     """Query for a list of work items.
     :param wiql: The query in Work Item Query Language format.  Ignored if --id or --path is specified.
@@ -270,10 +267,8 @@ def query_work_items(wiql=None, query_id=None, path=None, devops_organization=No
     try:
         if wiql is None and path is None and query_id is None:
             raise CLIError("Either the --wiql, --id, or --path argument must be specified.")
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                devops_organization=devops_organization,
-                                                                project=project,
-                                                                project_required=False)
+        devops_organization, project = resolve_instance_and_project(
+            detect=detect, devops_organization=devops_organization, project=project, project_required=False)
         client = get_work_item_tracking_client(devops_organization)
         if query_id is None and path is not None:
             if project is None:
@@ -321,12 +316,12 @@ def query_work_items(wiql=None, query_id=None, path=None, devops_organization=No
                 work_item_url_length += len(str(work_item_ref.id))
                 current_batch.append(work_item_ref.id)
 
-                if remaining_url_length - work_item_url_length <= 0 or len(current_batch) == work_items_batch_size :
+                if remaining_url_length - work_item_url_length <= 0 or len(current_batch) == work_items_batch_size:
                     # url is near max length, go ahead and send first request for details.
                     # url can go over by an id length because we have a safety buffer
                     current_batched_items = client.get_work_items(ids=current_batch,
-                                                                    as_of=query_result.as_of,
-                                                                    fields=fields)
+                                                                  as_of=query_result.as_of,
+                                                                  fields=fields)
                     for work_item in current_batched_items:
                         work_items.append(work_item)
                     current_batch = []
@@ -334,16 +329,17 @@ def query_work_items(wiql=None, query_id=None, path=None, devops_organization=No
 
             if current_batch:
                 current_batched_items = client.get_work_items(ids=current_batch,
-                                                                as_of=query_result.as_of,
-                                                                fields=fields)
+                                                              as_of=query_result.as_of,
+                                                              fields=fields)
                 for work_item in current_batched_items:
                     work_items.append(work_item)
             # put items in the same order they appeared in the initial query results
             work_items = sorted(work_items, key=_get_sort_key_from_last_query_results)
             return work_items
+        return None
     except VstsServiceError as ex:
         raise CLIError(ex)
-        
+
 
 def _get_sort_key_from_last_query_results(work_item):
     work_items = get_last_query_result().work_items
@@ -362,8 +358,7 @@ _LAST_QUERY_RESULT_KEY = 'value'
 
 
 def get_last_query_result():
-    if _LAST_QUERY_RESULT_KEY in _last_query_result:
-        return _last_query_result[_LAST_QUERY_RESULT_KEY]
+    return _last_query_result.get(_LAST_QUERY_RESULT_KEY, None)
 
 
 def _open_work_item(work_item, devops_organization):
@@ -404,6 +399,7 @@ def _resolve_identity_as_unique_user_id(identity_filter, devops_organization):
         if semi_pos >= 0:
             descriptor = descriptor[semi_pos + 1:]
         return descriptor
+    return None
 
 
 _SYSTEM_FIELD_ARGS = {'System.Title': 'title',

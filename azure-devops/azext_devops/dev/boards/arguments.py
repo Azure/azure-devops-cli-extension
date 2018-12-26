@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 
-from knack.arguments import enum_choice_list, ArgumentsContext
+from knack.arguments import enum_choice_list
 
 _ON_OFF_SWITCH_VALUES = ['on', 'off']
 
@@ -35,4 +35,4 @@ def load_work_arguments(self, _):
                          help='Do not prompt for confirmation.')
 
     with self.argument_context('boards query') as context:
-        context.argument('query_id', type=str, options_list=('--query-id','--id'))
+        context.argument('query_id', type=str, options_list=('--query-id', '--id'))

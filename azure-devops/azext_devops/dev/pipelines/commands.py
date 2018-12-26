@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from azure.cli.core.commands import CliCommandType
 from ._format import (transform_build_table_output,
                       transform_builds_table_output,
                       transform_definition_table_output,
@@ -13,9 +14,7 @@ from ._format import (transform_build_table_output,
                       transform_release_table_output,
                       transform_release_definitions_table_output,
                       transform_release_definition_table_output)
-from knack.commands import CommandGroup
 
-from azure.cli.core.commands import CliCommandType
 
 buildOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.build#{}'

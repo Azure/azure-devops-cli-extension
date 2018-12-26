@@ -3,9 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.help_files import helps  # pylint: disable=unused-import
+from knack.help_files import helps
 
-# pylint: disable=line-too-long
 
 def load_admin_help():
     helps['devops admin'] = """
@@ -19,3 +18,4 @@ def load_admin_help():
     short-summary: Manage organization banner.
     long-summary:
     """
+    

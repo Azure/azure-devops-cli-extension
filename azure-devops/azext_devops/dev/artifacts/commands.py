@@ -13,3 +13,4 @@ def load_package_commands(self, _):
     with self.command_group('artifacts universal', command_type=artifactOps) as g:
         g.command('publish', 'publish_package')
         g.command('download', 'download_package')
+        

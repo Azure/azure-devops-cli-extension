@@ -112,7 +112,7 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     except VstsServiceError as ex:
         raise CLIError(ex)
 
-
+# pylint: disable=too-many-locals
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
@@ -302,7 +302,7 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
         else:
             multi_line_description = None
         pr = GitPullRequest(title=title, description=multi_line_description)
-        if (bypass_policy is not None
+        if (bypass_policy is not None # pylint: disable=too-many-boolean-expressions
                 or bypass_policy_reason is not None
                 or squash is not None
                 or merge_commit_message is not None
@@ -526,6 +526,7 @@ def remove_pull_request_work_items(pull_request_id, work_items, devops_organizat
     :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
+    # pylint: disable=too-many-nested-blocks
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_git_client(devops_organization)
@@ -567,6 +568,7 @@ def remove_pull_request_work_items(pull_request_id, work_items, devops_organizat
                         ids.append(ref.id)
                     if ids:
                         return wit_client.get_work_items(ids=ids)
+        return None
     except VstsServiceError as ex:
         raise CLIError(ex)
 

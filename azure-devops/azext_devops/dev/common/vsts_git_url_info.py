@@ -3,8 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.log import get_logger
 from msrest.serialization import Model
+from knack.log import get_logger
 
 from .file_cache import get_cli_cache
 from .uri import uri_parse
@@ -84,14 +84,13 @@ class VstsGitUrlInfo(object):
             logger.warning('TFS SSH URLs are not supported for repo auto-detection yet. See the following issue for ' +
                            'latest updates: https://github.com/Microsoft/vsts-cli/issues/142')
             return None
-        else:
-            # hosted url
-            import re
-            regex = re.compile(r'([^@]+)@[^\.]+(\.[^:]+)')
-            match = regex.match(netloc)
-            if match is not None:
-                return match.group(1) + match.group(2)
-            return None
+        # hosted url
+        import re
+        regex = re.compile(r'([^@]+)@[^\.]+(\.[^:]+)')
+        match = regex.match(netloc)
+        if match is not None:
+            return match.group(1) + match.group(2)
+        return None
 
     @staticmethod
     def is_vsts_url_candidate(url):
@@ -100,11 +99,11 @@ class VstsGitUrlInfo(object):
         components = uri_parse(url.lower())
         if components.netloc == 'github.com':
             return False
-        elif components.path is not None \
+        if components.path is not None \
                 and (components.path.find('/_git/') >= 0 or components.path.find('/_ssh/') >= 0):
             return True
-        else:
-            return False
+        return False
+
 
     class _RemoteInfo(Model):
 

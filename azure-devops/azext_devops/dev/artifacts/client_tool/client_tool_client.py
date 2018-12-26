@@ -4,10 +4,11 @@
 # --------------------------------------------------------------------------------------------
 
 from msrest import Serializer, Deserializer
-from msrest.serialization import Model
 from vsts.vss_client import VssClient
 
 from . import models
+
+
 class ClientToolClient(VssClient):
     def __init__(self, base_url=None, creds=None):
         super(ClientToolClient, self).__init__(base_url, creds)
@@ -35,3 +36,4 @@ class ClientToolClient(VssClient):
                               query_parameters=query_parameters)
 
         return self._deserialize('ClientToolRelease', response)
+        

@@ -4,10 +4,10 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.util import CLIError
 from vsts.exceptions import VstsServiceError
+from knack.util import CLIError
 from azext_devops.dev.common.services import (get_task_agent_client,
-                                      resolve_instance)
+                                              resolve_instance)
 from azext_devops.dev.common.uuid import is_uuid
 
 
@@ -47,7 +47,7 @@ def task_show(task_id, version, devops_organization=None, detect=None):
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_task_agent_client(devops_organization)
         definition_references = client.get_task_definition(task_id=task_id,
-                                                            version_string=version)
+                                                           version_string=version)
         return definition_references
     except VstsServiceError as ex:
         raise CLIError(ex)

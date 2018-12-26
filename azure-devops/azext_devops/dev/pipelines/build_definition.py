@@ -5,19 +5,20 @@
 
 from webbrowser import open_new
 
+from vsts.exceptions import VstsServiceError
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.exceptions import VstsServiceError
 from azext_devops.dev.common.services import (get_build_client, get_git_client,
-                                      resolve_instance_and_project,
-                                      resolve_instance_project_and_repo)
+                                              resolve_instance_and_project,
+                                              resolve_instance_project_and_repo)
 from azext_devops.dev.common.uri import uri_quote
 from azext_devops.dev.common.uuid import is_uuid
 
 logger = get_logger(__name__)
 
 
-def build_definition_list(name=None, top=None, devops_organization=None, project=None, repository=None, repository_type=None, detect=None):
+def build_definition_list(name=None, top=None, devops_organization=None, project=None, repository=None,
+                          repository_type=None, detect=None):
     """List build definitions.
     :param name: Limit results to definitions with this name or starting with this name. Examples: "FabCI" or "Fab*"
     :type name: bool
@@ -31,32 +32,32 @@ def build_definition_list(name=None, top=None, devops_organization=None, project
     :type repository: str
     :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
-    :param repository_type: Limit results to definitions associated with this repository type. It is mandatory to pass 'repository' argument along with this argument.
+    :param repository_type: Limit results to definitions associated with this repository type.
+    It is mandatory to pass 'repository' argument along with this argument.
     :type repository_type: str
     :rtype: [BuildDefinitionReference]
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(detect=detect,
-                                                                                devops_organization=devops_organization,
-                                                                                project=project,
-                                                                                repo=repository)
+        devops_organization, project, repository = resolve_instance_project_and_repo(
+            detect=detect, devops_organization=devops_organization, project=project, repo=repository)
         client = get_build_client(devops_organization)
         query_order = 'DefinitionNameAscending'
         repository_type = None
         if repository is not None:
             if repository_type is None:
                 repository_type = 'TfsGit'
-            if repository_type.lower() == 'tfsgit':            
-                resolved_repository = _resolve_repository_as_id(repository, team_instance, project)
+            if repository_type.lower() == 'tfsgit':
+                resolved_repository = _resolve_repository_as_id(repository, devops_organization, project)
             else:
                 resolved_repository = repository
             if resolved_repository is None:
-                raise ValueError("Could not find a repository with name '{}', in project '{}'.".format(repository, project))
+                raise ValueError("Could not find a repository with name '{}', in project '{}'."
+                                 .format(repository, project))
         else:
             resolved_repository = None
         definition_references = client.get_definitions(project=project, name=name, repository_id=resolved_repository,
-                                                        repository_type=repository_type, top=top,
-                                                        query_order=query_order)
+                                                       repository_type=repository_type, top=top,
+                                                       query_order=query_order)
         return definition_references
     except VstsServiceError as ex:
         raise CLIError(ex)
@@ -80,9 +81,8 @@ def build_definition_show(definition_id=None, name=None, open_browser=False, dev
     :rtype: BuildDefinitionReference
     """
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                devops_organization=devops_organization,
-                                                                project=project)
+        devops_organization, project = resolve_instance_and_project(
+            detect=detect, devops_organization=devops_organization, project=project)
         client = get_build_client(devops_organization)
         if definition_id is None:
             if name is not None:
@@ -134,3 +134,5 @@ def _resolve_repository_as_id(repository, devops_organization, project):
         for found_repository in repositories:
             if found_repository.name.lower() == repository.lower():
                 return found_repository.id
+    return None
+    

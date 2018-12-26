@@ -19,3 +19,4 @@ class ClientToolRelease(Model):
         self.rid = rid
         self.version = version
         self.uri = uri
+        
