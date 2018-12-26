@@ -15,4 +15,4 @@ exclude =
     scripts
     doc
     build_scripts
-	*\test\*
+	*/test/*
