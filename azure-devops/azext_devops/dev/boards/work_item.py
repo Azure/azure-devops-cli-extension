@@ -104,7 +104,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
                      iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
                      devops_organization=None, detect=None):
     # pylint: disable=anomalous-backslash-in-string
-    """Update work items. 
+    """Update work items.
     :param work_item_id: The id of the work item to update.
     :type work_item_id: int
     :param title: Title of the work item.
