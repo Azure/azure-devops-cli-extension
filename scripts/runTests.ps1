@@ -78,7 +78,8 @@ if($testFailureFound -eq $true){
     exit 1
 }
 
-python scripts\trackUTCoverage.py
+$trackUTCoverageScript = Join-Path -Path 'scripts' -ChildPath 'trackUTCoverage.py'
+python $trackUTCoverageScript
 if ($LastExitCode -ne 0)
 {
     exit 1
