@@ -63,9 +63,10 @@ def show_service_endpoint(service_endpoint_id, devops_organization=None, project
 
 def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
                             github_access_token=None, github_url=None,
-                            azure_rm_tenant_id=None, azure_rm_service_principal_id=None, azure_rm_service_prinicipal_key=None,
-                            azure_rm_subscription_id=None, azure_rm_subscription_name=None,
-                            devops_organization=None, project=None, detect=None):
+                            azure_rm_tenant_id=None, azure_rm_service_principal_id=None,
+                            azure_rm_service_prinicipal_key=None, azure_rm_subscription_id=None,
+                            azure_rm_subscription_name=None, devops_organization=None,
+                            project=None, detect=None):
     """Create a service endpoint
     :param service_endpoint_type: Type of service endpoint
     :type service_endpoint_type: str
@@ -103,26 +104,34 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
                                                                     project=project)
         client = get_service_endpoint_client(devops_organization)
 
-        if service_endpoint_type == SERVICE_ENDPOINT_TYPE_GITHUB and authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN:
-            service_endpoint_authorization = EndpointAuthorization(parameters = {'accessToken':github_access_token}, scheme = SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN)
-            service_endpoint_to_create = ServiceEndpoint(authorization = service_endpoint_authorization, name = name, type = SERVICE_ENDPOINT_TYPE_GITHUB, url = github_url)
-            return client.create_service_endpoint(service_endpoint_to_create, project)
-        elif service_endpoint_type ==  SERVICE_ENDPOINT_TYPE_AZURE_RM and authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL:
+        if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_GITHUB
+                and authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN):
             service_endpoint_authorization = EndpointAuthorization(
-                parameters = {
+                parameters={'accessToken':github_access_token},
+                scheme=SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN)
+            service_endpoint_to_create = ServiceEndpoint(
+                authorization=service_endpoint_authorization,
+                name=name, type=SERVICE_ENDPOINT_TYPE_GITHUB, url=github_url)
+            return client.create_service_endpoint(service_endpoint_to_create, project)
+        elif (service_endpoint_type == SERVICE_ENDPOINT_TYPE_AZURE_RM
+              and authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL):
+            service_endpoint_authorization = EndpointAuthorization(
+                parameters={
                     'tenantid':azure_rm_tenant_id,
                     'serviceprincipalid':azure_rm_service_principal_id,
-                    'authenticationType':'spnKey', 
+                    'authenticationType':'spnKey',
                     'serviceprincipalkey':azure_rm_service_prinicipal_key
-                    }, 
-                scheme = SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL)
+                    },
+                scheme=SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL)
             service_endpoint_data = {
                 'subscriptionId':azure_rm_subscription_id,
                 'subscriptionName':azure_rm_subscription_name,
                 'environment':'AzureCloud',
                 'creationMode':'Manual'
             }
-            service_endpoint_to_create = ServiceEndpoint(authorization = service_endpoint_authorization, data = service_endpoint_data, name = name, type = SERVICE_ENDPOINT_TYPE_AZURE_RM, url = 'https://management.azure.com/')
+            service_endpoint_to_create = ServiceEndpoint(
+                authorization=service_endpoint_authorization, data=service_endpoint_data,
+                name=name, type=SERVICE_ENDPOINT_TYPE_AZURE_RM, url='https://management.azure.com/')
             return client.create_service_endpoint(service_endpoint_to_create, project)
         else:
             raise CLIError('this combination of endpoint type is not supported with this authorization scheme')
