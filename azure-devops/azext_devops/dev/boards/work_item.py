@@ -22,6 +22,7 @@ logger = get_logger(__name__)
 def create_work_item(work_item_type, title, description=None, assigned_to=None, state=None, area=None,
                      iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
                      devops_organization=None, project=None, detect=None):
+    # pylint: disable=anomalous-backslash-in-string
     """Create a work item.
     :param work_item_type: Name of the work item type (e.g. Bug).
     :type work_item_type: str
@@ -102,6 +103,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
 def update_work_item(work_item_id, title=None, description=None, assigned_to=None, state=None, area=None,
                      iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
                      devops_organization=None, detect=None):
+    # pylint: disable=anomalous-backslash-in-string
     """Update work items.
     :param work_item_id: The id of the work item to update.
     :type work_item_id: int

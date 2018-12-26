@@ -135,7 +135,7 @@ def _open_release(release):
         open_new(url=url)
 
 def _get_release_web_url(release):
-    links = release._links
+    links = release._links  # pylint: disable=protected-access
     if links is not None and links:
         properties = links.additional_properties
         if properties is not None and properties:
@@ -143,4 +143,3 @@ def _get_release_web_url(release):
             if web_url is not None and web_url:
                 return web_url.get('href')
     return None
-    

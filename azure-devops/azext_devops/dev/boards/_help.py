@@ -3,9 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.help_files import helps  # pylint: disable=unused-import
+from knack.help_files import helps
 
-# pylint: disable=line-too-long
 
 def load_boards_help():
     helps['boards'] = """

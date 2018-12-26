@@ -46,7 +46,7 @@ class DevCommandsLoader(AzCommandsLoader):
         load_package_arguments(self, command)
 
     @staticmethod
-    def post_parse_args(cli_ctx, **kwargs):
+    def post_parse_args(_cli_ctx, **kwargs):
         if (kwargs.get('command', None) and
                 kwargs['command'].startswith(('devops', 'boards', 'artifacts', 'pipelines', 'repos'))):
             from azext_devops.dev.common.telemetry import set_tracking_data

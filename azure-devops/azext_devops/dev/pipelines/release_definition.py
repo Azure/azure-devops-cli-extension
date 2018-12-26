@@ -103,7 +103,7 @@ def get_definition_id_from_name(name, client, project):
 
 
 def _get_release_definition_web_url(definition):
-    links = definition._links
+    links = definition._links   # pylint: disable=protected-access
     if links is not None and links:
         properties = links.additional_properties
         if properties is not None and properties:

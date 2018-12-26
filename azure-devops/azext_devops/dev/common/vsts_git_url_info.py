@@ -114,7 +114,7 @@ class VstsGitUrlInfo(object):
         }
 
         def __init__(self, project=None, repository=None, server_url=None):
-            super(VstsGitUrlInfo._RemoteInfo, self).__init__()
+            super(VstsGitUrlInfo._RemoteInfo, self).__init__()  # pylint: disable=protected-access
             self.project = project
             self.repository = repository
             self.server_url = server_url

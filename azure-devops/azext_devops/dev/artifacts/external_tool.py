@@ -20,6 +20,7 @@ class ExternalToolInvoker:
 
     def __init__(self):
         signal.signal(signal.SIGINT, self._sigint_handler)
+        self._args = None
 
     def start(self, command_args, env):
         if self._proc is not None:
