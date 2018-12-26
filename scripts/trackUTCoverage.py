@@ -1,3 +1,8 @@
+# --------------------------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for license information.
+# --------------------------------------------------------------------------------------------
+
 from azure.cli.core.mock import DummyCli
 from azext_devops import DevCommandsLoader
 import json
@@ -47,10 +52,9 @@ for command in loader.command_table:
         print('Run this command with --newCommandAdded to get new utCoverage.json which can be checked-in')
         raise Exception('Please update "{}" command in utCoverage.json'.format(commandUTCoverage.name))
 
-    if commandFoundInExistingFile == True:
-        commandsUTCoverage.append(commandUTCoverage)
+    commandsUTCoverage.append(commandUTCoverage)
 
 if newCommandAdded == True:
     with open(coverageFile, 'w') as outfile:
         json.dump(commandsUTCoverage, outfile, indent=4, sort_keys=True)
-        print('updated utCoverage.json')
+        print('updated utCoverage.json at {}'.format(coverageFile))

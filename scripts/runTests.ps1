@@ -77,3 +77,9 @@ foreach($testFile in $testFiles){
 if($testFailureFound -eq $true){
     exit 1
 }
+
+python scripts\trackUTCoverage.py
+if ($LastExitCode -ne 0)
+{
+    exit 1
+}
