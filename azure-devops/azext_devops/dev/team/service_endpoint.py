@@ -113,8 +113,9 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
                 authorization=service_endpoint_authorization,
                 name=name, type=SERVICE_ENDPOINT_TYPE_GITHUB, url=github_url)
             return client.create_service_endpoint(service_endpoint_to_create, project)
-        elif (service_endpoint_type == SERVICE_ENDPOINT_TYPE_AZURE_RM
-              and authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL):
+
+        if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_AZURE_RM
+                and authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL):
             service_endpoint_authorization = EndpointAuthorization(
                 parameters={
                     'tenantid':azure_rm_tenant_id,
@@ -133,8 +134,8 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
                 authorization=service_endpoint_authorization, data=service_endpoint_data,
                 name=name, type=SERVICE_ENDPOINT_TYPE_AZURE_RM, url='https://management.azure.com/')
             return client.create_service_endpoint(service_endpoint_to_create, project)
-        else:
-            raise CLIError('this combination of endpoint type is not supported with this authorization scheme')
+
+        raise CLIError('This combination of endpoint type is not supported with this authorization scheme.')
 
     except VstsServiceError as ex:
         raise CLIError(ex)

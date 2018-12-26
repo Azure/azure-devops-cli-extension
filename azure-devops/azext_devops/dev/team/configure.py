@@ -12,12 +12,9 @@ from knack.config import get_config_parser
 from knack.log import get_logger
 from knack.util import CLIError
 
-from azext_devops.dev.common.config import (set_global_config_value,
-                                     AZ_DEVOPS_GLOBAL_CONFIG_PATH)
-from azext_devops.dev.common.const import (CLI_ENV_VARIABLE_PREFIX,
-                                    DEFAULTS_SECTION,
-                                    DEVOPS_ORGANIZATION_DEFAULT,
-                                    DEVOPS_TEAM_PROJECT_DEFAULT)
+from azext_devops.dev.common.config import (set_global_config_value, AZ_DEVOPS_GLOBAL_CONFIG_PATH)
+from azext_devops.dev.common.const import (CLI_ENV_VARIABLE_PREFIX, DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT,
+                                           DEVOPS_TEAM_PROJECT_DEFAULT)
 
 logger = get_logger(__name__)
 
@@ -30,21 +27,24 @@ def configure(defaults=None, use_git_aliases=None, list_config=False):
         e.g. '--defaults project=my-project-name organization=https://dev.azure.com/organizationName
         arg=value' Use '' to clear the defaults, e.g. --defaults project=''.
     :type defaults: str
-    :param use_git_aliases: Set to 'yes' to configure Git aliases global git config file (to enable commands like "git pr list").
+    :param use_git_aliases: Set to 'yes' to configure Git aliases global git config file
+        (to enable commands like "git pr list").
         Set to 'no' to remove any aliases set by the tool.
     :type use_git_aliases: str
     :param list_config: Lists the contents of the config file.
     :type list_config: bool
     """
     if defaults is None and use_git_aliases is None and list_config is False:
-        raise CLIError('usage error: atleast one of the options must be specified. For list of supported options see help using -h flag.')
+        raise CLIError('usage error: atleast one of the options must be specified.' \
+        'For list of supported options see help using -h flag.')
     if defaults:
         for default in defaults:
             parts = default.split('=', 1)
             if len(parts) == 1:
                 raise CLIError('usage error: --defaults STRING=STRING STRING=STRING ...')
             if parts[0] not in CONFIG_VALID_DEFAULT_KEYS_LIST:
-                raise CLIError('usage error: invalid default value setup. Supported values are {}.'.format(CONFIG_VALID_DEFAULT_KEYS_LIST))
+                raise CLIError('usage error: invalid default value setup. Supported values are {}.'
+                               .format(CONFIG_VALID_DEFAULT_KEYS_LIST))
             set_global_config_value(DEFAULTS_SECTION, parts[0], parts[1])
     if use_git_aliases is not None:
         from azext_devops.dev.repos.git_alias import setup_git_aliases, clear_git_aliases

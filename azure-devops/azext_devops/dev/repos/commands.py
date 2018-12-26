@@ -3,8 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.commands import CommandGroup
 from knack.prompting import prompt_y_n
+from azure.cli.core.commands import CliCommandType
 from ._format import (transform_pull_request_table_output,
                       transform_pull_requests_table_output,
                       transform_repo_table_output,
@@ -16,7 +16,6 @@ from ._format import (transform_pull_request_table_output,
                       transform_work_items_table_output,
                       transform_repo_import_table_output)
 
-from azure.cli.core.commands import CliCommandType
 
 reposPullRequestOps = CliCommandType(
     operations_tmpl='azext_devops.dev.repos.pull_request#{}'
@@ -30,7 +29,7 @@ reposImportOps = CliCommandType(
     operations_tmpl='azext_devops.dev.repos.import_request#{}'
 )
 
-def repo_delete_confirmation(command_args):
+def repo_delete_confirmation():
     return bool(prompt_y_n('Are you sure you want to delete this repository?'))
 
 def load_code_commands(self, _):
@@ -40,7 +39,7 @@ def load_code_commands(self, _):
         g.command('delete', 'delete_repo', confirmation=repo_delete_confirmation)
         g.command('list', 'list_repos', table_transformer=transform_repos_table_output)
         g.command('show', 'show_repo', table_transformer=transform_repo_table_output)
-    
+
     with self.command_group('repos pr', command_type=reposPullRequestOps) as g:
         # basic pr commands
         g.command('create', 'create_pull_request', table_transformer=transform_pull_request_table_output)
@@ -56,12 +55,15 @@ def load_code_commands(self, _):
         # pr reviewer commands
         g.command('reviewers add', 'create_pull_request_reviewers', table_transformer=transform_reviewers_table_output)
         g.command('reviewers list', 'list_pull_request_reviewers', table_transformer=transform_reviewers_table_output)
-        g.command('reviewers remove', 'delete_pull_request_reviewers', table_transformer=transform_reviewers_table_output)
+        g.command('reviewers remove', 'delete_pull_request_reviewers',
+                  table_transformer=transform_reviewers_table_output)
 
         # pr work item commands
         g.command('work-items add', 'add_pull_request_work_items', table_transformer=transform_work_items_table_output)
-        g.command('work-items list', 'list_pull_request_work_items', table_transformer=transform_work_items_table_output)
-        g.command('work-items remove', 'remove_pull_request_work_items', table_transformer=transform_work_items_table_output)
+        g.command('work-items list', 'list_pull_request_work_items',
+                  table_transformer=transform_work_items_table_output)
+        g.command('work-items remove', 'remove_pull_request_work_items',
+                  table_transformer=transform_work_items_table_output)
 
         # pr set-vote commands
         g.command('set-vote', 'vote_pull_request', table_transformer=transform_reviewer_table_output)

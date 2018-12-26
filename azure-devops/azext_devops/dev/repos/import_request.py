@@ -12,7 +12,7 @@ from vsts.git.v4_0.models.git_import_request import GitImportRequest
 
 from azext_devops.dev.common.services import get_git_client, resolve_instance_project_and_repo
 
-def create_import_request(git_source_url, project = None, repository = None,
+def create_import_request(git_source_url, project=None, repository=None,
                           devops_organization=None, detect=None):
     """Create a git import request (currently only supports import from public git source)
     :param project: Name or ID of the team project.
@@ -28,18 +28,21 @@ def create_import_request(git_source_url, project = None, repository = None,
     :type detect: str
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(detect=detect,
-                                                                            devops_organization=devops_organization,
-                                                                            project=project,
-                                                                            repo=repository)
+        devops_organization, project, repository = resolve_instance_project_and_repo(
+            detect=detect,
+            devops_organization=devops_organization,
+            project=project,
+            repo=repository)
         client = get_git_client(devops_organization)
-        gitImportGitSource = GitImportGitSource(overwrite = False,url = git_source_url)
-        gitImportRequestParameter = GitImportRequestParameters(delete_service_endpoint_after_import_is_done = False,
-                                                            git_source = gitImportGitSource,
-                                                            service_endpoint_id = None,
-                                                            tfvc_source = None)
-        gitImportRequest = GitImportRequest(parameters = gitImportRequestParameter)
-        importRequest = client.create_import_request(import_request = gitImportRequest, project = project, repository_id = repository)
+        gitImportGitSource = GitImportGitSource(overwrite=False, url=git_source_url)
+        gitImportRequestParameter = GitImportRequestParameters(
+            delete_service_endpoint_after_import_is_done=False,
+            git_source=gitImportGitSource,
+            service_endpoint_id=None,
+            tfvc_source=None)
+        gitImportRequest = GitImportRequest(parameters=gitImportRequestParameter)
+        importRequest = client.create_import_request(import_request=gitImportRequest, project=project,
+                                                     repository_id=repository)
         return _wait_for_import_request(client, project, repository, importRequest.import_request_id)
     except VstsServiceError as ex:
         raise CLIError(ex)
@@ -53,4 +56,4 @@ def _wait_for_import_request(client, project, repository, import_request_id, int
 
 def _has_import_request_completed(import_request):
     status = import_request.status.lower()
-    return status == 'completed' or status == 'failed' or status == 'abandoned'
+    return status in ('completed', 'failed', 'abandoned')

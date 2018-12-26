@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.arguments import enum_choice_list, ArgumentsContext
+from knack.arguments import enum_choice_list
 
 # CUSTOM CHOICE LISTS
 _ON_OFF_SWITCH_VALUES = ['on', 'off']
@@ -39,7 +39,7 @@ def load_code_arguments(self, _):
 
     with self.argument_context('repos pr work-items') as context:
         context.argument('work_items', nargs='+')
-        
+
     with self.argument_context('repos pr update') as context:
         context.argument('auto_complete', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         context.argument('squash', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
@@ -54,7 +54,8 @@ def load_code_arguments(self, _):
         context.argument('vote', **enum_choice_list(_VOTE_VALUES))
 
     with self.argument_context('repos delete') as context:
-        context.argument('yes', options_list=['--yes', '-y'], action='store_true', help='Do not prompt for confirmation.')
+        context.argument('yes', options_list=['--yes', '-y'], action='store_true',
+                         help='Do not prompt for confirmation.')
 
     with self.argument_context('repos import create') as context:
         context.argument('repository', options_list=('--repository', '-r'))

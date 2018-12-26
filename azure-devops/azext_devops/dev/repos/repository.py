@@ -11,8 +11,8 @@ from knack.log import get_logger
 from vsts.exceptions import VstsServiceError
 from vsts.git.v4_0.models.git_repository_create_options import GitRepositoryCreateOptions
 from azext_devops.dev.common.services import (get_git_client,
-                                      resolve_instance_and_project,  
-                                      resolve_instance_project_and_repo)
+                                              resolve_instance_and_project,
+                                              resolve_instance_project_and_repo)
 from azext_devops.dev.common.uri import uri_quote
 
 
@@ -35,13 +35,13 @@ def create_repo(name, devops_organization=None, project=None, detect=None, open_
     """
     try:
         devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                devops_organization=devops_organization,
-                                                                project=project)
+                                                                    devops_organization=devops_organization,
+                                                                    project=project)
         git_client = get_git_client(devops_organization)
         create_options = GitRepositoryCreateOptions()
         create_options.name = name
         repository = git_client.create_repository(git_repository_to_create=create_options,
-                                                    project=project)
+                                                  project=project)
         if open_browser:
             _open_repository(repository, devops_organization)
         return repository
@@ -64,8 +64,8 @@ def delete_repo(repo_id=None, devops_organization=None, project=None, detect=Non
         if repo_id is None:
             raise CLIError('--id argument needs to be specified.')
         devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                devops_organization=devops_organization,
-                                                                project=project)
+                                                                    devops_organization=devops_organization,
+                                                                    project=project)
         git_client = get_git_client(devops_organization)
         delete_response = git_client.delete_repository(project=project, repository_id=repo_id)
         print('Deleted repository {}'.format(repo_id))
@@ -86,8 +86,8 @@ def list_repos(devops_organization=None, project=None, detect=None):
     """
     try:
         devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                devops_organization=devops_organization,
-                                                                project=project)
+                                                                    devops_organization=devops_organization,
+                                                                    project=project)
         git_client = get_git_client(devops_organization)
         repository = git_client.get_repositories(project=project)
         return repository
@@ -115,11 +115,12 @@ def show_repo(repo_id=None, name=None, devops_organization=None, project=None, d
             repo_identifier = repo_id
         else:
             repo_identifier = name
-        devops_organization, project, repo_identifier = resolve_instance_project_and_repo(detect=detect,
-                                                                devops_organization=devops_organization,
-                                                                project=project,
-                                                                project_required=True,
-                                                                repo=repo_identifier)
+        devops_organization, project, repo_identifier = resolve_instance_project_and_repo(
+            detect=detect,
+            devops_organization=devops_organization,
+            project=project,
+            project_required=True,
+            repo=repo_identifier)
         if repo_identifier is None:
             raise CLIError('Either the --name argument or the --id argument needs to be specified.')
         git_client = get_git_client(devops_organization)
