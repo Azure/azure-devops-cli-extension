@@ -9,6 +9,8 @@ from ._format import (transform_pull_request_table_output,
                       transform_pull_requests_table_output,
                       transform_repo_table_output,
                       transform_repos_table_output,
+                      transform_ref_table_output,
+                      transform_refs_table_output,
                       transform_reviewers_table_output,
                       transform_reviewer_table_output,
                       transform_policies_table_output,
@@ -19,6 +21,10 @@ from ._format import (transform_pull_request_table_output,
 
 reposPullRequestOps = CliCommandType(
     operations_tmpl='azext_devops.dev.repos.pull_request#{}'
+)
+
+reposRefOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.repos.ref#{}'
 )
 
 reposRepositoryOps = CliCommandType(
@@ -47,7 +53,8 @@ def load_code_commands(self, _):
         g.command('create', 'create_pull_request', table_transformer=transform_pull_request_table_output)
         g.command('update', 'update_pull_request', table_transformer=transform_pull_request_table_output)
         g.command('show', 'show_pull_request', table_transformer=transform_pull_request_table_output)
-        g.command('list', 'list_pull_requests', table_transformer=transform_pull_requests_table_output)
+        g.command('list2', 'list_pull_requests', table_transformer=transform_pull_requests_table_output)
+        g.command('blah', 'list_pull_requests', table_transformer=transform_pull_requests_table_output)
 
         # pr status update commands
         g.command('complete', 'complete_pull_request', table_transformer=transform_pull_request_table_output)
@@ -77,3 +84,10 @@ def load_code_commands(self, _):
     with self.command_group('repos import', command_type=reposImportOps) as g:
         # import request
         g.command('create', 'create_import_request', table_transformer=transform_repo_import_table_output)
+
+    with self.command_group('repos ref', command_type=reposRefOps) as g:
+        # refs commands
+        g.command('create', 'create_ref', table_transformer=transform_ref_table_output)
+        g.command('delete', 'delete_ref', table_transformer=transform_ref_table_output)
+        g.command('list', 'list_refs', table_transformer=transform_refs_table_output)
+        g.command('update', 'update_ref', table_transformer=transform_ref_table_output)

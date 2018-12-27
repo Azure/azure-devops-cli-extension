@@ -60,3 +60,7 @@ def load_code_arguments(self, _):
     with self.argument_context('repos import create') as context:
         context.argument('repository', options_list=('--repository', '-r'))
         context.argument('git_source_url', options_list=('--git-source-url', '--git-url'))
+
+    with self.argument_context('repos ref') as context:
+        context.argument('repository', options_list=('--repository', '-r'))
+        context.argument('object_id', options_list=('--object-id'))

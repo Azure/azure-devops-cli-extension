@@ -224,6 +224,37 @@ def _convert_policy_status(status):
     return status.capitalize()
 
 
+def transform_refs_table_output(result):
+    table_output = []
+    for item in sorted(result, key=_get_repo_key):
+        table_output.append(_transform_ref_row(item))
+    return table_output
+
+
+def transform_ref_table_output(result):
+    table_output = [_transform_ref_row(result)]
+    return table_output
+
+
+def _transform_ref_row(row):
+    from azext_devops.dev.common.git import get_ref_name_from_ref
+    table_row = OrderedDict()
+    if 'objectId' in row:
+        table_row['Object ID'] = row['objectId']
+    if ('oldObjectId' in row) and ('newObjectId' in row):
+        old_id = row['oldObjectId']
+        new_id = row['newObjectId']
+        if (old_id == '0000000000000000000000000000000000000000'):
+            table_row['Object ID'] = new_id
+        elif (new_id == '0000000000000000000000000000000000000000'):
+            table_row['Object ID'] = old_id
+        else:
+            table_row['Old Object ID'] = old_id
+            table_row['New Object ID'] = new_id
+    table_row['Name'] = get_ref_name_from_ref(row['name'])
+    return table_row
+
+
 def transform_repos_table_output(result):
     table_output = []
     for item in sorted(result, key=_get_repo_key):

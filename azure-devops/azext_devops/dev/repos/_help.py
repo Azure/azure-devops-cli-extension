@@ -42,3 +42,9 @@ def load_repos_help():
     short-summary: Manage Git repositories import
     long-summary:
     """
+
+    helps['repos ref'] = """
+        type: group
+        short-summary: Manage Git references.
+        long-summary:
+    """
