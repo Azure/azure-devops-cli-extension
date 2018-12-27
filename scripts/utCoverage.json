@@ -1,0 +1,226 @@
+[
+    {
+        "name": "devops admin banner list",
+        "status": "None"
+    },
+    {
+        "name": "devops admin banner show",
+        "status": "None"
+    },
+    {
+        "name": "devops admin banner add",
+        "status": "None"
+    },
+    {
+        "name": "devops admin banner remove",
+        "status": "None"
+    },
+    {
+        "name": "devops admin banner update",
+        "status": "None"
+    },
+    {
+        "name": "boards work-item show",
+        "status": "None"
+    },
+    {
+        "name": "boards work-item create",
+        "status": "None"
+    },
+    {
+        "name": "boards work-item update",
+        "status": "None"
+    },
+    {
+        "name": "boards work-item delete",
+        "status": "None"
+    },
+    {
+        "name": "boards query",
+        "status": "None"
+    },
+    {
+        "name": "pipelines build list",
+        "status": "None"
+    },
+    {
+        "name": "pipelines build queue",
+        "status": "None"
+    },
+    {
+        "name": "pipelines build show",
+        "status": "None"
+    },
+    {
+        "name": "pipelines build definition list",
+        "status": "None"
+    },
+    {
+        "name": "pipelines build definition show",
+        "status": "None"
+    },
+    {
+        "name": "pipelines build task list",
+        "status": "None"
+    },
+    {
+        "name": "pipelines build task show",
+        "status": "None"
+    },
+    {
+        "name": "pipelines release list",
+        "status": "None"
+    },
+    {
+        "name": "pipelines release create",
+        "status": "None"
+    },
+    {
+        "name": "pipelines release show",
+        "status": "None"
+    },
+    {
+        "name": "pipelines release definition list",
+        "status": "None"
+    },
+    {
+        "name": "pipelines release definition show",
+        "status": "None"
+    },
+    {
+        "name": "repos create",
+        "status": "None"
+    },
+    {
+        "name": "repos delete",
+        "status": "None"
+    },
+    {
+        "name": "repos list",
+        "status": "None"
+    },
+    {
+        "name": "repos show",
+        "status": "None"
+    },
+    {
+        "name": "repos pr create",
+        "status": "None"
+    },
+    {
+        "name": "repos pr update",
+        "status": "None"
+    },
+    {
+        "name": "repos pr show",
+        "status": "None"
+    },
+    {
+        "name": "repos pr list",
+        "status": "None"
+    },
+    {
+        "name": "repos pr complete",
+        "status": "None"
+    },
+    {
+        "name": "repos pr abandon",
+        "status": "None"
+    },
+    {
+        "name": "repos pr reactivate",
+        "status": "None"
+    },
+    {
+        "name": "repos pr reviewers add",
+        "status": "None"
+    },
+    {
+        "name": "repos pr reviewers list",
+        "status": "None"
+    },
+    {
+        "name": "repos pr reviewers remove",
+        "status": "None"
+    },
+    {
+        "name": "repos pr work-items add",
+        "status": "None"
+    },
+    {
+        "name": "repos pr work-items list",
+        "status": "None"
+    },
+    {
+        "name": "repos pr work-items remove",
+        "status": "None"
+    },
+    {
+        "name": "repos pr set-vote",
+        "status": "None"
+    },
+    {
+        "name": "repos pr policies list",
+        "status": "None"
+    },
+    {
+        "name": "repos pr policies queue",
+        "status": "None"
+    },
+    {
+        "name": "repos import create",
+        "status": "None"
+    },
+    {
+        "name": "devops login",
+        "status": "None"
+    },
+    {
+        "name": "devops logout",
+        "status": "None"
+    },
+    {
+        "name": "devops feedback",
+        "status": "None"
+    },
+    {
+        "name": "devops configure",
+        "status": "None"
+    },
+    {
+        "name": "devops project create",
+        "status": "None"
+    },
+    {
+        "name": "devops project delete",
+        "status": "None"
+    },
+    {
+        "name": "devops project show",
+        "status": "None"
+    },
+    {
+        "name": "devops project list",
+        "status": "None"
+    },
+    {
+        "name": "devops service-endpoint list",
+        "status": "None"
+    },
+    {
+        "name": "devops service-endpoint show",
+        "status": "None"
+    },
+    {
+        "name": "devops service-endpoint create",
+        "status": "None"
+    },
+    {
+        "name": "artifacts universal publish",
+        "status": "None"
+    },
+    {
+        "name": "artifacts universal download",
+        "status": "None"
+    }
+]
