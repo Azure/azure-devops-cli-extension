@@ -22,12 +22,13 @@ from azext_devops.dev.common.identities import ME, resolve_identity_as_id
 from azext_devops.dev.common.uri import uri_quote
 from azext_devops.dev.common.uuid import EMPTY_UUID
 from azext_devops.dev.common.services import (get_git_client,
-                                      get_policy_client,
-                                      get_work_item_tracking_client,
-                                      resolve_instance,
-                                      resolve_instance_project_and_repo)
+                                              get_policy_client,
+                                              get_work_item_tracking_client,
+                                              resolve_instance,
+                                              resolve_instance_project_and_repo)
 
 logger = get_logger(__name__)
+
 
 def show_pull_request(pull_request_id, open_browser=False, devops_organization=None, detect=None):
     """Get the details of a pull request.
@@ -46,10 +47,10 @@ def show_pull_request(pull_request_id, open_browser=False, devops_organization=N
         client = get_git_client(devops_organization)
         pr = client.get_pull_request_by_id(pull_request_id)
         pr = client.get_pull_request(project=pr.repository.project.id,
-                                        repository_id=pr.repository.id,
-                                        pull_request_id=pull_request_id,
-                                        include_commits=False,
-                                        include_work_item_refs=True)
+                                     repository_id=pr.repository.id,
+                                     pull_request_id=pull_request_id,
+                                     include_commits=False,
+                                     include_work_item_refs=True)
         if open_browser:
             _open_pull_request(pr, devops_organization)
         return pr
@@ -88,29 +89,32 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     :rtype: list of :class:`VssJsonCollectionWrapper <git.v4_0.models.VssJsonCollectionWrapper>`
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(detect=detect,
-                                                                                devops_organization=devops_organization,
-                                                                                project=project,
-                                                                                repo=repository)
-        search_criteria = GitPullRequestSearchCriteria(creator_id=resolve_identity_as_id(creator, devops_organization),
-                                                        include_links=include_links,
-                                                        reviewer_id=resolve_identity_as_id(reviewer, devops_organization),
-                                                        source_ref_name=resolve_git_ref_heads(source_branch),
-                                                        status=status,
-                                                        target_ref_name=resolve_git_ref_heads(target_branch))
+        devops_organization, project, repository = resolve_instance_project_and_repo(
+            detect=detect,
+            devops_organization=devops_organization,
+            project=project,
+            repo=repository)
+        search_criteria = GitPullRequestSearchCriteria(
+            creator_id=resolve_identity_as_id(creator, devops_organization),
+            include_links=include_links,
+            reviewer_id=resolve_identity_as_id(reviewer, devops_organization),
+            source_ref_name=resolve_git_ref_heads(source_branch),
+            status=status,
+            target_ref_name=resolve_git_ref_heads(target_branch))
         client = get_git_client(devops_organization)
         if repository is None:
             pr_list = client.get_pull_requests_by_project(project=project, search_criteria=search_criteria,
-                                                            skip=skip, top=top)
+                                                          skip=skip, top=top)
         else:
             pr_list = client.get_pull_requests(project=project, repository_id=repository,
-                                                search_criteria=search_criteria,
-                                                skip=skip, top=top)
+                                               search_criteria=search_criteria,
+                                               skip=skip, top=top)
         return pr_list
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
+# pylint: disable=too-many-locals
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
@@ -128,7 +132,8 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type target_branch: str
     :param title: Title for the new pull request.
     :type title: str
-    :param description: Description for the new pull request. Can include markdown. Each value sent to this arg will be a new line.
+    :param description: Description for the new pull request. Can include markdown.
+                        Each value sent to this arg will be a new line.
                         For example: --description "First Line" "Second Line"
     :type description: list of str
     :param auto_complete: Set the pull request to complete automatically when all policies have passed and
@@ -164,30 +169,18 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(detect=detect,
-                                                                                devops_organization=devops_organization,
-                                                                                project=project,
-                                                                                repo=repository)
-        if should_detect(detect):
-            if source_branch is None:
-                source_branch = get_current_branch_name()
-                if source_branch is None:
-                    raise ValueError('The source branch could not be detected, please '
-                                        + 'provide the --source-branch argument.')
-        else:
-            if source_branch is None:
-                raise ValueError('--source-branch is a required argument.')
-        if target_branch is None:
-            if project is not None and repository is not None:
-                target_branch = _get_default_branch(devops_organization, project, repository)
-            if target_branch is None:
-                raise ValueError('The target branch could not be detected, please '
-                                + 'provide the --target-branch argument.')
+        devops_organization, project, repository = resolve_instance_project_and_repo(
+            detect=detect,
+            devops_organization=devops_organization,
+            project=project,
+            repo=repository)
+        source_branch, target_branch = _get_branches_for_pull_request(
+            devops_organization, project, repository, source_branch, target_branch, detect)
         client = get_git_client(devops_organization)
+        multi_line_description = None
         if description is not None:
             multi_line_description = '\n'.join(description)
-        else:
-            multi_line_description = None
+
         pr = GitPullRequest(description=multi_line_description, source_ref_name=source_branch,
                             target_ref_name=target_branch)
         if title is not None:
@@ -198,9 +191,9 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
         pr.target_ref_name = resolve_git_ref_heads(target_branch)
         if pr.source_ref_name == pr.target_ref_name:
             raise CLIError('The source branch, "{}", can not be the same as the target branch.'.format
-                            (pr.source_ref_name))
+                           (pr.source_ref_name))
         pr.reviewers = _resolve_reviewers_as_refs(reviewers, devops_organization)
-        if work_items is not None and len(work_items) > 0:
+        if work_items is not None and work_items:
             resolved_work_items = []
             for work_item in work_items:
                 resolved_work_items.append(ResourceRef(id=work_item))
@@ -211,15 +204,15 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
         if title is None:
             # if title wasn't specified and only one commit, we will set the PR title to the comment of that commit
             commits = client.get_pull_request_commits(repository_id=repository, pull_request_id=pr.pull_request_id,
-                                                        project=project)
+                                                      project=project)
             if len(commits) == 1:
                 title_from_commit = commits[0].comment
-        set_completion_options = (bypass_policy
-                                    or bypass_policy_reason is not None
-                                    or squash
-                                    or merge_commit_message is not None
-                                    or delete_source_branch
-                                    or transition_work_items)
+        set_completion_options = (bypass_policy or
+                                  bypass_policy_reason is not None or
+                                  squash or
+                                  merge_commit_message is not None or
+                                  delete_source_branch or
+                                  transition_work_items)
         if auto_complete or set_completion_options or title_from_commit is not None:
             pr_for_update = GitPullRequest()
             if auto_complete:
@@ -245,6 +238,25 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
         return pr
     except VstsServiceError as ex:
         raise CLIError(ex)
+
+
+def _get_branches_for_pull_request(devops_organization, project, repository, source_branch, target_branch, detect):
+    if should_detect(detect):
+        if source_branch is None:
+            source_branch = get_current_branch_name()
+            if source_branch is None:
+                raise ValueError('The source branch could not be detected,'
+                                 'please provide the --source-branch argument.')
+    else:
+        if source_branch is None:
+            raise ValueError('--source-branch is a required argument.')
+    if target_branch is None:
+        if project is not None and repository is not None:
+            target_branch = _get_default_branch(devops_organization, project, repository)
+        if target_branch is None:
+            raise ValueError('The target branch could not be detected,'
+                             'please provide the --target-branch argument.')
+    return source_branch, target_branch
 
 
 def update_pull_request(pull_request_id, title=None, description=None, auto_complete=None,
@@ -292,12 +304,12 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
         else:
             multi_line_description = None
         pr = GitPullRequest(title=title, description=multi_line_description)
-        if (bypass_policy is not None
-                or bypass_policy_reason is not None
-                or squash is not None
-                or merge_commit_message is not None
-                or delete_source_branch is not None
-                or transition_work_items is not None):
+        if (bypass_policy is not None or   # pylint: disable=too-many-boolean-expressions
+                bypass_policy_reason is not None or
+                squash is not None or
+                merge_commit_message is not None or
+                delete_source_branch is not None or
+                transition_work_items is not None):
             completion_options = existing_pr.completion_options
             if completion_options is None:
                 completion_options = GitPullRequestCompletionOptions()
@@ -340,7 +352,7 @@ def complete_pull_request(pull_request_id, devops_organization=None, detect=None
     """
     try:
         return _update_pull_request_status(pull_request_id=pull_request_id, new_status='completed',
-                                       devops_organization=devops_organization, detect=detect)
+                                           devops_organization=devops_organization, detect=detect)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -357,7 +369,7 @@ def abandon_pull_request(pull_request_id, devops_organization=None, detect=None)
     """
     try:
         return _update_pull_request_status(pull_request_id=pull_request_id, new_status='abandoned',
-                                       devops_organization=devops_organization, detect=detect)
+                                           devops_organization=devops_organization, detect=detect)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -372,9 +384,9 @@ def reactivate_pull_request(pull_request_id, devops_organization=None, detect=No
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
-    try: 
+    try:
         return _update_pull_request_status(pull_request_id=pull_request_id, new_status='active',
-                                       devops_organization=devops_organization, detect=detect)
+                                           devops_organization=devops_organization, detect=detect)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -397,9 +409,9 @@ def create_pull_request_reviewers(pull_request_id, reviewers, devops_organizatio
         pr = client.get_pull_request_by_id(pull_request_id)
         resolved_reviewers = _resolve_reviewers_as_refs(reviewers, devops_organization)
         identities = client.create_pull_request_reviewers(reviewers=resolved_reviewers,
-                                                            project=pr.repository.project.id,
-                                                            repository_id=pr.repository.id,
-                                                            pull_request_id=pull_request_id)
+                                                          project=pr.repository.project.id,
+                                                          repository_id=pr.repository.id,
+                                                          pull_request_id=pull_request_id)
         return identities
     except VstsServiceError as ex:
         raise CLIError(ex)
@@ -428,8 +440,8 @@ def delete_pull_request_reviewers(pull_request_id, reviewers, devops_organizatio
                                                 pull_request_id=pull_request_id,
                                                 reviewer_id=reviewer)
         return client.get_pull_request_reviewers(project=pr.repository.project.id,
-                                                    repository_id=pr.repository.id,
-                                                    pull_request_id=pull_request_id)
+                                                 repository_id=pr.repository.id,
+                                                 pull_request_id=pull_request_id)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -449,8 +461,8 @@ def list_pull_request_reviewers(pull_request_id, devops_organization=None, detec
         client = get_git_client(devops_organization)
         pr = client.get_pull_request_by_id(pull_request_id)
         return client.get_pull_request_reviewers(project=pr.repository.project.id,
-                                                    repository_id=pr.repository.id,
-                                                    pull_request_id=pull_request_id)
+                                                 repository_id=pr.repository.id,
+                                                 pull_request_id=pull_request_id)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -475,7 +487,7 @@ def add_pull_request_work_items(pull_request_id, work_items, devops_organization
             work_items = list(set(work_items))  # make distinct
             wit_client = get_work_item_tracking_client(devops_organization)
             pr_url = 'vstfs:///Git/PullRequestId/{project}%2F{repo}%2F{id}'.format(
-                    project=existing_pr.repository.project.id, repo=existing_pr.repository.id, id=pull_request_id)
+                project=existing_pr.repository.project.id, repo=existing_pr.repository.id, id=pull_request_id)
             for work_item_id in work_items:
                 patch_document = []
                 patch_operation = JsonPatchOperation()
@@ -494,8 +506,8 @@ def add_pull_request_work_items(pull_request_id, work_items, devops_organization
                     if message != 'Relation already exists.':
                         raise CLIError(ex)
             refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
-                                                        repository_id=existing_pr.repository.id,
-                                                        pull_request_id=pull_request_id)
+                                                      repository_id=existing_pr.repository.id,
+                                                      pull_request_id=pull_request_id)
         ids = []
         for ref in refs:
             ids.append(ref.id)
@@ -516,6 +528,7 @@ def remove_pull_request_work_items(pull_request_id, work_items, devops_organizat
     :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
+    # pylint: disable=too-many-nested-blocks
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_git_client(devops_organization)
@@ -549,14 +562,15 @@ def remove_pull_request_work_items(pull_request_id, work_items, devops_organizat
                             else:
                                 index += 1
                 refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
-                                                            repository_id=existing_pr.repository.id,
-                                                            pull_request_id=pull_request_id)
+                                                          repository_id=existing_pr.repository.id,
+                                                          pull_request_id=pull_request_id)
                 if refs:
                     ids = []
                     for ref in refs:
                         ids.append(ref.id)
                     if ids:
                         return wit_client.get_work_items(ids=ids)
+        return None
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -576,16 +590,16 @@ def list_pull_request_work_items(pull_request_id, devops_organization=None, dete
         client = get_git_client(devops_organization)
         pr = client.get_pull_request_by_id(pull_request_id)
         refs = client.get_pull_request_work_items(project=pr.repository.project.id,
-                                                    repository_id=pr.repository.id,
-                                                    pull_request_id=pull_request_id)
+                                                  repository_id=pr.repository.id,
+                                                  pull_request_id=pull_request_id)
         if refs:
             ids = []
             for ref in refs:
                 ids.append(ref.id)
             wit_client = get_work_item_tracking_client(devops_organization)
             return wit_client.get_work_items(ids=ids)
-        else:
-            return refs
+
+        return refs
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -623,13 +637,14 @@ def vote_pull_request(pull_request_id, vote, devops_organization=None, detect=No
         resolved_reviewer = IdentityRefWithVote(id=resolve_identity_as_id(ME, devops_organization))
         resolved_reviewer.vote = _convert_vote_to_int(vote)
         created_reviewer = client.create_pull_request_reviewer(project=pr.repository.project.id,
-                                                                repository_id=pr.repository.id,
-                                                                pull_request_id=pull_request_id,
-                                                                reviewer_id=resolved_reviewer.id,
-                                                                reviewer=resolved_reviewer)
+                                                               repository_id=pr.repository.id,
+                                                               pull_request_id=pull_request_id,
+                                                               reviewer_id=resolved_reviewer.id,
+                                                               reviewer=resolved_reviewer)
         return created_reviewer
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 def _convert_vote_to_int(vote):
     if vote.lower() == 'approve':
@@ -665,7 +680,7 @@ def list_pr_policies(pull_request_id, devops_organization=None, detect=None, top
         pr = git_client.get_pull_request_by_id(pull_request_id)
         policy_client = get_policy_client(devops_organization)
         artifact_id = "vstfs:///CodeReview/CodeReviewId/{project_id}/{pull_request_id}".format(
-                project_id=pr.repository.project.id, pull_request_id=pull_request_id)
+            project_id=pr.repository.project.id, pull_request_id=pull_request_id)
         return policy_client.get_policy_evaluations(project=pr.repository.project.id,
                                                     artifact_id=artifact_id,
                                                     top=top,
@@ -692,7 +707,7 @@ def queue_pr_policy(pull_request_id, evaluation_id, devops_organization=None, de
         pr = git_client.get_pull_request_by_id(pull_request_id)
         policy_client = get_policy_client(devops_organization)
         return policy_client.requeue_policy_evaluation(project=pr.repository.project.id,
-                                                        evaluation_id=evaluation_id)
+                                                       evaluation_id=evaluation_id)
     except VstsServiceError as ex:
         raise CLIError(ex)
 

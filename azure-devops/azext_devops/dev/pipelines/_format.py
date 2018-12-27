@@ -3,11 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-
-import dateutil
-
-
 from collections import OrderedDict
+import dateutil
 
 
 def transform_builds_table_output(result):
@@ -113,6 +110,7 @@ def _transform_task_row(row):
 
 def _get_task_key(row):
     return row['name'].lower()
+
 
 def transform_releases_table_output(result):
     table_output = []

@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from azure.cli.core.commands import CliCommandType
 from ._format import (transform_build_table_output,
                       transform_builds_table_output,
                       transform_definition_table_output,
@@ -13,9 +14,7 @@ from ._format import (transform_build_table_output,
                       transform_release_table_output,
                       transform_release_definitions_table_output,
                       transform_release_definition_table_output)
-from knack.commands import CommandGroup
 
-from azure.cli.core.commands import CliCommandType
 
 buildOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.build#{}'
@@ -37,6 +36,7 @@ releaseDefinitionOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.release_definition#{}'
 )
 
+
 def load_build_commands(self, _):
     with self.command_group('pipelines build', command_type=buildOps) as g:
         # basic vsts_cli_build commands
@@ -55,12 +55,12 @@ def load_build_commands(self, _):
         g.command('show', 'task_show', table_transformer=transform_task_table_output)
 
     with self.command_group('pipelines release', command_type=releaseOps) as g:
-        #basic release commands
+        # basic release commands
         g.command('list', 'release_list', table_transformer=transform_releases_table_output)
         g.command('create', 'release_create', table_transformer=transform_release_table_output)
         g.command('show', 'release_show', table_transformer=transform_release_table_output)
 
     with self.command_group('pipelines release definition', command_type=releaseDefinitionOps) as g:
-        #basic release commands
+        # basic release commands
         g.command('list', 'release_definition_list', table_transformer=transform_release_definitions_table_output)
         g.command('show', 'release_definition_show', table_transformer=transform_release_definition_table_output)

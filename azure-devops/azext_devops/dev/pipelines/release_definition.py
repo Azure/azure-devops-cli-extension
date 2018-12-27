@@ -6,13 +6,14 @@
 from webbrowser import open_new
 
 from knack.log import get_logger
-from azext_devops.dev.common.services import (get_release_client,resolve_instance_and_project)
-from azext_devops.dev.common.uri import uri_quote
+from azext_devops.dev.common.services import (get_release_client, resolve_instance_and_project)
 from azext_devops.dev.common.uuid import is_uuid
 
 logger = get_logger(__name__)
 
-def release_definition_list(name=None, top=None, devops_organization=None, project=None, artifact_type=None, artifact_source_id=None, detect=None):
+
+def release_definition_list(name=None, top=None, devops_organization=None, project=None,
+                            artifact_type=None, artifact_source_id=None, detect=None):
     """List release definitions.
     :param name: Limit results to definitions with this name or contains this name. Example: "FabCI"
     :type name: str
@@ -24,24 +25,29 @@ def release_definition_list(name=None, top=None, devops_organization=None, proje
     :type project: str
     :param artifact_type: Release definitions with given artifactType will be returned.
     :type artifact_type: str
-    :param artifact_source_id: Limit results to definitions associated with this artifact_source_id.e.g. For build it would be {projectGuid}:{BuildDefinitionId}, for Jenkins it would be {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}. For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json at https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
+    :param artifact_source_id: Limit results to definitions associated with this artifact_source_id.
+    e.g. For build it would be {projectGuid}:{BuildDefinitionId}, for Jenkins it would be
+    {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be
+    {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}.
+    For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier'
+    inside vss-extension.json at https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
     :type artifact_source_id: str
     :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
     :rtype: [ReleaseDefinitionReference]
     """
-    devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                          devops_organization=devops_organization,
-                                                          project=project)
+    devops_organization, project = resolve_instance_and_project(
+        detect=detect, devops_organization=devops_organization, project=project)
     client = get_release_client(devops_organization)
     query_order = 'nameAscending'
-    definition_references = client.get_release_definitions(project=project, search_text=name, artifact_source_id=artifact_source_id,
-                                                           artifact_type=artifact_type, top=top, query_order=query_order)
+    definition_references = client.get_release_definitions(
+        project=project, search_text=name, artifact_source_id=artifact_source_id, artifact_type=artifact_type,
+        top=top, query_order=query_order)
     return definition_references
 
 
 def release_definition_show(definition_id=None, name=None, open_browser=False, devops_organization=None, project=None,
-                          detect=None):
+                            detect=None):
     """Get the details of a release definition.
     :param definition_id: ID of the definition.
     :type definition_id: int
@@ -57,9 +63,8 @@ def release_definition_show(definition_id=None, name=None, open_browser=False, d
     :type detect: str
     :rtype: ReleaseDefinitionReference
     """
-    devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                            devops_organization=devops_organization,
-                                                            project=project)
+    devops_organization, project = resolve_instance_and_project(
+        detect=detect, devops_organization=devops_organization, project=project)
     client = get_release_client(devops_organization)
     if definition_id is None:
         if name is not None:
@@ -83,7 +88,8 @@ def _open_definition(definition):
 
 
 def get_definition_id_from_name(name, client, project):
-    definition_references = client.get_release_definitions(project=project, search_text=name, is_exact_name_match='true')
+    definition_references = client.get_release_definitions(
+        project=project, search_text=name, is_exact_name_match='true')
     if len(definition_references) == 1:
         return definition_references[0].id
     elif len(definition_references) > 1:
@@ -96,12 +102,13 @@ def get_definition_id_from_name(name, client, project):
         raise ValueError('There were no release definitions matching name "{name}" in project "{project}".'
                          .format(name=name, project=project))
 
- 
+
 def _get_release_definition_web_url(definition):
-    links = definition._links
+    links = definition._links   # pylint: disable=protected-access
     if links is not None and links:
         properties = links.additional_properties
         if properties is not None and properties:
             web_url = properties.get('web')
             if web_url is not None and web_url:
                 return web_url.get('href')
+    return None

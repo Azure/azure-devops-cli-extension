@@ -19,4 +19,4 @@ def wait_for_long_running_operation(devops_organization, operation_id, interval_
 
 def has_operation_completed(operation):
     status = operation.status.lower()
-    return status == 'succeeded' or status == 'failed' or status == 'cancelled'
+    return status in ('succeeded', 'failed', 'cancelled')

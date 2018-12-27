@@ -25,13 +25,14 @@ class BoardsWorkItemTests(ScenarioTest):
         wi_name = 'samplebug'
         wi_test_project_name = 'WorkItemCreateShowUpdateDeleteTests'
 
-        with patch('azext_devops.dev.team.credentials._get_pat_token') as mock_pat_token:  
+        with patch('azext_devops.dev.team.credentials._get_pat_token') as mock_pat_token:
             mock_pat_token.return_value = DEVOPS_CLI_TEST_PAT_TOKEN
             self.cmd('az devops login')
             self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
 
         try:
-            create_wi_command = 'az boards work-item create --project '+ wi_test_project_name +' --title ' + wi_name +' --type Bug  --detect off --output json'
+            create_wi_command = 'az boards work-item create --project '+ wi_test_project_name +' --title ' + wi_name \
+                                + ' --type Bug  --detect off --output json'
             wi_create = self.cmd(create_wi_command, checks=[
                 self.check('fields."System.AreaPath"', wi_test_project_name),
                 self.check('fields."System.WorkItemType"', 'Bug'),
@@ -54,7 +55,7 @@ class BoardsWorkItemTests(ScenarioTest):
 
         finally:
             #delete the work item created for test
-            delete_wi_command = 'az boards work-item delete --org ' + DEVOPS_CLI_TEST_ORGANIZATION + ' --id ' + str(wi_id) + ' --yes --project ' + wi_test_project_name + ' --detect off --output json'
+            delete_wi_command = 'az boards work-item delete --org ' + DEVOPS_CLI_TEST_ORGANIZATION + ' --id ' + str(wi_id) + ' --yes ' + ' --detect off --output json'
             delete_wi_response = self.cmd(delete_wi_command , checks=[
                 self.check('id', wi_id)
             ]).get_output_in_json()

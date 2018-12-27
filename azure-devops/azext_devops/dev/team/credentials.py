@@ -62,9 +62,9 @@ def _get_pat_token():
 
 # Sets organization if the default is not set
 def _check_and_set_default_organization(devops_organization):
-    if(devops_organization is not None):
+    if devops_organization is not None:
         from azext_devops.dev.common.config import azdevops_config
-        from  azext_devops.dev.common.const import DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT
+        from azext_devops.dev.common.const import DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT
         from .configure import configure
         current_org_default = None
         if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT):
@@ -78,14 +78,14 @@ def _check_and_set_default_organization(devops_organization):
 
 # Clears organization if the default is set to same
 def _check_and_clear_default_organization(devops_organization):
-    if (devops_organization is not None):
+    if devops_organization is not None:
         from azext_devops.dev.common.config import azdevops_config
-        from  azext_devops.dev.common.const import DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT
+        from azext_devops.dev.common.const import DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT
         from .configure import configure
         current_org_default = None
         if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT):
             current_org_default = azdevops_config.get(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT)
-        if current_org_default == devops_organization  :
+        if current_org_default == devops_organization:
             configure(defaults=["organization=''"])
             logger.debug("Resetting default organization.")
         else:

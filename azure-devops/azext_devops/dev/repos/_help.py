@@ -3,9 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.help_files import helps  # pylint: disable=unused-import
+from knack.help_files import helps
 
-# pylint: disable=line-too-long
 
 def load_repos_help():
     helps['repos'] = """
@@ -37,9 +36,9 @@ def load_repos_help():
     short-summary: Manage work items associated with pull requests.
     long-summary:
     """
-    
+
     helps['repos import'] = """
     type: group
-    short-summary: Manage Git repositories import 
-    long-summary: 
+    short-summary: Manage Git repositories import
+    long-summary:
     """

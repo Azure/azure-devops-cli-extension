@@ -12,8 +12,7 @@ from knack.util import ensure_dir
 from .const import (AZ_DEVOPS_CONFIG_DIR_ENVKEY,
                     AZ_DEVOPS_DEFAULT_CONFIG_DIR,
                     CLI_ENV_VARIABLE_PREFIX,
-                    CONFIG_FILE_NAME,
-                    DEFAULTS_SECTION)
+                    CONFIG_FILE_NAME)
 
 
 _UNSET = object()
@@ -21,13 +20,14 @@ _UNSET = object()
 
 def _get_config_dir():
     azure_devops_config_dir = os.getenv(AZ_DEVOPS_CONFIG_DIR_ENVKEY, None) or AZ_DEVOPS_DEFAULT_CONFIG_DIR
-    #Create a directory if it doesn't exist
+    # Create a directory if it doesn't exist
     ensure_dir(azure_devops_config_dir)
     return azure_devops_config_dir
 
 
 AZ_DEVOPS_GLOBAL_CONFIG_DIR = _get_config_dir()
 AZ_DEVOPS_GLOBAL_CONFIG_PATH = os.path.join(AZ_DEVOPS_GLOBAL_CONFIG_DIR, CONFIG_FILE_NAME)
+
 
 class AzDevopsConfig(CLIConfig):
     def __init__(self, config_dir=AZ_DEVOPS_GLOBAL_CONFIG_DIR, config_env_var_prefix=CLI_ENV_VARIABLE_PREFIX):

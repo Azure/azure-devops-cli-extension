@@ -123,19 +123,18 @@ def _transform_work_items_row(row):
 def _get_vote_from_vote_number(number):
     if number == 10:
         return 'Approved'
-    elif number == 5:
+    if number == 5:
         return 'Approved with suggestions'
-    elif number == -5:
+    if number == -5:
         return 'Waiting for author'
-    elif number == -10:
+    if number == -10:
         return 'Rejected'
-    else:
-        return ' '
+    return ' '
 
 
 def transform_policies_table_output(result):
     from azext_devops.dev.common.identities import (ensure_display_names_in_cache,
-                                            get_display_name_from_identity_id)
+                                                    get_display_name_from_identity_id)
     from azext_devops.dev.common.services import get_first_vss_instance_uri
     table_output = []
     reviewer_ids = []
@@ -162,8 +161,7 @@ def get_required_reviewer_from_evaluation_row(row):
     if 'requiredReviewerIds' in row['configuration']['settings'] and len(
             row['configuration']['settings']['requiredReviewerIds']) == 1:
         return row['configuration']['settings']['requiredReviewerIds'][0]
-    else:
-        return None
+    return None
 
 
 def transform_policy_table_output(result):
@@ -223,8 +221,7 @@ def _build_policy_name(row, identity_display_name=None):
 def _convert_policy_status(status):
     if status == 'queued':
         return ' '
-    else:
-        return status.capitalize()
+    return status.capitalize()
 
 
 def transform_repos_table_output(result):
@@ -243,7 +240,7 @@ def transform_repo_import_table_output(result):
     table_output = OrderedDict()
     table_output['Name'] = result['repository']['name']
     table_output['Project'] = result['repository']['project']['name']
-    table_output['Import Status'] =  result['status']
+    table_output['Import Status'] = result['status']
     return table_output
 
 

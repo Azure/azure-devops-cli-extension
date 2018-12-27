@@ -12,13 +12,14 @@ from vsts.exceptions import VstsServiceError
 from vsts.core.v4_0.models.team_project import TeamProject
 from azext_devops.dev.common.operations import wait_for_long_running_operation
 from azext_devops.dev.common.services import (get_core_client,
-                                      resolve_instance)
+                                              resolve_instance)
 from azext_devops.dev.common.uri import uri_quote
 
 logger = get_logger(__name__)
 
-def create_project(name, devops_organization=None, process=None, source_control='git', description=None, visibility='private',
-                    detect=None, open_browser=False):
+
+def create_project(name, devops_organization=None, process=None, source_control='git', description=None,
+                   visibility='private', detect=None, open_browser=False):
     """Create a team project.
     :param name: Name of the new project.
     :type name: str
@@ -30,7 +31,7 @@ def create_project(name, devops_organization=None, process=None, source_control=
     :type source_control: str
     :param description: Description for the new project.
     :type description: str
-    :param visibility: Project visibility. 
+    :param visibility: Project visibility.
     :type visibility: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
@@ -56,16 +57,16 @@ def create_project(name, devops_organization=None, process=None, source_control=
         process_list = core_client.get_processes()
         if process is not None:
             process_lower = process.lower()
-            for process in process_list:
-                if process.name.lower() == process_lower:
-                    process_id = process.id
+            for prc in process_list:
+                if prc.name.lower() == process_lower:
+                    process_id = prc.id
                     break
             if process_id is None:
                 raise CLIError('Could not find a process template with name: "{}"'.format(name))
         if process_id is None:
-            for process in process_list:
-                if process.is_default:
-                    process_id = process.id
+            for prc in process_list:
+                if prc.is_default:
+                    process_id = prc.id
                     break
             if process_id is None:
                 raise CLIError('Could not find a default process template: "{}"'.format(name))
@@ -74,7 +75,7 @@ def create_project(name, devops_organization=None, process=None, source_control=
         version_control_capabilities = {VERSION_CONTROL_CAPABILITY_ATTRIBUTE_NAME: source_control}
         process_capabilities = {PROCESS_TEMPLATE_CAPABILITY_TEMPLATE_TYPE_ID_ATTRIBUTE_NAME: process_id}
         team_project.capabilities = {VERSION_CONTROL_CAPABILITY_NAME: version_control_capabilities,
-                                        PROCESS_TEMPLATE_CAPABILITY_NAME: process_capabilities}
+                                     PROCESS_TEMPLATE_CAPABILITY_NAME: process_capabilities}
 
         # queue project creation
         operation_reference = core_client.queue_create_project(project_to_create=team_project)
@@ -119,6 +120,7 @@ def delete_project(project_id=None, devops_organization=None, detect=None):
         return operation
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 def show_project(project_id=None, name=None, devops_organization=None, detect=None, open_browser=False):
     """Show team project.

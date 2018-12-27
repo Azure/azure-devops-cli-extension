@@ -3,14 +3,11 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import sys
-
 import colorama
+from vsts.exceptions import VstsServiceError
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.exceptions import VstsServiceError
-from azext_devops.dev.common.services import get_core_client, resolve_instance
-
+from azext_devops.dev.common.services import resolve_instance
 from .artifacttool import ArtifactToolInvoker
 from .artifacttool_updater import ArtifactToolUpdater
 from .external_tool import ProgressReportingExternalToolInvoker
@@ -18,6 +15,7 @@ from .external_tool import ProgressReportingExternalToolInvoker
 logger = get_logger(__name__)
 
 _UNIVERSAL_PREVIEW_MESSAGE = "Universal Packages is currently in preview."
+
 
 def publish_package(feed, name, version, path, description=None, devops_organization=None, detect=None):
     """(PREVIEW) Publish a package to a feed.
@@ -37,7 +35,7 @@ def publish_package(feed, name, version, path, description=None, devops_organiza
     :type detect: str
     """
     try:
-        colorama.init() # Needed for humanfriendly spinner to display correctly
+        colorama.init()   # Needed for humanfriendly spinner to display correctly
         logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
@@ -62,7 +60,7 @@ def download_package(feed, name, version, path, devops_organization=None, detect
     :type detect: str
     """
     try:
-        colorama.init() # Needed for humanfriendly spinner to display correctly
+        colorama.init()  # Needed for humanfriendly spinner to display correctly
         logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())

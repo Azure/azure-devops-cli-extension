@@ -3,18 +3,18 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-
-from knack.arguments import enum_choice_list, ArgumentsContext
+from knack.arguments import enum_choice_list
 
 _ON_OFF_SWITCH_VALUES = ['on', 'off']
 
-_BUILD_REASON_VALUES = ['all', 'batchedCI', 'buildCompletion', 'checkInShelveset', 
-    'individualCI', 'manual', 'pullRequest', 'schedule', 
-    'triggered', 'userCreated', 'validateShelveset']	
+_BUILD_REASON_VALUES = ['all', 'batchedCI', 'buildCompletion', 'checkInShelveset',
+                        'individualCI', 'manual', 'pullRequest', 'schedule',
+                        'triggered', 'userCreated', 'validateShelveset']
 
-_BUILD_RESULT_VALUES = ['canceled', 'failed', 'none', 'partiallySucceeded',	'succeeded']
+_BUILD_RESULT_VALUES = ['canceled', 'failed', 'none', 'partiallySucceeded', 'succeeded']
 
-_BUILD_STATUS_VALUES = [ 'all','cancelling', 'completed', 'inProgress', 'none', 'notStarted', 'postponed']
+_BUILD_STATUS_VALUES = ['all', 'cancelling', 'completed', 'inProgress', 'none', 'notStarted', 'postponed']
+
 
 def load_build_arguments(self, _):
     with self.argument_context('pipelines build') as context:
@@ -41,8 +41,10 @@ def load_build_arguments(self, _):
         context.argument('definition_id', options_list=('--definition-id', '--id'), type=int)
 
     with self.argument_context('pipelines build definition list') as context:
-        context.argument('repository_type', choices=['tfsversioncontrol', 'tfsgit', 'git', 'github', 'githubenterprise', 'bitbucket', 'svn'],
-        type=str.lower)
+        context.argument(
+            'repository_type',
+            choices=['tfsversioncontrol', 'tfsgit', 'git', 'github', 'githubenterprise', 'bitbucket', 'svn'],
+            type=str.lower)
 
     with self.argument_context('pipelines build task') as context:
         context.argument('task_id', options_list=('--task-id', '--id'), type=str)
@@ -67,4 +69,5 @@ def load_build_arguments(self, _):
         context.argument('definition_id', options_list='--id', type=int)
 
     with self.argument_context('pipelines release definition list') as context:
-        context.argument('artifact_type', choices=['build', 'jenkins', 'github', 'externaltfsbuild', 'git', 'tfvc'], type=str.lower)
+        context.argument('artifact_type', choices=['build', 'jenkins', 'github', 'externaltfsbuild', 'git', 'tfvc'],
+                         type=str.lower)

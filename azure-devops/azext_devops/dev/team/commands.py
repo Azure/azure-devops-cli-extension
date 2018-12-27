@@ -2,12 +2,11 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
-
-from ._format import transform_project_table_output, transform_projects_table_output, transform_service_endpoints_table_output
-
 from knack.prompting import prompt_y_n
-
 from azure.cli.core.commands import CliCommandType
+from ._format import (transform_project_table_output, transform_projects_table_output,
+                      transform_service_endpoints_table_output)
+
 
 projectOps = CliCommandType(
     operations_tmpl='azext_devops.dev.team.project#{}'
@@ -29,8 +28,10 @@ service_endpointOps = CliCommandType(
     operations_tmpl='azext_devops.dev.team.service_endpoint#{}'
 )
 
-def project_delete_confirmation(command_args):
+
+def project_delete_confirmation():
     return bool(prompt_y_n('Are you sure you want to delete this project?'))
+
 
 def load_team_commands(self, _):
     with self.command_group('devops', command_type=credentialsOps) as g:
@@ -51,5 +52,5 @@ def load_team_commands(self, _):
 
     with self.command_group('devops service-endpoint', command_type=service_endpointOps) as g:
         g.command('list', 'list_service_endpoints', table_transformer=transform_service_endpoints_table_output)
-        g.command('show', 'show_service_endpoint')  #no table transform because type is not well defined
+        g.command('show', 'show_service_endpoint')  # no table transform because type is not well defined
         g.command('create', 'create_service_endpoint')

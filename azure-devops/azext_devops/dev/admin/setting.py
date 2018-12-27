@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from azext_devops.dev.common.services import (get_settings_client,
-                                      resolve_instance)
+                                              resolve_instance)
 
 
 def setting_list(user_scope, key=None, devops_organization=None, detect=None):

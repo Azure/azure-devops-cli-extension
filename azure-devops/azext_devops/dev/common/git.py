@@ -33,14 +33,13 @@ def get_config(key, local=True):
 def _get_git_config_scope_arg(local):
     if local:
         return '--local'
-    else:
-        return '--global'
+    return '--global'
 
 
 def get_current_branch_name():
     try:
         output = subprocess.check_output([_GIT_EXE, 'symbolic-ref', '--short', '-q', 'HEAD'])
-    except Exception as ex:
+    except BaseException as ex:
         logger.info('GitDetect: Could not detect current branch based on current working directory.')
         logger.debug(ex, exc_info=True)
         return None
@@ -54,12 +53,12 @@ def get_current_branch_name():
 def get_remote_url(validation_function=None):
     remotes = get_git_remotes()
     if remotes is not None:
-        if _ORIGIN_PUSH_KEY in remotes and (validation_function is None
-                                            or validation_function(remotes[_ORIGIN_PUSH_KEY])):
+        if _ORIGIN_PUSH_KEY in remotes and (validation_function is None or
+                                            validation_function(remotes[_ORIGIN_PUSH_KEY])):
             return remotes[_ORIGIN_PUSH_KEY]
         for k, value in remotes.items():
-            if k != _ORIGIN_PUSH_KEY and k.endswith('(push)') and (validation_function is None
-                                                                   or validation_function(value)):
+            if k != _ORIGIN_PUSH_KEY and k.endswith('(push)') and (validation_function is None or
+                                                                   validation_function(value)):
                 return value
     return None
 
@@ -71,7 +70,7 @@ def get_git_credentials(devops_organization):
     standard_in = bytes('protocol={protocol}\nhost={host}'.format(protocol=protocol, host=host), 'utf-8')
     try:
         output = subprocess.check_output([_GIT_EXE, 'credential-manager', 'get'], input=standard_in)
-    except Exception as ex:
+    except BaseException as ex:
         logger.info('GitDetect: Could not detect git credentials for current working directory.')
         logger.debug(ex, exc_info=True)
         return None
@@ -98,7 +97,7 @@ def get_git_remotes():
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (fetch)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (push)
         output = subprocess.check_output([_GIT_EXE, 'remote', '-v'], stderr=subprocess.STDOUT)
-    except Exception as ex:
+    except BaseException as ex:
         logger.info('GitDetect: Could not detect current remotes based on current working directory.')
         logger.debug(ex, exc_info=True)
         return None
@@ -172,12 +171,3 @@ _ORIGIN_PUSH_KEY = 'origin(push)'
 REF_HEADS_PREFIX = 'refs/heads/'
 GIT_CREDENTIALS_USERNAME_KEY = 'username'
 GIT_CREDENTIALS_PASSWORD_KEY = 'password'
-
-
-class GitRemote(object):
-    """ GitRemote.
-    """
-    def __init__(self, name, url, direction):
-        self.name = name
-        self.url = url
-        self.direction = direction

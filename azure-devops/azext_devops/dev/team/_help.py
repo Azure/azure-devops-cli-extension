@@ -3,17 +3,16 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.help_files import helps  # pylint: disable=unused-import
+from knack.help_files import helps
 
-# pylint: disable=line-too-long
 
 def load_team_help():
     helps['devops'] = """
     type: group
     short-summary: Manage Azure DevOps organization level operations.
     long-summary: |
-        Related Groups 
-        az pipelines: Manage Azure Pipelines 
+        Related Groups
+        az pipelines: Manage Azure Pipelines
         az boards: Manage Azure Boards
         az repos: Manage Azure Repos
         az artifacts: Manage Azure Artifacts

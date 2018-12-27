@@ -6,6 +6,7 @@
 
 from __future__ import print_function
 
+
 def feedback():
     """Displays information on how to provide feedback to the Azure DevOps CLI team.
     """
