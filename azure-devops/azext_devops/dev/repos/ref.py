@@ -10,7 +10,8 @@ from azext_devops.dev.common.git import resolve_git_refs
 from azext_devops.dev.common.services import (get_git_client,
                                               resolve_instance_project_and_repo)
 
-#pylint: disable=redefined-builtin
+
+# pylint: disable=redefined-builtin
 def list_refs(filter=None, repository=None, devops_organization=None, project=None, detect=None):
     """List the references.
     :param str filter: Filter to apply to the refs (example: heads/ for the branches).
