@@ -244,9 +244,9 @@ def _transform_ref_row(row):
     if ('oldObjectId' in row) and ('newObjectId' in row):
         old_id = row['oldObjectId']
         new_id = row['newObjectId']
-        if (old_id == '0000000000000000000000000000000000000000'):
+        if old_id == '0000000000000000000000000000000000000000':
             table_row['Object ID'] = new_id
-        elif (new_id == '0000000000000000000000000000000000000000'):
+        elif new_id == '0000000000000000000000000000000000000000':
             table_row['Object ID'] = old_id
         else:
             table_row['Old Object ID'] = old_id

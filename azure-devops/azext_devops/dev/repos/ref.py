@@ -3,25 +3,28 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.log import get_logger
 from knack.util import CLIError
 from vsts.git.v4_0.models.git_ref_update import GitRefUpdate
-from vsts.exceptions import VstsClientRequestError, VstsServiceError
+from vsts.exceptions import VstsServiceError
 from azext_devops.dev.common.git import resolve_git_refs
 from azext_devops.dev.common.services import (get_git_client,
-                                              resolve_instance,
                                               resolve_instance_project_and_repo)
 
+#pylint: disable=redefined-builtin
 def list_refs(filter=None, repository=None, devops_organization=None, project=None, detect=None):
     """List the references.
-    :param str filter: Filter to apply to the refs.
+    :param str filter: Filter to apply to the refs (example: heads/ for the branches).
     :param str repository: Name or ID of the repository.
     :param str devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(detect=detect, devops_organization=devops_organization, project=project, repo=repository)
+        devops_organization, project, repository = resolve_instance_project_and_repo(
+            detect=detect,
+            devops_organization=devops_organization,
+            project=project,
+            repo=repository)
         client = get_git_client(devops_organization)
         return client.get_refs(repository_id=repository,
                                project=project,
@@ -41,13 +44,17 @@ def create_ref(name, object_id, locked=False, repository=None, devops_organizati
     :param str detect: Automatically detect organization and project. Default is "on".
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(detect=detect, devops_organization=devops_organization, project=project, repo=repository)
+        devops_organization, project, repository = resolve_instance_project_and_repo(
+            detect=detect,
+            devops_organization=devops_organization,
+            project=project,
+            repo=repository)
         client = get_git_client(devops_organization)
         ref_update = GitRefUpdate(is_locked=locked,
                                   name=resolve_git_refs(name),
                                   new_object_id=object_id,
                                   old_object_id='0000000000000000000000000000000000000000')
-        return client.update_refs([ ref_update ], repository, project)[0]
+        return client.update_refs([ref_update], repository, project)[0]
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -62,17 +69,22 @@ def delete_ref(name, object_id, repository=None, devops_organization=None, proje
     :param str detect: Automatically detect organization and project. Default is "on".
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(detect=detect, devops_organization=devops_organization, project=project, repo=repository)
+        devops_organization, project, repository = resolve_instance_project_and_repo(
+            detect=detect,
+            devops_organization=devops_organization,
+            project=project,
+            repo=repository)
         client = get_git_client(devops_organization)
         ref_update = GitRefUpdate(name=resolve_git_refs(name),
                                   new_object_id='0000000000000000000000000000000000000000',
                                   old_object_id=object_id)
-        return client.update_refs([ ref_update ], repository, project)[0]
+        return client.update_refs([ref_update], repository, project)[0]
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def update_ref(name, old_object_id, new_object_id, repository=None, devops_organization=None, project=None, detect=None):
+def update_ref(name, old_object_id, new_object_id, repository=None, devops_organization=None,
+               project=None, detect=None):
     """Update a reference.
     :param str name: Name of the reference to create (example: heads/my_branch).
     :param str old_object_id: id of the old reference.
@@ -83,11 +95,15 @@ def update_ref(name, old_object_id, new_object_id, repository=None, devops_organ
     :param str detect: Automatically detect organization and project. Default is "on".
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(detect=detect, devops_organization=devops_organization, project=project, repo=repository)
+        devops_organization, project, repository = resolve_instance_project_and_repo(
+            detect=detect,
+            devops_organization=devops_organization,
+            project=project,
+            repo=repository)
         client = get_git_client(devops_organization)
         ref_update = GitRefUpdate(name=resolve_git_refs(name),
                                   new_object_id=new_object_id,
                                   old_object_id=old_object_id)
-        return client.update_refs([ ref_update ], repository, project)[0]
+        return client.update_refs([ref_update], repository, project)[0]
     except VstsServiceError as ex:
         raise CLIError(ex)
