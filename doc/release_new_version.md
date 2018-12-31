@@ -1,4 +1,4 @@
-# Instructions to do a new release version of Azure DevOps CLI extension
+# Instructions to release a new version of Azure DevOps CLI extension
 
 ## This involves 3 broad steps
 (1) Creating a new wheel from existing code and hosting it.  
