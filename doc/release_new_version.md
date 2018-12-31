@@ -1,9 +1,9 @@
 # Instructions to do a new release version of Azure DevOps CLI extension
 
 ## This involves 3 broad steps
-(1) Creating a new wheel from existing code and hosting it.
-(2) Updating index file in Azure CLI extensions repository.
-(3) Updating Azure DevOps CLI extension version in repository and releases
+(1) Creating a new wheel from existing code and hosting it.  
+(2) Updating index file in Azure CLI extensions repository.  
+(3) Updating Azure DevOps CLI extension version in repository and releases  
 
 ## Details:
 ## Creating a new wheel from existing code and hosting it.
