@@ -237,6 +237,36 @@ class TestPullRequestMethods(unittest.TestCase):
 
         self.mock_get_PRsByProject.assert_called_once()
         self.mock_get_PRs.assert_not_called()
+        calls_args = self.mock_get_PRsByProject.call_args_list
+        self.assertEqual(self._TEST_PROJECT_NAME, calls_args[0][1]['project'])
+        self.assertEqual(None, calls_args[0][1]['skip'])
+        self.assertEqual(None, calls_args[0][1]['top'])
+        search_criteria_in_call = calls_args[0][1]['search_criteria']
+        self.assertEqual(search_criteria_in_call.include_links, False)
+        self.assertEqual(search_criteria_in_call.source_ref_name, None)
+        self.assertEqual(search_criteria_in_call.status, None)
+        self.assertEqual(search_criteria_in_call.target_ref_name, None)
+
+    def test_list_pull_request_options(self):
+        response = list_pull_requests(project = self._TEST_PROJECT_NAME,
+        devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+        skip = 1,
+        top = 10,
+        include_links = True,
+        source_branch = 'userBranch',
+        status = 'active',
+        target_branch = 'master')
+
+        self.mock_get_PRsByProject.assert_called_once()
+        self.mock_get_PRs.assert_not_called()
+        calls_args = self.mock_get_PRsByProject.call_args_list
+        self.assertEqual(self._TEST_PROJECT_NAME, calls_args[0][1]['project'])
+        self.assertEqual(1, calls_args[0][1]['skip'])
+        self.assertEqual(10, calls_args[0][1]['top'])
+        search_criteria_in_call = calls_args[0][1]['search_criteria']
+        self.assertEqual(search_criteria_in_call.include_links, True)
+        self.assertEqual(search_criteria_in_call.source_ref_name, 'refs/heads/userBranch')
+        self.assertEqual(search_criteria_in_call.target_ref_name, 'refs/heads/master')
 
     def test_list_pull_request_with_repo(self):
         response = list_pull_requests(project = self._TEST_PROJECT_NAME,
