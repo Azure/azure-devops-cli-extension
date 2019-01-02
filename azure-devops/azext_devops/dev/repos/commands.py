@@ -53,8 +53,7 @@ def load_code_commands(self, _):
         g.command('create', 'create_pull_request', table_transformer=transform_pull_request_table_output)
         g.command('update', 'update_pull_request', table_transformer=transform_pull_request_table_output)
         g.command('show', 'show_pull_request', table_transformer=transform_pull_request_table_output)
-        g.command('list2', 'list_pull_requests', table_transformer=transform_pull_requests_table_output)
-        g.command('blah', 'list_pull_requests', table_transformer=transform_pull_requests_table_output)
+        g.command('list', 'list_pull_requests', table_transformer=transform_pull_requests_table_output)
 
         # pr status update commands
         g.command('complete', 'complete_pull_request', table_transformer=transform_pull_request_table_output)
