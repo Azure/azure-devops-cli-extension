@@ -71,9 +71,9 @@ You can provide PAT in following ways.
 ## Logout from Azure CLI
 
 If you have logged-in with `az login` , you can directly run `az logout` command.
-    ```bash
-    az logout
-    ```
+```bash
+az logout
+```
 
 ## Logout from Azure Devops CLI
 
