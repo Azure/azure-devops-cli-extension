@@ -14,7 +14,6 @@ except ImportError:
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from azext_devops.dev.team.credentials import credential_set
 from datetime import datetime
 from .utilities.helper import ( get_random_name , DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry )
 
