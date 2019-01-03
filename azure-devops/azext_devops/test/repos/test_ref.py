@@ -36,7 +36,7 @@ class TestRefMethods(unittest.TestCase):
         self.mock_update_ref.stop()
 
     def test_list_refs(self):
-        response = list_refs(devops_organization=_TEST_DEVOPS_ORGANIZATION,
+        response = list_refs(devops_organization=self._TEST_DEVOPS_ORGANIZATION,
                              project='sample project',
                              detect='off')
         # assert
@@ -45,7 +45,7 @@ class TestRefMethods(unittest.TestCase):
     def test_create_ref(self):
         response = create_ref(name='sample_ref',
                               object_id='1234567890',
-                              devops_organization=_TEST_DEVOPS_ORGANIZATION,
+                              devops_organization=self._TEST_DEVOPS_ORGANIZATION,
                               project='sample project',
                               detect='off')
         # assert
@@ -55,7 +55,7 @@ class TestRefMethods(unittest.TestCase):
         response = update_ref(name='sample_ref',
                               old_object_id='1234567890',
                               new_object_id='0987654321',
-                              devops_organization=_TEST_DEVOPS_ORGANIZATION,
+                              devops_organization=self._TEST_DEVOPS_ORGANIZATION,
                               project='sample project',
                               detect='off')
         # assert
@@ -64,7 +64,7 @@ class TestRefMethods(unittest.TestCase):
     def test_delete_ref(self):
         response = delete_ref(name='sample_ref',
                               object_id='1234567890',
-                              devops_organization=_TEST_DEVOPS_ORGANIZATION,
+                              devops_organization=self._TEST_DEVOPS_ORGANIZATION,
                               project='sample project',
                               detect='off')
         # assert
