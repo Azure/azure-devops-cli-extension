@@ -32,11 +32,14 @@ def credential_set(devops_organization=None):
         location_client = connection.get_client('vsts.location.v4_1.location_client.LocationClient')
         try:
             connection_data = location_client.get_connection_data()
-            if connection_data.authenticated_user.id == _ANONYMOUS_USER_ID:
-                raise CLIError("Failed to authenticate using the supplied token.")
         except Exception as ex2:
             logger.debug(ex2, exc_info=True)
             raise CLIError("Failed to authenticate using the supplied token.")
+        else:
+            # An organization with public project enabled will not throw any exception for invalid token.
+            # Hence, handle anonymous user case here.
+            if connection_data.authenticated_user.id == _ANONYMOUS_USER_ID:
+                raise CLIError("Failed to authenticate using the supplied token.")
     set_credential(devops_organization=devops_organization, token=token)
     _check_and_set_default_organization(devops_organization)
 
