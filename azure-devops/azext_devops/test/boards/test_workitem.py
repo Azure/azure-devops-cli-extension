@@ -20,7 +20,7 @@ from azext_devops.dev.common.services import clear_connection_cache
 
 class TestWorkItemMethods(unittest.TestCase):
 
-    _TEST_DEVOPS_ORGANIZATION = 'https://AzureDevOpsCliTest.visualstudio.com'
+    _TEST_DEVOPS_ORGANIZATION = 'https://azuredevopsclitest.visualstudio.com'
     _TEST_PAT_TOKEN = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
 
     def setUp(self):

@@ -48,5 +48,5 @@ class TestTelemetryMethods(unittest.TestCase):
     def test_set_tracking_data_should_set_data_correctly_with_none(self):
         set_tracking_data(None)
         assert vsts_tracking_data.area == 'AzureDevopsCli'
-        assert vsts_tracking_data.feature == 'Command'
+        assert vsts_tracking_data.feature == None
         assert vsts_tracking_data.properties == {} 

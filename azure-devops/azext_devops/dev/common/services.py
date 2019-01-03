@@ -27,6 +27,7 @@ logger = get_logger(__name__)
 
 
 def get_vss_connection(devops_organization):
+    devops_organization = devops_organization.lower()
     if devops_organization not in _vss_connection:
         credentials = _get_credentials(devops_organization)
         try:

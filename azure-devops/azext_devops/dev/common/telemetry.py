@@ -29,7 +29,7 @@ def set_tracking_data(argv):
         if argv:
             vsts_tracking_data.feature = argv[0]
         else:
-            vsts_tracking_data.feature = 'Command'
+            vsts_tracking_data.feature = None
         if len(argv) > 1:
             command = []
             args = []
@@ -46,6 +46,7 @@ def set_tracking_data(argv):
             else:
                 vsts_tracking_data.properties['Command'] = ''
             vsts_tracking_data.properties['Args'] = args
+            vsts_tracking_data.properties['ShellType'] = _get_shell_type()
 
     except BaseException as ex:
         logger.debug(ex, exc_info=True)
@@ -63,7 +64,8 @@ def _is_telemetry_enabled():
 
 
 def _try_send_tracking_ci_event_async(devops_organization=None):
-    if vsts_tracking_data is not None and vsts_tracking_data.area is not None:
+    if (vsts_tracking_data is not None and vsts_tracking_data.area is not None and
+            vsts_tracking_data.feature is not None):
         logger.debug("Logging telemetry to azure devops server.")
         try:
             thread = threading.Thread(target=_send_tracking_ci_event, args=[devops_organization])
@@ -85,6 +87,33 @@ def _send_tracking_ci_event(devops_organization=None, ci_client=None):
     except BaseException as ex:
         logger.debug(ex, exc_info=True)
         return False
+
+
+# azure cli uses this to get shell type from os environment
+def _get_shell_type():
+    import os
+    if 'ZSH_VERSION' in os.environ:
+        return 'zsh'
+    if 'BASH_VERSION' in os.environ:
+        return 'bash'
+    if 'KSH_VERSION' in os.environ or 'FCEDIT' in os.environ:
+        return 'ksh'
+    if 'WINDIR' in os.environ:
+        return 'cmd'
+    return _remove_cmd_chars(_remove_symbols(os.environ.get('SHELL')))
+
+
+def _remove_cmd_chars(s):
+    if isinstance(s, str):
+        return s.replace("'", '_').replace('"', '_').replace('\r\n', ' ').replace('\n', ' ')
+    return s
+
+
+def _remove_symbols(s):
+    if isinstance(s, str):
+        for c in '$%^&|':
+            s = s.replace(c, '_')
+    return s
 
 
 vsts_tracking_data = CustomerIntelligenceEvent()
