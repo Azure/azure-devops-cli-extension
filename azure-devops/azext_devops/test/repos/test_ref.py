@@ -14,10 +14,11 @@ except ImportError:
 
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.dev.repos.ref import (list_refs, create_ref, delete_ref, update_ref)
-from azext_devops.test.utilities.helper import DEVOPS_CLI_TEST_ORGANIZATION
 
 
 class TestRefMethods(unittest.TestCase):
+
+    _TEST_DEVOPS_ORGANIZATION = 'https://AzureDevOpsCliTest.visualstudio.com'
 
     def setUp(self):
         self.list_refs_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_refs')
@@ -35,7 +36,7 @@ class TestRefMethods(unittest.TestCase):
         self.mock_update_ref.stop()
 
     def test_list_refs(self):
-        response = list_refs(devops_organization=DEVOPS_CLI_TEST_ORGANIZATION,
+        response = list_refs(devops_organization=_TEST_DEVOPS_ORGANIZATION,
                              project='sample project',
                              detect='off')
         # assert
@@ -44,7 +45,7 @@ class TestRefMethods(unittest.TestCase):
     def test_create_ref(self):
         response = create_ref(name='sample_ref',
                               object_id='1234567890',
-                              devops_organization=DEVOPS_CLI_TEST_ORGANIZATION,
+                              devops_organization=_TEST_DEVOPS_ORGANIZATION,
                               project='sample project',
                               detect='off')
         # assert
@@ -54,7 +55,7 @@ class TestRefMethods(unittest.TestCase):
         response = update_ref(name='sample_ref',
                               old_object_id='1234567890',
                               new_object_id='0987654321',
-                              devops_organization=DEVOPS_CLI_TEST_ORGANIZATION,
+                              devops_organization=_TEST_DEVOPS_ORGANIZATION,
                               project='sample project',
                               detect='off')
         # assert
@@ -63,7 +64,7 @@ class TestRefMethods(unittest.TestCase):
     def test_delete_ref(self):
         response = delete_ref(name='sample_ref',
                               object_id='1234567890',
-                              devops_organization=DEVOPS_CLI_TEST_ORGANIZATION,
+                              devops_organization=_TEST_DEVOPS_ORGANIZATION,
                               project='sample project',
                               detect='off')
         # assert
