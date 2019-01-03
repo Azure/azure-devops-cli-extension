@@ -1,6 +1,6 @@
 # Output formats for Azure Devops CLI commands
 
-The output formats are inherited from Azure CLI. You can set the default outpiut value by running following command.
+The output formats are inherited from Azure CLI. You can set the default output format value by running following command.
 ```
 az configure
 ```

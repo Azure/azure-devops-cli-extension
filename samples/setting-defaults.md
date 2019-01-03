@@ -19,9 +19,8 @@ az devops configure --list
 
 ## Using git-aliases
 
-
-For more information on configurations check help for configure command.
+For more information on how to use git-aliases refer [Using Azure Devops CLI with Git](git-aliases.md)
 
 ```
-az devops configure -h
+az devops configure --use-git-aliases yes
 ```

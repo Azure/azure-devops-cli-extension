@@ -29,7 +29,10 @@ You can provide PAT in following ways.
     az devops login
     ```
     You will be prompted to enter PAT token. A separate `organization` URL argument needs to be passed in expected commands unless it is explicitly configured in defaults. 
-    Let's say you run the command `az repos pr list --org https://dev.azure.com/MY-ORGANIZATION-NAME --project MY-PROJECT-NAME` , default PAT token would be used against this URL for this scenario. 
+    Let's say you run following command, default PAT token given with earlier command would be used against this URL. 
+    ```
+    az repos pr list --org https://dev.azure.com/MY-ORGANIZATION-NAME --project MY-PROJECT-NAME
+    ```
 
 2. Enter credential for a particular account.
     ```bash
@@ -46,19 +49,17 @@ You can provide PAT in following ways.
 
 4. There are cases where persisting a personal access token on the machine where Azure devops CLI is running is not technically possible or is not secure. In these cases you can get a token from an environment variable.
 
-    To use a personal access token, set the `AZURE_DEVOPS_CLI_PAT` environment:
+    To use a personal access token, set the `AZURE_DEVOPS_CLI_PAT` environment variable:
 
-        Windows:
+    Windows:
+    ```
+    set AZURE_DEVOPS_CLI_PAT=xxxxxxxxxx
+    ```
 
-        ```bash
-        set AZURE_DEVOPS_CLI_PAT=xxxxxxxxxx
-        ```
-
-        Linux or macOS:
-
-        ```bash
-        export AZURE_DEVOPS_CLI_PAT=xxxxxxxxxx
-        ```
+    Linux or macOS:
+    ```
+    export AZURE_DEVOPS_CLI_PAT=xxxxxxxxxx
+    ```
 
     Replace *xxxxxxxxxx* with the PAT you created.
 

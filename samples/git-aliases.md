@@ -4,7 +4,7 @@ You can configure the Azure Devops CLI to add git aliases for common git-based A
 
 ## Configure Azure Devops CLI to add git aliases 
 
-After [installing the VSTS CLI](install.md), run the `az devops configure` command with the `--use-git-aliases` flag set to `yes` to set up git aliases:
+Run the `az devops configure` command with the `--use-git-aliases` flag set to `yes` to set up git aliases:
 
 ```
 az devops configure --use-git-aliases yes
