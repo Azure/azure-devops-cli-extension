@@ -16,7 +16,7 @@ class PipelinesBuildDefinitionTests(ScenarioTest):
     def test_build_definition_listShow(self):
 
         os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
-        self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
+        self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION + ' project=buildtests')
 
         build_definition_name = 'BuildTests Definition1'
 
