@@ -88,7 +88,7 @@ def _send_tracking_ci_event(devops_organization=None, ci_client=None):
         logger.debug(ex, exc_info=True)
         return False
 
-
+# azure cli uses this to get shell type from os environment
 def _get_shell_type():
     import os
     if 'ZSH_VERSION' in os.environ:

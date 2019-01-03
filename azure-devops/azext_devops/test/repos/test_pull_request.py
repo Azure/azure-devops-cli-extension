@@ -39,7 +39,7 @@ from azext_devops.dev.common.services import clear_connection_cache
 
 class TestPullRequestMethods(unittest.TestCase):
 
-    _TEST_DEVOPS_ORGANIZATION = 'https://AzureDevOpsCliTest.visualstudio.com'
+    _TEST_DEVOPS_ORGANIZATION = 'https://azuredevopsclitest.visualstudio.com'
     _TEST_PAT_TOKEN = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
     _TEST_PROJECT_NAME = 'sample_project'
     _TEST_REPOSITORY_NAME = 'sample_repository'
