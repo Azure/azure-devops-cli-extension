@@ -26,3 +26,7 @@ once relase is done make sure to update the version for Azure-DevOps CLI in [ver
 Also update build pipelines   
 [Azure DevOps CLI - Merge GitHub](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build?definitionId=25)  
 [AzureDevOpsCli-Release](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build?definitionId=29)  
+
+### Update AzureDevOpsCli-Released-Version-Check
+Update [AzureDevOpsCli-Released-Version-Check](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build?definitionId=34) to run from the commit which was used to do the release.
+This release runs periodically and makes sure the released build works. Main validation here is dependency validation.
