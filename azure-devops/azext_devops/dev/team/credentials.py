@@ -31,7 +31,9 @@ def credential_set(devops_organization=None):
         connection = _get_vss_connection(devops_organization, credentials)
         location_client = connection.get_client('vsts.location.v4_1.location_client.LocationClient')
         try:
-            location_client.get_connection_data()
+            connection_data = location_client.get_connection_data()
+            if connection_data.authenticated_user.id == _ANONYMOUS_USER_ID:
+                raise CLIError("Failed to authenticate using the supplied token.")
         except Exception as ex2:
             logger.debug(ex2, exc_info=True)
             raise CLIError("Failed to authenticate using the supplied token.")
@@ -90,3 +92,6 @@ def _check_and_clear_default_organization(devops_organization):
             logger.debug("Resetting default organization.")
         else:
             logger.debug("Default org not reset. Different organization is set as default.")
+
+
+_ANONYMOUS_USER_ID = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
