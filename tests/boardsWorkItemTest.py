@@ -5,17 +5,10 @@
 
 import unittest
 
-try:
-    # Attempt to load mock (works on Python 3.3 and above)
-    from unittest.mock import patch
-except ImportError:
-    # Attempt to load mock (works on Python version below 3.3)
-    from mock import patch
-
 from knack.util import CLIError
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import ( DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry )
+from .utilities.helper import ( DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry, PAT_ENV_VARIABLE_NAME )
 
 class BoardsWorkItemTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -24,10 +17,8 @@ class BoardsWorkItemTests(ScenarioTest):
         wi_name = 'samplebug'
         wi_test_project_name = 'WorkItemCreateShowUpdateDeleteTests'
 
-        with patch('azext_devops.dev.team.credentials._get_pat_token') as mock_pat_token:
-            mock_pat_token.return_value = DEVOPS_CLI_TEST_PAT_TOKEN
-            self.cmd('az devops login')
-            self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
+        os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
+        self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
 
         try:
             create_wi_command = 'az boards work-item create --project '+ wi_test_project_name +' --title ' + wi_name \
