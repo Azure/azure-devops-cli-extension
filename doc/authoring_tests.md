@@ -20,6 +20,13 @@
 
 ## Authoring Live Tests
 
+1. install `azure-cli-testsdk` and `azure-devtools`:
+
+    ```bash
+    pip install --user 'git+https://github.com/Azure/azure-cli@master#egg=azure-cli-testsdk&subdirectory=src/azure-cli-testsdk' -q
+    pip install --user azure-devtools
+    ```
+
 Make sure your machine python SDK cache is clear
 
 It is located at

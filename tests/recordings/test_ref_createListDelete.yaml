@@ -1,0 +1,124 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.1 (Darwin-15.6.0-x86_64-i386-64bit) msrest/0.6.1 vsts/0.1.20
+          devOpsCli/0.1.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [6212dec5-f748-45f6-bfb7-2f8674f8c851]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: GET
+    uri: https://dev.azure.com/AzureDevOpsCliTest/buildtests/_apis/git/repositories/BuildTests/refs
+  response:
+    body: {string: '{"value":[{"name":"refs/heads/master","objectId":"57b7edf967530000bfb26c1f70152a68960a706a","creator":{"displayName":"Atul
+        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_api/_common/identityImage?id=86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"url":"https://dev.azure.com/AzureDevOpsCliTest/da3f806f-80a2-45d3-addf-9b2a1d4e721f/_apis/git/repositories/84d01cef-c6ae-4dbd-89d5-6adfa9931935/refs?filter=heads%2Fmaster"}],"count":1}'}
+    headers:
+      activityid: [79de5c33-b5b5-4133-addd-b46b7004bcde]
+      cache-control: [no-cache]
+      content-length: ['846']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Fri, 04 Jan 2019 15:52:48 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      transfer-encoding: [chunked]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: FE964C941BCD487CB88615383294920C Ref B: VIEEDGE0706 Ref
+          C: 2019-01-04T15:52:49Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [d918ad30-0a41-43a6-aefe-f90e3be93e28]
+      x-tfs-session: [6212dec5-f748-45f6-bfb7-2f8674f8c851]
+      x-vss-e2eid: [79de5c33-b5b5-4133-addd-b46b7004bcde]
+      x-vss-userdata: ['a8c73bbe-8fc9-442f-92af-f56e8f32a969:gsaral@microsoft.com']
+    status: {code: 200, message: OK}
+- request:
+    body: '[{"isLocked": false, "name": "refs/heads/sample_ref", "newObjectId": "57b7edf967530000bfb26c1f70152a68960a706a",
+      "oldObjectId": "0000000000000000000000000000000000000000"}]'
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['172']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.1 (Darwin-15.6.0-x86_64-i386-64bit) msrest/0.6.1 vsts/0.1.20
+          devOpsCli/0.1.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [6212dec5-f748-45f6-bfb7-2f8674f8c851]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: POST
+    uri: https://dev.azure.com/AzureDevOpsCliTest/buildtests/_apis/git/repositories/BuildTests/refs
+  response:
+    body: {string: '{"value":[{"repositoryId":"84d01cef-c6ae-4dbd-89d5-6adfa9931935","name":"refs/heads/sample_ref","oldObjectId":"0000000000000000000000000000000000000000","newObjectId":"57b7edf967530000bfb26c1f70152a68960a706a","isLocked":false,"updateStatus":"succeeded","success":true}],"count":1}'}
+    headers:
+      activityid: [79de5ca6-b5b5-4133-addd-b46b7004bcde]
+      cache-control: [no-cache]
+      content-length: ['281']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Fri, 04 Jan 2019 15:52:49 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      transfer-encoding: [chunked]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: F53901A281E240EE8E5892B12A2FB795 Ref B: VIEEDGE0706 Ref
+          C: 2019-01-04T15:52:50Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [d918ad30-0a41-43a6-aefe-f90e3be93e28]
+      x-tfs-session: [6212dec5-f748-45f6-bfb7-2f8674f8c851]
+      x-vss-e2eid: [79de5ca6-b5b5-4133-addd-b46b7004bcde]
+      x-vss-userdata: ['a8c73bbe-8fc9-442f-92af-f56e8f32a969:gsaral@microsoft.com']
+    status: {code: 200, message: OK}
+- request:
+    body: '[{"name": "refs/heads/sample_ref", "newObjectId": "0000000000000000000000000000000000000000",
+      "oldObjectId": "57b7edf967530000bfb26c1f70152a68960a706a"}]'
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['153']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.1 (Darwin-15.6.0-x86_64-i386-64bit) msrest/0.6.1 vsts/0.1.20
+          devOpsCli/0.1.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [6212dec5-f748-45f6-bfb7-2f8674f8c851]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: POST
+    uri: https://dev.azure.com/AzureDevOpsCliTest/buildtests/_apis/git/repositories/BuildTests/refs
+  response:
+    body: {string: '{"value":[{"repositoryId":"84d01cef-c6ae-4dbd-89d5-6adfa9931935","name":"refs/heads/sample_ref","oldObjectId":"57b7edf967530000bfb26c1f70152a68960a706a","newObjectId":"0000000000000000000000000000000000000000","isLocked":false,"updateStatus":"succeeded","success":true}],"count":1}'}
+    headers:
+      activityid: [79de5d8f-b5b5-4133-addd-b46b7004bcde]
+      cache-control: [no-cache]
+      content-length: ['281']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Fri, 04 Jan 2019 15:52:50 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      transfer-encoding: [chunked]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: 550ECAB18E17451BA4B1042179EDFCCB Ref B: VIEEDGE0706 Ref
+          C: 2019-01-04T15:52:51Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [d918ad30-0a41-43a6-aefe-f90e3be93e28]
+      x-tfs-session: [6212dec5-f748-45f6-bfb7-2f8674f8c851]
+      x-vss-e2eid: [79de5d8f-b5b5-4133-addd-b46b7004bcde]
+      x-vss-userdata: ['a8c73bbe-8fc9-442f-92af-f56e8f32a969:gsaral@microsoft.com']
+    status: {code: 200, message: OK}
+version: 1
