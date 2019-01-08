@@ -38,10 +38,8 @@ class TestTeamMethods(unittest.TestCase):
         clear_connection_cache()
 
     def tearDown(self):
-        self.mock_get_SEs.stop()
-        self.mock_get_credential.stop()
-        self.mock_create_SE.stop()
-        self.mock_get_SE_detail.stop()
+        self.mock_get_client.stop()
+        self.mock_create_team.stop()
 
     def test_create_team(self):
         response = create_team('sample name', 'sample description', self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
