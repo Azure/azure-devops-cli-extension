@@ -47,7 +47,6 @@ def transform_service_endpoints_table_output(result):
         table_output.append(_transform_service_endpoint_row(item))
     return table_output
 
-
 def _transform_service_endpoint_row(row):
     table_row = OrderedDict()
     table_row['ID'] = row['id']
@@ -58,6 +57,17 @@ def _transform_service_endpoint_row(row):
 
     return table_row
 
+def transform_team_table_output(result):
+    table_output = [_transform_team_row(result)]
+    return table_output
+
+def _transform_team_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Name'] = row['name']
+    table_row['Description'] = row['description']
+
+    return table_row
 
 def _get_service_endpoint_key(service_endpoint_row):
     return service_endpoint_row['name'].lower()

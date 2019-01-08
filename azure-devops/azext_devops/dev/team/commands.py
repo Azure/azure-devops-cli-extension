@@ -4,8 +4,10 @@
 # --------------------------------------------------------------------------------------------
 from knack.prompting import prompt_y_n
 from azure.cli.core.commands import CliCommandType
-from ._format import (transform_project_table_output, transform_projects_table_output,
-                      transform_service_endpoints_table_output)
+from ._format import (transform_project_table_output,
+                      transform_projects_table_output,
+                      transform_service_endpoints_table_output,
+                      transform_team_table_output)
 
 
 projectOps = CliCommandType(
@@ -58,6 +60,7 @@ def load_team_commands(self, _):
         g.command('create', 'create_service_endpoint')
     
     with self.command_group('devops team', command_type=teamOps) as g:
-        g.command('create', 'create_team')
+        g.command('create', 'create_team', table_transformer=transform_team_table_output)
         g.command('delete', 'delete_team')
-        g.command('show','get_team')
+        g.command('show','get_team', table_transformer=transform_team_table_output)
+        
