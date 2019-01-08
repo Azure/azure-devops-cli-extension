@@ -22,6 +22,8 @@ class TestTeamMethods(unittest.TestCase):
 
     _TEST_DEVOPS_ORGANIZATION = 'https://dev.azure.com/AzureDevOpsCliTest'
     _TEST_PROJECT_NAME = 'sample_project'
+    _TEST_TEAM_NAME = 'sample_team'
+    _TEST_TEAM_DESCRIPTION = 'sample_team_description'
 
     def setUp(self):
         self.get_client = patch('vsts.vss_connection.VssConnection.get_client')
@@ -42,10 +44,14 @@ class TestTeamMethods(unittest.TestCase):
         self.mock_create_team.stop()
 
     def test_create_team(self):
-        response = create_team('sample name', 'sample description', self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+        response = create_team(self._TEST_TEAM_NAME, self._TEST_TEAM_DESCRIPTION, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
         
         #assert
         self.mock_create_team.assert_called_once()
+        create_team_param = self.mock_create_team.call_args_list[0][1]
+        self.assertEqual(self._TEST_PROJECT_NAME, create_team_param['project_id'], str(create_team_param))
+        self.assertEqual(self._TEST_TEAM_NAME, create_team_param['team'].name, str(create_team_param))
+        self.assertEqual(self._TEST_TEAM_DESCRIPTION, create_team_param['team'].description, str(create_team_param))
 
 
 if __name__ == '__main__':
