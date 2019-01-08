@@ -13,8 +13,10 @@ except ImportError:
     from mock import patch
 
 from knack.util import CLIError
+from azext_devops.dev.team.project import create_project
 from azext_devops.dev.team.team import (create_team,
                                         delete_team,
+                                        list_teams,
                                         get_team)
 
 from azext_devops.dev.common.services import clear_connection_cache
@@ -32,12 +34,14 @@ class TestTeamMethods(unittest.TestCase):
         self.create_team_patcher = patch('vsts.core.v4_0.core_client.CoreClient.create_team')
         self.delete_team_patcher = patch('vsts.core.v4_0.core_client.CoreClient.delete_team')
         self.get_team_patcher = patch('vsts.core.v4_0.core_client.CoreClient.get_team')
+        self.list_teams_patcher = patch('vsts.core.v4_0.core_client.CoreClient.get_teams')
 
         #start the patcher
         self.mock_get_client = self.get_client.start()
         self.mock_create_team = self.create_team_patcher.start()
         self.mock_delete_team = self.delete_team_patcher.start()
         self.mock_get_team = self.get_team_patcher.start()
+        self.mock_list_teams = self.list_teams_patcher.start()
 
         #set return values
         self.mock_get_client.return_value = CoreClient(base_url=self._TEST_DEVOPS_ORGANIZATION)
@@ -46,10 +50,7 @@ class TestTeamMethods(unittest.TestCase):
         clear_connection_cache()
 
     def tearDown(self):
-        self.mock_get_client.stop()
-        self.mock_create_team.stop()
-        self.mock_delete_team.stop()
-        self.mock_get_team.stop()
+        patch.stopall()
 
     def test_create_team(self):
         create_team(self._TEST_TEAM_NAME, self._TEST_TEAM_DESCRIPTION, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
@@ -78,6 +79,16 @@ class TestTeamMethods(unittest.TestCase):
         get_team_param = self.mock_get_team.call_args_list[0][1]
         self.assertEqual(self._TEST_PROJECT_NAME, get_team_param['project_id'], str(get_team_param))
         self.assertEqual(self._TEST_TEAM_NAME, get_team_param['team_id'], str(get_team_param))
+
+    
+    def test_list_teams(self):
+
+        _TOP = 10
+        _SKIP = 5
+        list_teams(_TOP, _SKIP, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+        
+        #assert
+        self.mock_list_teams.assert_called_once()
 
 if __name__ == '__main__':
     unittest.main()
