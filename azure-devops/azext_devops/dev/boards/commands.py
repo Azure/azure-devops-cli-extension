@@ -20,7 +20,8 @@ def load_work_commands(self, _):
         g.command('work-item show', 'show_work_item', table_transformer=transform_work_item_table_output)
         g.command('work-item create', 'create_work_item', table_transformer=transform_work_item_table_output)
         g.command('work-item update', 'update_work_item', table_transformer=transform_work_item_table_output)
-        g.command('work-item delete', 'delete_work_item', confirmation='Are you sure you want to delete this work item?')
+        g.command('work-item delete', 'delete_work_item',
+                  confirmation='Are you sure you want to delete this work item?')
 
         # query commands
         g.command('query', 'query_work_items', table_transformer=transform_work_item_query_result_table_output)
