@@ -35,7 +35,7 @@ def create_team(name, description=None, devops_organization=None, project=None, 
 
 def delete_team(team_id, devops_organization=None, project=None, detect=None):
     """Deletes a team.
-    :param team_id: The name of id of the team to delete.
+    :param team_id: The name or id of the team to delete.
     :type team_id: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
@@ -55,7 +55,7 @@ def delete_team(team_id, devops_organization=None, project=None, detect=None):
 
 def get_team(team_id, devops_organization=None, project=None, detect=None):
     """Gets a team.
-    :param team_id: The name of id of the team to delete.
+    :param team_id: The name or id of the team to show.
     :type team_id: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
