@@ -28,6 +28,9 @@ service_endpointOps = CliCommandType(
     operations_tmpl='azext_devops.dev.team.service_endpoint#{}'
 )
 
+teamOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.team.team#{}'
+)
 
 def project_delete_confirmation():
     return bool(prompt_y_n('Are you sure you want to delete this project?'))
@@ -54,3 +57,6 @@ def load_team_commands(self, _):
         g.command('list', 'list_service_endpoints', table_transformer=transform_service_endpoints_table_output)
         g.command('show', 'show_service_endpoint')  # no table transform because type is not well defined
         g.command('create', 'create_service_endpoint')
+    
+    with self.command_group('devops team', command_type=teamOps) as g:
+        g.command('create', 'create_team')
