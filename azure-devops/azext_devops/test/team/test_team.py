@@ -13,7 +13,8 @@ except ImportError:
     from mock import patch
 
 from knack.util import CLIError
-from azext_devops.dev.team.team import (create_team)
+from azext_devops.dev.team.team import (create_team,
+                                        delete_team)
 
 from azext_devops.dev.common.services import clear_connection_cache
 from vsts.core.v4_0.core_client import CoreClient
@@ -28,10 +29,12 @@ class TestTeamMethods(unittest.TestCase):
     def setUp(self):
         self.get_client = patch('vsts.vss_connection.VssConnection.get_client')
         self.create_team_patcher = patch('vsts.core.v4_0.core_client.CoreClient.create_team')
+        self.delete_team_patcher = patch('vsts.core.v4_0.core_client.CoreClient.delete_team')
 
         #start the patcher
         self.mock_get_client = self.get_client.start()
         self.mock_create_team = self.create_team_patcher.start()
+        self.mock_delete_team = self.delete_team_patcher.start()
 
         #set return values
         self.mock_get_client.return_value = CoreClient(base_url=self._TEST_DEVOPS_ORGANIZATION)
@@ -42,9 +45,10 @@ class TestTeamMethods(unittest.TestCase):
     def tearDown(self):
         self.mock_get_client.stop()
         self.mock_create_team.stop()
+        self.mock_delete_team.stop()
 
     def test_create_team(self):
-        response = create_team(self._TEST_TEAM_NAME, self._TEST_TEAM_DESCRIPTION, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+        create_team(self._TEST_TEAM_NAME, self._TEST_TEAM_DESCRIPTION, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
         
         #assert
         self.mock_create_team.assert_called_once()
@@ -52,6 +56,15 @@ class TestTeamMethods(unittest.TestCase):
         self.assertEqual(self._TEST_PROJECT_NAME, create_team_param['project_id'], str(create_team_param))
         self.assertEqual(self._TEST_TEAM_NAME, create_team_param['team'].name, str(create_team_param))
         self.assertEqual(self._TEST_TEAM_DESCRIPTION, create_team_param['team'].description, str(create_team_param))
+
+    def test_delete_team(self):
+        delete_team(self._TEST_TEAM_NAME, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+
+        #assert
+        self.mock_delete_team.assert_called_once()
+        delete_team_param = self.mock_delete_team.call_args_list[0][1]
+        self.assertEqual(self._TEST_PROJECT_NAME, delete_team_param['project_id'], str(delete_team_param))
+        self.assertEqual(self._TEST_TEAM_NAME, delete_team_param['team_id'], str(delete_team_param))
 
 
 if __name__ == '__main__':
