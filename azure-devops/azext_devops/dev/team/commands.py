@@ -35,7 +35,6 @@ teamOps = CliCommandType(
 def project_delete_confirmation():
     return bool(prompt_y_n('Are you sure you want to delete this project?'))
 
-
 def load_team_commands(self, _):
     with self.command_group('devops', command_type=credentialsOps) as g:
         g.command('login', 'credential_set')
@@ -60,3 +59,4 @@ def load_team_commands(self, _):
     
     with self.command_group('devops team', command_type=teamOps) as g:
         g.command('create', 'create_team')
+        g.command('delete', 'delete_team')

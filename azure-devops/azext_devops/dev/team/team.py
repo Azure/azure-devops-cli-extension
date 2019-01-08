@@ -32,3 +32,23 @@ def create_team(name, description=None, devops_organization=None, project=None, 
         return core_client.create_team(team=team_to_create, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
+
+def delete_team(team_id, devops_organization=None, project=None, detect=None):
+    """Deletes a team.
+    :param team_id: The name of id of the team to delete.
+    :type team_id: str
+    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type devops_organization: str
+    :param project: Name or ID of the project.
+    :type project: str
+    :param detect: When 'On' unsupplied arg values will be detected from the current working
+                   directory's repo.
+    """
+    try:
+        devops_organization, project = resolve_instance_and_project(detect=detect,
+                                                                    devops_organization=devops_organization,
+                                                                    project=project)
+        core_client = get_core_client(devops_organization)
+        return core_client.delete_team(team_id=team_id, project_id=project)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
