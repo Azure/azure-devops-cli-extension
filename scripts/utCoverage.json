@@ -216,6 +216,18 @@
         "status": "None"
     },
     {
+        "name": "devops team create",
+        "status": "Done"
+    },
+    {
+        "name": "devops team delete",
+        "status": "Done"
+    },
+    {
+        "name": "devops team show",
+        "status": "Done"
+    },
+    {
         "name": "artifacts universal publish",
         "status": "None"
     },
