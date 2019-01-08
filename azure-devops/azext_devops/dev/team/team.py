@@ -6,6 +6,7 @@
 from vsts.core.v4_0.models.web_api_team import WebApiTeam
 from azext_devops.dev.common.services import (get_core_client,
                                               resolve_instance_and_project)
+from vsts.exceptions import VstsServiceError
 
 def create_team(name, description=None, devops_organization=None, project=None, detect=None):
     """Create a team.
@@ -28,6 +29,6 @@ def create_team(name, description=None, devops_organization=None, project=None, 
                                                                     project=project)
         core_client = get_core_client(devops_organization)
         team_to_create = WebApiTeam(name=name, description=description)
-        return core_client.create_team(team_to_create, project)
+        return core_client.create_team(team=team_to_create, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
