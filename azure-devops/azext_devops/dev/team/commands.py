@@ -60,3 +60,4 @@ def load_team_commands(self, _):
     with self.command_group('devops team', command_type=teamOps) as g:
         g.command('create', 'create_team')
         g.command('delete', 'delete_team')
+        g.command('show','get_team')
