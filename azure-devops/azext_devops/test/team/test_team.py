@@ -18,17 +18,20 @@ from azext_devops.dev.team.team import (create_team,
                                         delete_team,
                                         get_team,
                                         list_teams,
-                                        list_team_members)
+                                        list_team_members,
+                                        update_team)
 
 from azext_devops.dev.common.services import clear_connection_cache
 from vsts.core.v4_0.core_client import CoreClient
     
 class TestTeamMethods(unittest.TestCase):
 
-    _TEST_DEVOPS_ORGANIZATION = 'https://dev.azure.com/AzureDevOpsCliTest'
+    _TEST_DEVOPS_ORGANIZATION = 'https://someorganization.visualstudio.com'
     _TEST_PROJECT_NAME = 'sample_project'
     _TEST_TEAM_NAME = 'sample_team'
     _TEST_TEAM_DESCRIPTION = 'sample_team_description'
+    _TOP_VALUE = 10
+    _SKIP_VALUE = 2
 
     def setUp(self):
         self.get_client = patch('vsts.vss_connection.VssConnection.get_client')
@@ -37,6 +40,7 @@ class TestTeamMethods(unittest.TestCase):
         self.get_team_patcher = patch('vsts.core.v4_0.core_client.CoreClient.get_team')
         self.list_teams_patcher = patch('vsts.core.v4_0.core_client.CoreClient.get_teams')
         self.list_members_patcher = patch('vsts.core.v4_0.core_client.CoreClient.get_team_members')
+        self.update_team_patcher = patch('vsts.core.v4_0.core_client.CoreClient.update_team')
 
         #start the patcher
         self.mock_get_client = self.get_client.start()
@@ -45,6 +49,7 @@ class TestTeamMethods(unittest.TestCase):
         self.mock_get_team = self.get_team_patcher.start()
         self.mock_list_teams = self.list_teams_patcher.start()
         self.mock_list_members = self.list_members_patcher.start()
+        self.mock_update_team = self.update_team_patcher.start()
 
         #set return values
         self.mock_get_client.return_value = CoreClient(base_url=self._TEST_DEVOPS_ORGANIZATION)
@@ -84,10 +89,7 @@ class TestTeamMethods(unittest.TestCase):
         self.assertEqual(self._TEST_TEAM_NAME, get_team_param['team_id'], str(get_team_param))
     
     def test_list_teams(self):
-
-        top_value = 10
-        skip_value = 2
-        list_teams(top_value, skip_value, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+        list_teams(self._TOP_VALUE, self._SKIP_VALUE, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
 
         #assert
         self.mock_list_teams.assert_called_once()
@@ -96,11 +98,8 @@ class TestTeamMethods(unittest.TestCase):
         self.assertEqual(10, list_teams_param['top'], str(list_teams_param))
         self.assertEqual(2, list_teams_param['skip'], str(list_teams_param))
 
-    def test_list_members(self):
-
-        top_value = 10
-        skip_value = 2
-        list_team_members(self._TEST_TEAM_NAME, top_value, skip_value, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+    def test_list_team_members(self):
+        list_team_members(self._TEST_TEAM_NAME, self._TOP_VALUE, self._SKIP_VALUE, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
 
         #assert
         self.mock_list_members.assert_called_once()
@@ -109,6 +108,19 @@ class TestTeamMethods(unittest.TestCase):
         self.assertEqual(self._TEST_PROJECT_NAME, list_team_members_param['project_id'], str(list_team_members_param))
         self.assertEqual(10, list_team_members_param['top'], str(list_team_members_param))
         self.assertEqual(2, list_team_members_param['skip'], str(list_team_members_param))
+
+    def test_update_team(self):
+        _NEW_TEAM_NAME = 'updated_team_name'
+        _NEW_TEAM_DESCRIPTION = 'update description'
+        update_team(self._TEST_TEAM_NAME, _NEW_TEAM_NAME, _NEW_TEAM_DESCRIPTION, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+        
+        #assert
+        self.mock_update_team.assert_called_once()
+        update_team_param = self.mock_update_team.call_args_list[0][1]
+        self.assertEqual(self._TEST_PROJECT_NAME, update_team_param['project_id'], str(update_team_param))
+        self.assertEqual(self._TEST_TEAM_NAME, update_team_param['team_id'], str(update_team_param))
+        self.assertEqual(_NEW_TEAM_NAME, update_team_param['team_data'].name, str(update_team_param))
+        self.assertEqual(_NEW_TEAM_DESCRIPTION, update_team_param['team_data'].description, str(update_team_param))
 
 
 if __name__ == '__main__':

@@ -121,3 +121,31 @@ def list_team_members(team_id, top=None, skip=None, devops_organization=None, pr
         return core_client.get_team_members(team_id=team_id, top=top, skip=skip, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
+
+
+def update_team(team_id, name=None, description=None, devops_organization=None, project=None, detect=None):
+    """Update a team's name and/or description.
+    :param team_id: The name or id of the team to be updated.
+    :type team_id: str
+    :param name: New name of the team.
+    :type name: str
+    :param description: New description of the team
+    :type description: str
+    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type devops_organization: str
+    :param project: Name or ID of the project.
+    :type project: str
+    :param detect: When 'On' unsupplied arg values will be detected from the current working
+                   directory's repo.
+    """
+    if name is None and description is None:
+        raise CLIError('Either name or description should be provided.')
+    try:
+        devops_organization, project = resolve_instance_and_project(detect=detect,
+                                                                    devops_organization=devops_organization,
+                                                                    project=project)
+        core_client = get_core_client(devops_organization)
+        updated_team_data = WebApiTeam(name=name, description=description)
+        return core_client.update_team(team_data=updated_team_data, project_id=project, team_id=team_id)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
