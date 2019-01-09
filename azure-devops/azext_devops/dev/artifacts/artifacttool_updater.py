@@ -17,6 +17,8 @@ import requests
 
 from knack.log import get_logger
 from knack.util import CLIError
+import distro
+
 from azext_devops.dev.common.services import get_vss_connection
 from azext_devops.dev.common.config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
 from azext_devops.dev.artifacts.const import (ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY,
@@ -55,6 +57,7 @@ class ArtifactToolUpdater:
             try:
                 release = _get_current_release(organization, override_version)
             except Exception as ex:
+                logger.debug(ex, exc_info=True)
                 raise CLIError('Failed to update Universal Packages tooling.\n {}'.format(ex))
             release_uri, release_id = release
 
@@ -134,8 +137,16 @@ def _get_current_release(organization, override_version):
     connection = get_vss_connection(organization)
     client = connection.get_client('azext_devops.dev.artifacts.client_tool.client_tool_client.ClientToolClient')
     logger.debug("Looking up current version of ArtifactTool...")
-    release = client.get_clienttool_release("ArtifactTool", os_name=platform.system(), arch=platform.machine(),
-                                            version=override_version)
+    # Distro returns empty strings on Windows currently, so don't even send
+    distro_name = distro.id() or None
+    distro_version = distro.version() or None
+    release = client.get_clienttool_release(
+        "ArtifactTool",
+        os_name=platform.system(),
+        arch=platform.machine(),
+        distro_name=distro_name,
+        distro_version=distro_version,
+        version=override_version)
     return (release.uri, _compute_id(release)) if release is not None else None
 
 
