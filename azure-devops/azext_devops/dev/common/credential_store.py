@@ -5,6 +5,7 @@
 
 import os
 import sys
+import pip
 from knack.util import CLIError, ensure_dir
 from knack.log import get_logger
 from six.moves import configparser
@@ -18,6 +19,14 @@ class CredentialStore:
         self._initialize_keyring()
 
     def set_password(self, key, token):
+        try:
+            import keyring
+        except ImportError:
+            if hasattr(pip, 'main'):
+                pip.main(['install', 'keyring'])
+            else:
+                pip._internal.main(['install', 'keyring'])
+
         import keyring
         try:
             # check for and delete existing credential
