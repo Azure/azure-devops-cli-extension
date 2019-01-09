@@ -40,7 +40,11 @@ class CredentialStore:
                 raise CLIError(ex)
 
     def get_password(self, key):
-        import keyring
+        try:
+            import keyring
+        except ImportError:
+            return None
+
         try:
             return keyring.get_password(key, self._USERNAME)
         except RuntimeError as ex:
@@ -95,7 +99,10 @@ class CredentialStore:
 
     @staticmethod
     def _initialize_keyring():
-        import keyring
+        try:
+            import keyring
+        except ImportError:
+            return
 
         def _only_builtin(backend):
             return (
