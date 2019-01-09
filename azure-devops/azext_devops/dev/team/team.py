@@ -96,3 +96,28 @@ def list_teams(top=None, skip=None, devops_organization=None, project=None, dete
         return core_client.get_teams(top=top, skip=skip, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
+
+
+def list_team_members(team_id, top=None, skip=None, devops_organization=None, project=None, detect=None):
+    """List members of a particular team.
+    :param team_id: The name or id of the team to show members of.
+    :type team_id: str
+    :param top: Maximum number of members to return.
+    :type top: int
+    :param skip: Number of members to skip.
+    :type skip: int
+    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type devops_organization: str
+    :param project: Name or ID of the project.
+    :type project: str
+    :param detect: When 'On' unsupplied arg values will be detected from the current working
+                   directory's repo.
+    """
+    try:
+        devops_organization, project = resolve_instance_and_project(detect=detect,
+                                                                    devops_organization=devops_organization,
+                                                                    project=project)
+        core_client = get_core_client(devops_organization)
+        return core_client.get_team_members(team_id=team_id, top=top, skip=skip, project_id=project)
+    except VstsServiceError as ex:
+        raise CLIError(ex)

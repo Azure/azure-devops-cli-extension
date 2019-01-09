@@ -64,4 +64,5 @@ def load_team_commands(self, _):
         g.command('delete', 'delete_team', confirmation='Are you sure you want to delete this team?')
         g.command('show','get_team', table_transformer=transform_team_table_output)
         g.command('list', 'list_teams')
+        g.command('list-members', 'list_team_members')
         
