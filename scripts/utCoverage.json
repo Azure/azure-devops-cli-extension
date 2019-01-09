@@ -228,6 +228,18 @@
         "status": "Done"
     },
     {
+        "name": "devops team list ",
+        "status": "Done"
+    },
+    {
+        "name": "devops team list-member",
+        "status": "Done"
+    },
+    {
+        "name": "devops team update",
+        "status": "Done"
+    },
+    {
         "name": "artifacts universal publish",
         "status": "None"
     },
