@@ -35,6 +35,7 @@ teamOps = CliCommandType(
     operations_tmpl='azext_devops.dev.team.team#{}'
 )
 
+
 def load_team_commands(self, _):
     with self.command_group('devops', command_type=credentialsOps) as g:
         g.command('login', 'credential_set')
@@ -64,4 +65,3 @@ def load_team_commands(self, _):
         g.command('list', 'get_teams', table_transformer=transform_teams_table_output)
         g.command('list-member', 'get_team_members', table_transformer=transform_team_members_table_output)
         g.command('update', 'update_team', table_transformer=transform_team_table_output)
-        

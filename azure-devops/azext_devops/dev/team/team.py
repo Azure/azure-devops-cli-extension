@@ -9,6 +9,7 @@ from vsts.exceptions import VstsServiceError
 from azext_devops.dev.common.services import (get_core_client,
                                               resolve_instance_and_project)
 
+
 def create_team(name, description=None, devops_organization=None, project=None, detect=None):
     """Create a team.
     :param name: Name of the new team.
@@ -34,6 +35,7 @@ def create_team(name, description=None, devops_organization=None, project=None, 
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def delete_team(team_id, devops_organization=None, project=None, detect=None):
     """Deletes a team.
     :param team_id: The name or id of the team to delete.
@@ -53,6 +55,7 @@ def delete_team(team_id, devops_organization=None, project=None, detect=None):
         return core_client.delete_team(team_id=team_id, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 def get_team(team_id, devops_organization=None, project=None, detect=None):
     """Gets a team.
