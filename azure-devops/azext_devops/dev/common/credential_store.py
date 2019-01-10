@@ -68,6 +68,12 @@ class CredentialStore:
                 raise CLIError(ex)
 
     def clear_password(self, key):
+        try:
+            import keyring
+        except ImportError:
+            install_keyring()
+            self._initialize_keyring()
+
         import keyring
         try:
             keyring.delete_password(key, self._USERNAME)
