@@ -13,6 +13,7 @@ logger = get_logger(__name__)
 def install_keyring():
     _install_package('keyring')
 
+
 def _install_package(package_name):
     logger.debug('installing %s', package_name)
     if hasattr(pip, 'main'):

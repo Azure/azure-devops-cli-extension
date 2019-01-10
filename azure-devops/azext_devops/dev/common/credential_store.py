@@ -23,6 +23,7 @@ class CredentialStore:
             import keyring
         except ImportError:
             install_keyring()
+            self._initialize_keyring()
 
         import keyring
         try:
