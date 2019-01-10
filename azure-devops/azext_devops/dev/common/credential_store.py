@@ -5,11 +5,11 @@
 
 import os
 import sys
-import pip
 from knack.util import CLIError, ensure_dir
 from knack.log import get_logger
 from six.moves import configparser
 from .config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
+from .pip_helper import install_package
 
 logger = get_logger(__name__)
 
@@ -22,10 +22,7 @@ class CredentialStore:
         try:
             import keyring
         except ImportError:
-            if hasattr(pip, 'main'):
-                pip.main(['install', 'keyring'])
-            else:
-                pip._internal.main(['install', 'keyring'])
+            install_package('keyring')
 
         import keyring
         try:
