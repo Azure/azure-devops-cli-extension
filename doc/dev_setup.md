@@ -23,7 +23,7 @@
 
 ## Create a virtual environment
 
-1. From the `AzureDevOpsCli` directory, create a new virtual environment:
+1. From the `vsts-cli` directory, create a new virtual environment:
    ```bash
    virtualenv env
    ```
@@ -31,7 +31,7 @@
 2. Activate the new virtual environment:
    On Linux:
    ```bash
-   source env/Scripts/activate
+   source env/bin/activate
    ```
    On Windows:
    ```bash
@@ -57,8 +57,8 @@ Run `az extension list` and `az devops -h` to verify your environment is setup p
     ```
     pip install --upgrade --target ~/.azure/devcliextensions/azure-devops-extension ~/Dev/azure-devops-extension
     ```
-    - `~/.azure/devcliextensions/azure-devops-extension` is the directory `pip` will install the extension to.
-    - `~/Dev/azure-devops-extension` is the directory with the source code of your extension.
+    - `~/.azure/devcliextensions/azure-devops` is the directory `pip` will install the extension to.
+    - `~/Dev/azure-devops` is the directory with the source code of your extension.
 
 3. Continue to develop your extension:
     Any time you make changes to your extension and want to see them reflected in the CLI, run the command from step 2 again.
