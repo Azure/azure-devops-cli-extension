@@ -12,17 +12,16 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from knack.util import CLIError
-from azext_devops.dev.team.project import create_project
+from vsts.core.v4_0.core_client import CoreClient
 from azext_devops.dev.team.team import (create_team,
                                         delete_team,
                                         get_team,
-                                        list_teams,
-                                        list_team_members,
+                                        get_teams,
+                                        get_team_members,
                                         update_team)
 
 from azext_devops.dev.common.services import clear_connection_cache
-from vsts.core.v4_0.core_client import CoreClient
+
     
 class TestTeamMethods(unittest.TestCase):
 
@@ -38,8 +37,8 @@ class TestTeamMethods(unittest.TestCase):
         self.create_team_patcher = patch('vsts.core.v4_0.core_client.CoreClient.create_team')
         self.delete_team_patcher = patch('vsts.core.v4_0.core_client.CoreClient.delete_team')
         self.get_team_patcher = patch('vsts.core.v4_0.core_client.CoreClient.get_team')
-        self.list_teams_patcher = patch('vsts.core.v4_0.core_client.CoreClient.get_teams')
-        self.list_members_patcher = patch('vsts.core.v4_0.core_client.CoreClient.get_team_members')
+        self.get_teams_patcher = patch('vsts.core.v4_0.core_client.CoreClient.get_teams')
+        self.get_team_members_patcher = patch('vsts.core.v4_0.core_client.CoreClient.get_team_members')
         self.update_team_patcher = patch('vsts.core.v4_0.core_client.CoreClient.update_team')
 
         #start the patcher
@@ -47,8 +46,8 @@ class TestTeamMethods(unittest.TestCase):
         self.mock_create_team = self.create_team_patcher.start()
         self.mock_delete_team = self.delete_team_patcher.start()
         self.mock_get_team = self.get_team_patcher.start()
-        self.mock_list_teams = self.list_teams_patcher.start()
-        self.mock_list_members = self.list_members_patcher.start()
+        self.mock_get_teams = self.get_teams_patcher.start()
+        self.mock_get_team_members = self.get_team_members_patcher.start()
         self.mock_update_team = self.update_team_patcher.start()
 
         #set return values
@@ -88,26 +87,26 @@ class TestTeamMethods(unittest.TestCase):
         self.assertEqual(self._TEST_PROJECT_NAME, get_team_param['project_id'], str(get_team_param))
         self.assertEqual(self._TEST_TEAM_NAME, get_team_param['team_id'], str(get_team_param))
     
-    def test_list_teams(self):
-        list_teams(self._TOP_VALUE, self._SKIP_VALUE, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+    def test_get_teams(self):
+        get_teams(self._TOP_VALUE, self._SKIP_VALUE, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
 
         #assert
-        self.mock_list_teams.assert_called_once()
-        list_teams_param = self.mock_list_teams.call_args_list[0][1]
-        self.assertEqual(self._TEST_PROJECT_NAME, list_teams_param['project_id'], str(list_teams_param))
-        self.assertEqual(10, list_teams_param['top'], str(list_teams_param))
-        self.assertEqual(2, list_teams_param['skip'], str(list_teams_param))
+        self.mock_get_teams.assert_called_once()
+        get_teams_param = self.mock_get_teams.call_args_list[0][1]
+        self.assertEqual(self._TEST_PROJECT_NAME, get_teams_param['project_id'], str(get_teams_param))
+        self.assertEqual(10, get_teams_param['top'], str(get_teams_param))
+        self.assertEqual(2, get_teams_param['skip'], str(get_teams_param))
 
-    def test_list_team_members(self):
-        list_team_members(self._TEST_TEAM_NAME, self._TOP_VALUE, self._SKIP_VALUE, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+    def test_get_team_members(self):
+        get_team_members(self._TEST_TEAM_NAME, self._TOP_VALUE, self._SKIP_VALUE, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
 
         #assert
-        self.mock_list_members.assert_called_once()
-        list_team_members_param = self.mock_list_members.call_args_list[0][1]
-        self.assertEqual(self._TEST_TEAM_NAME, list_team_members_param['team_id'], str(list_team_members_param))
-        self.assertEqual(self._TEST_PROJECT_NAME, list_team_members_param['project_id'], str(list_team_members_param))
-        self.assertEqual(10, list_team_members_param['top'], str(list_team_members_param))
-        self.assertEqual(2, list_team_members_param['skip'], str(list_team_members_param))
+        self.mock_get_team_members.assert_called_once()
+        get_team_members_param = self.mock_get_team_members.call_args_list[0][1]
+        self.assertEqual(self._TEST_TEAM_NAME, get_team_members_param['team_id'], str(get_team_members_param))
+        self.assertEqual(self._TEST_PROJECT_NAME, get_team_members_param['project_id'], str(get_team_members_param))
+        self.assertEqual(10, get_team_members_param['top'], str(get_team_members_param))
+        self.assertEqual(2, get_team_members_param['skip'], str(get_team_members_param))
 
     def test_update_team(self):
         _NEW_TEAM_NAME = 'updated_team_name'
