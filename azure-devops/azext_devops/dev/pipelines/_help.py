@@ -15,7 +15,7 @@ def load_pipelines_help():
 
     helps['pipelines build'] = """
     type: group
-    short-summary: Manage Azure Pipelines build.
+    short-summary: Manage builds.
     long-summary:
     """
 
