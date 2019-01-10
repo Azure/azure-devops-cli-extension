@@ -15,6 +15,9 @@ follow the instructions provided in `Microsoft Azure Projects Contribution Guide
 ## If PR contains new commands
 - Recorded tests are mandatory
 - UTs are mandatory
+- Command signature should be discussed and approved in referenced issue. [Sample](https://github.com/Microsoft/vsts-cli/issues/319)
+- Table transforms are present (reviewed in PR)
+- Help text is present for commands and parameters
 
 ## If PR contains point fixes
 - UTs are mandatory
