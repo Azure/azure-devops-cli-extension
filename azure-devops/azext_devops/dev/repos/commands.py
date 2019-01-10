@@ -3,7 +3,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.prompting import prompt_y_n
 from azure.cli.core.commands import CliCommandType
 from ._format import (transform_pull_request_table_output,
                       transform_pull_requests_table_output,
@@ -30,15 +29,11 @@ reposImportOps = CliCommandType(
 )
 
 
-def repo_delete_confirmation():
-    return bool(prompt_y_n('Are you sure you want to delete this repository?'))
-
-
 def load_code_commands(self, _):
     with self.command_group('repos', command_type=reposRepositoryOps) as g:
         # repository commands
         g.command('create', 'create_repo', table_transformer=transform_repo_table_output)
-        g.command('delete', 'delete_repo', confirmation=repo_delete_confirmation)
+        g.command('delete', 'delete_repo', confirmation='Are you sure you want to delete this repository?')
         g.command('list', 'list_repos', table_transformer=transform_repos_table_output)
         g.command('show', 'show_repo', table_transformer=transform_repo_table_output)
 
