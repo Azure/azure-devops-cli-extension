@@ -60,8 +60,8 @@ def load_team_commands(self, _):
     with self.command_group('devops team', command_type=teamOps) as g:
         g.command('create', 'create_team', table_transformer=transform_team_table_output)
         g.command('delete', 'delete_team', confirmation='Are you sure you want to delete this team?')
-        g.command('show','get_team', table_transformer=transform_team_table_output)
-        g.command('list', 'list_teams',table_transformer=transform_teams_table_output)
-        g.command('list-member', 'list_team_members',table_transformer=transform_team_members_table_output)
-        g.command('update', 'update_team',table_transformer=transform_team_table_output)
+        g.command('show', 'get_team', table_transformer=transform_team_table_output)
+        g.command('list', 'get_teams', table_transformer=transform_teams_table_output)
+        g.command('list-member', 'get_team_members', table_transformer=transform_team_members_table_output)
+        g.command('update', 'update_team', table_transformer=transform_team_table_output)
         

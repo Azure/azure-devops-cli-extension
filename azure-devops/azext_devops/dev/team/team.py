@@ -13,7 +13,7 @@ def create_team(name, description=None, devops_organization=None, project=None, 
     """Create a team.
     :param name: Name of the new team.
     :type name: str
-    :param description: Description of the new team
+    :param description: Description of the new team.
     :type description: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
@@ -75,8 +75,8 @@ def get_team(team_id, devops_organization=None, project=None, detect=None):
         raise CLIError(ex)
 
     
-def list_teams(top=None, skip=None, devops_organization=None, project=None, detect=None):
-    """List teams.
+def get_teams(top=None, skip=None, devops_organization=None, project=None, detect=None):
+    """List of all teams for a project.
     :param top: Maximum number of teams to return.
     :type top: int
     :param skip: Number of teams to skip.
@@ -98,7 +98,7 @@ def list_teams(top=None, skip=None, devops_organization=None, project=None, dete
         raise CLIError(ex)
 
 
-def list_team_members(team_id, top=None, skip=None, devops_organization=None, project=None, detect=None):
+def get_team_members(team_id, top=None, skip=None, devops_organization=None, project=None, detect=None):
     """List members of a particular team.
     :param team_id: The name or id of the team to show members of.
     :type team_id: str
@@ -129,7 +129,7 @@ def update_team(team_id, name=None, description=None, devops_organization=None, 
     :type team_id: str
     :param name: New name of the team.
     :type name: str
-    :param description: New description of the team
+    :param description: New description of the team.
     :type description: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
@@ -137,9 +137,10 @@ def update_team(team_id, name=None, description=None, devops_organization=None, 
     :type project: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
+    :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
     """
     if name is None and description is None:
-        raise CLIError('Either name or description should be provided.')
+        raise CLIError('Either name or description argument must be provided.')
     try:
         devops_organization, project = resolve_instance_and_project(detect=detect,
                                                                     devops_organization=devops_organization,
