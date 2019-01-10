@@ -9,7 +9,7 @@ from knack.util import CLIError, ensure_dir
 from knack.log import get_logger
 from six.moves import configparser
 from .config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
-from .pip_helper import install_package
+from .pip_helper import install_keyring
 
 logger = get_logger(__name__)
 
@@ -22,7 +22,7 @@ class CredentialStore:
         try:
             import keyring
         except ImportError:
-            install_package('keyring')
+            install_keyring()
 
         import keyring
         try:
