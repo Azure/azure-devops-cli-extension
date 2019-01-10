@@ -10,7 +10,7 @@ from knack.log import get_logger
 logger = get_logger(__name__)
 
 def install_package(package_name):
-    logger.debug('installing %s' % package_name)
+    logger.debug('installing %s', package_name)
     if hasattr(pip, 'main'):
         pip.main(['install', package_name]) # pylint: disable=no-member
     else:
