@@ -5,9 +5,9 @@
 
 from knack.util import CLIError
 from vsts.core.v4_0.models.web_api_team import WebApiTeam
+from vsts.exceptions import VstsServiceError
 from azext_devops.dev.common.services import (get_core_client,
                                               resolve_instance_and_project)
-from vsts.exceptions import VstsServiceError
 
 def create_team(name, description=None, devops_organization=None, project=None, detect=None):
     """Create a team.
@@ -74,7 +74,7 @@ def get_team(team_id, devops_organization=None, project=None, detect=None):
     except VstsServiceError as ex:
         raise CLIError(ex)
 
-    
+
 def get_teams(top=None, skip=None, devops_organization=None, project=None, detect=None):
     """List of all teams for a project.
     :param top: Maximum number of teams to return.
