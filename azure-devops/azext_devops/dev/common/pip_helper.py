@@ -19,5 +19,5 @@ def _install_package(package_name):
     pip_args = ['install', package_name]
     pip_status_code = _run_pip(pip_args)  # pylint: disable=protected-access
     if pip_status_code > 0:
-        raise CLIError('An error occurred. Pip failed with status code {}. '
-                       'Use --debug for more information.'.format(pip_status_code))
+        raise CLIError('An error occurred. Pip failed with status code {} for package {}. '
+                       'Use --debug for more information.'.format(pip_status_code, package_name))
