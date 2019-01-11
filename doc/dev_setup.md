@@ -11,12 +11,17 @@
 
 ## Get the source
 
-1. Clone the Azure Devops CLI extension repository. Checkout `azuredevopscli-dev` branch:
+1. Clone the Azure Devops CLI extension repository. 
    ```bash
    git clone https://github.com/Microsoft/vsts-cli
    ```
+   
+2. Checkout `azuredevopscli-dev` branch.
+   ```bash
+   git checkout azuredevopscli-dev
+   ```
 
-2. Optionally, clone the VSTS Python SDK repository:
+3. Optionally, clone the VSTS Python SDK repository:
    ```bash
    git clone https://github.com/Microsoft/azure-devops-python-api
    ```
