@@ -24,8 +24,8 @@ class CredentialStore:
         except ImportError:
             install_keyring()
             self._initialize_keyring()
+            import keyring
 
-        import keyring
         try:
             # check for and delete existing credential
             old_token = keyring.get_password(key, self._USERNAME)
@@ -73,8 +73,8 @@ class CredentialStore:
         except ImportError:
             install_keyring()
             self._initialize_keyring()
+            import keyring
 
-        import keyring
         try:
             keyring.delete_password(key, self._USERNAME)
         except keyring.errors.PasswordDeleteError:
