@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.log import get_logger
+from knack.util import CLIError
 
 from azure.cli.core.extension.operations import _run_pip
 
@@ -17,4 +18,7 @@ def install_keyring():
 def _install_package(package_name):
     logger.debug('installing %s', package_name)
     pip_args = ['install', package_name]
-    _run_pip(pip_args)  # pylint: disable=protected-access
+    pip_status_code = _run_pip(pip_args)  # pylint: disable=protected-access
+    if pip_status_code > 0:
+        raise CLIError('An error occurred. Pip failed with status code {} for package {}. '
+                       'Use --debug for more information.'.format(pip_status_code, package_name))
