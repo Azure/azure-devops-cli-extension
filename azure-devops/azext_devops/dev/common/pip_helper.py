@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.log import get_logger
+from knack.util import CLIError
 
 from azure.cli.core.extension.operations import _run_pip
 
