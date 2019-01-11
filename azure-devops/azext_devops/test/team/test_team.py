@@ -13,12 +13,7 @@ except ImportError:
     from mock import patch
 
 from vsts.core.v4_0.core_client import CoreClient
-from azext_devops.dev.team.team import (create_team,
-                                        delete_team,
-                                        get_team,
-                                        get_teams,
-                                        get_team_members,
-                                        update_team)
+from azext_devops.dev.team.team import *
 
 from azext_devops.dev.common.services import clear_connection_cache
 
@@ -31,6 +26,7 @@ class TestTeamMethods(unittest.TestCase):
     _TEST_TEAM_DESCRIPTION = 'sample_team_description'
     _TOP_VALUE = 10
     _SKIP_VALUE = 2
+    _OFF = 'Off'
 
     def setUp(self):
         self.get_client = patch('vsts.vss_connection.VssConnection.get_client')
@@ -60,7 +56,7 @@ class TestTeamMethods(unittest.TestCase):
         patch.stopall()
 
     def test_create_team(self):
-        create_team(self._TEST_TEAM_NAME, self._TEST_TEAM_DESCRIPTION, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+        create_team(self._TEST_TEAM_NAME, self._TEST_TEAM_DESCRIPTION, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, self._OFF)
         
         #assert
         self.mock_create_team.assert_called_once()
@@ -70,7 +66,7 @@ class TestTeamMethods(unittest.TestCase):
         self.assertEqual(self._TEST_TEAM_DESCRIPTION, create_team_param['team'].description, str(create_team_param))
 
     def test_delete_team(self):
-        delete_team(self._TEST_TEAM_NAME, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+        delete_team(self._TEST_TEAM_NAME, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, self._OFF)
 
         #assert
         self.mock_delete_team.assert_called_once()
@@ -79,7 +75,7 @@ class TestTeamMethods(unittest.TestCase):
         self.assertEqual(self._TEST_TEAM_NAME, delete_team_param['team_id'], str(delete_team_param))
 
     def test_get_team(self):
-        get_team(self._TEST_TEAM_NAME, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+        get_team(self._TEST_TEAM_NAME, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, self._OFF)
         
         #assert
         self.mock_get_team.assert_called_once()
@@ -88,7 +84,7 @@ class TestTeamMethods(unittest.TestCase):
         self.assertEqual(self._TEST_TEAM_NAME, get_team_param['team_id'], str(get_team_param))
     
     def test_get_teams(self):
-        get_teams(self._TOP_VALUE, self._SKIP_VALUE, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+        get_teams(self._TOP_VALUE, self._SKIP_VALUE, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, self._OFF)
 
         #assert
         self.mock_get_teams.assert_called_once()

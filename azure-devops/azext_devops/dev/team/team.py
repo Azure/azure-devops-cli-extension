@@ -67,6 +67,7 @@ def get_team(team_id, devops_organization=None, project=None, detect=None):
     :type project: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
+    :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
     """
     try:
         devops_organization, project = resolve_instance_and_project(detect=detect,
@@ -90,6 +91,7 @@ def get_teams(top=None, skip=None, devops_organization=None, project=None, detec
     :type project: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
+    :rtype: [WebApiTeam]
     """
     try:
         devops_organization, project = resolve_instance_and_project(detect=detect,
@@ -115,6 +117,7 @@ def get_team_members(team_id, top=None, skip=None, devops_organization=None, pro
     :type project: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
+    :rtype: [IdentityRef]
     """
     try:
         devops_organization, project = resolve_instance_and_project(detect=detect,
