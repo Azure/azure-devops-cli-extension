@@ -3,9 +3,9 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import pip
-
 from knack.log import get_logger
+
+from azure.cli.core.extension.operations import _run_pip
 
 logger = get_logger(__name__)
 
@@ -16,7 +16,5 @@ def install_keyring():
 
 def _install_package(package_name):
     logger.debug('installing %s', package_name)
-    if hasattr(pip, 'main'):
-        pip.main(['install', package_name])  # pylint: disable=no-member
-    else:
-        pip._internal.main(['install', package_name])  # pylint: disable=protected-access
+    pip_args = ['install', package_name]
+    _run_pip(pip_args)  # pylint: disable=protected-access
