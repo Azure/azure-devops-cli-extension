@@ -47,11 +47,11 @@ class DevopsTeamTests(ScenarioTest):
             list_teams_command = 'az devops team list --output json --detect off'
             list_teams_output = self.cmd(list_teams_command).get_output_in_json()
             assert len(list_teams_output) == 3  # one default project team and 2 teams created by test
-            verified_team_list = False
+            list_team_ids = []
             for team in list_teams_output:
-                if (team["id"] == created_team_id):
-                    verified_team_list = True
-            assert verified_team_list == True
+                list_team_ids.append(team['id'])
+            assert created_team_id in list_team_ids
+            assert created_team_id2 in list_team_ids
 
             #show team command
             show_team_command = 'az devops team show --id "' + created_team_id + '" --output json --detect off'

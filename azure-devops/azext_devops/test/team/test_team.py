@@ -13,7 +13,12 @@ except ImportError:
     from mock import patch
 
 from vsts.core.v4_0.core_client import CoreClient
-from azext_devops.dev.team.team import *
+from azext_devops.dev.team.team import  (create_team,
+                                        delete_team,
+                                        get_team,
+                                        get_teams,
+                                        get_team_members,
+                                        update_team)
 
 from azext_devops.dev.common.services import clear_connection_cache
 
@@ -117,6 +122,14 @@ class TestTeamMethods(unittest.TestCase):
         self.assertEqual(_NEW_TEAM_NAME, update_team_param['team_data'].name, str(update_team_param))
         self.assertEqual(_NEW_TEAM_DESCRIPTION, update_team_param['team_data'].description, str(update_team_param))
 
+    def test_update_team_with_no_name_and_description(self):
+        with self.assertRaises(Exception) as exc:
+            response = update_team(self._TEST_TEAM_NAME, None, None, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+        self.assertEqual(str(exc.exception),r'Either name or description argument must be provided.')
+        
+        #assert
+        self.mock_update_team.assert_not_called()
+        
 
 if __name__ == '__main__':
     unittest.main()

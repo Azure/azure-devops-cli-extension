@@ -20,8 +20,7 @@ def create_team(name, description=None, devops_organization=None, project=None, 
     :type devops_organization: str
     :param project: Name or ID of the project.
     :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
     """
@@ -44,8 +43,8 @@ def delete_team(team_id, devops_organization=None, project=None, detect=None):
     :type devops_organization: str
     :param project: Name or ID of the project.
     :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect organization and project. Default is "on".
+    :type detect: str
     """
     try:
         devops_organization, project = resolve_instance_and_project(detect=detect,
@@ -65,8 +64,8 @@ def get_team(team_id, devops_organization=None, project=None, detect=None):
     :type devops_organization: str
     :param project: Name or ID of the project.
     :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect organization and project. Default is "on".
+    :type detect: str
     :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
     """
     try:
@@ -89,8 +88,8 @@ def get_teams(top=None, skip=None, devops_organization=None, project=None, detec
     :type devops_organization: str
     :param project: Name or ID of the project.
     :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect organization and project. Default is "on".
+    :type detect: str
     :rtype: [WebApiTeam]
     """
     try:
@@ -115,8 +114,8 @@ def get_team_members(team_id, top=None, skip=None, devops_organization=None, pro
     :type devops_organization: str
     :param project: Name or ID of the project.
     :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
+    :param detect: Automatically detect organization and project. Default is "on".
+    :type detect: str
     :rtype: [IdentityRef]
     """
     try:
