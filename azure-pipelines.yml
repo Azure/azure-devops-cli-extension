@@ -8,7 +8,7 @@ trigger:
 
 jobs:
 
-- job: 'Run_Test'
+- job: 'Run_Test_Ubuntu'
   pool:
     vmImage: 'Ubuntu-16.04'
   strategy:
@@ -30,61 +30,91 @@ jobs:
   - script: python -m pip install --upgrade pip && pip install -r requirements.txt
     displayName: 'Install dependencies'
 
-  # PowerShell
-  # Run a PowerShell script on Windows, macOS, or Linux.
   - task: PowerShell@2
     displayName: 'Setup test machine'
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/setupCiMachine.ps1'
-      #arguments: # Optional
-      #script: '# Write your powershell commands here.' # Required when targetType == Inline
-      #errorActionPreference: 'stop' # Optional. Options: stop, continue, silentlyContinue
-      #failOnStderr: false # Optional
-      #ignoreLASTEXITCODE: false # Optional
-      #pwsh: false # Optional
-      #workingDirectory: # Optional
 
-  # PowerShell
-  # Run a PowerShell script on Windows, macOS, or Linux.
   - task: PowerShell@2
     displayName: 'Run Tests'
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/runTests.ps1'
       arguments: '$True'
-      #script: '# Write your powershell commands here.' # Required when targetType == Inline
-      #errorActionPreference: 'stop' # Optional. Options: stop, continue, silentlyContinue
-      #failOnStderr: false # Optional
-      #ignoreLASTEXITCODE: false # Optional
-      #pwsh: false # Optional
-      #workingDirectory: # Optional
   
-  # Publish Test Results
-  # Publish Test Results to Azure Pipelines/TFS
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: '**TEST-*.xml'
       searchFolder: '$(System.DefaultWorkingDirectory)'
-      #mergeTestResults: false # Optional
-      #testRunTitle: # Optional
-      #buildPlatform: # Optional
-      #buildConfiguration: # Optional
-      #publishRunAttachments: true # Optional
     condition: succeededOrFailed()
 
-- job: 'Publish'
-  dependsOn: 'Run_Test'
+- job: 'Run_Test_Windows'
   pool:
-    vmImage: 'Ubuntu-16.04'
+    vmImage: 'vs2017-win2016'
 
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.x'
+      versionSpec: '3.7.0'
       architecture: 'x64'
 
-  - script: python setup.py sdist
-    displayName: 'Build sdist'
+  - script: python -m pip install --upgrade pip && pip install -r requirements.txt
+    displayName: 'Install dependencies'
+
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTests.ps1'
+      arguments: '$True'
+  
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
+
+- job: 'Run_Test_Mac'
+  pool:
+    vmImage: '	macOS-10.13'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - script: python -m pip install --upgrade pip && pip install -r requirements.txt
+    displayName: 'Install dependencies'
+
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTests.ps1'
+      arguments: '$True'
+  
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
