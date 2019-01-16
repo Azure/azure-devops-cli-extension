@@ -155,8 +155,7 @@ jobs:
 
   - task: PublishCodeCoverageResults@1
     inputs:
-      #codeCoverageTool: 'cobertura'
+      codeCoverageTool: 'cobertura'
       summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
       reportDirectory: '$(System.DefaultWorkingDirectory)/htmlcov'
       additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/htmlcov/**/*.*'
-      #failIfCoverageEmpty: false # Optional
