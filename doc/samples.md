@@ -2,6 +2,8 @@
 
 1. [Getting Started]()
 2. [Configuring Git Aliases]()
+3. [Using Azure DevOps behind a proxy]()
+4. [Querying and filtering output]()
 
 ## Azure Pipelines
 1. [View and trigger a build]()
