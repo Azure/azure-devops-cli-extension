@@ -159,3 +159,19 @@ jobs:
       summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
       reportDirectory: '$(System.DefaultWorkingDirectory)/htmlcov'
       additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/htmlcov/**/*.*'
+
+- job: 'Run_Style_Check'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.6'
+      architecture: 'x64'
+
+  - task: PowerShell@2
+    displayName: 'Run Style Check'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runStyleCheck.ps1'
