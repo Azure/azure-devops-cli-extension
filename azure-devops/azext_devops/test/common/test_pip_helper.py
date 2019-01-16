@@ -13,7 +13,7 @@ class TestPipHelperMethods(unittest.TestCase):
             from azure.cli.core.extension.operations import _run_pip
         except ImportError:
             self.fail('dependency on cli core is broken, pip helper will need fix')
-
+            
     def test_keyring_install_working(self):
         install_keyring()
         # uninstall keyring
@@ -24,9 +24,10 @@ class TestPipHelperMethods(unittest.TestCase):
             self.fail('keyring uninstall failed')
 
         try:
-            import keyring
+            from imp import reload
+            reload(keyring)
             self.fail('importing keyring should have failed')
-        except ImportError:
+        except:
             print('expected')
 
         # install keyring and make sure we can import that
