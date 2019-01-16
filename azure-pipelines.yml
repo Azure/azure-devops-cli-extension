@@ -4,24 +4,22 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
 trigger:
-- master
+- azuredevopscli-dev
 
 jobs:
 
-- job: 'Test'
+- job: 'Run Test'
   pool:
     vmImage: 'Ubuntu-16.04'
   strategy:
     matrix:
       Python27:
-        python.version: '2.7'
-      Python35:
-        python.version: '3.5'
+        python.version: '2.7.15'
       Python36:
-        python.version: '3.6'
+        python.version: '3.6.5'
       Python37:
-        python.version: '3.7'
-    maxParallel: 4
+        python.version: '3.7.0'
+    maxParallel: 3
 
   steps:
   - task: UsePythonVersion@0
@@ -32,10 +30,33 @@ jobs:
   - script: python -m pip install --upgrade pip && pip install -r requirements.txt
     displayName: 'Install dependencies'
 
-  - script: |
-      pip install pytest
-      pytest tests --doctest-modules --junitxml=junit/test-results.xml
-    displayName: 'pytest'
+  # PowerShell
+  # Run a PowerShell script on Windows, macOS, or Linux.
+  - task: PowerShell@2
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+      #arguments: # Optional
+      #script: '# Write your powershell commands here.' # Required when targetType == Inline
+      #errorActionPreference: 'stop' # Optional. Options: stop, continue, silentlyContinue
+      #failOnStderr: false # Optional
+      #ignoreLASTEXITCODE: false # Optional
+      #pwsh: false # Optional
+      #workingDirectory: # Optional
+
+  # PowerShell
+  # Run a PowerShell script on Windows, macOS, or Linux.
+  - task: PowerShell@2
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTests.ps1'
+      arguments: '$True'
+      #script: '# Write your powershell commands here.' # Required when targetType == Inline
+      #errorActionPreference: 'stop' # Optional. Options: stop, continue, silentlyContinue
+      #failOnStderr: false # Optional
+      #ignoreLASTEXITCODE: false # Optional
+      #pwsh: false # Optional
+      #workingDirectory: # Optional
 
   - task: PublishTestResults@2
     inputs:
