@@ -9,7 +9,7 @@ trigger: none
 
 jobs:
 
-- job: 'Run_Test_Mac'
+- job: 'Run_Test'
   pool:
     vmImage: 'macOS-10.13'
 
