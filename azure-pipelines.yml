@@ -33,6 +33,7 @@ jobs:
   # PowerShell
   # Run a PowerShell script on Windows, macOS, or Linux.
   - task: PowerShell@2
+    displayName: 'Setup test machine'
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/setupCiMachine.ps1'
@@ -47,6 +48,7 @@ jobs:
   # PowerShell
   # Run a PowerShell script on Windows, macOS, or Linux.
   - task: PowerShell@2
+    displayName: 'Run Tests'
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/runTests.ps1'
@@ -57,11 +59,20 @@ jobs:
       #ignoreLASTEXITCODE: false # Optional
       #pwsh: false # Optional
       #workingDirectory: # Optional
-
+  
+  # Publish Test Results
+  # Publish Test Results to Azure Pipelines/TFS
   - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
     inputs:
-      testResultsFiles: '**/test-results.xml'
-      testRunTitle: 'Python $(python.version)'
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+      #mergeTestResults: false # Optional
+      #testRunTitle: # Optional
+      #buildPlatform: # Optional
+      #buildConfiguration: # Optional
+      #publishRunAttachments: true # Optional
     condition: succeededOrFailed()
 
 - job: 'Publish'
