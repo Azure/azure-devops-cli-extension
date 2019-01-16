@@ -158,7 +158,7 @@ jobs:
   - task: PythonScript@0
     inputs:
       scriptSource: 'filePath' # Options: filePath, inline
-      scriptPath: 'fixCodeCoverageStyle.py'
+      scriptPath: 'scripts/fixCodeCoverageStyle.py'
 
   - task: PublishCodeCoverageResults@1
     inputs:
