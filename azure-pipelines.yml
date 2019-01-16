@@ -8,7 +8,7 @@ trigger:
 
 jobs:
 
-- job: 'Run Test'
+- job: 'Run_Test'
   pool:
     vmImage: 'Ubuntu-16.04'
   strategy:
