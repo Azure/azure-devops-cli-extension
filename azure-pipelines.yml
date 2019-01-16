@@ -119,6 +119,13 @@ jobs:
       searchFolder: '$(System.DefaultWorkingDirectory)'
     condition: succeededOrFailed()
 
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Wheel as artifact'
+    inputs:
+      pathtoPublish: 'azure-devops/dist' 
+      artifactName: 'azure-devops-cli-package' 
+      publishLocation: 'Container'
+
 - job: 'Code_Coverage'
   pool:
     vmImage: 'macOS-10.13'
