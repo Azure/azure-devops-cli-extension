@@ -1,96 +1,40 @@
-[![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/Master%20Branch/Azure%20DevOps%20CLI%20-%20Merge%20GitHub?branchName=azuredevopscli-dev)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=25?branchName=azuredevopscli-dev)
+# Azure DevOps Extension for Azure CLI
 
-# Azure Devops
+The Azure DevOps Extension for Azure CLI adds Pipelines, Boards, Repos, Artifacts and DevOps commands to the Azure CLI 2.0. 
 
-Azure Devops CLI is a new command line interface for [Azure Devops Service](https://azure.microsoft.com/en-in/services/devops/) 
 
-> Azure Devops CLI is currently in preview but we encourage you to give it a try and provide feedback (or contribute). 
+> Azure DevOps extension is currently in preview but we encourage you to give it a try and provide feedback (or contribute).
+With the release of Azure DevOps extension, we will be retiring the preview version of VSTS CLI. The Azure DevOps extension has functional parity with the VSTS CLI and we aim to depreciate the preview version of VSTS CLI by April, 2019. 
 
-## Get started
 
-Refer to the [install guide](https://aka.ms/azure-devops-cli-docs-install) for detailed install instructions for Windows, Mac, and Linux.
+# Installation
 
-Also refer to the ["get started" guide](https://aka.ms/azure-devops-cli-docs-getstarted) for in-depth instructions including first-time setup steps.
+1. [Install Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli). 
+You must have at least `v2.0.48`, which you can verify with `az --version` command.
+2. Add Azure DevOps extension
+`az extension add --name azure-devops`
+3. You can also use [alternative installation methods](https://dev.azure.com/mseng/AzureDevOps/_wiki/wikis/AzureDevOps.wiki?wikiVersion=GBwikiMaster&pagePath=%2FTeam%20Pages%2FModern%20Interactions%20and%20Search%2FProToCol%2FAzure%20DevOps%20CLI%2FProduct%20Documentation%2FAlternative%20Installation%20Methods) if you'd like to install from local source.   
 
-For help, pass the `-h` or `--help` argument, for example:
+# Documentation
+- Documentation for all commands is available at [Microsoft Azure CLI Docs - Azure DevOps](https://docs.microsoft.com/en-us/cli/azure/ext/azure-devops/?view=azure-cli-latest)
+- Check out the [Getting Started]() section to have a quick overview. 
+- Check out other examples in the [samples]() section.
 
-```bash
-az devops -h
-az repos -h
-```
+# Contribute
 
-### Commands
+## Code of Conduct
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 
-Use the Azure Devops CLI to work with and manage build, releases, code repositories, projects, work items, and more in your Azure Devops account or on-premises Team Foundation Server collection.
+For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-Here are just a few of the commands:
+## Contribution Guidelines
+Refer our [contribution guidelines]() to learn how you can contribute to this project.
 
-* az pipelines build queue
-* az repos pr list
-* az repos pr complete
-* az repos pr reviewers add
-* az repos pr work-items list
-* az devops project create
-* az boards work-item create
-* az boards work-item update
 
-See the full list of [available commands](https://aka.ms/azure-devops-cli-commands).
-
-### Login (setup credentials)
-
-Create a personal access token and provide to the Azure Devops CLI via the login command. You can follow any one of the below options for login:
-
-1. All AAD or MSA users can run `az login` and they shall be able to run devops commands. 
-
-2. Enter PAT token to be used against default URL
-```bash
-az devops login
-```
-
-3. Enter credential for particular account
-```bash
-az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
-```
-
-4. In non-interactive mode: Fetch the PAT from a file and pass it on to login command
-```
-cat my_pat_token.txt | az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
-```
-
-5. You can also store your PAT token in an environment variable called 'AZURE_DEVOPS_CLI_PAT' and skip 'az devops login' command for automation scenarios
-
-### Using Azure Devops CLI Behind a Proxy
-
-The Azure Devops CLI picks the network proxy configuration from the environment variables `HTTP_PROXY`, and `HTTPS_PROXY`. 
-
-### Git aliases
-
-You can also add aliases in Git for certain Azure Devops CLI commands. For example, `git pr list` will be an alias for `az repos pr list`.
-
-### Querying and filtering output
-
-You can use the `--query` parameter and the [JMESPath](http://jmespath.org/) query syntax to customize your output, for example:
-
-```bash
-Result
--------------------------------------------------------------
-[Demos]\CLI Team
-[Demos]\Demo Team
-Fabrikam Fiber
-```
-
-### Examples and snippets
-
-For more usage examples, see the official Azure Devops CLI [documentation](https://aka.ms/azure-devops-cli-docs-overview).
-
-## Developer setup
-
-To contribute or to just play with the CLI in your development environment, see [developer setup](./doc/dev_setup.md) 
-
-## License
+# License
 
 ```
-Azure Devops CLI
+Azure DevOps Extension
 
 MIT License
 
@@ -114,23 +58,3 @@ MIT License
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE
 ```
-
-## Telemetry
-
-Azure Devops CLI collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/en-us/privacystatement) to learn more. 
-
-To disable telemetry use the `az configure` command.
-
-## Feedback
-
-If you have any issues, questions, comments, or feature requests regarding this tool, please file an issue within this github repo using our contribution guidelines. 
-
-To find where to provide feedback from the CLI, run `az devops feedback`.
-
-## Contribute
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-This project follows the same contribution guidelines outlined by the Azure CLI. If you would like to become an active contributor, please follow the instructions provided in [Microsoft Azure Projects Contribution Guidelines](http://azure.github.io/guidelines.html).
