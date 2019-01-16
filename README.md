@@ -18,7 +18,7 @@ You must have at least `v2.0.48`, which you can verify with `az --version` comma
 # Documentation
 - Documentation for all commands is available at [Microsoft Azure CLI Docs - Azure DevOps](https://docs.microsoft.com/en-us/cli/azure/ext/azure-devops/?view=azure-cli-latest)
 - Check out the [Getting Started](/doc/getting_started.md) section to have a quick overview. 
-- Check out other examples in the [samples](/doc/sameples.md) section.
+- Check out other examples in the [samples](/doc/samples.md) section.
 
 # Contribute
 
