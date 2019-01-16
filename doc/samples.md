@@ -18,5 +18,5 @@
 1. [Manage Projects]()
 2. [Manage Teams]()
 
-## Automation Scripts
+## Scenarios
 1. [Set up a project with Azure Repo, gitignore and branch policies configured]()
