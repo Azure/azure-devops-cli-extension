@@ -144,15 +144,7 @@ jobs:
       targetType: 'filePath'
       filePath: 'scripts/runTests.ps1'
       arguments: '$True'
-
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-    condition: succeededOrFailed()
-  
+ 
   - script: pip install beautifulsoup4
     displayName: 'install beautifulsoup4'
 
