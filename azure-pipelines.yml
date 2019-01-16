@@ -87,7 +87,7 @@ jobs:
 
 - job: 'Run_Test_Mac'
   pool:
-    vmImage: '	macOS-10.13'
+    vmImage: 'macOS-10.13'
 
   steps:
   - task: UsePythonVersion@0
