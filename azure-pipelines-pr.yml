@@ -6,6 +6,8 @@
 pr:
 - azuredevopscli-dev
 
+trigger: none
+
 jobs:
 
 - job: 'Run_Test_Ubuntu'
