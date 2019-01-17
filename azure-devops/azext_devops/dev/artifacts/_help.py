@@ -19,7 +19,6 @@ def load_artifacts_help():
         long-summary:
     """
 
-
     helps['artifacts universal publish'] = """
         type: command
         long-summary: | 
@@ -44,7 +43,7 @@ def load_artifacts_help():
                                              to see what caused the long upload time.
          14    Command Cancelled By User     The command is cancelled by user.
          15    Authentication Error          Couldn't authenticate to VSTS services. 
-"""
+    """
 
     helps['artifacts universal download'] = """
         type: command
@@ -70,4 +69,4 @@ def load_artifacts_help():
                                              to see what caused the long upload time.
          14    Command Cancelled By User     The command is cancelled by user.
          15    Authentication Error          Couldn't authenticate to VSTS services. 
-"""
+    """
