@@ -1,9 +1,10 @@
 # Welcome to Azure DevOps extension samples
-1. [Getting Started]()
+1. [Getting Started](/doc/getting_started.md)
 2. [Connecting to Azure DevOps using PAT token](/samples/credentials.md)
 3. [Using Azure DevOps behind a proxy]()
 4. [Querying and filtering output]()
-5. [Opening items in browser](/samples/miscellaneous.md)
+5. [Opening items in browser](/samples/open-in-browser.md)
+6. [Using git-aliases](/samples/git-aliases.md)
 
 ## Azure Pipelines
 1. [View and trigger a build]()
