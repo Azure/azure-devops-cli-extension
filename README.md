@@ -19,17 +19,16 @@ You must have at least `v2.0.49`, which you can verify with `az --version` comma
 
 
 # Documentation
-- Documentation for all commands is available at [Microsoft Azure CLI Docs - Azure DevOps](https://docs.microsoft.com/en-us/cli/azure/ext/azure-devops/?view=azure-cli-latest)
+- Documentation for all the commands is available at [Microsoft Azure CLI Docs - Azure DevOps](https://docs.microsoft.com/en-us/cli/azure/ext/azure-devops/?view=azure-cli-latest)
 - Check out the [Getting Started](/doc/getting_started.md) section to have a quick overview. 
+- Here are a few examples that can help you get the most out of the extension
+    1. [Connecting to Azure DevOps using PAT token](/samples/credentials.md)
+    2. [Using Azure DevOps behind a proxy]()
+    3. [Querying and filtering output]()
+    4. [Opening items in browser](/samples/open-in-browser.md)
+    5. [Using git-aliases](/samples/git-aliases.md)
 - Check out other examples in the [samples](/doc/samples.md) section.
-    Here is the list of some common samples.
-    1. [Getting Started](/doc/getting_started.md)
-    2. [Connecting to Azure DevOps using PAT token](/samples/credentials.md)
-    3. [Using Azure DevOps behind a proxy]()
-    4. [Querying and filtering output]()
-    5. [Opening items in browser](/samples/open-in-browser.md)
-    6. [Using git-aliases](/samples/git-aliases.md)
-
+   
 # Contribute
 
 ## Code of Conduct
