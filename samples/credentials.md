@@ -39,13 +39,13 @@ You can provide PAT in following ways.
     az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
     ```
     You will be prompted to enter PAT token for MY-ORGANIZATION-NAME. This would be also set to your default organization in config file. This means above organization URL would be assumed if you choose to skip `organization` argument for a command.
-    Every time `az devops login` command is run with organization URL, it would update the default organization. You can list/update a default value by running `az devops configure --defaults` command.
+    Whenever `az devops login` command is run with organization URL, it would update the default organization if it's not already configured. You can list/update a default value by running `az devops configure --defaults` command.
 
 3. In non-interactive mode: Fetch the PAT from a file and pass it on to login command.
     ```bash
     cat my_pat_token.txt | az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
     ```
-    Again, your default organization would be updated in this case.
+    Again, your default organization would be updated in this case, if not already configured.
 
 4. There are cases where persisting a personal access token on the machine where Azure devops CLI is running is not technically possible or is not secure. In these cases you can get a token from an environment variable.
 
