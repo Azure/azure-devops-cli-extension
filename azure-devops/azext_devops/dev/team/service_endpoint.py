@@ -41,7 +41,7 @@ def list_service_endpoints(devops_organization=None, project=None, detect=None):
         raise CLIError(ex)
 
 
-def show_service_endpoint(id, devops_organization=None, project=None, detect=None):
+def show_service_endpoint(id, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a service endpoint.
     :param id: ID of the service endpoint.
     :type id: str

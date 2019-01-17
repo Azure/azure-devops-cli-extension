@@ -94,7 +94,7 @@ def create_project(name, devops_organization=None, process=None, source_control=
         raise CLIError(ex)
 
 
-def delete_project(id, devops_organization=None, detect=None):
+def delete_project(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete team project.
     :param id: The id (UUID) of the project to delete.
     :type id: str
@@ -120,7 +120,7 @@ def delete_project(id, devops_organization=None, detect=None):
         raise CLIError(ex)
 
 
-def show_project(id=None, devops_organization=None, detect=None, open_browser=False):
+def show_project(id, devops_organization=None, detect=None, open_browser=False):  # pylint: disable=redefined-builtin
     """Show team project.
     :param id: The id (UUID) or name of the project to show.
     :type id: str

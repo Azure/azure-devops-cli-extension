@@ -35,7 +35,7 @@ def create_team(name, description=None, devops_organization=None, project=None, 
         raise CLIError(ex)
 
 
-def delete_team(id, devops_organization=None, project=None, detect=None):
+def delete_team(id, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Deletes a team.
     :param id: The name or id of the team to delete.
     :type id: str
@@ -56,7 +56,7 @@ def delete_team(id, devops_organization=None, project=None, detect=None):
         raise CLIError(ex)
 
 
-def get_team(id, devops_organization=None, project=None, detect=None):
+def get_team(id, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Gets a team.
     :param id: The name or id of the team to show.
     :type id: str
@@ -102,7 +102,7 @@ def get_teams(top=None, skip=None, devops_organization=None, project=None, detec
         raise CLIError(ex)
 
 
-def get_team_members(id, top=None, skip=None, devops_organization=None, project=None, detect=None):
+def get_team_members(id, top=None, skip=None, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """List members of a particular team.
     :param id: The name or id of the team to show members of.
     :type id: str
@@ -128,7 +128,7 @@ def get_team_members(id, top=None, skip=None, devops_organization=None, project=
         raise CLIError(ex)
 
 
-def update_team(id, name=None, description=None, devops_organization=None, project=None, detect=None):
+def update_team(id, name=None, description=None, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Update a team's name and/or description.
     :param id: The name or id of the team to be updated.
     :type id: str
