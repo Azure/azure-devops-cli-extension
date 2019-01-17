@@ -40,13 +40,10 @@ def load_team_arguments(self, _):
         context.argument('description', options_list=('--description', '-d'))
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         context.argument('state', **enum_choice_list(_STATE_VALUES))
-        context.argument('project_id', options_list='--id')
         context.argument('visibility', **enum_choice_list(_PROJECT_VISIBILITY_VALUES))
     with self.argument_context('devops service-endpoint') as context:
         context.argument('devops_organization', options_list=('--organization', '--org'))
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-    with self.argument_context('devops service-endpoint get') as context:
-        context.argument('service_endpoint_id', options_list='--id')
     with self.argument_context('devops service-endpoint create') as context:
         context.argument('service_endpoint_type', **enum_choice_list(_SERVICE_ENDPOINT_TYPE))
         context.argument('authorization_scheme', **enum_choice_list(_SERVICE_ENDPOINT_AUTHORIZATION_SCHEME))
@@ -60,4 +57,3 @@ def load_team_arguments(self, _):
         context.argument('devops_organization', options_list=('--organization', '--org'))
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         context.argument('project', options_list=('--project', '-p'))
-        context.argument('team_id', options_list=('--team-id', '--id'), type=str)
