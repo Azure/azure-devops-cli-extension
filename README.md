@@ -1,3 +1,4 @@
+[![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/Master%20Branch/Azure%20DevOps%20CLI%20-%20Merge%20GitHub?branchName=azuredevopscli-dev)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=25?branchName=azuredevopscli-dev)
 # Azure DevOps Extension for Azure CLI
 
 The Azure DevOps Extension for Azure CLI adds Pipelines, Boards, Repos, Artifacts and DevOps commands to the Azure CLI 2.0. 
@@ -10,10 +11,10 @@ With the release of Azure DevOps extension, we will be retiring the preview vers
 # Installation
 
 1. [Install Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli). 
-You must have at least `v2.0.48`, which you can verify with `az --version` command.
+You must have at least `v2.0.49`, which you can verify with `az --version` command.
 2. Add Azure DevOps extension
 `az extension add --name azure-devops`
-3. You can also use [alternative installation methods](https://dev.azure.com/mseng/AzureDevOps/_wiki/wikis/AzureDevOps.wiki?wikiVersion=GBwikiMaster&pagePath=%2FTeam%20Pages%2FModern%20Interactions%20and%20Search%2FProToCol%2FAzure%20DevOps%20CLI%2FProduct%20Documentation%2FAlternative%20Installation%20Methods) if you'd like to install from local source.   
+
 
 # Documentation
 - Documentation for all commands is available at [Microsoft Azure CLI Docs - Azure DevOps](https://docs.microsoft.com/en-us/cli/azure/ext/azure-devops/?view=azure-cli-latest)
