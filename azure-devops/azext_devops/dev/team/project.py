@@ -120,7 +120,7 @@ def delete_project(id, devops_organization=None, detect=None):
         raise CLIError(ex)
 
 
-def show_project(id=None, name=None, devops_organization=None, detect=None, open_browser=False):
+def show_project(id=None, devops_organization=None, detect=None, open_browser=False):
     """Show team project.
     :param id: The id (UUID) or name of the project to show.
     :type id: str
