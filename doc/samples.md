@@ -1,9 +1,9 @@
 # Welcome to Azure DevOps extension samples
-
 1. [Getting Started]()
-2. [Configuring Git Aliases]()
+2. [Connecting to Azure DevOps using PAT token]()
 3. [Using Azure DevOps behind a proxy]()
 4. [Querying and filtering output]()
+5. [Opening items in browser]()
 
 ## Azure Pipelines
 1. [View and trigger a build]()
@@ -14,7 +14,9 @@
 2. [View query results]()
  
 ## Azure Repos
-1. [Manage Azure Repos]()
+1. [Auto detecting repositories]()
+2. [Git aliases]()
+3. [Manage Azure Repos]()
 
 ## Azure DevOps
 1. [Manage Projects]()
