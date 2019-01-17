@@ -77,10 +77,3 @@ foreach($testFile in $testFiles){
 if($testFailureFound -eq $true){
     exit 1
 }
-
-$trackUTCoverageScript = Join-Path -Path 'scripts' -ChildPath 'trackUTCoverage.py'
-python $trackUTCoverageScript
-if ($LastExitCode -ne 0)
-{
-    exit 1
-}

@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/Master%20Branch/Azure%20DevOps%20CLI%20-%20Merge%20GitHub?branchName=azuredevopscli-dev)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=25?branchName=azuredevopscli-dev)
+[![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/YAML/Azure%20DevOps%20CLI%20-%20Merge%20GitHub%20YAML?branchName=azuredevopscli-dev)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=38?branchName=azuredevopscli-dev)
 
 # Azure Devops
 
@@ -63,14 +63,7 @@ cat my_pat_token.txt | az devops login --organization https://dev.azure.com/MY-O
 
 The Azure Devops CLI picks the network proxy configuration from the environment variables `HTTP_PROXY`, and `HTTPS_PROXY`. 
 
-### Configure defaults, Git aliases, and more
-
-You can change your default settings using the `az devops configure` command, for example you can set the default output format for all commands. The options are:
-
-* JSON
-* JSON (with color highlighting)
-* Table (human-readable tabular output)
-* TSV (tab and new line delimited)
+### Git aliases
 
 You can also add aliases in Git for certain Azure Devops CLI commands. For example, `git pr list` will be an alias for `az repos pr list`.
 
@@ -126,7 +119,7 @@ MIT License
 
 Azure Devops CLI collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/en-us/privacystatement) to learn more. 
 
-To disable telemetry use the `az devops configure` command.
+To disable telemetry use the `az configure` command.
 
 ## Feedback
 

@@ -3,18 +3,13 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import random 
-import string 
-try:
-    # Attempt to load mock (works on Python 3.3 and above)
-    from unittest.mock import patch
-except ImportError:
-    # Attempt to load mock (works on Python version below 3.3)
-    from mock import patch
-
+import os
+import random
+import string
 
 DEVOPS_CLI_TEST_ORGANIZATION = 'https://AzureDevOpsCliTest.visualstudio.com'
 DEVOPS_CLI_TEST_PAT_TOKEN = 'vj3ep2pg3fo6vxsklkwvkiy23dkbyynmfpg4vb66xniwr23zylla'
+PAT_ENV_VARIABLE_NAME = 'AZURE_DEVOPS_CLI_PAT'
 
 
 def get_random_name(length):
@@ -23,7 +18,6 @@ def get_random_name(length):
 
 def disable_telemetry(test_function):
     def wrapper(*args, **kwargs):
-        with patch('azext_devops.dev.common.telemetry._is_telemetry_enabled') as mock_telemetry_enabled:  
-            mock_telemetry_enabled.return_value = False
-            test_function(*args, **kwargs)
+        os.environ["AZURE_CORE_COLLECT_TELEMETRY"] = "no"
+        test_function(*args, **kwargs)
     return wrapper

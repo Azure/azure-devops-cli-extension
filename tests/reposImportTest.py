@@ -3,19 +3,12 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import os
 import unittest
-
-try:
-    # Attempt to load mock (works on Python 3.3 and above)
-    from unittest.mock import patch
-except ImportError:
-    # Attempt to load mock (works on Python version below 3.3)
-    from mock import patch
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from azext_devops.dev.team.credentials import credential_set
-from .utilities.helper import ( DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry )
+from .utilities.helper import ( DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry, PAT_ENV_VARIABLE_NAME )
 
 from .utilities.helper import get_random_name
 
@@ -24,10 +17,8 @@ class ReposImportTests(ScenarioTest):
     @disable_telemetry
     def test_repos_import_create(self):
 
-        with patch('azext_devops.dev.team.credentials._get_pat_token') as mock_pat_token:  
-            mock_pat_token.return_value = DEVOPS_CLI_TEST_PAT_TOKEN
-            self.cmd('az devops login')
-            self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
+        os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
+        self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
         #Generate random repo name
         random_repo_name = get_random_name(8) 
         
