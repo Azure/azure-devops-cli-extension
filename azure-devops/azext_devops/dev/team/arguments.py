@@ -40,7 +40,6 @@ def load_team_arguments(self, _):
         context.argument('description', options_list=('--description', '-d'))
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         context.argument('state', **enum_choice_list(_STATE_VALUES))
-        context.argument('project_id', options_list='--id')
         context.argument('visibility', **enum_choice_list(_PROJECT_VISIBILITY_VALUES))
     with self.argument_context('devops service-endpoint') as context:
         context.argument('devops_organization', options_list=('--organization', '--org'))
