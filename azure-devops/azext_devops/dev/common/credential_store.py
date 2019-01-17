@@ -68,6 +68,7 @@ class CredentialStore:
                 raise CLIError(ex)
 
     def clear_password(self, key):
+        logger.debug('Clearing credential: %s', key)
         try:
             import keyring
         except ImportError:
@@ -76,8 +77,12 @@ class CredentialStore:
             import keyring
 
         try:
+            logger.debug('Try deleting credential: %s,%s', key, self._USERNAME)
             keyring.delete_password(key, self._USERNAME)
-        except keyring.errors.PasswordDeleteError:
+            logger.debug('Deleted credential: %s,%s', key, self._USERNAME)
+        except keyring.errors.PasswordDeleteError as ex2:
+            logger.debug('Exception raised while deleting credential: %s,%s', key, self._USERNAME)
+            logger.debug('Exception : %s', ex2)
             raise CLIError('The credential was not found')
         except RuntimeError as ex:
             if sys.platform.startswith(self._LINUX_PLATFORM):
