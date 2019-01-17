@@ -68,5 +68,5 @@ def load_artifacts_help():
                Uploading Content             uploading content. You may have to check the logs
                                              to see what caused the long upload time.
          14    Command Cancelled By User     The command is cancelled by user.
-         15    Authentication Error          Couldn't authenticate to VSTS services. 
+         15    Authentication Error          Couldn't authenticate to Azure Devops services. 
     """
