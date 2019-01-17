@@ -6,7 +6,7 @@ Azure Devops CLI is a new command line interface for [Azure Devops Service](http
 
 > Azure Devops CLI is currently in preview but we encourage you to give it a try and provide feedback (or contribute). 
 
-## Get started
+## Get started 1
 
 Refer to the [install guide](https://aka.ms/azure-devops-cli-docs-install) for detailed install instructions for Windows, Mac, and Linux.
 
