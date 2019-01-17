@@ -122,10 +122,8 @@ def delete_project(id, devops_organization=None, detect=None):
 
 def show_project(id=None, name=None, devops_organization=None, detect=None, open_browser=False):
     """Show team project.
-    :param id: The id (UUID) of the project to show. Required if the --name argument is not specified.
+    :param id: The id (UUID) or name of the project to show.
     :type id: str
-    :param name: Name of the project to show. Ignored if the --id argument is specified.
-    :type name: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
