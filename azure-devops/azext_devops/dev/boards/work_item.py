@@ -100,7 +100,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
         _handle_vsts_service_error(ex)
 
 
-def update_work_item(id, title=None, description=None, assigned_to=None, state=None, area=None,
+def update_work_item(id, title=None, description=None, assigned_to=None, state=None, area=None,  # pylint: disable=redefined-builtin
                      iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
                      devops_organization=None, detect=None):
     r"""Update work items.
@@ -175,7 +175,7 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
         _handle_vsts_service_error(ex)
 
 
-def delete_work_item(id, destroy=False, devops_organization=None, detect=None):
+def delete_work_item(id, destroy=False, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete a work item.
     :param id: Unique id of the work item.
     :type id: int
@@ -219,7 +219,7 @@ def _handle_vsts_service_error(ex):
         raise CLIError(ex)
 
 
-def show_work_item(id, open_browser=False, devops_organization=None, detect=None):
+def show_work_item(id, open_browser=False, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details for a work item.
     :param id: The ID of the work item
     :type id: int
@@ -248,7 +248,7 @@ def show_work_item(id, open_browser=False, devops_organization=None, detect=None
 
 
 # pylint: disable=too-many-statements
-def query_work_items(wiql=None, id=None, path=None, devops_organization=None, project=None, detect=None):
+def query_work_items(wiql=None, id=None, path=None, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Query for a list of work items.
     :param wiql: The query in Work Item Query Language format.  Ignored if --id or --path is specified.
     :type wiql: str

@@ -37,9 +37,6 @@ def load_build_arguments(self, _):
     with self.argument_context('pipelines build show') as context:
         context.argument('build_id', options_list=('--build-id', '--id'), type=int)
 
-    with self.argument_context('pipelines build definition show') as context:
-        context.argument('definition_id', options_list=('--definition-id', '--id'), type=int)
-
     with self.argument_context('pipelines build definition list') as context:
         context.argument(
             'repository_type',
@@ -64,9 +61,6 @@ def load_build_arguments(self, _):
 
     with self.argument_context('pipelines release show') as context:
         context.argument('release_id', options_list='--id', type=int)
-
-    with self.argument_context('pipelines release definition show') as context:
-        context.argument('definition_id', options_list='--id', type=int)
 
     with self.argument_context('pipelines release definition list') as context:
         context.argument('artifact_type', choices=['build', 'jenkins', 'github', 'externaltfsbuild', 'git', 'tfvc'],
