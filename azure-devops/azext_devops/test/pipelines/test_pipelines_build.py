@@ -53,7 +53,7 @@ class TestPipelinesBuildMethods(unittest.TestCase):
         # set return values
         self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
         self.mock_validate_token.return_value = True
-        response = build_show(build_id=12345, open_browser=False, devops_organization=self._TEST_DEVOPS_ORGANIZATION, 
+        response = build_show(id=12345, open_browser=False, devops_organization=self._TEST_DEVOPS_ORGANIZATION, 
             project='testproject', detect=None)
         #assert
         self.mock_get_build.assert_called_once_with(build_id=12345, project='testproject')
@@ -64,7 +64,7 @@ class TestPipelinesBuildMethods(unittest.TestCase):
         self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
         self.mock_validate_token.return_value = True
         self.mock_get_build.return_value = "dummy_build"
-        response = build_show(build_id=12345, open_browser=True, devops_organization=self._TEST_DEVOPS_ORGANIZATION, 
+        response = build_show(id=12345, open_browser=True, devops_organization=self._TEST_DEVOPS_ORGANIZATION, 
             project='testproject', detect=None)
         #assert
         self.mock_get_build.assert_called_once_with(build_id=12345, project='testproject')
@@ -83,7 +83,7 @@ class TestPipelinesBuildMethods(unittest.TestCase):
             self.mock_validate_token.return_value = True
             self.mock_get_build.return_value = _DUMMY_BUILD
 
-            response = build_show(build_id=12345)
+            response = build_show(id=12345)
 
             #assert
             mock_resolve_instance_project_repo.assert_called_once()
