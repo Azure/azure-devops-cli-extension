@@ -42,7 +42,7 @@ az devops -h --debug
 $testFailure = $false
 
 #temporary workaround so that we can run the remaining things together
-$testFileToRunSeperately = Join-Path -Path 'tests' -ChildPath 'test_reposPrCommandsReviewersTest.py'
+$testFileToRunSeperately = Join-Path -Path 'tests' -ChildPath 'reposPrCommandsReviewersTest.py'
 
 if($outputTestResultAsJunit -eq $true)
 {
