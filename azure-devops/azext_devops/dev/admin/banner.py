@@ -24,7 +24,7 @@ def banner_list(devops_organization=None, detect=None):
         raise CLIError(ex)
 
 
-def banner_show(id, devops_organization=None, detect=None):
+def banner_show(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details for a banner.
     :param id: Identifier for the banner.
     :type id: str
@@ -44,7 +44,7 @@ def banner_show(id, devops_organization=None, detect=None):
         raise CLIError(ex)
 
 
-def banner_add(message, banner_type=None, id=None, expiration=None, devops_organization=None, detect=None):
+def banner_add(message, banner_type=None, id=None, expiration=None, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Add a new banner and immediately show it.
     :param message: Message (string) to show in the banner.
     :type message: str
@@ -87,8 +87,7 @@ def banner_add(message, banner_type=None, id=None, expiration=None, devops_organ
         raise CLIError(ex)
 
 
-def banner_update(message=None, banner_type=None, id=None, expiration=None, devops_organization=None,
-                  detect=None):
+def banner_update(message=None, banner_type=None, id=None, expiration=None, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Update the message, level, or expiration date for a banner.
     :param message: Message (string) to show in the banner.
     :type message: str
@@ -148,7 +147,7 @@ def banner_update(message=None, banner_type=None, id=None, expiration=None, devo
         raise CLIError(ex)
 
 
-def banner_remove(id, devops_organization=None, detect=None):
+def banner_remove(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Remove a banner.
     :param id: ID of the banner to remove.
     :type id: str

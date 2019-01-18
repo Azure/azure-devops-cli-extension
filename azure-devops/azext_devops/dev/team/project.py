@@ -120,7 +120,7 @@ def delete_project(id, devops_organization=None, detect=None):  # pylint: disabl
         raise CLIError(ex)
 
 
-def show_project(project, devops_organization=None, detect=None, open_browser=False):  # pylint: disable=redefined-builtin
+def show_project(project, devops_organization=None, detect=None, open_browser=False):
     """Show team project.
     :param project: The id (UUID) or name of the project to show.
     :type project: str
