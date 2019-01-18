@@ -14,13 +14,12 @@ Search existing github issues for similar questions and feel free to file an iss
 
 Before you file a new bug report do check on existing open [issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aopen+is%3Aissue+label%3Abug).
 
-If you find your issue already exists, make relevant comments and add your reaction. Use a reaction in place of a "+1" comment:
-👍 - upvote
-👎 - downvote
+If you find your issue already exists, make relevant comments and add your reaction. Use a reaction in place of a "+1" comment.
+👍 - upvote 👎 - downvote
 
 #### Reporting New Issue
 
-The best way to get your bug fixed is to provide good repro steps. Use our [Bug template](TODO) to report any issues.
+The best way to get your bug fixed is to provide good repro steps. Use our [Bug template](https://github.com/Microsoft/vsts-cli/issues/new/choose) to report any issues.
 
 #### Security Bugs
 
@@ -32,21 +31,19 @@ TO-DO
 
 Before you file a new request do check on existing open [feature requests](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3AFeature).
 
-If you find your request already exists, make relevant comments and add your reaction. Use a reaction in place of a "+1" comment:
-👍 - upvote
-👎 - downvote
+If you find your request already exists, make relevant comments and add your reaction. Use a reaction in place of a "+1" comment.
+👍 - upvote 👎 - downvote
 
 
 #### Submit New Feature request
 
-Use our Feature Request [template](TODO) to create a new feature request.
+Use our Feature Request [template](https://github.com/Microsoft/vsts-cli/issues/new/choose) to create a new feature request.
 
 # Contribute Code/Documentation Pull Requests
 
-
 ## Your First Contribution
 
-Please go through our [code of conduct](./) and CLA requirements.
+Please go through our [code of conduct](./CODE%20OF%20CONDUCT.md) and CLA requirements.
 
 You will need to complete a Contributor License Agreement (CLA). Briefly, this agreement testifies that you are granting us permission to use the submitted change according to the terms of the project's license, and that the work being submitted is under appropriate copyright.
 
@@ -56,10 +53,11 @@ Please submit a Contributor License Agreement (CLA) before submitting a pull req
 
 Unsure where to begin contributing? You can start by looking through these beginner and help-wanted issues:
 
-[Beginner issues](TODO) - issues which should only require a few lines of code, and a test or two.
-[Help wanted issues](TODO) - issues which should be a bit more involved than beginner issues.
+- [Beginner issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner%22) - issues which should only require a few lines of code, and a test or two.
 
-Refer our [Developer setup](TODO) instructions to get started with code and running tests.
+- [Help wanted issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) - issues which should be a bit more involved than beginner issues.
+
+Refer our [Developer setup](./doc/dev_setup.md) instructions to get started with code and running tests.
 
 # Pull Request Etiquette 
 
