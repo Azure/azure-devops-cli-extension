@@ -49,7 +49,7 @@ def create_repo(name, devops_organization=None, project=None, detect=None, open_
         raise CLIError(ex)
 
 
-def delete_repo(id, devops_organization=None, project=None, detect=None):
+def delete_repo(id, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete a Git repository in a team project.
     :param id: ID of the repository.
     :type id: str
