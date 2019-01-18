@@ -32,21 +32,19 @@ def set_credential(devops_organization, token):
     cred_store = CredentialStore()
     cred_store.set_password(key, token)
     logger.debug('stored key: %s', key)
-    store_URL(key)
+    add_organization(key)
 
 
 def clear_credential(devops_organization):
     key = _get_service_name(devops_organization)
     logger.debug('Clearing credential: %s', key)
-    #cred_store = CredentialStore()
-    #cred_store.clear_password(key)
-    clear_url(key)
+    remove_organization(key)
 
 
 def _get_service_name(devops_organization):
     if devops_organization is not None:
         return 'azdevops-cli:' + normalize_url_for_key(devops_organization)
-    return 'azdevops-cli: default'
+    return _DEFAULT_CREDENTIAL_KEY
 
 
 def normalize_url_for_key(url):
@@ -58,44 +56,39 @@ def normalize_url_for_key(url):
         normalized_url = normalized_url + '/' + organization_name
     return normalized_url
 
-def store_URL(url_key):
-    logger.debug('store_URL: %s', url_key)
-    URL_file = os.path.join(AZ_DEVOPS_GLOBAL_CONFIG_DIR, 'organization_list')   
 
-    if(os.path.isfile(URL_file)):   
-        with open(URL_file, 'r') as org_list:  
+def add_organization(url_key):
+    if os.path.isfile(_ORGANIZATION_LIST_FILE):
+        # No need to add organization if it's already present.
+        with open(_ORGANIZATION_LIST_FILE, 'r') as org_list:
             for organization in org_list:
-                logger.debug("key list : %s" ,organization)
                 if url_key == organization.rstrip():
-                    return    
-
-    with open(URL_file, 'a+') as org_list: 
-        logger.debug("Append key : %s" ,url_key)
+                    return
+    with open(_ORGANIZATION_LIST_FILE, 'a+') as org_list:
         org_list.write(url_key + "\n")
-        
 
-def clear_url(url_key):
-    URL_file = os.path.join(AZ_DEVOPS_GLOBAL_CONFIG_DIR, 'organization_list') 
-    if(os.path.isfile(URL_file)):
-        cred_store = CredentialStore()
-        if url_key == 'azdevops-cli: default' : 
-            with open(URL_file) as org_list_file:
+
+def remove_organization(url_key):
+    cred_store = CredentialStore()
+    if url_key == _DEFAULT_CREDENTIAL_KEY:
+        # remove all organizations and delete the file
+        if os.path.isfile(_ORGANIZATION_LIST_FILE):
+            with open(_ORGANIZATION_LIST_FILE) as org_list_file:
                 for organization in org_list_file:
-                    logger.debug("remove org : %s" ,organization)
                     cred_store.clear_password(organization.rstrip())
-
-            logger.debug("remove file : %s",URL_file)
-            os.remove(URL_file)
-            return
-
-        URL_file_new = URL_file+"_new"
-        with open(URL_file ,"r") as input_file:
-            with open(URL_file_new ,"w+") as output_file:
-                for line in input_file:
+            os.remove(_ORGANIZATION_LIST_FILE)
+        else:
+            raise CLIError('No credentials were found.')
+    else:
+        # delete particular organization from the list
+        if os.path.isfile(_ORGANIZATION_LIST_FILE):
+            with open(_ORGANIZATION_LIST_FILE, "r") as input_file:
+                orgs = input_file.readlines()
+            with open(_ORGANIZATION_LIST_FILE, "w") as output_file:
+                for line in orgs:
                     if line.rstrip() != url_key:
                         output_file.write(line)
-    else:
-        raise CLIError('No credentials were found.')
+        cred_store.clear_password(url_key)
 
-    
-
+_DEFAULT_CREDENTIAL_KEY = 'azdevops-cli: default'
+_ORGANIZATION_LIST_FILE = os.path.join(AZ_DEVOPS_GLOBAL_CONFIG_DIR, 'organization_list')
