@@ -1,0 +1,362 @@
+interactions:
+- request:
+    body: 'b''{"name": "team_name000001", "description": "Sample description"}'''
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['64']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.0 (Windows-10-10.0.17763-SP0) msrest/0.6.2 vsts/0.1.20
+          devOpsCli/0.2.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: POST
+    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/DevopsTeamTests/teams
+  response:
+    body: {string: '{"id":"f75322a5-0b91-4fb3-a695-3f03ae0245fd","name":"team_name000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/22d1a45b-5163-40a3-abcd-79f03dc0df75/teams/f75322a5-0b91-4fb3-a695-3f03ae0245fd","description":"Sample
+        description","identityUrl":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/f75322a5-0b91-4fb3-a695-3f03ae0245fd","projectName":"DevopsTeamTests","projectId":"22d1a45b-5163-40a3-abcd-79f03dc0df75"}'}
+    headers:
+      activityid: [ea265b2c-87e6-4225-a632-2cd77ad7c254]
+      cache-control: [no-cache]
+      content-length: ['442']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 10 Jan 2019 11:04:51 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: EA2D772CD8FD4BDD96DE08A5695518DF Ref B: MAA01EDGE0207
+          Ref C: 2019-01-10T11:04:51Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [8b10b730-8baf-4241-8da5-530b136a3a17]
+      x-tfs-session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      x-vss-e2eid: [ea265b2c-87e6-4225-a632-2cd77ad7c254]
+      x-vss-userdata: ['99bfe5fa-1f76-617a-804a-3dea5e41a965:ishitam@microsoft.com']
+    status: {code: 201, message: Created}
+- request:
+    body: 'b''{"name": "team_name2000002", "description": "Sample description"}'''
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['64']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.0 (Windows-10-10.0.17763-SP0) msrest/0.6.2 vsts/0.1.20
+          devOpsCli/0.2.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: POST
+    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/DevopsTeamTests/teams
+  response:
+    body: {string: '{"id":"0a9fc2e6-b5fd-4e98-93f0-56526e79a5c4","name":"team_name2000002","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/22d1a45b-5163-40a3-abcd-79f03dc0df75/teams/0a9fc2e6-b5fd-4e98-93f0-56526e79a5c4","description":"Sample
+        description","identityUrl":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/0a9fc2e6-b5fd-4e98-93f0-56526e79a5c4","projectName":"DevopsTeamTests","projectId":"22d1a45b-5163-40a3-abcd-79f03dc0df75"}'}
+    headers:
+      activityid: [8f8155e4-0d15-42ca-9b1a-8e1edced8b03]
+      cache-control: [no-cache]
+      content-length: ['442']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 10 Jan 2019 11:04:52 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: 8CEBDA1129364D41B1C1D64793BBD991 Ref B: MAA01EDGE0207
+          Ref C: 2019-01-10T11:04:52Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [6a788b06-2ff3-406f-befc-05f0078cbb24]
+      x-tfs-session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      x-vss-e2eid: [8f8155e4-0d15-42ca-9b1a-8e1edced8b03]
+      x-vss-userdata: ['99bfe5fa-1f76-617a-804a-3dea5e41a965:ishitam@microsoft.com']
+    status: {code: 201, message: Created}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.0 (Windows-10-10.0.17763-SP0) msrest/0.6.2 vsts/0.1.20
+          devOpsCli/0.2.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: GET
+    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/DevopsTeamTests/teams
+  response:
+    body: {string: '{"value":[{"id":"253e23b2-ea2f-4fbc-94d2-51bf84630c45","name":"DevopsTeamTests
+        Team","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/22d1a45b-5163-40a3-abcd-79f03dc0df75/teams/253e23b2-ea2f-4fbc-94d2-51bf84630c45","description":"The
+        default project team.","identityUrl":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/253e23b2-ea2f-4fbc-94d2-51bf84630c45","projectName":"DevopsTeamTests","projectId":"22d1a45b-5163-40a3-abcd-79f03dc0df75"},{"id":"f75322a5-0b91-4fb3-a695-3f03ae0245fd","name":"team_name000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/22d1a45b-5163-40a3-abcd-79f03dc0df75/teams/f75322a5-0b91-4fb3-a695-3f03ae0245fd","description":"Sample
+        description","identityUrl":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/f75322a5-0b91-4fb3-a695-3f03ae0245fd","projectName":"DevopsTeamTests","projectId":"22d1a45b-5163-40a3-abcd-79f03dc0df75"},{"id":"0a9fc2e6-b5fd-4e98-93f0-56526e79a5c4","name":"team_name2000002","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/22d1a45b-5163-40a3-abcd-79f03dc0df75/teams/0a9fc2e6-b5fd-4e98-93f0-56526e79a5c4","description":"Sample
+        description","identityUrl":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/0a9fc2e6-b5fd-4e98-93f0-56526e79a5c4","projectName":"DevopsTeamTests","projectId":"22d1a45b-5163-40a3-abcd-79f03dc0df75"}],"count":3}'}
+    headers:
+      activityid: [ec593bd4-4e28-4774-b4ee-5f4a707d8698]
+      cache-control: [no-cache]
+      content-length: ['1362']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 10 Jan 2019 11:04:52 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      transfer-encoding: [chunked]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: EC6616FCF1584393B4CFDC0AF2FA12D1 Ref B: MAA01EDGE0207
+          Ref C: 2019-01-10T11:04:53Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [1b93b5cb-99a2-4c21-9363-c49fd68a3f0e]
+      x-tfs-session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      x-vss-e2eid: [ec593bd4-4e28-4774-b4ee-5f4a707d8698]
+      x-vss-userdata: ['99bfe5fa-1f76-617a-804a-3dea5e41a965:ishitam@microsoft.com']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.0 (Windows-10-10.0.17763-SP0) msrest/0.6.2 vsts/0.1.20
+          devOpsCli/0.2.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: GET
+    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/DevopsTeamTests/teams/f75322a5-0b91-4fb3-a695-3f03ae0245fd
+  response:
+    body: {string: '{"id":"f75322a5-0b91-4fb3-a695-3f03ae0245fd","name":"team_name000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/22d1a45b-5163-40a3-abcd-79f03dc0df75/teams/f75322a5-0b91-4fb3-a695-3f03ae0245fd","description":"Sample
+        description","identityUrl":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/f75322a5-0b91-4fb3-a695-3f03ae0245fd","projectName":"DevopsTeamTests","projectId":"22d1a45b-5163-40a3-abcd-79f03dc0df75"}'}
+    headers:
+      activityid: [aac84437-2a72-4ca3-a2e4-f0989c6137bc]
+      cache-control: [no-cache]
+      content-length: ['442']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 10 Jan 2019 11:04:53 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      vary: [Accept-Encoding]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: E14898D69672427AA96F4D99F9C13BDE Ref B: MAA01EDGE0207
+          Ref C: 2019-01-10T11:04:53Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [e4bf5e4b-c321-4e9e-9fdd-cbf27569696d]
+      x-tfs-session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      x-vss-e2eid: [aac84437-2a72-4ca3-a2e4-f0989c6137bc]
+      x-vss-userdata: ['99bfe5fa-1f76-617a-804a-3dea5e41a965:ishitam@microsoft.com']
+    status: {code: 200, message: OK}
+- request:
+    body: 'b''{"name": "updated_000003", "description": "Sample updated description"}'''
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['72']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.0 (Windows-10-10.0.17763-SP0) msrest/0.6.2 vsts/0.1.20
+          devOpsCli/0.2.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: PATCH
+    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/DevopsTeamTests/teams/team_name000001
+  response:
+    body: {string: '{"id":"f75322a5-0b91-4fb3-a695-3f03ae0245fd","name":"updated_000003","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/22d1a45b-5163-40a3-abcd-79f03dc0df75/teams/f75322a5-0b91-4fb3-a695-3f03ae0245fd","description":"Sample
+        updated description","identityUrl":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/f75322a5-0b91-4fb3-a695-3f03ae0245fd","projectName":"DevopsTeamTests","projectId":"22d1a45b-5163-40a3-abcd-79f03dc0df75"}'}
+    headers:
+      activityid: [ea266506-87e6-4225-a632-2cd77ad7c254]
+      cache-control: [no-cache]
+      content-length: ['450']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 10 Jan 2019 11:05:22 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      vary: [Accept-Encoding]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: EA36492304F94E9285FE8E7967DFC570 Ref B: MAA01EDGE0207
+          Ref C: 2019-01-10T11:05:22Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [8b10b730-8baf-4241-8da5-530b136a3a17]
+      x-tfs-session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      x-vss-e2eid: [ea266506-87e6-4225-a632-2cd77ad7c254]
+      x-vss-userdata: ['99bfe5fa-1f76-617a-804a-3dea5e41a965:ishitam@microsoft.com']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.0 (Windows-10-10.0.17763-SP0) msrest/0.6.2 vsts/0.1.20
+          devOpsCli/0.2.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: GET
+    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/DevopsTeamTests/teams/DevopsTeamTests%20Team/members
+  response:
+    body: {string: "{\"value\":[{\"displayName\":\"Ishita Mehta\",\"url\":\"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/99bfe5fa-1f76-617a-804a-3dea5e41a965\",\"_links\":{\"avatar\":{\"href\":\"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.OTliZmU1ZmEtMWY3Ni03MTdhLTgwNGEtM2RlYTVlNDFhOTY1\"}},\"id\":\"99bfe5fa-1f76-617a-804a-3dea5e41a965\",\"uniqueName\":\"ishitam@microsoft.com\",\"imageUrl\":\"https://dev.azure.com/AzureDevOpsCliTest/_api/_common/identityImage?id=99bfe5fa-1f76-617a-804a-3dea5e41a965\",\"descriptor\":\"aad.OTliZmU1ZmEtMWY3Ni03MTdhLTgwNGEtM2RlYTVlNDFhOTY1\"},{\"displayName\":\"Atul
+        Bagga\",\"url\":\"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc\",\"_links\":{\"avatar\":{\"href\":\"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy\"}},\"id\":\"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc\",\"uniqueName\":\"atbagga@microsoft.com\",\"imageUrl\":\"https://dev.azure.com/AzureDevOpsCliTest/_api/_common/identityImage?id=86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc\",\"descriptor\":\"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy\"},{\"displayName\":\"Gaur\xC4v
+        Saral\",\"url\":\"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/a8c73bbe-8fc9-442f-92af-f56e8f32a969\",\"_links\":{\"avatar\":{\"href\":\"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.ZjRhOWNiN2MtZjVjNi03NDRkLThmMGItOGMwNzkxOWUyOGQ2\"}},\"id\":\"a8c73bbe-8fc9-442f-92af-f56e8f32a969\",\"uniqueName\":\"gsaral@microsoft.com\",\"imageUrl\":\"https://dev.azure.com/AzureDevOpsCliTest/_api/_common/identityImage?id=a8c73bbe-8fc9-442f-92af-f56e8f32a969\",\"descriptor\":\"aad.ZjRhOWNiN2MtZjVjNi03NDRkLThmMGItOGMwNzkxOWUyOGQ2\"}],\"count\":3}"}
+    headers:
+      activityid: [ea267d29-87e6-4225-a632-2cd77ad7c254]
+      cache-control: [no-cache]
+      content-length: ['1702']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 10 Jan 2019 11:05:22 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      transfer-encoding: [chunked]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: B7BFD8397DB449C8A2F72A0EB3202A59 Ref B: MAA01EDGE0207
+          Ref C: 2019-01-10T11:05:23Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [8b10b730-8baf-4241-8da5-530b136a3a17]
+      x-tfs-session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      x-vss-e2eid: [ea267d29-87e6-4225-a632-2cd77ad7c254]
+      x-vss-userdata: ['99bfe5fa-1f76-617a-804a-3dea5e41a965:ishitam@microsoft.com']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.0 (Windows-10-10.0.17763-SP0) msrest/0.6.2 vsts/0.1.20
+          devOpsCli/0.2.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: DELETE
+    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/DevopsTeamTests/teams/f75322a5-0b91-4fb3-a695-3f03ae0245fd
+  response:
+    body: {string: ''}
+    headers:
+      activityid: [aac9bd77-2a72-4ca3-a2e4-f0989c6137bc]
+      cache-control: [no-cache]
+      date: ['Thu, 10 Jan 2019 11:05:23 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: B8DE38ED00FA48E49E161CD5B03C3CD2 Ref B: MAA01EDGE0207
+          Ref C: 2019-01-10T11:05:23Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [e4bf5e4b-c321-4e9e-9fdd-cbf27569696d]
+      x-tfs-session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      x-vss-e2eid: [aac9bd77-2a72-4ca3-a2e4-f0989c6137bc]
+      x-vss-userdata: ['99bfe5fa-1f76-617a-804a-3dea5e41a965:ishitam@microsoft.com']
+    status: {code: 204, message: No Content}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.0 (Windows-10-10.0.17763-SP0) msrest/0.6.2 vsts/0.1.20
+          devOpsCli/0.2.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: DELETE
+    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/DevopsTeamTests/teams/0a9fc2e6-b5fd-4e98-93f0-56526e79a5c4
+  response:
+    body: {string: ''}
+    headers:
+      activityid: [8f817274-0d15-42ca-9b1a-8e1edced8b03]
+      cache-control: [no-cache]
+      date: ['Thu, 10 Jan 2019 11:05:24 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: EF8488E97FA94E6EBF2CA81797D7A883 Ref B: MAA01EDGE0207
+          Ref C: 2019-01-10T11:05:24Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [6a788b06-2ff3-406f-befc-05f0078cbb24]
+      x-tfs-session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      x-vss-e2eid: [8f817274-0d15-42ca-9b1a-8e1edced8b03]
+      x-vss-userdata: ['99bfe5fa-1f76-617a-804a-3dea5e41a965:ishitam@microsoft.com']
+    status: {code: 204, message: No Content}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.0 (Windows-10-10.0.17763-SP0) msrest/0.6.2 vsts/0.1.20
+          devOpsCli/0.2.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: GET
+    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/DevopsTeamTests/teams
+  response:
+    body: {string: '{"value":[{"id":"253e23b2-ea2f-4fbc-94d2-51bf84630c45","name":"DevopsTeamTests
+        Team","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/22d1a45b-5163-40a3-abcd-79f03dc0df75/teams/253e23b2-ea2f-4fbc-94d2-51bf84630c45","description":"The
+        default project team.","identityUrl":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/253e23b2-ea2f-4fbc-94d2-51bf84630c45","projectName":"DevopsTeamTests","projectId":"22d1a45b-5163-40a3-abcd-79f03dc0df75"}],"count":1}'}
+    headers:
+      activityid: [aac9a3ce-2a72-4ca3-a2e4-f0989c6137bc]
+      cache-control: [no-cache]
+      content-length: ['476']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 10 Jan 2019 11:05:24 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      transfer-encoding: [chunked]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: 9B4E2EA18577483CB9B473800648C533 Ref B: MAA01EDGE0207
+          Ref C: 2019-01-10T11:05:25Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [e4bf5e4b-c321-4e9e-9fdd-cbf27569696d]
+      x-tfs-session: [ba3fa159-8c1e-4bfa-b085-6b9db6a95a39]
+      x-vss-e2eid: [aac9a3ce-2a72-4ca3-a2e4-f0989c6137bc]
+      x-vss-userdata: ['99bfe5fa-1f76-617a-804a-3dea5e41a965:ishitam@microsoft.com']
+    status: {code: 200, message: OK}
+version: 1

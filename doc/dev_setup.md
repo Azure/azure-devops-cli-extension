@@ -11,19 +11,24 @@
 
 ## Get the source
 
-1. Clone the Azure Devops CLI extension repository:
+1. Clone the Azure Devops CLI extension repository. 
    ```bash
    git clone https://github.com/Microsoft/vsts-cli
    ```
+   
+2. Checkout `azuredevopscli-dev` branch.
+   ```bash
+   git checkout azuredevopscli-dev
+   ```
 
-2. Optionally, clone the VSTS Python SDK repository:
+3. Optionally, clone the VSTS Python SDK repository:
    ```bash
    git clone https://github.com/Microsoft/azure-devops-python-api
    ```
 
 ## Create a virtual environment
 
-1. From the `AzureDevOpsCli` directory, create a new virtual environment:
+1. From the `vsts-cli` directory, create a new virtual environment:
    ```bash
    virtualenv env
    ```
@@ -31,7 +36,7 @@
 2. Activate the new virtual environment:
    On Linux:
    ```bash
-   source env/Scripts/activate
+   source env/bin/activate
    ```
    On Windows:
    ```bash
@@ -47,26 +52,26 @@
 
 Run `az extension list` and `az devops -h` to verify your environment is setup properly. 
 
-1. Set the `AZURE_EXTENSION_DIR` environment variable to a directory that will hold the extension(s) being developed:
-    ```
-    export AZURE_EXTENSION_DIR=~/.azure/devcliextensions
-    ```
-    The CLI will now look in this directory for extensions.
+1. Follow instructions to install powershell from [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-6)
 
-2. Install your extension into the extensions directory:
+2. dev_setup.py script has already set your `AZURE_EXTENSION_DIR` environment variable to `.azure\devcliextensions` directory that will hold the extensions being developed
+
+On Windows:
+    Run below command any time you make changes to your extension and want to see them reflected in the CLI.
     ```
-    pip install --upgrade --target ~/.azure/devcliextensions/azure-devops-extension ~/Dev/azure-devops-extension
+    pip install --upgrade --target %AZURE_EXTENSION_DIR%\azure-devops azure-devops\
     ```
-    - `~/.azure/devcliextensions/azure-devops-extension` is the directory `pip` will install the extension to.
-    - `~/Dev/azure-devops-extension` is the directory with the source code of your extension.
+    - `%AZURE_EXTENSION_DIR%\azure-devops` is the directory `pip` will install the extension to.
+    - `Dev\vsts-cli\azure-devops` is the directory with the source code of your extension.
 
-3. Continue to develop your extension:
-    Any time you make changes to your extension and want to see them reflected in the CLI, run the command from step 2 again.
+On Linux:
+    ```
+    pip install --upgrade --target $AZURE_EXTENSION_DIR/azure-devops azure-devops/
+    ```
 
-    
-4. Run `az devops -h` again to verify if extension is installed properly.
+3. Run `az devops -h` again to verify if extension is installed properly.
 
-5. Run `tests\runTests.ps1` to run recorded tests.
+4. Run `tests\runTests.ps1` to run recorded tests.
 
 
 

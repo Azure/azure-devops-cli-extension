@@ -1,0 +1,196 @@
+# Python package
+# Create and test a Python package on multiple Python versions.
+# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger:
+- azuredevopscli-dev
+
+pr: none
+
+jobs:
+
+- job: 'Run_Test_Ubuntu'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+  strategy:
+    matrix:
+      Python27:
+        python.version: '2.7.15'
+      Python36:
+        python.version: '3.6.5'
+      Python37:
+        python.version: '3.7.0'
+    maxParallel: 3
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+      architecture: 'x64'
+
+  - script: python -m pip install --upgrade pip
+    displayName: 'upgrade pip'
+
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTests.ps1'
+      arguments: '$True'
+  
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
+
+- job: 'Run_Test_Windows'
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - script: python -m pip install --upgrade pip
+    displayName: 'upgrade pip'
+
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTests.ps1'
+      arguments: '$True'
+  
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
+
+  - task: AzureFileCopy@2
+    displayName: 'Publish wheel to azure storage'
+    inputs:
+      sourcePath: 'azure-devops/dist/azure_devops-0.2.0-py2.py3-none-any.whl'
+      azureConnectionType: 'ConnectedServiceNameARM'
+      azureSubscription: 'CodeLens_Test (6bd70c51-ff44-4c89-9212-8d3f10e2a90a)'
+      destination: 'azureBlob'
+      storage: 'azuredevopscli'
+      containerName: 'azuredevopscli'
+
+- job: 'Run_Test_Mac'
+  pool:
+    vmImage: 'macOS-10.13'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - script: python -m pip install --upgrade pip
+    displayName: 'upgrade pip'
+
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTests.ps1'
+      arguments: '$True'
+  
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Wheel as artifact'
+    inputs:
+      pathtoPublish: 'azure-devops/dist' 
+      artifactName: 'azure-devops-cli-package' 
+      publishLocation: 'Container'
+
+- job: 'Code_Coverage'
+  pool:
+    vmImage: 'macOS-10.13'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - script: python -m pip install --upgrade pip
+    displayName: 'upgrade pip'
+
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTests.ps1'
+      arguments: '$True'
+ 
+  - script: pip install beautifulsoup4
+    displayName: 'install beautifulsoup4'
+
+  - task: PythonScript@0
+    inputs:
+      scriptSource: 'filePath' # Options: filePath, inline
+      scriptPath: 'scripts/fixCodeCoverageStyle.py'
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'cobertura'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
+      reportDirectory: '$(System.DefaultWorkingDirectory)/htmlcov'
+      additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/htmlcov/**/*.*'
+
+- job: 'Run_Style_Check'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.6'
+      architecture: 'x64'
+
+  - task: PowerShell@2
+    displayName: 'Run Style Check'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runStyleCheck.ps1'
