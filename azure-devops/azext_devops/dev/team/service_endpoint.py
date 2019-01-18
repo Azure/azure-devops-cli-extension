@@ -41,10 +41,10 @@ def list_service_endpoints(devops_organization=None, project=None, detect=None):
         raise CLIError(ex)
 
 
-def show_service_endpoint(id, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def show_service_endpoint(service_endpoint, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a service endpoint.
-    :param id: ID of the service endpoint.
-    :type id: str
+    :param service_endpoint: ID of the service endpoint.
+    :type service_endpoint: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param project: Name or ID of the project.
@@ -58,7 +58,7 @@ def show_service_endpoint(id, devops_organization=None, project=None, detect=Non
                                                                     devops_organization=devops_organization,
                                                                     project=project)
         client = get_service_endpoint_client(devops_organization)
-        return client.get_service_endpoint_details(project, id)
+        return client.get_service_endpoint_details(project, service_endpoint)
 
     except VstsServiceError as ex:
         raise CLIError(ex)

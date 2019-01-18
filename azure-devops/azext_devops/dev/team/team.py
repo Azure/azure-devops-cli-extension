@@ -35,10 +35,10 @@ def create_team(name, description=None, devops_organization=None, project=None, 
         raise CLIError(ex)
 
 
-def delete_team(id, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def delete_team(team, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Deletes a team.
-    :param id: The name or id of the team to delete.
-    :type id: str
+    :param team: The name or id of the team to delete.
+    :type team: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param project: Name or ID of the project.
@@ -51,15 +51,15 @@ def delete_team(id, devops_organization=None, project=None, detect=None):  # pyl
                                                                     devops_organization=devops_organization,
                                                                     project=project)
         core_client = get_core_client(devops_organization)
-        return core_client.delete_team(team_id=id, project_id=project)
+        return core_client.delete_team(team_id=team, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def get_team(id, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def get_team(team, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Gets a team.
-    :param id: The name or id of the team to show.
-    :type id: str
+    :param team: The name or id of the team to show.
+    :type team: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param project: Name or ID of the project.
@@ -73,7 +73,7 @@ def get_team(id, devops_organization=None, project=None, detect=None):  # pylint
                                                                     devops_organization=devops_organization,
                                                                     project=project)
         core_client = get_core_client(devops_organization)
-        return core_client.get_team(team_id=id, project_id=project)
+        return core_client.get_team(team_id=team, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -102,10 +102,10 @@ def get_teams(top=None, skip=None, devops_organization=None, project=None, detec
         raise CLIError(ex)
 
 
-def get_team_members(id, top=None, skip=None, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def get_team_members(team, top=None, skip=None, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """List members of a particular team.
-    :param id: The name or id of the team to show members of.
-    :type id: str
+    :param team: The name or id of the team to show members of.
+    :type team: str
     :param top: Maximum number of members to return.
     :type top: int
     :param skip: Number of members to skip.
@@ -123,15 +123,15 @@ def get_team_members(id, top=None, skip=None, devops_organization=None, project=
                                                                     devops_organization=devops_organization,
                                                                     project=project)
         core_client = get_core_client(devops_organization)
-        return core_client.get_team_members(team_id=id, top=top, skip=skip, project_id=project)
+        return core_client.get_team_members(team_id=team, top=top, skip=skip, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def update_team(id, name=None, description=None, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def update_team(team, name=None, description=None, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Update a team's name and/or description.
-    :param id: The name or id of the team to be updated.
-    :type id: str
+    :param team: The name or id of the team to be updated.
+    :type team: str
     :param name: New name of the team.
     :type name: str
     :param description: New description of the team.
@@ -152,6 +152,6 @@ def update_team(id, name=None, description=None, devops_organization=None, proje
                                                                     project=project)
         core_client = get_core_client(devops_organization)
         updated_team_data = WebApiTeam(name=name, description=description)
-        return core_client.update_team(team_data=updated_team_data, project_id=project, team_id=id)
+        return core_client.update_team(team_data=updated_team_data, project_id=project, team_id=team)
     except VstsServiceError as ex:
         raise CLIError(ex)
