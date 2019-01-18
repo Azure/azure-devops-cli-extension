@@ -31,7 +31,6 @@ def set_credential(devops_organization, token):
     key = _get_service_name(devops_organization)
     cred_store = CredentialStore()
     cred_store.set_password(key, token)
-    logger.debug('stored key: %s', key)
     add_organization(key)
 
 
