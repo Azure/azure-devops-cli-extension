@@ -46,7 +46,7 @@ def clear_credential(devops_organization):
     key = _get_service_name(devops_organization)
     logger.debug('Clearing credential: %s', key)
     cred_store = CredentialStore()
-    
+
     if key == _DEFAULT_CREDENTIAL_KEY:
         # remove all organizations and delete the file
         if os.path.isfile(_ORGANIZATION_LIST_FILE):
@@ -82,7 +82,7 @@ def normalize_url_for_key(url):
         organization_name = organization_name.split('/')[1]
         normalized_url = normalized_url + '/' + organization_name
     return normalized_url
-    
+
 
 _DEFAULT_CREDENTIAL_KEY = 'azdevops-cli: default'
 _ORGANIZATION_LIST_FILE = os.path.join(AZ_DEVOPS_GLOBAL_CONFIG_DIR, 'organization_list')
