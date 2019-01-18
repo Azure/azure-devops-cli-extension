@@ -39,35 +39,32 @@ az extension add -n azure-cli-iot-ext
 az -h
 az devops -h --debug
 
-$testFailure = $false
-
-#temporary workaround so that we can run the remaining things together
-$testFileToRunSeperately = Join-Path -Path 'tests' -ChildPath 'reposPrCommandsReviewersTest.py'
+$testFailureFound = $false
 
 if($outputTestResultAsJunit -eq $true)
 {
-    pytest $testFile --junitxml "TEST-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html --ignore=$testFileToRunSeperately
+    pytest 'azure-devops/' --junitxml "TEST-UT-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
 }
 else{
-    pytest $testFile
+    pytest 'azure-devops/'
 }
 
 if ($LastExitCode -ne 0) {
-    $testFailure = $true
+    $testFailureFound = $true
 }
 
 if($outputTestResultAsJunit -eq $true)
 {
-    pytest $testFileToRunSeperately --junitxml "TEST-reposPrCommandsReviewersTest-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
+    pytest 'tests/' --junitxml "TEST-recordings-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
 }
 else{
-    pytest $testFileToRunSeperately
+    pytest 'tests/'
 }
 
 if ($LastExitCode -ne 0) {
-    $testFailure = $true
+    $testFailureFound = $true
 }
 
-if($testFailure -eq $true){
-    return 1
+if($testFailureFound -eq $true){
+    exit 1
 }
