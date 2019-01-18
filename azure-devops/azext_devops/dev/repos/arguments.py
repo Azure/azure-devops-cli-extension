@@ -22,7 +22,6 @@ def load_code_arguments(self, _):
 
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
-        context.argument('pull_request_id', type=int, options_list='--id')
         context.argument('repository', options_list=('--repository', '-r'))
         context.argument('source_branch', options_list=('--source-branch', '-s'))
         context.argument('target_branch', options_list=('--target-branch', '-t'))
