@@ -18,7 +18,6 @@ def load_code_arguments(self, _):
         context.argument('devops_organization', options_list=('--organization', '--org'))
         context.argument('reviewers', nargs='*')
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('repo_id', options_list='--id')
 
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
