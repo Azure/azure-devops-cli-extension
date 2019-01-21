@@ -8,7 +8,7 @@ The Azure DevOps Extension for Azure CLI adds Pipelines, Boards, Repos, Artifact
 
 
 > The Azure DevOps Extension is currently in preview but we encourage you to give it a try and provide feedback (or contribute).
-With the release of the Azure DevOps Extension, we will be retiring the preview version of the VSTS CLI. The Azure DevOps Extension has functional parity with the VSTS CLI and we aim to deprecate VSTS CLI by April, 2019. 
+With the release of the Azure DevOps Extension, we will be retiring the preview version of the VSTS CLI. The Azure DevOps Extension has functional parity with the VSTS CLI and we aim to deprecate VSTS CLI by April, 2019. See the [Command Mapping](/doc/command_mapping.md) section to view the mapping between VSTS CLI and Azure DevOps Extension commands. 
 
 
 # Quick start
