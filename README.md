@@ -61,5 +61,5 @@ Global Arguments
 # Contribute
 See our [contribution guidelines](/doc/contributing.md) to learn how you can contribute to this project.
 
-#License
+# License
 [MIT License](LICENSE)
