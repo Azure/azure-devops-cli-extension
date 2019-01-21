@@ -1,4 +1,4 @@
-# Contribute to Azure DevOps Extension
+# Contribute to the Azure DevOps Extension
 
 Thank you for your interest in contributing to Azure DevOps Extension!
 
@@ -8,9 +8,9 @@ There are many ways in which you can contribute, beyond writing code. The goal o
 
 Search existing [github issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aopen+is%3Aissue+label%3Aquestion) for similar questions and feel free to file an issue with a "question" tag to get our attention. 
 
-# Found a Bug
+# Found a bug
 
-#### Where to Find Known Issues
+#### Where to find known issues
 
 Check existing open [issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aopen+is%3Aissue+label%3Abug) before you file a new bug report. 
 
@@ -18,17 +18,17 @@ If you find your issue already exists, make relevant comments and add your react
 👍 - upvote
 👎 - downvote
 
-#### Reporting New Issue
+#### Reporting new issue
 
 The best way to get your bug fixed is to provide good repro steps. Use our [Bug template](TODO) to report any issues.
 
-#### Security Bugs
+#### Security bugs
 
 TO-DO
 
-# Feature Requests
+# Feature requests
 
-#### Where to Find Existing Requests
+#### Where to find existing requests
 
 Check existing open [feature requests](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3AFeature) before you file a new request. 
 
@@ -37,7 +37,7 @@ If you find your request already exists, make relevant comments and add your rea
 👎 - downvote
 
 
-#### Submit New Feature request 
+#### Submit new feature request 
 
 Use our Feature Request [template](TODO) to create a new feature request. 
 
@@ -49,7 +49,7 @@ Unsure where to begin? You can start by looking through these beginner and help-
 
 Refer our [Developer setup](/doc/dev_setup.md) instructions to get started with code and running tests.
 
-## Your First Contribution
+## Your first contribution
 
 **Legal**
 
@@ -58,7 +58,7 @@ You will need to complete a Contributor License Agreement (CLA). Briefly, this a
 Please submit a Contributor License Agreement (CLA) before submitting a pull request. You may visit https://cla.microsoft.com to sign digitally.
 
 
-# Pull Request Etiquette 
+# Pull request etiquette 
 
 ## Guidelines
 - Every contribution (PR) needs to have an issue referenced
@@ -75,11 +75,11 @@ Please submit a Contributor License Agreement (CLA) before submitting a pull req
 ## If PR contains point fixes
 - UTs are mandatory
 
-## Code of Conduct
+## Code of conduct
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-# Thank You!
+# Thank you!
 
 Your contributions to open source, large or small, make great projects like this possible. Thank you for taking the time to contribute.
