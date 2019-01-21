@@ -89,4 +89,18 @@ This will show the details of build with id 1 on command-line and also open it i
 
 ## Use the Azure DevOps Extension in a Release Pipeline
 To use the Azure DevOps Extension in a hosted agent using a Release Pipeline, execute the following steps:
-1. Create a "New Release Pipeline"
+1. Create a New Release Pipeline
+![new release pipeline](/doc/images/New%20Pipeline.PNG)
+2. Select an empty job
+![select template](/doc/images/SelectTemplate.PNG)
+3. Click Stage 1 to configure the Stage.
+![Stage 1](/doc/images/Stage.PNG)
+4. Configure the job to use Hosted Mac OS in Agent Pools
+![Agent Job Configuration](/doc/images/JobConfig.PNG)
+5. Click on the + button to add a task and add PowerShell task
+![PowerShell](/doc/images/PowerShell.PNG)
+6. Add the script - either via file or inline. For the example, the script has been included inline. 
+![PowerShell](/doc/images/Script.PNG)
+
+The first line of the script installs the Azure CLI and adds the Azure DevOps Extension. 
+
