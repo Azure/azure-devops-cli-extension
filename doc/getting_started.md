@@ -5,7 +5,7 @@ Now that you have successfully installed the Azure CLI and added the Azure DevOp
 Before you can work with Azure DevOps, you need to log in using the `az login` command. 
 
 If the CLI can open your default browser, it will do so and load a sign-in page.
-Otherwise, you need to open a browser page and follow the instructions on the command line to enter an authorization code after navigating to https://aka.ms/devicelogin in your browser. For more information, please refer the [Azure CLI login page](https://docs.microsoft.com/cli/azure/authenticate-azure-cli?view=azure-cli-latest).
+Otherwise, you need to open a browser page and follow the instructions on the command line to enter an authorization code after navigating to https://aka.ms/devicelogin in your browser. For more information, see the [Azure CLI login page](https://docs.microsoft.com/cli/azure/authenticate-azure-cli?view=azure-cli-latest).
 
 You can also [log in via Azure DevOps Personal Access Token (PAT)](samples.md#log-in-via-azure-devops-personal-access-token-pat) 
 
@@ -50,6 +50,8 @@ If you want to explore the help document for any command, use the help switch (-
 For example, in the above scenario, to see the help documentation, run the following command:
 ```
 $ az devops configure -h
+```
+```
 Command
   az devops configure: Configure the Azure DevOps CLI or view your configuration.
   
