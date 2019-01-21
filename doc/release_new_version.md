@@ -7,7 +7,7 @@
 
 ## Details:
 ## Creating a new wheel from existing code and hosting it.
-To do this trigger a [AzureDevOpsCli-Release](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build?definitionId=29) build
+To do this trigger a [Azure DevOps CLI - Create Releases - YAML](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build?definitionId=40&_a=summary) build
 ### This build will 
  - create and upload wheel with the latest code (which can be downloaded from artifacts)
  - calculate sha256 for the wheel (which can be found in logs)
