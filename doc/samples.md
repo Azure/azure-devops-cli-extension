@@ -60,12 +60,7 @@ $ git pr create --target-branch {branch\_name}
 
 ## Configuring output formats
 
-The output formats are inherited from Azure CLI. You can set the default output format value by running following command.
-```
-$az configure
-```
-
-The Azure CLI uses JSON as its default output option, but offers various ways for you to format the output of any command.  You can find more information about Azure CLI configuration and supported output formats [here](https://docs.microsoft.com/en-us/cli/azure/format-output-azure-cli?view=azure-cli-latest)
+The output formats are inherited from Azure CLI. The Azure CLI uses JSON as its default output option, but offers various ways for you to format the output of any command.  Refer [Set the default output format](https://docs.microsoft.com/cli/azure/format-output-azure-cli?view=azure-cli-latest#set-the-default-output-format) guide to update default output format.
 
 ## Query output
 You can use the --query parameter and the JMESPath query syntax to customize your output.
