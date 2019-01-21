@@ -13,7 +13,7 @@ With the release of the Azure DevOps Extension, we will be retiring the preview 
 
 # Quick start
 
-1. [Install Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli). 
+1. [Install the Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli). 
 You must have at least `v2.0.49`, which you can verify with `az --version` command.
 2. Add the Azure DevOps Extension
 `az extension add --name azure-devops`
