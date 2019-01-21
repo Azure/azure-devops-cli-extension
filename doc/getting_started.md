@@ -1,24 +1,90 @@
 # Getting started
-Now that you have successfully installed Azure CLI and added the Azure DevOps extension, you are all set to get started!
+Now that you have successfully installed the Azure CLI and added the Azure DevOps Extension, you are all set to get started!
 
-## Log in to Azure DevOps
-Before you can work with Azure DevOps, you need to log in to Azure CLI using the `az login` command.
+## Log in via Azure CLI
+Before you can work with Azure DevOps, you need to log in using the `az login` command. 
 
 If the CLI can open your default browser, it will do so and load a sign-in page.
-Otherwise, you need to open a browser page and follow the instructions on the command line to enter an authorization code after navigating to https://aka.ms/devicelogin in your browser. For more information, please refer [azure cli login page](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest).
+Otherwise, you need to open a browser page and follow the instructions on the command line to enter an authorization code after navigating to https://aka.ms/devicelogin in your browser. For more information, please refer the [Azure cli login page](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest).
 
-You can also login using an Azure DevOps Personal Access Token. Refer [Connecting to Azure DevOps using PAT token]().
+## Log in via Azure DevOps Personal Access Token (PAT)
+You can also log in using an Azure DevOps Personal Access Token. Refer [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
 
+Once you have the PAT Token, run the `az devops login` command. You will be prompted to enter PAT token.
+```
+$az devops login --organization https://dev.azure.com/contoso
+Token:
+```
+Once successfully logged in, this would also set your default organization to Contoso, provided there is no default organization configured. 
+
+In the above experience, you need to manually enter the token when prompted. However, you might want to login in a non-interactive manner, especially when running automation scripts. For this, you can use one of the following methods:
+
+1. Fetch PAT from a file and pass it to login command.
+    ```
+    cat my_pat_token.txt | az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
+    ```
+2. Use environment variables.  
+There are cases where persisting a personal access token on the machine where Azure CLI is running is not technically possible or is not secure. In these cases you can get a token from an environment variable.
+To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment variable:
+
+    Windows:
+    ```
+      set AZURE_DEVOPS_EXT_PAT=xxxxxxxxxx
+    ```
+    Linux or macOS:
+    ```
+      export AZURE_DEVOPS_EXT_PAT=xxxxxxxxxx
+    ```
+    Replace *xxxxxxxxxx* with the your PAT.
+
+    Now run
+    ```bash
+    $az devops login --organization https://dev.azure.com/contoso
+    ```
+    
 ## Configuring defaults
 Although you can provide the organization and project for each command, we recommend you set these as defaults in configuration for seamless commanding. 
 
-`az devops configure defaults --organization https://dev.azure.com/myorganization --project myproject`
+`az devops configure defaults --organization https://dev.azure.com/contoso --project PaymentModule`
+
+This ensures that the "contoso" and "PaymentModule" are configured as defaults for organization and project parameters. They will be used in any command that accepts organization or project as inputs.
+
+You can view the defaults configured by running the following command:
+```
+$az devops configure --list
+
+[defaults]
+organization=https://dev.azure.com/contoso
+project=PaymentModule
+
+Use git alias = No
+```
+Configuration values used are evaluated in the following precedence, with items higher on the list taking priority.
+1. Command-line parameters
+2. Environment variables
+3. Values configured with `az devops configure`
+
+## Configuring output formats
+
+The output formats are inherited from Azure CLI. You can set the default output format value by running following command.
+```
+$az configure
+```
+
+The Azure CLI uses JSON as its default output option, but offers various ways for you to format the output of any command.  You can find more information about Azure CLI configuration and supported output formats [here](https://docs.microsoft.com/en-us/cli/azure/format-output-azure-cli?view=azure-cli-latest)
+
 
 ## Example
 
-Let us look at an example where the Azure DevOps extension can be used to view and trigger a build in Azure Pipelines.
+Let us look at an example where the Azure DevOps Extension can be used to view and trigger a build in Azure Pipelines.
 
-1. Configure defaults
+1. Log in to Azure CLI
+```
+$az login
+Note, we have launched a browser for you to login. For old experience with device code, use "az login --use-device-code"
+You have logged in. Now let us find all the subscriptions to which you have access...
+```
+2. Configure defaults
 ```
 $az devops configure --defaults organization=https://dev.azure.com/contosoWebApp project=PaymentModule`
 ```
