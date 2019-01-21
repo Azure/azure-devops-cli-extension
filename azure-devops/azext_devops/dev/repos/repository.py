@@ -95,7 +95,7 @@ def list_repos(devops_organization=None, project=None, detect=None):
 
 def show_repo(repo, devops_organization=None, project=None, detect=None, open_browser=False):
     """Get the details of a Git repository.
-    :param repo: ID or name of the repository. Required if --name is not specified.
+    :param repo: ID or name of the repository.
     :type repo: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str

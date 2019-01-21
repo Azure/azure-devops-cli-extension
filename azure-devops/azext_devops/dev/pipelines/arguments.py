@@ -40,9 +40,6 @@ def load_build_arguments(self, _):
             choices=['tfsversioncontrol', 'tfsgit', 'git', 'github', 'githubenterprise', 'bitbucket', 'svn'],
             type=str.lower)
 
-    with self.argument_context('pipelines build task') as context:
-        context.argument('task_id', options_list=('--task-id', '--id'), type=str)
-
     with self.argument_context('pipelines release') as context:
         context.argument('open_browser', options_list='--open')
         context.argument('project', options_list=('--project', '-p'))
