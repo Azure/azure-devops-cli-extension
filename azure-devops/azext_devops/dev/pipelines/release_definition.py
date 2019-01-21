@@ -46,11 +46,11 @@ def release_definition_list(name=None, top=None, devops_organization=None, proje
     return definition_references
 
 
-def release_definition_show(definition_id=None, name=None, open_browser=False, devops_organization=None, project=None,
+def release_definition_show(id=None, name=None, open_browser=False, devops_organization=None, project=None,  # pylint: disable=redefined-builtin
                             detect=None):
     """Get the details of a release definition.
-    :param definition_id: ID of the definition.
-    :type definition_id: int
+    :param id: ID of the definition.
+    :type id: int
     :param name: Name of the definition. Ignored if --id is supplied.
     :type name: str
     :param open_browser: Open the definition summary page in your web browser.
@@ -66,12 +66,12 @@ def release_definition_show(definition_id=None, name=None, open_browser=False, d
     devops_organization, project = resolve_instance_and_project(
         detect=detect, devops_organization=devops_organization, project=project)
     client = get_release_client(devops_organization)
-    if definition_id is None:
+    if id is None:
         if name is not None:
-            definition_id = get_definition_id_from_name(name, client, project)
+            id = get_definition_id_from_name(name, client, project)
         else:
             raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
-    release_definition = client.get_release_definition(definition_id=definition_id, project=project)
+    release_definition = client.get_release_definition(definition_id=id, project=project)
     if open_browser:
         _open_definition(release_definition)
     return release_definition

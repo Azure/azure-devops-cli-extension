@@ -30,10 +30,10 @@ from azext_devops.dev.common.services import (get_git_client,
 logger = get_logger(__name__)
 
 
-def show_pull_request(pull_request_id, open_browser=False, devops_organization=None, detect=None):
+def show_pull_request(id, open_browser=False, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a pull request.
-    :param pull_request_id: ID of the pull request.
-    :type pull_request_id: int
+    :param id: ID of the pull request.
+    :type id: int
     :param open_browser: Open the pull request in your web browser.
     :type open_browser: bool
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -45,10 +45,10 @@ def show_pull_request(pull_request_id, open_browser=False, devops_organization=N
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_git_client(devops_organization)
-        pr = client.get_pull_request_by_id(pull_request_id)
+        pr = client.get_pull_request_by_id(id)
         pr = client.get_pull_request(project=pr.repository.project.id,
                                      repository_id=pr.repository.id,
-                                     pull_request_id=pull_request_id,
+                                     pull_request_id=id,
                                      include_commits=False,
                                      include_work_item_refs=True)
         if open_browser:
@@ -259,13 +259,13 @@ def _get_branches_for_pull_request(devops_organization, project, repository, sou
     return source_branch, target_branch
 
 
-def update_pull_request(pull_request_id, title=None, description=None, auto_complete=None,
+def update_pull_request(id, title=None, description=None, auto_complete=None,  # pylint: disable=redefined-builtin
                         squash=None, delete_source_branch=None, bypass_policy=None,
                         bypass_policy_reason=None, merge_commit_message=None, devops_organization=None, detect=None,
                         transition_work_items=None):
     """Update a pull request.
-    :param pull_request_id: ID of the pull request.
-    :type pull_request_id: int
+    :param id: ID of the pull request.
+    :type id: int
     :param title: New title for the pull request.
     :type title: str
     :param description: New description for the pull request.  Can include markdown.  Each value sent to this
@@ -298,7 +298,7 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_git_client(devops_organization)
-        existing_pr = client.get_pull_request_by_id(pull_request_id)
+        existing_pr = client.get_pull_request_by_id(id)
         if description is not None:
             multi_line_description = '\n'.join(description)
         else:
@@ -334,16 +334,16 @@ def update_pull_request(pull_request_id, title=None, description=None, auto_comp
         pr = client.update_pull_request(git_pull_request_to_update=pr,
                                         project=existing_pr.repository.project.name,
                                         repository_id=existing_pr.repository.name,
-                                        pull_request_id=pull_request_id)
+                                        pull_request_id=id)
         return pr
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def complete_pull_request(pull_request_id, devops_organization=None, detect=None):
+def complete_pull_request(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Complete a pull request.
-    :param pull_request_id: ID of the pull request to complete.
-    :type pull_request_id: int
+    :param id: ID of the pull request to complete.
+    :type id: int
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param detect: Automatically detect organization. Default is "on".
@@ -351,16 +351,16 @@ def complete_pull_request(pull_request_id, devops_organization=None, detect=None
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
-        return _update_pull_request_status(pull_request_id=pull_request_id, new_status='completed',
+        return _update_pull_request_status(pull_request_id=id, new_status='completed',
                                            devops_organization=devops_organization, detect=detect)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def abandon_pull_request(pull_request_id, devops_organization=None, detect=None):
+def abandon_pull_request(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Abandon a pull request.
-    :param pull_request_id: ID of the pull request to abandon.
-    :type pull_request_id: int
+    :param id: ID of the pull request to abandon.
+    :type id: int
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param detect: Automatically detect organization. Default is "on".
@@ -368,16 +368,16 @@ def abandon_pull_request(pull_request_id, devops_organization=None, detect=None)
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
-        return _update_pull_request_status(pull_request_id=pull_request_id, new_status='abandoned',
+        return _update_pull_request_status(pull_request_id=id, new_status='abandoned',
                                            devops_organization=devops_organization, detect=detect)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def reactivate_pull_request(pull_request_id, devops_organization=None, detect=None):
+def reactivate_pull_request(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Reactivate an abandoned pull request.
-    :param pull_request_id: ID of the pull request to reactivate.
-    :type pull_request_id: int
+    :param id: ID of the pull request to reactivate.
+    :type id: int
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param detect: Automatically detect organization. Default is "on".
@@ -385,16 +385,16 @@ def reactivate_pull_request(pull_request_id, devops_organization=None, detect=No
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
-        return _update_pull_request_status(pull_request_id=pull_request_id, new_status='active',
+        return _update_pull_request_status(pull_request_id=id, new_status='active',
                                            devops_organization=devops_organization, detect=detect)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def create_pull_request_reviewers(pull_request_id, reviewers, devops_organization=None, detect=None):
+def create_pull_request_reviewers(id, reviewers, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Add one or more reviewers to a pull request.
-    :param pull_request_id: ID of the pull request.
-    :type pull_request_id: int
+    :param id: ID of the pull request.
+    :type id: int
     :param reviewers: Users or groups to include as reviewers on a pull request. Space separated.
     :type reviewers: list of str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -406,21 +406,21 @@ def create_pull_request_reviewers(pull_request_id, reviewers, devops_organizatio
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_git_client(devops_organization)
-        pr = client.get_pull_request_by_id(pull_request_id)
+        pr = client.get_pull_request_by_id(id)
         resolved_reviewers = _resolve_reviewers_as_refs(reviewers, devops_organization)
         identities = client.create_pull_request_reviewers(reviewers=resolved_reviewers,
                                                           project=pr.repository.project.id,
                                                           repository_id=pr.repository.id,
-                                                          pull_request_id=pull_request_id)
+                                                          pull_request_id=id)
         return identities
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def delete_pull_request_reviewers(pull_request_id, reviewers, devops_organization=None, detect=None):
+def delete_pull_request_reviewers(id, reviewers, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Remove one or more reviewers from a pull request.
-    :param pull_request_id: ID of the pull request.
-    :type pull_request_id: int
+    :param id: ID of the pull request.
+    :type id: int
     :param reviewers: Users or groups to remove as reviewers on a pull request. Space separated.
     :type reviewers: list of str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -432,24 +432,24 @@ def delete_pull_request_reviewers(pull_request_id, reviewers, devops_organizatio
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_git_client(devops_organization)
-        pr = client.get_pull_request_by_id(pull_request_id)
+        pr = client.get_pull_request_by_id(id)
         resolved_reviewers = _resolve_reviewers_as_ids(reviewers, devops_organization)
         for reviewer in resolved_reviewers:
             client.delete_pull_request_reviewer(project=pr.repository.project.id,
                                                 repository_id=pr.repository.id,
-                                                pull_request_id=pull_request_id,
+                                                pull_request_id=id,
                                                 reviewer_id=reviewer)
         return client.get_pull_request_reviewers(project=pr.repository.project.id,
                                                  repository_id=pr.repository.id,
-                                                 pull_request_id=pull_request_id)
+                                                 pull_request_id=id)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def list_pull_request_reviewers(pull_request_id, devops_organization=None, detect=None):
+def list_pull_request_reviewers(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """List reviewers of a pull request.
-    :param pull_request_id: ID of the pull request.
-    :type pull_request_id: int
+    :param id: ID of the pull request.
+    :type id: int
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param detect: Automatically detect organization. Default is "on".
@@ -459,18 +459,18 @@ def list_pull_request_reviewers(pull_request_id, devops_organization=None, detec
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_git_client(devops_organization)
-        pr = client.get_pull_request_by_id(pull_request_id)
+        pr = client.get_pull_request_by_id(id)
         return client.get_pull_request_reviewers(project=pr.repository.project.id,
                                                  repository_id=pr.repository.id,
-                                                 pull_request_id=pull_request_id)
+                                                 pull_request_id=id)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def add_pull_request_work_items(pull_request_id, work_items, devops_organization=None, detect=None):
+def add_pull_request_work_items(id, work_items, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Link one or more work items to a pull request.
-    :param pull_request_id: ID of the pull request.
-    :type pull_request_id: int
+    :param id: ID of the pull request.
+    :type id: int
     :param work_items: IDs of the work items to link. Space separated.
     :type work_items: list of int
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -482,12 +482,12 @@ def add_pull_request_work_items(pull_request_id, work_items, devops_organization
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_git_client(devops_organization)
-        existing_pr = client.get_pull_request_by_id(pull_request_id)
+        existing_pr = client.get_pull_request_by_id(id)
         if work_items is not None and work_items:
             work_items = list(set(work_items))  # make distinct
             wit_client = get_work_item_tracking_client(devops_organization)
             pr_url = 'vstfs:///Git/PullRequestId/{project}%2F{repo}%2F{id}'.format(
-                project=existing_pr.repository.project.id, repo=existing_pr.repository.id, id=pull_request_id)
+                project=existing_pr.repository.project.id, repo=existing_pr.repository.id, id=id)
             for work_item_id in work_items:
                 patch_document = []
                 patch_operation = JsonPatchOperation()
@@ -507,7 +507,7 @@ def add_pull_request_work_items(pull_request_id, work_items, devops_organization
                         raise CLIError(ex)
             refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
                                                       repository_id=existing_pr.repository.id,
-                                                      pull_request_id=pull_request_id)
+                                                      pull_request_id=id)
         ids = []
         for ref in refs:
             ids.append(ref.id)
@@ -516,10 +516,10 @@ def add_pull_request_work_items(pull_request_id, work_items, devops_organization
         raise CLIError(ex)
 
 
-def remove_pull_request_work_items(pull_request_id, work_items, devops_organization=None, detect=None):
+def remove_pull_request_work_items(id, work_items, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Unlink one or more work items from a pull request.
-    :param pull_request_id: ID of the pull request.
-    :type pull_request_id: int
+    :param id: ID of the pull request.
+    :type id: int
     :param work_items: IDs of the work items to unlink. Space separated.
     :type work_items: list of int
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -532,14 +532,14 @@ def remove_pull_request_work_items(pull_request_id, work_items, devops_organizat
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_git_client(devops_organization)
-        existing_pr = client.get_pull_request_by_id(pull_request_id)
+        existing_pr = client.get_pull_request_by_id(id)
         if work_items is not None and work_items:
             work_items = list(set(work_items))  # make distinct
             wit_client = get_work_item_tracking_client(devops_organization)
             work_items_full = wit_client.get_work_items(ids=work_items, expand=1)
             if work_items_full:
                 url = 'vstfs:///Git/PullRequestId/{project}%2F{repo}%2F{id}'.format(
-                    project=existing_pr.repository.project.id, repo=existing_pr.repository.id, id=pull_request_id)
+                    project=existing_pr.repository.project.id, repo=existing_pr.repository.id, id=id)
                 for work_item in work_items_full:
                     if work_item.relations is not None:
                         index = 0
@@ -563,7 +563,7 @@ def remove_pull_request_work_items(pull_request_id, work_items, devops_organizat
                                 index += 1
                 refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
                                                           repository_id=existing_pr.repository.id,
-                                                          pull_request_id=pull_request_id)
+                                                          pull_request_id=id)
                 if refs:
                     ids = []
                     for ref in refs:
@@ -575,10 +575,10 @@ def remove_pull_request_work_items(pull_request_id, work_items, devops_organizat
         raise CLIError(ex)
 
 
-def list_pull_request_work_items(pull_request_id, devops_organization=None, detect=None):
+def list_pull_request_work_items(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """List linked work items for a pull request.
-    :param pull_request_id: ID of the pull request.
-    :type pull_request_id: int
+    :param id: ID of the pull request.
+    :type id: int
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param detect: Automatically detect organization. Default is "on".
@@ -588,10 +588,10 @@ def list_pull_request_work_items(pull_request_id, devops_organization=None, dete
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_git_client(devops_organization)
-        pr = client.get_pull_request_by_id(pull_request_id)
+        pr = client.get_pull_request_by_id(id)
         refs = client.get_pull_request_work_items(project=pr.repository.project.id,
                                                   repository_id=pr.repository.id,
-                                                  pull_request_id=pull_request_id)
+                                                  pull_request_id=id)
         if refs:
             ids = []
             for ref in refs:
@@ -618,10 +618,10 @@ def _update_pull_request_status(pull_request_id, new_status, devops_organization
     return pr
 
 
-def vote_pull_request(pull_request_id, vote, devops_organization=None, detect=None):
+def vote_pull_request(id, vote, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Vote on a pull request.
-    :param pull_request_id: ID of the pull request.
-    :type pull_request_id: int
+    :param id: ID of the pull request.
+    :type id: int
     :param vote: New vote value for the pull request.
     :type vote: int
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -633,12 +633,12 @@ def vote_pull_request(pull_request_id, vote, devops_organization=None, detect=No
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_git_client(devops_organization)
-        pr = client.get_pull_request_by_id(pull_request_id)
+        pr = client.get_pull_request_by_id(id)
         resolved_reviewer = IdentityRefWithVote(id=resolve_identity_as_id(ME, devops_organization))
         resolved_reviewer.vote = _convert_vote_to_int(vote)
         created_reviewer = client.create_pull_request_reviewer(project=pr.repository.project.id,
                                                                repository_id=pr.repository.id,
-                                                               pull_request_id=pull_request_id,
+                                                               pull_request_id=id,
                                                                reviewer_id=resolved_reviewer.id,
                                                                reviewer=resolved_reviewer)
         return created_reviewer
@@ -660,10 +660,10 @@ def _convert_vote_to_int(vote):
     raise CLIError('"{vote}" is an invalid value for a pull request vote.'.format(vote=vote))
 
 
-def list_pr_policies(pull_request_id, devops_organization=None, detect=None, top=None, skip=None):
+def list_pr_policies(id, devops_organization=None, detect=None, top=None, skip=None):  # pylint: disable=redefined-builtin
     """List policies of a pull request.
-    :param pull_request_id: ID of the pull request.
-    :type pull_request_id: int
+    :param id: ID of the pull request.
+    :type id: int
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param detect: Automatically detect organization. Default is "on".
@@ -677,10 +677,10 @@ def list_pr_policies(pull_request_id, devops_organization=None, detect=None, top
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         git_client = get_git_client(devops_organization)
-        pr = git_client.get_pull_request_by_id(pull_request_id)
+        pr = git_client.get_pull_request_by_id(id)
         policy_client = get_policy_client(devops_organization)
         artifact_id = "vstfs:///CodeReview/CodeReviewId/{project_id}/{pull_request_id}".format(
-            project_id=pr.repository.project.id, pull_request_id=pull_request_id)
+            project_id=pr.repository.project.id, pull_request_id=id)
         return policy_client.get_policy_evaluations(project=pr.repository.project.id,
                                                     artifact_id=artifact_id,
                                                     top=top,
@@ -689,10 +689,10 @@ def list_pr_policies(pull_request_id, devops_organization=None, detect=None, top
         raise CLIError(ex)
 
 
-def queue_pr_policy(pull_request_id, evaluation_id, devops_organization=None, detect=None):
+def queue_pr_policy(id, evaluation_id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Queue an evaluation of a policy for a pull request.
-    :param pull_request_id: ID of the pull request.
-    :type pull_request_id: int
+    :param id: ID of the pull request.
+    :type id: int
     :param evaluation_id: ID of the policy evaluation to queue.
     :type evaluation_id: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -704,7 +704,7 @@ def queue_pr_policy(pull_request_id, evaluation_id, devops_organization=None, de
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         git_client = get_git_client(devops_organization)
-        pr = git_client.get_pull_request_by_id(pull_request_id)
+        pr = git_client.get_pull_request_by_id(id)
         policy_client = get_policy_client(devops_organization)
         return policy_client.requeue_policy_evaluation(project=pr.repository.project.id,
                                                        evaluation_id=evaluation_id)

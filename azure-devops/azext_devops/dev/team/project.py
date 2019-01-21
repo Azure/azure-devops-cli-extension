@@ -120,10 +120,10 @@ def delete_project(id, devops_organization=None, detect=None):  # pylint: disabl
         raise CLIError(ex)
 
 
-def show_project(id, devops_organization=None, detect=None, open_browser=False):  # pylint: disable=redefined-builtin
+def show_project(project, devops_organization=None, detect=None, open_browser=False):
     """Show team project.
-    :param id: The id (UUID) or name of the project to show.
-    :type id: str
+    :param project: The id (UUID) or name of the project to show.
+    :type project: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
@@ -136,7 +136,7 @@ def show_project(id, devops_organization=None, detect=None, open_browser=False):
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         core_client = get_core_client(devops_organization)
-        team_project = core_client.get_project(project_id=id, include_capabilities=True)
+        team_project = core_client.get_project(project_id=project, include_capabilities=True)
         if open_browser:
             _open_project(team_project)
         return team_project
