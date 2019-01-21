@@ -1,3 +1,10 @@
+## Table of Contents
+1. [Log in via Azure DevOps Personal Access Token (PAT)](samples.md#log-in-via-azure-devops-personal-access-token-pat)
+2. [Auto Detect and Git Aliases](samples.md#auto-detect-and-git-aliases)
+3. [Configuring output formats](samples.md#configuring-output-formats)
+4. [Query ouput](samples.md#query-output)
+4. [Opening items in browser](samples.md#opening-items-in-browser)
+
 ## Log in via Azure DevOps Personal Access Token (PAT)
 You can also log in using an Azure DevOps Personal Access Token. Refer [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
 
