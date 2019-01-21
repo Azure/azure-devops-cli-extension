@@ -73,10 +73,36 @@ $az configure
 
 The Azure CLI uses JSON as its default output option, but offers various ways for you to format the output of any command.  You can find more information about Azure CLI configuration and supported output formats [here](https://docs.microsoft.com/en-us/cli/azure/format-output-azure-cli?view=azure-cli-latest)
 
+## Query output
+You can use the --query parameter and the JMESPath query syntax to customize your output.
+
+```
+
+$ az devops project list --query "[?visibility=='private'].{ProjectName: name, ProjectDescription: description}"
+
+ProjectName                                 ProjectDescription
+--------------------------------            -------------------------------------------------
+Foobar                                      Sample Foobar project
+Fabrikam                                    Sample Fabrikam Project
+```
+
+
+
+
+## Opening items in browser
+
+You can use --open switch to open any artifact in Azure DevOps portal in your default browser.
+
+For example :
+```
+bash
+az pipelines build show --build-id 1 --open-browser 
+```
+This will show the details of build with id 1 on command-line and also open it in the default browser.
 
 ## Example
 
-Let us look at an example where the Azure DevOps Extension can be used to view and trigger a build in Azure Pipelines.
+Let us look at an example where the Azure DevOps Extension can be used to view and trigger a build in Azure Pipelines using the concepts explained above.
 
 1. Log in to Azure CLI
 ```
@@ -122,6 +148,12 @@ ID   Number      Status      Result     Definition ID   Definition Name         
 ---  ----------  ---------   ---------  -------------   -----------------------   --------------   --------------------------  -------
 1    20190116.2  completed   succeeded  1               Contoso.CI                master           2019-01-16 17:29:07.497795  manual
 ```
+
+You can also view the build pipeline details on the portal by running the following command:
+```
+$az pipeline build show --build-id 1 --open-browser
+```
+
 3. Queue a build pipeline
 ```
 $az pipelines build queue --definition-name Contoso.CI -o table
@@ -129,4 +161,6 @@ ID   Number      Status      Result     Definition ID   Definition Name         
 ---  ----------  ---------   ---------  -------------   -----------------------   --------------   --------------------------  -------
 1    20190116.2  completed   succeeded  1               Contoso.CI                master           2019-01-16 17:29:07.497795  manual
 ```
+
+
 
