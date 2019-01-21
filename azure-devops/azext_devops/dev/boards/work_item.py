@@ -100,12 +100,12 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
         _handle_vsts_service_error(ex)
 
 
-def update_work_item(work_item_id, title=None, description=None, assigned_to=None, state=None, area=None,
+def update_work_item(id, title=None, description=None, assigned_to=None, state=None, area=None,  # pylint: disable=redefined-builtin
                      iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
                      devops_organization=None, detect=None):
     r"""Update work items.
-    :param work_item_id: The id of the work item to update.
-    :type work_item_id: int
+    :param id: The id of the work item to update.
+    :type id: int
     :param title: Title of the work item.
     :type title: str
     :param description: Description of the work item.
@@ -167,7 +167,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
                 else:
                     raise ValueError('The --fields argument should consist of space separated "field=value" pairs.')
         client = get_work_item_tracking_client(devops_organization)
-        work_item = client.update_work_item(document=patch_document, id=work_item_id)
+        work_item = client.update_work_item(document=patch_document, id=id)
         if open_browser:
             _open_work_item(work_item, devops_organization)
         return work_item
@@ -175,10 +175,10 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
         _handle_vsts_service_error(ex)
 
 
-def delete_work_item(work_item_id, destroy=False, devops_organization=None, detect=None):
+def delete_work_item(id, destroy=False, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete a work item.
-    :param work_item_id: Unique id of the work item.
-    :type work_item_id: int
+    :param id: Unique id of the work item.
+    :type id: int
     :param destroy: Permanently delete this work item.
     :type destroy: bool
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -191,8 +191,8 @@ def delete_work_item(work_item_id, destroy=False, devops_organization=None, dete
     try:
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_work_item_tracking_client(devops_organization)
-        delete_response = client.delete_work_item(work_item_id, destroy)
-        print('Deleted work item {}'.format(work_item_id))
+        delete_response = client.delete_work_item(id, destroy)
+        print('Deleted work item {}'.format(id))
         return delete_response
     except VstsServiceError as ex:
         _handle_vsts_service_error(ex)
@@ -219,10 +219,10 @@ def _handle_vsts_service_error(ex):
         raise CLIError(ex)
 
 
-def show_work_item(work_item_id, open_browser=False, devops_organization=None, detect=None):
+def show_work_item(id, open_browser=False, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details for a work item.
-    :param work_item_id: The ID of the work item
-    :type work_item_id: int
+    :param id: The ID of the work item
+    :type id: int
     :param open_browser: Open the work item in the default web browser.
     :type open_browser: bool
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -236,7 +236,7 @@ def show_work_item(work_item_id, open_browser=False, devops_organization=None, d
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         try:
             client = get_work_item_tracking_client(devops_organization)
-            work_item = client.get_work_item(work_item_id)
+            work_item = client.get_work_item(id)
         except VstsServiceError as ex:
             _handle_vsts_service_error(ex)
 
@@ -248,12 +248,12 @@ def show_work_item(work_item_id, open_browser=False, devops_organization=None, d
 
 
 # pylint: disable=too-many-statements
-def query_work_items(wiql=None, query_id=None, path=None, devops_organization=None, project=None, detect=None):
+def query_work_items(wiql=None, id=None, path=None, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Query for a list of work items.
     :param wiql: The query in Work Item Query Language format.  Ignored if --id or --path is specified.
     :type wiql: str
-    :param query_id: The UUID of an existing query.  Required unless --path or --wiql are specified.
-    :type query_id: str
+    :param id: The UUID of an existing query.  Required unless --path or --wiql are specified.
+    :type id: str
     :param path: The path of an existing query.  Ignored if --id is specified.
     :type path: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -266,18 +266,18 @@ def query_work_items(wiql=None, query_id=None, path=None, devops_organization=No
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:
-        if wiql is None and path is None and query_id is None:
+        if wiql is None and path is None and id is None:
             raise CLIError("Either the --wiql, --id, or --path argument must be specified.")
         devops_organization, project = resolve_instance_and_project(
             detect=detect, devops_organization=devops_organization, project=project, project_required=False)
         client = get_work_item_tracking_client(devops_organization)
-        if query_id is None and path is not None:
+        if id is None and path is not None:
             if project is None:
                 raise CLIError("The --project argument must be specified for this query.")
             query = client.get_query(project=project, query=path)
-            query_id = query.id
-        if query_id is not None:
-            query_result = client.query_by_id(id=query_id)
+            id = query.id
+        if id is not None:
+            query_result = client.query_by_id(id=id)
         else:
             wiql_object = Wiql()
             wiql_object.query = wiql

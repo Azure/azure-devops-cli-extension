@@ -218,7 +218,7 @@ class TestPullRequestMethods(unittest.TestCase):
         pr_to_return.repository.project.id = test_project_id
         self.mock_get_PR_byId.return_value = pr_to_return
 
-        response = show_pull_request(pull_request_id = test_pr_id,
+        response = show_pull_request(id = test_pr_id,
         open_browser = False,
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
@@ -278,7 +278,7 @@ class TestPullRequestMethods(unittest.TestCase):
 
     def test_update_pull_request(self):
         test_pr_id = 1
-        response = update_pull_request(pull_request_id = test_pr_id,
+        response = update_pull_request(id = test_pr_id,
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
 
@@ -288,7 +288,7 @@ class TestPullRequestMethods(unittest.TestCase):
 
     def test_complete_pull_request(self):
         test_pr_id = 1
-        response = complete_pull_request(pull_request_id = test_pr_id,
+        response = complete_pull_request(id = test_pr_id,
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
 
@@ -300,7 +300,7 @@ class TestPullRequestMethods(unittest.TestCase):
 
     def test_abandon_pull_request(self):
         test_pr_id = 1
-        response = abandon_pull_request(pull_request_id = test_pr_id,
+        response = abandon_pull_request(id = test_pr_id,
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
 
@@ -312,7 +312,7 @@ class TestPullRequestMethods(unittest.TestCase):
 
     def test_reactivate_pull_request(self):
         test_pr_id = 1
-        response = reactivate_pull_request(pull_request_id = test_pr_id,
+        response = reactivate_pull_request(id = test_pr_id,
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
 
@@ -328,7 +328,7 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_resolve_identity.return_value = []
 
         #work
-        response = create_pull_request_reviewers(pull_request_id = test_pr_id,
+        response = create_pull_request_reviewers(id = test_pr_id,
         reviewers = 'sample',
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
@@ -343,7 +343,7 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_resolve_reviewers_as_ids.return_value = ['id1']
 
         #work
-        response = delete_pull_request_reviewers(pull_request_id = test_pr_id,
+        response = delete_pull_request_reviewers(id = test_pr_id,
         reviewers = 'sample',
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
@@ -358,7 +358,7 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_resolve_reviewers_as_ids.return_value = ['id1','id2','id3']
 
         #work
-        response = delete_pull_request_reviewers(pull_request_id = test_pr_id,
+        response = delete_pull_request_reviewers(id = test_pr_id,
         reviewers = 'sample',
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
@@ -372,7 +372,7 @@ class TestPullRequestMethods(unittest.TestCase):
         test_pr_id = 1
 
         #work
-        response = list_pull_request_reviewers(pull_request_id = test_pr_id,
+        response = list_pull_request_reviewers(id = test_pr_id,
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
 
@@ -380,7 +380,7 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_get_PR_reviewer.assert_called_once()
 
     def test_add_pull_request_work_items(self):
-        response = add_pull_request_work_items(pull_request_id = 1,
+        response = add_pull_request_work_items(id = 1,
         work_items = [2, 4],
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
@@ -392,7 +392,7 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_get_WIs.assert_called_once()
 
     def test_list_pull_request_work_items(self):
-        response = list_pull_request_work_items(pull_request_id = 1,
+        response = list_pull_request_work_items(id = 1,
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
 
@@ -402,7 +402,7 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_get_WIs.assert_called_once()
 
     def test_vote_pull_request(self):
-        response = vote_pull_request(pull_request_id = 1,
+        response = vote_pull_request(id = 1,
         vote = 'approve', 
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
@@ -436,7 +436,7 @@ class TestPullRequestMethods(unittest.TestCase):
         pr_to_return.repository.project.id = test_project_id
         self.mock_get_PR_byId.return_value = pr_to_return
 
-        response = list_pr_policies(pull_request_id = 1,
+        response = list_pr_policies(id = 1,
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
 
@@ -462,7 +462,7 @@ class TestPullRequestMethods(unittest.TestCase):
         pr_to_return.repository.project.id = test_project_id
         self.mock_get_PR_byId.return_value = pr_to_return
 
-        response = queue_pr_policy(pull_request_id = 1,
+        response = queue_pr_policy(id = 1,
         evaluation_id = 2,
         devops_organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')

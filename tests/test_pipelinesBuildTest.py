@@ -28,7 +28,7 @@ class PipelinesTests(ScenarioTest):
         assert queued_build_id > 0
         
         #Show Build 
-        show_build_command = 'az pipelines build show --build-id ' + str(queued_build_id) + ' --detect off --output json'
+        show_build_command = 'az pipelines build show --id ' + str(queued_build_id) + ' --detect off --output json'
         show_build_output = self.cmd(show_build_command).get_output_in_json()
         assert len(show_build_output) > 0
         assert show_build_output["definition"]["name"] == build_definition_name

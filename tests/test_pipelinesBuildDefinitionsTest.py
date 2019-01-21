@@ -31,7 +31,7 @@ class PipelinesBuildDefinitionTests(ScenarioTest):
 
 
         #show build definition
-        show_build_definition_command = 'az pipelines build definition show --definition-id ' + str(build_definition_id) + ' --detect off --output json'
+        show_build_definition_command = 'az pipelines build definition show --id ' + str(build_definition_id) + ' --detect off --output json'
         show_build_definition_output = self.cmd(show_build_definition_command).get_output_in_json()
         assert len(show_build_definition_output) > 0
         assert show_build_definition_output["name"] == build_definition_name

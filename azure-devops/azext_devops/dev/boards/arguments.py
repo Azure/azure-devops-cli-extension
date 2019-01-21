@@ -21,18 +21,10 @@ def load_work_arguments(self, _):
         context.argument('fields', nargs='*', options_list=('--fields', '-f'))
         context.argument('description', options_list=('--description', '-d'))
 
-    with self.argument_context('boards work-item show') as context:
-        context.argument('work_item_id', type=int, options_list='--id')
-
     with self.argument_context('boards work-item update') as context:
-        context.argument('work_item_id', type=int, options_list='--id')
         context.argument('fields', nargs='*', options_list=('--fields', '-f'))
         context.argument('description', options_list=('--description', '-d'))
 
     with self.argument_context('boards work-item delete') as context:
-        context.argument('work_item_id', type=int, options_list='--id')
         context.argument('yes', options_list=['--yes', '-y'], action='store_true',
                          help='Do not prompt for confirmation.')
-
-    with self.argument_context('boards query') as context:
-        context.argument('query_id', type=str, options_list=('--query-id', '--id'))

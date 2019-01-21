@@ -1,7 +1,8 @@
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+# This pipeline is used to do new release of Azure DevOps CLI extension
+# This
+# 1. Runs test cases
+# 2. Creates a wheel and publishes it as artifact
+# 3. Creates a tag in github
 
 pr: none
 
@@ -9,7 +10,7 @@ trigger: none
 
 jobs:
 
-- job: 'Run_Test_Mac'
+- job: 'Run_Test'
   pool:
     vmImage: 'vs2017-win2016'
 
