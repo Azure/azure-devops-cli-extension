@@ -44,8 +44,8 @@ Use our Feature Request [template](TODO) to create a new feature request.
 # Get started 
 Unsure where to begin? You can start by looking through these beginner and help-wanted issues:
 
-[Beginner issues](TODO) - issues which should only require a few lines of code, and a test or two.
-[Help wanted issues](TODO) - issues which should be a bit more involved than beginner issues.
+- [Beginner issues](TODO) - issues which should only require a few lines of code and a test or two.
+- [Help wanted issues](TODO) - issues which should be a bit more involved than beginner issues.
 
 Refer our [Developer setup](/doc/dev_setup.md) instructions to get started with code and running tests.
 
