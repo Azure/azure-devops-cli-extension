@@ -1,18 +1,18 @@
-# Contributing to Azure DevOps Extension
+# Contribute to Azure DevOps Extension
 
-Welcome, and thank you for your interest in contributing to Azure DevOps Extension!
+Thank you for your interest in contributing to Azure DevOps Extension!
 
 There are many ways in which you can contribute, beyond writing code. The goal of this document is to provide a high-level overview of how you can get involved.
 
 # Have a question
 
-Search existing github issues for similar questions and feel free to file an issue with a "question" tag to get our attention. 
+Search existing [github issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aopen+is%3Aissue+label%3Aquestion) for similar questions and feel free to file an issue with a "question" tag to get our attention. 
 
 # Found a Bug
 
 #### Where to Find Known Issues
 
-Before you file a new bug report do check on existing open [issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aopen+is%3Aissue+label%3Abug). 
+Check existing open [issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aopen+is%3Aissue+label%3Abug) before you file a new bug report. 
 
 If you find your issue already exists, make relevant comments and add your reaction. Use a reaction in place of a "+1" comment:
 👍 - upvote
@@ -30,7 +30,7 @@ TO-DO
 
 #### Where to Find Existing Requests
 
-Before you file a new request do check on existing open [feature requests](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3AFeature). 
+Check existing open [feature requests](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3AFeature) before you file a new request. 
 
 If you find your request already exists, make relevant comments and add your reaction. Use a reaction in place of a "+1" comment:
 👍 - upvote
@@ -41,7 +41,13 @@ If you find your request already exists, make relevant comments and add your rea
 
 Use our Feature Request [template](TODO) to create a new feature request. 
 
-# Contribute Code/Documentation Pull Requests
+# Get started 
+Unsure where to begin? You can start by looking through these beginner and help-wanted issues:
+
+[Beginner issues](TODO) - issues which should only require a few lines of code, and a test or two.
+[Help wanted issues](TODO) - issues which should be a bit more involved than beginner issues.
+
+Refer our [Developer setup](/doc/dev_setup.md) instructions to get started with code and running tests.
 
 ## Your First Contribution
 
@@ -51,22 +57,6 @@ You will need to complete a Contributor License Agreement (CLA). Briefly, this a
 
 Please submit a Contributor License Agreement (CLA) before submitting a pull request. You may visit https://cla.microsoft.com to sign digitally.
 
-## Code of Conduct
-This project has adopted the `Microsoft Open Source Code of Conduct <https://opensource.microsoft.com/codeofconduct/>`__.
-
-For more information see the `Code of Conduct FAQ <https://opensource.microsoft.com/codeofconduct/faq/>`__ or contact `opencode@microsoft.com <mailto:opencode@microsoft.com>`__ with any additional questions or comments.
-
-If you would like to become an active contributor to this project please
-follow the instructions provided in `Microsoft Azure Projects Contribution Guidelines <http://azure.github.io/guidelines.html>`__
-
-## Getting started 
-
-Unsure where to begin contributing? You can start by looking through these beginner and help-wanted issues:
-
-[Beginner issues](TODO) - issues which should only require a few lines of code, and a test or two.
-[Help wanted issues](TODO) - issues which should be a bit more involved than beginner issues.
-
-Refer our [Developer setup](TODO) instructions to get started with code and running tests.
 
 # Pull Request Etiquette 
 
@@ -85,6 +75,10 @@ Refer our [Developer setup](TODO) instructions to get started with code and runn
 ## If PR contains point fixes
 - UTs are mandatory
 
+## Code of Conduct
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+
+For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 # Thank You!
 
