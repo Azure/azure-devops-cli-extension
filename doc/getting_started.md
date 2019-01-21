@@ -19,7 +19,8 @@ This ensures that the "contoso" and "PaymentModule" are configured as defaults f
 You can view the defaults configured by running the following command:
 ```
 $az devops configure --list
-
+```
+```
 [defaults]
 organization=https://dev.azure.com/contoso
 project=PaymentModule
