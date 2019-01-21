@@ -4,6 +4,7 @@
 3. [Configure output formats](samples.md#configure-output-formats)
 4. [Query ouput](samples.md#query-output)
 4. [Open items in browser](samples.md#open-items-in-browser)
+5. [Use the Azure DevOps Extension in a release pipeline](samples.md#)
 
 ## Log in via Azure DevOps Personal Access Token (PAT)
 You can also log in using an Azure DevOps Personal Access Token. See the [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
@@ -85,3 +86,7 @@ For example :
 $az pipelines build show --build-id 1 --open-browser 
 ```
 This will show the details of build with id 1 on command-line and also open it in the default browser.
+
+## Use the Azure DevOps Extension in a Release Pipeline
+To use the Azure DevOps Extension in a hosted agent using a Release Pipeline, execute the following steps:
+1. Create a "New Release Pipeline"
