@@ -6,7 +6,7 @@
 4. [Open items in browser](samples.md#open-items-in-browser)
 
 ## Log in via Azure DevOps Personal Access Token (PAT)
-You can also log in using an Azure DevOps Personal Access Token. Refer [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
+You can also log in using an Azure DevOps Personal Access Token. See the [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
 
 Once you have the PAT Token, run the `az devops login` command. You will be prompted to enter PAT token.
 ```
@@ -42,9 +42,9 @@ To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment varia
 ## Auto detect and git aliases
 The Azure DevOps Extension has been optimized for Azure Repos to work well with git workflows. 
 
-The Azure DevOps Extension evaluates if your current working directory is a git repository to auto detect configuration setting - organization, project and repository. This is achieved using the `detect` flag which is ON by default. 
+The Azure DevOps Extension evaluates if your current working directory is an Azure Repos git repository to auto detect configuration setting - organization, project and repository. This is achieved using the `detect` flag which is ON by default. 
 
-If you are working in a local check out of an Azure Repos repository, you can simply run `az repos pr list` from the local directory to view all PRs.
+If you are working in a local check out of a repository, you can simply run `az repos pr list` from the local directory to view all PRs.
 
 You can also configure the Azure Devops Extension to add git aliases for common git-based Azure Repos commands like creating or adding reviewers to pull requests. This can be enabled by running the following command:
 
