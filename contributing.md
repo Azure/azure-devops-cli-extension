@@ -20,11 +20,7 @@ If you find your issue already exists, make relevant comments and add your react
 
 #### Reporting new issue
 
-The best way to get your bug fixed is to provide good repro steps. Use our [Bug template](TODO) to report any issues.
-
-#### Security bugs
-
-TO-DO
+The best way to get your bug fixed is to provide good repro steps. Create a new issue and label it as a bug. 
 
 # Feature requests
 
@@ -39,14 +35,9 @@ If you find your request already exists, make relevant comments and add your rea
 
 #### Submit new feature request 
 
-Use our Feature Request [template](TODO) to create a new feature request. 
+Create a new issue and label it as new command. 
 
 # Get started 
-Unsure where to begin? You can start by looking through these beginner and help-wanted issues:
-
-- [Beginner issues](TODO) - issues which should only require a few lines of code and a test or two.
-- [Help wanted issues](TODO) - issues which should be a bit more involved than beginner issues.
-
 Refer our [Developer setup](/doc/dev_setup.md) instructions to get started with code and running tests.
 
 ## Your first contribution
