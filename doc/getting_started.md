@@ -64,6 +64,25 @@ Configuration values used are evaluated in the following precedence, with items 
 2. Environment variables
 3. Values configured with `az devops configure`
 
+## Auto Detect and Git Aliases
+The Azure DevOps Extension has been optimized for Azure Repos to work well with git workflows. 
+
+The Azure DevOps Extension evaluates if your current working directory is a git repository to auto detect configuration setting - organization, project and repository. This is achieved using the `detect` flag which is ON by default. 
+
+If you are working in a local check out of an Azure Repos repository, you can simply run `az repos pr list` from the local directory to view all PRs.
+
+You can also configure the Azure Devops Extension to add git aliases for common git-based Azure Repos commands like creating or adding reviewers to pull requests. This can be enabled by running the following command:
+
+```
+$ az devops configure --use-git-aliases yes
+```
+This will alias all `az repos` commands to `git` and all `az repos pr` commands to `git pr`.
+
+For example, a pull request can now be created using the following command:
+```
+$ git pr create --target-branch {branch\_name}
+```
+
 ## Configuring output formats
 
 The output formats are inherited from Azure CLI. You can set the default output format value by running following command.
@@ -85,9 +104,6 @@ ProjectName                                 ProjectDescription
 Foobar                                      Sample Foobar project
 Fabrikam                                    Sample Fabrikam Project
 ```
-
-
-
 
 ## Opening items in browser
 
