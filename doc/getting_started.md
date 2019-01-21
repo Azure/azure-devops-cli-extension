@@ -1,4 +1,4 @@
-# Getting started
+# Get started
 Now that you have successfully installed the Azure CLI and added the Azure DevOps Extension, you are all set to get started!
 
 ## Log in to Azure DevOps
@@ -9,7 +9,7 @@ Otherwise, you need to open a browser page and follow the instructions on the co
 
 You can also [log in via Azure DevOps Personal Access Token (PAT)](samples.md#log-in-via-azure-devops-personal-access-token-pat) 
 
-## Configuring defaults
+## Configure defaults
 Although you can provide the organization and project for each command, we recommend you set these as defaults in configuration for seamless commanding. 
 
 `az devops configure defaults --organization https://dev.azure.com/contoso --project PaymentModule`
