@@ -5,9 +5,9 @@ Now that you have successfully installed the Azure CLI and added the Azure DevOp
 Before you can work with Azure DevOps, you need to log in using the `az login` command. 
 
 If the CLI can open your default browser, it will do so and load a sign-in page.
-Otherwise, you need to open a browser page and follow the instructions on the command line to enter an authorization code after navigating to https://aka.ms/devicelogin in your browser. For more information, please refer the [Azure CLI login page](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest).
+Otherwise, you need to open a browser page and follow the instructions on the command line to enter an authorization code after navigating to https://aka.ms/devicelogin in your browser. For more information, please refer the [Azure CLI login page](https://docs.microsoft.com/cli/azure/authenticate-azure-cli?view=azure-cli-latest).
 
-You can also [log in via Azure DevOps Personal Access Token (PAT)](https://github.com/Microsoft/vsts-cli/blob/users/geverghe/documentation-update/doc/samples.md#log-in-via-azure-devops-personal-access-token-pat) 
+You can also [log in via Azure DevOps Personal Access Token (PAT)](samples.md#log-in-via-azure-devops-personal-access-token-pat) 
 
 ## Configuring defaults
 Although you can provide the organization and project for each command, we recommend you set these as defaults in configuration for seamless commanding. 
