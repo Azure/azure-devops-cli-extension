@@ -32,13 +32,13 @@ def set_credential(devops_organization, token):
     cred_store = CredentialStore()
     cred_store.set_password(key, token)
 
-    if os.path.isfile(_ORGANIZATION_LIST_FILE):
+    if os.path.isfile(ORGANIZATION_LIST_FILE):
         # No need to add organization if it's already present.
-        with open(_ORGANIZATION_LIST_FILE, 'r') as org_list:
+        with open(ORGANIZATION_LIST_FILE, 'r') as org_list:
             for organization in org_list:
                 if key == organization.rstrip():
                     return
-    with open(_ORGANIZATION_LIST_FILE, 'a+') as org_list:
+    with open(ORGANIZATION_LIST_FILE, 'a+') as org_list:
         org_list.write(key + "\n")
 
 
@@ -49,19 +49,19 @@ def clear_credential(devops_organization):
 
     if key == _DEFAULT_CREDENTIAL_KEY:
         # remove all organizations and delete the file
-        if os.path.isfile(_ORGANIZATION_LIST_FILE):
-            with open(_ORGANIZATION_LIST_FILE) as org_list_file:
+        if os.path.isfile(ORGANIZATION_LIST_FILE):
+            with open(ORGANIZATION_LIST_FILE) as org_list_file:
                 for organization in org_list_file:
                     cred_store.clear_password(organization.rstrip())
-            os.remove(_ORGANIZATION_LIST_FILE)
+            os.remove(ORGANIZATION_LIST_FILE)
         else:
             raise CLIError('No credentials were found.')
     else:
         # delete particular organization from the list
-        if os.path.isfile(_ORGANIZATION_LIST_FILE):
-            with open(_ORGANIZATION_LIST_FILE, "r") as input_file:
+        if os.path.isfile(ORGANIZATION_LIST_FILE):
+            with open(ORGANIZATION_LIST_FILE, "r") as input_file:
                 orgs = input_file.readlines()
-            with open(_ORGANIZATION_LIST_FILE, "w") as output_file:
+            with open(ORGANIZATION_LIST_FILE, "w") as output_file:
                 for line in orgs:
                     if line.rstrip() != key:
                         output_file.write(line)
@@ -85,4 +85,4 @@ def normalize_url_for_key(url):
 
 
 _DEFAULT_CREDENTIAL_KEY = 'azdevops-cli: default'
-_ORGANIZATION_LIST_FILE = os.path.join(AZ_DEVOPS_GLOBAL_CONFIG_DIR, 'organization_list')
+ORGANIZATION_LIST_FILE = os.path.join(AZ_DEVOPS_GLOBAL_CONFIG_DIR, 'organization_list')
