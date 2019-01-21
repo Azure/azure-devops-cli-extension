@@ -33,6 +33,28 @@ For usage and help content for any command, pass in the -h parameter, for exampl
 ```
 $az devops -h
 ```
+```
+Command
+  az devops configure: Configure the Azure DevOps CLI or view your configuration.
+  
+ Arguments
+  --defaults -d     : Space separated 'name=value' pairs for common arguments defaults, e.g. '--
+                      defaults project=my-project-name organization=https://dev.azure.com/organizationName arg=value' Use '' to 
+                      clear the defaults, e.g. --defaults project=''.
+  -- list    -l     : Lists the contents of the config file.
+  --use-git-aliases : Set to 'yes' to configure Git aliiases global git config file (to enable 
+                      commands like "git pr list"). Set to 'no' to remove any aliases set by the
+                      tool. Allowed values: no, yes.
+
+Global Arguments
+  --debug           : Increase logging verbosity to show all debug logs
+  --help -h         : Show this help message and exit.
+  --output -o       : Output format. Allowed values: json, jsonc, table, tsv, yaml. Default: json.
+  --query           : JMESPath query string. See http://jmespath.org/ for more information and examples.
+  --subscription    : Name or ID of subscription. You can configure the default subscription using 'az account set -s NAME_OR_ID'
+  --verbose         : Increase logging verbosity. Use --debug for full debug logs.
+ 
+```
 - Documentation for all the commands is available at [Microsoft Azure CLI Docs - Azure DevOps](https://docs.microsoft.com/cli/azure/ext/azure-devops/?view=azure-cli-latest). 
 - Check out other examples in the [samples](/doc/samples.md) section.
 
