@@ -41,7 +41,7 @@ class DevopsProjectTests(ScenarioTest):
                     verified_project_list = True
             assert verified_project_list == True
             
-            show_project_command = 'az devops project show --id ' + created_project_id + ' --output json --detect off'
+            show_project_command = 'az devops project show --project ' + created_project_id + ' --output json --detect off'
             show_project_output = self.cmd(show_project_command).get_output_in_json()
             assert show_project_output["id"] == created_project_id
             assert show_project_output["name"] == random_project_name

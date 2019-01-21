@@ -49,10 +49,10 @@ def create_repo(name, devops_organization=None, project=None, detect=None, open_
         raise CLIError(ex)
 
 
-def delete_repo(repo_id=None, devops_organization=None, project=None, detect=None):
+def delete_repo(id, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete a Git repository in a team project.
-    :param repo_id: ID of the repository.
-    :type repo_id: str
+    :param id: ID of the repository.
+    :type id: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param project: Name or ID of the team project.
@@ -61,14 +61,12 @@ def delete_repo(repo_id=None, devops_organization=None, project=None, detect=Non
     :type detect: str
     """
     try:
-        if repo_id is None:
-            raise CLIError('--id argument needs to be specified.')
         devops_organization, project = resolve_instance_and_project(detect=detect,
                                                                     devops_organization=devops_organization,
                                                                     project=project)
         git_client = get_git_client(devops_organization)
-        delete_response = git_client.delete_repository(project=project, repository_id=repo_id)
-        print('Deleted repository {}'.format(repo_id))
+        delete_response = git_client.delete_repository(project=project, repository_id=id)
+        print('Deleted repository {}'.format(id))
         return delete_response
     except VstsServiceError as ex:
         raise CLIError(ex)
@@ -95,12 +93,10 @@ def list_repos(devops_organization=None, project=None, detect=None):
         raise CLIError(ex)
 
 
-def show_repo(repo_id=None, name=None, devops_organization=None, project=None, detect=None, open_browser=False):
+def show_repo(repo, devops_organization=None, project=None, detect=None, open_browser=False):
     """Get the details of a Git repository.
-    :param repo_id: ID of the repository. Required if --name is not specified.
-    :type repo_id: str
-    :param name: Name of the repository. Ignored if --id is specified.
-    :type name: str
+    :param repo: ID or name of the repository.
+    :type repo: str
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
     :param project: Name or ID of the team project.
@@ -112,20 +108,14 @@ def show_repo(repo_id=None, name=None, devops_organization=None, project=None, d
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
     try:
-        if repo_id is not None:
-            repo_identifier = repo_id
-        else:
-            repo_identifier = name
-        devops_organization, project, repo_identifier = resolve_instance_project_and_repo(
+        devops_organization, project, repo = resolve_instance_project_and_repo(
             detect=detect,
             devops_organization=devops_organization,
             project=project,
             project_required=True,
-            repo=repo_identifier)
-        if repo_identifier is None:
-            raise CLIError('Either the --name argument or the --id argument needs to be specified.')
+            repo=repo)
         git_client = get_git_client(devops_organization)
-        repository = git_client.get_repository(project=project, repository_id=repo_identifier)
+        repository = git_client.get_repository(project=project, repository_id=repo)
         if open_browser:
             _open_repository(repository, devops_organization)
         return repository

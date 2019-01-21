@@ -70,10 +70,10 @@ def release_create(definition_id=None, definition_name=None, artifact_metadata_l
     return created_release
 
 
-def release_show(release_id, open_browser=False, devops_organization=None, project=None, detect=None):
+def release_show(id, open_browser=False, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a release.
-    :param release_id: ID of the release.
-    :type release_id: int
+    :param id: ID of the release.
+    :type id: int
     :param open_browser: Open the release results page in your web browser.
     :type open_browser: bool
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -87,7 +87,7 @@ def release_show(release_id, open_browser=False, devops_organization=None, proje
     devops_organization, project = resolve_instance_and_project(
         detect=detect, devops_organization=devops_organization, project=project)
     client = get_release_client(devops_organization)
-    release = client.get_release(release_id=release_id, project=project)
+    release = client.get_release(release_id=id, project=project)
     if open_browser:
         _open_release(release)
     return release

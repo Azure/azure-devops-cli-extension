@@ -76,10 +76,10 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
         raise CLIError(ex)
 
 
-def build_show(build_id, open_browser=False, devops_organization=None, project=None, detect=None):
+def build_show(id, open_browser=False, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a build.
-    :param build_id: ID of the build.
-    :type build_id: int
+    :param id: ID of the build.
+    :type id: int
     :param open_browser: Open the build results page in your web browser.
     :type open_browser: bool
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -94,7 +94,7 @@ def build_show(build_id, open_browser=False, devops_organization=None, project=N
         devops_organization, project = resolve_instance_and_project(
             detect=detect, devops_organization=devops_organization, project=project)
         client = get_build_client(devops_organization)
-        build = client.get_build(build_id=build_id, project=project)
+        build = client.get_build(build_id=id, project=project)
         if open_browser:
             _open_build(build, devops_organization)
         return build

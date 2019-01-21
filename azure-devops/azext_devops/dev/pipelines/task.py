@@ -31,9 +31,9 @@ def task_list(devops_organization=None, task_id=None, detect=None):
         raise CLIError(ex)
 
 
-def task_show(task_id, version, devops_organization=None, detect=None):
+def task_show(id, version, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show task.
-    :param str task_id: The UUID of the task.
+    :param str id: The UUID of the task.
     :param str version: The version of the task.
     :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type devops_organization: str
@@ -42,11 +42,11 @@ def task_show(task_id, version, devops_organization=None, detect=None):
     :rtype: TaskDefinition
     """
     try:
-        if not is_uuid(task_id):
+        if not is_uuid(id):
             raise ValueError("The --id argument must be a UUID.")
         devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
         client = get_task_agent_client(devops_organization)
-        definition_references = client.get_task_definition(task_id=task_id,
+        definition_references = client.get_task_definition(task_id=id,
                                                            version_string=version)
         return definition_references
     except VstsServiceError as ex:
