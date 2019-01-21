@@ -1,9 +1,9 @@
 ## Table of Contents
 1. [Log in via Azure DevOps Personal Access Token (PAT)](samples.md#log-in-via-azure-devops-personal-access-token-pat)
-2. [Auto Detect and Git Aliases](samples.md#auto-detect-and-git-aliases)
-3. [Configuring output formats](samples.md#configuring-output-formats)
+2. [Auto detect and git aliases](samples.md#auto-detect-and-git-aliases)
+3. [Configure output formats](samples.md#configure-output-formats)
 4. [Query ouput](samples.md#query-output)
-4. [Opening items in browser](samples.md#opening-items-in-browser)
+4. [Open items in browser](samples.md#open-items-in-browser)
 
 ## Log in via Azure DevOps Personal Access Token (PAT)
 You can also log in using an Azure DevOps Personal Access Token. Refer [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
@@ -22,7 +22,7 @@ In the above experience, you need to manually enter the token when prompted. How
     cat my_pat_token.txt | az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
     ```
 2. Use environment variables.  
-There are cases where persisting a personal access token on the machine where Azure CLI is running is not technically possible or is not secure. In these cases you can get a token from an environment variable.
+There are cases where persisting a personal access token on the machine where the Azure CLI is running is not technically possible or is not secure. In these cases you can get a token from an environment variable.
 To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment variable:
 
     Windows:
@@ -39,7 +39,7 @@ To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment varia
     ```bash
     $az devops login --organization https://dev.azure.com/contoso
     ```
-## Auto Detect and Git Aliases
+## Auto detect and git aliases
 The Azure DevOps Extension has been optimized for Azure Repos to work well with git workflows. 
 
 The Azure DevOps Extension evaluates if your current working directory is a git repository to auto detect configuration setting - organization, project and repository. This is achieved using the `detect` flag which is ON by default. 
@@ -58,7 +58,7 @@ For example, a pull request can now be created using the following command:
 $ git pr create --target-branch {branch\_name}
 ```
 
-## Configuring output formats
+## Configure output formats
 
 The output formats are inherited from Azure CLI. The Azure CLI uses JSON as its default output option, but offers various ways for you to format the output of any command.  Refer [Set the default output format](https://docs.microsoft.com/cli/azure/format-output-azure-cli?view=azure-cli-latest#set-the-default-output-format) guide to update default output format.
 
@@ -75,7 +75,7 @@ Foobar                                      Sample Foobar project
 Fabrikam                                    Sample Fabrikam Project
 ```
 
-## Opening items in browser
+## Open items in browser
 
 You can use --open switch to open any artifact in Azure DevOps portal in your default browser.
 
