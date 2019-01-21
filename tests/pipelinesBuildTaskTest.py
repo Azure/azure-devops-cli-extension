@@ -30,7 +30,7 @@ class PipelinesBuildTaskTests(ScenarioTest):
         version_value = (str(task_version_to_query["major"]) + '.' + str(task_version_to_query["minor"]) + '.' 
             + str(task_version_to_query["patch"]))
 
-        show_task_command = ('az pipelines build task show --task-id ' + task_UUID_to_query + ' --version ' + version_value + 
+        show_task_command = ('az pipelines build task show --id ' + task_UUID_to_query + ' --version ' + version_value + 
             ' --detect off --output json')
         show_task_output = self.cmd(show_task_command).get_output_in_json()
         assert show_task_output["id"] == task_UUID_to_query
