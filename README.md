@@ -1,5 +1,6 @@
 [![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/YAML/Azure%20DevOps%20CLI%20-%20Merge%20GitHub%20YAML?branchName=azuredevopscli-dev)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=38?branchName=azuredevopscli-dev)
 
+
 # Azure DevOps Extension for Azure CLI
 
 
@@ -12,23 +13,24 @@ With the release of Azure DevOps extension, we will be retiring the preview vers
 
 # Installation
 
-1. [Install Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli). 
+1. [Install Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli). 
 You must have at least `v2.0.49`, which you can verify with `az --version` command.
 2. Add Azure DevOps extension
 `az extension add --name azure-devops`
 
-
-# Documentation
-- Documentation for all the commands is available at [Microsoft Azure CLI Docs - Azure DevOps](https://docs.microsoft.com/en-us/cli/azure/ext/azure-devops/?view=azure-cli-latest)
-- Check out the [Getting Started](/doc/getting_started.md) section to have a quick overview. 
-- Here are a few examples that can help you get the most out of the extension
-    1. [Connecting to Azure DevOps using PAT token](/samples/credentials.md)
-    2. [Using Azure DevOps behind a proxy]()
-    3. [Querying and filtering output]()
-    4. [Opening items in browser](/samples/open-in-browser.md)
-    5. [Using git-aliases](/samples/git-aliases.md)
+# Usage
+```
+$az [group] [subgroup] [command] {parameters}
+```
+Adding the Azure DevOps extension adds `devops`, `pipelines`, `artifacts`, `boards` and `repos` groups.
+For usage and help content for any command, pass in the -h parameter, for example:
+```
+$az devops -h
+```
+- Documentation for all the commands is available at [Microsoft Azure CLI Docs - Azure DevOps](https://docs.microsoft.com/cli/azure/ext/azure-devops/?view=azure-cli-latest). 
+- Please refer the [Getting Started guide]() for detailed setup instructions. 
 - Check out other examples in the [samples](/doc/samples.md) section.
-   
+
 # Contribute
 
 ## Code of Conduct
