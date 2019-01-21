@@ -59,11 +59,7 @@ Global Arguments
 - Check out other examples in the [samples](/doc/samples.md) section.
 
 # Contribute
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
 See our [contribution guidelines](/doc/contributing.md) to learn how you can contribute to this project.
 
+#License
 [MIT License](LICENSE)
