@@ -59,7 +59,7 @@ Global Arguments
 - Check out other examples in the [samples](/doc/samples.md) section.
 
 # Contribute
-See our [contribution guidelines](/doc/contributing.md) to learn how you can contribute to this project.
+See our [contribution guidelines](contributing.md) to learn how you can contribute to this project.
 
 # License
 [MIT License](LICENSE)
