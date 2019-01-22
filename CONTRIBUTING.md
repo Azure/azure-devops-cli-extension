@@ -12,7 +12,7 @@ Search existing github [issues](https://github.com/Microsoft/vsts-cli/issues?q=i
 
 #### Where to find known issues
 
-Before you file a new bug report do check on existing open [issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aopen+is%3Aissue+label%3Abug).
+Check open [issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aopen+is%3Aissue+label%3Abug) before you file a new bug report.
 
 If you find your issue already exists, make relevant comments and add your reaction. Use a reaction in place of a "+1" comment:
 👍 - upvote
@@ -26,7 +26,7 @@ The best way to get your bug fixed is to provide good repro steps. Use our [Bug 
 
 #### Where to find existing requests
 
-Before you file a new request do check on existing open [feature requests](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3AFeature).
+Check open [feature requests](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3AFeature)  before you file a new request.
 
 If you find your request already exists, make relevant comments and add your reaction. Use a reaction in place of a "+1" comment:
 👍 - upvote
