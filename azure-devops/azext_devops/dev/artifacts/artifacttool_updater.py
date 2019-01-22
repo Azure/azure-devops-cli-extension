@@ -29,7 +29,8 @@ logger = get_logger(__name__)
 # pylint: disable=too-few-public-methods
 class ArtifactToolUpdater:
 
-    def get_latest_artifacttool(self, devops_organization):
+
+    def get_latest_artifacttool(self, organization):
         artifacttool_binary_override_path = os.environ.get(ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY)
         if artifacttool_binary_override_path is not None:
             artifacttool_binary_path = artifacttool_binary_override_path
@@ -37,10 +38,11 @@ class ArtifactToolUpdater:
                          artifacttool_binary_path, ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY)
         else:
             logger.debug("Checking for a new ArtifactTool")
-            artifacttool_binary_path = self._get_artifacttool(devops_organization)
+            artifacttool_binary_path = self._get_artifacttool(organization)
         return artifacttool_binary_path
 
-    def _get_artifacttool(self, devops_organization):  # pylint: disable=no-self-use
+
+    def _get_artifacttool(self, organization):  # pylint: disable=no-self-use
         logger.debug("Checking for ArtifactTool updates")
 
         # Call the auto-update API to find the current version of ArtifactTool
@@ -53,7 +55,7 @@ class ArtifactToolUpdater:
         else:
             override_version = os.environ.get(ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY)
             try:
-                release = _get_current_release(devops_organization, override_version)
+                release = _get_current_release(organization, override_version)
             except Exception as ex:
                 raise CLIError('Failed to update Universal Packages tooling.\n {}'.format(ex))
             release_uri, release_id = release
@@ -130,8 +132,8 @@ def _update_artifacttool(uri, release_id):
             shutil.rmtree(release_temp_dir, ignore_errors=True)
 
 
-def _get_current_release(devops_organization, override_version):
-    connection = get_vss_connection(devops_organization)
+def _get_current_release(organization, override_version):
+    connection = get_vss_connection(organization)
     client = connection.get_client('azext_devops.dev.artifacts.client_tool.client_tool_client.ClientToolClient')
     logger.debug("Looking up current version of ArtifactTool...")
     release = client.get_clienttool_release("ArtifactTool", os_name=platform.system(), arch=platform.machine(),

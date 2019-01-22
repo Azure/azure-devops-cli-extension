@@ -30,29 +30,29 @@ from azext_devops.dev.common.services import (get_git_client,
 logger = get_logger(__name__)
 
 
-def show_pull_request(id, open_browser=False, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def show_pull_request(id, open=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a pull request.
     :param id: ID of the pull request.
     :type id: int
-    :param open_browser: Open the pull request in your web browser.
-    :type open_browser: bool
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param open: Open the pull request in your web browser.
+    :type open: bool
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        client = get_git_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        client = get_git_client(organization)
         pr = client.get_pull_request_by_id(id)
         pr = client.get_pull_request(project=pr.repository.project.id,
                                      repository_id=pr.repository.id,
                                      pull_request_id=id,
                                      include_commits=False,
                                      include_work_item_refs=True)
-        if open_browser:
-            _open_pull_request(pr, devops_organization)
+        if open:
+            _open_pull_request(pr, organization)
         return pr
     except VstsServiceError as ex:
         raise CLIError(ex)
@@ -60,7 +60,7 @@ def show_pull_request(id, open_browser=False, devops_organization=None, detect=N
 
 def list_pull_requests(repository=None, creator=None, include_links=False, reviewer=None,
                        source_branch=None, status=None, target_branch=None, project=None,
-                       skip=None, top=None, devops_organization=None, detect=None):
+                       skip=None, top=None, organization=None, detect=None):
     """List pull requests.
     :param repository: Name or ID of the repository.
     :type repository: str
@@ -82,26 +82,26 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     :type skip: int
     :param top: Maximum number of pull requests to list.
     :type top: int
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     :rtype: list of :class:`VssJsonCollectionWrapper <git.v4_0.models.VssJsonCollectionWrapper>`
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(
+        organization, project, repository = resolve_instance_project_and_repo(
             detect=detect,
-            devops_organization=devops_organization,
+            organization=organization,
             project=project,
             repo=repository)
         search_criteria = GitPullRequestSearchCriteria(
-            creator_id=resolve_identity_as_id(creator, devops_organization),
+            creator_id=resolve_identity_as_id(creator, organization),
             include_links=include_links,
-            reviewer_id=resolve_identity_as_id(reviewer, devops_organization),
+            reviewer_id=resolve_identity_as_id(reviewer, organization),
             source_ref_name=resolve_git_ref_heads(source_branch),
             status=status,
             target_ref_name=resolve_git_ref_heads(target_branch))
-        client = get_git_client(devops_organization)
+        client = get_git_client(organization)
         if repository is None:
             pr_list = client.get_pull_requests_by_project(project=project, search_criteria=search_criteria,
                                                           skip=skip, top=top)
@@ -119,7 +119,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
                         merge_commit_message=None, reviewers=None, work_items=None,
-                        open_browser=False, devops_organization=None, detect=None, transition_work_items=False):
+                        open=False, organization=None, detect=None, transition_work_items=False):  # pylint: disable=redefined-builtin
     """Create a pull request.
     :param project: Name or ID of the team project.
     :type project: str
@@ -156,10 +156,10 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type reviewers: list of str
     :param work_items: IDs of the work items to link to the new pull request. Space separated.
     :type work_items: list of str
-    :param open_browser: Open the pull request in your web browser.
-    :type open_browser: bool
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param open: Open the pull request in your web browser.
+    :type open: bool
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization, project, repository, source and target branches
                    if these values are not specified. Default is "on".
     :type detect: str
@@ -169,14 +169,14 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(
+        organization, project, repository = resolve_instance_project_and_repo(
             detect=detect,
-            devops_organization=devops_organization,
+            organization=organization,
             project=project,
             repo=repository)
         source_branch, target_branch = _get_branches_for_pull_request(
-            devops_organization, project, repository, source_branch, target_branch, detect)
-        client = get_git_client(devops_organization)
+            organization, project, repository, source_branch, target_branch, detect)
+        client = get_git_client(organization)
         multi_line_description = None
         if description is not None:
             multi_line_description = '\n'.join(description)
@@ -192,7 +192,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
         if pr.source_ref_name == pr.target_ref_name:
             raise CLIError('The source branch, "{}", can not be the same as the target branch.'.format
                            (pr.source_ref_name))
-        pr.reviewers = _resolve_reviewers_as_refs(reviewers, devops_organization)
+        pr.reviewers = _resolve_reviewers_as_refs(reviewers, organization)
         if work_items is not None and work_items:
             resolved_work_items = []
             for work_item in work_items:
@@ -217,7 +217,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
             pr_for_update = GitPullRequest()
             if auto_complete:
                 # auto-complete will not get set on create, so a subsequent update is required.
-                pr_for_update.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, devops_organization))
+                pr_for_update.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, organization))
             if set_completion_options:
                 completion_options = GitPullRequestCompletionOptions()
                 completion_options.bypass_policy = bypass_policy
@@ -233,14 +233,14 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                                             project=pr.repository.project.id,
                                             repository_id=pr.repository.id,
                                             pull_request_id=pr.pull_request_id)
-        if open_browser:
-            _open_pull_request(pr, devops_organization)
+        if open:
+            _open_pull_request(pr, organization)
         return pr
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def _get_branches_for_pull_request(devops_organization, project, repository, source_branch, target_branch, detect):
+def _get_branches_for_pull_request(organization, project, repository, source_branch, target_branch, detect):
     if should_detect(detect):
         if source_branch is None:
             source_branch = get_current_branch_name()
@@ -252,7 +252,7 @@ def _get_branches_for_pull_request(devops_organization, project, repository, sou
             raise ValueError('--source-branch is a required argument.')
     if target_branch is None:
         if project is not None and repository is not None:
-            target_branch = _get_default_branch(devops_organization, project, repository)
+            target_branch = _get_default_branch(organization, project, repository)
         if target_branch is None:
             raise ValueError('The target branch could not be detected,'
                              'please provide the --target-branch argument.')
@@ -261,7 +261,7 @@ def _get_branches_for_pull_request(devops_organization, project, repository, sou
 
 def update_pull_request(id, title=None, description=None, auto_complete=None,  # pylint: disable=redefined-builtin
                         squash=None, delete_source_branch=None, bypass_policy=None,
-                        bypass_policy_reason=None, merge_commit_message=None, devops_organization=None, detect=None,
+                        bypass_policy_reason=None, merge_commit_message=None, organization=None, detect=None,
                         transition_work_items=None):
     """Update a pull request.
     :param id: ID of the pull request.
@@ -286,8 +286,8 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     :type bypass_policy_reason: str
     :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
@@ -296,8 +296,8 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        client = get_git_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        client = get_git_client(organization)
         existing_pr = client.get_pull_request_by_id(id)
         if description is not None:
             multi_line_description = '\n'.join(description)
@@ -328,7 +328,7 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
             pr.completion_options = completion_options
         if auto_complete is not None:
             if resolve_on_off_switch(auto_complete):
-                pr.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, devops_organization))
+                pr.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, organization))
             else:
                 pr.auto_complete_set_by = IdentityRef(id=EMPTY_UUID)
         pr = client.update_pull_request(git_pull_request_to_update=pr,
@@ -340,74 +340,74 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
         raise CLIError(ex)
 
 
-def complete_pull_request(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def complete_pull_request(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Complete a pull request.
     :param id: ID of the pull request to complete.
     :type id: int
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
         return _update_pull_request_status(pull_request_id=id, new_status='completed',
-                                           devops_organization=devops_organization, detect=detect)
+                                           organization=organization, detect=detect)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def abandon_pull_request(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def abandon_pull_request(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Abandon a pull request.
     :param id: ID of the pull request to abandon.
     :type id: int
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
         return _update_pull_request_status(pull_request_id=id, new_status='abandoned',
-                                           devops_organization=devops_organization, detect=detect)
+                                           organization=organization, detect=detect)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def reactivate_pull_request(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def reactivate_pull_request(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Reactivate an abandoned pull request.
     :param id: ID of the pull request to reactivate.
     :type id: int
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
         return _update_pull_request_status(pull_request_id=id, new_status='active',
-                                           devops_organization=devops_organization, detect=detect)
+                                           organization=organization, detect=detect)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def create_pull_request_reviewers(id, reviewers, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def create_pull_request_reviewers(id, reviewers, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Add one or more reviewers to a pull request.
     :param id: ID of the pull request.
     :type id: int
     :param reviewers: Users or groups to include as reviewers on a pull request. Space separated.
     :type reviewers: list of str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        client = get_git_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        client = get_git_client(organization)
         pr = client.get_pull_request_by_id(id)
-        resolved_reviewers = _resolve_reviewers_as_refs(reviewers, devops_organization)
+        resolved_reviewers = _resolve_reviewers_as_refs(reviewers, organization)
         identities = client.create_pull_request_reviewers(reviewers=resolved_reviewers,
                                                           project=pr.repository.project.id,
                                                           repository_id=pr.repository.id,
@@ -417,23 +417,23 @@ def create_pull_request_reviewers(id, reviewers, devops_organization=None, detec
         raise CLIError(ex)
 
 
-def delete_pull_request_reviewers(id, reviewers, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def delete_pull_request_reviewers(id, reviewers, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Remove one or more reviewers from a pull request.
     :param id: ID of the pull request.
     :type id: int
     :param reviewers: Users or groups to remove as reviewers on a pull request. Space separated.
     :type reviewers: list of str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        client = get_git_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        client = get_git_client(organization)
         pr = client.get_pull_request_by_id(id)
-        resolved_reviewers = _resolve_reviewers_as_ids(reviewers, devops_organization)
+        resolved_reviewers = _resolve_reviewers_as_ids(reviewers, organization)
         for reviewer in resolved_reviewers:
             client.delete_pull_request_reviewer(project=pr.repository.project.id,
                                                 repository_id=pr.repository.id,
@@ -446,19 +446,19 @@ def delete_pull_request_reviewers(id, reviewers, devops_organization=None, detec
         raise CLIError(ex)
 
 
-def list_pull_request_reviewers(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def list_pull_request_reviewers(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """List reviewers of a pull request.
     :param id: ID of the pull request.
     :type id: int
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        client = get_git_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        client = get_git_client(organization)
         pr = client.get_pull_request_by_id(id)
         return client.get_pull_request_reviewers(project=pr.repository.project.id,
                                                  repository_id=pr.repository.id,
@@ -467,25 +467,25 @@ def list_pull_request_reviewers(id, devops_organization=None, detect=None):  # p
         raise CLIError(ex)
 
 
-def add_pull_request_work_items(id, work_items, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def add_pull_request_work_items(id, work_items, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Link one or more work items to a pull request.
     :param id: ID of the pull request.
     :type id: int
     :param work_items: IDs of the work items to link. Space separated.
     :type work_items: list of int
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        client = get_git_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        client = get_git_client(organization)
         existing_pr = client.get_pull_request_by_id(id)
         if work_items is not None and work_items:
             work_items = list(set(work_items))  # make distinct
-            wit_client = get_work_item_tracking_client(devops_organization)
+            wit_client = get_work_item_tracking_client(organization)
             pr_url = 'vstfs:///Git/PullRequestId/{project}%2F{repo}%2F{id}'.format(
                 project=existing_pr.repository.project.id, repo=existing_pr.repository.id, id=id)
             for work_item_id in work_items:
@@ -516,26 +516,26 @@ def add_pull_request_work_items(id, work_items, devops_organization=None, detect
         raise CLIError(ex)
 
 
-def remove_pull_request_work_items(id, work_items, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def remove_pull_request_work_items(id, work_items, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Unlink one or more work items from a pull request.
     :param id: ID of the pull request.
     :type id: int
     :param work_items: IDs of the work items to unlink. Space separated.
     :type work_items: list of int
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
     # pylint: disable=too-many-nested-blocks
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        client = get_git_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        client = get_git_client(organization)
         existing_pr = client.get_pull_request_by_id(id)
         if work_items is not None and work_items:
             work_items = list(set(work_items))  # make distinct
-            wit_client = get_work_item_tracking_client(devops_organization)
+            wit_client = get_work_item_tracking_client(organization)
             work_items_full = wit_client.get_work_items(ids=work_items, expand=1)
             if work_items_full:
                 url = 'vstfs:///Git/PullRequestId/{project}%2F{repo}%2F{id}'.format(
@@ -575,19 +575,19 @@ def remove_pull_request_work_items(id, work_items, devops_organization=None, det
         raise CLIError(ex)
 
 
-def list_pull_request_work_items(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def list_pull_request_work_items(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """List linked work items for a pull request.
     :param id: ID of the pull request.
     :type id: int
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        client = get_git_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        client = get_git_client(organization)
         pr = client.get_pull_request_by_id(id)
         refs = client.get_pull_request_work_items(project=pr.repository.project.id,
                                                   repository_id=pr.repository.id,
@@ -596,7 +596,7 @@ def list_pull_request_work_items(id, devops_organization=None, detect=None):  # 
             ids = []
             for ref in refs:
                 ids.append(ref.id)
-            wit_client = get_work_item_tracking_client(devops_organization)
+            wit_client = get_work_item_tracking_client(organization)
             return wit_client.get_work_items(ids=ids)
 
         return refs
@@ -604,9 +604,9 @@ def list_pull_request_work_items(id, devops_organization=None, detect=None):  # 
         raise CLIError(ex)
 
 
-def _update_pull_request_status(pull_request_id, new_status, devops_organization=None, detect=None):
-    devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-    client = get_git_client(devops_organization)
+def _update_pull_request_status(pull_request_id, new_status, organization=None, detect=None):
+    organization = resolve_instance(detect=detect, organization=organization)
+    client = get_git_client(organization)
     existing_pr = client.get_pull_request_by_id(pull_request_id)
     pr = GitPullRequest(status=new_status)
     if new_status == 'completed':
@@ -618,23 +618,23 @@ def _update_pull_request_status(pull_request_id, new_status, devops_organization
     return pr
 
 
-def vote_pull_request(id, vote, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def vote_pull_request(id, vote, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Vote on a pull request.
     :param id: ID of the pull request.
     :type id: int
     :param vote: New vote value for the pull request.
     :type vote: int
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        client = get_git_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        client = get_git_client(organization)
         pr = client.get_pull_request_by_id(id)
-        resolved_reviewer = IdentityRefWithVote(id=resolve_identity_as_id(ME, devops_organization))
+        resolved_reviewer = IdentityRefWithVote(id=resolve_identity_as_id(ME, organization))
         resolved_reviewer.vote = _convert_vote_to_int(vote)
         created_reviewer = client.create_pull_request_reviewer(project=pr.repository.project.id,
                                                                repository_id=pr.repository.id,
@@ -660,12 +660,12 @@ def _convert_vote_to_int(vote):
     raise CLIError('"{vote}" is an invalid value for a pull request vote.'.format(vote=vote))
 
 
-def list_pr_policies(id, devops_organization=None, detect=None, top=None, skip=None):  # pylint: disable=redefined-builtin
+def list_pr_policies(id, organization=None, detect=None, top=None, skip=None):  # pylint: disable=redefined-builtin
     """List policies of a pull request.
     :param id: ID of the pull request.
     :type id: int
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :param top: Maximum number of policies to list.
@@ -675,10 +675,10 @@ def list_pr_policies(id, devops_organization=None, detect=None, top=None, skip=N
     :rtype: list of :class:`PolicyEvaluationRecord <policy.v4_0.models.PolicyEvaluationRecord>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        git_client = get_git_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        git_client = get_git_client(organization)
         pr = git_client.get_pull_request_by_id(id)
-        policy_client = get_policy_client(devops_organization)
+        policy_client = get_policy_client(organization)
         artifact_id = "vstfs:///CodeReview/CodeReviewId/{project_id}/{pull_request_id}".format(
             project_id=pr.repository.project.id, pull_request_id=id)
         return policy_client.get_policy_evaluations(project=pr.repository.project.id,
@@ -689,45 +689,45 @@ def list_pr_policies(id, devops_organization=None, detect=None, top=None, skip=N
         raise CLIError(ex)
 
 
-def queue_pr_policy(id, evaluation_id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def queue_pr_policy(id, evaluation_id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Queue an evaluation of a policy for a pull request.
     :param id: ID of the pull request.
     :type id: int
     :param evaluation_id: ID of the policy evaluation to queue.
     :type evaluation_id: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: :class:`PolicyEvaluationRecord <policy.v4_0.models.PolicyEvaluationRecord>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        git_client = get_git_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        git_client = get_git_client(organization)
         pr = git_client.get_pull_request_by_id(id)
-        policy_client = get_policy_client(devops_organization)
+        policy_client = get_policy_client(organization)
         return policy_client.requeue_policy_evaluation(project=pr.repository.project.id,
                                                        evaluation_id=evaluation_id)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def _resolve_reviewers_as_refs(reviewers, devops_organization):
+def _resolve_reviewers_as_refs(reviewers, organization):
     """Takes a list containing identity names, emails, and ids,
     and return a list of IdentityRefWithVote objects.
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     resolved_reviewers = None
     if reviewers is not None and reviewers:
         resolved_reviewers = []
         for reviewer in reviewers:
-            resolved_reviewers.append(IdentityRefWithVote(id=resolve_identity_as_id(reviewer, devops_organization)))
+            resolved_reviewers.append(IdentityRefWithVote(id=resolve_identity_as_id(reviewer, organization)))
     return resolved_reviewers
 
 
-def _resolve_reviewers_as_ids(reviewers, devops_organization):
+def _resolve_reviewers_as_ids(reviewers, organization):
     """Takes a list containing identity names, emails, and ids,
     and returns a list of IdentityRefWithVote objects.
     """
@@ -735,22 +735,22 @@ def _resolve_reviewers_as_ids(reviewers, devops_organization):
     if reviewers is not None and reviewers:
         resolved_reviewers = []
         for reviewer in reviewers:
-            resolved_reviewers.append(resolve_identity_as_id(reviewer, devops_organization))
+            resolved_reviewers.append(resolve_identity_as_id(reviewer, organization))
     return resolved_reviewers
 
 
-def _open_pull_request(pull_request, devops_organization):
+def _open_pull_request(pull_request, organization):
     """Opens the pull request in the default browser.
     :param pull_request: The pull request to open.
     :type pull_request: str
     """
-    url = devops_organization.rstrip('/') + '/' + uri_quote(pull_request.repository.project.name)\
+    url = organization.rstrip('/') + '/' + uri_quote(pull_request.repository.project.name)\
         + '/_git/' + uri_quote(pull_request.repository.name) + '/pullrequest/'\
         + str(pull_request.pull_request_id)
     webbrowser.open_new(url=url)
 
 
-def _get_default_branch(devops_organization, project, repository):
-    client = get_git_client(devops_organization)
+def _get_default_branch(organization, project, repository):
+    client = get_git_client(organization)
     repo = client.get_repository(project=project, repository_id=repository)
     return repo.default_branch

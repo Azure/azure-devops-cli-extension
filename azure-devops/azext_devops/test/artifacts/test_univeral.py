@@ -51,7 +51,7 @@ class TestUniversalPackages(unittest.TestCase):
             version = self._TEST_PACKAGE_VERSION,
             description = self._TEST_PACKAGE_DESCRIPTION,
             path = self._TEST_PATH,
-            devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+            organization = self._TEST_DEVOPS_ORGANIZATION,
             detect='off')
 
         # assert
@@ -73,7 +73,7 @@ class TestUniversalPackages(unittest.TestCase):
             name = self._TEST_PACKAGE_NAME,
             version = self._TEST_PACKAGE_VERSION,
             path = self._TEST_PATH,
-            devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+            organization = self._TEST_DEVOPS_ORGANIZATION,
             detect='off')
 
         # assert
