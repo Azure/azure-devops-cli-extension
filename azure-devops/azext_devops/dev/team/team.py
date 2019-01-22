@@ -10,14 +10,14 @@ from azext_devops.dev.common.services import (get_core_client,
                                               resolve_instance_and_project)
 
 
-def create_team(name, description=None, devops_organization=None, project=None, detect=None):
+def create_team(name, description=None, organization=None, project=None, detect=None):
     """Create a team.
     :param name: Name of the new team.
     :type name: str
     :param description: Description of the new team.
     :type description: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the project.
     :type project: str
     :param detect: Automatically detect organization and project. Default is "on".
@@ -25,43 +25,43 @@ def create_team(name, description=None, devops_organization=None, project=None, 
     :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
     """
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                    devops_organization=devops_organization,
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                                    organization=organization,
                                                                     project=project)
-        core_client = get_core_client(devops_organization)
+        core_client = get_core_client(organization)
         team_to_create = WebApiTeam(name=name, description=description)
         return core_client.create_team(team=team_to_create, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def delete_team(team, devops_organization=None, project=None, detect=None):
+def delete_team(team, organization=None, project=None, detect=None):
     """Deletes a team.
     :param team: The name or id of the team to delete.
     :type team: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the project.
     :type project: str
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     """
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                    devops_organization=devops_organization,
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                                    organization=organization,
                                                                     project=project)
-        core_client = get_core_client(devops_organization)
+        core_client = get_core_client(organization)
         return core_client.delete_team(team_id=team, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def get_team(team, devops_organization=None, project=None, detect=None):
+def get_team(team, organization=None, project=None, detect=None):
     """Gets a team.
     :param team: The name or id of the team to show.
     :type team: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the project.
     :type project: str
     :param detect: Automatically detect organization and project. Default is "on".
@@ -69,23 +69,23 @@ def get_team(team, devops_organization=None, project=None, detect=None):
     :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
     """
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                    devops_organization=devops_organization,
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                                    organization=organization,
                                                                     project=project)
-        core_client = get_core_client(devops_organization)
+        core_client = get_core_client(organization)
         return core_client.get_team(team_id=team, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def get_teams(top=None, skip=None, devops_organization=None, project=None, detect=None):
+def get_teams(top=None, skip=None, organization=None, project=None, detect=None):
     """List of all teams for a project.
     :param top: Maximum number of teams to return.
     :type top: int
     :param skip: Number of teams to skip.
     :type skip: int
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the project.
     :type project: str
     :param detect: Automatically detect organization and project. Default is "on".
@@ -93,16 +93,16 @@ def get_teams(top=None, skip=None, devops_organization=None, project=None, detec
     :rtype: [WebApiTeam]
     """
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                    devops_organization=devops_organization,
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                                    organization=organization,
                                                                     project=project)
-        core_client = get_core_client(devops_organization)
+        core_client = get_core_client(organization)
         return core_client.get_teams(top=top, skip=skip, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def get_team_members(team, top=None, skip=None, devops_organization=None, project=None, detect=None):
+def get_team_members(team, top=None, skip=None, organization=None, project=None, detect=None):
     """List members of a particular team.
     :param team: The name or id of the team to show members of.
     :type team: str
@@ -110,8 +110,8 @@ def get_team_members(team, top=None, skip=None, devops_organization=None, projec
     :type top: int
     :param skip: Number of members to skip.
     :type skip: int
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the project.
     :type project: str
     :param detect: Automatically detect organization and project. Default is "on".
@@ -119,16 +119,16 @@ def get_team_members(team, top=None, skip=None, devops_organization=None, projec
     :rtype: [IdentityRef]
     """
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                    devops_organization=devops_organization,
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                                    organization=organization,
                                                                     project=project)
-        core_client = get_core_client(devops_organization)
+        core_client = get_core_client(organization)
         return core_client.get_team_members(team_id=team, top=top, skip=skip, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def update_team(team, name=None, description=None, devops_organization=None, project=None, detect=None):
+def update_team(team, name=None, description=None, organization=None, project=None, detect=None):
     """Update a team's name and/or description.
     :param team: The name or id of the team to be updated.
     :type team: str
@@ -136,8 +136,8 @@ def update_team(team, name=None, description=None, devops_organization=None, pro
     :type name: str
     :param description: New description of the team.
     :type description: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the project.
     :type project: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
@@ -147,10 +147,10 @@ def update_team(team, name=None, description=None, devops_organization=None, pro
     if name is None and description is None:
         raise CLIError('Either name or description argument must be provided.')
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                    devops_organization=devops_organization,
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                                    organization=organization,
                                                                     project=project)
-        core_client = get_core_client(devops_organization)
+        core_client = get_core_client(organization)
         updated_team_data = WebApiTeam(name=name, description=description)
         return core_client.update_team(team_data=updated_team_data, project_id=project, team_id=team)
     except VstsServiceError as ex:

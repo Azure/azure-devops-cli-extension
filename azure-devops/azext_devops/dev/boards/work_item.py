@@ -22,7 +22,7 @@ logger = get_logger(__name__)
 
 def create_work_item(work_item_type, title, description=None, assigned_to=None, state=None, area=None,
                      iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
-                     devops_organization=None, project=None, detect=None):
+                     organization=None, project=None, detect=None):
     r"""Create a work item.
     :param work_item_type: Name of the work item type (e.g. Bug).
     :type work_item_type: str
@@ -46,8 +46,8 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
     :type fields: [str]
     :param open_browser: Open the work item in the default web browser.
     :type open_browser: bool
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the team project.
     :type project: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
@@ -56,8 +56,8 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:
-        devops_organization, project = resolve_instance_and_project(
-            detect=detect, devops_organization=devops_organization, project=project, project_required=True)
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project, project_required=True)
         patch_document = []
         if title is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Title', title))
@@ -70,7 +70,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             if assigned_to == '':
                 resolved_assigned_to = ''
             else:
-                resolved_assigned_to = _resolve_identity_as_unique_user_id(assigned_to, devops_organization)
+                resolved_assigned_to = _resolve_identity_as_unique_user_id(assigned_to, organization)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
@@ -91,10 +91,10 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
                     patch_document.append(_create_work_item_field_patch_operation('add', kvp[0], kvp[1]))
                 else:
                     raise ValueError('The --fields argument should consist of space separated "field=value" pairs.')
-        client = get_work_item_tracking_client(devops_organization)
+        client = get_work_item_tracking_client(organization)
         work_item = client.create_work_item(document=patch_document, project=project, type=work_item_type)
         if open_browser:
-            _open_work_item(work_item, devops_organization)
+            _open_work_item(work_item, organization)
         return work_item
     except VstsServiceError as ex:
         _handle_vsts_service_error(ex)
@@ -102,7 +102,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
 
 def update_work_item(id, title=None, description=None, assigned_to=None, state=None, area=None,  # pylint: disable=redefined-builtin
                      iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
-                     devops_organization=None, detect=None):
+                     organization=None, detect=None):
     r"""Update work items.
     :param id: The id of the work item to update.
     :type id: int
@@ -126,15 +126,15 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
     :type fields: [str]
     :param open_browser: Open the work item in the default web browser.
     :type open_browser: bool
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
         patch_document = []
         if title is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Title', title))
@@ -145,7 +145,7 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
             if assigned_to == '':
                 resolved_assigned_to = ''
             else:
-                resolved_assigned_to = _resolve_identity_as_unique_user_id(assigned_to, devops_organization)
+                resolved_assigned_to = _resolve_identity_as_unique_user_id(assigned_to, organization)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
@@ -166,31 +166,31 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
                     patch_document.append(_create_work_item_field_patch_operation('add', kvp[0], kvp[1]))
                 else:
                     raise ValueError('The --fields argument should consist of space separated "field=value" pairs.')
-        client = get_work_item_tracking_client(devops_organization)
+        client = get_work_item_tracking_client(organization)
         work_item = client.update_work_item(document=patch_document, id=id)
         if open_browser:
-            _open_work_item(work_item, devops_organization)
+            _open_work_item(work_item, organization)
         return work_item
     except VstsServiceError as ex:
         _handle_vsts_service_error(ex)
 
 
-def delete_work_item(id, destroy=False, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def delete_work_item(id, destroy=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete a work item.
     :param id: Unique id of the work item.
     :type id: int
     :param destroy: Permanently delete this work item.
     :type destroy: bool
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItemDelete>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        client = get_work_item_tracking_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        client = get_work_item_tracking_client(organization)
         delete_response = client.delete_work_item(id, destroy)
         print('Deleted work item {}'.format(id))
         return delete_response
@@ -219,36 +219,36 @@ def _handle_vsts_service_error(ex):
         raise CLIError(ex)
 
 
-def show_work_item(id, open_browser=False, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def show_work_item(id, open_browser=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details for a work item.
     :param id: The ID of the work item
     :type id: int
     :param open_browser: Open the work item in the default web browser.
     :type open_browser: bool
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
         try:
-            client = get_work_item_tracking_client(devops_organization)
+            client = get_work_item_tracking_client(organization)
             work_item = client.get_work_item(id)
         except VstsServiceError as ex:
             _handle_vsts_service_error(ex)
 
         if open_browser:
-            _open_work_item(work_item, devops_organization)
+            _open_work_item(work_item, organization)
         return work_item
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
 # pylint: disable=too-many-statements
-def query_work_items(wiql=None, id=None, path=None, devops_organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def query_work_items(wiql=None, id=None, path=None, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Query for a list of work items.
     :param wiql: The query in Work Item Query Language format.  Ignored if --id or --path is specified.
     :type wiql: str
@@ -256,8 +256,8 @@ def query_work_items(wiql=None, id=None, path=None, devops_organization=None, pr
     :type id: str
     :param path: The path of an existing query.  Ignored if --id is specified.
     :type path: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the team project.
     :type project: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
@@ -268,9 +268,9 @@ def query_work_items(wiql=None, id=None, path=None, devops_organization=None, pr
     try:
         if wiql is None and path is None and id is None:
             raise CLIError("Either the --wiql, --id, or --path argument must be specified.")
-        devops_organization, project = resolve_instance_and_project(
-            detect=detect, devops_organization=devops_organization, project=project, project_required=False)
-        client = get_work_item_tracking_client(devops_organization)
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project, project_required=False)
+        client = get_work_item_tracking_client(organization)
         if id is None and path is not None:
             if project is None:
                 raise CLIError("The --project argument must be specified for this query.")
@@ -286,7 +286,7 @@ def query_work_items(wiql=None, id=None, path=None, devops_organization=None, pr
             _last_query_result[_LAST_QUERY_RESULT_KEY] = query_result  # store query result for table view
             safety_buffer = 100  # a buffer in the max url length to protect going over the limit
             remaining_url_length = 2048 - safety_buffer
-            remaining_url_length -= len(devops_organization)
+            remaining_url_length -= len(organization)
             # following subtracts relative url, the asof parameter and beginning of id and field parameters.
             # asof value length will vary, but this should be the longest possible
             remaining_url_length -=\
@@ -362,13 +362,13 @@ def get_last_query_result():
     return _last_query_result.get(_LAST_QUERY_RESULT_KEY, None)
 
 
-def _open_work_item(work_item, devops_organization):
+def _open_work_item(work_item, organization):
     """Opens the work item in the default browser.
     :param work_item: The work item to open.
     :type work_item: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     project = work_item.fields['System.TeamProject']
-    url = devops_organization.rstrip('/') + '/' + uri_quote(project) + '/_workitems?id='\
+    url = organization.rstrip('/') + '/' + uri_quote(project) + '/_workitems?id='\
         + uri_quote(str(work_item.id))
     logger.debug('Opening web page: %s', url)
     webbrowser.open_new(url=url)
@@ -387,13 +387,13 @@ def _create_work_item_field_patch_operation(op, field, value):
     return _create_patch_operation(op=op, path=path, value=value)
 
 
-def _resolve_identity_as_unique_user_id(identity_filter, devops_organization):
+def _resolve_identity_as_unique_user_id(identity_filter, organization):
     """Takes an identity name, email, alias, or id, and returns the unique_user_id.
     """
     if identity_filter.lower() == ME:
-        identity = get_current_identity(devops_organization)
+        identity = get_current_identity(organization)
     else:
-        identity = resolve_identity(identity_filter, devops_organization)
+        identity = resolve_identity(identity_filter, organization)
     if identity is not None:
         descriptor = identity.descriptor
         semi_pos = identity.descriptor.find(';')

@@ -13,52 +13,52 @@ from azext_devops.dev.common._credentials import (get_credential,
 class TestCredentialsMethods(unittest.TestCase):
 
     def test_get_set_clear_credential(self):
-        devops_organization = 'https://' + str(uuid.uuid4()) + '.visualstudio.com/'
+        organization = 'https://' + str(uuid.uuid4()) + '.visualstudio.com/'
         token = str(uuid.uuid4())
-        retrieved_token = get_credential(devops_organization, fall_back_to_default=False)
+        retrieved_token = get_credential(organization, fall_back_to_default=False)
         self.assertEqual(None, retrieved_token)
-        set_credential(devops_organization, token)
-        retrieved_token = get_credential(devops_organization, fall_back_to_default=False)
+        set_credential(organization, token)
+        retrieved_token = get_credential(organization, fall_back_to_default=False)
         self.assertEqual(token, retrieved_token,)
         # test casing difference
-        retrieved_token = get_credential(devops_organization.upper(), fall_back_to_default=False)
+        retrieved_token = get_credential(organization.upper(), fall_back_to_default=False)
         self.assertEqual(token, retrieved_token,)
-        clear_credential(devops_organization)
-        retrieved_token = get_credential(devops_organization, fall_back_to_default=False)
+        clear_credential(organization)
+        retrieved_token = get_credential(organization, fall_back_to_default=False)
         self.assertEqual(None, retrieved_token)
 
     def test_get_set_clear_default_credential(self):
-        devops_organization = None
+        organization = None
         token = str(uuid.uuid4())
 
         # remember initial value for default credential
-        original_token = get_credential(devops_organization, fall_back_to_default=False)
-        clear_credential(devops_organization)
+        original_token = get_credential(organization, fall_back_to_default=False)
+        clear_credential(organization)
 
         try:
-            set_credential(devops_organization, token)
-            retrieved_token = get_credential(devops_organization, fall_back_to_default=False)
+            set_credential(organization, token)
+            retrieved_token = get_credential(organization, fall_back_to_default=False)
             self.assertEqual(token, retrieved_token)
-            clear_credential(devops_organization)
-            retrieved_token = get_credential(devops_organization, fall_back_to_default=False)
+            clear_credential(organization)
+            retrieved_token = get_credential(organization, fall_back_to_default=False)
             self.assertEqual(None, retrieved_token)
 
             # setting fall_back_to_default=True should have no effect
-            retrieved_token = get_credential(devops_organization, fall_back_to_default=True)
+            retrieved_token = get_credential(organization, fall_back_to_default=True)
             self.assertEqual(None, retrieved_token)
-            set_credential(devops_organization, token)
-            retrieved_token = get_credential(devops_organization, fall_back_to_default=True)
+            set_credential(organization, token)
+            retrieved_token = get_credential(organization, fall_back_to_default=True)
             self.assertEqual(token, retrieved_token)
-            clear_credential(devops_organization)
-            retrieved_token = get_credential(devops_organization, fall_back_to_default=True)
+            clear_credential(organization)
+            retrieved_token = get_credential(organization, fall_back_to_default=True)
             self.assertEqual(None, retrieved_token)
         finally:
             if original_token is not None:
                 # restore original token
-                set_credential(devops_organization, original_token)
+                set_credential(organization, original_token)
 
     def test_get_credential_fallback(self):
-        devops_organization = 'https://' + str(uuid.uuid4()) + '.visualstudio.com/'
+        organization = 'https://' + str(uuid.uuid4()) + '.visualstudio.com/'
         token = str(uuid.uuid4())
         token_default = str(uuid.uuid4())
 
@@ -67,13 +67,13 @@ class TestCredentialsMethods(unittest.TestCase):
 
         try:
             set_credential(None, token_default)
-            # this should return the default token, because there is no token set for devops_organization
-            retrieved_token = get_credential(devops_organization, fall_back_to_default=True)
+            # this should return the default token, because there is no token set for organization
+            retrieved_token = get_credential(organization, fall_back_to_default=True)
             self.assertEqual(token_default, retrieved_token)
 
-            set_credential(devops_organization, token)
-            # this should return the devops_organization token, now that it is set
-            retrieved_token = get_credential(devops_organization, fall_back_to_default=True)
+            set_credential(organization, token)
+            # this should return the organization token, now that it is set
+            retrieved_token = get_credential(organization, fall_back_to_default=True)
             self.assertEqual(token, retrieved_token)
         finally:
             if original_token is not None:
@@ -82,33 +82,33 @@ class TestCredentialsMethods(unittest.TestCase):
 
     def test_normalize_url_for_key(self):
         #new url
-        devops_organization = 'https://dev.azure.com/AzureDevOpsCliOrg'
-        normalized_url = normalize_url_for_key(devops_organization)
+        organization = 'https://dev.azure.com/AzureDevOpsCliOrg'
+        normalized_url = normalize_url_for_key(organization)
         self.assertEqual(normalized_url , 'https://dev.azure.com/azuredevopscliorg')
 
-        devops_organization = 'https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli'
-        normalized_url = normalize_url_for_key(devops_organization)
+        organization = 'https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli'
+        normalized_url = normalize_url_for_key(organization)
         self.assertEqual(normalized_url , 'https://dev.azure.com/azuredevopscliorg')
 
-        devops_organization = 'https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_workitems/recentlycreated/'
-        normalized_url = normalize_url_for_key(devops_organization)
+        organization = 'https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_workitems/recentlycreated/'
+        normalized_url = normalize_url_for_key(organization)
         self.assertEqual(normalized_url , 'https://dev.azure.com/azuredevopscliorg')
 
-        devops_organization = 'https://dev.azure.com/AzureDevOpsCliOrg////'
-        normalized_url = normalize_url_for_key(devops_organization)
+        organization = 'https://dev.azure.com/AzureDevOpsCliOrg////'
+        normalized_url = normalize_url_for_key(organization)
         self.assertEqual(normalized_url , 'https://dev.azure.com/azuredevopscliorg')
 
         #old url
-        devops_organization = 'https://mseng.visualstudio.com/'
-        normalized_url = normalize_url_for_key(devops_organization)
+        organization = 'https://mseng.visualstudio.com/'
+        normalized_url = normalize_url_for_key(organization)
         self.assertEqual(normalized_url , 'https://mseng.visualstudio.com')
         
-        devops_organization = 'https://mseng.visualstudio.com///'
-        normalized_url = normalize_url_for_key(devops_organization)
+        organization = 'https://mseng.visualstudio.com///'
+        normalized_url = normalize_url_for_key(organization)
         self.assertEqual(normalized_url , 'https://mseng.visualstudio.com')
     
-        devops_organization = 'https://mseng.visualstudio.com/dummyproj/'
-        normalized_url = normalize_url_for_key(devops_organization)
+        organization = 'https://mseng.visualstudio.com/dummyproj/'
+        normalized_url = normalize_url_for_key(organization)
         self.assertEqual(normalized_url , 'https://mseng.visualstudio.com')
 
 
