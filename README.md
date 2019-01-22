@@ -5,7 +5,7 @@
 
 VSTS CLI is a new command line interface for [Visual Studio Team Services](https://www.visualstudio.com/team-services/) (VSTS) and [Team Foundation Server](https://www.visualstudio.com/tfs/) (TFS) 2017 Update 2 and later.
 
-> VSTS CLI is currently in preview but we encourage you to give it a try and provide feedback (or contribute). 
+>The VSTS CLI has been deprecated and will no longer be receiving new features. We recommend that users of the VSTS CLI switch to the Azure CLI and add the Azure DevOps extension. See the [Command Mapping](https://github.com/Microsoft/azure-devops-cli-extension/blob/azuredevopscli-dev/doc/command_mapping.md) section to view the mapping between VSTS CLI and Azure DevOps Extension commands. 
 
 ## Get started
 
