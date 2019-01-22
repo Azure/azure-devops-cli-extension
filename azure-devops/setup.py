@@ -57,7 +57,7 @@ setup(
     license='MIT',
     author="Microsoft",
     author_email="VSTS_Social@microsoft.com",
-    url="https://github.com/Microsoft/vsts-cli/tree/azuredevopscli-dev",
+    url="https://github.com/Microsoft/azure-devops-cli-extension",
     classifiers=CLASSIFIERS,
     package_data={'azext_devops': ['azext_metadata.json']},
     packages=find_packages(),
