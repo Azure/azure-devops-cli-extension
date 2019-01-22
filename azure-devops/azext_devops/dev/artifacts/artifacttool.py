@@ -20,7 +20,6 @@ class ArtifactToolInvoker:
         self._tool_invoker = tool_invoker
         self._artifacttool_updater = artifacttool_updater
 
-
     def download_universal(self, devops_organization, feed, package_name, package_version, path):
         args = ["universal", "download", "--service", devops_organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
                 "--feed", feed, "--package-name", package_name, "--package-version", package_version, "--path", path]
