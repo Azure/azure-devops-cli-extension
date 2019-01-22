@@ -16,14 +16,14 @@ logger = get_logger(__name__)
 
 
 def release_create(definition_id=None, definition_name=None, artifact_metadata_list=None, description=None,
-                   open_browser=False, organization=None, project=None, detect=None):
+                   open=False, organization=None, project=None, detect=None):
     """Request (create) a release.
     :param definition_id: ID of the definition to create. Required if --definition-name is not supplied.
     :type definition_id: int
     :param definition_name: Name of the definition to create. Ignored if --definition-id is supplied.
     :type definition_name: str
-    :param open_browser: Open the release results page in your web browser.
-    :type open_browser: bool
+    :param open: Open the release results page in your web browser.
+    :type open: bool
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the team project.
@@ -64,18 +64,18 @@ def release_create(definition_id=None, definition_name=None, artifact_metadata_l
 
     created_release = client.create_release(release_start_metadata=release, project=project)
 
-    if open_browser:
+    if open:
         _open_release(created_release)
 
     return created_release
 
 
-def release_show(id, open_browser=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def release_show(id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a release.
     :param id: ID of the release.
     :type id: int
-    :param open_browser: Open the release results page in your web browser.
-    :type open_browser: bool
+    :param open: Open the release results page in your web browser.
+    :type open: bool
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the team project.
@@ -88,7 +88,7 @@ def release_show(id, open_browser=False, organization=None, project=None, detect
         detect=detect, organization=organization, project=project)
     client = get_release_client(organization)
     release = client.get_release(release_id=id, project=project)
-    if open_browser:
+    if open:
         _open_release(release)
     return release
 

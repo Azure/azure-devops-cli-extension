@@ -13,7 +13,6 @@ _PR_STATUS_VALUES = ['all', 'active', 'completed', 'abandoned']
 
 def load_code_arguments(self, _):
     with self.argument_context('repos') as context:
-        context.argument('open_browser', options_list='--open')
         context.argument('project', options_list=('--project', '-p'))
         context.argument('organization', options_list=('--organization', '--org'))
         context.argument('reviewers', nargs='*')

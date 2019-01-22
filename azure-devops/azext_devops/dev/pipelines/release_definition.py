@@ -46,15 +46,15 @@ def release_definition_list(name=None, top=None, organization=None, project=None
     return definition_references
 
 
-def release_definition_show(id=None, name=None, open_browser=False, organization=None, project=None,  # pylint: disable=redefined-builtin
+def release_definition_show(id=None, name=None, open=False, organization=None, project=None,  # pylint: disable=redefined-builtin
                             detect=None):
     """Get the details of a release definition.
     :param id: ID of the definition.
     :type id: int
     :param name: Name of the definition. Ignored if --id is supplied.
     :type name: str
-    :param open_browser: Open the definition summary page in your web browser.
-    :type open_browser: bool
+    :param open: Open the definition summary page in your web browser.
+    :type open: bool
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the team project.
@@ -72,7 +72,7 @@ def release_definition_show(id=None, name=None, open_browser=False, organization
         else:
             raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
     release_definition = client.get_release_definition(definition_id=id, project=project)
-    if open_browser:
+    if open:
         _open_definition(release_definition)
     return release_definition
 

@@ -20,7 +20,7 @@ from .build_definition import get_definition_id_from_name
 logger = get_logger(__name__)
 
 
-def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open_browser=False,
+def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open=False,
                 organization=None, project=None, detect=None, source_branch=None, commit_id=None):
     """Request (queue) a build.
     :param definition_id: ID of the definition to queue. Required if --name is not supplied.
@@ -31,8 +31,8 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type branch: str
     :param variables: Space separated "name=value" pairs for the variables you would like to set.
     :type variables: [str]
-    :param open_browser: Open the build results page in your web browser.
-    :type open_browser: bool
+    :param open: Open the build results page in your web browser.
+    :type open: bool
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the team project.
@@ -69,19 +69,19 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
                 else:
                     raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
         queued_build = client.queue_build(build=build, project=project)
-        if open_browser:
+        if open:
             _open_build(queued_build, organization)
         return queued_build
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def build_show(id, open_browser=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def build_show(id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a build.
     :param id: ID of the build.
     :type id: int
-    :param open_browser: Open the build results page in your web browser.
-    :type open_browser: bool
+    :param open: Open the build results page in your web browser.
+    :type open: bool
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the team project.
@@ -95,7 +95,7 @@ def build_show(id, open_browser=False, organization=None, project=None, detect=N
             detect=detect, organization=organization, project=project)
         client = get_build_client(organization)
         build = client.get_build(build_id=id, project=project)
-        if open_browser:
+        if open:
             _open_build(build, organization)
         return build
     except VstsServiceError as ex:

@@ -30,12 +30,12 @@ from azext_devops.dev.common.services import (get_git_client,
 logger = get_logger(__name__)
 
 
-def show_pull_request(id, open_browser=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def show_pull_request(id, open=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a pull request.
     :param id: ID of the pull request.
     :type id: int
-    :param open_browser: Open the pull request in your web browser.
-    :type open_browser: bool
+    :param open: Open the pull request in your web browser.
+    :type open: bool
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param detect: Automatically detect organization. Default is "on".
@@ -51,7 +51,7 @@ def show_pull_request(id, open_browser=False, organization=None, detect=None):  
                                      pull_request_id=id,
                                      include_commits=False,
                                      include_work_item_refs=True)
-        if open_browser:
+        if open:
             _open_pull_request(pr, organization)
         return pr
     except VstsServiceError as ex:
@@ -119,7 +119,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
                         merge_commit_message=None, reviewers=None, work_items=None,
-                        open_browser=False, organization=None, detect=None, transition_work_items=False):
+                        open=False, organization=None, detect=None, transition_work_items=False):
     """Create a pull request.
     :param project: Name or ID of the team project.
     :type project: str
@@ -156,8 +156,8 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type reviewers: list of str
     :param work_items: IDs of the work items to link to the new pull request. Space separated.
     :type work_items: list of str
-    :param open_browser: Open the pull request in your web browser.
-    :type open_browser: bool
+    :param open: Open the pull request in your web browser.
+    :type open: bool
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param detect: Automatically detect organization, project, repository, source and target branches
@@ -233,7 +233,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                                             project=pr.repository.project.id,
                                             repository_id=pr.repository.id,
                                             pull_request_id=pr.pull_request_id)
-        if open_browser:
+        if open:
             _open_pull_request(pr, organization)
         return pr
     except VstsServiceError as ex:

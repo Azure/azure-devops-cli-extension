@@ -21,7 +21,7 @@ logger = get_logger(__name__)
 
 
 def create_work_item(work_item_type, title, description=None, assigned_to=None, state=None, area=None,
-                     iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
+                     iteration=None, reason=None, discussion=None, fields=None, open=False,
                      organization=None, project=None, detect=None):
     r"""Create a work item.
     :param work_item_type: Name of the work item type (e.g. Bug).
@@ -44,8 +44,8 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
     :type discussion: str
     :param fields: Space separated "field=value" pairs for custom fields you would like to set.
     :type fields: [str]
-    :param open_browser: Open the work item in the default web browser.
-    :type open_browser: bool
+    :param open: Open the work item in the default web browser.
+    :type open: bool
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the team project.
@@ -93,7 +93,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
                     raise ValueError('The --fields argument should consist of space separated "field=value" pairs.')
         client = get_work_item_tracking_client(organization)
         work_item = client.create_work_item(document=patch_document, project=project, type=work_item_type)
-        if open_browser:
+        if open:
             _open_work_item(work_item, organization)
         return work_item
     except VstsServiceError as ex:
@@ -101,7 +101,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
 
 
 def update_work_item(id, title=None, description=None, assigned_to=None, state=None, area=None,  # pylint: disable=redefined-builtin
-                     iteration=None, reason=None, discussion=None, fields=None, open_browser=False,
+                     iteration=None, reason=None, discussion=None, fields=None, open=False,
                      organization=None, detect=None):
     r"""Update work items.
     :param id: The id of the work item to update.
@@ -124,8 +124,8 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
     :type discussion: str
     :param fields: Space separated "field=value" pairs for custom fields you would like to set.
     :type fields: [str]
-    :param open_browser: Open the work item in the default web browser.
-    :type open_browser: bool
+    :param open: Open the work item in the default web browser.
+    :type open: bool
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
@@ -168,7 +168,7 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
                     raise ValueError('The --fields argument should consist of space separated "field=value" pairs.')
         client = get_work_item_tracking_client(organization)
         work_item = client.update_work_item(document=patch_document, id=id)
-        if open_browser:
+        if open:
             _open_work_item(work_item, organization)
         return work_item
     except VstsServiceError as ex:
@@ -219,12 +219,12 @@ def _handle_vsts_service_error(ex):
         raise CLIError(ex)
 
 
-def show_work_item(id, open_browser=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def show_work_item(id, open=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details for a work item.
     :param id: The ID of the work item
     :type id: int
-    :param open_browser: Open the work item in the default web browser.
-    :type open_browser: bool
+    :param open: Open the work item in the default web browser.
+    :type open: bool
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
@@ -240,7 +240,7 @@ def show_work_item(id, open_browser=False, organization=None, detect=None):  # p
         except VstsServiceError as ex:
             _handle_vsts_service_error(ex)
 
-        if open_browser:
+        if open:
             _open_work_item(work_item, organization)
         return work_item
     except VstsServiceError as ex:

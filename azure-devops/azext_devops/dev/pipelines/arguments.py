@@ -18,7 +18,6 @@ _BUILD_STATUS_VALUES = ['all', 'cancelling', 'completed', 'inProgress', 'none', 
 
 def load_build_arguments(self, _):
     with self.argument_context('pipelines build') as context:
-        context.argument('open_browser', options_list='--open')
         context.argument('project', options_list=('--project', '-p'))
         context.argument('organization', options_list=('--organization', '--org'))
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
@@ -41,7 +40,6 @@ def load_build_arguments(self, _):
             type=str.lower)
 
     with self.argument_context('pipelines release') as context:
-        context.argument('open_browser', options_list='--open')
         context.argument('project', options_list=('--project', '-p'))
         context.argument('organization', options_list=('--organization', '--org'))
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))

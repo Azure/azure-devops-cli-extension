@@ -19,7 +19,7 @@ logger = get_logger(__name__)
 
 
 def create_project(name, organization=None, process=None, source_control='git', description=None,
-                   visibility='private', detect=None, open_browser=False):
+                   visibility='private', detect=None, open=False):
     """Create a team project.
     :param name: Name of the new project.
     :type name: str
@@ -36,8 +36,8 @@ def create_project(name, organization=None, process=None, source_control='git', 
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :param open_browser: Open the team project in the default web browser.
-    :type open_browser: bool
+    :param open: Open the team project in the default web browser.
+    :type open: bool
     :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
     try:
@@ -87,7 +87,7 @@ def create_project(name, organization=None, process=None, source_control='git', 
             raise CLIError('Project creation was cancelled.')
 
         team_project = core_client.get_project(project_id=name, include_capabilities=True)
-        if open_browser:
+        if open:
             _open_project(team_project)
         return team_project
     except VstsServiceError as ex:
@@ -120,7 +120,7 @@ def delete_project(id, organization=None, detect=None):  # pylint: disable=redef
         raise CLIError(ex)
 
 
-def show_project(project, organization=None, detect=None, open_browser=False):
+def show_project(project, organization=None, detect=None, open=False):
     """Show team project.
     :param project: The id (UUID) or name of the project to show.
     :type project: str
@@ -129,15 +129,15 @@ def show_project(project, organization=None, detect=None, open_browser=False):
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :param open_browser: Open the team project in the default web browser.
-    :type open_browser: bool
+    :param open: Open the team project in the default web browser.
+    :type open: bool
     :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
     try:
         organization = resolve_instance(detect=detect, organization=organization)
         core_client = get_core_client(organization)
         team_project = core_client.get_project(project_id=project, include_capabilities=True)
-        if open_browser:
+        if open:
             _open_project(team_project)
         return team_project
     except VstsServiceError as ex:

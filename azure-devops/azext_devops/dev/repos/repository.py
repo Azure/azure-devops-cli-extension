@@ -19,7 +19,7 @@ from azext_devops.dev.common.uri import uri_quote
 logger = get_logger(__name__)
 
 
-def create_repo(name, organization=None, project=None, detect=None, open_browser=False):
+def create_repo(name, organization=None, project=None, detect=None, open=False):
     """Create a Git repository in a team project.
     :param name: Name for the new repository.
     :type name: str
@@ -29,8 +29,8 @@ def create_repo(name, organization=None, project=None, detect=None, open_browser
     :type project: str
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
-    :param open_browser: Open the repository page in your web browser.
-    :type open_browser: bool
+    :param open: Open the repository page in your web browser.
+    :type open: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
     try:
@@ -42,7 +42,7 @@ def create_repo(name, organization=None, project=None, detect=None, open_browser
         create_options.name = name
         repository = git_client.create_repository(git_repository_to_create=create_options,
                                                   project=project)
-        if open_browser:
+        if open:
             _open_repository(repository, organization)
         return repository
     except VstsServiceError as ex:
@@ -93,7 +93,7 @@ def list_repos(organization=None, project=None, detect=None):
         raise CLIError(ex)
 
 
-def show_repo(repo, organization=None, project=None, detect=None, open_browser=False):
+def show_repo(repo, organization=None, project=None, detect=None, open=False):
     """Get the details of a Git repository.
     :param repo: ID or name of the repository.
     :type repo: str
@@ -103,8 +103,8 @@ def show_repo(repo, organization=None, project=None, detect=None, open_browser=F
     :type project: str
     :param detect: Automatically detect organization, project and repository. Default is "on".
     :type detect: str
-    :param open_browser: Open the repository page in your web browser.
-    :type open_browser: bool
+    :param open: Open the repository page in your web browser.
+    :type open: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
     try:
@@ -116,7 +116,7 @@ def show_repo(repo, organization=None, project=None, detect=None, open_browser=F
             repo=repo)
         git_client = get_git_client(organization)
         repository = git_client.get_repository(project=project, repository_id=repo)
-        if open_browser:
+        if open:
             _open_repository(repository, organization)
         return repository
     except VstsServiceError as ex:
