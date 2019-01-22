@@ -51,7 +51,10 @@ def credential_clear(organization=None):
     if organization is not None:
         organization = get_base_url(organization)
     clear_credential(organization)
-    print('The credential was successfully cleared.')
+    if organization is not None:
+        print('The credential was successfully cleared.')
+    else:
+        print('Logged out of all Azure DevOps organizations.')
     _check_and_clear_default_organization(organization)
 
 
