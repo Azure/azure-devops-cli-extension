@@ -22,13 +22,13 @@ class ArtifactToolInvoker:
 
 
     def download_universal(self, devops_organization, feed, package_name, package_version, path):
-        args = ["universal", "download", "--service", devops_organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY, "--feed", feed,
-                "--package-name", package_name, "--package-version", package_version, "--path", path]
+        args = ["universal", "download", "--service", devops_organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
+                "--feed", feed, "--package-name", package_name, "--package-version", package_version, "--path", path]
         return self.run_artifacttool(devops_organization, args, "Downloading")
 
     def publish_universal(self, devops_organization, feed, package_name, package_version, description, path):
-        args = ["universal", "publish", "--service", devops_organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY, "--feed", feed,
-                "--package-name", package_name, "--package-version", package_version, "--path", path]
+        args = ["universal", "publish", "--service", devops_organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
+                "--feed", feed, "--package-name", package_name, "--package-version", package_version, "--path", path]
         if description:
             args.extend(["--description", description])
         return self.run_artifacttool(devops_organization, args, "Publishing")

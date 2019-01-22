@@ -40,7 +40,7 @@ class ArtifactToolUpdater:
             artifacttool_binary_path = self._get_artifacttool(devops_organization)
         return artifacttool_binary_path
 
-    def _get_artifacttool(self, devops_organization):
+    def _get_artifacttool(self, devops_organization):  # pylint: disable=no-self-use
         logger.debug("Checking for ArtifactTool updates")
 
         # Call the auto-update API to find the current version of ArtifactTool
