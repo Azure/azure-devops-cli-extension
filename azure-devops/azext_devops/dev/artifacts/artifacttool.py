@@ -10,7 +10,7 @@ from knack.log import get_logger
 from knack.util import CLIError
 
 from azext_devops.dev.common.services import _get_credentials
-from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX
+from azext_devops.dev.artifacts.const import ARTIFACTTOOL_PAT_ENVKEY
 
 logger = get_logger(__name__)
 
@@ -20,16 +20,15 @@ class ArtifactToolInvoker:
         self._tool_invoker = tool_invoker
         self._artifacttool_updater = artifacttool_updater
 
-    PATVAR = CLI_ENV_VARIABLE_PREFIX + "ARTIFACTTOOL_PATVAR"
-
     def download_universal(self, organization, feed, package_name, package_version, path):
-        args = ["universal", "download", "--service", organization, "--patvar", self.PATVAR, "--feed", feed,
-                "--package-name", package_name, "--package-version", package_version, "--path", path]
+        args = ["universal", "download", "--service", organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
+                "--feed", feed, "--package-name", package_name, "--package-version", package_version, "--path", path]
         return self.run_artifacttool(organization, args, "Downloading")
 
     def publish_universal(self, organization, feed, package_name, package_version, description, path):
-        args = ["universal", "publish", "--service", organization, "--patvar", self.PATVAR, "--feed", feed,
-                "--package-name", package_name, "--package-version", package_version, "--path", path]
+        args = ["universal", "publish", "--service", organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
+                "--feed", feed, "--package-name", package_name, "--package-version", package_version, "--path", path]
+
         if description:
             args.extend(["--description", description])
         return self.run_artifacttool(organization, args, "Publishing")
@@ -42,7 +41,7 @@ class ArtifactToolInvoker:
         # Populate the environment for the process with the PAT
         creds = _get_credentials(organization)
         new_env = os.environ.copy()
-        new_env[self.PATVAR] = str(creds.password)
+        new_env[ARTIFACTTOOL_PAT_ENVKEY] = str(creds.password)
 
         # Run ArtifactTool
         command_args = [artifacttool_binary_path] + args

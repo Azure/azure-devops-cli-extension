@@ -9,7 +9,8 @@ import unittest
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from dateutil import parser
-from .utilities.helper import ( get_random_name , DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry, PAT_ENV_VARIABLE_NAME)
+from .utilities.helper import ( get_random_name , DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry)
+from azext_devops.dev.common.const import PAT_ENV_VARIABLE_NAME
 
 class AzReposPrTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
