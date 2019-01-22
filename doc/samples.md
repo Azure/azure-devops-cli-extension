@@ -5,6 +5,7 @@
 4. [Query ouput](samples.md#query-output)
 4. [Open items in browser](samples.md#open-items-in-browser)
 5. [Use the Azure DevOps Extension in a release pipeline](samples.md#use-the-azure-devops-extension-in-a-release-pipeline)
+6. [Use the Azure DevOps Extension with YAML]()
 
 ## Log in via Azure DevOps Personal Access Token (PAT)
 You can log in using an Azure DevOps Personal Access Token. See the [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
@@ -111,4 +112,51 @@ az devops -h
 ```
 
 The first line of the script installs the Azure CLI. 
+
+# Use the Azure DevOps Extension with YAML
+If you prefer to use YAML to provide your release pipeline configuration, you can use the following example to understand how YAML can be used to install Azure CLI and add the Azure DevOps extension.
+
+In the example, you will learn how to add the Azure DevOps extension to Azure CLI and run the build and PR list commands on Linux and Mac OS hosted agent pools.
+
+1. Create the azure-pipelines-steps.yml file and include the content below.
+```
+steps:
+- script: az --version
+  displayName: 'Show Azure CLI version'
+
+- script: az extension add -n azure-devops
+  displayName: 'Install Azure DevOps Extension'
+
+- script: echo ${AZURE_DEVOPS_CLI_PAT} | az devops login
+  env:
+    AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
+  displayName: 'Login Azure DevOps Extension'
+
+- script: az devops configure --defaults organization=$(System.TeamFoundationCollectionUri) project=$(System.TeamProject) --use-git-aliases yes
+  displayName: 'Set default Azure DevOps organization and project'
+
+- script: |
+    az pipelines build list
+    git pr list
+  displayName: 'Show build list and PRs'
+```
+2. Create the azure-pipelines.yml and include the content below.
+```
+jobs:
+# Running Azure DevOps extension commands on a hosted Ubuntu Agent Pool
+- job:
+  displayName: 'Linux'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azure-pipelines-steps.yml
+  
+# Running Azure DevOps extension commands on a hosted Mac OS Agent Pool
+- job:
+  displayName: 'macOS'
+  pool:
+    vmImage: 'macOS-10.13'
+  steps:
+  - template: azure-pipelines-steps.yml
+```
 
