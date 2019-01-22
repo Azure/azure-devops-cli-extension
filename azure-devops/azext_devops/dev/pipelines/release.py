@@ -16,7 +16,7 @@ logger = get_logger(__name__)
 
 
 def release_create(definition_id=None, definition_name=None, artifact_metadata_list=None, description=None,
-                   open=False, organization=None, project=None, detect=None):
+                   open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Request (create) a release.
     :param definition_id: ID of the definition to create. Required if --definition-name is not supplied.
     :type definition_id: int

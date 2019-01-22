@@ -20,7 +20,7 @@ from .build_definition import get_definition_id_from_name
 logger = get_logger(__name__)
 
 
-def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open=False,
+def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open=False,  # pylint: disable=redefined-builtin
                 organization=None, project=None, detect=None, source_branch=None, commit_id=None):
     """Request (queue) a build.
     :param definition_id: ID of the definition to queue. Required if --name is not supplied.

@@ -19,7 +19,7 @@ from azext_devops.dev.common.uri import uri_quote
 logger = get_logger(__name__)
 
 
-def create_repo(name, organization=None, project=None, detect=None, open=False):
+def create_repo(name, organization=None, project=None, detect=None, open=False):  # pylint: disable=redefined-builtin
     """Create a Git repository in a team project.
     :param name: Name for the new repository.
     :type name: str
@@ -35,8 +35,8 @@ def create_repo(name, organization=None, project=None, detect=None, open=False):
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
-                                                                    organization=organization,
-                                                                    project=project)
+                                                             organization=organization,
+                                                             project=project)
         git_client = get_git_client(organization)
         create_options = GitRepositoryCreateOptions()
         create_options.name = name
@@ -62,8 +62,8 @@ def delete_repo(id, organization=None, project=None, detect=None):  # pylint: di
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
-                                                                    organization=organization,
-                                                                    project=project)
+                                                             organization=organization,
+                                                             project=project)
         git_client = get_git_client(organization)
         delete_response = git_client.delete_repository(project=project, repository_id=id)
         print('Deleted repository {}'.format(id))
@@ -84,8 +84,8 @@ def list_repos(organization=None, project=None, detect=None):
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
-                                                                    organization=organization,
-                                                                    project=project)
+                                                             organization=organization,
+                                                             project=project)
         git_client = get_git_client(organization)
         repository = git_client.get_repositories(project=project)
         return repository
@@ -93,7 +93,7 @@ def list_repos(organization=None, project=None, detect=None):
         raise CLIError(ex)
 
 
-def show_repo(repo, organization=None, project=None, detect=None, open=False):
+def show_repo(repo, organization=None, project=None, detect=None, open=False):  # pylint: disable=redefined-builtin
     """Get the details of a Git repository.
     :param repo: ID or name of the repository.
     :type repo: str

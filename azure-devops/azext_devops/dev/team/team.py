@@ -26,8 +26,8 @@ def create_team(name, description=None, organization=None, project=None, detect=
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
-                                                                    organization=organization,
-                                                                    project=project)
+                                                             organization=organization,
+                                                             project=project)
         core_client = get_core_client(organization)
         team_to_create = WebApiTeam(name=name, description=description)
         return core_client.create_team(team=team_to_create, project_id=project)
@@ -48,8 +48,8 @@ def delete_team(team, organization=None, project=None, detect=None):
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
-                                                                    organization=organization,
-                                                                    project=project)
+                                                             organization=organization,
+                                                             project=project)
         core_client = get_core_client(organization)
         return core_client.delete_team(team_id=team, project_id=project)
     except VstsServiceError as ex:
@@ -70,8 +70,8 @@ def get_team(team, organization=None, project=None, detect=None):
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
-                                                                    organization=organization,
-                                                                    project=project)
+                                                             organization=organization,
+                                                             project=project)
         core_client = get_core_client(organization)
         return core_client.get_team(team_id=team, project_id=project)
     except VstsServiceError as ex:
@@ -94,8 +94,8 @@ def get_teams(top=None, skip=None, organization=None, project=None, detect=None)
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
-                                                                    organization=organization,
-                                                                    project=project)
+                                                             organization=organization,
+                                                             project=project)
         core_client = get_core_client(organization)
         return core_client.get_teams(top=top, skip=skip, project_id=project)
     except VstsServiceError as ex:
@@ -120,8 +120,8 @@ def get_team_members(team, top=None, skip=None, organization=None, project=None,
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
-                                                                    organization=organization,
-                                                                    project=project)
+                                                             organization=organization,
+                                                             project=project)
         core_client = get_core_client(organization)
         return core_client.get_team_members(team_id=team, top=top, skip=skip, project_id=project)
     except VstsServiceError as ex:
@@ -148,8 +148,8 @@ def update_team(team, name=None, description=None, organization=None, project=No
         raise CLIError('Either name or description argument must be provided.')
     try:
         organization, project = resolve_instance_and_project(detect=detect,
-                                                                    organization=organization,
-                                                                    project=project)
+                                                             organization=organization,
+                                                             project=project)
         core_client = get_core_client(organization)
         updated_team_data = WebApiTeam(name=name, description=description)
         return core_client.update_team(team_data=updated_team_data, project_id=project, team_id=team)

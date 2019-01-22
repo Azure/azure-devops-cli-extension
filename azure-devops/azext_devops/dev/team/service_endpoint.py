@@ -32,8 +32,8 @@ def list_service_endpoints(organization=None, project=None, detect=None):
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
-                                                                    organization=organization,
-                                                                    project=project)
+                                                             organization=organization,
+                                                             project=project)
         client = get_service_endpoint_client(organization)
         return client.get_service_endpoints(project)
 
@@ -55,8 +55,8 @@ def show_service_endpoint(id, organization=None, project=None, detect=None):  # 
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
-                                                                    organization=organization,
-                                                                    project=project)
+                                                             organization=organization,
+                                                             project=project)
         client = get_service_endpoint_client(organization)
         return client.get_service_endpoint_details(project, id)
 
@@ -103,8 +103,8 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
-                                                                    organization=organization,
-                                                                    project=project)
+                                                             organization=organization,
+                                                             project=project)
         client = get_service_endpoint_client(organization)
 
         if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_GITHUB and

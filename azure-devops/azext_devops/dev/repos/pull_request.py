@@ -119,7 +119,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
                         merge_commit_message=None, reviewers=None, work_items=None,
-                        open=False, organization=None, detect=None, transition_work_items=False):
+                        open=False, organization=None, detect=None, transition_work_items=False):  # pylint: disable=redefined-builtin
     """Create a pull request.
     :param project: Name or ID of the team project.
     :type project: str
