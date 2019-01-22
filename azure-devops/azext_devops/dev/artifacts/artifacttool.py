@@ -22,25 +22,25 @@ class ArtifactToolInvoker:
 
     PATVAR = CLI_ENV_VARIABLE_PREFIX + "ARTIFACTTOOL_PATVAR"
 
-    def download_universal(self, devops_organization, feed, package_name, package_version, path):
-        args = ["universal", "download", "--service", devops_organization, "--patvar", self.PATVAR, "--feed", feed,
+    def download_universal(self, organization, feed, package_name, package_version, path):
+        args = ["universal", "download", "--service", organization, "--patvar", self.PATVAR, "--feed", feed,
                 "--package-name", package_name, "--package-version", package_version, "--path", path]
-        return self.run_artifacttool(devops_organization, args, "Downloading")
+        return self.run_artifacttool(organization, args, "Downloading")
 
-    def publish_universal(self, devops_organization, feed, package_name, package_version, description, path):
-        args = ["universal", "publish", "--service", devops_organization, "--patvar", self.PATVAR, "--feed", feed,
+    def publish_universal(self, organization, feed, package_name, package_version, description, path):
+        args = ["universal", "publish", "--service", organization, "--patvar", self.PATVAR, "--feed", feed,
                 "--package-name", package_name, "--package-version", package_version, "--path", path]
         if description:
             args.extend(["--description", description])
-        return self.run_artifacttool(devops_organization, args, "Publishing")
+        return self.run_artifacttool(organization, args, "Publishing")
 
-    def run_artifacttool(self, devops_organization, args, initial_progress_message):
+    def run_artifacttool(self, organization, args, initial_progress_message):
         # Download ArtifactTool if necessary, and return the path
-        artifacttool_dir = self._artifacttool_updater.get_latest_artifacttool(devops_organization)
+        artifacttool_dir = self._artifacttool_updater.get_latest_artifacttool(organization)
         artifacttool_binary_path = os.path.join(artifacttool_dir, "artifacttool")
 
         # Populate the environment for the process with the PAT
-        creds = _get_credentials(devops_organization)
+        creds = _get_credentials(organization)
         new_env = os.environ.copy()
         new_env[self.PATVAR] = str(creds.password)
 

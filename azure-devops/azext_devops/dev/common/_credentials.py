@@ -10,36 +10,36 @@ from .credential_store import CredentialStore
 logger = get_logger(__name__)
 
 
-def get_credential(devops_organization, fall_back_to_default=True):
-    token = _get_credential(devops_organization)
-    if token is None and devops_organization is not None and fall_back_to_default:
-        token = _get_credential(devops_organization=None)
+def get_credential(organization, fall_back_to_default=True):
+    token = _get_credential(organization)
+    if token is None and organization is not None and fall_back_to_default:
+        token = _get_credential(organization=None)
     return token
 
 
-def _get_credential(devops_organization):
-    key = _get_service_name(devops_organization)
+def _get_credential(organization):
+    key = _get_service_name(organization)
     logger.debug('Getting credential: %s', key)
     cred_store = CredentialStore()
     return cred_store.get_password(key)
 
 
-def set_credential(devops_organization, token):
-    key = _get_service_name(devops_organization)
+def set_credential(organization, token):
+    key = _get_service_name(organization)
     cred_store = CredentialStore()
     cred_store.set_password(key, token)
 
 
-def clear_credential(devops_organization):
-    key = _get_service_name(devops_organization)
+def clear_credential(organization):
+    key = _get_service_name(organization)
     logger.debug('Clearing credential: %s', key)
     cred_store = CredentialStore()
     cred_store.clear_password(key)
 
 
-def _get_service_name(devops_organization):
-    if devops_organization is not None:
-        return 'azdevops-cli:' + normalize_url_for_key(devops_organization)
+def _get_service_name(organization):
+    if organization is not None:
+        return 'azdevops-cli:' + normalize_url_for_key(organization)
     return 'azdevops-cli: default'
 
 

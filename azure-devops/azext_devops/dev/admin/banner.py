@@ -9,34 +9,34 @@ from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
 from .setting import setting_add_or_update, setting_list, setting_remove, GLOBAL_MESSAGE_BANNERS_KEY, USER_SCOPE_HOST
 
 
-def banner_list(devops_organization=None, detect=None):
+def banner_list(organization=None, detect=None):
     """List banners.
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     :rtype: [object]
     """
     try:
         return setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY,
-                            devops_organization=devops_organization, detect=detect)
+                            organization=organization, detect=detect)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def banner_show(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def banner_show(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details for a banner.
     :param id: Identifier for the banner.
     :type id: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     :rtype: [object]
     """
     try:
         existing_entries = setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY,
-                                        devops_organization=devops_organization, detect=detect)
+                                        organization=organization, detect=detect)
         if id not in existing_entries:
             raise ValueError('The following banner was not found: %s' % id)
         return {id: existing_entries[id]}
@@ -44,7 +44,7 @@ def banner_show(id, devops_organization=None, detect=None):  # pylint: disable=r
         raise CLIError(ex)
 
 
-def banner_add(message, banner_type=None, id=None, expiration=None, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def banner_add(message, banner_type=None, id=None, expiration=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Add a new banner and immediately show it.
     :param message: Message (string) to show in the banner.
     :type message: str
@@ -56,8 +56,8 @@ def banner_add(message, banner_type=None, id=None, expiration=None, devops_organ
     :param expiration: Date/time when the banner should no longer be presented to users. If not set, the banner does not
                        automatically expire and must be removed with the remove command.
     :type expiration: date
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     :rtype: [object]
@@ -81,13 +81,13 @@ def banner_add(message, banner_type=None, id=None, expiration=None, devops_organ
         if expiration_iso8601 is not None:
             entries[setting_key]['expirationDate'] = expiration_iso8601
         setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST,
-                              devops_organization=devops_organization, detect=detect)
+                              organization=organization, detect=detect)
         return {id: entries[setting_key]}
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def banner_update(message=None, banner_type=None, id=None, expiration=None, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def banner_update(message=None, banner_type=None, id=None, expiration=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Update the message, level, or expiration date for a banner.
     :param message: Message (string) to show in the banner.
     :type message: str
@@ -98,8 +98,8 @@ def banner_update(message=None, banner_type=None, id=None, expiration=None, devo
     :param expiration: Date/time when the banner should no longer be presented to users. To unset the expiration for the
                        banner, supply an empty value to this argument.
     :type expiration: date
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     :rtype: [object]
@@ -114,7 +114,7 @@ def banner_update(message=None, banner_type=None, id=None, expiration=None, devo
             expiration_iso8601 = None
         existing_entries = setting_list(user_scope='host',
                                         key=GLOBAL_MESSAGE_BANNERS_KEY,
-                                        devops_organization=devops_organization,
+                                        organization=organization,
                                         detect=detect)
         if id not in existing_entries:
             raise ValueError('The following banner was not found: %s' % id)
@@ -140,26 +140,26 @@ def banner_update(message=None, banner_type=None, id=None, expiration=None, devo
         elif 'expirationDate' in existing_entry:
             entries[setting_key]['expirationDate'] = existing_entry['expirationDate']
 
-        setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST, devops_organization=devops_organization,
+        setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST, organization=organization,
                               detect=detect)
         return {id: entries[setting_key]}
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def banner_remove(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def banner_remove(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Remove a banner.
     :param id: ID of the banner to remove.
     :type id: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     :rtype: [object]
     """
     try:
         setting_key = _get_banner_key(id)
-        setting_remove(key=setting_key, user_scope='host', devops_organization=devops_organization, detect=detect)
+        setting_remove(key=setting_key, user_scope='host', organization=organization, detect=detect)
     except VstsServiceError as ex:
         raise CLIError(ex)
 

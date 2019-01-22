@@ -18,13 +18,13 @@ from azext_devops.dev.common.uri import uri_quote
 logger = get_logger(__name__)
 
 
-def create_project(name, devops_organization=None, process=None, source_control='git', description=None,
-                   visibility='private', detect=None, open_browser=False):
+def create_project(name, organization=None, process=None, source_control='git', description=None,
+                   visibility='private', detect=None, open=False):  # pylint: disable=redefined-builtin
     """Create a team project.
     :param name: Name of the new project.
     :type name: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param process: Process to use. Default if not specified.
     :type process: str
     :param source_control: Source control type of the initial code repository created.
@@ -36,12 +36,12 @@ def create_project(name, devops_organization=None, process=None, source_control=
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :param open_browser: Open the team project in the default web browser.
-    :type open_browser: bool
+    :param open: Open the team project in the default web browser.
+    :type open: bool
     :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
 
         team_project = TeamProject()
         team_project.name = name
@@ -50,7 +50,7 @@ def create_project(name, devops_organization=None, process=None, source_control=
         # private is the only allowed value by vsts right now.
         team_project.visibility = visibility
 
-        core_client = get_core_client(devops_organization)
+        core_client = get_core_client(organization)
 
         # get process template id
         process_id = None
@@ -79,7 +79,7 @@ def create_project(name, devops_organization=None, process=None, source_control=
 
         # queue project creation
         operation_reference = core_client.queue_create_project(project_to_create=team_project)
-        operation = wait_for_long_running_operation(devops_organization, operation_reference.id, 1)
+        operation = wait_for_long_running_operation(organization, operation_reference.id, 1)
         status = operation.status.lower()
         if status == 'failed':
             raise CLIError('Project creation failed.')
@@ -87,28 +87,28 @@ def create_project(name, devops_organization=None, process=None, source_control=
             raise CLIError('Project creation was cancelled.')
 
         team_project = core_client.get_project(project_id=name, include_capabilities=True)
-        if open_browser:
+        if open:
             _open_project(team_project)
         return team_project
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def delete_project(id, devops_organization=None, detect=None):  # pylint: disable=redefined-builtin
+def delete_project(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete team project.
     :param id: The id (UUID) of the project to delete.
     :type id: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        core_client = get_core_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        core_client = get_core_client(organization)
         operation_reference = core_client.queue_delete_project(project_id=id)
-        operation = wait_for_long_running_operation(devops_organization, operation_reference.id, 1)
+        operation = wait_for_long_running_operation(organization, operation_reference.id, 1)
         status = operation.status.lower()
         if status == 'failed':
             raise CLIError('Project deletion failed.')
@@ -120,34 +120,34 @@ def delete_project(id, devops_organization=None, detect=None):  # pylint: disabl
         raise CLIError(ex)
 
 
-def show_project(project, devops_organization=None, detect=None, open_browser=False):
+def show_project(project, organization=None, detect=None, open=False):  # pylint: disable=redefined-builtin
     """Show team project.
     :param project: The id (UUID) or name of the project to show.
     :type project: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: When 'On' unsupplied arg values will be detected from the current working
                    directory's repo.
     :type detect: str
-    :param open_browser: Open the team project in the default web browser.
-    :type open_browser: bool
+    :param open: Open the team project in the default web browser.
+    :type open: bool
     :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        core_client = get_core_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        core_client = get_core_client(organization)
         team_project = core_client.get_project(project_id=project, include_capabilities=True)
-        if open_browser:
+        if open:
             _open_project(team_project)
         return team_project
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def list_projects(devops_organization=None, top=None, skip=None, detect=None):
+def list_projects(organization=None, top=None, skip=None, detect=None):
     """List team projects
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param top: Maximum number of results to list.
     :type top: int
     :param skip: Number of results to skip.
@@ -158,8 +158,8 @@ def list_projects(devops_organization=None, top=None, skip=None, detect=None):
     :rtype: list of :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
     try:
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
-        core_client = get_core_client(devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
+        core_client = get_core_client(organization)
         team_projects = core_client.get_projects(state_filter='all', top=top, skip=skip)
         return team_projects
     except VstsServiceError as ex:

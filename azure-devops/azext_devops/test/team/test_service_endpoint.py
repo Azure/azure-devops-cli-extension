@@ -72,7 +72,7 @@ class TestServiceEndpointMethods(unittest.TestCase):
         response = create_service_endpoint(service_endpoint_type = SERVICE_ENDPOINT_TYPE_GITHUB, 
                                            authorization_scheme = SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN, 
                                            name = '',
-                                           devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+                                           organization = self._TEST_DEVOPS_ORGANIZATION,
                                            project = self._TEST_PROJECT_NAME)
 
         #assert
@@ -83,7 +83,7 @@ class TestServiceEndpointMethods(unittest.TestCase):
         response = create_service_endpoint(service_endpoint_type = SERVICE_ENDPOINT_TYPE_AZURE_RM, 
                                            authorization_scheme = SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL, 
                                            name = '',
-                                           devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+                                           organization = self._TEST_DEVOPS_ORGANIZATION,
                                            project = self._TEST_PROJECT_NAME)
 
         #assert
