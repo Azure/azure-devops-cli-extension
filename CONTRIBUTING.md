@@ -40,8 +40,9 @@ Use our Feature Request [template](https://github.com/Microsoft/vsts-cli/issues/
 
 Unsure where to begin contributing? You can start by looking through these beginner and help-wanted issues:
 
-[Beginner issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3ABeginner) - issues which should only require a few lines of code, and a test or two.
-[Help wanted issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) - issues which should be a bit more involved than beginner issues.
+- [Beginner issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3ABeginner) - issues which should only require a few lines of code, and a test or two.
+
+- [Help wanted issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) - issues which should be a bit more involved than beginner issues.
 
 Refer our [Developer setup](./doc/dev_setup.md) instructions to get started with code and running tests.
 
