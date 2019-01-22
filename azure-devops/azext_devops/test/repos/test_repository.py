@@ -55,7 +55,7 @@ class TestRepositoryMethods(unittest.TestCase):
 
     def test_create_repo(self):
         response = create_repo(name = 'sample repo',
-        devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+        organization = self._TEST_DEVOPS_ORGANIZATION,
         project = 'sample project',
         detect='off')
 
@@ -64,7 +64,7 @@ class TestRepositoryMethods(unittest.TestCase):
 
     def test_delete_repo(self):
         response = delete_repo(id = 'sample repo',
-        devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+        organization = self._TEST_DEVOPS_ORGANIZATION,
         project = 'sample project',
         detect='off')
 
@@ -72,7 +72,7 @@ class TestRepositoryMethods(unittest.TestCase):
         self.mock_delete_repo.assert_called_once()
 
     def test_list_repos(self):
-        response = list_repos(devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+        response = list_repos(organization = self._TEST_DEVOPS_ORGANIZATION,
         project = 'sample project',
         detect='off')
 
@@ -81,7 +81,7 @@ class TestRepositoryMethods(unittest.TestCase):
 
     def test_show_repo(self):
         response = show_repo(repo = 'sample repo id',
-        devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+        organization = self._TEST_DEVOPS_ORGANIZATION,
         project = 'sample project',
         detect='off')
 

@@ -10,40 +10,40 @@ from .uuid import is_uuid
 from .services import get_connection_data, get_identity_client
 
 
-def resolve_identity_as_id(identity_filter, devops_organization):
+def resolve_identity_as_id(identity_filter, organization):
     """Takes an identity name, email, alias, or id, and returns the id.
     """
     if identity_filter is None or is_uuid(identity_filter):
         return identity_filter
     if identity_filter.lower() == ME:
-        return get_current_identity(devops_organization).id
-    identity = resolve_identity(identity_filter, devops_organization)
+        return get_current_identity(organization).id
+    identity = resolve_identity(identity_filter, organization)
     if identity is not None:
         return identity.id
     return None
 
 
-def resolve_identity_as_display_name(identity_filter, devops_organization):
+def resolve_identity_as_display_name(identity_filter, organization):
     """Takes an identity name, email, alias, or id, and returns the display name.
     """
-    identity = resolve_identity(identity_filter, devops_organization)
+    identity = resolve_identity(identity_filter, organization)
     if identity is not None:
         if identity_filter.lower() == ME:
-            return get_current_identity(devops_organization).provider_display_name
+            return get_current_identity(organization).provider_display_name
         return get_display_name_from_identity(identity)
     return None
 
 
-def resolve_identity(identity_filter, devops_organization):
+def resolve_identity(identity_filter, organization):
     """Takes an identity name, email, alias, or id, and returns the identity.
     """
     if identity_filter is None:
         return None
 
     if identity_filter.lower() == ME:
-        return get_current_identity(devops_organization)
+        return get_current_identity(organization)
 
-    identity_client = get_identity_client(devops_organization)
+    identity_client = get_identity_client(organization)
     if identity_filter.find(' ') > 0 or identity_filter.find('@') > 0:
         identities = identity_client.read_identities(search_filter='General',
                                                      filter_value=identity_filter)
@@ -63,7 +63,7 @@ def resolve_identity(identity_filter, devops_organization):
         identities_with_tenant = []
         for identity in identities:
             if 'Domain' in identity.properties and '$value' in identity.properties['Domain']:
-                current_user = get_current_identity(devops_organization)
+                current_user = get_current_identity(organization)
                 if 'Domain' in current_user.properties and '$value' in current_user.properties['Domain']\
                         and identity.properties['Domain']['$value'] ==\
                         current_user.properties['Domain']['$value']:
@@ -76,29 +76,29 @@ def resolve_identity(identity_filter, devops_organization):
         return identities[0]
 
 
-def get_current_identity(devops_organization):
-    return get_connection_data(devops_organization).authenticated_user
+def get_current_identity(organization):
+    return get_connection_data(organization).authenticated_user
 
 
-def get_identities(devops_organization, identity_ids):
-    identity_client = get_identity_client(devops_organization)
+def get_identities(organization, identity_ids):
+    identity_client = get_identity_client(organization)
     return identity_client.read_identities(identity_ids=identity_ids)
 
 
-def ensure_display_names_in_cache(devops_organization, identity_ids):
+def ensure_display_names_in_cache(organization, identity_ids):
     ids_to_look_up = []
     for identity_id in identity_ids:
         if not _display_name_cache[identity_id]:
             ids_to_look_up.append(identity_id)
     if ids_to_look_up:
-        resolved_identities = get_identities(devops_organization, ','.join(ids_to_look_up))
+        resolved_identities = get_identities(organization, ','.join(ids_to_look_up))
         for identity in resolved_identities:
             _display_name_cache[identity.id] = get_display_name_from_identity(identity)
 
 
-def get_display_name_from_identity_id(devops_organization, identity_id):
+def get_display_name_from_identity_id(organization, identity_id):
     if not _display_name_cache[identity_id]:
-        ensure_display_names_in_cache(devops_organization, [identity_id])
+        ensure_display_names_in_cache(organization, [identity_id])
     if _display_name_cache[identity_id]:
         return _display_name_cache[identity_id]
     return None

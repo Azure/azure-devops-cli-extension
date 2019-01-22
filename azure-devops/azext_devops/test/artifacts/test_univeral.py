@@ -15,6 +15,7 @@ except ImportError:
 from azext_devops.dev.artifacts.universal import (publish_package,
                                                  download_package)
 from azext_devops.dev.artifacts.artifacttool import ArtifactToolInvoker
+from azext_devops.dev.artifacts.const import ARTIFACTTOOL_PAT_ENVKEY
 from azext_devops.dev.common.services import clear_connection_cache
 
 
@@ -50,7 +51,7 @@ class TestUniversalPackages(unittest.TestCase):
             version = self._TEST_PACKAGE_VERSION,
             description = self._TEST_PACKAGE_DESCRIPTION,
             path = self._TEST_PATH,
-            devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+            organization = self._TEST_DEVOPS_ORGANIZATION,
             detect='off')
 
         # assert
@@ -58,7 +59,7 @@ class TestUniversalPackages(unittest.TestCase):
             [
                 'universal', 'publish', 
                 '--service', self._TEST_DEVOPS_ORGANIZATION, 
-                 '--patvar', 'AZURE_DEVOPS_CLI_ARTIFACTTOOL_PATVAR', 
+                 '--patvar', ARTIFACTTOOL_PAT_ENVKEY, 
                  '--feed', self._TEST_FEED_NAME, 
                  '--package-name', self._TEST_PACKAGE_NAME, 
                  '--package-version', self._TEST_PACKAGE_VERSION, 
@@ -72,7 +73,7 @@ class TestUniversalPackages(unittest.TestCase):
             name = self._TEST_PACKAGE_NAME,
             version = self._TEST_PACKAGE_VERSION,
             path = self._TEST_PATH,
-            devops_organization = self._TEST_DEVOPS_ORGANIZATION,
+            organization = self._TEST_DEVOPS_ORGANIZATION,
             detect='off')
 
         # assert
@@ -80,7 +81,7 @@ class TestUniversalPackages(unittest.TestCase):
             [
                 'universal', 'download', 
                 '--service', self._TEST_DEVOPS_ORGANIZATION, 
-                    '--patvar', 'AZURE_DEVOPS_CLI_ARTIFACTTOOL_PATVAR', 
+                    '--patvar', ARTIFACTTOOL_PAT_ENVKEY, 
                     '--feed', self._TEST_FEED_NAME, 
                     '--package-name', self._TEST_PACKAGE_NAME, 
                     '--package-version', self._TEST_PACKAGE_VERSION, 
