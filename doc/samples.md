@@ -83,7 +83,7 @@ You can use --open switch to open any artifact in Azure DevOps portal in your de
 
 For example :
 ```
-$az pipelines build show --build-id 1 --open-browser 
+$az pipelines build show --build-id 1 --open 
 ```
 This will show the details of build with id 1 on command-line and also open it in the default browser.
 
