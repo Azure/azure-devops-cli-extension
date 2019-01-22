@@ -3,6 +3,7 @@
 
 # Azure DevOps Extension for Azure CLI
 
+fake commit
 
 The Azure DevOps Extension for Azure CLI adds Pipelines, Boards, Repos, Artifacts and DevOps commands to the Azure CLI 2.0. 
 
