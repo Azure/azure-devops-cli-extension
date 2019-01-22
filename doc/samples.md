@@ -28,11 +28,11 @@ To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment varia
 
     Windows:
     ```
-      set AZURE_DEVOPS_EXT_PAT=xxxxxxxxxx
+      set AZURE_DEVOPS_CLI_PAT=xxxxxxxxxx
     ```
     Linux or macOS:
     ```
-      export AZURE_DEVOPS_EXT_PAT=xxxxxxxxxx
+      export AZURE_DEVOPS_CLI_PAT=xxxxxxxxxx
     ```
     Replace *xxxxxxxxxx* with the your PAT.
 
