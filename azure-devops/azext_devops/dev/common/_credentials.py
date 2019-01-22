@@ -54,6 +54,9 @@ def clear_credential(devops_organization):
                 for organization in org_list_file:
                     cred_store.clear_password(organization.rstrip())
             os.remove(ORGANIZATION_LIST_FILE)
+        # this is to clear default credential before upgrade
+        elif cred_store.get_password(key) is not None:
+            cred_store.clear_password(key)
         else:
             raise CLIError('No credentials were found.')
     else:
