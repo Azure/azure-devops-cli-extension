@@ -81,7 +81,7 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_validate_token.return_value = True
         self.mock_get_WI.return_value.id = test_work_item_id
 
-        response = show_work_item(id=test_work_item_id, open_browser=True, organization=self._TEST_DEVOPS_ORGANIZATION)
+        response = show_work_item(id=test_work_item_id, open=True, organization=self._TEST_DEVOPS_ORGANIZATION)
 
         # assert
         self.mock_open_browser.assert_called_with(response,self._TEST_DEVOPS_ORGANIZATION)

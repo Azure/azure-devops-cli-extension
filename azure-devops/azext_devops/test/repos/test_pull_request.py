@@ -219,7 +219,7 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_get_PR_byId.return_value = pr_to_return
 
         response = show_pull_request(id = test_pr_id,
-        open_browser = False,
+        open = False,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         detect='off')
 
