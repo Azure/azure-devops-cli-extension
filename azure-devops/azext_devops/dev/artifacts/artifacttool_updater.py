@@ -19,23 +19,22 @@ from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.services import get_vss_connection
 from azext_devops.dev.common.config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
-from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX
+from azext_devops.dev.artifacts.const import (ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY,
+                                              ARTIFACTTOOL_OVERRIDE_URL_ENVKEY,
+                                              ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY)
 
 logger = get_logger(__name__)
 
 
 # pylint: disable=too-few-public-methods
 class ArtifactToolUpdater:
-    ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY = CLI_ENV_VARIABLE_PREFIX + "ARTIFACTTOOL_OVERRIDE_PATH"
-    ARTIFACTTOOL_OVERRIDE_URL_ENVKEY = CLI_ENV_VARIABLE_PREFIX + "ARTIFACTTOOL_OVERRIDE_URL"
-    ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY = CLI_ENV_VARIABLE_PREFIX + "ARTIFACTTOOL_OVERRIDE_VERSION"
 
     def get_latest_artifacttool(self, devops_organization):
-        artifacttool_binary_override_path = os.environ.get(self.ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY)
+        artifacttool_binary_override_path = os.environ.get(ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY)
         if artifacttool_binary_override_path is not None:
             artifacttool_binary_path = artifacttool_binary_override_path
             logger.debug("ArtifactTool path was overriden to '%s' due to environment variable %s",
-                         artifacttool_binary_path, self.ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY)
+                         artifacttool_binary_path, ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY)
         else:
             logger.debug("Checking for a new ArtifactTool")
             artifacttool_binary_path = self._get_artifacttool(devops_organization)
@@ -45,14 +44,14 @@ class ArtifactToolUpdater:
         logger.debug("Checking for ArtifactTool updates")
 
         # Call the auto-update API to find the current version of ArtifactTool
-        # If AZURE_DEVOPS_CLI_ARTIFACTTOOL_OVERRIDE_URL is set, instead always download from the URL
-        artifacttool_override_url = os.environ.get(self.ARTIFACTTOOL_OVERRIDE_URL_ENVKEY)
+        # If AZURE_DEVOPS_EXT_ARTIFACTTOOL_OVERRIDE_URL is set, instead always download from the URL
+        artifacttool_override_url = os.environ.get(ARTIFACTTOOL_OVERRIDE_URL_ENVKEY)
         if artifacttool_override_url is not None:
             release_uri = artifacttool_override_url
             release_id = "custom_{}".format(uuid.uuid4())
             logger.debug("ArtifactTool download URL is being overridden to '%s' (ID '%s')", release_uri, release_id)
         else:
-            override_version = os.environ.get(self.ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY)
+            override_version = os.environ.get(ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY)
             try:
                 release = _get_current_release(devops_organization, override_version)
             except Exception as ex:

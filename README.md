@@ -57,7 +57,7 @@ az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
 cat my_pat_token.txt | az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
 ```
 
-5. You can also store your PAT token in an environment variable called 'AZURE_DEVOPS_CLI_PAT' and skip 'az devops login' command for automation scenarios
+5. You can also store your PAT token in an environment variable called 'AZURE_DEVOPS_EXT_PAT' and skip 'az devops login' command for automation scenarios
 
 ### Using Azure Devops CLI Behind a Proxy
 
