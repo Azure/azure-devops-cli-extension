@@ -4,7 +4,7 @@
 # 3. Run style check and code coverage
 
 pr:
-- azuredevopscli-dev
+- master
 
 trigger: none
 

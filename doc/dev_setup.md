@@ -16,9 +16,9 @@
    git clone https://github.com/Microsoft/vsts-cli
    ```
    
-2. Checkout `azuredevopscli-dev` branch.
+2. Checkout `master` branch.
    ```bash
-   git checkout azuredevopscli-dev
+   git checkout master
    ```
 
 3. Optionally, clone the VSTS Python SDK repository:
