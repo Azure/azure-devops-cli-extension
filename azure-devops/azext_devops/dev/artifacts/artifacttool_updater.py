@@ -29,7 +29,6 @@ logger = get_logger(__name__)
 # pylint: disable=too-few-public-methods
 class ArtifactToolUpdater:
 
-
     def get_latest_artifacttool(self, organization):
         artifacttool_binary_override_path = os.environ.get(ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY)
         if artifacttool_binary_override_path is not None:
@@ -40,7 +39,6 @@ class ArtifactToolUpdater:
             logger.debug("Checking for a new ArtifactTool")
             artifacttool_binary_path = self._get_artifacttool(organization)
         return artifacttool_binary_path
-
 
     def _get_artifacttool(self, organization):  # pylint: disable=no-self-use
         logger.debug("Checking for ArtifactTool updates")
