@@ -7,7 +7,7 @@
 5. [Use the Azure DevOps Extension in a release pipeline](samples.md#use-the-azure-devops-extension-in-a-release-pipeline)
 
 ## Log in via Azure DevOps Personal Access Token (PAT)
-You can also log in using an Azure DevOps Personal Access Token. See the [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
+You can log in using an Azure DevOps Personal Access Token. See the [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
 
 Once you have the PAT Token, run the `az devops login` command. You will be prompted to enter PAT token.
 ```
@@ -20,7 +20,7 @@ In the above experience, you need to manually enter the token when prompted. How
 
 1. Fetch PAT from a file and pass it to login command.
     ```
-    cat my_pat_token.txt | az devops login --organization https://dev.azure.com/MY-ORGANIZATION-NAME/
+    cat my_pat_token.txt | az devops login --organization https://dev.azure.com/contoso/
     ```
 2. Use environment variables.  
 There are cases where persisting a personal access token on the machine where the Azure CLI is running is not technically possible or is not secure. In these cases you can get a token from an environment variable.
