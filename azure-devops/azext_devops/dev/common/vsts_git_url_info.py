@@ -84,7 +84,7 @@ class VstsGitUrlInfo(object):
         if netloc.find('@') < 0:
             # on premise url
             logger.warning('TFS SSH URLs are not supported for repo auto-detection yet. See the following issue for ' +
-                           'latest updates: https://github.com/Microsoft/vsts-cli/issues/142')
+                           'latest updates: https://github.com/Microsoft/azure-devops-cli-extension/issues/142')
             return None
         # hosted url
         import re

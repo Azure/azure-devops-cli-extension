@@ -156,7 +156,7 @@ def _open_build(build, organization):
     :param :class:`<Build> <build.v4_0.models.Build>` build:
     :param str organization:
     """
-    # https://mseng.visualstudio.com/vsts-cli/_build/index?buildId=4053990
+    # https://dev.azure.com/OrgName/ProjectName/_build/index?buildId=1234
     project = build.project.name
     url = organization.rstrip('/') + '/' + uri_quote(project) + '/_build/index?buildid='\
         + uri_quote(str(build.id))

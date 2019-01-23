@@ -13,7 +13,7 @@
 
 1. Clone the Azure Devops CLI extension repository. 
    ```bash
-   git clone https://github.com/Microsoft/vsts-cli
+   git clone https://github.com/Microsoft/azure-devops-cli-extension
    ```
    
 2. Checkout `master` branch.
@@ -21,14 +21,14 @@
    git checkout master
    ```
 
-3. Optionally, clone the VSTS Python SDK repository:
+3. Optionally, clone the Azure Devops Python SDK repository:
    ```bash
    git clone https://github.com/Microsoft/azure-devops-python-api
    ```
 
 ## Create a virtual environment
 
-1. From the `vsts-cli` directory, create a new virtual environment:
+1. From the `azure-devops-cli-extension` directory, create a new virtual environment:
    ```bash
    virtualenv env
    ```
@@ -50,7 +50,7 @@
 
 ## Developing
 
-Run `az extension list` and `az devops -h` to verify your environment is setup properly. 
+Run `az extension list` and `az devops -h` to verify your environment is setup properly.
 
 1. Follow instructions to install powershell from [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-6)
 
@@ -59,21 +59,16 @@ Run `az extension list` and `az devops -h` to verify your environment is setup p
 On Windows:
     Run below command any time you make changes to your extension and want to see them reflected in the CLI.
     ```
-    pip install --upgrade --target %AZURE_EXTENSION_DIR%\azure-devops azure-devops\
+    pip install --upgrade --target %AZURE_EXTENSION_DIR%\azure-devops Dev\azure-devops-cli-extension\azure-devops\
     ```
     - `%AZURE_EXTENSION_DIR%\azure-devops` is the directory `pip` will install the extension to.
-    - `Dev\vsts-cli\azure-devops` is the directory with the source code of your extension.
+    - `Dev\azure-devops-cli-extension\azure-devops` is the directory with the source code of your extension.
 
 On Linux:
     ```
-    pip install --upgrade --target $AZURE_EXTENSION_DIR/azure-devops azure-devops/
+    pip install --upgrade --target $AZURE_EXTENSION_DIR/azure-devops Dev\azure-devops-cli-extension\azure-devops/
     ```
 
 3. Run `az devops -h` again to verify if extension is installed properly.
 
 4. Run `tests\runTests.ps1` to run recorded tests.
-
-
-
-
-

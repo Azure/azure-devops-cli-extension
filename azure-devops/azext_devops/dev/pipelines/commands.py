@@ -39,18 +39,18 @@ releaseDefinitionOps = CliCommandType(
 
 def load_build_commands(self, _):
     with self.command_group('pipelines build', command_type=buildOps) as g:
-        # basic vsts_cli_build commands
+        # basic build commands
         g.command('list', 'build_list', table_transformer=transform_builds_table_output)
         g.command('queue', 'build_queue', table_transformer=transform_build_table_output)
         g.command('show', 'build_show', table_transformer=transform_build_table_output)
 
     with self.command_group('pipelines build definition', command_type=buildDefOps) as g:
-        # basic vsts_cli_build definition commands
+        # basic build definition commands
         g.command('list', 'build_definition_list', table_transformer=transform_definitions_table_output)
         g.command('show', 'build_definition_show', table_transformer=transform_definition_table_output)
 
     with self.command_group('pipelines build task', command_type=buildTaskOps) as g:
-        # basic vsts_cli_build task commands
+        # basic build task commands
         g.command('list', 'task_list', table_transformer=transform_tasks_table_output)
         g.command('show', 'task_show', table_transformer=transform_task_table_output)
 

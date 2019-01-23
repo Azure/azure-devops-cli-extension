@@ -102,7 +102,7 @@ def _open_definition(definition, organization):
     :param :class:`<BuildDefinitionReference> <build.v4_0.models.BuildDefinitionReference>` definition:
     :param str organization:
     """
-    # https://mseng.visualstudio.com/vsts-cli/_build/index?definitionId=5419
+    # https://dev.azure.com/OrgName/ProjectName/_build/index?definitionId=1234
     project = definition.project.name
     url = organization.rstrip('/') + '/' + uri_quote(project) + '/_build/index?definitionId='\
         + uri_quote(str(definition.id))
