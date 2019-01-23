@@ -1,6 +1,3 @@
-Write-Output "upgrading pip"
-python -m pip install --upgrade pip
-Write-Output "done"
 Write-Output "installing wheel"
 pip install wheel
 Write-Output "done"
