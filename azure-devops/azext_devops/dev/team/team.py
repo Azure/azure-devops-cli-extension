@@ -35,7 +35,7 @@ def create_team(name, description=None, organization=None, project=None, detect=
         raise CLIError(ex)
 
 
-def delete_team(id, organization=None, project=None, detect=None):
+def delete_team(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete a team.
     :param id: The id (UUID) of the team to delete.
     :type id: str
