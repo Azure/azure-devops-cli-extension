@@ -97,9 +97,6 @@ jobs:
       versionSpec: '3.7.0'
       architecture: 'x64'
 
-  - script: python -m pip install --upgrade pip
-    displayName: 'upgrade pip'
-
   - task: PowerShell@2
     displayName: 'Install Azure CLI'
     inputs:
