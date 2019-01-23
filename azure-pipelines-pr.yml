@@ -101,16 +101,28 @@ jobs:
     displayName: 'upgrade pip'
 
   - task: PowerShell@2
-    displayName: 'Setup test machine'
+    displayName: 'Install Azure CLI'
     inputs:
       targetType: 'filePath'
-      filePath: 'scripts/setupCiMachine.ps1'
+      filePath: 'scripts/install_azure_cli.ps1'
+
+  - task: PowerShell@2
+    displayName: 'Build and Install DevOps Extension'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/build_and_install_devops_extension.ps1'
+
+  - task: PowerShell@2
+    displayName: 'Install Test Dependencies'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/install_test_dependencies.ps1'
 
   - task: PowerShell@2
     displayName: 'Run Tests'
     inputs:
       targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
+      filePath: 'scripts/run_Tests.ps1'
       arguments: '$True'
   
   - task: PublishTestResults@2
