@@ -23,9 +23,9 @@ Create a PR for updating, fiels in index json are self explanatory
 
 ## Updating Azure DevOps CLI extension version in repository and releases
 once relase is done make sure to update the version for Azure-DevOps CLI in [version.py](https://github.com/Microsoft/azure-devops-cli-extension/blob/master/azure-devops/azext_devops/version.py)  
-Also update build pipelines YAMLS
-[Release Pipeline](./.azure-pipelines/azure-pipelines/azure-pipelines-create-release.yml)  
-[Merge Pipeline](./.azure-pipelines/azure-pipelines/azure-pipelines-merge.yml)  
+Also update build pipelines YAMLS   
+[Release Pipeline](././.azure-pipelines/azure-pipelines/azure-pipelines-create-release.yml)  
+[Merge Pipeline](././.azure-pipelines/azure-pipelines/azure-pipelines-merge.yml)  
 
 ### Update AzureDevOpsCli-Released-Version-Check
 Update [AzureDevOpsCli-Released-Version-Check](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build?definitionId=34) to run from the commit which was used to do the release.
