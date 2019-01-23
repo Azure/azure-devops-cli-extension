@@ -29,9 +29,6 @@ jobs:
       versionSpec: '$(python.version)'
       architecture: 'x64'
 
-  - script: python -m pip install --upgrade pip
-    displayName: 'upgrade pip'
-
   - task: PowerShell@2
     displayName: 'Setup test machine'
     inputs:
@@ -62,9 +59,6 @@ jobs:
     inputs:
       versionSpec: '3.7.0'
       architecture: 'x64'
-
-  - script: python -m pip install --upgrade pip
-    displayName: 'upgrade pip'
 
   - task: PowerShell@2
     displayName: 'Setup test machine'
@@ -134,9 +128,6 @@ jobs:
     inputs:
       versionSpec: '3.7.0'
       architecture: 'x64'
-
-  - script: python -m pip install --upgrade pip
-    displayName: 'upgrade pip'
 
   - task: PowerShell@2
     displayName: 'Setup test machine'
