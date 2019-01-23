@@ -6,13 +6,13 @@ There are many ways in which you can contribute, beyond writing code. The goal o
 
 # Have a question
 
-Search existing github [issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aopen+is%3Aissue+label%3Aquestion) for similar questions first, and feel free to file an issue with a "question" tag to get our attention.
+Search existing github [issues](https://github.com/Microsoft/azure-devops-cli-extension/issues?q=is%3Aopen+is%3Aissue+label%3Aquestion) for similar questions first, and feel free to file an issue with a "question" tag to get our attention.
 
 # Found a bug
 
 #### Where to find known issues
 
-Check open [issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aopen+is%3Aissue+label%3Abug) before you file a new bug report.
+Check open [issues](https://github.com/Microsoft/azure-devops-cli-extension/issues?q=is%3Aopen+is%3Aissue+label%3Abug) before you file a new bug report.
 
 If you find your issue already exists, make relevant comments and add your reaction. Use a reaction in place of a "+1" comment:
 👍 - upvote
@@ -20,13 +20,13 @@ If you find your issue already exists, make relevant comments and add your react
 
 #### Report new issue
 
-The best way to get your bug fixed is to provide good repro steps. Use our [Bug template](https://github.com/Microsoft/vsts-cli/issues/new/choose) to report any issues.
+The best way to get your bug fixed is to provide good repro steps. Use our [Bug template](https://github.com/Microsoft/azure-devops-cli-extension/issues/new/choose) to report any issues.
 
 # Feature requests
 
 #### Where to find existing requests
 
-Check open [feature requests](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3AFeature)  before you file a new request.
+Check open [feature requests](https://github.com/Microsoft/azure-devops-cli-extension/issues?q=is%3Aissue+is%3Aopen+label%3AFeature)  before you file a new request.
 
 If you find your request already exists, make relevant comments and add your reaction. Use a reaction in place of a "+1" comment:
 👍 - upvote
@@ -34,15 +34,15 @@ If you find your request already exists, make relevant comments and add your rea
 
 #### Submit New Feature request
 
-Use our Feature Request [template](https://github.com/Microsoft/vsts-cli/issues/new/choose) to create a new feature request.
+Use our Feature Request [template](https://github.com/Microsoft/azure-devops-cli-extension/issues/new/choose) to create a new feature request.
 
 # Get started
 
 Unsure where to begin contributing? You can start by looking through these beginner and help-wanted issues:
 
-- [Beginner issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3ABeginner) - issues which should only require a few lines of code, and a test or two.
+- [Beginner issues](https://github.com/Microsoft/azure-devops-cli-extension/issues?q=is%3Aissue+is%3Aopen+label%3ABeginner) - issues which should only require a few lines of code, and a test or two.
 
-- [Help wanted issues](https://github.com/Microsoft/vsts-cli/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) - issues which should be a bit more involved than beginner issues.
+- [Help wanted issues](https://github.com/Microsoft/azure-devops-cli-extension/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) - issues which should be a bit more involved than beginner issues.
 
 Refer our [Developer setup](./doc/dev_setup.md) instructions to get started with code and running tests.
 
@@ -62,7 +62,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 
 - Recorded tests are mandatory
 - UTs are mandatory
-- Command signature should be discussed and approved in referenced issue. [Sample](https://github.com/Microsoft/vsts-cli/issues/319)
+- Command signature should be discussed and approved in referenced issue. [Sample](https://github.com/Microsoft/azure-devops-cli-extension/issues/319)
 - Table transforms are present (reviewed in PR)
 - Help text is present for commands and parameters
 

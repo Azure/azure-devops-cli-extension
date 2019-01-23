@@ -1,6 +1,6 @@
 """
-Fixes VSTS coverage reports by inlining CSS files.
-see https://github.com/Microsoft/vsts-tasks/issues/3027
+Fixes coverage reports by inlining CSS files.
+see https://github.com/Microsoft/azure-pipelines-tasks/issues/3027
 Based on https://stackoverflow.com/a/23190429/7417402
 """
 import os
