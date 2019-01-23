@@ -77,11 +77,11 @@ class DevopsTeamTests(ScenarioTest):
 
         finally:
             # TestCleanup - delete team
-            delete_team_command = 'az devops team delete --team "' + created_team_id + '" --output json --detect off --yes'
+            delete_team_command = 'az devops team delete --id "' + created_team_id + '" --output json --detect off --yes'
             self.cmd(delete_team_command)
 
             # delete second team 
-            delete_team_command = 'az devops team delete --team "' + created_team_id2 + '" --output json --detect off --yes'
+            delete_team_command = 'az devops team delete --id "' + created_team_id2 + '" --output json --detect off --yes'
             self.cmd(delete_team_command)
 
             list_teams_command = 'az devops team list --output json --detect off'

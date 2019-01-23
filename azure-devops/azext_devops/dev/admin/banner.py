@@ -55,6 +55,7 @@ def banner_add(message, banner_type=None, id=None, expiration=None, organization
     :type id: str
     :param expiration: Date/time when the banner should no longer be presented to users. If not set, the banner does not
                        automatically expire and must be removed with the remove command.
+                       Example : "2019-06-10 17:21:00 UTC", "2019-06-10"
     :type expiration: date
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
@@ -97,6 +98,7 @@ def banner_update(message=None, banner_type=None, id=None, expiration=None, orga
     :type id: str
     :param expiration: Date/time when the banner should no longer be presented to users. To unset the expiration for the
                        banner, supply an empty value to this argument.
+                       Example : "2019-06-10 17:21:00 UTC", "2019-06-10"
     :type expiration: date
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
