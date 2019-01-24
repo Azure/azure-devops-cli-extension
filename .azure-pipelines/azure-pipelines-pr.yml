@@ -119,6 +119,59 @@ jobs:
       artifactName: 'azure-devops-cli-package' 
       publishLocation: 'Container'
 
+- job: 'Run_Test_With_Published_Wheel'
+  dependsOn: 'Run_Test_Mac'
+  pool:
+    vmImage: 'macOS-10.13'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+  - task: DownloadBuildArtifacts@0
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'azure-devops-cli-package'
+      downloadPath: '$(System.ArtifactsDirectory)'
+
+  - task: PowerShell@2
+    displayName: 'Install Downloaded Extension And Install It'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/findAndInstallExtensionFromPath.ps1'
+      arguments: '$True'
+  
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTestsWithoutExtensionInstall.ps1'
+      arguments: '$True'
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Wheel as artifact'
+    inputs:
+      pathtoPublish: 'azure-devops/dist' 
+      artifactName: 'azure-devops-cli-package' 
+      publishLocation: 'Container'
+
 - job: 'Code_Coverage'
   pool:
     vmImage: 'macOS-10.13'
