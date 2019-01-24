@@ -141,43 +141,31 @@ def create_policy(repository_id, branch,
         policyConfigurationToCreate.settings = {
             'scope': scope
             }
+
+        # these 2 will be filled by respective types
+        paramNameArray = []
+        paramArray = []
+        typeId = ''
         
 
         if(policy_type == APPROVER_COUNT_POLICY):
-            policyConfigurationToCreate.type = {
-                'id' : APPROVER_COUNT_POLICY_ID
-            }
-
+            typeId = APPROVER_COUNT_POLICY_ID
             paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
             paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
-            index = 0
-
-            for param in paramNameArray:
-                policyConfigurationToCreate.settings[param] = paramArray[index]
-                index = index + 1
-
-
-            # policyConfigurationToCreate.settings = {
-            #     'minimumApproverCount' : minimumApproverCount,
-            #     'creatorVoteCounts' : creatorVoteCounts,
-            #     'allowDownvotes' : allowDownvotes,
-            #     'resetOnSourcePush' : resetOnSourcePush,
-            #     'scope': scope
-            #     }
 
         elif(policy_type == BUILD_POLICY):
-            policyConfigurationToCreate.type = {
-                'id' : BUILD_POLICY_ID
-            }
+            typeId = BUILD_POLICY_ID
+            paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
+            paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
 
-            policyConfigurationToCreate.settings = {
-                'buildDefinitionId' : buildDefinitionId,
-                'queueOnSourceUpdateOnly' : queueOnSourceUpdateOnly,
-                'manualQueueOnly' : manualQueueOnly,
-                'displayName' : displayName,
-                'validDuration' : validDuration,
-                'scope' : scope
-            }
+        policyConfigurationToCreate.type = {
+            'id' : typeId
+        }
+
+        index = 0
+        for param in paramNameArray:
+            policyConfigurationToCreate.settings[param] = paramArray[index]
+            index = index + 1
 
         return policy_client.create_policy_configuration(configuration=policyConfigurationToCreate, project=project)
     except VstsServiceError as ex:
