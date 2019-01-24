@@ -128,7 +128,8 @@ def create_policy(repository_id, branch,
 
         elif(policy_type == BUILD_POLICY):
             if any(v is None for v in [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]):
-                raise CLIError('--buildDefinitionId, --queueOnSourceUpdateOnly, --manualQueueOnly, --displayName, --validDuration are required for Buildpolicy')
+                paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
+                raise CLIError('{} are required for ApproverCountPolicy'.format('--' + ' --'.join(paramNameArray)))
 
         policyConfigurationToCreate = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
         scope = [
