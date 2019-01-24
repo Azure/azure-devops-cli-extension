@@ -145,7 +145,7 @@ jobs:
       downloadPath: '$(System.ArtifactsDirectory)'
 
   - task: PowerShell@2
-    displayName: 'Install Downloaded Extension And Install It'
+    displayName: 'Install Downloaded Extension'
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/findAndInstallExtensionFromPath.ps1'
