@@ -69,9 +69,10 @@ def delete_policy(id, organization=None, project=None, detect=None):
         raise CLIError(ex)
 
 def create_policy(repository_id, branch,
-                  isBlocking=True, isEnabled=False,
+                  isBlocking=False, isEnabled=False,
                   policy_type=None,
                   minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
+                  buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
                   organization=None, project=None, detect=None):
     """
     :param repository_id: Id (UUID) of the repository on which to apply the policy
@@ -80,7 +81,7 @@ def create_policy(repository_id, branch,
     :type branch: string
     :param isBlocking: Tells if the policy should be blocking or not
     :type isBlocking: bool
-    :param isEnabled: Tells if the policy enabled or not
+    :param isEnabled: Tells if the policy is enabled or not
     :type isEnabled: bool
     :param policy_type: Type of policy you want to create
     :type policy_type: string
@@ -93,6 +94,17 @@ def create_policy(repository_id, branch,
     :type allowDownvotes: bool
     :param resetOnSourcePush: Reset on Source Push. Required if policy type is ApproverCountPolicy.
     :type resetOnSourcePush: bool
+
+    :param buildDefinitionId: Build Definition Id. Required if policy type is Buildpolicy.
+    :type buildDefinitionId: int
+    :param queueOnSourceUpdateOnly: Queue Only on source update. Required if policy type is Buildpolicy.
+    :type queueOnSourceUpdateOnly: bool
+    :param manualQueueOnly : Manual Queue Only. Required if policy type is Buildpolicy.
+    :type manualQueueOnly : bool
+    :param displayName : Display Name. Required if policy type is Buildpolicy.
+    :type displayName : string
+    :param validDuration : Valid duration. Required if policy type is Buildpolicy.
+    :type validDuration : double
 
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
@@ -110,6 +122,9 @@ def create_policy(repository_id, branch,
         if(policy_type == APPROVER_COUNT_POLICY):
             if any(v is None for v in [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]):
                 raise CLIError('--minimumApproverCount, --creatorVoteCounts, --allowDownvotes, --resetOnSourcePush are required for ApproverCountPolicy')
+        elif(policy_type == BUILD_POLICY):
+            if any(v is None for v in [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]):
+                raise CLIError('--buildDefinitionId, --queueOnSourceUpdateOnly, --manualQueueOnly, --displayName, --validDuration are required for Buildpolicy')
 
         policyConfigurationToCreate = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
         scope = [
@@ -132,6 +147,20 @@ def create_policy(repository_id, branch,
                 'resetOnSourcePush' : resetOnSourcePush,
                 'scope': scope
                 }
+
+        elif(policy_type == BUILD_POLICY):
+            policyConfigurationToCreate.type = {
+                'id' : BUILD_POLICY_ID
+            }
+
+            policyConfigurationToCreate.settings = {
+                'buildDefinitionId' : buildDefinitionId,
+                'queueOnSourceUpdateOnly' : queueOnSourceUpdateOnly,
+                'manualQueueOnly' : manualQueueOnly,
+                'displayName' : displayName,
+                'validDuration' : validDuration,
+                'scope' : scope
+            }
 
         return policy_client.create_policy_configuration(configuration=policyConfigurationToCreate, project=project)
     except VstsServiceError as ex:
