@@ -74,8 +74,26 @@ def create_policy(repository_id, branch,
                   minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
                   organization=None, project=None, detect=None):
     """
+    :param repository_id: Id (UUID) of the repository on which to apply the policy
+    :type repository_id: string
+    :param branch: Branch on which this policy should be applied
+    :type branch: string
+    :param isBlocking: Tells if the policy should be blocking or not
+    :type isBlocking: bool
+    :param isEnabled: Tells if the policy enabled or not
+    :type isEnabled: bool
     :param policy_type: Type of policy you want to create
     :type policy_type: string
+
+    :param minimumApproverCount: Minimum approver count. Required if policy type is ApproverCountPolicy.
+    :type minimumApproverCount: int
+    :param creatorVoteCounts: Creator vote counts or not. Required if policy type is ApproverCountPolicy
+    :type creatorVoteCounts: bool
+    :param allowDownvotes: Allow Downvotes. Required if policy type is ApproverCountPolicy.
+    :type allowDownvotes: bool
+    :param resetOnSourcePush: Reset on Source Push. Required if policy type is ApproverCountPolicy.
+    :type resetOnSourcePush: bool
+
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the project.
@@ -94,6 +112,13 @@ def create_policy(repository_id, branch,
                 raise CLIError('--minimumApproverCount, --creatorVoteCounts, --allowDownvotes, --resetOnSourcePush are required for ApproverCountPolicy')
 
         policyConfigurationToCreate = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
+        scope = [
+            {
+                'repositoryId': repository_id,
+                'refName': branch,
+                'matchKind': 'exact'
+            }
+        ]
 
         if(policy_type == APPROVER_COUNT_POLICY):
             policyConfigurationToCreate.type = {
@@ -105,12 +130,8 @@ def create_policy(repository_id, branch,
                 'creatorVoteCounts' : creatorVoteCounts,
                 'allowDownvotes' : allowDownvotes,
                 'resetOnSourcePush' : resetOnSourcePush,
-                'scope': [
-                    {
-                        'repositoryId': repository_id,
-                        'refName': branch,
-                        'matchKind': 'exact'
-                        }]}
+                'scope': scope
+                }
 
         return policy_client.create_policy_configuration(configuration=policyConfigurationToCreate, project=project)
     except VstsServiceError as ex:
