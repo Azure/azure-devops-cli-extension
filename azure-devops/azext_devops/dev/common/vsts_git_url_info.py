@@ -121,8 +121,8 @@ class VstsGitUrlInfo(object):
         if components.netloc == 'github.com':
             return False
         if components.path is not None \
-                and (components.path.find('/_git/') >= 0 or components.path.find('/_ssh/') >= 0 \
-                or components.scheme == 'ssh'):
+            and (components.path.find('/_git/') >= 0 or components.path.find('/_ssh/') >= 0 or
+                 components.scheme == 'ssh'):
             return True
 
         return False

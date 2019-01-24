@@ -17,8 +17,7 @@ def uri_parse(url):
         # e.g. git@ssh.dev.azure.com:v3/org/Project/Repo
         # append ssh at start to set correct scheme
         return urlparse("ssh://{original_uri}".format(original_uri=url))
-    else:
-        return urlparse(url)
+    return urlparse(url)
 
 
 def uri_quote(query_data):
