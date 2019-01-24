@@ -148,14 +148,13 @@ jobs:
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/findAndInstallExtensionFromPath.ps1'
-      arguments: '$True'
+      arguments: '$(System.ArtifactsDirectory)'
   
   - task: PowerShell@2
     displayName: 'Run Tests'
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/runTestsWithoutExtensionInstall.ps1'
-      arguments: '$True'
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'

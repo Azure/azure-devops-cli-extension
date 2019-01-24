@@ -32,7 +32,6 @@ jobs:
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/runTestsWithoutExtensionInstall.ps1'
-      arguments: '$True'
   
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
