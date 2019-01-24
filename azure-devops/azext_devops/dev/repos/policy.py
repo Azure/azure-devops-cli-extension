@@ -3,6 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import sys
+
 from knack.util import CLIError
 from vsts.exceptions import VstsClientRequestError, VstsServiceError
 from vsts.policy.v4_0.models.policy_configuration import PolicyConfiguration
@@ -121,7 +123,9 @@ def create_policy(repository_id, branch,
 
         if(policy_type == APPROVER_COUNT_POLICY):
             if any(v is None for v in [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]):
-                raise CLIError('--minimumApproverCount, --creatorVoteCounts, --allowDownvotes, --resetOnSourcePush are required for ApproverCountPolicy')
+                paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
+                raise CLIError('{} are required for ApproverCountPolicy'.format('--' + ' --'.join(paramNameArray)))
+
         elif(policy_type == BUILD_POLICY):
             if any(v is None for v in [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]):
                 raise CLIError('--buildDefinitionId, --queueOnSourceUpdateOnly, --manualQueueOnly, --displayName, --validDuration are required for Buildpolicy')
@@ -134,19 +138,32 @@ def create_policy(repository_id, branch,
                 'matchKind': 'exact'
             }
         ]
+        policyConfigurationToCreate.settings = {
+            'scope': scope
+            }
+        
 
         if(policy_type == APPROVER_COUNT_POLICY):
             policyConfigurationToCreate.type = {
                 'id' : APPROVER_COUNT_POLICY_ID
             }
 
-            policyConfigurationToCreate.settings = {
-                'minimumApproverCount' : minimumApproverCount,
-                'creatorVoteCounts' : creatorVoteCounts,
-                'allowDownvotes' : allowDownvotes,
-                'resetOnSourcePush' : resetOnSourcePush,
-                'scope': scope
-                }
+            paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
+            paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
+            index = 0
+
+            for param in paramNameArray:
+                policyConfigurationToCreate.settings[param] = paramArray[index]
+                index = index + 1
+
+
+            # policyConfigurationToCreate.settings = {
+            #     'minimumApproverCount' : minimumApproverCount,
+            #     'creatorVoteCounts' : creatorVoteCounts,
+            #     'allowDownvotes' : allowDownvotes,
+            #     'resetOnSourcePush' : resetOnSourcePush,
+            #     'scope': scope
+            #     }
 
         elif(policy_type == BUILD_POLICY):
             policyConfigurationToCreate.type = {
@@ -166,3 +183,14 @@ def create_policy(repository_id, branch,
     except VstsServiceError as ex:
         raise CLIError(ex)
     
+
+def nameOfArray(exp):
+    frame = sys._getframe(1)
+    fname = frame.f_code.co_filename
+    line = frame.f_lineno
+    with open(fname) as f:
+        line = f.read().split('\n')[line - 1]
+    start = line.find('nameOfArray([') + 13
+    end = line.find('])', start)
+    linePassedToFunction = line[start:end]
+    return [x.strip() for x in linePassedToFunction.split(',')]
