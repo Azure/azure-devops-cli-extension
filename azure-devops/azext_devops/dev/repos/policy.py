@@ -121,15 +121,28 @@ def create_policy(repository_id, branch,
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
 
+        # these 2 will be filled by respective types
+        paramNameArray = []
+        paramArray = []
+        typeId = ''
+
         if(policy_type == APPROVER_COUNT_POLICY):
             if any(v is None for v in [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]):
                 paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
                 raise CLIError('{} are required for ApproverCountPolicy'.format('--' + ' --'.join(paramNameArray)))
 
+            typeId = APPROVER_COUNT_POLICY_ID
+            paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
+            paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
+
         elif(policy_type == BUILD_POLICY):
             if any(v is None for v in [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]):
                 paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
                 raise CLIError('{} are required for ApproverCountPolicy'.format('--' + ' --'.join(paramNameArray)))
+
+            typeId = BUILD_POLICY_ID
+            paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
+            paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
 
         policyConfigurationToCreate = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
         scope = [
@@ -142,22 +155,6 @@ def create_policy(repository_id, branch,
         policyConfigurationToCreate.settings = {
             'scope': scope
             }
-
-        # these 2 will be filled by respective types
-        paramNameArray = []
-        paramArray = []
-        typeId = ''
-        
-
-        if(policy_type == APPROVER_COUNT_POLICY):
-            typeId = APPROVER_COUNT_POLICY_ID
-            paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
-            paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
-
-        elif(policy_type == BUILD_POLICY):
-            typeId = BUILD_POLICY_ID
-            paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
-            paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
 
         policyConfigurationToCreate.type = {
             'id' : typeId
