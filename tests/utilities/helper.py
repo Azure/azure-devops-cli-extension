@@ -20,3 +20,12 @@ def disable_telemetry(test_function):
         os.environ["AZURE_CORE_COLLECT_TELEMETRY"] = "no"
         test_function(*args, **kwargs)
     return wrapper
+
+
+def set_authentication(test_function):
+    def wrapper(*args, **kwargs):
+        pat_from_env = os.environ.get(PAT_ENV_VARIABLE_NAME)
+        if pat_from_env:
+            os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
+        test_function(*args, **kwargs)
+    return wrapper
