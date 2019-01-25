@@ -39,7 +39,7 @@ def list_policy(organization=None, project=None, detect=None):
         raise CLIError(ex)
 
 
-def get_policy(id, organization=None, project=None, detect=None):
+def get_policy(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """
     :param id: ID of the policy.
     :type id: int
@@ -60,7 +60,7 @@ def get_policy(id, organization=None, project=None, detect=None):
         raise CLIError(ex)
 
 
-def delete_policy(id, organization=None, project=None, detect=None):
+def delete_policy(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """
     :param id: ID of the policy.
     :type id: int
@@ -176,7 +176,7 @@ def update_policy(repository_id, branch,
                   optionalReviewerIds=None, requiredReviewerIds=None, message=None,
                   organization=None, project=None, detect=None):
     """
-    :param repository_id: Id (UUID) of the repository on which to apply the policy
+    :param repository_id: Id (UUID) of the repository on which to apply the policy to.
     :type repository_id: string
     :param branch: Branch on which this policy should be applied
     :type branch: string
@@ -248,22 +248,24 @@ def update_policy(repository_id, branch,
             optionalReviewerIds, requiredReviewerIds, message,
             organization)
 
-        return policy_client.update_policy_configuration(configuration=policyConfigurationToCreate, project=project,
-        configuration_id=policy_id)
+        return policy_client.update_policy_configuration(
+            configuration=policyConfigurationToCreate,
+            project=project,
+            configuration_id=policy_id)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 # pylint: disable=too-many-locals
-def generateConfigurationObject(
-    repository_id, branch,
-    policy_type=None,
-    isBlocking=False, isEnabled=False,
-    minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
-    useSquashMerge=None,
-    buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
-    maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
-    optionalReviewerIds=None, requiredReviewerIds=None, message=None,
-    organization=None):
+
+def generateConfigurationObject(repository_id, branch,
+                                policy_type=None,
+                                isBlocking=False, isEnabled=False,
+                                minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
+                                useSquashMerge=None,
+                                buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
+                                maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
+                                optionalReviewerIds=None, requiredReviewerIds=None, message=None,
+                                organization=None):
     # these 2 will be filled by respective types
     paramNameArray = []
     paramArray = []
@@ -337,7 +339,7 @@ def generateConfigurationObject(
 
 
 def resolveIdentityMailsToIds(mailList, organization):
-    logger.debug('mail list is {}'.format((mailList)))
+    logger.debug('mail list {}'.format((mailList)))
     if not mailList or (not mailList.strip()):
         return None
 
@@ -345,9 +347,10 @@ def resolveIdentityMailsToIds(mailList, organization):
     for mail in mailList.split(';'):
         mailStripped = mail.strip()
         logger.debug('trying to resolve {}'.format(mailStripped))
-        id = resolve_identity_as_id(mailStripped, organization)
-        logger.debug('got id as {}'.format(id))
-        idList.append(id)    
+        identityId = resolve_identity_as_id(mailStripped, organization)
+        logger.debug('got id as {}'.format(identityId))
+        idList.append(identityId)
+
     return idList
 
 def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
@@ -358,6 +361,7 @@ def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
 
 
 def nameOfArray(exp):
+    logger.debug(str(exp))
     frame = sys._getframe(1)
     fname = frame.f_code.co_filename
     line = frame.f_lineno
