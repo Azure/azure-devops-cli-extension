@@ -15,6 +15,7 @@ except ImportError:
 from vsts.git.v4_0.models.git_pull_request import GitPullRequest
 from vsts.git.v4_0.models.git_repository import GitRepository
 from vsts.git.v4_0.models.team_project_reference import TeamProjectReference
+from vsts.git.v4_0.git_client import GitClient
 from azext_devops.dev.repos.pull_request import (create_pull_request,
                                                  show_pull_request,
                                                  list_pull_requests,
@@ -39,7 +40,7 @@ from azext_devops.dev.common.services import clear_connection_cache
 
 class TestPullRequestMethods(unittest.TestCase):
 
-    _TEST_DEVOPS_ORGANIZATION = 'https://azuredevopsclitest.visualstudio.com'
+    _TEST_DEVOPS_ORGANIZATION = 'https://some-organization.visualstudio.com'
     _TEST_PAT_TOKEN = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
     _TEST_PROJECT_NAME = 'sample_project'
     _TEST_REPOSITORY_NAME = 'sample_repository'
@@ -61,6 +62,8 @@ class TestPullRequestMethods(unittest.TestCase):
         self.delete_PR_reviewers_patcher = patch('vsts.git.v4_0.git_client.GitClient.delete_pull_request_reviewer')
         self.get_PR_reviewers_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_pull_request_reviewers')
         self.get_PR_WIs_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_pull_request_work_items')
+        # patch get client so no network call is made
+        self.get_client = patch('vsts.vss_connection.VssConnection.get_client')
 
         self.resolve_identity_patcher = patch('azext_devops.dev.common.identities.resolve_identity_as_id')
 
@@ -99,6 +102,10 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_get_WIs = self.get_WIs_pacther.start()
         self.mock_get_policy_evaluation = self.get_policy_evaluation_patcher.start()
         self.mock_requeue_policy_evaluation = self.requeue_policy_evaluation_patcher.start()
+        self.mock_get_client = self.get_client.start()
+        
+        # set get client return value
+        self.mock_get_client.return_value = GitClient(base_url=self._TEST_DEVOPS_ORGANIZATION)
 
         #clear connection cache before running each test
         clear_connection_cache()
@@ -126,6 +133,7 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_get_WIs.stop()
         self.mock_get_policy_evaluation.stop()
         self.mock_requeue_policy_evaluation.stop()
+        self.mock_get_client.stop()
 
 
     def test_create_pull_request(self):
