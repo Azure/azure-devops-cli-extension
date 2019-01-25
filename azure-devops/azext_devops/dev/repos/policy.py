@@ -6,11 +6,15 @@
 import sys
 
 from knack.util import CLIError
+from knack.log import get_logger
 from vsts.exceptions import VstsClientRequestError, VstsServiceError
 from vsts.policy.v4_0.models.policy_configuration import PolicyConfiguration
 
 from azext_devops.dev.common.services import (get_policy_client, resolve_instance_and_project)
 from azext_devops.dev.common.const import *
+from azext_devops.dev.common.identities import resolve_identity_as_id
+
+logger = get_logger(__name__)
 
 
 def list_policy(organization=None, project=None, detect=None):
@@ -30,6 +34,7 @@ def list_policy(organization=None, project=None, detect=None):
         return policy_client.get_policy_configurations(project=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 def get_policy(id, organization=None, project=None, detect=None):
     """
@@ -51,6 +56,7 @@ def get_policy(id, organization=None, project=None, detect=None):
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def delete_policy(id, organization=None, project=None, detect=None):
     """
     :param id: ID of the policy.
@@ -70,6 +76,7 @@ def delete_policy(id, organization=None, project=None, detect=None):
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def create_policy(repository_id, branch,
                   isBlocking=False, isEnabled=False,
                   policy_type=None,
@@ -77,6 +84,7 @@ def create_policy(repository_id, branch,
                   useSquashMerge=None,
                   buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
                   maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
+                  optionalReviewerIds=None, requiredReviewerIds=None, message=None,
                   organization=None, project=None, detect=None):
     """
     :param repository_id: Id (UUID) of the repository on which to apply the policy
@@ -89,6 +97,13 @@ def create_policy(repository_id, branch,
     :type isEnabled: bool
     :param policy_type: Type of policy you want to create
     :type policy_type: string
+
+    :param optionalReviewerIds: Optional Reviewers (List of email ids seperated with ';'). Required if policy type is RequiredReviewersPolicy.
+    :type optionalReviewerIds: string
+    :param requiredReviewerIds: Required Reviewers (List of email ids seperated with ';'). Required if policy type is RequiredReviewersPolicy.
+    :type requiredReviewerIds: string
+    :param message: Message. Required if policy type is RequiredReviewersPolicy.
+    :type message: string
 
     :param minimumApproverCount: Minimum approver count. Required if policy type is ApproverCountPolicy.
     :type minimumApproverCount: int
@@ -164,7 +179,20 @@ def create_policy(repository_id, branch,
             policytypeId = WORKITEM_LINKING_POLICY_ID
             # this particular policy does not need any other parameter
 
-        
+        elif(policy_type == REQUIRED_REVIEWER_POLICY):
+            policytypeId = REQUIRED_REVIEWER_POLICY_ID
+
+            optionalReviewerIds = resolveIdentityMailsToIds(optionalReviewerIds, organization)
+            requiredReviewerIds = resolveIdentityMailsToIds(requiredReviewerIds, organization)
+
+            if optionalReviewerIds and (not requiredReviewerIds):
+                requiredReviewerIds = []
+
+            if requiredReviewerIds and (not optionalReviewerIds):
+                optionalReviewerIds = []
+
+            paramArray = [optionalReviewerIds, requiredReviewerIds, message]
+            paramNameArray = nameOfArray([optionalReviewerIds, requiredReviewerIds, message])
 
         # check if we have value in all the required params or not
         raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policy_type)
@@ -194,6 +222,20 @@ def create_policy(repository_id, branch,
     except VstsServiceError as ex:
         raise CLIError(ex)
     
+
+def resolveIdentityMailsToIds(mailList, organization):
+    logger.debug('mail list is {}'.format((mailList)))
+    if not mailList or (not mailList.strip()):
+        return None
+
+    idList = []
+    for mail in mailList.split(';'):
+            mailStripped = mail.strip()
+            logger.debug('trying to resolve {}'.format(mailStripped))
+            id = resolve_identity_as_id(mailStripped ,organization)
+            logger.debug('got id as {}'.format(id))
+            idList.append(id)    
+    return idList
 
 def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
     if not paramNameArray:
