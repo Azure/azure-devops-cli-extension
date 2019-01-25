@@ -37,6 +37,7 @@ def load_code_commands(self, _):
         g.command('create', 'create_policy', table_transformer=transform_repo_policy_table_output)
         g.command('list', 'list_policy', table_transformer=transform_repo_policies_table_output)
         g.command('show', 'get_policy', table_transformer=transform_repo_policy_table_output)
+        g.command('update', 'update_policy', table_transformer=transform_repo_policy_table_output)
         g.command('delete', 'delete_policy', confirmation='Are you sure you want to delete this policy?')
 
     with self.command_group('repos pr', command_type=reposPullRequestOps) as g:

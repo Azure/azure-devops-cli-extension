@@ -160,6 +160,93 @@ def create_policy(repository_id, branch,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+def update_policy(repository_id, branch,
+                  policy_id,
+                  isBlocking=False, isEnabled=False,
+                  policy_type=None,
+                  minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
+                  useSquashMerge=None,
+                  buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
+                  maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
+                  optionalReviewerIds=None, requiredReviewerIds=None, message=None,
+                  organization=None, project=None, detect=None):
+    """
+    :param repository_id: Id (UUID) of the repository on which to apply the policy
+    :type repository_id: string
+    :param branch: Branch on which this policy should be applied
+    :type branch: string
+    :param policy_id: Policy Id of policy which needs to be updated
+    :param policy_id: int
+    :param isBlocking: Tells if the policy should be blocking or not
+    :type isBlocking: bool
+    :param isEnabled: Tells if the policy is enabled or not
+    :type isEnabled: bool
+    :param policy_type: Type of policy you want to create
+    :type policy_type: string
+
+    :param optionalReviewerIds: Optional Reviewers (List of email ids seperated with ';'). Required if policy type is RequiredReviewersPolicy.
+    :type optionalReviewerIds: string
+    :param requiredReviewerIds: Required Reviewers (List of email ids seperated with ';'). Required if policy type is RequiredReviewersPolicy.
+    :type requiredReviewerIds: string
+    :param message: Message. Required if policy type is RequiredReviewersPolicy.
+    :type message: string
+
+    :param minimumApproverCount: Minimum approver count. Required if policy type is ApproverCountPolicy.
+    :type minimumApproverCount: int
+    :param creatorVoteCounts: Creator vote counts or not. Required if policy type is ApproverCountPolicy
+    :type creatorVoteCounts: bool
+    :param allowDownvotes: Allow Downvotes. Required if policy type is ApproverCountPolicy.
+    :type allowDownvotes: bool
+    :param resetOnSourcePush: Reset on Source Push. Required if policy type is ApproverCountPolicy.
+    :type resetOnSourcePush: bool
+
+    :param buildDefinitionId: Build Definition Id. Required if policy type is Buildpolicy.
+    :type buildDefinitionId: int
+    :param queueOnSourceUpdateOnly: Queue Only on source update. Required if policy type is Buildpolicy.
+    :type queueOnSourceUpdateOnly: bool
+    :param manualQueueOnly : Manual Queue Only. Required if policy type is Buildpolicy.
+    :type manualQueueOnly : bool
+    :param displayName : Display Name. Required if policy type is Buildpolicy.
+    :type displayName : string
+    :param validDuration : Valid duration. Required if policy type is Buildpolicy.
+    :type validDuration : double
+
+    :param useSquashMerge: Use Squash Merge. Required if policy type is MergeStrategyPolicy
+    :type useSquashMerge: bool
+
+    :param maximumGitBlobSizeInBytes: Maximum Git Blob Size In Bytes. Required if policy type is FileSizePolicy
+    :type maximumGitBlobSizeInBytes: long
+    :param useUncompressedSize: Use uncompressed size. Required if policy type is FileSizePolicy
+    :type useUncompressedSize: bool
+
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
+    :param project: Name or ID of the project.
+    :type project: str
+    :param detect: Automatically detect organization. Default is "on".
+    :type detect: str
+    :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+
+        policyConfigurationToCreate = generateConfigurationObject(repository_id, branch,
+        policy_type,
+        isBlocking, isEnabled,
+        minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush,
+        useSquashMerge,
+        buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration,
+        maximumGitBlobSizeInBytes, useUncompressedSize,
+        optionalReviewerIds, requiredReviewerIds, message,
+        organization)
+
+        return policy_client.update_policy_configuration(configuration=policyConfigurationToCreate, project=project,
+        configuration_id=policy_id)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
 def generateConfigurationObject(
     repository_id,branch,
     policy_type=None,
