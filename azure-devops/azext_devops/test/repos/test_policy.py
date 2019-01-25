@@ -101,6 +101,10 @@ class TestUuidMethods(unittest.TestCase):
         self.mock_create_policy.assert_called_once()
         create_policy_object = self.mock_create_policy.call_args_list[0][1]
         self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'], str(create_policy_object))
+        scope = create_policy_object['configuration'].settings['scope'][0]  # 0 because we set only only scope from CLI
+        self.assertEqual(scope['repositoryId'], self._TEST_REPOSITORY_ID)
+        self.assertEqual(scope['refName'], 'master')
+        self.assertEqual(scope['matchKind'], 'exact')
         
 
 if __name__ == '__main__':
