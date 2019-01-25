@@ -74,7 +74,5 @@ class TestUuidMethods(unittest.TestCase):
         #assert
         self.mock_delete_policy.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, configuration_id=121)
 
-
-
 if __name__ == '__main__':
     unittest.main()
