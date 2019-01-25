@@ -74,6 +74,7 @@ def create_policy(repository_id, branch,
                   isBlocking=False, isEnabled=False,
                   policy_type=None,
                   minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
+                  useSquashMerge=None,
                   buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
                   organization=None, project=None, detect=None):
     """
@@ -108,6 +109,9 @@ def create_policy(repository_id, branch,
     :param validDuration : Valid duration. Required if policy type is Buildpolicy.
     :type validDuration : double
 
+    :param useSquashMerge: Use Squash Merge. Required if policy type is MergeStrategyPolicy
+    :type useSquashMerge: bool
+
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the project.
@@ -131,16 +135,23 @@ def create_policy(repository_id, branch,
             paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
             paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
             if any(v is None for v in paramArray):
-                raise CLIError('{} are required for ApproverCountPolicy'.format('--' + ' --'.join(paramNameArray)))
+                raise CLIError('{} are required for {}'.format('--' + ' --'.join(paramNameArray), APPROVER_COUNT_POLICY))
         elif(policy_type == BUILD_POLICY):
             typeId = BUILD_POLICY_ID
             paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
             paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
             if any(v is None for v in paramArray):
-                raise CLIError('{} are required for ApproverCountPolicy'.format('--' + ' --'.join(paramNameArray)))
+                raise CLIError('{} are required for {}'.format('--' + ' --'.join(paramNameArray), BUILD_POLICY))
         elif(policy_type == COMMENT_REQUIREMENTS_POLICY):
             typeId = COMMENT_REQUIREMENTS_POLICY_ID
             # this particular policy does not need any other parameter
+        elif(policy_type == MERGE_STRATEGY_POLICY):
+            typeId = MERGE_STRATEGY_POLICY_ID
+            paramArray = [useSquashMerge]
+            paramNameArray = nameOfArray([useSquashMerge])
+            if any(v is None for v in paramArray):
+                raise CLIError('{} are required for {}'.format('--' + ' --'.join(paramNameArray), BUILD_POLICY))
+
 
         policyConfigurationToCreate = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
         scope = [
