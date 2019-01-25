@@ -121,9 +121,6 @@ In the example, you will learn how to add the Azure DevOps extension to Azure CL
 1. Create the azure-pipelines-steps.yml file and include the content below.
 ```
 steps:
-- script: az --version
-  displayName: 'Show Azure CLI version'
-
 - script: az extension add -n azure-devops
   displayName: 'Install Azure DevOps Extension'
 
