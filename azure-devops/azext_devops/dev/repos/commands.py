@@ -36,6 +36,7 @@ def load_code_commands(self, _):
         g.command('delete', 'delete_repo', confirmation='Are you sure you want to delete this repository?')
         g.command('list', 'list_repos', table_transformer=transform_repos_table_output)
         g.command('show', 'show_repo', table_transformer=transform_repo_table_output)
+        g.command('update', 'update_repo', table_transformer=transform_repo_table_output)
 
     with self.command_group('repos pr', command_type=reposPullRequestOps) as g:
         # basic pr commands

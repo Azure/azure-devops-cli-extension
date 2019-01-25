@@ -80,7 +80,7 @@ class TestRepositoryMethods(unittest.TestCase):
         self.mock_get_repositories.assert_called_once()
 
     def test_show_repo(self):
-        response = show_repo(repo = 'sample repo id',
+        response = show_repo(repository = 'sample repo id',
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = 'sample project',
         detect='off')
