@@ -24,7 +24,6 @@ def transform_repo_policy_table_output(result):
     return table_output
 
 
-
 def _transform_repo_policy_request_row(row):
     table_row = OrderedDict()
     table_row['ID'] = row['id']
