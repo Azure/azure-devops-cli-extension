@@ -90,6 +90,7 @@ def delete_policy(id, organization=None, project=None, detect=None):  # pylint: 
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 # pylint: disable=too-many-locals
 def create_policy(repository_id, branch,
                   isBlocking=False, isEnabled=False,
@@ -174,6 +175,7 @@ def create_policy(repository_id, branch,
         return policy_client.create_policy_configuration(configuration=policyConfigurationToCreate, project=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 # pylint: disable=too-many-locals
 def update_policy(repository_id, branch,
@@ -266,8 +268,8 @@ def update_policy(repository_id, branch,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
-# pylint: disable=too-many-locals
 
+# pylint: disable=too-many-locals
 def generateConfigurationObject(repository_id, branch,
                                 policy_type=None,
                                 isBlocking=False, isEnabled=False,
@@ -333,12 +335,13 @@ def generateConfigurationObject(repository_id, branch,
             'matchKind': 'exact'
         }
     ]
+
     policyConfiguration.settings = {
         'scope': scope
-        }
+    }
 
     policyConfiguration.type = {
-        'id' : policytypeId
+        'id': policytypeId
     }
 
     index = 0
@@ -363,6 +366,7 @@ def resolveIdentityMailsToIds(mailList, organization):
         idList.append(identityId)
 
     return idList
+
 
 def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
     if not paramNameArray:
