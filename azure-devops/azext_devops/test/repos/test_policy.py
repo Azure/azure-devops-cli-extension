@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 import unittest
+from knack.util import CLIError
 try:
     # Attempt to load mock (works on Python 3.3 and above)
     from unittest.mock import patch
@@ -20,6 +21,7 @@ class TestUuidMethods(unittest.TestCase):
     _TEST_DEVOPS_ORGANIZATION = 'https://AzureDevOpsCliTest.visualstudio.com'
     _TEST_DEVOPS_PROJECT = 'sample project'
     _TEST_PAT_TOKEN = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
+    _TEST_REPOSITORY_ID = 'b4da517c-0398-42dc-b2a8-0d3f240757f9'
 
     def setUp(self):
         self.get_policies_patcher = patch('vsts.policy.v4_0.policy_client.PolicyClient.get_policy_configurations')
@@ -73,6 +75,15 @@ class TestUuidMethods(unittest.TestCase):
 
         #assert
         self.mock_delete_policy.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, configuration_id=121)
+
+    def test_create_policy_argument_missing_message(self):
+        try:
+            create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
+            policy_type='ApproverCountPolicy',
+            minimumApproverCount=2)
+            self.fail('create should have thrown CLIError')
+        except CLIError as ex:
+            self.assertEqual(str(ex), '--minimumApproverCount --creatorVoteCounts --allowDownvotes --resetOnSourcePush are required for ApproverCountPolicy')
 
 if __name__ == '__main__':
     unittest.main()
