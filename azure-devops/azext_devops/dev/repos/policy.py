@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 # pylint: disable=line-too-long
+# This file a lot of these are intentional because that makes grouping variables easy
 
 import sys
 
@@ -78,7 +79,7 @@ def delete_policy(id, organization=None, project=None, detect=None):
     except VstsServiceError as ex:
         raise CLIError(ex)
 
-
+# pylint: disable=too-many-locals
 def create_policy(repository_id, branch,
                   isBlocking=False, isEnabled=False,
                   policy_type=None,
@@ -148,20 +149,22 @@ def create_policy(repository_id, branch,
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
 
-        policyConfigurationToCreate = generateConfigurationObject(repository_id, branch,
-        policy_type,
-        isBlocking, isEnabled,
-        minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush,
-        useSquashMerge,
-        buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration,
-        maximumGitBlobSizeInBytes, useUncompressedSize,
-        optionalReviewerIds, requiredReviewerIds, message,
-        organization)
+        policyConfigurationToCreate = generateConfigurationObject(
+            repository_id, branch,
+            policy_type,
+            isBlocking, isEnabled,
+            minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush,
+            useSquashMerge,
+            buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration,
+            maximumGitBlobSizeInBytes, useUncompressedSize,
+            optionalReviewerIds, requiredReviewerIds, message,
+            organization)
 
         return policy_client.create_policy_configuration(configuration=policyConfigurationToCreate, project=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+# pylint: disable=too-many-locals
 def update_policy(repository_id, branch,
                   policy_id,
                   isBlocking=False, isEnabled=False,
@@ -234,23 +237,25 @@ def update_policy(repository_id, branch,
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
 
-        policyConfigurationToCreate = generateConfigurationObject(repository_id, branch,
-        policy_type,
-        isBlocking, isEnabled,
-        minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush,
-        useSquashMerge,
-        buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration,
-        maximumGitBlobSizeInBytes, useUncompressedSize,
-        optionalReviewerIds, requiredReviewerIds, message,
-        organization)
+        policyConfigurationToCreate = generateConfigurationObject(
+            repository_id, branch,
+            policy_type,
+            isBlocking, isEnabled,
+            minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush,
+            useSquashMerge,
+            buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration,
+            maximumGitBlobSizeInBytes, useUncompressedSize,
+            optionalReviewerIds, requiredReviewerIds, message,
+            organization)
 
         return policy_client.update_policy_configuration(configuration=policyConfigurationToCreate, project=project,
         configuration_id=policy_id)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+# pylint: disable=too-many-locals
 def generateConfigurationObject(
-    repository_id,branch,
+    repository_id, branch,
     policy_type=None,
     isBlocking=False, isEnabled=False,
     minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
@@ -264,35 +269,35 @@ def generateConfigurationObject(
     paramArray = []
     policytypeId = ''
 
-    if(policy_type == APPROVER_COUNT_POLICY):
+    if policy_type == APPROVER_COUNT_POLICY:
         policytypeId = APPROVER_COUNT_POLICY_ID
         paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
         paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
 
-    elif(policy_type == BUILD_POLICY):
+    elif policy_type == BUILD_POLICY:
         policytypeId = BUILD_POLICY_ID
         paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
         paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
 
-    elif(policy_type == COMMENT_REQUIREMENTS_POLICY):
+    elif policy_type == COMMENT_REQUIREMENTS_POLICY:
         policytypeId = COMMENT_REQUIREMENTS_POLICY_ID
         # this particular policy does not need any other parameter
 
-    elif(policy_type == MERGE_STRATEGY_POLICY):
+    elif policy_type == MERGE_STRATEGY_POLICY:
         policytypeId = MERGE_STRATEGY_POLICY_ID
         paramArray = [useSquashMerge]
         paramNameArray = nameOfArray([useSquashMerge])
 
-    elif(policy_type == FILE_SIZE_POLICY):
+    elif policy_type == FILE_SIZE_POLICY:
         policytypeId = FILE_SIZE_POLICY_ID
         paramArray = [maximumGitBlobSizeInBytes, useUncompressedSize]
         paramNameArray = nameOfArray([maximumGitBlobSizeInBytes, useUncompressedSize])
 
-    elif(policy_type == WORKITEM_LINKING_POLICY):
+    elif policy_type == WORKITEM_LINKING_POLICY:
         policytypeId = WORKITEM_LINKING_POLICY_ID
         # this particular policy does not need any other parameter
 
-    elif(policy_type == REQUIRED_REVIEWER_POLICY):
+    elif policy_type == REQUIRED_REVIEWER_POLICY:
         policytypeId = REQUIRED_REVIEWER_POLICY_ID
         optionalReviewerIds = resolveIdentityMailsToIds(optionalReviewerIds, organization)
         requiredReviewerIds = resolveIdentityMailsToIds(requiredReviewerIds, organization)
@@ -338,11 +343,11 @@ def resolveIdentityMailsToIds(mailList, organization):
 
     idList = []
     for mail in mailList.split(';'):
-            mailStripped = mail.strip()
-            logger.debug('trying to resolve {}'.format(mailStripped))
-            id = resolve_identity_as_id(mailStripped ,organization)
-            logger.debug('got id as {}'.format(id))
-            idList.append(id)    
+        mailStripped = mail.strip()
+        logger.debug('trying to resolve {}'.format(mailStripped))
+        id = resolve_identity_as_id(mailStripped, organization)
+        logger.debug('got id as {}'.format(id))
+        idList.append(id)    
     return idList
 
 def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
