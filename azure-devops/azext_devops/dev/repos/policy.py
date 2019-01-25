@@ -6,8 +6,6 @@
 # pylint: disable=line-too-long
 # This file a lot of these are intentional because that makes grouping variables easy
 
-import sys
-
 from knack.util import CLIError
 from knack.log import get_logger
 from vsts.exceptions import VstsServiceError
@@ -352,16 +350,16 @@ def generateConfigurationObject(repository_id, branch,
 
 
 def resolveIdentityMailsToIds(mailList, organization):
-    logger.debug('mail list %s ' % mailList)
+    logger.debug('mail list %s ', mailList)
     if not mailList or (not mailList.strip()):
         return None
 
     idList = []
     for mail in mailList.split(';'):
         mailStripped = mail.strip()
-        logger.debug('trying to resolve %s' %mailStripped)
+        logger.debug('trying to resolve %s', mailStripped)
         identityId = resolve_identity_as_id(mailStripped, organization)
-        logger.debug('got id as %s' %identityId)
+        logger.debug('got id as %s', identityId)
         idList.append(identityId)
 
     return idList
