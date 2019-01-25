@@ -287,12 +287,12 @@ def generateConfigurationObject(repository_id, branch,
     if policy_type == APPROVER_COUNT_POLICY:
         policytypeId = APPROVER_COUNT_POLICY_ID
         paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
-        paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
+        paramNameArray = ['minimumApproverCount', 'creatorVoteCounts', 'allowDownvotes', 'resetOnSourcePush']
 
     elif policy_type == BUILD_POLICY:
         policytypeId = BUILD_POLICY_ID
         paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
-        paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
+        paramNameArray = ['buildDefinitionId', 'queueOnSourceUpdateOnly', 'manualQueueOnly', 'displayName', 'validDuration']
 
     elif policy_type == COMMENT_REQUIREMENTS_POLICY:
         policytypeId = COMMENT_REQUIREMENTS_POLICY_ID
@@ -301,12 +301,12 @@ def generateConfigurationObject(repository_id, branch,
     elif policy_type == MERGE_STRATEGY_POLICY:
         policytypeId = MERGE_STRATEGY_POLICY_ID
         paramArray = [useSquashMerge]
-        paramNameArray = nameOfArray([useSquashMerge])
+        paramNameArray = ['useSquashMerge']
 
     elif policy_type == FILE_SIZE_POLICY:
         policytypeId = FILE_SIZE_POLICY_ID
         paramArray = [maximumGitBlobSizeInBytes, useUncompressedSize]
-        paramNameArray = nameOfArray([maximumGitBlobSizeInBytes, useUncompressedSize])
+        paramNameArray = ['maximumGitBlobSizeInBytes', 'useUncompressedSize']
 
     elif policy_type == WORKITEM_LINKING_POLICY:
         policytypeId = WORKITEM_LINKING_POLICY_ID
@@ -322,7 +322,7 @@ def generateConfigurationObject(repository_id, branch,
         if requiredReviewerIds and (not optionalReviewerIds):
             optionalReviewerIds = []
         paramArray = [optionalReviewerIds, requiredReviewerIds, message]
-        paramNameArray = nameOfArray([optionalReviewerIds, requiredReviewerIds, message])
+        paramNameArray = ['optionalReviewerIds', 'requiredReviewerIds', 'message']
 
     # check if we have value in all the required params or not
     raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policy_type)
@@ -371,18 +371,3 @@ def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
         return
     if any(v is None for v in paramArray):
         raise CLIError('{} are required for {}'.format('--' + ' --'.join(paramNameArray), policyName))
-
-
-def nameOfArray(exp):
-    logger.debug(str(exp))
-    # without the below protected access it will be very hard to implement policy create
-    # also we have a UT for this so we will catch any break ASAP
-    frame = sys._getframe(1)   # pylint: disable=protected-access
-    fname = frame.f_code.co_filename
-    line = frame.f_lineno
-    with open(fname) as f:
-        line = f.read().split('\n')[line - 1]
-    start = line.find('nameOfArray([') + 13
-    end = line.find('])', start)
-    linePassedToFunction = line[start:end]
-    return [x.strip() for x in linePassedToFunction.split(',')]

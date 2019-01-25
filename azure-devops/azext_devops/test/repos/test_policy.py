@@ -45,17 +45,6 @@ class TestUuidMethods(unittest.TestCase):
         self.mock_create_policy.stop()
         self.mock_update_policy.stop()
 
-    def test_name_of_array(self):
-        first_name = 'a'
-        middle_name = 'b'
-        last_name = 'c'
-        desired_result = ['first_name','middle_name','last_name']
-        nameOfArrayResult = nameOfArray([first_name,middle_name,last_name])
-        self.assertEqual(nameOfArrayResult, desired_result)
-        #the misplace here is intentional
-        nameOfArrayResult = nameOfArray([ first_name ,    middle_name ,     last_name])
-        self.assertEqual(nameOfArrayResult, desired_result)
-
     def test_list_policy(self):
         list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
