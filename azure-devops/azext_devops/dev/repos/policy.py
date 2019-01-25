@@ -146,79 +146,101 @@ def create_policy(repository_id, branch,
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
 
-        # these 2 will be filled by respective types
-        paramNameArray = []
-        paramArray = []
-        policytypeId = ''
-
-        if(policy_type == APPROVER_COUNT_POLICY):
-            policytypeId = APPROVER_COUNT_POLICY_ID
-            paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
-            paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
-
-        elif(policy_type == BUILD_POLICY):
-            policytypeId = BUILD_POLICY_ID
-            paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
-            paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
-
-        elif(policy_type == COMMENT_REQUIREMENTS_POLICY):
-            policytypeId = COMMENT_REQUIREMENTS_POLICY_ID
-            # this particular policy does not need any other parameter
-
-        elif(policy_type == MERGE_STRATEGY_POLICY):
-            policytypeId = MERGE_STRATEGY_POLICY_ID
-            paramArray = [useSquashMerge]
-            paramNameArray = nameOfArray([useSquashMerge])
-
-        elif(policy_type == FILE_SIZE_POLICY):
-            policytypeId = FILE_SIZE_POLICY_ID
-            paramArray = [maximumGitBlobSizeInBytes, useUncompressedSize]
-            paramNameArray = nameOfArray([maximumGitBlobSizeInBytes, useUncompressedSize])
-
-        elif(policy_type == WORKITEM_LINKING_POLICY):
-            policytypeId = WORKITEM_LINKING_POLICY_ID
-            # this particular policy does not need any other parameter
-
-        elif(policy_type == REQUIRED_REVIEWER_POLICY):
-            policytypeId = REQUIRED_REVIEWER_POLICY_ID
-            optionalReviewerIds = resolveIdentityMailsToIds(optionalReviewerIds, organization)
-            requiredReviewerIds = resolveIdentityMailsToIds(requiredReviewerIds, organization)
-            # special handling for this policy
-            if optionalReviewerIds and (not requiredReviewerIds):
-                requiredReviewerIds = []
-            if requiredReviewerIds and (not optionalReviewerIds):
-                optionalReviewerIds = []
-            paramArray = [optionalReviewerIds, requiredReviewerIds, message]
-            paramNameArray = nameOfArray([optionalReviewerIds, requiredReviewerIds, message])
-
-        # check if we have value in all the required params or not
-        raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policy_type)
-
-        policyConfigurationToCreate = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
-        scope = [
-            {
-                'repositoryId': repository_id,
-                'refName': branch,
-                'matchKind': 'exact'
-            }
-        ]
-        policyConfigurationToCreate.settings = {
-            'scope': scope
-            }
-
-        policyConfigurationToCreate.type = {
-            'id' : policytypeId
-        }
-
-        index = 0
-        for param in paramNameArray:
-            policyConfigurationToCreate.settings[param] = paramArray[index]
-            index = index + 1
+        policyConfigurationToCreate = generateConfigurationObject(repository_id, branch,
+        policy_type,
+        isBlocking, isEnabled,
+        minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush,
+        useSquashMerge,
+        buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration,
+        maximumGitBlobSizeInBytes, useUncompressedSize,
+        optionalReviewerIds, requiredReviewerIds, message,
+        organization)
 
         return policy_client.create_policy_configuration(configuration=policyConfigurationToCreate, project=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
-    
+
+def generateConfigurationObject(
+    repository_id,branch,
+    policy_type=None,
+    isBlocking=False, isEnabled=False,
+    minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
+    useSquashMerge=None,
+    buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
+    maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
+    optionalReviewerIds=None, requiredReviewerIds=None, message=None,
+    organization=None):
+    # these 2 will be filled by respective types
+    paramNameArray = []
+    paramArray = []
+    policytypeId = ''
+
+    if(policy_type == APPROVER_COUNT_POLICY):
+        policytypeId = APPROVER_COUNT_POLICY_ID
+        paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
+        paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
+
+    elif(policy_type == BUILD_POLICY):
+        policytypeId = BUILD_POLICY_ID
+        paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
+        paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
+
+    elif(policy_type == COMMENT_REQUIREMENTS_POLICY):
+        policytypeId = COMMENT_REQUIREMENTS_POLICY_ID
+        # this particular policy does not need any other parameter
+
+    elif(policy_type == MERGE_STRATEGY_POLICY):
+        policytypeId = MERGE_STRATEGY_POLICY_ID
+        paramArray = [useSquashMerge]
+        paramNameArray = nameOfArray([useSquashMerge])
+
+    elif(policy_type == FILE_SIZE_POLICY):
+        policytypeId = FILE_SIZE_POLICY_ID
+        paramArray = [maximumGitBlobSizeInBytes, useUncompressedSize]
+        paramNameArray = nameOfArray([maximumGitBlobSizeInBytes, useUncompressedSize])
+
+    elif(policy_type == WORKITEM_LINKING_POLICY):
+        policytypeId = WORKITEM_LINKING_POLICY_ID
+        # this particular policy does not need any other parameter
+
+    elif(policy_type == REQUIRED_REVIEWER_POLICY):
+        policytypeId = REQUIRED_REVIEWER_POLICY_ID
+        optionalReviewerIds = resolveIdentityMailsToIds(optionalReviewerIds, organization)
+        requiredReviewerIds = resolveIdentityMailsToIds(requiredReviewerIds, organization)
+        # special handling for this policy
+        if optionalReviewerIds and (not requiredReviewerIds):
+            requiredReviewerIds = []
+        if requiredReviewerIds and (not optionalReviewerIds):
+            optionalReviewerIds = []
+        paramArray = [optionalReviewerIds, requiredReviewerIds, message]
+        paramNameArray = nameOfArray([optionalReviewerIds, requiredReviewerIds, message])
+
+    # check if we have value in all the required params or not
+    raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policy_type)
+
+    policyConfiguration = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
+    scope = [
+        {
+            'repositoryId': repository_id,
+            'refName': branch,
+            'matchKind': 'exact'
+        }
+    ]
+    policyConfiguration.settings = {
+        'scope': scope
+        }
+
+    policyConfiguration.type = {
+        'id' : policytypeId
+    }
+
+    index = 0
+    for param in paramNameArray:
+        policyConfiguration.settings[param] = paramArray[index]
+        index = index + 1
+
+    return policyConfiguration
+
 
 def resolveIdentityMailsToIds(mailList, organization):
     logger.debug('mail list is {}'.format((mailList)))
