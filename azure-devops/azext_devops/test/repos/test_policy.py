@@ -83,7 +83,9 @@ class TestUuidMethods(unittest.TestCase):
             minimumApproverCount=2)
             self.fail('create should have thrown CLIError')
         except CLIError as ex:
-            self.assertEqual(str(ex), '--minimumApproverCount --creatorVoteCounts --allowDownvotes --resetOnSourcePush are required for ApproverCountPolicy')
+            #assert
+            self.assertEqual(str(ex),
+            '--minimumApproverCount --creatorVoteCounts --allowDownvotes --resetOnSourcePush are required for ApproverCountPolicy')
 
 if __name__ == '__main__':
     unittest.main()
