@@ -76,6 +76,7 @@ def create_policy(repository_id, branch,
                   minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
                   useSquashMerge=None,
                   buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
+                  maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
                   organization=None, project=None, detect=None):
     """
     :param repository_id: Id (UUID) of the repository on which to apply the policy
@@ -112,6 +113,11 @@ def create_policy(repository_id, branch,
     :param useSquashMerge: Use Squash Merge. Required if policy type is MergeStrategyPolicy
     :type useSquashMerge: bool
 
+    :param maximumGitBlobSizeInBytes: Maximum Git Blob Size In Bytes. Required if policy type is FileSizePolicy
+    :type maximumGitBlobSizeInBytes: long
+    :param useUncompressedSize: Use uncompressed size. Required if policy type is FileSizePolicy
+    :type useUncompressedSize: bool
+
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the project.
@@ -128,30 +134,36 @@ def create_policy(repository_id, branch,
         # these 2 will be filled by respective types
         paramNameArray = []
         paramArray = []
-        typeId = ''
+        policytypeId = ''
 
         if(policy_type == APPROVER_COUNT_POLICY):
-            typeId = APPROVER_COUNT_POLICY_ID
+            policytypeId = APPROVER_COUNT_POLICY_ID
             paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
             paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
-            if any(v is None for v in paramArray):
-                raise CLIError('{} are required for {}'.format('--' + ' --'.join(paramNameArray), APPROVER_COUNT_POLICY))
+
         elif(policy_type == BUILD_POLICY):
-            typeId = BUILD_POLICY_ID
+            policytypeId = BUILD_POLICY_ID
             paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
             paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
-            if any(v is None for v in paramArray):
-                raise CLIError('{} are required for {}'.format('--' + ' --'.join(paramNameArray), BUILD_POLICY))
+
         elif(policy_type == COMMENT_REQUIREMENTS_POLICY):
-            typeId = COMMENT_REQUIREMENTS_POLICY_ID
+            policytypeId = COMMENT_REQUIREMENTS_POLICY_ID
             # this particular policy does not need any other parameter
+
         elif(policy_type == MERGE_STRATEGY_POLICY):
-            typeId = MERGE_STRATEGY_POLICY_ID
+            policytypeId = MERGE_STRATEGY_POLICY_ID
             paramArray = [useSquashMerge]
             paramNameArray = nameOfArray([useSquashMerge])
-            if any(v is None for v in paramArray):
-                raise CLIError('{} are required for {}'.format('--' + ' --'.join(paramNameArray), BUILD_POLICY))
 
+        elif(policy_type == FILE_SIZE_POLICY):
+            policytypeId = FILE_SIZE_POLICY_ID
+            paramArray = [maximumGitBlobSizeInBytes, useUncompressedSize]
+            paramNameArray = nameOfArray([maximumGitBlobSizeInBytes, useUncompressedSize])
+
+        
+
+        # check if we have value in all the required params or not
+        raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policy_type)
 
         policyConfigurationToCreate = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
         scope = [
@@ -166,7 +178,7 @@ def create_policy(repository_id, branch,
             }
 
         policyConfigurationToCreate.type = {
-            'id' : typeId
+            'id' : policytypeId
         }
 
         index = 0
@@ -178,6 +190,13 @@ def create_policy(repository_id, branch,
     except VstsServiceError as ex:
         raise CLIError(ex)
     
+
+def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
+    if not paramNameArray:
+        return
+    if any(v is None for v in paramArray):
+        raise CLIError('{} are required for {}'.format('--' + ' --'.join(paramNameArray), policyName))
+
 
 def nameOfArray(exp):
     frame = sys._getframe(1)
