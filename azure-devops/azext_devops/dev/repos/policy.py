@@ -127,22 +127,20 @@ def create_policy(repository_id, branch,
         typeId = ''
 
         if(policy_type == APPROVER_COUNT_POLICY):
-            if any(v is None for v in [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]):
-                paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
-                raise CLIError('{} are required for ApproverCountPolicy'.format('--' + ' --'.join(paramNameArray)))
-
             typeId = APPROVER_COUNT_POLICY_ID
-            paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
             paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
-
-        elif(policy_type == BUILD_POLICY):
-            if any(v is None for v in [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]):
-                paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
+            paramNameArray = nameOfArray([minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush])
+            if any(v is None for v in paramArray):
                 raise CLIError('{} are required for ApproverCountPolicy'.format('--' + ' --'.join(paramNameArray)))
-
+        elif(policy_type == BUILD_POLICY):
             typeId = BUILD_POLICY_ID
-            paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
             paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
+            paramNameArray = nameOfArray([buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration])
+            if any(v is None for v in paramArray):
+                raise CLIError('{} are required for ApproverCountPolicy'.format('--' + ' --'.join(paramNameArray)))
+        elif(policy_type == COMMENT_REQUIREMENTS_POLICY):
+            typeId = COMMENT_REQUIREMENTS_POLICY_ID
+            # this particular policy does not need any other parameter
 
         policyConfigurationToCreate = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
         scope = [
