@@ -23,13 +23,16 @@ class TestUuidMethods(unittest.TestCase):
 
     def setUp(self):
         self.get_policies_patcher = patch('vsts.policy.v4_0.policy_client.PolicyClient.get_policy_configurations')
+        self.get_policy_patcher = patch('vsts.policy.v4_0.policy_client.PolicyClient.get_policy_configuration')
 
         self.mock_get_policies = self.get_policies_patcher.start()
+        self.mock_get_policy = self.get_policy_patcher.start()
 
         clear_connection_cache()
 
     def tearDown(self):
         self.mock_get_policies.stop()
+        self.mock_get_policy.stop()
 
     def test_name_of_array(self):
         first_name = 'a'
@@ -43,12 +46,21 @@ class TestUuidMethods(unittest.TestCase):
         self.assertEqual(nameOfArrayResult, desired_result)
 
     def test_list_policy(self):
-        response = list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
+        list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
 
         #assert
         self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT)
+
+    def test_get_policy(self):
+        get_policy(id = 121,
+        organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off')
+
+        #assert
+        self.mock_get_policy.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, configuration_id=121)
 
 if __name__ == '__main__':
     unittest.main()
