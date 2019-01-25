@@ -86,7 +86,10 @@ class TestUuidMethods(unittest.TestCase):
         try:
             create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
             policy_type='ApproverCountPolicy',
-            minimumApproverCount=2)
+            minimumApproverCount=2,
+            organization = self._TEST_DEVOPS_ORGANIZATION,
+            project = self._TEST_DEVOPS_PROJECT,
+            detect='off')
             self.fail('create should have thrown CLIError')
         except CLIError as ex:
             #assert
