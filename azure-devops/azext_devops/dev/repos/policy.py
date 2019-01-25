@@ -10,11 +10,24 @@ import sys
 
 from knack.util import CLIError
 from knack.log import get_logger
-from vsts.exceptions import VstsClientRequestError, VstsServiceError
+from vsts.exceptions import VstsServiceError
 from vsts.policy.v4_0.models.policy_configuration import PolicyConfiguration
 
 from azext_devops.dev.common.services import (get_policy_client, resolve_instance_and_project)
-from azext_devops.dev.common.const import *
+from azext_devops.dev.common.const import (APPROVER_COUNT_POLICY,
+                                           APPROVER_COUNT_POLICY_ID,
+                                           BUILD_POLICY,
+                                           BUILD_POLICY_ID,
+                                           COMMENT_REQUIREMENTS_POLICY,
+                                           COMMENT_REQUIREMENTS_POLICY_ID,
+                                           MERGE_STRATEGY_POLICY,
+                                           MERGE_STRATEGY_POLICY_ID,
+                                           FILE_SIZE_POLICY,
+                                           FILE_SIZE_POLICY_ID,
+                                           WORKITEM_LINKING_POLICY,
+                                           WORKITEM_LINKING_POLICY_ID,
+                                           REQUIRED_REVIEWER_POLICY,
+                                           REQUIRED_REVIEWER_POLICY_ID)
 from azext_devops.dev.common.identities import resolve_identity_as_id
 
 logger = get_logger(__name__)
@@ -339,16 +352,16 @@ def generateConfigurationObject(repository_id, branch,
 
 
 def resolveIdentityMailsToIds(mailList, organization):
-    logger.debug('mail list {}'.format((mailList)))
+    logger.debug('mail list %s ' % mailList)
     if not mailList or (not mailList.strip()):
         return None
 
     idList = []
     for mail in mailList.split(';'):
         mailStripped = mail.strip()
-        logger.debug('trying to resolve {}'.format(mailStripped))
+        logger.debug('trying to resolve %s' %mailStripped)
         identityId = resolve_identity_as_id(mailStripped, organization)
-        logger.debug('got id as {}'.format(identityId))
+        logger.debug('got id as %s' %identityId)
         idList.append(identityId)
 
     return idList
@@ -362,7 +375,9 @@ def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
 
 def nameOfArray(exp):
     logger.debug(str(exp))
-    frame = sys._getframe(1)
+    # without the below protected access it will be very hard to implement policy create
+    # also we have a UT for this so we will catch any break ASAP
+    frame = sys._getframe(1)   # pylint: disable=protected-access
     fname = frame.f_code.co_filename
     line = frame.f_lineno
     with open(fname) as f:
