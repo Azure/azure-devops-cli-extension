@@ -139,9 +139,6 @@ steps:
     git pr list
   displayName: 'Show build list and PRs'
 ```
-
-For Linux and Windows, there are few variation in steps to get the required versions of a few dependencies.
-
 For Linux: azure-pipelines-steps-linux.yml
 ```
 steps:
