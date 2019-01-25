@@ -117,11 +117,26 @@ class TestUuidMethods(unittest.TestCase):
         self.mock_create_policy.assert_called_once()
         create_policy_object = self.mock_create_policy.call_args_list[0][1]
         self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'], str(create_policy_object))
-        scope = create_policy_object['configuration'].settings  # 0 because we set only only scope from CLI
-        self.assertEqual(scope['minimumApproverCount'], 2)
-        self.assertEqual(scope['creatorVoteCounts'], True)
-        self.assertEqual(scope['allowDownvotes'], False)
-        self.assertEqual(scope['resetOnSourcePush'], True)
+        settings = create_policy_object['configuration'].settings  # 0 because we set only only scope from CLI
+        self.assertEqual(settings['minimumApproverCount'], 2)
+        self.assertEqual(settings['creatorVoteCounts'], True)
+        self.assertEqual(settings['allowDownvotes'], False)
+        self.assertEqual(settings['resetOnSourcePush'], True)
+
+    def test_create_policy_id_assignment(self):
+        create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
+            policy_type='ApproverCountPolicy',
+            minimumApproverCount=2, creatorVoteCounts= True, allowDownvotes= False, resetOnSourcePush= True,
+            organization = self._TEST_DEVOPS_ORGANIZATION,
+            project = self._TEST_DEVOPS_PROJECT,
+            detect='off')
+
+        self.mock_create_policy.assert_called_once()
+        create_policy_object = self.mock_create_policy.call_args_list[0][1]
+        self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'], str(create_policy_object))
+        policy_type_id = create_policy_object['configuration'].type['id']  # 0 because we set only only scope from CLI
+        self.assertEqual(policy_type_id, 'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd')
+
         
 
 if __name__ == '__main__':
