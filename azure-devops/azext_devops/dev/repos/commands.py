@@ -4,7 +4,18 @@
 # --------------------------------------------------------------------------------------------
 
 from azure.cli.core.commands import CliCommandType
-from ._format import *
+from ._format import (transform_pull_request_table_output,
+                      transform_pull_requests_table_output,
+                      transform_repo_table_output,
+                      transform_repos_table_output,
+                      transform_reviewers_table_output,
+                      transform_reviewer_table_output,
+                      transform_policies_table_output,
+                      transform_policy_table_output,
+                      transform_work_items_table_output,
+                      transform_repo_import_table_output,
+                      transform_repo_policy_table_output,
+                      transform_repo_policies_table_output)
 
 
 reposPullRequestOps = CliCommandType(
