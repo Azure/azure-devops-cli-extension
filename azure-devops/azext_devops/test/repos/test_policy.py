@@ -22,14 +22,14 @@ class TestUuidMethods(unittest.TestCase):
     _TEST_PAT_TOKEN = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
 
     def setUp(self):
-        self.get_policy_patcher = patch('vsts.policy.v4_0.policy_client.PolicyClient.get_policy_configurations')
+        self.get_policies_patcher = patch('vsts.policy.v4_0.policy_client.PolicyClient.get_policy_configurations')
 
-        self.mock_get_policy = self.get_policy_patcher.start()
+        self.mock_get_policies = self.get_policies_patcher.start()
 
         clear_connection_cache()
 
     def tearDown(self):
-        self.mock_get_policy.stop()
+        self.mock_get_policies.stop()
 
     def test_name_of_array(self):
         first_name = 'a'
@@ -48,7 +48,7 @@ class TestUuidMethods(unittest.TestCase):
         detect='off')
 
         #assert
-        self.mock_get_policy.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT)
+        self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT)
 
 if __name__ == '__main__':
     unittest.main()
