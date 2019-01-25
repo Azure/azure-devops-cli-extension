@@ -181,16 +181,13 @@ def create_policy(repository_id, branch,
 
         elif(policy_type == REQUIRED_REVIEWER_POLICY):
             policytypeId = REQUIRED_REVIEWER_POLICY_ID
-
             optionalReviewerIds = resolveIdentityMailsToIds(optionalReviewerIds, organization)
             requiredReviewerIds = resolveIdentityMailsToIds(requiredReviewerIds, organization)
-
+            # special handling for this policy
             if optionalReviewerIds and (not requiredReviewerIds):
                 requiredReviewerIds = []
-
             if requiredReviewerIds and (not optionalReviewerIds):
                 optionalReviewerIds = []
-
             paramArray = [optionalReviewerIds, requiredReviewerIds, message]
             paramNameArray = nameOfArray([optionalReviewerIds, requiredReviewerIds, message])
 
