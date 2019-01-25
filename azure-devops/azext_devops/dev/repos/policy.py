@@ -160,6 +160,10 @@ def create_policy(repository_id, branch,
             paramArray = [maximumGitBlobSizeInBytes, useUncompressedSize]
             paramNameArray = nameOfArray([maximumGitBlobSizeInBytes, useUncompressedSize])
 
+        elif(policy_type == WORKITEM_LINKING_POLICY):
+            policytypeId = WORKITEM_LINKING_POLICY_ID
+            # this particular policy does not need any other parameter
+
         
 
         # check if we have value in all the required params or not
