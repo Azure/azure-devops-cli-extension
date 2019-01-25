@@ -105,6 +105,23 @@ class TestUuidMethods(unittest.TestCase):
         self.assertEqual(scope['repositoryId'], self._TEST_REPOSITORY_ID)
         self.assertEqual(scope['refName'], 'master')
         self.assertEqual(scope['matchKind'], 'exact')
+
+    def test_create_policy_setting_creation(self):
+        create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
+            policy_type='ApproverCountPolicy',
+            minimumApproverCount=2, creatorVoteCounts= True, allowDownvotes= False, resetOnSourcePush= True,
+            organization = self._TEST_DEVOPS_ORGANIZATION,
+            project = self._TEST_DEVOPS_PROJECT,
+            detect='off')
+
+        self.mock_create_policy.assert_called_once()
+        create_policy_object = self.mock_create_policy.call_args_list[0][1]
+        self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'], str(create_policy_object))
+        scope = create_policy_object['configuration'].settings  # 0 because we set only only scope from CLI
+        self.assertEqual(scope['minimumApproverCount'], 2)
+        self.assertEqual(scope['creatorVoteCounts'], True)
+        self.assertEqual(scope['allowDownvotes'], False)
+        self.assertEqual(scope['resetOnSourcePush'], True)
         
 
 if __name__ == '__main__':
