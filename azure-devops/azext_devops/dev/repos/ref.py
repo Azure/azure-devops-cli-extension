@@ -12,21 +12,21 @@ from azext_devops.dev.common.services import (get_git_client,
 
 
 # pylint: disable=redefined-builtin
-def list_refs(filter=None, repository=None, devops_organization=None, project=None, detect=None):
+def list_refs(filter=None, repository=None, organization=None, project=None, detect=None):
     """List the references.
-    :param str filter: Filter to apply to the refs (example: heads/ for the branches).
+    :param str filter: A filter to apply to the refs (starts with). Example: head or heads/ for the branches.
     :param str repository: Name or ID of the repository.
-    :param str devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :param str organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(
+        organization, project, repository = resolve_instance_project_and_repo(
             detect=detect,
-            devops_organization=devops_organization,
+            organization=organization,
             project=project,
             repo=repository)
-        client = get_git_client(devops_organization)
+        client = get_git_client(organization)
         return client.get_refs(repository_id=repository,
                                project=project,
                                filter=filter)
@@ -34,23 +34,23 @@ def list_refs(filter=None, repository=None, devops_organization=None, project=No
         raise CLIError(ex)
 
 
-def create_ref(name, object_id, locked=False, repository=None, devops_organization=None, project=None, detect=None):
+def create_ref(name, object_id, locked=False, repository=None, organization=None, project=None, detect=None):
     """Create a reference.
     :param str name: Name of the reference to create (example: heads/my_branch or tags/my_tag).
-    :param str object_id: id of the object to create the reference from.
+    :param str object_id: Id of the object to create the reference from.
     :param bool locked: If the reference is locked (default False)
     :param str repository: Name or ID of the repository.
-    :param str devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :param str organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(
+        organization, project, repository = resolve_instance_project_and_repo(
             detect=detect,
-            devops_organization=devops_organization,
+            organization=organization,
             project=project,
             repo=repository)
-        client = get_git_client(devops_organization)
+        client = get_git_client(organization)
         ref_update = GitRefUpdate(is_locked=locked,
                                   name=resolve_git_refs(name),
                                   new_object_id=object_id,
@@ -60,22 +60,22 @@ def create_ref(name, object_id, locked=False, repository=None, devops_organizati
         raise CLIError(ex)
 
 
-def delete_ref(name, object_id, repository=None, devops_organization=None, project=None, detect=None):
+def delete_ref(name, object_id, repository=None, organization=None, project=None, detect=None):
     """Delete a reference.
-    :param str name: Name of the reference to create (example: heads/my_branch).
-    :param str object_id: id of the reference to delete.
+    :param str name: Name of the reference to delete (example: heads/my_branch).
+    :param str object_id: Id of the reference to delete.
     :param str repository: Name or ID of the repository.
-    :param str devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :param str organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(
+        organization, project, repository = resolve_instance_project_and_repo(
             detect=detect,
-            devops_organization=devops_organization,
+            organization=organization,
             project=project,
             repo=repository)
-        client = get_git_client(devops_organization)
+        client = get_git_client(organization)
         ref_update = GitRefUpdate(name=resolve_git_refs(name),
                                   new_object_id='0000000000000000000000000000000000000000',
                                   old_object_id=object_id)
@@ -84,24 +84,24 @@ def delete_ref(name, object_id, repository=None, devops_organization=None, proje
         raise CLIError(ex)
 
 
-def update_ref(name, old_object_id, new_object_id, repository=None, devops_organization=None,
+def update_ref(name, old_object_id, new_object_id, repository=None, organization=None,
                project=None, detect=None):
     """Update a reference.
-    :param str name: Name of the reference to create (example: heads/my_branch).
-    :param str old_object_id: id of the old reference.
-    :param str new_object_id: id of the new reference.
+    :param str name: Name of the reference to update (example: heads/my_branch).
+    :param str old_object_id: Id of the old reference.
+    :param str new_object_id: Id of the new reference.
     :param str repository: Name or ID of the repository.
-    :param str devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :param str organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
     try:
-        devops_organization, project, repository = resolve_instance_project_and_repo(
+        organization, project, repository = resolve_instance_project_and_repo(
             detect=detect,
-            devops_organization=devops_organization,
+            organization=organization,
             project=project,
             repo=repository)
-        client = get_git_client(devops_organization)
+        client = get_git_client(organization)
         ref_update = GitRefUpdate(name=resolve_git_refs(name),
                                   new_object_id=new_object_id,
                                   old_object_id=old_object_id)
