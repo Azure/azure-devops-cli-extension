@@ -19,8 +19,7 @@ NAME = 'azure-devops'
 
 REQUIRES = [
     'python-dateutil==2.7.3',
-    'vsts==0.1.20',
-    'keyring~=13.2.1'
+    'vsts==0.1.20'
 ]
 
 # Version extraction inspired from 'requests'
@@ -58,7 +57,7 @@ setup(
     license='MIT',
     author="Microsoft",
     author_email="VSTS_Social@microsoft.com",
-    url="https://github.com/Microsoft/vsts-cli/tree/azuredevopscli-dev",
+    url="https://github.com/Microsoft/azure-devops-cli-extension",
     classifiers=CLASSIFIERS,
     package_data={'azext_devops': ['azext_metadata.json']},
     packages=find_packages(),

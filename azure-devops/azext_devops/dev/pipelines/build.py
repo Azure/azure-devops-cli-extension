@@ -20,8 +20,8 @@ from .build_definition import get_definition_id_from_name
 logger = get_logger(__name__)
 
 
-def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open_browser=False,
-                devops_organization=None, project=None, detect=None, source_branch=None, commit_id=None):
+def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open=False,  # pylint: disable=redefined-builtin
+                organization=None, project=None, detect=None, source_branch=None, commit_id=None):
     """Request (queue) a build.
     :param definition_id: ID of the definition to queue. Required if --name is not supplied.
     :type definition_id: int
@@ -31,10 +31,10 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type branch: str
     :param variables: Space separated "name=value" pairs for the variables you would like to set.
     :type variables: [str]
-    :param open_browser: Open the build results page in your web browser.
-    :type open_browser: bool
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param open: Open the build results page in your web browser.
+    :type open: bool
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the team project.
     :type project: str
     :param detect: Automatically detect organization and project. Default is "on".
@@ -48,12 +48,12 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     try:
         if branch is None:
             branch = source_branch
-        devops_organization, project = resolve_instance_and_project(
-            detect=detect, devops_organization=devops_organization, project=project)
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
         if definition_id is None and definition_name is None:
             raise ValueError('Either the --definition-id argument or the --definition-name argument ' +
                              'must be supplied for this command.')
-        client = get_build_client(devops_organization)
+        client = get_build_client(organization)
         if definition_id is None:
             definition_id = get_definition_id_from_name(definition_name, client, project)
         definition_reference = DefinitionReference(id=definition_id)
@@ -69,21 +69,21 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
                 else:
                     raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
         queued_build = client.queue_build(build=build, project=project)
-        if open_browser:
-            _open_build(queued_build, devops_organization)
+        if open:
+            _open_build(queued_build, organization)
         return queued_build
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def build_show(build_id, open_browser=False, devops_organization=None, project=None, detect=None):
+def build_show(id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a build.
-    :param build_id: ID of the build.
-    :type build_id: int
-    :param open_browser: Open the build results page in your web browser.
-    :type open_browser: bool
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param id: ID of the build.
+    :type id: int
+    :param open: Open the build results page in your web browser.
+    :type open: bool
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the team project.
     :type project: str
     :param detect: Automatically detect organization and project. Default is "on".
@@ -91,26 +91,26 @@ def build_show(build_id, open_browser=False, devops_organization=None, project=N
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
     try:
-        devops_organization, project = resolve_instance_and_project(
-            detect=detect, devops_organization=devops_organization, project=project)
-        client = get_build_client(devops_organization)
-        build = client.get_build(build_id=build_id, project=project)
-        if open_browser:
-            _open_build(build, devops_organization)
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        client = get_build_client(organization)
+        build = client.get_build(build_id=id, project=project)
+        if open:
+            _open_build(build, organization)
         return build
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def build_list(definition_ids=None, branch=None, devops_organization=None, project=None, detect=None, top=None,
+def build_list(definition_ids=None, branch=None, organization=None, project=None, detect=None, top=None,
                result=None, status=None, reason=None, tags=None, requested_for=None):
     """List build results.
     :param definition_ids: IDs (space separated) of definitions to list builds for.
     :type definition_ids: list of int
     :param branch: Filter by builds for this branch.
     :type branch: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the team project.
     :type project: str
     :param detect: Automatically detect organization and project. Default is "on".
@@ -130,9 +130,9 @@ def build_list(definition_ids=None, branch=None, devops_organization=None, proje
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
     try:
-        devops_organization, project = resolve_instance_and_project(
-            detect=detect, devops_organization=devops_organization, project=project)
-        client = get_build_client(devops_organization)
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        client = get_build_client(organization)
         if definition_ids is not None and definition_ids:
             definition_ids = list(set(definition_ids))  # make distinct
         if tags is not None and tags:
@@ -145,20 +145,20 @@ def build_list(definition_ids=None, branch=None, devops_organization=None, proje
                                    status_filter=status,
                                    reason_filter=reason,
                                    tag_filters=tags,
-                                   requested_for=resolve_identity_as_id(requested_for, devops_organization))
+                                   requested_for=resolve_identity_as_id(requested_for, organization))
         return builds
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def _open_build(build, devops_organization):
+def _open_build(build, organization):
     """Open the build results page in your web browser.
     :param :class:`<Build> <build.v4_0.models.Build>` build:
-    :param str devops_organization:
+    :param str organization:
     """
-    # https://mseng.visualstudio.com/vsts-cli/_build/index?buildId=4053990
+    # https://dev.azure.com/OrgName/ProjectName/_build/index?buildId=1234
     project = build.project.name
-    url = devops_organization.rstrip('/') + '/' + uri_quote(project) + '/_build/index?buildid='\
+    url = organization.rstrip('/') + '/' + uri_quote(project) + '/_build/index?buildid='\
         + uri_quote(str(build.id))
     logger.debug('Opening web page: %s', url)
     open_new(url=url)

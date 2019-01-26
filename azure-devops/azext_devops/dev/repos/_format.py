@@ -142,12 +142,12 @@ def transform_policies_table_output(result):
         reviewer_id = get_required_reviewer_from_evaluation_row(item)
         if reviewer_id is not None:
             reviewer_ids.append(get_required_reviewer_from_evaluation_row(item))
-    devops_organization = get_first_vss_instance_uri()
-    ensure_display_names_in_cache(devops_organization, reviewer_ids)
+    organization = get_first_vss_instance_uri()
+    ensure_display_names_in_cache(organization, reviewer_ids)
     for item in result:
         reviewer_id = get_required_reviewer_from_evaluation_row(item)
         if reviewer_id is not None:
-            display_name = get_display_name_from_identity_id(devops_organization, reviewer_id)
+            display_name = get_display_name_from_identity_id(organization, reviewer_id)
         else:
             display_name = None
         if display_name is not None:

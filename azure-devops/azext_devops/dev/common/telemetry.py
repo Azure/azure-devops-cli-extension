@@ -10,11 +10,11 @@ from knack.log import get_logger
 logger = get_logger(__name__)
 
 
-def try_send_telemetry_data(devops_organization):
+def try_send_telemetry_data(organization):
     try:
         if _is_telemetry_enabled():
             logger.debug('Azure devops telemetry enabled.')
-            _try_send_tracking_ci_event_async(devops_organization)
+            _try_send_tracking_ci_event_async(organization)
         else:
             logger.debug('Azure devops telemetry disabled.')
     except BaseException as ex:
@@ -63,12 +63,12 @@ def _is_telemetry_enabled():
     return bool(collect_telemetry is None or collect_telemetry != 'no')
 
 
-def _try_send_tracking_ci_event_async(devops_organization=None):
+def _try_send_tracking_ci_event_async(organization=None):
     if (vsts_tracking_data is not None and vsts_tracking_data.area is not None and
             vsts_tracking_data.feature is not None):
         logger.debug("Logging telemetry to azure devops server.")
         try:
-            thread = threading.Thread(target=_send_tracking_ci_event, args=[devops_organization])
+            thread = threading.Thread(target=_send_tracking_ci_event, args=[organization])
             thread.start()
         except BaseException as ex:
             # we should always continue if we fail to set tracking data
@@ -77,10 +77,10 @@ def _try_send_tracking_ci_event_async(devops_organization=None):
         logger.debug("Skipping telemetry to azure devops server.")
 
 
-def _send_tracking_ci_event(devops_organization=None, ci_client=None):
+def _send_tracking_ci_event(organization=None, ci_client=None):
     from .services import get_ci_client
     if ci_client is None:
-        ci_client = get_ci_client(devops_organization=devops_organization)
+        ci_client = get_ci_client(organization=organization)
     try:
         ci_client.publish_events([vsts_tracking_data])
         return True

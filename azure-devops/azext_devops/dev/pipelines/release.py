@@ -16,16 +16,16 @@ logger = get_logger(__name__)
 
 
 def release_create(definition_id=None, definition_name=None, artifact_metadata_list=None, description=None,
-                   open_browser=False, devops_organization=None, project=None, detect=None):
+                   open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Request (create) a release.
     :param definition_id: ID of the definition to create. Required if --definition-name is not supplied.
     :type definition_id: int
     :param definition_name: Name of the definition to create. Ignored if --definition-id is supplied.
     :type definition_name: str
-    :param open_browser: Open the release results page in your web browser.
-    :type open_browser: bool
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param open: Open the release results page in your web browser.
+    :type open: bool
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the team project.
     :type project: str
     :param artifact_metadata_list: Space separated "alias=version_id" pairs.
@@ -37,12 +37,12 @@ def release_create(definition_id=None, definition_name=None, artifact_metadata_l
     :rtype: :class:`<ReleaseStartMetadata> <release.v4_0.models.ReleaseStartMetadata>`
     """
 
-    devops_organization, project = resolve_instance_and_project(
-        detect=detect, devops_organization=devops_organization, project=project)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
     if definition_id is None and definition_name is None:
         raise ValueError('Either the --definition-id argument or the --definition-name argument ' +
                          'must be supplied for this command.')
-    client = get_release_client(devops_organization)
+    client = get_release_client(organization)
 
     if definition_id is None:
         definition_id = get_definition_id_from_name(definition_name, client, project)
@@ -64,44 +64,44 @@ def release_create(definition_id=None, definition_name=None, artifact_metadata_l
 
     created_release = client.create_release(release_start_metadata=release, project=project)
 
-    if open_browser:
+    if open:
         _open_release(created_release)
 
     return created_release
 
 
-def release_show(release_id, open_browser=False, devops_organization=None, project=None, detect=None):
+def release_show(id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a release.
-    :param release_id: ID of the release.
-    :type release_id: int
-    :param open_browser: Open the release results page in your web browser.
-    :type open_browser: bool
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param id: ID of the release.
+    :type id: int
+    :param open: Open the release results page in your web browser.
+    :type open: bool
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the team project.
     :type project: str
     :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
     :rtype: :class:`<Release> <release.v4_0.models.Release>`
     """
-    devops_organization, project = resolve_instance_and_project(
-        detect=detect, devops_organization=devops_organization, project=project)
-    client = get_release_client(devops_organization)
-    release = client.get_release(release_id=release_id, project=project)
-    if open_browser:
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_release_client(organization)
+    release = client.get_release(release_id=id, project=project)
+    if open:
         _open_release(release)
     return release
 
 
-def release_list(definition_id=None, source_branch=None, devops_organization=None, project=None, detect=None, top=None,
+def release_list(definition_id=None, source_branch=None, organization=None, project=None, detect=None, top=None,
                  status=None):
     """List release results.
     :param definition_id: ID of definition to list releases for.
     :type definition_id: int
     :param branch: Filter by releases for this branch.
     :type branch: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the team project.
     :type project: str
     :param detect: Automatically detect values for organization and project. Default is "on".
@@ -114,9 +114,9 @@ def release_list(definition_id=None, source_branch=None, devops_organization=Non
     :type source_branch: str
     :rtype: :class:`<Release> <release.v4_0.models.Release>`
     """
-    devops_organization, project = resolve_instance_and_project(
-        detect=detect, devops_organization=devops_organization, project=project)
-    client = get_release_client(devops_organization)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_release_client(organization)
 
     releases = client.get_releases(definition_id=definition_id,
                                    project=project,

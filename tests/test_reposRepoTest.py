@@ -8,7 +8,7 @@ import unittest
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import ( get_random_name , DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry, PAT_ENV_VARIABLE_NAME )
+from .utilities.helper import ( get_random_name , DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry , PAT_ENV_VARIABLE_NAME)
 
 class ReposRepoTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -33,7 +33,7 @@ class ReposRepoTests(ScenarioTest):
                     verified_repo_list = True
             assert verified_repo_list == True
 
-            show_repo_command = 'az repos show --id ' + created_repo_id + ' --project RepoCreateListShowDeleteTests --output json --detect off'
+            show_repo_command = 'az repos show --repo ' + created_repo_id + ' --project RepoCreateListShowDeleteTests --output json --detect off'
             show_repo_output = self.cmd(show_repo_command).get_output_in_json()
             assert show_repo_output["id"] == created_repo_id
             

@@ -1,2 +1,0 @@
-#basic
-azure-cli>=2.0.46

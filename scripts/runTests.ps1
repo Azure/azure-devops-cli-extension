@@ -36,6 +36,7 @@ Write-Host "done"
 # Install this extension just so that we can compare the load time
 az extension add -n azure-cli-iot-ext
 
+az --version
 az -h
 az devops -h --debug
 
@@ -43,35 +44,26 @@ $testFailureFound = $false
 
 if($outputTestResultAsJunit -eq $true)
 {
-    pytest $testFile --junitxml "TEST-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
+    pytest 'azure-devops/' --junitxml "TEST-UT-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
 }
 else{
-    pytest $testFile
+    pytest 'azure-devops/'
 }
 
 if ($LastExitCode -ne 0) {
     $testFailureFound = $true
 }
 
-$testFiles = @()
-$testDirectory = Join-Path -Path $rootPath -ChildPath "tests"
-$testFiles = Get-ChildItem -path $testDirectory -Recurse -Depth 0 -file -filter *Test.py | Select -ExpandProperty FullName
+if($outputTestResultAsJunit -eq $true)
+{
+    pytest 'tests/' --junitxml "TEST-recordings-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
+}
+else{
+    pytest 'tests/'
+}
 
-foreach($testFile in $testFiles){
-    if($outputTestResultAsJunit -eq $true)
-    {
-        $leafFile = Split-Path $testFile -leaf
-        $testResultFile = "TEST-" + $leafFile + ".xml"
-        Write-Host "test result output at " $testResultFile
-        pytest $testFile --junitxml $testResultFile
-    }
-    else{
-        pytest $testFile
-    }
-
-    if ($LastExitCode -ne 0) {
-        $testFailureFound = $true
-      }
+if ($LastExitCode -ne 0) {
+    $testFailureFound = $true
 }
 
 if($testFailureFound -eq $true){

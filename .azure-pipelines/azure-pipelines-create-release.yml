@@ -1,0 +1,54 @@
+# This pipeline is used to do new release of Azure DevOps CLI extension
+# This
+# 1. Runs test cases
+# 2. Creates a wheel and publishes it as artifact
+# 3. Creates a tag in github
+
+pr: none
+
+trigger: none
+
+jobs:
+
+- job: 'Run_Test'
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTests.ps1'
+      arguments: '$True'
+  
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
+
+  - task: CmdLine@2
+    displayName: 'calculate sha256 for generated wheel'
+    inputs:
+      script: 'certutil -hashfile azure-devops/dist/azure_devops-0.3.0-py2.py3-none-any.whl sha256' 
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Wheel as artifact'
+    inputs:
+      pathtoPublish: 'azure-devops/dist' 
+      artifactName: 'azure-devops-cli-package' 
+      publishLocation: 'Container'

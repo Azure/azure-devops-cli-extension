@@ -20,10 +20,10 @@ from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
 logger = get_logger(__name__)
 
 
-def list_service_endpoints(devops_organization=None, project=None, detect=None):
+def list_service_endpoints(organization=None, project=None, detect=None):
     """List service endpoints in a project.
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the project.
     :type project: str
     :param detect: Automatically detect organization. Default is "on".
@@ -31,22 +31,22 @@ def list_service_endpoints(devops_organization=None, project=None, detect=None):
     :rtype: list of :class:`VssJsonCollectionWrapper <service_endpoint.v4_1.models.ServiceEndpoint>`
     """
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                    devops_organization=devops_organization,
-                                                                    project=project)
-        client = get_service_endpoint_client(devops_organization)
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                             organization=organization,
+                                                             project=project)
+        client = get_service_endpoint_client(organization)
         return client.get_service_endpoints(project)
 
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def show_service_endpoint(service_endpoint_id, devops_organization=None, project=None, detect=None):
+def show_service_endpoint(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a service endpoint.
-    :param service_endpoint_id: ID of the service endpoint.
-    :type service_endpoint_id: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param id: ID of the service endpoint.
+    :type id: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the project.
     :type project: str
     :param detect: Automatically detect organization. Default is "on".
@@ -54,11 +54,11 @@ def show_service_endpoint(service_endpoint_id, devops_organization=None, project
     :rtype: :class:`ServiceEndpoint <service_endpoint.v4_1.models.ServiceEndpoint>`
     """
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                    devops_organization=devops_organization,
-                                                                    project=project)
-        client = get_service_endpoint_client(devops_organization)
-        return client.get_service_endpoint_details(project, service_endpoint_id)
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                             organization=organization,
+                                                             project=project)
+        client = get_service_endpoint_client(organization)
+        return client.get_service_endpoint_details(project, id)
 
     except VstsServiceError as ex:
         raise CLIError(ex)
@@ -68,7 +68,7 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
                             github_access_token=None, github_url=None,
                             azure_rm_tenant_id=None, azure_rm_service_principal_id=None,
                             azure_rm_service_prinicipal_key=None, azure_rm_subscription_id=None,
-                            azure_rm_subscription_name=None, devops_organization=None,
+                            azure_rm_subscription_name=None, organization=None,
                             project=None, detect=None):
     """Create a service endpoint
     :param service_endpoint_type: Type of service endpoint
@@ -93,8 +93,8 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
     :type azure_rm_subscription_id: str
     :param azure_rm_subscription_name: name of azure subscription for azure rm service endpoint
     :type azure_rm_subscription_name: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param project: Name or ID of the project.
     :type project: str
     :param detect: Automatically detect organization. Default is "on".
@@ -102,10 +102,10 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
     :rtype: :class:`ServiceEndpoint <service_endpoint.v4_1.models.ServiceEndpoint>`
     """
     try:
-        devops_organization, project = resolve_instance_and_project(detect=detect,
-                                                                    devops_organization=devops_organization,
-                                                                    project=project)
-        client = get_service_endpoint_client(devops_organization)
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                             organization=organization,
+                                                             project=project)
+        client = get_service_endpoint_client(organization)
 
         if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_GITHUB and
                 authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN):

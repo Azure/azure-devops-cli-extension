@@ -62,7 +62,7 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_validate_token.return_value = True
         self.mock_get_WI.return_value.id = test_work_item_id
 
-        response = show_work_item(work_item_id=test_work_item_id, devops_organization=self._TEST_DEVOPS_ORGANIZATION)
+        response = show_work_item(id=test_work_item_id, organization=self._TEST_DEVOPS_ORGANIZATION)
 
         # assert
         self.mock_validate_token.assert_not_called()
@@ -81,7 +81,7 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_validate_token.return_value = True
         self.mock_get_WI.return_value.id = test_work_item_id
 
-        response = show_work_item(work_item_id=test_work_item_id, open_browser=True, devops_organization=self._TEST_DEVOPS_ORGANIZATION)
+        response = show_work_item(id=test_work_item_id, open=True, organization=self._TEST_DEVOPS_ORGANIZATION)
 
         # assert
         self.mock_open_browser.assert_called_with(response,self._TEST_DEVOPS_ORGANIZATION)
@@ -100,7 +100,7 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_get_WI.side_effect = Exception(r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         with self.assertRaises(Exception) as exc:
-            response = show_work_item(work_item_id=test_work_item_id, devops_organization=self._TEST_DEVOPS_ORGANIZATION)
+            response = show_work_item(id=test_work_item_id, organization=self._TEST_DEVOPS_ORGANIZATION)
         self.assertEqual(str(exc.exception),r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         #assert
@@ -119,7 +119,7 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_validate_token.return_value = True
         self.mock_delete_WI.return_value.id = test_work_item_id
 
-        response = delete_work_item(work_item_id=test_work_item_id, destroy=False, devops_organization=self._TEST_DEVOPS_ORGANIZATION, detect='Off')
+        response = delete_work_item(id=test_work_item_id, destroy=False, organization=self._TEST_DEVOPS_ORGANIZATION, detect='Off')
 
         # assert
         self.mock_validate_token.assert_not_called()
@@ -138,7 +138,7 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_delete_WI.side_effect = Exception(r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         with self.assertRaises(Exception) as exc:
-            response = delete_work_item(work_item_id=test_work_item_id, devops_organization=self._TEST_DEVOPS_ORGANIZATION)
+            response = delete_work_item(id=test_work_item_id, organization=self._TEST_DEVOPS_ORGANIZATION)
         self.assertEqual(str(exc.exception),r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         self.mock_delete_WI.assert_called_once_with(test_work_item_id,False)

@@ -17,7 +17,7 @@ logger = get_logger(__name__)
 _UNIVERSAL_PREVIEW_MESSAGE = "Universal Packages is currently in preview."
 
 
-def publish_package(feed, name, version, path, description=None, devops_organization=None, detect=None):
+def publish_package(feed, name, version, path, description=None, organization=None, detect=None):
     """(PREVIEW) Publish a package to a feed.
     :param feed: Name or ID of the feed.
     :type feed: str
@@ -29,22 +29,22 @@ def publish_package(feed, name, version, path, description=None, devops_organiza
     :type description: str
     :param path: Directory containing the package contents.
     :type path: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     """
     try:
         colorama.init()   # Needed for humanfriendly spinner to display correctly
         logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-        return artifact_tool.publish_universal(devops_organization, feed, name, version, description, path)
+        return artifact_tool.publish_universal(organization, feed, name, version, description, path)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def download_package(feed, name, version, path, devops_organization=None, detect=None):
+def download_package(feed, name, version, path, organization=None, detect=None):
     """(PREVIEW) Download a package.
     :param feed: Name or ID of the feed.
     :type feed: str
@@ -54,16 +54,16 @@ def download_package(feed, name, version, path, devops_organization=None, detect
     :type version: str
     :param path: Directory to place the package contents.
     :type path: str
-    :param devops_organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type devops_organization: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     """
     try:
         colorama.init()  # Needed for humanfriendly spinner to display correctly
         logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
-        devops_organization = resolve_instance(detect=detect, devops_organization=devops_organization)
+        organization = resolve_instance(detect=detect, organization=organization)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-        return artifact_tool.download_universal(devops_organization, feed, name, version, path)
+        return artifact_tool.download_universal(organization, feed, name, version, path)
     except VstsServiceError as ex:
         raise CLIError(ex)

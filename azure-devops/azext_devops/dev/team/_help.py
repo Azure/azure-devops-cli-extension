@@ -26,5 +26,9 @@ def load_team_help():
     helps['devops service-endpoint'] = """
     type: group
     short-summary: Manage service endpoints/service connections
-    long-summary: https://docs.microsoft.com/en-us/rest/api/azure/devops/serviceendpoint/endpoints
+    """
+
+    helps['devops team'] = """
+    type: group
+    short-summary: Manage teams
     """

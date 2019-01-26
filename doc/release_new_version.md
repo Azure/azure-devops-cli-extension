@@ -7,7 +7,7 @@
 
 ## Details:
 ## Creating a new wheel from existing code and hosting it.
-To do this trigger a [AzureDevOpsCli-Release](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build?definitionId=29) build
+To do this trigger a [Azure DevOps CLI - Create Releases - YAML](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build?definitionId=40&_a=summary) build
 ### This build will 
  - create and upload wheel with the latest code (which can be downloaded from artifacts)
  - calculate sha256 for the wheel (which can be found in logs)
@@ -22,10 +22,10 @@ Find 'DevOps' to see where is the entry for 'DevOps' extension
 Create a PR for updating, fiels in index json are self explanatory 
 
 ## Updating Azure DevOps CLI extension version in repository and releases
-once relase is done make sure to update the version for Azure-DevOps CLI in [version.py](https://github.com/Microsoft/vsts-cli/blob/azuredevopscli-dev/azure-devops/azext_devops/version.py)  
-Also update build pipelines   
-[Azure DevOps CLI - Merge GitHub](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build?definitionId=25)  
-[AzureDevOpsCli-Release](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build?definitionId=29)  
+once relase is done make sure to update the version for Azure-DevOps CLI in [version.py](https://github.com/Microsoft/azure-devops-cli-extension/blob/master/azure-devops/azext_devops/version.py)  
+Also update build pipelines YAMLS   
+[Release Pipeline](./../.azure-pipelines/azure-pipelines-create-release.yml)  
+[Merge Pipeline](./../.azure-pipelines/azure-pipelines-merge.yml)  
 
 ### Update AzureDevOpsCli-Released-Version-Check
 Update [AzureDevOpsCli-Released-Version-Check](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build?definitionId=34) to run from the commit which was used to do the release.

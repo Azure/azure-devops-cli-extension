@@ -13,16 +13,13 @@ _PR_STATUS_VALUES = ['all', 'active', 'completed', 'abandoned']
 
 def load_code_arguments(self, _):
     with self.argument_context('repos') as context:
-        context.argument('open_browser', options_list='--open')
         context.argument('project', options_list=('--project', '-p'))
-        context.argument('devops_organization', options_list=('--organization', '--org'))
+        context.argument('organization', options_list=('--organization', '--org'))
         context.argument('reviewers', nargs='*')
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('repo_id', options_list='--id')
 
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
-        context.argument('pull_request_id', type=int, options_list='--id')
         context.argument('repository', options_list=('--repository', '-r'))
         context.argument('source_branch', options_list=('--source-branch', '-s'))
         context.argument('target_branch', options_list=('--target-branch', '-t'))

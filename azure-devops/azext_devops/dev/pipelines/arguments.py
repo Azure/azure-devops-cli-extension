@@ -18,9 +18,8 @@ _BUILD_STATUS_VALUES = ['all', 'cancelling', 'completed', 'inProgress', 'none', 
 
 def load_build_arguments(self, _):
     with self.argument_context('pipelines build') as context:
-        context.argument('open_browser', options_list='--open')
         context.argument('project', options_list=('--project', '-p'))
-        context.argument('devops_organization', options_list=('--organization', '--org'))
+        context.argument('organization', options_list=('--organization', '--org'))
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with self.argument_context('pipelines build list') as context:
@@ -34,25 +33,15 @@ def load_build_arguments(self, _):
         context.argument('definition_id', type=int)
         context.argument('variables', nargs='*')
 
-    with self.argument_context('pipelines build show') as context:
-        context.argument('build_id', options_list=('--build-id', '--id'), type=int)
-
-    with self.argument_context('pipelines build definition show') as context:
-        context.argument('definition_id', options_list=('--definition-id', '--id'), type=int)
-
     with self.argument_context('pipelines build definition list') as context:
         context.argument(
             'repository_type',
             choices=['tfsversioncontrol', 'tfsgit', 'git', 'github', 'githubenterprise', 'bitbucket', 'svn'],
             type=str.lower)
 
-    with self.argument_context('pipelines build task') as context:
-        context.argument('task_id', options_list=('--task-id', '--id'), type=str)
-
     with self.argument_context('pipelines release') as context:
-        context.argument('open_browser', options_list='--open')
         context.argument('project', options_list=('--project', '-p'))
-        context.argument('devops_organization', options_list=('--organization', '--org'))
+        context.argument('organization', options_list=('--organization', '--org'))
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with self.argument_context('pipelines release list') as context:
@@ -61,12 +50,6 @@ def load_build_arguments(self, _):
     with self.argument_context('pipelines release create') as context:
         context.argument('definition_id', type=int)
         context.argument('artifact_metadata_list', nargs='*')
-
-    with self.argument_context('pipelines release show') as context:
-        context.argument('release_id', options_list='--id', type=int)
-
-    with self.argument_context('pipelines release definition show') as context:
-        context.argument('definition_id', options_list='--id', type=int)
 
     with self.argument_context('pipelines release definition list') as context:
         context.argument('artifact_type', choices=['build', 'jenkins', 'github', 'externaltfsbuild', 'git', 'tfvc'],
