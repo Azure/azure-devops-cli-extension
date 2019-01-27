@@ -39,6 +39,7 @@
    ```
 
 1. Activate the new virtual environment:
+
    On Linux:
 
    ```bash
@@ -65,7 +66,7 @@ Run `az extension list` and `az devops -h` to verify your environment is setup p
 
 1. `dev_setup.py` script has already set your `AZURE_EXTENSION_DIR` environment variable to `.azure\devcliextensions` directory that will hold the extensions being developed
 
-    _On Windows_
+    On Windows
 
     Run below command any time you make changes to your extension and want to see them reflected in the CLI.
 
@@ -77,7 +78,7 @@ Run `az extension list` and `az devops -h` to verify your environment is setup p
 
     * `Dev\azure-devops-cli-extension\azure-devops` is the directory with the source code of your extension.
 
-    _On Linux_
+    On Linux
 
     ```bash
     pip install --upgrade --target $AZURE_EXTENSION_DIR/azure-devops Dev\azure-devops-cli-extension\azure-devops/

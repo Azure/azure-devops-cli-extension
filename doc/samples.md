@@ -24,31 +24,31 @@ In the above experience, you need to manually enter the token when prompted. How
 
 1. Fetch PAT from a file and pass it to login command.
 
-  ```bash
-  cat my_pat_token.txt | az devops login --organization https://dev.azure.com/contoso/
-  ```
+    ```bash
+    cat my_pat_token.txt | az devops login --organization https://dev.azure.com/contoso/
+    ```
 
 1. Use environment variables. There are cases where persisting a personal access token on the machine where the Azure CLI is running is not technically possible or is not secure. In these cases you can get a token from an environment variable. To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment variable:
 
-  Windows:
+    Windows:
 
-  ```powershell
-  set AZURE_DEVOPS_CLI_PAT=xxxxxxxxxx
-  ```
+    ```powershell
+    set AZURE_DEVOPS_CLI_PAT=xxxxxxxxxx
+    ```
 
-  Linux or macOS:
+    Linux or macOS:
 
-  ```bash
-  export AZURE_DEVOPS_CLI_PAT=xxxxxxxxxx
-  ```
+    ```bash
+    export AZURE_DEVOPS_CLI_PAT=xxxxxxxxxx
+    ```
 
-  Replace *xxxxxxxxxx* with the your PAT.
+    Replace *xxxxxxxxxx* with the your PAT.
 
-  Now run
+    Now run
 
-  ```bash
-  az devops login --organization https://dev.azure.com/contoso
-  ```
+    ```bash
+    az devops login --organization https://dev.azure.com/contoso
+    ```
 
 ## Auto detect and git aliases
 

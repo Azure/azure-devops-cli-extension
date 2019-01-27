@@ -43,17 +43,17 @@ Let us look at an example where the Azure DevOps Extension can be used to view a
 
 1. Log in to Azure CLI
 
-  ```bash
-  $az login
-  Note, we have launched a browser for you to login. For old experience with device code, use "az login --use-device-code"
-  You have logged in. Now let us find all the subscriptions to which you have access...
-  ```
+    ```bash
+    $az login
+    Note, we have launched a browser for you to login. For old experience with device code, use "az login --use-device-code"
+    You have logged in. Now let us find all the subscriptions to which you have access...
+    ```
 
 1. Configure defaults
 
-  ```bash
-  $az devops configure --defaults organization=https://dev.azure.com/contosoWebApp project=PaymentModule`
-  ```
+    ```bash
+    $az devops configure --defaults organization=https://dev.azure.com/contosoWebApp project=PaymentModule`
+    ```
 
 If you want to explore the help document for any command, use the help switch (--help/-h) to see the corresponding documentation.
 
@@ -85,18 +85,18 @@ Global Arguments
 
 1. List all build pipelines
 
-```bash
-$az pipelines build list -o table
-ID   Number      Status      Result     Definition ID   Definition Name           Source Branch    Queued Time                 Reason
----  ----------  ---------   ---------  -------------   -----------------------   --------------   --------------------------  -------
-1    20190116.2  completed   succeeded  1               Contoso.CI                master           2019-01-16 17:29:07.497795  manual
-```
+    ```bash
+    $az pipelines build list -o table
+    ID   Number      Status      Result     Definition ID   Definition Name           Source Branch    Queued Time                 Reason
+    ---  ----------  ---------   ---------  -------------   -----------------------   --------------   --------------------------  -------
+    1    20190116.2  completed   succeeded  1               Contoso.CI                master           2019-01-16 17:29:07.497795  manual
+    ```
 
 1. Queue a build pipeline
 
-```bash
-$az pipelines build queue --definition-name Contoso.CI -o table
-ID   Number      Status      Result     Definition ID   Definition Name           Source Branch    Queued Time                 Reason
----  ----------  ---------   ---------  -------------   -----------------------   --------------   --------------------------  -------
-1    20190116.2  completed   succeeded  1               Contoso.CI                master           2019-01-16 17:29:07.497795  manual
-```
+    ```bash
+    $az pipelines build queue --definition-name Contoso.CI -o table
+    ID   Number      Status      Result     Definition ID   Definition Name           Source Branch    Queued Time                 Reason
+    ---  ----------  ---------   ---------  -------------   -----------------------   --------------   --------------------------  -------
+    1    20190116.2  completed   succeeded  1               Contoso.CI                master           2019-01-16 17:29:07.497795  manual
+    ```
