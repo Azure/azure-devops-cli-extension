@@ -33,19 +33,19 @@ class ReposRefTests(ScenarioTest):
         assert refs_nbre > 0
 
         master_object_id = list_refs[0]['objectId']
-        assert master_object_id
+        assert master_object_id is not None
 
         # create a new reference
         create_command = 'az repos ref create --name {} --object-id {} {}'.format(REF_NAME, master_object_id, REPO_NAME)
         created_ref = self.cmd(create_command).get_output_in_json()
         created_object_id = created_ref['newObjectId']
-        assert created_object_id
+        assert created_object_id is not None
         assert created_ref['updateStatus'] == 'succeeded'
         assert created_ref['success'] is True
 
         # delete the reference
         delete_command = 'az repos ref delete --name {} --object-id {} {}'.format(REF_NAME, created_object_id, REPO_NAME)
         deleted_ref = self.cmd(delete_command).get_output_in_json()
-        assert deleted_ref
+        assert deleted_ref is not None
         assert created_ref['updateStatus'] == 'succeeded'
         assert created_ref['success'] is True
