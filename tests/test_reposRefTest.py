@@ -9,7 +9,9 @@ from azure.cli.testsdk import ScenarioTest
 from .utilities.helper import (DEVOPS_CLI_TEST_ORGANIZATION,
                                DEVOPS_CLI_TEST_PAT_TOKEN,
                                disable_telemetry,
+                               get_random_name,
                                PAT_ENV_VARIABLE_NAME)
+
 
 class ReposRefTests(ScenarioTest):
 
@@ -17,7 +19,7 @@ class ReposRefTests(ScenarioTest):
     def test_ref_createListDelete(self):
 
         REPO_NAME = '--repository BuildTests --output json --detect off'
-        REF_NAME = 'heads/sample_ref'
+        REF_NAME = 'heads/' + get_random_name(8)
 
         os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
 
@@ -38,11 +40,12 @@ class ReposRefTests(ScenarioTest):
         created_ref = self.cmd(create_command).get_output_in_json()
         created_object_id = created_ref['newObjectId']
         assert created_object_id
-        assert created_ref['name'] == 'refs/' + REF_NAME
-        assert created_ref['success']
+        assert created_ref['updateStatus'] == 'succeeded'
+        assert created_ref['success'] is True
 
         # delete the reference
         delete_command = 'az repos ref delete --name {} --object-id {} {}'.format(REF_NAME, created_object_id, REPO_NAME)
         deleted_ref = self.cmd(delete_command).get_output_in_json()
         assert deleted_ref
-        assert created_ref['success']
+        assert created_ref['updateStatus'] == 'succeeded'
+        assert created_ref['success'] is True

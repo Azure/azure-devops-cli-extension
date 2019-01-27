@@ -55,7 +55,9 @@ def create_ref(name, object_id, locked=False, repository=None, organization=None
                                   name=resolve_git_refs(name),
                                   new_object_id=object_id,
                                   old_object_id='0000000000000000000000000000000000000000')
-        return client.update_refs([ref_update], repository, project)[0]
+        return client.update_refs(ref_updates=[ref_update],
+                                  repository_id=repository,
+                                  project=project)[0]
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -79,7 +81,9 @@ def delete_ref(name, object_id, repository=None, organization=None, project=None
         ref_update = GitRefUpdate(name=resolve_git_refs(name),
                                   new_object_id='0000000000000000000000000000000000000000',
                                   old_object_id=object_id)
-        return client.update_refs([ref_update], repository, project)[0]
+        return client.update_refs(ref_updates=[ref_update],
+                                  repository_id=repository,
+                                  project=project)[0]
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -105,6 +109,8 @@ def update_ref(name, old_object_id, new_object_id, repository=None, organization
         ref_update = GitRefUpdate(name=resolve_git_refs(name),
                                   new_object_id=new_object_id,
                                   old_object_id=old_object_id)
-        return client.update_refs([ref_update], repository, project)[0]
+        return client.update_refs(ref_updates=[ref_update],
+                                  repository_id=repository,
+                                  project=project)[0]
     except VstsServiceError as ex:
         raise CLIError(ex)

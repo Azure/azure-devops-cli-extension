@@ -7,10 +7,10 @@ import unittest
 
 try:
     # Attempt to load mock (works on Python 3.3 and above)
-    from unittest.mock import patch
+    from unittest.mock import patch, ANY
 except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
-    from mock import patch
+    from mock import patch, ANY
 
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.dev.repos.ref import (list_refs, create_ref, delete_ref, update_ref)
@@ -36,39 +36,47 @@ class TestRefMethods(unittest.TestCase):
         self.mock_update_ref.stop()
 
     def test_list_refs(self):
-        response = list_refs(devops_organization=self._TEST_DEVOPS_ORGANIZATION,
-                             project='sample project',
+        response = list_refs(organization=self._TEST_DEVOPS_ORGANIZATION,
+                             project='sample_project',
                              detect='off')
         # assert
-        self.mock_list_refs.assert_called_once()
+        self.mock_list_refs.assert_called_once_with(filter=None,
+                                                    project='sample_project',
+                                                    repository_id=None)
 
     def test_create_ref(self):
         response = create_ref(name='sample_ref',
                               object_id='1234567890',
-                              devops_organization=self._TEST_DEVOPS_ORGANIZATION,
-                              project='sample project',
+                              organization=self._TEST_DEVOPS_ORGANIZATION,
+                              project='sample_project',
                               detect='off')
         # assert
-        self.mock_update_ref.assert_called_once()
+        self.mock_update_ref.assert_called_once_with(project='sample_project',
+                                                     ref_updates=ANY,
+                                                     repository_id=None)
 
     def test_update_ref(self):
         response = update_ref(name='sample_ref',
                               old_object_id='1234567890',
                               new_object_id='0987654321',
-                              devops_organization=self._TEST_DEVOPS_ORGANIZATION,
-                              project='sample project',
+                              organization=self._TEST_DEVOPS_ORGANIZATION,
+                              project='sample_project',
                               detect='off')
         # assert
-        self.mock_update_ref.assert_called_once()
+        self.mock_update_ref.assert_called_once_with(project='sample_project',
+                                                     ref_updates=ANY,
+                                                     repository_id=None)
 
     def test_delete_ref(self):
         response = delete_ref(name='sample_ref',
                               object_id='1234567890',
-                              devops_organization=self._TEST_DEVOPS_ORGANIZATION,
-                              project='sample project',
+                              organization=self._TEST_DEVOPS_ORGANIZATION,
+                              project='sample_project',
                               detect='off')
         # assert
-        self.mock_update_ref.assert_called_once()
+        self.mock_update_ref.assert_called_once_with(project='sample_project',
+                                                     ref_updates=ANY,
+                                                     repository_id=None)
 
 if __name__ == '__main__':
     unittest.main()

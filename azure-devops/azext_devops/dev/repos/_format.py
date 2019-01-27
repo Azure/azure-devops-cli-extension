@@ -252,6 +252,8 @@ def _transform_ref_row(row):
             table_row['Old Object ID'] = old_id
             table_row['New Object ID'] = new_id
     table_row['Name'] = get_ref_name_from_ref(row['name'])
+    table_row['success'] = row['success']
+    table_row['updateStatus'] = row['updateStatus']
     return table_row
 
 
