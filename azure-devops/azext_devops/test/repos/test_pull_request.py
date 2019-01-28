@@ -102,6 +102,8 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_get_WIs = self.get_WIs_pacther.start()
         self.mock_get_policy_evaluation = self.get_policy_evaluation_patcher.start()
         self.mock_requeue_policy_evaluation = self.requeue_policy_evaluation_patcher.start()
+
+        # Setup mocks for clients
         self.mock_get_client = self.get_client.start()
         
         # set get client return value
