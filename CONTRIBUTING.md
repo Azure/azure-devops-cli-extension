@@ -46,19 +46,19 @@ Unsure where to begin contributing? You can start by looking through these begin
 
 Refer our [Developer setup](./doc/dev_setup.md) instructions to get started with code and running tests.
 
-## Code of Conduct
+### Code of Conduct
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com)with any additional questions or comments.
 
-## Pull Request etiquette
+### Pull Request etiquette
 
-### Guidelines
+#### Guidelines
 
 - Every contribution (PR) needs to have an issue referenced
 - Approach(s) should be discussed and closed in the issue itself before raising a PR
 - We use pylint and flake8 to have consistent coding styles followed. This is taken care in the Pull request checks.
 
-### If PR contains new commands
+#### If PR contains new commands
 
 - Recorded tests are mandatory
 - UTs are mandatory
@@ -66,11 +66,11 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 - Table transforms are present (reviewed in PR)
 - Help text is present for commands and parameters
 
-### If PR contains point fixes
+#### If PR contains point fixes
 
 - UTs are mandatory
 
-## CLA requirements
+### CLA requirements
 
 You will need to complete a Contributor License Agreement (CLA). Briefly, this agreement testifies that you are granting us permission to use the submitted change according to the terms of the project's license, and that the work being submitted is under appropriate copyright.
 
