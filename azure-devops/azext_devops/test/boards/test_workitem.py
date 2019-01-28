@@ -15,13 +15,14 @@ except ImportError:
 from azext_devops.dev.boards.work_item import (delete_work_item,
                                             show_work_item)
 from azext_devops.dev.common.services import clear_connection_cache
+from azext_devops.test.utils.helper import get_client_mock_helper
 
 
 
 class TestWorkItemMethods(unittest.TestCase):
 
-    _TEST_DEVOPS_ORGANIZATION = 'https://azuredevopsclitest.visualstudio.com'
-    _TEST_PAT_TOKEN = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
+    _TEST_DEVOPS_ORGANIZATION = 'https://someorg.visualstudio.com'
+    _TEST_PAT_TOKEN = 'somepat'
 
     def setUp(self):
 
@@ -31,6 +32,10 @@ class TestWorkItemMethods(unittest.TestCase):
         self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
         self.open_in_browser_patcher = patch('azext_devops.dev.boards.work_item._open_work_item')
         self.validate_token_patcher = patch('azext_devops.dev.common.services.validate_token_for_instance')
+
+        # patch get client so no network call is made
+        self.get_client_patcher = patch('vsts.vss_connection.VssConnection.get_client', new=get_client_mock_helper)
+        self.get_client_patcher.start()
 
         #start the patchers
         self.mock_get_WI = self.get_WI_patcher.start()

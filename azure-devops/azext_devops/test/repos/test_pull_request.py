@@ -62,6 +62,7 @@ class TestPullRequestMethods(unittest.TestCase):
         self.delete_PR_reviewers_patcher = patch('vsts.git.v4_0.git_client.GitClient.delete_pull_request_reviewer')
         self.get_PR_reviewers_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_pull_request_reviewers')
         self.get_PR_WIs_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_pull_request_work_items')
+        
         # patch get client so no network call is made
         self.get_client = patch('vsts.vss_connection.VssConnection.get_client', new=get_client_mock_helper)
 
@@ -132,7 +133,6 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_get_WIs.stop()
         self.mock_get_policy_evaluation.stop()
         self.mock_requeue_policy_evaluation.stop()
-        # self.mock_get_client.stop()
 
 
     def test_create_pull_request(self):
