@@ -35,7 +35,7 @@ from azext_devops.dev.repos.pull_request import (create_pull_request,
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads
                                             
 from azext_devops.dev.common.services import clear_connection_cache
-
+from azext_devops.test.utils.helper import get_client_mock_helper
 
 
 class TestPullRequestMethods(unittest.TestCase):
@@ -63,7 +63,7 @@ class TestPullRequestMethods(unittest.TestCase):
         self.get_PR_reviewers_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_pull_request_reviewers')
         self.get_PR_WIs_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_pull_request_work_items')
         # patch get client so no network call is made
-        self.get_client = patch('vsts.vss_connection.VssConnection.get_client')
+        self.get_client = patch('vsts.vss_connection.VssConnection.get_client', new=get_client_mock_helper)
 
         self.resolve_identity_patcher = patch('azext_devops.dev.common.identities.resolve_identity_as_id')
 
@@ -106,9 +106,6 @@ class TestPullRequestMethods(unittest.TestCase):
         # Setup mocks for clients
         self.mock_get_client = self.get_client.start()
         
-        # set get client return value
-        self.mock_get_client.return_value = GitClient(base_url=self._TEST_DEVOPS_ORGANIZATION)
-
         #clear connection cache before running each test
         clear_connection_cache()
 
@@ -135,11 +132,13 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_get_WIs.stop()
         self.mock_get_policy_evaluation.stop()
         self.mock_requeue_policy_evaluation.stop()
-        self.mock_get_client.stop()
+        # self.mock_get_client.stop()
 
 
     def test_create_pull_request(self):
 
+        # import pdb 
+        # pdb.set_trace()
         test_pr_id = 1
 
         # set return values
