@@ -20,7 +20,6 @@ class AzReposPrPolicyTests(ScenarioTest):
         
         #List PR
         pr_list = self.cmd('az repos pr list --project PullRequestLiveTest --repository PullRequestLiveTest --detect off --output json', checks=[
-            self.check("[0].createdBy.displayName", "Gaurav Saral"),
             self.check("[0].description", 'Updated README.md'),
             self.check("[1].description", 'Updated EXAMPLE'),
         ]).get_output_in_json()
