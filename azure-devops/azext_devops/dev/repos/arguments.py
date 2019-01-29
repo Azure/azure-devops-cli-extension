@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.arguments import enum_choice_list
+from azext_devops.dev.common.const import REPO_POLICY_TYPE
 
 # CUSTOM CHOICE LISTS
 _ON_OFF_SWITCH_VALUES = ['on', 'off']
@@ -17,6 +18,9 @@ def load_code_arguments(self, _):
         context.argument('organization', options_list=('--organization', '--org'))
         context.argument('reviewers', nargs='*')
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
+
+    with self.argument_context('repos policies create') as context:
+        context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
 
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
