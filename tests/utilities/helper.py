@@ -28,7 +28,9 @@ def set_authentication(test_function):
         print("Setting auth for test run.")
         pat_from_env = os.environ.get(PAT_ENV_VARIABLE_NAME)
         if not pat_from_env:
-            print("PAT not found in envirment variable. Falling back to hardcoded token.")
+            print("PAT not found in environment variable. Falling back to hardcoded token.")
             os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
+        else:
+            print("Using PAT from environment variable")
         test_function(*args, **kwargs)
     return wrapper
