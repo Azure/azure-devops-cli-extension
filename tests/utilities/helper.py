@@ -17,6 +17,7 @@ def get_random_name(length):
 
 def disable_telemetry(test_function):
     def wrapper(*args, **kwargs):
+        print("Disabling Telemetry.")
         os.environ["AZURE_CORE_COLLECT_TELEMETRY"] = "no"
         test_function(*args, **kwargs)
     return wrapper
@@ -24,8 +25,10 @@ def disable_telemetry(test_function):
 
 def set_authentication(test_function):
     def wrapper(*args, **kwargs):
+        print("Setting auth for test run.")
         pat_from_env = os.environ.get(PAT_ENV_VARIABLE_NAME)
         if not pat_from_env:
+            print("PAT not found in envirment variable. Falling back to hardcoded token.")
             os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
         test_function(*args, **kwargs)
     return wrapper
