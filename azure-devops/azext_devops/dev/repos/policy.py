@@ -289,6 +289,9 @@ def generateConfigurationObject(policy_configuration=None,
                                 maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
                                 optionalReviewerIds=None, requiredReviewerIds=None, message=None,
                                 organization=None):
+    if policy_configuration is None and policy_type is None:
+        raise CLIError('Either --policy-configuration or --policy-type must be passed')
+    
     if policy_configuration is not None:
         with open(policy_configuration) as f:
             import json

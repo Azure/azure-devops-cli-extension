@@ -91,6 +91,17 @@ class TestUuidMethods(unittest.TestCase):
             self.assertEqual(str(ex),
             '--minimumApproverCount --creatorVoteCounts --allowDownvotes --resetOnSourcePush are required for ApproverCountPolicy')
 
+    def test_create_policy_policy_type_and_configuration_missing(self):
+        try:
+            create_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
+            project = self._TEST_DEVOPS_PROJECT,
+            detect='off')
+            self.fail('create should have thrown CLIError')
+        except CLIError as ex:
+            #assert
+            self.assertEqual(str(ex),
+            'Either --policy-configuration or --policy-type must be passed')
+
     def test_create_policy_scope(self):
         create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
         policy_type='ApproverCountPolicy',
