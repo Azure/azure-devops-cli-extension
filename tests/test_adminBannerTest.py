@@ -27,7 +27,7 @@ class AdminBannerTests(ScenarioTest):
         try:
             #add a banner to the project
             add_admin_banner_command = ('az devops admin banner add --id ' + admin_banner_id + ' --message "' + admin_banner_message + '" --type ' + admin_banner_type + 
-                ' --output json --detect off')
+                ' --output json --detect off --debug')
             add_admin_banner_output = self.cmd(add_admin_banner_command).get_output_in_json()
             assert len(add_admin_banner_output) > 0
             assert add_admin_banner_output[admin_banner_id]["level"] == admin_banner_type
