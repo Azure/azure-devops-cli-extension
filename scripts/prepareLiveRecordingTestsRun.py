@@ -50,8 +50,8 @@ class RunLiveTests:
     def ensure_pat_env_set():
         _PAT_ENV_VARIABLE_NAME = 'AZURE_DEVOPS_EXT_PAT'
         if not os.environ.get(_PAT_ENV_VARIABLE_NAME):
-            raise Exception("PAT environment variable is not set in {}. \
-            Please set the environemnt variable before the test run.".format(_PAT_ENV_VARIABLE_NAME))
+            raise Exception('PAT environment variable is not set in {}.\n \
+            Please set the environemnt variable before the test run.'.format(_PAT_ENV_VARIABLE_NAME))
 
     @staticmethod
     def prepare_live_run():
