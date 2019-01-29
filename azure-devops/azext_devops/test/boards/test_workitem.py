@@ -15,13 +15,13 @@ except ImportError:
 from azext_devops.dev.boards.work_item import (delete_work_item,
                                             show_work_item)
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.helper import get_client_mock_helper
+from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
 
 
 
 class TestWorkItemMethods(unittest.TestCase):
 
-    _TEST_DEVOPS_ORGANIZATION = 'https://someorg.visualstudio.com'
+    _TEST_DEVOPS_ORGANIZATION = TEST_DEVOPS_ORG_URL
     _TEST_PAT_TOKEN = 'somepat'
 
     def setUp(self):
@@ -71,8 +71,6 @@ class TestWorkItemMethods(unittest.TestCase):
 
         # assert
         self.mock_validate_token.assert_not_called()
-        self.mock_get_credential.assert_called_with(self._TEST_DEVOPS_ORGANIZATION)
-        self.assertEqual(self.mock_get_credential.call_count, 2)
         self.mock_get_WI.assert_called_once_with(test_work_item_id)
         assert response.id == test_work_item_id
 
@@ -82,7 +80,6 @@ class TestWorkItemMethods(unittest.TestCase):
         test_work_item_id = 1
 
         # set return values
-        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
         self.mock_validate_token.return_value = True
         self.mock_get_WI.return_value.id = test_work_item_id
 
@@ -91,8 +88,6 @@ class TestWorkItemMethods(unittest.TestCase):
         # assert
         self.mock_open_browser.assert_called_with(response,self._TEST_DEVOPS_ORGANIZATION)
         self.mock_validate_token.assert_not_called()
-        self.mock_get_credential.assert_called_with(self._TEST_DEVOPS_ORGANIZATION)
-        self.assertEqual(self.mock_get_credential.call_count, 2)
         self.mock_get_WI.assert_called_once_with(test_work_item_id)
 
 
@@ -100,7 +95,6 @@ class TestWorkItemMethods(unittest.TestCase):
 
         test_work_item_id = 1000
 
-        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
         self.mock_validate_token.return_value = True
         self.mock_get_WI.side_effect = Exception(r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
@@ -111,8 +105,6 @@ class TestWorkItemMethods(unittest.TestCase):
         #assert
         self.mock_get_WI.assert_called_once_with(test_work_item_id)
         self.mock_validate_token.assert_not_called()
-        self.mock_get_credential.assert_called_with(self._TEST_DEVOPS_ORGANIZATION)
-        self.assertEqual(self.mock_get_credential.call_count, 2)
 
 
     def test_delete_work_item_correct_id(self):
@@ -120,7 +112,6 @@ class TestWorkItemMethods(unittest.TestCase):
         test_work_item_id = 1
 
         # set return values
-        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
         self.mock_validate_token.return_value = True
         self.mock_delete_WI.return_value.id = test_work_item_id
 
@@ -128,8 +119,6 @@ class TestWorkItemMethods(unittest.TestCase):
 
         # assert
         self.mock_validate_token.assert_not_called()
-        self.mock_get_credential.assert_called_with(self._TEST_DEVOPS_ORGANIZATION)
-        self.assertEqual(self.mock_get_credential.call_count, 2)
         self.mock_delete_WI.assert_called_once_with(test_work_item_id, False)
         assert response.id == test_work_item_id
 
@@ -138,7 +127,6 @@ class TestWorkItemMethods(unittest.TestCase):
 
         test_work_item_id = 1000
 
-        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
         self.mock_validate_token.return_value = True
         self.mock_delete_WI.side_effect = Exception(r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
@@ -148,8 +136,6 @@ class TestWorkItemMethods(unittest.TestCase):
 
         self.mock_delete_WI.assert_called_once_with(test_work_item_id,False)
         self.mock_validate_token.assert_not_called()
-        self.mock_get_credential.assert_called_with(self._TEST_DEVOPS_ORGANIZATION)
-        self.assertEqual(self.mock_get_credential.call_count, 2)
 
 
 if __name__ == '__main__':

@@ -35,13 +35,13 @@ from azext_devops.dev.repos.pull_request import (create_pull_request,
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads
                                             
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.helper import get_client_mock_helper
+from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
 
 
 class TestPullRequestMethods(unittest.TestCase):
 
-    _TEST_DEVOPS_ORGANIZATION = 'https://some-organization.visualstudio.com'
-    _TEST_PAT_TOKEN = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
+    _TEST_DEVOPS_ORGANIZATION = TEST_DEVOPS_ORG_URL
+    _TEST_PAT_TOKEN = 'pat_token'
     _TEST_PROJECT_NAME = 'sample_project'
     _TEST_REPOSITORY_NAME = 'sample_repository'
     _TEST_SOURCE_BRANCH = 'sample_source_branch'
@@ -142,7 +142,6 @@ class TestPullRequestMethods(unittest.TestCase):
         test_pr_id = 1
 
         # set return values
-        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
         self.mock_validate_token.return_value = True
         self.mock_create_PR.return_value.id = test_pr_id
 
@@ -157,8 +156,6 @@ class TestPullRequestMethods(unittest.TestCase):
 
         # assert
         self.mock_validate_token.assert_not_called()
-        self.mock_get_credential.assert_called_with(self._TEST_DEVOPS_ORGANIZATION)
-        self.assertEqual(self.mock_get_credential.call_count, 2)
         self.mock_create_PR.assert_called_once()
         self.mock_update_PR.assert_not_called()
         assert response.id == test_pr_id
