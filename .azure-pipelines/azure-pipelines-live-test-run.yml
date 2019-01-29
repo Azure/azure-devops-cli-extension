@@ -16,7 +16,6 @@ jobs:
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '$(python.version)'
-      architecture: 'x64'
 
   - task: PowerShell@2
     displayName: 'Setup test machine'
