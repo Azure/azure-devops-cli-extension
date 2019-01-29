@@ -4,7 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 import unittest
-from knack.util import CLIError
 
 try:
     # Attempt to load mock (works on Python 3.3 and above)
