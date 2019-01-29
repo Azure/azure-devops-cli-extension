@@ -233,4 +233,4 @@ jobs:
     displayName: 'Run HelpText Check'
     inputs:
       scriptSource: 'filePath'
-      filePath: 'scripts/findEmptyHelpTexts.py' 
+      scriptPath: 'scripts/findEmptyHelpTexts.py' 
