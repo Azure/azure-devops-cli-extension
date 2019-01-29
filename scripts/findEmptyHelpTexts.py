@@ -16,7 +16,6 @@ def get_extension_help_files(cli_ctx):
                                      parser_cls=cli_ctx.parser_cls, help_cls=cli_ctx.help_cls)
     cli_ctx.invocation = invoker
     invoker.commands_loader.command_table = cmd_table
-    #print('FOUND {} command(s) from the extension.'.format(len(cmd_table)))
 
     for cmd_name in cmd_table:
         invoker.commands_loader.load_arguments(cmd_name)
