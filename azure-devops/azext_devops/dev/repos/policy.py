@@ -112,9 +112,9 @@ def create_policy(policy_configuration=None,
     :type repository_id: string
     :param branch: Branch on which this policy should be applied
     :type branch: string
-    :param isBlocking: Tells if the policy should be blocking or not
+    :param isBlocking: Whether the policy should be blocking or not. Default value is false. Accepted values are true and false.
     :type isBlocking: bool
-    :param isEnabled: Tells if the policy is enabled or not
+    :param isEnabled: Whether the policy is enabled or not. By default the value is true. Accepted values and true and false.
     :type isEnabled: bool
     :param policy_type: Type of policy you want to create
     :type policy_type: string
@@ -128,30 +128,30 @@ def create_policy(policy_configuration=None,
 
     :param minimumApproverCount: Minimum approver count. Required if policy type is ApproverCountPolicy.
     :type minimumApproverCount: int
-    :param creatorVoteCounts: Creator vote counts or not. Required if policy type is ApproverCountPolicy
+    :param creatorVoteCounts: Whether the creator's vote count counts or not. Required if policy type is ApproverCountPolicy
     :type creatorVoteCounts: bool
-    :param allowDownvotes: Allow Downvotes. Required if policy type is ApproverCountPolicy.
+    :param allowDownvotes: Whether to allow downvotes or not. Required if policy type is ApproverCountPolicy.
     :type allowDownvotes: bool
-    :param resetOnSourcePush: Reset on Source Push. Required if policy type is ApproverCountPolicy.
+    :param resetOnSourcePush: Whether to reset source on push. Required if policy type is ApproverCountPolicy.
     :type resetOnSourcePush: bool
 
     :param buildDefinitionId: Build Definition Id. Required if policy type is Buildpolicy.
     :type buildDefinitionId: int
     :param queueOnSourceUpdateOnly: Queue Only on source update. Required if policy type is Buildpolicy.
     :type queueOnSourceUpdateOnly: bool
-    :param manualQueueOnly : Manual Queue Only. Required if policy type is Buildpolicy.
+    :param manualQueueOnly : Whether to allow only manual queue of builds. Required if policy type is Buildpolicy.
     :type manualQueueOnly : bool
     :param displayName : Display Name. Required if policy type is Buildpolicy.
     :type displayName : string
-    :param validDuration : Valid duration. Required if policy type is Buildpolicy.
+    :param validDuration :  Policy validity duration (in hours). Required if policy type is Buildpolicy.
     :type validDuration : double
 
-    :param useSquashMerge: Use Squash Merge. Required if policy type is MergeStrategyPolicy
+    :param useSquashMerge: Whether to squash merge always. Required if policy type is MergeStrategyPolicy
     :type useSquashMerge: bool
 
     :param maximumGitBlobSizeInBytes: Maximum Git Blob Size In Bytes. Required if policy type is FileSizePolicy
     :type maximumGitBlobSizeInBytes: long
-    :param useUncompressedSize: Use uncompressed size. Required if policy type is FileSizePolicy
+    :param useUncompressedSize: Whether to use uncompressed size. Required if policy type is FileSizePolicy
     :type useUncompressedSize: bool
 
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -201,11 +201,11 @@ def update_policy(policy_configuration=None,
     :type repository_id: string
     :param branch: Branch on which this policy should be applied
     :type branch: string
-    :param policy_id: Policy Id of policy which needs to be updated
+    :param policy_id: ID of the policy which needs to be updated
     :param policy_id: int
-    :param isBlocking: Tells if the policy should be blocking or not
+    :param isBlocking: Whether the policy should be blocking or not. Default value is false. Accepted values are true and false.
     :type isBlocking: bool
-    :param isEnabled: Tells if the policy is enabled or not
+    :param isEnabled: Whether the policy is enabled or not. By default the value is true. Accepted values and true and false.
     :type isEnabled: bool
     :param policy_type: Type of policy you want to create
     :type policy_type: string
@@ -219,30 +219,30 @@ def update_policy(policy_configuration=None,
 
     :param minimumApproverCount: Minimum approver count. Required if policy type is ApproverCountPolicy.
     :type minimumApproverCount: int
-    :param creatorVoteCounts: Creator vote counts or not. Required if policy type is ApproverCountPolicy
+    :param creatorVoteCounts: Whether the creator's vote count counts or not. Required if policy type is ApproverCountPolicy
     :type creatorVoteCounts: bool
-    :param allowDownvotes: Allow Downvotes. Required if policy type is ApproverCountPolicy.
+    :param allowDownvotes: Whether to allow downvotes or not. Required if policy type is ApproverCountPolicy.
     :type allowDownvotes: bool
-    :param resetOnSourcePush: Reset on Source Push. Required if policy type is ApproverCountPolicy.
+    :param resetOnSourcePush: Whether to reset source on push. Required if policy type is ApproverCountPolicy.
     :type resetOnSourcePush: bool
 
     :param buildDefinitionId: Build Definition Id. Required if policy type is Buildpolicy.
     :type buildDefinitionId: int
     :param queueOnSourceUpdateOnly: Queue Only on source update. Required if policy type is Buildpolicy.
     :type queueOnSourceUpdateOnly: bool
-    :param manualQueueOnly : Manual Queue Only. Required if policy type is Buildpolicy.
+    :param manualQueueOnly : Whether to allow only manual queue of builds. Required if policy type is Buildpolicy.
     :type manualQueueOnly : bool
     :param displayName : Display Name. Required if policy type is Buildpolicy.
     :type displayName : string
-    :param validDuration : Valid duration. Required if policy type is Buildpolicy.
+    :param validDuration : Policy validity duration (in hours). Required if policy type is Buildpolicy.
     :type validDuration : double
 
-    :param useSquashMerge: Use Squash Merge. Required if policy type is MergeStrategyPolicy
+    :param useSquashMerge: Whether to squash merge always. Required if policy type is MergeStrategyPolicy
     :type useSquashMerge: bool
 
     :param maximumGitBlobSizeInBytes: Maximum Git Blob Size In Bytes. Required if policy type is FileSizePolicy
     :type maximumGitBlobSizeInBytes: long
-    :param useUncompressedSize: Use uncompressed size. Required if policy type is FileSizePolicy
+    :param useUncompressedSize: Whether to use uncompressed size. Required if policy type is FileSizePolicy
     :type useUncompressedSize: bool
 
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
