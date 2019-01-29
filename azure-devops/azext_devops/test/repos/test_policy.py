@@ -14,31 +14,37 @@ except ImportError:
 
 from azext_devops.dev.repos.policy import *
 from azext_devops.dev.common.services import clear_connection_cache
+from vsts.policy.v4_0.policy_client import PolicyClient
 
 
 class TestUuidMethods(unittest.TestCase):
 
-    _TEST_DEVOPS_ORGANIZATION = 'https://someorgaaaa.visualstudio.com'
+    _TEST_DEVOPS_ORGANIZATION = 'https://someorg.visualstudio.com'
     _TEST_DEVOPS_PROJECT = 'sample project'
     _TEST_PAT_TOKEN = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
     _TEST_REPOSITORY_ID = 'b4da517c-0398-42dc-b2a8-0d3f240757f9'
 
     def setUp(self):
+        self.get_client = patch('vsts.vss_connection.VssConnection.get_client')
         self.get_policies_patcher = patch('vsts.policy.v4_0.policy_client.PolicyClient.get_policy_configurations')
         self.get_policy_patcher = patch('vsts.policy.v4_0.policy_client.PolicyClient.get_policy_configuration')
         self.delete_policy_patcher = patch('vsts.policy.v4_0.policy_client.PolicyClient.delete_policy_configuration')
         self.create_policy_patcher = patch('vsts.policy.v4_0.policy_client.PolicyClient.create_policy_configuration')
         self.update_policy_patcher = patch('vsts.policy.v4_0.policy_client.PolicyClient.update_policy_configuration')
 
+        self.mock_get_client = self.get_client.start()
         self.mock_get_policies = self.get_policies_patcher.start()
         self.mock_get_policy = self.get_policy_patcher.start()
         self.mock_delete_policy = self.delete_policy_patcher.start()
         self.mock_create_policy = self.create_policy_patcher.start()
         self.mock_update_policy = self.update_policy_patcher.start()
 
+        self.mock_get_client.return_value = PolicyClient(base_url=self._TEST_DEVOPS_ORGANIZATION)
+
         clear_connection_cache()
 
     def tearDown(self):
+        self.mock_get_client.stop()
         self.mock_get_policies.stop()
         self.mock_get_policy.stop()
         self.mock_delete_policy.stop()
