@@ -92,7 +92,8 @@ def delete_policy(id, organization=None, project=None, detect=None):  # pylint: 
 
 
 # pylint: disable=too-many-locals
-def create_policy(repository_id, branch,
+def create_policy(policy_configuration=None,
+                  repository_id=None, branch=None,
                   isBlocking=False, isEnabled=False,
                   policy_type=None,
                   minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
@@ -102,6 +103,11 @@ def create_policy(repository_id, branch,
                   optionalReviewerIds=None, requiredReviewerIds=None, message=None,
                   organization=None, project=None, detect=None):
     """
+    :param policy_configuration: File path of file containing policy configuration to create in a serialized form.
+                                 please use / backslash when typing in directory path.
+                                 Only --project and --organization param are needed when passing this.
+    :type policy_configuration: string
+
     :param repository_id: Id (UUID) of the repository on which to apply the policy
     :type repository_id: string
     :param branch: Branch on which this policy should be applied
@@ -162,6 +168,7 @@ def create_policy(repository_id, branch,
         policy_client = get_policy_client(organization)
 
         policyConfigurationToCreate = generateConfigurationObject(
+            policy_configuration,
             repository_id, branch,
             policy_type,
             isBlocking, isEnabled,
@@ -178,8 +185,9 @@ def create_policy(repository_id, branch,
 
 
 # pylint: disable=too-many-locals
-def update_policy(repository_id, branch,
-                  policy_id,
+def update_policy(policy_configuration=None,
+                  repository_id=None, branch=None,
+                  policy_id=None,
                   isBlocking=False, isEnabled=False,
                   policy_type=None,
                   minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
@@ -251,6 +259,7 @@ def update_policy(repository_id, branch,
         policy_client = get_policy_client(organization)
 
         policyConfigurationToCreate = generateConfigurationObject(
+            policy_configuration,
             repository_id, branch,
             policy_type,
             isBlocking, isEnabled,
@@ -270,7 +279,8 @@ def update_policy(repository_id, branch,
 
 
 # pylint: disable=too-many-locals
-def generateConfigurationObject(repository_id, branch,
+def generateConfigurationObject(policy_configuration=None,
+                                repository_id=None, branch=None,
                                 policy_type=None,
                                 isBlocking=False, isEnabled=False,
                                 minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
@@ -279,6 +289,11 @@ def generateConfigurationObject(repository_id, branch,
                                 maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
                                 optionalReviewerIds=None, requiredReviewerIds=None, message=None,
                                 organization=None):
+    if policy_configuration != None:
+        with open(policy_configuration) as f:
+            import json
+            return json.load(f)
+
     # these 2 will be filled by respective types
     paramNameArray = []
     paramArray = []
