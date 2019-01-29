@@ -36,6 +36,7 @@ Write-Host "done"
 # Install this extension just so that we can compare the load time
 az extension add -n azure-cli-iot-ext
 
+az --version
 az -h
 az devops -h --debug
 

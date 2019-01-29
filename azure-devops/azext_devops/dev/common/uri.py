@@ -11,6 +11,12 @@ except ImportError:
 
 
 def uri_parse(url):
+    # Special handling for NEW ssh urls which do not start with ssh://
+    if not url.startswith('ssh:') and ("vs-ssh.visualstudio.com" in url or "ssh.dev.azure.com" in url):
+        # e.g. org@vs-ssh.visualstudio.com:v3/org/project/repo
+        # e.g. git@ssh.dev.azure.com:v3/org/Project/Repo
+        # append ssh at start to set correct scheme
+        return urlparse("ssh://{original_uri}".format(original_uri=url))
     return urlparse(url)
 
 
@@ -18,6 +24,7 @@ def uri_quote(query_data):
     return quote(query_data)
 
 
+# Only works for hosted scenario
 def uri_parse_instance_from_git_uri(uri):
     if "/_git" in uri:
         parsed_uri = urlparse(uri)
