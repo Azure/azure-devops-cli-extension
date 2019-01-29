@@ -44,12 +44,12 @@ class TestUuidMethods(unittest.TestCase):
         clear_connection_cache()
 
     def tearDown(self):
-        self.mock_get_client.stop()
-        self.mock_get_policies.stop()
-        self.mock_get_policy.stop()
-        self.mock_delete_policy.stop()
-        self.mock_create_policy.stop()
-        self.mock_update_policy.stop()
+        self.get_client.stop()
+        self.get_policies_patcher.stop()
+        self.get_policy_patcher.stop()
+        self.delete_policy_patcher.stop()
+        self.create_policy_patcher.stop()
+        self.update_policy_patcher.stop()
 
     def test_list_policy(self):
         list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
