@@ -24,12 +24,12 @@ jobs:
       targetType: 'filePath'
       filePath: 'scripts/setupCiMachine.ps1'
 
-# Run a Python script.
-- task: PythonScript@0
-  inputs:
-    scriptSource: 'filePath'
-    scriptPath: 'scripts/prepareLiveRecordingTestsRun.py'
-    failOnStderr: true
+  # Run a Python script.
+  - task: PythonScript@0
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: 'scripts/prepareLiveRecordingTestsRun.py'
+      failOnStderr: true
 
   - task: PowerShell@2
     displayName: 'Run Tests'
