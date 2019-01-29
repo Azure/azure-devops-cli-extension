@@ -43,11 +43,11 @@ class TestPipelinesBuildMethods(unittest.TestCase):
         clear_connection_cache()
 
     def tearDown(self):
-        self.mock_get_build.stop()
         self.get_client.stop()
-        self.mock_get_credential.stop()
-        self.mock_validate_token.stop()
-        self.mock_open_browser.stop()
+        self.get_build_patcher.stop()
+        self.get_credential_patcher.stop()
+        self.validate_token_patcher.stop()
+        self.open_in_browser_patcher.stop()
 
     def test_show_build(self):
         # set return values

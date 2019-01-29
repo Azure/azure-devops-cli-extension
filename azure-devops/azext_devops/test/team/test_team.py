@@ -60,7 +60,14 @@ class TestTeamMethods(unittest.TestCase):
         clear_connection_cache()
 
     def tearDown(self):
-        patch.stopall()
+        self.get_client.stop()
+        self.create_team_patcher.stop()
+        self.delete_team_patcher.stop()
+        self.get_team_patcher.stop()
+        self.get_teams_patcher.stop()
+        self.get_team_members_patcher.stop()
+        self.update_team_patcher.stop()
+        self.get_credential_patcher.stop()
 
     def test_create_team(self):
         create_team(self._TEST_TEAM_NAME, self._TEST_TEAM_DESCRIPTION, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, self._OFF)

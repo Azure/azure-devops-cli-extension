@@ -45,12 +45,12 @@ class TestWorkItemMethods(unittest.TestCase):
 
 
     def tearDown(self):
-        self.mock_get_WI.stop()
-        self.mock_create_WI.stop()
-        self.mock_delete_WI.stop()
-        self.mock_get_credential.stop()
-        self.mock_validate_token.stop()
-        self.mock_open_browser.stop()
+        self.get_WI_patcher.stop()
+        self.create_WI_patcher.stop()
+        self.delete_WI_patcher.stop()
+        self.get_credential_patcher.stop()
+        self.open_in_browser_patcher.stop()
+        self.validate_token_patcher.stop()
 
 
     def test_show_work_item_correct_id(self):

@@ -43,10 +43,10 @@ class TestServiceEndpointMethods(unittest.TestCase):
         clear_connection_cache()
 
     def tearDown(self):
-        self.mock_get_SEs.stop()
-        self.mock_get_credential.stop()
-        self.mock_create_SE.stop()
-        self.mock_get_SE_detail.stop()
+        self.get_SEs_patcher.stop()
+        self.get_SE_details_patcher.stop()
+        self.create_SE_patcher.stop()
+        self.get_credential_patcher.stop()
 
     def test_list_service_endpoint(self):
         response = list_service_endpoints(self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)

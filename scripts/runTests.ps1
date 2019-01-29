@@ -40,32 +40,14 @@ az --version
 az -h
 az devops -h --debug
 
-$testFailureFound = $false
-
 if($outputTestResultAsJunit -eq $true)
 {
-    pytest 'azure-devops/' --junitxml "TEST-UT-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
+    pytest --junitxml "TEST-UT-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
 }
 else{
-    pytest 'azure-devops/'
+    pytest
 }
 
 if ($LastExitCode -ne 0) {
-    $testFailureFound = $true
-}
-
-if($outputTestResultAsJunit -eq $true)
-{
-    pytest 'tests/' --junitxml "TEST-recordings-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
-}
-else{
-    pytest 'tests/'
-}
-
-if ($LastExitCode -ne 0) {
-    $testFailureFound = $true
-}
-
-if($testFailureFound -eq $true){
     exit 1
 }
