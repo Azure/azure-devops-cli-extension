@@ -16,6 +16,7 @@ def load_code_arguments(self, _):
     with self.argument_context('repos') as context:
         context.argument('project', options_list=('--project', '-p'))
         context.argument('organization', options_list=('--organization', '--org'))
+        context.argument('repository', options_list=('--repository', '-r'))
         context.argument('reviewers', nargs='*')
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
@@ -24,7 +25,6 @@ def load_code_arguments(self, _):
 
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
-        context.argument('repository', options_list=('--repository', '-r'))
         context.argument('source_branch', options_list=('--source-branch', '-s'))
         context.argument('target_branch', options_list=('--target-branch', '-t'))
         context.argument('title', type=str)
@@ -59,5 +59,4 @@ def load_code_arguments(self, _):
                          help='Do not prompt for confirmation.')
 
     with self.argument_context('repos import create') as context:
-        context.argument('repository', options_list=('--repository', '-r'))
         context.argument('git_source_url', options_list=('--git-source-url', '--git-url'))
