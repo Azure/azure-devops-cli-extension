@@ -185,9 +185,9 @@ def create_policy(policy_configuration=None,
 
 
 # pylint: disable=too-many-locals
-def update_policy(policy_configuration=None,
+def update_policy(policy_id,
+                  policy_configuration=None,
                   repository_id=None, branch=None,
-                  policy_id=None,
                   isBlocking=False, isEnabled=False,
                   policy_type=None,
                   minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
@@ -202,7 +202,7 @@ def update_policy(policy_configuration=None,
     :param branch: Branch on which this policy should be applied
     :type branch: string
     :param policy_id: ID of the policy which needs to be updated
-    :param policy_id: int
+    :type policy_id: int
     :param isBlocking: Whether the policy should be blocking or not. Default value is false. Accepted values are true and false.
     :type isBlocking: bool
     :param isEnabled: Whether the policy is enabled or not. By default the value is true. Accepted values and true and false.
