@@ -6,6 +6,7 @@
 import os
 
 from azure.cli.testsdk import ScenarioTest
+from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import (DEVOPS_CLI_TEST_ORGANIZATION,
                                DEVOPS_CLI_TEST_PAT_TOKEN,
                                disable_telemetry,
@@ -15,6 +16,7 @@ from .utilities.helper import (DEVOPS_CLI_TEST_ORGANIZATION,
 
 class ReposRefTests(ScenarioTest):
 
+    @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     def test_ref_createListDelete(self):
 
