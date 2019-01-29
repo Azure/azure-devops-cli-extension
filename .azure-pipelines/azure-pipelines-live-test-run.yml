@@ -1,0 +1,47 @@
+# This pipeline
+# 1. Runs manually
+# 2. Makes sure master branch is in healthy state (run live tests)
+
+trigger: none
+
+pr: none
+
+jobs:
+
+- job: 'Run_Test_Ubuntu'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+  
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+      architecture: 'x64'
+
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+# Run a Python script.
+- task: PythonScript@0
+  inputs:
+    scriptSource: 'filePath'
+    scriptPath: 'scripts/prepareLiveRecordingTestsRun.py'
+    failOnStderr: true
+
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTests.ps1'
+      arguments: '$True'
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()

@@ -20,7 +20,10 @@ class RunLiveTests:
     def get_tests_recordings_folder():
         repo_root = RunLiveTests.get_repo_root()
         tests_folder = os.path.join(repo_root, 'tests')
-        return os.path.join(tests_folder, 'recordings')
+        recordings_folder = os.path.join(tests_folder, 'recordings')
+        if not os.path.isdir(recordings_folder):
+            raise Exception("Could not find recordings folder.")
+        return recordings_folder
 
     @staticmethod
     def delete_test_recordings():
@@ -31,7 +34,7 @@ class RunLiveTests:
             print('Number of recordings found - {}'.format(len(files)))
             for cur_file in files:
                 print('Deleting file - {}'.format(cur_file))
-                os.remove(cur_file)
+                os.remove(os.path.join(recordings_folder, cur_file))
         files = os.listdir(recordings_folder)
         if not files:
             print('No recordings found after delete operation.')
@@ -45,7 +48,7 @@ class RunLiveTests:
     @staticmethod
     def prepare_live_run():
         RunLiveTests.delete_test_recordings()
-    
+
 
 if __name__ == "__main__":
     RunLiveTests.prepare_live_run()
