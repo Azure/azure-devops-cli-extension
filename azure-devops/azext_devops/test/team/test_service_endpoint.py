@@ -25,7 +25,7 @@ from azext_devops.dev.common.services import clear_connection_cache
     
 class TestServiceEndpointMethods(unittest.TestCase):
 
-    _TEST_DEVOPS_ORGANIZATION = 'https://dev.azure.com/AzureDevOpsCliTest'
+    _TEST_DEVOPS_ORGANIZATION = 'https://dev.azure.com/someorg'
     _TEST_PROJECT_NAME = 'sample_project'
 
     def setUp(self):
