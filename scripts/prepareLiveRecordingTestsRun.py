@@ -43,8 +43,6 @@ class RunLiveTests:
                 print('Cound not delete file - {}'.format(cur_file))
             raise Exception('Delete recordings failed.')
         print('Delete recordings completed successfully.')
-        RunLiveTests.ensure_pat_env_set()
-        print('Verified PAT is set in environment.')
 
     @staticmethod
     def ensure_pat_env_set():
@@ -52,10 +50,12 @@ class RunLiveTests:
         if not os.environ.get(_PAT_ENV_VARIABLE_NAME):
             raise Exception('PAT environment variable is not set in {}.\n \
             Please set the environemnt variable before the test run.'.format(_PAT_ENV_VARIABLE_NAME))
+        print('Verified PAT is set in environment.')
 
     @staticmethod
     def prepare_live_run():
         RunLiveTests.delete_test_recordings()
+        RunLiveTests.ensure_pat_env_set()
 
 
 if __name__ == "__main__":

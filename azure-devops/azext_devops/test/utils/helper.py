@@ -5,6 +5,7 @@
 
 TEST_DEVOPS_ORG_URL = "https://someorg.visualstudio.com"
 
+# Use this when mocking multiple get clients is required for a single test.
 def get_client_mock_helper(_self_dummy, client_type):
     from vsts.git.v4_0.git_client import GitClient
     from vsts.policy.v4_0.policy_client import PolicyClient
