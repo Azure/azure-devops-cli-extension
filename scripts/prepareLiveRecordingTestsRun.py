@@ -42,8 +42,16 @@ class RunLiveTests:
             for cur_file in files:
                 print('Cound not delete file - {}'.format(cur_file))
             raise Exception('Delete recordings failed.')
+        print('Delete recordings completed successfully.')
+        RunLiveTests.ensure_pat_env_set()
+        print('Verified PAT is set in environment.')
 
-        print('Delete Recordings completed successfully.')
+    @staticmethod
+    def ensure_pat_env_set():
+        _PAT_ENV_VARIABLE_NAME = 'AZURE_DEVOPS_EXT_PAT'
+        if not os.environ.get(_PAT_ENV_VARIABLE_NAME):
+            raise Exception("PAT environment variable is not set in {}. \
+            Please set the environemnt variable before the test run.".format(_PAT_ENV_VARIABLE_NAME))
 
     @staticmethod
     def prepare_live_run():
