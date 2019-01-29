@@ -1,4 +1,13 @@
-param([Boolean]$outputTestResultAsJunit=$false)
+# --------------------------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for license information.
+# --------------------------------------------------------------------------------------------
+
+param(
+    [Boolean]$outputTestResultAsJunit=$false,
+    [Boolean]$run_UT=$true,
+    [Boolean]$run_VCR=$true
+)
 
 $rootPath = Get-Location
 $extensionDirectory = Join-Path -Path $rootPath -ChildPath "azure-devops"
@@ -42,28 +51,32 @@ az devops -h --debug
 
 $testFailureFound = $false
 
-if($outputTestResultAsJunit -eq $true)
+if($run_UT -eq $true)
 {
-    pytest 'azure-devops/' --junitxml "TEST-UT-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
-}
-else{
-    pytest 'azure-devops/'
+    if($outputTestResultAsJunit -eq $true) {
+        pytest 'azure-devops/' --junitxml "TEST-UT-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
+    }
+    else {
+        pytest 'azure-devops/'
+    }
+
+    if ($LastExitCode -ne 0) {
+       $testFailureFound = $true
+    }
 }
 
-if ($LastExitCode -ne 0) {
-    $testFailureFound = $true
-}
+if($run_VCR -eq $true) {
+    if($outputTestResultAsJunit -eq $true)
+    {
+        pytest 'tests/' --junitxml "TEST-recordings-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
+    }
+    else{
+        pytest 'tests/'
+    }
 
-if($outputTestResultAsJunit -eq $true)
-{
-    pytest 'tests/' --junitxml "TEST-recordings-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
-}
-else{
-    pytest 'tests/'
-}
-
-if ($LastExitCode -ne 0) {
-    $testFailureFound = $true
+    if ($LastExitCode -ne 0) {
+        $testFailureFound = $true
+    }
 }
 
 if($testFailureFound -eq $true){
