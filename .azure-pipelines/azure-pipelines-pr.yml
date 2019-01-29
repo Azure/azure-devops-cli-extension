@@ -172,19 +172,3 @@ jobs:
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/runStyleCheck.ps1'
-
-- job: 'Run_HelpText_Check'
-  pool:
-    vmImage: 'Ubuntu-16.04'
-
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.6'
-      architecture: 'x64'
-
-  - task: PythonScript@0
-    displayName: 'Run HelpText Check'
-    inputs:
-      scriptSource: 'filePath'
-      filePath: 'scripts/findEmptyHelpTexts.py'
