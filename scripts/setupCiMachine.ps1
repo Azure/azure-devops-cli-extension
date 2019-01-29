@@ -1,3 +1,6 @@
+Write-Output "upgrading pip"
+python -m pip install --upgrade pip
+Write-Output "done"
 Write-Output "installing wheel"
 pip install wheel
 Write-Output "done"
@@ -9,9 +12,6 @@ pip install coverage
 Write-Output "done"
 Write-Output "installing pytest-cov"
 pip install pytest-cov
-Write-Output "done"
-Write-Output "installing keyring"
-pip install keyring
 Write-Output "done"
 
 # Install CLI & CLI testsdk

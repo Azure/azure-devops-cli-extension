@@ -67,11 +67,27 @@ class VstsGitUrlInfo(object):
             netloc = VstsGitUrlInfo.convert_ssh_netloc_to_https_netloc(components.netloc)
             if netloc is None:
                 return None
-            uri = 'https://' + netloc + '/' + components.path
+            # New ssh urls do not have _ssh so path is like org/project/repo
+            # We need to convert it into project/_git/repo/ or org/project/_git/repo for dev.azure.com urls
+            path = components.path
             ssh_path_segment = '_ssh/'
-            ssh_path_segment_pos = uri.find(ssh_path_segment)
-            if ssh_path_segment_pos >= 0:
-                uri = uri[:ssh_path_segment_pos] + '_git/' + uri[ssh_path_segment_pos + len(ssh_path_segment):]
+            ssh_path_segment_pos = components.path.find(ssh_path_segment)
+            if ssh_path_segment_pos < 0:  # new ssh url
+                path_vals = components.path.strip('/').split('/')
+                if path_vals and len(path_vals) == 3:
+                    if 'visualstudio.com' in netloc:
+                        path = '{proj}/{git}/{repo}'.format(proj=path_vals[1], git='_git', repo=path_vals[2])
+                    elif 'dev.azure.com' in netloc:
+                        path = '{org}/{proj}/{git}/{repo}'.format(
+                            org=path_vals[0], proj=path_vals[1], git='_git', repo=path_vals[2])
+                else:
+                    logger.debug("Unsupported url format encountered in git repo url discovery.")
+                uri = 'https://' + netloc + '/' + path
+            else:  # old ssh urls
+                uri = 'https://' + netloc + '/' + path.strip('/')
+                ssh_path_segment_pos = uri.find(ssh_path_segment)
+                if ssh_path_segment_pos >= 0:
+                    uri = uri[:ssh_path_segment_pos] + '_git/' + uri[ssh_path_segment_pos + len(ssh_path_segment):]
         else:
             uri = remote_url
         credentials = _get_credentials(uri)
@@ -91,6 +107,9 @@ class VstsGitUrlInfo(object):
         regex = re.compile(r'([^@]+)@[^\.]+(\.[^:]+)')
         match = regex.match(netloc)
         if match is not None:
+            # Handle new and old url formats
+            if match.group(1) == 'git' and match.group(2) == '.dev.azure.com':
+                return match.group(2).strip('.')
             return match.group(1) + match.group(2)
         return None
 
@@ -102,8 +121,10 @@ class VstsGitUrlInfo(object):
         if components.netloc == 'github.com':
             return False
         if components.path is not None \
-                and (components.path.find('/_git/') >= 0 or components.path.find('/_ssh/') >= 0):
+            and (components.path.find('/_git/') >= 0 or components.path.find('/_ssh/') >= 0 or
+                 components.scheme == 'ssh'):
             return True
+
         return False
 
     class _RemoteInfo(Model):
