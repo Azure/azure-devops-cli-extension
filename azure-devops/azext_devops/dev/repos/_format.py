@@ -12,6 +12,37 @@ _PR_TITLE_TRUNCATION_LENGTH = 50
 _WORK_ITEM_TITLE_TRUNCATION_LENGTH = 70
 
 
+def transform_repo_policies_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_repo_policy_request_row(item))
+    return table_output
+
+
+def transform_repo_policy_table_output(result):
+    table_output = [_transform_repo_policy_request_row(result)]
+    return table_output
+
+
+def _transform_repo_policy_request_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Name'] = _get_policy_display_name(row)
+    table_row['Is Blocking'] = row['isBlocking']
+    table_row['Is Enabled'] = row['isEnabled']
+    # this will break if policy is applied across repo but that is not possible via UI at least now
+    table_row['Repository Id'] = row['settings']['scope'][0]['repositoryId']
+    table_row['Branch'] = row['settings']['scope'][0]['refName']
+    return table_row
+
+
+def _get_policy_display_name(row):
+    if 'displayName' in row['settings']:
+        return row['settings']['displayName']
+
+    return row['type']['displayName']
+
+
 def transform_pull_requests_table_output(result):
     table_output = []
     for item in result:
