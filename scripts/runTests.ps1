@@ -66,6 +66,15 @@ if($run_UT -eq $true)
 }
 
 if($run_VCR -eq $true) {
+    $env_pat_token_name = "AZURE_DEVOPS_EXT_PAT"
+    if (Test-Path env:$env_pat_token_name) { 
+        $env_pat_token = (get-item env:$env_pat_token_name).Value
+        if($env_pat_token) {
+            Write-Host('Trying devops login with token in environment.')
+            Invoke-Expression("'" + $env_pat_token + "' | az devops login")
+        }
+    }
+
     if($outputTestResultAsJunit -eq $true)
     {
         pytest 'tests/' --junitxml "TEST-recordings-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
