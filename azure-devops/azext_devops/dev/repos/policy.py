@@ -289,7 +289,7 @@ def generateConfigurationObject(policy_configuration=None,
                                 maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
                                 optionalReviewerIds=None, requiredReviewerIds=None, message=None,
                                 organization=None):
-    if policy_configuration != None:
+    if policy_configuration is not None:
         with open(policy_configuration) as f:
             import json
             return json.load(f)
