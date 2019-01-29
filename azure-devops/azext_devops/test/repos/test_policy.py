@@ -18,7 +18,7 @@ from azext_devops.dev.common.services import clear_connection_cache
 
 class TestUuidMethods(unittest.TestCase):
 
-    _TEST_DEVOPS_ORGANIZATION = 'https://AzureDevOpsCliTest.visualstudio.com'
+    _TEST_DEVOPS_ORGANIZATION = 'https://someorgaaaa.visualstudio.com'
     _TEST_DEVOPS_PROJECT = 'sample project'
     _TEST_PAT_TOKEN = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
     _TEST_REPOSITORY_ID = 'b4da517c-0398-42dc-b2a8-0d3f240757f9'
