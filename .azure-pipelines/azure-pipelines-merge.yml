@@ -182,3 +182,32 @@ jobs:
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/runStyleCheck.ps1'
+
+- job: 'Run_HelpText_Check'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTests.ps1'
+      arguments: '$True'
+
+  - task: PythonScript@0
+    displayName: 'Run HelpText Check'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: 'scripts/findEmptyHelpTexts.py' 

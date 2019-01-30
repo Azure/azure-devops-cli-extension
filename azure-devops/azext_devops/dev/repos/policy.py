@@ -32,7 +32,7 @@ logger = get_logger(__name__)
 
 
 def list_policy(organization=None, project=None, detect=None):
-    """
+    """List of policies.
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the project.
@@ -51,7 +51,7 @@ def list_policy(organization=None, project=None, detect=None):
 
 
 def get_policy(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """
+    """Show policy details.
     :param id: ID of the policy.
     :type id: int
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -72,7 +72,7 @@ def get_policy(id, organization=None, project=None, detect=None):  # pylint: dis
 
 
 def delete_policy(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """
+    """Delete a policy.
     :param id: ID of the policy.
     :type id: int
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -102,7 +102,7 @@ def create_policy(policy_configuration=None,
                   maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
                   optionalReviewerIds=None, requiredReviewerIds=None, message=None,
                   organization=None, project=None, detect=None):
-    """
+    """Create a policy.
     :param policy_configuration: File path of file containing policy configuration to create in a serialized form.
                                  please use / backslash when typing in directory path.
                                  Only --project and --organization param are needed when passing this.
@@ -196,7 +196,7 @@ def update_policy(policy_id,
                   maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
                   optionalReviewerIds=None, requiredReviewerIds=None, message=None,
                   organization=None, project=None, detect=None):
-    """
+    """Update a policy.
     :param repository_id: Id (UUID) of the repository on which to apply the policy to.
     :type repository_id: string
     :param branch: Branch on which this policy should be applied

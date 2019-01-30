@@ -72,7 +72,7 @@ def print_missing_help_files(help_files):
     if not missing_help_text:
         print('No missing help texts found.')
     else:
-        print('No help texts were found for below command(s):')
+        print('\n\nNo help texts were found for below command(s):')
         for text in missing_help_list :
             print('{} : {}'.format(text[0], text[1]))
         raise Exception('Please update the help text(s).')
