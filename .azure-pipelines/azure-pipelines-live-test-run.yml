@@ -30,7 +30,7 @@ jobs:
       scriptPath: 'scripts/prepareLiveRecordingTestsRun.py'
       failOnStderr: true
     env:
-      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
+      AZURE_DEVOPS_EXT_PAT: $(pat)
 
   - task: PowerShell@2
     displayName: 'Run Tests'
@@ -38,9 +38,9 @@ jobs:
       targetType: 'filePath'
       filePath: 'scripts/runTests.ps1'
       # Do not run UTs since this is only for live run
-      arguments: '-outputTestResultAsJunit $True -run_UT $False -pat $(mypat)'
+      arguments: '-outputTestResultAsJunit $True -run_UT $False'
     env:
-      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
+      AZURE_DEVOPS_EXT_PAT: $(pat)
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
