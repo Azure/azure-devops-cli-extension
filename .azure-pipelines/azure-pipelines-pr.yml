@@ -241,14 +241,6 @@ jobs:
       targetType: 'filePath'
       filePath: 'scripts/runTests.ps1'
       arguments: '$True'
-  
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-    condition: succeededOrFailed()
 
   - task: PythonScript@0
     displayName: 'Run HelpText Check'
