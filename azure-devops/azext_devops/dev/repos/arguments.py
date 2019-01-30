@@ -22,6 +22,11 @@ def load_code_arguments(self, _):
 
     with self.argument_context('repos policies create') as context:
         context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
+        context.argument('repository_id', options_list=('--repository-id', '-r'))
+
+    with self.argument_context('repos policies update') as context:
+        context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
+        context.argument('repository_id', options_list=('--repository-id', '-r'))
 
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
