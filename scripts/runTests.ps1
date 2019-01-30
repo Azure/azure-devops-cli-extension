@@ -1,4 +1,4 @@
-# --------------------------------------------------------------------------------------------
+     # --------------------------------------------------------------------------------------------
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
@@ -80,9 +80,12 @@ if($run_VCR -eq $true) {
             Write-Host('Trying devops login with token in environment.')
             Write-Host("echo '" + $pat + "' | az devops login --org https://dev.azure.com/azuredevopsclitest")
             Invoke-Expression("echo '" + $pat + "' | az devops login --org https://dev.azure.com/azuredevopsclitest --debug")
+            # $env:AZURE_DEVOPS_EXT_PAT = $pat
             Write-Host ($pat)
         }
     }
+
+    Invoke-Expression("az devops project list --org https://dev.azure.com/azuredevopsclitest --debug")
 
     if($outputTestResultAsJunit -eq $true)
     {
