@@ -137,8 +137,6 @@ class TestPullRequestMethods(unittest.TestCase):
 
     def test_create_pull_request(self):
 
-        # import pdb 
-        # pdb.set_trace()
         test_pr_id = 1
 
         # set return values
