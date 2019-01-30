@@ -36,9 +36,18 @@ class DevopsTeamTests(ScenarioTest):
             import_repo_command = 'az repos import create --git-url https://github.com/SignalR/SignalR.git' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
             import_repo_output = self.cmd(import_repo_command)
 
+            list_policy_command = 'az repos policies list -p ' + created_project_id + ' --output json --detect off'
+            list_policy_output = self.cmd(list_policy_command).get_output_in_json()
+            #empty project so no policy is expected
+            assert len(list_policy_output) == 0
+
+            create_policy_command = 'az repos policies create --useSquashMerge False --policy-type MergeStrategyPolicy --branch \"refs/heads/master\"' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
+            create_policy_output = self.cmd(create_policy_command).get_output_in_json()
+            policy_id = create_policy_output["id"]
+            
 
         finally:
             if created_project_id is not None:
                 delete_project_command = 'az devops project delete --id ' + created_project_id + ' --output json --detect off -y'
-                self.cmd(delete_project_command)
+                # self.cmd(delete_project_command)
 
