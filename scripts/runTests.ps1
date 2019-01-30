@@ -6,7 +6,8 @@
 param(
     [Boolean]$outputTestResultAsJunit=$false,
     [Boolean]$run_UT=$true,
-    [Boolean]$run_VCR=$true
+    [Boolean]$run_VCR=$true,
+    [string]$pat
 )
 
 $rootPath = Get-Location
@@ -69,10 +70,10 @@ if($run_VCR -eq $true) {
     $env_pat_token_name = "AZURE_DEVOPS_EXT_PAT"
     if (Test-Path env:$env_pat_token_name) { 
         $env_pat_token = (get-item env:$env_pat_token_name).Value
-        if($env_pat_token) {
+        if($pat) {
             Write-Host('Trying devops login with token in environment.')
             Invoke-Expression("'" + $env_pat_token + "' | az devops login --org https://dev.azure.com/azuredevopsclitest")
-            Write-Host ($env_pat_token)
+            Write-Host ($pat)
         }
     }
 
