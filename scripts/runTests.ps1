@@ -72,6 +72,7 @@ if($run_VCR -eq $true) {
         if($env_pat_token) {
             Write-Host('Trying devops login with token in environment.')
             Invoke-Expression("'" + $env_pat_token + "' | az devops login --org https://dev.azure.com/azuredevopsclitest")
+            Write-Host ($env_pat_token)
         }
     }
 
