@@ -8,14 +8,13 @@ import unittest
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import ( DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry, PAT_ENV_VARIABLE_NAME )
+from .utilities.helper import DEVOPS_CLI_TEST_ORGANIZATION, disable_telemetry, set_authentication
 
 class PipelinesBuildTaskTests(ScenarioTest): 
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
+    @set_authentication
     def test_build_task_listShow(self):
-
-        os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
         self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
 
         list_task_command = 'az pipelines build task list --detect off --output json'

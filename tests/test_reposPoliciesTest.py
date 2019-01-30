@@ -3,21 +3,18 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 import os
+import time
 import unittest
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import (DEVOPS_CLI_TEST_ORGANIZATION,
-                                DEVOPS_CLI_TEST_PAT_TOKEN,
-                                disable_telemetry,
-                                PAT_ENV_VARIABLE_NAME)
-import time
+from .utilities.helper import DEVOPS_CLI_TEST_ORGANIZATION, disable_telemetry, set_authentication
 
 class DevopsReposPoliciesTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
+    @set_authentication
     def test_devops_repos_policies_createUpdateShowListDelete(self):
-        os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
         random_project_name = self.create_random_name(prefix='policyTest', length=15)
         random_repo_name = self.create_random_name(prefix='policyTest', length=15)
         self.cmd('az devops configure --defaults organization=' +  DEVOPS_CLI_TEST_ORGANIZATION + ' project=' + random_project_name)
