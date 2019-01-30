@@ -8,15 +8,14 @@ import unittest
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import ( get_random_name , DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry , PAT_ENV_VARIABLE_NAME)
+from .utilities.helper import get_random_name, DEVOPS_CLI_TEST_ORGANIZATION, disable_telemetry, set_authentication
 
 class ReposRepoTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
+    @set_authentication
     def test_repos_createListShowDelete(self):
         random_name = get_random_name(8)
-
-        os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
         self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
         
         created_repo_id = None

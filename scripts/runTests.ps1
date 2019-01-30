@@ -1,4 +1,14 @@
-param([Boolean]$outputTestResultAsJunit=$false)
+     # --------------------------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for license information.
+# --------------------------------------------------------------------------------------------
+
+param(
+    [Boolean]$outputTestResultAsJunit=$false,
+    [Boolean]$run_UT=$true,
+    [Boolean]$run_VCR=$true,
+    [string]$pat
+)
 
 $rootPath = Get-Location
 $extensionDirectory = Join-Path -Path $rootPath -ChildPath "azure-devops"
@@ -42,28 +52,52 @@ az devops -h --debug
 
 $testFailureFound = $false
 
-if($outputTestResultAsJunit -eq $true)
+if($run_UT -eq $true)
 {
-    pytest 'azure-devops/' --junitxml "TEST-UT-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
-}
-else{
-    pytest 'azure-devops/'
+    if($outputTestResultAsJunit -eq $true) {
+        pytest 'azure-devops/' --junitxml "TEST-UT-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
+    }
+    else {
+        pytest 'azure-devops/'
+    }
+
+    if ($LastExitCode -ne 0) {
+       $testFailureFound = $true
+    }
 }
 
-if ($LastExitCode -ne 0) {
-    $testFailureFound = $true
-}
+if($run_VCR -eq $true) {
+    $env_pat_token_name = "AZURE_DEVOPS_EXT_PAT"
+    if (Test-Path env:$env_pat_token_name) { 
+        $env_pat_token = (get-item env:$env_pat_token_name).Value
+        if($env_pat_token) {
+            Write-Host('Trying devops login with token in environment.')
+            Write-Host("echo '" + $env_pat_token + "' | az devops login --org https://dev.azure.com/azuredevopsclitest")
+            Invoke-Expression("echo '" + $env_pat_token + "' | az devops login --org https://dev.azure.com/azuredevopsclitest --debug")
+            Write-Host ($env_pat_token)
+        }
+        if($pat) {
+            Write-Host('Trying devops login with token in environment.')
+            Write-Host("echo '" + $pat + "' | az devops login --org https://dev.azure.com/azuredevopsclitest")
+            Invoke-Expression("echo '" + $pat + "' | az devops login --org https://dev.azure.com/azuredevopsclitest --debug")
+            # $env:AZURE_DEVOPS_EXT_PAT = $pat
+            Write-Host ($pat)
+        }
+    }
 
-if($outputTestResultAsJunit -eq $true)
-{
-    pytest 'tests/' --junitxml "TEST-recordings-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
-}
-else{
-    pytest 'tests/'
-}
+    Invoke-Expression("az devops project list --org https://dev.azure.com/azuredevopsclitest --debug")
 
-if ($LastExitCode -ne 0) {
-    $testFailureFound = $true
+    if($outputTestResultAsJunit -eq $true)
+    {
+        pytest 'tests/' --junitxml "TEST-recordings-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
+    }
+    else{
+        pytest 'tests/'
+    }
+
+    if ($LastExitCode -ne 0) {
+        $testFailureFound = $true
+    }
 }
 
 if($testFailureFound -eq $true){
