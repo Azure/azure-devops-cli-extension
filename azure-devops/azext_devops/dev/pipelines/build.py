@@ -175,7 +175,7 @@ def add_build_tags(build_id, tags, organization=None, project=None, detect=None)
             tags = client.add_build_tag(project=project, build_id=build_id, tag=tags[0])
         else:
             tags = client.add_build_tags(tags=tags, project=project, build_id=build_id)
-        return tags    
+        return tags
     except VstsServiceError as ex:
         raise CLIError(ex)
 

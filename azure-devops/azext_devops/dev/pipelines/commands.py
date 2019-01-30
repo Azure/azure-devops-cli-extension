@@ -43,7 +43,7 @@ def load_build_commands(self, _):
         g.command('list', 'build_list', table_transformer=transform_builds_table_output)
         g.command('queue', 'build_queue', table_transformer=transform_build_table_output)
         g.command('show', 'build_show', table_transformer=transform_build_table_output)
-        
+
     with self.command_group('pipelines build tags', command_type=buildOps) as g:
         # basic build tag commands
         g.command('list', 'get_build_tags', table_transformer=transform_tasks_table_output)
