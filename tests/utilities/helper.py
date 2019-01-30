@@ -7,7 +7,7 @@ import os
 import random
 import string
 
-DEVOPS_CLI_TEST_ORGANIZATION = 'https://AzureDevOpsCliTest.visualstudio.com'
+DEVOPS_CLI_TEST_ORGANIZATION = 'https://dev.azure.com/azuredevopsclitest'
 DEVOPS_CLI_TEST_PAT_TOKEN = 'ThisShouldBeAnInvalidPatTokenWhenCheckedIn'
 PAT_ENV_VARIABLE_NAME = 'AZURE_DEVOPS_EXT_PAT'
 
