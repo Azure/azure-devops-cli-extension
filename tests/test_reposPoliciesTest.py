@@ -19,6 +19,7 @@ class DevopsTeamTests(ScenarioTest):
     def test_devops_repos_policies_createUpdateShowListDelete(self):
         # os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
         random_project_name = self.create_random_name(prefix='policyTest', length=15)
+        random_repo_name = self.create_random_name(prefix='policyTest', length=15)
         self.cmd('az devops configure --defaults organization=' +  DEVOPS_CLI_TEST_ORGANIZATION + ' project=' + random_project_name)
 
         created_project_id = None
@@ -27,6 +28,14 @@ class DevopsTeamTests(ScenarioTest):
             create_project_command = 'az devops project create --name ' + random_project_name + ' --output json --detect off'
             project_create_output = self.cmd(create_project_command).get_output_in_json()
             created_project_id = project_create_output["id"]
+
+            create_repo_command = 'az repos create --name ' + random_repo_name + ' -p ' +  created_project_id + ' --output json --detect off'
+            repo_create_output = self.cmd(create_repo_command).get_output_in_json()
+            create_repo_id = repo_create_output["id"]
+
+            import_repo_command = 'az repos import create --git-url https://github.com/SignalR/SignalR.git' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
+            import_repo_output = self.cmd(import_repo_command)
+
 
         finally:
             if created_project_id is not None:
