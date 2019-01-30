@@ -73,13 +73,13 @@ if($run_VCR -eq $true) {
         if($env_pat_token) {
             Write-Host('Trying devops login with token in environment.')
             Write-Host("echo '" + $env_pat_token + "' | az devops login --org https://dev.azure.com/azuredevopsclitest")
-            Invoke-Expression("echo '" + $env_pat_token + "' | az devops login --org https://dev.azure.com/azuredevopsclitest")
+            Invoke-Expression("echo '" + $env_pat_token + "' | az devops login --org https://dev.azure.com/azuredevopsclitest --debug")
             Write-Host ($env_pat_token)
         }
         if($pat) {
             Write-Host('Trying devops login with token in environment.')
             Write-Host("echo '" + $pat + "' | az devops login --org https://dev.azure.com/azuredevopsclitest")
-            Invoke-Expression("echo '" + $pat + "' | az devops login --org https://dev.azure.com/azuredevopsclitest")
+            Invoke-Expression("echo '" + $pat + "' | az devops login --org https://dev.azure.com/azuredevopsclitest --debug")
             Write-Host ($pat)
         }
     }
