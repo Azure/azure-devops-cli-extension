@@ -13,7 +13,7 @@ from .utilities.helper import (DEVOPS_CLI_TEST_ORGANIZATION,
                                 PAT_ENV_VARIABLE_NAME)
 import time
 
-class DevopsTeamTests(ScenarioTest):
+class DevopsReposPoliciesTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     def test_devops_repos_policies_createUpdateShowListDelete(self):
