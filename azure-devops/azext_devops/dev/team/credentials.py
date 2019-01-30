@@ -19,7 +19,7 @@ logger = get_logger(__name__)
 
 
 def credential_set(organization=None):
-    """Set the credential (PAT) to use for a particular account
+    """Set the credential (PAT) to use for a particular organization
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     """
@@ -44,8 +44,9 @@ def credential_set(organization=None):
 
 
 def credential_clear(organization=None):
-    """Clear the credential for a particular account
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    """Clear the credential for all or a particular organization
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/.
+    If no organization is specified, all organizations will be logged out.
     :type organization: str
     """
     if organization is not None:

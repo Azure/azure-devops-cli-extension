@@ -9,8 +9,8 @@ from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import (DEVOPS_CLI_TEST_ORGANIZATION,
                                 DEVOPS_CLI_TEST_PAT_TOKEN,
-                                disable_telemetry)
-from azext_devops.dev.common.const import PAT_ENV_VARIABLE_NAME
+                                disable_telemetry,
+                                PAT_ENV_VARIABLE_NAME)
 import time
 
 class DevopsTeamTests(ScenarioTest):
@@ -77,11 +77,11 @@ class DevopsTeamTests(ScenarioTest):
 
         finally:
             # TestCleanup - delete team
-            delete_team_command = 'az devops team delete --team "' + created_team_id + '" --output json --detect off --yes'
+            delete_team_command = 'az devops team delete --id "' + created_team_id + '" --output json --detect off --yes'
             self.cmd(delete_team_command)
 
             # delete second team 
-            delete_team_command = 'az devops team delete --team "' + created_team_id2 + '" --output json --detect off --yes'
+            delete_team_command = 'az devops team delete --id "' + created_team_id2 + '" --output json --detect off --yes'
             self.cmd(delete_team_command)
 
             list_teams_command = 'az devops team list --output json --detect off'

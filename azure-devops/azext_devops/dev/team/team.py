@@ -35,10 +35,10 @@ def create_team(name, description=None, organization=None, project=None, detect=
         raise CLIError(ex)
 
 
-def delete_team(team, organization=None, project=None, detect=None):
-    """Deletes a team.
-    :param team: The name or id of the team to delete.
-    :type team: str
+def delete_team(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+    """Delete a team.
+    :param id: The id (UUID) of the team to delete.
+    :type id: str
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the project.
@@ -51,13 +51,13 @@ def delete_team(team, organization=None, project=None, detect=None):
                                                              organization=organization,
                                                              project=project)
         core_client = get_core_client(organization)
-        return core_client.delete_team(team_id=team, project_id=project)
+        return core_client.delete_team(team_id=id, project_id=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
 def get_team(team, organization=None, project=None, detect=None):
-    """Gets a team.
+    """Show team details.
     :param team: The name or id of the team to show.
     :type team: str
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -79,7 +79,7 @@ def get_team(team, organization=None, project=None, detect=None):
 
 
 def get_teams(top=None, skip=None, organization=None, project=None, detect=None):
-    """List of all teams for a project.
+    """List all teams in a project.
     :param top: Maximum number of teams to return.
     :type top: int
     :param skip: Number of teams to skip.
@@ -103,7 +103,7 @@ def get_teams(top=None, skip=None, organization=None, project=None, detect=None)
 
 
 def get_team_members(team, top=None, skip=None, organization=None, project=None, detect=None):
-    """List members of a particular team.
+    """List members of a team.
     :param team: The name or id of the team to show members of.
     :type team: str
     :param top: Maximum number of members to return.

@@ -29,9 +29,6 @@ jobs:
       versionSpec: '$(python.version)'
       architecture: 'x64'
 
-  - script: python -m pip install --upgrade pip
-    displayName: 'upgrade pip'
-
   - task: PowerShell@2
     displayName: 'Setup test machine'
     inputs:
@@ -62,9 +59,6 @@ jobs:
     inputs:
       versionSpec: '3.7.0'
       architecture: 'x64'
-
-  - script: python -m pip install --upgrade pip
-    displayName: 'upgrade pip'
 
   - task: PowerShell@2
     displayName: 'Setup test machine'
@@ -97,9 +91,6 @@ jobs:
       versionSpec: '3.7.0'
       architecture: 'x64'
 
-  - script: python -m pip install --upgrade pip
-    displayName: 'upgrade pip'
-
   - task: PowerShell@2
     displayName: 'Setup test machine'
     inputs:
@@ -128,7 +119,8 @@ jobs:
       artifactName: 'azure-devops-cli-package' 
       publishLocation: 'Container'
 
-- job: 'Code_Coverage'
+- job: 'Run_Test_With_Published_Wheel'
+  dependsOn: 'Run_Test_Mac'
   pool:
     vmImage: 'macOS-10.13'
 
@@ -138,8 +130,50 @@ jobs:
       versionSpec: '3.7.0'
       architecture: 'x64'
 
-  - script: python -m pip install --upgrade pip
-    displayName: 'upgrade pip'
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+  - task: DownloadBuildArtifacts@0
+    displayName : 'Download Extension wheel from Build Artifacts'
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'azure-devops-cli-package'
+      downloadPath: '$(System.ArtifactsDirectory)'
+
+  - task: PowerShell@2
+    displayName: 'Install Downloaded Extension'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/findAndInstallExtensionFromPath.ps1'
+      arguments: '$(System.ArtifactsDirectory)'
+  
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTestsWithoutExtensionInstall.ps1'
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
+
+- job: 'Code_Coverage'
+  pool:
+    vmImage: 'macOS-10.13'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
 
   - task: PowerShell@2
     displayName: 'Setup test machine'
