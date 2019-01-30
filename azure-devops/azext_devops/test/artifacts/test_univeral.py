@@ -22,8 +22,8 @@ from azext_devops.dev.common.services import clear_connection_cache
 
 class TestUniversalPackages(unittest.TestCase):
 
-    _TEST_DEVOPS_ORGANIZATION = 'https://AzureDevOpsCliTest.visualstudio.com'
-    _TEST_PAT_TOKEN = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
+    _TEST_DEVOPS_ORGANIZATION = 'https://someorg.visualstudio.com'
+    _TEST_PAT_TOKEN = 'somepattoken'
     _TEST_FEED_NAME = 'my-test-feed'
     _TEST_PACKAGE_NAME = 'my-test-package'
     _TEST_PACKAGE_VERSION = '0.0.1-preview'
