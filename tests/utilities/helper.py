@@ -7,9 +7,9 @@ import os
 import random
 import string
 
-DEVOPS_CLI_TEST_ORGANIZATION = 'https://dev.azure.com/azuredevopsclitest'
 DEVOPS_CLI_TEST_PAT_TOKEN = 'ThisShouldBeAnInvalidPatTokenWhenCheckedIn'
 PAT_ENV_VARIABLE_NAME = 'AZURE_DEVOPS_EXT_PAT'
+_TEST_ORG_ENV_VARIABLE_NAME = 'AZURE_DEVOPS_EXT_TEST_ORG'
 
 def get_random_name(length):
     return ''.join(random.choice(string.ascii_letters) for m in range(length))
@@ -34,3 +34,7 @@ def set_authentication(test_function):
             print("Using PAT from environment variable")
         test_function(*args, **kwargs)
     return wrapper
+
+
+def get_test_org_from_env_variable():
+    return os.environ.get(_TEST_ORG_ENV_VARIABLE_NAME)
