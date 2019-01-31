@@ -1,20 +1,36 @@
 # Authoring Live Tests
 
-Make sure your machine python SDK cache is clear
+## Clear cache while recording a new test
 
-It is located at `%userprofile%\.vsts\python-sdk\cache\`
-
+Make sure your machine python SDK cache is clear. It is located at `%userprofile%\.vsts\python-sdk\cache\`
 While running the test localy for first time make sure that the cassest (in the recording folder) gets the resource call as well
 
-Before commiting the code make sure to randomize the PAT token
+## Configure PAT for running live tests
+
+Recommended way is to use PAT from environment variable (AZURE_DEVOPS_EXT_PAT) when running a live test, so your PAT in the test file does not accidently get exposed to public in a PR.
+
+If you edit the PAT in helper.py to run live test, before commiting the code make sure to undo the PAT token change.
+
+## Organization to configure for my tests
+
+Contributors can record the tests against their personal organization. The tests should be written in such a way that it can run live independently on another organization. i.e No dependendency on existing project, repository, pipeline definition in the organization.
+
+Each test will have the following-
+
+```python
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
+```
+
+The test recording should succeed with the hardcoded organization name.
 
 ## Known issues
+
+### Response too large issue
 
 In case you run into error where the size of response is too large to be recorded
 you can use this decorator on top of the test case
 @AllowLargeResponse(size_kb=3072)
 
-## Points to remember
+### Cannot run existing tests in live mode
 
-- Actual Test Setup/ Environment should be kept intact (i.e. maintained) so that if someone new wants to re-run and
-  re-record the test case (with a proper PAT token) then they should be able to
+Not all tests are currently written to be run live against non test organization [(https://dev.azure.com/azuredevopsclitest)](https://dev.azure.com/azuredevopsclitest). Tracking [Issue](https://github.com/Microsoft/azure-devops-cli-extension/issues/395).
