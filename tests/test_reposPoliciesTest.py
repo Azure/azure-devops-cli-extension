@@ -37,15 +37,18 @@ class DevopsReposPoliciesTests(ScenarioTest):
 
             list_policy_command = 'az repos policy list -p ' + created_project_id + ' --output json --detect off'
             list_policy_output = self.cmd(list_policy_command).get_output_in_json()
-            #empty project so no policy is expected
+            # empty project so no policy is expected
             assert len(list_policy_output) == 0
 
             create_policy_command = 'az repos policy create --useSquashMerge False --policy-type MergeStrategyPolicy --branch \"refs/heads/master\"' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
             create_policy_output = self.cmd(create_policy_command).get_output_in_json()
             policy_id = create_policy_output["id"]
 
+            #Test was failing without adding a sleep here. Though the create was successful 
+            time.sleep(5)
+
             list_policy_output = self.cmd(list_policy_command).get_output_in_json()
-            #now we have one policy so we should get it
+            # now we have one policy so we should get it
             assert len(list_policy_output) == 1
 
             show_policy_command = 'az repos policy show --id ' + str(policy_id) + ' -p ' + created_project_id + ' --output json --detect off'
@@ -57,6 +60,9 @@ class DevopsReposPoliciesTests(ScenarioTest):
             update_policy_command = 'az repos policy update --policy-id ' + str(policy_id) + ' --useSquashMerge True --policy-type MergeStrategyPolicy --branch \"refs/heads/master\"' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
             update_policy_output = self.cmd(update_policy_command).get_output_in_json()
             assert update_policy_output["id"] == policy_id
+            
+            #Test was failing without adding a sleep here. Though the create was successful 
+            time.sleep(5)
 
             show_policy_output = self.cmd(show_policy_command).get_output_in_json()
             assert show_policy_output["settings"]["useSquashMerge"] == True
