@@ -11,8 +11,7 @@ from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOp
 from vsts.work_item_tracking.v4_0.models.wiql import Wiql
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.dev.common.identities import (ME, get_current_identity, resolve_identity, 
-                                                resolve_identity_as_display_name)
+from azext_devops.dev.common.identities import resolve_identity_as_display_name
 from azext_devops.dev.common.services import (get_work_item_tracking_client,
                                               resolve_instance,
                                               resolve_instance_and_project)
@@ -24,7 +23,7 @@ logger = get_logger(__name__)
 def create_work_item(work_item_type, title, description=None, assigned_to=None, state=None, area=None,
                      iteration=None, reason=None, discussion=None, fields=None, open=False,  # pylint: disable=redefined-builtin
                      organization=None, project=None, detect=None):
-    """Create a work item.
+    r"""Create a work item.
     :param work_item_type: Name of the work item type (e.g. Bug).
     :type work_item_type: str
     :param title: Title of the work item.
@@ -104,7 +103,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
 def update_work_item(id, title=None, description=None, assigned_to=None, state=None, area=None,  # pylint: disable=redefined-builtin
                      iteration=None, reason=None, discussion=None, fields=None, open=False,  # pylint: disable=redefined-builtin
                      organization=None, detect=None):
-    """Update work items.
+    r"""Update work items.
     :param id: The id of the work item to update.
     :type id: int
     :param title: Title of the work item.
