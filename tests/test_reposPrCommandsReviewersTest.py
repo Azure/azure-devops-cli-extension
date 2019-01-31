@@ -9,14 +9,15 @@ import unittest
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from dateutil import parser
-from .utilities.helper import ( get_random_name , DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry , PAT_ENV_VARIABLE_NAME)
+from .utilities.helper import get_random_name, disable_telemetry, set_authentication, get_test_org_from_env_variable
+
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 class AzReposPrTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
+    @set_authentication
     def test_pull_request_createUpdateVoteListAbandonReactivateCompleteReviewers(self):
-
-        os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
         self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
 
         #Generate random repo name

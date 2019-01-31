@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.arguments import enum_choice_list
+from azext_devops.dev.common.const import REPO_POLICY_TYPE
 
 # CUSTOM CHOICE LISTS
 _ON_OFF_SWITCH_VALUES = ['on', 'off']
@@ -15,12 +16,20 @@ def load_code_arguments(self, _):
     with self.argument_context('repos') as context:
         context.argument('project', options_list=('--project', '-p'))
         context.argument('organization', options_list=('--organization', '--org'))
+        context.argument('repository', options_list=('--repository', '-r'))
         context.argument('reviewers', nargs='*')
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
+    with self.argument_context('repos policy create') as context:
+        context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
+        context.argument('repository_id', options_list=('--repository-id', '-r'))
+
+    with self.argument_context('repos policy update') as context:
+        context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
+        context.argument('repository_id', options_list=('--repository-id', '-r'))
+
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
-        context.argument('repository', options_list=('--repository', '-r'))
         context.argument('source_branch', options_list=('--source-branch', '-s'))
         context.argument('target_branch', options_list=('--target-branch', '-t'))
         context.argument('title', type=str)
@@ -44,7 +53,7 @@ def load_code_arguments(self, _):
         context.argument('bypass_policy', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         context.argument('transition_work_items', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
-    with self.argument_context('repos pr policies') as context:
+    with self.argument_context('repos pr policy') as context:
         context.argument('evaluation_id', options_list=('--evaluation-id', '-e'))
 
     with self.argument_context('repos pr set-vote') as context:
@@ -55,7 +64,6 @@ def load_code_arguments(self, _):
                          help='Do not prompt for confirmation.')
 
     with self.argument_context('repos import create') as context:
-        context.argument('repository', options_list=('--repository', '-r'))
         context.argument('git_source_url', options_list=('--git-source-url', '--git-url'))
 
     with self.argument_context('repos ref') as context:

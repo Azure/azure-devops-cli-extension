@@ -4,18 +4,20 @@
 # --------------------------------------------------------------------------------------------
 
 import os
+import time
 import unittest
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import ( DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry, PAT_ENV_VARIABLE_NAME )
-import time
+from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
+
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 class AdminBannerTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
+    @set_authentication
     def test_admin_banner_addUpdateShowListRemove(self):
-        os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
         self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
     
         admin_banner_message = 'Sample banner message'
@@ -27,7 +29,7 @@ class AdminBannerTests(ScenarioTest):
         try:
             #add a banner to the project
             add_admin_banner_command = ('az devops admin banner add --id ' + admin_banner_id + ' --message "' + admin_banner_message + '" --type ' + admin_banner_type + 
-                ' --output json --detect off')
+                ' --output json --detect off --debug')
             add_admin_banner_output = self.cmd(add_admin_banner_command).get_output_in_json()
             assert len(add_admin_banner_output) > 0
             assert add_admin_banner_output[admin_banner_id]["level"] == admin_banner_type

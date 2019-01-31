@@ -5,6 +5,7 @@
 4. [Query ouput](samples.md#query-output)
 4. [Open items in browser](samples.md#open-items-in-browser)
 5. [Use the Azure DevOps Extension in a release pipeline](samples.md#use-the-azure-devops-extension-in-a-release-pipeline)
+6. [Use the Azure DevOps Extension with YAML](samples.md#use-the-azure-devops-extension-with-yaml)
 
 ## Log in via Azure DevOps Personal Access Token (PAT)
 You can log in using an Azure DevOps Personal Access Token. See the [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
@@ -28,11 +29,11 @@ To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment varia
 
     Windows:
     ```
-      set AZURE_DEVOPS_CLI_PAT=xxxxxxxxxx
+      set AZURE_DEVOPS_EXT_PAT=xxxxxxxxxx
     ```
     Linux or macOS:
     ```
-      export AZURE_DEVOPS_CLI_PAT=xxxxxxxxxx
+      export AZURE_DEVOPS_EXT_PAT=xxxxxxxxxx
     ```
     Replace *xxxxxxxxxx* with the your PAT.
 
@@ -112,3 +113,130 @@ az devops -h
 
 The first line of the script installs the Azure CLI. 
 
+# Use the Azure DevOps Extension with YAML
+If you prefer to use YAML to provide your release pipeline configuration, you can use the following example to understand how YAML can be used to install Azure CLI and add the Azure DevOps extension.
+
+In the example, you will learn how to add the Azure DevOps extension to Azure CLI and run the build and PR list commands on Linux, Mac OS and Windows hosted agents
+
+1. Create the azure-pipelines-steps.yml file and include the content below.
+
+For Mac OS: azure-pipelines-steps-mac.yml
+```
+steps:
+- script: az extension add -n azure-devops
+  displayName: 'Install Azure DevOps Extension'
+
+- script: echo ${AZURE_DEVOPS_CLI_PAT} | az devops login
+  env:
+    AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
+  displayName: 'Login Azure DevOps Extension'
+
+- script: az devops configure --defaults organization=$(System.TeamFoundationCollectionUri) project=$(System.TeamProject) --use-git-aliases yes
+  displayName: 'Set default Azure DevOps organization and project'
+
+- script: |
+    az pipelines build list
+    git pr list
+  displayName: 'Show build list and PRs'
+```
+For Linux: azure-pipelines-steps-linux.yml
+```
+steps:
+  # Updating the python version available on the linux agent
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+      
+  # Updating pip to latest
+  - script: python -m pip install --upgrade pip
+    displayName: 'Upgrade pip'
+      
+  # Updating to latest Azure CLI version.  
+  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
+    displayName: 'upgrade azure cli'
+    
+  - script: az --version
+    displayName: 'Show Azure CLI version'
+
+  - script: az extension add -n azure-devops
+    displayName: 'Install Azure DevOps Extension'    
+
+  - script: echo ${AZURE_DEVOPS_CLI_PAT} | az devops login
+    env:
+      AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
+    displayName: 'Login Azure DevOps Extension'  
+
+  - script: az devops configure --defaults organization=https://georgeverghese.visualstudio.com project="Movie Search Web App" --use-git-aliases yes
+    displayName: 'Set default Azure DevOps organization and project'
+    
+  - script: |
+      az pipelines build list
+      git pr list
+    displayName: 'Show build list and PRs'
+```
+
+For Windows: azure-pipelines-steps-win.yml
+
+```
+steps:
+  # Updating the python version available on the linux agent
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  # Updating pip to latest which is required by the Azure DevOps extension
+  - script: python -m pip install --upgrade pip
+    displayName: 'Upgrade pip'
+
+  # Upgrading Azure CLI from 2.0.46 to latest; min version required for Azure DevOps is 2.0.49
+  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
+    displayName: 'upgrade azure cli'
+
+  - script: az --version
+    displayName: 'Show Azure CLI version'
+
+  - script: az extension add -n azure-devops
+    displayName: 'Install Azure DevOps Extension'
+    
+  - script: echo $(System.AccessToken) | az devops login
+    env:
+      AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
+    displayName: 'Login Azure DevOps Extension'
+  
+  - script: az devops configure --defaults organization=https://georgeverghese.visualstudio.com project="Movie Search Web App" --use-git-aliases yes
+    displayName: 'Set default Azure DevOps organization and project'
+
+  - script: |
+      az pipelines build list
+      git pr list
+    displayName: 'Show build list and PRs'
+```
+2. Create the azure-pipelines.yml and include the content below.
+```
+jobs:
+# Running Azure DevOps extension commands on a hosted Mac agent 
+- job:
+  displayName: 'macOS'
+  pool:
+    vmImage: 'macOS-10.13'
+  steps:
+  - template: azure-pipelines-steps-mac.yml
+  
+# Running Azure DevOps extension commands on a hosted Linux agent 
+- job:
+  displayName: 'Linux'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azure-pipelines-steps-linux.yml
+  
+# Runnig Azure DevOps extension commands on a hosted Windows agent
+- job:
+  displayName: 'Windows'
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - template: azure-pipelines-steps-win.yml
+```

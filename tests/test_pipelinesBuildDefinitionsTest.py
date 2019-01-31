@@ -8,14 +8,15 @@ import unittest
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import ( DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry, PAT_ENV_VARIABLE_NAME )
+from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
+
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 class PipelinesBuildDefinitionTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
+    @set_authentication
     def test_build_definition_listShow(self):
-
-        os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
         self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION + ' project=buildtests')
 
         build_definition_name = 'BuildTests Definition1'

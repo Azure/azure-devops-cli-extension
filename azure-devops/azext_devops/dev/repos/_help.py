@@ -13,13 +13,19 @@ def load_repos_help():
     long-summary:
     """
 
+    helps['repos policy'] = """
+    type: group
+    short-summary: Manage branch policy.
+    long-summary:
+    """
+
     helps['repos pr'] = """
     type: group
     short-summary: Manage pull requests.
     long-summary:
     """
 
-    helps['repos pr policies'] = """
+    helps['repos pr policy'] = """
     type: group
     short-summary: Manage pull request policy.
     long-summary:

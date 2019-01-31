@@ -9,19 +9,19 @@ import unittest
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from datetime import datetime
-from .utilities.helper import ( get_random_name , DEVOPS_CLI_TEST_ORGANIZATION , DEVOPS_CLI_TEST_PAT_TOKEN, disable_telemetry , PAT_ENV_VARIABLE_NAME)
+from .utilities.helper import get_random_name, disable_telemetry, set_authentication, get_test_org_from_env_variable
+
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 class AzReposPrPolicyTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
+    @set_authentication
     def test_pull_request_policies_workitems(self):
-
-        os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
         self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
         
         #List PR
         pr_list = self.cmd('az repos pr list --project PullRequestLiveTest --repository PullRequestLiveTest --detect off --output json', checks=[
-            self.check("[0].createdBy.displayName", "Gaurav Saral"),
             self.check("[0].description", 'Updated README.md'),
             self.check("[1].description", 'Updated EXAMPLE'),
         ]).get_output_in_json()
@@ -30,13 +30,13 @@ class AzReposPrPolicyTests(ScenarioTest):
         pr_id_to_query = pr_list[0]["pullRequestId"]
         
         #PR Policies list command
-        list_pr_policies_command = 'az repos pr policies list --id ' + str(pr_id_to_query) + ' --detect off --output json'
+        list_pr_policies_command = 'az repos pr policy list --id ' + str(pr_id_to_query) + ' --detect off --output json'
         list_pr_policies_output = self.cmd(list_pr_policies_command).get_output_in_json()
         assert len(list_pr_policies_output) > 0
 
         #PR policies queue evaluation command
         policy_evaluation_id = list_pr_policies_output[0]["evaluationId"]
-        queue_pr_policy_command = ('az repos pr policies queue --id ' + str(pr_id_to_query) + ' -e ' + policy_evaluation_id + 
+        queue_pr_policy_command = ('az repos pr policy queue --id ' + str(pr_id_to_query) + ' -e ' + policy_evaluation_id + 
         ' --detect off --output json')
         queue_pr_policy_output = self.cmd(queue_pr_policy_command).get_output_in_json()
         assert len(queue_pr_policy_output) > 0

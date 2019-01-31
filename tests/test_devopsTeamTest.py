@@ -3,21 +3,20 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 import os
+import time
 import unittest
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import (DEVOPS_CLI_TEST_ORGANIZATION,
-                                DEVOPS_CLI_TEST_PAT_TOKEN,
-                                disable_telemetry,
-                                PAT_ENV_VARIABLE_NAME)
-import time
+from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
+
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 class DevopsTeamTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
+    @set_authentication
     def test_devops_team_createUpdateShowListDeleteListMember(self):
-        os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
         self.cmd('az devops configure --defaults organization=' +  DEVOPS_CLI_TEST_ORGANIZATION + ' project=DevopsTeamTests')
     
         team_name = self.create_random_name(prefix='team_name', length=15)
