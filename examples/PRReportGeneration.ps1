@@ -31,11 +31,14 @@ while($continueFetching)
         $prClosedData = [datetime]::ParseExact($prClosedDateInString.SubString(0,10),'yyyy-mm-dd', $null)
         $prId = $pr | Select-Object -ExpandProperty pullRequestId        
 
-        $prDetails = az repos pr show --org $org --id $prId -o json| ConvertFrom-Json
+        $prDetails = az repos pr show --org $org --id $prId -o json | ConvertFrom-Json
 
         if($prDetails.completionOptions.bypassPolicy)
         {
-            $bypassPRsInfo = $bypassPRsInfo + "$($prId) is bypassed with Bypass reason $($prDetails.completionOptions.bypassReason) `n"
+            $bypassPRsInfo = $bypassPRsInfo + "$($prId) is bypassed.
+            Bypass reason : $($prDetails.completionOptions.bypassReason).
+            Author : $($prDetails.closedBy.uniqueName).
+            Closed Date: $($prClosedDateInString). `n"
         }
 
         if($prClosedData -lt $lookBackDate)
