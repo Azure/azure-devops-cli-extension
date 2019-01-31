@@ -7,11 +7,12 @@ import os
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import (DEVOPS_CLI_TEST_ORGANIZATION,
-                               DEVOPS_CLI_TEST_PAT_TOKEN,
-                               disable_telemetry,
+from .utilities.helper import (disable_telemetry,
                                get_random_name,
-                               PAT_ENV_VARIABLE_NAME)
+                               get_test_org_from_env_variable)
+
+
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 
 class ReposRefTests(ScenarioTest):
@@ -22,8 +23,6 @@ class ReposRefTests(ScenarioTest):
 
         REPO_NAME = '--repository BuildTests --output json --detect off'
         REF_NAME = 'heads/' + get_random_name(8)
-
-        os.environ[PAT_ENV_VARIABLE_NAME] = DEVOPS_CLI_TEST_PAT_TOKEN
 
         self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
         self.cmd('az devops configure --defaults project=buildtests')
