@@ -28,8 +28,8 @@ The following table provides the mapping of commands from VSTS CLI to Azure DevO
 |`vsts code pr set-vote`|`az repos pr set-vote`|
 |`vsts code pr show`|`az repos pr show`|
 |`vsts code pr update`|`az repos pr update`|
-|`vsts code pr policies list`|`az repos pr policies list`|
-|`vsts code pr policies queue`|`az repos pr policies queue`|
+|`vsts code pr policies list`|`az repos pr policy list`|
+|`vsts code pr policies queue`|`az repos pr policy queue`|
 |`vsts code pr reviewers add`|`az repos pr reviewers add`|
 |`vsts code pr reviewers list`|`az repos pr reviewers list`|
 |`vsts code pr reviewers remove`|`az repos pr reviewers remove`|

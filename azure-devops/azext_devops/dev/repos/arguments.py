@@ -20,11 +20,11 @@ def load_code_arguments(self, _):
         context.argument('reviewers', nargs='*')
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
-    with self.argument_context('repos policies create') as context:
+    with self.argument_context('repos policy create') as context:
         context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
         context.argument('repository_id', options_list=('--repository-id', '-r'))
 
-    with self.argument_context('repos policies update') as context:
+    with self.argument_context('repos policy update') as context:
         context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
         context.argument('repository_id', options_list=('--repository-id', '-r'))
 
@@ -53,7 +53,7 @@ def load_code_arguments(self, _):
         context.argument('bypass_policy', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         context.argument('transition_work_items', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
-    with self.argument_context('repos pr policies') as context:
+    with self.argument_context('repos pr policy') as context:
         context.argument('evaluation_id', options_list=('--evaluation-id', '-e'))
 
     with self.argument_context('repos pr set-vote') as context:

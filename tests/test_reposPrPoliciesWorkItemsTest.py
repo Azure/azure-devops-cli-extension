@@ -28,13 +28,13 @@ class AzReposPrPolicyTests(ScenarioTest):
         pr_id_to_query = pr_list[0]["pullRequestId"]
         
         #PR Policies list command
-        list_pr_policies_command = 'az repos pr policies list --id ' + str(pr_id_to_query) + ' --detect off --output json'
+        list_pr_policies_command = 'az repos pr policy list --id ' + str(pr_id_to_query) + ' --detect off --output json'
         list_pr_policies_output = self.cmd(list_pr_policies_command).get_output_in_json()
         assert len(list_pr_policies_output) > 0
 
         #PR policies queue evaluation command
         policy_evaluation_id = list_pr_policies_output[0]["evaluationId"]
-        queue_pr_policy_command = ('az repos pr policies queue --id ' + str(pr_id_to_query) + ' -e ' + policy_evaluation_id + 
+        queue_pr_policy_command = ('az repos pr policy queue --id ' + str(pr_id_to_query) + ' -e ' + policy_evaluation_id + 
         ' --detect off --output json')
         queue_pr_policy_output = self.cmd(queue_pr_policy_command).get_output_in_json()
         assert len(queue_pr_policy_output) > 0
