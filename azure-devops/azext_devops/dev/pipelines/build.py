@@ -152,7 +152,7 @@ def build_list(definition_ids=None, branch=None, organization=None, project=None
 
 
 def add_build_tags(build_id, tags, organization=None, project=None, detect=None):
-    """Adds the tag(s) for a build.
+    """Add tag(s) for a build.
     :param build_id: ID of the build.
     :type build_id: int
     :param tags: Tag(s) to be added to the build. [Comma seperated values]
@@ -181,7 +181,7 @@ def add_build_tags(build_id, tags, organization=None, project=None, detect=None)
 
 
 def delete_build_tag(build_id, tag, organization=None, project=None, detect=None):
-    """Deletes a tag from a build.
+    """Delete a build tag.
     :param build_id: ID of the build.
     :type build_id: int
     :param tag: Tag to be deleted from the build.
@@ -206,7 +206,7 @@ def delete_build_tag(build_id, tag, organization=None, project=None, detect=None
 
 
 def get_build_tags(build_id, organization=None, project=None, detect=None):
-    """Gets the tags for a build
+    """Gets tags for a build
     :param build_id: ID of the build.
     :type build_id: int
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -222,10 +222,7 @@ def get_build_tags(build_id, organization=None, project=None, detect=None):
                                                              organization=organization,
                                                              project=project)
         client = get_build_client(organization)
-        if build_id is None:
-            tags = client.get_tags(project)
-        else:
-            tags = client.get_build_tags(build_id=build_id, project=project)
+        tags = client.get_build_tags(build_id=build_id, project=project)
         return tags
     except VstsServiceError as ex:
         raise CLIError(ex)

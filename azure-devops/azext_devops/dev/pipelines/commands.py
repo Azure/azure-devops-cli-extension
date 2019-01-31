@@ -6,6 +6,7 @@
 from azure.cli.core.commands import CliCommandType
 from ._format import (transform_build_table_output,
                       transform_builds_table_output,
+                      transform_build_tags_output,
                       transform_definition_table_output,
                       transform_definitions_table_output,
                       transform_tasks_table_output,
@@ -44,11 +45,11 @@ def load_build_commands(self, _):
         g.command('queue', 'build_queue', table_transformer=transform_build_table_output)
         g.command('show', 'build_show', table_transformer=transform_build_table_output)
 
-    with self.command_group('pipelines build tags', command_type=buildOps) as g:
+    with self.command_group('pipelines build tag', command_type=buildOps) as g:
         # basic build tag commands
-        g.command('list', 'get_build_tags', table_transformer=transform_tasks_table_output)
-        g.command('add', 'add_build_tags', table_transformer=transform_tasks_table_output)
-        g.command('delete', 'delete_build_tag', table_transformer=transform_tasks_table_output)
+        g.command('list', 'get_build_tags', table_transformer=transform_build_tags_output)
+        g.command('add', 'add_build_tags', table_transformer=transform_build_tags_output)
+        g.command('delete', 'delete_build_tag', table_transformer=transform_build_tags_output)
 
     with self.command_group('pipelines build definition', command_type=buildDefOps) as g:
         # basic build definition commands
