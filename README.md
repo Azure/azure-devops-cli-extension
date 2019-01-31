@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_apis/build/status/YAML/Azure%20DevOps%20CLI%20-%20Merge%20GitHub%20YAML?branchName=master)](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build/latest?definitionId=38&branchName=master)
+[![Build Status][![Build Status](https://dev.azure.com/ms/vsts-cli/_apis/build/status/Azure%20DevOps%20CLI%20-%20Merge%20GitHub?branchName=master)](https://dev.azure.com/ms/vsts-cli/_build/latest?definitionId=39&branchName=master)
 
 # Azure DevOps Extension for Azure CLI
 
