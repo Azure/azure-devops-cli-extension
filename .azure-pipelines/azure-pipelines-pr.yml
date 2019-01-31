@@ -240,7 +240,8 @@ jobs:
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/runTests.ps1'
-      arguments: '$True'
+      # Do not run UTs or recorded tests
+      arguments: '-run_UT $False -run_VCR $False'
 
   - task: PythonScript@0
     displayName: 'Run HelpText Check'
