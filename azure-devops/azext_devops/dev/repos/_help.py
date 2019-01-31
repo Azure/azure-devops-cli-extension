@@ -13,9 +13,9 @@ def load_repos_help():
     long-summary:
     """
 
-    helps['repos policies'] = """
+    helps['repos policy'] = """
     type: group
-    short-summary: Manage Azure Repos branch policies.
+    short-summary: Manage branch policy.
     long-summary:
     """
 
@@ -25,7 +25,7 @@ def load_repos_help():
     long-summary:
     """
 
-    helps['repos pr policies'] = """
+    helps['repos pr policy'] = """
     type: group
     short-summary: Manage pull request policy.
     long-summary:
