@@ -31,7 +31,7 @@ while($continueFetching)
 
         $bypassed = $false
 
-        $evaluationResults = az repos pr policies list --org $org --id $prId -o json| ConvertFrom-Json
+        $evaluationResults = az repos pr policy list --org $org --id $prId -o json| ConvertFrom-Json
 
         foreach($evaluationResult in $evaluationResults)
         {
