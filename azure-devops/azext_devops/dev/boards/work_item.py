@@ -11,7 +11,8 @@ from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOp
 from vsts.work_item_tracking.v4_0.models.wiql import Wiql
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.dev.common.identities import (ME, get_current_identity, resolve_identity)
+from azext_devops.dev.common.identities import (ME, get_current_identity, resolve_identity, 
+                                                resolve_identity_as_display_name)
 from azext_devops.dev.common.services import (get_work_item_tracking_client,
                                               resolve_instance,
                                               resolve_instance_and_project)
@@ -23,7 +24,7 @@ logger = get_logger(__name__)
 def create_work_item(work_item_type, title, description=None, assigned_to=None, state=None, area=None,
                      iteration=None, reason=None, discussion=None, fields=None, open=False,  # pylint: disable=redefined-builtin
                      organization=None, project=None, detect=None):
-    r"""Create a work item.
+    """Create a work item.
     :param work_item_type: Name of the work item type (e.g. Bug).
     :type work_item_type: str
     :param title: Title of the work item.
@@ -70,7 +71,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             if assigned_to == '':
                 resolved_assigned_to = ''
             else:
-                resolved_assigned_to = _resolve_identity_as_unique_user_id(assigned_to, organization)
+                resolved_assigned_to = resolve_identity_as_display_name(assigned_to, organization)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
@@ -103,7 +104,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
 def update_work_item(id, title=None, description=None, assigned_to=None, state=None, area=None,  # pylint: disable=redefined-builtin
                      iteration=None, reason=None, discussion=None, fields=None, open=False,  # pylint: disable=redefined-builtin
                      organization=None, detect=None):
-    r"""Update work items.
+    """Update work items.
     :param id: The id of the work item to update.
     :type id: int
     :param title: Title of the work item.
@@ -145,7 +146,7 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
             if assigned_to == '':
                 resolved_assigned_to = ''
             else:
-                resolved_assigned_to = _resolve_identity_as_unique_user_id(assigned_to, organization)
+                resolved_assigned_to = resolve_identity_as_display_name(assigned_to, organization)
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
@@ -385,22 +386,6 @@ def _create_patch_operation(op, path, value):
 def _create_work_item_field_patch_operation(op, field, value):
     path = '/fields/{field}'.format(field=field)
     return _create_patch_operation(op=op, path=path, value=value)
-
-
-def _resolve_identity_as_unique_user_id(identity_filter, organization):
-    """Takes an identity name, email, alias, or id, and returns the unique_user_id.
-    """
-    if identity_filter.lower() == ME:
-        identity = get_current_identity(organization)
-    else:
-        identity = resolve_identity(identity_filter, organization)
-    if identity is not None:
-        descriptor = identity.descriptor
-        semi_pos = identity.descriptor.find(';')
-        if semi_pos >= 0:
-            descriptor = descriptor[semi_pos + 1:]
-        return descriptor
-    return None
 
 
 _SYSTEM_FIELD_ARGS = {'System.Title': 'title',
