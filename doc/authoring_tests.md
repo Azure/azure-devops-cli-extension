@@ -11,14 +11,14 @@ Recommended way is to use PAT from environment variable (AZURE_DEVOPS_EXT_PAT) w
 
 If you edit the PAT in helper.py to run live test, before commiting the code make sure to undo the PAT token change.
 
-## Organization to configure for my tests
+## Organization to configure for tests
 
 Contributors can record the tests against their personal organization. The tests should be written in such a way that it can run live independently on another organization. i.e No dependendency on existing project, repository, pipeline definition in the organization.
 
 Each test will have the following-
 
 ```python
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/<Test organization name which developer has access to>'
 ```
 
 The test recording should succeed with the hardcoded organization name.
