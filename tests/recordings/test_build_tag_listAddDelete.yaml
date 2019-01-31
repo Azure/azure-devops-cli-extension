@@ -1,0 +1,409 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.2 (Windows-10-10.0.17134-SP0) msrest/0.6.4 vsts/0.1.20
+          devOpsCli/0.3.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [483c347e-d331-4259-b38c-025dd474112b]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: GET
+    uri: https://dhilmathy.visualstudio.com/_apis/projects?stateFilter=all&$top=1&$skip=0
+  response:
+    body: {string: '{"count":1,"value":[{"id":"eeadb580-9433-4f3f-9713-be1ebaa58060","name":"TestProject","url":"https://dhilmathy.visualstudio.com/_apis/projects/eeadb580-9433-4f3f-9713-be1ebaa58060","state":"wellFormed","revision":392128621,"visibility":"private"}]}'}
+    headers:
+      activityid: [9f2664dd-ca31-4d6c-88b4-aea12c44e612]
+      cache-control: [no-cache]
+      content-length: ['248']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 31 Jan 2019 17:47:52 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      vary: [Accept-Encoding]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-ms-continuationtoken: ['1']
+      x-msedge-ref: ['Ref A: 4C148937BD6A421B8E529DD6EC19E50A Ref B: LON21EDGE1015
+          Ref C: 2019-01-31T17:47:53Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [d2ad0d58-5706-42a5-b571-7d034310082b]
+      x-tfs-session: [483c347e-d331-4259-b38c-025dd474112b]
+      x-vss-e2eid: [9f2664dd-ca31-4d6c-88b4-aea12c44e612]
+      x-vss-userdata: ['18be054f-fea5-42ca-8366-6ee417a714a2:mathy@outlook.com']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.2 (Windows-10-10.0.17134-SP0) msrest/0.6.4 vsts/0.1.20
+          devOpsCli/0.3.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [483c347e-d331-4259-b38c-025dd474112b]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: GET
+    uri: https://dhilmathy.visualstudio.com/buildtests/_apis/build/Definitions?name=BuildTests%20Definition1
+  response:
+    body: {string: '{"count":1,"value":[{"_links":{"self":{"href":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_apis/build/Definitions/5?revision=1"},"web":{"href":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_build/definition?definitionId=5"},"editor":{"href":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_build/designer?id=5&_a=edit-build-definition"},"badge":{"href":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_apis/build/status/5"}},"quality":"definition","authoredBy":{"displayName":"Mathivanan
+        Palanisamy","url":"https://app.vssps.visualstudio.com/A96bc6148-052a-4dfa-991c-46a35133a12e/_apis/Identities/18be054f-fea5-42ca-8366-6ee417a714a2","_links":{"avatar":{"href":"https://dhilmathy.visualstudio.com/_apis/GraphProfile/MemberAvatars/msa.MTZkNWJlZTQtMzAwZC03NWY0LWI2ZTEtMjk3MjhjMTA0M2E5"}},"id":"18be054f-fea5-42ca-8366-6ee417a714a2","uniqueName":"mathy@outlook.com","imageUrl":"https://dhilmathy.visualstudio.com/_api/_common/identityImage?id=18be054f-fea5-42ca-8366-6ee417a714a2","descriptor":"msa.MTZkNWJlZTQtMzAwZC03NWY0LWI2ZTEtMjk3MjhjMTA0M2E5"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dhilmathy.visualstudio.com/_apis/build/Queues/37"}},"id":37,"name":"Hosted
+        VS2017","url":"https://dhilmathy.visualstudio.com/_apis/build/Queues/37","pool":{"id":4,"name":"Hosted
+        VS2017","isHosted":true}},"id":5,"name":"BuildTests Definition1","url":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_apis/build/Definitions/5?revision=1","uri":"vstfs:///Build/Definition/5","path":"\\","type":"build","queueStatus":"enabled","revision":1,"createdDate":"2019-01-31T17:43:31.62Z","project":{"id":"20b1dc37-9819-48e0-b73d-5153795e7bfc","name":"buildtests","url":"https://dhilmathy.visualstudio.com/_apis/projects/20b1dc37-9819-48e0-b73d-5153795e7bfc","state":"wellFormed","revision":392128638,"visibility":"private"}}]}'}
+    headers:
+      activityid: [e370fc96-4136-4235-9209-0f8305634e7c]
+      cache-control: [no-cache]
+      content-length: ['1947']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 31 Jan 2019 17:47:53 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      vary: [Accept-Encoding]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: 33EF4BADD6E74F5D99D82EE6EF74DCFB Ref B: LON21EDGE0419
+          Ref C: 2019-01-31T17:47:53Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [d735b2f5-0ae3-4ee2-960d-512b2b585aba]
+      x-tfs-session: [483c347e-d331-4259-b38c-025dd474112b]
+      x-vss-e2eid: [e370fc96-4136-4235-9209-0f8305634e7c]
+      x-vss-userdata: ['18be054f-fea5-42ca-8366-6ee417a714a2:mathy@outlook.com']
+    status: {code: 200, message: OK}
+- request:
+    body: '{"definition": {"id": 5}}'
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['25']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.2 (Windows-10-10.0.17134-SP0) msrest/0.6.4 vsts/0.1.20
+          devOpsCli/0.3.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [483c347e-d331-4259-b38c-025dd474112b]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: POST
+    uri: https://dhilmathy.visualstudio.com/buildtests/_apis/build/Builds
+  response:
+    body: {string: '{"_links":{"self":{"href":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_apis/build/Builds/13"},"web":{"href":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_build/results?buildId=13"},"sourceVersionDisplayUri":{"href":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_apis/build/builds/13/sources"},"timeline":{"href":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_apis/build/builds/13/Timeline"},"badge":{"href":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_apis/build/status/5"}},"properties":{},"tags":[],"validationResults":[{"result":"error","message":"The
+        pipeline is not valid. Couldn''t get latest source version for git repo 22ad7706-7dd4-4050-a081-59e16981d652,
+        ref refs/heads/master."}],"plans":[{"planId":"5486dfce-c438-4dfd-b01e-b9621d5769f3"}],"triggerInfo":{},"id":13,"buildNumber":"13","status":"cancelling","queueTime":"2019-01-31T17:47:53.7018938Z","url":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_apis/build/Builds/13","definition":{"drafts":[],"id":5,"name":"BuildTests
+        Definition1","url":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_apis/build/Definitions/5?revision=1","uri":"vstfs:///Build/Definition/5","path":"\\","type":"build","queueStatus":"enabled","revision":1,"project":{"id":"20b1dc37-9819-48e0-b73d-5153795e7bfc","name":"buildtests","url":"https://dhilmathy.visualstudio.com/_apis/projects/20b1dc37-9819-48e0-b73d-5153795e7bfc","state":"wellFormed","revision":392128638,"visibility":"private"}},"project":{"id":"20b1dc37-9819-48e0-b73d-5153795e7bfc","name":"buildtests","url":"https://dhilmathy.visualstudio.com/_apis/projects/20b1dc37-9819-48e0-b73d-5153795e7bfc","state":"wellFormed","revision":392128638,"visibility":"private"},"uri":"vstfs:///Build/Build/13","sourceBranch":"refs/heads/master","queue":{"id":37,"name":"Hosted
+        VS2017","pool":{"id":4,"name":"Hosted VS2017","isHosted":true}},"priority":"normal","reason":"manual","requestedFor":{"displayName":"Mathivanan
+        Palanisamy","url":"https://app.vssps.visualstudio.com/A96bc6148-052a-4dfa-991c-46a35133a12e/_apis/Identities/18be054f-fea5-42ca-8366-6ee417a714a2","_links":{"avatar":{"href":"https://dhilmathy.visualstudio.com/_apis/GraphProfile/MemberAvatars/msa.MTZkNWJlZTQtMzAwZC03NWY0LWI2ZTEtMjk3MjhjMTA0M2E5"}},"id":"18be054f-fea5-42ca-8366-6ee417a714a2","uniqueName":"mathy@outlook.com","imageUrl":"https://dhilmathy.visualstudio.com/_api/_common/identityImage?id=18be054f-fea5-42ca-8366-6ee417a714a2","descriptor":"msa.MTZkNWJlZTQtMzAwZC03NWY0LWI2ZTEtMjk3MjhjMTA0M2E5"},"requestedBy":{"displayName":"Mathivanan
+        Palanisamy","url":"https://app.vssps.visualstudio.com/A96bc6148-052a-4dfa-991c-46a35133a12e/_apis/Identities/18be054f-fea5-42ca-8366-6ee417a714a2","_links":{"avatar":{"href":"https://dhilmathy.visualstudio.com/_apis/GraphProfile/MemberAvatars/msa.MTZkNWJlZTQtMzAwZC03NWY0LWI2ZTEtMjk3MjhjMTA0M2E5"}},"id":"18be054f-fea5-42ca-8366-6ee417a714a2","uniqueName":"mathy@outlook.com","imageUrl":"https://dhilmathy.visualstudio.com/_api/_common/identityImage?id=18be054f-fea5-42ca-8366-6ee417a714a2","descriptor":"msa.MTZkNWJlZTQtMzAwZC03NWY0LWI2ZTEtMjk3MjhjMTA0M2E5"},"lastChangedDate":"2019-01-31T17:47:53.73Z","lastChangedBy":{"displayName":"Mathivanan
+        Palanisamy","url":"https://app.vssps.visualstudio.com/A96bc6148-052a-4dfa-991c-46a35133a12e/_apis/Identities/18be054f-fea5-42ca-8366-6ee417a714a2","_links":{"avatar":{"href":"https://dhilmathy.visualstudio.com/_apis/GraphProfile/MemberAvatars/msa.MTZkNWJlZTQtMzAwZC03NWY0LWI2ZTEtMjk3MjhjMTA0M2E5"}},"id":"18be054f-fea5-42ca-8366-6ee417a714a2","uniqueName":"mathy@outlook.com","imageUrl":"https://dhilmathy.visualstudio.com/_api/_common/identityImage?id=18be054f-fea5-42ca-8366-6ee417a714a2","descriptor":"msa.MTZkNWJlZTQtMzAwZC03NWY0LWI2ZTEtMjk3MjhjMTA0M2E5"},"orchestrationPlan":{"planId":"5486dfce-c438-4dfd-b01e-b9621d5769f3"},"logs":{"id":0,"type":"Container","url":"https://dhilmathy.visualstudio.com/20b1dc37-9819-48e0-b73d-5153795e7bfc/_apis/build/builds/13/logs"},"repository":{"id":"22ad7706-7dd4-4050-a081-59e16981d652","type":"TfsGit","name":"buildtests","url":"https://dhilmathy.visualstudio.com/buildtests/_git/buildtests","clean":null,"checkoutSubmodules":false},"keepForever":false,"retainedByRelease":false,"triggeredByBuild":null}'}
+    headers:
+      activityid: [9f266526-ca31-4d6c-88b4-aea12c44e612]
+      cache-control: [no-cache]
+      content-length: ['4394']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 31 Jan 2019 17:47:53 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      vary: [Accept-Encoding]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: F2913E4521B74828BD9CE650273DEEF3 Ref B: LON21EDGE0419
+          Ref C: 2019-01-31T17:47:53Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [d2ad0d58-5706-42a5-b571-7d034310082b]
+      x-tfs-session: [483c347e-d331-4259-b38c-025dd474112b]
+      x-vss-e2eid: [9f266526-ca31-4d6c-88b4-aea12c44e612]
+      x-vss-userdata: ['18be054f-fea5-42ca-8366-6ee417a714a2:mathy@outlook.com']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.2 (Windows-10-10.0.17134-SP0) msrest/0.6.4 vsts/0.1.20
+          devOpsCli/0.3.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [483c347e-d331-4259-b38c-025dd474112b]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: PUT
+    uri: https://dhilmathy.visualstudio.com/buildtests/_apis/build/builds/13/tags/TestTag0
+  response:
+    body: {string: '{"count":1,"value":["TestTag0"]}'}
+    headers:
+      activityid: [e370ffa7-4136-4235-9209-0f8305634e7c]
+      cache-control: [no-cache]
+      content-length: ['32']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 31 Jan 2019 17:47:54 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      vary: [Accept-Encoding]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: 052E05F71A304F6A8FB8D19C16EC8167 Ref B: LON21EDGE0419
+          Ref C: 2019-01-31T17:47:54Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [d735b2f5-0ae3-4ee2-960d-512b2b585aba]
+      x-tfs-session: [483c347e-d331-4259-b38c-025dd474112b]
+      x-vss-e2eid: [e370ffa7-4136-4235-9209-0f8305634e7c]
+      x-vss-userdata: ['18be054f-fea5-42ca-8366-6ee417a714a2:mathy@outlook.com']
+    status: {code: 200, message: OK}
+- request:
+    body: '["TestTag1", "TestTag2"]'
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['24']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.2 (Windows-10-10.0.17134-SP0) msrest/0.6.4 vsts/0.1.20
+          devOpsCli/0.3.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [483c347e-d331-4259-b38c-025dd474112b]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: POST
+    uri: https://dhilmathy.visualstudio.com/buildtests/_apis/build/builds/13/tags
+  response:
+    body: {string: '{"count":3,"value":["TestTag0","TestTag1","TestTag2"]}'}
+    headers:
+      activityid: [d42a7bfd-7911-481f-b6e5-3e77d234e754]
+      cache-control: [no-cache]
+      content-length: ['54']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 31 Jan 2019 17:47:54 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      vary: [Accept-Encoding]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: 3522E6F3D7C74BAFBF47F444A4FF9DEF Ref B: LON21EDGE0419
+          Ref C: 2019-01-31T17:47:54Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [ea8aec8a-2366-44bf-8b72-e7a3d615b700]
+      x-tfs-session: [483c347e-d331-4259-b38c-025dd474112b]
+      x-vss-e2eid: [d42a7bfd-7911-481f-b6e5-3e77d234e754]
+      x-vss-userdata: ['18be054f-fea5-42ca-8366-6ee417a714a2:mathy@outlook.com']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.2 (Windows-10-10.0.17134-SP0) msrest/0.6.4 vsts/0.1.20
+          devOpsCli/0.3.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [483c347e-d331-4259-b38c-025dd474112b]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: GET
+    uri: https://dhilmathy.visualstudio.com/buildtests/_apis/build/builds/13/tags
+  response:
+    body: {string: '{"count":3,"value":["TestTag0","TestTag1","TestTag2"]}'}
+    headers:
+      activityid: [e370fe7d-4136-4235-9209-0f8305634e7c]
+      cache-control: [no-cache]
+      content-length: ['54']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 31 Jan 2019 17:47:54 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      vary: [Accept-Encoding]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: 6DE3E821C93C49139FB2B40676990B35 Ref B: LON21EDGE0419
+          Ref C: 2019-01-31T17:47:55Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [d735b2f5-0ae3-4ee2-960d-512b2b585aba]
+      x-tfs-session: [483c347e-d331-4259-b38c-025dd474112b]
+      x-vss-e2eid: [e370fe7d-4136-4235-9209-0f8305634e7c]
+      x-vss-userdata: ['18be054f-fea5-42ca-8366-6ee417a714a2:mathy@outlook.com']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.2 (Windows-10-10.0.17134-SP0) msrest/0.6.4 vsts/0.1.20
+          devOpsCli/0.3.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [483c347e-d331-4259-b38c-025dd474112b]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: DELETE
+    uri: https://dhilmathy.visualstudio.com/buildtests/_apis/build/builds/13/tags/TestTag2
+  response:
+    body: {string: '{"count":2,"value":["TestTag0","TestTag1"]}'}
+    headers:
+      activityid: [9f267b2d-ca31-4d6c-88b4-aea12c44e612]
+      cache-control: [no-cache]
+      content-length: ['43']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 31 Jan 2019 17:47:55 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      vary: [Accept-Encoding]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: A5ACE94CA22B4D45985EE16DA3C1E25B Ref B: LON21EDGE0419
+          Ref C: 2019-01-31T17:47:55Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [d2ad0d58-5706-42a5-b571-7d034310082b]
+      x-tfs-session: [483c347e-d331-4259-b38c-025dd474112b]
+      x-vss-e2eid: [9f267b2d-ca31-4d6c-88b4-aea12c44e612]
+      x-vss-userdata: ['18be054f-fea5-42ca-8366-6ee417a714a2:mathy@outlook.com']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.2 (Windows-10-10.0.17134-SP0) msrest/0.6.4 vsts/0.1.20
+          devOpsCli/0.3.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [483c347e-d331-4259-b38c-025dd474112b]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: DELETE
+    uri: https://dhilmathy.visualstudio.com/buildtests/_apis/build/builds/13/tags/TestTag1
+  response:
+    body: {string: '{"count":1,"value":["TestTag0"]}'}
+    headers:
+      activityid: [d42a78fe-7911-481f-b6e5-3e77d234e754]
+      cache-control: [no-cache]
+      content-length: ['32']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 31 Jan 2019 17:47:55 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      vary: [Accept-Encoding]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: AB87D6EA27B4475C9F1722047B6B0C6E Ref B: LON21EDGE0419
+          Ref C: 2019-01-31T17:47:55Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [ea8aec8a-2366-44bf-8b72-e7a3d615b700]
+      x-tfs-session: [483c347e-d331-4259-b38c-025dd474112b]
+      x-vss-e2eid: [d42a78fe-7911-481f-b6e5-3e77d234e754]
+      x-vss-userdata: ['18be054f-fea5-42ca-8366-6ee417a714a2:mathy@outlook.com']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.2 (Windows-10-10.0.17134-SP0) msrest/0.6.4 vsts/0.1.20
+          devOpsCli/0.3.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [483c347e-d331-4259-b38c-025dd474112b]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: DELETE
+    uri: https://dhilmathy.visualstudio.com/buildtests/_apis/build/builds/13/tags/TestTag0
+  response:
+    body: {string: '{"count":0,"value":[]}'}
+    headers:
+      activityid: [e370f983-4136-4235-9209-0f8305634e7c]
+      cache-control: [no-cache]
+      content-length: ['22']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 31 Jan 2019 17:47:56 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      vary: [Accept-Encoding]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: 1571292066AE4F4E857361F8747FC3BF Ref B: LON21EDGE0419
+          Ref C: 2019-01-31T17:47:56Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [d735b2f5-0ae3-4ee2-960d-512b2b585aba]
+      x-tfs-session: [483c347e-d331-4259-b38c-025dd474112b]
+      x-vss-e2eid: [e370f983-4136-4235-9209-0f8305634e7c]
+      x-vss-userdata: ['18be054f-fea5-42ca-8366-6ee417a714a2:mathy@outlook.com']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: [application/json;api-version=4.0]
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Type: [application/json; charset=utf-8]
+      User-Agent: [python/3.7.2 (Windows-10-10.0.17134-SP0) msrest/0.6.4 vsts/0.1.20
+          devOpsCli/0.3.0]
+      X-TFS-FedAuthRedirect: [Suppress]
+      X-TFS-Session: [483c347e-d331-4259-b38c-025dd474112b]
+      X-VSS-ForceMsaPassThrough: ['true']
+    method: GET
+    uri: https://dhilmathy.visualstudio.com/buildtests/_apis/build/builds/13/tags
+  response:
+    body: {string: '{"count":0,"value":[]}'}
+    headers:
+      activityid: [9f267869-ca31-4d6c-88b4-aea12c44e612]
+      cache-control: [no-cache]
+      content-length: ['22']
+      content-type: [application/json; charset=utf-8; api-version=4.0]
+      date: ['Thu, 31 Jan 2019 17:47:56 GMT']
+      expires: ['-1']
+      p3p: [CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM
+          NAV STA UNI COM INT PHY ONL FIN PUR LOC CNT"]
+      pragma: [no-cache]
+      strict-transport-security: [max-age=31536000; includeSubDomains]
+      vary: [Accept-Encoding]
+      x-aspnet-version: [4.0.30319]
+      x-content-type-options: [nosniff]
+      x-frame-options: [SAMEORIGIN]
+      x-msedge-ref: ['Ref A: FDA51A9B637B471A96E9586C0A3DE188 Ref B: LON21EDGE0419
+          Ref C: 2019-01-31T17:47:56Z']
+      x-powered-by: [ASP.NET]
+      x-tfs-processid: [d2ad0d58-5706-42a5-b571-7d034310082b]
+      x-tfs-session: [483c347e-d331-4259-b38c-025dd474112b]
+      x-vss-e2eid: [9f267869-ca31-4d6c-88b4-aea12c44e612]
+      x-vss-userdata: ['18be054f-fea5-42ca-8366-6ee417a714a2:mathy@outlook.com']
+    status: {code: 200, message: OK}
+version: 1
