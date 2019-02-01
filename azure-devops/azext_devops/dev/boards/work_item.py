@@ -397,15 +397,15 @@ def _resolve_identity_as_unique_user_id(identity_filter, organization):
     if identity_filter.lower() == ME:
         identity = get_current_identity(organization)
         return get_account_from_identity(identity)
-    else:
-        # For alias
-        identity = resolve_identity(identity_filter, organization)
-        if identity is not None:
-            descriptor = identity.descriptor
-            semi_pos = identity.descriptor.find(';')
-            if semi_pos >= 0:
-                descriptor = descriptor[semi_pos + 1:]
-            return descriptor
+    
+    # For alias
+    identity = resolve_identity(identity_filter, organization)
+    if identity is not None:
+        descriptor = identity.descriptor
+        semi_pos = identity.descriptor.find(';')
+        if semi_pos >= 0:
+            descriptor = descriptor[semi_pos + 1:]
+        return descriptor
     return None
 
 
