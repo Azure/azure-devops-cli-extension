@@ -11,7 +11,7 @@ from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOp
 from vsts.work_item_tracking.v4_0.models.wiql import Wiql
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.dev.common.identities import (ME, get_current_identity, 
+from azext_devops.dev.common.identities import (ME, get_current_identity,
                                                 resolve_identity,
                                                 get_account_from_identity)
 from azext_devops.dev.common.services import (get_work_item_tracking_client,
@@ -396,16 +396,11 @@ def _resolve_identity_as_unique_user_id(identity_filter, organization):
         return identity_filter
     if identity_filter.lower() == ME:
         identity = get_current_identity(organization)
-        return get_account_from_identity(identity)
-    
-    # For alias
-    identity = resolve_identity(identity_filter, organization)
+    else:
+        # For alias
+        identity = resolve_identity(identity_filter, organization)
     if identity is not None:
-        descriptor = identity.descriptor
-        semi_pos = identity.descriptor.find(';')
-        if semi_pos >= 0:
-            descriptor = descriptor[semi_pos + 1:]
-        return descriptor
+        return get_account_from_identity(identity)
     return None
 
 
