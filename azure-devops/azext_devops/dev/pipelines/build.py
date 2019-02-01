@@ -206,7 +206,7 @@ def delete_build_tag(build_id, tag, organization=None, project=None, detect=None
 
 
 def get_build_tags(build_id, organization=None, project=None, detect=None):
-    """Gets tags for a build
+    """Get tags for a build
     :param build_id: ID of the build.
     :type build_id: int
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
