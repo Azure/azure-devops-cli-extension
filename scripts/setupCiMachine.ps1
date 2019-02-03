@@ -18,7 +18,7 @@ Write-Output "done"
 Write-Output "installing azure-cli-testsdk and azure-cli..."
 pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
 # Update the git commit or branch when we need a new version of azure-cli-testsdk
-pip install "git+https://github.com/Azure/azure-cli@master#egg=azure-cli-testsdk&subdirectory=src/azure-cli-testsdk" -q
+pip install azure-cli-testsdk --extra-index-url https://azurecliprod.blob.core.windows.net/edge
 Write-Output "done"
 
 az --h
