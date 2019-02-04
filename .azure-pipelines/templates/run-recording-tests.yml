@@ -7,7 +7,7 @@ steps:
       versionSpec: ${{ parameters.pythonVersion }}
       architecture: 'x64'
 
-  - scripts: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
+  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
     displayName: 'Install Azure CLI'
 
   - template: download-install-local-azure-test-sdk.yml
