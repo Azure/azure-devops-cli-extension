@@ -32,6 +32,17 @@ jobs:
     displayName: 'Install Azure CLI test SDK'
     workingDirectory: 'azure-cli/src/azure-cli-testsdk/'
 
+  - script: 'python setup.py sdist bdist_wheel'
+    displayName: 'Build wheel for Azure CLI test SDK'
+    workingDirectory: 'azure-cli/src/azure-cli-testsdk/'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Azure CLI test SDK as artifact'
+    inputs:
+      pathtoPublish: 'azure-cli/src/azure-cli-testsdk/dist' 
+      artifactName: 'azure-cli-test-sdk' 
+      publishLocation: 'Container'
+
 # - job: 'Run_Test_Ubuntu'
 #   pool:
 #     vmImage: 'Ubuntu-16.04'
