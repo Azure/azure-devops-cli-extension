@@ -53,27 +53,9 @@ jobs:
     maxParallel: 3
 
   steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '$(python.version)'
-      architecture: 'x64'
-
-  - template: templates/download-install-local-azure-test-sdk.yml
-
-  - template: templates/setup-ci-machine.yml
-
-  - template: templates/build-azure-devops-cli-extension.yml
-
-  - script: pytest 'azure-devops/' --junitxml "TEST-UT-results.xml"
-    displayName: 'Run Unit Tests'
- 
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-    condition: succeededOrFailed()
+  - template: templates/run-unit-tests.yml
+    parameters:
+      pythonVersion: '$(python.version)'
 
 - job: 'Run_Recording_Test_Ubuntu'
   dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
