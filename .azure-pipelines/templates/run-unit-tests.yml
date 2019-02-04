@@ -1,0 +1,31 @@
+parameters:
+  pythonVersion: ''
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: ${{ parameters.pythonVersion }}
+      architecture: 'x64'
+
+  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
+    displayName: 'Install Azure CLI'
+
+  - template: download-install-local-azure-test-sdk.yml
+
+  - template: setup-ci-machine.yml
+
+  - script: 'pip install --upgrade .'
+    displayName: 'Install Azure DevOps CLI extension'
+    workingDirectory: 'azure-devops/'
+
+  - script: pytest --junitxml "TEST-UT-results.xml"
+    displayName: 'Run Unit Tests'
+    workingDirectory: 'azure-devops'
+ 
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)/azure-devops/'
+    condition: succeededOrFailed()

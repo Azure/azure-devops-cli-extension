@@ -1,0 +1,22 @@
+steps:
+  - task: DownloadBuildArtifacts@0
+    displayName : 'Download Azure CLI test SDK wheel from Build Artifacts'
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'azure-cli-test-sdk'
+      downloadPath: '$(System.ArtifactsDirectory)/wheels'
+
+  - task: PowerShell@2
+    displayName: 'Install Downloaded Wheels'
+    inputs:
+      targetType: 'inline'
+      script: |
+        $wheels = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
+        Foreach ($wheel in $wheels)
+        {
+            Write-Host "installing" $wheel.FullName
+            pip install $wheel.FullName
+        }
+        Write-Host "done"
+      workingDirectory: '$(System.ArtifactsDirectory)/wheels'

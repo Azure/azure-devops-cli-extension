@@ -1,0 +1,21 @@
+steps:
+  - script: 'rm -rf azure-cli'
+    displayName: 'delete azure cli directory'
+
+  - script: 'git clone https://github.com/Azure/azure-cli.git'
+    displayName: 'Clone Azure CLI repository'
+
+  - script: 'pip install --upgrade .'
+    displayName: 'Install Azure CLI test SDK'
+    workingDirectory: 'azure-cli/src/azure-cli-testsdk/'
+
+  - script: 'python setup.py sdist bdist_wheel'
+    displayName: 'Build wheel for Azure CLI test SDK'
+    workingDirectory: 'azure-cli/src/azure-cli-testsdk/'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Azure CLI test SDK as artifact'
+    inputs:
+      pathtoPublish: 'azure-cli/src/azure-cli-testsdk/dist' 
+      artifactName: 'azure-cli-test-sdk' 
+      publishLocation: 'Container'

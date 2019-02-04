@@ -7,7 +7,7 @@ import os
 
 import bs4
 
-COVERAGE_REPORT_DIR = 'htmlcov/'
+COVERAGE_REPORT_DIR = 'azure-devops/htmlcov/'
 COVERAGE_REPORT = os.path.join(COVERAGE_REPORT_DIR, 'index.html')
 
 
