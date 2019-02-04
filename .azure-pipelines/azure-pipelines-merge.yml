@@ -77,6 +77,10 @@ jobs:
     parameters:
       pythonVersion: '3.7.0'
 
+  - script: 'python setup.py sdist bdist_wheel'
+    displayName: 'Build wheel for Azure DevOps CLI extension'
+    workingDirectory: 'azure-devops/'
+
   - task: AzureFileCopy@2
     displayName: 'Publish wheel to azure storage'
     inputs:
