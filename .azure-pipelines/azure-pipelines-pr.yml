@@ -140,13 +140,6 @@ jobs:
       searchFolder: '$(System.DefaultWorkingDirectory)'
     condition: succeededOrFailed()
 
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Wheel as artifact'
-    inputs:
-      pathtoPublish: 'azure-devops/dist' 
-      artifactName: 'azure-devops-cli-package' 
-      publishLocation: 'Container'
-
 - job: 'Code_Coverage'
   dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
