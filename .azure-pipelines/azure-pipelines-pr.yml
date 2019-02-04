@@ -135,16 +135,11 @@ jobs:
       downloadPath: '$(System.ArtifactsDirectory)'
 
   - task: PowerShell@2
-    displayName : 'Install Azure CLI test SDK'
+    displayName: 'Install Downloaded Wheels'
     inputs:
-      targetType: 'inline'
+      targetType: 'filePath'
+      filePath: 'scripts/findAndInstallExtensionFromPath.ps1'
       arguments: '$(System.ArtifactsDirectory)'
-      script: 'param([string]$pathToProbe)
-               Write-host "we will be probing " $pathToProbe
-               Write-Host "installing azure dev cli extension"
-               $extensions = Get-ChildItem -Path $pathToProbe -Filter "*.whl" -Recurse | Select-Object FullName
-               az extension add --source $extensions[0].FullName -y'
-      errorActionPreference: 'stop'
 
   - task: PowerShell@2
     displayName: 'Setup test machine'
