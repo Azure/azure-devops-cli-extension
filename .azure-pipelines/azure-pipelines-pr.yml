@@ -127,14 +127,18 @@ jobs:
       versionSpec: '3.7.0'
       architecture: 'x64'
 
+  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
+    displayName: 'Install Azure CLI'
+
   - template: templates/download-install-local-azure-test-sdk.yml
 
   - template: templates/setup-ci-machine.yml
 
   - template: templates/build-azure-devops-cli-extension.yml
 
-  - script: pytest azure-devops/ --cov=azext_devops --cov-report=xml --cov-report=html
+  - script: pytest --cov=azext_devops --cov-report=xml --cov-report=html
     displayName: 'run unit tests for code coverage'
+    workingDirectory: 'azure-devops'
  
   - script: pip install beautifulsoup4
     displayName: 'install beautifulsoup4'
