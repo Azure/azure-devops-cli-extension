@@ -4,7 +4,7 @@ steps:
     inputs:
       buildType: 'current'
       downloadType: 'single'
-      artifactName: 'azure-devops-cli-package'
+      artifactName: 'azure-devops-cli-extension'
       downloadPath: '$(System.ArtifactsDirectory)/extension'
 
   - task: PowerShell@2
