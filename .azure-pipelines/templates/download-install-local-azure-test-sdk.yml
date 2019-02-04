@@ -10,6 +10,13 @@ steps:
   - task: PowerShell@2
     displayName: 'Install Downloaded Wheels'
     inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/findAndInstallWheelsFromPath.ps1'
-      arguments: '$(System.ArtifactsDirectory)/wheels'
+      targetType: 'inline'
+      script: |
+        $wheels = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
+        Foreach ($wheel in $wheels)
+        {
+            Write-Host "installing" $wheel.FullName
+            pip install $wheel.FullName
+        }
+        Write-Host "done"
+      workingDirectory: '$(System.ArtifactsDirectory)/wheels'
