@@ -186,14 +186,14 @@ jobs:
       buildType: 'current'
       downloadType: 'single'
       artifactName: 'azure-devops-cli-package'
-      downloadPath: '$(System.ArtifactsDirectory)'
+      downloadPath: '$(System.ArtifactsDirectory)/extension'
 
   - task: PowerShell@2
     displayName: 'Install Downloaded Extension'
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/findAndInstallExtensionFromPath.ps1'
-      arguments: '$(System.ArtifactsDirectory)'
+      arguments: '$(System.ArtifactsDirectory)/extension'
   
   - task: PowerShell@2
     displayName: 'Run Tests'
