@@ -1,0 +1,6 @@
+steps:
+- script: python -m pip install --upgrade pip
+- script: pip install wheel
+- script: pip install pytest
+- script: pip install coverage
+- script: pip install pytest-cov
