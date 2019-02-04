@@ -20,7 +20,7 @@ from azext_devops.dev.common.uri import uri_quote
 logger = get_logger(__name__)
 
 
-def create_work_item(work_item_type, title, description=None, assigned_to=None, state=None, area=None,
+def create_work_item(work_item_type, title, description=None, assigned_to=None, area=None,
                      iteration=None, reason=None, discussion=None, fields=None, open=False,  # pylint: disable=redefined-builtin
                      organization=None, project=None, detect=None):
     r"""Create a work item.
@@ -32,13 +32,11 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
     :type description: str
     :param assigned_to: Name of the person the work item is assigned-to (e.g. fabrikam).
     :type assigned_to: str
-    :param state: State of the work item (e.g. active)
-    :type state: str
     :param area: Area the work item is assigned to (e.g. Demos)
     :type area: str
     :param iteration: Iteration path of the work item (e.g. Demos\Iteration 1).
     :type iteration: str
-    :param reason: Reason for the state work item.
+    :param reason: Reason for the state of the work item.
     :type reason: str
     :param discussion: Comment to add to a discussion in a work item.
     :type discussion: str
@@ -74,8 +72,6 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             if resolved_assigned_to is not None:
                 patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
                                                                               resolved_assigned_to))
-        if state is not None:
-            patch_document.append(_create_work_item_field_patch_operation('add', 'System.State', state))
         if area is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.AreaPath', area))
         if iteration is not None:
@@ -118,7 +114,7 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
     :type area: str
     :param iteration: Iteration path of the work item (e.g. Demos\Iteration 1).
     :type iteration: str
-    :param reason: Reason for the state work item.
+    :param reason: Reason for the state of the work item.
     :type reason: str
     :param discussion: Comment to add to a discussion in a work item.
     :type discussion: str
