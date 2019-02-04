@@ -1,0 +1,32 @@
+parameters:
+  name: ''  # defaults for any parameters that aren't specified
+  vmImage: ''
+  pythonVersion: ''
+
+jobs:
+- job: ${{ parameters.name }}
+  pool:
+    vmImage: ${{ parameters.vmImage }}
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: ${{ parameters.pythonVersion }}
+      architecture: 'x64'
+
+  - template: download-install-local-azure-test-sdk.yml
+
+  - template: setup-ci-machine.yml
+
+  - template: build-azure-devops-cli-extension.yml
+
+  - script: pytest 'azure-devops/' --junitxml "TEST-UT-results.xml"
+    displayName: 'Run Unit Tests'
+ 
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
