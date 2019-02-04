@@ -10,7 +10,41 @@ pr: none
 
 jobs:
 
+- job: 'Build_Publish_Azure_CLI_Test_SDK'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - script: 'rm -rf azure-cli'
+    displayName: 'delete azure cli directory'
+
+  - template: templates/setup-ci-machine.yml
+
+  - script: 'git clone https://github.com/Azure/azure-cli.git'
+    displayName: 'Clone Azure CLI repository'
+
+  - script: 'pip install --upgrade .'
+    displayName: 'Install Azure CLI test SDK'
+    workingDirectory: 'azure-cli/src/azure-cli-testsdk/'
+
+  - script: 'python setup.py sdist bdist_wheel'
+    displayName: 'Build wheel for Azure CLI test SDK'
+    workingDirectory: 'azure-cli/src/azure-cli-testsdk/'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Azure CLI test SDK as artifact'
+    inputs:
+      pathtoPublish: 'azure-cli/src/azure-cli-testsdk/dist' 
+      artifactName: 'azure-cli-test-sdk' 
+      publishLocation: 'Container'
+
 - job: 'Run_Test_Ubuntu'
+  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
     vmImage: 'Ubuntu-16.04'
   strategy:
@@ -28,6 +62,8 @@ jobs:
     inputs:
       versionSpec: '$(python.version)'
       architecture: 'x64'
+
+  - template: templates/download-install-local-azure-test-sdk.yml
 
   - task: PowerShell@2
     displayName: 'Setup test machine'
@@ -51,6 +87,8 @@ jobs:
     condition: succeededOrFailed()
 
 - job: 'Run_Test_Windows'
+  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
+  dependsOn: 'Prepare_azure_Test_SDK_Wheel_and_Publish'
   pool:
     vmImage: 'vs2017-win2016'
 
@@ -59,6 +97,8 @@ jobs:
     inputs:
       versionSpec: '3.7.0'
       architecture: 'x64'
+
+  - template: templates/download-install-local-azure-test-sdk.yml
 
   - task: PowerShell@2
     displayName: 'Setup test machine'
@@ -81,17 +121,8 @@ jobs:
       searchFolder: '$(System.DefaultWorkingDirectory)'
     condition: succeededOrFailed()
 
-  - task: AzureFileCopy@2
-    displayName: 'Publish wheel to azure storage'
-    inputs:
-      sourcePath: 'azure-devops/dist/azure_devops-0.3.0-py2.py3-none-any.whl'
-      azureConnectionType: 'ConnectedServiceNameARM'
-      azureSubscription: 'CodeLens_Test (6bd70c51-ff44-4c89-9212-8d3f10e2a90a)'
-      destination: 'azureBlob'
-      storage: 'azuredevopscli'
-      containerName: 'azuredevopscli'
-
 - job: 'Run_Test_Mac'
+  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
     vmImage: 'macOS-10.13'
 
@@ -100,6 +131,8 @@ jobs:
     inputs:
       versionSpec: '3.7.0'
       architecture: 'x64'
+
+  - template: templates/download-install-local-azure-test-sdk.yml
 
   - task: PowerShell@2
     displayName: 'Setup test machine'
@@ -129,7 +162,9 @@ jobs:
       artifactName: 'azure-devops-cli-package' 
       publishLocation: 'Container'
 
-- job: 'Code_Coverage'
+- job: 'Run_Test_With_Published_Wheel'
+  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
+  dependsOn: 'Run_Test_Mac'
   pool:
     vmImage: 'macOS-10.13'
 
@@ -138,6 +173,56 @@ jobs:
     inputs:
       versionSpec: '3.7.0'
       architecture: 'x64'
+
+  - template: templates/download-install-local-azure-test-sdk.yml
+
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+  - task: DownloadBuildArtifacts@0
+    displayName : 'Download Extension wheel from Build Artifacts'
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'azure-devops-cli-package'
+      downloadPath: '$(System.ArtifactsDirectory)'
+
+  - task: PowerShell@2
+    displayName: 'Install Downloaded Extension'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/findAndInstallExtensionFromPath.ps1'
+      arguments: '$(System.ArtifactsDirectory)'
+  
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTestsWithoutExtensionInstall.ps1'
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
+
+- job: 'Code_Coverage'
+  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
+  pool:
+    vmImage: 'macOS-10.13'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - template: templates/download-install-local-azure-test-sdk.yml
 
   - task: PowerShell@2
     displayName: 'Setup test machine'
@@ -184,6 +269,7 @@ jobs:
       filePath: 'scripts/runStyleCheck.ps1'
 
 - job: 'Run_HelpText_Check'
+  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
     vmImage: 'Ubuntu-16.04'
 
@@ -192,6 +278,8 @@ jobs:
     inputs:
       versionSpec: '3.7.0'
       architecture: 'x64'
+
+  - template: templates/download-install-local-azure-test-sdk.yml
 
   - task: PowerShell@2
     displayName: 'Setup test machine'
