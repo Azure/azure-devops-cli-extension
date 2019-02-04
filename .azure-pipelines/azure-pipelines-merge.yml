@@ -146,7 +146,7 @@ jobs:
 
   - template: templates/build-azure-devops-cli-extension.yml
 
-  - script: pytest --cov=azext_devops --cov-report=xml --cov-report=html
+  - script: pytest --junitxml "TEST-UT-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
     displayName: 'run unit tests for code coverage'
     workingDirectory: 'azure-devops'
  
