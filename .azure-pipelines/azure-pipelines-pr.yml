@@ -162,7 +162,6 @@ jobs:
       publishLocation: 'Container'
 
 - job: 'Run_Test_With_Published_Wheel'
-  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
   dependsOn: 'Run_Test_Mac'
   pool:
     vmImage: 'macOS-10.13'
