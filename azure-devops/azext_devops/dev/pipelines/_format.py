@@ -46,6 +46,19 @@ def _transform_build_row(row):
     return table_row
 
 
+def transform_build_tags_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_build_tags_row(item))
+    return table_output
+
+
+def _transform_build_tags_row(row):
+    table_row = OrderedDict()
+    table_row['Tags'] = row
+    return table_row
+
+
 def transform_definitions_table_output(result):
     table_output = []
     include_draft_column = False

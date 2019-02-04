@@ -8,13 +8,15 @@ import unittest
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import DEVOPS_CLI_TEST_ORGANIZATION, disable_telemetry, set_authentication
+from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
+
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/baggaatul24'
 
 class DevopsReposPoliciesTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     @set_authentication
-    def test_devops_repos_policies_createUpdateShowListDelete(self):
+    def test_repos_policies_createUpdateShowListDelete(self):
         random_project_name = self.create_random_name(prefix='policyTest', length=15)
         random_repo_name = self.create_random_name(prefix='policyTest', length=15)
         self.cmd('az devops configure --defaults organization=' +  DEVOPS_CLI_TEST_ORGANIZATION + ' project=' + random_project_name)
@@ -35,15 +37,18 @@ class DevopsReposPoliciesTests(ScenarioTest):
 
             list_policy_command = 'az repos policy list -p ' + created_project_id + ' --output json --detect off'
             list_policy_output = self.cmd(list_policy_command).get_output_in_json()
-            #empty project so no policy is expected
+            # empty project so no policy is expected
             assert len(list_policy_output) == 0
 
             create_policy_command = 'az repos policy create --useSquashMerge False --policy-type MergeStrategyPolicy --branch \"refs/heads/master\"' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
             create_policy_output = self.cmd(create_policy_command).get_output_in_json()
             policy_id = create_policy_output["id"]
 
+            #Test was failing without adding a sleep here. Though the create was successful 
+            time.sleep(5)
+
             list_policy_output = self.cmd(list_policy_command).get_output_in_json()
-            #now we have one policy so we should get it
+            # now we have one policy so we should get it
             assert len(list_policy_output) == 1
 
             show_policy_command = 'az repos policy show --id ' + str(policy_id) + ' -p ' + created_project_id + ' --output json --detect off'
@@ -55,6 +60,9 @@ class DevopsReposPoliciesTests(ScenarioTest):
             update_policy_command = 'az repos policy update --policy-id ' + str(policy_id) + ' --useSquashMerge True --policy-type MergeStrategyPolicy --branch \"refs/heads/master\"' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
             update_policy_output = self.cmd(update_policy_command).get_output_in_json()
             assert update_policy_output["id"] == policy_id
+            
+            #Test was failing without adding a sleep here. Though the create was successful 
+            time.sleep(5)
 
             show_policy_output = self.cmd(show_policy_command).get_output_in_json()
             assert show_policy_output["settings"]["useSquashMerge"] == True

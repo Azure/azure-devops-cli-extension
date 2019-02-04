@@ -9,7 +9,9 @@ import unittest
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import DEVOPS_CLI_TEST_ORGANIZATION, disable_telemetry, set_authentication
+from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
+
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 class AdminBannerTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -33,16 +35,20 @@ class AdminBannerTests(ScenarioTest):
             assert add_admin_banner_output[admin_banner_id]["level"] == admin_banner_type
             assert add_admin_banner_output[admin_banner_id]["message"] == admin_banner_message
 
+            #Test was failing without adding a sleep here. Though the create was successful when queried after few seconds. 
+            time.sleep(5)
+            
             #update banner 
             update_admin_banner_command = ('az devops admin banner update --id ' + admin_banner_id + ' --message "' + admin_banner_updated_message + 
                 '" --type ' + admin_banner_updated_type + ' --output json --detect off')
             update_admin_banner_output = self.cmd(update_admin_banner_command).get_output_in_json()
-            #Test was failing without adding a sleep here. Though the update was successful when queried after few seconds. 
-            time.sleep(5)
             assert len(update_admin_banner_output[admin_banner_id]) > 0
             assert update_admin_banner_output[admin_banner_id]["level"] == admin_banner_updated_type
             assert update_admin_banner_output[admin_banner_id]["message"] == admin_banner_updated_message
 
+            #Test was failing without adding a sleep here. Though the update was successful when queried after few seconds. 
+            time.sleep(5)
+            
             #list banner command
             list_admin_banner_command = 'az devops admin banner list --output json --detect off'
             list_admin_banner_output = self.cmd(list_admin_banner_command).get_output_in_json()
