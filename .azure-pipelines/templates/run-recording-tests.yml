@@ -1,0 +1,25 @@
+parameters:
+  pythonVersion: ''
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+      architecture: 'x64'
+
+  - template: templates/download-install-local-azure-test-sdk.yml
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/download-install-local-azure-devops-cli-extension.yml
+
+  - script: pytest 'tests/' --junitxml "TEST-recordings-results.xml"
+    displayName: 'Run Recording Tests'
+  
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
