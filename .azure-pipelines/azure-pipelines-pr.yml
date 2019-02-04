@@ -132,14 +132,14 @@ jobs:
       buildType: 'current'
       downloadType: 'single'
       artifactName: 'azure-cli-test-sdk'
-      downloadPath: '$(System.ArtifactsDirectory)'
+      downloadPath: '$(System.ArtifactsDirectory)/wheels'
 
   - task: PowerShell@2
     displayName: 'Install Downloaded Wheels'
     inputs:
       targetType: 'filePath'
-      filePath: 'scripts/findAndInstallExtensionFromPath.ps1'
-      arguments: '$(System.ArtifactsDirectory)'
+      filePath: 'scripts/findAndInstallWheelsFromPath.ps1'
+      arguments: '$(System.ArtifactsDirectory)/wheels'
 
   - task: PowerShell@2
     displayName: 'Setup test machine'
