@@ -20,7 +20,7 @@ jobs:
       versionSpec: '3.7.0'
       architecture: 'x64'
 
-  - script: 'rmdir azure-cli'
+  - script: 'rmdir -rf azure-cli'
     displayName: 'delete azure cli directory'
 
   - template: templates/setup-ci-machine.yml
