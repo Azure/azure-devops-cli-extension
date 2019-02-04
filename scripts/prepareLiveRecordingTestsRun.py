@@ -3,22 +3,16 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 import os
+from .script_utils import get_repo_root
 
-class RunLiveTests:
+
+class RunTests:
     def __init__(self):
-        print("Running live tests")
-
-    @staticmethod
-    def get_repo_root():
-        """Returns the path to the source code root directory"""
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        while not os.path.exists(os.path.join(current_dir, 'CONTRIBUTING.md')):
-            current_dir = os.path.dirname(current_dir)
-        return current_dir
+        print("Running tests")
 
     @staticmethod
     def get_tests_recordings_folder():
-        repo_root = RunLiveTests.get_repo_root()
+        repo_root = get_repo_root()
         tests_folder = os.path.join(repo_root, 'tests')
         recordings_folder = os.path.join(tests_folder, 'recordings')
         if not os.path.isdir(recordings_folder):
@@ -27,7 +21,7 @@ class RunLiveTests:
 
     @staticmethod
     def delete_test_recordings():
-        recordings_folder = RunLiveTests.get_tests_recordings_folder()
+        recordings_folder = RunTests.get_tests_recordings_folder()
         print('Recordings folder is - {}'.format(recordings_folder))
         files = os.listdir(recordings_folder)
         if files:
@@ -54,9 +48,9 @@ class RunLiveTests:
 
     @staticmethod
     def prepare_live_run():
-        RunLiveTests.delete_test_recordings()
-        RunLiveTests.ensure_pat_env_set()
+        RunTests.delete_test_recordings()
+        RunTests.ensure_pat_env_set()
 
 
 if __name__ == "__main__":
-    RunLiveTests.prepare_live_run()
+    RunTests.prepare_live_run()
