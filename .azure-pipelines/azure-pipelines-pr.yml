@@ -12,7 +12,7 @@ jobs:
 
 - job: 'Prepare_azure_Test_SDK_Wheel_and_Publish'
   workspace:
-    clean: all
+    clean: outputs | resources | all
   pool:
     vmImage: 'macOS-10.13'
 
