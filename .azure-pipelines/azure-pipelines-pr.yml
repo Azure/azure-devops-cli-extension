@@ -12,7 +12,7 @@ jobs:
 
 - job: 'Prepare_azure_Test_SDK_Wheel_and_Publish'
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'Ubuntu-16.04'
 
   steps:
   - task: UsePythonVersion@0
@@ -20,7 +20,7 @@ jobs:
       versionSpec: '3.7.0'
       architecture: 'x64'
 
-  - script: 'rmdir -rf azure-cli'
+  - script: 'rm -rf azure-cli'
     displayName: 'delete azure cli directory'
 
   - template: templates/setup-ci-machine.yml
