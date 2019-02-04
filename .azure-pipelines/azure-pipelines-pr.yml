@@ -134,7 +134,9 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - template: templates/build-azure-devops-cli-extension.yml
+  - script: 'pip install --upgrade .'
+    displayName: 'Install Azure DevOps CLI extension'
+    workingDirectory: 'azure-devops/'
 
   - script: pytest --junitxml "TEST-UT-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
     displayName: 'run unit tests for code coverage'
@@ -189,7 +191,9 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - template: templates/build-azure-devops-cli-extension.yml
+  - script: 'pip install --upgrade .'
+    displayName: 'Install Azure DevOps CLI extension'
+    workingDirectory: 'azure-devops/'
 
   - task: PythonScript@0
     displayName: 'Run HelpText Check'

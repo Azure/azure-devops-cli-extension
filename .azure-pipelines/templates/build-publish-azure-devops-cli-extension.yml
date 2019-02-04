@@ -1,5 +1,11 @@
 steps:
-  - template: build-azure-devops-cli-extension.yml
+  - script: 'pip install --upgrade .'
+    displayName: 'Install Azure DevOps CLI extension'
+    workingDirectory: 'azure-devops/'
+
+  - script: 'python setup.py sdist bdist_wheel'
+    displayName: 'Build wheel for Azure DevOps CLI extension'
+    workingDirectory: 'azure-devops/'
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Azure DevOps CLI extension as artifact'
