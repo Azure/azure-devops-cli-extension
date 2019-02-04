@@ -24,8 +24,14 @@ jobs:
 
   - task: CmdLine@2
     inputs:
-      script: 'git clone https://github.com/Azure/azure-cli.git' 
-      failOnStderr: true
+      script: 'git clone https://github.com/Azure/azure-cli.git'
+
+  - script: 'git clone https://github.com/Azure/azure-cli.git'
+    displayName: 'Clone Azure CLI repository'
+
+  - script: 'pip install --upgrade .'
+    displayName: 'Install Azure CLI test SDK'
+    workingDirectory: 'azure-cli/src/azure-cli-testsdk/'
 
 # - job: 'Run_Test_Ubuntu'
 #   pool:
