@@ -1,0 +1,8 @@
+steps:
+  - script: 'pip install --upgrade .'
+    displayName: 'Install Azure DevOps CLI extension'
+    workingDirectory: 'azure-devops/'
+
+  - script: 'python setup.py sdist bdist_wheel'
+    displayName: 'Build wheel for Azure DevOps CLI extension'
+    workingDirectory: 'azure-devops/'
