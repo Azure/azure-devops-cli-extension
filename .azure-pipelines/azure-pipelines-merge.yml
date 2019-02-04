@@ -88,7 +88,6 @@ jobs:
 
 - job: 'Run_Test_Windows'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
-  dependsOn: 'Prepare_azure_Test_SDK_Wheel_and_Publish'
   pool:
     vmImage: 'vs2017-win2016'
 
