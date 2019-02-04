@@ -1,5 +1,5 @@
 steps:
-  - template: build-azure-devops-cli-extension.yml
+  - template: templates/build-azure-devops-cli-extension.yml
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Azure DevOps CLI extension as artifact'
