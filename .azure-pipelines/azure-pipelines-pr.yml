@@ -25,10 +25,6 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - task: CmdLine@2
-    inputs:
-      script: 'git clone https://github.com/Azure/azure-cli.git'
-
   - script: 'git clone https://github.com/Azure/azure-cli.git'
     displayName: 'Clone Azure CLI repository'
 
