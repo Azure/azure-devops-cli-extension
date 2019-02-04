@@ -12,11 +12,11 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        Write-host "we will be probing " $($args[0])
-        $extensions = Get-ChildItem -Path $($args[0]) -Filter "*.whl" -Recurse | Select-Object FullName
+        $extensions = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
         Foreach ($extension in $extensions)
         {
+            Write-Host "installing " $extension.FullName
             az extension add --source $extension.FullName -y
         }
         Write-Host "done"
-      arguments: '$(System.ArtifactsDirectory)/extension'
+      workingDirectory: '$(System.ArtifactsDirectory)/extension'
