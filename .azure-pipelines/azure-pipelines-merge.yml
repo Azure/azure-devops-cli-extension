@@ -10,6 +10,20 @@ pr: none
 
 jobs:
 
+- job: 'Build_Publish_Azure_DevOps_CLI_Extension'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/build-publish-azure-devops-cli-extension.yml
+
 - job: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
     vmImage: 'Ubuntu-16.04'
@@ -24,8 +38,8 @@ jobs:
 
   - template: templates/build-publish-azure-cli-test-sdk.yml
 
-- job: 'Run_Test_Ubuntu'
-  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
+- job: 'Run_Unit_Test_Ubuntu'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
   pool:
     vmImage: 'Ubuntu-16.04'
   strategy:
@@ -39,140 +53,78 @@ jobs:
     maxParallel: 3
 
   steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '$(python.version)'
-      architecture: 'x64'
+  - template: templates/run-unit-tests.yml
+    parameters:
+      pythonVersion: '$(python.version)'
 
-  - template: templates/download-install-local-azure-test-sdk.yml
+- job: 'Run_Unit_Test_Mac'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'macOS-10.13'
 
-  - template: templates/setup-ci-machine.yml
+  steps:
+  - template: templates/run-unit-tests.yml
+    parameters:
+      pythonVersion: '3.7.0'
 
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      arguments: '$True'
-  
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-    condition: succeededOrFailed()
-
-- job: 'Run_Test_Windows'
-  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
+- job: 'Run_Unit_Test_Windows'
+  dependsOn : [ 'Build_Publish_Azure_CLI_Test_SDK', 'Run_Recording_Test_Mac']
   pool:
     vmImage: 'vs2017-win2016'
 
   steps:
-  - task: UsePythonVersion@0
+  - template: templates/run-unit-tests.yml
+    parameters:
+      pythonVersion: '3.7.0'
+
+  - task: AzureFileCopy@2
+    displayName: 'Publish wheel to azure storage'
     inputs:
-      versionSpec: '3.7.0'
-      architecture: 'x64'
+      sourcePath: 'azure-devops/dist/azure_devops-0.3.0-py2.py3-none-any.whl'
+      azureConnectionType: 'ConnectedServiceNameARM'
+      azureSubscription: 'CodeLens_Test (6bd70c51-ff44-4c89-9212-8d3f10e2a90a)'
+      destination: 'azureBlob'
+      storage: 'azuredevopscli'
+      containerName: 'azuredevopscli'
 
-  - template: templates/download-install-local-azure-test-sdk.yml
+- job: 'Run_Recording_Test_Ubuntu'
+  dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
+  pool:
+    vmImage: 'Ubuntu-16.04'
+  strategy:
+    matrix:
+      Python27:
+        python.version: '2.7.15'
+      Python36:
+        python.version: '3.6.5'
+      Python37:
+        python.version: '3.7.0'
+    maxParallel: 3
 
-  - template: templates/setup-ci-machine.yml
+  steps:
+  - template: templates/run-recording-tests.yml
+    parameters:
+      pythonVersion: '$(python.version)'
 
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      arguments: '$True'
-  
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-    condition: succeededOrFailed()
-
-- job: 'Run_Test_Mac'
-  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
+- job: 'Run_Recording_Test_Mac'
+  dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
     vmImage: 'macOS-10.13'
 
   steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.7.0'
-      architecture: 'x64'
+  - template: templates/run-recording-tests.yml
+    parameters:
+      pythonVersion: '3.7.0'
 
-  - template: templates/download-install-local-azure-test-sdk.yml
-
-  - template: templates/setup-ci-machine.yml
-
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      arguments: '$True'
-  
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-    condition: succeededOrFailed()
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Wheel as artifact'
-    inputs:
-      pathtoPublish: 'azure-devops/dist' 
-      artifactName: 'azure-devops-cli-package' 
-      publishLocation: 'Container'
-
-- job: 'Run_Test_With_Published_Wheel'
-  dependsOn: 'Run_Test_Mac'
+- job: 'Run_Recording_Test_Windows'
+  dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'vs2017-win2016'
 
   steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.7.0'
-      architecture: 'x64'
-
-  - template: templates/download-install-local-azure-test-sdk.yml
-
-  - template: templates/setup-ci-machine.yml
-
-  - task: DownloadBuildArtifacts@0
-    displayName : 'Download Extension wheel from Build Artifacts'
-    inputs:
-      buildType: 'current'
-      downloadType: 'single'
-      artifactName: 'azure-devops-cli-package'
-      downloadPath: '$(System.ArtifactsDirectory)/extension'
-
-  - task: PowerShell@2
-    displayName: 'Install Downloaded Extension'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/findAndInstallExtensionFromPath.ps1'
-      arguments: '$(System.ArtifactsDirectory)/extension'
-  
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTestsWithoutExtensionInstall.ps1'
-
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-    condition: succeededOrFailed()
+  - template: templates/run-recording-tests.yml
+    parameters:
+      pythonVersion: '3.7.0'
 
 - job: 'Code_Coverage'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
@@ -189,12 +141,10 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      arguments: '$True'
+  - template: templates/build-azure-devops-cli-extension.yml
+
+  - script: pytest azure-devops/ --cov=azext_devops --cov-report=xml --cov-report=html
+    displayName: 'run unit tests for code coverage'
  
   - script: pip install beautifulsoup4
     displayName: 'install beautifulsoup4'
@@ -242,13 +192,7 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      # Do not run UTs or recorded tests
-      arguments: '-run_UT $False -run_VCR $False'
+  - template: templates/build-azure-devops-cli-extension.yml
 
   - task: PythonScript@0
     displayName: 'Run HelpText Check'

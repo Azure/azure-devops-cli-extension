@@ -16,8 +16,9 @@ steps:
 
   - template: build-azure-devops-cli-extension.yml
 
-  - script: pytest 'azure-devops/' --junitxml "TEST-UT-results.xml"
+  - script: pytest --junitxml "TEST-UT-results.xml"
     displayName: 'Run Unit Tests'
+    workingDirectory: 'azure-devops'
  
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
