@@ -117,7 +117,7 @@ jobs:
       pythonVersion: '$(python.version)'
 
 - job: 'Code_Coverage'
-  dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
+  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
     vmImage: 'macOS-10.13'
 
