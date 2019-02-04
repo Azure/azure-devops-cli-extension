@@ -2,7 +2,7 @@ param([string]$pathToProbe)
 
 Write-host "we will be probing " $pathToProbe
 $extensions = Get-ChildItem -Path $pathToProbe -Filter "*.whl" -Recurse | Select-Object FullName
-for($extension in $extensions)
+Foreach ($extension in $extensions)
 {
     az extension add --source $extension.FullName -y
 }
