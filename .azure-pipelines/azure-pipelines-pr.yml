@@ -10,8 +10,7 @@ trigger: none
 
 jobs:
 
-# this is base job, if this fails then nothing else runs because if UT is failing then why to run anything else
-- job: 'Run_Unit_Test'
+- job: 'Build_Publish_Azure_DevOps_CLI_Extension'
   pool:
     vmImage: 'Ubuntu-16.04'
 
@@ -21,24 +20,12 @@ jobs:
       versionSpec: '3.7.0'
       architecture: 'x64'
 
-  - script: python -m pip install --upgrade pip
-    displayName: 'Upgrade pip'
+  - template: templates/setup-ci-machine.yml
 
-  - script: pip install pytest
-    displayName: 'Install pytest'
-
-  - script: pytest 'azure-devops/' --junitxml "TEST-UT-results.xml"
-
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-    condition: succeededOrFailed()
+  - template: templates/build-publish-azure-devops-cli-extension.yml
 
 - job: 'Build_Publish_Azure_CLI_Test_SDK'
-  dependsOn: 'Run_Unit_Test'
+  dependsOn: 'Build_Publish_Azure_DevOps_CLI_Extension'
   pool:
     vmImage: 'Ubuntu-16.04'
 
@@ -76,12 +63,13 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      arguments: '$True'
+  - template: templates/download-install-local-azure-devops-cli-extension.yml
+
+  - script: pytest 'azure-devops/' --junitxml "TEST-UT-results.xml"
+    displayName: 'Run Unit Tests'
+
+  - script: pytest 'tests/' --junitxml "TEST-recordings-results.xml"
+    displayName: 'Run Recording Tests'
   
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
@@ -106,12 +94,13 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      arguments: '$True'
+  - template: templates/download-install-local-azure-devops-cli-extension.yml
+
+  - script: pytest 'azure-devops/' --junitxml "TEST-UT-results.xml"
+    displayName: 'Run Unit Tests'
+
+  - script: pytest 'tests/' --junitxml "TEST-recordings-results.xml"
+    displayName: 'Run Recording Tests'
   
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
@@ -136,12 +125,13 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      arguments: '$True'
+  - template: templates/download-install-local-azure-devops-cli-extension.yml
+
+  - script: pytest 'azure-devops/' --junitxml "TEST-UT-results.xml"
+    displayName: 'Run Unit Tests'
+
+  - script: pytest 'tests/' --junitxml "TEST-recordings-results.xml"
+    displayName: 'Run Recording Tests'
   
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
@@ -173,26 +163,10 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - task: DownloadBuildArtifacts@0
-    displayName : 'Download Extension wheel from Build Artifacts'
-    inputs:
-      buildType: 'current'
-      downloadType: 'single'
-      artifactName: 'azure-devops-cli-package'
-      downloadPath: '$(System.ArtifactsDirectory)/extension'
+  - template: templates/download-install-local-azure-devops-cli-extension.yml
 
-  - task: PowerShell@2
-    displayName: 'Install Downloaded Extension'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/findAndInstallExtensionFromPath.ps1'
-      arguments: '$(System.ArtifactsDirectory)/extension'
-  
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTestsWithoutExtensionInstall.ps1'
+  - script: pytest 'tests/' --junitxml "TEST-recordings-results.xml"
+    displayName: 'Run Recording Tests'
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
@@ -270,13 +244,7 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      # Do not run UTs or recorded tests
-      arguments: '-run_UT $False -run_VCR $False'
+  - template: templates/download-install-local-azure-devops-cli-extension.yml
 
   - task: PythonScript@0
     displayName: 'Run HelpText Check'

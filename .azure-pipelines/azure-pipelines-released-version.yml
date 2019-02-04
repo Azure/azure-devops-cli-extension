@@ -8,7 +8,7 @@ jobs:
 
 - job: 'Run_Test'
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'Ubuntu-16.04'
 
   steps:
   - task: UsePythonVersion@0
