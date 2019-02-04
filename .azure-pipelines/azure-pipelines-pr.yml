@@ -10,7 +10,7 @@ trigger: none
 
 jobs:
 
-this is base job, if this fails then nothing else runs because if UT is failing then why to run anything else
+# this is base job, if this fails then nothing else runs because if UT is failing then why to run anything else
 - job: 'Run_Unit_Test'
   pool:
     vmImage: 'Ubuntu-16.04'
