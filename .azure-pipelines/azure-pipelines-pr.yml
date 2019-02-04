@@ -10,7 +10,8 @@ trigger: none
 
 jobs:
 
-- job: 'Build_Publish_Azure_CLI_Test_SDK'
+this is base job, if this fails then nothing else runs because if UT is failing then why to run anything else
+- job: 'Run_Unit_Test'
   pool:
     vmImage: 'Ubuntu-16.04'
 
@@ -20,28 +21,36 @@ jobs:
       versionSpec: '3.7.0'
       architecture: 'x64'
 
-  - script: 'rm -rf azure-cli'
-    displayName: 'delete azure cli directory'
+  - script: python -m pip install --upgrade pip
+    displayName: 'Upgrade pip'
+
+  - script: pip install pytest
+    displayName: 'Install pytest'
+
+  - script: pytest 'azure-devops/' --junitxml "TEST-UT-results.xml"
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
+
+- job: 'Build_Publish_Azure_CLI_Test_SDK'
+  dependsOn: 'Run_Unit_Test'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
 
   - template: templates/setup-ci-machine.yml
 
-  - script: 'git clone https://github.com/Azure/azure-cli.git'
-    displayName: 'Clone Azure CLI repository'
-
-  - script: 'pip install --upgrade .'
-    displayName: 'Install Azure CLI test SDK'
-    workingDirectory: 'azure-cli/src/azure-cli-testsdk/'
-
-  - script: 'python setup.py sdist bdist_wheel'
-    displayName: 'Build wheel for Azure CLI test SDK'
-    workingDirectory: 'azure-cli/src/azure-cli-testsdk/'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Azure CLI test SDK as artifact'
-    inputs:
-      pathtoPublish: 'azure-cli/src/azure-cli-testsdk/dist' 
-      artifactName: 'azure-cli-test-sdk' 
-      publishLocation: 'Container'
+  - template: templates/build-publish-azure-cli-test-sdk.yml
 
 - job: 'Run_Test_Ubuntu'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
@@ -65,11 +74,7 @@ jobs:
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
-  - task: PowerShell@2
-    displayName: 'Setup test machine'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/setupCiMachine.ps1'
+  - template: templates/setup-ci-machine.yml
 
   - task: PowerShell@2
     displayName: 'Run Tests'
@@ -99,11 +104,7 @@ jobs:
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
-  - task: PowerShell@2
-    displayName: 'Setup test machine'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/setupCiMachine.ps1'
+  - template: templates/setup-ci-machine.yml
 
   - task: PowerShell@2
     displayName: 'Run Tests'
@@ -133,11 +134,7 @@ jobs:
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
-  - task: PowerShell@2
-    displayName: 'Setup test machine'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/setupCiMachine.ps1'
+  - template: templates/setup-ci-machine.yml
 
   - task: PowerShell@2
     displayName: 'Run Tests'
@@ -174,11 +171,7 @@ jobs:
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
-  - task: PowerShell@2
-    displayName: 'Setup test machine'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/setupCiMachine.ps1'
+  - template: templates/setup-ci-machine.yml
 
   - task: DownloadBuildArtifacts@0
     displayName : 'Download Extension wheel from Build Artifacts'
@@ -222,11 +215,7 @@ jobs:
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
-  - task: PowerShell@2
-    displayName: 'Setup test machine'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/setupCiMachine.ps1'
+  - template: templates/setup-ci-machine.yml
 
   - task: PowerShell@2
     displayName: 'Run Tests'
@@ -279,11 +268,7 @@ jobs:
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
-  - task: PowerShell@2
-    displayName: 'Setup test machine'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/setupCiMachine.ps1'
+  - template: templates/setup-ci-machine.yml
 
   - task: PowerShell@2
     displayName: 'Run Tests'
