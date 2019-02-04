@@ -10,7 +10,7 @@ trigger: none
 
 jobs:
 
-- job: 'Prepare_azure_Test_SDK_Wheel_and_Publish'
+- job: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
     vmImage: 'Ubuntu-16.04'
 
@@ -115,43 +115,64 @@ jobs:
 #       searchFolder: '$(System.DefaultWorkingDirectory)'
 #     condition: succeededOrFailed()
 
-# - job: 'Run_Test_Mac'
-#   pool:
-#     vmImage: 'macOS-10.13'
+- job: 'Run_Test_Mac'
+  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
+  pool:
+    vmImage: 'macOS-10.13'
 
-#   steps:
-#   - task: UsePythonVersion@0
-#     inputs:
-#       versionSpec: '3.7.0'
-#       architecture: 'x64'
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
 
-#   - task: PowerShell@2
-#     displayName: 'Setup test machine'
-#     inputs:
-#       targetType: 'filePath'
-#       filePath: 'scripts/setupCiMachine.ps1'
+  - task: DownloadBuildArtifacts@0
+    displayName : 'Download Azure CLI test SDK wheel from Build Artifacts'
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'azure-cli-test-sdk'
+      downloadPath: '$(System.ArtifactsDirectory)'
 
-#   - task: PowerShell@2
-#     displayName: 'Run Tests'
-#     inputs:
-#       targetType: 'filePath'
-#       filePath: 'scripts/runTests.ps1'
-#       arguments: '$True'
+  - task: PowerShell@2
+    displayName : 'Install Azure CLI test SDK'
+    inputs:
+      targetType: 'inline'
+      arguments: '$(System.ArtifactsDirectory)'
+      script: 'param([string]$pathToProbe)
+               Write-host "we will be probing " $pathToProbe
+               Write-Host "installing azure dev cli extension"
+               $extensions = Get-ChildItem -Path $pathToProbe -Filter "*.whl" -Recurse | Select-Object FullName
+               az extension add --source $extensions[0].FullName -y'
+      errorActionPreference: 'stop'
+
+  - task: PowerShell@2
+    displayName: 'Setup test machine'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/setupCiMachine.ps1'
+
+  - task: PowerShell@2
+    displayName: 'Run Tests'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runTests.ps1'
+      arguments: '$True'
   
-#   - task: PublishTestResults@2
-#     displayName: 'Publish Test Results'
-#     inputs:
-#       testResultsFormat: 'JUnit'
-#       testResultsFiles: '**TEST-*.xml'
-#       searchFolder: '$(System.DefaultWorkingDirectory)'
-#     condition: succeededOrFailed()
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
 
-#   - task: PublishBuildArtifacts@1
-#     displayName: 'Publish Wheel as artifact'
-#     inputs:
-#       pathtoPublish: 'azure-devops/dist' 
-#       artifactName: 'azure-devops-cli-package' 
-#       publishLocation: 'Container'
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Wheel as artifact'
+    inputs:
+      pathtoPublish: 'azure-devops/dist' 
+      artifactName: 'azure-devops-cli-package' 
+      publishLocation: 'Container'
 
 # - job: 'Run_Test_With_Published_Wheel'
 #   dependsOn: 'Run_Test_Mac'
