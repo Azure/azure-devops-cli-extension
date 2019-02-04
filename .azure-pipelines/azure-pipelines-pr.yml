@@ -11,8 +11,6 @@ trigger: none
 jobs:
 
 - job: 'Prepare_azure_Test_SDK_Wheel_and_Publish'
-  workspace:
-    clean: outputs | resources | all
   pool:
     vmImage: 'macOS-10.13'
 
@@ -21,6 +19,9 @@ jobs:
     inputs:
       versionSpec: '3.7.0'
       architecture: 'x64'
+
+  - script: 'rmdir azure-cli'
+    displayName: 'delete azure cli directory'
 
   - template: templates/setup-ci-machine.yml
 
