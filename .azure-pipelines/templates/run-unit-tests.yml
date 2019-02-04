@@ -25,5 +25,5 @@ steps:
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
+      searchFolder: '$(System.DefaultWorkingDirectory)/azure-devops/'
     condition: succeededOrFailed()

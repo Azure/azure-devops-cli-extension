@@ -161,9 +161,9 @@ jobs:
   - task: PublishCodeCoverageResults@1
     inputs:
       codeCoverageTool: 'cobertura'
-      summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
-      reportDirectory: '$(System.DefaultWorkingDirectory)/htmlcov'
-      additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/htmlcov/**/*.*'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/azure-devops/coverage.xml'
+      reportDirectory: '$(System.DefaultWorkingDirectory)/azure-devops/htmlcov'
+      additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/azure-devops/htmlcov/**/*.*'
 
 - job: 'Run_Style_Check'
   pool:
