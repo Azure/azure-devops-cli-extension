@@ -11,6 +11,8 @@ trigger: none
 jobs:
 
 - job: 'Prepare_azure_Test_SDK_Wheel_and_Publish'
+  workspace:
+    clean: all
   pool:
     vmImage: 'macOS-10.13'
 
