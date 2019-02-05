@@ -367,6 +367,7 @@ def generateConfigurationObject(policy_configuration=None,
 
     return policyConfiguration
 
+
 def createScope(policy_type, repository_id, branch):
     scope = [
         {
