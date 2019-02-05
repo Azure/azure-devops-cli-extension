@@ -11,6 +11,7 @@ _ON_OFF_SWITCH_VALUES = ['on', 'off']
 _VOTE_VALUES = ['approve', 'approve-with-suggestions', 'reset', 'wait-for-author', 'reject']
 _PR_STATUS_VALUES = ['all', 'active', 'completed', 'abandoned']
 
+
 def repo_policy_create_udpate_common_arguments(context):
     context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
     context.argument('repository_id', options_list=('--repository-id', '-r'))

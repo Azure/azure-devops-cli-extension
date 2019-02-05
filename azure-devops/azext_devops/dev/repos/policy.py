@@ -350,22 +350,7 @@ def generateConfigurationObject(policy_configuration=None,
     raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policy_type)
 
     policyConfiguration = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
-    scope = [
-        {
-            'repositoryId': repository_id,
-            'refName': branch,
-            'matchKind': 'exact'
-        }
-    ]
-
-    if policy_type == FILE_SIZE_POLICY:
-        if branch is not None:
-            raise CLIError('You can only use repository scopes in this context not branch')
-        scope = [
-            {
-                'repositoryId': repository_id
-            }
-        ]
+    scope = createScope(policy_type, repository_id, branch)
 
     policyConfiguration.settings = {
         'scope': scope
@@ -381,6 +366,24 @@ def generateConfigurationObject(policy_configuration=None,
         index = index + 1
 
     return policyConfiguration
+
+def createScope(policy_type, repository_id, branch):
+    scope = [
+        {
+            'repositoryId': repository_id
+        }
+    ]
+
+    if policy_type == FILE_SIZE_POLICY:
+        if branch is not None:
+            raise CLIError('You can only use repository for this policy type not branch')
+        scope = [
+            {
+                'repositoryId': repository_id
+            }
+        ]
+
+    return scope
 
 
 def resolveIdentityMailsToIds(mailList, organization):

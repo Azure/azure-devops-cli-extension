@@ -77,14 +77,13 @@ def load_repos_help():
         - name: {0} a required reviewer policy
           text: |
             az repos policy create --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type RequiredReviewersPolicy --message this_is_policy_message --requiredReviewerIds gsaral@microsoft.com;atbagga@microsoft.com --isBlocking --isEnabled
-        
     """
 
     helps['repos policy create'] = """
     type: command
     short-summary: Create a policy.
     long-summary: see https://docs.microsoft.com/en-us/azure/devops/repos/git/branch-policies-overview?view=azure-devops for more details
-    examples: 
+    examples:
         {}
     """.format(create_update_helptext.format('Create', 'create'))
 
@@ -92,6 +91,6 @@ def load_repos_help():
     type: command
     short-summary: Update a policy.
     long-summary: see https://docs.microsoft.com/en-us/azure/devops/repos/git/branch-policies-overview?view=azure-devops for more details
-    examples: 
+    examples:
         {}
     """.format(create_update_helptext.format('Update', 'update --policy-id 1'))
