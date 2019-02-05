@@ -370,7 +370,9 @@ def generateConfigurationObject(policy_configuration=None,
 def createScope(policy_type, repository_id, branch):
     scope = [
         {
-            'repositoryId': repository_id
+            'repositoryId': repository_id,
+            'refName': branch,
+            'matchKind': 'exact'
         }
     ]
 
