@@ -13,12 +13,6 @@ def load_repos_help():
     long-summary:
     """
 
-    helps['repos policy'] = """
-    type: group
-    short-summary: Manage branch policy.
-    long-summary:
-    """
-
     helps['repos pr'] = """
     type: group
     short-summary: Manage pull requests.
@@ -48,3 +42,31 @@ def load_repos_help():
     short-summary: Manage Git repositories import
     long-summary:
     """
+
+    helps['repos policy'] = """
+    type: group
+    short-summary: Manage branch policy.
+    long-summary:
+    """
+
+    create_update_helptext = """
+        - name: {0} a approver count policy
+          text: |
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type ApproverCountPolicy --allowDownvotes False --creatorVoteCounts False --minimumApproverCount 2 --resetOnSourcePush True --isBlocking --isEnabled
+    """
+
+    helps['repos policy create'] = """
+    type: command
+    short-summary: Create a policy.
+    long-summary: see https://docs.microsoft.com/en-us/azure/devops/repos/git/branch-policies-overview?view=azure-devops for more details
+    examples: 
+        {}
+    """.format(create_update_helptext.format('Create', 'create'))
+
+    helps['repos policy update'] = """
+    type: command
+    short-summary: Update a policy.
+    long-summary: see https://docs.microsoft.com/en-us/azure/devops/repos/git/branch-policies-overview?view=azure-devops for more details
+    examples: 
+        {}
+    """.format(create_update_helptext.format('Update', 'update --policy-id 1'))
