@@ -119,39 +119,39 @@ def create_policy(policy_configuration=None,
     :param policy_type: Type of policy you want to create
     :type policy_type: string
 
-    :param optionalReviewerIds: Optional Reviewers (List of email ids seperated with ';'). Required if policy type is RequiredReviewersPolicy.
+    :param optionalReviewerIds: Optional Reviewers (List of email ids seperated with ';').
     :type optionalReviewerIds: string
-    :param requiredReviewerIds: Required Reviewers (List of email ids seperated with ';'). Required if policy type is RequiredReviewersPolicy.
+    :param requiredReviewerIds: Required Reviewers (List of email ids seperated with ';').
     :type requiredReviewerIds: string
-    :param message: Message. Required if policy type is RequiredReviewersPolicy.
+    :param message: Message.
     :type message: string
 
-    :param minimumApproverCount: Minimum approver count. Required if policy type is ApproverCountPolicy.
+    :param minimumApproverCount: Minimum approver count.
     :type minimumApproverCount: int
-    :param creatorVoteCounts: Whether the creator's vote count counts or not. Required if policy type is ApproverCountPolicy
+    :param creatorVoteCounts: Whether the creator's vote count counts or not.
     :type creatorVoteCounts: bool
-    :param allowDownvotes: Whether to allow downvotes or not. Required if policy type is ApproverCountPolicy.
+    :param allowDownvotes: Whether to allow downvotes or not.
     :type allowDownvotes: bool
-    :param resetOnSourcePush: Whether to reset source on push. Required if policy type is ApproverCountPolicy.
+    :param resetOnSourcePush: Whether to reset source on push.
     :type resetOnSourcePush: bool
 
-    :param buildDefinitionId: Build Definition Id. Required if policy type is Buildpolicy.
+    :param buildDefinitionId: Build Definition Id
     :type buildDefinitionId: int
-    :param queueOnSourceUpdateOnly: Queue Only on source update. Required if policy type is Buildpolicy.
+    :param queueOnSourceUpdateOnly: Queue Only on source update.
     :type queueOnSourceUpdateOnly: bool
-    :param manualQueueOnly : Whether to allow only manual queue of builds. Required if policy type is Buildpolicy.
+    :param manualQueueOnly : Whether to allow only manual queue of builds.
     :type manualQueueOnly : bool
-    :param displayName : Display Name. Required if policy type is Buildpolicy.
+    :param displayName : Display Name.
     :type displayName : string
-    :param validDuration :  Policy validity duration (in hours). Required if policy type is Buildpolicy.
+    :param validDuration :  Policy validity duration (in hours).
     :type validDuration : double
 
-    :param useSquashMerge: Whether to squash merge always. Required if policy type is MergeStrategyPolicy
+    :param useSquashMerge: Whether to squash merge always.
     :type useSquashMerge: bool
 
-    :param maximumGitBlobSizeInBytes: Maximum Git Blob Size In Bytes. Required if policy type is FileSizePolicy
+    :param maximumGitBlobSizeInBytes: Maximum Git Blob Size In Bytes.
     :type maximumGitBlobSizeInBytes: long
-    :param useUncompressedSize: Whether to use uncompressed size. Required if policy type is FileSizePolicy
+    :param useUncompressedSize: Whether to use uncompressed size.
     :type useUncompressedSize: bool
 
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -197,6 +197,10 @@ def update_policy(policy_id,
                   optionalReviewerIds=None, requiredReviewerIds=None, message=None,
                   organization=None, project=None, detect=None):
     """Update a policy.
+    :param policy_configuration: File path of file containing policy configuration to create in a serialized form.
+                                 please use / backslash when typing in directory path.
+                                 Only --project and --organization param are needed when passing this.
+    :type policy_configuration: string
     :param repository_id: Id (UUID) of the repository on which to apply the policy to.
     :type repository_id: string
     :param branch: Branch on which this policy should be applied
