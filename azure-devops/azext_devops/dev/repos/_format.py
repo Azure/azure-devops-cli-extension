@@ -32,7 +32,10 @@ def _transform_repo_policy_request_row(row):
     table_row['Is Enabled'] = row['isEnabled']
     # this will break if policy is applied across repo but that is not possible via UI at least now
     table_row['Repository Id'] = row['settings']['scope'][0]['repositoryId']
-    table_row['Branch'] = row['settings']['scope'][0]['refName']
+    if 'refName' in row['settings']['scope'][0]:
+        table_row['Branch'] = row['settings']['scope'][0]['refName']
+    else:
+        table_row['Branch'] = "All Branches"
     return table_row
 
 

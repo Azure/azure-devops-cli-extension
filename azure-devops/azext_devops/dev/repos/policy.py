@@ -207,9 +207,9 @@ def update_policy(policy_id,
     :type branch: string
     :param policy_id: ID of the policy which needs to be updated
     :type policy_id: int
-    :param isBlocking: Whether the policy should be blocking or not. Default value is false. Accepted values are true and false.
+    :param isBlocking: Whether the policy should be blocking or not.
     :type isBlocking: bool
-    :param isEnabled: Whether the policy is enabled or not. By default the value is true. Accepted values and true and false.
+    :param isEnabled: Whether the policy is enabled or not.
     :type isEnabled: bool
     :param policy_type: Type of policy you want to create
     :type policy_type: string
@@ -357,6 +357,15 @@ def generateConfigurationObject(policy_configuration=None,
             'matchKind': 'exact'
         }
     ]
+
+    if policy_type == FILE_SIZE_POLICY:
+        if branch is not None:
+            raise CLIError('You can only use repository scopes in this context not branch')
+        scope = [
+            {
+                'repositoryId': repository_id
+            }
+        ]
 
     policyConfiguration.settings = {
         'scope': scope

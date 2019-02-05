@@ -50,9 +50,21 @@ def load_repos_help():
     """
 
     create_update_helptext = """
-        - name: {0} a approver count policy
+        - name: {0} an approver count policy
           text: |
             az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type ApproverCountPolicy --allowDownvotes False --creatorVoteCounts False --minimumApproverCount 2 --resetOnSourcePush True --isBlocking --isEnabled
+
+        - name: {0} a build policy
+          text: |
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type BuildPolicy --buildDefinitionId 72 --displayName Build_Required --manualQueueOnly False --queueOnSourceUpdateOnly True --validDuration 12 --isBlocking --isEnabled
+
+        - name: {0} a file size policy
+          text: |
+            az repos policy {1} -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type FileSizePolicy --maximumGitBlobSizeInBytes 5012 --useUncompressedSize True --isBlocking --isEnabled
+
+        - name: {0} a merge strategy polocy
+          text: |
+            az repos policy create --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type MergeStrategyPolicy --useSquashMerge True --isBlocking --isEnabled
     """
 
     helps['repos policy create'] = """
