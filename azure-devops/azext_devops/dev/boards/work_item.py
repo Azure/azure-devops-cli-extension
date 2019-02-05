@@ -67,6 +67,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Description', description))
         if assigned_to is not None:
             # 'assigned to' does not take an identity id.  Display name works.
+            assigned_to = assigned_to.strip()
             if assigned_to == '':
                 resolved_assigned_to = ''
             else:
@@ -139,6 +140,7 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
         if description is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Description', description))
         if assigned_to is not None:
+            assigned_to = assigned_to.strip()
             # 'assigned to' does not take an identity id.  Display name works.
             if assigned_to == '':
                 resolved_assigned_to = ''
