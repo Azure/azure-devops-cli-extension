@@ -72,11 +72,11 @@ def load_repos_help():
 
         - name: {0} a work item linking policy
           text: |
-            az repos policy create --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type WorkItemLinkingPolicy --isBlocking --isEnabled
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type WorkItemLinkingPolicy --isBlocking --isEnabled
 
         - name: {0} a required reviewer policy
           text: |
-            az repos policy create --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type RequiredReviewersPolicy --message this_is_policy_message --requiredReviewerIds gsaral@microsoft.com;atbagga@microsoft.com --isBlocking --isEnabled
+            az repos policy {!} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type RequiredReviewersPolicy --message this_is_policy_message --requiredReviewerIds gsaral@microsoft.com;atbagga@microsoft.com --isBlocking --isEnabled
     """
 
     helps['repos policy create'] = """
