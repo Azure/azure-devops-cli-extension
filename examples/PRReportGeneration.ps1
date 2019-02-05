@@ -18,6 +18,8 @@ Write-Host "we will look back till $($lookBackDate)"
 $bypassedCount = 0
 $nonByPassedCount = 0
 
+$bypassPRsInfo = ''
+
 while($continueFetching)
 { 
     $prs = az repos pr list --org $org -p $project --skip $skip --top 100 --status completed -o json | ConvertFrom-Json
@@ -29,34 +31,14 @@ while($continueFetching)
         $prClosedData = [datetime]::ParseExact($prClosedDateInString.SubString(0,10),'yyyy-mm-dd', $null)
         $prId = $pr | Select-Object -ExpandProperty pullRequestId        
 
-        $bypassed = $false
+        $prDetails = az repos pr show --org $org --id $prId -o json | ConvertFrom-Json
 
-        $evaluationResults = az repos pr policy list --org $org --id $prId -o json| ConvertFrom-Json
-
-        foreach($evaluationResult in $evaluationResults)
+        if($prDetails.completionOptions.bypassPolicy)
         {
-            $completedDate = $evaluationResult.completedDate
-            if($completedDate -eq $null)
-            {
-                $isBlockingText = $evaluationResult.configuration | Select-Object -ExpandProperty isBlocking
-                $isBlocking = [System.Convert]::ToBoolean($isBlockingText) 
-
-                if($isBlocking)
-                {
-                    $bypassed = $true
-                }
-            }
-        }
-
-        if($bypassed)
-        {
-            Write-Host "."
-            Write-Host "Bypassed PR is $($prId)"
-            $bypassedCount = $bypassedCount + 1
-        }
-        Else
-        {
-            $nonByPassedCount = $nonByPassedCount + 1
+            $bypassPRsInfo = $bypassPRsInfo + "$($prId) is bypassed.
+            Bypass reason : $($prDetails.completionOptions.bypassReason).
+            Author : $($prDetails.closedBy.uniqueName).
+            Closed Date: $($prClosedDateInString). `n"
         }
 
         if($prClosedData -lt $lookBackDate)
@@ -74,3 +56,5 @@ while($continueFetching)
 Write-Host "."
 Write-Host "ByPassed PR count $($bypassedCount)"
 Write-Host "Non ByPassed PR count $($nonByPassedCount)"
+Write-Host "ByPassed PR details"
+Write-Host $bypassPRsInfo
