@@ -82,7 +82,7 @@ def load_repos_help():
     helps['repos policy create'] = """
     type: command
     short-summary: Create a policy.
-    long-summary: See https://docs.microsoft.com/en-us/rest/api/azure/devops/policy/?view=azure-devops-rest-5.0 for more details
+    long-summary:
     examples:
         {}
     """.format(create_update_helptext.format('Create', 'create'))
@@ -90,7 +90,7 @@ def load_repos_help():
     helps['repos policy update'] = """
     type: command
     short-summary: Update a policy.
-    long-summary: See https://docs.microsoft.com/en-us/rest/api/azure/devops/policy/?view=azure-devops-rest-5.0 for more details
+    long-summary:
     examples:
         {}
     """.format(create_update_helptext.format('Update', 'update --policy-id 1'))
