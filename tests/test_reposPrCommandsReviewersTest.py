@@ -79,18 +79,18 @@ class AzReposPrTests(ScenarioTest):
             assert reactivate_pr_status == 'active'
             
             #Reviewers test before completing the PR
-            #add pr reviewers
-            add_pr_reviewers_command = 'az repos pr reviewers add --id ' + create_pr_id + ' --reviewers atbagga --detect off --output json'
+            #add pr reviewer
+            add_pr_reviewers_command = 'az repos pr reviewer add --id ' + create_pr_id + ' --reviewers atbagga --detect off --output json'
             add_pr_reviewers_output = self.cmd(add_pr_reviewers_command).get_output_in_json()
             assert len(add_pr_reviewers_output) > 0
 
-            #list pr reviewers
-            list_pr_reviewers_command = 'az repos pr reviewers list --id ' + create_pr_id + ' --detect off --output json'
+            #list pr reviewer
+            list_pr_reviewers_command = 'az repos pr reviewer list --id ' + create_pr_id + ' --detect off --output json'
             list_pr_reviewers_output = self.cmd(list_pr_reviewers_command).get_output_in_json()
             assert len(list_pr_reviewers_output) > 0
 
-            #Remove pr reviewers
-            remove_pr_reviewers_command = 'az repos pr reviewers remove --id ' + create_pr_id + ' --reviewers atbagga --detect off --output json'
+            #Remove pr reviewer
+            remove_pr_reviewers_command = 'az repos pr reviewer remove --id ' + create_pr_id + ' --reviewers atbagga --detect off --output json'
             self.cmd(remove_pr_reviewers_command).get_output_in_json()
             #verify pr reviewers removed
             list_pr_reviewers_output = self.cmd(list_pr_reviewers_command).get_output_in_json()
