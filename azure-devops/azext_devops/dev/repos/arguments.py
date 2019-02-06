@@ -12,6 +12,31 @@ _VOTE_VALUES = ['approve', 'approve-with-suggestions', 'reset', 'wait-for-author
 _PR_STATUS_VALUES = ['all', 'active', 'completed', 'abandoned']
 
 
+def repo_policy_create_udpate_common_arguments(context):
+    context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
+    context.argument('repository_id', options_list=('--repository-id', '-r'))
+    APPROVER_COUNT_POLICY_ARGUMENT_GROUP = 'Approver Count Policy'
+    context.argument('minimumApproverCount', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
+    context.argument('creatorVoteCounts', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
+    context.argument('allowDownvotes', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
+    context.argument('resetOnSourcePush', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
+    MERGE_STRATEGY_POLICY_ARGUMENT_GROUP = 'Merge Strategy Policy'
+    context.argument('useSquashMerge', arg_group=MERGE_STRATEGY_POLICY_ARGUMENT_GROUP)
+    BUILD_POLICY_ARGUMENT_GROUP = 'Build Policy'
+    context.argument('buildDefinitionId', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
+    context.argument('queueOnSourceUpdateOnly', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
+    context.argument('manualQueueOnly', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
+    context.argument('displayName', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
+    context.argument('validDuration', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
+    FILE_SIZE_POLICY_ARGUMENT_GROUP = 'File Size Policy'
+    context.argument('maximumGitBlobSizeInBytes', arg_group=FILE_SIZE_POLICY_ARGUMENT_GROUP)
+    context.argument('useUncompressedSize', arg_group=FILE_SIZE_POLICY_ARGUMENT_GROUP)
+    REQUIRED_REVIEWER_POLICY_GROUP = 'Required Reviewer Policy'
+    context.argument('optionalReviewerIds', arg_group=REQUIRED_REVIEWER_POLICY_GROUP)
+    context.argument('requiredReviewerIds', arg_group=REQUIRED_REVIEWER_POLICY_GROUP)
+    context.argument('message', arg_group=REQUIRED_REVIEWER_POLICY_GROUP)
+
+
 def load_code_arguments(self, _):
     with self.argument_context('repos') as context:
         context.argument('project', options_list=('--project', '-p'))
@@ -21,12 +46,10 @@ def load_code_arguments(self, _):
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with self.argument_context('repos policy create') as context:
-        context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
-        context.argument('repository_id', options_list=('--repository-id', '-r'))
+        repo_policy_create_udpate_common_arguments(context)
 
     with self.argument_context('repos policy update') as context:
-        context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
-        context.argument('repository_id', options_list=('--repository-id', '-r'))
+        repo_policy_create_udpate_common_arguments(context)
 
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')

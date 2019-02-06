@@ -13,12 +13,6 @@ def load_repos_help():
     long-summary:
     """
 
-    helps['repos policy'] = """
-    type: group
-    short-summary: Manage branch policy.
-    long-summary:
-    """
-
     helps['repos pr'] = """
     type: group
     short-summary: Manage pull requests.
@@ -48,3 +42,55 @@ def load_repos_help():
     short-summary: Manage Git repositories import
     long-summary:
     """
+
+    helps['repos policy'] = """
+    type: group
+    short-summary: Manage branch policy.
+    long-summary:
+    """
+
+    create_update_helptext = """
+        - name: {0} an approver count policy
+          text: |
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type ApproverCountPolicy --allowDownvotes False --creatorVoteCounts False --minimumApproverCount 2 --resetOnSourcePush True --isBlocking --isEnabled
+
+        - name: {0} a build policy
+          text: |
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type BuildPolicy --buildDefinitionId 72 --displayName Build_Required --manualQueueOnly False --queueOnSourceUpdateOnly True --validDuration 12 --isBlocking --isEnabled
+
+        - name: {0} a file size policy
+          text: |
+            az repos policy {1} -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type FileSizePolicy --maximumGitBlobSizeInBytes 5012 --useUncompressedSize True --isBlocking --isEnabled
+
+        - name: {0} a merge strategy policy
+          text: |
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type MergeStrategyPolicy --useSquashMerge True --isBlocking --isEnabled
+
+        - name: {0} a comment requirement policy
+          text: |
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type CommentRequirementsPolicy --isBlocking --isEnabled
+
+        - name: {0} a work item linking policy
+          text: |
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type WorkItemLinkingPolicy --isBlocking --isEnabled
+
+        - name: {0} a required reviewer policy
+          text: |
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type RequiredReviewersPolicy --message this_is_policy_message --requiredReviewerIds gsaral@microsoft.com;atbagga@microsoft.com --isBlocking --isEnabled
+    """
+
+    helps['repos policy create'] = """
+    type: command
+    short-summary: Create a policy.
+    long-summary:
+    examples:
+        {}
+    """.format(create_update_helptext.format('Create', 'create'))
+
+    helps['repos policy update'] = """
+    type: command
+    short-summary: Update a policy.
+    long-summary:
+    examples:
+        {}
+    """.format(create_update_helptext.format('Update', 'update --policy-id 1'))

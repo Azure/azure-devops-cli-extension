@@ -118,6 +118,35 @@ class TestUuidMethods(unittest.TestCase):
         self.assertEqual(scope['refName'], 'master')
         self.assertEqual(scope['matchKind'], 'exact')
 
+    def test_create_policy_scope_repo_only(self):
+        create_policy(repository_id=self._TEST_REPOSITORY_ID,
+        policy_type='FileSizePolicy',
+        maximumGitBlobSizeInBytes=2, useUncompressedSize= True,
+        organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off')
+
+        self.mock_create_policy.assert_called_once()
+        create_policy_object = self.mock_create_policy.call_args_list[0][1]
+        self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'], str(create_policy_object))
+        scope = create_policy_object['configuration'].settings['scope'][0]  # 0 because we set only only scope from CLI
+        self.assertEqual(scope['repositoryId'], self._TEST_REPOSITORY_ID)
+        self.assertEqual('refName' in scope, False)
+        self.assertEqual('matchKind' in scope, False)
+
+    def test_create_policy_scope_repo_only_error(self):
+        try:
+            create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
+            policy_type='FileSizePolicy',
+            maximumGitBlobSizeInBytes=2, useUncompressedSize= True,
+            organization = self._TEST_DEVOPS_ORGANIZATION,
+            project = self._TEST_DEVOPS_PROJECT,
+            detect='off')
+            self.fail('create should have thrown CLIError')
+        except CLIError as ex:
+            self.assertEqual(str(ex),
+            'You can only use repository for this policy type not branch')
+
     def test_create_policy_setting_creation(self):
         create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
         policy_type='ApproverCountPolicy',
