@@ -30,12 +30,12 @@ The following table provides the mapping of commands from VSTS CLI to Azure DevO
 |`vsts code pr update`|`az repos pr update`|
 |`vsts code pr policies list`|`az repos pr policy list`|
 |`vsts code pr policies queue`|`az repos pr policy queue`|
-|`vsts code pr reviewers add`|`az repos pr reviewers add`|
-|`vsts code pr reviewers list`|`az repos pr reviewers list`|
-|`vsts code pr reviewers remove`|`az repos pr reviewers remove`|
-|`vsts code pr work-items add`|`az repos pr work-items add`|
-|`vsts code pr work-items list`|`az repos pr work-items list`|
-|`vsts code pr work-items remove`|`az repos pr work-items remove`|
+|`vsts code pr reviewers add`|`az repos pr reviewer add`|
+|`vsts code pr reviewers list`|`az repos pr reviewer list`|
+|`vsts code pr reviewers remove`|`az repos pr reviewer remove`|
+|`vsts code pr work-items add`|`az repos pr work-item add`|
+|`vsts code pr work-items list`|`az repos pr work-item list`|
+|`vsts code pr work-items remove`|`az repos pr work-item remove`|
 |`vsts code repo create`|`az repos create`|
 |`vsts code repo list`|`az repos list`|
 |`vsts code repo show`|`az repos show`|

@@ -25,13 +25,13 @@ def load_repos_help():
     long-summary:
     """
 
-    helps['repos pr reviewers'] = """
+    helps['repos pr reviewer'] = """
     type: group
     short-summary: Manage pull request reviewers.
     long-summary:
     """
 
-    helps['repos pr work-items'] = """
+    helps['repos pr work-item'] = """
     type: group
     short-summary: Manage work items associated with pull requests.
     long-summary:

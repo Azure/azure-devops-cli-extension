@@ -132,27 +132,27 @@
         "status": "None"
     },
     {
-        "name": "repos pr reviewers add",
+        "name": "repos pr reviewer add",
         "status": "None"
     },
     {
-        "name": "repos pr reviewers list",
+        "name": "repos pr reviewer list",
         "status": "None"
     },
     {
-        "name": "repos pr reviewers remove",
+        "name": "repos pr reviewer remove",
         "status": "None"
     },
     {
-        "name": "repos pr work-items add",
+        "name": "repos pr work-item add",
         "status": "None"
     },
     {
-        "name": "repos pr work-items list",
+        "name": "repos pr work-item list",
         "status": "None"
     },
     {
-        "name": "repos pr work-items remove",
+        "name": "repos pr work-item remove",
         "status": "None"
     },
     {

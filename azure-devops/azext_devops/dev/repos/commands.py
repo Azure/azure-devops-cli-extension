@@ -65,16 +65,16 @@ def load_code_commands(self, _):
         g.command('reactivate', 'reactivate_pull_request', table_transformer=transform_pull_request_table_output)
 
         # pr reviewer commands
-        g.command('reviewers add', 'create_pull_request_reviewers', table_transformer=transform_reviewers_table_output)
-        g.command('reviewers list', 'list_pull_request_reviewers', table_transformer=transform_reviewers_table_output)
-        g.command('reviewers remove', 'delete_pull_request_reviewers',
+        g.command('reviewer add', 'create_pull_request_reviewers', table_transformer=transform_reviewers_table_output)
+        g.command('reviewer list', 'list_pull_request_reviewers', table_transformer=transform_reviewers_table_output)
+        g.command('reviewer remove', 'delete_pull_request_reviewers',
                   table_transformer=transform_reviewers_table_output)
 
         # pr work item commands
-        g.command('work-items add', 'add_pull_request_work_items', table_transformer=transform_work_items_table_output)
-        g.command('work-items list', 'list_pull_request_work_items',
+        g.command('work-item add', 'add_pull_request_work_items', table_transformer=transform_work_items_table_output)
+        g.command('work-item list', 'list_pull_request_work_items',
                   table_transformer=transform_work_items_table_output)
-        g.command('work-items remove', 'remove_pull_request_work_items',
+        g.command('work-item remove', 'remove_pull_request_work_items',
                   table_transformer=transform_work_items_table_output)
 
         # pr set-vote commands
