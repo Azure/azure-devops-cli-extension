@@ -11,7 +11,9 @@ from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOp
 from vsts.work_item_tracking.v4_0.models.wiql import Wiql
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.dev.common.identities import (ME, get_current_identity, resolve_identity)
+from azext_devops.dev.common.identities import (ME, get_current_identity,
+                                                resolve_identity,
+                                                get_account_from_identity)
 from azext_devops.dev.common.services import (get_work_item_tracking_client,
                                               resolve_instance,
                                               resolve_instance_and_project)
@@ -65,6 +67,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Description', description))
         if assigned_to is not None:
             # 'assigned to' does not take an identity id.  Display name works.
+            assigned_to = assigned_to.strip()
             if assigned_to == '':
                 resolved_assigned_to = ''
             else:
@@ -137,6 +140,7 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
         if description is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.Description', description))
         if assigned_to is not None:
+            assigned_to = assigned_to.strip()
             # 'assigned to' does not take an identity id.  Display name works.
             if assigned_to == '':
                 resolved_assigned_to = ''
@@ -386,16 +390,15 @@ def _create_work_item_field_patch_operation(op, field, value):
 def _resolve_identity_as_unique_user_id(identity_filter, organization):
     """Takes an identity name, email, alias, or id, and returns the unique_user_id.
     """
+    if identity_filter.find(' ') > 0 or identity_filter.find('@') > 0:
+        return identity_filter
     if identity_filter.lower() == ME:
         identity = get_current_identity(organization)
     else:
+        # For alias
         identity = resolve_identity(identity_filter, organization)
     if identity is not None:
-        descriptor = identity.descriptor
-        semi_pos = identity.descriptor.find(';')
-        if semi_pos >= 0:
-            descriptor = descriptor[semi_pos + 1:]
-        return descriptor
+        return get_account_from_identity(identity)
     return None
 
 
