@@ -22,6 +22,9 @@ jobs:
       targetType: 'filePath'
       filePath: 'scripts/setupCiMachine.ps1'
 
+  - script: ip install "git+https://github.com/Azure/azure-cli@master#egg=azure-cli-testsdk&subdirectory=src/azure-cli-testsdk" -q
+    displayName: 'Install Azure Test SDK'
+
   - task: CmdLine@2
     displayName: 'Install azure devops extension from azure cli index'
     inputs:
