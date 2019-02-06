@@ -17,7 +17,7 @@ class TestCredentialStoreMethods(unittest.TestCase):
         try:
             import keyrings
         except ImportError:
-            if sys.platform.startswith(self._LINUX_PLATFORM):
+            if sys.platform.startswith('linux'):
                 print('this is fine')
             else:
                 self.fail('not expected')
