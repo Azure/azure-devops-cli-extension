@@ -23,7 +23,7 @@ jobs:
       targetType: 'filePath'
       filePath: 'scripts/setupCiMachine.ps1'
 
-  - script: ip install "git+https://github.com/Azure/azure-cli@master#egg=azure-cli-testsdk&subdirectory=src/azure-cli-testsdk" -q
+  - script: pip install "git+https://github.com/Azure/azure-cli@master#egg=azure-cli-testsdk&subdirectory=src/azure-cli-testsdk" -q
     displayName: 'Install Azure Test SDK'
 
   # Run a Python script.
