@@ -47,8 +47,20 @@ runOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.runs#{}'
 )
 
+pipelinesOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.pipeline#{}'
+)
 
 def load_build_commands(self, _):
+    with self.command_group('pipelines', command_type=pipelinesOps) as g:
+        g.command('create', 'pipeline_create', table_transformer=transform_definition_table_output)
+        g.command('list', 'pipeline_list', table_transformer=transform_definitions_table_output)
+        g.command('show', 'pipeline_show', table_transformer=transform_definition_table_output)
+        g.command('delete', 'pipeline_delete')
+        g.command('update', 'pipeline_update', table_transformer=transform_definition_table_output)
+        g.command('tag', 'pipeline_tag')
+        g.command('run', 'pipeline_run', table_transformer=transform_definition_table_output)
+
     with self.command_group('pipelines build', command_type=buildOps) as g:
         # basic build commands
         g.command('list', 'build_list', table_transformer=transform_builds_table_output)
