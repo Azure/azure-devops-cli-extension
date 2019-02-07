@@ -10,11 +10,16 @@ from ._format import (transform_project_table_output,
                       transform_team_table_output,
                       transform_teams_table_output,
                       transform_team_members_table_output,
+<<<<<<< HEAD
                       transform_users_table_output,
                       transform_user_table_output,
                       transform_extension_table_output,
                       transform_extensions_table_output,
                       transform_extension_search_results_table_output)
+=======
+                      transform_wiki_table_output,
+                      transform_wikis_table_output)
+>>>>>>> Adding wiki Create, list, show, delete commands
 
 
 projectOps = CliCommandType(
@@ -62,6 +67,9 @@ extensionOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+wikiOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.team.wiki#{}'
+)
 
 def load_team_commands(self, _):
     with self.command_group('devops', command_type=credentialsOps) as g:
@@ -111,3 +119,9 @@ def load_team_commands(self, _):
         g.command('enable', 'enable_extension', table_transformer=transform_extension_table_output)
         g.command('disable', 'disable_extension', table_transformer=transform_extension_table_output)
         g.command('search', 'search_extensions', table_transformer=transform_extension_search_results_table_output)
+
+    with self.command_group('devops wiki', command_type=wikiOps) as g:
+        g.command('create', 'create_wiki', table_transformer=transform_wiki_table_output)
+        g.command('list', 'list_wiki', table_transformer=transform_wikis_table_output)
+        g.command('show', 'show_wiki', table_transformer=transform_wiki_table_output)
+        g.command('delete', 'delete_wiki', table_transformer=transform_wiki_table_output)

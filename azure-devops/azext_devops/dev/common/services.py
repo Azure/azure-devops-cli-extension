@@ -167,6 +167,11 @@ def get_core_client(organization=None):
     return connection.get_client(VSTS_MODULE + 'v5_0.core.core_client.CoreClient')
 
 
+def get_wiki_client(organization=None):
+    connection = get_vss_connection(organization)
+    return connection.get_client('vsts.wiki.v5_1.wiki_client.WikiClient')
+
+
 def get_git_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_0.git.git_client.GitClient')

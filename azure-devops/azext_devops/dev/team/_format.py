@@ -122,6 +122,27 @@ def _transform_team_row(row):
     return table_row
 
 
+def transform_wikis_table_output(result):
+    table_output = []
+    for item in sorted(result, key=_get_team_key):
+        table_output.append(_transform_wiki_row(item))
+    return table_output
+
+
+def transform_wiki_table_output(result):
+    table_output = [_transform_wiki_row(result)]
+    return table_output
+
+
+def _transform_wiki_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Name'] = row['name']
+    table_row['Type'] = row['type']
+
+    return table_row
+
+
 def transform_team_members_table_output(result):
     table_output = []
     for item in sorted(result, key=_get_member_key):
