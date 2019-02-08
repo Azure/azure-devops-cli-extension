@@ -16,6 +16,10 @@ steps:
 
   - template: download-install-local-azure-devops-cli-extension.yml
 
+  - script: pytest --junitxml "TEST-UT-results.xml"
+    displayName: 'Run Unit Tests'
+    workingDirectory: 'azure-devops'
+
   - script: pytest --junitxml "TEST-recordings-results.xml"
     displayName: 'Run Recording Tests'
     workingDirectory: 'tests'
