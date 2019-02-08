@@ -12,10 +12,14 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
+from knack.util import CLIError
+
 from azext_devops.dev.common.telemetry import (set_tracking_data, 
     try_send_telemetry_data, vsts_tracking_data)
 
-from azext_devops.dev.common.services import get_vss_connection, clear_connection_cache
+from azext_devops.dev.common.services import (get_vss_connection,
+                                              clear_connection_cache,
+                                              resolve_instance_project_and_repo)
 
 
 class TestServicesMethods(unittest.TestCase):    
@@ -42,6 +46,18 @@ class TestServicesMethods(unittest.TestCase):
                 #assert
                 self.assertEqual(2, mock_get_credentials.call_count)
                 self.assertEqual(2, mock_telemetry_send.call_count)
+
+    def test_resolve_instance_project_and_repo(self):
+        try:
+            resolve_instance_project_and_repo(detect='off',
+                                              organization='',
+                                              project='',
+                                              project_required=False,
+                                              repo=None,
+                                              repo_required=True)
+            self.fail('we should have received an error')
+        except CLIError as ex:
+            self.assertEqual(str(ex), '--repository must be specified')
 
 
 if __name__ == '__main__':

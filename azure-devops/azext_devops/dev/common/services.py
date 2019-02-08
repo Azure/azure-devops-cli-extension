@@ -237,8 +237,16 @@ def _raise_team_project_arg_error():
     raise CLIError('--project must be specified. The value should be the ID or name of a team project. '
                    'You can set a default value by running: az devops configure --defaults project=<ProjectName>.')
 
+def _raise_repo_requird_arg_error():
+    raise CLIError('--repository must be specified')
 
-def resolve_instance_project_and_repo(detect, organization, project=None, project_required=True, repo=None):
+def resolve_instance_project_and_repo(
+        detect,
+        organization,
+        project=None,
+        project_required=True,
+        repo=None,
+        repo_required=False):
     if organization is None:
         if should_detect(detect):
             git_info = get_vsts_info_from_current_remote_url()
@@ -253,6 +261,8 @@ def resolve_instance_project_and_repo(detect, organization, project=None, projec
             project = _resolve_project_from_config(project, project_required)
     if project_required and project is None:
         _raise_team_project_arg_error()
+    if repo_required and repo is None:
+        _raise_repo_requird_arg_error()
     return organization, project, repo
 
 

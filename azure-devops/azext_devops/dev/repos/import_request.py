@@ -33,7 +33,8 @@ def create_import_request(git_source_url, project=None, repository=None,
             detect=detect,
             organization=organization,
             project=project,
-            repo=repository)
+            repo=repository,
+            repo_required=True)
         client = get_git_client(organization)
         gitImportGitSource = GitImportGitSource(overwrite=False, url=git_source_url)
         gitImportRequestParameter = GitImportRequestParameters(
