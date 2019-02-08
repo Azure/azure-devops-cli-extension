@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 
-import sys, os
+import sys
 from azure.cli.core.extension import get_extension_path
 # Make sure that the application source directory (this directory's parent) is on sys.path.
 
