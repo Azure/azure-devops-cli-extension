@@ -25,7 +25,15 @@ steps:
     workingDirectory: 'tests'
   
   - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
+    displayName: 'Publish Unit Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)/azure-devops/'
+    condition: succeededOrFailed()
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Recording Test Results'
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: '**TEST-*.xml'
