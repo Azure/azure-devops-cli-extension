@@ -60,6 +60,6 @@ setup(
     url="https://github.com/Microsoft/azure-devops-cli-extension",
     classifiers=CLASSIFIERS,
     package_data={'azext_devops': ['azext_metadata.json']},
-    packages=find_packages(),
+    packages=find_packages(exclude=["*.test", "*.test.*", "test.*", "test"]),
     install_requires=REQUIRES
 )

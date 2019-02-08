@@ -38,42 +38,13 @@ jobs:
 
   - template: templates/build-publish-azure-cli-test-sdk.yml
 
-- job: 'Run_Unit_Test_Ubuntu'
-  dependsOn : Build_Publish_Azure_CLI_Test_SDK
-  pool:
-    vmImage: 'Ubuntu-16.04'
-  strategy:
-    matrix:
-      Python27:
-        python.version: '2.7.15'
-      Python36:
-        python.version: '3.6.5'
-      Python37:
-        python.version: '3.7.0'
-    maxParallel: 3
-
-  steps:
-  - template: templates/run-unit-tests.yml
-    parameters:
-      pythonVersion: '$(python.version)'
-
-- job: 'Run_Unit_Test_Mac'
-  dependsOn : Build_Publish_Azure_CLI_Test_SDK
-  pool:
-    vmImage: 'macOS-10.13'
-
-  steps:
-  - template: templates/run-unit-tests.yml
-    parameters:
-      pythonVersion: '3.7.0'
-
-- job: 'Run_Unit_Test_Windows'
-  dependsOn : [ 'Build_Publish_Azure_CLI_Test_SDK', 'Run_Recording_Test_Mac']
+- job: 'Run_Test_Windows'
+  dependsOn : [ 'Build_Publish_Azure_CLI_Test_SDK', 'Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
     vmImage: 'vs2017-win2016'
 
   steps:
-  - template: templates/run-unit-tests.yml
+  - template: templates/run-tests.yml
     parameters:
       pythonVersion: '3.7.0'
 
@@ -91,7 +62,7 @@ jobs:
       storage: 'azuredevopscli'
       containerName: 'azuredevopscli'
 
-- job: 'Run_Recording_Test_Ubuntu'
+- job: 'Run_Test_Ubuntu'
   dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
     vmImage: 'Ubuntu-16.04'
@@ -106,27 +77,17 @@ jobs:
     maxParallel: 3
 
   steps:
-  - template: templates/run-recording-tests.yml
+  - template: templates/run-tests.yml
     parameters:
       pythonVersion: '$(python.version)'
 
-- job: 'Run_Recording_Test_Mac'
+- job: 'Run_Test_Mac'
   dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
     vmImage: 'macOS-10.13'
 
   steps:
-  - template: templates/run-recording-tests.yml
-    parameters:
-      pythonVersion: '3.7.0'
-
-- job: 'Run_Recording_Test_Windows'
-  dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
-  pool:
-    vmImage: 'vs2017-win2016'
-
-  steps:
-  - template: templates/run-recording-tests.yml
+  - template: templates/run-tests.yml
     parameters:
       pythonVersion: '3.7.0'
 
@@ -148,9 +109,7 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - script: 'pip install --upgrade .'
-    displayName: 'Install Azure DevOps CLI extension'
-    workingDirectory: 'azure-devops/'
+  - template: templates/download-install-local-azure-devops-cli-extension.yml
 
   - script: pytest --junitxml "TEST-UT-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
     displayName: 'run unit tests for code coverage'

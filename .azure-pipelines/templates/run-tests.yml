@@ -14,18 +14,15 @@ steps:
 
   - template: setup-ci-machine.yml
 
-  - script: 'pip install --upgrade .'
-    displayName: 'Install Azure DevOps CLI extension'
-    workingDirectory: 'azure-devops/'
+  - template: download-install-local-azure-devops-cli-extension.yml
 
-  - script: pytest --junitxml "TEST-UT-results.xml"
-    displayName: 'Run Unit Tests'
-    workingDirectory: 'azure-devops'
- 
+  - script: pytest --junitxml "TEST-results.xml"
+    displayName: 'Run Tests'
+  
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)/azure-devops/'
+      searchFolder: '$(System.DefaultWorkingDirectory)/'
     condition: succeededOrFailed()
