@@ -237,8 +237,10 @@ def _raise_team_project_arg_error():
     raise CLIError('--project must be specified. The value should be the ID or name of a team project. '
                    'You can set a default value by running: az devops configure --defaults project=<ProjectName>.')
 
+
 def _raise_repo_requird_arg_error():
     raise CLIError('--repository must be specified')
+
 
 def resolve_instance_project_and_repo(
         detect,
