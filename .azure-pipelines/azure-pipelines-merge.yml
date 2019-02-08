@@ -148,7 +148,7 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - template: download-install-local-azure-devops-cli-extension.yml
+  - template: templates/download-install-local-azure-devops-cli-extension.yml
 
   - script: pytest --junitxml "TEST-UT-results.xml" --cov=azext_devops --cov-report=xml --cov-report=html
     displayName: 'run unit tests for code coverage'
