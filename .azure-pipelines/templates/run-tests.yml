@@ -16,26 +16,13 @@ steps:
 
   - template: download-install-local-azure-devops-cli-extension.yml
 
-  - script: pytest --junitxml "TEST-UT-results.xml"
-    displayName: 'Run Unit Tests'
-    workingDirectory: 'azure-devops'
-
-  - script: pytest --junitxml "TEST-recordings-results.xml"
-    displayName: 'Run Recording Tests'
-    workingDirectory: 'tests'
+  - script: pytest --junitxml "TEST-results.xml"
+    displayName: 'Run Tests'
   
   - task: PublishTestResults@2
-    displayName: 'Publish Unit Test Results'
+    displayName: 'Publish Test Results'
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)/azure-devops/'
-    condition: succeededOrFailed()
-
-  - task: PublishTestResults@2
-    displayName: 'Publish Recording Test Results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)/tests/'
+      searchFolder: '$(System.DefaultWorkingDirectory)/'
     condition: succeededOrFailed()
