@@ -4,8 +4,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from knack.util import CLIError
+from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.dev.common.services import (get_task_agent_client,
                                               resolve_instance)
 from azext_devops.dev.common.uuid import is_uuid

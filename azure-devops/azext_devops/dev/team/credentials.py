@@ -29,7 +29,8 @@ def credential_set(organization=None):
         logger.info("Creating connection with personal access token.")
         credentials = BasicAuthentication('', token)
         connection = _get_vss_connection(organization, credentials)
-        location_client = connection.get_client('azext_devops.vstsCompressed.location.v4_1.location_client.LocationClient')
+        vstsDir = 'azext_devops.vstsCompressed.'
+        location_client = connection.get_client(vstsDir+'location.v4_1.location_client.LocationClient')
         try:
             connection_data = location_client.get_connection_data()
         except Exception as ex2:

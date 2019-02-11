@@ -3,8 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from knack.util import CLIError
+from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
 from .setting import setting_add_or_update, setting_list, setting_remove, GLOBAL_MESSAGE_BANNERS_KEY, USER_SCOPE_HOST
 
