@@ -5,9 +5,9 @@
 
 from webbrowser import open_new
 
-from vsts.release.v4_0.models.release_start_metadata import ReleaseStartMetadata
-from vsts.release.v4_0.models.artifact_metadata import ArtifactMetadata
-from vsts.release.v4_0.models.build_version import BuildVersion
+from vsts.release.v4_0.models.models import ReleaseStartMetadata
+from vsts.release.v4_0.models.models import ArtifactMetadata
+from vsts.release.v4_0.models.models import BuildVersion
 from knack.log import get_logger
 from azext_devops.dev.common.services import (get_release_client, resolve_instance_and_project)
 from .release_definition import get_definition_id_from_name

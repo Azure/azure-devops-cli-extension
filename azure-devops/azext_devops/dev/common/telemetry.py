@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 import threading
-from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
+from vsts.customer_intelligence.v4_0.models.models import CustomerIntelligenceEvent
 from knack.log import get_logger
 
 logger = get_logger(__name__)

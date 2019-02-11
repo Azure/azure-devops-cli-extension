@@ -6,8 +6,8 @@
 from webbrowser import open_new
 
 from vsts.exceptions import VstsServiceError
-from vsts.build.v4_0.models.build import Build
-from vsts.build.v4_0.models.definition_reference import DefinitionReference
+from vsts.build.v4_0.models.models import Build
+from vsts.build.v4_0.models.models import DefinitionReference
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.git import resolve_git_ref_heads

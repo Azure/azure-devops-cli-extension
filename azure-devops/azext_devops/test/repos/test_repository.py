@@ -12,9 +12,9 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from vsts.git.v4_0.models.git_pull_request import GitPullRequest
-from vsts.git.v4_0.models.git_repository import GitRepository
-from vsts.git.v4_0.models.team_project_reference import TeamProjectReference
+from vsts.git.v4_0.models.models import GitPullRequest
+from vsts.git.v4_0.models.models import GitRepository
+from vsts.git.v4_0.models.models import TeamProjectReference
 from azext_devops.dev.repos.repository import (create_repo,
                                                  delete_repo,
                                                  list_repos,

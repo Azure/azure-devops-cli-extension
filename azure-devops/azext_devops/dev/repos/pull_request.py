@@ -8,14 +8,14 @@ import webbrowser
 from knack.log import get_logger
 from knack.util import CLIError
 from vsts.exceptions import VstsClientRequestError, VstsServiceError
-from vsts.git.v4_0.models.git_pull_request import GitPullRequest
-from vsts.git.v4_0.models.git_pull_request_completion_options import GitPullRequestCompletionOptions
-from vsts.git.v4_0.models.git_pull_request_search_criteria import GitPullRequestSearchCriteria
-from vsts.git.v4_0.models.identity_ref import IdentityRef
-from vsts.git.v4_0.models.identity_ref_with_vote import IdentityRefWithVote
-from vsts.git.v4_0.models.resource_ref import ResourceRef
-from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
-from vsts.work_item_tracking.v4_0.models.work_item_relation import WorkItemRelation
+from vsts.git.v4_0.models.models import GitPullRequest
+from vsts.git.v4_0.models.models import GitPullRequestCompletionOptions
+from vsts.git.v4_0.models.models import GitPullRequestSearchCriteria
+from vsts.git.v4_0.models.models import IdentityRef
+from vsts.git.v4_0.models.models import IdentityRefWithVote
+from vsts.git.v4_0.models.models import ResourceRef
+from vsts.work_item_tracking.v4_0.models.models import JsonPatchOperation
+from vsts.work_item_tracking.v4_0.models.models import WorkItemRelation
 from azext_devops.dev.common.arguments import resolve_on_off_switch, should_detect
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads
 from azext_devops.dev.common.identities import ME, resolve_identity_as_id

@@ -8,8 +8,8 @@ from __future__ import print_function
 from knack.log import get_logger
 from knack.util import CLIError
 from vsts.exceptions import VstsServiceError
-from vsts.service_endpoint.v4_1.models.service_endpoint import ServiceEndpoint
-from vsts.service_endpoint.v4_1.models.endpoint_authorization import EndpointAuthorization
+from vsts.service_endpoint.v4_1.models.models import ServiceEndpoint
+from vsts.service_endpoint.v4_1.models.models import EndpointAuthorization
 from azext_devops.dev.common.services import get_service_endpoint_client, resolve_instance_and_project
 
 from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,

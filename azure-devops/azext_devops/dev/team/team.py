@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.util import CLIError
-from vsts.core.v4_0.models.web_api_team import WebApiTeam
+from vsts.core.v4_0.models.models import WebApiTeam
 from vsts.exceptions import VstsServiceError
 from azext_devops.dev.common.services import (get_core_client,
                                               resolve_instance_and_project)
