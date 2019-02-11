@@ -59,7 +59,7 @@ def load_build_commands(self, _):
         g.command('delete', 'pipeline_delete')
         g.command('update', 'pipeline_update', table_transformer=transform_definition_table_output)
         g.command('tag', 'pipeline_tag')
-        g.command('run', 'pipeline_run', table_transformer=transform_definition_table_output)
+        g.command('run', 'pipeline_run', table_transformer=transform_build_table_output)
 
     with self.command_group('pipelines build', command_type=buildOps) as g:
         # basic build commands

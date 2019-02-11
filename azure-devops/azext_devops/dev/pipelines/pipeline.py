@@ -25,7 +25,7 @@ from .build_definition import get_definition_id_from_name
 
 logger = get_logger(__name__)
 
-def pipeline_create(name, repository, repository_type, queue_id, description=None, service_endpoint=None,
+def pipeline_create(name, repository, repository_type, service_endpoint, description=None,
                     organization=None, project=None, detect=None):
     """Create a pipeline
     :param name: Name of the new pipeline
@@ -36,8 +36,6 @@ def pipeline_create(name, repository, repository_type, queue_id, description=Non
     :type repository: str
     :param repository_type: Type of repository
     :type repository_type: str
-    :param queue_id: Queue id of the agent pool queue on which the pipeline runs
-    :type queue_id: int
     :param service_endpoint: Service endpoint id created for the repository.
     :type service_endpoint: str
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -80,7 +78,7 @@ def pipeline_create(name, repository, repository_type, queue_id, description=Non
         definition.process = _create_process_object(yaml_path)
         # set agent queue
         definition.queue = AgentPoolQueue()
-        definition.queue.id = queue_id
+        definition.queue.id = 163  # This should not be hardcoded
 
         client = get_pipeline_client(organization)
         return client.create_definition(definition=definition, project=project)
