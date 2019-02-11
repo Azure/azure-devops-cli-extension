@@ -18,7 +18,8 @@ NAME = 'azure-devops'
 # http://pypi.python.org/pypi/setuptools
 
 REQUIRES = [
-    'python-dateutil==2.7.3'
+    'python-dateutil==2.7.3',
+    'msrest>=0.6.0,<0.7.0'
 ]
 
 # Version extraction inspired from 'requests'
