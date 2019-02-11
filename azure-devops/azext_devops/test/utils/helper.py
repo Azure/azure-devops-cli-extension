@@ -11,7 +11,8 @@ def get_client_mock_helper(_self_dummy, client_type):
     from azext_devops.vstsCompressed.policy.v4_0.policy_client import PolicyClient
     from azext_devops.vstsCompressed.core.v4_0.core_client import CoreClient
     from azext_devops.vstsCompressed.release.v4_0.release_client import ReleaseClient
-    from azext_devops.vstsCompressed.customer_intelligence.v4_0.customer_intelligence_client import CustomerIntelligenceClient
+    from azext_devops.vstsCompressed.customer_intelligence.v4_0.customer_intelligence_client \
+        import CustomerIntelligenceClient
     from azext_devops.vstsCompressed.service_endpoint.v4_1.service_endpoint_client import ServiceEndpointClient
     from azext_devops.vstsCompressed.operations.v4_0.operations_client import OperationsClient
     from azext_devops.vstsCompressed.task_agent.v4_0.task_agent_client import TaskAgentClient
