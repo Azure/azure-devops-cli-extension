@@ -62,16 +62,3 @@ setup(
     packages=find_packages(exclude=["*.test", "*.test.*", "test.*", "test"]),
     install_requires=REQUIRES
 )
-
-try:
-    import vsts
-except ImportError:
-    from azure.cli.core.extension.operations import _run_pip
-    from azure.cli.core.extension import get_extension_path
-
-    extensionPath = get_extension_path('azure-devops')
-    git_path = 'git+https://github.com/gauravsaralMs/azure-devops-cli-extension.git@users/gsaral/packVstsCompressedWithCLI#egg=vsts&subdirectory=vsts'
-    pip_args = ['install', git_path, '-q', '--target', extensionPath]
-    pip_status_code = _run_pip(pip_args)
-    if pip_status_code > 0:
-        raise Exception('vsts install failed')
