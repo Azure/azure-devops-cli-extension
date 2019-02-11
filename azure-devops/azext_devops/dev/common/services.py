@@ -189,8 +189,8 @@ def get_location_client(organization=None):
 
 def get_member_entitlement_management_client(organization=None):
     connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'member_entitlement_management.v4_1.member_entitlement_management_client.'
-                                 'MemberEntitlementManagementClient')
+    return connection.get_client(VSTS_MODULE + 'member_entitlement_management.v4_1.'
+                                 'member_entitlement_management_client.MemberEntitlementManagementClient')
 
 
 def get_operations_client(organization=None):
@@ -215,7 +215,8 @@ def get_task_agent_client(organization=None):
 
 def get_work_item_tracking_client(organization=None):
     connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient')
+    return connection.get_client(VSTS_MODULE + 'work_item_tracking.v4_0.'
+                                 'work_item_tracking_client.WorkItemTrackingClient')
 
 
 def get_base_url(organization):
