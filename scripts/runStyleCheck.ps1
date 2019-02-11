@@ -12,7 +12,7 @@ Write-Output "Installing flake8"
 pip install flake8
 
 Write-Output "Running pylint on all source"
-pylint --rcfile pylintrc ./azure-devops/azext_devops -d /azure-devops/azext_devops/vstsCompressed -f colorized
+pylint --rcfile pylintrc ./azure-devops/azext_devops -f colorized
 
 if ($LastExitCode -ne 0) {
     $failure = $true
