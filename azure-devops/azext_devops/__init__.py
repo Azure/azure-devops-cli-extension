@@ -7,7 +7,7 @@ from azure.cli.core import AzCommandsLoader
 from knack.events import EVENT_INVOKER_POST_PARSE_ARGS
 
 try:
-    import vsts
+    from vsts.vss_client import VssClient
 except ImportError:
     from azure.cli.core.extension.operations import _run_pip
     from azure.cli.core.extension import get_extension_path
