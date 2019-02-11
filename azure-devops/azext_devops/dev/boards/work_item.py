@@ -6,9 +6,9 @@
 from __future__ import print_function
 import webbrowser
 
-from vsts.exceptions import VstsServiceError
-from vsts.work_item_tracking.v4_0.models.models import JsonPatchOperation
-from vsts.work_item_tracking.v4_0.models.models import Wiql
+from azext_devops.vstsCompressed.exceptions import VstsServiceError
+from azext_devops.vstsCompressed.work_item_tracking.v4_0.models.models import JsonPatchOperation
+from azext_devops.vstsCompressed.work_item_tracking.v4_0.models.models import Wiql
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.identities import (ME, get_current_identity,

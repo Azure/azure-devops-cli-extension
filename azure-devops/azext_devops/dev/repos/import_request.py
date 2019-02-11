@@ -5,10 +5,10 @@
 
 import time
 from knack.util import CLIError
-from vsts.exceptions import VstsServiceError
-from vsts.git.v4_0.models.models import GitImportRequestParameters
-from vsts.git.v4_0.models.models import GitImportGitSource
-from vsts.git.v4_0.models.models import GitImportRequest
+from azext_devops.vstsCompressed.exceptions import VstsServiceError
+from azext_devops.vstsCompressed.git.v4_0.models.models import GitImportRequestParameters
+from azext_devops.vstsCompressed.git.v4_0.models.models import GitImportGitSource
+from azext_devops.vstsCompressed.git.v4_0.models.models import GitImportRequest
 
 from azext_devops.dev.common.services import get_git_client, resolve_instance_project_and_repo
 

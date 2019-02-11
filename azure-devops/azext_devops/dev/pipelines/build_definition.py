@@ -5,7 +5,7 @@
 
 from webbrowser import open_new
 
-from vsts.exceptions import VstsServiceError
+from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.services import (get_build_client, get_git_client,

@@ -8,8 +8,8 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.exceptions import VstsServiceError
-from vsts.core.v4_0.models.models import TeamProject
+from azext_devops.vstsCompressed.exceptions import VstsServiceError
+from azext_devops.vstsCompressed.core.v4_0.models.models import TeamProject
 from azext_devops.dev.common.operations import wait_for_long_running_operation
 from azext_devops.dev.common.services import (get_core_client,
                                               resolve_instance)

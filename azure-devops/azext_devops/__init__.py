@@ -6,19 +6,6 @@
 from azure.cli.core import AzCommandsLoader
 from knack.events import EVENT_INVOKER_POST_PARSE_ARGS
 
-try:
-    from vsts.vss_client import VssClient
-except ImportError:
-    from azure.cli.core.extension.operations import _run_pip
-    from azure.cli.core.extension import get_extension_path
-
-    extensionPath = get_extension_path('azure-devops')
-    git_path = 'git+https://github.com/gauravsaralMs/azure-devops-cli-extension.git@users/gsaral/packVstsCompressedWithCLI#egg=vsts&subdirectory=vsts'
-    pip_args = ['install', git_path, '-q', '--target', extensionPath]
-    pip_status_code = _run_pip(pip_args)
-    if pip_status_code > 0:
-        raise Exception('vsts install failed')
-
 
 class DevCommandsLoader(AzCommandsLoader):
 
