@@ -7,9 +7,8 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.exceptions import VstsServiceError
-from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
-from vsts.work_item_tracking.v4_0.models.wiql import Wiql
+from azure.devops.exceptions import AzureDevOpsServiceError
+from azure.devops.v4_0.work_item_tracking.models import (JsonPatchOperation, Wiql)
 from vsts.cli.common.identities import (ME, get_current_identity, resolve_identity)
 from vsts.cli.common.services import (get_work_item_tracking_client,
                                       resolve_instance,
@@ -97,7 +96,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
         if open_browser:
             _open_work_item(work_item, team_instance)
         return work_item
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         _handle_vsts_service_error(ex)
 
 
@@ -173,7 +172,7 @@ def update_work_item(work_item_id, title=None, description=None, assigned_to=Non
         if open_browser:
             _open_work_item(work_item, team_instance)
         return work_item
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         _handle_vsts_service_error(ex)
 
 

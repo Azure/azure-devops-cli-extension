@@ -10,7 +10,7 @@ import sys
 from datetime import datetime, timedelta
 
 from knack.log import get_logger
-from vsts._file_cache import get_file_json
+from azure.devops._file_cache import get_file_json
 
 from .file_cache import DEFAULT_CACHE_DIR
 

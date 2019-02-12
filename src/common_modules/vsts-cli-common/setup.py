@@ -19,7 +19,7 @@ REQUIRES = [
     'keyring~=13.2.1',
     'knack==0.4.1',
     'python-dateutil==2.7.3',
-    'vsts~=0.1.16.dev'
+    'azure-devops~=4.0.0.dev'
 ]
 
 CLASSIFIERS = [

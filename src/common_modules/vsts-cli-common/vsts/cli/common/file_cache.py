@@ -5,11 +5,11 @@
 
 import os
 
-from vsts._file_cache import get_cache, DEFAULT_MAX_AGE
+from azure.devops._file_cache import get_cache, DEFAULT_MAX_AGE
 
 
 def _get_cache_dir():
-    vsts_config_dir = os.getenv('VSTS_CACHE_DIR', None) or os.path.expanduser(os.path.join('~', '.vsts', 'cli',
+    vsts_config_dir = os.getenv('VSTS_CACHE_DIR', None) or os.path.expanduser(os.path.join('~', '.azure.devops', 'cli',
                                                                                            'cache'))
     if not os.path.exists(vsts_config_dir):
         os.makedirs(vsts_config_dir)

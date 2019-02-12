@@ -33,7 +33,7 @@ packages = []
 
 # VSTS Python SDK package (from either local directory or latest)
 if 'vsts-python-api-repo' in os.environ and os.path.isdir(os.environ['vsts-python-api-repo']):
-    packages.append(os.environ['vsts-python-api-repo'] + "/vsts")
+    packages.append(os.environ['vsts-python-api-repo'] + "/azure-devops")
 else:
     exec_command("pip install vsts --upgrade --no-cache-dir --extra-index-url https://vstscli.azurewebsites.net")
 

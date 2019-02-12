@@ -15,7 +15,7 @@ from knack.util import CLIError
 from vsts.cli.common.config import GLOBAL_CONFIG_DIR, CLI_ENV_VARIABLE_PREFIX
 from vsts.cli.common.services import set_tracking_data, get_authentication_error
 from vsts.cli.common.version import display_version_update_info_if_necessary
-from vsts.exceptions import VstsAuthenticationError, VstsClientRequestError
+from azure.devops.exceptions import AzureDevOpsAuthenticationError, AzureDevOpsClientRequestError
 from .vsts_cli_help import VstsCLIHelp
 from .vsts_commands_loader import VstsCommandsLoader
 
@@ -89,11 +89,11 @@ class VstsCLI(CLI):
 
     def exception_handler(self, ex):
         # Modify service errors to be CLIError (to not emit stacktrace)
-        if isinstance(ex, VstsClientRequestError):
+        if isinstance(ex, AzureDevOpsClientRequestError):
             ex = CLIError(ex)
 
         # Modify auth errors to be CLIError and have a helpful message
-        if isinstance(ex, VstsAuthenticationError):
+        if isinstance(ex, AzureDevOpsAuthenticationError):
             ex = get_authentication_error(ex)
 
         # Knack doesn't emit stacktraces for CLIErrors, but we want them on debug

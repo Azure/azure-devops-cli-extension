@@ -7,7 +7,7 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.core.v4_0.models.team_project import TeamProject
+from azure.devops.v4_0.core.models import TeamProject
 from vsts.cli.common.operations import wait_for_long_running_operation
 from vsts.cli.common.services import (get_core_client,
                                       resolve_instance)

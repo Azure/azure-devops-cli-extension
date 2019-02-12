@@ -7,15 +7,9 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.exceptions import VstsClientRequestError
-from vsts.git.v4_0.models.git_pull_request import GitPullRequest
-from vsts.git.v4_0.models.git_pull_request_completion_options import GitPullRequestCompletionOptions
-from vsts.git.v4_0.models.git_pull_request_search_criteria import GitPullRequestSearchCriteria
-from vsts.git.v4_0.models.identity_ref import IdentityRef
-from vsts.git.v4_0.models.identity_ref_with_vote import IdentityRefWithVote
-from vsts.git.v4_0.models.resource_ref import ResourceRef
-from vsts.work_item_tracking.v4_0.models.json_patch_operation import JsonPatchOperation
-from vsts.work_item_tracking.v4_0.models.work_item_relation import WorkItemRelation
+from azure.devops.exceptions import AzureDevOpsClientRequestError
+from azure.devops.v4_0.git.models import *
+from azure.devops.v4_0.work_item_tracking.models import (JsonPatchOperation, WorkItemRelation)
 from vsts.cli.common.arguments import resolve_on_off_switch, should_detect
 from vsts.cli.common.git import get_current_branch_name, resolve_git_ref_heads
 from vsts.cli.common.identities import ME, resolve_identity_as_id
@@ -45,10 +39,10 @@ def show_pull_request(pull_request_id, open_browser=False, team_instance=None, d
     client = get_git_client(team_instance)
     pr = client.get_pull_request_by_id(pull_request_id)
     pr = client.get_pull_request(project=pr.repository.project.id,
-                                    repository_id=pr.repository.id,
-                                    pull_request_id=pull_request_id,
-                                    include_commits=False,
-                                    include_work_item_refs=True)
+                                 repository_id=pr.repository.id,
+                                 pull_request_id=pull_request_id,
+                                 include_commits=False,
+                                 include_work_item_refs=True)
     if open_browser:
         _open_pull_request(pr, team_instance)
     return pr
@@ -457,7 +451,7 @@ def add_pull_request_work_items(pull_request_id, work_items, team_instance=None,
             patch_document.append(patch_operation)
             try:
                 wit_client.update_work_item(document=patch_document, id=work_item_id)
-            except VstsClientRequestError as ex:
+            except AzureDevOpsClientRequestError as ex:
                 logger.debug(ex, exc_info=True)
                 message = ex.args[0]
                 if message != 'Relation already exists.':

@@ -6,7 +6,7 @@
 import webbrowser
 
 from knack.util import CLIError
-from vsts.git.v4_0.models.git_repository_create_options import GitRepositoryCreateOptions
+from azure.devops.v4_0.git.models import GitRepositoryCreateOptions
 from vsts.cli.common.services import (get_git_client,
                                       resolve_instance_and_project)
 from vsts.cli.common.uri import uri_quote

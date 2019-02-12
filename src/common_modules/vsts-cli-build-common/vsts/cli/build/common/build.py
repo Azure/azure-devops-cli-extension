@@ -6,8 +6,7 @@
 from webbrowser import open_new
 
 from knack.log import get_logger
-from vsts.build.v4_0.models.build import Build
-from vsts.build.v4_0.models.definition_reference import DefinitionReference
+from azure.devops.v4_0.build.models import (Build, DefinitionReference)
 from vsts.cli.common.git import resolve_git_ref_heads
 from vsts.cli.common.identities import resolve_identity_as_id
 from vsts.cli.common.services import (get_build_client,

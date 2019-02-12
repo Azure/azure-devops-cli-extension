@@ -11,8 +11,8 @@ from collections import OrderedDict
 from knack.log import get_logger
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
-from vsts.customer_intelligence.v4_0.models.customer_intelligence_event import CustomerIntelligenceEvent
-from vsts.vss_connection import VssConnection
+from azure.devops.v4_0.customer_intelligence.models import CustomerIntelligenceEvent
+from azure.devops.connection import Connection
 from .arguments import should_detect
 from .config import vsts_config
 from ._credentials import get_credential
@@ -57,7 +57,7 @@ def _get_credentials(team_instance):
 
 
 def _get_vss_connection(team_instance, credentials):
-    return VssConnection(get_base_url(team_instance), creds=credentials, user_agent='vstscli/{}'.format(VERSION))
+    return Connection(get_base_url(team_instance), creds=credentials, user_agent='vstscli/{}'.format(VERSION))
 
 
 def get_first_vss_instance_uri():
@@ -67,63 +67,63 @@ def get_first_vss_instance_uri():
 
 def get_build_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.build.v4_0.build_client.BuildClient')
+    return connection.get_client('azure.devops.v4_0.build.build_client.BuildClient')
 
 
 def get_ci_client(team_instance=None):
     connection = get_vss_connection(team_instance)
     return connection.get_client(
-        'vsts.customer_intelligence.v4_0.customer_intelligence_client.CustomerIntelligenceClient')
+        'azure.devops.v4_0.customer_intelligence.customer_intelligence_client.CustomerIntelligenceClient')
 
 
 def get_core_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.core.v4_0.core_client.CoreClient')
+    return connection.get_client('azure.devops.v4_0.core.core_client.CoreClient')
 
 
 def get_git_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.git.v4_0.git_client.GitClient')
+    return connection.get_client('azure.devops.v4_0.git.git_client.GitClient')
 
 
 def get_identity_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.identity.v4_0.identity_client.IdentityClient')
+    return connection.get_client('azure.devops.v4_0.identity.identity_client.IdentityClient')
 
 
 def get_location_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.location.v4_0.location_client.LocationClient')
+    return connection.get_client('azure.devops.v4_0.location.location_client.LocationClient')
 
 
 def get_member_entitlement_management_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.member_entitlement_management.v4_1.member_entitlement_management_client.MemberEntitlementManagementClient')
+    return connection.get_client('azure.devops.v4_1.member_entitlement_management.member_entitlement_management_client.MemberEntitlementManagementClient')
 
 
 def get_operations_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.operations.v4_0.operations_client.OperationsClient')
+    return connection.get_client('azure.devops.v4_0.operations.operations_client.OperationsClient')
 
 
 def get_policy_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.policy.v4_0.policy_client.PolicyClient')
+    return connection.get_client('azure.devops.v4_0.policy.policy_client.PolicyClient')
 
 
 def get_settings_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.settings.v4_0.settings_client.SettingsClient')
+    return connection.get_client('azure.devops.v4_1.settings.settings_client.SettingsClient')
 
 
 def get_task_agent_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.task_agent.v4_0.task_agent_client.TaskAgentClient')
+    return connection.get_client('azure.devops.v4_0.task_agent.task_agent_client.TaskAgentClient')
 
 
 def get_work_item_tracking_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('vsts.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient')
+    return connection.get_client('azure.devops.v4_0.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient')
 
 
 def get_base_url(team_instance):
