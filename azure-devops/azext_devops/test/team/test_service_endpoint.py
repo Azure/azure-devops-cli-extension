@@ -29,9 +29,9 @@ class TestServiceEndpointMethods(unittest.TestCase):
     _TEST_PROJECT_NAME = 'sample_project'
 
     def setUp(self):
-        self.get_SEs_patcher = patch('vsts.service_endpoint.v4_1.service_endpoint_client.ServiceEndpointClient.get_service_endpoints')
-        self.get_SE_details_patcher = patch('vsts.service_endpoint.v4_1.service_endpoint_client.ServiceEndpointClient.get_service_endpoint_details')
-        self.create_SE_patcher = patch('vsts.service_endpoint.v4_1.service_endpoint_client.ServiceEndpointClient.create_service_endpoint')
+        self.get_SEs_patcher = patch('azext_devops.vstsCompressed.service_endpoint.v4_1.service_endpoint_client.ServiceEndpointClient.get_service_endpoints')
+        self.get_SE_details_patcher = patch('azext_devops.vstsCompressed.service_endpoint.v4_1.service_endpoint_client.ServiceEndpointClient.get_service_endpoint_details')
+        self.create_SE_patcher = patch('azext_devops.vstsCompressed.service_endpoint.v4_1.service_endpoint_client.ServiceEndpointClient.create_service_endpoint')
         self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
 
         self.mock_get_SEs = self.get_SEs_patcher.start()

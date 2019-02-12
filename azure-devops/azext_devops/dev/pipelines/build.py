@@ -5,11 +5,11 @@
 
 from webbrowser import open_new
 
-from vsts.exceptions import VstsServiceError
-from vsts.build.v4_0.models.build import Build
-from vsts.build.v4_0.models.definition_reference import DefinitionReference
 from knack.log import get_logger
 from knack.util import CLIError
+from azext_devops.vstsCompressed.exceptions import VstsServiceError
+from azext_devops.vstsCompressed.build.v4_0.models.models import Build
+from azext_devops.vstsCompressed.build.v4_0.models.models import DefinitionReference
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.identities import resolve_identity_as_id
 from azext_devops.dev.common.services import (get_build_client,

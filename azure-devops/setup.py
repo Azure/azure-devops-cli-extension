@@ -19,7 +19,7 @@ NAME = 'azure-devops'
 
 REQUIRES = [
     'python-dateutil==2.7.3',
-    'vsts==0.1.20'
+    'msrest>=0.6.0,<0.7.0'
 ]
 
 # Version extraction inspired from 'requests'

@@ -8,8 +8,8 @@
 
 from knack.util import CLIError
 from knack.log import get_logger
-from vsts.exceptions import VstsServiceError
-from vsts.policy.v4_0.models.policy_configuration import PolicyConfiguration
+from azext_devops.vstsCompressed.exceptions import VstsServiceError
+from azext_devops.vstsCompressed.policy.v4_0.models.models import PolicyConfiguration
 
 from azext_devops.dev.common.services import (get_policy_client, resolve_instance_and_project)
 from azext_devops.dev.common.const import (APPROVER_COUNT_POLICY,
