@@ -124,4 +124,12 @@ def load_team_commands(self, _):
         g.command('create', 'create_wiki', table_transformer=transform_wiki_table_output)
         g.command('list', 'list_wiki', table_transformer=transform_wikis_table_output)
         g.command('show', 'show_wiki', table_transformer=transform_wiki_table_output)
-        g.command('delete', 'delete_wiki', table_transformer=transform_wiki_table_output)
+        g.command('delete', 'delete_wiki', table_transformer=transform_wiki_table_output,
+         confirmation='Are you sure you want to delete this wiki?')
+
+    with self.command_group('devops wiki page', command_type=wikiOps) as g:
+        g.command('create', 'create_wiki_page')
+        g.command('update', 'update_wiki_page')
+        g.command('show', 'show_wiki_page')
+        g.command('delete', 'delete_wiki_page',
+         confirmation='Are you sure you want to delete this wiki page?')
