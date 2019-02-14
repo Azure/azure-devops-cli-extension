@@ -188,7 +188,7 @@ def create_policy(policy_configuration=None,
             policy_configuration,
             repository_id, branch,
             policy_type,
-            _parseTrueFalse(is_blocking), _parseTrueFalse(is_enabled),
+            parseTrueFalse(is_blocking), parseTrueFalse(is_enabled),
             minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
             use_squash_merge,
             build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
@@ -312,7 +312,7 @@ def update_policy(policy_id,
             policy_configuration,
             repository_id, branch,
             policy_type,
-            _parseTrueFalse(is_blocking), _parseTrueFalse(is_enabled),
+            parseTrueFalse(is_blocking), parseTrueFalse(is_enabled),
             minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
             use_squash_merge,
             build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
@@ -471,7 +471,7 @@ def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
     if any(v is None for v in paramArray):
         raise CLIError('{} are required for {}'.format('--' + ', --'.join(paramNameArray), policyName))
 
-def _parseTrueFalse(inputString):
+def parseTrueFalse(inputString):
     if inputString is not None and inputString.lower() == 'true':
         return True
 
