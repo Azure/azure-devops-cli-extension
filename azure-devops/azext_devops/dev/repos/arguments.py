@@ -8,11 +8,14 @@ from azext_devops.dev.common.const import REPO_POLICY_TYPE
 
 # CUSTOM CHOICE LISTS
 _ON_OFF_SWITCH_VALUES = ['on', 'off']
+_TRUE_FALSE_SWITCH = ['True', 'False']
 _VOTE_VALUES = ['approve', 'approve-with-suggestions', 'reset', 'wait-for-author', 'reject']
 _PR_STATUS_VALUES = ['all', 'active', 'completed', 'abandoned']
 
 
 def repo_policy_create_udpate_common_arguments(context):
+    context.argument('is_blocking', **enum_choice_list(_TRUE_FALSE_SWITCH))
+    context.argument('is_enabled', **enum_choice_list(_TRUE_FALSE_SWITCH))
     context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
     context.argument('repository_id', options_list=('--repository-id', '-r'))
     APPROVER_COUNT_POLICY_ARGUMENT_GROUP = 'Approver Count Policy'

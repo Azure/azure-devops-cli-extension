@@ -149,6 +149,21 @@ class TestUuidMethods(unittest.TestCase):
         self.assertEqual(scope['refName'], 'master')
         self.assertEqual(scope['matchKind'], 'exact')
 
+    def test_create_policy_scope(self):
+        create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
+        is_blocking='true',is_enabled='false',
+        policy_type='ApproverCountPolicy',
+        minimum_approver_count=2, creator_vote_counts= True, allow_downvotes= False, reset_on_source_push= True,
+        organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off')
+
+        self.mock_create_policy.assert_called_once()
+        create_policy_object = self.mock_create_policy.call_args_list[0][1]
+        self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'], str(create_policy_object))
+        self.assertEqual(create_policy_object['configuration'].is_enabled, False)
+        self.assertEqual(create_policy_object['configuration'].is_blocking, True)
+
     def test_create_policy_scope_repo_only(self):
         create_policy(repository_id=self._TEST_REPOSITORY_ID,
         policy_type='FileSizePolicy',

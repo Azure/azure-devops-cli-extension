@@ -109,7 +109,7 @@ def delete_policy(id, organization=None, project=None, detect=None):  # pylint: 
 # pylint: disable=too-many-locals
 def create_policy(policy_configuration=None,
                   repository_id=None, branch=None,
-                  is_blocking=False, is_enabled=False,
+                  is_blocking=None, is_enabled=None,
                   policy_type=None,
                   minimum_approver_count=None, creator_vote_counts=None, allow_downvotes=None, reset_on_source_push=None,
                   use_squash_merge=None,
@@ -203,7 +203,7 @@ def create_policy(policy_configuration=None,
 def update_policy(policy_id,
                   policy_configuration=None,
                   repository_id=None, branch=None,
-                  is_blocking=False, is_enabled=False,
+                  is_blocking=None, is_enabled=None,
                   policy_type=None,
                   minimum_approver_count=None, creator_vote_counts=None, allow_downvotes=None, reset_on_source_push=None,
                   use_squash_merge=None,
@@ -370,7 +370,7 @@ def generateConfigurationObject(policy_configuration=None,
     # check if we have value in all the required params or not
     raiseErrorIfRequiredParamMissing(paramArray, argumentNameArray, policy_type)
 
-    policyConfiguration = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
+    policyConfiguration = PolicyConfiguration(is_blocking=_parseTrueFalse(isBlocking), is_enabled=_parseTrueFalse(isEnabled))
     scope = createScope(policy_type, repository_id, branch)
 
     policyConfiguration.settings = {
@@ -431,3 +431,9 @@ def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
         return
     if any(v is None for v in paramArray):
         raise CLIError('{} are required for {}'.format('--' + ', --'.join(paramNameArray), policyName))
+
+def _parseTrueFalse(inputString):
+    if inputString is not None and inputString.lower() == 'true' :
+        return True
+    
+    return False
