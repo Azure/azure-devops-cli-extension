@@ -194,7 +194,8 @@ def create_policy(policy_configuration=None,
             build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
             maximum_git_blob_size_in_bytes, use_uncompressed_size,
             optional_reviewer_ids, required_reviewer_ids, message,
-            organization)
+            organization,
+            False)
 
         return policy_client.create_policy_configuration(configuration=policyConfigurationToCreate, project=project)
     except VstsServiceError as ex:
@@ -280,6 +281,33 @@ def update_policy(policy_id,
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
 
+        current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
+
+        #we only set scope [0] so we will update that only
+        repository_id = repository_id or current_policy.settings['scope'][0]['repositoryId']
+        branch = branch or current_policy.settings['scope'][0]['refName']
+        policy_type = policy_type or current_policy.type.id.lower()
+        is_blocking = is_blocking or str(current_policy.is_blocking)
+        is_enabled = is_enabled or str(current_policy.is_enabled)
+
+        current_setting = current_policy.settings
+        minimum_approver_count = minimum_approver_count or current_setting.get('minimumApproverCount', None)
+        creator_vote_counts = creator_vote_counts or current_setting.get('creatorVoteCounts', None)
+        allow_downvotes = allow_downvotes or current_setting.get('allowDownvotes', None)
+        reset_on_source_push = reset_on_source_push or current_setting.get('resetOnSourcePush', None)
+        use_squash_merge = use_squash_merge or current_setting.get('useSquashMerge', None)
+        build_definition_id = build_definition_id or current_setting.get('buildDefinitionId', None)
+        queue_on_source_update_only = queue_on_source_update_only or current_setting.get('queueOnSourceUpdateOnly', None)
+        manual_queue_only = manual_queue_only or current_setting.get('manualQueueOnly', None)
+        display_name = display_name or current_setting.get('displayName', None)
+        valid_duration = valid_duration or current_setting.get('validDuration', None)
+        maximum_git_blob_size_in_bytes = maximum_git_blob_size_in_bytes or current_setting.get('maximumGitBlobSizeInBytes', None)
+        use_uncompressed_size = use_uncompressed_size or current_setting.get('useUncompressedSize', None)
+        optional_reviewer_ids = optional_reviewer_ids or current_setting.get('optionalReviewerIds', None)
+        required_reviewer_ids = required_reviewer_ids or current_setting.get('requiredReviewerIds', None)
+        message = message or current_setting.get('message', None)
+
+
         policyConfigurationToCreate = generateConfigurationObject(
             policy_configuration,
             repository_id, branch,
@@ -290,7 +318,8 @@ def update_policy(policy_id,
             build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
             maximum_git_blob_size_in_bytes, use_uncompressed_size,
             optional_reviewer_ids, required_reviewer_ids, message,
-            organization)
+            organization,
+            True)
 
         return policy_client.update_policy_configuration(
             configuration=policyConfigurationToCreate,
@@ -310,7 +339,8 @@ def generateConfigurationObject(policy_configuration=None,
                                 buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
                                 maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
                                 optionalReviewerIds=None, requiredReviewerIds=None, message=None,
-                                organization=None):
+                                organization=None,
+                                ignoreArgumentChecks=False):
     if policy_configuration is None and policy_type is None:
         raise CLIError('Either --policy-configuration or --policy-type must be passed')
 
@@ -326,39 +356,39 @@ def generateConfigurationObject(policy_configuration=None,
     paramArray = []
     policytypeId = ''
 
-    if policy_type == APPROVER_COUNT_POLICY:
+    if policy_type == APPROVER_COUNT_POLICY or policy_type == APPROVER_COUNT_POLICY_ID:
         policytypeId = APPROVER_COUNT_POLICY_ID
         paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
         paramNameArray = ['minimumApproverCount', 'creatorVoteCounts', 'allowDownvotes', 'resetOnSourcePush']
         argumentNameArray = ['minimum-approver-count', 'creator-vote-counts', 'allow-downvotes', 'reset-on-source-push']
 
-    elif policy_type == BUILD_POLICY:
+    elif policy_type == BUILD_POLICY or policy_type == BUILD_POLICY_ID:
         policytypeId = BUILD_POLICY_ID
         paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
         paramNameArray = ['buildDefinitionId', 'queueOnSourceUpdateOnly', 'manualQueueOnly', 'displayName', 'validDuration']
         argumentNameArray = ['build-definition-id', 'queue-on-source-update-only', 'manual-queue_only', 'display-name', 'valid-duration']
 
-    elif policy_type == COMMENT_REQUIREMENTS_POLICY:
+    elif policy_type == COMMENT_REQUIREMENTS_POLICY or policy_type == COMMENT_REQUIREMENTS_POLICY_ID:
         policytypeId = COMMENT_REQUIREMENTS_POLICY_ID
         # this particular policy does not need any other parameter
 
-    elif policy_type == MERGE_STRATEGY_POLICY:
+    elif policy_type == MERGE_STRATEGY_POLICY or policy_type == MERGE_STRATEGY_POLICY_ID:
         policytypeId = MERGE_STRATEGY_POLICY_ID
         paramArray = [useSquashMerge]
         paramNameArray = ['useSquashMerge']
         argumentNameArray = ['use-squash-merge']
 
-    elif policy_type == FILE_SIZE_POLICY:
+    elif policy_type == FILE_SIZE_POLICY or policy_type == FILE_SIZE_POLICY_ID:
         policytypeId = FILE_SIZE_POLICY_ID
         paramArray = [maximumGitBlobSizeInBytes, useUncompressedSize]
         paramNameArray = ['maximumGitBlobSizeInBytes', 'useUncompressedSize']
         argumentNameArray = ['maximum-git-blob-size-in-bytes', 'use-uncompressed-size']
 
-    elif policy_type == WORKITEM_LINKING_POLICY:
+    elif policy_type == WORKITEM_LINKING_POLICY or policy_type == WORKITEM_LINKING_POLICY_ID:
         policytypeId = WORKITEM_LINKING_POLICY_ID
         # this particular policy does not need any other parameter
 
-    elif policy_type == REQUIRED_REVIEWER_POLICY:
+    elif policy_type == REQUIRED_REVIEWER_POLICY or policy_type == REQUIRED_REVIEWER_POLICY_ID:
         policytypeId = REQUIRED_REVIEWER_POLICY_ID
         optionalReviewerIds = resolveIdentityMailsToIds(optionalReviewerIds, organization)
         requiredReviewerIds = resolveIdentityMailsToIds(requiredReviewerIds, organization)
@@ -372,7 +402,8 @@ def generateConfigurationObject(policy_configuration=None,
         argumentNameArray = ['optional-reviewer-ids', 'required-reviewer-ids', 'message']
 
     # check if we have value in all the required params or not
-    raiseErrorIfRequiredParamMissing(paramArray, argumentNameArray, policy_type)
+    if ignoreArgumentChecks is False:
+        raiseErrorIfRequiredParamMissing(paramArray, argumentNameArray, policy_type)
 
     policyConfiguration = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
     scope = createScope(policy_type, repository_id, branch)
@@ -415,6 +446,10 @@ def createScope(policy_type, repository_id, branch):
 
 
 def resolveIdentityMailsToIds(mailList, organization):
+    # handle update scenario and just return the thing if it is a list already
+    if isinstance(mailList, list):
+        return mailList
+
     logger.debug('mail list %s ', mailList)
     if not mailList or (not mailList.strip()):
         return None
@@ -435,7 +470,6 @@ def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
         return
     if any(v is None for v in paramArray):
         raise CLIError('{} are required for {}'.format('--' + ', --'.join(paramNameArray), policyName))
-
 
 def _parseTrueFalse(inputString):
     if inputString is not None and inputString.lower() == 'true':
