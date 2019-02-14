@@ -89,7 +89,7 @@ class TestUuidMethods(unittest.TestCase):
         except CLIError as ex:
             #assert
             self.assertEqual(str(ex),
-            '--minimum_approver_count --creator_vote_counts --allow_downvotes --reset_on_source_push are required for ApproverCountPolicy')
+            '--minimum-approver-count, --creator-vote-counts, --allow-downvotes, --reset-on-source-push are required for ApproverCountPolicy')
 
     def test_create_policy_policy_type_and_configuration_missing(self):
         try:
