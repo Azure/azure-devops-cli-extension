@@ -281,31 +281,32 @@ def update_policy(policy_id,
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
 
-        current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
+        if policy_configuration is None:
+            current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
 
-        #we only set scope [0] so we will update that only
-        repository_id = repository_id or current_policy.settings['scope'][0]['repositoryId']
-        branch = branch or current_policy.settings['scope'][0]['refName']
-        policy_type = policy_type or current_policy.type.id.lower()
-        is_blocking = is_blocking or str(current_policy.is_blocking)
-        is_enabled = is_enabled or str(current_policy.is_enabled)
+            #we only set scope [0] so we will update that only
+            repository_id = repository_id or current_policy.settings['scope'][0]['repositoryId']
+            branch = branch or current_policy.settings['scope'][0]['refName']
+            policy_type = policy_type or current_policy.type.id.lower()
+            is_blocking = is_blocking or str(current_policy.is_blocking)
+            is_enabled = is_enabled or str(current_policy.is_enabled)
 
-        current_setting = current_policy.settings
-        minimum_approver_count = minimum_approver_count or current_setting.get('minimumApproverCount', None)
-        creator_vote_counts = creator_vote_counts or current_setting.get('creatorVoteCounts', None)
-        allow_downvotes = allow_downvotes or current_setting.get('allowDownvotes', None)
-        reset_on_source_push = reset_on_source_push or current_setting.get('resetOnSourcePush', None)
-        use_squash_merge = use_squash_merge or current_setting.get('useSquashMerge', None)
-        build_definition_id = build_definition_id or current_setting.get('buildDefinitionId', None)
-        queue_on_source_update_only = queue_on_source_update_only or current_setting.get('queueOnSourceUpdateOnly', None)
-        manual_queue_only = manual_queue_only or current_setting.get('manualQueueOnly', None)
-        display_name = display_name or current_setting.get('displayName', None)
-        valid_duration = valid_duration or current_setting.get('validDuration', None)
-        maximum_git_blob_size_in_bytes = maximum_git_blob_size_in_bytes or current_setting.get('maximumGitBlobSizeInBytes', None)
-        use_uncompressed_size = use_uncompressed_size or current_setting.get('useUncompressedSize', None)
-        optional_reviewer_ids = optional_reviewer_ids or current_setting.get('optionalReviewerIds', None)
-        required_reviewer_ids = required_reviewer_ids or current_setting.get('requiredReviewerIds', None)
-        message = message or current_setting.get('message', None)
+            current_setting = current_policy.settings
+            minimum_approver_count = minimum_approver_count or current_setting.get('minimumApproverCount', None)
+            creator_vote_counts = creator_vote_counts or current_setting.get('creatorVoteCounts', None)
+            allow_downvotes = allow_downvotes or current_setting.get('allowDownvotes', None)
+            reset_on_source_push = reset_on_source_push or current_setting.get('resetOnSourcePush', None)
+            use_squash_merge = use_squash_merge or current_setting.get('useSquashMerge', None)
+            build_definition_id = build_definition_id or current_setting.get('buildDefinitionId', None)
+            queue_on_source_update_only = queue_on_source_update_only or current_setting.get('queueOnSourceUpdateOnly', None)
+            manual_queue_only = manual_queue_only or current_setting.get('manualQueueOnly', None)
+            display_name = display_name or current_setting.get('displayName', None)
+            valid_duration = valid_duration or current_setting.get('validDuration', None)
+            maximum_git_blob_size_in_bytes = maximum_git_blob_size_in_bytes or current_setting.get('maximumGitBlobSizeInBytes', None)
+            use_uncompressed_size = use_uncompressed_size or current_setting.get('useUncompressedSize', None)
+            optional_reviewer_ids = optional_reviewer_ids or current_setting.get('optionalReviewerIds', None)
+            required_reviewer_ids = required_reviewer_ids or current_setting.get('requiredReviewerIds', None)
+            message = message or current_setting.get('message', None)
 
 
         policyConfigurationToCreate = generateConfigurationObject(

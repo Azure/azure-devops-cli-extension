@@ -13,6 +13,7 @@ except ImportError:
     from mock import patch
 
 from azext_devops.dev.repos.policy import *
+from azext_devops.vstsCompressed.policy.v4_0.models.models import PolicyConfiguration, PolicyTypeRef
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.vstsCompressed.policy.v4_0.policy_client import PolicyClient
 
@@ -235,7 +236,42 @@ class TestUuidMethods(unittest.TestCase):
 
         self.mock_update_policy.assert_called_once()
         update_policy_object = self.mock_update_policy.call_args_list[0][1]
-        self.assertEqual(update_policy_object['configuration_id'], 121)        
+        self.assertEqual(update_policy_object['configuration_id'], 121)
+
+    def test_update_policy_patch(self):
+        current_policy = PolicyConfiguration(is_blocking=False, is_enabled=False)
+        policy_type = PolicyTypeRef()
+        policy_type.id = 'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd'
+        current_policy.type = policy_type
+        current_policy.settings = {
+            'minimumApproverCount' : 2,
+            'creatorVoteCounts' : 'False',
+            'allowDownvotes' : 'False',
+            'resetOnSourcePush' : 'False'
+            }
+
+        self.mock_get_policy.return_value = current_policy
+
+        update_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
+        is_blocking = 'True',
+        policy_id = 121,
+        minimum_approver_count=5, creator_vote_counts= 'True',
+        organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off')
+
+        self.mock_get_policy.assert_called_once()
+
+        self.mock_update_policy.assert_called_once()
+        update_policy_object = self.mock_update_policy.call_args_list[0][1]
+        self.assertEqual(update_policy_object['configuration_id'], 121)
+        self.assertEqual(update_policy_object['configuration'].is_enabled, False)
+        self.assertEqual(update_policy_object['configuration'].is_blocking, True)
+        settings = update_policy_object['configuration'].settings
+        self.assertEqual(settings['minimumApproverCount'], 5)
+        self.assertEqual(settings['creatorVoteCounts'], 'True')
+        self.assertEqual(settings['allowDownvotes'], 'False')
+        self.assertEqual(settings['resetOnSourcePush'], 'False')
 
 if __name__ == '__main__':
     unittest.main()
