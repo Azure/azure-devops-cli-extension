@@ -37,9 +37,9 @@ def list_policy(organization=None, project=None, repository_id=None, branch=None
     :type organization: str
     :param project: Name or ID of the project.
     :type project: str
-    :param repository_id: Id (UUID) of the repository for which policy should be fetched.
+    :param repository_id: Id (UUID) of the repository.
     :type repository_id: string
-    :param branch: Branch for which policy should be fetched. (--repository-id is required)
+    :param branch: Branch. (--repository-id is required)
     :type branch: string
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
