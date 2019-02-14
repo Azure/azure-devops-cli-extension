@@ -57,7 +57,38 @@ class TestUuidMethods(unittest.TestCase):
         detect='off')
 
         #assert
-        self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT)
+        self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, scope=None)
+
+    def test_list_policy_repo_scope(self):
+        list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off',
+        repository_id='fake_repo_id')
+
+        #assert
+        self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, scope='fake_repo_id')
+
+    def test_list_policy_branch_scope(self):
+        list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off',
+        repository_id='fake_repo_id',
+        branch='refs/heads/master')
+
+        #assert
+        self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, scope='fake_repo_id:refs/heads/master')
+
+    def test_list_policy__only_branch_scope_error(self):
+        try:
+            list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
+            project = self._TEST_DEVOPS_PROJECT,
+            detect='off',
+            branch='refs/heads/master')
+            self.fail('failure was expected')
+        except CLIError as ex:
+            #assert
+            self.assertEqual(str(ex),
+            '--repository-id is required with --branch')
 
     def test_get_policy(self):
         get_policy(id = 121,

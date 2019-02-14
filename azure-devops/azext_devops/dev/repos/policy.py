@@ -31,12 +31,16 @@ from azext_devops.dev.common.identities import resolve_identity_as_id
 logger = get_logger(__name__)
 
 
-def list_policy(organization=None, project=None, detect=None):
+def list_policy(organization=None, project=None, repository_id=None, branch=None, detect=None):
     """List of policies.
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the project.
     :type project: str
+    :param repository_id: Id (UUID) of the repository for which policy should be fetched.
+    :type repository_id: string
+    :param branch: Branch for which policy should be fetched. (--repository-id is required)
+    :type branch: string
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: [PolicyConfiguration]
@@ -44,8 +48,20 @@ def list_policy(organization=None, project=None, detect=None):
     try:
         organization, project = resolve_instance_and_project(
             detect=detect, organization=organization, project=project)
+
+        scope = None
+
+        if(branch is not None and repository_id is None):
+            raise CLIError('--repository-id is required with --branch')
+
+        if(repository_id is not None):
+            scope = repository_id
+
+        if(branch is not None):
+            scope = scope + ':' + branch
+        
         policy_client = get_policy_client(organization)
-        return policy_client.get_policy_configurations(project=project)
+        return policy_client.get_policy_configurations(project=project, scope=scope)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
