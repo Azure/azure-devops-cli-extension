@@ -283,7 +283,7 @@ def update_policy(policy_id,
         raise CLIError(ex)
 
 
-# pylint: disable=too-many-locals
+# pylint: disable=too-many-locals, too-many-statements
 def generateConfigurationObject(policy_configuration=None,
                                 repository_id=None, branch=None,
                                 policy_type=None,
