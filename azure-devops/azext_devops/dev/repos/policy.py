@@ -188,7 +188,7 @@ def create_policy(policy_configuration=None,
             policy_configuration,
             repository_id, branch,
             policy_type,
-            is_blocking, is_enabled,
+            _parseTrueFalse(is_blocking), _parseTrueFalse(is_enabled),
             minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
             use_squash_merge,
             build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
@@ -284,7 +284,7 @@ def update_policy(policy_id,
             policy_configuration,
             repository_id, branch,
             policy_type,
-            is_blocking, is_enabled,
+            _parseTrueFalse(is_blocking), _parseTrueFalse(is_enabled),
             minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
             use_squash_merge,
             build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
@@ -374,7 +374,7 @@ def generateConfigurationObject(policy_configuration=None,
     # check if we have value in all the required params or not
     raiseErrorIfRequiredParamMissing(paramArray, argumentNameArray, policy_type)
 
-    policyConfiguration = PolicyConfiguration(is_blocking=_parseTrueFalse(isBlocking), is_enabled=_parseTrueFalse(isEnabled))
+    policyConfiguration = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
     scope = createScope(policy_type, repository_id, branch)
 
     policyConfiguration.settings = {
