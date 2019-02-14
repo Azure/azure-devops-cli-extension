@@ -47,7 +47,7 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
                                                                               project=project,
                                                                               repo=repository)
         wiki_client = get_wiki_client(organization)
-        from vsts.wiki.v4_1.models import WikiCreateParametersV2
+        from vsts.wiki.v4_1.models.wiki_create_parameters_v2 import WikiCreateParametersV2
         wiki_params = WikiCreateParametersV2()
         wiki_params.name = name
         wiki_params.type = wiki_type
@@ -61,7 +61,7 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
         if mapped_path:
             wiki_params.mapped_path = mapped_path
         if version:
-            from vsts.wiki.v4_1.models import GitVersionDescriptor
+            from vsts.wiki.v4_1.models.git_version_descriptor import GitVersionDescriptor
             version_descriptor = GitVersionDescriptor()
             version_descriptor.version = version
             wiki_params.version = version_descriptor
@@ -157,7 +157,8 @@ def add_page(wiki, path, comment=_DEFAULT_PAGE_ADD_MESSAGE, content=None, file_p
                                                              organization=organization,
                                                              project=project)
         wiki_client = get_wiki_client(organization)
-        from vsts.wiki.v4_1.models import WikiPageCreateOrUpdateParameters
+        from vsts.wiki.v4_1.models.wiki_page_create_or_update_parameters import (
+            WikiPageCreateOrUpdateParameters)
         parameters = WikiPageCreateOrUpdateParameters()
         if content:
             parameters.content = content
@@ -200,7 +201,8 @@ def update_page(wiki, path, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, content=None, 
                                                              organization=organization,
                                                              project=project)
         wiki_client = get_wiki_client(organization)
-        from vsts.wiki.v4_1.models import WikiPageCreateOrUpdateParameters
+        from vsts.wiki.v4_1.models.wiki_page_create_or_update_parameters import (
+            WikiPageCreateOrUpdateParameters)
         parameters = WikiPageCreateOrUpdateParameters()
         if content:
             parameters.content = content
