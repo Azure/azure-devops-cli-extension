@@ -69,6 +69,7 @@ wikiOps = CliCommandType(
     operations_tmpl='azext_devops.dev.team.wiki#{}'
 )
 
+
 def load_team_commands(self, _):
     with self.command_group('devops', command_type=credentialsOps) as g:
         g.command('login', 'credential_set')

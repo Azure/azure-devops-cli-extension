@@ -19,6 +19,7 @@ _DEFAULT_PAGE_ADD_MESSAGE = 'Added a new page using Azure DevOps CLI'
 _DEFAULT_PAGE_UPDATE_MESSAGE = 'Updated the page using Azure DevOps CLI'
 _DEFAULT_PAGE_DELETE_MESSAGE = 'Deleted the page using Azure DevOps CLI'
 
+
 def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
                 organization=None, project=None, repository=None, detect=None):
     """Create a wiki.
@@ -170,7 +171,6 @@ def add_page(wiki, path, comment=_DEFAULT_PAGE_ADD_MESSAGE, content=None, file_p
         raise CLIError(ex)
 
 
-
 def update_page(wiki, path, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, content=None, file_path=None,
                 page_version=None, organization=None, project=None, detect=None):
     """Edit a page.
@@ -214,7 +214,7 @@ def update_page(wiki, path, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, content=None, 
         raise CLIError(ex)
 
 
-def get_page(wiki, path, version=None, recursion_level=None, open=False,
+def get_page(wiki, path, version=None, recursion_level=None, open=False,  # pylint: disable=redefined-builtin
              include_content=False, organization=None, project=None, detect=None):
     """Get the content of a page or open a page.
     :param wiki: Name or Id of the wiki.
@@ -225,7 +225,7 @@ def get_page(wiki, path, version=None, recursion_level=None, open=False,
     :type version: str
     :param recursion_level: Recursion level of the wiki page.
     :type recursion_level: str
-    :param include_content: Include content of the page. 
+    :param include_content: Include content of the page.
     :type include_content: str
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
