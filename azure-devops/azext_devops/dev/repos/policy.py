@@ -58,7 +58,7 @@ def list_policy(organization=None, project=None, repository_id=None, branch=None
             scope = repository_id
             if branch is not None:
                 scope = scope + ':' + branch
-        
+
         policy_client = get_policy_client(organization)
         return policy_client.get_policy_configurations(project=project, scope=scope)
     except VstsServiceError as ex:
