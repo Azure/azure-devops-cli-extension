@@ -20,20 +20,27 @@ def repo_policy_create_udpate_common_arguments(context):
     context.argument('repository_id', options_list=('--repository-id', '-r'))
     APPROVER_COUNT_POLICY_ARGUMENT_GROUP = 'Approver Count Policy'
     context.argument('minimum_approver_count', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
-    context.argument('creator_vote_counts', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP, **enum_choice_list(_TRUE_FALSE_SWITCH))
-    context.argument('allow_downvotes', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP, **enum_choice_list(_TRUE_FALSE_SWITCH))
-    context.argument('reset_on_source_push', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP, **enum_choice_list(_TRUE_FALSE_SWITCH))
+    context.argument('creator_vote_counts', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP, \
+        **enum_choice_list(_TRUE_FALSE_SWITCH))
+    context.argument('allow_downvotes', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP, \
+        **enum_choice_list(_TRUE_FALSE_SWITCH))
+    context.argument('reset_on_source_push', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP, \
+        **enum_choice_list(_TRUE_FALSE_SWITCH))
     MERGE_STRATEGY_POLICY_ARGUMENT_GROUP = 'Merge Strategy Policy'
-    context.argument('use_squash_merge', arg_group=MERGE_STRATEGY_POLICY_ARGUMENT_GROUP, **enum_choice_list(_TRUE_FALSE_SWITCH))
+    context.argument('use_squash_merge', arg_group=MERGE_STRATEGY_POLICY_ARGUMENT_GROUP, \
+        **enum_choice_list(_TRUE_FALSE_SWITCH))
     BUILD_POLICY_ARGUMENT_GROUP = 'Build Policy'
     context.argument('build_definition_id', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
-    context.argument('queue_on_source_update_only', arg_group=BUILD_POLICY_ARGUMENT_GROUP, **enum_choice_list(_TRUE_FALSE_SWITCH))
-    context.argument('manual_queue_only', arg_group=BUILD_POLICY_ARGUMENT_GROUP, **enum_choice_list(_TRUE_FALSE_SWITCH))
+    context.argument('queue_on_source_update_only', arg_group=BUILD_POLICY_ARGUMENT_GROUP, \
+        **enum_choice_list(_TRUE_FALSE_SWITCH))
+    context.argument('manual_queue_only', arg_group=BUILD_POLICY_ARGUMENT_GROUP, \
+        **enum_choice_list(_TRUE_FALSE_SWITCH))
     context.argument('display_name', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
     context.argument('valid_duration', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
     FILE_SIZE_POLICY_ARGUMENT_GROUP = 'File Size Policy'
     context.argument('maximum_git_blob_size_in_bytes', arg_group=FILE_SIZE_POLICY_ARGUMENT_GROUP)
-    context.argument('use_uncompressed_size', arg_group=FILE_SIZE_POLICY_ARGUMENT_GROUP, **enum_choice_list(_TRUE_FALSE_SWITCH))
+    context.argument('use_uncompressed_size', arg_group=FILE_SIZE_POLICY_ARGUMENT_GROUP, \
+        **enum_choice_list(_TRUE_FALSE_SWITCH))
     REQUIRED_REVIEWER_POLICY_GROUP = 'Required Reviewer Policy'
     context.argument('optional_reviewer_ids', arg_group=REQUIRED_REVIEWER_POLICY_GROUP)
     context.argument('required_reviewer_ids', arg_group=REQUIRED_REVIEWER_POLICY_GROUP)
