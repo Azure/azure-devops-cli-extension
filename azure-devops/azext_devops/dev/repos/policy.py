@@ -51,14 +51,13 @@ def list_policy(organization=None, project=None, repository_id=None, branch=None
 
         scope = None
 
-        if(branch is not None and repository_id is None):
+        if branch is not None and repository_id is None:
             raise CLIError('--repository-id is required with --branch')
 
-        if(repository_id is not None):
+        if repository_id is not None:
             scope = repository_id
-
-        if(branch is not None):
-            scope = scope + ':' + branch
+            if branch is not None:
+                scope = scope + ':' + branch
         
         policy_client = get_policy_client(organization)
         return policy_client.get_policy_configurations(project=project, scope=scope)
