@@ -139,7 +139,20 @@ def _transform_wiki_row(row):
     table_row['ID'] = row['id']
     table_row['Name'] = row['name']
     table_row['Type'] = row['type']
+    return table_row
 
+
+def transform_wiki_page_table_output(result):
+    table_output = [_transform_wiki_page_row(result)]
+    return table_output
+
+
+def _transform_wiki_page_row(row):
+    table_row = OrderedDict()
+    table_row['ETag'] = row['eTag']
+    table_row['Git Path'] = row['page']['gitItemPath']
+    table_row['Is Parent'] = row['page']['isParentPage']
+    table_row['order'] = row['page']['order']
     return table_row
 
 

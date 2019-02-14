@@ -10,16 +10,14 @@ from ._format import (transform_project_table_output,
                       transform_team_table_output,
                       transform_teams_table_output,
                       transform_team_members_table_output,
-<<<<<<< HEAD
                       transform_users_table_output,
                       transform_user_table_output,
                       transform_extension_table_output,
                       transform_extensions_table_output,
-                      transform_extension_search_results_table_output)
-=======
+                      transform_extension_search_results_table_output,
                       transform_wiki_table_output,
-                      transform_wikis_table_output)
->>>>>>> Adding wiki Create, list, show, delete commands
+                      transform_wikis_table_output,
+                      transform_wiki_page_table_output)
 
 
 projectOps = CliCommandType(
@@ -125,11 +123,11 @@ def load_team_commands(self, _):
         g.command('list', 'list_wiki', table_transformer=transform_wikis_table_output)
         g.command('show', 'show_wiki', table_transformer=transform_wiki_table_output)
         g.command('delete', 'delete_wiki', table_transformer=transform_wiki_table_output,
-         confirmation='Are you sure you want to delete this wiki?')
+                  confirmation='Are you sure you want to delete this wiki?')
 
     with self.command_group('devops wiki page', command_type=wikiOps) as g:
-        g.command('create', 'create_wiki_page')
-        g.command('update', 'update_wiki_page')
-        g.command('show', 'show_wiki_page')
-        g.command('delete', 'delete_wiki_page',
-         confirmation='Are you sure you want to delete this wiki page?')
+        g.command('create', 'add_page', table_transformer=transform_wiki_page_table_output)
+        g.command('update', 'update_page', table_transformer=transform_wiki_page_table_output)
+        g.command('show', 'get_page', table_transformer=transform_wiki_page_table_output)
+        g.command('delete', 'delete_page',
+                  confirmation='Are you sure you want to delete this wiki page?')

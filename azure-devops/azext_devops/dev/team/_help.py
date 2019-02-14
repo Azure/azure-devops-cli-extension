@@ -74,3 +74,9 @@ def load_team_help():
     type: group
     short-summary: Manage wikis
     """
+
+
+    helps['devops wiki page'] = """
+    type: group
+    short-summary: Manage wiki pages
+    """
