@@ -67,63 +67,62 @@ def get_first_vss_instance_uri():
 
 def get_build_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('azure.devops.v4_0.build.build_client.BuildClient')
+    return connection.clients_v4_0.get_build_client()
 
 
 def get_ci_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client(
-        'azure.devops.v4_0.customer_intelligence.customer_intelligence_client.CustomerIntelligenceClient')
+    return connection.clients_v4_0.get_customer_intelligence_client()
 
 
 def get_core_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('azure.devops.v4_0.core.core_client.CoreClient')
+    return connection.clients_v4_0.get_core_client()
 
 
 def get_git_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('azure.devops.v4_0.git.git_client.GitClient')
+    return connection.clients_v4_0.get_git_client()
 
 
 def get_identity_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('azure.devops.v4_0.identity.identity_client.IdentityClient')
+    return connection.clients_v4_0.get_identity_client()
 
 
 def get_location_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('azure.devops.v4_0.location.location_client.LocationClient')
+    return connection.clients_v4_0.get_location_client()
 
 
 def get_member_entitlement_management_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('azure.devops.v4_1.member_entitlement_management.member_entitlement_management_client.MemberEntitlementManagementClient')
+    return connection.clients_v4_1.get_member_entitlement_management_client()
 
 
 def get_operations_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('azure.devops.v4_0.operations.operations_client.OperationsClient')
+    return connection.clients_v4_0.get_operations_client()
 
 
 def get_policy_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('azure.devops.v4_0.policy.policy_client.PolicyClient')
+    return connection.clients_v4_0.get_policy_client()
 
 
 def get_settings_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('azure.devops.v4_1.settings.settings_client.SettingsClient')
+    return connection.clients_v4_0.get_settings_client()
 
 
 def get_task_agent_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('azure.devops.v4_0.task_agent.task_agent_client.TaskAgentClient')
+    return connection.clients_v4_0.get_task_agent_client()
 
 
 def get_work_item_tracking_client(team_instance=None):
     connection = get_vss_connection(team_instance)
-    return connection.get_client('azure.devops.v4_0.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient')
+    return connection.clients_v4_0.get_work_item_tracking_client()
 
 
 def get_base_url(team_instance):

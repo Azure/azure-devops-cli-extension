@@ -37,7 +37,7 @@ def credential_set(token=None, team_instance=None):
         logger.info("Creating connection with personal access token.")
         credentials = BasicAuthentication('', token)
         connection = _get_vss_connection(team_instance, credentials)
-        location_client = connection.get_client('vsts.v4_0.location.location_client.LocationClient')
+        location_client = connection.get_client('azure.devops.v4_0.location.location_client.LocationClient')
         try:
             location_client.get_connection_data()
         except Exception as ex2:
