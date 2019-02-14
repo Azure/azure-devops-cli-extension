@@ -11,6 +11,7 @@ from knack.log import get_logger
 from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.vstsCompressed.policy.v4_0.models.models import PolicyConfiguration
 
+from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.services import (get_policy_client, resolve_instance_and_project)
 from azext_devops.dev.common.const import (APPROVER_COUNT_POLICY,
                                            APPROVER_COUNT_POLICY_ID,
@@ -57,6 +58,7 @@ def list_policy(organization=None, project=None, repository_id=None, branch=None
         if repository_id is not None:
             scope = repository_id
             if branch is not None:
+                branch = resolve_git_ref_heads(branch)
                 scope = scope + ':' + branch
 
         policy_client = get_policy_client(organization)
@@ -316,6 +318,8 @@ def generateConfigurationObject(policy_configuration=None,
         with open(policy_configuration) as f:
             import json
             return json.load(f)
+
+    branch = resolve_git_ref_heads(branch)
 
     # these 2 will be filled by respective types
     paramNameArray = []

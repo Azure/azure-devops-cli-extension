@@ -73,7 +73,7 @@ class TestUuidMethods(unittest.TestCase):
         project = self._TEST_DEVOPS_PROJECT,
         detect='off',
         repository_id='fake_repo_id',
-        branch='refs/heads/master')
+        branch='master')
 
         #assert
         self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, scope='fake_repo_id:refs/heads/master')
@@ -83,7 +83,7 @@ class TestUuidMethods(unittest.TestCase):
             list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
             project = self._TEST_DEVOPS_PROJECT,
             detect='off',
-            branch='refs/heads/master')
+            branch='master')
             self.fail('failure was expected')
         except CLIError as ex:
             #assert
@@ -146,7 +146,7 @@ class TestUuidMethods(unittest.TestCase):
         self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'], str(create_policy_object))
         scope = create_policy_object['configuration'].settings['scope'][0]  # 0 because we set only only scope from CLI
         self.assertEqual(scope['repositoryId'], self._TEST_REPOSITORY_ID)
-        self.assertEqual(scope['refName'], 'master')
+        self.assertEqual(scope['refName'], 'refs/heads/master')
         self.assertEqual(scope['matchKind'], 'exact')
 
     def test_create_policy_scope(self):
