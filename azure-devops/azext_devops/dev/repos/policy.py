@@ -112,9 +112,9 @@ def create_policy(policy_configuration=None,
     :type repository_id: string
     :param branch: Branch on which this policy should be applied
     :type branch: string
-    :param isBlocking: Whether the policy should be blocking or not. Default value is false. Accepted values are true and false.
+    :param isBlocking: Whether the policy should be blocking or not.
     :type isBlocking: bool
-    :param isEnabled: Whether the policy is enabled or not. By default the value is true. Accepted values and true and false.
+    :param isEnabled: Whether the policy is enabled or not.
     :type isEnabled: bool
     :param policy_type: Type of policy you want to create
     :type policy_type: string
