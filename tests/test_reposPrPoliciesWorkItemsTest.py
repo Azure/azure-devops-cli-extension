@@ -11,7 +11,7 @@ from azure_devtools.scenario_tests import AllowLargeResponse
 from datetime import datetime
 from .utilities.helper import get_random_name, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/randomOrg'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 class AzReposPrPolicyTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
