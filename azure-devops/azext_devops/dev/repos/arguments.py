@@ -50,6 +50,7 @@ def load_code_arguments(self, _):
 
     with self.argument_context('repos policy update') as context:
         repo_policy_create_udpate_common_arguments(context)
+        context.argument('policy_id', options_list=('--policy-id', '--id'))
 
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
