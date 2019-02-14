@@ -52,31 +52,31 @@ def load_repos_help():
     create_update_helptext = """
         - name: {0} an approver count policy
           text: |
-            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type ApproverCountPolicy --allow-downvotes False --creator-vote-counts False --minimum-approver-count 2 --reset-on-source-push True --is-blocking --is-enabled
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type ApproverCountPolicy --allow-downvotes False --creator-vote-counts False --minimum-approver-count 2 --reset-on-source-push True --is-blocking True --is-enabled True
 
         - name: {0} a build policy
           text: |
-            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type BuildPolicy --build-definition-id 72 --display-name Build-Required --manual-queue-only False --queue-on-source-update-only True --valid-duration 12 --is-blocking --is-enabled
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type BuildPolicy --build-definition-id 72 --display-name Build-Required --manual-queue-only False --queue-on-source-update-only True --valid-duration 12 --is-blocking True --is-enabled True
 
         - name: {0} a file size policy
           text: |
-            az repos policy {1} -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type FileSizePolicy --maximum-git-blob-size-in-bytes 5012 --use-uncompressed-size True --is-blocking --is-enabled
+            az repos policy {1} -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type FileSizePolicy --maximum-git-blob-size-in-bytes 5012 --use-uncompressed-size True --is-blocking True --is-enabled True
 
         - name: {0} a merge strategy policy
           text: |
-            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type MergeStrategyPolicy --use-squash-merge True --is-blocking --is-enabled
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type MergeStrategyPolicy --use-squash-merge True --is-blocking True --is-enabled True
 
         - name: {0} a comment requirement policy
           text: |
-            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type CommentRequirementsPolicy --is-blocking --is-enabled
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type CommentRequirementsPolicy --is-blocking True --is-enabled True
 
         - name: {0} a work item linking policy
           text: |
-            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type WorkItemLinkingPolicy --is-blocking --is-enabled
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type WorkItemLinkingPolicy --is-blocking True --is-enabled True
 
         - name: {0} a required reviewer policy
           text: |
-            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type RequiredReviewersPolicy --message this-is-policy-message --required-reviewer-ids gsaral@microsoft.com;atbagga@microsoft.com --is-blocking --is-enabled
+            az repos policy {1} --branch "refs/heads/master" -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type RequiredReviewersPolicy --message this-is-policy-message --required-reviewer-ids gsaral@microsoft.com;atbagga@microsoft.com --is-blocking True --is-enabled True
     """
 
     helps['repos policy create'] = """
