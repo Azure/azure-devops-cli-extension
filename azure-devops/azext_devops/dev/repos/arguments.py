@@ -16,24 +16,24 @@ def repo_policy_create_udpate_common_arguments(context):
     context.argument('policy_type', **enum_choice_list(REPO_POLICY_TYPE))
     context.argument('repository_id', options_list=('--repository-id', '-r'))
     APPROVER_COUNT_POLICY_ARGUMENT_GROUP = 'Approver Count Policy'
-    context.argument('minimumApproverCount', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
-    context.argument('creatorVoteCounts', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
-    context.argument('allowDownvotes', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
-    context.argument('resetOnSourcePush', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
+    context.argument('minimum_approver_count', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
+    context.argument('creator_vote_counts', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
+    context.argument('allow_downvotes', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
+    context.argument('reset_on_source_push', arg_group=APPROVER_COUNT_POLICY_ARGUMENT_GROUP)
     MERGE_STRATEGY_POLICY_ARGUMENT_GROUP = 'Merge Strategy Policy'
-    context.argument('useSquashMerge', arg_group=MERGE_STRATEGY_POLICY_ARGUMENT_GROUP)
+    context.argument('use_squash_merge', arg_group=MERGE_STRATEGY_POLICY_ARGUMENT_GROUP)
     BUILD_POLICY_ARGUMENT_GROUP = 'Build Policy'
-    context.argument('buildDefinitionId', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
-    context.argument('queueOnSourceUpdateOnly', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
-    context.argument('manualQueueOnly', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
-    context.argument('displayName', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
-    context.argument('validDuration', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
+    context.argument('build_definition_id', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
+    context.argument('queue_on_source_update_only', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
+    context.argument('manual_queue_only', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
+    context.argument('display_name', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
+    context.argument('valid_duration', arg_group=BUILD_POLICY_ARGUMENT_GROUP)
     FILE_SIZE_POLICY_ARGUMENT_GROUP = 'File Size Policy'
-    context.argument('maximumGitBlobSizeInBytes', arg_group=FILE_SIZE_POLICY_ARGUMENT_GROUP)
-    context.argument('useUncompressedSize', arg_group=FILE_SIZE_POLICY_ARGUMENT_GROUP)
+    context.argument('maximum_git_blob_size_in_bytes', arg_group=FILE_SIZE_POLICY_ARGUMENT_GROUP)
+    context.argument('use_uncompressed_size', arg_group=FILE_SIZE_POLICY_ARGUMENT_GROUP)
     REQUIRED_REVIEWER_POLICY_GROUP = 'Required Reviewer Policy'
-    context.argument('optionalReviewerIds', arg_group=REQUIRED_REVIEWER_POLICY_GROUP)
-    context.argument('requiredReviewerIds', arg_group=REQUIRED_REVIEWER_POLICY_GROUP)
+    context.argument('optional_reviewer_ids', arg_group=REQUIRED_REVIEWER_POLICY_GROUP)
+    context.argument('required_reviewer_ids', arg_group=REQUIRED_REVIEWER_POLICY_GROUP)
     context.argument('message', arg_group=REQUIRED_REVIEWER_POLICY_GROUP)
 
 

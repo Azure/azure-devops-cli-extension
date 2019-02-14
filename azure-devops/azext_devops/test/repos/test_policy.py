@@ -81,7 +81,7 @@ class TestUuidMethods(unittest.TestCase):
         try:
             create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
             policy_type='ApproverCountPolicy',
-            minimumApproverCount=2,
+            minimum_approver_count=2,
             organization = self._TEST_DEVOPS_ORGANIZATION,
             project = self._TEST_DEVOPS_PROJECT,
             detect='off')
@@ -89,7 +89,7 @@ class TestUuidMethods(unittest.TestCase):
         except CLIError as ex:
             #assert
             self.assertEqual(str(ex),
-            '--minimumApproverCount --creatorVoteCounts --allowDownvotes --resetOnSourcePush are required for ApproverCountPolicy')
+            '--minimum_approver_count --creator_vote_counts --allow_downvotes --reset_on_source_push are required for ApproverCountPolicy')
 
     def test_create_policy_policy_type_and_configuration_missing(self):
         try:
@@ -105,7 +105,7 @@ class TestUuidMethods(unittest.TestCase):
     def test_create_policy_scope(self):
         create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
         policy_type='ApproverCountPolicy',
-        minimumApproverCount=2, creatorVoteCounts= True, allowDownvotes= False, resetOnSourcePush= True,
+        minimum_approver_count=2, creator_vote_counts= True, allow_downvotes= False, reset_on_source_push= True,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
@@ -121,7 +121,7 @@ class TestUuidMethods(unittest.TestCase):
     def test_create_policy_scope_repo_only(self):
         create_policy(repository_id=self._TEST_REPOSITORY_ID,
         policy_type='FileSizePolicy',
-        maximumGitBlobSizeInBytes=2, useUncompressedSize= True,
+        maximum_git_blob_size_in_bytes=2, use_uncompressed_size= True,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
@@ -138,7 +138,7 @@ class TestUuidMethods(unittest.TestCase):
         try:
             create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
             policy_type='FileSizePolicy',
-            maximumGitBlobSizeInBytes=2, useUncompressedSize= True,
+            maximum_git_blob_size_in_bytes=2, use_uncompressed_size= True,
             organization = self._TEST_DEVOPS_ORGANIZATION,
             project = self._TEST_DEVOPS_PROJECT,
             detect='off')
@@ -150,7 +150,7 @@ class TestUuidMethods(unittest.TestCase):
     def test_create_policy_setting_creation(self):
         create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
         policy_type='ApproverCountPolicy',
-        minimumApproverCount=2, creatorVoteCounts= True, allowDownvotes= False, resetOnSourcePush= True,
+        minimum_approver_count=2, creator_vote_counts= True, allow_downvotes= False, reset_on_source_push= True,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
@@ -167,7 +167,7 @@ class TestUuidMethods(unittest.TestCase):
     def test_create_policy_id_assignment(self):
         create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
         policy_type='ApproverCountPolicy',
-        minimumApproverCount=2, creatorVoteCounts= True, allowDownvotes= False, resetOnSourcePush= True,
+        minimum_approver_count=2, creator_vote_counts= True, allow_downvotes= False, reset_on_source_push= True,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
@@ -182,7 +182,7 @@ class TestUuidMethods(unittest.TestCase):
         update_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
         policy_id = 121,
         policy_type='ApproverCountPolicy',
-        minimumApproverCount=2, creatorVoteCounts= True, allowDownvotes= False, resetOnSourcePush= True,
+        minimum_approver_count=2, creator_vote_counts= True, allow_downvotes= False, reset_on_source_push= True,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')

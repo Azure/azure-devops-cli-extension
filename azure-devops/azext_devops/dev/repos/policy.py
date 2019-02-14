@@ -94,13 +94,13 @@ def delete_policy(id, organization=None, project=None, detect=None):  # pylint: 
 # pylint: disable=too-many-locals
 def create_policy(policy_configuration=None,
                   repository_id=None, branch=None,
-                  isBlocking=False, isEnabled=False,
+                  is_blocking=False, is_enabled=False,
                   policy_type=None,
-                  minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
-                  useSquashMerge=None,
-                  buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
-                  maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
-                  optionalReviewerIds=None, requiredReviewerIds=None, message=None,
+                  minimum_approver_count=None, creator_vote_counts=None, allow_downvotes=None, reset_on_source_push=None,
+                  use_squash_merge=None,
+                  build_definition_id=None, queue_on_source_update_only=None, manual_queue_only=None, display_name=None, valid_duration=None,
+                  maximum_git_blob_size_in_bytes=None, use_uncompressed_size=None,
+                  optional_reviewer_ids=None, required_reviewer_ids=None, message=None,
                   organization=None, project=None, detect=None):
     """Create a policy.
     :param policy_configuration: File path of file containing policy configuration to create in a serialized form.
@@ -112,47 +112,47 @@ def create_policy(policy_configuration=None,
     :type repository_id: string
     :param branch: Branch on which this policy should be applied
     :type branch: string
-    :param isBlocking: Whether the policy should be blocking or not.
-    :type isBlocking: bool
-    :param isEnabled: Whether the policy is enabled or not.
-    :type isEnabled: bool
+    :param is_blocking: Whether the policy should be blocking or not.
+    :type is_blocking: bool
+    :param is_enabled: Whether the policy is enabled or not.
+    :type is_enabled: bool
     :param policy_type: Type of policy you want to create
     :type policy_type: string
 
-    :param optionalReviewerIds: Optional Reviewers (List of email ids seperated with ';').
-    :type optionalReviewerIds: string
-    :param requiredReviewerIds: Required Reviewers (List of email ids seperated with ';').
-    :type requiredReviewerIds: string
+    :param optional_reviewer_ids: Optional Reviewers (List of email ids seperated with ';').
+    :type optional_reviewer_ids: string
+    :param required_reviewer_ids: Required Reviewers (List of email ids seperated with ';').
+    :type required_reviewer_ids: string
     :param message: Message.
     :type message: string
 
-    :param minimumApproverCount: Minimum approver count.
-    :type minimumApproverCount: int
-    :param creatorVoteCounts: Whether the creator's vote count counts or not.
-    :type creatorVoteCounts: bool
-    :param allowDownvotes: Whether to allow downvotes or not.
-    :type allowDownvotes: bool
-    :param resetOnSourcePush: Whether to reset source on push.
-    :type resetOnSourcePush: bool
+    :param minimum_approver_count: Minimum approver count.
+    :type minimum_approver_count: int
+    :param creator_vote_counts: Whether the creator's vote count counts or not.
+    :type creator_vote_counts: bool
+    :param allow_downvotes: Whether to allow downvotes or not.
+    :type allow_downvotes: bool
+    :param reset_on_source_push: Whether to reset source on push.
+    :type reset_on_source_push: bool
 
-    :param buildDefinitionId: Build Definition Id
-    :type buildDefinitionId: int
-    :param queueOnSourceUpdateOnly: Queue Only on source update.
-    :type queueOnSourceUpdateOnly: bool
-    :param manualQueueOnly : Whether to allow only manual queue of builds.
-    :type manualQueueOnly : bool
-    :param displayName : Display Name.
-    :type displayName : string
-    :param validDuration :  Policy validity duration (in hours).
-    :type validDuration : double
+    :param build_definition_id: Build Definition Id
+    :type build_definition_id: int
+    :param queue_on_source_update_only: Queue Only on source update.
+    :type queue_on_source_update_only: bool
+    :param manual_queue_only : Whether to allow only manual queue of builds.
+    :type manual_queue_only : bool
+    :param display_name : Display Name.
+    :type display_name : string
+    :param valid_duration :  Policy validity duration (in hours).
+    :type valid_duration : double
 
-    :param useSquashMerge: Whether to squash merge always.
-    :type useSquashMerge: bool
+    :param use_squash_merge: Whether to squash merge always.
+    :type use_squash_merge: bool
 
-    :param maximumGitBlobSizeInBytes: Maximum Git Blob Size In Bytes.
-    :type maximumGitBlobSizeInBytes: long
-    :param useUncompressedSize: Whether to use uncompressed size.
-    :type useUncompressedSize: bool
+    :param maximum_git_blob_size_in_bytes: Maximum Git Blob Size In Bytes.
+    :type maximum_git_blob_size_in_bytes: long
+    :param use_uncompressed_size: Whether to use uncompressed size.
+    :type use_uncompressed_size: bool
 
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
@@ -188,13 +188,13 @@ def create_policy(policy_configuration=None,
 def update_policy(policy_id,
                   policy_configuration=None,
                   repository_id=None, branch=None,
-                  isBlocking=False, isEnabled=False,
+                  is_blocking=False, is_enabled=False,
                   policy_type=None,
-                  minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
-                  useSquashMerge=None,
-                  buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
-                  maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
-                  optionalReviewerIds=None, requiredReviewerIds=None, message=None,
+                  minimum_approver_count=None, creator_vote_counts=None, allow_downvotes=None, reset_on_source_push=None,
+                  use_squash_merge=None,
+                  build_definition_id=None, queue_on_source_update_only=None, manual_queue_only=None, display_name=None, valid_duration=None,
+                  maximum_git_blob_size_in_bytes=None, use_uncompressed_size=None,
+                  optional_reviewer_ids=None, required_reviewer_ids=None, message=None,
                   organization=None, project=None, detect=None):
     """Update a policy.
     :param policy_configuration: File path of file containing policy configuration to create in a serialized form.
@@ -208,46 +208,47 @@ def update_policy(policy_id,
     :param policy_id: ID of the policy which needs to be updated
     :type policy_id: int
     :param isBlocking: Whether the policy should be blocking or not.
-    :type isBlocking: bool
-    :param isEnabled: Whether the policy is enabled or not.
-    :type isEnabled: bool
+    :param is_blocking: Whether the policy should be blocking or not.
+    :type is_blocking: bool
+    :param is_enabled: Whether the policy is enabled or not.
+    :type is_enabled: bool
     :param policy_type: Type of policy you want to create
     :type policy_type: string
 
-    :param optionalReviewerIds: Optional Reviewers (List of email ids seperated with ';').
-    :type optionalReviewerIds: string
-    :param requiredReviewerIds: Required Reviewers (List of email ids seperated with ';').
-    :type requiredReviewerIds: string
+    :param optional_reviewer_ids: Optional Reviewers (List of email ids seperated with ';').
+    :type optional_reviewer_ids: string
+    :param required_reviewer_ids: Required Reviewers (List of email ids seperated with ';').
+    :type required_reviewer_ids: string
     :param message: Message.
     :type message: string
 
-    :param minimumApproverCount: Minimum approver count.
-    :type minimumApproverCount: int
-    :param creatorVoteCounts: Whether the creator's vote count counts or not.
-    :type creatorVoteCounts: bool
-    :param allowDownvotes: Whether to allow downvotes or not.
-    :type allowDownvotes: bool
-    :param resetOnSourcePush: Whether to reset source on push.
-    :type resetOnSourcePush: bool
+    :param minimum_approver_count: Minimum approver count.
+    :type minimum_approver_count: int
+    :param creator_vote_counts: Whether the creator's vote count counts or not.
+    :type creator_vote_counts: bool
+    :param allow_downvotes: Whether to allow downvotes or not.
+    :type allow_downvotes: bool
+    :param reset_on_source_push: Whether to reset source on push.
+    :type reset_on_source_push: bool
 
-    :param buildDefinitionId: Build Definition Id.
-    :type buildDefinitionId: int
-    :param queueOnSourceUpdateOnly: Queue Only on source update.
-    :type queueOnSourceUpdateOnly: bool
-    :param manualQueueOnly : Whether to allow only manual queue of builds.
-    :type manualQueueOnly : bool
-    :param displayName : Display Name.
-    :type displayName : string
-    :param validDuration : Policy validity duration (in hours).
-    :type validDuration : double
+    :param build_definition_id: Build Definition Id
+    :type build_definition_id: int
+    :param queue_on_source_update_only: Queue Only on source update.
+    :type queue_on_source_update_only: bool
+    :param manual_queue_only : Whether to allow only manual queue of builds.
+    :type manual_queue_only : bool
+    :param display_name : Display Name.
+    :type display_name : string
+    :param valid_duration :  Policy validity duration (in hours).
+    :type valid_duration : double
 
-    :param useSquashMerge: Whether to squash merge always.
-    :type useSquashMerge: bool
+    :param use_squash_merge: Whether to squash merge always.
+    :type use_squash_merge: bool
 
-    :param maximumGitBlobSizeInBytes: Maximum Git Blob Size In Bytes.
-    :type maximumGitBlobSizeInBytes: long
-    :param useUncompressedSize: Whether to use uncompressed size.
-    :type useUncompressedSize: bool
+    :param maximum_git_blob_size_in_bytes: Maximum Git Blob Size In Bytes.
+    :type maximum_git_blob_size_in_bytes: long
+    :param use_uncompressed_size: Whether to use uncompressed size.
+    :type use_uncompressed_size: bool
 
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
@@ -310,11 +311,13 @@ def generateConfigurationObject(policy_configuration=None,
         policytypeId = APPROVER_COUNT_POLICY_ID
         paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
         paramNameArray = ['minimumApproverCount', 'creatorVoteCounts', 'allowDownvotes', 'resetOnSourcePush']
+        argumentNameArray = ['minimum-approver-count', 'creator-vote-counts', 'allow-downvotes', 'reset-on-source-push']
 
     elif policy_type == BUILD_POLICY:
         policytypeId = BUILD_POLICY_ID
         paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
         paramNameArray = ['buildDefinitionId', 'queueOnSourceUpdateOnly', 'manualQueueOnly', 'displayName', 'validDuration']
+        argumentNameArray = ['build-definition-id', 'queue-on-source-update-only', 'manual-queue_only', 'display-name', 'valid-duration']
 
     elif policy_type == COMMENT_REQUIREMENTS_POLICY:
         policytypeId = COMMENT_REQUIREMENTS_POLICY_ID
@@ -324,11 +327,13 @@ def generateConfigurationObject(policy_configuration=None,
         policytypeId = MERGE_STRATEGY_POLICY_ID
         paramArray = [useSquashMerge]
         paramNameArray = ['useSquashMerge']
+        argumentNameArray = ['use-squash-merge']
 
     elif policy_type == FILE_SIZE_POLICY:
         policytypeId = FILE_SIZE_POLICY_ID
         paramArray = [maximumGitBlobSizeInBytes, useUncompressedSize]
         paramNameArray = ['maximumGitBlobSizeInBytes', 'useUncompressedSize']
+        argumentNameArray = ['maximum-git-blob-size-in-bytes', 'use-uncompressed-size']
 
     elif policy_type == WORKITEM_LINKING_POLICY:
         policytypeId = WORKITEM_LINKING_POLICY_ID
@@ -345,9 +350,10 @@ def generateConfigurationObject(policy_configuration=None,
             optionalReviewerIds = []
         paramArray = [optionalReviewerIds, requiredReviewerIds, message]
         paramNameArray = ['optionalReviewerIds', 'requiredReviewerIds', 'message']
+        argumentNameArray = ['optional-reviewer-ids', 'required-reviewer-ids', 'message']
 
     # check if we have value in all the required params or not
-    raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policy_type)
+    raiseErrorIfRequiredParamMissing(paramArray, argumentNameArray, policy_type)
 
     policyConfiguration = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
     scope = createScope(policy_type, repository_id, branch)
@@ -409,4 +415,4 @@ def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
     if not paramNameArray:
         return
     if any(v is None for v in paramArray):
-        raise CLIError('{} are required for {}'.format('--' + ' --'.join(paramNameArray), policyName))
+        raise CLIError('{} are required for {}'.format('--' + ', --'.join(paramNameArray), policyName))
