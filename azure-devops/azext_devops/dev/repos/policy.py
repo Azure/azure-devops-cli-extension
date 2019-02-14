@@ -284,7 +284,7 @@ def update_policy(policy_id,
         if policy_configuration is None:
             current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
 
-            #we only set scope [0] so we will update that only
+            # we only set scope [0] so we will update that only
             repository_id = repository_id or current_policy.settings['scope'][0]['repositoryId']
             branch = branch or current_policy.settings['scope'][0]['refName']
             policy_type = policy_type or current_policy.type.id.lower()
@@ -307,7 +307,6 @@ def update_policy(policy_id,
             optional_reviewer_ids = optional_reviewer_ids or current_setting.get('optionalReviewerIds', None)
             required_reviewer_ids = required_reviewer_ids or current_setting.get('requiredReviewerIds', None)
             message = message or current_setting.get('message', None)
-
 
         policyConfigurationToCreate = generateConfigurationObject(
             policy_configuration,
@@ -471,6 +470,7 @@ def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
         return
     if any(v is None for v in paramArray):
         raise CLIError('{} are required for {}'.format('--' + ', --'.join(paramNameArray), policyName))
+
 
 def parseTrueFalse(inputString):
     if inputString is not None and inputString.lower() == 'true':
