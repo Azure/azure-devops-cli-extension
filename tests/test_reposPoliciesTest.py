@@ -10,7 +10,7 @@ from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/baggaatul24'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 class DevopsReposPoliciesTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -40,7 +40,7 @@ class DevopsReposPoliciesTests(ScenarioTest):
             # empty project so no policy is expected
             assert len(list_policy_output) == 0
 
-            create_policy_command = 'az repos policy create --useSquashMerge False --policy-type MergeStrategyPolicy --branch \"refs/heads/master\"' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
+            create_policy_command = 'az repos policy create --use-squash-merge False --policy-type MergeStrategyPolicy --branch master' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
             create_policy_output = self.cmd(create_policy_command).get_output_in_json()
             policy_id = create_policy_output["id"]
 
@@ -57,7 +57,7 @@ class DevopsReposPoliciesTests(ScenarioTest):
             assert show_policy_output["type"]["id"] == 'fa4e907d-c16b-4a4c-9dfa-4916e5d171ab' #id of merge strategy policy
             assert show_policy_output["settings"]["useSquashMerge"] == False
 
-            update_policy_command = 'az repos policy update --policy-id ' + str(policy_id) + ' --useSquashMerge True --policy-type MergeStrategyPolicy --branch \"refs/heads/master\"' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
+            update_policy_command = 'az repos policy update --policy-id ' + str(policy_id) + ' --use-squash-merge True --policy-type MergeStrategyPolicy --branch master' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
             update_policy_output = self.cmd(update_policy_command).get_output_in_json()
             assert update_policy_output["id"] == policy_id
             

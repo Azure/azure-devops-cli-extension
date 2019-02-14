@@ -11,6 +11,7 @@ from knack.log import get_logger
 from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.vstsCompressed.policy.v4_0.models.models import PolicyConfiguration
 
+from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.services import (get_policy_client, resolve_instance_and_project)
 from azext_devops.dev.common.const import (APPROVER_COUNT_POLICY,
                                            APPROVER_COUNT_POLICY_ID,
@@ -31,12 +32,16 @@ from azext_devops.dev.common.identities import resolve_identity_as_id
 logger = get_logger(__name__)
 
 
-def list_policy(organization=None, project=None, detect=None):
+def list_policy(organization=None, project=None, repository_id=None, branch=None, detect=None):
     """List of policies.
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the project.
     :type project: str
+    :param repository_id: Id (UUID) of the repository.
+    :type repository_id: string
+    :param branch: Branch. (--repository-id is required)
+    :type branch: string
     :param detect: Automatically detect organization. Default is "on".
     :type detect: str
     :rtype: [PolicyConfiguration]
@@ -44,8 +49,20 @@ def list_policy(organization=None, project=None, detect=None):
     try:
         organization, project = resolve_instance_and_project(
             detect=detect, organization=organization, project=project)
+
+        scope = None
+
+        if branch is not None and repository_id is None:
+            raise CLIError('--repository-id is required with --branch')
+
+        if repository_id is not None:
+            scope = repository_id
+            if branch is not None:
+                branch = resolve_git_ref_heads(branch)
+                scope = scope + ':' + branch
+
         policy_client = get_policy_client(organization)
-        return policy_client.get_policy_configurations(project=project)
+        return policy_client.get_policy_configurations(project=project, scope=scope)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -94,13 +111,13 @@ def delete_policy(id, organization=None, project=None, detect=None):  # pylint: 
 # pylint: disable=too-many-locals
 def create_policy(policy_configuration=None,
                   repository_id=None, branch=None,
-                  isBlocking=False, isEnabled=False,
+                  is_blocking=None, is_enabled=None,
                   policy_type=None,
-                  minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
-                  useSquashMerge=None,
-                  buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
-                  maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
-                  optionalReviewerIds=None, requiredReviewerIds=None, message=None,
+                  minimum_approver_count=None, creator_vote_counts=None, allow_downvotes=None, reset_on_source_push=None,
+                  use_squash_merge=None,
+                  build_definition_id=None, queue_on_source_update_only=None, manual_queue_only=None, display_name=None, valid_duration=None,
+                  maximum_git_blob_size_in_bytes=None, use_uncompressed_size=None,
+                  optional_reviewer_ids=None, required_reviewer_ids=None, message=None,
                   organization=None, project=None, detect=None):
     """Create a policy.
     :param policy_configuration: File path of file containing policy configuration to create in a serialized form.
@@ -112,47 +129,47 @@ def create_policy(policy_configuration=None,
     :type repository_id: string
     :param branch: Branch on which this policy should be applied
     :type branch: string
-    :param isBlocking: Whether the policy should be blocking or not. Default value is false. Accepted values are true and false.
-    :type isBlocking: bool
-    :param isEnabled: Whether the policy is enabled or not. By default the value is true. Accepted values and true and false.
-    :type isEnabled: bool
+    :param is_blocking: Whether the policy should be blocking or not.
+    :type is_blocking: bool
+    :param is_enabled: Whether the policy is enabled or not.
+    :type is_enabled: bool
     :param policy_type: Type of policy you want to create
     :type policy_type: string
 
-    :param optionalReviewerIds: Optional Reviewers (List of email ids seperated with ';').
-    :type optionalReviewerIds: string
-    :param requiredReviewerIds: Required Reviewers (List of email ids seperated with ';').
-    :type requiredReviewerIds: string
+    :param optional_reviewer_ids: Optional Reviewers (List of email ids seperated with ';').
+    :type optional_reviewer_ids: string
+    :param required_reviewer_ids: Required Reviewers (List of email ids seperated with ';').
+    :type required_reviewer_ids: string
     :param message: Message.
     :type message: string
 
-    :param minimumApproverCount: Minimum approver count.
-    :type minimumApproverCount: int
-    :param creatorVoteCounts: Whether the creator's vote count counts or not.
-    :type creatorVoteCounts: bool
-    :param allowDownvotes: Whether to allow downvotes or not.
-    :type allowDownvotes: bool
-    :param resetOnSourcePush: Whether to reset source on push.
-    :type resetOnSourcePush: bool
+    :param minimum_approver_count: Minimum approver count.
+    :type minimum_approver_count: int
+    :param creator_vote_counts: Whether the creator's vote count counts or not.
+    :type creator_vote_counts: bool
+    :param allow_downvotes: Whether to allow downvotes or not.
+    :type allow_downvotes: bool
+    :param reset_on_source_push: Whether to reset source on push.
+    :type reset_on_source_push: bool
 
-    :param buildDefinitionId: Build Definition Id
-    :type buildDefinitionId: int
-    :param queueOnSourceUpdateOnly: Queue Only on source update.
-    :type queueOnSourceUpdateOnly: bool
-    :param manualQueueOnly : Whether to allow only manual queue of builds.
-    :type manualQueueOnly : bool
-    :param displayName : Display Name.
-    :type displayName : string
-    :param validDuration :  Policy validity duration (in hours).
-    :type validDuration : double
+    :param build_definition_id: Build Definition Id
+    :type build_definition_id: int
+    :param queue_on_source_update_only: Queue Only on source update.
+    :type queue_on_source_update_only: bool
+    :param manual_queue_only : Whether to allow only manual queue of builds.
+    :type manual_queue_only : bool
+    :param display_name : Display Name.
+    :type display_name : string
+    :param valid_duration :  Policy validity duration (in hours).
+    :type valid_duration : double
 
-    :param useSquashMerge: Whether to squash merge always.
-    :type useSquashMerge: bool
+    :param use_squash_merge: Whether to squash merge always.
+    :type use_squash_merge: bool
 
-    :param maximumGitBlobSizeInBytes: Maximum Git Blob Size In Bytes.
-    :type maximumGitBlobSizeInBytes: long
-    :param useUncompressedSize: Whether to use uncompressed size.
-    :type useUncompressedSize: bool
+    :param maximum_git_blob_size_in_bytes: Maximum Git Blob Size In Bytes.
+    :type maximum_git_blob_size_in_bytes: long
+    :param use_uncompressed_size: Whether to use uncompressed size.
+    :type use_uncompressed_size: bool
 
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
@@ -171,13 +188,14 @@ def create_policy(policy_configuration=None,
             policy_configuration,
             repository_id, branch,
             policy_type,
-            isBlocking, isEnabled,
-            minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush,
-            useSquashMerge,
-            buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration,
-            maximumGitBlobSizeInBytes, useUncompressedSize,
-            optionalReviewerIds, requiredReviewerIds, message,
-            organization)
+            parseTrueFalse(is_blocking), parseTrueFalse(is_enabled),
+            minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
+            use_squash_merge,
+            build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
+            maximum_git_blob_size_in_bytes, use_uncompressed_size,
+            optional_reviewer_ids, required_reviewer_ids, message,
+            organization,
+            False)
 
         return policy_client.create_policy_configuration(configuration=policyConfigurationToCreate, project=project)
     except VstsServiceError as ex:
@@ -188,13 +206,13 @@ def create_policy(policy_configuration=None,
 def update_policy(policy_id,
                   policy_configuration=None,
                   repository_id=None, branch=None,
-                  isBlocking=False, isEnabled=False,
+                  is_blocking=None, is_enabled=None,
                   policy_type=None,
-                  minimumApproverCount=None, creatorVoteCounts=None, allowDownvotes=None, resetOnSourcePush=None,
-                  useSquashMerge=None,
-                  buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
-                  maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
-                  optionalReviewerIds=None, requiredReviewerIds=None, message=None,
+                  minimum_approver_count=None, creator_vote_counts=None, allow_downvotes=None, reset_on_source_push=None,
+                  use_squash_merge=None,
+                  build_definition_id=None, queue_on_source_update_only=None, manual_queue_only=None, display_name=None, valid_duration=None,
+                  maximum_git_blob_size_in_bytes=None, use_uncompressed_size=None,
+                  optional_reviewer_ids=None, required_reviewer_ids=None, message=None,
                   organization=None, project=None, detect=None):
     """Update a policy.
     :param policy_configuration: File path of file containing policy configuration to create in a serialized form.
@@ -208,46 +226,47 @@ def update_policy(policy_id,
     :param policy_id: ID of the policy which needs to be updated
     :type policy_id: int
     :param isBlocking: Whether the policy should be blocking or not.
-    :type isBlocking: bool
-    :param isEnabled: Whether the policy is enabled or not.
-    :type isEnabled: bool
+    :param is_blocking: Whether the policy should be blocking or not.
+    :type is_blocking: bool
+    :param is_enabled: Whether the policy is enabled or not.
+    :type is_enabled: bool
     :param policy_type: Type of policy you want to create
     :type policy_type: string
 
-    :param optionalReviewerIds: Optional Reviewers (List of email ids seperated with ';').
-    :type optionalReviewerIds: string
-    :param requiredReviewerIds: Required Reviewers (List of email ids seperated with ';').
-    :type requiredReviewerIds: string
+    :param optional_reviewer_ids: Optional Reviewers (List of email ids seperated with ';').
+    :type optional_reviewer_ids: string
+    :param required_reviewer_ids: Required Reviewers (List of email ids seperated with ';').
+    :type required_reviewer_ids: string
     :param message: Message.
     :type message: string
 
-    :param minimumApproverCount: Minimum approver count.
-    :type minimumApproverCount: int
-    :param creatorVoteCounts: Whether the creator's vote count counts or not.
-    :type creatorVoteCounts: bool
-    :param allowDownvotes: Whether to allow downvotes or not.
-    :type allowDownvotes: bool
-    :param resetOnSourcePush: Whether to reset source on push.
-    :type resetOnSourcePush: bool
+    :param minimum_approver_count: Minimum approver count.
+    :type minimum_approver_count: int
+    :param creator_vote_counts: Whether the creator's vote count counts or not.
+    :type creator_vote_counts: bool
+    :param allow_downvotes: Whether to allow downvotes or not.
+    :type allow_downvotes: bool
+    :param reset_on_source_push: Whether to reset source on push.
+    :type reset_on_source_push: bool
 
-    :param buildDefinitionId: Build Definition Id.
-    :type buildDefinitionId: int
-    :param queueOnSourceUpdateOnly: Queue Only on source update.
-    :type queueOnSourceUpdateOnly: bool
-    :param manualQueueOnly : Whether to allow only manual queue of builds.
-    :type manualQueueOnly : bool
-    :param displayName : Display Name.
-    :type displayName : string
-    :param validDuration : Policy validity duration (in hours).
-    :type validDuration : double
+    :param build_definition_id: Build Definition Id
+    :type build_definition_id: int
+    :param queue_on_source_update_only: Queue Only on source update.
+    :type queue_on_source_update_only: bool
+    :param manual_queue_only : Whether to allow only manual queue of builds.
+    :type manual_queue_only : bool
+    :param display_name : Display Name.
+    :type display_name : string
+    :param valid_duration :  Policy validity duration (in hours).
+    :type valid_duration : double
 
-    :param useSquashMerge: Whether to squash merge always.
-    :type useSquashMerge: bool
+    :param use_squash_merge: Whether to squash merge always.
+    :type use_squash_merge: bool
 
-    :param maximumGitBlobSizeInBytes: Maximum Git Blob Size In Bytes.
-    :type maximumGitBlobSizeInBytes: long
-    :param useUncompressedSize: Whether to use uncompressed size.
-    :type useUncompressedSize: bool
+    :param maximum_git_blob_size_in_bytes: Maximum Git Blob Size In Bytes.
+    :type maximum_git_blob_size_in_bytes: long
+    :param use_uncompressed_size: Whether to use uncompressed size.
+    :type use_uncompressed_size: bool
 
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
@@ -262,17 +281,45 @@ def update_policy(policy_id,
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
 
+        if policy_configuration is None:
+            current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
+
+            # we only set scope [0] so we will update that only
+            repository_id = repository_id or current_policy.settings['scope'][0]['repositoryId']
+            branch = branch or current_policy.settings['scope'][0]['refName']
+            policy_type = policy_type or current_policy.type.id.lower()
+            is_blocking = is_blocking or str(current_policy.is_blocking)
+            is_enabled = is_enabled or str(current_policy.is_enabled)
+
+            current_setting = current_policy.settings
+            minimum_approver_count = minimum_approver_count or current_setting.get('minimumApproverCount', None)
+            creator_vote_counts = creator_vote_counts or current_setting.get('creatorVoteCounts', None)
+            allow_downvotes = allow_downvotes or current_setting.get('allowDownvotes', None)
+            reset_on_source_push = reset_on_source_push or current_setting.get('resetOnSourcePush', None)
+            use_squash_merge = use_squash_merge or current_setting.get('useSquashMerge', None)
+            build_definition_id = build_definition_id or current_setting.get('buildDefinitionId', None)
+            queue_on_source_update_only = queue_on_source_update_only or current_setting.get('queueOnSourceUpdateOnly', None)
+            manual_queue_only = manual_queue_only or current_setting.get('manualQueueOnly', None)
+            display_name = display_name or current_setting.get('displayName', None)
+            valid_duration = valid_duration or current_setting.get('validDuration', None)
+            maximum_git_blob_size_in_bytes = maximum_git_blob_size_in_bytes or current_setting.get('maximumGitBlobSizeInBytes', None)
+            use_uncompressed_size = use_uncompressed_size or current_setting.get('useUncompressedSize', None)
+            optional_reviewer_ids = optional_reviewer_ids or current_setting.get('optionalReviewerIds', None)
+            required_reviewer_ids = required_reviewer_ids or current_setting.get('requiredReviewerIds', None)
+            message = message or current_setting.get('message', None)
+
         policyConfigurationToCreate = generateConfigurationObject(
             policy_configuration,
             repository_id, branch,
             policy_type,
-            isBlocking, isEnabled,
-            minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush,
-            useSquashMerge,
-            buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration,
-            maximumGitBlobSizeInBytes, useUncompressedSize,
-            optionalReviewerIds, requiredReviewerIds, message,
-            organization)
+            parseTrueFalse(is_blocking), parseTrueFalse(is_enabled),
+            minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
+            use_squash_merge,
+            build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
+            maximum_git_blob_size_in_bytes, use_uncompressed_size,
+            optional_reviewer_ids, required_reviewer_ids, message,
+            organization,
+            True)
 
         return policy_client.update_policy_configuration(
             configuration=policyConfigurationToCreate,
@@ -282,7 +329,7 @@ def update_policy(policy_id,
         raise CLIError(ex)
 
 
-# pylint: disable=too-many-locals
+# pylint: disable=too-many-locals, too-many-statements
 def generateConfigurationObject(policy_configuration=None,
                                 repository_id=None, branch=None,
                                 policy_type=None,
@@ -292,7 +339,8 @@ def generateConfigurationObject(policy_configuration=None,
                                 buildDefinitionId=None, queueOnSourceUpdateOnly=None, manualQueueOnly=None, displayName=None, validDuration=None,
                                 maximumGitBlobSizeInBytes=None, useUncompressedSize=None,
                                 optionalReviewerIds=None, requiredReviewerIds=None, message=None,
-                                organization=None):
+                                organization=None,
+                                ignoreArgumentChecks=False):
     if policy_configuration is None and policy_type is None:
         raise CLIError('Either --policy-configuration or --policy-type must be passed')
 
@@ -301,40 +349,46 @@ def generateConfigurationObject(policy_configuration=None,
             import json
             return json.load(f)
 
+    branch = resolve_git_ref_heads(branch)
+
     # these 2 will be filled by respective types
     paramNameArray = []
     paramArray = []
     policytypeId = ''
 
-    if policy_type == APPROVER_COUNT_POLICY:
+    if policy_type == APPROVER_COUNT_POLICY or policy_type == APPROVER_COUNT_POLICY_ID:
         policytypeId = APPROVER_COUNT_POLICY_ID
         paramArray = [minimumApproverCount, creatorVoteCounts, allowDownvotes, resetOnSourcePush]
         paramNameArray = ['minimumApproverCount', 'creatorVoteCounts', 'allowDownvotes', 'resetOnSourcePush']
+        argumentNameArray = ['minimum-approver-count', 'creator-vote-counts', 'allow-downvotes', 'reset-on-source-push']
 
-    elif policy_type == BUILD_POLICY:
+    elif policy_type == BUILD_POLICY or policy_type == BUILD_POLICY_ID:
         policytypeId = BUILD_POLICY_ID
         paramArray = [buildDefinitionId, queueOnSourceUpdateOnly, manualQueueOnly, displayName, validDuration]
         paramNameArray = ['buildDefinitionId', 'queueOnSourceUpdateOnly', 'manualQueueOnly', 'displayName', 'validDuration']
+        argumentNameArray = ['build-definition-id', 'queue-on-source-update-only', 'manual-queue_only', 'display-name', 'valid-duration']
 
-    elif policy_type == COMMENT_REQUIREMENTS_POLICY:
+    elif policy_type == COMMENT_REQUIREMENTS_POLICY or policy_type == COMMENT_REQUIREMENTS_POLICY_ID:
         policytypeId = COMMENT_REQUIREMENTS_POLICY_ID
         # this particular policy does not need any other parameter
 
-    elif policy_type == MERGE_STRATEGY_POLICY:
+    elif policy_type == MERGE_STRATEGY_POLICY or policy_type == MERGE_STRATEGY_POLICY_ID:
         policytypeId = MERGE_STRATEGY_POLICY_ID
         paramArray = [useSquashMerge]
         paramNameArray = ['useSquashMerge']
+        argumentNameArray = ['use-squash-merge']
 
-    elif policy_type == FILE_SIZE_POLICY:
+    elif policy_type == FILE_SIZE_POLICY or policy_type == FILE_SIZE_POLICY_ID:
         policytypeId = FILE_SIZE_POLICY_ID
         paramArray = [maximumGitBlobSizeInBytes, useUncompressedSize]
         paramNameArray = ['maximumGitBlobSizeInBytes', 'useUncompressedSize']
+        argumentNameArray = ['maximum-git-blob-size-in-bytes', 'use-uncompressed-size']
 
-    elif policy_type == WORKITEM_LINKING_POLICY:
+    elif policy_type == WORKITEM_LINKING_POLICY or policy_type == WORKITEM_LINKING_POLICY_ID:
         policytypeId = WORKITEM_LINKING_POLICY_ID
         # this particular policy does not need any other parameter
 
-    elif policy_type == REQUIRED_REVIEWER_POLICY:
+    elif policy_type == REQUIRED_REVIEWER_POLICY or policy_type == REQUIRED_REVIEWER_POLICY_ID:
         policytypeId = REQUIRED_REVIEWER_POLICY_ID
         optionalReviewerIds = resolveIdentityMailsToIds(optionalReviewerIds, organization)
         requiredReviewerIds = resolveIdentityMailsToIds(requiredReviewerIds, organization)
@@ -345,9 +399,11 @@ def generateConfigurationObject(policy_configuration=None,
             optionalReviewerIds = []
         paramArray = [optionalReviewerIds, requiredReviewerIds, message]
         paramNameArray = ['optionalReviewerIds', 'requiredReviewerIds', 'message']
+        argumentNameArray = ['optional-reviewer-ids', 'required-reviewer-ids', 'message']
 
     # check if we have value in all the required params or not
-    raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policy_type)
+    if ignoreArgumentChecks is False:
+        raiseErrorIfRequiredParamMissing(paramArray, argumentNameArray, policy_type)
 
     policyConfiguration = PolicyConfiguration(is_blocking=isBlocking, is_enabled=isEnabled)
     scope = createScope(policy_type, repository_id, branch)
@@ -390,6 +446,10 @@ def createScope(policy_type, repository_id, branch):
 
 
 def resolveIdentityMailsToIds(mailList, organization):
+    # handle update scenario and just return the thing if it is a list already
+    if isinstance(mailList, list):
+        return mailList
+
     logger.debug('mail list %s ', mailList)
     if not mailList or (not mailList.strip()):
         return None
@@ -409,4 +469,11 @@ def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
     if not paramNameArray:
         return
     if any(v is None for v in paramArray):
-        raise CLIError('{} are required for {}'.format('--' + ' --'.join(paramNameArray), policyName))
+        raise CLIError('{} are required for {}'.format('--' + ', --'.join(paramNameArray), policyName))
+
+
+def parseTrueFalse(inputString):
+    if inputString is not None and inputString.lower() == 'true':
+        return True
+
+    return False

@@ -13,6 +13,7 @@ except ImportError:
     from mock import patch
 
 from azext_devops.dev.repos.policy import *
+from azext_devops.vstsCompressed.policy.v4_0.models.models import PolicyConfiguration, PolicyTypeRef
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.vstsCompressed.policy.v4_0.policy_client import PolicyClient
 
@@ -57,7 +58,38 @@ class TestUuidMethods(unittest.TestCase):
         detect='off')
 
         #assert
-        self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT)
+        self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, scope=None)
+
+    def test_list_policy_repo_scope(self):
+        list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off',
+        repository_id='fake_repo_id')
+
+        #assert
+        self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, scope='fake_repo_id')
+
+    def test_list_policy_branch_scope(self):
+        list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off',
+        repository_id='fake_repo_id',
+        branch='master')
+
+        #assert
+        self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, scope='fake_repo_id:refs/heads/master')
+
+    def test_list_policy__only_branch_scope_error(self):
+        try:
+            list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
+            project = self._TEST_DEVOPS_PROJECT,
+            detect='off',
+            branch='master')
+            self.fail('failure was expected')
+        except CLIError as ex:
+            #assert
+            self.assertEqual(str(ex),
+            '--repository-id is required with --branch')
 
     def test_get_policy(self):
         get_policy(id = 121,
@@ -81,7 +113,7 @@ class TestUuidMethods(unittest.TestCase):
         try:
             create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
             policy_type='ApproverCountPolicy',
-            minimumApproverCount=2,
+            minimum_approver_count=2,
             organization = self._TEST_DEVOPS_ORGANIZATION,
             project = self._TEST_DEVOPS_PROJECT,
             detect='off')
@@ -89,7 +121,7 @@ class TestUuidMethods(unittest.TestCase):
         except CLIError as ex:
             #assert
             self.assertEqual(str(ex),
-            '--minimumApproverCount --creatorVoteCounts --allowDownvotes --resetOnSourcePush are required for ApproverCountPolicy')
+            '--minimum-approver-count, --creator-vote-counts, --allow-downvotes, --reset-on-source-push are required for ApproverCountPolicy')
 
     def test_create_policy_policy_type_and_configuration_missing(self):
         try:
@@ -105,7 +137,7 @@ class TestUuidMethods(unittest.TestCase):
     def test_create_policy_scope(self):
         create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
         policy_type='ApproverCountPolicy',
-        minimumApproverCount=2, creatorVoteCounts= True, allowDownvotes= False, resetOnSourcePush= True,
+        minimum_approver_count=2, creator_vote_counts= True, allow_downvotes= False, reset_on_source_push= True,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
@@ -115,13 +147,28 @@ class TestUuidMethods(unittest.TestCase):
         self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'], str(create_policy_object))
         scope = create_policy_object['configuration'].settings['scope'][0]  # 0 because we set only only scope from CLI
         self.assertEqual(scope['repositoryId'], self._TEST_REPOSITORY_ID)
-        self.assertEqual(scope['refName'], 'master')
+        self.assertEqual(scope['refName'], 'refs/heads/master')
         self.assertEqual(scope['matchKind'], 'exact')
+
+    def test_create_policy_scope(self):
+        create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
+        is_blocking='true',is_enabled='false',
+        policy_type='ApproverCountPolicy',
+        minimum_approver_count=2, creator_vote_counts= True, allow_downvotes= False, reset_on_source_push= True,
+        organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off')
+
+        self.mock_create_policy.assert_called_once()
+        create_policy_object = self.mock_create_policy.call_args_list[0][1]
+        self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'], str(create_policy_object))
+        self.assertEqual(create_policy_object['configuration'].is_enabled, False)
+        self.assertEqual(create_policy_object['configuration'].is_blocking, True)
 
     def test_create_policy_scope_repo_only(self):
         create_policy(repository_id=self._TEST_REPOSITORY_ID,
         policy_type='FileSizePolicy',
-        maximumGitBlobSizeInBytes=2, useUncompressedSize= True,
+        maximum_git_blob_size_in_bytes=2, use_uncompressed_size= True,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
@@ -138,7 +185,7 @@ class TestUuidMethods(unittest.TestCase):
         try:
             create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
             policy_type='FileSizePolicy',
-            maximumGitBlobSizeInBytes=2, useUncompressedSize= True,
+            maximum_git_blob_size_in_bytes=2, use_uncompressed_size= True,
             organization = self._TEST_DEVOPS_ORGANIZATION,
             project = self._TEST_DEVOPS_PROJECT,
             detect='off')
@@ -150,7 +197,7 @@ class TestUuidMethods(unittest.TestCase):
     def test_create_policy_setting_creation(self):
         create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
         policy_type='ApproverCountPolicy',
-        minimumApproverCount=2, creatorVoteCounts= True, allowDownvotes= False, resetOnSourcePush= True,
+        minimum_approver_count=2, creator_vote_counts= True, allow_downvotes= False, reset_on_source_push= True,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
@@ -167,7 +214,7 @@ class TestUuidMethods(unittest.TestCase):
     def test_create_policy_id_assignment(self):
         create_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
         policy_type='ApproverCountPolicy',
-        minimumApproverCount=2, creatorVoteCounts= True, allowDownvotes= False, resetOnSourcePush= True,
+        minimum_approver_count=2, creator_vote_counts= True, allow_downvotes= False, reset_on_source_push= True,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
@@ -182,14 +229,49 @@ class TestUuidMethods(unittest.TestCase):
         update_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
         policy_id = 121,
         policy_type='ApproverCountPolicy',
-        minimumApproverCount=2, creatorVoteCounts= True, allowDownvotes= False, resetOnSourcePush= True,
+        minimum_approver_count=2, creator_vote_counts= True, allow_downvotes= False, reset_on_source_push= True,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
 
         self.mock_update_policy.assert_called_once()
         update_policy_object = self.mock_update_policy.call_args_list[0][1]
-        self.assertEqual(update_policy_object['configuration_id'], 121)        
+        self.assertEqual(update_policy_object['configuration_id'], 121)
+
+    def test_update_policy_patch(self):
+        current_policy = PolicyConfiguration(is_blocking=False, is_enabled=False)
+        policy_type = PolicyTypeRef()
+        policy_type.id = 'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd'
+        current_policy.type = policy_type
+        current_policy.settings = {
+            'minimumApproverCount' : 2,
+            'creatorVoteCounts' : 'False',
+            'allowDownvotes' : 'False',
+            'resetOnSourcePush' : 'False'
+            }
+
+        self.mock_get_policy.return_value = current_policy
+
+        update_policy(repository_id=self._TEST_REPOSITORY_ID, branch='master',
+        is_blocking = 'True',
+        policy_id = 121,
+        minimum_approver_count=5, creator_vote_counts= 'True',
+        organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off')
+
+        self.mock_get_policy.assert_called_once()
+
+        self.mock_update_policy.assert_called_once()
+        update_policy_object = self.mock_update_policy.call_args_list[0][1]
+        self.assertEqual(update_policy_object['configuration_id'], 121)
+        self.assertEqual(update_policy_object['configuration'].is_enabled, False)
+        self.assertEqual(update_policy_object['configuration'].is_blocking, True)
+        settings = update_policy_object['configuration'].settings
+        self.assertEqual(settings['minimumApproverCount'], 5)
+        self.assertEqual(settings['creatorVoteCounts'], 'True')
+        self.assertEqual(settings['allowDownvotes'], 'False')
+        self.assertEqual(settings['resetOnSourcePush'], 'False')
 
 if __name__ == '__main__':
     unittest.main()
