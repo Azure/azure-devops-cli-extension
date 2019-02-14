@@ -161,6 +161,11 @@ def get_pipeline_client(organization=None):
     return connection.get_client('vsts.build.v5_1.build_client.BuildClient')
 
 
+def get_new_pipeline_client(organization=None):
+    connection = get_vss_connection(organization)
+    return connection.get_client('vsts.cix.v5_1.cIX_client.PipelinesClient')
+
+
 def get_ci_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(
