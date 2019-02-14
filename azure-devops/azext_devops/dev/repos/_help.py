@@ -76,7 +76,7 @@ def load_repos_help():
 
         - name: {0} a required reviewer policy
           text: |
-            az repos policy {1} --branch master -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type RequiredReviewersPolicy --message this-is-policy-message --required-reviewer-ids gsaral@microsoft.com;atbagga@microsoft.com --is-blocking True --is-enabled True
+            az repos policy {1} --branch master -r ac6b3157-6af1-4afa-b9d5-80d9ed3afd72 --policy-type RequiredReviewersPolicy --message this-is-policy-message --required-reviewer-ids gsaral@contoso.com;atbagga@constoso.com --is-blocking True --is-enabled True
     """
 
     helps['repos policy create'] = """

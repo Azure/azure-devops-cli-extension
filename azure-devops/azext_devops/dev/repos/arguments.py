@@ -8,7 +8,7 @@ from azext_devops.dev.common.const import REPO_POLICY_TYPE
 
 # CUSTOM CHOICE LISTS
 _ON_OFF_SWITCH_VALUES = ['on', 'off']
-_TRUE_FALSE_SWITCH = ['True', 'False']
+_TRUE_FALSE_SWITCH = ['true', 'false']
 _VOTE_VALUES = ['approve', 'approve-with-suggestions', 'reset', 'wait-for-author', 'reject']
 _PR_STATUS_VALUES = ['all', 'active', 'completed', 'abandoned']
 
