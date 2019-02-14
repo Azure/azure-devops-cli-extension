@@ -436,8 +436,9 @@ def raiseErrorIfRequiredParamMissing(paramArray, paramNameArray, policyName):
     if any(v is None for v in paramArray):
         raise CLIError('{} are required for {}'.format('--' + ', --'.join(paramNameArray), policyName))
 
+
 def _parseTrueFalse(inputString):
-    if inputString is not None and inputString.lower() == 'true' :
+    if inputString is not None and inputString.lower() == 'true':
         return True
-    
+
     return False
