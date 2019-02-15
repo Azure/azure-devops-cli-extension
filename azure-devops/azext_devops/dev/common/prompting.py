@@ -6,7 +6,9 @@
 import sys
 
 from knack.log import get_logger
+from knack.prompting import prompt, NoTTYException
 from knack.prompting import verify_is_a_tty
+from knack.util import CLIError
 
 logger = get_logger(__name__)
 
@@ -69,3 +71,10 @@ def prompt_user_friendly_choice_list(msg, a_list, default=1, help_string=None):
                 delete_last_line()
             print('Please enter a choice [Default choice({})]: {}'.format(default, val))
             logger.warning('Valid values are %s', allowed_vals)
+
+
+def try_prompt(msg, error_msg, help_string=None):
+    try:
+        return prompt(msg, help_string=help_string)
+    except NoTTYException:
+        raise CLIError(error_msg)

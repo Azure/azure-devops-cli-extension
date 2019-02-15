@@ -4,13 +4,17 @@
 # --------------------------------------------------------------------------------------------
 
 from webbrowser import open_new
-
+import webbrowser
+import tempfile
+import os
 from vsts.exceptions import VstsServiceError
 from vsts.build.v5_1.models.build import Build
 from vsts.build.v5_1.models.build_definition import BuildDefinition
 from vsts.build.v5_1.models.build_repository import BuildRepository
 from vsts.build.v5_1.models.agent_pool_queue import AgentPoolQueue
 from vsts.build.v5_1.models.definition_reference import DefinitionReference
+from vsts.service_endpoint.v5_1.models.service_endpoint import ServiceEndpoint
+from vsts.service_endpoint.v5_1.models.endpoint_authorization import EndpointAuthorization
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.git import resolve_git_ref_heads
@@ -18,11 +22,13 @@ from azext_devops.dev.common.identities import resolve_identity_as_id
 from azext_devops.dev.common.services import (get_pipeline_client,
                                               get_new_pipeline_client,
                                               get_git_client,
+                                              get_service_endpoint_client,
                                               resolve_instance_and_project,
                                               resolve_instance_project_and_repo)
 from azext_devops.dev.common.uri import uri_quote, uri_parse
 from azext_devops.dev.common.uuid import is_uuid
-from azext_devops.dev.common.prompting import prompt_user_friendly_choice_list
+from azext_devops.dev.common.prompting import prompt_user_friendly_choice_list, try_prompt
+from azext_devops.dev.common.const import AZ_DEVOPS_GITHUB_PAT_ENVKEY
 from .build_definition import get_definition_id_from_name
 
 logger = get_logger(__name__)
@@ -79,57 +85,56 @@ def pipeline_create(name, repository_type, repository_url=None, branch=None, yml
                 repo_id = _get_repo_id_from_repo_url(repository_url)
         repo_name = repo_id
 
+        github_pat = None
+        if not service_endpoint:
+            service_endpoint, github_pat = get_github_service_endpoint(organization, project, github_pat)
+
         # No yml path == find or recommend yml scenario
         if not yml_path:
             logger.debug('No yml file was given. Trying to find the yml file in the repo.')
-        new_pipeline_client = get_new_pipeline_client(organization=organization)
-        yml_names = []
-        yml_options = []
-
-        # from vsts.cix.v5_1.models.configuration_file import ConfigurationFile
-        configurations = new_pipeline_client.get_configurations(
-            project=project, repository_type=repository_type,
-            repository_id=repo_id, branch=branch, service_connection_id=service_endpoint)
-        for configuration in configurations:
-            logger.debug('The repo has a yml pipeline definition. Path: %s', configuration.path)
-            custom_name = 'Existing yml (path={})'.format(configuration.path)
-            yml_names.append(custom_name)
-            yml_options.append(YmlOptions(custom_name, configuration.content))
-        recommendations = new_pipeline_client.get_recommended_templates(
-            project=project, repository_type=repository_type,
-            repository_id=repo_id, branch=branch, service_connection_id=service_endpoint)
-        logger.debug('List of recommended templates..')
-        for recommendation in recommendations:
-            logger.debug(recommendation.name)
-            yml_names.append(recommendation.name)
-            yml_options.append(YmlOptions(recommendation.name, recommendation.content,
-                                          recommendation.description, recommendation.parameters))
-        import webbrowser
-        import tempfile
-        filename = None
-        proceed_selection = 1
-        while proceed_selection == 1:
-            selection_id = prompt_user_friendly_choice_list("Choose a yml template to create a pipeline:", yml_names)
-            print("TODO: Ask for parameter or auto fill if possible.")
-            _fp, filename = tempfile.mkstemp(text=True)
-            f = open(filename, mode='w')
-            f.write(yml_options[selection_id].content)
+            new_pipeline_client = get_new_pipeline_client(organization=organization)
+            yml_names = []
+            yml_options = []
+            configurations = new_pipeline_client.get_configurations(
+                project=project, repository_type=repository_type,
+                repository_id=repo_id, branch=branch, service_connection_id=service_endpoint)
+            for configuration in configurations:
+                logger.debug('The repo has a yml pipeline definition. Path: %s', configuration.path)
+                custom_name = 'Existing yml (path={})'.format(configuration.path)
+                yml_names.append(custom_name)
+                yml_options.append(YmlOptions(custom_name, configuration.content))
+            recommendations = new_pipeline_client.get_recommended_templates(
+                project=project, repository_type=repository_type,
+                repository_id=repo_id, branch=branch, service_connection_id=service_endpoint)
+            logger.debug('List of recommended templates..')
+            for recommendation in recommendations:
+                logger.debug(recommendation.name)
+                yml_names.append(recommendation.name)
+                yml_options.append(YmlOptions(recommendation.name, recommendation.content,
+                                              recommendation.description, recommendation.parameters))
+            filename = None
+            proceed_selection = 1
+            while proceed_selection == 1:
+                selection_id = prompt_user_friendly_choice_list("Choose a yml template to create a pipeline:",
+                                                                yml_names)
+                _fp, filename = tempfile.mkstemp(text=True)
+                f = open(filename, mode='w')
+                f.write(yml_options[selection_id].content)
+                f.close()
+                # open the file
+                webbrowser.open(filename)
+                proceed_selection = prompt_user_friendly_choice_list(
+                    'Do you want to proceed creating a pipeline?',
+                    ['Proceed with this yml', 'Revisit recommendations'])
+            # Read updated data from the file
+            f = open(filename, mode='r')
+            print(f.read())
             f.close()
-            # open the file
-            webbrowser.open(filename)
-            proceed_selection = prompt_user_friendly_choice_list(
-                'Do you want to proceed creating a pipeline?',
-                ['Use the created yml', 'Revisit recommendations', 'Exit'])
-        # read data from file
-        f = open(filename, mode='r')
-        print(f.read())
-        f.close()
-        # this is failing to remove the file 
-        # import os
-        # os.remove(filename)
-        print("TODO: Github Auth and checkin the template.")
-
-        print("TODO: Create or reuse service endpoint")
+            # FIX THIS atbagga
+            # import os
+            # os.remove(filename)
+            print("TODO: Ask for parameter or auto fill if possible.")
+            print("TODO: Github Auth and checkin the template.")
 
         # Create build definition
         definition = BuildDefinition()
@@ -414,3 +419,45 @@ def _create_process_object(yaml_path):
         "yamlFilename": yaml_path,
         "type": 2
     }
+
+
+def _get_service_endpoints(organization, project):
+    client = get_service_endpoint_client(organization)
+    return client.get_service_endpoints(project)
+
+
+def get_github_service_endpoint(organization, project, github_pat):
+    se_client = get_service_endpoint_client(organization)
+    existing_service_endpoints = _get_service_endpoints(organization, project)
+    service_endpoints_choice_list = ['Create new service endpoint']
+    github_service_endpoints = []
+    choice = 0
+    for endpoint in existing_service_endpoints:
+        if 'github.com' in endpoint.url:
+            service_endpoints_choice_list.append('Name: {}, Url: {}'.format(endpoint.name, endpoint.url))
+            github_service_endpoints.append(endpoint)
+    if github_service_endpoints:
+        choice = prompt_user_friendly_choice_list("Create or choose existing service endpoint?:",
+                                                  service_endpoints_choice_list)
+    if choice == 0:
+        logger.debug("Creating a new service endpoint.")
+        if not github_pat:
+            github_pat = get_github_pat_token()
+        service_endpoint_authorization = EndpointAuthorization(parameters={'accessToken':github_pat},
+                                                               scheme='PersonalAccessToken')
+        service_endpoint_to_create = ServiceEndpoint(authorization=service_endpoint_authorization,
+                                                     name='AzureDevopsCliSetupPipelineFlow', type='github',
+                                                     url='https://github.com/')
+        return se_client.create_service_endpoint(service_endpoint_to_create, project).id, github_pat
+    else:
+        return existing_service_endpoints[choice-1].id, github_pat
+
+
+def get_github_pat_token():
+    github_pat = os.getenv(AZ_DEVOPS_GITHUB_PAT_ENVKEY, None)
+    if github_pat:
+        return github_pat
+    github_pat = try_prompt(
+        msg='Enter your Github PAT token:',
+        error_msg='Github PAT token is required for this command.'
+        + 'Either set the environment variable ({env_var}) or run the command interactively.')
