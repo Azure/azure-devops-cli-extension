@@ -63,8 +63,6 @@ def pipeline_create(name, repository_type, repository_url=None, branch=None, yml
     :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
     """
-    import pdb 
-    pdb.set_trace()
     try:
         organization, project = resolve_instance_and_project(
             detect=detect, organization=organization, project=project)
@@ -126,9 +124,13 @@ def pipeline_create(name, repository_type, repository_url=None, branch=None, yml
         f = open(filename, mode='r')
         print(f.read())
         f.close()
+        # this is failing to remove the file 
         # import os
-        # this is failing to remove ... os.remove(filename)
+        # os.remove(filename)
         print("TODO: Github Auth and checkin the template.")
+
+        print("TODO: Create or reuse service endpoint")
+
         # Create build definition
         definition = BuildDefinition()
         definition.name = name
@@ -144,9 +146,9 @@ def pipeline_create(name, repository_type, repository_url=None, branch=None, yml
             definition.repository.url = repository_url
         if branch:
             definition.repository.default_branch = branch
-        definition.repository.type = repository_type
         if service_endpoint:
-            definition.repository.properties = _get_repo_properties_object(service_endpoint, branch)
+            definition.repository.properties = _create_repo_properties_object(service_endpoint, branch)
+        definition.repository.type = repository_type
         # Set build process
         definition.process = _create_process_object(yml_path)
         # set agent queue
@@ -270,8 +272,8 @@ def pipeline_run(id=None, name=None, open=False, # pylint: disable=redefined-bui
                              'must be supplied for this command.')
         client = get_pipeline_client(organization)
         if id is None:
-            pipeline_id = get_definition_id_from_name(name, client, project)
-        definition_reference = DefinitionReference(id=pipeline_id)
+            id = get_definition_id_from_name(name, client, project)
+        definition_reference = DefinitionReference(id=id)
         build = Build(definition=definition_reference)
         queued_build = client.queue_build(build=build, project=project)
         if open:
@@ -302,8 +304,20 @@ def pipeline_delete(id, organization=None, project=None, detect=None): # pylint:
         raise CLIError(ex)
 
 
-def pipeline_tag(id=None, organization=None, project=None, detect=None):
-    """Tag a pipeline.
+def pipeline_run_tag(id=None, organization=None, project=None, detect=None):
+    """Tag a pipeline run.
+    """
+    pass
+
+
+def pipeline_run_show(id=None, organization=None, project=None, detect=None):
+    """Show details of a pipeline run.
+    """
+    pass
+
+
+def pipeline_run_list(organization=None, project=None, detect=None):
+    """List the pipeline runs in a project.
     """
     pass
 
@@ -328,7 +342,7 @@ def _open_pipeline(definition, organization):
     """
     # https://dev.azure.com/OrgName/ProjectName/_build/index?definitionId=1234
     project = definition.project.name
-    url = organization.rstrip('/') + '/' + uri_quote(project) + '/_build/results?definitionId='\
+    url = organization.rstrip('/') + '/' + uri_quote(project) + '/_build?definitionId='\
         + uri_quote(str(definition.id))
     logger.debug('Opening web page: %s', url)
     open_new(url=url)
@@ -388,7 +402,7 @@ def _get_repo_id_from_repo_url(repository_url):
     raise CLIError('Could not parse repository url.')
 
 
-def _get_repo_properties_object(service_endpoint, branch):
+def _create_repo_properties_object(service_endpoint, branch):
     return {
         "connectedServiceId": service_endpoint,
         "defaultBranch": branch

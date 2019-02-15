@@ -93,9 +93,6 @@ def _transform_definition_row(row, include_draft_column=False):
         table_row['Default Queue'] = row['queue']['name']
     else:
         table_row['Default Queue'] = ' '
-    # if row['process']:
-    #     if row['process']['yamlFilename']:
-    #         table_row['Yaml Path'] = row['process']['yamlFilename']
     return table_row
 
 

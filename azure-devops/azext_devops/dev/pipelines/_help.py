@@ -13,6 +13,12 @@ def load_pipelines_help():
     long-summary:
     """
 
+    helps['pipelines runs'] = """
+    type: group
+    short-summary: Manage pipeline runs.
+    long-summary:
+    """
+
     helps['pipelines build'] = """
     type: group
     short-summary: Manage build.
