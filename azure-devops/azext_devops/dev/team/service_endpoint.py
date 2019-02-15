@@ -112,8 +112,9 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
             service_endpoint_authorization = EndpointAuthorization(
                 parameters={'accessToken': github_access_token},
                 scheme=SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN)
+            service_endpoint_data = {'GeneratedBy': 'AzureDevopsExtensionFlow'}
             service_endpoint_to_create = ServiceEndpoint(
-                authorization=service_endpoint_authorization,
+                authorization=service_endpoint_authorization, data=service_endpoint_data,
                 name=name, type=SERVICE_ENDPOINT_TYPE_GITHUB, url=github_url)
             return client.create_service_endpoint(service_endpoint_to_create, project)
 
@@ -129,7 +130,8 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
                 'subscriptionId': azure_rm_subscription_id,
                 'subscriptionName': azure_rm_subscription_name,
                 'environment': 'AzureCloud',
-                'creationMode': 'Manual'
+                'creationMode': 'Manual',
+                'GeneratedBy': 'AzureDevopsExtensionFlow'
             }
             service_endpoint_to_create = ServiceEndpoint(
                 authorization=service_endpoint_authorization, data=service_endpoint_data,
