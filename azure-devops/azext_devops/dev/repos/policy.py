@@ -126,29 +126,63 @@ def update_policy_configuration_file(policy_id, policy_configuration, organizati
         raise CLIError(ex)
 
 def create_policy_approver_count(repository_id, branch, is_blocking, is_enabled,
-                                 minimum_approver_count, creator_vote_count, allow_downvotes, reset_on_source_push,
+                                 minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
                                  organization=None, project=None, detect=None):
-    """Create a approver count policy
-    :param minimum_approver_count: Minimum approver count.
-    :type minimum_approver_count: int
-    :param creator_vote_counts: Whether the creator's vote count counts or not.
-    :type creator_vote_counts: bool
-    :param allow_downvotes: Whether to allow downvotes or not.
-    :type allow_downvotes: bool
-    :param reset_on_source_push: Whether to reset source on push.
-    :type reset_on_source_push: bool
+    """Create approver count policy
     """
     try:
         organization, project = resolve_instance_and_project(
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
         param_name_array = ['minimumApproverCount', 'creatorVoteCounts', 'allowDownvotes', 'resetOnSourcePush']
-        param_value_array = [minimum_approver_count, creator_vote_count, allow_downvotes, reset_on_source_push]
+        param_value_array = [minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push]
         configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
                         'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd',
                         param_name_array, param_value_array)
 
         return policy_client.create_policy_configuration(configuration=configuration, project=project)
+
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
+def update_policy_approver_count(policy_id,
+                                 repository_id=None, branch=None, is_blocking=None, is_enabled=None,
+                                 minimum_approver_count=None, creator_vote_counts=None, allow_downvotes=None, reset_on_source_push=None,
+                                 organization=None, project=None, detect=None):
+    """Update approver count policy
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
+        param_name_array = ['minimumApproverCount', 'creatorVoteCounts', 'allowDownvotes', 'resetOnSourcePush']
+        
+        current_setting = current_policy.settings
+        current_scope = current_policy.settings['scope'][0]
+
+        param_value_array = [
+           minimum_approver_count or current_setting.get('minimumApproverCount', None),
+           creator_vote_counts or current_setting.get('creatorVoteCounts', None),
+           allow_downvotes or current_setting.get('allowDownvotes', None),
+           reset_on_source_push or current_setting.get('resetOnSourcePush', None)
+        ]
+
+        updated_configuration = create_configuration_object(
+            repository_id or current_scope['repositoryId'],
+            branch or current_scope['refName'],
+            is_blocking or str(current_policy.is_blocking),
+            is_enabled or str(current_policy.is_enabled),
+            'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd',
+            param_name_array,
+            param_value_array
+        )
+
+        return policy_client.update_policy_configuration(
+            configuration=updated_configuration,
+            project=project,
+            configuration_id=policy_id
+        )
 
     except VstsServiceError as ex:
         raise CLIError(ex)

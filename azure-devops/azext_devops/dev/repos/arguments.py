@@ -41,6 +41,16 @@ def load_code_arguments(self, _):
         context.argument('is_enabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether the policy is enabled or not')
 
+    with self.argument_context('repos policy approver-count') as context:
+        context.argument('minimum_approver_count',
+                         help='Minimum approver count.')
+        context.argument('creator_vote_counts', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+                         help='Whether the creator\'s vote count counts or not.')
+        context.argument('allow_downvotes', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+                         help='Whether to allow downvotes or not.')
+        context.argument('reset_on_source_push', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+                         help='Whether to reset source on push.')
+
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
         context.argument('source_branch', options_list=('--source-branch', '-s'))

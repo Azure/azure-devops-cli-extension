@@ -52,6 +52,7 @@ def load_code_commands(self, _):
         g.command('create', 'create_policy_configuration_file', table_transformer=transform_repo_policy_table_output)
         g.command('update', 'update_policy_configuration_file', table_transformer=transform_repo_policy_table_output)
         g.command('approver-count create','create_policy_approver_count', table_transformer=transform_repo_policy_table_output)
+        g.command('approver-count update','update_policy_approver_count', table_transformer=transform_repo_policy_table_output)
 
     with self.command_group('repos pr', command_type=reposPullRequestOps) as g:
         # basic pr commands
