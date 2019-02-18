@@ -46,11 +46,11 @@ def load_code_commands(self, _):
 
     with self.command_group('repos policy', command_type=policyOps) as g:
         # repository/ branch policies
-        g.command('create', 'create_policy', table_transformer=transform_repo_policy_table_output)
         g.command('list', 'list_policy', table_transformer=transform_repo_policies_table_output)
         g.command('show', 'get_policy', table_transformer=transform_repo_policy_table_output)
-        g.command('update', 'update_policy', table_transformer=transform_repo_policy_table_output)
         g.command('delete', 'delete_policy', confirmation='Are you sure you want to delete this policy?')
+        g.command('create', 'create_policy_configuration_file', table_transformer=transform_repo_policy_table_output)
+        g.command('update', 'update_policy_configuration_file', table_transformer=transform_repo_policy_table_output)
 
     with self.command_group('repos pr', command_type=reposPullRequestOps) as g:
         # basic pr commands

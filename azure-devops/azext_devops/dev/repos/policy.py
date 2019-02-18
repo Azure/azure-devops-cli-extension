@@ -108,4 +108,45 @@ def delete_policy(id, organization=None, project=None, detect=None):  # pylint: 
         raise CLIError(ex)
 
 
+def create_policy_configuration_file(policy_configuration, organization=None, project=None, detect=None):
+    """Create a policy using configuration provided through configuration file
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
+    :param project: Name or ID of the project.
+    :type project: str
+    :param detect: Automatically detect organization. Default is "on".
+    :type detect: str
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        with open(policy_configuration) as f:
+            import json
+            configuration = json.load(f)
+            return policy_client.create_policy_configuration(configuration=configuration, project=project)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
+def update_policy_configuration_file(policy_id, policy_configuration, organization=None, project=None, detect=None):
+    """Updates a policy using configuration provided through configuration file
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
+    :param project: Name or ID of the project.
+    :type project: str
+    :param detect: Automatically detect organization. Default is "on".
+    :type detect: str
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        with open(policy_configuration) as f:
+            import json
+            configuration = json.load(f)
+            return policy_client.update_policy_configuration(
+                configuration=configuration,
+                project=project,
+                configuration_id=policy_id)
+    except VstsServiceError as ex:
+        raise CLIError(ex) 

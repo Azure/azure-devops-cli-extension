@@ -21,6 +21,14 @@ def load_code_arguments(self, _):
         context.argument('reviewers', nargs='*')
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
+    with self.argument_context('repos policy') as context:
+        context.argument('policy_configuration', options_list=('--policy-configuration', '--config'),
+                         help='File path of file containing policy configuration to create in a serialized form. ' +
+                         'please use / backslash when typing in directory path. '
+                         +'Only --project and --organization param are needed when passing this.')
+        context.argument('policy_id', options_list=('--policy-id', '--id'),
+                         help='ID of the policy which needs to be updated')
+
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
         context.argument('source_branch', options_list=('--source-branch', '-s'))
