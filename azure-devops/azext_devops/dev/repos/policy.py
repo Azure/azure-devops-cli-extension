@@ -266,6 +266,49 @@ def create_policy_build(repository_id, branch, is_blocking, is_enabled,
 
     except VstsServiceError as ex:
         raise CLIError(ex)
+        
+def update_policy_build(policy_id,
+                        repository_id=None, branch=None, is_blocking=None, is_enabled=None,
+                        build_definition_id=None, queue_on_source_update_only=None, manual_queue_only=None, display_name=None, valid_duration=None,
+                        organization=None, project=None, detect=None):
+    """Update build policy
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
+        param_name_array = ['buildDefinitionId', 'queueOnSourceUpdateOnly', 'manualQueueOnly', 'displayName', 'validDuration']
+        
+        current_setting = current_policy.settings
+        current_scope = current_policy.settings['scope'][0]
+
+        param_value_array = [
+           build_definition_id or current_setting.get('buildDefinitionId', None),
+           queue_on_source_update_only or current_setting.get('queueOnSourceUpdateOnly', None),
+           manual_queue_only or current_setting.get('manualQueueOnly', None),
+           display_name or current_setting.get('displayName', None),
+           valid_duration or current_setting.get('validDuration', None)
+        ]
+
+        updated_configuration = create_configuration_object(
+            repository_id or current_scope['repositoryId'],
+            branch or current_scope['refName'],
+            is_blocking or str(current_policy.is_blocking),
+            is_enabled or str(current_policy.is_enabled),
+            '0609b952-1397-4640-95ec-e00a01b2c241',
+            param_name_array,
+            param_value_array
+        )
+
+        return policy_client.update_policy_configuration(
+            configuration=updated_configuration,
+            project=project,
+            configuration_id=policy_id
+        )
+
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def create_configuration_object(repository_id, branch, is_blocking, is_enabled, policy_type_id, param_name_array, param_value_array):

@@ -61,6 +61,8 @@ def load_code_commands(self, _):
                   table_transformer=transform_repo_policy_table_output)
         g.command('build create', 'create_policy_build',
                   table_transformer=transform_repo_policy_table_output)
+        g.command('build update', 'update_policy_build',
+                  table_transformer=transform_repo_policy_table_output)
 
     with self.command_group('repos pr', command_type=reposPullRequestOps) as g:
         # basic pr commands
