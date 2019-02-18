@@ -29,8 +29,8 @@ def load_code_arguments(self, _):
         context.argument('project', options_list=('--project', '-p'),
                          help='Name or ID of the project.')
         context.argument('policy_configuration', options_list=('--policy-configuration', '--config'),
-                         help='File path of file containing policy configuration to create in a serialized form. ' +
-                         'please use / backslash when typing in directory path. '
+                         help='File path of file containing policy configuration to create in a serialized form. '
+                         +'please use / backslash when typing in directory path. '
                          +'Only --project and --organization param are needed when passing this.')
         context.argument('policy_id', options_list=('--policy-id', '--id'),
                          help='ID of the policy which needs to be updated')
