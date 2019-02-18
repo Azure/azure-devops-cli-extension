@@ -55,6 +55,15 @@ def load_code_arguments(self, _):
         context.argument('use_squash_merge', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to squash merge always.')
 
+    with self.argument_context('repos policy build') as context:
+        context.argument('build_definition_id', help='Build Definition Id.')
+        context.argument('queue_on_source_update_only', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+                         help='Queue Only on source update.')
+        context.argument('manual_queue_only', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+                         help='Whether to allow only manual queue of builds.')
+        context.argument('display_name', help='Display Name.')
+        context.argument('valid_duration', help='Policy validity duration (in hours).')
+
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
         context.argument('source_branch', options_list=('--source-branch', '-s'))

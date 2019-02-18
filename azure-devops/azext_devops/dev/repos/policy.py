@@ -247,6 +247,26 @@ def update_policy_merge_strategy(policy_id,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+def create_policy_build(repository_id, branch, is_blocking, is_enabled,
+                        build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
+                        organization=None, project=None, detect=None):
+    """Create build policy
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        param_name_array = ['buildDefinitionId', 'queueOnSourceUpdateOnly', 'manualQueueOnly', 'displayName', 'validDuration']
+        param_value_array = [build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration]
+        configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
+                        '0609b952-1397-4640-95ec-e00a01b2c241',
+                        param_name_array, param_value_array)
+
+        return policy_client.create_policy_configuration(configuration=configuration, project=project)
+
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
 
 def create_configuration_object(repository_id, branch, is_blocking, is_enabled, policy_type_id, param_name_array, param_value_array):
     branch = resolve_git_ref_heads(branch)
