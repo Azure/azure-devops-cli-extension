@@ -51,6 +51,10 @@ def load_code_arguments(self, _):
         context.argument('reset_on_source_push', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to reset source on push.')
 
+    with self.argument_context('repos policy merge-strategy') as context:
+        context.argument('use_squash_merge', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+                         help='Whether to squash merge always.')
+
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
         context.argument('source_branch', options_list=('--source-branch', '-s'))
