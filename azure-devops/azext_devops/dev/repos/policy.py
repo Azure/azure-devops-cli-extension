@@ -13,20 +13,6 @@ from azext_devops.vstsCompressed.policy.v4_0.models.models import PolicyConfigur
 
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.services import (get_policy_client, resolve_instance_and_project)
-from azext_devops.dev.common.const import (APPROVER_COUNT_POLICY,
-                                           APPROVER_COUNT_POLICY_ID,
-                                           BUILD_POLICY,
-                                           BUILD_POLICY_ID,
-                                           COMMENT_REQUIREMENTS_POLICY,
-                                           COMMENT_REQUIREMENTS_POLICY_ID,
-                                           MERGE_STRATEGY_POLICY,
-                                           MERGE_STRATEGY_POLICY_ID,
-                                           FILE_SIZE_POLICY,
-                                           FILE_SIZE_POLICY_ID,
-                                           WORKITEM_LINKING_POLICY,
-                                           WORKITEM_LINKING_POLICY_ID,
-                                           REQUIRED_REVIEWER_POLICY,
-                                           REQUIRED_REVIEWER_POLICY_ID)
 from azext_devops.dev.common.identities import resolve_identity_as_id
 
 logger = get_logger(__name__)
@@ -137,4 +123,74 @@ def update_policy_configuration_file(policy_id, policy_configuration, organizati
                 project=project,
                 configuration_id=policy_id)
     except VstsServiceError as ex:
-        raise CLIError(ex) 
+        raise CLIError(ex)
+
+def create_policy_approver_count(repository_id, branch, is_blocking, is_enabled,
+                                 minimum_approver_count, creator_vote_count, allow_downvotes, reset_on_source_push,
+                                 organization=None, project=None, detect=None):
+    """Create a approver count policy
+    :param minimum_approver_count: Minimum approver count.
+    :type minimum_approver_count: int
+    :param creator_vote_counts: Whether the creator's vote count counts or not.
+    :type creator_vote_counts: bool
+    :param allow_downvotes: Whether to allow downvotes or not.
+    :type allow_downvotes: bool
+    :param reset_on_source_push: Whether to reset source on push.
+    :type reset_on_source_push: bool
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        param_name_array = ['minimumApproverCount', 'creatorVoteCounts', 'allowDownvotes', 'resetOnSourcePush']
+        param_value_array = [minimum_approver_count, creator_vote_count, allow_downvotes, reset_on_source_push]
+        configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
+                        'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd',
+                        param_name_array, param_value_array)
+
+        return policy_client.create_policy_configuration(configuration=configuration, project=project)
+
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
+def create_configuration_object(repository_id, branch, is_blocking, is_enabled, policy_type_id, param_name_array, param_value_array):
+    branch = resolve_git_ref_heads(branch)
+    policyConfiguration = PolicyConfiguration(is_blocking=parseTrueFalse(is_blocking), is_enabled=parseTrueFalse(is_enabled))
+    scope = createScope(repository_id, branch)
+    policyConfiguration.settings = {
+        'scope': scope
+    }
+    policyConfiguration.type = {
+        'id': policy_type_id
+    }
+
+    index = 0
+    for param in param_name_array:
+        policyConfiguration.settings[param] = param_value_array[index]
+        index = index + 1
+
+    return policyConfiguration
+
+def createScope(repository_id, branch):
+    scope = [
+        {
+            'repositoryId': repository_id,
+            'refName': branch,
+            'matchKind': 'exact'
+        }
+    ]
+
+    if branch is None:
+        scope = [
+            {
+                'repositoryId': repository_id,                
+            }
+        ]
+
+    return scope
+
+def parseTrueFalse(inputString):
+    if inputString is not None and inputString.lower() == 'true':
+        return True
+
+    return False

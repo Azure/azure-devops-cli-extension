@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.arguments import enum_choice_list
-from azext_devops.dev.common.const import REPO_POLICY_TYPE
+from azure.cli.core.commands.parameters import get_enum_type
 
 # CUSTOM CHOICE LISTS
 _ON_OFF_SWITCH_VALUES = ['on', 'off']
@@ -34,6 +34,12 @@ def load_code_arguments(self, _):
                          +'Only --project and --organization param are needed when passing this.')
         context.argument('policy_id', options_list=('--policy-id', '--id'),
                          help='ID of the policy which needs to be updated')
+        context.argument('repository_id', help='Id (UUID) of the repository on which to apply the policy')
+        context.argument('branch', help='Branch on which this policy should be applied')
+        context.argument('is_blocking', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+                         help='Whether the policy should be blocking or not')
+        context.argument('is_enabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+                         help='Whether the policy is enabled or not')
 
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
