@@ -21,6 +21,7 @@ _SERVICE_ENDPOINT_TYPE = [SERVICE_ENDPOINT_TYPE_GITHUB, SERVICE_ENDPOINT_TYPE_AZ
 _SERVICE_ENDPOINT_AUTHORIZATION_SCHEME = [SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                                           SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL]
 
+
 # pylint: disable=line-too-long
 def load_global_args(context):
     context.argument('organization', options_list=('--organization', '--org'), help='Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/')
