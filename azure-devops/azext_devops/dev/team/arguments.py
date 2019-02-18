@@ -12,7 +12,6 @@ from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
 
 
 # CUSTOM CHOICE LISTS
-_ON_OFF_SWITCH_VALUES = ['on', 'off']
 _YES_NO_SWITCH_VALUES = ['yes', 'no']
 _SOURCE_CONTROL_VALUES = ['git', 'tfvc']
 _PROJECT_VISIBILITY_VALUES = ['private', 'public']
@@ -24,8 +23,9 @@ _SERVICE_ENDPOINT_AUTHORIZATION_SCHEME = [SERVICE_ENDPOINT_AUTHORIZATION_PERSONA
 
 # pylint: disable=line-too-long
 def load_global_args(context):
+    from azure.cli.core.commands.parameters import get_enum_type
     context.argument('organization', options_list=('--organization', '--org'), help='Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/')
-    context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES), help='Automatically detect organization. Default is "on".')
+    context.argument('detect', arg_type=get_enum_type(['on', 'off']), help='Automatically detect organization. Default is "on".')
     context.argument('project', options_list=('--project', '-p'), help='Name or ID of the project.')
 
 
