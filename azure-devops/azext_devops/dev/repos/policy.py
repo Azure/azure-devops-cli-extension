@@ -208,6 +208,45 @@ def create_policy_merge_strategy(repository_id, branch, is_blocking, is_enabled,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+def update_policy_merge_strategy(policy_id,
+                                 repository_id=None, branch=None, is_blocking=None, is_enabled=None,
+                                 use_squash_merge=None,
+                                 organization=None, project=None, detect=None):
+    """Update merge strategy policy
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
+        param_name_array = ['useSquashMerge']
+        
+        current_setting = current_policy.settings
+        current_scope = current_policy.settings['scope'][0]
+
+        param_value_array = [
+           use_squash_merge or current_setting.get('useSquashMerge', None)
+        ]
+
+        updated_configuration = create_configuration_object(
+            repository_id or current_scope['repositoryId'],
+            branch or current_scope['refName'],
+            is_blocking or str(current_policy.is_blocking),
+            is_enabled or str(current_policy.is_enabled),
+            'fa4e907d-c16b-4a4c-9dfa-4916e5d171ab',
+            param_name_array,
+            param_value_array
+        )
+
+        return policy_client.update_policy_configuration(
+            configuration=updated_configuration,
+            project=project,
+            configuration_id=policy_id
+        )
+
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
 
 def create_configuration_object(repository_id, branch, is_blocking, is_enabled, policy_type_id, param_name_array, param_value_array):
     branch = resolve_git_ref_heads(branch)
