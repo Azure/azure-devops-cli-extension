@@ -23,8 +23,6 @@ def create_project(name, organization=None, process=None, source_control='git', 
     """Create a team project.
     :param name: Name of the new project.
     :type name: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
     :param process: Process to use. Default if not specified.
     :type process: str
     :param source_control: Source control type of the initial code repository created.
@@ -33,9 +31,6 @@ def create_project(name, organization=None, process=None, source_control='git', 
     :type description: str
     :param visibility: Project visibility.
     :type visibility: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
-    :type detect: str
     :param open: Open the team project in the default web browser.
     :type open: bool
     :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
@@ -98,11 +93,6 @@ def delete_project(id, organization=None, detect=None):  # pylint: disable=redef
     """Delete team project.
     :param id: The id (UUID) of the project to delete.
     :type id: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
-    :type detect: str
     """
     try:
         organization = resolve_instance(detect=detect, organization=organization)
@@ -124,11 +114,6 @@ def show_project(project, organization=None, detect=None, open=False):  # pylint
     """Show team project.
     :param project: The id (UUID) or name of the project to show.
     :type project: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
-    :type detect: str
     :param open: Open the team project in the default web browser.
     :type open: bool
     :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
@@ -146,15 +131,10 @@ def show_project(project, organization=None, detect=None, open=False):  # pylint
 
 def list_projects(organization=None, top=None, skip=None, detect=None):
     """List team projects
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
     :param top: Maximum number of results to list.
     :type top: int
     :param skip: Number of results to skip.
     :type skip: int
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
-    :type detect: str
     :rtype: list of :class:`<TeamProject> <core.v4_0.models.TeamProject>`
     """
     try:

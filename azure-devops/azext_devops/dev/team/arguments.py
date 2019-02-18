@@ -21,28 +21,25 @@ _SERVICE_ENDPOINT_TYPE = [SERVICE_ENDPOINT_TYPE_GITHUB, SERVICE_ENDPOINT_TYPE_AZ
 _SERVICE_ENDPOINT_AUTHORIZATION_SCHEME = [SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                                           SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL]
 
+def load_global_args(context):
+    context.argument('organization', options_list=('--organization', '--org'),
+                     help='Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/')
+    context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES),
+                     help='Automatically detect organization. Default is "on".')
+    context.argument('project', options_list=('--project', '-p'),
+                     help='Name or ID of the project.')
+
 
 def load_team_arguments(self, _):
-    with self.argument_context('devops login') as context:
-        context.argument('organization', options_list=('--organization', '--org'))
-        context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-    with self.argument_context('devops logout') as context:
-        context.argument('organization', options_list=('--organization', '--org'))
-        context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
     with self.argument_context('devops configure') as context:
         context.argument('defaults', options_list=('--defaults', '-d'), nargs='*')
     with self.argument_context('devops project') as context:
-        context.argument('organization', options_list=('--organization', '--org'))
         context.argument('process', options_list=('--process', '-p'))
         context.argument('source_control', options_list=('--source-control', '-s'),
                          **enum_choice_list(_SOURCE_CONTROL_VALUES))
         context.argument('description', options_list=('--description', '-d'))
-        context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         context.argument('state', **enum_choice_list(_STATE_VALUES))
         context.argument('visibility', **enum_choice_list(_PROJECT_VISIBILITY_VALUES))
-    with self.argument_context('devops service-endpoint') as context:
-        context.argument('organization', options_list=('--organization', '--org'))
-        context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
     with self.argument_context('devops service-endpoint create') as context:
         context.argument('service_endpoint_type', **enum_choice_list(_SERVICE_ENDPOINT_TYPE))
         context.argument('authorization_scheme', **enum_choice_list(_SERVICE_ENDPOINT_AUTHORIZATION_SCHEME))
@@ -52,7 +49,18 @@ def load_team_arguments(self, _):
     with self.argument_context('devops configure') as context:
         context.argument('use_git_aliases', **enum_choice_list(_YES_NO_SWITCH_VALUES))
         context.argument('list_config', options_list=('--list', '-l'))
-    with self.argument_context('devops team') as context:
-        context.argument('organization', options_list=('--organization', '--org'))
-        context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('project', options_list=('--project', '-p'))
+
+    with self.argument_context('devops') as context:
+        load_global_args(context)
+
+    with self.argument_context('repos') as context:
+        load_global_args(context)
+
+    with self.argument_context('artifacts') as context:
+        load_global_args(context)
+
+    with self.argument_context('boards') as context:
+        load_global_args(context)
+
+    with self.argument_context('pipelines') as context:
+        load_global_args(context)

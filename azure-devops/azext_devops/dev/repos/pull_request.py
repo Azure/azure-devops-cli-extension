@@ -36,10 +36,6 @@ def show_pull_request(id, open=False, organization=None, detect=None):  # pylint
     :type id: int
     :param open: Open the pull request in your web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
@@ -82,10 +78,6 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     :type skip: int
     :param top: Maximum number of pull requests to list.
     :type top: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: list of :class:`VssJsonCollectionWrapper <git.v4_0.models.VssJsonCollectionWrapper>`
     """
     try:
@@ -158,11 +150,6 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type work_items: list of str
     :param open: Open the pull request in your web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization, project, repository, source and target branches
-                   if these values are not specified. Default is "on".
-    :type detect: str
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
                    (e.g. Active -> Resolved)
     :type transition_work_items: bool
@@ -286,10 +273,6 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     :type bypass_policy_reason: str
     :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
                    (e.g. Active -> Resolved)
     :type transition_work_items: str
@@ -344,10 +327,6 @@ def complete_pull_request(id, organization=None, detect=None):  # pylint: disabl
     """Complete a pull request.
     :param id: ID of the pull request to complete.
     :type id: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
@@ -361,10 +340,6 @@ def abandon_pull_request(id, organization=None, detect=None):  # pylint: disable
     """Abandon a pull request.
     :param id: ID of the pull request to abandon.
     :type id: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
@@ -378,10 +353,6 @@ def reactivate_pull_request(id, organization=None, detect=None):  # pylint: disa
     """Reactivate an abandoned pull request.
     :param id: ID of the pull request to reactivate.
     :type id: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
     """
     try:
@@ -397,10 +368,6 @@ def create_pull_request_reviewers(id, reviewers, organization=None, detect=None)
     :type id: int
     :param reviewers: Users or groups to include as reviewers on a pull request. Space separated.
     :type reviewers: list of str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     try:
@@ -423,10 +390,6 @@ def delete_pull_request_reviewers(id, reviewers, organization=None, detect=None)
     :type id: int
     :param reviewers: Users or groups to remove as reviewers on a pull request. Space separated.
     :type reviewers: list of str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     try:
@@ -450,10 +413,6 @@ def list_pull_request_reviewers(id, organization=None, detect=None):  # pylint: 
     """List reviewers of a pull request.
     :param id: ID of the pull request.
     :type id: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     try:
@@ -473,10 +432,6 @@ def add_pull_request_work_items(id, work_items, organization=None, detect=None):
     :type id: int
     :param work_items: IDs of the work items to link. Space separated.
     :type work_items: list of int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
     try:
@@ -522,10 +477,6 @@ def remove_pull_request_work_items(id, work_items, organization=None, detect=Non
     :type id: int
     :param work_items: IDs of the work items to unlink. Space separated.
     :type work_items: list of int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
     # pylint: disable=too-many-nested-blocks
@@ -579,10 +530,6 @@ def list_pull_request_work_items(id, organization=None, detect=None):  # pylint:
     """List linked work items for a pull request.
     :param id: ID of the pull request.
     :type id: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
     """
     try:
@@ -624,10 +571,6 @@ def vote_pull_request(id, vote, organization=None, detect=None):  # pylint: disa
     :type id: int
     :param vote: New vote value for the pull request.
     :type vote: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     try:
@@ -664,10 +607,6 @@ def list_pr_policies(id, organization=None, detect=None, top=None, skip=None):  
     """List policies of a pull request.
     :param id: ID of the pull request.
     :type id: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :param top: Maximum number of policies to list.
     :type top: int
     :param skip: Number of policies to skip.
@@ -695,10 +634,6 @@ def queue_pr_policy(id, evaluation_id, organization=None, detect=None):  # pylin
     :type id: int
     :param evaluation_id: ID of the policy evaluation to queue.
     :type evaluation_id: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: :class:`PolicyEvaluationRecord <policy.v4_0.models.PolicyEvaluationRecord>`
     """
     try:
@@ -715,8 +650,6 @@ def queue_pr_policy(id, evaluation_id, organization=None, detect=None):  # pylin
 def _resolve_reviewers_as_refs(reviewers, organization):
     """Takes a list containing identity names, emails, and ids,
     and return a list of IdentityRefWithVote objects.
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
     :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
     """
     resolved_reviewers = None

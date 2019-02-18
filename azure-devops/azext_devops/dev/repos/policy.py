@@ -34,16 +34,10 @@ logger = get_logger(__name__)
 
 def list_policy(organization=None, project=None, repository_id=None, branch=None, detect=None):
     """List of policies.
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
     :param repository_id: Id (UUID) of the repository.
     :type repository_id: string
     :param branch: Branch. (--repository-id is required)
     :type branch: string
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: [PolicyConfiguration]
     """
     try:
@@ -71,12 +65,6 @@ def get_policy(id, organization=None, project=None, detect=None):  # pylint: dis
     """Show policy details.
     :param id: ID of the policy.
     :type id: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
     """
     try:
@@ -92,12 +80,6 @@ def delete_policy(id, organization=None, project=None, detect=None):  # pylint: 
     """Delete a policy.
     :param id: ID of the policy.
     :type id: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     """
     try:
         organization, project = resolve_instance_and_project(
@@ -171,12 +153,6 @@ def create_policy(policy_configuration=None,
     :param use_uncompressed_size: Whether to use uncompressed size.
     :type use_uncompressed_size: bool
 
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
     """
     try:
@@ -268,12 +244,6 @@ def update_policy(policy_id,
     :param use_uncompressed_size: Whether to use uncompressed size.
     :type use_uncompressed_size: bool
 
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
     """
     try:

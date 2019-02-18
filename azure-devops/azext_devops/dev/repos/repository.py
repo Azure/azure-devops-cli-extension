@@ -24,12 +24,6 @@ def create_repo(name, organization=None, project=None, detect=None, open=False):
     """Create a Git repository in a team project.
     :param name: Name for the new repository.
     :type name: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :param open: Open the repository page in your web browser.
     :type open: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
@@ -54,12 +48,6 @@ def delete_repo(id, organization=None, project=None, detect=None):  # pylint: di
     """Delete a Git repository in a team project.
     :param id: ID of the repository.
     :type id: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
@@ -75,12 +63,6 @@ def delete_repo(id, organization=None, project=None, detect=None):  # pylint: di
 
 def list_repos(organization=None, project=None, detect=None):
     """List Git repositories of a team project.
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: list of :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
     try:
@@ -98,16 +80,10 @@ def update_repo(repository, default_branch=None, name=None, organization=None, p
     """Update the Git repository.
     :param repository: Name or ID of the repository.
     :type repository: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
     :param name: New name for the repository.
     :type name: str
     :param default_branch: Default branch to be set for the repository. Example: 'refs/heads/live' or 'live'.
     :type default_branch: str
-    :param detect: Automatically detect organization, project and repository. Default is "on".
-    :type detect: str
     """
     if not default_branch and not name:
         raise CLIError("Either --default-branch or --name (for rename) must be provided to update repository.")
@@ -137,12 +113,6 @@ def show_repo(repository, organization=None, project=None, detect=None, open=Fal
     """Get the details of a Git repository.
     :param repository: Name or ID of the repository.
     :type repository: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization, project and repository. Default is "on".
-    :type detect: str
     :param open: Open the repository page in your web browser.
     :type open: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`

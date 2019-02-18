@@ -12,8 +12,6 @@ _ON_OFF_SWITCH_VALUES = ['on', 'off']
 def load_work_arguments(self, _):
     with self.argument_context('boards') as context:
         context.argument('project', options_list=('--project', '-p'))
-        context.argument('organization', options_list=('--organization', '--org'))
-        context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with self.argument_context('boards work-item create') as context:
         context.argument('work_item_type', type=str, options_list='--type')

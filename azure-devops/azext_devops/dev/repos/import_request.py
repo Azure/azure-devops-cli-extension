@@ -16,17 +16,10 @@ from azext_devops.dev.common.services import get_git_client, resolve_instance_pr
 def create_import_request(git_source_url, project=None, repository=None,
                           organization=None, detect=None):
     """Create a git import request (currently only supports import from public git source)
-    :param project: Name or ID of the team project.
-    :type project: str
     :param repository: Name or ID of the repository to create the import request in.
     :type repository: str
     :param git_source_url: Url of the source git repository
     :type git_source_url: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization, project, repository if these values are not specified.
-                   Default is "on".
-    :type detect: str
     """
     try:
         organization, project, repository = resolve_instance_project_and_repo(

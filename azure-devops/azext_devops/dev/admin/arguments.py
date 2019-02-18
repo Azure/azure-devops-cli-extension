@@ -10,8 +10,6 @@ _TYPE_FOR_BANNER = ['info', 'warning', 'error']
 
 
 def load_admin_arguments(self, _):
-    with self.argument_context('devops admin') as context:
-        context.argument('organization', options_list=['--org', '--organization'])
     with self.argument_context('devops admin user') as context:
         context.argument('user_id', options_list='--id')
         context.argument('access_level', **enum_choice_list(_ORGANIZATION_LICENSE_TYPES_FOR_ADD))
