@@ -110,12 +110,6 @@ def delete_policy(id, organization=None, project=None, detect=None):  # pylint: 
 
 def create_policy_configuration_file(policy_configuration, organization=None, project=None, detect=None):
     """Create a policy using configuration provided through configuration file
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     """
     try:
         organization, project = resolve_instance_and_project(
@@ -130,12 +124,6 @@ def create_policy_configuration_file(policy_configuration, organization=None, pr
 
 def update_policy_configuration_file(policy_id, policy_configuration, organization=None, project=None, detect=None):
     """Updates a policy using configuration provided through configuration file
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     """
     try:
         organization, project = resolve_instance_and_project(

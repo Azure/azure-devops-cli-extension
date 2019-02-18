@@ -22,6 +22,12 @@ def load_code_arguments(self, _):
         context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with self.argument_context('repos policy') as context:
+        context.argument('organization', options_list=('--organization', '--org'),
+                         help='Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/')
+        context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES),
+                         help='Automatically detect organization. Default is "on".')
+        context.argument('project', options_list=('--project', '-p'),
+                         help='Name or ID of the project.')
         context.argument('policy_configuration', options_list=('--policy-configuration', '--config'),
                          help='File path of file containing policy configuration to create in a serialized form. ' +
                          'please use / backslash when typing in directory path. '
