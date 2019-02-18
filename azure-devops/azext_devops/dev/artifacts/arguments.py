@@ -4,8 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 
-from knack.arguments import enum_choice_list
-
 def load_package_arguments(self, _):
     with self.argument_context('artifacts universal') as context:
         context.argument('name', options_list=('--name', '-n'))

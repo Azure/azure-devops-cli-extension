@@ -4,11 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 
-from knack.arguments import enum_choice_list
-
-_ON_OFF_SWITCH_VALUES = ['on', 'off']
-
-
 def load_work_arguments(self, _):
     with self.argument_context('boards') as context:
         context.argument('project', options_list=('--project', '-p'))
