@@ -361,9 +361,9 @@ def update_policy_file_size(policy_id,
         raise CLIError(ex)
 
 
-def create_comment_required_policy(repository_id, branch, is_blocking, is_enabled,
+def create_policy_comment_required(repository_id, branch, is_blocking, is_enabled,
                         organization=None, project=None, detect=None):
-    """Create comment required policy policy
+    """Create comment required policy
     """
     try:
         organization, project = resolve_instance_and_project(
@@ -379,7 +379,7 @@ def create_comment_required_policy(repository_id, branch, is_blocking, is_enable
         raise CLIError(ex)
 
 
-def update_comment_required_policy(policy_id,
+def update_policy_comment_required(policy_id,
                         repository_id=None, branch=None, is_blocking=None, is_enabled=None,
                         organization=None, project=None, detect=None):
     """Update build policy
@@ -399,6 +399,57 @@ def update_comment_required_policy(policy_id,
             is_blocking or str(current_policy.is_blocking),
             is_enabled or str(current_policy.is_enabled),
             'c6a1889d-b943-4856-b76f-9e46bb6b0df2',
+            [],
+            []
+        )
+
+        return policy_client.update_policy_configuration(
+            configuration=updated_configuration,
+            project=project,
+            configuration_id=policy_id
+        )
+
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
+def create_policy_work_item_linking(repository_id, branch, is_blocking, is_enabled,
+                                    organization=None, project=None, detect=None):
+    """Create work item linking policy.
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
+                        '40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e',
+                        [], [])
+
+        return policy_client.create_policy_configuration(configuration=configuration, project=project)
+
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
+
+def update_policy_work_item_linking(policy_id,
+                                    repository_id=None, branch=None, is_blocking=None, is_enabled=None,
+                                    organization=None, project=None, detect=None):
+    """Update work item linking policy.
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
+        
+        current_setting = current_policy.settings
+        current_scope = current_policy.settings['scope'][0]
+
+        updated_configuration = create_configuration_object(
+            repository_id or current_scope['repositoryId'],
+            branch or current_scope['refName'],
+            is_blocking or str(current_policy.is_blocking),
+            is_enabled or str(current_policy.is_enabled),
+            '40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e',
             [],
             []
         )

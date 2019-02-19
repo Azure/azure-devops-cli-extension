@@ -63,9 +63,13 @@ def load_code_commands(self, _):
                   table_transformer=transform_repo_policy_table_output)
         g.command('build update', 'update_policy_build',
                   table_transformer=transform_repo_policy_table_output)
-        g.command('comment-required create', 'create_comment_required_policy',
+        g.command('comment-required create', 'create_policy_comment_required',
                   table_transformer=transform_repo_policy_table_output)
-        g.command('comment-required update', 'update_comment_required_policy',
+        g.command('comment-required update', 'update_policy_comment_required',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('work-item-linking create', 'create_policy_work_item_linking',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('work-item-linking update', 'update_policy_work_item_linking',
                   table_transformer=transform_repo_policy_table_output)
         g.command('file-size create', 'create_policy_file_size',
                   table_transformer=transform_repo_policy_table_output)
