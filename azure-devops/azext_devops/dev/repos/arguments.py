@@ -13,6 +13,7 @@ _VOTE_VALUES = ['approve', 'approve-with-suggestions', 'reset', 'wait-for-author
 _PR_STATUS_VALUES = ['all', 'active', 'completed', 'abandoned']
 
 
+#pylint ignore=too-many-statement
 def load_code_arguments(self, _):
     with self.argument_context('repos') as context:
         context.argument('repository', options_list=('--repository', '-r'))

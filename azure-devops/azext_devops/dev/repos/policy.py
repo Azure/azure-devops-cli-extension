@@ -121,8 +121,8 @@ def create_policy_approver_count(repository_id, branch, is_blocking, is_enabled,
         param_name_array = ['minimumApproverCount', 'creatorVoteCounts', 'allowDownvotes', 'resetOnSourcePush']
         param_value_array = [minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push]
         configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
-                        'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd',
-                        param_name_array, param_value_array)
+                                                    'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd',
+                                                    param_name_array, param_value_array)
 
         return policy_client.create_policy_configuration(configuration=configuration, project=project)
 
@@ -142,15 +142,15 @@ def update_policy_approver_count(policy_id,
         policy_client = get_policy_client(organization)
         current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
         param_name_array = ['minimumApproverCount', 'creatorVoteCounts', 'allowDownvotes', 'resetOnSourcePush']
-        
+
         current_setting = current_policy.settings
         current_scope = current_policy.settings['scope'][0]
 
         param_value_array = [
-           minimum_approver_count or current_setting.get('minimumApproverCount', None),
-           creator_vote_counts or current_setting.get('creatorVoteCounts', None),
-           allow_downvotes or current_setting.get('allowDownvotes', None),
-           reset_on_source_push or current_setting.get('resetOnSourcePush', None)
+            minimum_approver_count or current_setting.get('minimumApproverCount', None),
+            creator_vote_counts or current_setting.get('creatorVoteCounts', None),
+            allow_downvotes or current_setting.get('allowDownvotes', None),
+            reset_on_source_push or current_setting.get('resetOnSourcePush', None)
         ]
 
         updated_configuration = create_configuration_object(
@@ -185,8 +185,8 @@ def create_policy_required_reviewer(repository_id, branch, is_blocking, is_enabl
         param_name_array = ['requiredReviewerIds', 'message']
         param_value_array = [requiredReviewerIds, message]
         configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
-                        'fd2167ab-b0be-447a-8ec8-39368250530e',
-                        param_name_array, param_value_array)
+                                                    'fd2167ab-b0be-447a-8ec8-39368250530e',
+                                                    param_name_array, param_value_array)
 
         return policy_client.create_policy_configuration(configuration=configuration, project=project)
     except VstsServiceError as ex:
@@ -205,15 +205,14 @@ def update_policy_required_reviewer(policy_id,
         policy_client = get_policy_client(organization)
         current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
         param_name_array = ['requiredReviewerIds', 'message']
-        
         requiredReviewerIds = resolveIdentityMailsToIds(required_reviewer_ids, organization)
-        
+
         current_setting = current_policy.settings
         current_scope = current_policy.settings['scope'][0]
 
         param_value_array = [
-           requiredReviewerIds or current_setting.get('requiredReviewerIds', None),
-           message or current_setting.get('message', None)
+            requiredReviewerIds or current_setting.get('requiredReviewerIds', None),
+            message or current_setting.get('message', None)
         ]
 
         updated_configuration = create_configuration_object(
@@ -248,8 +247,8 @@ def create_policy_merge_strategy(repository_id, branch, is_blocking, is_enabled,
         param_name_array = ['useSquashMerge']
         param_value_array = [use_squash_merge]
         configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
-                        'fa4e907d-c16b-4a4c-9dfa-4916e5d171ab',
-                        param_name_array, param_value_array)
+                                                    'fa4e907d-c16b-4a4c-9dfa-4916e5d171ab',
+                                                    param_name_array, param_value_array)
 
         return policy_client.create_policy_configuration(configuration=configuration, project=project)
 
@@ -269,12 +268,12 @@ def update_policy_merge_strategy(policy_id,
         policy_client = get_policy_client(organization)
         current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
         param_name_array = ['useSquashMerge']
-        
+
         current_setting = current_policy.settings
         current_scope = current_policy.settings['scope'][0]
 
         param_value_array = [
-           use_squash_merge or current_setting.get('useSquashMerge', None)
+            use_squash_merge or current_setting.get('useSquashMerge', None)
         ]
 
         updated_configuration = create_configuration_object(
@@ -309,14 +308,14 @@ def create_policy_build(repository_id, branch, is_blocking, is_enabled,
         param_name_array = ['buildDefinitionId', 'queueOnSourceUpdateOnly', 'manualQueueOnly', 'displayName', 'validDuration']
         param_value_array = [build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration]
         configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
-                        '0609b952-1397-4640-95ec-e00a01b2c241',
-                        param_name_array, param_value_array)
+                                                    '0609b952-1397-4640-95ec-e00a01b2c241',
+                                                    param_name_array, param_value_array)
 
         return policy_client.create_policy_configuration(configuration=configuration, project=project)
 
     except VstsServiceError as ex:
         raise CLIError(ex)
-        
+
 
 def update_policy_build(policy_id,
                         repository_id=None, branch=None, is_blocking=None, is_enabled=None,
@@ -330,16 +329,16 @@ def update_policy_build(policy_id,
         policy_client = get_policy_client(organization)
         current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
         param_name_array = ['buildDefinitionId', 'queueOnSourceUpdateOnly', 'manualQueueOnly', 'displayName', 'validDuration']
-        
+
         current_setting = current_policy.settings
         current_scope = current_policy.settings['scope'][0]
 
         param_value_array = [
-           build_definition_id or current_setting.get('buildDefinitionId', None),
-           queue_on_source_update_only or current_setting.get('queueOnSourceUpdateOnly', None),
-           manual_queue_only or current_setting.get('manualQueueOnly', None),
-           display_name or current_setting.get('displayName', None),
-           valid_duration or current_setting.get('validDuration', None)
+            build_definition_id or current_setting.get('buildDefinitionId', None),
+            queue_on_source_update_only or current_setting.get('queueOnSourceUpdateOnly', None),
+            manual_queue_only or current_setting.get('manualQueueOnly', None),
+            display_name or current_setting.get('displayName', None),
+            valid_duration or current_setting.get('validDuration', None)
         ]
 
         updated_configuration = create_configuration_object(
@@ -374,8 +373,8 @@ def create_policy_file_size(repository_id, is_blocking, is_enabled,
         param_name_array = ['maximumGitBlobSizeInBytes', 'useUncompressedSize']
         param_value_array = [maximum_git_blob_size, use_uncompressed_size]
         configuration = create_configuration_object(repository_id, None, is_blocking, is_enabled,
-                        '2e26e725-8201-4edd-8bf5-978563c34a80',
-                        param_name_array, param_value_array)
+                                                    '2e26e725-8201-4edd-8bf5-978563c34a80',
+                                                    param_name_array, param_value_array)
 
         return policy_client.create_policy_configuration(configuration=configuration, project=project)
 
@@ -395,13 +394,13 @@ def update_policy_file_size(policy_id,
         policy_client = get_policy_client(organization)
         current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
         param_name_array = ['maximumGitBlobSizeInBytes', 'useUncompressedSize']
-        
+
         current_setting = current_policy.settings
         current_scope = current_policy.settings['scope'][0]
 
         param_value_array = [
-           maximum_git_blob_size or current_setting.get('maximumGitBlobSizeInBytes', None),
-           use_uncompressed_size or current_setting.get('useUncompressedSize', None)
+            maximum_git_blob_size or current_setting.get('maximumGitBlobSizeInBytes', None),
+            use_uncompressed_size or current_setting.get('useUncompressedSize', None)
         ]
 
         updated_configuration = create_configuration_object(
@@ -425,7 +424,7 @@ def update_policy_file_size(policy_id,
 
 
 def create_policy_comment_required(repository_id, branch, is_blocking, is_enabled,
-                        organization=None, project=None, detect=None):
+                                   organization=None, project=None, detect=None):
     """Create comment required policy
     """
     try:
@@ -433,8 +432,7 @@ def create_policy_comment_required(repository_id, branch, is_blocking, is_enable
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
         configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
-                        'c6a1889d-b943-4856-b76f-9e46bb6b0df2',
-                        [], [])
+                                                    'c6a1889d-b943-4856-b76f-9e46bb6b0df2', [], [])
 
         return policy_client.create_policy_configuration(configuration=configuration, project=project)
 
@@ -443,8 +441,8 @@ def create_policy_comment_required(repository_id, branch, is_blocking, is_enable
 
 
 def update_policy_comment_required(policy_id,
-                        repository_id=None, branch=None, is_blocking=None, is_enabled=None,
-                        organization=None, project=None, detect=None):
+                                   repository_id=None, branch=None, is_blocking=None, is_enabled=None,
+                                   organization=None, project=None, detect=None):
     """Update build policy
     """
     try:
@@ -452,8 +450,7 @@ def update_policy_comment_required(policy_id,
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
         current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
-        
-        current_setting = current_policy.settings
+
         current_scope = current_policy.settings['scope'][0]
 
         updated_configuration = create_configuration_object(
@@ -484,8 +481,7 @@ def create_policy_work_item_linking(repository_id, branch, is_blocking, is_enabl
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
         configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
-                        '40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e',
-                        [], [])
+                                                    '40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e', [], [])
 
         return policy_client.create_policy_configuration(configuration=configuration, project=project)
 
@@ -503,8 +499,7 @@ def update_policy_work_item_linking(policy_id,
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
         current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
-        
-        current_setting = current_policy.settings
+
         current_scope = current_policy.settings['scope'][0]
 
         updated_configuration = create_configuration_object(
@@ -558,7 +553,7 @@ def createScope(repository_id, branch):
     if branch is None:
         scope = [
             {
-                'repositoryId': repository_id,                
+                'repositoryId': repository_id,
             }
         ]
 
