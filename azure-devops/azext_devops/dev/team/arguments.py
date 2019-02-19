@@ -21,11 +21,12 @@ _SERVICE_ENDPOINT_AUTHORIZATION_SCHEME = [SERVICE_ENDPOINT_AUTHORIZATION_PERSONA
                                           SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL]
 
 
-# pylint: disable=line-too-long
 def load_global_args(context):
     from azure.cli.core.commands.parameters import get_enum_type
-    context.argument('organization', options_list=('--organization', '--org'), help='Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/')
-    context.argument('detect', arg_type=get_enum_type(['on', 'off']), help='Automatically detect organization. Default is "on".')
+    context.argument('organization', options_list=('--organization', '--org'),
+                     help='Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/')
+    context.argument('detect', arg_type=get_enum_type(['on', 'off']),
+                     help='Automatically detect organization. Default is "on".')
     context.argument('project', options_list=('--project', '-p'), help='Name or ID of the project.')
 
 
