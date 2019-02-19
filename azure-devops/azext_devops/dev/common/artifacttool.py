@@ -10,7 +10,7 @@ from knack.log import get_logger
 from knack.util import CLIError
 
 from azext_devops.dev.common.services import _get_credentials
-from azext_devops.dev.artifacts.const import ARTIFACTTOOL_PAT_ENVKEY
+from azext_devops.dev.common.const import ARTIFACTTOOL_PAT_ENVKEY
 
 logger = get_logger(__name__)
 
