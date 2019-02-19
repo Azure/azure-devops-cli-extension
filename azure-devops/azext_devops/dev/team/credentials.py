@@ -20,8 +20,6 @@ logger = get_logger(__name__)
 
 def credential_set(organization=None):
     """Set the credential (PAT) to use for a particular organization
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
     """
     token = _get_pat_token()
     if organization is not None:

@@ -22,12 +22,6 @@ logger = get_logger(__name__)
 
 def list_service_endpoints(organization=None, project=None, detect=None):
     """List service endpoints in a project.
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: list of :class:`VssJsonCollectionWrapper <service_endpoint.v4_1.models.ServiceEndpoint>`
     """
     try:
@@ -45,12 +39,6 @@ def show_service_endpoint(id, organization=None, project=None, detect=None):  # 
     """Get the details of a service endpoint.
     :param id: ID of the service endpoint.
     :type id: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: :class:`ServiceEndpoint <service_endpoint.v4_1.models.ServiceEndpoint>`
     """
     try:
@@ -93,12 +81,6 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
     :type azure_rm_subscription_id: str
     :param azure_rm_subscription_name: name of azure subscription for azure rm service endpoint
     :type azure_rm_subscription_name: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: :class:`ServiceEndpoint <service_endpoint.v4_1.models.ServiceEndpoint>`
     """
     try:

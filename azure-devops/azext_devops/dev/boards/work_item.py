@@ -46,13 +46,6 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
     :type fields: [str]
     :param open: Open the work item in the default web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
-    :type detect: str
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:
@@ -125,11 +118,6 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
     :type fields: [str]
     :param open: Open the work item in the default web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
-    :type detect: str
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:
@@ -181,11 +169,6 @@ def delete_work_item(id, destroy=False, organization=None, detect=None):  # pyli
     :type id: int
     :param destroy: Permanently delete this work item.
     :type destroy: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
-    :type detect: str
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItemDelete>`
     """
     try:
@@ -225,11 +208,6 @@ def show_work_item(id, open=False, organization=None, detect=None):  # pylint: d
     :type id: int
     :param open: Open the work item in the default web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
-    :type detect: str
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:
@@ -256,13 +234,6 @@ def query_work_items(wiql=None, id=None, path=None, organization=None, project=N
     :type id: str
     :param path: The path of an existing query.  Ignored if --id is specified.
     :type path: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
-    :type detect: str
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
     try:

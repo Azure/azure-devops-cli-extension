@@ -16,12 +16,6 @@ def create_team(name, description=None, organization=None, project=None, detect=
     :type name: str
     :param description: Description of the new team.
     :type description: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
     """
     try:
@@ -39,12 +33,6 @@ def delete_team(id, organization=None, project=None, detect=None):  # pylint: di
     """Delete a team.
     :param id: The id (UUID) of the team to delete.
     :type id: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     """
     try:
         organization, project = resolve_instance_and_project(detect=detect,
@@ -60,12 +48,6 @@ def get_team(team, organization=None, project=None, detect=None):
     """Show team details.
     :param team: The name or id of the team to show.
     :type team: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
     """
     try:
@@ -84,12 +66,6 @@ def get_teams(top=None, skip=None, organization=None, project=None, detect=None)
     :type top: int
     :param skip: Number of teams to skip.
     :type skip: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: [WebApiTeam]
     """
     try:
@@ -110,12 +86,6 @@ def get_team_members(team, top=None, skip=None, organization=None, project=None,
     :type top: int
     :param skip: Number of members to skip.
     :type skip: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: [IdentityRef]
     """
     try:
@@ -136,12 +106,6 @@ def update_team(team, name=None, description=None, organization=None, project=No
     :type name: str
     :param description: New description of the team.
     :type description: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: When 'On' unsupplied arg values will be detected from the current working
-                   directory's repo.
     :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
     """
     if name is None and description is None:

@@ -13,10 +13,7 @@ from azext_devops.dev.common.uuid import is_uuid
 
 def task_list(organization=None, task_id=None, detect=None):
     """List tasks.
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
     :param str task_id: The UUID of the task.
-    :param detect: Automatically detect values for instance and project. Default is "on".
     :type detect: str
     :rtype: [TaskDefinition]
     """
@@ -35,10 +32,6 @@ def task_show(id, version, organization=None, detect=None):  # pylint: disable=r
     """Show task.
     :param str id: The UUID of the task.
     :param str version: The version of the task.
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect values for instance and project. Default is "on".
-    :type detect: str
     :rtype: TaskDefinition
     """
     try:

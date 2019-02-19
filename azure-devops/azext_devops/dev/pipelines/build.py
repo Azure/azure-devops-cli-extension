@@ -33,12 +33,6 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type variables: [str]
     :param open: Open the build results page in your web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :param source_branch: Obsolete. Use --branch instead.
     :type source_branch: str
     :param commit_id: Commit ID of the branch to build.
@@ -82,12 +76,6 @@ def build_show(id, open=False, organization=None, project=None, detect=None):  #
     :type id: int
     :param open: Open the build results page in your web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
     try:
@@ -109,12 +97,6 @@ def build_list(definition_ids=None, branch=None, organization=None, project=None
     :type definition_ids: list of int
     :param branch: Filter by builds for this branch.
     :type branch: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :param top: Maximum number of builds to list.
     :type top: int
     :param result: Limit to builds with this result.
@@ -157,12 +139,6 @@ def add_build_tags(build_id, tags, organization=None, project=None, detect=None)
     :type build_id: int
     :param tags: Tag(s) to be added to the build. [Comma seperated values]
     :type tags: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect instance and project. Default is "on".
-    :type detect: str
     :rtype: list of str
     """
     try:
@@ -186,12 +162,6 @@ def delete_build_tag(build_id, tag, organization=None, project=None, detect=None
     :type build_id: int
     :param tag: Tag to be deleted from the build.
     :type tag: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect instance and project. Default is "on".
-    :type detect: str
     :rtype: list of str
     """
     try:
@@ -209,12 +179,6 @@ def get_build_tags(build_id, organization=None, project=None, detect=None):
     """Get tags for a build
     :param build_id: ID of the build.
     :type build_id: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect instance and project. Default is "on".
-    :type detect: str
     :rtype: list of str
     """
     try:
