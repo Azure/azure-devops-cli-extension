@@ -90,6 +90,7 @@ def create_policy_configuration_file(policy_configuration, organization=None, pr
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def update_policy_configuration_file(policy_id, policy_configuration, organization=None, project=None, detect=None):
     """Updates a policy using configuration provided through configuration file
     """
@@ -106,6 +107,7 @@ def update_policy_configuration_file(policy_id, policy_configuration, organizati
                 configuration_id=policy_id)
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 def create_policy_approver_count(repository_id, branch, is_blocking, is_enabled,
                                  minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
@@ -126,6 +128,7 @@ def create_policy_approver_count(repository_id, branch, is_blocking, is_enabled,
 
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 def update_policy_approver_count(policy_id,
                                  repository_id=None, branch=None, is_blocking=None, is_enabled=None,
@@ -190,6 +193,7 @@ def create_policy_merge_strategy(repository_id, branch, is_blocking, is_enabled,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def update_policy_merge_strategy(policy_id,
                                  repository_id=None, branch=None, is_blocking=None, is_enabled=None,
                                  use_squash_merge=None,
@@ -229,6 +233,7 @@ def update_policy_merge_strategy(policy_id,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def create_policy_build(repository_id, branch, is_blocking, is_enabled,
                         build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
                         organization=None, project=None, detect=None):
@@ -249,6 +254,7 @@ def create_policy_build(repository_id, branch, is_blocking, is_enabled,
     except VstsServiceError as ex:
         raise CLIError(ex)
         
+
 def update_policy_build(policy_id,
                         repository_id=None, branch=None, is_blocking=None, is_enabled=None,
                         build_definition_id=None, queue_on_source_update_only=None, manual_queue_only=None, display_name=None, valid_duration=None,
@@ -292,6 +298,7 @@ def update_policy_build(policy_id,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def create_policy_file_size(repository_id, is_blocking, is_enabled,
                             maximum_git_blob_size, use_uncompressed_size,
                             organization=None, project=None, detect=None):
@@ -311,6 +318,7 @@ def create_policy_file_size(repository_id, is_blocking, is_enabled,
 
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 def update_policy_file_size(policy_id,
                             repository_id=None, is_blocking=None, is_enabled=None,
@@ -352,6 +360,7 @@ def update_policy_file_size(policy_id,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def create_comment_required_policy(repository_id, branch, is_blocking, is_enabled,
                         organization=None, project=None, detect=None):
     """Create comment required policy policy
@@ -368,6 +377,7 @@ def create_comment_required_policy(repository_id, branch, is_blocking, is_enable
 
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 def update_comment_required_policy(policy_id,
                         repository_id=None, branch=None, is_blocking=None, is_enabled=None,
@@ -402,6 +412,7 @@ def update_comment_required_policy(policy_id,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def create_configuration_object(repository_id, branch, is_blocking, is_enabled, policy_type_id, param_name_array, param_value_array):
     branch = resolve_git_ref_heads(branch)
     policyConfiguration = PolicyConfiguration(is_blocking=parseTrueFalse(is_blocking), is_enabled=parseTrueFalse(is_enabled))
@@ -420,6 +431,7 @@ def create_configuration_object(repository_id, branch, is_blocking, is_enabled, 
 
     return policyConfiguration
 
+
 def createScope(repository_id, branch):
     scope = [
         {
@@ -437,6 +449,7 @@ def createScope(repository_id, branch):
         ]
 
     return scope
+
 
 def parseTrueFalse(inputString):
     if inputString is not None and inputString.lower() == 'true':
