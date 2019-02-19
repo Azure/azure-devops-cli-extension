@@ -75,6 +75,10 @@ def load_code_commands(self, _):
                   table_transformer=transform_repo_policy_table_output)
         g.command('file-size update', 'update_policy_file_size',
                   table_transformer=transform_repo_policy_table_output)
+        g.command('required-reviewer create', 'create_policy_required_reviewer',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('required-reviewer update', 'update_policy_required_reviewer',
+                  table_transformer=transform_repo_policy_table_output)
 
     with self.command_group('repos pr', command_type=reposPullRequestOps) as g:
         # basic pr commands

@@ -60,6 +60,10 @@ def load_code_arguments(self, _):
         context.argument('use_uncompressed_size', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to use uncompressed size.')
 
+    with self.argument_context('repos policy required-reviewer') as context:
+        context.argument('required_reviewer_ids', help='Required Reviewers (List of email ids seperated with \';\').')
+        context.argument('message', help='Message.')
+
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
         context.argument('source_branch', options_list=('--source-branch', '-s'))

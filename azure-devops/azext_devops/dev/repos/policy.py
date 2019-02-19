@@ -172,6 +172,69 @@ def update_policy_approver_count(policy_id,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+def create_policy_required_reviewer(repository_id, branch, is_blocking, is_enabled,
+                                    message, required_reviewer_ids=None,
+                                    organization=None, project=None, detect=None):
+    """Create required reviewer policy
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        requiredReviewerIds = resolveIdentityMailsToIds(required_reviewer_ids, organization)
+        policy_client = get_policy_client(organization)
+        param_name_array = ['requiredReviewerIds', 'message']
+        param_value_array = [requiredReviewerIds, message]
+        configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
+                        'fd2167ab-b0be-447a-8ec8-39368250530e',
+                        param_name_array, param_value_array)
+
+        return policy_client.create_policy_configuration(configuration=configuration, project=project)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
+
+def update_policy_required_reviewer(policy_id,
+                                    repository_id=None, branch=None, is_blocking=None, is_enabled=None,
+                                    message=None, required_reviewer_ids=None,
+                                    organization=None, project=None, detect=None):
+    """Update merge strategy policy
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
+        param_name_array = ['requiredReviewerIds', 'message']
+        
+        requiredReviewerIds = resolveIdentityMailsToIds(required_reviewer_ids, organization)
+        
+        current_setting = current_policy.settings
+        current_scope = current_policy.settings['scope'][0]
+
+        param_value_array = [
+           requiredReviewerIds or current_setting.get('requiredReviewerIds', None),
+           message or current_setting.get('message', None)
+        ]
+
+        updated_configuration = create_configuration_object(
+            repository_id or current_scope['repositoryId'],
+            branch or current_scope['refName'],
+            is_blocking or str(current_policy.is_blocking),
+            is_enabled or str(current_policy.is_enabled),
+            'fd2167ab-b0be-447a-8ec8-39368250530e',
+            param_name_array,
+            param_value_array
+        )
+
+        return policy_client.update_policy_configuration(
+            configuration=updated_configuration,
+            project=project,
+            configuration_id=policy_id
+        )
+
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
 
 def create_policy_merge_strategy(repository_id, branch, is_blocking, is_enabled,
                                  use_squash_merge,
@@ -507,3 +570,21 @@ def parseTrueFalse(inputString):
         return True
 
     return False
+
+def resolveIdentityMailsToIds(mailList, organization):
+    if mailList is None:
+        return []
+
+    logger.debug('mail list %s ', mailList)
+    if not mailList or (not mailList.strip()):
+        return None
+
+    idList = []
+    for mail in mailList.split(';'):
+        mailStripped = mail.strip()
+        logger.debug('trying to resolve %s', mailStripped)
+        identityId = resolve_identity_as_id(mailStripped, organization)
+        logger.debug('got id as %s', identityId)
+        idList.append(identityId)
+
+    return idList
