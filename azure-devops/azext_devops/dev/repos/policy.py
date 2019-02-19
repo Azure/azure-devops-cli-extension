@@ -172,6 +172,7 @@ def update_policy_approver_count(policy_id,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def create_policy_required_reviewer(repository_id, branch, is_blocking, is_enabled,
                                     message, required_reviewer_ids=None,
                                     organization=None, project=None, detect=None):
@@ -472,6 +473,7 @@ def update_policy_comment_required(policy_id,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def create_policy_work_item_linking(repository_id, branch, is_blocking, is_enabled,
                                     organization=None, project=None, detect=None):
     """Create work item linking policy.
@@ -565,6 +567,7 @@ def parseTrueFalse(inputString):
         return True
 
     return False
+
 
 def resolveIdentityMailsToIds(mailList, organization):
     if mailList is None:

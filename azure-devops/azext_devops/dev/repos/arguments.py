@@ -13,7 +13,7 @@ _VOTE_VALUES = ['approve', 'approve-with-suggestions', 'reset', 'wait-for-author
 _PR_STATUS_VALUES = ['all', 'active', 'completed', 'abandoned']
 
 
-#pylint ignore=too-many-statement
+#pylint: disable=too-many-statements
 def load_code_arguments(self, _):
     with self.argument_context('repos') as context:
         context.argument('repository', options_list=('--repository', '-r'))
@@ -21,9 +21,9 @@ def load_code_arguments(self, _):
 
     with self.argument_context('repos policy') as context:
         context.argument('policy_configuration', options_list=('--policy-configuration', '--config'),
-                         help='File path of file containing policy configuration to create in a serialized form. '
-                         +'please use / backslash when typing in directory path. '
-                         +'Only --project and --organization param are needed when passing this.')
+                         help='File path of file containing policy configuration to create in a serialized form. ' +
+                         'please use / backslash when typing in directory path. ' +
+                         'Only --project and --organization param are needed when passing this.')
         context.argument('policy_id', options_list=('--policy-id', '--id'),
                          help='ID of the policy which needs to be updated')
         context.argument('repository_id', help='Id (UUID) of the repository on which to apply the policy')
