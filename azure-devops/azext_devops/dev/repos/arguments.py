@@ -55,6 +55,11 @@ def load_code_arguments(self, _):
         context.argument('display_name', help='Display Name.')
         context.argument('valid_duration', help='Policy validity duration (in hours).')
 
+    with self.argument_context('repos policy file-size') as context:
+        context.argument('maximum_git_blob_size', help='Maximum Git Blob Size In Bytes')
+        context.argument('use_uncompressed_size', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+                         help='Whether to use uncompressed size')
+
     with self.argument_context('repos pr') as context:
         context.argument('description', type=str, options_list=('--description', '-d'), nargs='*')
         context.argument('source_branch', options_list=('--source-branch', '-s'))

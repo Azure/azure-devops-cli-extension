@@ -292,6 +292,66 @@ def update_policy_build(policy_id,
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+def create_policy_file_size(repository_id, is_blocking, is_enabled,
+                            maximum_git_blob_size, use_uncompressed_size,
+                            organization=None, project=None, detect=None):
+    """Create file size policy
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        param_name_array = ['maximumGitBlobSizeInBytes', 'useUncompressedSize']
+        param_value_array = [maximum_git_blob_size, use_uncompressed_size]
+        configuration = create_configuration_object(repository_id, None, is_blocking, is_enabled,
+                        '2e26e725-8201-4edd-8bf5-978563c34a80',
+                        param_name_array, param_value_array)
+
+        return policy_client.create_policy_configuration(configuration=configuration, project=project)
+
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
+def update_policy_file_size(policy_id,
+                            repository_id=None, is_blocking=None, is_enabled=None,
+                            maximum_git_blob_size=None, use_uncompressed_size=None,
+                            organization=None, project=None, detect=None):
+    """Update file size policy
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
+        param_name_array = ['maximumGitBlobSizeInBytes', 'useUncompressedSize']
+        
+        current_setting = current_policy.settings
+        current_scope = current_policy.settings['scope'][0]
+
+        param_value_array = [
+           maximum_git_blob_size or current_setting.get('maximumGitBlobSizeInBytes', None),
+           use_uncompressed_size or current_setting.get('useUncompressedSize', None)
+        ]
+
+        updated_configuration = create_configuration_object(
+            repository_id or current_scope['repositoryId'],
+            None,
+            is_blocking or str(current_policy.is_blocking),
+            is_enabled or str(current_policy.is_enabled),
+            '2e26e725-8201-4edd-8bf5-978563c34a80',
+            param_name_array,
+            param_value_array
+        )
+
+        return policy_client.update_policy_configuration(
+            configuration=updated_configuration,
+            project=project,
+            configuration_id=policy_id
+        )
+
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
 def create_comment_required_policy(repository_id, branch, is_blocking, is_enabled,
                         organization=None, project=None, detect=None):
     """Create comment required policy policy
