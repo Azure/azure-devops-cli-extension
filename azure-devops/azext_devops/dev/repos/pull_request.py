@@ -72,8 +72,6 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     :type status: str
     :param target_branch: Limit results to pull requests that target this branch.
     :type target_branch: str
-    :param project: Name or ID of the project.
-    :type project: str
     :param skip: Number of pull requests to skip.
     :type skip: int
     :param top: Maximum number of pull requests to list.
