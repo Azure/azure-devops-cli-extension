@@ -90,12 +90,8 @@ def create_policy_configuration_file(policy_configuration, organization=None, pr
     except VstsServiceError as ex:
         raise CLIError(ex)
 
-<<<<<<< HEAD
 def update_policy_configuration_file(policy_id, policy_configuration, organization=None, project=None, detect=None):
     """Updates a policy using configuration provided through configuration file
-=======
-    :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
->>>>>>> 98cc4a1ce8655e34b6e6569d66d155c82fe5d087
     """
     try:
         organization, project = resolve_instance_and_project(
@@ -164,7 +160,6 @@ def update_policy_approver_count(policy_id,
             param_value_array
         )
 
-<<<<<<< HEAD
         return policy_client.update_policy_configuration(
             configuration=updated_configuration,
             project=project,
@@ -200,9 +195,6 @@ def update_policy_merge_strategy(policy_id,
                                  use_squash_merge=None,
                                  organization=None, project=None, detect=None):
     """Update merge strategy policy
-=======
-    :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
->>>>>>> 98cc4a1ce8655e34b6e6569d66d155c82fe5d087
     """
     try:
         organization, project = resolve_instance_and_project(
