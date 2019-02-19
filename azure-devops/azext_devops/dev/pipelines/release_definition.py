@@ -19,10 +19,6 @@ def release_definition_list(name=None, top=None, organization=None, project=None
     :type name: str
     :param top: Maximum number of definitions to list.
     :type top: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
     :param artifact_type: Release definitions with given artifactType will be returned.
     :type artifact_type: str
     :param artifact_source_id: Limit results to definitions associated with this artifact_source_id.
@@ -32,8 +28,6 @@ def release_definition_list(name=None, top=None, organization=None, project=None
     For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier'
     inside vss-extension.json at https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions.
     :type artifact_source_id: str
-    :param detect: Automatically detect values for organization and project. Default is "on".
-    :type detect: str
     :rtype: [ReleaseDefinitionReference]
     """
     organization, project = resolve_instance_and_project(
@@ -55,12 +49,6 @@ def release_definition_show(id=None, name=None, open=False, organization=None, p
     :type name: str
     :param open: Open the definition summary page in your web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect values for organization and project. Default is "on".
-    :type detect: str
     :rtype: ReleaseDefinitionReference
     """
     organization, project = resolve_instance_and_project(

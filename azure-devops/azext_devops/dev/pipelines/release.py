@@ -24,16 +24,10 @@ def release_create(definition_id=None, definition_name=None, artifact_metadata_l
     :type definition_name: str
     :param open: Open the release results page in your web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
     :param artifact_metadata_list: Space separated "alias=version_id" pairs.
     :type artifact_metadata_list: [str]
     :param description: Description of the release.
     :type description: str
-    :param detect: Automatically detect values for organization and project. Default is "on".
-    :type detect: str
     :rtype: :class:`<ReleaseStartMetadata> <release.v4_0.models.ReleaseStartMetadata>`
     """
 
@@ -76,12 +70,6 @@ def release_show(id, open=False, organization=None, project=None, detect=None): 
     :type id: int
     :param open: Open the release results page in your web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect values for organization and project. Default is "on".
-    :type detect: str
     :rtype: :class:`<Release> <release.v4_0.models.Release>`
     """
     organization, project = resolve_instance_and_project(
@@ -100,12 +88,6 @@ def release_list(definition_id=None, source_branch=None, organization=None, proj
     :type definition_id: int
     :param branch: Filter by releases for this branch.
     :type branch: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect values for organization and project. Default is "on".
-    :type detect: str
     :param top: Maximum number of releases to list. Default is 50.
     :type top: int
     :param status: Limit to releases with this status.

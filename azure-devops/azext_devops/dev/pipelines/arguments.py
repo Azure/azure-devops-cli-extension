@@ -5,8 +5,6 @@
 
 from knack.arguments import enum_choice_list
 
-_ON_OFF_SWITCH_VALUES = ['on', 'off']
-
 _BUILD_REASON_VALUES = ['all', 'batchedCI', 'buildCompletion', 'checkInShelveset',
                         'individualCI', 'manual', 'pullRequest', 'schedule',
                         'triggered', 'userCreated', 'validateShelveset']
@@ -17,11 +15,6 @@ _BUILD_STATUS_VALUES = ['all', 'cancelling', 'completed', 'inProgress', 'none', 
 
 
 def load_build_arguments(self, _):
-    with self.argument_context('pipelines build') as context:
-        context.argument('project', options_list=('--project', '-p'))
-        context.argument('organization', options_list=('--organization', '--org'))
-        context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-
     with self.argument_context('pipelines build list') as context:
         context.argument('definition_ids', nargs='*', type=int)
         context.argument('tags', nargs='*')
@@ -38,11 +31,6 @@ def load_build_arguments(self, _):
             'repository_type',
             choices=['tfsversioncontrol', 'tfsgit', 'git', 'github', 'githubenterprise', 'bitbucket', 'svn'],
             type=str.lower)
-
-    with self.argument_context('pipelines release') as context:
-        context.argument('project', options_list=('--project', '-p'))
-        context.argument('organization', options_list=('--organization', '--org'))
-        context.argument('detect', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
 
     with self.argument_context('pipelines release list') as context:
         context.argument('definition_id', type=int)

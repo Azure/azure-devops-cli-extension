@@ -20,16 +20,10 @@ logger = get_logger(__name__)
 
 def list_policy(organization=None, project=None, repository_id=None, branch=None, detect=None):
     """List of policies.
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
     :param repository_id: Id (UUID) of the repository.
     :type repository_id: string
     :param branch: Branch. (--repository-id is required)
     :type branch: string
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: [PolicyConfiguration]
     """
     try:
@@ -57,12 +51,6 @@ def get_policy(id, organization=None, project=None, detect=None):  # pylint: dis
     """Show policy details.
     :param id: ID of the policy.
     :type id: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
     """
     try:
@@ -78,12 +66,6 @@ def delete_policy(id, organization=None, project=None, detect=None):  # pylint: 
     """Delete a policy.
     :param id: ID of the policy.
     :type id: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     """
     try:
         organization, project = resolve_instance_and_project(
@@ -108,8 +90,12 @@ def create_policy_configuration_file(policy_configuration, organization=None, pr
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+<<<<<<< HEAD
 def update_policy_configuration_file(policy_id, policy_configuration, organization=None, project=None, detect=None):
     """Updates a policy using configuration provided through configuration file
+=======
+    :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
+>>>>>>> 98cc4a1ce8655e34b6e6569d66d155c82fe5d087
     """
     try:
         organization, project = resolve_instance_and_project(
@@ -178,6 +164,7 @@ def update_policy_approver_count(policy_id,
             param_value_array
         )
 
+<<<<<<< HEAD
         return policy_client.update_policy_configuration(
             configuration=updated_configuration,
             project=project,
@@ -213,6 +200,9 @@ def update_policy_merge_strategy(policy_id,
                                  use_squash_merge=None,
                                  organization=None, project=None, detect=None):
     """Update merge strategy policy
+=======
+    :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
+>>>>>>> 98cc4a1ce8655e34b6e6569d66d155c82fe5d087
     """
     try:
         organization, project = resolve_instance_and_project(

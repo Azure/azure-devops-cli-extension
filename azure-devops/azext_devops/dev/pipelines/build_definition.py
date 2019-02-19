@@ -24,14 +24,8 @@ def build_definition_list(name=None, top=None, organization=None, project=None, 
     :type name: bool
     :param top: Maximum number of definitions to list.
     :type top: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
     :param repository: Limit results to definitions associated with this repository.
     :type repository: str
-    :param detect: Automatically detect values for organization and project. Default is "on".
-    :type detect: str
     :param repository_type: Limit results to definitions associated with this repository type.
     It is mandatory to pass 'repository' argument along with this argument.
     :type repository_type: str
@@ -72,12 +66,6 @@ def build_definition_show(id=None, name=None, open=False, organization=None, pro
     :type name: str
     :param open: Open the definition summary page in your web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect values for instance and project. Default is "on".
-    :type detect: str
     :rtype: BuildDefinitionReference
     """
     try:
