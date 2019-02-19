@@ -19,7 +19,7 @@ from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.services import get_vss_connection
 from azext_devops.dev.common.config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
-from azext_devops.dev.artifacts.const import (ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY,
+from azext_devops.dev.common.const import (ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY,
                                               ARTIFACTTOOL_OVERRIDE_URL_ENVKEY,
                                               ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY)
 
