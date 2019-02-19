@@ -48,3 +48,45 @@ def load_repos_help():
     short-summary: Manage branch policy.
     long-summary:
     """
+
+    helps['repos policy approver-count'] = """
+    type: group
+    short-summary: Manage approver count branch policy.
+    long-summary:
+    """
+
+    helps['repos policy build'] = """
+    type: group
+    short-summary: Manage build branch policy.
+    long-summary:
+    """
+
+    helps['repos policy comment-required'] = """
+    type: group
+    short-summary: Manage comment required branch policy.
+    long-summary:
+    """
+
+    helps['repos policy file-size'] = """
+    type: group
+    short-summary: Manage file size branch policy.
+    long-summary:
+    """
+
+    helps['repos policy merge-strategy'] = """
+    type: group
+    short-summary: Manage merge strategy branch policy.
+    long-summary:
+    """
+
+    helps['repos policy required-reviewer'] = """
+    type: group
+    short-summary: Manage required reviewer branch policy.
+    long-summary:
+    """
+
+    helps['repos policy work-item-linking'] = """
+    type: group
+    short-summary: Manage work item linking branch policy.
+    long-summary:
+    """
