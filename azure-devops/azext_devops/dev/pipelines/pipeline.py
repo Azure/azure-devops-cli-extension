@@ -47,7 +47,7 @@ class YmlOptions:
 
 def pipeline_create(name, description=None, url=None, repository_url=None, branch=None, yml_path=None,
                     repository_type=None, service_endpoint=None, yml_props=None,
-                    organization=None, project=None, detect=None):
+                    organization=None, project=None, detect=None, queue_id=None):
     """Create a pipeline
     :param name: Name of the new pipeline
     :type name: str
@@ -216,7 +216,8 @@ def pipeline_create(name, description=None, url=None, repository_url=None, branc
         # set agent queue
         definition.queue = AgentPoolQueue()
         definition.queue.id = 163  # todo atbagga This should not be hardcoded
-
+        if queue_id:
+            definition.queue.id = queue_id  # todo atbagga This should not be hardcoded
         client = get_pipeline_client(organization)
         return client.create_definition(definition=definition, project=project)
     except VstsServiceError as ex:
