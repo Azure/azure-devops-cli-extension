@@ -36,11 +36,11 @@ from .models import GitForkOperationStatusDetail
 from .models import GitForkRef
 from .models import GitForkSyncRequest
 from .models import GitForkSyncRequestParameters
-from .models import_git_source import GitImportGitSource
-from .models import_request import GitImportRequest
-from .models import_request_parameters import GitImportRequestParameters
-from .models import_status_detail import GitImportStatusDetail
-from .models import_tfvc_source import GitImportTfvcSource
+from .models import GitImportGitSource
+from .models import GitImportRequest
+from .models import GitImportRequestParameters
+from .models import GitImportStatusDetail
+from .models import GitImportTfvcSource
 from .models import GitItem
 from .models import GitItemDescriptor
 from .models import GitItemRequestData
@@ -87,7 +87,7 @@ from .models import GitVersionDescriptor
 from .models import GlobalGitRepositoryKey
 from .models import IdentityRef
 from .models import IdentityRefWithVote
-from .models import_repository_validation import ImportRepositoryValidation
+from .models import ImportRepositoryValidation
 from .models import ItemContent
 from .models import ItemModel
 from .models import ReferenceLinks
