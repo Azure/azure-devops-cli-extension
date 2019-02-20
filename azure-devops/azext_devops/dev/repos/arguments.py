@@ -54,7 +54,7 @@ def load_code_arguments(self, _):
         context.argument('manual_queue_only', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to allow only manual queue of builds.')
         context.argument('display_name', help='Display Name.')
-        context.argument('valid_duration', help='Policy validity duration (in hours).')
+        context.argument('valid_duration', help='Policy validity duration (in minutes).')
 
     with self.argument_context('repos policy file-size') as context:
         context.argument('maximum_git_blob_size', help='Maximum Git Blob Size In Bytes.')
