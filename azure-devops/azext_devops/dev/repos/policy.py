@@ -176,6 +176,7 @@ def update_policy_approver_count(policy_id,
 
 def create_policy_required_reviewer(repository_id, branch, is_blocking, is_enabled,
                                     message, required_reviewer_ids,
+                                    path_filter=None,
                                     organization=None, project=None, detect=None):
     """Create required reviewer policy
     """
@@ -184,8 +185,8 @@ def create_policy_required_reviewer(repository_id, branch, is_blocking, is_enabl
             detect=detect, organization=organization, project=project)
         requiredReviewerIds = resolveIdentityMailsToIds(required_reviewer_ids, organization)
         policy_client = get_policy_client(organization)
-        param_name_array = ['requiredReviewerIds', 'message']
-        param_value_array = [requiredReviewerIds, message]
+        param_name_array = ['requiredReviewerIds', 'message', 'filenamePatterns']
+        param_value_array = [requiredReviewerIds, message, createFileNamePatterns(path_filter)]
         configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
                                                     'fd2167ab-b0be-447a-8ec8-39368250530e',
                                                     param_name_array, param_value_array)
@@ -198,6 +199,7 @@ def create_policy_required_reviewer(repository_id, branch, is_blocking, is_enabl
 def update_policy_required_reviewer(policy_id,
                                     repository_id=None, branch=None, is_blocking=None, is_enabled=None,
                                     message=None, required_reviewer_ids=None,
+                                    path_filter=None,
                                     organization=None, project=None, detect=None):
     """Update merge strategy policy
     """
@@ -206,7 +208,7 @@ def update_policy_required_reviewer(policy_id,
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
         current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
-        param_name_array = ['requiredReviewerIds', 'message']
+        param_name_array = ['requiredReviewerIds', 'message', 'filenamePatterns']
         requiredReviewerIds = resolveIdentityMailsToIds(required_reviewer_ids, organization)
 
         current_setting = current_policy.settings
@@ -214,7 +216,8 @@ def update_policy_required_reviewer(policy_id,
 
         param_value_array = [
             requiredReviewerIds or current_setting.get('requiredReviewerIds', None),
-            message or current_setting.get('message', None)
+            message or current_setting.get('message', None),
+            createFileNamePatterns(path_filter) or current_setting.get('filenamePatterns', None)
         ]
 
         updated_configuration = create_configuration_object(
