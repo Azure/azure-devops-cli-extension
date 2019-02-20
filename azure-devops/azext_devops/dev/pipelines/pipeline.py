@@ -7,19 +7,9 @@ from webbrowser import open_new
 import webbrowser
 import tempfile
 import os
-from vsts.exceptions import VstsServiceError
-from vsts.build.v5_1.models.build import Build
-from vsts.build.v5_1.models.build_definition import BuildDefinition
-from vsts.build.v5_1.models.build_repository import BuildRepository
-from vsts.build.v5_1.models.agent_pool_queue import AgentPoolQueue
-from vsts.build.v5_1.models.definition_reference import DefinitionReference
-from vsts.service_endpoint.v5_1.models.service_endpoint import ServiceEndpoint
-from vsts.service_endpoint.v5_1.models.endpoint_authorization import EndpointAuthorization
 from knack.log import get_logger
 from knack.util import CLIError
 from knack.prompting import prompt_pass, prompt, verify_is_a_tty, NoTTYException
-from azext_devops.dev.common.git import resolve_git_ref_heads
-from azext_devops.dev.common.identities import resolve_identity_as_id
 from azext_devops.dev.common.services import (get_pipeline_client,
                                               get_new_pipeline_client,
                                               get_git_client,
@@ -31,6 +21,14 @@ from azext_devops.dev.common.uuid import is_uuid
 from azext_devops.dev.common.prompting import (prompt_user_friendly_choice_list,
                                                verify_is_a_tty_or_raise_error)
 from azext_devops.dev.common.const import AZ_DEVOPS_GITHUB_PAT_ENVKEY
+from azext_devops.vstsCompressed.exceptions import VstsServiceError
+from azext_devops.vstsCompressed.build.v5_1.models import Build
+from azext_devops.vstsCompressed.build.v5_1.models import BuildDefinition
+from azext_devops.vstsCompressed.build.v5_1.models import BuildRepository
+from azext_devops.vstsCompressed.build.v5_1.models import AgentPoolQueue
+from azext_devops.vstsCompressed.build.v5_1.models import DefinitionReference
+from azext_devops.vstsCompressed.service_endpoint.v5_1.models import ServiceEndpoint
+from azext_devops.vstsCompressed.service_endpoint.v5_1.models import EndpointAuthorization
 from .github_file_checkin import checkin_file_to_github
 from .build_definition import get_definition_id_from_name
 

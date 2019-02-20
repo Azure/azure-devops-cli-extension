@@ -158,12 +158,12 @@ def get_build_client(organization=None):
 
 def get_pipeline_client(organization=None):
     connection = get_vss_connection(organization)
-    return connection.get_client('vsts.build.v5_1.build_client.BuildClient')
+    return connection.get_client(VSTS_MODULE + 'build.v5_1.build_client.BuildClient')
 
 
 def get_new_pipeline_client(organization=None):
     connection = get_vss_connection(organization)
-    return connection.get_client('vsts.cix.v5_1.cIX_client.PipelinesClient')
+    return connection.get_client(VSTS_MODULE + 'cix.v5_1.cIX_client.PipelinesClient')
 
 
 def get_ci_client(organization=None):
@@ -195,11 +195,6 @@ def get_service_endpoint_client(organization=None):
 def get_location_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_0.location.location_client.LocationClient')
-
-
-def get_contibutions_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client('vsts.contributions.v5_1.contributions_client.ContributionsClient')
 
 
 def get_member_entitlement_management_client(organization=None):

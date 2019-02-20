@@ -1,7 +1,7 @@
-from azext_devops.dev.common.services import resolve_instance_and_project, get_pipeline_client
-from .pipeline import _open_pipeline_run
-from vsts.exceptions import VstsServiceError
 from knack.util import CLIError
+from azext_devops.dev.common.services import resolve_instance_and_project, get_pipeline_client
+from azext_devops.vstsCompressed.exceptions import VstsServiceError
+from .pipeline import _open_pipeline_run
 
 def pipeline_run_tag(id=None, organization=None, project=None, detect=None):
     """Tag a pipeline run.
