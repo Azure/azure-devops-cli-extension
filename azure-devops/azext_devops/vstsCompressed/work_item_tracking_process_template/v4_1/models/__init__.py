@@ -9,7 +9,7 @@
 from .models import AdminBehavior
 from .models import AdminBehaviorField
 from .models import CheckTemplateExistenceResult
-from .models import_result import ProcessImportResult
+from .models import ProcessImportResult
 from .models import ProcessPromoteStatus
 from .models import ValidationIssue
 
