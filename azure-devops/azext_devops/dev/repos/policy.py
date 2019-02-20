@@ -297,7 +297,7 @@ def update_policy_merge_strategy(policy_id,
         raise CLIError(ex)
 
 
-def create_policy_build(repository_id, branch, is_blocking, is_enabled,
+def create_policy_build(repository_id, branch, branch_match_type, is_blocking, is_enabled,
                         build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
                         path_filter=None,
                         organization=None, project=None, detect=None):
@@ -323,7 +323,8 @@ def create_policy_build(repository_id, branch, is_blocking, is_enabled,
             createFileNamePatterns(path_filter)]
         configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
                                                     '0609b952-1397-4640-95ec-e00a01b2c241',
-                                                    param_name_array, param_value_array)
+                                                    param_name_array, param_value_array,
+                                                    branch_match_type)
 
         return policy_client.create_policy_configuration(configuration=configuration, project=project)
 
@@ -332,7 +333,7 @@ def create_policy_build(repository_id, branch, is_blocking, is_enabled,
 
 
 def update_policy_build(policy_id,
-                        repository_id=None, branch=None, is_blocking=None, is_enabled=None,
+                        repository_id=None, branch=None, branch_match_type=None, is_blocking=None, is_enabled=None,
                         build_definition_id=None, queue_on_source_update_only=None, manual_queue_only=None, display_name=None, valid_duration=None,
                         path_filter=None,
                         organization=None, project=None, detect=None):
@@ -370,7 +371,8 @@ def update_policy_build(policy_id,
             is_enabled or str(current_policy.is_enabled),
             '0609b952-1397-4640-95ec-e00a01b2c241',
             param_name_array,
-            param_value_array
+            param_value_array,
+            branch_match_type or current_scope['matchKind']
         )
 
         return policy_client.update_policy_configuration(
@@ -597,10 +599,17 @@ def update_policy_case_enforcement(policy_id,
         raise CLIError(ex)
 
 
-def create_configuration_object(repository_id, branch, is_blocking, is_enabled, policy_type_id, param_name_array, param_value_array):
+def create_configuration_object(repository_id,
+                                branch,
+                                is_blocking,
+                                is_enabled,
+                                policy_type_id,
+                                param_name_array,
+                                param_value_array,
+                                branch_match_type = 'exact'):
     branch = resolve_git_ref_heads(branch)
     policyConfiguration = PolicyConfiguration(is_blocking=parseTrueFalse(is_blocking), is_enabled=parseTrueFalse(is_enabled))
-    scope = createScope(repository_id, branch)
+    scope = createScope(repository_id, branch, branch_match_type)
     policyConfiguration.settings = {
         'scope': scope
     }
@@ -623,12 +632,12 @@ def createFileNamePatterns(filePatterns):
     return filePatterns.split(';')
 
 
-def createScope(repository_id, branch):
+def createScope(repository_id, branch, branch_match_type):
     scope = [
         {
             'repositoryId': repository_id,
             'refName': branch,
-            'matchKind': 'exact'
+            'matchKind': branch_match_type
         }
     ]
 

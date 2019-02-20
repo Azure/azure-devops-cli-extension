@@ -8,6 +8,7 @@ from azure.cli.core.commands.parameters import get_enum_type
 
 # CUSTOM CHOICE LISTS
 _ON_OFF_SWITCH_VALUES = ['on', 'off']
+_BRANCH_MATCH_KIND_VALUES = ['prefix', 'exact']
 _TRUE_FALSE_SWITCH = ['true', 'false']
 _VOTE_VALUES = ['approve', 'approve-with-suggestions', 'reset', 'wait-for-author', 'reject']
 _PR_STATUS_VALUES = ['all', 'active', 'completed', 'abandoned']
@@ -28,6 +29,8 @@ def load_code_arguments(self, _):
                          help='ID of the policy.')
         context.argument('repository_id', help='Id (UUID) of the repository on which to apply the policy')
         context.argument('branch', help='Branch on which this policy should be applied')
+        context.argument('branch_match_type', arg_type=get_enum_type(_BRANCH_MATCH_KIND_VALUES),
+                         help='Determines how branch argument will be used to apply policy ')
         context.argument('is_blocking', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether the policy should be blocking or not')
         context.argument('is_enabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
