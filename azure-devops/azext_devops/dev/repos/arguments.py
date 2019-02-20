@@ -25,7 +25,7 @@ def load_code_arguments(self, _):
                          'please use / backslash when typing in directory path. ' +
                          'Only --project and --organization param are needed when passing this.')
         context.argument('policy_id', options_list=('--policy-id', '--id'),
-                         help='ID of the policy which needs to be updated')
+                         help='ID of the policy.')
         context.argument('repository_id', help='Id (UUID) of the repository on which to apply the policy')
         context.argument('branch', help='Branch on which this policy should be applied')
         context.argument('is_blocking', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),

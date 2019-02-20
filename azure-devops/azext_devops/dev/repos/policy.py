@@ -48,7 +48,7 @@ def list_policy(organization=None, project=None, repository_id=None, branch=None
         raise CLIError(ex)
 
 
-def get_policy(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def get_policy(policy_id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Show policy details.
     :param id: ID of the policy.
     :type id: int
@@ -58,7 +58,7 @@ def get_policy(id, organization=None, project=None, detect=None):  # pylint: dis
         organization, project = resolve_instance_and_project(
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
-        return policy_client.get_policy_configuration(project=project, configuration_id=id)
+        return policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
