@@ -30,10 +30,11 @@ def list_policy(organization=None, project=None, repository_id=None, branch=None
         organization, project = resolve_instance_and_project(
             detect=detect, organization=organization, project=project)
 
-        scope = None
-
         if branch is not None and repository_id is None:
             raise CLIError('--repository-id is required with --branch')
+
+        scope = None
+        repository_id = repository_id.replace('-','')
 
         if repository_id is not None:
             scope = repository_id
