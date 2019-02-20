@@ -170,7 +170,7 @@ def update_policy_approver_count(policy_id,
         raise CLIError(ex)
 
 
-def create_policy_required_reviewer(repository_id, branch, is_blocking, is_enabled,
+def create_policy_required_reviewer(repository_id, branch, branch_match_type, is_blocking, is_enabled,
                                     message, required_reviewer_ids,
                                     path_filter=None,
                                     organization=None, project=None, detect=None):
@@ -185,7 +185,8 @@ def create_policy_required_reviewer(repository_id, branch, is_blocking, is_enabl
         param_value_array = [requiredReviewerIds, message, createFileNamePatterns(path_filter)]
         configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
                                                     'fd2167ab-b0be-447a-8ec8-39368250530e',
-                                                    param_name_array, param_value_array)
+                                                    param_name_array, param_value_array,
+                                                    branch_match_type)
 
         return policy_client.create_policy_configuration(configuration=configuration, project=project)
     except VstsServiceError as ex:
@@ -193,7 +194,7 @@ def create_policy_required_reviewer(repository_id, branch, is_blocking, is_enabl
 
 
 def update_policy_required_reviewer(policy_id,
-                                    repository_id=None, branch=None, is_blocking=None, is_enabled=None,
+                                    repository_id=None, branch=None, branch_match_type=None, is_blocking=None, is_enabled=None,
                                     message=None, required_reviewer_ids=None,
                                     path_filter=None,
                                     organization=None, project=None, detect=None):
@@ -223,7 +224,8 @@ def update_policy_required_reviewer(policy_id,
             is_enabled or str(current_policy.is_enabled),
             'fd2167ab-b0be-447a-8ec8-39368250530e',
             param_name_array,
-            param_value_array
+            param_value_array,
+            branch_match_type or current_scope['matchKind']
         )
 
         return policy_client.update_policy_configuration(
