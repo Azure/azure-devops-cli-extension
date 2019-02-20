@@ -525,6 +525,58 @@ def update_policy_work_item_linking(policy_id,
         raise CLIError(ex)
 
 
+def create_policy_case_enforcement(repository_id, is_blocking, is_enabled,
+                                   organization=None, project=None, detect=None):
+    """Create case enforcement policy.
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        configuration = create_configuration_object(repository_id, None, is_blocking, is_enabled,
+                                                    '40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e',
+                                                    ['enforceConsistentCase'],
+                                                    ['true'])
+
+        return policy_client.create_policy_configuration(configuration=configuration, project=project)
+
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
+
+def update_policy_case_enforcement(policy_id,
+                                   repository_id=None, is_blocking=None, is_enabled=None,
+                                   organization=None, project=None, detect=None):
+    """Update case enforcement policy.
+    """
+    try:
+        organization, project = resolve_instance_and_project(
+            detect=detect, organization=organization, project=project)
+        policy_client = get_policy_client(organization)
+        current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
+
+        current_scope = current_policy.settings['scope'][0]
+
+        updated_configuration = create_configuration_object(
+            repository_id or current_scope['repositoryId'],
+            None,
+            is_blocking or str(current_policy.is_blocking),
+            is_enabled or str(current_policy.is_enabled),
+            '40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e',
+            ['enforceConsistentCase'],
+            ['true']
+        )
+
+        return policy_client.update_policy_configuration(
+            configuration=updated_configuration,
+            project=project,
+            configuration_id=policy_id
+        )
+
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
+
 def create_configuration_object(repository_id, branch, is_blocking, is_enabled, policy_type_id, param_name_array, param_value_array):
     branch = resolve_git_ref_heads(branch)
     policyConfiguration = PolicyConfiguration(is_blocking=parseTrueFalse(is_blocking), is_enabled=parseTrueFalse(is_enabled))

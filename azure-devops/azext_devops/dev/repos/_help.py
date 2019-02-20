@@ -90,3 +90,9 @@ def load_repos_help():
     short-summary: Manage work item linking branch policy.
     long-summary:
     """
+
+    helps['repos policy case-enforcement'] = """
+    type: group
+    short-summary: Manage case enforcement policy.
+    long-summary:
+    """
