@@ -73,11 +73,11 @@ class TestUuidMethods(unittest.TestCase):
         list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off',
-        repository_id='fake_repo_id',
+        repository_id='1d1dad71-f27c-4370-810d-838ec41efd41',
         branch='master')
 
         #assert
-        self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, scope='fake_repo_id:refs/heads/master')
+        self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, scope='1d1dad71f27c4370810d838ec41efd41:refs/heads/master')
 
     def test_list_policy__only_branch_scope_error(self):
         try:
@@ -92,7 +92,7 @@ class TestUuidMethods(unittest.TestCase):
             '--repository-id is required with --branch')
 
     def test_get_policy(self):
-        get_policy(id = 121,
+        get_policy(policy_id = 121,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
@@ -101,7 +101,7 @@ class TestUuidMethods(unittest.TestCase):
         self.mock_get_policy.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, configuration_id=121)
 
     def test_delete_policy(self):
-        delete_policy(id = 121,
+        delete_policy(policy_id = 121,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')

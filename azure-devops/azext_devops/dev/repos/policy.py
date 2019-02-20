@@ -34,9 +34,9 @@ def list_policy(organization=None, project=None, repository_id=None, branch=None
             raise CLIError('--repository-id is required with --branch')
 
         scope = None
-        repository_id = repository_id.replace('-','')
 
         if repository_id is not None:
+            repository_id = repository_id.replace('-','')
             scope = repository_id
             if branch is not None:
                 branch = resolve_git_ref_heads(branch)
