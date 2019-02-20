@@ -197,6 +197,11 @@ def get_location_client(organization=None):
     return connection.get_client(VSTS_MODULE + 'v5_0.location.location_client.LocationClient')
 
 
+def get_contibutions_client(organization=None):
+    connection = get_vss_connection(organization)
+    return connection.get_client('vsts.contributions.v5_1.contributions_client.ContributionsClient')
+
+
 def get_member_entitlement_management_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_0.member_entitlement_management.'

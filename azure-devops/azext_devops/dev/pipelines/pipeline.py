@@ -17,6 +17,7 @@ from vsts.service_endpoint.v5_1.models.service_endpoint import ServiceEndpoint
 from vsts.service_endpoint.v5_1.models.endpoint_authorization import EndpointAuthorization
 from knack.log import get_logger
 from knack.util import CLIError
+from knack.prompting import prompt_pass, prompt, verify_is_a_tty, NoTTYException
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.identities import resolve_identity_as_id
 from azext_devops.dev.common.services import (get_pipeline_client,
@@ -27,23 +28,27 @@ from azext_devops.dev.common.services import (get_pipeline_client,
                                               resolve_instance_project_and_repo)
 from azext_devops.dev.common.uri import uri_quote, uri_parse
 from azext_devops.dev.common.uuid import is_uuid
-from azext_devops.dev.common.prompting import prompt_user_friendly_choice_list, try_prompt
+from azext_devops.dev.common.prompting import (prompt_user_friendly_choice_list,
+                                               verify_is_a_tty_or_raise_error)
 from azext_devops.dev.common.const import AZ_DEVOPS_GITHUB_PAT_ENVKEY
+from .github_file_checkin import checkin_file_to_github
 from .build_definition import get_definition_id_from_name
 
 logger = get_logger(__name__)
 
 
 class YmlOptions:
-    def __init__(self, name, content, description='Custom yml', params=None):
+    def __init__(self, name, id, content, description='Custom yml', params=None, path=None):
         self.name = name
+        self.id = id
         self.description = description
         self.content = content
+        self.path = path
         self.params = params
 
 
-def pipeline_create(name, repository_type, repository_url=None, branch=None, yml_path=None,
-                    service_endpoint=None, description=None, url=None,
+def pipeline_create(name, description=None, url=None, repository_url=None, branch=None, yml_path=None,
+                    repository_type=None, service_endpoint=None, yml_props=None,
                     organization=None, project=None, detect=None):
     """Create a pipeline
     :param name: Name of the new pipeline
@@ -52,15 +57,21 @@ def pipeline_create(name, repository_type, repository_url=None, branch=None, yml
     :type description: str
     :param url: Url of the yml file for which the pipeline will be configured
     :type url: str
-    :param repository_url: Repository clone url for which the pipeline will be configured
+    :param repository_url: Repository clone url for which the pipeline will be configured.
+    Ignored if --url is specified.
     :type repository_url: str
-    :param branch: Branch name for which the pipeline will be configured
+    :param branch: Branch name for which the pipeline will be configured. Ignored if --url is specified.
     :type branch: str
-    :param yml_path: Path of the pipelines yml file in the repo (if yml is already present in the repo)
+    :param yml_path: Path of the pipelines yml file in the repo (if yml is already present in the repo).
+    Ignored if --url is specified.
     :type yml_path: str
-    :param repository_type: Type of repository
+    :param repository_type: Type of repository. Auto detected for Github and Azure Repos.
     :type repository_type: str
-    :param service_endpoint: Service endpoint id created for the repository.
+    :param yml_props: Any additional required yml template params. Provided in the format of key=value pairs.
+    e.g. --yml-props repoName=contoso/webapp
+    :type yml_props: str
+    :param service_endpoint: Id of the Service Endpoint created for the repository.
+    Use command az devops service-endpoint -h for creating/listing service-endpoints.
     :type service_endpoint: str
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
@@ -72,10 +83,16 @@ def pipeline_create(name, repository_type, repository_url=None, branch=None, yml
     try:
         organization, project = resolve_instance_and_project(
             detect=detect, organization=organization, project=project)
-        if not repository_type:
-            raise CLIError("--repository-type must be specified.")
+        # Todo: Detect repository url from git clone url here if url or repository-url is not specified.
         if not url and (not repository_url or not branch):
             raise CLIError("Either --url or --repository-url, --branch must be specified.")
+        if not repository_type:
+            if url:
+                repository_type = try_get_repository_type(url)
+            else:
+                repository_type = try_get_repository_type(repository_url)
+            if not repository_type:
+                raise CLIError("--repository-type must be specified.")
         # Parse repository information according to repository type
         repo_name = None
         if repository_type.lower() == "github":
@@ -83,26 +100,32 @@ def pipeline_create(name, repository_type, repository_url=None, branch=None, yml
                 repository_url, repo_id, branch, yml_path = _parse_github_repo_info(url)
             else:
                 repo_id = _get_repo_id_from_repo_url(repository_url)
-        repo_name = repo_id
+            repo_name = repo_id
+        if repository_type.lower() == 'tfsgit':
+            # todo atbagga handle tfsgit repo url parsing
+            raise CLIError('Work in Progress')
 
-        github_pat = None
         if not service_endpoint:
-            service_endpoint, github_pat = get_github_service_endpoint(organization, project, github_pat)
+            service_endpoint = get_github_service_endpoint(organization, project)
 
+        new_pipeline_client = get_new_pipeline_client(organization=organization)
+        default_yml_exists = False
         # No yml path == find or recommend yml scenario
         if not yml_path:
             logger.debug('No yml file was given. Trying to find the yml file in the repo.')
-            new_pipeline_client = get_new_pipeline_client(organization=organization)
             yml_names = []
             yml_options = []
             configurations = new_pipeline_client.get_configurations(
                 project=project, repository_type=repository_type,
                 repository_id=repo_id, branch=branch, service_connection_id=service_endpoint)
             for configuration in configurations:
+                if configuration.path == 'azure-pipelines.yml':
+                    default_yml_exists = True
                 logger.debug('The repo has a yml pipeline definition. Path: %s', configuration.path)
                 custom_name = 'Existing yml (path={})'.format(configuration.path)
                 yml_names.append(custom_name)
-                yml_options.append(YmlOptions(custom_name, configuration.content))
+                yml_options.append(YmlOptions(name=custom_name, content=configuration.content, id='customid',
+                                              path=configuration.path))
             recommendations = new_pipeline_client.get_recommended_templates(
                 project=project, repository_type=repository_type,
                 repository_id=repo_id, branch=branch, service_connection_id=service_endpoint)
@@ -110,31 +133,65 @@ def pipeline_create(name, repository_type, repository_url=None, branch=None, yml
             for recommendation in recommendations:
                 logger.debug(recommendation.name)
                 yml_names.append(recommendation.name)
-                yml_options.append(YmlOptions(recommendation.name, recommendation.content,
-                                              recommendation.description, recommendation.parameters))
-            filename = None
+                yml_options.append(YmlOptions(name=recommendation.name, content=recommendation.content,
+                                              id=recommendation.id, description=recommendation.description,
+                                              params=recommendation.parameters))
+            temp_filename = None
+            yml_selection_index = 0
             proceed_selection = 1
             while proceed_selection == 1:
-                selection_id = prompt_user_friendly_choice_list("Choose a yml template to create a pipeline:",
-                                                                yml_names)
-                _fp, filename = tempfile.mkstemp(text=True)
-                f = open(filename, mode='w')
-                f.write(yml_options[selection_id].content)
+                yml_selection_index = prompt_user_friendly_choice_list("Choose a yml template to create a pipeline:",
+                                                                       yml_names)
+                _fp, temp_filename = tempfile.mkstemp(text=True)
+                f = open(temp_filename, mode='w')
+                f.write(yml_options[yml_selection_index].content)
                 f.close()
                 # open the file
-                webbrowser.open(filename)
+                webbrowser.open(temp_filename)
                 proceed_selection = prompt_user_friendly_choice_list(
                     'Do you want to proceed creating a pipeline?',
                     ['Proceed with this yml', 'Revisit recommendations'])
             # Read updated data from the file
-            f = open(filename, mode='r')
-            print(f.read())
+            f = open(temp_filename, mode='r')
+            content = f.read()
             f.close()
-            # FIX THIS atbagga
+            # todo atbagga fix this
             # import os
-            # os.remove(filename)
-            print("TODO: Ask for parameter or auto fill if possible.")
-            print("TODO: Github Auth and checkin the template.")
+            # os.remove(temp_filename)
+            if yml_options[yml_selection_index].params:
+                params_to_render = {}
+                for param in yml_options[yml_selection_index].params:
+                    logger.debug('looking for param %s in props', param.name)
+                    prop_found = False
+                    if yml_props:
+                        for prop in yml_props:
+                            parts = prop.split('=', 1)
+                            if len(parts) == 1:
+                                raise CLIError('Usage error: --yml_props prop_key1=prop_value1 prop_key2=prop_value2 ')
+                            if parts[0] == param.name:
+                                prop_found = True
+                                params_to_render[parts[0]] = parts[1]
+                    if not prop_found:
+                        raise CLIError('Missing required property for this template.'\
+                                        'Property Name: {propname} of type: {proptype} needs to be provided'\
+                                        'in --yml-props.'.format(propname=param.name, proptype=param.type))
+                new_pipeline_client.render_template(template_id=yml_options[yml_selection_index].id,
+                                                    template_parameters=params_to_render)
+            else:
+                logger.debug("Existing template edited or No required params for this template.")
+
+            checkin_path = 'azure-pipelines.yml'
+            if default_yml_exists and not yml_options[yml_selection_index].path:  # We need yml path from user
+                logger.warning('A yml file azure-pipelines.yml already exists in the repository root.')
+                verify_is_a_tty_or_raise_error('Yml file path is required to checkin the pipeline yml'\
+                    'to the repository. Checkin the yml file to the repository and create a pipeline from that yml'\
+                    'or run this command interactively.')
+                checkin_path = prompt(msg='Enter a yml file path to checkin the new yml pipeline in the repository? ',
+                                      help_string='e.g. /azure-pipeline.yml to add in the root folder.')
+
+            checkin_file_to_github(checkin_path, content, service_endpoint, repo_name, branch,
+                                   organization, project)
+            yml_path = checkin_path
 
         # Create build definition
         definition = BuildDefinition()
@@ -158,7 +215,7 @@ def pipeline_create(name, repository_type, repository_url=None, branch=None, yml
         definition.process = _create_process_object(yml_path)
         # set agent queue
         definition.queue = AgentPoolQueue()
-        definition.queue.id = 163  # This should not be hardcoded
+        definition.queue.id = 163  # todo atbagga This should not be hardcoded
 
         client = get_pipeline_client(organization)
         return client.create_definition(definition=definition, project=project)
@@ -202,7 +259,7 @@ def pipeline_list(name=None, top=None, organization=None, project=None, reposito
             if resolved_repository is None:
                 raise ValueError("Could not find a repository with name '{}', in project '{}'."
                                  .format(repository, project))
-        else:
+        else: 
             resolved_repository = None
         definition_references = client.get_definitions(project=project, name=name, repository_id=resolved_repository,
                                                        repository_type=repository_type, top=top,
@@ -246,13 +303,36 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
         raise CLIError(ex)
 
 
-def pipeline_update():
+def pipeline_update(name, description=None, url=None, repository_url=None, branch=None, yml_path=None,
+                    repository_type=None, service_endpoint=None, yml_props=None,
+                    organization=None, project=None, detect=None):
     """Update a pipeline
+    :param name: Name of the pipeline to update
+    :type name: str
+    :param id: Id of the pipeline to update
+    :type id: str
+    :param description: New description for the pipeline
+    :type description: str
+    :param repository_url: Repository clone url for which the pipeline will be configured.
+    :type repository_url: str
+    :param branch: Branch name for which the pipeline will be configured.
+    :type branch: str
+    :param yml_path: Path of the pipelines yml file in the repo (if yml is already present in the repo).
+    :type yml_path: str
+    :param service_endpoint: Id of the service endpoint for pipelines to connect to the repository.
+    Use command az devops service-endpoint -h for creating/listing service-endpoints.
+    :type service_endpoint: str
+    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :type organization: str
+    :param project: Name or ID of the team project.
+    :type project: str
+    :param detect: Automatically detect values for organization and project. Default is "on".
+    :type detect: str
     """
     pass
 
 
-def pipeline_run(id=None, name=None, open=False, # pylint: disable=redefined-builtin
+def pipeline_run(id=None, name=None, open=False,  # pylint: disable=redefined-builtin
                  organization=None, project=None, detect=None):
     """Request (run) a pipeline.
     :param id: ID of the pipeline to queue. Required if --name is not supplied.
@@ -309,24 +389,6 @@ def pipeline_delete(id, organization=None, project=None, detect=None): # pylint:
         raise CLIError(ex)
 
 
-def pipeline_run_tag(id=None, organization=None, project=None, detect=None):
-    """Tag a pipeline run.
-    """
-    pass
-
-
-def pipeline_run_show(id=None, organization=None, project=None, detect=None):
-    """Show details of a pipeline run.
-    """
-    pass
-
-
-def pipeline_run_list(organization=None, project=None, detect=None):
-    """List the pipeline runs in a project.
-    """
-    pass
-
-
 def _open_pipeline_run(run, organization):
     """Open the build results page in your web browser.
     :param :class:`<Build> <build.v5_1.models.Build>` build:
@@ -364,35 +426,31 @@ def _resolve_repository_as_id(repository, organization, project):
                 return found_repository.id
     return None
 
-def _parse_github_repo_info(github_repository):
-    parsed_url = uri_parse(github_repository)
+def _parse_github_repo_info(github_file_url):
+    _REPOSITORY_PARSE_ERROR = 'Repository could not be parsed to a yml file in a Github repository.'
+    parsed_url = uri_parse(github_file_url)
     logger.debug('Parsing github url: %s', parsed_url)
     if parsed_url.scheme == 'https' and parsed_url.netloc == 'github.com':
-        # Parse path to find Id and yaml path
-        logger.debug('Parsing path in the url to find repo branch and yml path')
+        # Parse path to find Id and file path
+        logger.debug('Parsing path in the url to find repo, branch and yml path')
         stripped_path = parsed_url.path.strip('/')
         if stripped_path.count('/') > 2:
             owner, repository_name, path = stripped_path.split('/', 2)
         else:
-            raise CLIError('Repository could not be parsed to a yml file in a Github repository.')
-
+            raise CLIError(_REPOSITORY_PARSE_ERROR)
         repo_id = '{owner}/{repo_name}'.format(owner=owner, repo_name=repository_name)
         repo_url = 'https://github.com/{id}.git'.format(id=repo_id)
-        stripped_path = parsed_url.path.strip('/')
-
         path = path.strip('/')
         if path.count('/') > 1:
-            blob, branch_name, yml_path = path.split('/', 2)
-            yml_path = './{}'.format(yml_path)
+            blob, branch_name, file_path = path.split('/', 2)
+            file_path = './{}'.format(file_path)
         else:
-            raise CLIError('Repository could not be parsed to a yml file in a Github repository.')
-
+            raise CLIError(_REPOSITORY_PARSE_ERROR)
         if blob != 'blob':
-            raise CLIError('Repository could not be parsed to a yml file in a Github repository.')
-
-        return repo_url, repo_id, branch_name, yml_path
+            raise CLIError(_REPOSITORY_PARSE_ERROR)
+        return repo_url, repo_id, branch_name, file_path
     else:
-        raise CLIError('Repository could not be parsed to a yml file in a Github repository.')
+        raise CLIError(_REPOSITORY_PARSE_ERROR)
 
 
 def _get_repo_id_from_repo_url(repository_url):
@@ -400,10 +458,10 @@ def _get_repo_id_from_repo_url(repository_url):
     logger.debug('Parsing github url: %s', parsed_url)
     if parsed_url.scheme == 'https' and parsed_url.netloc == 'github.com':
         logger.debug('Parsing path in the url to find repo id.')
-        stripped_path = parsed_url.path.strip('')
+        stripped_path = parsed_url.path.strip('/')
         if stripped_path.endswith('.git'):
             stripped_path = stripped_path[:-4]
-        return stripped_path.strip('/')
+        return stripped_path
     raise CLIError('Could not parse repository url.')
 
 
@@ -422,14 +480,24 @@ def _create_process_object(yaml_path):
 
 
 def _get_service_endpoints(organization, project):
+    """
+    get the list of existing service endpoint connections
+    """
     client = get_service_endpoint_client(organization)
     return client.get_service_endpoints(project)
 
 
-def get_github_service_endpoint(organization, project, github_pat):
+def get_github_service_endpoint(organization, project):
+    """
+    This will try to create a github service connection if there is no existing one in the project
+    Github pat token will be asked for interactively or can be provided
+    by setting the Environment variable AZ_DEVOPS_GITHUB_PAT_ENVKEY.
+    Service endpoint connection name is asked as input from the user, if the environment is non interative
+    name is set to default  AzureDevopsCliCreatePipelineFlow
+    """
     se_client = get_service_endpoint_client(organization)
     existing_service_endpoints = _get_service_endpoints(organization, project)
-    service_endpoints_choice_list = ['Create new service endpoint']
+    service_endpoints_choice_list = ['Create new Github service connection']
     github_service_endpoints = []
     choice = 0
     for endpoint in existing_service_endpoints:
@@ -437,27 +505,41 @@ def get_github_service_endpoint(organization, project, github_pat):
             service_endpoints_choice_list.append('Name: {}, Url: {}'.format(endpoint.name, endpoint.url))
             github_service_endpoints.append(endpoint)
     if github_service_endpoints:
-        choice = prompt_user_friendly_choice_list("Create or choose existing service endpoint?:",
+        choice = prompt_user_friendly_choice_list("Create or choose existing service connection? ",
                                                   service_endpoints_choice_list)
     if choice == 0:
         logger.debug("Creating a new service endpoint.")
-        if not github_pat:
-            github_pat = get_github_pat_token()
+        github_pat = get_github_pat_token()
+        try:
+            verify_is_a_tty()
+            se_name = prompt('Enter a service endpoint name to create? ')
+        except NoTTYException:
+            se_name = 'AzureDevopsCliCreatePipelineFlow'
+            logger.warning("Creating a new service endpoint with name %s", se_name)
         service_endpoint_authorization = EndpointAuthorization(parameters={'accessToken':github_pat},
                                                                scheme='PersonalAccessToken')
         service_endpoint_to_create = ServiceEndpoint(authorization=service_endpoint_authorization,
-                                                     name='AzureDevopsCliSetupPipelineFlow', type='github',
+                                                     name=se_name, type='github',
                                                      url='https://github.com/')
-        return se_client.create_service_endpoint(service_endpoint_to_create, project).id, github_pat
+        return se_client.create_service_endpoint(service_endpoint_to_create, project).id
     else:
-        return existing_service_endpoints[choice-1].id, github_pat
+        return existing_service_endpoints[choice-1].id
 
 
 def get_github_pat_token():
     github_pat = os.getenv(AZ_DEVOPS_GITHUB_PAT_ENVKEY, None)
     if github_pat:
+        logger.warning('Using Github PAT token found in environment variable (%s).', AZ_DEVOPS_GITHUB_PAT_ENVKEY)
         return github_pat
-    github_pat = try_prompt(
-        msg='Enter your Github PAT token:',
-        error_msg='Github PAT token is required for this command.'
-        + 'Either set the environment variable ({env_var}) or run the command interactively.')
+
+    verify_is_a_tty_or_raise_error('Github PAT token is required for this command.'\
+        'Either set the environment variable ({env_var}) or run the command interactively.'.format(
+            env_var=AZ_DEVOPS_GITHUB_PAT_ENVKEY))
+    return prompt_pass(msg='Enter your Github PAT token: ')
+
+
+def try_get_repository_type(url):
+    if 'https://github.com' in url:
+        return 'github'
+    if 'https://dev.azure.com' or '.visualstudio.com' in url:
+        return 'tfsgit'
