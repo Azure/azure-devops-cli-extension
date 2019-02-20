@@ -608,7 +608,7 @@ def create_configuration_object(repository_id,
                                 policy_type_id,
                                 param_name_array,
                                 param_value_array,
-                                branch_match_type = 'exact'):
+                                branch_match_type='exact'):
     branch = resolve_git_ref_heads(branch)
     policyConfiguration = PolicyConfiguration(is_blocking=parseTrueFalse(is_blocking), is_enabled=parseTrueFalse(is_enabled))
     scope = createScope(repository_id, branch, branch_match_type)
