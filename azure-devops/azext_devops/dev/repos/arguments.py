@@ -34,7 +34,7 @@ def load_code_arguments(self, _):
                          help='Whether the policy is enabled or not')
         context.argument('path_filter',
                          help='If path filter is set, the policy will apply when files which' +
-                         'match the filter are changed'+
+                         'match the filter are changed' +
                          'You can specify absolute paths and wildcards' +
                          'Example: /WebApp/Models/Data.cs, /WebApp/* or *.cs' +
                          'You can specify multiple paths using \';\' as a seperator' +
