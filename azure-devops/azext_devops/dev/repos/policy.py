@@ -622,6 +622,7 @@ def createFileNamePatterns(filePatterns):
 
     return filePatterns.split(';')
 
+
 def createScope(repository_id, branch):
     scope = [
         {
