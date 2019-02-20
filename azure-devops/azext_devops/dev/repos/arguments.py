@@ -32,6 +32,15 @@ def load_code_arguments(self, _):
                          help='Whether the policy should be blocking or not')
         context.argument('is_enabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether the policy is enabled or not')
+        context.argument('path_filter',
+                         help='If path filter is set, the policy will apply when files which' +
+                         'match the filter are changed'+
+                         'You can specify absolute paths and wildcards' +
+                         'Example: /WebApp/Models/Data.cs, /WebApp/* or *.cs' +
+                         'You can specify multiple paths using \';\' as a seperator' +
+                         'Example: /WebApp/Models/Data.cs;ClientApp/Models/Data.cs' +
+                         '*.* means apply to all'
+                         'Order is significant')
 
     with self.argument_context('repos policy approver-count') as context:
         context.argument('minimum_approver_count',

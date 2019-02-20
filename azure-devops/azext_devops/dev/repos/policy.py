@@ -300,6 +300,7 @@ def update_policy_merge_strategy(policy_id,
 
 def create_policy_build(repository_id, branch, is_blocking, is_enabled,
                         build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
+                        path_filter=None,
                         organization=None, project=None, detect=None):
     """Create build policy
     """
@@ -307,8 +308,20 @@ def create_policy_build(repository_id, branch, is_blocking, is_enabled,
         organization, project = resolve_instance_and_project(
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
-        param_name_array = ['buildDefinitionId', 'queueOnSourceUpdateOnly', 'manualQueueOnly', 'displayName', 'validDuration']
-        param_value_array = [build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration]
+        param_name_array = [
+            'buildDefinitionId',
+            'queueOnSourceUpdateOnly',
+            'manualQueueOnly',
+            'displayName',
+            'validDuration',
+            'filenamePatterns']
+        param_value_array = [
+            build_definition_id,
+            queue_on_source_update_only,
+            manual_queue_only,
+            display_name,
+            valid_duration,
+            createFileNamePatterns(path_filter)]
         configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
                                                     '0609b952-1397-4640-95ec-e00a01b2c241',
                                                     param_name_array, param_value_array)
@@ -322,6 +335,7 @@ def create_policy_build(repository_id, branch, is_blocking, is_enabled,
 def update_policy_build(policy_id,
                         repository_id=None, branch=None, is_blocking=None, is_enabled=None,
                         build_definition_id=None, queue_on_source_update_only=None, manual_queue_only=None, display_name=None, valid_duration=None,
+                        path_filter=None,
                         organization=None, project=None, detect=None):
     """Update build policy
     """
@@ -330,7 +344,13 @@ def update_policy_build(policy_id,
             detect=detect, organization=organization, project=project)
         policy_client = get_policy_client(organization)
         current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
-        param_name_array = ['buildDefinitionId', 'queueOnSourceUpdateOnly', 'manualQueueOnly', 'displayName', 'validDuration']
+        param_name_array = [
+            'buildDefinitionId',
+            'queueOnSourceUpdateOnly',
+            'manualQueueOnly',
+            'displayName',
+            'validDuration',
+            'filenamePatterns']
 
         current_setting = current_policy.settings
         current_scope = current_policy.settings['scope'][0]
@@ -340,7 +360,8 @@ def update_policy_build(policy_id,
             queue_on_source_update_only or current_setting.get('queueOnSourceUpdateOnly', None),
             manual_queue_only or current_setting.get('manualQueueOnly', None),
             display_name or current_setting.get('displayName', None),
-            valid_duration or current_setting.get('validDuration', None)
+            valid_duration or current_setting.get('validDuration', None),
+            createFileNamePatterns(path_filter) or current_setting.get('filenamePatterns', None)
         ]
 
         updated_configuration = create_configuration_object(
@@ -595,6 +616,12 @@ def create_configuration_object(repository_id, branch, is_blocking, is_enabled, 
 
     return policyConfiguration
 
+
+def createFileNamePatterns(filePatterns):
+    if filePatterns is None:
+        return []
+
+    return filePatterns.split(';')
 
 def createScope(repository_id, branch):
     scope = [
