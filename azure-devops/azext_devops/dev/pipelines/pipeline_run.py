@@ -5,11 +5,6 @@ from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.identities import resolve_identity_as_id
 from .pipeline import _open_pipeline_run
 
-def pipeline_run_tag(id=None, organization=None, project=None, detect=None):
-    """Tag a pipeline run.
-    """
-    pass
-
 
 def pipeline_run_show(id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details of a pipeline run.

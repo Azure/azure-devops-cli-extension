@@ -145,7 +145,9 @@ def pipeline_create(name, description=None, url=None, repository_url=None, branc
                 f.write(yml_options[yml_selection_index].content)
                 f.close()
                 # open the file
-                webbrowser.open(temp_filename)
+                import subprocess
+                doc = subprocess.Popen(["start", "/WAIT", temp_filename], shell=True)
+                doc.wait()
                 proceed_selection = prompt_user_friendly_choice_list(
                     'Do you want to proceed creating a pipeline?',
                     ['Proceed with this yml', 'Revisit recommendations'])

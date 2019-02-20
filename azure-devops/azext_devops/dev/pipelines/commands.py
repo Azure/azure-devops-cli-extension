@@ -65,7 +65,7 @@ def load_build_commands(self, _):
         g.command('run', 'pipeline_run', table_transformer=transform_build_table_output)
 
     with self.command_group('pipelines runs', command_type=pipelinesRunOps) as g:
-        g.command('tag', 'pipeline_run_tag')
+        # g.command('tag', 'pipeline_run_tag')
         g.command('list', 'pipeline_run_list', table_transformer=transform_builds_table_output)
         g.command('show', 'pipeline_run_show', table_transformer=transform_build_table_output)
 
