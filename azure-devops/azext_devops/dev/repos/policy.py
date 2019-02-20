@@ -175,7 +175,7 @@ def update_policy_approver_count(policy_id,
 
 
 def create_policy_required_reviewer(repository_id, branch, is_blocking, is_enabled,
-                                    message, required_reviewer_ids=None,
+                                    message, required_reviewer_ids,
                                     organization=None, project=None, detect=None):
     """Create required reviewer policy
     """
