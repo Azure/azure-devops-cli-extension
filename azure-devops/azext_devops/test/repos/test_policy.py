@@ -157,6 +157,77 @@ class TestUuidMethods(unittest.TestCase):
         self.assertEqual(update_policy_object['configuration']['is_enabled'], False)
         self.assertEqual(update_policy_object['configuration']['is_blocking'], True)
 
+    def test_create_policy_approver_count(self):
+        create_policy_approver_count(repository_id = self._TEST_REPOSITORY_ID,
+        branch='master',
+        is_blocking='false',
+        is_enabled='true',
+        minimum_approver_count='5',
+        creator_vote_counts='false',
+        allow_downvotes='false',
+        reset_on_source_push='true',
+        organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off')
+
+        #assert
+        self.mock_create_policy.assert_called_once()
+        self.mock_create_policy.assert_called_once()
+        create_policy_object = self.mock_create_policy.call_args_list[0][1]
+        self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'])
+        settings = create_policy_object['configuration'].settings
+        self.assertEqual(settings['minimumApproverCount'], '5')
+        self.assertEqual(settings['creatorVoteCounts'], 'false')
+        self.assertEqual(settings['allowDownvotes'], 'false')
+        self.assertEqual(settings['resetOnSourcePush'], 'true')
+        scope = create_policy_object['configuration'].settings['scope'][0]  # 0 because we set only only scope from CLI
+        self.assertEqual(scope['repositoryId'], self._TEST_REPOSITORY_ID)
+        self.assertEqual(scope['refName'], 'refs/heads/master')
+        self.assertEqual(scope['matchKind'], 'exact')
+
+    def test_update_policy_approver_count(self):
+        current_policy = PolicyConfiguration(is_blocking='False', is_enabled='False')
+        policy_type = PolicyTypeRef()
+        policy_type.id = 'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd'
+        current_policy.type = policy_type
+        current_policy.settings = {
+            'minimumApproverCount' : 2,
+            'creatorVoteCounts' : 'false',
+            'allowDownvotes' : 'false',
+            'resetOnSourcePush' : 'false',
+            'scope':[
+                {
+                    'refName': 'ref\heads\master',
+                        'repositoryId':self._TEST_REPOSITORY_ID
+                        }
+                        ]
+            }
+
+        self.mock_get_policy.return_value = current_policy
+
+        update_policy_approver_count(policy_id=121,
+        allow_downvotes='true',
+        is_blocking='true',
+        reset_on_source_push='false',
+        organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off')
+
+        self.mock_get_policy.assert_called_once()
+
+        self.mock_update_policy.assert_called_once()
+        update_policy_object = self.mock_update_policy.call_args_list[0][1]
+        self.assertEqual(update_policy_object['configuration_id'], 121)
+        self.assertEqual(update_policy_object['configuration'].is_enabled, False)
+        self.assertEqual(update_policy_object['configuration'].is_blocking, True)
+        settings = update_policy_object['configuration'].settings
+        self.assertEqual(settings['minimumApproverCount'], 2)
+        self.assertEqual(settings['creatorVoteCounts'], 'false')
+        self.assertEqual(settings['allowDownvotes'], 'true')
+        self.assertEqual(settings['resetOnSourcePush'], 'false')
+
+
+
 
 
 if __name__ == '__main__':
