@@ -23,8 +23,7 @@ def load_code_arguments(self, _):
     with self.argument_context('repos policy') as context:
         context.argument('policy_configuration', options_list=('--policy-configuration', '--config'),
                          help='Local file path for configuration file. ' +
-                         'Please use / backslash when typing in directory path. ' +
-                         'Only --project and --organization param are needed when passing this.')
+                         'Please use / backslash when typing in directory path. ')
         context.argument('policy_id', options_list=('--policy-id', '--id'),
                          help='ID of the policy.')
         context.argument('repository_id', help='Id of the repository on which to apply the policy')
@@ -33,7 +32,7 @@ def load_code_arguments(self, _):
                          help='Determines how the branch argument is used to apply a policy. ' +
                          'If value is \'exact\', the policy will be applied on a branch which has an ' +
                          'exact match on the --branch argument. ' +
-                         'If value is \'prefix\' the policy is applied across all branch folders that' +
+                         'If value is \'prefix\' the policy is applied across all branch folders that ' +
                          'match the prefix provided by the --branch argument.')
         context.argument('is_blocking', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether the policy should be blocking or not')
