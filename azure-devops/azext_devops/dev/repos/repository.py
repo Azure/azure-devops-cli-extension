@@ -8,7 +8,6 @@ import webbrowser
 
 from knack.util import CLIError
 from knack.log import get_logger
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.vstsCompressed.git.v4_0.models.models import GitRepositoryCreateOptions
 from azext_devops.dev.common.services import (get_git_client,
                                               resolve_instance_and_project,
@@ -28,20 +27,17 @@ def create_repo(name, organization=None, project=None, detect=None, open=False):
     :type open: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        git_client = get_git_client(organization)
-        create_options = GitRepositoryCreateOptions()
-        create_options.name = name
-        repository = git_client.create_repository(git_repository_to_create=create_options,
-                                                  project=project)
-        if open:
-            _open_repository(repository, organization)
-        return repository
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    git_client = get_git_client(organization)
+    create_options = GitRepositoryCreateOptions()
+    create_options.name = name
+    repository = git_client.create_repository(git_repository_to_create=create_options,
+                                              project=project)
+    if open:
+        _open_repository(repository, organization)
+    return repository
 
 
 def delete_repo(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
@@ -49,31 +45,25 @@ def delete_repo(id, organization=None, project=None, detect=None):  # pylint: di
     :param id: ID of the repository.
     :type id: str
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        git_client = get_git_client(organization)
-        delete_response = git_client.delete_repository(project=project, repository_id=id)
-        print('Deleted repository {}'.format(id))
-        return delete_response
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    git_client = get_git_client(organization)
+    delete_response = git_client.delete_repository(project=project, repository_id=id)
+    print('Deleted repository {}'.format(id))
+    return delete_response
 
 
 def list_repos(organization=None, project=None, detect=None):
     """List Git repositories of a team project.
     :rtype: list of :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        git_client = get_git_client(organization)
-        repository = git_client.get_repositories(project=project)
-        return repository
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    git_client = get_git_client(organization)
+    repository = git_client.get_repositories(project=project)
+    return repository
 
 
 def update_repo(repository, default_branch=None, name=None, organization=None, project=None, detect=None):
@@ -87,26 +77,23 @@ def update_repo(repository, default_branch=None, name=None, organization=None, p
     """
     if not default_branch and not name:
         raise CLIError("Either --default-branch or --name (for rename) must be provided to update repository.")
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(
-            detect=detect,
-            organization=organization,
-            project=project,
-            project_required=True,
-            repo=repository)
-        git_client = get_git_client(organization)
-        # Get the repo to be updated
-        repository = git_client.get_repository(project=project, repository_id=repository)
-        if default_branch:
-            default_branch = resolve_git_ref_heads(default_branch)
-            repository.default_branch = default_branch
-        if name:
-            repository.name = name
-        repository = git_client.update_repository(
-            project=project, repository_id=repository.id, new_repository_info=repository)
-        return repository
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect,
+        organization=organization,
+        project=project,
+        project_required=True,
+        repo=repository)
+    git_client = get_git_client(organization)
+    # Get the repo to be updated
+    repository = git_client.get_repository(project=project, repository_id=repository)
+    if default_branch:
+        default_branch = resolve_git_ref_heads(default_branch)
+        repository.default_branch = default_branch
+    if name:
+        repository.name = name
+    repository = git_client.update_repository(
+        project=project, repository_id=repository.id, new_repository_info=repository)
+    return repository
 
 
 def show_repo(repository, organization=None, project=None, detect=None, open=False):  # pylint: disable=redefined-builtin
@@ -117,20 +104,17 @@ def show_repo(repository, organization=None, project=None, detect=None, open=Fal
     :type open: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(
-            detect=detect,
-            organization=organization,
-            project=project,
-            project_required=True,
-            repo=repository)
-        git_client = get_git_client(organization)
-        repository = git_client.get_repository(project=project, repository_id=repository)
-        if open:
-            _open_repository(repository, organization)
-        return repository
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect,
+        organization=organization,
+        project=project,
+        project_required=True,
+        repo=repository)
+    git_client = get_git_client(organization)
+    repository = git_client.get_repository(project=project, repository_id=repository)
+    if open:
+        _open_repository(repository, organization)
+    return repository
 
 
 def _open_repository(repository, organization):

@@ -4,8 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 import time
-from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.vstsCompressed.git.v4_0.models.models import GitImportRequestParameters
 from azext_devops.vstsCompressed.git.v4_0.models.models import GitImportGitSource
 from azext_devops.vstsCompressed.git.v4_0.models.models import GitImportRequest
@@ -21,26 +19,23 @@ def create_import_request(git_source_url, project=None, repository=None,
     :param git_source_url: Url of the source git repository
     :type git_source_url: str
     """
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(
-            detect=detect,
-            organization=organization,
-            project=project,
-            repo=repository,
-            repo_required=True)
-        client = get_git_client(organization)
-        gitImportGitSource = GitImportGitSource(overwrite=False, url=git_source_url)
-        gitImportRequestParameter = GitImportRequestParameters(
-            delete_service_endpoint_after_import_is_done=False,
-            git_source=gitImportGitSource,
-            service_endpoint_id=None,
-            tfvc_source=None)
-        gitImportRequest = GitImportRequest(parameters=gitImportRequestParameter)
-        importRequest = client.create_import_request(import_request=gitImportRequest, project=project,
-                                                     repository_id=repository)
-        return _wait_for_import_request(client, project, repository, importRequest.import_request_id)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect,
+        organization=organization,
+        project=project,
+        repo=repository,
+        repo_required=True)
+    client = get_git_client(organization)
+    gitImportGitSource = GitImportGitSource(overwrite=False, url=git_source_url)
+    gitImportRequestParameter = GitImportRequestParameters(
+        delete_service_endpoint_after_import_is_done=False,
+        git_source=gitImportGitSource,
+        service_endpoint_id=None,
+        tfvc_source=None)
+    gitImportRequest = GitImportRequest(parameters=gitImportRequestParameter)
+    importRequest = client.create_import_request(import_request=gitImportRequest, project=project,
+                                                 repository_id=repository)
+    return _wait_for_import_request(client, project, repository, importRequest.import_request_id)
 
 
 def _wait_for_import_request(client, project, repository, import_request_id, interval_seconds=5):

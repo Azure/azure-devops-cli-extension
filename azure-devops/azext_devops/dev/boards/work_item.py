@@ -120,47 +120,44 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
     :type open: bool
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
-    try:
-        organization = resolve_instance(detect=detect, organization=organization)
-        patch_document = []
-        if title is not None:
-            patch_document.append(_create_work_item_field_patch_operation('add', 'System.Title', title))
-        if description is not None:
-            patch_document.append(_create_work_item_field_patch_operation('add', 'System.Description', description))
-        if assigned_to is not None:
-            assigned_to = assigned_to.strip()
-            # 'assigned to' does not take an identity id.  Display name works.
-            if assigned_to == '':
-                resolved_assigned_to = ''
+    organization = resolve_instance(detect=detect, organization=organization)
+    patch_document = []
+    if title is not None:
+        patch_document.append(_create_work_item_field_patch_operation('add', 'System.Title', title))
+    if description is not None:
+        patch_document.append(_create_work_item_field_patch_operation('add', 'System.Description', description))
+    if assigned_to is not None:
+        assigned_to = assigned_to.strip()
+        # 'assigned to' does not take an identity id.  Display name works.
+        if assigned_to == '':
+            resolved_assigned_to = ''
+        else:
+            resolved_assigned_to = _resolve_identity_as_unique_user_id(assigned_to, organization)
+        if resolved_assigned_to is not None:
+            patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
+                                                                          resolved_assigned_to))
+    if state is not None:
+        patch_document.append(_create_work_item_field_patch_operation('add', 'System.State', state))
+    if area is not None:
+        patch_document.append(_create_work_item_field_patch_operation('add', 'System.AreaPath', area))
+    if iteration is not None:
+        patch_document.append(_create_work_item_field_patch_operation('add', 'System.IterationPath', iteration))
+    if reason is not None:
+        patch_document.append(_create_work_item_field_patch_operation('add', 'System.Reason', reason))
+    if discussion is not None:
+        patch_document.append(_create_work_item_field_patch_operation('add', 'System.History', discussion))
+    if fields is not None and fields:
+        for field in fields:
+            kvp = field.split('=', 1)
+            if len(kvp) == 2:
+                patch_document.append(_create_work_item_field_patch_operation('add', kvp[0], kvp[1]))
             else:
-                resolved_assigned_to = _resolve_identity_as_unique_user_id(assigned_to, organization)
-            if resolved_assigned_to is not None:
-                patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
-                                                                              resolved_assigned_to))
-        if state is not None:
-            patch_document.append(_create_work_item_field_patch_operation('add', 'System.State', state))
-        if area is not None:
-            patch_document.append(_create_work_item_field_patch_operation('add', 'System.AreaPath', area))
-        if iteration is not None:
-            patch_document.append(_create_work_item_field_patch_operation('add', 'System.IterationPath', iteration))
-        if reason is not None:
-            patch_document.append(_create_work_item_field_patch_operation('add', 'System.Reason', reason))
-        if discussion is not None:
-            patch_document.append(_create_work_item_field_patch_operation('add', 'System.History', discussion))
-        if fields is not None and fields:
-            for field in fields:
-                kvp = field.split('=', 1)
-                if len(kvp) == 2:
-                    patch_document.append(_create_work_item_field_patch_operation('add', kvp[0], kvp[1]))
-                else:
-                    raise ValueError('The --fields argument should consist of space separated "field=value" pairs.')
-        client = get_work_item_tracking_client(organization)
-        work_item = client.update_work_item(document=patch_document, id=id)
-        if open:
-            _open_work_item(work_item, organization)
-        return work_item
-    except VstsServiceError as ex:
-        _handle_vsts_service_error(ex)
+                raise ValueError('The --fields argument should consist of space separated "field=value" pairs.')
+    client = get_work_item_tracking_client(organization)
+    work_item = client.update_work_item(document=patch_document, id=id)
+    if open:
+        _open_work_item(work_item, organization)
+    return work_item
 
 
 def delete_work_item(id, destroy=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
@@ -210,19 +207,16 @@ def show_work_item(id, open=False, organization=None, detect=None):  # pylint: d
     :type open: bool
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
+    organization = resolve_instance(detect=detect, organization=organization)
     try:
-        organization = resolve_instance(detect=detect, organization=organization)
-        try:
-            client = get_work_item_tracking_client(organization)
-            work_item = client.get_work_item(id)
-        except VstsServiceError as ex:
-            _handle_vsts_service_error(ex)
-
-        if open:
-            _open_work_item(work_item, organization)
-        return work_item
+        client = get_work_item_tracking_client(organization)
+        work_item = client.get_work_item(id)
     except VstsServiceError as ex:
-        raise CLIError(ex)
+        _handle_vsts_service_error(ex)
+
+    if open:
+        _open_work_item(work_item, organization)
+    return work_item
 
 
 # pylint: disable=too-many-statements
@@ -236,81 +230,78 @@ def query_work_items(wiql=None, id=None, path=None, organization=None, project=N
     :type path: str
     :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
     """
-    try:
-        if wiql is None and path is None and id is None:
-            raise CLIError("Either the --wiql, --id, or --path argument must be specified.")
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project, project_required=False)
-        client = get_work_item_tracking_client(organization)
-        if id is None and path is not None:
-            if project is None:
-                raise CLIError("The --project argument must be specified for this query.")
-            query = client.get_query(project=project, query=path)
-            id = query.id
-        if id is not None:
-            query_result = client.query_by_id(id=id)
-        else:
-            wiql_object = Wiql()
-            wiql_object.query = wiql
-            query_result = client.query_by_wiql(wiql=wiql_object)
-        if query_result.work_items:
-            _last_query_result[_LAST_QUERY_RESULT_KEY] = query_result  # store query result for table view
-            safety_buffer = 100  # a buffer in the max url length to protect going over the limit
-            remaining_url_length = 2048 - safety_buffer
-            remaining_url_length -= len(organization)
-            # following subtracts relative url, the asof parameter and beginning of id and field parameters.
-            # asof value length will vary, but this should be the longest possible
-            remaining_url_length -=\
-                len('/_apis/wit/workItems?ids=&fields=&asOf=2017-11-07T17%3A05%3A34.06699999999999999Z')
-            fields = []
-            fields_length_in_url = 0
-            if query_result.columns:
-                for field_ref in query_result.columns:
-                    fields.append(field_ref.reference_name)
-                    if fields_length_in_url > 0:
-                        fields_length_in_url += 3  # add 3 for %2C delimiter
-                    fields_length_in_url += len(uri_quote(field_ref.reference_name))
-                    if fields_length_in_url > 800:
-                        logger.info("Not retrieving all fields due to max url length.")
-                        break
-            remaining_url_length -= fields_length_in_url
-            max_work_items = 1000
-            work_items_batch_size = 200
-            current_batch = []
-            work_items = []
-            work_item_url_length = 0
-            for work_item_ref in query_result.work_items:
-                if len(work_items) >= max_work_items:
-                    logger.info("Only retrieving the first %s work items.", max_work_items)
+    if wiql is None and path is None and id is None:
+        raise CLIError("Either the --wiql, --id, or --path argument must be specified.")
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project, project_required=False)
+    client = get_work_item_tracking_client(organization)
+    if id is None and path is not None:
+        if project is None:
+            raise CLIError("The --project argument must be specified for this query.")
+        query = client.get_query(project=project, query=path)
+        id = query.id
+    if id is not None:
+        query_result = client.query_by_id(id=id)
+    else:
+        wiql_object = Wiql()
+        wiql_object.query = wiql
+        query_result = client.query_by_wiql(wiql=wiql_object)
+    if query_result.work_items:
+        _last_query_result[_LAST_QUERY_RESULT_KEY] = query_result  # store query result for table view
+        safety_buffer = 100  # a buffer in the max url length to protect going over the limit
+        remaining_url_length = 2048 - safety_buffer
+        remaining_url_length -= len(organization)
+        # following subtracts relative url, the asof parameter and beginning of id and field parameters.
+        # asof value length will vary, but this should be the longest possible
+        remaining_url_length -=\
+            len('/_apis/wit/workItems?ids=&fields=&asOf=2017-11-07T17%3A05%3A34.06699999999999999Z')
+        fields = []
+        fields_length_in_url = 0
+        if query_result.columns:
+            for field_ref in query_result.columns:
+                fields.append(field_ref.reference_name)
+                if fields_length_in_url > 0:
+                    fields_length_in_url += 3  # add 3 for %2C delimiter
+                fields_length_in_url += len(uri_quote(field_ref.reference_name))
+                if fields_length_in_url > 800:
+                    logger.info("Not retrieving all fields due to max url length.")
                     break
-                if work_item_url_length > 0:
-                    work_item_url_length += 3  # add 3 for %2C delimiter
-                work_item_url_length += len(str(work_item_ref.id))
-                current_batch.append(work_item_ref.id)
+        remaining_url_length -= fields_length_in_url
+        max_work_items = 1000
+        work_items_batch_size = 200
+        current_batch = []
+        work_items = []
+        work_item_url_length = 0
+        for work_item_ref in query_result.work_items:
+            if len(work_items) >= max_work_items:
+                logger.info("Only retrieving the first %s work items.", max_work_items)
+                break
+            if work_item_url_length > 0:
+                work_item_url_length += 3  # add 3 for %2C delimiter
+            work_item_url_length += len(str(work_item_ref.id))
+            current_batch.append(work_item_ref.id)
 
-                if remaining_url_length - work_item_url_length <= 0 or len(current_batch) == work_items_batch_size:
-                    # url is near max length, go ahead and send first request for details.
-                    # url can go over by an id length because we have a safety buffer
-                    current_batched_items = client.get_work_items(ids=current_batch,
-                                                                  as_of=query_result.as_of,
-                                                                  fields=fields)
-                    for work_item in current_batched_items:
-                        work_items.append(work_item)
-                    current_batch = []
-                    work_item_url_length = 0
-
-            if current_batch:
+            if remaining_url_length - work_item_url_length <= 0 or len(current_batch) == work_items_batch_size:
+                # url is near max length, go ahead and send first request for details.
+                # url can go over by an id length because we have a safety buffer
                 current_batched_items = client.get_work_items(ids=current_batch,
                                                               as_of=query_result.as_of,
                                                               fields=fields)
                 for work_item in current_batched_items:
                     work_items.append(work_item)
-            # put items in the same order they appeared in the initial query results
-            work_items = sorted(work_items, key=_get_sort_key_from_last_query_results)
-            return work_items
-        return None
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+                current_batch = []
+                work_item_url_length = 0
+
+        if current_batch:
+            current_batched_items = client.get_work_items(ids=current_batch,
+                                                          as_of=query_result.as_of,
+                                                          fields=fields)
+            for work_item in current_batched_items:
+                work_items.append(work_item)
+        # put items in the same order they appeared in the initial query results
+        work_items = sorted(work_items, key=_get_sort_key_from_last_query_results)
+        return work_items
+    return None
 
 
 def _get_sort_key_from_last_query_results(work_item):

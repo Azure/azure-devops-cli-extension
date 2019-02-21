@@ -18,15 +18,12 @@ def create_team(name, description=None, organization=None, project=None, detect=
     :type description: str
     :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        core_client = get_core_client(organization)
-        team_to_create = WebApiTeam(name=name, description=description)
-        return core_client.create_team(team=team_to_create, project_id=project)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    core_client = get_core_client(organization)
+    team_to_create = WebApiTeam(name=name, description=description)
+    return core_client.create_team(team=team_to_create, project_id=project)
 
 
 def delete_team(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
@@ -34,14 +31,11 @@ def delete_team(id, organization=None, project=None, detect=None):  # pylint: di
     :param id: The id (UUID) of the team to delete.
     :type id: str
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        core_client = get_core_client(organization)
-        return core_client.delete_team(team_id=id, project_id=project)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    core_client = get_core_client(organization)
+    return core_client.delete_team(team_id=id, project_id=project)
 
 
 def get_team(team, organization=None, project=None, detect=None):
@@ -50,14 +44,11 @@ def get_team(team, organization=None, project=None, detect=None):
     :type team: str
     :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        core_client = get_core_client(organization)
-        return core_client.get_team(team_id=team, project_id=project)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    core_client = get_core_client(organization)
+    return core_client.get_team(team_id=team, project_id=project)
 
 
 def get_teams(top=None, skip=None, organization=None, project=None, detect=None):
@@ -68,14 +59,11 @@ def get_teams(top=None, skip=None, organization=None, project=None, detect=None)
     :type skip: int
     :rtype: [WebApiTeam]
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        core_client = get_core_client(organization)
-        return core_client.get_teams(top=top, skip=skip, project_id=project)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    core_client = get_core_client(organization)
+    return core_client.get_teams(top=top, skip=skip, project_id=project)
 
 
 def get_team_members(team, top=None, skip=None, organization=None, project=None, detect=None):
@@ -88,14 +76,11 @@ def get_team_members(team, top=None, skip=None, organization=None, project=None,
     :type skip: int
     :rtype: [IdentityRef]
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        core_client = get_core_client(organization)
-        return core_client.get_team_members(team_id=team, top=top, skip=skip, project_id=project)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    core_client = get_core_client(organization)
+    return core_client.get_team_members(team_id=team, top=top, skip=skip, project_id=project)
 
 
 def update_team(team, name=None, description=None, organization=None, project=None, detect=None):

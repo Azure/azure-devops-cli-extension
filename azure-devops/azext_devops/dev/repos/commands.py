@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from azure.cli.core.commands import CliCommandType
+from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 from ._format import (transform_pull_request_table_output,
                       transform_pull_requests_table_output,
                       transform_repo_table_output,
@@ -19,19 +20,23 @@ from ._format import (transform_pull_request_table_output,
 
 
 reposPullRequestOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.repos.pull_request#{}'
+    operations_tmpl='azext_devops.dev.repos.pull_request#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 reposRepositoryOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.repos.repository#{}'
+    operations_tmpl='azext_devops.dev.repos.repository#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 reposImportOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.repos.import_request#{}'
+    operations_tmpl='azext_devops.dev.repos.import_request#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 policyOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.repos.policy#{}'
+    operations_tmpl='azext_devops.dev.repos.policy#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 
