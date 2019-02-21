@@ -27,8 +27,8 @@ def load_code_arguments(self, _):
                          'Only --project and --organization param are needed when passing this.')
         context.argument('policy_id', options_list=('--policy-id', '--id'),
                          help='ID of the policy.')
-        context.argument('repository_id', help='Id (UUID) of the repository on which to apply the policy')
-        context.argument('branch', help='Branch on which this policy should be applied')
+        context.argument('repository_id', help='Id of the repository on which to apply the policy')
+        context.argument('branch', help='Branch on which this policy should be applied. For example: master')
         context.argument('branch_match_type', arg_type=get_enum_type(_BRANCH_MATCH_KIND_VALUES),
                          help='Determines how branch argument will be used to apply policy ')
         context.argument('is_blocking', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
@@ -54,9 +54,9 @@ def load_code_arguments(self, _):
 
     with self.argument_context('repos policy approver-count') as context:
         context.argument('minimum_approver_count',
-                         help='Minimum approver count.')
+                         help='Minimum number of approvers required. For example: 2')
         context.argument('creator_vote_counts', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
-                         help='Whether the creator\'s vote count counts or not.')
+                         help='Whether the creator\'s vote counts or not.')
         context.argument('allow_downvotes', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to allow downvotes or not.')
         context.argument('reset_on_source_push', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
