@@ -40,25 +40,22 @@ def list_policy(organization=None, project=None, repository_id=None, branch=None
     :type branch: string
     :rtype: [PolicyConfiguration]
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
 
-        scope = None
+    scope = None
 
-        if branch is not None and repository_id is None:
-            raise CLIError('--repository-id is required with --branch')
+    if branch is not None and repository_id is None:
+        raise CLIError('--repository-id is required with --branch')
 
-        if repository_id is not None:
-            scope = repository_id
-            if branch is not None:
-                branch = resolve_git_ref_heads(branch)
-                scope = scope + ':' + branch
+    if repository_id is not None:
+        scope = repository_id
+        if branch is not None:
+            branch = resolve_git_ref_heads(branch)
+            scope = scope + ':' + branch
 
-        policy_client = get_policy_client(organization)
-        return policy_client.get_policy_configurations(project=project, scope=scope)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    policy_client = get_policy_client(organization)
+    return policy_client.get_policy_configurations(project=project, scope=scope)
 
 
 def get_policy(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
@@ -67,13 +64,10 @@ def get_policy(id, organization=None, project=None, detect=None):  # pylint: dis
     :type id: int
     :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        policy_client = get_policy_client(organization)
-        return policy_client.get_policy_configuration(project=project, configuration_id=id)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    policy_client = get_policy_client(organization)
+    return policy_client.get_policy_configuration(project=project, configuration_id=id)
 
 
 def delete_policy(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
@@ -81,13 +75,10 @@ def delete_policy(id, organization=None, project=None, detect=None):  # pylint: 
     :param id: ID of the policy.
     :type id: int
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        policy_client = get_policy_client(organization)
-        return policy_client.delete_policy_configuration(project=project, configuration_id=id)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    policy_client = get_policy_client(organization)
+    return policy_client.delete_policy_configuration(project=project, configuration_id=id)
 
 
 # pylint: disable=too-many-locals
@@ -155,27 +146,24 @@ def create_policy(policy_configuration=None,
 
     :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        policy_client = get_policy_client(organization)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    policy_client = get_policy_client(organization)
 
-        policyConfigurationToCreate = generateConfigurationObject(
-            policy_configuration,
-            repository_id, branch,
-            policy_type,
-            parseTrueFalse(is_blocking), parseTrueFalse(is_enabled),
-            minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
-            use_squash_merge,
-            build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
-            maximum_git_blob_size_in_bytes, use_uncompressed_size,
-            optional_reviewer_ids, required_reviewer_ids, message,
-            organization,
-            False)
+    policyConfigurationToCreate = generateConfigurationObject(
+        policy_configuration,
+        repository_id, branch,
+        policy_type,
+        parseTrueFalse(is_blocking), parseTrueFalse(is_enabled),
+        minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
+        use_squash_merge,
+        build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
+        maximum_git_blob_size_in_bytes, use_uncompressed_size,
+        optional_reviewer_ids, required_reviewer_ids, message,
+        organization,
+        False)
 
-        return policy_client.create_policy_configuration(configuration=policyConfigurationToCreate, project=project)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    return policy_client.create_policy_configuration(configuration=policyConfigurationToCreate, project=project)
 
 
 # pylint: disable=too-many-locals
@@ -246,57 +234,54 @@ def update_policy(policy_id,
 
     :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        policy_client = get_policy_client(organization)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    policy_client = get_policy_client(organization)
 
-        if policy_configuration is None:
-            current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
+    if policy_configuration is None:
+        current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
 
-            # we only set scope [0] so we will update that only
-            repository_id = repository_id or current_policy.settings['scope'][0]['repositoryId']
-            branch = branch or current_policy.settings['scope'][0]['refName']
-            policy_type = policy_type or current_policy.type.id.lower()
-            is_blocking = is_blocking or str(current_policy.is_blocking)
-            is_enabled = is_enabled or str(current_policy.is_enabled)
+        # we only set scope [0] so we will update that only
+        repository_id = repository_id or current_policy.settings['scope'][0]['repositoryId']
+        branch = branch or current_policy.settings['scope'][0]['refName']
+        policy_type = policy_type or current_policy.type.id.lower()
+        is_blocking = is_blocking or str(current_policy.is_blocking)
+        is_enabled = is_enabled or str(current_policy.is_enabled)
 
-            current_setting = current_policy.settings
-            minimum_approver_count = minimum_approver_count or current_setting.get('minimumApproverCount', None)
-            creator_vote_counts = creator_vote_counts or current_setting.get('creatorVoteCounts', None)
-            allow_downvotes = allow_downvotes or current_setting.get('allowDownvotes', None)
-            reset_on_source_push = reset_on_source_push or current_setting.get('resetOnSourcePush', None)
-            use_squash_merge = use_squash_merge or current_setting.get('useSquashMerge', None)
-            build_definition_id = build_definition_id or current_setting.get('buildDefinitionId', None)
-            queue_on_source_update_only = queue_on_source_update_only or current_setting.get('queueOnSourceUpdateOnly', None)
-            manual_queue_only = manual_queue_only or current_setting.get('manualQueueOnly', None)
-            display_name = display_name or current_setting.get('displayName', None)
-            valid_duration = valid_duration or current_setting.get('validDuration', None)
-            maximum_git_blob_size_in_bytes = maximum_git_blob_size_in_bytes or current_setting.get('maximumGitBlobSizeInBytes', None)
-            use_uncompressed_size = use_uncompressed_size or current_setting.get('useUncompressedSize', None)
-            optional_reviewer_ids = optional_reviewer_ids or current_setting.get('optionalReviewerIds', None)
-            required_reviewer_ids = required_reviewer_ids or current_setting.get('requiredReviewerIds', None)
-            message = message or current_setting.get('message', None)
+        current_setting = current_policy.settings
+        minimum_approver_count = minimum_approver_count or current_setting.get('minimumApproverCount', None)
+        creator_vote_counts = creator_vote_counts or current_setting.get('creatorVoteCounts', None)
+        allow_downvotes = allow_downvotes or current_setting.get('allowDownvotes', None)
+        reset_on_source_push = reset_on_source_push or current_setting.get('resetOnSourcePush', None)
+        use_squash_merge = use_squash_merge or current_setting.get('useSquashMerge', None)
+        build_definition_id = build_definition_id or current_setting.get('buildDefinitionId', None)
+        queue_on_source_update_only = queue_on_source_update_only or current_setting.get('queueOnSourceUpdateOnly', None)
+        manual_queue_only = manual_queue_only or current_setting.get('manualQueueOnly', None)
+        display_name = display_name or current_setting.get('displayName', None)
+        valid_duration = valid_duration or current_setting.get('validDuration', None)
+        maximum_git_blob_size_in_bytes = maximum_git_blob_size_in_bytes or current_setting.get('maximumGitBlobSizeInBytes', None)
+        use_uncompressed_size = use_uncompressed_size or current_setting.get('useUncompressedSize', None)
+        optional_reviewer_ids = optional_reviewer_ids or current_setting.get('optionalReviewerIds', None)
+        required_reviewer_ids = required_reviewer_ids or current_setting.get('requiredReviewerIds', None)
+        message = message or current_setting.get('message', None)
 
-        policyConfigurationToCreate = generateConfigurationObject(
-            policy_configuration,
-            repository_id, branch,
-            policy_type,
-            parseTrueFalse(is_blocking), parseTrueFalse(is_enabled),
-            minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
-            use_squash_merge,
-            build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
-            maximum_git_blob_size_in_bytes, use_uncompressed_size,
-            optional_reviewer_ids, required_reviewer_ids, message,
-            organization,
-            True)
+    policyConfigurationToCreate = generateConfigurationObject(
+        policy_configuration,
+        repository_id, branch,
+        policy_type,
+        parseTrueFalse(is_blocking), parseTrueFalse(is_enabled),
+        minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
+        use_squash_merge,
+        build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
+        maximum_git_blob_size_in_bytes, use_uncompressed_size,
+        optional_reviewer_ids, required_reviewer_ids, message,
+        organization,
+        True)
 
-        return policy_client.update_policy_configuration(
-            configuration=policyConfigurationToCreate,
-            project=project,
-            configuration_id=policy_id)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    return policy_client.update_policy_configuration(
+        configuration=policyConfigurationToCreate,
+        project=project,
+        configuration_id=policy_id)
 
 
 # pylint: disable=too-many-locals, too-many-statements
