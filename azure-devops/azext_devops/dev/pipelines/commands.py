@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from azure.cli.core.commands import CliCommandType
+from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 from ._format import (transform_build_table_output,
                       transform_builds_table_output,
                       transform_build_tags_output,
@@ -15,8 +16,6 @@ from ._format import (transform_build_table_output,
                       transform_release_table_output,
                       transform_release_definitions_table_output,
                       transform_release_definition_table_output)
-
-from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 
 
 buildOps = CliCommandType(

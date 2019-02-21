@@ -8,6 +8,7 @@ from knack.util import CLIError
 
 logger = get_logger(__name__)
 
+
 def azure_devops_exception_handler(ex):
     # we are taking dependency on string here because taking dependency on
     # Azure DevOps Client will increase load time for every command
