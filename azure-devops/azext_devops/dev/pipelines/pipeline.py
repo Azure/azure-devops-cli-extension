@@ -545,9 +545,8 @@ def _handle_yml_props(params_required, yml_props, template_id, pipeline_client):
             raise CLIError('Missing required property for this template. '\
                             'Property Name: {propname} of type: {proptype} needs to be provided '\
                             'in --yml-props.'.format(propname=param.name, proptype=param.type))
-
     rendered_template = pipeline_client.render_template(template_id=template_id,
-                                                        template_parameters=params_to_render)
+                                                        template_parameters={'tokens':params_to_render})
     return rendered_template.content
 
 
