@@ -46,11 +46,43 @@ def load_code_commands(self, _):
 
     with self.command_group('repos policy', command_type=policyOps) as g:
         # repository/ branch policies
-        g.command('create', 'create_policy', table_transformer=transform_repo_policy_table_output)
         g.command('list', 'list_policy', table_transformer=transform_repo_policies_table_output)
         g.command('show', 'get_policy', table_transformer=transform_repo_policy_table_output)
-        g.command('update', 'update_policy', table_transformer=transform_repo_policy_table_output)
         g.command('delete', 'delete_policy', confirmation='Are you sure you want to delete this policy?')
+        g.command('create', 'create_policy_configuration_file', table_transformer=transform_repo_policy_table_output)
+        g.command('update', 'update_policy_configuration_file', table_transformer=transform_repo_policy_table_output)
+        g.command('approver-count create', 'create_policy_approver_count',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('approver-count update', 'update_policy_approver_count',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('merge-strategy create', 'create_policy_merge_strategy',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('merge-strategy update', 'update_policy_merge_strategy',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('build create', 'create_policy_build',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('build update', 'update_policy_build',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('comment-required create', 'create_policy_comment_required',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('comment-required update', 'update_policy_comment_required',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('work-item-linking create', 'create_policy_work_item_linking',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('work-item-linking update', 'update_policy_work_item_linking',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('file-size create', 'create_policy_file_size',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('file-size update', 'update_policy_file_size',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('required-reviewer create', 'create_policy_required_reviewer',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('required-reviewer update', 'update_policy_required_reviewer',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('case-enforcement create', 'create_policy_case_enforcement',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('case-enforcement update', 'update_policy_case_enforcement',
+                  table_transformer=transform_repo_policy_table_output)
 
     with self.command_group('repos pr', command_type=reposPullRequestOps) as g:
         # basic pr commands
