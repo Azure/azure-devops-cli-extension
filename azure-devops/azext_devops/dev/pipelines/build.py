@@ -6,8 +6,6 @@
 from webbrowser import open_new
 
 from knack.log import get_logger
-from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.vstsCompressed.build.v4_0.models.models import Build
 from azext_devops.vstsCompressed.build.v4_0.models.models import DefinitionReference
 from azext_devops.dev.common.git import resolve_git_ref_heads
@@ -45,7 +43,7 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
         detect=detect, organization=organization, project=project)
     if definition_id is None and definition_name is None:
         raise ValueError('Either the --definition-id argument or the --definition-name argument ' +
-                            'must be supplied for this command.')
+                         'must be supplied for this command.')
     client = get_build_client(organization)
     if definition_id is None:
         definition_id = get_definition_id_from_name(definition_name, client, project)
@@ -113,14 +111,14 @@ def build_list(definition_ids=None, branch=None, organization=None, project=None
     if tags is not None and tags:
         tags = list(set(tags))  # make distinct
     builds = client.get_builds(definitions=definition_ids,
-                                project=project,
-                                branch_name=resolve_git_ref_heads(branch),
-                                top=top,
-                                result_filter=result,
-                                status_filter=status,
-                                reason_filter=reason,
-                                tag_filters=tags,
-                                requested_for=resolve_identity_as_id(requested_for, organization))
+                               project=project,
+                               branch_name=resolve_git_ref_heads(branch),
+                               top=top,
+                               result_filter=result,
+                               status_filter=status,
+                               reason_filter=reason,
+                               tag_filters=tags,
+                               requested_for=resolve_identity_as_id(requested_for, organization))
     return builds
 
 
@@ -133,8 +131,8 @@ def add_build_tags(build_id, tags, organization=None, project=None, detect=None)
     :rtype: list of str
     """
     organization, project = resolve_instance_and_project(detect=detect,
-                                                            organization=organization,
-                                                            project=project)
+                                                         organization=organization,
+                                                         project=project)
     client = get_build_client(organization)
     tags = list(map(str, tags.split(',')))
     if len(tags) == 1:
@@ -153,8 +151,8 @@ def delete_build_tag(build_id, tag, organization=None, project=None, detect=None
     :rtype: list of str
     """
     organization, project = resolve_instance_and_project(detect=detect,
-                                                            organization=organization,
-                                                            project=project)
+                                                         organization=organization,
+                                                         project=project)
     client = get_build_client(organization)
     tags = client.delete_build_tag(project=project, build_id=build_id, tag=tag)
     return tags
@@ -167,8 +165,8 @@ def get_build_tags(build_id, organization=None, project=None, detect=None):
     :rtype: list of str
     """
     organization, project = resolve_instance_and_project(detect=detect,
-                                                            organization=organization,
-                                                            project=project)
+                                                         organization=organization,
+                                                         project=project)
     client = get_build_client(organization)
     tags = client.get_build_tags(build_id=build_id, project=project)
     return tags
