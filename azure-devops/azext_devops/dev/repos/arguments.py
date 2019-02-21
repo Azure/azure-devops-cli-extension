@@ -34,7 +34,7 @@ def load_code_arguments(self, _):
                          'If value is \'exact\', the policy will be applied on a branch which has an ' +
                          'exact match on the --branch argument. ' +
                          'If value is \'prefix\' the policy is applied across all branch folders that' +
-                         'match the prefix provided by the –branch argument.')
+                         'match the prefix provided by the --branch argument.')
         context.argument('is_blocking', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether the policy should be blocking or not')
         context.argument('is_enabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
