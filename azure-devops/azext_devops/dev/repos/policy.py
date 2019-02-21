@@ -201,7 +201,7 @@ def update_policy_required_reviewer(policy_id,
                                     message=None, required_reviewer_ids=None,
                                     path_filter=None,
                                     organization=None, project=None, detect=None):
-    """Update merge strategy policy
+    """Update required reviewer policy
     """
     try:
         organization, project = resolve_instance_and_project(
@@ -454,7 +454,7 @@ def update_policy_file_size(policy_id,
 
 def create_policy_comment_required(repository_id, branch, is_blocking, is_enabled,
                                    organization=None, project=None, detect=None):
-    """Create comment required policy
+    """Create comment resolution required policy.
     """
     try:
         organization, project = resolve_instance_and_project(
@@ -472,7 +472,7 @@ def create_policy_comment_required(repository_id, branch, is_blocking, is_enable
 def update_policy_comment_required(policy_id,
                                    repository_id=None, branch=None, is_blocking=None, is_enabled=None,
                                    organization=None, project=None, detect=None):
-    """Update build policy
+    """Update comment resolution required policy.
     """
     try:
         organization, project = resolve_instance_and_project(

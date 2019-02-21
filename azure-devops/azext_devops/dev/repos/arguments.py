@@ -30,27 +30,29 @@ def load_code_arguments(self, _):
         context.argument('repository_id', help='Id of the repository on which to apply the policy')
         context.argument('branch', help='Branch on which this policy should be applied. For example: master')
         context.argument('branch_match_type', arg_type=get_enum_type(_BRANCH_MATCH_KIND_VALUES),
-                         help='Determines how branch argument will be used to apply policy ')
+                         help='Determines how the branch argument is used to apply a policy. ' +
+                         'If value is “exact”, the policy will be applied on a branch which has an ' +
+                         'exact match on the –branch argument. ' +
+                         'If value is “prefix” the policy is applied across all branch folders that' +
+                         'match the prefix provided by the –branch argument.')
         context.argument('is_blocking', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether the policy should be blocking or not')
         context.argument('is_enabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether the policy is enabled or not')
         context.argument('path_filter',
-                         help='If path filter is set, the policy will apply when files which' +
-                         'match the filter are changed' +
-                         'You can specify absolute paths and wildcards' +
-                         'Example: /WebApp/Models/Data.cs, /WebApp/* or *.cs' +
-                         'You can specify multiple paths using \';\' as a seperator' +
-                         'Example: /WebApp/Models/Data.cs;ClientApp/Models/Data.cs' +
-                         '*.* means apply to all'
-                         'Order is significant')
+                         help='Filter path(s) on which the policy is applied. ' +
+                         'Supports absolute paths, wildcards and multiple paths separated by ‘;’. ' +
+                         'Example: /WebApp/Models/Data.cs, /WebApp/* or *.cs,' +
+                         '/WebApp/Models/Data.cs;ClientApp/Models/Data.cs')
 
     with self.argument_context('repos policy list') as context:
-        context.argument('branch', help='Branch name to filter results by exact match of branch name. ' +
-                                        'The –repository-id parameter is required to use the branch filter. ' +
-                                        'For example: --branch master')
-        context.argument('repository_id', help='ID of the repository to filter results by exact match of the repository ID. ' +
-                                          'For example –repository-ID e556f204-53c9-4153-9cd9-ef41a11e3345')
+        context.argument('branch',
+                         help='Branch name to filter results by exact match of branch name. ' +
+                         'The –repository-id parameter is required to use the branch filter. ' +
+                         'For example: --branch master')
+        context.argument('repository_id',
+                         help='ID of the repository to filter results by exact match of the repository ID. ' +
+                         'For example –repository-ID e556f204-53c9-4153-9cd9-ef41a11e3345')
 
     with self.argument_context('repos policy approver-count') as context:
         context.argument('minimum_approver_count',
@@ -72,16 +74,22 @@ def load_code_arguments(self, _):
                          help='Queue Only on source update.')
         context.argument('manual_queue_only', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to allow only manual queue of builds.')
-        context.argument('display_name', help='Display Name.')
+        context.argument('display_name',
+                         help='Display name for this build policy to identify the policy. ' +
+                         'For example: “Manual queue policy”')
         context.argument('valid_duration', help='Policy validity duration (in minutes).')
 
     with self.argument_context('repos policy file-size') as context:
-        context.argument('maximum_git_blob_size', help='Maximum Git Blob Size In Bytes.')
+        context.argument('maximum_git_blob_size',
+                         help='Maximum git blob size in bytes. ' +
+                         'For example, to specify a 10byte limit, –maximum-git-blob-size 1024.')
         context.argument('use_uncompressed_size', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to use uncompressed size.')
 
     with self.argument_context('repos policy required-reviewer') as context:
-        context.argument('required_reviewer_ids', help='Required Reviewers (List of email ids seperated with \';\').')
+        context.argument('required_reviewer_ids',
+                         help='Required reviewers email addresses separated by ‘;’.' +
+                         'For example: john@contoso.com;alice@contoso.com')
         context.argument('message', help='Message.')
 
     with self.argument_context('repos pr') as context:
