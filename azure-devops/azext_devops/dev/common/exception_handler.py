@@ -5,12 +5,13 @@
 
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 
 logger = get_logger(__name__)
 
 def azure_devops_exception_handler(ex):
-    if isinstance(ex, VstsServiceError):
+    # we are taking dependency on string here because taking dependency on
+    # Azure DevOps Client will increase load time for every command
+    if type(ex).__name__ == 'VstsServiceError':
         logger.debug('handling vsts service error')
         raise CLIError(ex)
     else:
