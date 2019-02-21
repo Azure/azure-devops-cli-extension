@@ -524,7 +524,7 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
 
 def _handle_yml_props(params_required, yml_props, template_id, pipeline_client):
     logger.warning('The template requires a few inputs. '\
-                    'These can be provided as --yml-props in the command arguments or be input interatively.')
+                    'These can be provided as --yml-props in the command arguments or be input interactively.')
     params_to_render = {}
     for param in params_required:
         logger.debug('looking for param %s in props', param.name)
