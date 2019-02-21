@@ -6,6 +6,7 @@
 4. [Open items in browser](samples.md#open-items-in-browser)
 5. [Use the Azure DevOps Extension in a release pipeline](samples.md#use-the-azure-devops-extension-in-a-release-pipeline)
 6. [Use the Azure DevOps Extension with YAML](samples.md#use-the-azure-devops-extension-with-yaml)
+7. [Use policy configuration file to configure policies]()
 
 ## Log in via Azure DevOps Personal Access Token (PAT)
 You can log in using an Azure DevOps Personal Access Token. See the [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
@@ -240,3 +241,48 @@ jobs:
   steps:
   - template: azure-pipelines-steps-win.yml
 ```
+
+# Use policy configuration file to configure policies
+
+You can easily configure branch policies for your repository using the various policy commands. However, the policy commands accept a single scope, i.e., single combination of repository, branch and match type. If you want to apply the same policy across various scopes, you can do that using a policy configuration file.
+
+Say you want to create a manual queue build policy across all branch folders that start with "release" and also on the master branch. To achieve this, execute the following steps:
+1. Create a policy configuration file for build polcy, including the multiple application scopes:
+```
+{
+"isBlocking": true,
+"isDeleted": false,
+"isEnabled": true,
+"revision": 1,
+"settings": {
+  "buildDefinitionId": 22,
+  "displayName": "Manual Queue Policy",
+  "manualQueueOnly": true,
+  "queueOnSourceUpdateOnly": false,
+  "scope": [
+	{
+	  "matchKind": "Prefix",
+	  "refName": "refs/heads/release",
+	  "repositoryId": "e646f204-53c9-4153-9ab9-fd41a11e3564"
+	},
+	{
+	  "matchKind": "Exact",
+	  "refName": "refs/heads/master",
+	  "repositoryId": "e646f204-53c9-4153-9ab9-fd41a11e1234"
+	}
+  ],
+  "validDuration": 0
+},
+"type": {
+  "displayName": "Build",
+  "id": "0609b952-1397-4640-95ec-e00a01b2f659" 
+}
+}
+```
+Refer the [Policy create](https://docs.microsoft.com/en-us/rest/api/azure/devops/policy/configurations/create?view=azure-devops-rest-5.0#examples) documentation to know more about the structure for various policy types.
+
+2. Save the file and run the create policy command  
+`az repos policy create C:\policyConfiguration.txt`
+
+*Note that the path is provided using '\\' backslash.
+
