@@ -135,7 +135,7 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
             resolved_assigned_to = _resolve_identity_as_unique_user_id(assigned_to, organization)
         if resolved_assigned_to is not None:
             patch_document.append(_create_work_item_field_patch_operation('add', 'System.AssignedTo',
-                                                                            resolved_assigned_to))
+                                                                          resolved_assigned_to))
     if state is not None:
         patch_document.append(_create_work_item_field_patch_operation('add', 'System.State', state))
     if area is not None:
@@ -285,8 +285,8 @@ def query_work_items(wiql=None, id=None, path=None, organization=None, project=N
                 # url is near max length, go ahead and send first request for details.
                 # url can go over by an id length because we have a safety buffer
                 current_batched_items = client.get_work_items(ids=current_batch,
-                                                                as_of=query_result.as_of,
-                                                                fields=fields)
+                                                              as_of=query_result.as_of,
+                                                              fields=fields)
                 for work_item in current_batched_items:
                     work_items.append(work_item)
                 current_batch = []
@@ -294,8 +294,8 @@ def query_work_items(wiql=None, id=None, path=None, organization=None, project=N
 
         if current_batch:
             current_batched_items = client.get_work_items(ids=current_batch,
-                                                            as_of=query_result.as_of,
-                                                            fields=fields)
+                                                          as_of=query_result.as_of,
+                                                          fields=fields)
             for work_item in current_batched_items:
                 work_items.append(work_item)
         # put items in the same order they appeared in the initial query results
