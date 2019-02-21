@@ -39,35 +39,32 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type commit_id: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
-    try:
-        if branch is None:
-            branch = source_branch
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        if definition_id is None and definition_name is None:
-            raise ValueError('Either the --definition-id argument or the --definition-name argument ' +
-                             'must be supplied for this command.')
-        client = get_build_client(organization)
-        if definition_id is None:
-            definition_id = get_definition_id_from_name(definition_name, client, project)
-        definition_reference = DefinitionReference(id=definition_id)
-        build = Build(definition=definition_reference)
-        build.source_branch = resolve_git_ref_heads(branch)
-        build.source_version = commit_id
-        if variables is not None and variables:
-            build.parameters = {}
-            for variable in variables:
-                separator_pos = variable.find('=')
-                if separator_pos >= 0:
-                    build.parameters[variable[:separator_pos]] = variable[separator_pos + 1:]
-                else:
-                    raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
-        queued_build = client.queue_build(build=build, project=project)
-        if open:
-            _open_build(queued_build, organization)
-        return queued_build
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    if branch is None:
+        branch = source_branch
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    if definition_id is None and definition_name is None:
+        raise ValueError('Either the --definition-id argument or the --definition-name argument ' +
+                            'must be supplied for this command.')
+    client = get_build_client(organization)
+    if definition_id is None:
+        definition_id = get_definition_id_from_name(definition_name, client, project)
+    definition_reference = DefinitionReference(id=definition_id)
+    build = Build(definition=definition_reference)
+    build.source_branch = resolve_git_ref_heads(branch)
+    build.source_version = commit_id
+    if variables is not None and variables:
+        build.parameters = {}
+        for variable in variables:
+            separator_pos = variable.find('=')
+            if separator_pos >= 0:
+                build.parameters[variable[:separator_pos]] = variable[separator_pos + 1:]
+            else:
+                raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
+    queued_build = client.queue_build(build=build, project=project)
+    if open:
+        _open_build(queued_build, organization)
+    return queued_build
 
 
 def build_show(id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
@@ -78,16 +75,13 @@ def build_show(id, open=False, organization=None, project=None, detect=None):  #
     :type open: bool
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        client = get_build_client(organization)
-        build = client.get_build(build_id=id, project=project)
-        if open:
-            _open_build(build, organization)
-        return build
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_build_client(organization)
+    build = client.get_build(build_id=id, project=project)
+    if open:
+        _open_build(build, organization)
+    return build
 
 
 def build_list(definition_ids=None, branch=None, organization=None, project=None, detect=None, top=None,
@@ -111,26 +105,23 @@ def build_list(definition_ids=None, branch=None, organization=None, project=None
     :type requested_for: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        client = get_build_client(organization)
-        if definition_ids is not None and definition_ids:
-            definition_ids = list(set(definition_ids))  # make distinct
-        if tags is not None and tags:
-            tags = list(set(tags))  # make distinct
-        builds = client.get_builds(definitions=definition_ids,
-                                   project=project,
-                                   branch_name=resolve_git_ref_heads(branch),
-                                   top=top,
-                                   result_filter=result,
-                                   status_filter=status,
-                                   reason_filter=reason,
-                                   tag_filters=tags,
-                                   requested_for=resolve_identity_as_id(requested_for, organization))
-        return builds
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_build_client(organization)
+    if definition_ids is not None and definition_ids:
+        definition_ids = list(set(definition_ids))  # make distinct
+    if tags is not None and tags:
+        tags = list(set(tags))  # make distinct
+    builds = client.get_builds(definitions=definition_ids,
+                                project=project,
+                                branch_name=resolve_git_ref_heads(branch),
+                                top=top,
+                                result_filter=result,
+                                status_filter=status,
+                                reason_filter=reason,
+                                tag_filters=tags,
+                                requested_for=resolve_identity_as_id(requested_for, organization))
+    return builds
 
 
 def add_build_tags(build_id, tags, organization=None, project=None, detect=None):
@@ -141,19 +132,16 @@ def add_build_tags(build_id, tags, organization=None, project=None, detect=None)
     :type tags: str
     :rtype: list of str
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        client = get_build_client(organization)
-        tags = list(map(str, tags.split(',')))
-        if len(tags) == 1:
-            tags = client.add_build_tag(project=project, build_id=build_id, tag=tags[0])
-        else:
-            tags = client.add_build_tags(tags=tags, project=project, build_id=build_id)
-        return tags
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                            organization=organization,
+                                                            project=project)
+    client = get_build_client(organization)
+    tags = list(map(str, tags.split(',')))
+    if len(tags) == 1:
+        tags = client.add_build_tag(project=project, build_id=build_id, tag=tags[0])
+    else:
+        tags = client.add_build_tags(tags=tags, project=project, build_id=build_id)
+    return tags
 
 
 def delete_build_tag(build_id, tag, organization=None, project=None, detect=None):
@@ -164,15 +152,12 @@ def delete_build_tag(build_id, tag, organization=None, project=None, detect=None
     :type tag: str
     :rtype: list of str
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        client = get_build_client(organization)
-        tags = client.delete_build_tag(project=project, build_id=build_id, tag=tag)
-        return tags
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                            organization=organization,
+                                                            project=project)
+    client = get_build_client(organization)
+    tags = client.delete_build_tag(project=project, build_id=build_id, tag=tag)
+    return tags
 
 
 def get_build_tags(build_id, organization=None, project=None, detect=None):
@@ -181,15 +166,12 @@ def get_build_tags(build_id, organization=None, project=None, detect=None):
     :type build_id: int
     :rtype: list of str
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        client = get_build_client(organization)
-        tags = client.get_build_tags(build_id=build_id, project=project)
-        return tags
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                            organization=organization,
+                                                            project=project)
+    client = get_build_client(organization)
+    tags = client.get_build_tags(build_id=build_id, project=project)
+    return tags
 
 
 def _open_build(build, organization):

@@ -17,15 +17,12 @@ def task_list(organization=None, task_id=None, detect=None):
     :type detect: str
     :rtype: [TaskDefinition]
     """
-    try:
-        if task_id is not None and not is_uuid(task_id):
-            raise ValueError("The --id argument must be a UUID.")
-        organization = resolve_instance(detect=detect, organization=organization)
-        client = get_task_agent_client(organization)
-        definition_references = client.get_task_definitions(task_id=task_id)
-        return definition_references
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    if task_id is not None and not is_uuid(task_id):
+        raise ValueError("The --id argument must be a UUID.")
+    organization = resolve_instance(detect=detect, organization=organization)
+    client = get_task_agent_client(organization)
+    definition_references = client.get_task_definitions(task_id=task_id)
+    return definition_references
 
 
 def task_show(id, version, organization=None, detect=None):  # pylint: disable=redefined-builtin
@@ -34,13 +31,10 @@ def task_show(id, version, organization=None, detect=None):  # pylint: disable=r
     :param str version: The version of the task.
     :rtype: TaskDefinition
     """
-    try:
-        if not is_uuid(id):
-            raise ValueError("The --id argument must be a UUID.")
-        organization = resolve_instance(detect=detect, organization=organization)
-        client = get_task_agent_client(organization)
-        definition_references = client.get_task_definition(task_id=id,
-                                                           version_string=version)
-        return definition_references
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    if not is_uuid(id):
+        raise ValueError("The --id argument must be a UUID.")
+    organization = resolve_instance(detect=detect, organization=organization)
+    client = get_task_agent_client(organization)
+    definition_references = client.get_task_definition(task_id=id,
+                                                        version_string=version)
+    return definition_references
