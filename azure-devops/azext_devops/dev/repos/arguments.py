@@ -76,7 +76,7 @@ def load_code_arguments(self, _):
                          help='Whether to allow only manual queue of builds.')
         context.argument('display_name',
                          help='Display name for this build policy to identify the policy. ' +
-                         'For example: \'Manual queue policy\')
+                         'For example: \'Manual queue policy\'')
         context.argument('valid_duration', help='Policy validity duration (in minutes).')
 
     with self.argument_context('repos policy file-size') as context:
