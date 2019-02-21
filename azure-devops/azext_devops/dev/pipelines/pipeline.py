@@ -244,9 +244,6 @@ def pipeline_list(name=None, top=None, organization=None, project=None, reposito
     :type repository_type: str
     :rtype: [BuildDefinitionReference]
     """
-    import pdb
-    pdb.set_trace()
-
     try:
         organization, project = resolve_instance_and_project(
             detect=detect, organization=organization, project=project)
