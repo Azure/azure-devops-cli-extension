@@ -6,7 +6,7 @@
 4. [Open items in browser](samples.md#open-items-in-browser)
 5. [Use the Azure DevOps Extension in a release pipeline](samples.md#use-the-azure-devops-extension-in-a-release-pipeline)
 6. [Use the Azure DevOps Extension with YAML](samples.md#use-the-azure-devops-extension-with-yaml)
-7. [Use policy configuration file to configure policies]()
+7. [Use policy configuration file to configure policies](samples.md#use-policy-configuration-file-to-configure-policies)
 
 ## Log in via Azure DevOps Personal Access Token (PAT)
 You can log in using an Azure DevOps Personal Access Token. See the [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
