@@ -249,17 +249,15 @@ def pipeline_list(name=None, top=None, organization=None, project=None, reposito
             detect=detect, organization=organization, project=project)
         client = get_pipeline_client(organization)
         query_order = 'DefinitionNameAscending'
-        if repository_type is None:
-            repository_type = 'TfsGit'
         if repository is not None:
+            if repository_type is None:
+                repository_type = 'TfsGit'
             if repository_type.lower() == 'tfsgit':
-                resolved_repository = _resolve_repository_as_id(repository, organization, project)
-            else:
-                resolved_repository = repository
-            if resolved_repository is None:
+                repository = _resolve_repository_as_id(repository, organization, project)
+            if repository is None:
                 raise ValueError("Could not find a repository with name '{}', in project '{}'."
                                  .format(repository, project))
-        definition_references = client.get_definitions(project=project, name=name, repository_id=resolved_repository,
+        definition_references = client.get_definitions(project=project, name=name, repository_id=repository,
                                                        repository_type=repository_type, top=top,
                                                        query_order=query_order)
         return definition_references
