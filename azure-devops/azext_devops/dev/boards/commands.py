@@ -5,10 +5,9 @@
 
 
 from azure.cli.core.commands import CliCommandType
+from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 from ._format import (transform_work_item_table_output,
                       transform_work_item_query_result_table_output)
-
-from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 
 
 workItemOps = CliCommandType(

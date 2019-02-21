@@ -8,7 +8,6 @@ import webbrowser
 
 from knack.util import CLIError
 from knack.log import get_logger
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.vstsCompressed.git.v4_0.models.models import GitRepositoryCreateOptions
 from azext_devops.dev.common.services import (get_git_client,
                                               resolve_instance_and_project,
@@ -35,7 +34,7 @@ def create_repo(name, organization=None, project=None, detect=None, open=False):
     create_options = GitRepositoryCreateOptions()
     create_options.name = name
     repository = git_client.create_repository(git_repository_to_create=create_options,
-                                                project=project)
+                                              project=project)
     if open:
         _open_repository(repository, organization)
     return repository
