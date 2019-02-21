@@ -138,7 +138,7 @@ class TestUuidMethods(unittest.TestCase):
             'is_enabled' : False
         }
         import tempfile
-        temp_config_file = tempfile.TemporaryFile(mode='w', delete=False)
+        temp_config_file = tempfile.TemporaryFile(mode='w+b')
         import json
         json.dump(configuration, temp_config_file)
         temp_config_file.close()
