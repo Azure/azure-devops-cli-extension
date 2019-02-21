@@ -4,7 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 from webbrowser import open_new
-import webbrowser
 import tempfile
 import os
 from knack.log import get_logger
@@ -121,10 +120,9 @@ def pipeline_create(name, description=None, url=None, repository_name=None, repo
         if not yml_path:
             yml_path = _create_and_get_yml_path(new_pipeline_client, repository_type, repo_id, repo_name, branch,
                                                 yml_props, service_endpoint, project, organization)
-
         # Create build definition
-        definition = _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, branch, service_endpoint,
-                                      repository_type, yml_path, queue_id)
+        definition = _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, branch,
+                                                   service_endpoint, repository_type, yml_path, queue_id)
         client = get_pipeline_client(organization)
         return client.create_definition(definition=definition, project=project)
     except VstsServiceError as ex:
@@ -232,7 +230,7 @@ def pipeline_update(name, description=None, url=None, repository_url=None, branc
     :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
     """
-    pass
+    raise CLIError('Command not implemented.')
 
 
 def pipeline_run(id=None, name=None, open=False,  # pylint: disable=redefined-builtin
@@ -448,16 +446,6 @@ def try_get_repository_type(url):
         return 'tfsgit'
 
 
-def _create_repository_url(repo_name, repo_type, repo_url=None, organization=None, project=None):
-    if repo_url:
-        return repo_url
-    repo_name = repo_name.strip('/')
-    if repo_type == 'github':
-        if repo_name.split('/').len < 2:
-            raise CLIError('Github repository name should be specified in the owner/name format.')
-        return 'https//github.com/{name}'.format(name=repo_name)
-
-
 def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_name, branch, yml_props,
                              service_endpoint, project, organization):
     logger.debug('No yml file was given. Trying to find the yml file in the repo.')
@@ -474,7 +462,7 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
         custom_name = 'Existing yml (path={})'.format(configuration.path)
         yml_names.append(custom_name)
         yml_options.append(YmlOptions(name=custom_name, content=configuration.content, id='customid',
-                                        path=configuration.path))
+                                      path=configuration.path))
 
     recommendations = pipeline_client.get_recommended_templates(
         project=project, repository_type=repository_type,
@@ -484,14 +472,20 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
         logger.debug(recommendation.name)
         yml_names.append(recommendation.name)
         yml_options.append(YmlOptions(name=recommendation.name, content=recommendation.content,
-                                        id=recommendation.id, description=recommendation.description,
-                                        params=recommendation.parameters))
+                                      id=recommendation.id, description=recommendation.description,
+                                      params=recommendation.parameters))
     temp_filename = None
     yml_selection_index = 0
     proceed_selection = 1
     while proceed_selection == 1:
         yml_selection_index = prompt_user_friendly_choice_list("Choose a yml template to create a pipeline:",
-                                                                yml_names)
+                                                               yml_names)
+        if yml_options[yml_selection_index].params:
+            yml_options[yml_selection_index].content = _handle_yml_props(
+                params_required=yml_options[yml_selection_index].params,
+                yml_props=yml_props,
+                template_id=yml_options[yml_selection_index].id,
+                pipeline_client=pipeline_client)
         _fp, temp_filename = tempfile.mkstemp(text=True)
         f = open(temp_filename, mode='w')
         f.write(yml_options[yml_selection_index].content)
@@ -510,27 +504,6 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
     # todo atbagga fix this
     # import os
     # os.remove(temp_filename)
-    if yml_options[yml_selection_index].params:
-        params_to_render = {}
-        for param in yml_options[yml_selection_index].params:
-            logger.debug('looking for param %s in props', param.name)
-            prop_found = False
-            if yml_props:
-                for prop in yml_props:
-                    parts = prop.split('=', 1)
-                    if len(parts) == 1:
-                        raise CLIError('Usage error: --yml_props prop_key1=prop_value1 prop_key2=prop_value2 ')
-                    if parts[0] == param.name:
-                        prop_found = True
-                        params_to_render[parts[0]] = parts[1]
-            if not prop_found:
-                raise CLIError('Missing required property for this template.'\
-                                'Property Name: {propname} of type: {proptype} needs to be provided'\
-                                'in --yml-props.'.format(propname=param.name, proptype=param.type))
-        pipeline_client.render_template(template_id=yml_options[yml_selection_index].id,
-                                            template_parameters=params_to_render)
-    else:
-        logger.debug("Existing template edited or No required params for this template.")
 
     checkin_path = 'azure-pipelines.yml'
     if default_yml_exists and not yml_options[yml_selection_index].path:  # We need yml path from user
@@ -540,10 +513,49 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
             'or run this command interactively.')
         checkin_path = prompt(msg='Enter a yml file path to checkin the new yml pipeline in the repository? ',
                               help_string='e.g. /azure-pipeline.yml to add in the root folder.')
-
-    checkin_file_to_github(checkin_path, content, service_endpoint, repo_name, branch,
-                            organization, project)
+    if repository_type == 'github':
+        checkin_file_to_github(checkin_path, content, service_endpoint, repo_name, branch,
+                               organization, project)
+    else:
+        logger.warning('File checkin is not handled for this repository type.'\
+                       ' Checkin the created yml in the repository and then run the pipeline created by this command.')
     return checkin_path
+
+
+def _handle_yml_props(params_required, yml_props, template_id, pipeline_client):
+    logger.warning('The template requires a few inputs. '\
+                    'These can be provided as --yml-props in the command arguments or be input interatively.')
+    params_to_render = {}
+    for param in params_required:
+        logger.debug('looking for param %s in props', param.name)
+        prop_found = False
+        if yml_props:
+            for prop in yml_props:
+                parts = prop.split('=', 1)
+                if len(parts) == 1:
+                    raise CLIError('Usage error: --yml_props prop_key1=prop_value1 prop_key2=prop_value2 ')
+                if parts[0] == param.name:
+                    prop_found = True
+                    params_to_render[parts[0]] = parts[1]
+        else:
+            input_value = _prompt_for_prop_input(param.name, param.type)
+            params_to_render[param.name] = input_value
+            prop_found = True
+        if not prop_found:
+            raise CLIError('Missing required property for this template. '\
+                            'Property Name: {propname} of type: {proptype} needs to be provided '\
+                            'in --yml-props.'.format(propname=param.name, proptype=param.type))
+
+    rendered_template = pipeline_client.render_template(template_id=template_id,
+                                                        template_parameters=params_to_render)
+    return rendered_template.content
+
+
+def _prompt_for_prop_input(prop_name, prop_type):
+    verify_is_a_tty_or_raise_error('The template requires a few inputs. These can be provided as --yml-props '\
+                                   'in the command arguments or be input interatively.')
+    return prompt(msg='Please enter a value for {prop_name}: '.format(prop_name=prop_name),
+                  help_string='Value of type {prop_type} is required.'.format(prop_type=prop_type))
 
 
 def _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, branch, service_endpoint,
@@ -552,8 +564,8 @@ def _create_pipeline_build_object(name, description, repo_id, repo_name, reposit
     definition.name = name
     if description:
         definition.description = description
-    # Set build repo
-    definition.repository = BuildRepository()
+    # Set build re po
+    definition.repository = BuildRepository ()
     if repo_id:
         definition.repository.id = repo_id
     if repo_name:

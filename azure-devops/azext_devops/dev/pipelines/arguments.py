@@ -15,6 +15,8 @@ _BUILD_STATUS_VALUES = ['all', 'cancelling', 'completed', 'inProgress', 'none', 
 
 
 def load_build_arguments(self, _):
+    with self.argument_context('pipelines create') as context:
+        context.argument('yml_props', nargs='*')
     with self.argument_context('pipelines build list') as context:
         context.argument('definition_ids', nargs='*', type=int)
         context.argument('tags', nargs='*')
