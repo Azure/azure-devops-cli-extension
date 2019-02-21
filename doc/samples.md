@@ -244,10 +244,10 @@ jobs:
 
 # Use policy configuration file to configure policies
 
-You can easily configure branch policies for your repository using the various policy commands. However, the various policy commands accept a single scope, i.e., single combination of repository, branch and match type. If you want to apply the same policy across various scopes, you can do that using a policy configuration file.
+You can easily configure branch policies for your repository using the various policy commands. However, the policy commands accept a single scope, i.e., single combination of repository, branch and match type. If you want to apply the same policy across various scopes, you can do that using a policy configuration file.
 
 Say you want to create a manual queue build policy across all branch folders that start with "release" and also on the master branch. To achieve this, execute the following steps:
-1. Create a policy configuration file for build polcy, including the multiple application scope:
+1. Create a policy configuration file for build polcy, including the multiple application scopes:
 ```
 {
 "isBlocking": true,
@@ -256,7 +256,7 @@ Say you want to create a manual queue build policy across all branch folders tha
 "revision": 1,
 "settings": {
   "buildDefinitionId": 22,
-  "displayName": "test",
+  "displayName": "Manual Queue Policy",
   "manualQueueOnly": true,
   "queueOnSourceUpdateOnly": false,
   "scope": [
@@ -274,7 +274,7 @@ Say you want to create a manual queue build policy across all branch folders tha
   "validDuration": 0
 },
 "type": {
-  "displayName": "Manual Queue Only",
+  "displayName": "Build",
   "id": "0609b952-1397-4640-95ec-e00a01b2f659" 
 }
 }
