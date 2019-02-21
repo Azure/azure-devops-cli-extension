@@ -109,5 +109,55 @@ class TestUuidMethods(unittest.TestCase):
         #assert
         self.mock_delete_policy.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, configuration_id=121)
 
+    def test_create_policy_config_file(self):
+        configuration = {
+            'is_blocking' : True,
+            'is_enabled' : False
+        }
+        import tempfile
+        temp_config_file = tempfile.TemporaryFile(mode='w', delete=False)
+        import json
+        json.dump(configuration, temp_config_file)
+        temp_config_file.close()
+
+        create_policy_configuration_file(policy_configuration = temp_config_file.name,
+        organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off')
+
+        #assert
+        self.mock_create_policy.assert_called_once()
+        create_policy_object = self.mock_create_policy.call_args_list[0][1]
+        self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'], str(create_policy_object))
+        self.assertEqual(create_policy_object['configuration']['is_enabled'], False)
+        self.assertEqual(create_policy_object['configuration']['is_blocking'], True)
+
+    def update_policy_configuration_file(self):
+        configuration = {
+            'is_blocking' : True,
+            'is_enabled' : False
+        }
+        import tempfile
+        temp_config_file = tempfile.TemporaryFile(mode='w', delete=False)
+        import json
+        json.dump(configuration, temp_config_file)
+        temp_config_file.close()
+
+        create_policy_configuration_file(policy_id = 1,
+        policy_configuration = temp_config_file.name,
+        organization = self._TEST_DEVOPS_ORGANIZATION,
+        project = self._TEST_DEVOPS_PROJECT,
+        detect='off')
+
+        #assert
+        self.mock_create_policy.assert_called_once()
+        update_policy_object = self.mock_create_policy.call_args_list[0][1]
+        self.assertEqual(update_policy_object['configuration_id'], 121)
+        self.assertEqual(self._TEST_DEVOPS_PROJECT, update_policy_object['project'], str(create_policy_object))
+        self.assertEqual(update_policy_object['configuration']['is_enabled'], False)
+        self.assertEqual(update_policy_object['configuration']['is_blocking'], True)
+
+
+
 if __name__ == '__main__':
     unittest.main()
