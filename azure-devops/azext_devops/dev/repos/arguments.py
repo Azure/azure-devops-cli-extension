@@ -31,9 +31,9 @@ def load_code_arguments(self, _):
         context.argument('branch', help='Branch on which this policy should be applied. For example: master')
         context.argument('branch_match_type', arg_type=get_enum_type(_BRANCH_MATCH_KIND_VALUES),
                          help='Determines how the branch argument is used to apply a policy. ' +
-                         'If value is “exact”, the policy will be applied on a branch which has an ' +
+                         'If value is \'exact\', the policy will be applied on a branch which has an ' +
                          'exact match on the –branch argument. ' +
-                         'If value is “prefix” the policy is applied across all branch folders that' +
+                         'If value is \'prefix\' the policy is applied across all branch folders that' +
                          'match the prefix provided by the –branch argument.')
         context.argument('is_blocking', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether the policy should be blocking or not')
