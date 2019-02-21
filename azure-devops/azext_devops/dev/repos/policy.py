@@ -359,6 +359,7 @@ def create_policy_file_size(repository_id, is_blocking, is_enabled,
 
     return policy_client.create_policy_configuration(configuration=configuration, project=project)
 
+
 def update_policy_file_size(policy_id,
                             repository_id=None, is_blocking=None, is_enabled=None,
                             maximum_git_blob_size=None, use_uncompressed_size=None,
@@ -493,6 +494,7 @@ def create_policy_case_enforcement(repository_id, is_blocking, is_enabled,
                                                 ['true'])
 
     return policy_client.create_policy_configuration(configuration=configuration, project=project)
+
 
 def update_policy_case_enforcement(policy_id,
                                    repository_id=None, is_blocking=None, is_enabled=None,
