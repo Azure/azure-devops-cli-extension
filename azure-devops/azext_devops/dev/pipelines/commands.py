@@ -16,25 +16,32 @@ from ._format import (transform_build_table_output,
                       transform_release_definitions_table_output,
                       transform_release_definition_table_output)
 
+from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
+
 
 buildOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.pipelines.build#{}'
+    operations_tmpl='azext_devops.dev.pipelines.build#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 buildDefOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.pipelines.build_definition#{}'
+    operations_tmpl='azext_devops.dev.pipelines.build_definition#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 buildTaskOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.pipelines.task#{}'
+    operations_tmpl='azext_devops.dev.pipelines.task#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 releaseOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.pipelines.release#{}'
+    operations_tmpl='azext_devops.dev.pipelines.release#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 releaseDefinitionOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.pipelines.release_definition#{}'
+    operations_tmpl='azext_devops.dev.pipelines.release_definition#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 

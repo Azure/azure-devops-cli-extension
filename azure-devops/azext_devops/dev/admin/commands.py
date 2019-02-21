@@ -6,8 +6,11 @@
 from azure.cli.core.commands import CliCommandType
 from ._format import transform_banner_table_output
 
+from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
+
 bannerops = CliCommandType(
-    operations_tmpl='azext_devops.dev.admin.banner#{}'
+    operations_tmpl='azext_devops.dev.admin.banner#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 

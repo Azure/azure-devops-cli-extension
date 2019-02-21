@@ -10,29 +10,37 @@ from ._format import (transform_project_table_output,
                       transform_teams_table_output,
                       transform_team_members_table_output)
 
+from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
+
 
 projectOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.team.project#{}'
+    operations_tmpl='azext_devops.dev.team.project#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 configureOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.team.configure#{}'
+    operations_tmpl='azext_devops.dev.team.configure#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 feedbackOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.team.feedback#{}'
+    operations_tmpl='azext_devops.dev.team.feedback#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 credentialsOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.team.credentials#{}'
+    operations_tmpl='azext_devops.dev.team.credentials#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 service_endpointOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.team.service_endpoint#{}'
+    operations_tmpl='azext_devops.dev.team.service_endpoint#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 teamOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.team.team#{}'
+    operations_tmpl='azext_devops.dev.team.team#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 
