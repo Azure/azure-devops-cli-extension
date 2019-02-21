@@ -41,18 +41,18 @@ def load_code_arguments(self, _):
                          help='Whether the policy is enabled or not')
         context.argument('path_filter',
                          help='Filter path(s) on which the policy is applied. ' +
-                         'Supports absolute paths, wildcards and multiple paths separated by ‘;’. ' +
+                         'Supports absolute paths, wildcards and multiple paths separated by \';\'. ' +
                          'Example: /WebApp/Models/Data.cs, /WebApp/* or *.cs,' +
                          '/WebApp/Models/Data.cs;ClientApp/Models/Data.cs')
 
     with self.argument_context('repos policy list') as context:
         context.argument('branch',
                          help='Branch name to filter results by exact match of branch name. ' +
-                         'The –repository-id parameter is required to use the branch filter. ' +
+                         'The --repository-id parameter is required to use the branch filter. ' +
                          'For example: --branch master')
         context.argument('repository_id',
                          help='ID of the repository to filter results by exact match of the repository ID. ' +
-                         'For example –repository-ID e556f204-53c9-4153-9cd9-ef41a11e3345')
+                         'For example --repository-ID e556f204-53c9-4153-9cd9-ef41a11e3345')
 
     with self.argument_context('repos policy approver-count') as context:
         context.argument('minimum_approver_count',
@@ -76,19 +76,19 @@ def load_code_arguments(self, _):
                          help='Whether to allow only manual queue of builds.')
         context.argument('display_name',
                          help='Display name for this build policy to identify the policy. ' +
-                         'For example: “Manual queue policy”')
+                         'For example: \'Manual queue policy\')
         context.argument('valid_duration', help='Policy validity duration (in minutes).')
 
     with self.argument_context('repos policy file-size') as context:
         context.argument('maximum_git_blob_size',
                          help='Maximum git blob size in bytes. ' +
-                         'For example, to specify a 10byte limit, –maximum-git-blob-size 1024.')
+                         'For example, to specify a 10byte limit, --maximum-git-blob-size 1024.')
         context.argument('use_uncompressed_size', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to use uncompressed size.')
 
     with self.argument_context('repos policy required-reviewer') as context:
         context.argument('required_reviewer_ids',
-                         help='Required reviewers email addresses separated by ‘;’.' +
+                         help='Required reviewers email addresses separated by \';\'. ' +
                          'For example: john@contoso.com;alice@contoso.com')
         context.argument('message', help='Message.')
 
