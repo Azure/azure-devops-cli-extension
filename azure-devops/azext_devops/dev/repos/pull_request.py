@@ -7,7 +7,7 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsClientRequestError, VstsServiceError
+from azext_devops.vstsCompressed.exceptions import VstsClientRequestError
 from azext_devops.vstsCompressed.git.v4_0.models.models import GitPullRequest
 from azext_devops.vstsCompressed.git.v4_0.models.models import GitPullRequestCompletionOptions
 from azext_devops.vstsCompressed.git.v4_0.models.models import GitPullRequestSearchCriteria
@@ -42,10 +42,10 @@ def show_pull_request(id, open=False, organization=None, detect=None):  # pylint
     client = get_git_client(organization)
     pr = client.get_pull_request_by_id(id)
     pr = client.get_pull_request(project=pr.repository.project.id,
-                                    repository_id=pr.repository.id,
-                                    pull_request_id=id,
-                                    include_commits=False,
-                                    include_work_item_refs=True)
+                                 repository_id=pr.repository.id,
+                                 pull_request_id=id,
+                                 include_commits=False,
+                                 include_work_item_refs=True)
     if open:
         _open_pull_request(pr, organization)
     return pr
@@ -90,11 +90,11 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     client = get_git_client(organization)
     if repository is None:
         pr_list = client.get_pull_requests_by_project(project=project, search_criteria=search_criteria,
-                                                        skip=skip, top=top)
+                                                      skip=skip, top=top)
     else:
         pr_list = client.get_pull_requests(project=project, repository_id=repository,
-                                            search_criteria=search_criteria,
-                                            skip=skip, top=top)
+                                           search_criteria=search_criteria,
+                                           skip=skip, top=top)
     return pr_list
 
 
@@ -169,7 +169,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     pr.target_ref_name = resolve_git_ref_heads(target_branch)
     if pr.source_ref_name == pr.target_ref_name:
         raise CLIError('The source branch, "{}", can not be the same as the target branch.'.format
-                        (pr.source_ref_name))
+                       (pr.source_ref_name))
     pr.reviewers = _resolve_reviewers_as_refs(reviewers, organization)
     if work_items is not None and work_items:
         resolved_work_items = []
@@ -182,15 +182,15 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     if title is None:
         # if title wasn't specified and only one commit, we will set the PR title to the comment of that commit
         commits = client.get_pull_request_commits(repository_id=repository, pull_request_id=pr.pull_request_id,
-                                                    project=project)
+                                                  project=project)
         if len(commits) == 1:
             title_from_commit = commits[0].comment
     set_completion_options = (bypass_policy or
-                                bypass_policy_reason is not None or
-                                squash or
-                                merge_commit_message is not None or
-                                delete_source_branch or
-                                transition_work_items)
+                              bypass_policy_reason is not None or
+                              squash or
+                              merge_commit_message is not None or
+                              delete_source_branch or
+                              transition_work_items)
     if auto_complete or set_completion_options or title_from_commit is not None:
         pr_for_update = GitPullRequest()
         if auto_complete:
@@ -352,9 +352,9 @@ def create_pull_request_reviewers(id, reviewers, organization=None, detect=None)
     pr = client.get_pull_request_by_id(id)
     resolved_reviewers = _resolve_reviewers_as_refs(reviewers, organization)
     identities = client.create_pull_request_reviewers(reviewers=resolved_reviewers,
-                                                        project=pr.repository.project.id,
-                                                        repository_id=pr.repository.id,
-                                                        pull_request_id=id)
+                                                      project=pr.repository.project.id,
+                                                      repository_id=pr.repository.id,
+                                                      pull_request_id=id)
     return identities
 
 
@@ -390,8 +390,8 @@ def list_pull_request_reviewers(id, organization=None, detect=None):  # pylint: 
     client = get_git_client(organization)
     pr = client.get_pull_request_by_id(id)
     return client.get_pull_request_reviewers(project=pr.repository.project.id,
-                                                repository_id=pr.repository.id,
-                                                pull_request_id=id)
+                                             repository_id=pr.repository.id,
+                                             pull_request_id=id)
 
 
 def add_pull_request_work_items(id, work_items, organization=None, detect=None):  # pylint: disable=redefined-builtin
@@ -428,8 +428,8 @@ def add_pull_request_work_items(id, work_items, organization=None, detect=None):
                 if message != 'Relation already exists.':
                     raise CLIError(ex)
         refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
-                                                    repository_id=existing_pr.repository.id,
-                                                    pull_request_id=id)
+                                                  repository_id=existing_pr.repository.id,
+                                                  pull_request_id=id)
     ids = []
     for ref in refs:
         ids.append(ref.id)
@@ -477,8 +477,8 @@ def remove_pull_request_work_items(id, work_items, organization=None, detect=Non
                         else:
                             index += 1
             refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
-                                                        repository_id=existing_pr.repository.id,
-                                                        pull_request_id=id)
+                                                      repository_id=existing_pr.repository.id,
+                                                      pull_request_id=id)
             if refs:
                 ids = []
                 for ref in refs:
@@ -498,8 +498,8 @@ def list_pull_request_work_items(id, organization=None, detect=None):  # pylint:
     client = get_git_client(organization)
     pr = client.get_pull_request_by_id(id)
     refs = client.get_pull_request_work_items(project=pr.repository.project.id,
-                                                repository_id=pr.repository.id,
-                                                pull_request_id=id)
+                                              repository_id=pr.repository.id,
+                                              pull_request_id=id)
     if refs:
         ids = []
         for ref in refs:
@@ -538,10 +538,10 @@ def vote_pull_request(id, vote, organization=None, detect=None):  # pylint: disa
     resolved_reviewer = IdentityRefWithVote(id=resolve_identity_as_id(ME, organization))
     resolved_reviewer.vote = _convert_vote_to_int(vote)
     created_reviewer = client.create_pull_request_reviewer(project=pr.repository.project.id,
-                                                            repository_id=pr.repository.id,
-                                                            pull_request_id=id,
-                                                            reviewer_id=resolved_reviewer.id,
-                                                            reviewer=resolved_reviewer)
+                                                           repository_id=pr.repository.id,
+                                                           pull_request_id=id,
+                                                           reviewer_id=resolved_reviewer.id,
+                                                           reviewer=resolved_reviewer)
     return created_reviewer
 
 
@@ -594,7 +594,7 @@ def queue_pr_policy(id, evaluation_id, organization=None, detect=None):  # pylin
     pr = git_client.get_pull_request_by_id(id)
     policy_client = get_policy_client(organization)
     return policy_client.requeue_policy_evaluation(project=pr.repository.project.id,
-                                                    evaluation_id=evaluation_id)
+                                                   evaluation_id=evaluation_id)
 
 
 def _resolve_reviewers_as_refs(reviewers, organization):
