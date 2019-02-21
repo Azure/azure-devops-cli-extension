@@ -30,14 +30,11 @@ def publish_package(feed, name, version, path, description=None, organization=No
     :param path: Directory containing the package contents.
     :type path: str
     """
-    try:
-        colorama.init()   # Needed for humanfriendly spinner to display correctly
-        logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
-        organization = resolve_instance(detect=detect, organization=organization)
-        artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-        return artifact_tool.publish_universal(organization, feed, name, version, description, path)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    colorama.init()   # Needed for humanfriendly spinner to display correctly
+    logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
+    organization = resolve_instance(detect=detect, organization=organization)
+    artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
+    return artifact_tool.publish_universal(organization, feed, name, version, description, path)
 
 
 def download_package(feed, name, version, path, organization=None, detect=None):
@@ -51,11 +48,8 @@ def download_package(feed, name, version, path, organization=None, detect=None):
     :param path: Directory to place the package contents.
     :type path: str
     """
-    try:
-        colorama.init()  # Needed for humanfriendly spinner to display correctly
-        logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
-        organization = resolve_instance(detect=detect, organization=organization)
-        artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-        return artifact_tool.download_universal(organization, feed, name, version, path)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    colorama.init()  # Needed for humanfriendly spinner to display correctly
+    logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
+    organization = resolve_instance(detect=detect, organization=organization)
+    artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
+    return artifact_tool.download_universal(organization, feed, name, version, path)
