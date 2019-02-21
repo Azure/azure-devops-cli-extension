@@ -132,6 +132,7 @@ def list_projects(organization=None, top=None, skip=None, detect=None):
     team_projects = core_client.get_projects(state_filter='all', top=top, skip=skip)
     return team_projects
 
+
 def _open_project(project):
     """Opens the project in the default browser.
     """
