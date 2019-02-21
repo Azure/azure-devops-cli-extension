@@ -4,8 +4,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.dev.common.services import (get_task_agent_client,
                                               resolve_instance)
 from azext_devops.dev.common.uuid import is_uuid
@@ -36,5 +34,5 @@ def task_show(id, version, organization=None, detect=None):  # pylint: disable=r
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_task_agent_client(organization)
     definition_references = client.get_task_definition(task_id=id,
-                                                        version_string=version)
+                                                       version_string=version)
     return definition_references
