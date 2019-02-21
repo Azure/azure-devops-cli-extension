@@ -16,5 +16,6 @@ def azure_devops_exception_handler(ex):
         raise CLIError(ex)
     else:
         logger.debug('handling generic error')
-
-    raise
+        import sys
+        from six import reraise
+        reraise(*sys.exc_info())
