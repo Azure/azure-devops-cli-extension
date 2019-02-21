@@ -6,8 +6,6 @@
 from webbrowser import open_new
 
 from knack.log import get_logger
-from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.dev.common.services import (get_build_client, get_git_client,
                                               resolve_instance_and_project,
                                               resolve_instance_project_and_repo)
@@ -45,12 +43,12 @@ def build_definition_list(name=None, top=None, organization=None, project=None, 
             resolved_repository = repository
         if resolved_repository is None:
             raise ValueError("Could not find a repository with name '{}', in project '{}'."
-                                .format(repository, project))
+                             .format(repository, project))
     else:
         resolved_repository = None
     definition_references = client.get_definitions(project=project, name=name, repository_id=resolved_repository,
-                                                    repository_type=repository_type, top=top,
-                                                    query_order=query_order)
+                                                   repository_type=repository_type, top=top,
+                                                   query_order=query_order)
     return definition_references
 
 
