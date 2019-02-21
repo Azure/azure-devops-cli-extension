@@ -45,6 +45,13 @@ def load_code_arguments(self, _):
                          '*.* means apply to all'
                          'Order is significant')
 
+    with self.argument_context('repos policy list') as context:
+        context.argument('branch', help='Branch name to filter results by exact match of branch name. ' +
+                                        'The –repository-id parameter is required to use the branch filter. ' +
+                                        'For example: --branch master')
+        context.argument('repository_id', help='ID of the repository to filter results by exact match of the repository ID. ' +
+                                          'For example –repository-ID e556f204-53c9-4153-9cd9-ef41a11e3345')
+
     with self.argument_context('repos policy approver-count') as context:
         context.argument('minimum_approver_count',
                          help='Minimum approver count.')
