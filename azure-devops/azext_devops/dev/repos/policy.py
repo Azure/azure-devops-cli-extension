@@ -28,17 +28,17 @@ def list_policy(organization=None, project=None, repository_id=None, branch=None
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
 
-        if branch is not None and repository_id is None:
-            raise CLIError('--repository-id is required with --branch')
+    if branch is not None and repository_id is None:
+        raise CLIError('--repository-id is required with --branch')
 
-        scope = None
+    scope = None
 
-        if repository_id is not None:
-            repository_id = repository_id.replace('-', '')
-            scope = repository_id
-            if branch is not None:
-                branch = resolve_git_ref_heads(branch)
-                scope = scope + ':' + branch
+    if repository_id is not None:
+        repository_id = repository_id.replace('-', '')
+        scope = repository_id
+        if branch is not None:
+            branch = resolve_git_ref_heads(branch)
+            scope = scope + ':' + branch
 
     policy_client = get_policy_client(organization)
     return policy_client.get_policy_configurations(project=project, scope=scope)
