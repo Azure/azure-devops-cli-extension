@@ -50,7 +50,6 @@ def list_policy(organization=None, project=None, repository_id=None, branch=None
 
 def get_policy(policy_id, organization=None, project=None, detect=None):
     """Show policy details.
-    :rtype: :class:`<PolicyConfiguration> <policy.v4_0.models.PolicyConfiguration>`
     """
     try:
         organization, project = resolve_instance_and_project(
