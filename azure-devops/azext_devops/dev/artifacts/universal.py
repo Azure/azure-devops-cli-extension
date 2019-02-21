@@ -5,8 +5,6 @@
 
 import colorama
 from knack.log import get_logger
-from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.dev.common.services import resolve_instance
 from .artifacttool import ArtifactToolInvoker
 from .artifacttool_updater import ArtifactToolUpdater

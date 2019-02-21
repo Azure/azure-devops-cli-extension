@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from azure.cli.core.commands import CliCommandType
+from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 from ._format import (transform_pull_request_table_output,
                       transform_pull_requests_table_output,
                       transform_repo_table_output,
@@ -16,8 +17,6 @@ from ._format import (transform_pull_request_table_output,
                       transform_repo_import_table_output,
                       transform_repo_policy_table_output,
                       transform_repo_policies_table_output)
-
-from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 
 
 reposPullRequestOps = CliCommandType(

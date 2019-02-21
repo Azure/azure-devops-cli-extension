@@ -4,8 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 import time
-from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.vstsCompressed.git.v4_0.models.models import GitImportRequestParameters
 from azext_devops.vstsCompressed.git.v4_0.models.models import GitImportGitSource
 from azext_devops.vstsCompressed.git.v4_0.models.models import GitImportRequest
@@ -36,7 +34,7 @@ def create_import_request(git_source_url, project=None, repository=None,
         tfvc_source=None)
     gitImportRequest = GitImportRequest(parameters=gitImportRequestParameter)
     importRequest = client.create_import_request(import_request=gitImportRequest, project=project,
-                                                    repository_id=repository)
+                                                 repository_id=repository)
     return _wait_for_import_request(client, project, repository, importRequest.import_request_id)
 
 

@@ -3,14 +3,13 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 from azure.cli.core.commands import CliCommandType
+from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 from ._format import (transform_project_table_output,
                       transform_projects_table_output,
                       transform_service_endpoints_table_output,
                       transform_team_table_output,
                       transform_teams_table_output,
                       transform_team_members_table_output)
-
-from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 
 
 projectOps = CliCommandType(
