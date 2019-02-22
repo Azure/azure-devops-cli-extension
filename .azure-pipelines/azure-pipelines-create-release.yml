@@ -49,7 +49,7 @@ jobs:
       pythonVersion: '3.7.0'
 
 - job: 'Calculate_Sha'
-  dependsOn : Run_Test
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
   pool:
     vmImage: 'vs2017-win2016'
 
@@ -70,8 +70,9 @@ jobs:
         $extensions = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
         Foreach ($extension in $extensions)
         {
-            Write-Host "calculating sha for " $extension.FullName
-            certutil -hashfile $extension.FullName sha256
+            $fullName = Join-Path -Path $(System.ArtifactsDirectory)/extension -ChildPath $extension.FullName
+            Write-Host "calculating sha for " $fullName       
+            certutil -hashfile $fullName sha256
         }
         Write-Host "done"
       workingDirectory: '$(System.ArtifactsDirectory)/extension'
