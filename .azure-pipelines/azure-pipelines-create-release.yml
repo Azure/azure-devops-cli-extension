@@ -53,6 +53,7 @@ jobs:
   pool:
     vmImage: 'vs2017-win2016'
 
+  steps:
   - task: DownloadBuildArtifacts@0
     displayName : 'Download Extension wheel from Build Artifacts'
     inputs:
