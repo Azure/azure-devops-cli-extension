@@ -10,9 +10,9 @@ trigger: none
 
 jobs:
 
-- job: 'Run_Test'
+- job: 'Build_Publish_Azure_DevOps_CLI_Extension'
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'Ubuntu-16.04'
 
   steps:
   - task: UsePythonVersion@0
@@ -20,38 +20,65 @@ jobs:
       versionSpec: '3.7.0'
       architecture: 'x64'
 
-  - task: PowerShell@2
-    displayName: 'Setup test machine'
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/build-publish-azure-devops-cli-extension.yml
+
+- job: 'Build_Publish_Azure_CLI_Test_SDK'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UsePythonVersion@0
     inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/setupCiMachine.ps1'
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/build-publish-azure-cli-test-sdk.yml
+
+- job: 'Run_Test'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'macOS-10.13'
+
+  steps:
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.7.0'
+
+- job: 'Calculate_Sha'
+  dependsOn : Run_Test
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  - task: DownloadBuildArtifacts@0
+    displayName : 'Download Extension wheel from Build Artifacts'
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'azure-devops-cli-extension'
+      downloadPath: '$(System.ArtifactsDirectory)/extension'
 
   - task: PowerShell@2
-    displayName: 'Run Tests'
+    displayName: 'Calculate Sha for downloaded extension'
     inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      arguments: '$True'
-  
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-    condition: succeededOrFailed()
+      targetType: 'inline'
+      script: |
+        $extensions = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
+        Foreach ($extension in $extensions)
+        {
+            Write-Host "calculating sha for " $extension.FullName
+            certutil -hashfile $extension.FullName sha256
+        }
+        Write-Host "done"
+      workingDirectory: '$(System.ArtifactsDirectory)/extension'
 
   - task: CmdLine@2
     displayName: 'calculate sha256 for generated wheel'
     inputs:
-      script: 'certutil -hashfile azure-devops/dist/azure_devops-0.3.0-py2.py3-none-any.whl sha256' 
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Wheel as artifact'
-    inputs:
-      pathtoPublish: 'azure-devops/dist' 
-      artifactName: 'azure-devops-cli-package' 
-      publishLocation: 'Container'
+      script: 'certutil -hashfile azure-devops/dist/azure_devops-0.3.0-py2.py3-none-any.whl sha256'
 
   # GitHub Release
   # Create, edit, or delete a GitHub release.
@@ -71,4 +98,4 @@ jobs:
       assetUploadMode: 'delete'
       isDraft: true
       isPreRelease: true
-      addChangeLog: true
+      addChangeLog: true 
