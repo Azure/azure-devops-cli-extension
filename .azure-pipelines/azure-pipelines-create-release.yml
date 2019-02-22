@@ -76,11 +76,6 @@ jobs:
         Write-Host "done"
       workingDirectory: '$(System.ArtifactsDirectory)/extension'
 
-  - task: CmdLine@2
-    displayName: 'calculate sha256 for generated wheel'
-    inputs:
-      script: 'certutil -hashfile azure-devops/dist/azure_devops-0.3.0-py2.py3-none-any.whl sha256'
-
   # GitHub Release
   # Create, edit, or delete a GitHub release.
   - task: GitHubRelease@0
