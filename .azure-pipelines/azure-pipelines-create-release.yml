@@ -67,7 +67,7 @@ jobs:
       #releaseNotesSource: 'file' # Optional. Options: file, input
       #releaseNotesFile: # Optional
       #releaseNotes: # Optional
-      assets: 'azure-devops/dist' 
+      assets: 'azure-devops/dist/*' 
       assetUploadMode: 'delete'
       isDraft: true
       isPreRelease: true
