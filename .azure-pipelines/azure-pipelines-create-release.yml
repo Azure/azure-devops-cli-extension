@@ -90,7 +90,7 @@ jobs:
       #releaseNotesSource: 'file' # Optional. Options: file, input
       #releaseNotesFile: # Optional
       #releaseNotes: # Optional
-      assets: 'azure-devops/dist/*' 
+      assets: '$(System.ArtifactsDirectory)/extension/azure-devops/dist/*' 
       assetUploadMode: 'delete'
       isDraft: true
       isPreRelease: true
