@@ -70,9 +70,7 @@ jobs:
         $extensions = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
         Foreach ($extension in $extensions)
         {
-            $attemptFullName = Join-Path -Path '' -ChildPath $extension.FullName
-            Write-Host "Calculated full path " $attemptFullName
-            Write-Host "calculating sha for " $extension.FullName
+            Write-Host "calculating sha for " $extension.FullName   
             certutil -hashfile $extension.FullName sha256
         }
         Write-Host "done"
