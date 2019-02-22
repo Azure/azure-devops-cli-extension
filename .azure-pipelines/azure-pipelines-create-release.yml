@@ -95,8 +95,8 @@ jobs:
 
   - task: GitHubRelease@0
     inputs:
-      gitHubConnection: gauravsaralMs
-      repositoryName: gauravsaralMs/azure-devops-cli-extension
+      gitHubConnection: Gsaral
+      repositoryName: Microsoft/azure-devops-cli-extension
       action: 'create'
       target: '$(Build.SourceVersion)'
       tagSource: $(CLIVersion)
