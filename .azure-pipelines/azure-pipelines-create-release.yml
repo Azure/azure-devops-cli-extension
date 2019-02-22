@@ -24,20 +24,6 @@ jobs:
 
   - template: templates/build-publish-azure-devops-cli-extension.yml
 
-  - script: 'pip install .'
-    displayName: 'Install the whl locally'
-    workingDirectory: 'azure-devops/'
-
-  - task: PythonScript@0
-    displayName : 'setupVersion'
-    name: 'setupVersion'
-    inputs:
-      scriptSource: 'inline'
-      script: |
-        from azext_devops.version import VERSION
-        print("##vso[task.setvariable variable=CLIVersion;isOutput=true]"+VERSION)
-        print("##vso[task.setvariable variable=RTitle;isOutput=true]"+'Azure DevOps CLI extension for Azure CLI ' + VERSION)
-
 - job: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
     vmImage: 'Ubuntu-16.04'
@@ -62,13 +48,27 @@ jobs:
     parameters:
       pythonVersion: '3.7.0'
 
+  - script: 'pip install .'
+    displayName: 'Install the whl locally'
+    workingDirectory: 'azure-devops/'
+
+  - task: PythonScript@0
+    displayName : 'setupVersion'
+    name: 'setupVersion'
+    inputs:
+      scriptSource: 'inline'
+      script: |
+        from azext_devops.version import VERSION
+        print("##vso[task.setvariable variable=CLIVersion;isOutput=true]"+VERSION)
+        print("##vso[task.setvariable variable=RTitle;isOutput=true]"+'Azure DevOps CLI extension for Azure CLI ' + VERSION)
+
 - job: 'Calculate_Sha_And_Create_Release'
-  dependsOn : [ Run_Test, Build_Publish_Azure_DevOps_CLI_Extension]
+  dependsOn : Run_Test
   pool:
     vmImage: 'vs2017-win2016'
   variables:
-    CLIVersion: $[dependencies.Build_Publish_Azure_DevOps_CLI_Extension.outputs['setupVersion.CLIVersion']]
-    RTitle: $[dependencies.Build_Publish_Azure_DevOps_CLI_Extension.outputs['setupVersion.RTitle']]
+    CLIVersion: $[dependencies.Run_Test.outputs['setupVersion.CLIVersion']]
+    RTitle: $[dependencies.Run_Test.outputs['setupVersion.RTitle']]
 
   steps:
   - task: DownloadBuildArtifacts@0
