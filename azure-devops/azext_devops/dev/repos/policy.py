@@ -18,7 +18,7 @@ logger = get_logger(__name__)
 
 
 def list_policy(organization=None, project=None, repository_id=None, branch=None, detect=None):
-    """List all branch policies in a project.
+    """List all policies in a project.
     :param repository_id: Id (UUID) of the repository.
     :type repository_id: string
     :param branch: Branch. (--repository-id is required)
