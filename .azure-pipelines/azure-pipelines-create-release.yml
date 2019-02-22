@@ -99,7 +99,7 @@ jobs:
       repositoryName: Microsoft/azure-devops-cli-extension
       action: 'create'
       target: '$(Build.SourceVersion)'
-      tagSource: manual
+      tagSource: auto
       tag: $(Build.BuildNumber)   
       title: $(RTitle)
       assets: '$(System.ArtifactsDirectory)/extension/**/*.whl' 
