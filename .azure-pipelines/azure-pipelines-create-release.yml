@@ -24,6 +24,19 @@ jobs:
 
   - template: templates/build-publish-azure-devops-cli-extension.yml
 
+  - script: 'pip install .'
+    displayName: 'Install the whl locally'
+    workingDirectory: 'azure-devops/'
+
+  - task: PythonScript@0
+    displayName : 'setupVersion'
+    name: 'setupVersion'
+    inputs:
+      scriptSource: 'inline'
+      script: |
+        from azext_devops.version import VERSION
+        print("##vso[task.setvariable variable=CLIVersion;isOutput=true]"+VERSION)
+
 - job: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
     vmImage: 'Ubuntu-16.04'
@@ -48,10 +61,12 @@ jobs:
     parameters:
       pythonVersion: '3.7.0'
 
-- job: 'Calculate_Sha'
-  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+- job: 'Calculate_Sha_And_Create_Release'
+  dependsOn : [ Run_Test, Build_Publish_Azure_DevOps_CLI_Extension]
   pool:
     vmImage: 'vs2017-win2016'
+  variables:
+    CLIVersion: $[dependencies.Build_Publish_Azure_DevOps_CLI_Extension.outputs['setupVersion.CLIVersion']]
 
   steps:
   - task: DownloadBuildArtifacts@0
@@ -84,9 +99,9 @@ jobs:
       repositoryName: gauravsaralMs/azure-devops-cli-extension
       action: 'create'
       target: '$(Build.SourceVersion)'
-      tagSource: '0.3.0'
-      tag: '0.3.0'
-      title: 'Azure DevOps CLI extension for Azure CLI 0.2.0'
+      tagSource: $(CLIVersion)
+      tag: $(CLIVersion)
+      title: 'Azure DevOps CLI extension for Azure CLI' + $(CLIVersion)
       #releaseNotesSource: 'file' # Optional. Options: file, input
       #releaseNotesFile: # Optional
       #releaseNotes: # Optional
