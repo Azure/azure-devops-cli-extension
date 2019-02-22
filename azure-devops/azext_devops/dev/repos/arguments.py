@@ -81,7 +81,7 @@ def load_code_arguments(self, _):
     with self.argument_context('repos policy file-size') as context:
         context.argument('maximum_git_blob_size',
                          help='Maximum git blob size in bytes. ' +
-                         'For example, to specify a 10byte limit, --maximum-git-blob-size 1024.')
+                         'For example, to specify a 10byte limit, --maximum-git-blob-size 10.')
         context.argument('use_uncompressed_size', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to use uncompressed size.')
 
