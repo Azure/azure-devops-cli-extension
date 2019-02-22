@@ -85,12 +85,12 @@ jobs:
       action: 'create'
       target: '$(Build.SourceVersion)'
       tagSource: '0.3.0'
-      tag: 'Release'
+      tag: '0.3.0'
       title: 'Azure DevOps CLI extension for Azure CLI 0.2.0'
       #releaseNotesSource: 'file' # Optional. Options: file, input
       #releaseNotesFile: # Optional
       #releaseNotes: # Optional
-      assets: '$(System.ArtifactsDirectory)/extension/azure-devops/dist/*' 
+      assets: '$(System.ArtifactsDirectory)/extension/**/*.whl' 
       assetUploadMode: 'delete'
       isDraft: true
       isPreRelease: true
