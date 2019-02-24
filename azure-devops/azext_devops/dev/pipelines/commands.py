@@ -15,7 +15,8 @@ from ._format import (transform_build_table_output,
                       transform_releases_table_output,
                       transform_release_table_output,
                       transform_release_definitions_table_output,
-                      transform_release_definition_table_output)
+                      transform_release_definition_table_output,
+                      transform_runs_artifact_table_output)
 
 buildOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.build#{}',
@@ -83,5 +84,5 @@ def load_build_commands(self, _):
 
     with self.command_group('pipelines runs artifact', command_type=runOps) as g:
         g.command('download', 'run_artifact_download')
-        g.command('list', 'run_artifact_list')
+        g.command('list', 'run_artifact_list', table_transformer=transform_runs_artifact_table_output)
         g.command('upload', 'run_artifact_upload')

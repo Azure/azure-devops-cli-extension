@@ -18,7 +18,7 @@ from azext_devops.dev.common.uri import uri_quote
 
 logger = get_logger(__name__)
 
-def run_artifact_download(run_id=None, artifact_name=None, path=None, organization=None, project=None):
+def run_artifact_download(run_id=None, artifact_name=None, path=None, organization=None, project=None, detect=None):
     """Download a pipeline artifact.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
@@ -28,17 +28,28 @@ def run_artifact_download(run_id=None, artifact_name=None, path=None, organizati
     :type path: string
     """
 
-    print("Hello run_artifact_download")
+    try:
+        organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
+        client = get_build_client(organization)
+        print(client)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
-def run_artifact_list(run_id=None, organization=None, project=None):
+def run_artifact_list(run_id=None, organization=None, project=None, detect=None):
     """List artifacts associate with run.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
     """
 
-    print("Hello run_artifact_list")
+    try:
+        organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
+        client = get_build_client(organization)
+        artifacts = client.get_artifacts(run_id, project)
+        return artifacts
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
-def run_artifact_upload(run_id=None, artifact_name=None, path=None, organization=None, project=None):
+def run_artifact_upload(run_id=None, artifact_name=None, path=None, organization=None, project=None, detect=None):
     """Upload a pipeline artifact.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
@@ -48,4 +59,9 @@ def run_artifact_upload(run_id=None, artifact_name=None, path=None, organization
     :type path: string
     """
 
-    print("Hello run_artifact_upload")
+    try:
+        organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
+        client = get_build_client(organization)
+        print(client)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
