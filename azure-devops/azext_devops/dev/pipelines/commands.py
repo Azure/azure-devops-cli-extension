@@ -17,7 +17,6 @@ from ._format import (transform_build_table_output,
                       transform_release_definitions_table_output,
                       transform_release_definition_table_output)
 
-
 buildOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.build#{}',
     exception_handler=azure_devops_exception_handler
@@ -41,6 +40,10 @@ releaseOps = CliCommandType(
 releaseDefinitionOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.release_definition#{}',
     exception_handler=azure_devops_exception_handler
+)
+
+runOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.runs#{}'
 )
 
 
@@ -77,3 +80,8 @@ def load_build_commands(self, _):
         # basic release commands
         g.command('list', 'release_definition_list', table_transformer=transform_release_definitions_table_output)
         g.command('show', 'release_definition_show', table_transformer=transform_release_definition_table_output)
+
+    with self.command_group('pipelines runs artifact', command_type=runOps) as g:
+        g.command('download', 'run_artifact_download')
+        g.command('list', 'run_artifact_list')
+        g.command('upload', 'run_artifact_upload')
