@@ -4,9 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 import colorama
-from vsts.exceptions import VstsServiceError
 from knack.log import get_logger
-from knack.util import CLIError
 from azext_devops.dev.common.services import resolve_instance
 from .artifacttool import ArtifactToolInvoker
 from .artifacttool_updater import ArtifactToolUpdater
@@ -29,19 +27,12 @@ def publish_package(feed, name, version, path, description=None, organization=No
     :type description: str
     :param path: Directory containing the package contents.
     :type path: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     """
-    try:
-        colorama.init()   # Needed for humanfriendly spinner to display correctly
-        logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
-        organization = resolve_instance(detect=detect, organization=organization)
-        artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-        return artifact_tool.publish_universal(organization, feed, name, version, description, path)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    colorama.init()   # Needed for humanfriendly spinner to display correctly
+    logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
+    organization = resolve_instance(detect=detect, organization=organization)
+    artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
+    return artifact_tool.publish_universal(organization, feed, name, version, description, path)
 
 
 def download_package(feed, name, version, path, organization=None, detect=None):
@@ -54,16 +45,9 @@ def download_package(feed, name, version, path, organization=None, detect=None):
     :type version: str
     :param path: Directory to place the package contents.
     :type path: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization. Default is "on".
-    :type detect: str
     """
-    try:
-        colorama.init()  # Needed for humanfriendly spinner to display correctly
-        logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
-        organization = resolve_instance(detect=detect, organization=organization)
-        artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-        return artifact_tool.download_universal(organization, feed, name, version, path)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    colorama.init()  # Needed for humanfriendly spinner to display correctly
+    logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
+    organization = resolve_instance(detect=detect, organization=organization)
+    artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
+    return artifact_tool.download_universal(organization, feed, name, version, path)

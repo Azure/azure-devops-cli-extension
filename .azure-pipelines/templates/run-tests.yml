@@ -1,0 +1,28 @@
+parameters:
+  pythonVersion: ''
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: ${{ parameters.pythonVersion }}
+      architecture: 'x64'
+
+  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
+    displayName: 'Install Azure CLI'
+
+  - template: download-install-local-azure-test-sdk.yml
+
+  - template: setup-ci-machine.yml
+
+  - template: download-install-local-azure-devops-cli-extension.yml
+
+  - script: pytest --junitxml "TEST-results.xml"
+    displayName: 'Run Tests'
+  
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)/'
+    condition: succeededOrFailed()

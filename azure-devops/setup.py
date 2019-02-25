@@ -19,7 +19,7 @@ NAME = 'azure-devops'
 
 REQUIRES = [
     'python-dateutil==2.7.3',
-    'vsts==0.1.20'
+    'msrest>=0.6.0,<0.7.0'
 ]
 
 # Version extraction inspired from 'requests'
@@ -60,6 +60,6 @@ setup(
     url="https://github.com/Microsoft/azure-devops-cli-extension",
     classifiers=CLASSIFIERS,
     package_data={'azext_devops': ['azext_metadata.json']},
-    packages=find_packages(),
+    packages=find_packages(exclude=["*.test", "*.test.*", "test.*", "test"]),
     install_requires=REQUIRES
 )

@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from azure.cli.core.commands import CliCommandType
+from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 from ._format import (transform_pull_request_table_output,
                       transform_pull_requests_table_output,
                       transform_repo_table_output,
@@ -21,7 +22,8 @@ from ._format import (transform_pull_request_table_output,
 
 
 reposPullRequestOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.repos.pull_request#{}'
+    operations_tmpl='azext_devops.dev.repos.pull_request#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 reposRefOps = CliCommandType(
@@ -29,15 +31,18 @@ reposRefOps = CliCommandType(
 )
 
 reposRepositoryOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.repos.repository#{}'
+    operations_tmpl='azext_devops.dev.repos.repository#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 reposImportOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.repos.import_request#{}'
+    operations_tmpl='azext_devops.dev.repos.import_request#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 policyOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.repos.policy#{}'
+    operations_tmpl='azext_devops.dev.repos.policy#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 
@@ -52,11 +57,43 @@ def load_code_commands(self, _):
 
     with self.command_group('repos policy', command_type=policyOps) as g:
         # repository/ branch policies
-        g.command('create', 'create_policy', table_transformer=transform_repo_policy_table_output)
         g.command('list', 'list_policy', table_transformer=transform_repo_policies_table_output)
         g.command('show', 'get_policy', table_transformer=transform_repo_policy_table_output)
-        g.command('update', 'update_policy', table_transformer=transform_repo_policy_table_output)
         g.command('delete', 'delete_policy', confirmation='Are you sure you want to delete this policy?')
+        g.command('create', 'create_policy_configuration_file', table_transformer=transform_repo_policy_table_output)
+        g.command('update', 'update_policy_configuration_file', table_transformer=transform_repo_policy_table_output)
+        g.command('approver-count create', 'create_policy_approver_count',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('approver-count update', 'update_policy_approver_count',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('merge-strategy create', 'create_policy_merge_strategy',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('merge-strategy update', 'update_policy_merge_strategy',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('build create', 'create_policy_build',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('build update', 'update_policy_build',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('comment-required create', 'create_policy_comment_required',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('comment-required update', 'update_policy_comment_required',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('work-item-linking create', 'create_policy_work_item_linking',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('work-item-linking update', 'update_policy_work_item_linking',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('file-size create', 'create_policy_file_size',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('file-size update', 'update_policy_file_size',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('required-reviewer create', 'create_policy_required_reviewer',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('required-reviewer update', 'update_policy_required_reviewer',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('case-enforcement create', 'create_policy_case_enforcement',
+                  table_transformer=transform_repo_policy_table_output)
+        g.command('case-enforcement update', 'update_policy_case_enforcement',
+                  table_transformer=transform_repo_policy_table_output)
 
     with self.command_group('repos pr', command_type=reposPullRequestOps) as g:
         # basic pr commands
@@ -71,16 +108,16 @@ def load_code_commands(self, _):
         g.command('reactivate', 'reactivate_pull_request', table_transformer=transform_pull_request_table_output)
 
         # pr reviewer commands
-        g.command('reviewers add', 'create_pull_request_reviewers', table_transformer=transform_reviewers_table_output)
-        g.command('reviewers list', 'list_pull_request_reviewers', table_transformer=transform_reviewers_table_output)
-        g.command('reviewers remove', 'delete_pull_request_reviewers',
+        g.command('reviewer add', 'create_pull_request_reviewers', table_transformer=transform_reviewers_table_output)
+        g.command('reviewer list', 'list_pull_request_reviewers', table_transformer=transform_reviewers_table_output)
+        g.command('reviewer remove', 'delete_pull_request_reviewers',
                   table_transformer=transform_reviewers_table_output)
 
         # pr work item commands
-        g.command('work-items add', 'add_pull_request_work_items', table_transformer=transform_work_items_table_output)
-        g.command('work-items list', 'list_pull_request_work_items',
+        g.command('work-item add', 'add_pull_request_work_items', table_transformer=transform_work_items_table_output)
+        g.command('work-item list', 'list_pull_request_work_items',
                   table_transformer=transform_work_items_table_output)
-        g.command('work-items remove', 'remove_pull_request_work_items',
+        g.command('work-item remove', 'remove_pull_request_work_items',
                   table_transformer=transform_work_items_table_output)
 
         # pr set-vote commands

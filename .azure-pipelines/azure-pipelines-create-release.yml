@@ -10,9 +10,9 @@ trigger: none
 
 jobs:
 
-- job: 'Run_Test'
+- job: 'Build_Publish_Azure_DevOps_CLI_Extension'
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'Ubuntu-16.04'
 
   steps:
   - task: UsePythonVersion@0
@@ -20,35 +20,90 @@ jobs:
       versionSpec: '3.7.0'
       architecture: 'x64'
 
-  - task: PowerShell@2
-    displayName: 'Setup test machine'
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/build-publish-azure-devops-cli-extension.yml
+
+- job: 'Build_Publish_Azure_CLI_Test_SDK'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UsePythonVersion@0
     inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/setupCiMachine.ps1'
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/build-publish-azure-cli-test-sdk.yml
+
+- job: 'Run_Test'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'macOS-10.13'
+
+  steps:
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.7.0'
+
+  - script: 'pip install .'
+    displayName: 'Install the whl locally'
+    workingDirectory: 'azure-devops/'
+
+  - task: PythonScript@0
+    displayName : 'setupVersion'
+    name: 'setupVersion'
+    inputs:
+      scriptSource: 'inline'
+      script: |
+        from azext_devops.version import VERSION
+        print("##vso[task.setvariable variable=CLIVersion;isOutput=true]"+VERSION)
+        print("##vso[task.setvariable variable=RTitle;isOutput=true]"+'Azure DevOps CLI extension for Azure CLI ' + VERSION)
+
+- job: 'Calculate_Sha_And_Create_Release'
+  dependsOn : Run_Test
+  pool:
+    vmImage: 'vs2017-win2016'
+  variables:
+    CLIVersion: $[dependencies.Run_Test.outputs['setupVersion.CLIVersion']]
+    RTitle: $[dependencies.Run_Test.outputs['setupVersion.RTitle']]
+
+  steps:
+  - task: DownloadBuildArtifacts@0
+    displayName : 'Download Extension wheel from Build Artifacts'
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'azure-devops-cli-extension'
+      downloadPath: '$(System.ArtifactsDirectory)/extension'
 
   - task: PowerShell@2
-    displayName: 'Run Tests'
+    displayName: 'Calculate Sha for downloaded extension'
     inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      arguments: '$True'
-  
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)'
-    condition: succeededOrFailed()
+      targetType: 'inline'
+      script: |
+        $extensions = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
+        Foreach ($extension in $extensions)
+        {
+            Write-Host "calculating sha for " $extension.FullName   
+            certutil -hashfile $extension.FullName sha256
+        }
+        Write-Host "done"
+      workingDirectory: '$(System.ArtifactsDirectory)/extension'
 
-  - task: CmdLine@2
-    displayName: 'calculate sha256 for generated wheel'
+  - task: GitHubRelease@0
     inputs:
-      script: 'certutil -hashfile azure-devops/dist/azure_devops-0.3.0-py2.py3-none-any.whl sha256' 
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Wheel as artifact'
-    inputs:
-      pathtoPublish: 'azure-devops/dist' 
-      artifactName: 'azure-devops-cli-package' 
-      publishLocation: 'Container'
+      gitHubConnection: Gsaral
+      repositoryName: Microsoft/azure-devops-cli-extension
+      action: 'create'
+      target: '$(Build.SourceVersion)'
+      tagSource: manual
+      tag: $(Build.BuildNumber)   
+      title: $(RTitle)
+      assets: '$(System.ArtifactsDirectory)/extension/**/*.whl' 
+      assetUploadMode: 'delete'
+      isDraft: true
+      isPreRelease: true
+      addChangeLog: true 

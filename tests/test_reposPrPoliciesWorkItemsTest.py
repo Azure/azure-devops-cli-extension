@@ -43,21 +43,21 @@ class AzReposPrPolicyTests(ScenarioTest):
         assert queue_pr_policy_output["evaluationId"] == policy_evaluation_id
         assert queue_pr_policy_output["status"] == 'queued'
 
-        #PR work-items add command
+        #PR work-item add command
         work_item_ids_to_add = '20 21'
         work_item_id_to_remove = '20'
-        add_wit_pr_command = ('az repos pr work-items add --id ' + str(pr_id_to_query) + ' --work-items ' + work_item_ids_to_add + 
+        add_wit_pr_command = ('az repos pr work-item add --id ' + str(pr_id_to_query) + ' --work-items ' + work_item_ids_to_add + 
             ' --detect off --output json')
         add_wit_pr_output = self.cmd(add_wit_pr_command).get_output_in_json()
         assert len(add_wit_pr_output) > 1
 
-        #PR work-items list command
-        list_wit_pr_command = 'az repos pr work-items list --id ' + str(pr_id_to_query) + ' --detect off --output json'
+        #PR work-item list command
+        list_wit_pr_command = 'az repos pr work-item list --id ' + str(pr_id_to_query) + ' --detect off --output json'
         list_wit_pr_output = self.cmd(list_wit_pr_command).get_output_in_json()
         assert len(list_wit_pr_output) > 1
 
-        #PR work-items remove command
-        remove_wit_pr_command = ('az repos pr work-items remove --id ' + str(pr_id_to_query) + ' --work-items ' + work_item_id_to_remove + 
+        #PR work-item remove command
+        remove_wit_pr_command = ('az repos pr work-item remove --id ' + str(pr_id_to_query) + ' --work-items ' + work_item_id_to_remove + 
             ' --detect off --output json')
         self.cmd(remove_wit_pr_command)
         #verify removed

@@ -1,9 +1,6 @@
 scripts/setupCiMachine.ps1
 
-$failure = $false
-
-Write-Output "Installing azure devops python sdk"
-pip install vsts                     
+$failure = $false             
 
 Write-Output "Installing pylint"
 pip install pylint<2

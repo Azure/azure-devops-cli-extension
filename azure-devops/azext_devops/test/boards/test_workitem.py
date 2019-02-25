@@ -26,15 +26,15 @@ class TestWorkItemMethods(unittest.TestCase):
 
     def setUp(self):
 
-        self.get_WI_patcher = patch('vsts.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.get_work_item')
-        self.create_WI_patcher = patch('vsts.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.create_work_item')
-        self.delete_WI_patcher = patch('vsts.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.delete_work_item')
+        self.get_WI_patcher = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.get_work_item')
+        self.create_WI_patcher = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.create_work_item')
+        self.delete_WI_patcher = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.delete_work_item')
         self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
         self.open_in_browser_patcher = patch('azext_devops.dev.boards.work_item._open_work_item')
         self.validate_token_patcher = patch('azext_devops.dev.common.services.validate_token_for_instance')
 
         # patch get client so no network call is made
-        self.get_client_patcher = patch('vsts.vss_connection.VssConnection.get_client', new=get_client_mock_helper)
+        self.get_client_patcher = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client', new=get_client_mock_helper)
         self.get_client_patcher.start()
 
         #start the patchers

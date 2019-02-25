@@ -5,11 +5,9 @@
 
 from webbrowser import open_new
 
-from vsts.exceptions import VstsServiceError
-from vsts.build.v4_0.models.build import Build
-from vsts.build.v4_0.models.definition_reference import DefinitionReference
 from knack.log import get_logger
-from knack.util import CLIError
+from azext_devops.vstsCompressed.build.v4_0.models.models import Build
+from azext_devops.vstsCompressed.build.v4_0.models.models import DefinitionReference
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.identities import resolve_identity_as_id
 from azext_devops.dev.common.services import (get_build_client,
@@ -33,47 +31,38 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type variables: [str]
     :param open: Open the build results page in your web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :param source_branch: Obsolete. Use --branch instead.
     :type source_branch: str
     :param commit_id: Commit ID of the branch to build.
     :type commit_id: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
-    try:
-        if branch is None:
-            branch = source_branch
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        if definition_id is None and definition_name is None:
-            raise ValueError('Either the --definition-id argument or the --definition-name argument ' +
-                             'must be supplied for this command.')
-        client = get_build_client(organization)
-        if definition_id is None:
-            definition_id = get_definition_id_from_name(definition_name, client, project)
-        definition_reference = DefinitionReference(id=definition_id)
-        build = Build(definition=definition_reference)
-        build.source_branch = resolve_git_ref_heads(branch)
-        build.source_version = commit_id
-        if variables is not None and variables:
-            build.parameters = {}
-            for variable in variables:
-                separator_pos = variable.find('=')
-                if separator_pos >= 0:
-                    build.parameters[variable[:separator_pos]] = variable[separator_pos + 1:]
-                else:
-                    raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
-        queued_build = client.queue_build(build=build, project=project)
-        if open:
-            _open_build(queued_build, organization)
-        return queued_build
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    if branch is None:
+        branch = source_branch
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    if definition_id is None and definition_name is None:
+        raise ValueError('Either the --definition-id argument or the --definition-name argument ' +
+                         'must be supplied for this command.')
+    client = get_build_client(organization)
+    if definition_id is None:
+        definition_id = get_definition_id_from_name(definition_name, client, project)
+    definition_reference = DefinitionReference(id=definition_id)
+    build = Build(definition=definition_reference)
+    build.source_branch = resolve_git_ref_heads(branch)
+    build.source_version = commit_id
+    if variables is not None and variables:
+        build.parameters = {}
+        for variable in variables:
+            separator_pos = variable.find('=')
+            if separator_pos >= 0:
+                build.parameters[variable[:separator_pos]] = variable[separator_pos + 1:]
+            else:
+                raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
+    queued_build = client.queue_build(build=build, project=project)
+    if open:
+        _open_build(queued_build, organization)
+    return queued_build
 
 
 def build_show(id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
@@ -82,24 +71,15 @@ def build_show(id, open=False, organization=None, project=None, detect=None):  #
     :type id: int
     :param open: Open the build results page in your web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        client = get_build_client(organization)
-        build = client.get_build(build_id=id, project=project)
-        if open:
-            _open_build(build, organization)
-        return build
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_build_client(organization)
+    build = client.get_build(build_id=id, project=project)
+    if open:
+        _open_build(build, organization)
+    return build
 
 
 def build_list(definition_ids=None, branch=None, organization=None, project=None, detect=None, top=None,
@@ -109,12 +89,6 @@ def build_list(definition_ids=None, branch=None, organization=None, project=None
     :type definition_ids: list of int
     :param branch: Filter by builds for this branch.
     :type branch: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :param top: Maximum number of builds to list.
     :type top: int
     :param result: Limit to builds with this result.
@@ -129,26 +103,73 @@ def build_list(definition_ids=None, branch=None, organization=None, project=None
     :type requested_for: str
     :rtype: :class:`<Build> <build.v4_0.models.Build>`
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        client = get_build_client(organization)
-        if definition_ids is not None and definition_ids:
-            definition_ids = list(set(definition_ids))  # make distinct
-        if tags is not None and tags:
-            tags = list(set(tags))  # make distinct
-        builds = client.get_builds(definitions=definition_ids,
-                                   project=project,
-                                   branch_name=resolve_git_ref_heads(branch),
-                                   top=top,
-                                   result_filter=result,
-                                   status_filter=status,
-                                   reason_filter=reason,
-                                   tag_filters=tags,
-                                   requested_for=resolve_identity_as_id(requested_for, organization))
-        return builds
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_build_client(organization)
+    if definition_ids is not None and definition_ids:
+        definition_ids = list(set(definition_ids))  # make distinct
+    if tags is not None and tags:
+        tags = list(set(tags))  # make distinct
+    builds = client.get_builds(definitions=definition_ids,
+                               project=project,
+                               branch_name=resolve_git_ref_heads(branch),
+                               top=top,
+                               result_filter=result,
+                               status_filter=status,
+                               reason_filter=reason,
+                               tag_filters=tags,
+                               requested_for=resolve_identity_as_id(requested_for, organization))
+    return builds
+
+
+def add_build_tags(build_id, tags, organization=None, project=None, detect=None):
+    """Add tag(s) for a build.
+    :param build_id: ID of the build.
+    :type build_id: int
+    :param tags: Tag(s) to be added to the build. [Comma seperated values]
+    :type tags: str
+    :rtype: list of str
+    """
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    client = get_build_client(organization)
+    tags = list(map(str, tags.split(',')))
+    if len(tags) == 1:
+        tags = client.add_build_tag(project=project, build_id=build_id, tag=tags[0])
+    else:
+        tags = client.add_build_tags(tags=tags, project=project, build_id=build_id)
+    return tags
+
+
+def delete_build_tag(build_id, tag, organization=None, project=None, detect=None):
+    """Delete a build tag.
+    :param build_id: ID of the build.
+    :type build_id: int
+    :param tag: Tag to be deleted from the build.
+    :type tag: str
+    :rtype: list of str
+    """
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    client = get_build_client(organization)
+    tags = client.delete_build_tag(project=project, build_id=build_id, tag=tag)
+    return tags
+
+
+def get_build_tags(build_id, organization=None, project=None, detect=None):
+    """Get tags for a build
+    :param build_id: ID of the build.
+    :type build_id: int
+    :rtype: list of str
+    """
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    client = get_build_client(organization)
+    tags = client.get_build_tags(build_id=build_id, project=project)
+    return tags
 
 
 def _open_build(build, organization):

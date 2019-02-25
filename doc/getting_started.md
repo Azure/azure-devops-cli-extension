@@ -15,7 +15,7 @@ You can also [log in via Azure DevOps Personal Access Token (PAT)](samples.md#lo
 
 Although you can provide the organization and project for each command, we recommend you set these as defaults in configuration for seamless commanding.
 
-`az devops configure defaults --organization https://dev.azure.com/contoso --project PaymentModule`
+`az devops configure --defaults organization=https://dev.azure.com/contoso project=PaymentModule`
 
 This ensures that the "contoso" and "PaymentModule" are configured as defaults for organization and project parameters. They will be used in any command that accepts organization or project as inputs.
 

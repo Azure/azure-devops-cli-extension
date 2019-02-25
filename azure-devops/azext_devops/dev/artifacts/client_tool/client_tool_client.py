@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from msrest import Serializer, Deserializer
-from vsts.vss_client import VssClient
+from azext_devops.vstsCompressed.vss_client import VssClient
 
 from . import models
 

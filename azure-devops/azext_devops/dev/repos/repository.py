@@ -8,8 +8,7 @@ import webbrowser
 
 from knack.util import CLIError
 from knack.log import get_logger
-from vsts.exceptions import VstsServiceError
-from vsts.git.v4_0.models.git_repository_create_options import GitRepositoryCreateOptions
+from azext_devops.vstsCompressed.git.v4_0.models.models import GitRepositoryCreateOptions
 from azext_devops.dev.common.services import (get_git_client,
                                               resolve_instance_and_project,
                                               resolve_instance_project_and_repo)
@@ -24,143 +23,98 @@ def create_repo(name, organization=None, project=None, detect=None, open=False):
     """Create a Git repository in a team project.
     :param name: Name for the new repository.
     :type name: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :param open: Open the repository page in your web browser.
     :type open: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        git_client = get_git_client(organization)
-        create_options = GitRepositoryCreateOptions()
-        create_options.name = name
-        repository = git_client.create_repository(git_repository_to_create=create_options,
-                                                  project=project)
-        if open:
-            _open_repository(repository, organization)
-        return repository
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    git_client = get_git_client(organization)
+    create_options = GitRepositoryCreateOptions()
+    create_options.name = name
+    repository = git_client.create_repository(git_repository_to_create=create_options,
+                                              project=project)
+    if open:
+        _open_repository(repository, organization)
+    return repository
 
 
 def delete_repo(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete a Git repository in a team project.
     :param id: ID of the repository.
     :type id: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        git_client = get_git_client(organization)
-        delete_response = git_client.delete_repository(project=project, repository_id=id)
-        print('Deleted repository {}'.format(id))
-        return delete_response
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    git_client = get_git_client(organization)
+    delete_response = git_client.delete_repository(project=project, repository_id=id)
+    print('Deleted repository {}'.format(id))
+    return delete_response
 
 
 def list_repos(organization=None, project=None, detect=None):
     """List Git repositories of a team project.
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: list of :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        git_client = get_git_client(organization)
-        repository = git_client.get_repositories(project=project)
-        return repository
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    git_client = get_git_client(organization)
+    repository = git_client.get_repositories(project=project)
+    return repository
 
 
 def update_repo(repository, default_branch=None, name=None, organization=None, project=None, detect=None):
     """Update the Git repository.
     :param repository: Name or ID of the repository.
     :type repository: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
     :param name: New name for the repository.
     :type name: str
     :param default_branch: Default branch to be set for the repository. Example: 'refs/heads/live' or 'live'.
     :type default_branch: str
-    :param detect: Automatically detect organization, project and repository. Default is "on".
-    :type detect: str
     """
     if not default_branch and not name:
         raise CLIError("Either --default-branch or --name (for rename) must be provided to update repository.")
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(
-            detect=detect,
-            organization=organization,
-            project=project,
-            project_required=True,
-            repo=repository)
-        git_client = get_git_client(organization)
-        # Get the repo to be updated
-        repository = git_client.get_repository(project=project, repository_id=repository)
-        if default_branch:
-            default_branch = resolve_git_ref_heads(default_branch)
-            repository.default_branch = default_branch
-        if name:
-            repository.name = name
-        repository = git_client.update_repository(
-            project=project, repository_id=repository.id, new_repository_info=repository)
-        return repository
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect,
+        organization=organization,
+        project=project,
+        project_required=True,
+        repo=repository)
+    git_client = get_git_client(organization)
+    # Get the repo to be updated
+    repository = git_client.get_repository(project=project, repository_id=repository)
+    if default_branch:
+        default_branch = resolve_git_ref_heads(default_branch)
+        repository.default_branch = default_branch
+    if name:
+        repository.name = name
+    repository = git_client.update_repository(
+        project=project, repository_id=repository.id, new_repository_info=repository)
+    return repository
 
 
 def show_repo(repository, organization=None, project=None, detect=None, open=False):  # pylint: disable=redefined-builtin
     """Get the details of a Git repository.
     :param repository: Name or ID of the repository.
     :type repository: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect organization, project and repository. Default is "on".
-    :type detect: str
     :param open: Open the repository page in your web browser.
     :type open: bool
     :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
     """
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(
-            detect=detect,
-            organization=organization,
-            project=project,
-            project_required=True,
-            repo=repository)
-        git_client = get_git_client(organization)
-        repository = git_client.get_repository(project=project, repository_id=repository)
-        if open:
-            _open_repository(repository, organization)
-        return repository
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect,
+        organization=organization,
+        project=project,
+        project_required=True,
+        repo=repository)
+    git_client = get_git_client(organization)
+    repository = git_client.get_repository(project=project, repository_id=repository)
+    if open:
+        _open_repository(repository, organization)
+    return repository
 
 
 def _open_repository(repository, organization):

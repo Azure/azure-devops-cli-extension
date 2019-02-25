@@ -13,12 +13,6 @@ def load_repos_help():
     long-summary:
     """
 
-    helps['repos policy'] = """
-    type: group
-    short-summary: Manage branch policy.
-    long-summary:
-    """
-
     helps['repos pr'] = """
     type: group
     short-summary: Manage pull requests.
@@ -31,13 +25,13 @@ def load_repos_help():
     long-summary:
     """
 
-    helps['repos pr reviewers'] = """
+    helps['repos pr reviewer'] = """
     type: group
     short-summary: Manage pull request reviewers.
     long-summary:
     """
 
-    helps['repos pr work-items'] = """
+    helps['repos pr work-item'] = """
     type: group
     short-summary: Manage work items associated with pull requests.
     long-summary:
@@ -49,8 +43,62 @@ def load_repos_help():
     long-summary:
     """
 
+    helps['repos policy'] = """
+    type: group
+    short-summary: Manage branch policy.
+    long-summary:
+    """
+
+    helps['repos policy approver-count'] = """
+    type: group
+    short-summary: Manage approver count policy.
+    long-summary:
+    """
+
+    helps['repos policy build'] = """
+    type: group
+    short-summary: Manage build policy.
+    long-summary:
+    """
+
+    helps['repos policy comment-required'] = """
+    type: group
+    short-summary: Manage comment required policy.
+    long-summary:
+    """
+
+    helps['repos policy file-size'] = """
+    type: group
+    short-summary: Manage file size policy.
+    long-summary:
+    """
+
+    helps['repos policy merge-strategy'] = """
+    type: group
+    short-summary: Manage merge strategy policy.
+    long-summary:
+    """
+
+    helps['repos policy required-reviewer'] = """
+    type: group
+    short-summary: Manage required reviewer policy.
+    long-summary:
+    """
+
+    helps['repos policy work-item-linking'] = """
+    type: group
+    short-summary: Manage work item linking policy.
+    long-summary:
+    """
+
+    helps['repos policy case-enforcement'] = """
+    type: group
+    short-summary: Manage case enforcement policy.
+    long-summary:
+    """
+
     helps['repos ref'] = """
-        type: group
-        short-summary: Manage Git references.
-        long-summary:
+    type: group
+    short-summary: Manage Git references.
+    long-summary:
     """

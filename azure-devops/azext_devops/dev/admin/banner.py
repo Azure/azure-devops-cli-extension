@@ -3,18 +3,14 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from vsts.exceptions import VstsServiceError
 from knack.util import CLIError
+from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
 from .setting import setting_add_or_update, setting_list, setting_remove, GLOBAL_MESSAGE_BANNERS_KEY, USER_SCOPE_HOST
 
 
 def banner_list(organization=None, detect=None):
     """List banners.
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: [object]
     """
     try:
@@ -28,10 +24,6 @@ def banner_show(id, organization=None, detect=None):  # pylint: disable=redefine
     """Show details for a banner.
     :param id: Identifier for the banner.
     :type id: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: [object]
     """
     try:
@@ -57,10 +49,6 @@ def banner_add(message, banner_type=None, id=None, expiration=None, organization
                        automatically expire and must be removed with the remove command.
                        Example : "2019-06-10 17:21:00 UTC", "2019-06-10"
     :type expiration: date
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: [object]
     """
     try:
@@ -100,10 +88,6 @@ def banner_update(message=None, banner_type=None, id=None, expiration=None, orga
                        banner, supply an empty value to this argument.
                        Example : "2019-06-10 17:21:00 UTC", "2019-06-10"
     :type expiration: date
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: [object]
     """
     try:
@@ -153,10 +137,6 @@ def banner_remove(id, organization=None, detect=None):  # pylint: disable=redefi
     """Remove a banner.
     :param id: ID of the banner to remove.
     :type id: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :rtype: [object]
     """
     try:

@@ -12,9 +12,9 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from vsts.git.v4_0.models.git_pull_request import GitPullRequest
-from vsts.git.v4_0.models.git_repository import GitRepository
-from vsts.git.v4_0.models.team_project_reference import TeamProjectReference
+from azext_devops.vstsCompressed.git.v4_0.models.models import GitPullRequest
+from azext_devops.vstsCompressed.git.v4_0.models.models import GitRepository
+from azext_devops.vstsCompressed.git.v4_0.models.models import TeamProjectReference
 from azext_devops.dev.repos.repository import (create_repo,
                                                  delete_repo,
                                                  list_repos,
@@ -32,11 +32,11 @@ class TestRepositoryMethods(unittest.TestCase):
 
     def setUp(self):
 
-        self.create_repository_patcher = patch('vsts.git.v4_0.git_client.GitClient.create_repository')
-        self.delete_repository_patcher = patch('vsts.git.v4_0.git_client.GitClient.delete_repository')
-        self.get_repositories_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_repositories')
-        self.get_repository_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_repository')
-        self.update_repository_patcher = patch('vsts.git.v4_0.git_client.GitClient.update_repository')
+        self.create_repository_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.create_repository')
+        self.delete_repository_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.delete_repository')
+        self.get_repositories_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_repositories')
+        self.get_repository_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_repository')
+        self.update_repository_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_repository')
 
         #start the patchers
         self.mock_create_repo = self.create_repository_patcher.start()

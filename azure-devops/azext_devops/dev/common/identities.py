@@ -110,5 +110,11 @@ def get_display_name_from_identity(identity):
     return identity.provider_display_name
 
 
+def get_account_from_identity(identity):
+    if 'Account' in identity.properties and '$value' in identity.properties['Account']:
+        return identity.properties['Account']['$value']
+    return identity.provider_display_name
+
+
 ME = 'me'
 _display_name_cache = get_cli_cache('identity_display_names', 3600 * 6)

@@ -5,9 +5,7 @@
 
 from webbrowser import open_new
 
-from vsts.exceptions import VstsServiceError
 from knack.log import get_logger
-from knack.util import CLIError
 from azext_devops.dev.common.services import (get_build_client, get_git_client,
                                               resolve_instance_and_project,
                                               resolve_instance_project_and_repo)
@@ -24,43 +22,34 @@ def build_definition_list(name=None, top=None, organization=None, project=None, 
     :type name: bool
     :param top: Maximum number of definitions to list.
     :type top: int
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
     :param repository: Limit results to definitions associated with this repository.
     :type repository: str
-    :param detect: Automatically detect values for organization and project. Default is "on".
-    :type detect: str
     :param repository_type: Limit results to definitions associated with this repository type.
     It is mandatory to pass 'repository' argument along with this argument.
     :type repository_type: str
     :rtype: [BuildDefinitionReference]
     """
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(
-            detect=detect, organization=organization, project=project, repo=repository)
-        client = get_build_client(organization)
-        query_order = 'DefinitionNameAscending'
-        repository_type = None
-        if repository is not None:
-            if repository_type is None:
-                repository_type = 'TfsGit'
-            if repository_type.lower() == 'tfsgit':
-                resolved_repository = _resolve_repository_as_id(repository, organization, project)
-            else:
-                resolved_repository = repository
-            if resolved_repository is None:
-                raise ValueError("Could not find a repository with name '{}', in project '{}'."
-                                 .format(repository, project))
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect, organization=organization, project=project, repo=repository)
+    client = get_build_client(organization)
+    query_order = 'DefinitionNameAscending'
+    repository_type = None
+    if repository is not None:
+        if repository_type is None:
+            repository_type = 'TfsGit'
+        if repository_type.lower() == 'tfsgit':
+            resolved_repository = _resolve_repository_as_id(repository, organization, project)
         else:
-            resolved_repository = None
-        definition_references = client.get_definitions(project=project, name=name, repository_id=resolved_repository,
-                                                       repository_type=repository_type, top=top,
-                                                       query_order=query_order)
-        return definition_references
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+            resolved_repository = repository
+        if resolved_repository is None:
+            raise ValueError("Could not find a repository with name '{}', in project '{}'."
+                             .format(repository, project))
+    else:
+        resolved_repository = None
+    definition_references = client.get_definitions(project=project, name=name, repository_id=resolved_repository,
+                                                   repository_type=repository_type, top=top,
+                                                   query_order=query_order)
+    return definition_references
 
 
 def build_definition_show(id=None, name=None, open=False, organization=None, project=None,  # pylint: disable=redefined-builtin
@@ -72,29 +61,20 @@ def build_definition_show(id=None, name=None, open=False, organization=None, pro
     :type name: str
     :param open: Open the definition summary page in your web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect values for instance and project. Default is "on".
-    :type detect: str
     :rtype: BuildDefinitionReference
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        client = get_build_client(organization)
-        if id is None:
-            if name is not None:
-                id = get_definition_id_from_name(name, client, project)
-            else:
-                raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
-        build_definition = client.get_definition(definition_id=id, project=project)
-        if open:
-            _open_definition(build_definition, organization)
-        return build_definition
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_build_client(organization)
+    if id is None:
+        if name is not None:
+            id = get_definition_id_from_name(name, client, project)
+        else:
+            raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
+    build_definition = client.get_definition(definition_id=id, project=project)
+    if open:
+        _open_definition(build_definition, organization)
+    return build_definition
 
 
 def _open_definition(definition, organization):
