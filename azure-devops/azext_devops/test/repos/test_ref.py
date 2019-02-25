@@ -45,8 +45,6 @@ class TestRefMethods(unittest.TestCase):
         self.mock_update_ref.stop()
         self.mock_update_refs.stop()
 
-        self.get_client.stop()
-
     def test_list_refs(self):
         response = list_refs(organization=self._TEST_DEVOPS_ORGANIZATION,
                              project='sample_project',
