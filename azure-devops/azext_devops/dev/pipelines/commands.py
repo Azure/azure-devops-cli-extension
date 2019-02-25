@@ -47,6 +47,10 @@ runOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.runs#{}'
 )
 
+runOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.runs#{}'
+)
+
 
 def load_build_commands(self, _):
     with self.command_group('pipelines build', command_type=buildOps) as g:
