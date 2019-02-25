@@ -8,7 +8,7 @@ from .pipeline import _open_pipeline_run
 
 def pipeline_run_show(id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details of a pipeline run.
-    :param id: ID of the build.
+    :param id: ID of the pipeline run.
     :type id: int
     :param open: Open the build results page in your web browser.
     :type open: bool
@@ -71,5 +71,64 @@ def pipeline_run_list(pipeline_id=None, branch=None, organization=None, project=
                                    tag_filters=tags,
                                    requested_for=resolve_identity_as_id(requested_for, organization))
         return builds
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
+
+def pipeline_run_add_tag(run_id, tags, organization=None, project=None, detect=None):
+    """Add tag(s) for a pipeline run.
+    :param run_id: ID of the pipeline run.
+    :type run_id: int
+    :param tags: Tag(s) to be added to the pipeline run. [Comma seperated values]
+    :type tags: str
+    :rtype: list of str
+    """
+    try:
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                             organization=organization,
+                                                             project=project)
+        client = get_pipeline_client(organization)
+        tags = list(map(str, tags.split(',')))
+        if len(tags) == 1:
+            tags = client.add_build_tag(project=project, build_id=run_id, tag=tags[0])
+        else:
+            tags = client.add_build_tags(tags=tags, project=project, build_id=run_id)
+        return tags
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
+
+def pipeline_run_delete_tag(run_id, tag, organization=None, project=None, detect=None):
+    """Delete a pipeline run tag.
+    :param run_id: ID of the pipeline run.
+    :type run_id: int
+    :param tag: Tag to be deleted from the pipeline run.
+    :type tag: str
+    :rtype: list of str
+    """
+    try:
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                             organization=organization,
+                                                             project=project)
+        client = get_pipeline_client(organization)
+        tags = client.delete_build_tag(project=project, build_id=run_id, tag=tag)
+        return tags
+    except VstsServiceError as ex:
+        raise CLIError(ex)
+
+
+def pipeline_run_get_tags(run_id, organization=None, project=None, detect=None):
+    """Get tags for a pipeline run.
+    :param run_id: ID of the  pipeline run.
+    :type run_id: int
+    :rtype: list of str
+    """
+    try:
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                             organization=organization,
+                                                             project=project)
+        client = get_pipeline_client(organization)
+        tags = client.get_build_tags(build_id=run_id, project=project)
+        return tags
     except VstsServiceError as ex:
         raise CLIError(ex)
