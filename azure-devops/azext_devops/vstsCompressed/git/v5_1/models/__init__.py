@@ -96,7 +96,7 @@ from .models import GlobalGitRepositoryKey
 from .models import GraphSubjectBase
 from .models import IdentityRef
 from .models import IdentityRefWithVote
-from .models import_repository_validation import ImportRepositoryValidation
+from .models import ImportRepositoryValidation
 from .models import ItemContent
 from .models import ItemModel
 from .models import JsonPatchOperation
