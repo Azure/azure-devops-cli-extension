@@ -20,6 +20,16 @@ class ArtifactToolInvoker:
         self._tool_invoker = tool_invoker
         self._artifacttool_updater = artifacttool_updater
 
+    def download_pipeline_artifact(self, organization, project, run_id, artifact_name, path):
+        args = ["pipelineartifact", "download", "--service", organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
+                "--project", project, "--pipeline-id", run_id, "--artifact-name", artifact_name, "--path", path]
+        return self.run_artifacttool(organization, args, "Downloading")
+
+    def upload_pipeline_artifact(self, organization, project, run_id, artifact_name, path):
+        args = ["pipelineartifact", "publish", "--service", organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
+                "--project", project, "--pipeline-id", run_id, "--artifact-name", artifact_name, "--path", path]
+        return self.run_artifacttool(organization, args, "Uploading")
+
     def download_universal(self, organization, feed, package_name, package_version, path):
         args = ["universal", "download", "--service", organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
                 "--feed", feed, "--package-name", package_name, "--package-version", package_version, "--path", path]
