@@ -19,7 +19,7 @@ class ReposRefTests(ScenarioTest):
 
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
-    def test_ref_createListDelete(self):
+    def test_ref_createListUpdateDelete(self):
 
         REPO_NAME = '--repository BuildTests --output json --detect off'
         REF_NAME = 'heads/' + get_random_name(8)
@@ -43,6 +43,18 @@ class ReposRefTests(ScenarioTest):
         assert created_object_id is not None
         assert created_ref['updateStatus'] == 'succeeded'
         assert created_ref['success'] is True
+
+        # lock the reference
+        lock_command = 'az repos ref lock --name {} {}'.format(REF_NAME, REPO_NAME)
+        locked_ref = self.cmd(lock_command).get_output_in_json()
+        assert locked_ref['isLocked'] is True
+        assert locked_ref['isLockedBy'] is not None
+
+        # unlock the reference
+        unlock_command = 'az repos ref unlock --name {} {}'.format(REF_NAME, REPO_NAME)
+        unlocked_ref = self.cmd(unlock_command).get_output_in_json()
+        assert unlocked_ref['isLocked'] is None
+        assert unlocked_ref['isLockedBy'] is None
 
         # delete the reference
         delete_command = 'az repos ref delete --name {} --object-id {} {}'.format(REF_NAME, created_object_id, REPO_NAME)

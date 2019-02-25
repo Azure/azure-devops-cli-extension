@@ -136,4 +136,5 @@ def load_code_commands(self, _):
         g.command('create', 'create_ref', table_transformer=transform_ref_table_output)
         g.command('delete', 'delete_ref', table_transformer=transform_ref_table_output)
         g.command('list', 'list_refs', table_transformer=transform_refs_table_output)
-        g.command('update', 'update_ref', table_transformer=transform_ref_table_output)
+        g.command('lock', 'lock_ref', table_transformer=transform_ref_table_output)
+        g.command('unlock', 'unlock_ref', table_transformer=transform_ref_table_output)

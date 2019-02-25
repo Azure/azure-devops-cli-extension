@@ -14,7 +14,7 @@
 1. run an individual test:
 
     ```bash
-    cd azure-devops
+    cd azure-devops/azext_devops
     pytest test/artifacts/test_universal.py
     ```
 
