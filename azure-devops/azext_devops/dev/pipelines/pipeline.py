@@ -233,13 +233,17 @@ def pipeline_update(name, description=None, url=None, repository_url=None, branc
     raise CLIError('Command not implemented.')
 
 
-def pipeline_run(id=None, name=None, open=False,  # pylint: disable=redefined-builtin
+def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False,  # pylint: disable=redefined-builtin
                  organization=None, project=None, detect=None):
     """Request (run) a pipeline.
     :param id: ID of the pipeline to queue. Required if --name is not supplied.
     :type id: int
     :param name: Name of the pipeline to queue. Ignored if --id is supplied.
     :type name: str
+    :param branch: Name of the branch on which the pipeline run is to be queued.
+    :type branch: str
+    :param commit_id: Commit-id on which the pipeline run is to be queued.
+    :type commit_id: str
     :param open: Open the pipeline results page in your web browser.
     :type open: bool
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
@@ -260,7 +264,7 @@ def pipeline_run(id=None, name=None, open=False,  # pylint: disable=redefined-bu
         if id is None:
             id = get_definition_id_from_name(name, client, project)
         definition_reference = DefinitionReference(id=id)
-        build = Build(definition=definition_reference)
+        build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)
         queued_build = client.queue_build(build=build, project=project)
         if open:
             _open_pipeline(queued_build, organization)
