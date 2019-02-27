@@ -96,3 +96,9 @@ def load_repos_help():
     short-summary: Manage case enforcement policy.
     long-summary:
     """
+
+    helps['repos ref'] = """
+    type: group
+    short-summary: Manage Git references.
+    long-summary:
+    """

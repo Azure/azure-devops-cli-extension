@@ -9,6 +9,8 @@ from ._format import (transform_pull_request_table_output,
                       transform_pull_requests_table_output,
                       transform_repo_table_output,
                       transform_repos_table_output,
+                      transform_ref_table_output,
+                      transform_refs_table_output,
                       transform_reviewers_table_output,
                       transform_reviewer_table_output,
                       transform_policies_table_output,
@@ -22,6 +24,10 @@ from ._format import (transform_pull_request_table_output,
 reposPullRequestOps = CliCommandType(
     operations_tmpl='azext_devops.dev.repos.pull_request#{}',
     exception_handler=azure_devops_exception_handler
+)
+
+reposRefOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.repos.ref#{}'
 )
 
 reposRepositoryOps = CliCommandType(
@@ -40,7 +46,7 @@ policyOps = CliCommandType(
 )
 
 
-def load_code_commands(self, _):
+def load_code_commands(self, _):  # pylint: disable=too-many-statements
     with self.command_group('repos', command_type=reposRepositoryOps) as g:
         # repository commands
         g.command('create', 'create_repo', table_transformer=transform_repo_table_output)
@@ -124,3 +130,11 @@ def load_code_commands(self, _):
     with self.command_group('repos import', command_type=reposImportOps) as g:
         # import request
         g.command('create', 'create_import_request', table_transformer=transform_repo_import_table_output)
+
+    with self.command_group('repos ref', command_type=reposRefOps) as g:
+        # refs commands
+        g.command('create', 'create_ref', table_transformer=transform_ref_table_output)
+        g.command('delete', 'delete_ref', table_transformer=transform_ref_table_output)
+        g.command('list', 'list_refs', table_transformer=transform_refs_table_output)
+        g.command('lock', 'lock_ref', table_transformer=transform_ref_table_output)
+        g.command('unlock', 'unlock_ref', table_transformer=transform_ref_table_output)

@@ -172,6 +172,22 @@
         "status": "None"
     },
     {
+        "name": "repos ref create",
+        "status": "None"
+    },
+    {
+        "name": "repos ref delete",
+        "status": "None"
+    },
+    {
+        "name": "repos ref list",
+        "status": "None"
+    },
+    {
+        "name": "repos ref update",
+        "status": "None"
+    },
+    {
         "name": "devops login",
         "status": "None"
     },
