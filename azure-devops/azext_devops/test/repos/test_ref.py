@@ -21,9 +21,9 @@ from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_O
 class TestRefMethods(unittest.TestCase):
 
     def setUp(self):
-        self.get_refs_patcher = patch('vsts.git.v4_0.git_client.GitClient.get_refs')
-        self.update_ref_patcher = patch('vsts.git.v4_0.git_client.GitClient.update_ref')
-        self.update_refs_patcher = patch('vsts.git.v4_0.git_client.GitClient.update_refs')
+        self.get_refs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_refs')
+        self.update_ref_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_ref')
+        self.update_refs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_refs')
 
         # patch get client so no network call is made
         self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client', new=get_client_mock_helper)
