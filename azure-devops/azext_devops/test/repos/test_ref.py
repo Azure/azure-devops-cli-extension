@@ -63,49 +63,5 @@ class TestRefMethods(unittest.TestCase):
                                                    project='sample_project',
                                                    repository_id=None)
 
-    # def test_create_ref(self):
-    #     response = create_ref(name='sample_ref',
-    #                           object_id='1234567890',
-    #                           organization=TEST_DEVOPS_ORG_URL,
-    #                           project='sample_project',
-    #                           detect='off')
-    #     # assert
-    #     self.mock_update_refs.assert_called_once_with(project='sample_project',
-    #                                                   ref_updates=ANY,
-    #                                                   repository_id=None)
-
-    # def test_lock_ref(self):
-    #     response = lock_ref(name='sample_ref',
-    #                         organization=TEST_DEVOPS_ORG_URL,
-    #                         project='sample_project',
-    #                         detect='off')
-    #     # assert
-    #     self.mock_update_ref.assert_called_once_with(project='sample_project',
-    #                                                  new_ref_info=ANY,
-    #                                                  filter='sample_ref',
-    #                                                  repository_id=None)
-
-    # def test_unlock_ref(self):
-    #     response = unlock_ref(name='sample_ref',
-    #                           organization=TEST_DEVOPS_ORG_URL,
-    #                           project='sample_project',
-    #                           detect='off')
-    #     # assert
-    #     self.mock_update_ref.assert_called_once_with(project='sample_project',
-    #                                                  new_ref_info=ANY,
-    #                                                  filter='sample_ref',
-    #                                                  repository_id=None)
-
-    # def test_delete_ref(self):
-    #     response = delete_ref(name='sample_ref',
-    #                           object_id='1234567890',
-    #                           organization=TEST_DEVOPS_ORG_URL,
-    #                           project='sample_project',
-    #                           detect='off')
-    #     # assert
-    #     self.mock_update_ref.assert_called_once_with(project='sample_project',
-    #                                                  ref_updates=ANY,
-    #                                                  repository_id=None)
-
 if __name__ == '__main__':
     unittest.main()
