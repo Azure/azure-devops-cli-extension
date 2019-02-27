@@ -75,7 +75,7 @@ jobs:
   steps:
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.7.0'
+      pythonVersion: '3.7.2'
 
 - job: 'Code_Coverage'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
