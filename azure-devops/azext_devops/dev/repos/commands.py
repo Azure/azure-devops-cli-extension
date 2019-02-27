@@ -46,7 +46,7 @@ policyOps = CliCommandType(
 )
 
 
-def load_code_commands(self, _):
+def load_code_commands(self, _):  # pylint: disable=too-many-statements
     with self.command_group('repos', command_type=reposRepositoryOps) as g:
         # repository commands
         g.command('create', 'create_repo', table_transformer=transform_repo_table_output)
