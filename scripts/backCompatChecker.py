@@ -19,8 +19,8 @@ class Arguments(dict):
 
 def extractArgumentsFromCommand(command):
     argumentList = []
-    commandExtended = 'cmd /c az ' + command + ' -h'
-    help_text = subprocess.run(commandExtended.split(' '),stdout=subprocess.PIPE)
+    commandExtended = 'az ' + command + ' -h'
+    help_text = subprocess.run(commandExtended.split(' '), shell=True, stdout=subprocess.PIPE)
     regexReesult = re.search('Arguments(.*)Global Arguments',str(help_text))
     result = regexReesult.group(1)
     argumentLines = result.split('\\r\\n')
@@ -42,7 +42,7 @@ def extractArgumentsFromCommand(command):
 
 
 # install extension from index
-subprocess.run(['cmd','/c','az','extension','add','-n','azure-devops'],stdout=subprocess.PIPE)
+subprocess.run(['az','extension','add','-n','azure-devops'], shell=True, stdout=subprocess.PIPE)
 
 # add extension path to sys.path so that we can get all the commands
 import sys
@@ -62,7 +62,7 @@ for command in loader.command_table:
     oldArguments.extend(extractArgumentsFromCommand(command))
 
 # uninstall extension loaded from index
-subprocess.run(['cmd','/c','az','extension','remove','-n','azure-devops'],stdout=subprocess.PIPE)
+subprocess.run(['az','extension','remove','-n','azure-devops'], shell=True, stdout=subprocess.PIPE)
 
 # search and install extension from given path
 def findExtension():
@@ -72,7 +72,7 @@ def findExtension():
                 return os.path.join(p, file)
 
 newExtensionLocation = findExtension()
-subprocess.run(['cmd','/c','az','extension','add','--source', newExtensionLocation, '-y'],stdout=subprocess.PIPE)
+subprocess.run(['az','extension','add','--source', newExtensionLocation, '-y'], shell=True, stdout=subprocess.PIPE)
 
 # get a set of old commands, we are not reusing the set from ext because we want to keep this clean
 oldCommands = []
