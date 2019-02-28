@@ -192,9 +192,6 @@ jobs:
     displayName: 'Build wheel for Azure DevOps CLI extension'
     workingDirectory: 'azure-devops/'
 
-  - script: 'az extension add -n azure-devops'
-    displayName: 'Install Azure DevOps extension'
-
   - task: PythonScript@0
     displayName: 'Run Back Compat Argument Check'
     inputs:
