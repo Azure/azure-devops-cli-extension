@@ -21,24 +21,14 @@ steps:
     - script: pytest --junitxml "TEST-results.xml"
       displayName: 'Run Tests'
   
-  - ${{ if eq(parameters.runOnlyRecordedTests, 'false') }}:
-    - task: PublishTestResults@2
-      displayName: 'Publish Test Results'
-      inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: '**TEST-*.xml'
-        searchFolder: '$(System.DefaultWorkingDirectory)/'
-      condition: succeededOrFailed()
-
   - ${{ if eq(parameters.runOnlyRecordedTests, 'true') }}:
     - script: pytest tests --junitxml "TEST-results.xml"
       displayName: 'Run Tests'
-  
-  - ${{ if eq(parameters.runOnlyRecordedTests, 'true') }}:
-    - task: PublishTestResults@2
-      displayName: 'Publish Test Results'
-      inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: '**TEST-*.xml'
-        searchFolder: '$(System.DefaultWorkingDirectory)/tests'
-      condition: succeededOrFailed()
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**TEST-*.xml'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+    condition: succeededOrFailed()
