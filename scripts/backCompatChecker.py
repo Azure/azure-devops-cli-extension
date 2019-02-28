@@ -27,7 +27,6 @@ def extractArgumentsFromCommand(command):
     regexReesult = re.search('Arguments(.*)Global Arguments',str(help_text))
     result = regexReesult.group(1)
     argumentLines = result.split('\\r\\n')
-    # print(argumentLines)
 
     for argumentLine in argumentLines:
         argumentLineSplits = argumentLine.split(" : ")
