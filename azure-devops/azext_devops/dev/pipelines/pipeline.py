@@ -95,6 +95,8 @@ def pipeline_create(name, description=None, url=None, repository_name=None, repo
                 repository_type = try_get_repository_type(url)
             elif repository_url:
                 repository_type = try_get_repository_type(repository_url)
+            elif repository:
+                repository_type = 'tfsgit'
             if not repository_type:
                 raise CLIError("--repository-type must be specified.")
         else:
