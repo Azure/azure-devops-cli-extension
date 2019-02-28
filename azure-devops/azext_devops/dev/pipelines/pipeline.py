@@ -17,6 +17,8 @@ from azext_devops.dev.common.services import (get_pipeline_client,
                                               resolve_instance_project_and_repo)
 from azext_devops.dev.common.uri import uri_quote, uri_parse
 from azext_devops.dev.common.uuid import is_uuid
+from azext_devops.dev.common.git import get_remote_url, get_current_branch_name
+from azext_devops.dev.common.arguments import should_detect
 from azext_devops.dev.common.prompting import (prompt_user_friendly_choice_list,
                                                verify_is_a_tty_or_raise_error)
 from azext_devops.dev.common.const import AZ_DEVOPS_GITHUB_PAT_ENVKEY
@@ -57,7 +59,8 @@ def pipeline_create(name, description=None, url=None, repository_name=None, repo
     :param repository_url: Repository clone url for which the pipeline will be configured.
     Ignored if --url is specified.
     :type repository_url: str
-    :param repository_name: Name of the repository for a Azure Devops repository or owner/reponame in case of Github Repo.
+    :param repository_name: Name of the repository for a Azure Devops repository or owner/reponame
+    in case of Github Repo.
     --repository-type argument is required with this. Ignored if --url or --repository-url is supplied
     :type repository_url: str
     :param branch: Branch name for which the pipeline will be configured. Ignored if --url is specified.
@@ -83,7 +86,10 @@ def pipeline_create(name, description=None, url=None, repository_name=None, repo
     try:
         organization, project, repository = resolve_instance_project_and_repo(
             detect=detect, organization=organization, project=project, repo=repository_name)
-        # Todo: Detect repository from git clone url here if url or repository-url is not specified.
+        if not url and not repository_url and not repository:
+            repository_url = _get_repository_url_from_local_repo(detect=detect)
+        if not branch and should_detect(detect):
+            branch = get_current_branch_name()
         if not repository_type:
             if url:
                 repository_type = try_get_repository_type(url)
@@ -91,6 +97,8 @@ def pipeline_create(name, description=None, url=None, repository_name=None, repo
                 repository_type = try_get_repository_type(repository_url)
             if not repository_type:
                 raise CLIError("--repository-type must be specified.")
+        else:
+            repository_type = repository_type.lower()
 
         if not url and (not repository_url or not branch) and (
                 (not repository or repository_type != 'tfsgit' or not branch)):
@@ -330,6 +338,22 @@ def _resolve_repository_as_id(repository, organization, project):
             if found_repository.name.lower() == repository.lower():
                 return found_repository.id
     return None
+
+
+def _get_repository_url_from_local_repo(detect):
+    if should_detect(detect):
+        return get_remote_url(is_github_url_candidate)
+    return None
+
+
+def is_github_url_candidate(url):
+    if url is None:
+        return False
+    components = uri_parse(url.lower())
+    if components.netloc == 'github.com':
+        return True
+    return False
+
 
 def _parse_github_repo_info(github_file_url):
     _REPOSITORY_PARSE_ERROR = 'Repository could not be parsed to a yml file in a Github repository.'
