@@ -38,6 +38,19 @@ jobs:
 
   - template: templates/build-publish-azure-cli-test-sdk.yml
 
+- job: 'Run_Test_From_Old_Release'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'macOS-10.13'
+
+  steps:
+  - script: git checkout release-0.3.0
+
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.7.0'
+      runOnlyRecordedTests: 'true'
+
 - job: 'Run_Test_Windows'
   dependsOn : [ 'Build_Publish_Azure_CLI_Test_SDK', 'Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
