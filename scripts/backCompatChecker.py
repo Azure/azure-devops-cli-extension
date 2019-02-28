@@ -40,7 +40,6 @@ def extractArgumentsFromCommand(command):
 
     return argumentList
 
-
 # install extension from index
 subprocess.run(['az','extension','add','-n','azure-devops'], shell=True, stdout=subprocess.PIPE)
 
