@@ -104,6 +104,6 @@ jobs:
       title: $(RTitle)
       assets: '$(System.ArtifactsDirectory)/extension/**/*.whl' 
       assetUploadMode: 'delete'
-      isDraft: false
-      isPreRelease: true
+      isDraft: true
+      isPreRelease: false
       addChangeLog: true 
