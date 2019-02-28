@@ -21,7 +21,7 @@ def load_code_arguments(self, _):
         context.argument('reviewers', nargs='*')
 
     with self.argument_context('repos policy') as context:
-        context.argument('policy_configuration', options_list=('--policy-configuration', '--config'),
+        context.argument('policy_configuration', options_list=('--policy-configuration'),
                          help='Local file path for configuration file. ' +
                          'Please use / backslash when typing in directory path. ')
         context.argument('policy_id', options_list=('--policy-id', '--id'),
