@@ -132,7 +132,10 @@ def pipeline_create(name, description=None, url=None, repository_name=None, repo
         definition = _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, branch,
                                                    service_endpoint, repository_type, yml_path, queue_id)
         client = get_pipeline_client(organization)
-        return client.create_definition(definition=definition, project=project)
+        created_definition = client.create_definition(definition=definition, project=project)
+        logger.warning('Successfully create a pipeline definition Name: %s, Id: %s.',
+                       created_definition.name, created_definition.id)
+        return client.queue_build(build=Build(definition=created_definition), project=project)
     except VstsServiceError as ex:
         raise CLIError(ex)
 

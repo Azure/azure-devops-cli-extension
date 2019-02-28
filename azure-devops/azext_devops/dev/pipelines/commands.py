@@ -57,7 +57,7 @@ pipelinesRunOps = CliCommandType(
 
 def load_build_commands(self, _):
     with self.command_group('pipelines', command_type=pipelinesOps) as g:
-        g.command('create', 'pipeline_create', table_transformer=transform_definition_table_output)
+        g.command('create', 'pipeline_create', table_transformer=transform_build_table_output)
         g.command('list', 'pipeline_list', table_transformer=transform_definitions_table_output)
         g.command('show', 'pipeline_show', table_transformer=transform_definition_table_output)
         g.command('delete', 'pipeline_delete')
