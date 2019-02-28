@@ -15,7 +15,7 @@ from azext_devops.dev.common.uuid import is_uuid
 logger = get_logger(__name__)
 
 
-def build_definition_list(fake_argument, name=None, top=None, organization=None, project=None, repository=None,
+def build_definition_list(name=None, top=None, organization=None, project=None, repository=None,
                           repository_type=None, detect=None):
     """List build definitions.
     :param name: Limit results to definitions with this name or starting with this name. Examples: "FabCI" or "Fab*"
