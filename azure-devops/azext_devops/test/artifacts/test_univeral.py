@@ -14,8 +14,8 @@ except ImportError:
 
 from azext_devops.dev.artifacts.universal import (publish_package,
                                                  download_package)
-from azext_devops.dev.artifacts.artifacttool import ArtifactToolInvoker
-from azext_devops.dev.artifacts.const import ARTIFACTTOOL_PAT_ENVKEY
+from azext_devops.dev.common.artifacttool import ArtifactToolInvoker
+from azext_devops.dev.common.const import ARTIFACTTOOL_PAT_ENVKEY
 from azext_devops.dev.common.services import clear_connection_cache
 
 
