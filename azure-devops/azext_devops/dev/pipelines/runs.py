@@ -22,6 +22,7 @@ from azext_devops.dev.common.uri import uri_quote
 
 logger = get_logger(__name__)
 
+
 def run_artifact_download(run_id=None, artifact_name=None, path=None, organization=None, project=None, detect=None):
     """Download a pipeline artifact.
     :param run_id: ID of the run that the artifact is associated to.
@@ -40,6 +41,7 @@ def run_artifact_download(run_id=None, artifact_name=None, path=None, organizati
     except VstsServiceError as ex:
         raise CLIError(ex)
 
+
 def run_artifact_list(run_id=None, organization=None, project=None, detect=None):
     """List artifacts associate with run.
     :param run_id: ID of the run that the artifact is associated to.
@@ -53,6 +55,7 @@ def run_artifact_list(run_id=None, organization=None, project=None, detect=None)
         return artifacts
     except VstsServiceError as ex:
         raise CLIError(ex)
+
 
 def run_artifact_upload(run_id=None, artifact_name=None, path=None, organization=None, project=None, detect=None):
     """Upload a pipeline artifact.
@@ -71,4 +74,3 @@ def run_artifact_upload(run_id=None, artifact_name=None, path=None, organization
         return artifact_tool.upload_pipeline_artifact(organization, project, run_id, artifact_name, path)
     except VstsServiceError as ex:
         raise CLIError(ex)
-        
