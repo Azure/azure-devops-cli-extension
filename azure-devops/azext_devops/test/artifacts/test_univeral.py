@@ -32,7 +32,7 @@ class TestUniversalPackages(unittest.TestCase):
 
     def setUp(self):
 
-        self.run_artifacttool = patch('azext_devops.dev.artifacts.artifacttool.ArtifactToolInvoker.run_artifacttool')
+        self.run_artifacttool = patch('azext_devops.dev.common.artifacttool.ArtifactToolInvoker.run_artifacttool')
 
         #start the patchers
         self.mock_run_artifacttool = self.run_artifacttool.start()

@@ -3,22 +3,15 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from webbrowser import open_new
-
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.vstsCompressed.exceptions import VstsServiceError
-from azext_devops.vstsCompressed.build.v4_0.models.models import Build
-from azext_devops.vstsCompressed.build.v4_0.models.models import DefinitionReference
-from azext_devops.dev.common.git import resolve_git_ref_heads
-from azext_devops.dev.common.identities import resolve_identity_as_id
 from azext_devops.dev.common.services import (get_build_client,
                                               resolve_instance_and_project,
                                               resolve_instance)
 from azext_devops.dev.common.artifacttool import ArtifactToolInvoker
 from azext_devops.dev.common.artifacttool_updater import ArtifactToolUpdater
 from azext_devops.dev.common.external_tool import ProgressReportingExternalToolInvoker
-from azext_devops.dev.common.uri import uri_quote
 
 logger = get_logger(__name__)
 
@@ -35,7 +28,6 @@ def run_artifact_download(run_id=None, artifact_name=None, path=None, organizati
 
     try:
         organization = resolve_instance(detect=detect, organization=organization)
-        client = get_build_client(organization)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         return artifact_tool.download_pipeline_artifact(organization, project, run_id, artifact_name, path)
     except VstsServiceError as ex:
@@ -69,7 +61,6 @@ def run_artifact_upload(run_id=None, artifact_name=None, path=None, organization
 
     try:
         organization = resolve_instance(detect=detect, organization=organization)
-        client = get_build_client(organization)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         return artifact_tool.upload_pipeline_artifact(organization, project, run_id, artifact_name, path)
     except VstsServiceError as ex:
