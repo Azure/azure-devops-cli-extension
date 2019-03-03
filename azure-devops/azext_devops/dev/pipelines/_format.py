@@ -182,3 +182,4 @@ def _transform_runs_artifact_row(row):
     table_row['Name'] = row['name']
     table_row['Type'] = row['resource']['type']
     return table_row
+    

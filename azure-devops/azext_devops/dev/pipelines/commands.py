@@ -90,3 +90,4 @@ def load_build_commands(self, _):
         g.command('download', 'run_artifact_download')
         g.command('list', 'run_artifact_list', table_transformer=transform_runs_artifact_table_output)
         g.command('upload', 'run_artifact_upload')
+        

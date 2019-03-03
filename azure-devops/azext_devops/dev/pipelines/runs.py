@@ -71,3 +71,4 @@ def run_artifact_upload(run_id=None, artifact_name=None, path=None, organization
         return artifact_tool.upload_pipeline_artifact(organization, project, run_id, artifact_name, path)
     except VstsServiceError as ex:
         raise CLIError(ex)
+        
