@@ -1,5 +1,6 @@
 parameters:
   pythonVersion: ''
+  runOnlyRecordedTests: 'false'
 
 steps:
   - task: UsePythonVersion@0
@@ -16,13 +17,18 @@ steps:
 
   - template: download-install-local-azure-devops-cli-extension.yml
 
-  - script: pytest --junitxml "TEST-results.xml"
-    displayName: 'Run Tests'
+  - ${{ if eq(parameters.runOnlyRecordedTests, 'false') }}:
+    - script: pytest --junitxml "TEST-results.xml"
+      displayName: 'Run Tests'
   
+  - ${{ if eq(parameters.runOnlyRecordedTests, 'true') }}:
+    - script: pytest tests --junitxml "TEST-results.xml"
+      displayName: 'Run Tests'
+
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
     inputs:
       testResultsFormat: 'JUnit'
       testResultsFiles: '**TEST-*.xml'
-      searchFolder: '$(System.DefaultWorkingDirectory)/'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
     condition: succeededOrFailed()
