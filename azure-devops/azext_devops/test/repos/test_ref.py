@@ -18,15 +18,9 @@ from azext_devops.dev.repos.ref import (list_refs, create_ref, delete_ref, lock_
 from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
 
 
-class TestRefMethods(unittest.TestCase):
+class AuthenticatedTests(unittest.TestCase):
 
-    def setUp(self):
-        self.get_refs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_refs')
-        self.update_ref_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_ref')
-        self.update_refs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_refs')
-
-        # patch get client so no network call is made
-        self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client', new=get_client_mock_helper)
+    def authentication_setUp(self):
         self.resolve_identity_patcher = patch('azext_devops.dev.common.identities.resolve_identity_as_id')
         self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
         self.validate_token_patcher = patch('azext_devops.dev.common.services.validate_token_for_instance')
@@ -36,11 +30,26 @@ class TestRefMethods(unittest.TestCase):
         self.mock_get_credential = self.get_credential_patcher.start()
         self.mock_validate_token = self.validate_token_patcher.start()
 
+    def authenticate(self):
+        # set return values
+        self.mock_validate_token.return_value = True
+
+
+class TestRefMethods(AuthenticatedTests):
+
+    def setUp(self):
+        self.authentication_setUp()
+
+        self.get_refs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_refs')
+        self.update_ref_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_ref')
+        self.update_refs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_refs')
+
         self.mock_get_refs = self.get_refs_patcher.start()
         self.mock_update_ref = self.update_ref_patcher.start()
         self.mock_update_refs = self.update_refs_patcher.start()
 
         # Setup mocks for clients
+        self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client', new=get_client_mock_helper)
         self.mock_get_client = self.get_client.start()
 
         # clear connection cache before running each test
@@ -52,16 +61,68 @@ class TestRefMethods(unittest.TestCase):
         self.mock_update_refs.stop()
 
     def test_list_refs(self):
-        # set return values
-        self.mock_validate_token.return_value = True
+        self.authenticate()
 
         response = list_refs(organization=TEST_DEVOPS_ORG_URL,
                              project='sample_project',
                              detect='off')
-        self.mock_get_refs.assert_called_once()
+        # assert
         self.mock_get_refs.assert_called_once_with(filter=None,
                                                    project='sample_project',
                                                    repository_id=None)
+
+    def test_create_ref(self):
+        self.authenticate()
+
+        response = create_ref(name='sample_ref',
+                              object_id='1234567890',
+                              organization=TEST_DEVOPS_ORG_URL,
+                              project='sample_project',
+                              detect='off')
+        # assert
+        self.mock_update_refs.assert_called_once_with(project='sample_project',
+                                                      ref_updates=ANY,
+                                                      repository_id=None)
+
+    def test_lock_ref(self):
+        self.authenticate()
+
+        response = lock_ref(name='sample_ref',
+                            organization=TEST_DEVOPS_ORG_URL,
+                            project='sample_project',
+                            detect='off')
+        # assert
+        self.mock_update_ref.assert_called_once_with(project='sample_project',
+                                                     new_ref_info=ANY,
+                                                     filter='sample_ref',
+                                                     repository_id=None)
+
+    def test_unlock_ref(self):
+        self.authenticate()
+
+        response = unlock_ref(name='sample_ref',
+                              organization=TEST_DEVOPS_ORG_URL,
+                              project='sample_project',
+                              detect='off')
+        # assert
+        self.mock_update_ref.assert_called_once_with(project='sample_project',
+                                                     new_ref_info=ANY,
+                                                     filter='sample_ref',
+                                                     repository_id=None)
+
+    def test_delete_ref(self):
+        self.authenticate()
+
+        response = delete_ref(name='sample_ref',
+                              object_id='1234567890',
+                              organization=TEST_DEVOPS_ORG_URL,
+                              project='sample_project',
+                              detect='off')
+        # assert
+        self.mock_update_refs.assert_called_once_with(project='sample_project',
+                                                      ref_updates=ANY,
+                                                      repository_id=None)
+
 
 if __name__ == '__main__':
     unittest.main()
