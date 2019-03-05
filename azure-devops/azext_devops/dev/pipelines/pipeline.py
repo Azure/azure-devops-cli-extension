@@ -523,11 +523,9 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
         f.write(yml_options[yml_selection_index].content)
         f.close()
         # open the file
-        import subprocess
-        doc = subprocess.Popen(["start", "/WAIT", temp_filename], shell=True)
-        doc.wait()
+        _open_file(temp_filename)
         proceed_selection = prompt_user_friendly_choice_list(
-            'Do you want to proceed creating a pipeline?',
+            'We have opened the pipeline yaml file for you to review/edit. Please edit, save and close the file in the editor before proceeding. Do you want to proceed creating a pipeline?',
             ['Proceed with this yml', 'Revisit recommendations'])
     # Read updated data from the file
     f = open(temp_filename, mode='r')
@@ -554,6 +552,17 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
         logger.warning('File checkin is not handled for this repository type.'\
                        ' Checkin the created yml in the repository and then run the pipeline created by this command.')
     return checkin_path
+
+
+def _open_file(filepath):
+    import subprocess
+    import platform
+    if platform.system() == 'Darwin':       # macOS
+        subprocess.call(('open', filepath))
+    elif platform.system() == 'Windows':    # Windows
+        os.startfile(filepath)
+    else:                                   # linux variants
+        subprocess.call(('xdg-open', filepath))
 
 
 def _checkin_file_to_azure_repo(path_to_commit, content, repo_name, branch,
