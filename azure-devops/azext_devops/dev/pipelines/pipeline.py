@@ -17,7 +17,7 @@ from azext_devops.dev.common.services import (get_pipeline_client,
                                               resolve_instance_project_and_repo)
 from azext_devops.dev.common.uri import uri_quote, uri_parse
 from azext_devops.dev.common.uuid import is_uuid
-from azext_devops.dev.common.git import get_remote_url, get_current_branch_name
+from azext_devops.dev.common.git import get_remote_url, get_current_branch_name, resolve_git_ref_heads
 from azext_devops.dev.common.arguments import should_detect
 from azext_devops.dev.common.prompting import (prompt_user_friendly_choice_list,
                                                verify_is_a_tty_or_raise_error)
@@ -37,7 +37,7 @@ logger = get_logger(__name__)
 
 
 class YmlOptions:
-    def __init__(self, name, id, content, description='Custom yml', params=None, path=None):
+    def __init__(self, name, id, content, description='Custom yml', params=None, path=None):  # pylint: disable=redefined-builtin
         self.name = name
         self.id = id
         self.description = description
@@ -126,7 +126,7 @@ def pipeline_create(name, description=None, url=None, repository_name=None, repo
             service_endpoint = get_github_service_endpoint(organization, project)
 
         new_pipeline_client = get_new_pipeline_client(organization=organization)
-        # No yml path == find or recommend yml scenario
+        # No yml path => find or recommend yml scenario
         if not yml_path:
             yml_path = _create_and_get_yml_path(new_pipeline_client, repository_type, repo_id, repo_name, branch,
                                                 yml_props, service_endpoint, project, organization)
@@ -218,8 +218,7 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
 
 
 def pipeline_update(name, description=None, url=None, repository_url=None, branch=None, yml_path=None,
-                    repository_type=None, service_endpoint=None, yml_props=None,
-                    organization=None, project=None, detect=None):
+                    repository_type=None, service_endpoint=None, organization=None, project=None, detect=None):
     """Update a pipeline
     :param name: Name of the pipeline to update
     :type name: str
@@ -489,7 +488,7 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
         project=project, repository_type=repository_type,
         repository_id=repo_id, branch=branch, service_connection_id=service_endpoint)
     for configuration in configurations:
-        if configuration.path == 'azure-pipelines.yml':
+        if configuration.path.strip('/') == 'azure-pipelines.yml':
             default_yml_exists = True
         logger.debug('The repo has a yml pipeline definition. Path: %s', configuration.path)
         custom_name = 'Existing yml (path={})'.format(configuration.path)
@@ -549,10 +548,56 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
     if repository_type == 'github':
         checkin_file_to_github(checkin_path, content, service_endpoint, repo_name, branch,
                                organization, project)
+    if repository_type == 'tfsgit':
+        _checkin_file_to_azure_repo(checkin_path, content, repo_name, branch, organization, project)
     else:
         logger.warning('File checkin is not handled for this repository type.'\
                        ' Checkin the created yml in the repository and then run the pipeline created by this command.')
     return checkin_path
+
+
+def _checkin_file_to_azure_repo(path_to_commit, content, repo_name, branch,
+                                organization, project, message="Set up CI with Azure Pipelines"):
+    git_client = get_git_client(organization=organization)
+    from azext_devops.vstsCompressed.git.v4_0.models import GitPush, GitRefUpdate
+    # Get base commit Id
+    all_heads_refs = git_client.get_refs(repository_id=repo_name,
+                                         project=project,
+                                         filter='heads/')
+    old_object_id = None
+    for ref in all_heads_refs:
+        if ref.name == resolve_git_ref_heads(branch):
+            old_object_id = ref.object_id
+    if not old_object_id:
+        raise CLIError('Cannot checkin the file. Error in getting the commits info for {branch}'.format(branch=branch))
+
+    push_object = GitPush()
+    ref_update = GitRefUpdate()
+    ref_update.name = resolve_git_ref_heads(branch)
+    ref_update.old_object_id = old_object_id
+    push_object.ref_updates = [ref_update]
+    push_object.commits = _get_commits_object(path_to_commit, content, message)
+    git_client.create_push(push=push_object, repository_id=repo_name, project=project)
+
+
+def _get_commits_object(path_to_commit, content, message):
+    return [
+        {
+            "comment": message,
+            "changes": [
+                {
+                    "changeType": "add",
+                    "item": {
+                        "path": path_to_commit
+                    },
+                    "newContent": {
+                        "content": content,
+                        "contentType": "rawtext"
+                    }
+                }
+            ]
+        }
+    ]
 
 
 def _handle_yml_props(params_required, yml_props, template_id, pipeline_client):
