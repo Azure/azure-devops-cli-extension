@@ -7,7 +7,7 @@ from azext_devops.dev.common.services import (get_extension_client,
                                               resolve_instance)
 
 def list_extensions(include_built_in=False, include_disabled=False, organization=None, detect=None):
-    """List extensions installed in an organization
+    """ List extensions installed in an organization
     """
     organization = resolve_instance(detect=detect, organization=organization)
     extension_client = get_extension_client(organization)
@@ -22,3 +22,12 @@ def list_extensions(include_built_in=False, include_disabled=False, organization
         extensions = filteredResult
 
     return extensions
+
+
+def uninstall_extension(publisher_name, extension_name, organization=None, detect=None):
+    """ Uninstalls an extension
+    """
+    organization = resolve_instance(detect=detect, organization=organization)
+    extension_client = get_extension_client(organization)
+    return extension_client.uninstall_extension_by_name(publisher_name=publisher_name,
+                                                        extension_name=extension_name)
