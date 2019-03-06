@@ -516,7 +516,8 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
                 yml_props=yml_props,
                 template_id=yml_options[yml_selection_index].id,
                 pipeline_client=pipeline_client)
-        _fp, temp_filename = tempfile.mkstemp(text=True)
+        temp_dir = tempfile.mkdtemp(prefix='AzurePipelines_')
+        temp_filename = os.path.join(temp_dir, 'azure-pipelines.yml')
         f = open(temp_filename, mode='w')
         f.write(yml_options[yml_selection_index].content)
         f.close()
@@ -531,9 +532,8 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
     f = open(temp_filename, mode='r')
     content = f.read()
     f.close()
-    # todo atbagga fix this
-    # import os
-    # os.remove(temp_filename)
+    import shutil
+    shutil.rmtree(temp_dir)
 
     checkin_path = 'azure-pipelines.yml'
     if default_yml_exists and not yml_options[yml_selection_index].path:  # We need yml path from user
