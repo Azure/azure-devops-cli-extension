@@ -9,7 +9,8 @@ from ._format import (transform_project_table_output,
                       transform_service_endpoints_table_output,
                       transform_team_table_output,
                       transform_teams_table_output,
-                      transform_team_members_table_output)
+                      transform_team_members_table_output,
+                      transform_extensions_table_output)
 
 
 projectOps = CliCommandType(
@@ -79,4 +80,4 @@ def load_team_commands(self, _):
         g.command('update', 'update_team', table_transformer=transform_team_table_output)
 
     with self.command_group('devops extension', command_type=extensionOps) as g:
-        g.command('list', 'list_extensions')
+        g.command('list', 'list_extensions', table_transformer=transform_extensions_table_output)

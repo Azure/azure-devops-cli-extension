@@ -13,6 +13,25 @@ def transform_projects_table_output(result):
     return table_output
 
 
+def transform_extensions_table_output(result):
+    table_output = []
+    for item in sorted(result, key=_get_extension_key):
+        table_output.append(_transform_extension_row(item))
+    return table_output
+
+
+def _transform_extension_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['publisherId'] + '.' + row['extensionId']
+    table_row['Name'] = row['extensionName']
+    table_row['Publisher'] = row['publisherName']
+    table_row['Version '] = row['version']
+    table_row['Last Updated '] = row['lastPublished']
+    table_row['States'] = row['installState']['flags']
+
+    return table_row
+
+
 def transform_project_table_output(result):
     table_output = [_transform_project_row(result)]
     return table_output
@@ -94,6 +113,10 @@ def _transform_team_member_row(row):
     table_row['Email'] = row['uniqueName']
 
     return table_row
+
+
+def _get_extension_key(extension):
+    return extension['extensionName'].lower()
 
 
 def _get_service_endpoint_key(service_endpoint_row):
