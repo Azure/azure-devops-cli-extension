@@ -81,3 +81,5 @@ def load_team_commands(self, _):
 
     with self.command_group('devops user', command_type=userOps) as g:
         g.command('list', 'get_user_entitlements', table_transformer=transform_users_table_output)
+        g.command('show', 'get_user_entitlement', table_transformer=transform_user_table_output)
+        g.command('remove', 'delete_user_entitlement', confirmation='Are you sure you want to remove this user?')
