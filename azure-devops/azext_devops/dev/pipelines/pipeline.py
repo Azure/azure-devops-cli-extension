@@ -205,7 +205,7 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
             if name is not None:
                 id = get_definition_id_from_name(name, client, project)
             else:
-                raise ValueError("Either the --id argument or the --name argument must be supplied for this command.")
+                raise CLIError("Either the --id argument or the --name argument must be supplied for this command.")
         build_definition = client.get_definition(definition_id=id, project=project)
         if open:
             _open_pipeline(build_definition, organization)
@@ -214,24 +214,34 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
         raise CLIError(ex)
 
 
-def pipeline_update(name, description=None, url=None, repository_url=None, branch=None, yml_path=None,
-                    repository_type=None, service_endpoint=None, organization=None, project=None, detect=None):
+def pipeline_update(name=None, id=None, description=None, new_name=None, repository_url=None,  # pylint: disable=redefined-builtin
+                    branch=None, yml_path=None, repository_type=None, service_connection=None, queue_id=None,
+                    repository_name=None, organization=None, project=None, detect=None):
     """Update a pipeline
-    :param name: Name of the pipeline to update
+    :param name: Name of the pipeline to update.
     :type name: str
-    :param id: Id of the pipeline to update
+    :param id: Id of the pipeline to update.
     :type id: str
-    :param description: New description for the pipeline
+    :param new_name: New updated name of the pipeline.
+    :type new_name: str
+    :param description: Description to be updated for the pipeline.
     :type description: str
     :param repository_url: Repository clone url for which the pipeline will be configured.
     :type repository_url: str
+    :param repository_name: Repository name for which the pipeline is to be setup.
+    --repository-type should also be provided with this.
+    :type repository_name: str
+    :param repository_type: Type of repository.
+    :type repository_type: str
     :param branch: Branch name for which the pipeline will be configured.
     :type branch: str
-    :param yml_path: Path of the pipelines yml file in the repo (if yml is already present in the repo).
+    :param yml_path: Path of the pipelines yml file in the repo.
     :type yml_path: str
-    :param service_endpoint: Id of the service endpoint for pipelines to connect to the repository.
-    Use command az devops service-endpoint -h for creating/listing service-endpoints.
-    :type service_endpoint: str
+    :param queue_id: Queue id of the agent pool where the pipeline needs to run.
+    :type queue_id: int
+    :param service_connection: Id of the service connection for pipelines to connect to the repository.
+    Use command az devops service-endpoint -h for creating/listing service-connections.
+    :type service_connection: str
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the team project.
@@ -239,7 +249,58 @@ def pipeline_update(name, description=None, url=None, repository_url=None, branc
     :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
     """
-    raise CLIError('Command not implemented.')
+    try:
+        organization, project, repository = resolve_instance_project_and_repo(
+            detect=detect, organization=organization, project=project, repo=repository_name)
+        pipeline_client = get_pipeline_client(organization=organization)
+        if id is None:
+            if name is not None:
+                id = get_definition_id_from_name(name, pipeline_client, project)
+            else:
+                raise CLIError("Either the --id argument or the --name argument must be supplied for this command.")
+        if not repository_type:
+            if repository_url:
+                repository_type = try_get_repository_type(repository_url)
+            elif repository:
+                repository_type = 'tfsgit'
+        else:
+            repository_type = repository_type.lower()
+        repo_name = None
+        repo_id = None
+        if repository_name and not repository_type:
+            raise CLIError("--repository-type must be specified.")
+        elif repository_type:
+            if repository_type.lower() == "github":
+                if repository_url:
+                    repo_id = _get_repo_id_from_repo_url(repository_url)
+                    repo_name = repo_id
+                else:
+                    repo_name = repository_name
+            if repository_type.lower() == 'tfsgit':
+                repo_name = repository_name
+                repo_id = _get_repository_id_from_name(organization, project, repository)
+        build_definition = pipeline_client.get_definition(definition_id=id, project=project)
+        if new_name:
+            build_definition.name = new_name
+        if description:
+            build_definition.description = description
+        if repo_name:
+            build_definition.repository.name = repo_name
+        if repo_id:
+            build_definition.repository.id = repo_id
+        if repository_type:
+            build_definition.repository.type = repository_type
+        if branch:
+            build_definition.repository.default_branch = branch
+        if service_connection:
+            build_definition.repository.connected_service_id = service_connection
+        if queue_id:
+            build_definition.queue =  AgentPoolQueue()
+            build_definition.queue.id = queue_id
+
+        return pipeline_client.update_definition(project=project, definition_id=id, definition=build_definition)
+    except VstsServiceError as ex:
+        raise CLIError(ex)
 
 
 def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False,  # pylint: disable=redefined-builtin
@@ -284,8 +345,8 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False,  #
 
 def pipeline_delete(id, organization=None, project=None, detect=None): # pylint: disable=redefined-builtin
     """Delete a pipeline.
-    :param pipeline_id: ID of the pipeline.
-    :type pipeline_id: int
+    :param id: ID of the pipeline.
+    :type id: int
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
     :param project: Name or ID of the team project.
@@ -644,8 +705,8 @@ def _prompt_for_prop_input(prop_name, prop_type):
                   help_string='Value of type {prop_type} is required.'.format(prop_type=prop_type))
 
 
-def _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, branch, service_endpoint,
-                                  repository_type, yml_path, queue_id):
+def _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, branch,
+                                  service_endpoint, repository_type, yml_path, queue_id):
     definition = BuildDefinition()
     definition.name = name
     if description:
