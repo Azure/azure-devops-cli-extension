@@ -6,9 +6,19 @@
 from azext_devops.dev.common.services import (get_extension_client,
                                               resolve_instance)
 
-def list_extensions(organization=None, detect=None):
+def list_extensions(include_built_in=False, organization=None, detect=None):
     """List extensions installed in an organization
     """
     organization = resolve_instance(detect=detect, organization=organization)
     extension_client = get_extension_client(organization)
-    return extension_client.get_installed_extensions()
+    extensions = extension_client.get_installed_extensions()
+
+    if not include_built_in:
+        filteredResult = []
+        for extension in extensions:
+            if 'builtIn' not in str(extension.flags):
+                filteredResult.append(extension)
+
+        extensions = filteredResult
+
+    return extensions
