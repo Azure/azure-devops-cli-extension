@@ -95,17 +95,19 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
             elif repository:
                 repository_type = 'tfsgit'
             if not repository_type:
-                raise CLIError("--repository-type must be specified.")
+                raise CLIError("--repository-url or --repository-type must be specified.")
         else:
             repository_type = repository_type.lower()
 
-        if not url and (not repository_url or not branch) and (
-                (not repository or repository_type != 'tfsgit' or not branch)):
-            raise CLIError("Either --repository-url and --branch OR "\
-                           "--repository-name, --repository-type and --branch must be specified.")
+        if not url:
+            if not repository_url or not branch:
+                if (not repository and not repository_name) or not repository_type or not branch:
+                    raise CLIError("Either --repository-url and --branch OR "\
+                                "--repository-name, --repository-type and --branch must be specified.")
 
         # Parse repository information according to repository type
         repo_name = None
+        repo_id = None
         if repository_type.lower() == "github":
             if url:
                 repository_url, repo_id, branch, yml_path = _parse_github_repo_info(url)
@@ -115,6 +117,8 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
                 repo_name = repo_id
             else:
                 repo_name = repository_name
+                repo_id = repository_name
+                repository_url = 'https://github.com/' + repo_name
         if repository_type.lower() == 'tfsgit':
             repo_name = repository_name
             repo_id = _get_repository_id_from_name(organization, project, repository)
@@ -132,7 +136,7 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
                                                    service_connection, repository_type, yml_path, queue_id)
         client = get_pipeline_client(organization)
         created_definition = client.create_definition(definition=definition, project=project)
-        logger.warning('Successfully create a pipeline definition Name: %s, Id: %s.',
+        logger.warning('Successfully create a pipeline with Name: %s, Id: %s.',
                        created_definition.name, created_definition.id)
         return client.queue_build(build=Build(definition=created_definition), project=project)
     except VstsServiceError as ex:
@@ -295,7 +299,7 @@ def pipeline_update(name=None, id=None, description=None, new_name=None, reposit
         if service_connection:
             build_definition.repository.connected_service_id = service_connection
         if queue_id:
-            build_definition.queue =  AgentPoolQueue()
+            build_definition.queue = AgentPoolQueue()
             build_definition.queue.id = queue_id
 
         return pipeline_client.update_definition(project=project, definition_id=id, definition=build_definition)
@@ -604,14 +608,18 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
             'or run this command interactively.')
         checkin_path = prompt(msg='Enter a yml file path to checkin the new pipeline yml in the repository? ',
                               help_string='e.g. /azure-pipeline.yml to add in the root folder.')
-    if repository_type == 'github':
-        checkin_file_to_github(checkin_path, content, service_endpoint, repo_name, branch,
-                               organization, project)
-    elif repository_type == 'tfsgit':
-        _checkin_file_to_azure_repo(checkin_path, content, repo_name, branch, organization, project)
-    else:
-        logger.warning('File checkin is not handled for this repository type. '\
+    if default_yml_exists and checkin_path.strip('/') == 'azure-pipelines.yml':
+        logger.warning('File update is not handled. We will create the pipeline with the yaml selected. '
                        'Checkin the created yml in the repository and then run the pipeline created by this command.')
+    else:
+        if repository_type == 'github':
+            checkin_file_to_github(checkin_path, content, service_endpoint, repo_name, branch,
+                                   organization, project)
+        elif repository_type == 'tfsgit':
+            _checkin_file_to_azure_repo(checkin_path, content, repo_name, branch, organization, project)
+        else:
+            logger.warning('File checkin is not handled for this repository type. '\
+                        'Checkin the created yml in the repository and then run the pipeline created by this command.')
     return checkin_path
 
 
