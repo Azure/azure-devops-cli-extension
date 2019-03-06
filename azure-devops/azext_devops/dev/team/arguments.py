@@ -56,6 +56,8 @@ def load_team_arguments(self, _):
                          help='Include built in extensions. Default is False.')
         context.argument('include_disabled', **enum_choice_list(_TRUE_FALSE_SWITCH),
                          help='Include disabled extension. Default is False.')
+        context.argument('publisher_id', help='Publisher ID')
+        context.argument('extension_id', help='Extension ID')
 
     with self.argument_context('devops') as context:
         load_global_args(context)
