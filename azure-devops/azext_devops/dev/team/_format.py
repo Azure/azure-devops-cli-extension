@@ -5,11 +5,8 @@
 
 from collections import OrderedDict
 
-
-def transform_projects_table_output(result):
-    table_output = []
-    for item in sorted(result, key=_get_project_key):
-        table_output.append(_transform_project_row(item))
+def transform_extension_table_output(result):
+    table_output = [_transform_extension_row(result)]
     return table_output
 
 
@@ -32,6 +29,13 @@ def _transform_extension_row(row):
     table_row['Flags'] = row['flags']
 
     return table_row
+
+
+def transform_projects_table_output(result):
+    table_output = []
+    for item in sorted(result, key=_get_project_key):
+        table_output.append(_transform_project_row(item))
+    return table_output
 
 
 def transform_project_table_output(result):

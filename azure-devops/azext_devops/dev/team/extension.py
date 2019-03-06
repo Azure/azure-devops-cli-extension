@@ -24,6 +24,15 @@ def list_extensions(include_built_in=False, include_disabled=False, organization
     return extensions
 
 
+def install_extension(publisher_name, extension_name, organization=None, detect=None):
+    """ Installs an extension
+    """
+    organization = resolve_instance(detect=detect, organization=organization)
+    extension_client = get_extension_client(organization)
+    return extension_client.install_extension_by_name(publisher_name=publisher_name,
+                                                      extension_name=extension_name)
+
+
 def uninstall_extension(publisher_name, extension_name, organization=None, detect=None):
     """ Uninstalls an extension
     """

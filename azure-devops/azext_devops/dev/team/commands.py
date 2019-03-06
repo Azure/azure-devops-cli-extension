@@ -10,6 +10,7 @@ from ._format import (transform_project_table_output,
                       transform_team_table_output,
                       transform_teams_table_output,
                       transform_team_members_table_output,
+                      transform_extension_table_output,
                       transform_extensions_table_output)
 
 
@@ -82,3 +83,4 @@ def load_team_commands(self, _):
     with self.command_group('devops extension', command_type=extensionOps) as g:
         g.command('list', 'list_extensions', table_transformer=transform_extensions_table_output)
         g.command('uninstall', 'uninstall_extension', confirmation='Are you sure you want to uninstall this extension?')
+        g.command('install', 'install_extension', table_transformer=transform_extension_table_output)
