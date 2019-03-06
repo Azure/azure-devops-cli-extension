@@ -6,6 +6,7 @@
 from __future__ import print_function
 
 from knack.log import get_logger
+from knack.prompting import prompt_pass, NoTTYException
 from knack.util import CLIError
 from azext_devops.vstsCompressed.service_endpoint.v4_1.models.models import ServiceEndpoint
 from azext_devops.vstsCompressed.service_endpoint.v4_1.models.models import EndpointAuthorization
@@ -81,6 +82,12 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
 
     if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_GITHUB and
             authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN):
+        if not github_access_token:
+            try:
+                github_access_token = prompt_pass('GitHub access token:', confirm=True)
+            except NoTTYException:
+                raise CLIError('Please specify --github-access-token in non-interactive mode.')
+
         service_endpoint_authorization = EndpointAuthorization(
             parameters={'accessToken': github_access_token},
             scheme=SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN)
@@ -91,6 +98,11 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
 
     if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_AZURE_RM and
             authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL):
+        if not azure_rm_service_prinicipal_key:
+            try:
+                azure_rm_service_prinicipal_key = prompt_pass('Azure RM service principal key:', confirm=True)
+            except NoTTYException:
+                raise CLIError('Please specify --azure-rm-service-prinicipal-key in non-interactive mode.')
         service_endpoint_authorization = EndpointAuthorization(
             parameters={'tenantid': azure_rm_tenant_id,
                         'serviceprincipalid': azure_rm_service_principal_id,
