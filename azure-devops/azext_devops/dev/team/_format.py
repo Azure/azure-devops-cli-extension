@@ -96,6 +96,35 @@ def _transform_team_member_row(row):
     return table_row
 
 
+def transform_users_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_user_row(item))
+    return table_output
+
+
+def transform_user_table_output(result):
+    table_output = [_transform_user_row(result)]
+    return table_output
+
+
+def _transform_user_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    if 'user' in row:
+        table_row['Display Name'] = row['user']['displayName']
+        table_row['Email'] = row['user']['mailAddress']
+    else:
+        table_row['Display Name'] = ' '
+    if 'accessLevel' in row:
+        table_row['License'] = row['accessLevel']['licenseDisplayName']
+        table_row['Status'] = row['accessLevel']['status']
+    else:
+        table_row['License'] = ' '
+        table_row['Status'] = ' '
+    return table_row
+
+
 def _get_service_endpoint_key(service_endpoint_row):
     return service_endpoint_row['name'].lower()
 
