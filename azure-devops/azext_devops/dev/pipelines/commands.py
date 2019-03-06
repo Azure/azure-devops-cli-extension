@@ -7,6 +7,10 @@ from azure.cli.core.commands import CliCommandType
 from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 from ._format import (transform_build_table_output,
                       transform_builds_table_output,
+                      transform_pipeline_run_table_output,
+                      transform_pipeline_runs_table_output,
+                      transform_pipeline_table_output,
+                      transform_pipelines_table_output,
                       transform_build_tags_output,
                       transform_definition_table_output,
                       transform_definitions_table_output,
@@ -57,17 +61,17 @@ pipelinesRunOps = CliCommandType(
 
 def load_build_commands(self, _):
     with self.command_group('pipelines', command_type=pipelinesOps) as g:
-        g.command('create', 'pipeline_create', table_transformer=transform_build_table_output)
-        g.command('list', 'pipeline_list', table_transformer=transform_definitions_table_output)
-        g.command('show', 'pipeline_show', table_transformer=transform_definition_table_output)
+        g.command('create', 'pipeline_create', table_transformer=transform_pipeline_run_table_output)
+        g.command('list', 'pipeline_list', table_transformer=transform_pipelines_table_output)
+        g.command('show', 'pipeline_show', table_transformer=transform_pipeline_table_output)
         g.command('delete', 'pipeline_delete')
-        g.command('update', 'pipeline_update', table_transformer=transform_definition_table_output)
-        g.command('run', 'pipeline_run', table_transformer=transform_build_table_output)
+        g.command('update', 'pipeline_update', table_transformer=transform_pipeline_table_output)
+        g.command('run', 'pipeline_run', table_transformer=transform_pipeline_run_table_output)
 
     with self.command_group('pipelines runs', command_type=pipelinesRunOps) as g:
         # g.command('tag', 'pipeline_run_tag')
-        g.command('list', 'pipeline_run_list', table_transformer=transform_builds_table_output)
-        g.command('show', 'pipeline_run_show', table_transformer=transform_build_table_output)
+        g.command('list', 'pipeline_run_list', table_transformer=transform_pipeline_runs_table_output)
+        g.command('show', 'pipeline_run_show', table_transformer=transform_pipeline_run_table_output)
 
     with self.command_group('pipelines runs tag', command_type=pipelinesRunOps) as g:
         g.command('add', 'pipeline_run_add_tag', table_transformer=transform_build_tags_output)

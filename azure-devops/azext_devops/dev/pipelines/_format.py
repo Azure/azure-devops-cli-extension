@@ -46,6 +46,83 @@ def _transform_build_row(row):
     return table_row
 
 
+def transform_pipeline_runs_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_pipeline_run_row(item))
+    return table_output
+
+
+def transform_pipeline_run_table_output(result):
+    table_output = [_transform_pipeline_run_row(result)]
+    return table_output
+
+
+def _transform_pipeline_run_row(row):
+    from azext_devops.dev.common.git import REF_HEADS_PREFIX
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Number'] = row['buildNumber']
+    table_row['Status'] = row['status']
+    if row['result']:
+        table_row['Result'] = row['result']
+    else:
+        table_row['Result'] = ' '
+    table_row['Pipeline ID'] = row['definition']['id']
+    table_row['Pipeline Name'] = row['definition']['name']
+
+    if row['sourceBranch']:
+        source_branch = row['sourceBranch']
+        if source_branch[0:len(REF_HEADS_PREFIX)] == REF_HEADS_PREFIX:
+            source_branch = source_branch[len(REF_HEADS_PREFIX):]
+        table_row['Source Branch'] = source_branch
+    else:
+        table_row['Source Branch'] = ' '
+
+    queued_time = dateutil.parser.parse(row['queueTime']).astimezone(dateutil.tz.tzlocal())
+    table_row['Queued Time'] = str(queued_time.date()) + ' ' + str(queued_time.time())
+    table_row['Reason'] = row['reason']
+    return table_row
+
+
+def transform_pipelines_table_output(result):
+    table_output = []
+    include_draft_column = False
+    for item in result:
+        if item['quality'] == 'draft':
+            include_draft_column = True
+            break
+    for item in result:
+        table_output.append(_transform_pipeline_row(item, include_draft_column))
+    return table_output
+
+
+def transform_pipeline_table_output(result):
+    table_output = [_transform_pipeline_row(result, result['quality'] == 'draft')]
+    return table_output
+
+
+def _transform_pipeline_row(row, include_draft_column=False):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    name = row['name']
+    table_row['Name'] = name[:50] + '..' if len(name) > 50 else name
+    if include_draft_column:
+        if row['quality'] == 'draft':
+            table_row['Draft'] = True
+        else:
+            table_row['Draft'] = ' '
+    if row['queueStatus']:
+        table_row['Status'] = row['queueStatus']
+    else:
+        table_row['Status'] = ' '
+    if row['queue']:
+        table_row['Default Queue'] = row['queue']['name']
+    else:
+        table_row['Default Queue'] = ' '
+    return table_row
+
+
 def transform_build_tags_output(result):
     table_output = []
     for item in result:
