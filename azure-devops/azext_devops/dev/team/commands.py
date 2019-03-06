@@ -84,3 +84,4 @@ def load_team_commands(self, _):
         g.command('list', 'list_extensions', table_transformer=transform_extensions_table_output)
         g.command('uninstall', 'uninstall_extension', confirmation='Are you sure you want to uninstall this extension?')
         g.command('install', 'install_extension', table_transformer=transform_extension_table_output)
+        g.command('show', 'get_extension', table_transformer=transform_extension_table_output)

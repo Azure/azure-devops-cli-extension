@@ -23,6 +23,15 @@ def list_extensions(include_built_in=False, include_disabled=False, organization
 
     return extensions
 
+def get_extension(publisher_name, extension_name, organization=None, detect=None):
+    """ Gets a single extension
+    """
+    organization = resolve_instance(detect=detect, organization=organization)
+    extension_client = get_extension_client(organization)
+    return extension_client.get_installed_extension_by_name(publisher_name=publisher_name,
+                                                            extension_name=extension_name)
+
+
 
 def install_extension(publisher_name, extension_name, organization=None, detect=None):
     """ Installs an extension
