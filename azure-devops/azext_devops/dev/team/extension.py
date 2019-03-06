@@ -31,6 +31,7 @@ def list_extensions(include_built_in=None, include_disabled=None, organization=N
 
     return extensions
 
+
 def get_extension(publisher_id, extension_id, organization=None, detect=None):
     """ Gets a single extension
     """
@@ -38,7 +39,6 @@ def get_extension(publisher_id, extension_id, organization=None, detect=None):
     extension_client = get_extension_client(organization)
     return extension_client.get_installed_extension_by_name(publisher_name=publisher_id,
                                                             extension_name=extension_id)
-
 
 
 def install_extension(publisher_id, extension_id, organization=None, detect=None):
@@ -62,15 +62,23 @@ def uninstall_extension(publisher_id, extension_id, organization=None, detect=No
 def enable_extension(publisher_id, extension_id, organization=None, detect=None):
     """ Enables an extension
     """
-    return _update_extension_state(False, True, publisher_id, extension_id,
-                                   organization, detect)
+    return _update_extension_state(disable_extension=False,
+                                   enable_extension=True,
+                                   publisher_id=publisher_id,
+                                   extension_id=extension_id,
+                                   organization=organization,
+                                   detect=detect)
 
 
 def disable_extension(publisher_id, extension_id, organization=None, detect=None):
     """ Disables an extension
     """
-    return _update_extension_state(True, False, publisher_id, extension_id,
-                                   organization, detect)
+    return _update_extension_state(disable_extension=True,
+                                   enable_extension=False,
+                                   publisher_id=publisher_id,
+                                   extension_id=extension_id,
+                                   organization=organization,
+                                   detect=detect)
 
 
 def _update_extension_state(disable_extension, enable_extension,

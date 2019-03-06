@@ -5,6 +5,7 @@
 
 from collections import OrderedDict
 
+
 def transform_extension_table_output(result):
     table_output = [_transform_extension_row(result)]
     return table_output

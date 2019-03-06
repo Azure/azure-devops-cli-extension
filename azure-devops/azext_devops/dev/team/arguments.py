@@ -52,10 +52,10 @@ def load_team_arguments(self, _):
         context.argument('list_config', options_list=('--list', '-l'))
 
     with self.argument_context('devops extension') as context:
-        context.argument('include_built_in', **enum_choice_list(_TRUE_FALSE_SWITCH),
-                         help='Include built in extensions. Default is False.')
-        context.argument('include_disabled', **enum_choice_list(_TRUE_FALSE_SWITCH),
-                         help='Include disabled extension. Default is False.')
+        context.argument('include_built_in',
+                         **enum_choice_list(_TRUE_FALSE_SWITCH), help='Include built in extensions. Default is False.')
+        context.argument('include_disabled',
+                         **enum_choice_list(_TRUE_FALSE_SWITCH), help='Include disabled extension. Default is False.')
         context.argument('publisher_id', help='Publisher ID')
         context.argument('extension_id', help='Extension ID')
 
