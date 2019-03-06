@@ -22,12 +22,14 @@ def transform_extensions_table_output(result):
 
 def _transform_extension_row(row):
     table_row = OrderedDict()
-    table_row['ID'] = row['publisherId'] + '.' + row['extensionId']
+    table_row['Publisher Id'] = row['publisherId']
+    table_row['Extension Id'] = row['extensionId']
     table_row['Name'] = row['extensionName']
     table_row['Publisher'] = row['publisherName']
     table_row['Version '] = row['version']
     table_row['Last Updated '] = row['lastPublished']
     table_row['States'] = row['installState']['flags']
+    table_row['Flags'] = row['flags']
 
     return table_row
 
