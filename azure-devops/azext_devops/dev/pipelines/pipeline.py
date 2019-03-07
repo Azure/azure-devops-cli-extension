@@ -712,13 +712,13 @@ def _handle_yml_props(params_required, yml_props, template_id, pipeline_client, 
         elif _is_intelligent_handling_enabled_for_prop_name_type(prop_type=param.type, prop_name=param.name):
             logger.debug('This property is handled intelligently (Name: %s) (Type: %s)', param.name, param.type)
             if param.name == 'repositoryName':
-                logger.warning('Auto filling param repositoryName: %s', repo_name)
+                logger.warning('Auto filling param %s: %s', param.name, repo_name)
                 params_to_render[param.name] = repo_name
                 prop_found = True
             else:
                 fetched_value = fetch_yaml_prop_intelligently(param.name, param.type, organization, project)
                 if fetched_value is not None:
-                    logger.warning('Auto filling param repositoryName: %s', fetched_value)
+                    logger.warning('Auto filling param %s: %s', param.name, fetched_value)
                     params_to_render[param.name] = fetched_value
                     prop_found = True
         if not prop_found:
