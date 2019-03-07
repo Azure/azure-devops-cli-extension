@@ -34,11 +34,17 @@ class TestExtensionMethods(unittest.TestCase):
     def setUp(self):
         self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
         self.get_installed_extensions_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'get_installed_extensions')
+        self.get_installed_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'get_installed_extension_by_name')
+        self.install_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'install_extension_by_name')
+        self.uninstall_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'uninstall_extension_by_name')
         self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
 
         #start the patcher
         self.mock_get_client = self.get_client.start()
         self.mock_get_installed_extensions = self.get_installed_extensions_patcher.start()
+        self.mock_get_installed_extension = self.get_installed_extension_patcher.start()
+        self.mock_install_extension = self.install_extension_patcher.start()
+        self.mock_uninstall_extension = self.uninstall_extension_patcher.start()
         self.mock_get_credential = self.get_credential_patcher.start()
 
         #set return values
@@ -50,6 +56,9 @@ class TestExtensionMethods(unittest.TestCase):
     def tearDown(self):
         self.mock_get_client.stop()
         self.mock_get_installed_extensions.stop()
+        self.mock_get_installed_extension.stop()
+        self.mock_install_extension.stop()
+        self.mock_uninstall_extension.stop()
         self.mock_get_credential.stop()
 
     def test_list_extensions(self):
@@ -76,7 +85,7 @@ class TestExtensionMethods(unittest.TestCase):
 
         self.assertEqual(len(result), 3)
 
-    def test_list_extension_include_builtin_extension(self):
+    def test_list_extension_not_include_builtin_extension(self):
         extensions = []
         extensions.append(MockInstalledExtension('builtIn, installed'))
         extensions.append(MockInstalledExtension('builtIn, installed'))
@@ -87,6 +96,21 @@ class TestExtensionMethods(unittest.TestCase):
         result = list_extensions('false','true',self._TEST_DEVOPS_ORGANIZATION, 'off')
 
         self.assertEqual(len(result), 1)
+
+    def test_get_extension(self):
+        get_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
+
+        self.mock_get_installed_extension.assert_called_once_with(publisher_name='ms', extension_name='code-search')
+
+    def test_install_extension(self):
+        install_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
+
+        self.mock_install_extension.assert_called_once_with(publisher_name='ms', extension_name='code-search')
+        
+    def test_uninstall_extension(self):
+        uninstall_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
+
+        self.mock_uninstall_extension.assert_called_once_with(publisher_name='ms', extension_name='code-search')
 
 
 if __name__ == '__main__':
