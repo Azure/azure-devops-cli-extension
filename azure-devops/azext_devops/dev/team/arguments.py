@@ -5,7 +5,6 @@
 
 
 from knack.arguments import enum_choice_list
-from azure.cli.core.commands.parameters import get_enum_type
 from azext_devops.dev.common.const import _TRUE_FALSE_SWITCH
 from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_GITHUB,
@@ -53,6 +52,7 @@ def load_team_arguments(self, _):
         context.argument('list_config', options_list=('--list', '-l'))
 
     with self.argument_context('devops extension') as context:
+        from azure.cli.core.commands.parameters import get_enum_type
         context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Include built in extensions. Default is False.')
         context.argument('include_disabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
