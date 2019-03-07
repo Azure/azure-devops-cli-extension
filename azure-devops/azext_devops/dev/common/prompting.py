@@ -6,9 +6,8 @@
 import sys
 
 from knack.log import get_logger
-from knack.prompting import prompt, NoTTYException
+from knack.prompting import NoTTYException
 from knack.prompting import verify_is_a_tty
-from knack.util import CLIError
 
 logger = get_logger(__name__)
 

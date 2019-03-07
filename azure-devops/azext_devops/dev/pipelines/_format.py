@@ -61,7 +61,7 @@ def transform_pipeline_run_table_output(result):
 def _transform_pipeline_run_row(row):
     from azext_devops.dev.common.git import REF_HEADS_PREFIX
     table_row = OrderedDict()
-    table_row['ID'] = row['id']
+    table_row['Run ID'] = row['id']
     table_row['Number'] = row['buildNumber']
     table_row['Status'] = row['status']
     if row['result']:

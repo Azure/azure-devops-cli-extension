@@ -47,5 +47,5 @@ def checkin_file_to_github(path_to_commit, content, service_endpoint_id, repo_na
         }
         logger.warning('Checking in file %s in the Github repository %s', path_to_commit, repo_name)
         # Todo: Validate response and return status from function
-        return requests.post(url_for_dataProvider, auth=(vss_credentials.username, vss_credentials.password),
-                             json=commit_to_github_request_body, headers=headers)
+        requests.post(url_for_dataProvider, auth=(vss_credentials.username, vss_credentials.password),
+                      json=commit_to_github_request_body, headers=headers)

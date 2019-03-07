@@ -36,6 +36,7 @@ from .build_definition import get_definition_id_from_name
 logger = get_logger(__name__)
 
 
+# pylint: disable=too-few-public-methods
 class YmlOptions:
     def __init__(self, name, id, content, description='Custom yml', params=None, path=None):  # pylint: disable=redefined-builtin
         self.name = name
@@ -57,14 +58,14 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
     :param repository_url: Repository clone url for which the pipeline will be configured.
     :type repository_url: str
     :param repository_name: Name of the repository for a Azure Devops repository or owner/reponame
-    in case of Github Repo.
+    in case of GitHub Repo.
     --repository-type argument is required with this. Ignored if --repository-url is supplied
     :type repository_name: str
     :param branch: Branch name for which the pipeline will be configured.
     :type branch: str
     :param yml_path: Path of the pipelines yml file in the repo (if yml is already present in the repo).
     :type yml_path: str
-    :param repository_type: Type of repository. Auto detected for Github and Azure Repos.
+    :param repository_type: Type of repository. Auto detected for GitHub and Azure Repos.
     :type repository_type: str
     :param yml_props: Any additional required yml template params. Provided in the format of key=value pairs.
     e.g. --yml-props repoName=contoso/webapp
@@ -253,6 +254,7 @@ def pipeline_update(name=None, id=None, description=None, new_name=None, reposit
     :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
     """
+    # pylint: disable=too-many-branches
     try:
         organization, project, repository = resolve_instance_project_and_repo(
             detect=detect, organization=organization, project=project, repo=repository_name)
@@ -283,26 +285,28 @@ def pipeline_update(name=None, id=None, description=None, new_name=None, reposit
             if repository_type.lower() == 'tfsgit':
                 repo_name = repository_name
                 repo_id = _get_repository_id_from_name(organization, project, repository)
-        build_definition = pipeline_client.get_definition(definition_id=id, project=project)
+        definition = pipeline_client.get_definition(definition_id=id, project=project)
         if new_name:
-            build_definition.name = new_name
+            definition.name = new_name
         if description:
-            build_definition.description = description
+            definition.description = description
         if repo_name:
-            build_definition.repository.name = repo_name
+            definition.repository.name = repo_name
         if repo_id:
-            build_definition.repository.id = repo_id
+            definition.repository.id = repo_id
         if repository_type:
-            build_definition.repository.type = repository_type
+            definition.repository.type = repository_type
         if branch:
-            build_definition.repository.default_branch = branch
+            definition.repository.default_branch = branch
         if service_connection:
-            build_definition.repository.connected_service_id = service_connection
+            definition.repository.connected_service_id = service_connection
         if queue_id:
-            build_definition.queue = AgentPoolQueue()
-            build_definition.queue.id = queue_id
+            definition.queue = AgentPoolQueue()
+            definition.queue.id = queue_id
+        if yml_path:
+            definition.process = _create_process_object(yml_path)
 
-        return pipeline_client.update_definition(project=project, definition_id=id, definition=build_definition)
+        return pipeline_client.update_definition(project=project, definition_id=id, definition=definition)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
@@ -422,9 +426,9 @@ def is_github_url_candidate(url):
 
 
 def _parse_github_repo_info(github_file_url):
-    _REPOSITORY_PARSE_ERROR = 'Repository could not be parsed to a yml file in a Github repository.'
+    _REPOSITORY_PARSE_ERROR = 'Repository could not be parsed to a yml file in a GitHub repository.'
     parsed_url = uri_parse(github_file_url)
-    logger.debug('Parsing github url: %s', parsed_url)
+    logger.debug('Parsing GitHub url: %s', parsed_url)
     if parsed_url.scheme == 'https' and parsed_url.netloc == 'github.com':
         # Parse path to find Id and file path
         logger.debug('Parsing path in the url to find repo, branch and yml path')
@@ -450,7 +454,7 @@ def _parse_github_repo_info(github_file_url):
 
 def _get_repo_id_from_repo_url(repository_url):
     parsed_url = uri_parse(repository_url)
-    logger.debug('Parsing github url: %s', parsed_url)
+    logger.debug('Parsing GitHub url: %s', parsed_url)
     if parsed_url.scheme == 'https' and parsed_url.netloc == 'github.com':
         logger.debug('Parsing path in the url to find repo id.')
         stripped_path = parsed_url.path.strip('/')
@@ -474,18 +478,25 @@ def _create_process_object(yaml_path):
     }
 
 
-def _get_service_endpoints(organization, project):
+def _get_service_endpoints(organization, project, endpoint_type=None):
     """
-    get the list of existing service endpoint connections
+    Get the list of existing service connections filtered by type if mentioned
     """
     client = get_service_endpoint_client(organization)
-    return client.get_service_endpoints(project)
-
+    all_connections = client.get_service_endpoints(project)
+    if endpoint_type is None:
+        return all_connections
+    else:
+        filtered_connection = []
+        for connection in all_connections:
+            if connection.type == endpoint_type.lower():
+                filtered_connection.append(connection)
+        return filtered_connection
 
 def get_github_service_endpoint(organization, project):
     """
-    This will try to create a github service connection if there is no existing one in the project
-    Github pat token will be asked for interactively or can be provided
+    This will try to create a GitHub service connection if there is no existing one in the project
+    GitHub pat token will be asked for interactively or can be provided
     by setting the Environment variable AZ_DEVOPS_GITHUB_PAT_ENVKEY.
     Service endpoint connection name is asked as input from the user, if the environment is non interative
     name is set to default  AzureDevopsCliCreatePipelineFlow
@@ -517,8 +528,7 @@ def get_github_service_endpoint(organization, project):
                                                      name=se_name, type='github',
                                                      url='https://github.com/')
         return se_client.create_service_endpoint(service_endpoint_to_create, project).id
-    else:
-        return existing_service_endpoints[choice-1].id
+    return existing_service_endpoints[choice-1].id
 
 
 def get_github_pat_token():
@@ -580,7 +590,10 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
                 params_required=yml_options[yml_selection_index].params,
                 yml_props=yml_props,
                 template_id=yml_options[yml_selection_index].id,
-                pipeline_client=pipeline_client)
+                pipeline_client=pipeline_client,
+                repo_name=repo_name,
+                organization=organization,
+                project=project)
         temp_dir = tempfile.mkdtemp(prefix='AzurePipelines_')
         temp_filename = os.path.join(temp_dir, 'azure-pipelines.yml')
         f = open(temp_filename, mode='w')
@@ -678,11 +691,14 @@ def _get_commits_object(path_to_commit, content, message):
     ]
 
 
-def _handle_yml_props(params_required, yml_props, template_id, pipeline_client):
-    logger.warning('The template requires a few inputs. '\
+def _handle_yml_props(params_required, yml_props, template_id, pipeline_client, repo_name, organization, project):
+    logger.warning('The template requires a few inputs. '
                     'These can be provided as --yml-props in the command arguments or be input interactively.')
     params_to_render = {}
     for param in params_required:
+        # hack this is fixed in 149
+        if param.name == 'serviceEndpointId':
+            param.name = 'azureServiceConnectionId'
         logger.debug('looking for param %s in props', param.name)
         prop_found = False
         if yml_props:
@@ -693,7 +709,19 @@ def _handle_yml_props(params_required, yml_props, template_id, pipeline_client):
                 if parts[0] == param.name:
                     prop_found = True
                     params_to_render[parts[0]] = parts[1]
-        else:
+        elif _is_intelligent_handling_enabled_for_prop_name_type(prop_type=param.type, prop_name=param.name):
+            logger.debug('This property is handled intelligently (Name: %s) (Type: %s)', param.name, param.type)
+            if param.name == 'repositoryName':
+                logger.warning('Auto filling param repositoryName: %s', repo_name)
+                params_to_render[param.name] = repo_name
+                prop_found = True
+            else:
+                fetched_value = fetch_yaml_prop_intelligently(param.name, param.type, organization, project)
+                if fetched_value is not None:
+                    logger.warning('Auto filling param repositoryName: %s', fetched_value)
+                    params_to_render[param.name] = fetched_value
+                    prop_found = True
+        if not prop_found:
             input_value = _prompt_for_prop_input(param.name, param.type)
             params_to_render[param.name] = input_value
             prop_found = True
@@ -704,6 +732,42 @@ def _handle_yml_props(params_required, yml_props, template_id, pipeline_client):
     rendered_template = pipeline_client.render_template(template_id=template_id,
                                                         template_parameters={'tokens':params_to_render})
     return rendered_template.content
+
+
+def fetch_yaml_prop_intelligently(prop_name, prop_type, organization, project):
+    if prop_type.lower() == 'connectedservice:azurerm':
+        return get_azure_rm_service_connection(organization, project)
+    return None
+
+
+def get_azure_rm_service_connection(organization, project):
+    azurerm_connections = _get_service_endpoints(organization=organization, project=project, endpoint_type='azurerm')
+    if azurerm_connections:
+        service_endpoints_choice_list = ['Create new AzureRM Service connection']
+        choice = 0
+        for endpoint in azurerm_connections:
+            service_endpoints_choice_list.append('Name: {}'.format(endpoint.name))
+        if service_endpoints_choice_list:
+            choice = prompt_user_friendly_choice_list("Create or choose existing service connection? ",
+                                                      service_endpoints_choice_list)
+        if choice == 0:
+            logger.debug("Creating a new service connection.")
+            logger.warning("Creating azure service connection is not handled. Please create and supply the value.")
+        else:
+            return azurerm_connections[choice-1].id
+    else:
+        return None
+
+
+SMART_HANDLING_FOR_PROP_TYPES = [ 'connectedservice:azurerm' ]
+SMART_HANDLING_FOR_PROP_NAMES = [ 'repositoryname' ]
+
+def _is_intelligent_handling_enabled_for_prop_name_type(prop_name, prop_type):
+    if prop_name.lower() in SMART_HANDLING_FOR_PROP_NAMES:
+        return True
+    if prop_type.lower() in SMART_HANDLING_FOR_PROP_TYPES:
+        return True
+    return False
 
 
 def _prompt_for_prop_input(prop_name, prop_type):
