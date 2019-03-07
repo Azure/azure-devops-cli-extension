@@ -23,8 +23,9 @@ from azext_devops.dev.team.extension import  (list_extensions,
 from azext_devops.dev.common.services import clear_connection_cache
 
 class MockInstalledExtension(object):
-    def __init__(self, flags):
+    def __init__(self, flags, install_state=None):
         self.flags = flags
+        self.install_state = install_state
     
 class TestExtensionMethods(unittest.TestCase):
 
@@ -37,6 +38,7 @@ class TestExtensionMethods(unittest.TestCase):
         self.get_installed_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'get_installed_extension_by_name')
         self.install_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'install_extension_by_name')
         self.uninstall_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'uninstall_extension_by_name')
+        self.update_installed_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'update_installed_extension')
         self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
 
         #start the patcher
@@ -45,6 +47,7 @@ class TestExtensionMethods(unittest.TestCase):
         self.mock_get_installed_extension = self.get_installed_extension_patcher.start()
         self.mock_install_extension = self.install_extension_patcher.start()
         self.mock_uninstall_extension = self.uninstall_extension_patcher.start()
+        self.mock_update_installed_extension = self.update_installed_extension_patcher.start()
         self.mock_get_credential = self.get_credential_patcher.start()
 
         #set return values
@@ -59,6 +62,7 @@ class TestExtensionMethods(unittest.TestCase):
         self.mock_get_installed_extension.stop()
         self.mock_install_extension.stop()
         self.mock_uninstall_extension.stop()
+        self.mock_update_installed_extension.stop()
         self.mock_get_credential.stop()
 
     def test_list_extensions(self):
@@ -112,6 +116,13 @@ class TestExtensionMethods(unittest.TestCase):
 
         self.mock_uninstall_extension.assert_called_once_with(publisher_name='ms', extension_name='code-search')
 
+    def test_enable_extension(self):
+        extension = MockInstalledExtension('builtIn', MockInstalledExtension('disabled, buildIn, multiVersion'))
+        self.mock_get_installed_extension.return_value = extension
+
+        enable_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
+
+        self.mock_update_installed_extension.assert_called_once()
 
 if __name__ == '__main__':
     unittest.main()

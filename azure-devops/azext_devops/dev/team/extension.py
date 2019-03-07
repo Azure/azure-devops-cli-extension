@@ -99,6 +99,8 @@ def _update_extension_state(disable, enable,
 
     if enable:
         updated_state = state_from_service.replace('disabled, ', '')
+        # just in case disabled was not the first flag in the flags string
+        updated_state = state_from_service.replace('disabled', '')
 
     current_extension.install_state.flags = updated_state
 
