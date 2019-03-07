@@ -22,6 +22,9 @@ from azext_devops.dev.team.extension import  (list_extensions,
 
 from azext_devops.dev.common.services import clear_connection_cache
 
+class MockInstalledExtension(object):
+    def __init__(self, flags):
+        self.flags = flags
     
 class TestExtensionMethods(unittest.TestCase):
 
@@ -60,6 +63,30 @@ class TestExtensionMethods(unittest.TestCase):
                 
         #assert
         self.mock_get_installed_extensions.assert_called_once_with(include_disabled_extensions=True)
+
+    def test_list_extension_include_builtin_extension(self):
+        extensions = []
+        extensions.append(MockInstalledExtension('builtIn, installed'))
+        extensions.append(MockInstalledExtension('builtIn, installed'))
+        extensions.append(MockInstalledExtension('installed'))
+
+        self.mock_get_installed_extensions.return_value = extensions
+
+        result = list_extensions('true','true',self._TEST_DEVOPS_ORGANIZATION, 'off')
+
+        self.assertEqual(len(result), 3)
+
+    def test_list_extension_include_builtin_extension(self):
+        extensions = []
+        extensions.append(MockInstalledExtension('builtIn, installed'))
+        extensions.append(MockInstalledExtension('builtIn, installed'))
+        extensions.append(MockInstalledExtension('installed'))
+
+        self.mock_get_installed_extensions.return_value = extensions
+
+        result = list_extensions('false','true',self._TEST_DEVOPS_ORGANIZATION, 'off')
+
+        self.assertEqual(len(result), 1)
 
 
 if __name__ == '__main__':
