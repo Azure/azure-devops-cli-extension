@@ -95,12 +95,14 @@ def _update_extension_state(disable, enable,
     logger.info(state_from_service)
 
     if disable:
-        updated_state = 'disabled, ' + state_from_service
+        flags = [x.strip() for x in state_from_service.split(',')]
+        flags.append('disabled')
+        updated_state = ', '.join(flags)
 
     if enable:
-        updated_state = state_from_service.replace('disabled, ', '')
-        # just in case disabled was not the first flag in the flags string
-        updated_state = state_from_service.replace('disabled', '')
+        flags = [x.strip() for x in state_from_service.split(',')]
+        flags.remove('disabled')
+        updated_state = ', '.join(flags)
 
     current_extension.install_state.flags = updated_state
 

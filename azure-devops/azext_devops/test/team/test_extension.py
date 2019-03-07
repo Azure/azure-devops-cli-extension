@@ -117,12 +117,40 @@ class TestExtensionMethods(unittest.TestCase):
         self.mock_uninstall_extension.assert_called_once_with(publisher_name='ms', extension_name='code-search')
 
     def test_enable_extension(self):
-        extension = MockInstalledExtension('builtIn', MockInstalledExtension('disabled, buildIn, multiVersion'))
+        extension = MockInstalledExtension('builtIn', MockInstalledExtension('disabled , buildIn , multiVersion'))
         self.mock_get_installed_extension.return_value = extension
 
         enable_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
 
         self.mock_update_installed_extension.assert_called_once()
+        udpate_extension_object = self.mock_update_installed_extension.call_args_list[0][0]
+        install_state_flags = udpate_extension_object[0].install_state.flags
+        # self.assertTrue('disabled' not in install_state_flags)
+        self.assertEqual('buildIn, multiVersion', install_state_flags)
+
+    def test_enable_extension_disabled_not_first(self):
+        extension = MockInstalledExtension('builtIn', MockInstalledExtension('buildIn , multiVersion , disabled'))
+        self.mock_get_installed_extension.return_value = extension
+
+        enable_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
+
+        self.mock_update_installed_extension.assert_called_once()
+        udpate_extension_object = self.mock_update_installed_extension.call_args_list[0][0]
+        install_state_flags = udpate_extension_object[0].install_state.flags
+        # self.assertTrue('disabled' not in install_state_flags)
+        self.assertEqual('buildIn, multiVersion', install_state_flags)
+
+
+    def test_disable_extension(self):
+        extension = MockInstalledExtension('builtIn', MockInstalledExtension('buildIn, multiVersion'))
+        self.mock_get_installed_extension.return_value = extension
+
+        disable_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
+
+        self.mock_update_installed_extension.assert_called_once()
+        udpate_extension_object = self.mock_update_installed_extension.call_args_list[0][0]
+        install_state_flags = udpate_extension_object[0].install_state.flags
+        self.assertEqual('buildIn, multiVersion, disabled', install_state_flags)
 
 if __name__ == '__main__':
     unittest.main()
