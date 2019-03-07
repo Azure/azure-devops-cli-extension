@@ -57,13 +57,14 @@ class TestExtensionMethods(unittest.TestCase):
         clear_connection_cache()
 
     def tearDown(self):
-        self.mock_get_client.stop()
-        self.mock_get_installed_extensions.stop()
-        self.mock_get_installed_extension.stop()
-        self.mock_install_extension.stop()
-        self.mock_uninstall_extension.stop()
-        self.mock_update_installed_extension.stop()
-        self.mock_get_credential.stop()
+        self.get_client.stop()
+        self.get_installed_extensions_patcher.stop()
+        self.get_installed_extension_patcher.stop()
+        self.install_extension_patcher.stop()
+        self.uninstall_extension_patcher.stop()
+        self.update_installed_extension_patcher.stop()
+        self.get_credential_patcher.stop()
+        
 
     def test_list_extensions(self):
         list_extensions('false','false',self._TEST_DEVOPS_ORGANIZATION, 'off')
