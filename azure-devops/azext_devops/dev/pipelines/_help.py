@@ -57,6 +57,6 @@ def load_pipelines_help():
 
     helps['pipelines runs artifact'] = """
     type: group
-    short-summary: Download, upload and list run artifacts.
+    short-summary: Manage pipeline artifacts.
     long-summary:
     """
