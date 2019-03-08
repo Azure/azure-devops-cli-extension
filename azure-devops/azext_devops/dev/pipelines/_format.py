@@ -274,7 +274,7 @@ def transform_environment_table_output(result):
     return table_output
 
 
-def _transform_environment_row(row, include_resources_count=False):
+def _transform_environment_row(row):
     table_row = OrderedDict()
     table_row['ID'] = row['id']
     table_row['Name'] = row['name']

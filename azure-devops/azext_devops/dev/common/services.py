@@ -162,7 +162,7 @@ def get_pipeline_client(organization=None):
 
 
 # unreleased version of client consumed from local code.
-def get_unrelease_task_agent_client(organization=None):
+def get_unreleased_task_agent_client(organization=None):
     connection = get_vss_connection(organization)
     return connection.get_client('azext_devops.dev.pipelines.unreleased_clients.TaskAgentClient')
 

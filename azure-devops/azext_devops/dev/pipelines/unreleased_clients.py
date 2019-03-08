@@ -209,3 +209,26 @@ class TaskAgentClient(VssClient):
                               route_values=route_values,
                               content=content)
         return self._deserialize('KubernetesResource', response)
+
+    def get_agent_queues(self, project=None, queue_name=None, action_filter=None):
+        """GetAgentQueues.
+        [Preview API] Get a list of agent queues.
+        :param str project: Project ID or project name
+        :param str queue_name: Filter on the agent queue name
+        :param str action_filter: Filter by whether the calling user has use or manage permissions
+        :rtype: [TaskAgentQueue]
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        query_parameters = {}
+        if queue_name is not None:
+            query_parameters['queueName'] = self._serialize.query('queue_name', queue_name, 'str')
+        if action_filter is not None:
+            query_parameters['actionFilter'] = self._serialize.query('action_filter', action_filter, 'str')
+        response = self._send(http_method='GET',
+                              location_id='900fa995-c559-4923-aae7-f8424fe4fbea',
+                              version='5.1-preview.1',
+                              route_values=route_values,
+                              query_parameters=query_parameters)
+        return self._deserialize('[TaskAgentQueue]', self._unwrap_collection(response))

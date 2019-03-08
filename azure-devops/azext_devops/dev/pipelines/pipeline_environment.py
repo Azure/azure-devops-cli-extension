@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from azext_devops.dev.common.services import (get_unrelease_task_agent_client,
+from azext_devops.dev.common.services import (get_unreleased_task_agent_client,
                                               resolve_instance_and_project)
 from .unreleased_models import EnvironmentCreateParameter
 
@@ -19,7 +19,7 @@ def create_environment(name, description=None, organization=None, project=None, 
                                                          organization=organization,
                                                          project=project,
                                                          project_required=True)
-    env_client = get_unrelease_task_agent_client(organization=organization)
+    env_client = get_unreleased_task_agent_client(organization=organization)
     env_create_param = EnvironmentCreateParameter()
     env_create_param.name = name
     env_create_param.description = description
@@ -36,7 +36,7 @@ def delete_environment(id=None, organization=None, project=None, detect=None):  
                                                          organization=organization,
                                                          project=project,
                                                          project_required=True)
-    env_client = get_unrelease_task_agent_client(organization=organization)
+    env_client = get_unreleased_task_agent_client(organization=organization)
     return env_client.delete_environment(environment_id=id, project=project)
 
 
@@ -50,7 +50,7 @@ def get_environment(id=None, expand=False, organization=None, project=None, dete
                                                          organization=organization,
                                                          project=project,
                                                          project_required=True)
-    env_client = get_unrelease_task_agent_client(organization=organization)
+    env_client = get_unreleased_task_agent_client(organization=organization)
     expand = 1 if expand else 0
     return env_client.get_environment_by_id(environment_id=id, project=project, expands=expand)
 
@@ -63,6 +63,6 @@ def get_environments(organization=None, project=None, detect=None):
                                                          organization=organization,
                                                          project=project,
                                                          project_required=True)
-    env_client = get_unrelease_task_agent_client(organization=organization)
+    env_client = get_unreleased_task_agent_client(organization=organization)
     return env_client.get_environments(project=project)
 

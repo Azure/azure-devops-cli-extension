@@ -132,6 +132,12 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
         if not yml_path:
             yml_path = _create_and_get_yml_path(new_pipeline_client, repository_type, repo_id, repo_name, branch,
                                                 yml_props, service_connection, project, organization)
+
+        # todo Fix the use of unreleased client since this API is made public preview in 149
+        if not queue_id:
+            queue_id = get_agent_queue_by_heuristic(organization=organization, project=project)
+            if queue_id is None:
+                logger.warning('Cannot find a hosted pool queue in the project. Provide a --queue-id in command params.')
         # Create build definition
         definition = _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, branch,
                                                    service_connection, repository_type, yml_path, queue_id)
@@ -810,3 +816,22 @@ def _get_repository_id_from_name(organization, project, repository):
     git_client = get_git_client(organization)
     repository = git_client.get_repository(project=project, repository_id=repository)
     return repository.id
+
+
+def get_agent_queue_by_heuristic(organization, project):
+    """
+    Tries to detect a queue in the agent pool in a project
+    """
+    choosen_queue = None
+    from azext_devops.dev.common.services import get_unreleased_task_agent_client
+    agent_client = get_unreleased_task_agent_client(organization=organization)
+    queues = agent_client.get_agent_queues(project=project)
+    found_first_hosted_pool_queue = False
+    for queue in queues:
+        if not found_first_hosted_pool_queue and queue.pool.is_hosted:
+            choosen_queue = queue
+            found_first_hosted_pool_queue = True
+        if queue.name == 'Hosted Ubuntu 1604':
+            choosen_queue = queue
+    logger.warning('Auto detecting agent pool. Queue: %s, Pool: %s', choosen_queue.name, choosen_queue.pool.name)
+    return choosen_queue.id
