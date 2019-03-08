@@ -722,7 +722,7 @@ def _handle_yml_props(params_required, yml_props, template_id, pipeline_client, 
                 params_to_render[param.name] = repo_name
                 prop_found = True
             else:
-                fetched_value = fetch_yaml_prop_intelligently(param.name, param.type, organization, project)
+                fetched_value = fetch_yaml_prop_intelligently(param.type, organization, project)
                 if fetched_value is not None:
                     logger.warning('Auto filling param %s: %s', param.name, fetched_value)
                     params_to_render[param.name] = fetched_value
@@ -740,7 +740,7 @@ def _handle_yml_props(params_required, yml_props, template_id, pipeline_client, 
     return rendered_template.content
 
 
-def fetch_yaml_prop_intelligently(prop_name, prop_type, organization, project):
+def fetch_yaml_prop_intelligently(prop_type, organization, project):
     if prop_type.lower() == 'connectedservice:azurerm':
         return get_azure_rm_service_connection(organization, project)
     return None
@@ -765,10 +765,9 @@ def get_azure_rm_service_connection(organization, project):
         return None
 
 
-SMART_HANDLING_FOR_PROP_TYPES = [ 'connectedservice:azurerm' ]
-SMART_HANDLING_FOR_PROP_NAMES = [ 'repositoryname' ]
-
 def _is_intelligent_handling_enabled_for_prop_name_type(prop_name, prop_type):
+    SMART_HANDLING_FOR_PROP_TYPES = ['connectedservice:azurerm']
+    SMART_HANDLING_FOR_PROP_NAMES = ['repositoryname']
     if prop_name.lower() in SMART_HANDLING_FOR_PROP_NAMES:
         return True
     if prop_type.lower() in SMART_HANDLING_FOR_PROP_TYPES:
@@ -821,17 +820,23 @@ def _get_repository_id_from_name(organization, project, repository):
 def get_agent_queue_by_heuristic(organization, project):
     """
     Tries to detect a queue in the agent pool in a project
+    Returns id of Hosted Ubuntu 16.04, first hosted pool queue, first queue in that order
+    None if no queues are returned
     """
-    choosen_queue = None
     from azext_devops.dev.common.services import get_unreleased_task_agent_client
+    choosen_queue = None
     agent_client = get_unreleased_task_agent_client(organization=organization)
     queues = agent_client.get_agent_queues(project=project)
-    found_first_hosted_pool_queue = False
-    for queue in queues:
-        if not found_first_hosted_pool_queue and queue.pool.is_hosted:
-            choosen_queue = queue
-            found_first_hosted_pool_queue = True
-        if queue.name == 'Hosted Ubuntu 1604':
-            choosen_queue = queue
-    logger.warning('Auto detecting agent pool. Queue: %s, Pool: %s', choosen_queue.name, choosen_queue.pool.name)
-    return choosen_queue.id
+    if queues:
+        choosen_queue = queues[0]
+        found_first_hosted_pool_queue = False
+        for queue in queues:
+            if queue.name == 'Hosted Ubuntu 1604':
+                choosen_queue = queue
+                break
+            if not found_first_hosted_pool_queue and queue.pool.is_hosted:
+                choosen_queue = queue
+                found_first_hosted_pool_queue = True
+        logger.warning('Auto detecting agent pool. Queue: %s, Pool: %s', choosen_queue.name, choosen_queue.pool.name)
+        return choosen_queue.id
+    return None
