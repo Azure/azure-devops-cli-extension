@@ -161,6 +161,12 @@ def get_pipeline_client(organization=None):
     return connection.get_client(VSTS_MODULE + 'build.v5_1.build_client.BuildClient')
 
 
+# unreleased version of client consumed from local code.
+def get_unrelease_task_agent_client(organization=None):
+    connection = get_vss_connection(organization)
+    return connection.get_client('azext_devops.dev.pipelines.unreleased_clients.TaskAgentClient')
+
+
 def get_new_pipeline_client(organization=None):
     connection = get_vss_connection(organization)
     return connection.get_client(VSTS_MODULE + 'cix.v5_1.cIX_client.PipelinesClient')

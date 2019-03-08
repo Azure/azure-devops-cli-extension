@@ -20,7 +20,10 @@ from ._format import (transform_build_table_output,
                       transform_release_table_output,
                       transform_release_definitions_table_output,
                       transform_release_definition_table_output,
-                      transform_runs_artifact_table_output)
+                      transform_runs_artifact_table_output,
+                      transform_environments_table_output,
+                      transform_environment_table_output)
+
 
 buildOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.build#{}',
@@ -59,14 +62,24 @@ pipelinesRunOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.pipeline_run#{}'
 )
 
+pipelinesEnvironmentsOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.pipeline_environment#{}'
+)
+
 def load_build_commands(self, _):
     with self.command_group('pipelines', command_type=pipelinesOps) as g:
         g.command('create', 'pipeline_create', table_transformer=transform_pipeline_run_table_output)
         g.command('list', 'pipeline_list', table_transformer=transform_pipelines_table_output)
         g.command('show', 'pipeline_show', table_transformer=transform_pipeline_table_output)
-        g.command('delete', 'pipeline_delete')
+        g.command('delete', 'pipeline_delete', confirmation='Are you sure you want to delete this pipeline?')
         g.command('update', 'pipeline_update', table_transformer=transform_pipeline_table_output)
         g.command('run', 'pipeline_run', table_transformer=transform_pipeline_run_table_output)
+
+    with self.command_group('pipelines environment', command_type=pipelinesEnvironmentsOps) as g:
+        g.command('create', 'create_environment', table_transformer=transform_environment_table_output)
+        g.command('delete', 'delete_environment', confirmation='Are you sure you want to delete this environment?')
+        g.command('show', 'get_environment', table_transformer=transform_environment_table_output)
+        g.command('list', 'get_environments', table_transformer=transform_environments_table_output)
 
     with self.command_group('pipelines runs', command_type=pipelinesRunOps) as g:
         # g.command('tag', 'pipeline_run_tag')

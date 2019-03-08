@@ -693,7 +693,7 @@ def _get_commits_object(path_to_commit, content, message):
 
 def _handle_yml_props(params_required, yml_props, template_id, pipeline_client, repo_name, organization, project):
     logger.warning('The template requires a few inputs. '
-                    'These can be provided as --yml-props in the command arguments or be input interactively.')
+                   'These can be provided as --yml-props in the command arguments or be input interactively.')
     params_to_render = {}
     for param in params_required:
         # hack this is fixed in 149

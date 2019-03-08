@@ -260,4 +260,24 @@ def _transform_runs_artifact_row(row):
     table_row['ID'] = row['id']
     table_row['Name'] = row['name']
     table_row['Type'] = row['resource']['type']
+
+
+def transform_environments_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_environment_row(item))
+    return table_output
+
+
+def transform_environment_table_output(result):
+    table_output = [_transform_environment_row(result)]
+    return table_output
+
+
+def _transform_environment_row(row, include_resources_count=False):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Name'] = row['name']
+    table_row['CreatedBy'] = row['createdBy']['displayName']
+    table_row['Created On'] = row['createdOn']
     return table_row

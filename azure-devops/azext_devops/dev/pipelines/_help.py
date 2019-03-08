@@ -19,9 +19,15 @@ def load_pipelines_help():
     long-summary:
     """
 
+    helps['pipelines environment'] = """
+    type: group
+    short-summary: Manage pipeline environments.
+    long-summary:
+    """
+
     helps['pipelines runs tag'] = """
     type: group
-    short-summary: Manage pipeline run tags.
+    short-summary: Manage run tags.
     long-summary:
     """
 
@@ -39,13 +45,13 @@ def load_pipelines_help():
 
     helps['pipelines build definition'] = """
     type: group
-    short-summary: Manage build pipelines definitions.
+    short-summary: Manage build definitions.
     long-summary:
     """
 
     helps['pipelines build task'] = """
     type: group
-    short-summary: Manage build pipelines task.
+    short-summary: Manage build task.
     long-summary:
     """
 
