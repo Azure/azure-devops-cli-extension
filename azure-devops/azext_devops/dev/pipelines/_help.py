@@ -25,6 +25,12 @@ def load_pipelines_help():
     long-summary:
     """
 
+    helps['pipelines environment resource'] = """
+    type: group
+    short-summary: Manage pipeline environment resources.
+    long-summary:
+    """
+
     helps['pipelines runs tag'] = """
     type: group
     short-summary: Manage run tags.

@@ -22,7 +22,8 @@ from ._format import (transform_build_table_output,
                       transform_release_definition_table_output,
                       transform_runs_artifact_table_output,
                       transform_environments_table_output,
-                      transform_environment_table_output)
+                      transform_environment_table_output,
+                      transform_environment_resources_table_output)
 
 
 buildOps = CliCommandType(
@@ -66,6 +67,10 @@ pipelinesEnvironmentsOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.pipeline_environment#{}'
 )
 
+pipelinesEnvironmentResourceOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.pipeline_environment#{}'
+)
+
 def load_build_commands(self, _):
     with self.command_group('pipelines', command_type=pipelinesOps) as g:
         g.command('create', 'pipeline_create', table_transformer=transform_pipeline_run_table_output)
@@ -81,8 +86,10 @@ def load_build_commands(self, _):
         g.command('show', 'get_environment', table_transformer=transform_environment_table_output)
         g.command('list', 'get_environments', table_transformer=transform_environments_table_output)
 
+    with self.command_group('pipelines environment resource', command_type=pipelinesEnvironmentsOps) as g:
+        g.command('list', 'get_environment_resources', table_transformer=transform_environment_resources_table_output)
+
     with self.command_group('pipelines runs', command_type=pipelinesRunOps) as g:
-        # g.command('tag', 'pipeline_run_tag')
         g.command('list', 'pipeline_run_list', table_transformer=transform_pipeline_runs_table_output)
         g.command('show', 'pipeline_run_show', table_transformer=transform_pipeline_run_table_output)
 

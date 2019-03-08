@@ -43,8 +43,10 @@ def delete_environment(id=None, organization=None, project=None, detect=None):  
 def get_environment(id=None, expand=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """
     Show details of an environment
-    :param name: Id of the environment to show
-    :type name: str
+    :param id: Id of the environment to show
+    :type id: int
+    :param expand: If this flag is present the details of resources in the environment is also fetched.
+    :type expand: bool
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -66,3 +68,11 @@ def get_environments(organization=None, project=None, detect=None):
     env_client = get_unreleased_task_agent_client(organization=organization)
     return env_client.get_environments(project=project)
 
+
+def get_environment_resources(id=None, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+    """
+    Show resources within an environment
+    :param id: Id of the environment to show
+    :type id: int
+    """
+    return get_environment(id=id, expand=True, organization=organization, project=project, detect=detect)

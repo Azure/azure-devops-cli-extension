@@ -281,3 +281,18 @@ def _transform_environment_row(row):
     table_row['CreatedBy'] = row['createdBy']['displayName']
     table_row['Created On'] = row['createdOn']
     return table_row
+
+
+def transform_environment_resources_table_output(result):
+    table_output = []
+    for item in result.get('resources'):
+        table_output.append(_transform_environment_resource_row(item))
+    return table_output
+
+
+def _transform_environment_resource_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Name'] = row['name']
+    table_row['Type'] = row['type'].title()
+    return table_row
