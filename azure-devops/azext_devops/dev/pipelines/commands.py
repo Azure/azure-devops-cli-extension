@@ -87,7 +87,10 @@ def load_build_commands(self, _):
         g.command('list', 'get_environments', table_transformer=transform_environments_table_output)
 
     with self.command_group('pipelines environment resource', command_type=pipelinesEnvironmentsOps) as g:
+        g.command('add', 'add_environment_resource')
         g.command('list', 'get_environment_resources', table_transformer=transform_environment_resources_table_output)
+        g.command('delete', 'delete_environment_resource',
+                  confirmation='Are you sure you want to delete this resource?')
 
     with self.command_group('pipelines runs', command_type=pipelinesRunOps) as g:
         g.command('list', 'pipeline_run_list', table_transformer=transform_pipeline_runs_table_output)

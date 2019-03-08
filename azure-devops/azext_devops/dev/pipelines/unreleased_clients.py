@@ -210,6 +210,151 @@ class TaskAgentClient(VssClient):
                               content=content)
         return self._deserialize('KubernetesResource', response)
 
+    def add_virtual_machine_group(self, create_parameters, project, environment_id):
+        """AddVirtualMachineGroup.
+        [Preview API]
+        :param :class:`<VirtualMachineGroupCreateParameters> <azure.devops.v5_1.task_agent.models.VirtualMachineGroupCreateParameters>` create_parameters:
+        :param str project: Project ID or project name
+        :param int environment_id:
+        :rtype: :class:`<VirtualMachineGroup> <azure.devops.v5_1.task-agent.models.VirtualMachineGroup>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if environment_id is not None:
+            route_values['environmentId'] = self._serialize.url('environment_id', environment_id, 'int')
+        content = self._serialize.body(create_parameters, 'VirtualMachineGroupCreateParameters')
+        response = self._send(http_method='POST',
+                              location_id='9e597901-4af7-4cc3-8d92-47d54db8ebfb',
+                              version='5.1-preview.1',
+                              route_values=route_values,
+                              content=content)
+        return self._deserialize('VirtualMachineGroup', response)
+
+    def delete_virtual_machine_group(self, project, environment_id, resource_id):
+        """DeleteVirtualMachineGroup.
+        [Preview API]
+        :param str project: Project ID or project name
+        :param int environment_id:
+        :param int resource_id:
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if environment_id is not None:
+            route_values['environmentId'] = self._serialize.url('environment_id', environment_id, 'int')
+        if resource_id is not None:
+            route_values['resourceId'] = self._serialize.url('resource_id', resource_id, 'int')
+        self._send(http_method='DELETE',
+                   location_id='9e597901-4af7-4cc3-8d92-47d54db8ebfb',
+                   version='5.1-preview.1',
+                   route_values=route_values)
+
+    def get_virtual_machine_group(self, project, environment_id, resource_id):
+        """GetVirtualMachineGroup.
+        [Preview API]
+        :param str project: Project ID or project name
+        :param int environment_id:
+        :param int resource_id:
+        :rtype: :class:`<VirtualMachineGroup> <azure.devops.v5_1.task-agent.models.VirtualMachineGroup>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if environment_id is not None:
+            route_values['environmentId'] = self._serialize.url('environment_id', environment_id, 'int')
+        if resource_id is not None:
+            route_values['resourceId'] = self._serialize.url('resource_id', resource_id, 'int')
+        response = self._send(http_method='GET',
+                              location_id='9e597901-4af7-4cc3-8d92-47d54db8ebfb',
+                              version='5.1-preview.1',
+                              route_values=route_values)
+        return self._deserialize('VirtualMachineGroup', response)
+
+    def update_virtual_machine_group(self, resource, project, environment_id):
+        """UpdateVirtualMachineGroup.
+        [Preview API]
+        :param :class:`<VirtualMachineGroup> <azure.devops.v5_1.task_agent.models.VirtualMachineGroup>` resource:
+        :param str project: Project ID or project name
+        :param int environment_id:
+        :rtype: :class:`<VirtualMachineGroup> <azure.devops.v5_1.task-agent.models.VirtualMachineGroup>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if environment_id is not None:
+            route_values['environmentId'] = self._serialize.url('environment_id', environment_id, 'int')
+        content = self._serialize.body(resource, 'VirtualMachineGroup')
+        response = self._send(http_method='PATCH',
+                              location_id='9e597901-4af7-4cc3-8d92-47d54db8ebfb',
+                              version='5.1-preview.1',
+                              route_values=route_values,
+                              content=content)
+        return self._deserialize('VirtualMachineGroup', response)
+
+    def get_virtual_machines(self, project, environment_id, resource_id, continuation_token=None, name=None, partial_name_match=None, tags=None, top=None):
+        """GetVirtualMachines.
+        [Preview API]
+        :param str project: Project ID or project name
+        :param int environment_id:
+        :param int resource_id:
+        :param str continuation_token:
+        :param str name:
+        :param bool partial_name_match:
+        :param [str] tags:
+        :param int top:
+        :rtype: [VirtualMachine]
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if environment_id is not None:
+            route_values['environmentId'] = self._serialize.url('environment_id', environment_id, 'int')
+        if resource_id is not None:
+            route_values['resourceId'] = self._serialize.url('resource_id', resource_id, 'int')
+        query_parameters = {}
+        if continuation_token is not None:
+            query_parameters['continuationToken'] = self._serialize.query('continuation_token', continuation_token, 'str')
+        if name is not None:
+            query_parameters['name'] = self._serialize.query('name', name, 'str')
+        if partial_name_match is not None:
+            query_parameters['partialNameMatch'] = self._serialize.query('partial_name_match', partial_name_match, 'bool')
+        if tags is not None:
+            tags = ",".join(tags)
+            query_parameters['tags'] = self._serialize.query('tags', tags, 'str')
+        if top is not None:
+            query_parameters['$top'] = self._serialize.query('top', top, 'int')
+        response = self._send(http_method='GET',
+                              location_id='48700676-2ba5-4282-8ec8-083280d169c7',
+                              version='5.1-preview.1',
+                              route_values=route_values,
+                              query_parameters=query_parameters)
+        return self._deserialize('[VirtualMachine]', self._unwrap_collection(response))
+
+    def update_virtual_machines(self, machines, project, environment_id, resource_id):
+        """UpdateVirtualMachines.
+        [Preview API]
+        :param [VirtualMachine] machines:
+        :param str project: Project ID or project name
+        :param int environment_id:
+        :param int resource_id:
+        :rtype: [VirtualMachine]
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if environment_id is not None:
+            route_values['environmentId'] = self._serialize.url('environment_id', environment_id, 'int')
+        if resource_id is not None:
+            route_values['resourceId'] = self._serialize.url('resource_id', resource_id, 'int')
+        content = self._serialize.body(machines, '[VirtualMachine]')
+        response = self._send(http_method='PATCH',
+                              location_id='48700676-2ba5-4282-8ec8-083280d169c7',
+                              version='5.1-preview.1',
+                              route_values=route_values,
+                              content=content)
+        return self._deserialize('[VirtualMachine]', self._unwrap_collection(response))
+
     def get_agent_queues(self, project=None, queue_name=None, action_filter=None):
         """GetAgentQueues.
         [Preview API] Get a list of agent queues.

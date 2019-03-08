@@ -13,10 +13,13 @@ _BUILD_RESULT_VALUES = ['canceled', 'failed', 'none', 'partiallySucceeded', 'suc
 
 _BUILD_STATUS_VALUES = ['all', 'cancelling', 'completed', 'inProgress', 'none', 'notStarted', 'postponed']
 
+_RESOURCE_TYPE_VALUES = ['kubernetes', 'vm']
 
 def load_build_arguments(self, _):
     with self.argument_context('pipelines create') as context:
         context.argument('yml_props', nargs='*')
+    with self.argument_context('pipelines environment resource') as context:
+        context.argument('resource_type', **enum_choice_list(_RESOURCE_TYPE_VALUES))
     with self.argument_context('pipelines build list') as context:
         context.argument('definition_ids', nargs='*', type=int)
         context.argument('tags', nargs='*')
