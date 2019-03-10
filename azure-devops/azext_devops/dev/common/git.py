@@ -112,6 +112,27 @@ def get_git_remotes():
     return _git_remotes
 
 
+def resolve_git_refs(ref):
+    """Prepends 'refs/' prefix to ref str if not already there.
+    :param str ref: The text to validate.
+    :rtype: str
+    """
+    if ref is not None and not ref.startswith(REFS_PREFIX):
+        ref = REFS_PREFIX + ref
+    return ref
+
+
+def get_ref_name_from_ref(ref):
+    """Removes 'refs/' prefix from ref str if there.
+    :param ref: The text to validate.
+    :type ref: str
+    :rtype: str
+    """
+    if ref is not None and ref.startswith(REFS_PREFIX):
+        ref = ref[len(REFS_PREFIX):]
+    return ref
+
+
 def resolve_git_ref_heads(ref):
     """Prepends 'refs/heads/' prefix to ref str if not already there.
     :param ref: The text to validate.
@@ -168,6 +189,7 @@ def _get_alias_value(command):
 
 _git_remotes = {}
 _ORIGIN_PUSH_KEY = 'origin(push)'
+REFS_PREFIX = 'refs/'
 REF_HEADS_PREFIX = 'refs/heads/'
 GIT_CREDENTIALS_USERNAME_KEY = 'username'
 GIT_CREDENTIALS_PASSWORD_KEY = 'password'

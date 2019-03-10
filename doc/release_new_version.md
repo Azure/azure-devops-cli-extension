@@ -13,12 +13,12 @@ To do this trigger a [Azure DevOps CLI - Create Releases - YAML](https://dev.azu
 This build will:
 
 * create and upload wheel with the latest code (which can be downloaded from artifacts)
+* this will also create a draft release in GitHub Repository
 * calculate sha256 for the wheel (which can be found in logs)
 
 ### Manual Steps
 
-* Create a new release in GitHub
-* Download wheel from build artifacts and put the same in GitHub releases
+* Publish the draft release in GitHub after making required changes in release notes
 
 ## Updating index file in Azure CLI extensions repository
 
@@ -37,3 +37,4 @@ Also update build pipelines YAMLS
 
 Update [AzureDevOpsCli-Released-Version-Check](https://dev.azure.com/AzureDevOpsCliOrg/AzureDevOpsCli/_build?definitionId=34) to run from the commit which was used to do the release.
 This release runs periodically and makes sure the released build works. Main validation here is dependency validation.
+Update Job 'Run_Test_From_Old_Release' in YAML to pick up the new released branch to run tests.

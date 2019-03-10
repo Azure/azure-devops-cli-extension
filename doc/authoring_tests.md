@@ -1,4 +1,31 @@
-# Authoring Live Tests
+# Authoring Tests
+
+## Authoring Unit Tests
+
+1. install pytest
+
+1. run all the tests:
+
+    ```bash
+    cd azure-devops
+    pytest
+    ```
+
+1. run an individual test:
+
+    ```bash
+    cd azure-devops/azext_devops
+    pytest test/artifacts/test_universal.py
+    ```
+
+## Authoring Live Tests
+
+1. install `azure-cli-testsdk` and `azure-devtools`:
+
+    ```bash
+    pip install --user 'git+https://github.com/Azure/azure-cli@master#egg=azure-cli-testsdk&subdirectory=src/azure-cli-testsdk' -q
+    pip install --user azure-devtools
+    ```
 
 ## Clear cache while recording a new test
 
