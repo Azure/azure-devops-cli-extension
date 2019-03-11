@@ -54,9 +54,9 @@ def load_team_arguments(self, _):
     with self.argument_context('devops extension') as context:
         from azure.cli.core.commands.parameters import get_enum_type
         context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
-                         help='Include built in extensions. Default is False.')
+                         help='Include built in extensions.')
         context.argument('include_disabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
-                         help='Include disabled extension. Default is False.')
+                         help='Include disabled extension.')
         context.argument('publisher_id', help='Publisher ID')
         context.argument('extension_id', help='Extension ID')
 

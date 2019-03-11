@@ -12,7 +12,7 @@ from azext_devops.dev.common.arguments import resolve_true_false
 logger = get_logger(__name__)
 
 
-def list_extensions(include_built_in=None, include_disabled=None, organization=None, detect=None):
+def list_extensions(include_built_in='true', include_disabled='true', organization=None, detect=None):
     """ List extensions installed in an organization
     """
     include_built_in = resolve_true_false(include_built_in)
