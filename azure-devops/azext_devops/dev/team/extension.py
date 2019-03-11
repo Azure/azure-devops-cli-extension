@@ -33,7 +33,7 @@ def list_extensions(include_built_in='true', include_disabled='true', organizati
 
 
 def get_extension(publisher_id, extension_id, organization=None, detect=None):
-    """ Gets a single extension
+    """ Get details of an extension
     """
     organization = resolve_instance(detect=detect, organization=organization)
     extension_client = get_extension_client(organization)
