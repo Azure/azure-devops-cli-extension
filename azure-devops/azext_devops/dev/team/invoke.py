@@ -46,10 +46,15 @@ def invoke(area, resource, organization=None, detect=None):
     if not location_id:
         raise CLIError('--resource is not correct')
 
+    route_values = {}
+    route_values['publisherName'] = 'ms'
+    route_values['extensionName'] = 'vss-code-search'
+
     response = client._send(http_method='GET',
                             location_id=location_id,
-                            version='4.1-preview.1',
-                            query_parameters={})
+                            version='5.0-preview',
+                            query_parameters={},
+                            route_values=route_values)
 
     if 'json' in response.headers.get("content-type"):
         return response.json()
