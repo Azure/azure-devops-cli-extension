@@ -33,15 +33,18 @@ def invoke(area, resource, organization=None, detect=None):
             client_url = resource_area.location_url
 
     if not client_url:
-        raise CLIError('Area is not present in current organization')
+        raise CLIError('--area is not present in current organization')
 
     client = VssClient(client_url, connection._creds)
 
     location_id = ''
     resource_locations = client._get_resource_locations(all_host_types=True)
     for resource_location in resource_locations:
-        if resource.lower() == resource_location.resource_name.lower():
+        if resource.lower() == resource_location.resource_name.lower() and area.lower() == resource_location.area.lower():
             location_id = resource_location.id
+
+    if not location_id:
+        raise CLIError('--resource is not correct')
 
     response = client._send(http_method='GET',
                             location_id=location_id,
