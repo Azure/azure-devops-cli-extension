@@ -1,0 +1,53 @@
+# pylint: skip-file
+# --------------------------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See License.txt in the project root for license information.
+# --------------------------------------------------------------------------------------------
+
+from knack.log import get_logger
+from knack.util import CLIError
+
+from azext_devops.dev.common.services import (resolve_instance,
+                                              get_vss_connection)  
+
+from azext_devops.vstsCompressed.vss_client import VssClient
+
+
+logger = get_logger(__name__)
+
+
+def invoke(area, resource, organization=None, detect=None):
+    """ This command will invoke request for any DevOps area and resource
+    """
+    organization = resolve_instance(detect=detect, organization=organization)
+    connection = get_vss_connection(organization)
+
+    resource_areas = connection._get_resource_areas(force=True)
+    client_url = ''
+    if not resource_areas:
+        #this is for on-prem
+        client_url = connection.base_url
+    
+    for resource_area in resource_areas:
+        if resource_area.name.lower() == area.lower():
+            client_url = resource_area.location_url
+
+    if not client_url:
+        raise CLIError('Area is not present in current organization')
+
+    client = VssClient(client_url, connection._creds)
+
+    response = client._send(http_method='GET',
+                            location_id='275424d0-c844-4fe2-bda6-04933a1357d8',
+                            version='4.1-preview.1',
+                            query_parameters={})
+
+    if 'json' in response.headers.get("content-type"):
+        return response.json()
+
+    return response
+
+    
+
+
+
