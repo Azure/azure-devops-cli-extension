@@ -26,7 +26,7 @@ def date_time_to_only_date(date_time):
         result = str(parser.parse(date_time).date())
         logger.info('trimmed %s to %s', date_time, result)
         return result
-    except ex:
+    except Exception as ex:
         logger.info('encountered error while parsing date time')
         logger.info(str(ex))
         return date_time

@@ -20,7 +20,7 @@ def transform_extensions_table_output(result):
 
 def _transform_extension_row(row):
     table_row = OrderedDict()
-    table_row['Publisher Id'] = trim_for_display(row['publisherId'], 20)
+    table_row['Publisher Id'] = trim_for_display(row['publisherId'], 10)
     table_row['Extension Id'] = trim_for_display(row['extensionId'], 20)
     table_row['Name'] = trim_for_display(row['extensionName'], 20)
     table_row['Version '] = trim_for_display(row['version'], 20)
