@@ -37,8 +37,14 @@ def invoke(area, resource, organization=None, detect=None):
 
     client = VssClient(client_url, connection._creds)
 
+    location_id = ''
+    resource_locations = client._get_resource_locations(all_host_types=True)
+    for resource_location in resource_locations:
+        if resource.lower() == resource_location.resource_name.lower():
+            location_id = resource_location.id
+
     response = client._send(http_method='GET',
-                            location_id='275424d0-c844-4fe2-bda6-04933a1357d8',
+                            location_id=location_id,
                             version='4.1-preview.1',
                             query_parameters={})
 
