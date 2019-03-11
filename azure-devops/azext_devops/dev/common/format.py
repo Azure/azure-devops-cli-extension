@@ -9,8 +9,8 @@ logger = get_logger(__name__)
 
 
 def trim_for_display(text, max_length):
-    if text is None:
-        return 'None'
+    if not text:
+        return text
 
     result = text
     if len(text) > max_length:

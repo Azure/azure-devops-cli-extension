@@ -56,7 +56,7 @@ def load_team_arguments(self, _):
         context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Include built in extensions.')
         context.argument('include_disabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
-                         help='Include disabled extension.')
+                         help='Include disabled extensions.')
         context.argument('publisher_id', help='Publisher ID')
         context.argument('extension_id', help='Extension ID')
 

@@ -126,7 +126,6 @@ class TestExtensionMethods(unittest.TestCase):
         self.mock_update_installed_extension.assert_called_once()
         udpate_extension_object = self.mock_update_installed_extension.call_args_list[0][0]
         install_state_flags = udpate_extension_object[0].install_state.flags
-        # self.assertTrue('disabled' not in install_state_flags)
         self.assertEqual('buildIn, multiVersion', install_state_flags)
 
     def test_enable_extension_disabled_not_first(self):
@@ -138,7 +137,6 @@ class TestExtensionMethods(unittest.TestCase):
         self.mock_update_installed_extension.assert_called_once()
         udpate_extension_object = self.mock_update_installed_extension.call_args_list[0][0]
         install_state_flags = udpate_extension_object[0].install_state.flags
-        # self.assertTrue('disabled' not in install_state_flags)
         self.assertEqual('buildIn, multiVersion', install_state_flags)
 
 

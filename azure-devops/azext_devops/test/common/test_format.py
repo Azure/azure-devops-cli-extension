@@ -18,6 +18,14 @@ class TestFormatMethods(unittest.TestCase):
         output = trim_for_display(input, 20)
         self.assertEqual(output, input)
 
+        input = ''
+        output = trim_for_display(input, 20)
+        self.assertEqual(output, input)
+
+        input = None
+        output = trim_for_display(input, 20)
+        self.assertEqual(output, input)
+
     def test_date_time_to_only_date(self):
         input = '2019-02-24T02:45:41.277000+00:00'
         output = date_time_to_only_date(input)
