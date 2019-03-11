@@ -7,6 +7,7 @@ from knack.log import get_logger
 
 logger = get_logger(__name__)
 
+
 def trim_for_display(text, max_length):
     if text is None:
         return 'None'
@@ -19,6 +20,7 @@ def trim_for_display(text, max_length):
         logger.info('not trimming %s', text)
 
     return result
+
 
 def date_time_to_only_date(date_time):
     try:

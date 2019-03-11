@@ -6,6 +6,7 @@
 from collections import OrderedDict
 from azext_devops.dev.common.format import trim_for_display, date_time_to_only_date
 
+
 def transform_extension_table_output(result):
     table_output = [_transform_extension_row(result)]
     return table_output
