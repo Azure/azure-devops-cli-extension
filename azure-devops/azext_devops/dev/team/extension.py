@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.log import get_logger
+from knack.util import CLIError
 
 from azext_devops.dev.common.services import (get_extension_client,
                                               resolve_instance)
@@ -96,11 +97,15 @@ def _update_extension_state(disable, enable,
 
     if disable:
         flags = [x.strip() for x in state_from_service.split(',')]
+        if 'disabled' in flags:
+            raise CLIError('Extension is already in disabled state')
         flags.append('disabled')
         updated_state = ', '.join(flags)
 
     if enable:
         flags = [x.strip() for x in state_from_service.split(',')]
+        if 'disabled' not in flags:
+            raise CLIError('Extension is already in enabled state')
         flags.remove('disabled')
         updated_state = ', '.join(flags)
 
