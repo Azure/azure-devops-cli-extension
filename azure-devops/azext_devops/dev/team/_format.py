@@ -4,6 +4,32 @@
 # --------------------------------------------------------------------------------------------
 
 from collections import OrderedDict
+from azext_devops.dev.common.format import trim_for_display, date_time_to_only_date
+
+
+def transform_extension_table_output(result):
+    table_output = [_transform_extension_row(result)]
+    return table_output
+
+
+def transform_extensions_table_output(result):
+    table_output = []
+    for item in sorted(result, key=_get_extension_key):
+        table_output.append(_transform_extension_row(item))
+    return table_output
+
+
+def _transform_extension_row(row):
+    table_row = OrderedDict()
+    table_row['Publisher Id'] = trim_for_display(row['publisherId'], 10)
+    table_row['Extension Id'] = trim_for_display(row['extensionId'], 20)
+    table_row['Name'] = trim_for_display(row['extensionName'], 20)
+    table_row['Version '] = trim_for_display(row['version'], 20)
+    table_row['Last Updated '] = date_time_to_only_date(row['lastPublished'])
+    table_row['States'] = trim_for_display(row['installState']['flags'], 20)
+    table_row['Flags'] = trim_for_display(row['flags'], 20)
+
+    return table_row
 
 
 def transform_projects_table_output(result):
@@ -94,6 +120,10 @@ def _transform_team_member_row(row):
     table_row['Email'] = row['uniqueName']
 
     return table_row
+
+
+def _get_extension_key(extension):
+    return extension['extensionName'].lower()
 
 
 def _get_service_endpoint_key(service_endpoint_row):

@@ -9,7 +9,9 @@ from ._format import (transform_project_table_output,
                       transform_service_endpoints_table_output,
                       transform_team_table_output,
                       transform_teams_table_output,
-                      transform_team_members_table_output)
+                      transform_team_members_table_output,
+                      transform_extension_table_output,
+                      transform_extensions_table_output)
 
 
 projectOps = CliCommandType(
@@ -39,6 +41,11 @@ service_endpointOps = CliCommandType(
 
 teamOps = CliCommandType(
     operations_tmpl='azext_devops.dev.team.team#{}',
+    exception_handler=azure_devops_exception_handler
+)
+
+extensionOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.team.extension#{}',
     exception_handler=azure_devops_exception_handler
 )
 
@@ -72,3 +79,11 @@ def load_team_commands(self, _):
         g.command('list', 'get_teams', table_transformer=transform_teams_table_output)
         g.command('list-member', 'get_team_members', table_transformer=transform_team_members_table_output)
         g.command('update', 'update_team', table_transformer=transform_team_table_output)
+
+    with self.command_group('devops extension', command_type=extensionOps) as g:
+        g.command('list', 'list_extensions', table_transformer=transform_extensions_table_output)
+        g.command('uninstall', 'uninstall_extension', confirmation='Are you sure you want to uninstall this extension?')
+        g.command('install', 'install_extension', table_transformer=transform_extension_table_output)
+        g.command('show', 'get_extension', table_transformer=transform_extension_table_output)
+        g.command('enable', 'enable_extension', table_transformer=transform_extension_table_output)
+        g.command('disable', 'disable_extension', table_transformer=transform_extension_table_output)
