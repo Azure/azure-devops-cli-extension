@@ -7,15 +7,11 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsClientRequestError
-from azext_devops.vstsCompressed.git.v4_0.models.models import GitPullRequest
-from azext_devops.vstsCompressed.git.v4_0.models.models import GitPullRequestCompletionOptions
-from azext_devops.vstsCompressed.git.v4_0.models.models import GitPullRequestSearchCriteria
-from azext_devops.vstsCompressed.git.v4_0.models.models import IdentityRef
-from azext_devops.vstsCompressed.git.v4_0.models.models import IdentityRefWithVote
-from azext_devops.vstsCompressed.git.v4_0.models.models import ResourceRef
-from azext_devops.vstsCompressed.work_item_tracking.v4_0.models.models import JsonPatchOperation
-from azext_devops.vstsCompressed.work_item_tracking.v4_0.models.models import WorkItemRelation
+from azext_devops.devops_sdk.exceptions import AzureDevOpsClientRequestError
+from azext_devops.devops_sdk.v5_0.git.models import (GitPullRequest, GitPullRequestCompletionOptions,
+                                                     GitPullRequestSearchCriteria, IdentityRef, IdentityRefWithVote,
+                                                     ResourceRef)
+from azext_devops.devops_sdk.v5_0.work_item_tracking.models import JsonPatchOperation, WorkItemRelation
 from azext_devops.dev.common.arguments import resolve_on_off_switch, should_detect
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads
 from azext_devops.dev.common.identities import ME, resolve_identity_as_id
@@ -422,7 +418,7 @@ def add_pull_request_work_items(id, work_items, organization=None, detect=None):
             patch_document.append(patch_operation)
             try:
                 wit_client.update_work_item(document=patch_document, id=work_item_id)
-            except VstsClientRequestError as ex:
+            except AzureDevOpsClientRequestError as ex:
                 logger.debug(ex, exc_info=True)
                 message = ex.args[0]
                 if message != 'Relation already exists.':

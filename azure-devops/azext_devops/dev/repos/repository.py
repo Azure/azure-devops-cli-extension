@@ -8,7 +8,7 @@ import webbrowser
 
 from knack.util import CLIError
 from knack.log import get_logger
-from azext_devops.vstsCompressed.git.v4_0.models.models import GitRepositoryCreateOptions
+from azext_devops.devops_sdk.v5_0.git.models import GitRepositoryCreateOptions
 from azext_devops.dev.common.services import (get_git_client,
                                               resolve_instance_and_project,
                                               resolve_instance_project_and_repo)

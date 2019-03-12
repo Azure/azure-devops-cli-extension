@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
+from azext_devops.devops_sdk.exceptions import AzureDevOpsServiceError
 from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
 from .setting import setting_add_or_update, setting_list, setting_remove, GLOBAL_MESSAGE_BANNERS_KEY, USER_SCOPE_HOST
 
@@ -16,7 +16,7 @@ def banner_list(organization=None, detect=None):
     try:
         return setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY,
                             organization=organization, detect=detect)
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)
 
 
@@ -32,7 +32,7 @@ def banner_show(id, organization=None, detect=None):  # pylint: disable=redefine
         if id not in existing_entries:
             raise ValueError('The following banner was not found: %s' % id)
         return {id: existing_entries[id]}
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)
 
 
@@ -72,7 +72,7 @@ def banner_add(message, banner_type=None, id=None, expiration=None, organization
         setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST,
                               organization=organization, detect=detect)
         return {id: entries[setting_key]}
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)
 
 
@@ -129,7 +129,7 @@ def banner_update(message=None, banner_type=None, id=None, expiration=None, orga
         setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST, organization=organization,
                               detect=detect)
         return {id: entries[setting_key]}
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)
 
 
@@ -142,7 +142,7 @@ def banner_remove(id, organization=None, detect=None):  # pylint: disable=redefi
     try:
         setting_key = _get_banner_key(id)
         setting_remove(key=setting_key, user_scope='host', organization=organization, detect=detect)
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)
 
 

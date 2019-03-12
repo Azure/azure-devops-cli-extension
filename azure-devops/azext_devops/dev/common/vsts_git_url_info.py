@@ -59,7 +59,7 @@ class VstsGitUrlInfo(object):
 
     @staticmethod
     def get_vsts_info(remote_url):
-        from azext_devops.vstsCompressed.git.v4_1.git_client import GitClient
+        from azext_devops.devops_sdk.v5_0.git.git_client import GitClient
         from .services import _get_credentials
         components = uri_parse(remote_url.lower())
         if components.scheme == 'ssh':
