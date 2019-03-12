@@ -16,7 +16,6 @@ from azext_devops.vstsCompressed.vss_client import VssClient
 
 logger = get_logger(__name__)
 
-
 def invoke(area=None, resource=None,
            route_parameters=None,
            query_parameters=None,
@@ -96,8 +95,6 @@ def invoke(area=None, resource=None,
     if not out_file:
         raise CLIError('response is not json, you need to provide --out-file where it can be written')
 
-    responseContent = response.content
-
     import os
     if os.path.exists(out_file):
         raise CLIError('out file already exists, please give a new name')
@@ -106,7 +103,8 @@ def invoke(area=None, resource=None,
         open(out_file, "a").close()
 
     with open(out_file, 'ab') as f:
-        f.write(responseContent)
+        for chunk in client._client.stream_download(response, callback=None):
+            f.write(chunk)
 
 
 def apiVersionToFloat(apiVersion):
