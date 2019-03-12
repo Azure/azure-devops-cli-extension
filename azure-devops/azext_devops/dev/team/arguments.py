@@ -52,6 +52,7 @@ def load_team_arguments(self, _):
 
     with self.argument_context('devops invoke') as context:
         context.argument('route_parameters', nargs='*')
+        context.argument('query_parameters', nargs='*')
 
     with self.argument_context('devops') as context:
         load_global_args(context)

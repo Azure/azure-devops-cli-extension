@@ -16,7 +16,10 @@ from azext_devops.vstsCompressed.vss_client import VssClient
 logger = get_logger(__name__)
 
 
-def invoke(area, resource, route_parameters=None, organization=None, detect=None):
+def invoke(area, resource,
+           route_parameters=None,
+           query_parameters=None,
+           organization=None, detect=None):
     """ This command will invoke request for any DevOps area and resource
     """
 
@@ -40,21 +43,27 @@ def invoke(area, resource, route_parameters=None, organization=None, detect=None
 
     client = VssClient(client_url, connection._creds)
 
+    # there can be multiple resouce/ area with different version so this version comparision is needed
     location_id = ''
+    current_version = 0.0
     resource_locations = client._get_resource_locations(all_host_types=True)
     for resource_location in resource_locations:
         if resource.lower() == resource_location.resource_name.lower() and area.lower() == resource_location.area.lower():
-            location_id = resource_location.id
+            current_maxVersion = resource_location.max_version
+            if current_maxVersion > current_version:
+                location_id = resource_location.id
+                current_version = current_maxVersion
 
     if not location_id:
         raise CLIError('--resource is not correct')
 
     route_values = stringToDict(route_parameters)
+    query_values = stringToDict(query_parameters)
 
     response = client._send(http_method='GET',
                             location_id=location_id,
-                            version='5.0-preview',
-                            query_parameters={},
+                            version='4.1',
+                            query_parameters=query_values,
                             route_values=route_values)
 
     if 'json' in response.headers.get("content-type"):
