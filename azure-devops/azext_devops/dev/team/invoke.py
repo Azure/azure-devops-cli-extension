@@ -20,6 +20,8 @@ def invoke(area, resource,
            route_parameters=None,
            query_parameters=None,
            api_version='4.1',
+           http_method='GET',
+           in_file=None,
            organization=None, detect=None):
     """ This command will invoke request for any DevOps area and resource
     """
@@ -29,6 +31,12 @@ def invoke(area, resource,
 
     organization = resolve_instance(detect=detect, organization=organization)
     connection = get_vss_connection(organization)
+
+    request_body = None
+    if in_file:
+        with open(in_file) as f:
+            import json
+            request_body = json.load(f)
 
     resource_areas = connection._get_resource_areas(force=True)
     client_url = ''
@@ -62,11 +70,12 @@ def invoke(area, resource,
     route_values = stringToDict(route_parameters)
     query_values = stringToDict(query_parameters)
 
-    response = client._send(http_method='GET',
+    response = client._send(http_method=http_method,
                             location_id=location_id,
                             version=api_version,
                             query_parameters=query_values,
-                            route_values=route_values)
+                            route_values=route_values,
+                            content=request_body)
 
     if 'json' in response.headers.get("content-type"):
         return response.json()

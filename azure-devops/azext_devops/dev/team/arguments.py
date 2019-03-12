@@ -19,6 +19,8 @@ _STATE_VALUES = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting',
 _SERVICE_ENDPOINT_TYPE = [SERVICE_ENDPOINT_TYPE_GITHUB, SERVICE_ENDPOINT_TYPE_AZURE_RM]
 _SERVICE_ENDPOINT_AUTHORIZATION_SCHEME = [SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                                           SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL]
+_HTTP_METHOD_VALUES = ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS', 'PUT',
+                       'DEFAULT', 'HEAD']
 
 
 def load_global_args(context):
@@ -53,6 +55,7 @@ def load_team_arguments(self, _):
     with self.argument_context('devops invoke') as context:
         context.argument('route_parameters', nargs='*')
         context.argument('query_parameters', nargs='*')
+        context.argument('http_method',**enum_choice_list(_HTTP_METHOD_VALUES))
 
     with self.argument_context('devops') as context:
         load_global_args(context)
