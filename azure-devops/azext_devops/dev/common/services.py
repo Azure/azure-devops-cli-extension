@@ -200,7 +200,7 @@ def get_operations_client(organization=None):
 
 def get_policy_client(organization=None):
     connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'policy.v4_0.policy_client.PolicyClient')
+    return connection.get_client(VSTS_MODULE + 'v5_0.policy.policy_client.PolicyClient')
 
 
 def get_settings_client(organization=None):
@@ -215,7 +215,7 @@ def get_task_agent_client(organization=None):
 
 def get_work_item_tracking_client(organization=None):
     connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'work_item_tracking.v4_0.'
+    return connection.get_client(VSTS_MODULE + 'v5_0.work_item_tracking.'
                                  'work_item_tracking_client.WorkItemTrackingClient')
 
 

@@ -34,7 +34,7 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type source_branch: str
     :param commit_id: Commit ID of the branch to build.
     :type commit_id: str
-    :rtype: :class:`<Build> <build.v4_0.models.Build>`
+    :rtype: :class:`<Build> <v5_0.build.models.Build>`
     """
     if branch is None:
         branch = source_branch
@@ -70,7 +70,7 @@ def build_show(id, open=False, organization=None, project=None, detect=None):  #
     :type id: int
     :param open: Open the build results page in your web browser.
     :type open: bool
-    :rtype: :class:`<Build> <build.v4_0.models.Build>`
+    :rtype: :class:`<Build> <v5_0.build.models.Build>`
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
@@ -100,7 +100,7 @@ def build_list(definition_ids=None, branch=None, organization=None, project=None
     :type tags: list of str
     :param requested_for: Limit to builds requested for this user or group.
     :type requested_for: str
-    :rtype: :class:`<Build> <build.v4_0.models.Build>`
+    :rtype: :class:`<Build> <v5_0.build.models.Build>`
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
@@ -173,7 +173,7 @@ def get_build_tags(build_id, organization=None, project=None, detect=None):
 
 def _open_build(build, organization):
     """Open the build results page in your web browser.
-    :param :class:`<Build> <build.v4_0.models.Build>` build:
+    :param :class:`<Build> <v5_0.build.models.Build>` build:
     :param str organization:
     """
     # https://dev.azure.com/OrgName/ProjectName/_build/index?buildId=1234

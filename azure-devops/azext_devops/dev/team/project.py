@@ -32,7 +32,7 @@ def create_project(name, organization=None, process=None, source_control='git', 
     :type visibility: str
     :param open: Open the team project in the default web browser.
     :type open: bool
-    :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
+    :rtype: :class:`<TeamProject> <v5_0.core.models.TeamProject>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
 
@@ -109,7 +109,7 @@ def show_project(project, organization=None, detect=None, open=False):  # pylint
     :type project: str
     :param open: Open the team project in the default web browser.
     :type open: bool
-    :rtype: :class:`<TeamProject> <core.v4_0.models.TeamProject>`
+    :rtype: :class:`<TeamProject> <v5_0.core.models.TeamProject>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     core_client = get_core_client(organization)
@@ -125,7 +125,7 @@ def list_projects(organization=None, top=None, skip=None, detect=None):
     :type top: int
     :param skip: Number of results to skip.
     :type skip: int
-    :rtype: list of :class:`<TeamProject> <core.v4_0.models.TeamProject>`
+    :rtype: list of :class:`<TeamProject> <v5_0.core.models.TeamProject>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     core_client = get_core_client(organization)
