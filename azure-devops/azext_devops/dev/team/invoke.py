@@ -57,7 +57,7 @@ def invoke(area, resource,
                 current_version = current_maxVersion
 
     if not location_id:
-        raise CLIError('--resource is not correct')
+        raise CLIError('--resource and api-version combination is not correct')
 
     route_values = stringToDict(route_parameters)
     query_values = stringToDict(query_parameters)
