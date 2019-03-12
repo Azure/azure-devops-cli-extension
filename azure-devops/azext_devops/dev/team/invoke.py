@@ -22,6 +22,9 @@ def invoke(area, resource,
            api_version='4.1',
            http_method='GET',
            in_file=None,
+           media_type='application/json',
+           accept_media_type='application/json',
+           out_file=None,
            organization=None, detect=None):
     """ This command will invoke request for any DevOps area and resource
     """
@@ -75,6 +78,8 @@ def invoke(area, resource,
                             version=api_version,
                             query_parameters=query_values,
                             route_values=route_values,
+                            media_type=media_type,
+                            accept_media_type=accept_media_type,
                             content=request_body)
 
     if 'json' in response.headers.get("content-type"):
