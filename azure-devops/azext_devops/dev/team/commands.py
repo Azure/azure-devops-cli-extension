@@ -11,7 +11,9 @@ from ._format import (transform_project_table_output,
                       transform_teams_table_output,
                       transform_team_members_table_output,
                       transform_users_table_output,
-                      transform_user_table_output)
+                      transform_user_table_output,
+                      transform_extension_table_output,
+                      transform_extensions_table_output)
 
 
 projectOps = CliCommandType(
@@ -49,6 +51,12 @@ userOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+extensionOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.team.extension#{}',
+    exception_handler=azure_devops_exception_handler
+)
+
+
 def load_team_commands(self, _):
     with self.command_group('devops', command_type=credentialsOps) as g:
         g.command('login', 'credential_set')
@@ -85,3 +93,12 @@ def load_team_commands(self, _):
         g.command('remove', 'delete_user_entitlement', confirmation='Are you sure you want to remove this user?')
         g.command('update', 'update_user_entitlement', table_transformer=transform_user_table_output)
         g.command('add', 'add_user_entitlement', table_transformer=transform_user_table_output)
+
+    with self.command_group('devops extension', command_type=extensionOps) as g:
+        g.command('list', 'list_extensions', table_transformer=transform_extensions_table_output)
+        g.command('uninstall', 'uninstall_extension', confirmation='Are you sure you want to uninstall this extension?')
+        g.command('install', 'install_extension', table_transformer=transform_extension_table_output)
+        g.command('show', 'get_extension', table_transformer=transform_extension_table_output)
+        g.command('enable', 'enable_extension', table_transformer=transform_extension_table_output)
+        g.command('disable', 'disable_extension', table_transformer=transform_extension_table_output)
+

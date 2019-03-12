@@ -5,6 +5,7 @@
 
 
 from knack.arguments import enum_choice_list
+from azext_devops.dev.common.const import _TRUE_FALSE_SWITCH
 from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_GITHUB,
                     SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL,
@@ -53,6 +54,15 @@ def load_team_arguments(self, _):
 
     with self.argument_context('devops user add') as context:
         context.argument('access_level', **enum_choice_list(_ACCESS_LEVELS))
+
+    with self.argument_context('devops extension') as context:
+        from azure.cli.core.commands.parameters import get_enum_type
+        context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+                         help='Include built in extensions.')
+        context.argument('include_disabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+                         help='Include disabled extensions.')
+        context.argument('publisher_id', help='Publisher ID')
+        context.argument('extension_id', help='Extension ID')
 
     with self.argument_context('devops') as context:
         load_global_args(context)

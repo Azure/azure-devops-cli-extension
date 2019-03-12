@@ -22,6 +22,13 @@ def resolve_on_off_switch(switch):
         raise ValueError('Expecting "on" or "off" value for switch, but value was "' + switch + "'.")
 
 
+def resolve_true_false(inputString):
+    if inputString is not None and inputString.lower() == 'true':
+        return True
+
+    return False
+
+
 def should_detect(detect):
     if detect is None:
         return True
