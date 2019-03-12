@@ -25,7 +25,7 @@ def create_repo(name, organization=None, project=None, detect=None, open=False):
     :type name: str
     :param open: Open the repository page in your web browser.
     :type open: bool
-    :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
+    :rtype: :class:`<GitRepository> <v5_0.git.models.GitRepository>`
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -56,7 +56,7 @@ def delete_repo(id, organization=None, project=None, detect=None):  # pylint: di
 
 def list_repos(organization=None, project=None, detect=None):
     """List Git repositories of a team project.
-    :rtype: list of :class:`<GitRepository> <git.v4_0.models.GitRepository>`
+    :rtype: list of :class:`<GitRepository> <v5_0.git.models.GitRepository>`
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -102,7 +102,7 @@ def show_repo(repository, organization=None, project=None, detect=None, open=Fal
     :type repository: str
     :param open: Open the repository page in your web browser.
     :type open: bool
-    :rtype: :class:`<GitRepository> <git.v4_0.models.GitRepository>`
+    :rtype: :class:`<GitRepository> <v5_0.git.models.GitRepository>`
     """
     organization, project, repository = resolve_instance_project_and_repo(
         detect=detect,

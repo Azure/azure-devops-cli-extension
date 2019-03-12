@@ -28,7 +28,7 @@ def get_client_mock_helper(_self_dummy, client_type):
 
     switcher = {
         vsts+'v5_0.git.git_client.GitClient': GitClient(base_url=TEST_DEVOPS_ORG_URL),
-        vsts+'policy.v4_0.policy_client.PolicyClient': PolicyClient(base_url=TEST_DEVOPS_ORG_URL),
+        vsts+'v5_0.policy.policy_client.PolicyClient': PolicyClient(base_url=TEST_DEVOPS_ORG_URL),
         vsts+'v5_0.core.core_client.CoreClient': CoreClient(base_url=TEST_DEVOPS_ORG_URL),
         vsts+'v5_0.release.release_client.ReleaseClient': ReleaseClient(base_url=TEST_DEVOPS_ORG_URL),
         vsts+'v5_0.customer_intelligence.customer_intelligence_client.CustomerIntelligenceClient': \
