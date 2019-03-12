@@ -34,7 +34,7 @@ def list_extensions(include_built_in='true', include_disabled='true', organizati
 
 
 def get_extension(publisher_id, extension_id, organization=None, detect=None):
-    """ Get details of an extension
+    """ Get detail of single extension
     """
     organization = resolve_instance(detect=detect, organization=organization)
     extension_client = get_extension_client(organization)
@@ -43,7 +43,7 @@ def get_extension(publisher_id, extension_id, organization=None, detect=None):
 
 
 def install_extension(publisher_id, extension_id, organization=None, detect=None):
-    """ Installs an extension
+    """ Install an extension
     """
     organization = resolve_instance(detect=detect, organization=organization)
     extension_client = get_extension_client(organization)
@@ -52,7 +52,7 @@ def install_extension(publisher_id, extension_id, organization=None, detect=None
 
 
 def uninstall_extension(publisher_id, extension_id, organization=None, detect=None):
-    """ Uninstalls an extension
+    """ Uninstall an extension
     """
     organization = resolve_instance(detect=detect, organization=organization)
     extension_client = get_extension_client(organization)
@@ -61,7 +61,7 @@ def uninstall_extension(publisher_id, extension_id, organization=None, detect=No
 
 
 def enable_extension(publisher_id, extension_id, organization=None, detect=None):
-    """ Enables an extension
+    """ Enable an extension
     """
     return _update_extension_state(disable=False,
                                    enable=True,
@@ -72,7 +72,7 @@ def enable_extension(publisher_id, extension_id, organization=None, detect=None)
 
 
 def disable_extension(publisher_id, extension_id, organization=None, detect=None):
-    """ Disables an extension
+    """ Disable an extension
     """
     return _update_extension_state(disable=True,
                                    enable=False,
