@@ -19,11 +19,13 @@ logger = get_logger(__name__)
 def invoke(area, resource,
            route_parameters=None,
            query_parameters=None,
+           api_version='4.1',
            organization=None, detect=None):
     """ This command will invoke request for any DevOps area and resource
     """
 
     logger.info('route_parameter received is %s', route_parameters)
+    version = apiVersionToFloat(api_version)
 
     organization = resolve_instance(detect=detect, organization=organization)
     connection = get_vss_connection(organization)
@@ -49,8 +51,8 @@ def invoke(area, resource,
     resource_locations = client._get_resource_locations(all_host_types=True)
     for resource_location in resource_locations:
         if resource.lower() == resource_location.resource_name.lower() and area.lower() == resource_location.area.lower():
-            current_maxVersion = resource_location.max_version
-            if current_maxVersion > current_version:
+            current_maxVersion = float(resource_location.max_version)
+            if current_maxVersion > current_version and  version >= current_version:
                 location_id = resource_location.id
                 current_version = current_maxVersion
 
@@ -62,7 +64,7 @@ def invoke(area, resource,
 
     response = client._send(http_method='GET',
                             location_id=location_id,
-                            version='4.1',
+                            version=api_version,
                             query_parameters=query_values,
                             route_values=route_values)
 
@@ -71,6 +73,10 @@ def invoke(area, resource,
 
     return response
 
+def apiVersionToFloat(apiVersion):
+    apiVersion = apiVersion.replace('-preview','')
+
+    return float(apiVersion)
 
 def stringToDict(inputList):
     if not inputList:
