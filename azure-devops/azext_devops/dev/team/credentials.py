@@ -13,7 +13,7 @@ from knack.prompting import NoTTYException, prompt_pass
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from azext_devops.dev.common._credentials import clear_credential, set_credential
-from azext_devops.dev.common.services import _get_vss_connection, get_base_url
+from azext_devops.dev.common.services import _get_connection, get_base_url
 
 logger = get_logger(__name__)
 
@@ -26,8 +26,8 @@ def credential_set(organization=None):
         organization = get_base_url(organization)
         logger.info("Creating connection with personal access token.")
         credentials = BasicAuthentication('', token)
-        connection = _get_vss_connection(organization, credentials)
-        vstsDir = 'azext_devops.vstsCompressed.'
+        connection = _get_connection(organization, credentials)
+        vstsDir = 'azext_devops.devops_sdk.'
         location_client = connection.get_client(vstsDir + 'location.v4_1.location_client.LocationClient')
         try:
             connection_data = location_client.get_connection_data()

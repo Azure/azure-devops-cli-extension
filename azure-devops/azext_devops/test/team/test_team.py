@@ -12,7 +12,7 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from azext_devops.vstsCompressed.core.v4_0.core_client import CoreClient
+from azext_devops.devops_sdk.v5_0.core.core_client import CoreClient
 from azext_devops.dev.team.team import  (create_team,
                                         delete_team,
                                         get_team,
@@ -34,13 +34,13 @@ class TestTeamMethods(unittest.TestCase):
     _OFF = 'Off'
 
     def setUp(self):
-        self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
-        self.create_team_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.create_team')
-        self.delete_team_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.delete_team')
-        self.get_team_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.get_team')
-        self.get_teams_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.get_teams')
-        self.get_team_members_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.get_team_members')
-        self.update_team_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.update_team')
+        self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client')
+        self.create_team_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.create_team')
+        self.delete_team_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.delete_team')
+        self.get_team_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.get_team')
+        self.get_teams_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.get_teams')
+        self.get_team_members_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.get_team_members')
+        self.update_team_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.update_team')
         self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
 
         #start the patcher

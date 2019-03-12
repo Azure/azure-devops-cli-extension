@@ -8,9 +8,8 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
-from azext_devops.vstsCompressed.work_item_tracking.v4_0.models.models import JsonPatchOperation
-from azext_devops.vstsCompressed.work_item_tracking.v4_0.models.models import Wiql
+from azext_devops.devops_sdk.exceptions import AzureDevOpsServiceError
+from azext_devops.devops_sdk.v5_0.work_item_tracking.models import JsonPatchOperation, Wiql
 from azext_devops.dev.common.identities import (ME, get_current_identity,
                                                 resolve_identity,
                                                 get_account_from_identity)
@@ -88,7 +87,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
         if open:
             _open_work_item(work_item, organization)
         return work_item
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         _handle_vsts_service_error(ex)
 
 
@@ -174,7 +173,7 @@ def delete_work_item(id, destroy=False, organization=None, detect=None):  # pyli
         delete_response = client.delete_work_item(id, destroy)
         print('Deleted work item {}'.format(id))
         return delete_response
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         _handle_vsts_service_error(ex)
 
 
@@ -211,7 +210,7 @@ def show_work_item(id, open=False, organization=None, detect=None):  # pylint: d
     try:
         client = get_work_item_tracking_client(organization)
         work_item = client.get_work_item(id)
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         _handle_vsts_service_error(ex)
 
     if open:

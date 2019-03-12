@@ -4,8 +4,8 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.util import CLIError
-from azext_devops.vstsCompressed.core.v4_0.models.models import WebApiTeam
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
+from azext_devops.devops_sdk.v5_0.core.models import WebApiTeam
+from azext_devops.devops_sdk.exceptions import AzureDevOpsServiceError
 from azext_devops.dev.common.services import (get_core_client,
                                               resolve_instance_and_project)
 
@@ -102,5 +102,5 @@ def update_team(team, name=None, description=None, organization=None, project=No
         core_client = get_core_client(organization)
         updated_team_data = WebApiTeam(name=name, description=description)
         return core_client.update_team(team_data=updated_team_data, project_id=project, team_id=team)
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)

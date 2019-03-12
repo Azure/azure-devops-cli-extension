@@ -8,7 +8,7 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.vstsCompressed.core.v4_0.models.models import TeamProject
+from azext_devops.devops_sdk.v5_0.core.models import TeamProject
 from azext_devops.dev.common.operations import wait_for_long_running_operation
 from azext_devops.dev.common.services import (get_core_client,
                                               resolve_instance)
