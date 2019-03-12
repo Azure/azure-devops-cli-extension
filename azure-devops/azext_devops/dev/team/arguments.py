@@ -19,6 +19,7 @@ _STATE_VALUES = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting',
 _SERVICE_ENDPOINT_TYPE = [SERVICE_ENDPOINT_TYPE_GITHUB, SERVICE_ENDPOINT_TYPE_AZURE_RM]
 _SERVICE_ENDPOINT_AUTHORIZATION_SCHEME = [SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                                           SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL]
+_ACCESS_LEVELS = ['advanced', 'earlyAdopter', 'express', 'none', 'professional', 'stakeholder']
 
 
 def load_global_args(context):
@@ -49,6 +50,9 @@ def load_team_arguments(self, _):
     with self.argument_context('devops configure') as context:
         context.argument('use_git_aliases', **enum_choice_list(_YES_NO_SWITCH_VALUES))
         context.argument('list_config', options_list=('--list', '-l'))
+
+    with self.argument_context('devops user add') as context:
+        context.argument('access_level', **enum_choice_list(_ACCESS_LEVELS))
 
     with self.argument_context('devops') as context:
         load_global_args(context)
