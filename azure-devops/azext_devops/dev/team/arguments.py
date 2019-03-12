@@ -52,8 +52,12 @@ def load_team_arguments(self, _):
         context.argument('use_git_aliases', **enum_choice_list(_YES_NO_SWITCH_VALUES))
         context.argument('list_config', options_list=('--list', '-l'))
 
-    with self.argument_context('devops user add') as context:
+    with self.argument_context('devops user') as context:
         context.argument('access_level', **enum_choice_list(_ACCESS_LEVELS))
+    with self.argument_context('devops user add') as context:
+        from azure.cli.core.commands.parameters import get_enum_type
+        context.argument('send_email_invite', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+                         help='Whether to send email invite for new user or not.')
 
     with self.argument_context('devops extension') as context:
         from azure.cli.core.commands.parameters import get_enum_type

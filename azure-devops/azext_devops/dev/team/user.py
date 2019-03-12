@@ -5,11 +5,8 @@
 
 from knack.util import CLIError
 from azext_devops.vstsCompressed.exceptions import VstsServiceError
-from azext_devops.vstsCompressed.member_entitlement_management.v4_1.models.models import (UserEntitlement, ProjectRef, Group,
-                                                                                          ProjectEntitlement,
+from azext_devops.vstsCompressed.member_entitlement_management.v4_1.models.models import (UserEntitlement,
                                                                                           AccessLevel,
-                                                                                          Extension,
-                                                                                          GroupEntitlement,
                                                                                           GraphUser,
                                                                                           JsonPatchOperation)
 from azext_devops.dev.common.services import (get_member_entitlement_management_client,
@@ -66,8 +63,8 @@ def update_user_entitlement(user, access_level, organization=None, detect=None):
     """
     patch_document = []
     value = {}
-    value['account_license_type'] = access_level
-    patch_document.append(_create_patch_operation('replace','accessLevel',value))
+    value['accountLicenseType'] = access_level
+    patch_document.append(_create_patch_operation('replace','/accessLevel',value))
     organization = resolve_instance(detect=detect, organization=organization)
     if '@' in user:
         user = resolve_identity_as_id(user, organization)
@@ -76,7 +73,7 @@ def update_user_entitlement(user, access_level, organization=None, detect=None):
     return user_entitlement_update.user_entitlement
 
 
-def add_user_entitlement(user, access_level, organization=None, detect=None):
+def add_user_entitlement(user, access_level, send_email_invite='true', organization=None, detect=None):
     """Add user.
     :param user: The Email id of the user.
     :type user: str
@@ -94,12 +91,22 @@ def add_user_entitlement(user, access_level, organization=None, detect=None):
     user_entitlement = UserEntitlement()
     user_entitlement.access_level = user_access_level
     user_entitlement.user = graph_user
-    user_entitlement_details = client.add_user_entitlement(user_entitlement)
-    return user_entitlement_details.user_entitlement
+    value = {}
+    value['accessLevel'] = user_access_level
+    value['extensions'] = []
+    value['projectEntitlements'] = []
+    value['user'] = graph_user
+    patch_document = []
+    patch_document.append(_create_patch_operation('add','',value))
+    do_not_send_invite = False
+    if send_email_invite != 'true':
+        do_not_send_invite = True
+    user_entitlement_details = client.update_user_entitlements(document=patch_document, 
+                                        do_not_send_invite_for_new_users=do_not_send_invite)
+    return user_entitlement_details.results[0].result
 
 
-def _create_patch_operation(op, field, value):
-    path = '/{field}'.format(field=field)
+def _create_patch_operation(op, path, value):
     patch_operation = JsonPatchOperation()
     patch_operation.op = op
     patch_operation.path = path

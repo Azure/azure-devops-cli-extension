@@ -143,10 +143,10 @@ def _transform_user_row(row):
     else:
         table_row['Display Name'] = ' '
     if 'accessLevel' in row:
-        table_row['License'] = row['accessLevel']['licenseDisplayName']
+        table_row['Access Level'] = row['accessLevel']['licenseDisplayName']
         table_row['Status'] = row['accessLevel']['status']
     else:
-        table_row['License'] = ' '
+        table_row['Access Level'] = ' '
         table_row['Status'] = ' '
     return table_row
 
