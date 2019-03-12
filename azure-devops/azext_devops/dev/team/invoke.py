@@ -16,7 +16,7 @@ from azext_devops.vstsCompressed.vss_client import VssClient
 logger = get_logger(__name__)
 
 
-def invoke(area, resource,
+def invoke(area=None, resource=None,
            route_parameters=None,
            query_parameters=None,
            api_version='4.1',
@@ -42,6 +42,11 @@ def invoke(area, resource,
             request_body = json.load(f)
 
     resource_areas = connection._get_resource_areas(force=True)
+
+    if(not area and not resource):
+        clientMock = VssClient(organization, connection._creds)
+        return clientMock._get_resource_locations(all_host_types=True)
+
     client_url = ''
     if not resource_areas:
         #this is for on-prem
