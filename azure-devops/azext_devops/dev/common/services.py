@@ -219,6 +219,12 @@ def get_work_item_tracking_client(organization=None):
                                  'work_item_tracking_client.WorkItemTrackingClient')
 
 
+def get_extension_client(organization=None):
+    connection = get_vss_connection(organization)
+    return connection.get_client(VSTS_MODULE +
+                                 'extension_management.v4_1.extension_management_client.ExtensionManagementClient')
+
+
 def get_base_url(organization):
     if organization is not None:
         return organization
