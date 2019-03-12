@@ -82,10 +82,26 @@ def invoke(area, resource,
                             accept_media_type=accept_media_type,
                             content=request_body)
 
+    logger.info('content type header')
+    logger.info(response.headers.get("content-type"))
     if 'json' in response.headers.get("content-type"):
         return response.json()
 
-    return response
+    if not out_file:
+        raise CLIError('response is not json, you need to provide --out-file where it can be written')
+
+    responseContent = response.content
+
+    import os
+    if os.path.exists(out_file):
+        raise CLIError('out file already exists, please give a new name')
+
+    if not os.path.exists(out_file):
+        open(out_file, "a").close()
+
+    with open(out_file, 'ab') as f:
+        f.write(responseContent)
+
 
 def apiVersionToFloat(apiVersion):
     apiVersion = apiVersion.replace('-preview','')
