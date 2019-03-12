@@ -84,7 +84,7 @@ def invoke(area, resource,
 
     logger.info('content type header')
     logger.info(response.headers.get("content-type"))
-    if 'json' in response.headers.get("content-type"):
+    if 'json' in response.headers.get("content-type") and not out_file:
         return response.json()
 
     if not out_file:
