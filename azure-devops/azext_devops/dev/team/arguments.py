@@ -50,6 +50,9 @@ def load_team_arguments(self, _):
         context.argument('use_git_aliases', **enum_choice_list(_YES_NO_SWITCH_VALUES))
         context.argument('list_config', options_list=('--list', '-l'))
 
+    with self.argument_context('devops invoke') as context:
+        context.argument('route_parameters', nargs='*')
+
     with self.argument_context('devops') as context:
         load_global_args(context)
 

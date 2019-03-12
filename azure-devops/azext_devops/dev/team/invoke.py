@@ -16,9 +16,12 @@ from azext_devops.vstsCompressed.vss_client import VssClient
 logger = get_logger(__name__)
 
 
-def invoke(area, resource, organization=None, detect=None):
+def invoke(area, resource, route_parameters=None, organization=None, detect=None):
     """ This command will invoke request for any DevOps area and resource
     """
+
+    logger.info('route_parameter received is %s', route_parameters)
+
     organization = resolve_instance(detect=detect, organization=organization)
     connection = get_vss_connection(organization)
 
@@ -46,9 +49,7 @@ def invoke(area, resource, organization=None, detect=None):
     if not location_id:
         raise CLIError('--resource is not correct')
 
-    route_values = {}
-    route_values['publisherName'] = 'ms'
-    route_values['extensionName'] = 'vss-code-search'
+    route_values = stringToDict(route_parameters)
 
     response = client._send(http_method='GET',
                             location_id=location_id,
@@ -60,6 +61,21 @@ def invoke(area, resource, organization=None, detect=None):
         return response.json()
 
     return response
+
+
+def stringToDict(inputList):
+    if not inputList:
+        return {}
+
+    result = {}
+
+    for inputSet in inputList:
+        parts=inputSet.split('=', 1)
+        key=parts[0]
+        value=parts[1]
+        result[key]=value
+
+    return result
 
     
 
