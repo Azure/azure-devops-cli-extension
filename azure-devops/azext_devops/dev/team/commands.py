@@ -101,4 +101,3 @@ def load_team_commands(self, _):
         g.command('show', 'get_extension', table_transformer=transform_extension_table_output)
         g.command('enable', 'enable_extension', table_transformer=transform_extension_table_output)
         g.command('disable', 'disable_extension', table_transformer=transform_extension_table_output)
-

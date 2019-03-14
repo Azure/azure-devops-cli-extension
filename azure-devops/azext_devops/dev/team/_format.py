@@ -150,6 +150,7 @@ def _transform_user_row(row):
         table_row['Status'] = ' '
     return table_row
 
+
 def _get_extension_key(extension):
     return extension['extensionName'].lower()
 

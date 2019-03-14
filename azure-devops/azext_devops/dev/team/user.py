@@ -3,8 +3,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.vstsCompressed.member_entitlement_management.v4_1.models.models import (UserEntitlement,
                                                                                           AccessLevel,
                                                                                           GraphUser,
@@ -57,19 +55,19 @@ def update_user_entitlement(user, access_level, organization=None, detect=None):
     """Update access level for a user.
     :param user: The Email id or UUID of the user.
     :type user: str
-    :param access_level: Access level for the user. 
+    :param access_level: Access level for the user.
     :type access_level: str
     :rtype: UserEntitlementsPatchResponse
     """
     patch_document = []
     value = {}
     value['accountLicenseType'] = access_level
-    patch_document.append(_create_patch_operation('replace','/accessLevel',value))
+    patch_document.append(_create_patch_operation('replace', '/accessLevel', value))
     organization = resolve_instance(detect=detect, organization=organization)
     if '@' in user:
         user = resolve_identity_as_id(user, organization)
     client = get_member_entitlement_management_client(organization)
-    user_entitlement_update = client.update_user_entitlement(document=patch_document,user_id=user)
+    user_entitlement_update = client.update_user_entitlement(document=patch_document, user_id=user)
     return user_entitlement_update.user_entitlement
 
 
@@ -77,7 +75,7 @@ def add_user_entitlement(user, access_level, send_email_invite='true', organizat
     """Add user.
     :param user: The Email id of the user.
     :type user: str
-    :param access_level: Access level for the user. 
+    :param access_level: Access level for the user.
     :type access_level: str
     :rtype: UserEntitlementsPatchResponse
     """
@@ -97,12 +95,12 @@ def add_user_entitlement(user, access_level, send_email_invite='true', organizat
     value['projectEntitlements'] = []
     value['user'] = graph_user
     patch_document = []
-    patch_document.append(_create_patch_operation('add','',value))
+    patch_document.append(_create_patch_operation('add', '', value))
     do_not_send_invite = False
     if send_email_invite != 'true':
         do_not_send_invite = True
-    user_entitlement_details = client.update_user_entitlements(document=patch_document, 
-                                        do_not_send_invite_for_new_users=do_not_send_invite)
+    user_entitlement_details = client.update_user_entitlements(document=patch_document,
+                                                               do_not_send_invite_for_new_users=do_not_send_invite)
     return user_entitlement_details.results[0].result
 
 
