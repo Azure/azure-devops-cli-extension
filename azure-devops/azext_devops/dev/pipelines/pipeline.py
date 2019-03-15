@@ -546,7 +546,15 @@ def get_github_pat_token():
     verify_is_a_tty_or_raise_error('GitHub PAT token is required for this command. '\
         'Either set the environment variable ({env_var}) or run the command interactively.'.format(
             env_var=AZ_DEVOPS_GITHUB_PAT_ENVKEY))
-    return prompt_pass(msg='Enter your GitHub PAT token: ')
+    username = prompt(msg='Enter your Github username (leave blank for using PAT): ')
+    password = prompt_pass(msg='Enter your GitHub password/PAT: ')
+    if username:
+        from azext_devops.dev.common.github_credential_manager import GithubCredentialManager
+        cred_manager = GithubCredentialManager(username=username, password=password)
+        two_factor_code = prompt(msg='Enter your two factor code: ')
+        return cred_manager.create_token(two_factor_code=two_factor_code)
+    else:
+        return password
 
 
 def try_get_repository_type(url):
@@ -805,7 +813,6 @@ def _create_pipeline_build_object(name, description, repo_id, repo_name, reposit
     definition.process = _create_process_object(yml_path)
     # set agent queue
     definition.queue = AgentPoolQueue()
-    definition.queue.id = 163  # todo atbagga This should not be hardcoded
     if queue_id:
         definition.queue.id = queue_id  # todo atbagga This should not be hardcoded
     return definition
