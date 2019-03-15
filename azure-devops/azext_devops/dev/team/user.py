@@ -3,8 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from azext_devops.vstsCompressed.member_entitlement_management.v4_1.models.models import (UserEntitlement,
-                                                                                          AccessLevel,
+from azext_devops.vstsCompressed.member_entitlement_management.v4_1.models.models import (AccessLevel,
                                                                                           GraphUser,
                                                                                           JsonPatchOperation)
 from azext_devops.dev.common.services import (get_member_entitlement_management_client,
