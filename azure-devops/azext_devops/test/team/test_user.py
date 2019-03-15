@@ -60,7 +60,8 @@ class TestUserMethods(unittest.TestCase):
         patch.stopall()
 
     def test_list_user(self):
-        get_user_entitlements(top=self._TOP_VALUE, skip=self._SKIP_VALUE, organization=self._TEST_DEVOPS_ORGANIZATION, detect=self._OFF)            
+        get_user_entitlements(top=self._TOP_VALUE, skip=self._SKIP_VALUE, 
+                              organization=self._TEST_DEVOPS_ORGANIZATION, detect=self._OFF)            
         #assert
         self.mock_get_users.assert_called_once()
         list_user_param = self.mock_get_users.call_args_list[0][1]
@@ -73,7 +74,8 @@ class TestUserMethods(unittest.TestCase):
         self.mock_get_user.assert_called_once_with(user_id = 'adda517c-0398-42dc-b2a8-0d3f240757f9')
 
     def test_add_user(self):
-        add_user_entitlement(user='someuser@xyz.com',access_level='stakeholder',organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        add_user_entitlement(user='someuser@xyz.com', access_level='stakeholder', 
+                             organization=self._TEST_DEVOPS_ORGANIZATION, detect=self._OFF)
         #assert
         self.mock_add_user.assert_called_once()
         add_user_param = self.mock_add_user.call_args_list[0][1]
@@ -89,7 +91,8 @@ class TestUserMethods(unittest.TestCase):
         self.mock_remove_user.assert_called_once()
 
     def test_update_user(self):
-        update_user_entitlement(user=self._TEST_USER_ID,access_level='express',organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        update_user_entitlement(user=self._TEST_USER_ID, access_level='express', 
+                                organization=self._TEST_DEVOPS_ORGANIZATION, detect=self._OFF)
         #assert
         self.mock_update_user.assert_called_once()
         update_user_param = self.mock_update_user.call_args_list[0][1]
