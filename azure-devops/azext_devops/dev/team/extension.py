@@ -23,13 +23,14 @@ def search_extensions(search_term):
     config = Configuration(base_url=None)
     config.add_user_agent('devOpsCli/{}'.format(VERSION))
     client = ServiceClient(creds=None, config=config)
-    request = ClientRequest(method='POST', url='https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery')
+    request = ClientRequest(method='POST',
+                            url='https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery')
 
     search_request = {
         'assetTypes': [
-                'Microsoft.VisualStudio.Services.Icons.Default',
-                'Microsoft.VisualStudio.Services.Icons.Branding',
-                'Microsoft.VisualStudio.Services.Icons.Small'
+            'Microsoft.VisualStudio.Services.Icons.Default',
+            'Microsoft.VisualStudio.Services.Icons.Branding',
+            'Microsoft.VisualStudio.Services.Icons.Small'
         ],
         'filters': [
             {
@@ -43,32 +44,32 @@ def search_extensions(search_term):
                         'value': 'Microsoft.VisualStudio.Services.Integration'
                     },
                     {
-                        'filterType': 8, 
-                        'value': 'Microsoft.VisualStudio.Services.Cloud' 
+                        'filterType': 8,
+                        'value': 'Microsoft.VisualStudio.Services.Cloud'
                     },
                     {
                         'filterType': 8,
-                        'value': 'Microsoft.TeamFoundation.Server' 
-                    },
-                    {
-                        'filterType': 8, 
-                        'value': 'Microsoft.TeamFoundation.Server.Integration' 
+                        'value': 'Microsoft.TeamFoundation.Server'
                     },
                     {
                         'filterType': 8,
-                        'value': 'Microsoft.VisualStudio.Services.Cloud.Integration' 
+                        'value': 'Microsoft.TeamFoundation.Server.Integration'
+                    },
+                    {
+                        'filterType': 8,
+                        'value': 'Microsoft.VisualStudio.Services.Cloud.Integration'
                     },
                     {
                         'filterType': 8,
                         'value': 'Microsoft.VisualStudio.Services.Resource.Cloud'
                     },
                     {
-                        'filterType': 10, 
+                        'filterType': 10,
                         'value': search_term
                     },
                     {
-                        'filterType': 12, 
-                        'value': '37888' 
+                        'filterType': 12,
+                        'value': '37888'
                     }
                 ],
                 'direction': 2,
