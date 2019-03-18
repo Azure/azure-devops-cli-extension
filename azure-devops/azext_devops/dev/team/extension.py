@@ -20,9 +20,9 @@ def search_extensions(search_term):
     from msrest.service_client import ServiceClient
     from msrest import Configuration
     from azext_devops.version import VERSION
-    config = Configuration()
+    config = Configuration(base_url=None)
     config.add_user_agent('devOpsCli/{}'.format(VERSION))
-    client = ServiceClient(config=config)
+    client = ServiceClient(creds=None, config=config)
     request = ClientRequest(method='POST', url='https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery')
 
     search_request = {
