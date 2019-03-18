@@ -74,7 +74,7 @@ class TestUserMethods(unittest.TestCase):
         self.mock_get_user.assert_called_once_with(user_id = 'adda517c-0398-42dc-b2a8-0d3f240757f9')
 
     def test_add_user(self):
-        add_user_entitlement(user='someuser@xyz.com', access_level='stakeholder', 
+        add_user_entitlement(user='someuser@xyz.com', license_type='stakeholder', 
                              organization=self._TEST_DEVOPS_ORGANIZATION, detect=self._OFF)
         #assert
         self.mock_add_user.assert_called_once()
@@ -91,7 +91,7 @@ class TestUserMethods(unittest.TestCase):
         self.mock_remove_user.assert_called_once()
 
     def test_update_user(self):
-        update_user_entitlement(user=self._TEST_USER_ID, access_level='express', 
+        update_user_entitlement(user=self._TEST_USER_ID, license_type='express', 
                                 organization=self._TEST_DEVOPS_ORGANIZATION, detect=self._OFF)
         #assert
         self.mock_update_user.assert_called_once()

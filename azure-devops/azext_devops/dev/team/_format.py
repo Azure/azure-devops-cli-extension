@@ -137,17 +137,11 @@ def transform_user_table_output(result):
 def _transform_user_row(row):
     table_row = OrderedDict()
     table_row['ID'] = row['id']
-    if 'user' in row:
-        table_row['Display Name'] = row['user']['displayName']
-        table_row['Email'] = row['user']['mailAddress']
-    else:
-        table_row['Display Name'] = ' '
-    if 'accessLevel' in row:
-        table_row['Access Level'] = row['accessLevel']['licenseDisplayName']
-        table_row['Status'] = row['accessLevel']['status']
-    else:
-        table_row['Access Level'] = ' '
-        table_row['Status'] = ' '
+    table_row['Display Name'] = row['user']['displayName']
+    table_row['Email'] = row['user']['mailAddress']
+    table_row['Access Level'] = row['accessLevel']['licenseDisplayName']
+    table_row['License Type'] = row['accessLevel']['accountLicenseType']
+    table_row['Status'] = row['accessLevel']['status']
     return table_row
 
 

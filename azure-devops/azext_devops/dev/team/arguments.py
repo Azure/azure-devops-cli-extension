@@ -20,7 +20,7 @@ _STATE_VALUES = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting',
 _SERVICE_ENDPOINT_TYPE = [SERVICE_ENDPOINT_TYPE_GITHUB, SERVICE_ENDPOINT_TYPE_AZURE_RM]
 _SERVICE_ENDPOINT_AUTHORIZATION_SCHEME = [SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                                           SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL]
-_ACCESS_LEVELS = ['advanced', 'earlyAdopter', 'express', 'none', 'professional', 'stakeholder']
+_LICENSE_TYPES = ['advanced', 'earlyAdopter', 'express', 'none', 'professional', 'stakeholder']
 
 
 def load_global_args(context):
@@ -52,10 +52,10 @@ def load_team_arguments(self, _):
         context.argument('use_git_aliases', **enum_choice_list(_YES_NO_SWITCH_VALUES))
         context.argument('list_config', options_list=('--list', '-l'))
 
+    from azure.cli.core.commands.parameters import get_enum_type
     with self.argument_context('devops user') as context:
-        context.argument('access_level', **enum_choice_list(_ACCESS_LEVELS))
+        context.argument('license_type', arg_type=get_enum_type(_LICENSE_TYPES))
     with self.argument_context('devops user add') as context:
-        from azure.cli.core.commands.parameters import get_enum_type
         context.argument('send_email_invite', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to send email invite for new user or not.')
 
