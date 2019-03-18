@@ -87,7 +87,8 @@ def search_extensions(search_term):
 
     response = client.send(request=request, headers=headers, content=search_request)
 
-    return response.json()
+    response_json = response.json()
+    return response_json['results'][0]['extensions']
 
 
 def list_extensions(include_built_in='true', include_disabled='true', organization=None, detect=None):
