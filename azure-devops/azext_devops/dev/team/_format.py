@@ -122,6 +122,29 @@ def _transform_team_member_row(row):
     return table_row
 
 
+def transform_users_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_user_row(item))
+    return table_output
+
+
+def transform_user_table_output(result):
+    table_output = [_transform_user_row(result)]
+    return table_output
+
+
+def _transform_user_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Display Name'] = row['user']['displayName']
+    table_row['Email'] = row['user']['mailAddress']
+    table_row['License Type'] = row['accessLevel']['accountLicenseType']
+    table_row['Access Level'] = row['accessLevel']['licenseDisplayName']
+    table_row['Status'] = row['accessLevel']['status']
+    return table_row
+
+
 def _get_extension_key(extension):
     return extension['extensionName'].lower()
 

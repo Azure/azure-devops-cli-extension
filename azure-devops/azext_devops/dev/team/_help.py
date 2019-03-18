@@ -33,6 +33,11 @@ def load_team_help():
     short-summary: Manage teams
     """
 
+    helps['devops user'] = """
+    type: group
+    short-summary: Manage users
+    """
+
     helps['devops extension'] = """
     type: group
     short-summary: Manage extensions
