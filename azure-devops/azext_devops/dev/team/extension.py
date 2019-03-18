@@ -14,7 +14,7 @@ logger = get_logger(__name__)
 
 
 def search_extensions(search_term):
-    """Search extensions from marketplace
+    """ Search extensions from marketplace
     """
     from msrest.universal_http import ClientRequest
     from msrest.service_client import ServiceClient
