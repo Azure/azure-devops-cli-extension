@@ -13,7 +13,7 @@ from azext_devops.dev.common.arguments import resolve_true_false
 logger = get_logger(__name__)
 
 
-def search_extensions(search_term):
+def search_extensions(search_query):
     """ Search extensions from marketplace
     """
     from msrest.universal_http import ClientRequest
@@ -65,7 +65,7 @@ def search_extensions(search_term):
                     },
                     {
                         'filterType': 10,
-                        'value': search_term
+                        'value': search_query
                     },
                     {
                         'filterType': 12,

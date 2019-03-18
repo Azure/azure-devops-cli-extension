@@ -15,7 +15,7 @@ class ExtensionSearchTest(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     def test_extension_search(self):
-        code_search_result = self.cmd('az devops extension search --search-term search -o json').get_output_in_json()
+        code_search_result = self.cmd('az devops extension search --search-query search -o json').get_output_in_json()
         code_search_extension_found = False
         assert len(code_search_result) > 0
 
