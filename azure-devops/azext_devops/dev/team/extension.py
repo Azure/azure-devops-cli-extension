@@ -13,6 +13,83 @@ from azext_devops.dev.common.arguments import resolve_true_false
 logger = get_logger(__name__)
 
 
+def search_extensions(search_term):
+    """Search extensions from marketplace
+    """
+    from msrest.universal_http import ClientRequest
+    from msrest.service_client import ServiceClient
+    from msrest import Configuration
+    from azext_devops.version import VERSION
+    config = Configuration()
+    config.add_user_agent('devOpsCli/{}'.format(VERSION))
+    client = ServiceClient(config=config)
+    request = ClientRequest(method='POST', url='https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery')
+
+    search_request = {
+        'assetTypes': [
+                'Microsoft.VisualStudio.Services.Icons.Default',
+                'Microsoft.VisualStudio.Services.Icons.Branding',
+                'Microsoft.VisualStudio.Services.Icons.Small'
+        ],
+        'filters': [
+            {
+                'criteria': [
+                    {
+                        'filterType': 8,
+                        'value': 'Microsoft.VisualStudio.Services'
+                    },
+                    {
+                        'filterType': 8,
+                        'value': 'Microsoft.VisualStudio.Services.Integration'
+                    },
+                    {
+                        'filterType': 8, 
+                        'value': 'Microsoft.VisualStudio.Services.Cloud' 
+                    },
+                    {
+                        'filterType': 8,
+                        'value': 'Microsoft.TeamFoundation.Server' 
+                    },
+                    {
+                        'filterType': 8, 
+                        'value': 'Microsoft.TeamFoundation.Server.Integration' 
+                    },
+                    {
+                        'filterType': 8,
+                        'value': 'Microsoft.VisualStudio.Services.Cloud.Integration' 
+                    },
+                    {
+                        'filterType': 8,
+                        'value': 'Microsoft.VisualStudio.Services.Resource.Cloud'
+                    },
+                    {
+                        'filterType': 10, 
+                        'value': search_term
+                    },
+                    {
+                        'filterType': 12, 
+                        'value': '37888' 
+                    }
+                ],
+                'direction': 2,
+                'pageSize': 50,
+                'pageNumber': 1,
+                'sortBy': 0,
+                'sortOrder': 0,
+                'pagingToken': None
+            }
+        ],
+        'flags': 870
+    }
+
+    headers = {'Content-Type': 'application/json' + '; charset=utf-8',
+               'Accept': 'application/json' + ';api-version=' + '5.0-preview.1'}
+
+    response = client.send(request=request, headers=headers, content=search_request)
+
+    return response.json()
+
+
 def list_extensions(include_built_in='true', include_disabled='true', organization=None, detect=None):
     """ List extensions installed in an organization
     """
