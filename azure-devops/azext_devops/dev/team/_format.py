@@ -139,8 +139,8 @@ def _transform_user_row(row):
     table_row['ID'] = row['id']
     table_row['Display Name'] = row['user']['displayName']
     table_row['Email'] = row['user']['mailAddress']
-    table_row['Access Level'] = row['accessLevel']['licenseDisplayName']
     table_row['License Type'] = row['accessLevel']['accountLicenseType']
+    table_row['Access Level'] = row['accessLevel']['licenseDisplayName']
     table_row['Status'] = row['accessLevel']['status']
     return table_row
 
