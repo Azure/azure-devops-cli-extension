@@ -6,9 +6,9 @@
 import colorama
 from knack.log import get_logger
 from azext_devops.dev.common.services import resolve_instance
-from .artifacttool import ArtifactToolInvoker
-from .artifacttool_updater import ArtifactToolUpdater
-from .external_tool import ProgressReportingExternalToolInvoker
+from azext_devops.dev.common.artifacttool import ArtifactToolInvoker
+from azext_devops.dev.common.artifacttool_updater import ArtifactToolUpdater
+from azext_devops.dev.common.external_tool import ProgressReportingExternalToolInvoker
 
 logger = get_logger(__name__)
 
