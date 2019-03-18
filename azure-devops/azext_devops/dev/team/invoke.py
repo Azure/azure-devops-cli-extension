@@ -44,8 +44,24 @@ def invoke(area=None, resource=None,
     resource_areas = connection._get_resource_areas(force=True)
 
     if(not area and not resource):
-        clientMock = VssClient(organization, connection._creds)
-        return clientMock._get_resource_locations(all_host_types=True)
+        service_list = []
+
+        for x in resource_areas:
+            if x.location_url not in service_list:
+                service_list.append(x.location_url)
+
+        resouce_locations = []
+
+        for x in service_list:
+            try:
+                logger.info('trying to get locations from ' + x)
+                clientMock =  VssClient(x, connection._creds)
+                resrouce_location_on_this_service = clientMock._get_resource_locations(all_host_types=True)
+                resouce_locations.extend(resrouce_location_on_this_service)
+            except:
+                logger.info('Failed to get location for ' + x)
+
+        return resouce_locations
 
     client_url = ''
     if not resource_areas:
