@@ -551,8 +551,7 @@ def get_github_pat_token():
     if username:
         from azext_devops.dev.common.github_credential_manager import GithubCredentialManager
         cred_manager = GithubCredentialManager(username=username, password=password)
-        two_factor_code = prompt(msg='Enter your two factor code: ')
-        return cred_manager.create_token(two_factor_code=two_factor_code)
+        return cred_manager.create_token()
     else:
         return password
 
@@ -723,7 +722,7 @@ def _handle_yml_props(params_required, yml_props, template_id, pipeline_client, 
                 if parts[0] == param.name:
                     prop_found = True
                     params_to_render[parts[0]] = parts[1]
-        elif _is_intelligent_handling_enabled_for_prop_name_type(prop_type=param.type, prop_name=param.name):
+        elif _is_intelligent_handling_enabled_for_prop_name_or_type(prop_type=param.type, prop_name=param.name):
             logger.debug('This property is handled intelligently (Name: %s) (Type: %s)', param.name, param.type)
             if param.name == 'repositoryName':
                 logger.warning('Auto filling param %s: %s', param.name, repo_name)
@@ -766,14 +765,18 @@ def get_azure_rm_service_connection(organization, project):
                                                       service_endpoints_choice_list)
         if choice == 0:
             logger.debug("Creating a new service connection.")
-            logger.warning("Creating azure service connection is not handled. Please create and supply the value.")
+            # run command to create service principle 
+            
+            # create azure rm service connection
+
+            # return connection id
         else:
             return azurerm_connections[choice-1].id
     else:
         return None
 
 
-def _is_intelligent_handling_enabled_for_prop_name_type(prop_name, prop_type):
+def _is_intelligent_handling_enabled_for_prop_name_or_type(prop_name, prop_type):
     SMART_HANDLING_FOR_PROP_TYPES = ['connectedservice:azurerm']
     SMART_HANDLING_FOR_PROP_NAMES = ['repositoryname']
     if prop_name.lower() in SMART_HANDLING_FOR_PROP_NAMES:
