@@ -49,6 +49,7 @@ teamOps = CliCommandType(
 invokeOps = CliCommandType(
     operations_tmpl='azext_devops.dev.team.invoke#{}',
     exception_handler=azure_devops_exception_handler
+)
 
 userOps = CliCommandType(
     operations_tmpl='azext_devops.dev.team.user#{}',
