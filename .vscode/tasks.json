@@ -1,0 +1,13 @@
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "BuildWheel",
+        "command": "${config:python.pythonPath}",
+        "args": ["setup.py","sdist","bdist_wheel"],
+        "type": "shell",
+        "options": {
+            "cwd": "${workspaceRoot}/azure-devops/"
+        }
+        
+    }]
+}

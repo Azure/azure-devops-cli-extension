@@ -7,7 +7,7 @@
             "request": "launch",
             "pythonPath": "${config:python.pythonPath}",
             "program": "${workspaceRoot}/scripts/run_az.py",
-            "cwd": "${workspaceRoot}/",
+            "cwd": "${workspaceRoot}/azure-devops/",
             "args": [
                 "repos",
                 "list",
@@ -19,7 +19,8 @@
                 "WaitOnNormalExit",
                 "RedirectOutput"
             ],
-            "debugStdLib": true
+            "debugStdLib": true,
+            "preLaunchTask": "BuildWheel"
         }
     ]
 }
