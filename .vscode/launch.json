@@ -20,7 +20,10 @@
                 "RedirectOutput"
             ],
             "debugStdLib": true,
-            "preLaunchTask": "BuildWheel"
+            "preLaunchTask": "BuildWheel",
+            "env": {
+                "AZURE_EXTENSION_DIR": "${workspaceRoot}"
+            }
         }
     ]
 }
