@@ -38,10 +38,8 @@ To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment varia
     ```
     Replace *xxxxxxxxxx* with the your PAT.
 
-    Now run
-    ```bash
-    $az devops login --organization https://dev.azure.com/contoso
-    ```
+    Now run any command without having to login explicitly. Each command will try to use the PAT in the environment variable for authentication. 
+    
 ## Auto detect and git aliases
 The Azure DevOps Extension has been optimized for Azure Repos to work well with git workflows. 
 

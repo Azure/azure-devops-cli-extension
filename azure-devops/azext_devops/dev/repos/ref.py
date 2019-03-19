@@ -5,8 +5,8 @@
 
 from knack.log import get_logger
 from knack.util import CLIError
-from vsts.git.v4_0.models.git_ref_update import GitRefUpdate
-from vsts.exceptions import VstsServiceError
+from azext_devops.vstsCompressed.git.v4_0.models import GitRefUpdate
+from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.dev.common.git import resolve_git_refs
 from azext_devops.dev.common.services import (get_git_client,
                                               resolve_instance_project_and_repo)

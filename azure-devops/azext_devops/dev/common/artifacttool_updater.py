@@ -21,9 +21,9 @@ import distro
 
 from azext_devops.dev.common.services import get_vss_connection
 from azext_devops.dev.common.config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
-from azext_devops.dev.artifacts.const import (ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY,
-                                              ARTIFACTTOOL_OVERRIDE_URL_ENVKEY,
-                                              ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY)
+from azext_devops.dev.common.const import (ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY,
+                                           ARTIFACTTOOL_OVERRIDE_URL_ENVKEY,
+                                           ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY)
 
 logger = get_logger(__name__)
 
@@ -135,7 +135,7 @@ def _update_artifacttool(uri, release_id):
 
 def _get_current_release(organization, override_version):
     connection = get_vss_connection(organization)
-    client = connection.get_client('azext_devops.dev.artifacts.client_tool.client_tool_client.ClientToolClient')
+    client = connection.get_client('azext_devops.dev.common.client_tool.client_tool_client.ClientToolClient')
     logger.debug("Looking up current version of ArtifactTool...")
     # Distro returns empty strings on Windows currently, so don't even send
     distro_name = distro.id() or None

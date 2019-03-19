@@ -14,8 +14,8 @@ except ImportError:
 
 from azext_devops.dev.artifacts.universal import (publish_package,
                                                  download_package)
-from azext_devops.dev.artifacts.artifacttool import ArtifactToolInvoker
-from azext_devops.dev.artifacts.const import ARTIFACTTOOL_PAT_ENVKEY
+from azext_devops.dev.common.artifacttool import ArtifactToolInvoker
+from azext_devops.dev.common.const import ARTIFACTTOOL_PAT_ENVKEY
 from azext_devops.dev.common.services import clear_connection_cache
 
 
@@ -32,7 +32,7 @@ class TestUniversalPackages(unittest.TestCase):
 
     def setUp(self):
 
-        self.run_artifacttool = patch('azext_devops.dev.artifacts.artifacttool.ArtifactToolInvoker.run_artifacttool')
+        self.run_artifacttool = patch('azext_devops.dev.common.artifacttool.ArtifactToolInvoker.run_artifacttool')
 
         #start the patchers
         self.mock_run_artifacttool = self.run_artifacttool.start()
