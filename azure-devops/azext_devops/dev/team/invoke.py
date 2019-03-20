@@ -84,8 +84,8 @@ def invoke(area=None, resource=None,
     current_version = 0.0
     resource_locations = client._get_resource_locations(all_host_types=True)
     for resource_location in resource_locations:
-        if resource.lower() == resource_location.resource_name.lower() and \
-        area.lower() == resource_location.area.lower():
+        if (resource.lower() == resource_location.resource_name.lower() and
+                area.lower() == resource_location.area.lower()):
             current_maxVersion = float(resource_location.max_version)
             if current_maxVersion > current_version and version >= current_version:
                 location_id = resource_location.id
