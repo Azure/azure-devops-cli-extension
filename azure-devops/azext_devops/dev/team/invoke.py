@@ -8,12 +8,13 @@ from knack.log import get_logger
 from knack.util import CLIError
 
 from azext_devops.dev.common.services import (resolve_instance,
-                                              get_vss_connection)  
+                                              get_vss_connection)
 
 from azext_devops.vstsCompressed.vss_client import VssClient
 
 
 logger = get_logger(__name__)
+
 
 # pylint: disable=too-many-locals
 def invoke(area=None, resource=None,
@@ -56,7 +57,7 @@ def invoke(area=None, resource=None,
         for x in service_list:
             try:
                 logger.info('trying to get locations from ' + x)
-                clientMock =  VssClient(x, connection._creds)
+                clientMock = VssClient(x, connection._creds)
                 resource_location_on_this_service = clientMock._get_resource_locations(all_host_types=True)
                 resource_locations.extend(resource_location_on_this_service)
             except:
@@ -66,7 +67,7 @@ def invoke(area=None, resource=None,
 
     client_url = ''
     if not resource_areas:
-        #this is for on-prem
+        # this is for on-prem
         client_url = connection.base_url
 
     for resource_area in resource_areas:
@@ -86,7 +87,7 @@ def invoke(area=None, resource=None,
         if resource.lower() == resource_location.resource_name.lower() and \
         area.lower() == resource_location.area.lower():
             current_maxVersion = float(resource_location.max_version)
-            if current_maxVersion > current_version and  version >= current_version:
+            if current_maxVersion > current_version and version >= current_version:
                 location_id = resource_location.id
                 current_version = current_maxVersion
 
@@ -125,9 +126,10 @@ def invoke(area=None, resource=None,
 
 
 def apiVersionToFloat(apiVersion):
-    apiVersion = apiVersion.replace('-preview','')
+    apiVersion = apiVersion.replace('-preview', '')
 
     return float(apiVersion)
+
 
 def stringToDict(inputList):
     if not inputList:
