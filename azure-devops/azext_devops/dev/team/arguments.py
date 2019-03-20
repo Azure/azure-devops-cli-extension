@@ -5,6 +5,7 @@
 
 
 from knack.arguments import enum_choice_list
+from azure.cli.core.commands.parameters import get_enum_type
 from azext_devops.dev.common.const import _TRUE_FALSE_SWITCH
 from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_GITHUB,
@@ -27,7 +28,6 @@ _LICENSE_TYPES = ['advanced', 'earlyAdopter', 'express', 'none', 'professional',
 
 
 def load_global_args(context):
-    from azure.cli.core.commands.parameters import get_enum_type
     context.argument('organization', options_list=('--organization', '--org'),
                      help='Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/')
     context.argument('detect', arg_type=get_enum_type(['on', 'off']),
@@ -60,7 +60,7 @@ def load_team_arguments(self, _):
                          help='Specifies the list of route parameters')
         context.argument('query_parameters', nargs='*',
                          help='Specifies the list of query parameters')
-        context.argument('http_method', **enum_choice_list(_HTTP_METHOD_VALUES),
+        context.argument('http_method',  arg_type=get_enum_type(_HTTP_METHOD_VALUES),
                          help='Specifies the method used for the request.')
         context.argument('media_type',
                          help='Specifies the content type of the request.')
@@ -78,15 +78,12 @@ def load_team_arguments(self, _):
                          help='The version of the API to target')
 
     with self.argument_context('devops user') as context:
-        from azure.cli.core.commands.parameters import get_enum_type
         context.argument('license_type', arg_type=get_enum_type(_LICENSE_TYPES))
     with self.argument_context('devops user add') as context:
-        from azure.cli.core.commands.parameters import get_enum_type
         context.argument('send_email_invite', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to send email invite for new user or not.')
 
     with self.argument_context('devops extension') as context:
-        from azure.cli.core.commands.parameters import get_enum_type
         context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Include built in extensions.')
         context.argument('include_disabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
