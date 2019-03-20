@@ -56,12 +56,12 @@ def invoke(area=None, resource=None,
 
         for x in service_list:
             try:
-                logger.info('trying to get locations from ' + x)
+                logger.info('trying to get locations from %s' %(x))
                 clientMock = VssClient(x, connection._creds)
                 resource_location_on_this_service = clientMock._get_resource_locations(all_host_types=True)
                 resource_locations.extend(resource_location_on_this_service)
-            except:
-                logger.info('Failed to get location for ' + x)
+            except: #pylint: disable=bare-except
+                logger.info('Failed to get location for %s' %(x))
 
         return resource_locations
 
