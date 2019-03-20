@@ -16,7 +16,8 @@ from ._format import (transform_project_table_output,
                       transform_users_table_output,
                       transform_user_table_output,
                       transform_extension_table_output,
-                      transform_extensions_table_output)
+                      transform_extensions_table_output,
+                      transform_extension_search_results_table_output)
 
 
 projectOps = CliCommandType(
@@ -114,6 +115,7 @@ def load_team_commands(self, _):
         g.command('show', 'get_extension', table_transformer=transform_extension_table_output)
         g.command('enable', 'enable_extension', table_transformer=transform_extension_table_output)
         g.command('disable', 'disable_extension', table_transformer=transform_extension_table_output)
+        g.command('search', 'search_extensions', table_transformer=transform_extension_search_results_table_output)
 
     with self.command_group('devops security group', command_type=security_groupOps) as g:
         g.command('list', 'list_groups', table_transformer=transform_groups_table_output)

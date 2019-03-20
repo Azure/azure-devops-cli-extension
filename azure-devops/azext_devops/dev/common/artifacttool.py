@@ -10,7 +10,7 @@ from knack.log import get_logger
 from knack.util import CLIError
 
 from azext_devops.dev.common.services import _get_credentials
-from azext_devops.dev.artifacts.const import ARTIFACTTOOL_PAT_ENVKEY
+from azext_devops.dev.common.const import ARTIFACTTOOL_PAT_ENVKEY
 
 logger = get_logger(__name__)
 
@@ -19,6 +19,16 @@ class ArtifactToolInvoker:
     def __init__(self, tool_invoker, artifacttool_updater):
         self._tool_invoker = tool_invoker
         self._artifacttool_updater = artifacttool_updater
+
+    def download_pipeline_artifact(self, organization, project, run_id, artifact_name, path):
+        args = ["pipelineartifact", "download", "--service", organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
+                "--project", project, "--pipeline-id", run_id, "--artifact-name", artifact_name, "--path", path]
+        return self.run_artifacttool(organization, args, "Downloading")
+
+    def upload_pipeline_artifact(self, organization, project, run_id, artifact_name, path):
+        args = ["pipelineartifact", "publish", "--service", organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
+                "--project", project, "--pipeline-id", run_id, "--artifact-name", artifact_name, "--path", path]
+        return self.run_artifacttool(organization, args, "Uploading")
 
     def download_universal(self, organization, feed, package_name, package_version, path):
         args = ["universal", "download", "--service", organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,

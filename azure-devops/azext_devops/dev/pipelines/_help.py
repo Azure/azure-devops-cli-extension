@@ -48,3 +48,15 @@ def load_pipelines_help():
     short-summary: Manage release definitions.
     long-summary:
     """
+
+    helps['pipelines runs'] = """
+    type: group
+    short-summary: Manage pipeline runs.
+    long-summary:
+    """
+
+    helps['pipelines runs artifact'] = """
+    type: group
+    short-summary: Manage pipeline artifacts.
+    long-summary:
+    """

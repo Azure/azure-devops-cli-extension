@@ -2,9 +2,26 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
-import pdb
+
 from collections import OrderedDict
 from azext_devops.dev.common.format import trim_for_display, date_time_to_only_date
+
+
+def transform_extension_search_results_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_extension_search_result_row(item))
+    return table_output
+
+
+def _transform_extension_search_result_row(row):
+    table_row = OrderedDict()
+    table_row['Publisher Id'] = row['publisher']['publisherName']
+    table_row['Extension Id'] = row['extensionName']
+    table_row['Name'] = row['displayName']
+
+    return table_row
+
 
 def transform_extension_table_output(result):
     table_output = [_transform_extension_row(result)]
