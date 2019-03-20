@@ -60,7 +60,7 @@ def invoke(area=None, resource=None,
                 clientMock = VssClient(x, connection._creds)
                 resource_location_on_this_service = clientMock._get_resource_locations(all_host_types=True)
                 resource_locations.extend(resource_location_on_this_service)
-            except: #pylint: disable=bare-except
+            except:  # pylint: disable=bare-except
                 logger.info('Failed to get location for %s', x)
 
         return resource_locations
@@ -140,7 +140,7 @@ def stringToDict(inputList):
     for inputSet in inputList:
         parts = inputSet.split('=', 1)
         if len(parts) != 2:
-            raise CLIError('%s is not valid it needs to be in format param=value' %(inputSet))
+            raise CLIError('%s is not valid it needs to be in format param=value' % (inputSet))
         key = parts[0]
         value = parts[1]
         result[key] = value
