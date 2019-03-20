@@ -27,9 +27,9 @@ def invoke(area=None, resource=None,
            accept_media_type='application/json',
            out_file=None,
            organization=None, detect=None):
-    """ This command will invoke request for any DevOps area and resource
+    """ This command will invoke request for any DevOps area and resource.
+        Please use only json output as the response of this command is not fixed.
     """
-
     logger.info('route_parameter received is %s', route_parameters)
     version = apiVersionToFloat(api_version)
 
