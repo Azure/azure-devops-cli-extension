@@ -39,7 +39,7 @@ class TestTeamMethods(unittest.TestCase):
         self.delete_team_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.delete_team')
         self.get_team_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.get_team')
         self.get_teams_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.get_teams')
-        self.get_team_members_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.get_team_members')
+        self.get_team_members_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.get_team_members_with_extended_properties')
         self.update_team_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.update_team')
         self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
 

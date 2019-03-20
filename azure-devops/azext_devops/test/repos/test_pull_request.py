@@ -59,7 +59,7 @@ class TestPullRequestMethods(unittest.TestCase):
         self.create_PR_reviewer_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.create_pull_request_reviewer')
         self.delete_PR_reviewers_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.delete_pull_request_reviewer')
         self.get_PR_reviewers_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request_reviewers')
-        self.get_PR_WIs_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request_work_items')
+        self.get_PR_WIs_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request_work_item_refs')
         
         # patch get client so no network call is made
         self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client', new=get_client_mock_helper)
