@@ -704,6 +704,12 @@ def _get_commits_object(path_to_commit, content, message):
     ]
 
 
+def _get_pipelines_trigger():
+    return [{"settingsSourceType":2, "triggerType":2},
+            {"forks":{"enabled": "true", "allowSecrets": "false"},
+             "settingsSourceType":2, "triggerType": "pullRequest"}]
+
+
 def _handle_yml_props(params_required, yml_props, template_id, pipeline_client, repo_name, organization, project):
     logger.warning('The template requires a few inputs. '
                    'These can be provided as --yml-props in the command arguments or be input interactively.')
@@ -765,6 +771,7 @@ def get_azure_rm_service_connection(organization, project):
                                                       service_endpoints_choice_list)
         if choice == 0:
             logger.debug("Creating a new service connection.")
+            logger.warning("Not implemented yet.")
             # run command to create service principle 
             
             # create azure rm service connection
@@ -816,6 +823,7 @@ def _create_pipeline_build_object(name, description, repo_id, repo_name, reposit
     definition.process = _create_process_object(yml_path)
     # set agent queue
     definition.queue = AgentPoolQueue()
+    definition.triggers = _get_pipelines_trigger()
     if queue_id:
         definition.queue.id = queue_id  # todo atbagga This should not be hardcoded
     return definition
