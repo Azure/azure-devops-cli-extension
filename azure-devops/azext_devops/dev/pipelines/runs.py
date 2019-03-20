@@ -5,7 +5,7 @@
 
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
+from azext_devops.devops_sdk.exceptions import AzureDevOpsServiceError
 from azext_devops.dev.common.services import (get_build_client,
                                               resolve_instance_and_project,
                                               resolve_instance)
@@ -30,7 +30,7 @@ def run_artifact_download(run_id=None, artifact_name=None, path=None, organizati
         organization = resolve_instance(detect=detect, organization=organization)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         return artifact_tool.download_pipeline_artifact(organization, project, run_id, artifact_name, path)
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)
 
 
@@ -45,7 +45,7 @@ def run_artifact_list(run_id=None, organization=None, project=None, detect=None)
         client = get_build_client(organization)
         artifacts = client.get_artifacts(run_id, project)
         return artifacts
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)
 
 
@@ -63,5 +63,5 @@ def run_artifact_upload(run_id=None, artifact_name=None, path=None, organization
         organization = resolve_instance(detect=detect, organization=organization)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         return artifact_tool.upload_pipeline_artifact(organization, project, run_id, artifact_name, path)
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)
