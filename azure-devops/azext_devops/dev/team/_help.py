@@ -42,3 +42,9 @@ def load_team_help():
     type: group
     short-summary: Manage extensions
     """
+
+    helps['devops invoke'] = """
+    type: command
+    short-summary: This command will invoke request for any DevOps area and resource.
+                   Please use only json output as the response of this command is not fixed.
+    """
