@@ -2,10 +2,9 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
-
+import pdb
 from collections import OrderedDict
 from azext_devops.dev.common.format import trim_for_display, date_time_to_only_date
-
 
 def transform_extension_table_output(result):
     table_output = [_transform_extension_row(result)]
@@ -82,6 +81,42 @@ def _transform_service_endpoint_row(row):
     table_row['Is Ready'] = row['isReady']
     table_row['Created By'] = row['createdBy']['displayName']
 
+    return table_row
+
+
+def transform_groups_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_group_row(item))
+    return table_output
+
+
+def transform_group_table_output(result):
+    table_output = [_transform_group_row(result)]
+    return table_output
+
+
+def _transform_group_row(row):
+    table_row = OrderedDict()
+    table_row['Id'] = row['originId']
+    table_row['Display Name'] = row['principalName']
+    table_row['Description'] = trim_for_display(row['description'], 80)
+    return table_row
+
+
+def transform_memberships_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_membership_row(result[item]))
+    return table_output
+
+
+def _transform_membership_row(row):
+    table_row = OrderedDict()
+    table_row['Id'] = row['originId']
+    table_row['Name'] = row['principalName']
+    table_row['Type'] = row['subjectKind']
+    table_row['Email'] = row['mailAddress']
     return table_row
 
 

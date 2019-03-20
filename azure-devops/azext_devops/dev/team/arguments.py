@@ -21,6 +21,7 @@ _SERVICE_ENDPOINT_TYPE = [SERVICE_ENDPOINT_TYPE_GITHUB, SERVICE_ENDPOINT_TYPE_AZ
 _SERVICE_ENDPOINT_AUTHORIZATION_SCHEME = [SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                                           SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL]
 _LICENSE_TYPES = ['advanced', 'earlyAdopter', 'express', 'none', 'professional', 'stakeholder']
+_RELATIONSHIP_TYPES = ['members', 'memberof']
 
 
 def load_global_args(context):
@@ -59,6 +60,11 @@ def load_team_arguments(self, _):
         from azure.cli.core.commands.parameters import get_enum_type
         context.argument('send_email_invite', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to send email invite for new user or not.')
+
+    with self.argument_context('devops security group membership') as context:
+        from azure.cli.core.commands.parameters import get_enum_type
+        context.argument('relationship', arg_type=get_enum_type(_RELATIONSHIP_TYPES),
+                         help='Get member of/members for this group.')
 
     with self.argument_context('devops extension') as context:
         from azure.cli.core.commands.parameters import get_enum_type

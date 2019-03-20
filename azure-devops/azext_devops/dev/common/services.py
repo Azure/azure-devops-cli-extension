@@ -172,6 +172,11 @@ def get_git_client(organization=None):
     return connection.get_client(VSTS_MODULE + 'git.v4_0.git_client.GitClient')
 
 
+def get_graph_client(organization=None):
+    connection = get_vss_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'graph.v4_1.graph_client.GraphClient')
+
+
 def get_identity_client(organization=None):
     connection = get_vss_connection(organization)
     return connection.get_client(VSTS_MODULE + 'identity.v4_0.identity_client.IdentityClient')
