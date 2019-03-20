@@ -35,6 +35,7 @@ __all__ = [
     'PackageVersionMetrics',
     'PackageVersionMetricsQuery',
     'PackageVersionProvenance',
+    'ProjectReference',
     'ProtocolMetadata',
     'Provenance',
     'RecycleBinPackageVersion',

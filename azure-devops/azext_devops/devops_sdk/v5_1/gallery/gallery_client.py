@@ -1249,6 +1249,29 @@ class GalleryClient(Client):
                               content=content)
         return self._deserialize('Publisher', response)
 
+    def update_publisher_members(self, role_assignments, publisher_name, limit_to_caller_identity_domain=None):
+        """UpdatePublisherMembers.
+        [Preview API] Endpoint to add/modify publisher membership. Currently Supports only addition/modification of 1 user at a time Works only for adding members of same tenant.
+        :param [PublisherUserRoleAssignmentRef] role_assignments: List of user identifiers(email address) and role to be added. Currently only one entry is supported.
+        :param str publisher_name: The name/id of publisher to which users have to be added
+        :param bool limit_to_caller_identity_domain: Should cross tenant addtions be allowed or not.
+        :rtype: [PublisherRoleAssignment]
+        """
+        route_values = {}
+        if publisher_name is not None:
+            route_values['publisherName'] = self._serialize.url('publisher_name', publisher_name, 'str')
+        query_parameters = {}
+        if limit_to_caller_identity_domain is not None:
+            query_parameters['limitToCallerIdentityDomain'] = self._serialize.query('limit_to_caller_identity_domain', limit_to_caller_identity_domain, 'bool')
+        content = self._serialize.body(role_assignments, '[PublisherUserRoleAssignmentRef]')
+        response = self._send(http_method='POST',
+                              location_id='4ddec66a-e4f6-4f5d-999e-9e77710d7ff4',
+                              version='5.1-preview.1',
+                              route_values=route_values,
+                              query_parameters=query_parameters,
+                              content=content)
+        return self._deserialize('[PublisherRoleAssignment]', self._unwrap_collection(response))
+
     def get_questions(self, publisher_name, extension_name, count=None, page=None, after_date=None):
         """GetQuestions.
         [Preview API] Returns a list of questions with their responses associated with an extension.

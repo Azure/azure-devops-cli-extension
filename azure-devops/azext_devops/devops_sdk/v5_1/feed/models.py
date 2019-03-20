@@ -114,6 +114,8 @@ class FeedCore(Model):
     :type is_read_only: bool
     :param name: A name for the feed. feed names must follow these rules: <list type="bullet"><item><description> Must not exceed 64 characters </description></item><item><description> Must not contain whitespaces </description></item><item><description> Must not start with an underscore or a period </description></item><item><description> Must not end with a period </description></item><item><description> Must not contain any of the following illegal characters: <![CDATA[ @, ~, ;, {, }, \, +, =, <, >, |, /, \\, ?, :, &, $, *, \", #, [, ] ]]></description></item></list>
     :type name: str
+    :param project: The project that this feed is associated with.
+    :type project: :class:`ProjectReference <azure.devops.v5_1.packaging.models.ProjectReference>`
     :param upstream_enabled: OBSOLETE: This should always be true.  Setting to false will override all sources in UpstreamSources.
     :type upstream_enabled: bool
     :param upstream_sources: A list of sources that this feed will fetch packages from.  An empty list indicates that this feed will not search any additional sources for packages.
@@ -134,6 +136,7 @@ class FeedCore(Model):
         'id': {'key': 'id', 'type': 'str'},
         'is_read_only': {'key': 'isReadOnly', 'type': 'bool'},
         'name': {'key': 'name', 'type': 'str'},
+        'project': {'key': 'project', 'type': 'ProjectReference'},
         'upstream_enabled': {'key': 'upstreamEnabled', 'type': 'bool'},
         'upstream_sources': {'key': 'upstreamSources', 'type': '[UpstreamSource]'},
         'view': {'key': 'view', 'type': 'FeedView'},
@@ -141,7 +144,7 @@ class FeedCore(Model):
         'view_name': {'key': 'viewName', 'type': 'str'}
     }
 
-    def __init__(self, allow_upstream_name_conflict=None, capabilities=None, fully_qualified_id=None, fully_qualified_name=None, id=None, is_read_only=None, name=None, upstream_enabled=None, upstream_sources=None, view=None, view_id=None, view_name=None):
+    def __init__(self, allow_upstream_name_conflict=None, capabilities=None, fully_qualified_id=None, fully_qualified_name=None, id=None, is_read_only=None, name=None, project=None, upstream_enabled=None, upstream_sources=None, view=None, view_id=None, view_name=None):
         super(FeedCore, self).__init__()
         self.allow_upstream_name_conflict = allow_upstream_name_conflict
         self.capabilities = capabilities
@@ -150,6 +153,7 @@ class FeedCore(Model):
         self.id = id
         self.is_read_only = is_read_only
         self.name = name
+        self.project = project
         self.upstream_enabled = upstream_enabled
         self.upstream_sources = upstream_sources
         self.view = view
@@ -320,7 +324,7 @@ class JsonPatchOperation(Model):
     :type from_: str
     :param op: The patch operation
     :type op: object
-    :param path: The path for the operation
+    :param path: The path for the operation. In the case of an array, a zero based index can be used to specify the position in the array (e.g. /biscuits/0/name). The "-" character can be used instead of an index to insert at the end of the array (e.g. /biscuits/-).
     :type path: str
     :param value: The value for the operation. This is either a primitive or a JToken.
     :type value: object
@@ -785,6 +789,22 @@ class PackageVersionProvenance(Model):
         self.provenance = provenance
 
 
+class ProjectReference(Model):
+    """ProjectReference.
+
+    :param id: Gets or sets id of the project.
+    :type id: str
+    """
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'}
+    }
+
+    def __init__(self, id=None):
+        super(ProjectReference, self).__init__()
+        self.id = id
+
+
 class ProtocolMetadata(Model):
     """ProtocolMetadata.
 
@@ -1002,6 +1022,8 @@ class Feed(FeedCore):
     :type is_read_only: bool
     :param name: A name for the feed. feed names must follow these rules: <list type="bullet"><item><description> Must not exceed 64 characters </description></item><item><description> Must not contain whitespaces </description></item><item><description> Must not start with an underscore or a period </description></item><item><description> Must not end with a period </description></item><item><description> Must not contain any of the following illegal characters: <![CDATA[ @, ~, ;, {, }, \, +, =, <, >, |, /, \\, ?, :, &, $, *, \", #, [, ] ]]></description></item></list>
     :type name: str
+    :param project: The project that this feed is associated with.
+    :type project: :class:`ProjectReference <azure.devops.v5_1.packaging.models.ProjectReference>`
     :param upstream_enabled: OBSOLETE: This should always be true.  Setting to false will override all sources in UpstreamSources.
     :type upstream_enabled: bool
     :param upstream_sources: A list of sources that this feed will fetch packages from.  An empty list indicates that this feed will not search any additional sources for packages.
@@ -1040,6 +1062,7 @@ class Feed(FeedCore):
         'id': {'key': 'id', 'type': 'str'},
         'is_read_only': {'key': 'isReadOnly', 'type': 'bool'},
         'name': {'key': 'name', 'type': 'str'},
+        'project': {'key': 'project', 'type': 'ProjectReference'},
         'upstream_enabled': {'key': 'upstreamEnabled', 'type': 'bool'},
         'upstream_sources': {'key': 'upstreamSources', 'type': '[UpstreamSource]'},
         'view': {'key': 'view', 'type': 'FeedView'},
@@ -1056,8 +1079,8 @@ class Feed(FeedCore):
         'url': {'key': 'url', 'type': 'str'}
     }
 
-    def __init__(self, allow_upstream_name_conflict=None, capabilities=None, fully_qualified_id=None, fully_qualified_name=None, id=None, is_read_only=None, name=None, upstream_enabled=None, upstream_sources=None, view=None, view_id=None, view_name=None, _links=None, badges_enabled=None, default_view_id=None, deleted_date=None, description=None, hide_deleted_package_versions=None, permissions=None, upstream_enabled_changed_date=None, url=None):
-        super(Feed, self).__init__(allow_upstream_name_conflict=allow_upstream_name_conflict, capabilities=capabilities, fully_qualified_id=fully_qualified_id, fully_qualified_name=fully_qualified_name, id=id, is_read_only=is_read_only, name=name, upstream_enabled=upstream_enabled, upstream_sources=upstream_sources, view=view, view_id=view_id, view_name=view_name)
+    def __init__(self, allow_upstream_name_conflict=None, capabilities=None, fully_qualified_id=None, fully_qualified_name=None, id=None, is_read_only=None, name=None, project=None, upstream_enabled=None, upstream_sources=None, view=None, view_id=None, view_name=None, _links=None, badges_enabled=None, default_view_id=None, deleted_date=None, description=None, hide_deleted_package_versions=None, permissions=None, upstream_enabled_changed_date=None, url=None):
+        super(Feed, self).__init__(allow_upstream_name_conflict=allow_upstream_name_conflict, capabilities=capabilities, fully_qualified_id=fully_qualified_id, fully_qualified_name=fully_qualified_name, id=id, is_read_only=is_read_only, name=name, project=project, upstream_enabled=upstream_enabled, upstream_sources=upstream_sources, view=view, view_id=view_id, view_name=view_name)
         self._links = _links
         self.badges_enabled = badges_enabled
         self.default_view_id = default_view_id
@@ -1094,6 +1117,7 @@ __all__ = [
     'PackageVersionMetrics',
     'PackageVersionMetricsQuery',
     'PackageVersionProvenance',
+    'ProjectReference',
     'ProtocolMetadata',
     'Provenance',
     'RecycleBinPackageVersion',

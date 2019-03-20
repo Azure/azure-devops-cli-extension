@@ -60,9 +60,9 @@ class AadOauthTokenResult(Model):
 class AuthenticationSchemeReference(Model):
     """AuthenticationSchemeReference.
 
-    :param inputs:
+    :param inputs: Gets or sets the key and value of the fields used for authentication.
     :type inputs: dict
-    :param type:
+    :param type: Gets or sets the type of authentication scheme of an endpoint.
     :type type: str
     """
 
@@ -212,27 +212,27 @@ class ClientCertificate(Model):
 class DataSource(Model):
     """DataSource.
 
-    :param authentication_scheme:
+    :param authentication_scheme: Gets or sets the authentication scheme for the endpoint request.
     :type authentication_scheme: :class:`AuthenticationSchemeReference <azure.devops.v5_1.service_endpoint.models.AuthenticationSchemeReference>`
-    :param callback_context_template:
+    :param callback_context_template: Gets or sets the pagination format supported by this data source(ContinuationToken/SkipTop).
     :type callback_context_template: str
-    :param callback_required_template:
+    :param callback_required_template: Gets or sets the template to check if subsequent call is needed.
     :type callback_required_template: str
-    :param endpoint_url:
+    :param endpoint_url: Gets or sets the endpoint url of the data source.
     :type endpoint_url: str
-    :param headers:
+    :param headers: Gets or sets the authorization headers of the request.
     :type headers: list of :class:`AuthorizationHeader <azure.devops.v5_1.service_endpoint.models.AuthorizationHeader>`
-    :param initial_context_template:
+    :param initial_context_template: Gets or sets the initial value of the query params.
     :type initial_context_template: str
-    :param name:
+    :param name: Gets or sets the name of the data source.
     :type name: str
-    :param request_content:
+    :param request_content: Gets or sets the request content of the endpoint request.
     :type request_content: str
-    :param request_verb:
+    :param request_verb: Gets or sets the request method of the endpoint request.
     :type request_verb: str
-    :param resource_url:
+    :param resource_url: Gets or sets the resource url of the endpoint request.
     :type resource_url: str
-    :param result_selector:
+    :param result_selector: Gets or sets the result selector to filter the response of the endpoint request.
     :type result_selector: str
     """
 
@@ -380,9 +380,9 @@ class DataSourceDetails(Model):
 class DependencyBinding(Model):
     """DependencyBinding.
 
-    :param key:
+    :param key: Gets or sets the value of the field on which url is dependent.
     :type key: str
-    :param value:
+    :param value: Gets or sets the corresponding value of url.
     :type value: str
     """
 
@@ -400,9 +400,9 @@ class DependencyBinding(Model):
 class DependencyData(Model):
     """DependencyData.
 
-    :param input:
+    :param input: Gets or sets the category of dependency data.
     :type input: str
-    :param map:
+    :param map: Gets or sets the key-value pair to specify properties and their values.
     :type map: list of { key: str; value: [{ key: str; value: str }] }
     """
 
@@ -420,9 +420,9 @@ class DependencyData(Model):
 class DependsOn(Model):
     """DependsOn.
 
-    :param input:
+    :param input: Gets or sets the ID of the field on which URL's value is dependent.
     :type input: str
-    :param map:
+    :param map: Gets or sets key-value pair containing other's field value and corresponding url value.
     :type map: list of :class:`DependencyBinding <azure.devops.v5_1.service_endpoint.models.DependencyBinding>`
     """
 
@@ -520,9 +520,9 @@ class GraphSubjectBase(Model):
 class HelpLink(Model):
     """HelpLink.
 
-    :param text:
+    :param text: Gets or sets the help text.
     :type text: str
-    :param url:
+    :param url: Gets or sets the public url of the help documentation.
     :type url: str
     """
 
@@ -668,21 +668,21 @@ class InputDescriptor(Model):
 class InputValidation(Model):
     """InputValidation.
 
-    :param data_type:
+    :param data_type: Gets or sets the data data type to validate.
     :type data_type: object
-    :param is_required:
+    :param is_required: Gets or sets if this is a required field.
     :type is_required: bool
-    :param max_length:
+    :param max_length: Gets or sets the maximum length of this descriptor.
     :type max_length: int
-    :param max_value:
+    :param max_value: Gets or sets the minimum value for this descriptor.
     :type max_value: decimal
-    :param min_length:
+    :param min_length: Gets or sets the minimum length of this descriptor.
     :type min_length: int
-    :param min_value:
+    :param min_value: Gets or sets the minimum value for this descriptor.
     :type min_value: decimal
-    :param pattern:
+    :param pattern: Gets or sets the pattern to validate.
     :type pattern: str
-    :param pattern_mismatch_error_message:
+    :param pattern_mismatch_error_message: Gets or sets the error on pattern mismatch.
     :type pattern_mismatch_error_message: str
     """
 
@@ -946,7 +946,7 @@ class ServiceEndpoint(Model):
     :type data: dict
     :param description: Gets or sets the description of endpoint.
     :type description: str
-    :param group_scope_id:
+    :param group_scope_id: This is a deprecated field.
     :type group_scope_id: str
     :param id: Gets or sets the identifier of this endpoint.
     :type id: str
@@ -1014,7 +1014,7 @@ class ServiceEndpointAuthenticationScheme(Model):
     :type authorization_url: str
     :param client_certificates: Gets or sets the certificates of service endpoint authentication scheme.
     :type client_certificates: list of :class:`ClientCertificate <azure.devops.v5_1.service_endpoint.models.ClientCertificate>`
-    :param data_source_bindings:
+    :param data_source_bindings: Gets or sets the data source bindings of the endpoint.
     :type data_source_bindings: list of :class:`DataSourceBinding <azure.devops.v5_1.service_endpoint.models.DataSourceBinding>`
     :param display_name: Gets or sets the display name for the service endpoint authentication scheme.
     :type display_name: str
@@ -1250,7 +1250,7 @@ class ServiceEndpointType(Model):
     :type endpoint_url: :class:`EndpointUrl <azure.devops.v5_1.service_endpoint.models.EndpointUrl>`
     :param help_link: Gets or sets the help link of service endpoint type.
     :type help_link: :class:`HelpLink <azure.devops.v5_1.service_endpoint.models.HelpLink>`
-    :param help_mark_down:
+    :param help_mark_down: Gets or sets the help text shown at the endpoint create dialog.
     :type help_mark_down: str
     :param icon_url: Gets or sets the icon url of service endpoint type.
     :type icon_url: str

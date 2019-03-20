@@ -138,7 +138,7 @@ def get_token_from_az_login(profile, user, tenant):
 
 def _get_connection(organization, credentials):
     return Connection(get_base_url(organization), creds=credentials,
-                         user_agent='devOpsCli/{}'.format(VERSION))
+                      user_agent='devOpsCli/{}'.format(VERSION))
 
 
 def get_first_vss_instance_uri():

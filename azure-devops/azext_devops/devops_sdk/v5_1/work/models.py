@@ -996,11 +996,11 @@ class TeamFieldValuesPatch(Model):
 class TeamIterationAttributes(Model):
     """TeamIterationAttributes.
 
-    :param finish_date:
+    :param finish_date: Finish date of the iteration. Date-only, correct unadjusted at midnight in UTC.
     :type finish_date: datetime
-    :param start_date:
+    :param start_date: Start date of the iteration. Date-only, correct unadjusted at midnight in UTC.
     :type start_date: datetime
-    :param time_frame:
+    :param time_frame: Time frame of the iteration, such as past, current or future.
     :type time_frame: object
     """
 
@@ -1082,13 +1082,13 @@ class TeamSettingsIteration(TeamSettingsDataContractBase):
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
     :param url: Full http link to the resource
     :type url: str
-    :param attributes: Attributes such as start and end date
+    :param attributes: Attributes of the iteration such as start and end date.
     :type attributes: :class:`TeamIterationAttributes <azure.devops.v5_1.work.models.TeamIterationAttributes>`
-    :param id: Id of the resource
+    :param id: Id of the iteration.
     :type id: str
-    :param name: Name of the resource
+    :param name: Name of the iteration.
     :type name: str
-    :param path: Relative path of the iteration
+    :param path: Relative path of the iteration.
     :type path: str
     """
 
@@ -1592,6 +1592,32 @@ class BoardChart(BoardChartReference):
         self.settings = settings
 
 
+class CapacityContractBase(TeamSettingsDataContractBase):
+    """CapacityContractBase.
+
+    :param _links: Collection of links relevant to resource
+    :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
+    :param url: Full http link to the resource
+    :type url: str
+    :param activities: Collection of capacities associated with the team member
+    :type activities: list of :class:`Activity <azure.devops.v5_1.work.models.Activity>`
+    :param days_off: The days off associated with the team member
+    :type days_off: list of :class:`DateRange <azure.devops.v5_1.work.models.DateRange>`
+    """
+
+    _attribute_map = {
+        '_links': {'key': '_links', 'type': 'ReferenceLinks'},
+        'url': {'key': 'url', 'type': 'str'},
+        'activities': {'key': 'activities', 'type': '[Activity]'},
+        'days_off': {'key': 'daysOff', 'type': '[DateRange]'}
+    }
+
+    def __init__(self, _links=None, url=None, activities=None, days_off=None):
+        super(CapacityContractBase, self).__init__(_links=_links, url=url)
+        self.activities = activities
+        self.days_off = days_off
+
+
 class DeliveryViewData(PlanViewData):
     """DeliveryViewData.
 
@@ -1686,7 +1712,7 @@ class TeamFieldValues(TeamSettingsDataContractBase):
         self.values = values
 
 
-class TeamMemberCapacity(TeamSettingsDataContractBase):
+class TeamMemberCapacity(CapacityContractBase):
     """TeamMemberCapacity.
 
     :param _links: Collection of links relevant to resource
@@ -1710,9 +1736,35 @@ class TeamMemberCapacity(TeamSettingsDataContractBase):
     }
 
     def __init__(self, _links=None, url=None, activities=None, days_off=None, team_member=None):
-        super(TeamMemberCapacity, self).__init__(_links=_links, url=url)
-        self.activities = activities
-        self.days_off = days_off
+        super(TeamMemberCapacity, self).__init__(_links=_links, url=url, activities=activities, days_off=days_off)
+        self.team_member = team_member
+
+
+class TeamMemberCapacityIdentityRef(CapacityContractBase):
+    """TeamMemberCapacityIdentityRef.
+
+    :param _links: Collection of links relevant to resource
+    :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
+    :param url: Full http link to the resource
+    :type url: str
+    :param activities: Collection of capacities associated with the team member
+    :type activities: list of :class:`Activity <azure.devops.v5_1.work.models.Activity>`
+    :param days_off: The days off associated with the team member
+    :type days_off: list of :class:`DateRange <azure.devops.v5_1.work.models.DateRange>`
+    :param team_member: Identity ref of the associated team member
+    :type team_member: :class:`IdentityRef <azure.devops.v5_1.work.models.IdentityRef>`
+    """
+
+    _attribute_map = {
+        '_links': {'key': '_links', 'type': 'ReferenceLinks'},
+        'url': {'key': 'url', 'type': 'str'},
+        'activities': {'key': 'activities', 'type': '[Activity]'},
+        'days_off': {'key': 'daysOff', 'type': '[DateRange]'},
+        'team_member': {'key': 'teamMember', 'type': 'IdentityRef'}
+    }
+
+    def __init__(self, _links=None, url=None, activities=None, days_off=None, team_member=None):
+        super(TeamMemberCapacityIdentityRef, self).__init__(_links=_links, url=url, activities=activities, days_off=days_off)
         self.team_member = team_member
 
 
@@ -1765,6 +1817,12 @@ class WorkItemCommentVersionRef(WorkItemTrackingResourceReference):
     :type url: str
     :param comment_id: The id assigned to the comment.
     :type comment_id: int
+    :param created_in_revision: [Internal] The work item revision where this comment was originally added.
+    :type created_in_revision: int
+    :param is_deleted: [Internal] Specifies whether comment was deleted.
+    :type is_deleted: bool
+    :param text: [Internal] The text of the comment.
+    :type text: str
     :param version: The version number.
     :type version: int
     """
@@ -1772,12 +1830,18 @@ class WorkItemCommentVersionRef(WorkItemTrackingResourceReference):
     _attribute_map = {
         'url': {'key': 'url', 'type': 'str'},
         'comment_id': {'key': 'commentId', 'type': 'int'},
+        'created_in_revision': {'key': 'createdInRevision', 'type': 'int'},
+        'is_deleted': {'key': 'isDeleted', 'type': 'bool'},
+        'text': {'key': 'text', 'type': 'str'},
         'version': {'key': 'version', 'type': 'int'}
     }
 
-    def __init__(self, url=None, comment_id=None, version=None):
+    def __init__(self, url=None, comment_id=None, created_in_revision=None, is_deleted=None, text=None, version=None):
         super(WorkItemCommentVersionRef, self).__init__(url=url)
         self.comment_id = comment_id
+        self.created_in_revision = created_in_revision
+        self.is_deleted = is_deleted
+        self.text = text
         self.version = version
 
 
@@ -1897,10 +1961,12 @@ __all__ = [
     'WorkItemTypeStateInfo',
     'Board',
     'BoardChart',
+    'CapacityContractBase',
     'DeliveryViewData',
     'IterationWorkItems',
     'TeamFieldValues',
     'TeamMemberCapacity',
+    'TeamMemberCapacityIdentityRef',
     'TeamSetting',
     'WorkItemCommentVersionRef',
     'WorkItemTrackingResource',

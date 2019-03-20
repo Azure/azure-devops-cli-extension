@@ -304,6 +304,304 @@ class WorkItemTrackingClient(Client):
                               content=content)
         return self._deserialize('WorkItemClassificationNode', response)
 
+    def add_comment(self, request, project, work_item_id):
+        """AddComment.
+        [Preview API] Add a comment on a work item.
+        :param :class:`<CommentCreate> <azure.devops.v5_1.work_item_tracking.models.CommentCreate>` request: Comment create request.
+        :param str project: Project ID or project name
+        :param int work_item_id: Id of a work item.
+        :rtype: :class:`<Comment> <azure.devops.v5_1.work-item-tracking.models.Comment>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if work_item_id is not None:
+            route_values['workItemId'] = self._serialize.url('work_item_id', work_item_id, 'int')
+        content = self._serialize.body(request, 'CommentCreate')
+        response = self._send(http_method='POST',
+                              location_id='608aac0a-32e1-4493-a863-b9cf4566d257',
+                              version='5.1-preview.3',
+                              route_values=route_values,
+                              content=content)
+        return self._deserialize('Comment', response)
+
+    def delete_comment(self, project, work_item_id, comment_id):
+        """DeleteComment.
+        [Preview API] Delete a comment on a work item.
+        :param str project: Project ID or project name
+        :param int work_item_id: Id of a work item.
+        :param int comment_id:
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if work_item_id is not None:
+            route_values['workItemId'] = self._serialize.url('work_item_id', work_item_id, 'int')
+        if comment_id is not None:
+            route_values['commentId'] = self._serialize.url('comment_id', comment_id, 'int')
+        self._send(http_method='DELETE',
+                   location_id='608aac0a-32e1-4493-a863-b9cf4566d257',
+                   version='5.1-preview.3',
+                   route_values=route_values)
+
+    def get_comment(self, project, work_item_id, comment_id, include_deleted=None, expand=None):
+        """GetComment.
+        [Preview API] Returns a work item comment.
+        :param str project: Project ID or project name
+        :param int work_item_id: Id of a work item to get the comment.
+        :param int comment_id: Id of the comment to return.
+        :param bool include_deleted: Specify if the deleted comment should be retrieved.
+        :param str expand: Specifies the additional data retrieval options for work item comments.
+        :rtype: :class:`<Comment> <azure.devops.v5_1.work-item-tracking.models.Comment>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if work_item_id is not None:
+            route_values['workItemId'] = self._serialize.url('work_item_id', work_item_id, 'int')
+        if comment_id is not None:
+            route_values['commentId'] = self._serialize.url('comment_id', comment_id, 'int')
+        query_parameters = {}
+        if include_deleted is not None:
+            query_parameters['includeDeleted'] = self._serialize.query('include_deleted', include_deleted, 'bool')
+        if expand is not None:
+            query_parameters['$expand'] = self._serialize.query('expand', expand, 'str')
+        response = self._send(http_method='GET',
+                              location_id='608aac0a-32e1-4493-a863-b9cf4566d257',
+                              version='5.1-preview.3',
+                              route_values=route_values,
+                              query_parameters=query_parameters)
+        return self._deserialize('Comment', response)
+
+    def get_comments(self, project, work_item_id, top=None, continuation_token=None, include_deleted=None, expand=None):
+        """GetComments.
+        [Preview API] Returns a list of work item comments, pageable.
+        :param str project: Project ID or project name
+        :param int work_item_id: Id of a work item to get comments for.
+        :param int top: Max number of comments to return.
+        :param str continuation_token: Used to query for the next page of comments.
+        :param bool include_deleted: Specify if the deleted comments should be retrieved.
+        :param str expand: Specifies the additional data retrieval options for work item comments.
+        :rtype: :class:`<CommentList> <azure.devops.v5_1.work-item-tracking.models.CommentList>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if work_item_id is not None:
+            route_values['workItemId'] = self._serialize.url('work_item_id', work_item_id, 'int')
+        query_parameters = {}
+        if top is not None:
+            query_parameters['$top'] = self._serialize.query('top', top, 'int')
+        if continuation_token is not None:
+            query_parameters['continuationToken'] = self._serialize.query('continuation_token', continuation_token, 'str')
+        if include_deleted is not None:
+            query_parameters['includeDeleted'] = self._serialize.query('include_deleted', include_deleted, 'bool')
+        if expand is not None:
+            query_parameters['$expand'] = self._serialize.query('expand', expand, 'str')
+        response = self._send(http_method='GET',
+                              location_id='608aac0a-32e1-4493-a863-b9cf4566d257',
+                              version='5.1-preview.3',
+                              route_values=route_values,
+                              query_parameters=query_parameters)
+        return self._deserialize('CommentList', response)
+
+    def get_comments_batch(self, project, work_item_id, ids, include_deleted=None, expand=None):
+        """GetCommentsBatch.
+        [Preview API] Returns a list of work item comments by ids.
+        :param str project: Project ID or project name
+        :param int work_item_id: Id of a work item to get comments for.
+        :param [int] ids: Comma-separated list of comment ids to return.
+        :param bool include_deleted: Specify if the deleted comments should be retrieved.
+        :param str expand: Specifies the additional data retrieval options for work item comments.
+        :rtype: :class:`<CommentList> <azure.devops.v5_1.work-item-tracking.models.CommentList>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if work_item_id is not None:
+            route_values['workItemId'] = self._serialize.url('work_item_id', work_item_id, 'int')
+        query_parameters = {}
+        if ids is not None:
+            ids = ",".join(map(str, ids))
+            query_parameters['ids'] = self._serialize.query('ids', ids, 'str')
+        if include_deleted is not None:
+            query_parameters['includeDeleted'] = self._serialize.query('include_deleted', include_deleted, 'bool')
+        if expand is not None:
+            query_parameters['$expand'] = self._serialize.query('expand', expand, 'str')
+        response = self._send(http_method='GET',
+                              location_id='608aac0a-32e1-4493-a863-b9cf4566d257',
+                              version='5.1-preview.3',
+                              route_values=route_values,
+                              query_parameters=query_parameters)
+        return self._deserialize('CommentList', response)
+
+    def update_comment(self, request, project, work_item_id, comment_id):
+        """UpdateComment.
+        [Preview API] Update a comment on a work item.
+        :param :class:`<CommentUpdate> <azure.devops.v5_1.work_item_tracking.models.CommentUpdate>` request: Comment update request.
+        :param str project: Project ID or project name
+        :param int work_item_id: Id of a work item.
+        :param int comment_id:
+        :rtype: :class:`<Comment> <azure.devops.v5_1.work-item-tracking.models.Comment>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if work_item_id is not None:
+            route_values['workItemId'] = self._serialize.url('work_item_id', work_item_id, 'int')
+        if comment_id is not None:
+            route_values['commentId'] = self._serialize.url('comment_id', comment_id, 'int')
+        content = self._serialize.body(request, 'CommentUpdate')
+        response = self._send(http_method='PATCH',
+                              location_id='608aac0a-32e1-4493-a863-b9cf4566d257',
+                              version='5.1-preview.3',
+                              route_values=route_values,
+                              content=content)
+        return self._deserialize('Comment', response)
+
+    def create_comment_reaction(self, project, work_item_id, comment_id, reaction_type):
+        """CreateCommentReaction.
+        [Preview API] Adds a new reaction to a comment.
+        :param str project: Project ID or project name
+        :param int work_item_id: WorkItem ID
+        :param int comment_id: Comment ID
+        :param CommentReactionType reaction_type: Type of the reaction
+        :rtype: :class:`<CommentReaction> <azure.devops.v5_1.work-item-tracking.models.CommentReaction>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if work_item_id is not None:
+            route_values['workItemId'] = self._serialize.url('work_item_id', work_item_id, 'int')
+        if comment_id is not None:
+            route_values['commentId'] = self._serialize.url('comment_id', comment_id, 'int')
+        if reaction_type is not None:
+            route_values['reactionType'] = self._serialize.url('reaction_type', reaction_type, 'CommentReactionType')
+        response = self._send(http_method='PUT',
+                              location_id='f6cb3f27-1028-4851-af96-887e570dc21f',
+                              version='5.1-preview.1',
+                              route_values=route_values)
+        return self._deserialize('CommentReaction', response)
+
+    def delete_comment_reaction(self, project, work_item_id, comment_id, reaction_type):
+        """DeleteCommentReaction.
+        [Preview API] Deletes an existing reaction on a comment.
+        :param str project: Project ID or project name
+        :param int work_item_id: WorkItem ID
+        :param int comment_id: Comment ID
+        :param CommentReactionType reaction_type: Type of the reaction
+        :rtype: :class:`<CommentReaction> <azure.devops.v5_1.work-item-tracking.models.CommentReaction>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if work_item_id is not None:
+            route_values['workItemId'] = self._serialize.url('work_item_id', work_item_id, 'int')
+        if comment_id is not None:
+            route_values['commentId'] = self._serialize.url('comment_id', comment_id, 'int')
+        if reaction_type is not None:
+            route_values['reactionType'] = self._serialize.url('reaction_type', reaction_type, 'CommentReactionType')
+        response = self._send(http_method='DELETE',
+                              location_id='f6cb3f27-1028-4851-af96-887e570dc21f',
+                              version='5.1-preview.1',
+                              route_values=route_values)
+        return self._deserialize('CommentReaction', response)
+
+    def get_comment_reactions(self, project, work_item_id, comment_id):
+        """GetCommentReactions.
+        [Preview API] Gets reactions of a comment.
+        :param str project: Project ID or project name
+        :param int work_item_id: WorkItem ID
+        :param int comment_id: Comment ID
+        :rtype: [CommentReaction]
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if work_item_id is not None:
+            route_values['workItemId'] = self._serialize.url('work_item_id', work_item_id, 'int')
+        if comment_id is not None:
+            route_values['commentId'] = self._serialize.url('comment_id', comment_id, 'int')
+        response = self._send(http_method='GET',
+                              location_id='f6cb3f27-1028-4851-af96-887e570dc21f',
+                              version='5.1-preview.1',
+                              route_values=route_values)
+        return self._deserialize('[CommentReaction]', self._unwrap_collection(response))
+
+    def read_reporting_comments(self, project, continuation_token=None, top=None, include_deleted=None, expand=None):
+        """ReadReportingComments.
+        [Preview API]
+        :param str project: Project ID or project name
+        :param str continuation_token:
+        :param int top:
+        :param bool include_deleted:
+        :param str expand:
+        :rtype: :class:`<CommentReportingList> <azure.devops.v5_1.work-item-tracking.models.CommentReportingList>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        query_parameters = {}
+        if continuation_token is not None:
+            query_parameters['continuationToken'] = self._serialize.query('continuation_token', continuation_token, 'str')
+        if top is not None:
+            query_parameters['top'] = self._serialize.query('top', top, 'int')
+        if include_deleted is not None:
+            query_parameters['includeDeleted'] = self._serialize.query('include_deleted', include_deleted, 'bool')
+        if expand is not None:
+            query_parameters['$expand'] = self._serialize.query('expand', expand, 'str')
+        response = self._send(http_method='GET',
+                              location_id='370b8590-9562-42be-b0d8-ac06668fc5dc',
+                              version='5.1-preview.1',
+                              route_values=route_values,
+                              query_parameters=query_parameters)
+        return self._deserialize('CommentReportingList', response)
+
+    def get_comment_version(self, project, work_item_id, comment_id, version):
+        """GetCommentVersion.
+        [Preview API]
+        :param str project: Project ID or project name
+        :param int work_item_id:
+        :param int comment_id:
+        :param int version:
+        :rtype: :class:`<CommentVersion> <azure.devops.v5_1.work-item-tracking.models.CommentVersion>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if work_item_id is not None:
+            route_values['workItemId'] = self._serialize.url('work_item_id', work_item_id, 'int')
+        if comment_id is not None:
+            route_values['commentId'] = self._serialize.url('comment_id', comment_id, 'int')
+        if version is not None:
+            route_values['version'] = self._serialize.url('version', version, 'int')
+        response = self._send(http_method='GET',
+                              location_id='49e03b34-3be0-42e3-8a5d-e8dfb88ac954',
+                              version='5.1-preview.1',
+                              route_values=route_values)
+        return self._deserialize('CommentVersion', response)
+
+    def get_comment_versions(self, project, work_item_id, comment_id):
+        """GetCommentVersions.
+        [Preview API]
+        :param str project: Project ID or project name
+        :param int work_item_id:
+        :param int comment_id:
+        :rtype: [CommentVersion]
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if work_item_id is not None:
+            route_values['workItemId'] = self._serialize.url('work_item_id', work_item_id, 'int')
+        if comment_id is not None:
+            route_values['commentId'] = self._serialize.url('comment_id', comment_id, 'int')
+        response = self._send(http_method='GET',
+                              location_id='49e03b34-3be0-42e3-8a5d-e8dfb88ac954',
+                              version='5.1-preview.1',
+                              route_values=route_values)
+        return self._deserialize('[CommentVersion]', self._unwrap_collection(response))
+
     def create_field(self, work_item_field, project=None):
         """CreateField.
         [Preview API] Create a new field.
@@ -1243,6 +1541,29 @@ class WorkItemTrackingClient(Client):
                               content=content)
         return self._deserialize('ReportingWorkItemRevisionsBatch', response)
 
+    def read_reporting_discussions(self, project=None, continuation_token=None, max_page_size=None):
+        """ReadReportingDiscussions.
+        [Preview API]
+        :param str project: Project ID or project name
+        :param str continuation_token:
+        :param int max_page_size:
+        :rtype: :class:`<ReportingWorkItemRevisionsBatch> <azure.devops.v5_1.work-item-tracking.models.ReportingWorkItemRevisionsBatch>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        query_parameters = {}
+        if continuation_token is not None:
+            query_parameters['continuationToken'] = self._serialize.query('continuation_token', continuation_token, 'str')
+        if max_page_size is not None:
+            query_parameters['$maxPageSize'] = self._serialize.query('max_page_size', max_page_size, 'int')
+        response = self._send(http_method='GET',
+                              location_id='4a644469-90c5-4fcc-9a9f-be0827d369ec',
+                              version='5.1-preview.1',
+                              route_values=route_values,
+                              query_parameters=query_parameters)
+        return self._deserialize('ReportingWorkItemRevisionsBatch', response)
+
     def create_work_item(self, document, project, type, validate_only=None, bypass_rules=None, suppress_notifications=None, expand=None):
         """CreateWorkItem.
         [Preview API] Creates a single work item.
@@ -1310,10 +1631,10 @@ class WorkItemTrackingClient(Client):
 
     def delete_work_item(self, id, project=None, destroy=None):
         """DeleteWorkItem.
-        [Preview API] Deletes the specified work item and sends it to the Recycle Bin, so that it can be restored back, if required. Optionally, if the destroy parameter has been set to true, it destroys the work item permanently.
+        [Preview API] Deletes the specified work item and sends it to the Recycle Bin, so that it can be restored back, if required. Optionally, if the destroy parameter has been set to true, it destroys the work item permanently. WARNING: If the destroy parameter is set to true, work items deleted by this command will NOT go to recycle-bin and there is no way to restore/recover them after deletion. It is recommended NOT to use this parameter. If you do, please use this parameter with extreme caution.
         :param int id: ID of the work item to be deleted
         :param str project: Project ID or project name
-        :param bool destroy: Optional parameter, if set to true, the work item is deleted permanently
+        :param bool destroy: Optional parameter, if set to true, the work item is deleted permanently. Please note: the destroy action is PERMANENT and cannot be undone.
         :rtype: :class:`<WorkItemDelete> <azure.devops.v5_1.work-item-tracking.models.WorkItemDelete>`
         """
         route_values = {}

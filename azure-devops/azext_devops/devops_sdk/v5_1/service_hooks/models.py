@@ -460,21 +460,21 @@ class InputFilterCondition(Model):
 class InputValidation(Model):
     """InputValidation.
 
-    :param data_type:
+    :param data_type: Gets or sets the data data type to validate.
     :type data_type: object
-    :param is_required:
+    :param is_required: Gets or sets if this is a required field.
     :type is_required: bool
-    :param max_length:
+    :param max_length: Gets or sets the maximum length of this descriptor.
     :type max_length: int
-    :param max_value:
+    :param max_value: Gets or sets the minimum value for this descriptor.
     :type max_value: decimal
-    :param min_length:
+    :param min_length: Gets or sets the minimum length of this descriptor.
     :type min_length: int
-    :param min_value:
+    :param min_value: Gets or sets the minimum value for this descriptor.
     :type min_value: decimal
-    :param pattern:
+    :param pattern: Gets or sets the pattern to validate.
     :type pattern: str
-    :param pattern_mismatch_error_message:
+    :param pattern_mismatch_error_message: Gets or sets the error on pattern mismatch.
     :type pattern_mismatch_error_message: str
     """
 

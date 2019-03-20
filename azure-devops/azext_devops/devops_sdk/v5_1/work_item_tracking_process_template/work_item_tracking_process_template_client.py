@@ -60,27 +60,6 @@ class WorkItemTrackingProcessTemplateClient(Client):
                               route_values=route_values)
         return self._deserialize('[AdminBehavior]', self._unwrap_collection(response))
 
-    def check_template_existence(self, upload_stream, **kwargs):
-        """CheckTemplateExistence.
-        [Preview API] Check if process template exists.
-        :param object upload_stream: Stream to upload
-        :rtype: :class:`<CheckTemplateExistenceResult> <azure.devops.v5_1.work-item-tracking-process-template.models.CheckTemplateExistenceResult>`
-        """
-        route_values = {}
-        route_values['action'] = 'CheckTemplateExistence'
-        if "callback" in kwargs:
-            callback = kwargs["callback"]
-        else:
-            callback = None
-        content = self._client.stream_upload(upload_stream, callback=callback)
-        response = self._send(http_method='POST',
-                              location_id='29e1f38d-9e9c-4358-86a5-cdf9896a5759',
-                              version='5.1-preview.1',
-                              route_values=route_values,
-                              content=content,
-                              media_type='application/octet-stream')
-        return self._deserialize('CheckTemplateExistenceResult', response)
-
     def export_process_template(self, id, **kwargs):
         """ExportProcessTemplate.
         [Preview API] Returns requested process template.
@@ -102,11 +81,12 @@ class WorkItemTrackingProcessTemplateClient(Client):
             callback = None
         return self._client.stream_download(response, callback=callback)
 
-    def import_process_template(self, upload_stream, ignore_warnings=None, **kwargs):
+    def import_process_template(self, upload_stream, ignore_warnings=None, replace_existing_template=None, **kwargs):
         """ImportProcessTemplate.
         [Preview API] Imports a process from zip file.
         :param object upload_stream: Stream to upload
-        :param bool ignore_warnings: Default value is false
+        :param bool ignore_warnings: Ignores validation warnings. Default value is false.
+        :param bool replace_existing_template: Replaces the existing template. Default value is true.
         :rtype: :class:`<ProcessImportResult> <azure.devops.v5_1.work-item-tracking-process-template.models.ProcessImportResult>`
         """
         route_values = {}
@@ -114,6 +94,8 @@ class WorkItemTrackingProcessTemplateClient(Client):
         query_parameters = {}
         if ignore_warnings is not None:
             query_parameters['ignoreWarnings'] = self._serialize.query('ignore_warnings', ignore_warnings, 'bool')
+        if replace_existing_template is not None:
+            query_parameters['replaceExistingTemplate'] = self._serialize.query('replace_existing_template', replace_existing_template, 'bool')
         if "callback" in kwargs:
             callback = kwargs["callback"]
         else:

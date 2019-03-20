@@ -86,7 +86,7 @@ class NotificationClient(Client):
 
     def publish_event(self, notification_event):
         """PublishEvent.
-        [Preview API] Publish an event.
+        [Preview API] Publish an event. This request must be directed to the service "extmgmt".
         :param :class:`<VssNotificationEvent> <azure.devops.v5_1.notification.models.VssNotificationEvent>` notification_event:
         :rtype: :class:`<VssNotificationEvent> <azure.devops.v5_1.notification.models.VssNotificationEvent>`
         """

@@ -27,8 +27,8 @@ class CoreClient(Client):
 
     def remove_project_avatar(self, project_id):
         """RemoveProjectAvatar.
-        [Preview API] Removes the avatar for the project
-        :param str project_id: The id or name of the project
+        [Preview API] Removes the avatar for the project.
+        :param str project_id: The ID or name of the project.
         """
         route_values = {}
         if project_id is not None:
@@ -40,9 +40,9 @@ class CoreClient(Client):
 
     def set_project_avatar(self, avatar_blob, project_id):
         """SetProjectAvatar.
-        [Preview API] Upload avatar for the project
-        :param :class:`<ProjectAvatar> <azure.devops.v5_1.core.models.ProjectAvatar>` avatar_blob:
-        :param str project_id: The id or name of the project
+        [Preview API] Sets the avatar for the project.
+        :param :class:`<ProjectAvatar> <azure.devops.v5_1.core.models.ProjectAvatar>` avatar_blob: The avatar blob data object to upload.
+        :param str project_id: The ID or name of the project.
         """
         route_values = {}
         if project_id is not None:

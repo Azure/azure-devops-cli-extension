@@ -1561,7 +1561,9 @@ class GitPullRequestCompletionOptions(Model):
     :type delete_source_branch: bool
     :param merge_commit_message: If set, this will be used as the commit message of the merge commit.
     :type merge_commit_message: str
-    :param squash_merge: If true, the commits in the pull request will be squash-merged into the specified target branch on completion.
+    :param merge_strategy: Specify the strategy used to merge the pull request during completion. If MergeStrategy is not set to any value, a no-FF merge will be created if SquashMerge == false. If MergeStrategy is not set to any value, the pull request commits will be squash if SquashMerge == true. The SquashMerge member is deprecated. It is recommended that you explicitly set MergeStrategy in all cases. If an explicit value is provided for MergeStrategy, the SquashMerge member will be ignored.
+    :type merge_strategy: object
+    :param squash_merge: SquashMerge is deprecated. You should explicity set the value of MergeStrategy. If MergeStrategy is set to any value, the SquashMerge value will be ignored. If MergeStrategy is not set, the merge strategy will be no-fast-forward if this flag is false, or squash if true.
     :type squash_merge: bool
     :param transition_work_items: If true, we will attempt to transition any work items linked to the pull request into the next logical state (i.e. Active -> Resolved)
     :type transition_work_items: bool
@@ -1574,17 +1576,19 @@ class GitPullRequestCompletionOptions(Model):
         'bypass_reason': {'key': 'bypassReason', 'type': 'str'},
         'delete_source_branch': {'key': 'deleteSourceBranch', 'type': 'bool'},
         'merge_commit_message': {'key': 'mergeCommitMessage', 'type': 'str'},
+        'merge_strategy': {'key': 'mergeStrategy', 'type': 'object'},
         'squash_merge': {'key': 'squashMerge', 'type': 'bool'},
         'transition_work_items': {'key': 'transitionWorkItems', 'type': 'bool'},
         'triggered_by_auto_complete': {'key': 'triggeredByAutoComplete', 'type': 'bool'}
     }
 
-    def __init__(self, bypass_policy=None, bypass_reason=None, delete_source_branch=None, merge_commit_message=None, squash_merge=None, transition_work_items=None, triggered_by_auto_complete=None):
+    def __init__(self, bypass_policy=None, bypass_reason=None, delete_source_branch=None, merge_commit_message=None, merge_strategy=None, squash_merge=None, transition_work_items=None, triggered_by_auto_complete=None):
         super(GitPullRequestCompletionOptions, self).__init__()
         self.bypass_policy = bypass_policy
         self.bypass_reason = bypass_reason
         self.delete_source_branch = delete_source_branch
         self.merge_commit_message = merge_commit_message
+        self.merge_strategy = merge_strategy
         self.squash_merge = squash_merge
         self.transition_work_items = transition_work_items
         self.triggered_by_auto_complete = triggered_by_auto_complete
@@ -2923,7 +2927,7 @@ class JsonPatchOperation(Model):
     :type from_: str
     :param op: The patch operation
     :type op: object
-    :param path: The path for the operation
+    :param path: The path for the operation. In the case of an array, a zero based index can be used to specify the position in the array (e.g. /biscuits/0/name). The "-" character can be used instead of an index to insert at the end of the array (e.g. /biscuits/-).
     :type path: str
     :param value: The value for the operation. This is either a primitive or a JToken.
     :type value: object
