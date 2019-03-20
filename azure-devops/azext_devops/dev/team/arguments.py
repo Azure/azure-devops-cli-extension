@@ -68,6 +68,7 @@ def load_team_arguments(self, _):
                          help='Include disabled extensions.')
         context.argument('publisher_id', help='Publisher ID')
         context.argument('extension_id', help='Extension ID')
+        context.argument('search_query', options_list=('--search-query', '-q'), help='Search term')
 
     with self.argument_context('devops') as context:
         load_global_args(context)
