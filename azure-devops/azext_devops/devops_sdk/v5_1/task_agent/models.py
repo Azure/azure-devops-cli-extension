@@ -588,21 +588,25 @@ class DeploymentPoolSummary(Model):
     :type online_agents_count: int
     :param pool: Deployment pool.
     :type pool: :class:`TaskAgentPoolReference <azure.devops.v5_1.task_agent.models.TaskAgentPoolReference>`
+    :param resource: Virtual machine Resource referring in pool.
+    :type resource: :class:`EnvironmentResourceReference <azure.devops.v5_1.task_agent.models.EnvironmentResourceReference>`
     """
 
     _attribute_map = {
         'deployment_groups': {'key': 'deploymentGroups', 'type': '[DeploymentGroupReference]'},
         'offline_agents_count': {'key': 'offlineAgentsCount', 'type': 'int'},
         'online_agents_count': {'key': 'onlineAgentsCount', 'type': 'int'},
-        'pool': {'key': 'pool', 'type': 'TaskAgentPoolReference'}
+        'pool': {'key': 'pool', 'type': 'TaskAgentPoolReference'},
+        'resource': {'key': 'resource', 'type': 'EnvironmentResourceReference'}
     }
 
-    def __init__(self, deployment_groups=None, offline_agents_count=None, online_agents_count=None, pool=None):
+    def __init__(self, deployment_groups=None, offline_agents_count=None, online_agents_count=None, pool=None, resource=None):
         super(DeploymentPoolSummary, self).__init__()
         self.deployment_groups = deployment_groups
         self.offline_agents_count = offline_agents_count
         self.online_agents_count = online_agents_count
         self.pool = pool
+        self.resource = resource
 
 
 class DeploymentTargetUpdateParameter(Model):
@@ -718,12 +722,12 @@ class EnvironmentDeploymentExecutionRecord(Model):
     :type queue_time: datetime
     :param request_identifier: Request identifier of the Environment deployment execution history record
     :type request_identifier: str
+    :param resource_id: Resource Id
+    :type resource_id: int
     :param result: Result of the environment deployment execution
     :type result: object
     :param scope_id: Project Id
     :type scope_id: str
-    :param service_group_id: Service group Id
-    :type service_group_id: int
     :param service_owner: Service owner Id
     :type service_owner: str
     :param start_time: Start time of the environment deployment execution
@@ -740,14 +744,14 @@ class EnvironmentDeploymentExecutionRecord(Model):
         'plan_type': {'key': 'planType', 'type': 'str'},
         'queue_time': {'key': 'queueTime', 'type': 'iso-8601'},
         'request_identifier': {'key': 'requestIdentifier', 'type': 'str'},
+        'resource_id': {'key': 'resourceId', 'type': 'int'},
         'result': {'key': 'result', 'type': 'object'},
         'scope_id': {'key': 'scopeId', 'type': 'str'},
-        'service_group_id': {'key': 'serviceGroupId', 'type': 'int'},
         'service_owner': {'key': 'serviceOwner', 'type': 'str'},
         'start_time': {'key': 'startTime', 'type': 'iso-8601'}
     }
 
-    def __init__(self, definition=None, environment_id=None, finish_time=None, id=None, owner=None, plan_id=None, plan_type=None, queue_time=None, request_identifier=None, result=None, scope_id=None, service_group_id=None, service_owner=None, start_time=None):
+    def __init__(self, definition=None, environment_id=None, finish_time=None, id=None, owner=None, plan_id=None, plan_type=None, queue_time=None, request_identifier=None, resource_id=None, result=None, scope_id=None, service_owner=None, start_time=None):
         super(EnvironmentDeploymentExecutionRecord, self).__init__()
         self.definition = definition
         self.environment_id = environment_id
@@ -758,9 +762,9 @@ class EnvironmentDeploymentExecutionRecord(Model):
         self.plan_type = plan_type
         self.queue_time = queue_time
         self.request_identifier = request_identifier
+        self.resource_id = resource_id
         self.result = result
         self.scope_id = scope_id
-        self.service_group_id = service_group_id
         self.service_owner = service_owner
         self.start_time = start_time
 
@@ -782,8 +786,8 @@ class EnvironmentInstance(Model):
     :type last_modified_on: datetime
     :param name: Name of the Environment.
     :type name: str
-    :param service_groups:
-    :type service_groups: list of :class:`ServiceGroupReference <azure.devops.v5_1.task_agent.models.ServiceGroupReference>`
+    :param resources:
+    :type resources: list of :class:`EnvironmentResourceReference <azure.devops.v5_1.task_agent.models.EnvironmentResourceReference>`
     """
 
     _attribute_map = {
@@ -794,10 +798,10 @@ class EnvironmentInstance(Model):
         'last_modified_by': {'key': 'lastModifiedBy', 'type': 'IdentityRef'},
         'last_modified_on': {'key': 'lastModifiedOn', 'type': 'iso-8601'},
         'name': {'key': 'name', 'type': 'str'},
-        'service_groups': {'key': 'serviceGroups', 'type': '[ServiceGroupReference]'}
+        'resources': {'key': 'resources', 'type': '[EnvironmentResourceReference]'}
     }
 
-    def __init__(self, created_by=None, created_on=None, description=None, id=None, last_modified_by=None, last_modified_on=None, name=None, service_groups=None):
+    def __init__(self, created_by=None, created_on=None, description=None, id=None, last_modified_by=None, last_modified_on=None, name=None, resources=None):
         super(EnvironmentInstance, self).__init__()
         self.created_by = created_by
         self.created_on = created_on
@@ -806,7 +810,7 @@ class EnvironmentInstance(Model):
         self.last_modified_by = last_modified_by
         self.last_modified_on = last_modified_on
         self.name = name
-        self.service_groups = service_groups
+        self.resources = resources
 
 
 class EnvironmentReference(Model):
@@ -827,6 +831,74 @@ class EnvironmentReference(Model):
         super(EnvironmentReference, self).__init__()
         self.id = id
         self.name = name
+
+
+class EnvironmentResource(Model):
+    """EnvironmentResource.
+
+    :param created_by:
+    :type created_by: :class:`IdentityRef <azure.devops.v5_1.task_agent.models.IdentityRef>`
+    :param created_on:
+    :type created_on: datetime
+    :param environment_reference:
+    :type environment_reference: :class:`EnvironmentReference <azure.devops.v5_1.task_agent.models.EnvironmentReference>`
+    :param id:
+    :type id: int
+    :param last_modified_by:
+    :type last_modified_by: :class:`IdentityRef <azure.devops.v5_1.task_agent.models.IdentityRef>`
+    :param last_modified_on:
+    :type last_modified_on: datetime
+    :param name:
+    :type name: str
+    :param type: Environment resource type
+    :type type: object
+    """
+
+    _attribute_map = {
+        'created_by': {'key': 'createdBy', 'type': 'IdentityRef'},
+        'created_on': {'key': 'createdOn', 'type': 'iso-8601'},
+        'environment_reference': {'key': 'environmentReference', 'type': 'EnvironmentReference'},
+        'id': {'key': 'id', 'type': 'int'},
+        'last_modified_by': {'key': 'lastModifiedBy', 'type': 'IdentityRef'},
+        'last_modified_on': {'key': 'lastModifiedOn', 'type': 'iso-8601'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'object'}
+    }
+
+    def __init__(self, created_by=None, created_on=None, environment_reference=None, id=None, last_modified_by=None, last_modified_on=None, name=None, type=None):
+        super(EnvironmentResource, self).__init__()
+        self.created_by = created_by
+        self.created_on = created_on
+        self.environment_reference = environment_reference
+        self.id = id
+        self.last_modified_by = last_modified_by
+        self.last_modified_on = last_modified_on
+        self.name = name
+        self.type = type
+
+
+class EnvironmentResourceReference(Model):
+    """EnvironmentResourceReference.
+
+    :param id: Id of the resource.
+    :type id: int
+    :param name: Name of the resource.
+    :type name: str
+    :param type: Type of the resource.
+    :type type: object
+    """
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'int'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'object'}
+    }
+
+    def __init__(self, id=None, name=None, type=None):
+        super(EnvironmentResourceReference, self).__init__()
+        self.id = id
+        self.name = name
+        self.type = type
 
 
 class EnvironmentUpdateParameter(Model):
@@ -1028,21 +1100,21 @@ class InputDescriptor(Model):
 class InputValidation(Model):
     """InputValidation.
 
-    :param data_type:
+    :param data_type: Gets or sets the data data type to validate.
     :type data_type: object
-    :param is_required:
+    :param is_required: Gets or sets if this is a required field.
     :type is_required: bool
-    :param max_length:
+    :param max_length: Gets or sets the maximum length of this descriptor.
     :type max_length: int
-    :param max_value:
+    :param max_value: Gets or sets the minimum value for this descriptor.
     :type max_value: decimal
-    :param min_length:
+    :param min_length: Gets or sets the minimum length of this descriptor.
     :type min_length: int
-    :param min_value:
+    :param min_value: Gets or sets the minimum value for this descriptor.
     :type min_value: decimal
-    :param pattern:
+    :param pattern: Gets or sets the pattern to validate.
     :type pattern: str
-    :param pattern_mismatch_error_message:
+    :param pattern_mismatch_error_message: Gets or sets the error on pattern mismatch.
     :type pattern_mismatch_error_message: str
     """
 
@@ -1165,8 +1237,52 @@ class InputValuesError(Model):
         self.message = message
 
 
-class KubernetesServiceGroupCreateParameters(Model):
-    """KubernetesServiceGroupCreateParameters.
+class KubernetesResource(EnvironmentResource):
+    """KubernetesResource.
+
+    :param created_by:
+    :type created_by: :class:`IdentityRef <azure.devops.v5_1.task_agent.models.IdentityRef>`
+    :param created_on:
+    :type created_on: datetime
+    :param environment_reference:
+    :type environment_reference: :class:`EnvironmentReference <azure.devops.v5_1.task_agent.models.EnvironmentReference>`
+    :param id:
+    :type id: int
+    :param last_modified_by:
+    :type last_modified_by: :class:`IdentityRef <azure.devops.v5_1.task_agent.models.IdentityRef>`
+    :param last_modified_on:
+    :type last_modified_on: datetime
+    :param name:
+    :type name: str
+    :param type: Environment resource type
+    :type type: object
+    :param namespace:
+    :type namespace: str
+    :param service_endpoint_id:
+    :type service_endpoint_id: str
+    """
+
+    _attribute_map = {
+        'created_by': {'key': 'createdBy', 'type': 'IdentityRef'},
+        'created_on': {'key': 'createdOn', 'type': 'iso-8601'},
+        'environment_reference': {'key': 'environmentReference', 'type': 'EnvironmentReference'},
+        'id': {'key': 'id', 'type': 'int'},
+        'last_modified_by': {'key': 'lastModifiedBy', 'type': 'IdentityRef'},
+        'last_modified_on': {'key': 'lastModifiedOn', 'type': 'iso-8601'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'object'},
+        'namespace': {'key': 'namespace', 'type': 'str'},
+        'service_endpoint_id': {'key': 'serviceEndpointId', 'type': 'str'}
+    }
+
+    def __init__(self, created_by=None, created_on=None, environment_reference=None, id=None, last_modified_by=None, last_modified_on=None, name=None, type=None, namespace=None, service_endpoint_id=None):
+        super(KubernetesResource, self).__init__(created_by=created_by, created_on=created_on, environment_reference=environment_reference, id=id, last_modified_by=last_modified_by, last_modified_on=last_modified_on, name=name, type=type)
+        self.namespace = namespace
+        self.service_endpoint_id = service_endpoint_id
+
+
+class KubernetesResourceCreateParameters(Model):
+    """KubernetesResourceCreateParameters.
 
     :param name:
     :type name: str
@@ -1183,7 +1299,7 @@ class KubernetesServiceGroupCreateParameters(Model):
     }
 
     def __init__(self, name=None, namespace=None, service_endpoint_id=None):
-        super(KubernetesServiceGroupCreateParameters, self).__init__()
+        super(KubernetesResourceCreateParameters, self).__init__()
         self.name = name
         self.namespace = namespace
         self.service_endpoint_id = service_endpoint_id
@@ -1566,6 +1682,8 @@ class ServiceEndpoint(Model):
     :type name: str
     :param operation_status: Error message during creation/deletion of endpoint
     :type operation_status: :class:`object <azure.devops.v5_1.task_agent.models.object>`
+    :param owner: Gets or sets the owner of the endpoint.
+    :type owner: str
     :param readers_group: Gets or sets the identity reference for the readers group of the service endpoint.
     :type readers_group: :class:`IdentityRef <azure.devops.v5_1.task_agent.models.IdentityRef>`
     :param type: Gets or sets the type of the endpoint.
@@ -1586,12 +1704,13 @@ class ServiceEndpoint(Model):
         'is_shared': {'key': 'isShared', 'type': 'bool'},
         'name': {'key': 'name', 'type': 'str'},
         'operation_status': {'key': 'operationStatus', 'type': 'object'},
+        'owner': {'key': 'owner', 'type': 'str'},
         'readers_group': {'key': 'readersGroup', 'type': 'IdentityRef'},
         'type': {'key': 'type', 'type': 'str'},
         'url': {'key': 'url', 'type': 'str'}
     }
 
-    def __init__(self, administrators_group=None, authorization=None, created_by=None, data=None, description=None, group_scope_id=None, id=None, is_ready=None, is_shared=None, name=None, operation_status=None, readers_group=None, type=None, url=None):
+    def __init__(self, administrators_group=None, authorization=None, created_by=None, data=None, description=None, group_scope_id=None, id=None, is_ready=None, is_shared=None, name=None, operation_status=None, owner=None, readers_group=None, type=None, url=None):
         super(ServiceEndpoint, self).__init__()
         self.administrators_group = administrators_group
         self.authorization = authorization
@@ -1604,6 +1723,7 @@ class ServiceEndpoint(Model):
         self.is_shared = is_shared
         self.name = name
         self.operation_status = operation_status
+        self.owner = owner
         self.readers_group = readers_group
         self.type = type
         self.url = url
@@ -1861,82 +1981,14 @@ class ServiceEndpointType(Model):
         self.ui_contribution_id = ui_contribution_id
 
 
-class ServiceGroup(Model):
-    """ServiceGroup.
-
-    :param created_by:
-    :type created_by: :class:`IdentityRef <azure.devops.v5_1.task_agent.models.IdentityRef>`
-    :param created_on:
-    :type created_on: datetime
-    :param environment_reference:
-    :type environment_reference: :class:`EnvironmentReference <azure.devops.v5_1.task_agent.models.EnvironmentReference>`
-    :param id:
-    :type id: int
-    :param last_modified_by:
-    :type last_modified_by: :class:`IdentityRef <azure.devops.v5_1.task_agent.models.IdentityRef>`
-    :param last_modified_on:
-    :type last_modified_on: datetime
-    :param name:
-    :type name: str
-    :param type:
-    :type type: object
-    """
-
-    _attribute_map = {
-        'created_by': {'key': 'createdBy', 'type': 'IdentityRef'},
-        'created_on': {'key': 'createdOn', 'type': 'iso-8601'},
-        'environment_reference': {'key': 'environmentReference', 'type': 'EnvironmentReference'},
-        'id': {'key': 'id', 'type': 'int'},
-        'last_modified_by': {'key': 'lastModifiedBy', 'type': 'IdentityRef'},
-        'last_modified_on': {'key': 'lastModifiedOn', 'type': 'iso-8601'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'object'}
-    }
-
-    def __init__(self, created_by=None, created_on=None, environment_reference=None, id=None, last_modified_by=None, last_modified_on=None, name=None, type=None):
-        super(ServiceGroup, self).__init__()
-        self.created_by = created_by
-        self.created_on = created_on
-        self.environment_reference = environment_reference
-        self.id = id
-        self.last_modified_by = last_modified_by
-        self.last_modified_on = last_modified_on
-        self.name = name
-        self.type = type
-
-
-class ServiceGroupReference(Model):
-    """ServiceGroupReference.
-
-    :param id: Id of the Service Group.
-    :type id: int
-    :param name: Name of the service group.
-    :type name: str
-    :param type: Type of the service group.
-    :type type: object
-    """
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'int'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'object'}
-    }
-
-    def __init__(self, id=None, name=None, type=None):
-        super(ServiceGroupReference, self).__init__()
-        self.id = id
-        self.name = name
-        self.type = type
-
-
 class TaskAgentAuthorization(Model):
     """TaskAgentAuthorization.
 
-    :param authorization_url: Gets or sets the endpoint used to obtain access tokens from the configured token service.
+    :param authorization_url: Endpoint used to obtain access tokens from the configured token service.
     :type authorization_url: str
-    :param client_id: Gets or sets the client identifier for this agent.
+    :param client_id: Client identifier for this agent.
     :type client_id: str
-    :param public_key: Gets or sets the public key used to verify the identity of this agent.
+    :param public_key: Public key used to verify the identity of this agent.
     :type public_key: :class:`TaskAgentPublicKey <azure.devops.v5_1.task_agent.models.TaskAgentPublicKey>`
     """
 
@@ -1962,12 +2014,18 @@ class TaskAgentCloud(Model):
     :type acquisition_timeout: int
     :param agent_cloud_id:
     :type agent_cloud_id: int
+    :param get_account_parallelism_endpoint:
+    :type get_account_parallelism_endpoint: str
     :param get_agent_definition_endpoint:
     :type get_agent_definition_endpoint: str
     :param get_agent_request_status_endpoint:
     :type get_agent_request_status_endpoint: str
+    :param id:
+    :type id: str
     :param internal: Signifies that this Agent Cloud is internal and should not be user-manageable
     :type internal: bool
+    :param max_parallelism:
+    :type max_parallelism: int
     :param name:
     :type name: str
     :param release_agent_endpoint:
@@ -1982,23 +2040,29 @@ class TaskAgentCloud(Model):
         'acquire_agent_endpoint': {'key': 'acquireAgentEndpoint', 'type': 'str'},
         'acquisition_timeout': {'key': 'acquisitionTimeout', 'type': 'int'},
         'agent_cloud_id': {'key': 'agentCloudId', 'type': 'int'},
+        'get_account_parallelism_endpoint': {'key': 'getAccountParallelismEndpoint', 'type': 'str'},
         'get_agent_definition_endpoint': {'key': 'getAgentDefinitionEndpoint', 'type': 'str'},
         'get_agent_request_status_endpoint': {'key': 'getAgentRequestStatusEndpoint', 'type': 'str'},
+        'id': {'key': 'id', 'type': 'str'},
         'internal': {'key': 'internal', 'type': 'bool'},
+        'max_parallelism': {'key': 'maxParallelism', 'type': 'int'},
         'name': {'key': 'name', 'type': 'str'},
         'release_agent_endpoint': {'key': 'releaseAgentEndpoint', 'type': 'str'},
         'shared_secret': {'key': 'sharedSecret', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'}
     }
 
-    def __init__(self, acquire_agent_endpoint=None, acquisition_timeout=None, agent_cloud_id=None, get_agent_definition_endpoint=None, get_agent_request_status_endpoint=None, internal=None, name=None, release_agent_endpoint=None, shared_secret=None, type=None):
+    def __init__(self, acquire_agent_endpoint=None, acquisition_timeout=None, agent_cloud_id=None, get_account_parallelism_endpoint=None, get_agent_definition_endpoint=None, get_agent_request_status_endpoint=None, id=None, internal=None, max_parallelism=None, name=None, release_agent_endpoint=None, shared_secret=None, type=None):
         super(TaskAgentCloud, self).__init__()
         self.acquire_agent_endpoint = acquire_agent_endpoint
         self.acquisition_timeout = acquisition_timeout
         self.agent_cloud_id = agent_cloud_id
+        self.get_account_parallelism_endpoint = get_account_parallelism_endpoint
         self.get_agent_definition_endpoint = get_agent_definition_endpoint
         self.get_agent_request_status_endpoint = get_agent_request_status_endpoint
+        self.id = id
         self.internal = internal
+        self.max_parallelism = max_parallelism
         self.name = name
         self.release_agent_endpoint = release_agent_endpoint
         self.shared_secret = shared_secret
@@ -2108,25 +2172,25 @@ class TaskAgentJobRequest(Model):
     :type agent_delays: list of :class:`TaskAgentDelaySource <azure.devops.v5_1.task_agent.models.TaskAgentDelaySource>`
     :param agent_specification:
     :type agent_specification: :class:`object <azure.devops.v5_1.task_agent.models.object>`
-    :param assign_time:
+    :param assign_time: The date/time this request was assigned.
     :type assign_time: datetime
-    :param data:
+    :param data: Additional data about the request.
     :type data: dict
-    :param definition:
+    :param definition: The pipeline definition associated with this request
     :type definition: :class:`TaskOrchestrationOwner <azure.devops.v5_1.task_agent.models.TaskOrchestrationOwner>`
-    :param demands:
+    :param demands: A list of demands required to fulfill this request.
     :type demands: list of :class:`object <azure.devops.v5_1.task_agent.models.object>`
     :param expected_duration:
     :type expected_duration: object
-    :param finish_time:
+    :param finish_time: The date/time this request was finished.
     :type finish_time: datetime
-    :param host_id:
+    :param host_id: The host which triggered this request.
     :type host_id: str
-    :param job_id:
+    :param job_id: ID of the job resulting from this request.
     :type job_id: str
-    :param job_name:
+    :param job_name: Name of the job resulting from this request.
     :type job_name: str
-    :param locked_until:
+    :param locked_until: The deadline for the agent to renew the lock.
     :type locked_until: datetime
     :param matched_agents:
     :type matched_agents: list of :class:`TaskAgentReference <azure.devops.v5_1.task_agent.models.TaskAgentReference>`
@@ -2134,31 +2198,31 @@ class TaskAgentJobRequest(Model):
     :type matches_all_agents_in_pool: bool
     :param orchestration_id:
     :type orchestration_id: str
-    :param owner:
+    :param owner: The pipeline associated with this request
     :type owner: :class:`TaskOrchestrationOwner <azure.devops.v5_1.task_agent.models.TaskOrchestrationOwner>`
     :param plan_group:
     :type plan_group: str
-    :param plan_id:
+    :param plan_id: Internal ID for the orchestration plan connected with this request.
     :type plan_id: str
-    :param plan_type:
+    :param plan_type: Internal detail representing the type of orchestration plan.
     :type plan_type: str
-    :param pool_id:
+    :param pool_id: The ID of the pool this request targets
     :type pool_id: int
-    :param queue_id:
+    :param queue_id: The ID of the queue this request targets
     :type queue_id: int
-    :param queue_time:
+    :param queue_time: The date/time this request was queued.
     :type queue_time: datetime
-    :param receive_time:
+    :param receive_time: The date/time this request was receieved by an agent.
     :type receive_time: datetime
-    :param request_id:
+    :param request_id: ID of the request.
     :type request_id: long
-    :param reserved_agent:
+    :param reserved_agent: The agent allocated for this request.
     :type reserved_agent: :class:`TaskAgentReference <azure.devops.v5_1.task_agent.models.TaskAgentReference>`
-    :param result:
+    :param result: The result of this request.
     :type result: object
-    :param scope_id:
+    :param scope_id: Scope of the pipeline; matches the project ID.
     :type scope_id: str
-    :param service_owner:
+    :param service_owner: The service which owns this request.
     :type service_owner: str
     :param status_message:
     :type status_message: str
@@ -2520,13 +2584,13 @@ class TaskAgentPublicKey(Model):
 class TaskAgentQueue(Model):
     """TaskAgentQueue.
 
-    :param id: Id of the queue
+    :param id: ID of the queue
     :type id: int
     :param name: Name of the queue
     :type name: str
     :param pool: Pool reference for this queue
     :type pool: :class:`TaskAgentPoolReference <azure.devops.v5_1.task_agent.models.TaskAgentPoolReference>`
-    :param project_id: Project Id
+    :param project_id: Project ID
     :type project_id: str
     """
 
@@ -2550,21 +2614,21 @@ class TaskAgentReference(Model):
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.task_agent.models.ReferenceLinks>`
-    :param access_point: Gets the access point of the agent.
+    :param access_point: This agent's access point.
     :type access_point: str
-    :param enabled: Gets or sets a value indicating whether or not this agent should be enabled for job execution.
+    :param enabled: Whether or not this agent should run jobs.
     :type enabled: bool
-    :param id: Gets the identifier of the agent.
+    :param id: Identifier of the agent.
     :type id: int
-    :param name: Gets the name of the agent.
+    :param name: Name of the agent.
     :type name: str
-    :param oSDescription: Gets the OS of the agent.
+    :param oSDescription: Agent OS.
     :type oSDescription: str
-    :param provisioning_state: Gets or sets the current provisioning state of this agent
+    :param provisioning_state: Provisioning state of this agent.
     :type provisioning_state: str
-    :param status: Gets the current connectivity status of the agent.
+    :param status: Whether or not the agent is online.
     :type status: object
-    :param version: Gets the version of the agent.
+    :param version: Agent version.
     :type version: str
     """
 
@@ -2648,17 +2712,17 @@ class TaskAgentSessionKey(Model):
 class TaskAgentUpdate(Model):
     """TaskAgentUpdate.
 
-    :param current_state: The current state of this agent update
+    :param current_state: Current state of this agent update.
     :type current_state: str
-    :param reason: The reason of this agent update
+    :param reason: Reason for this update.
     :type reason: :class:`TaskAgentUpdateReason <azure.devops.v5_1.task_agent.models.TaskAgentUpdateReason>`
-    :param requested_by: The identity that request the agent update
+    :param requested_by: Identity which requested this update.
     :type requested_by: :class:`IdentityRef <azure.devops.v5_1.task_agent.models.IdentityRef>`
-    :param request_time: Gets the date on which this agent update was requested.
+    :param request_time: Date on which this update was requested.
     :type request_time: datetime
-    :param source_version: Gets or sets the source agent version of the agent update
+    :param source_version: Source agent version of the update.
     :type source_version: :class:`PackageVersion <azure.devops.v5_1.task_agent.models.PackageVersion>`
-    :param target_version: Gets or sets the target agent version of the agent update
+    :param target_version: Target agent version of the update.
     :type target_version: :class:`PackageVersion <azure.devops.v5_1.task_agent.models.PackageVersion>`
     """
 
@@ -3846,7 +3910,7 @@ class VirtualMachine(Model):
         self.tags = tags
 
 
-class VirtualMachineGroup(ServiceGroup):
+class VirtualMachineGroup(EnvironmentResource):
     """VirtualMachineGroup.
 
     :param created_by:
@@ -3863,7 +3927,7 @@ class VirtualMachineGroup(ServiceGroup):
     :type last_modified_on: datetime
     :param name:
     :type name: str
-    :param type:
+    :param type: Environment resource type
     :type type: object
     :param pool_id:
     :type pool_id: int
@@ -4025,88 +4089,44 @@ class DeploymentMachineGroup(DeploymentMachineGroupReference):
         self.size = size
 
 
-class KubernetesServiceGroup(ServiceGroup):
-    """KubernetesServiceGroup.
-
-    :param created_by:
-    :type created_by: :class:`IdentityRef <azure.devops.v5_1.task_agent.models.IdentityRef>`
-    :param created_on:
-    :type created_on: datetime
-    :param environment_reference:
-    :type environment_reference: :class:`EnvironmentReference <azure.devops.v5_1.task_agent.models.EnvironmentReference>`
-    :param id:
-    :type id: int
-    :param last_modified_by:
-    :type last_modified_by: :class:`IdentityRef <azure.devops.v5_1.task_agent.models.IdentityRef>`
-    :param last_modified_on:
-    :type last_modified_on: datetime
-    :param name:
-    :type name: str
-    :param type:
-    :type type: object
-    :param namespace:
-    :type namespace: str
-    :param service_endpoint_id:
-    :type service_endpoint_id: str
-    """
-
-    _attribute_map = {
-        'created_by': {'key': 'createdBy', 'type': 'IdentityRef'},
-        'created_on': {'key': 'createdOn', 'type': 'iso-8601'},
-        'environment_reference': {'key': 'environmentReference', 'type': 'EnvironmentReference'},
-        'id': {'key': 'id', 'type': 'int'},
-        'last_modified_by': {'key': 'lastModifiedBy', 'type': 'IdentityRef'},
-        'last_modified_on': {'key': 'lastModifiedOn', 'type': 'iso-8601'},
-        'name': {'key': 'name', 'type': 'str'},
-        'type': {'key': 'type', 'type': 'object'},
-        'namespace': {'key': 'namespace', 'type': 'str'},
-        'service_endpoint_id': {'key': 'serviceEndpointId', 'type': 'str'}
-    }
-
-    def __init__(self, created_by=None, created_on=None, environment_reference=None, id=None, last_modified_by=None, last_modified_on=None, name=None, type=None, namespace=None, service_endpoint_id=None):
-        super(KubernetesServiceGroup, self).__init__(created_by=created_by, created_on=created_on, environment_reference=environment_reference, id=id, last_modified_by=last_modified_by, last_modified_on=last_modified_on, name=name, type=type)
-        self.namespace = namespace
-        self.service_endpoint_id = service_endpoint_id
-
-
 class TaskAgent(TaskAgentReference):
     """TaskAgent.
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.task_agent.models.ReferenceLinks>`
-    :param access_point: Gets the access point of the agent.
+    :param access_point: This agent's access point.
     :type access_point: str
-    :param enabled: Gets or sets a value indicating whether or not this agent should be enabled for job execution.
+    :param enabled: Whether or not this agent should run jobs.
     :type enabled: bool
-    :param id: Gets the identifier of the agent.
+    :param id: Identifier of the agent.
     :type id: int
-    :param name: Gets the name of the agent.
+    :param name: Name of the agent.
     :type name: str
-    :param oSDescription: Gets the OS of the agent.
+    :param oSDescription: Agent OS.
     :type oSDescription: str
-    :param provisioning_state: Gets or sets the current provisioning state of this agent
+    :param provisioning_state: Provisioning state of this agent.
     :type provisioning_state: str
-    :param status: Gets the current connectivity status of the agent.
+    :param status: Whether or not the agent is online.
     :type status: object
-    :param version: Gets the version of the agent.
+    :param version: Agent version.
     :type version: str
-    :param assigned_agent_cloud_request: Gets the Agent Cloud Request that's currently associated with this agent
+    :param assigned_agent_cloud_request: The agent cloud request that's currently associated with this agent.
     :type assigned_agent_cloud_request: :class:`TaskAgentCloudRequest <azure.devops.v5_1.task_agent.models.TaskAgentCloudRequest>`
-    :param assigned_request: Gets the request which is currently assigned to this agent.
+    :param assigned_request: The request which is currently assigned to this agent.
     :type assigned_request: :class:`TaskAgentJobRequest <azure.devops.v5_1.task_agent.models.TaskAgentJobRequest>`
-    :param authorization: Gets or sets the authorization information for this agent.
+    :param authorization: Authorization information for this agent.
     :type authorization: :class:`TaskAgentAuthorization <azure.devops.v5_1.task_agent.models.TaskAgentAuthorization>`
-    :param created_on: Gets the date on which this agent was created.
+    :param created_on: Date on which this agent was created.
     :type created_on: datetime
-    :param last_completed_request: Gets the last request which was completed by this agent.
+    :param last_completed_request: The last request which was completed by this agent.
     :type last_completed_request: :class:`TaskAgentJobRequest <azure.devops.v5_1.task_agent.models.TaskAgentJobRequest>`
-    :param max_parallelism: Gets or sets the maximum job parallelism allowed on this host.
+    :param max_parallelism: Maximum job parallelism allowed for this agent.
     :type max_parallelism: int
-    :param pending_update: Gets the pending update for this agent.
+    :param pending_update: Pending update for this agent.
     :type pending_update: :class:`TaskAgentUpdate <azure.devops.v5_1.task_agent.models.TaskAgentUpdate>`
     :param properties:
     :type properties: :class:`object <azure.devops.v5_1.task_agent.models.object>`
-    :param status_changed_on: Gets the date on which the last connectivity status change occurred.
+    :param status_changed_on: Date on which the last connectivity status change occurred.
     :type status_changed_on: datetime
     :param system_capabilities:
     :type system_capabilities: dict
@@ -4167,21 +4187,21 @@ class TaskAgentPool(TaskAgentPoolReference):
     :type scope: str
     :param size: Gets the current size of the pool.
     :type size: int
-    :param agent_cloud_id: Gets or sets an agentCloudId
+    :param agent_cloud_id: The ID of the associated agent cloud.
     :type agent_cloud_id: int
-    :param auto_provision: Gets or sets a value indicating whether or not a queue should be automatically provisioned for each project collection or not.
+    :param auto_provision: Whether or not a queue should be automatically provisioned for each project collection.
     :type auto_provision: bool
-    :param auto_size: Gets or sets a value indicating whether or not the pool should autosize itself based on the Agent Cloud Provider settings
+    :param auto_size: Whether or not the pool should autosize itself based on the Agent Cloud Provider settings.
     :type auto_size: bool
-    :param created_by: Gets the identity who created this pool. The creator of the pool is automatically added into the administrators group for the pool on creation.
+    :param created_by: Creator of the pool. The creator of the pool is automatically added into the administrators group for the pool on creation.
     :type created_by: :class:`IdentityRef <azure.devops.v5_1.task_agent.models.IdentityRef>`
-    :param created_on: Gets the date/time of the pool creation.
+    :param created_on: The date/time of the pool creation.
     :type created_on: datetime
-    :param owner: Gets the identity who owns or administrates this pool.
+    :param owner: Owner or administrator of the pool.
     :type owner: :class:`IdentityRef <azure.devops.v5_1.task_agent.models.IdentityRef>`
     :param properties:
     :type properties: :class:`object <azure.devops.v5_1.task_agent.models.object>`
-    :param target_size: Gets or sets a value indicating target parallelism
+    :param target_size: Target parallelism.
     :type target_size: int
     """
 
@@ -4320,6 +4340,8 @@ __all__ = [
     'EnvironmentDeploymentExecutionRecord',
     'EnvironmentInstance',
     'EnvironmentReference',
+    'EnvironmentResource',
+    'EnvironmentResourceReference',
     'EnvironmentUpdateParameter',
     'GraphSubjectBase',
     'HelpLink',
@@ -4330,7 +4352,8 @@ __all__ = [
     'InputValue',
     'InputValues',
     'InputValuesError',
-    'KubernetesServiceGroupCreateParameters',
+    'KubernetesResource',
+    'KubernetesResourceCreateParameters',
     'MarketplacePurchasedLicense',
     'MetricsColumnMetaData',
     'MetricsColumnsHeader',
@@ -4353,8 +4376,6 @@ __all__ = [
     'ServiceEndpointRequest',
     'ServiceEndpointRequestResult',
     'ServiceEndpointType',
-    'ServiceGroup',
-    'ServiceGroupReference',
     'TaskAgentAuthorization',
     'TaskAgentCloud',
     'TaskAgentCloudRequest',
@@ -4406,7 +4427,6 @@ __all__ = [
     'DataSourceBinding',
     'DeploymentGroup',
     'DeploymentMachineGroup',
-    'KubernetesServiceGroup',
     'TaskAgent',
     'TaskAgentPool',
     'TaskInputDefinition',

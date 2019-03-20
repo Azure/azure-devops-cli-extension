@@ -476,7 +476,7 @@ class JsonPatchOperation(Model):
     :type from_: str
     :param op: The patch operation
     :type op: object
-    :param path: The path for the operation
+    :param path: The path for the operation. In the case of an array, a zero based index can be used to specify the position in the array (e.g. /biscuits/0/name). The "-" character can be used instead of an index to insert at the end of the array (e.g. /biscuits/-).
     :type path: str
     :param value: The value for the operation. This is either a primitive or a JToken.
     :type value: object
@@ -557,19 +557,23 @@ class TenantInfo(Model):
     :type tenant_id: str
     :param tenant_name:
     :type tenant_name: str
+    :param verified_domains:
+    :type verified_domains: list of str
     """
 
     _attribute_map = {
         'home_tenant': {'key': 'homeTenant', 'type': 'bool'},
         'tenant_id': {'key': 'tenantId', 'type': 'str'},
-        'tenant_name': {'key': 'tenantName', 'type': 'str'}
+        'tenant_name': {'key': 'tenantName', 'type': 'str'},
+        'verified_domains': {'key': 'verifiedDomains', 'type': '[str]'}
     }
 
-    def __init__(self, home_tenant=None, tenant_id=None, tenant_name=None):
+    def __init__(self, home_tenant=None, tenant_id=None, tenant_name=None, verified_domains=None):
         super(TenantInfo, self).__init__()
         self.home_tenant = home_tenant
         self.tenant_id = tenant_id
         self.tenant_name = tenant_name
+        self.verified_domains = verified_domains
 
 
 class Identity(IdentityBase):

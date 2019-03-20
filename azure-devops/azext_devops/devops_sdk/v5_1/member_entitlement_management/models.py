@@ -242,7 +242,7 @@ class JsonPatchOperation(Model):
     :type from_: str
     :param op: The patch operation
     :type op: object
-    :param path: The path for the operation
+    :param path: The path for the operation. In the case of an array, a zero based index can be used to specify the position in the array (e.g. /biscuits/0/name). The "-" character can be used instead of an index to insert at the end of the array (e.g. /biscuits/-).
     :type path: str
     :param value: The value for the operation. This is either a primitive or a JToken.
     :type value: object

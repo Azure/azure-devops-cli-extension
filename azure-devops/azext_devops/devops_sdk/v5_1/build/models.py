@@ -41,6 +41,22 @@ class AgentPoolQueue(Model):
         self.url = url
 
 
+class AgentSpecification(Model):
+    """AgentSpecification.
+
+    :param identifier: Agent specification unique identifier.
+    :type identifier: str
+    """
+
+    _attribute_map = {
+        'identifier': {'key': 'identifier', 'type': 'str'}
+    }
+
+    def __init__(self, identifier=None):
+        super(AgentSpecification, self).__init__()
+        self.identifier = identifier
+
+
 class AggregatedResultsAnalysis(Model):
     """AggregatedResultsAnalysis.
 
@@ -318,6 +334,8 @@ class Build(Model):
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.build.models.ReferenceLinks>`
+    :param agent_specification: The agent specification for the build.
+    :type agent_specification: :class:`AgentSpecification <azure.devops.v5_1.build.models.AgentSpecification>`
     :param build_number: The build number/name of the build.
     :type build_number: str
     :param build_number_revision: The build number revision.
@@ -406,6 +424,7 @@ class Build(Model):
 
     _attribute_map = {
         '_links': {'key': '_links', 'type': 'ReferenceLinks'},
+        'agent_specification': {'key': 'agentSpecification', 'type': 'AgentSpecification'},
         'build_number': {'key': 'buildNumber', 'type': 'str'},
         'build_number_revision': {'key': 'buildNumberRevision', 'type': 'int'},
         'controller': {'key': 'controller', 'type': 'BuildController'},
@@ -450,9 +469,10 @@ class Build(Model):
         'validation_results': {'key': 'validationResults', 'type': '[BuildRequestValidationResult]'}
     }
 
-    def __init__(self, _links=None, build_number=None, build_number_revision=None, controller=None, definition=None, deleted=None, deleted_by=None, deleted_date=None, deleted_reason=None, demands=None, finish_time=None, id=None, keep_forever=None, last_changed_by=None, last_changed_date=None, logs=None, orchestration_plan=None, parameters=None, plans=None, priority=None, project=None, properties=None, quality=None, queue=None, queue_options=None, queue_position=None, queue_time=None, reason=None, repository=None, requested_by=None, requested_for=None, result=None, retained_by_release=None, source_branch=None, source_version=None, start_time=None, status=None, tags=None, triggered_by_build=None, trigger_info=None, uri=None, url=None, validation_results=None):
+    def __init__(self, _links=None, agent_specification=None, build_number=None, build_number_revision=None, controller=None, definition=None, deleted=None, deleted_by=None, deleted_date=None, deleted_reason=None, demands=None, finish_time=None, id=None, keep_forever=None, last_changed_by=None, last_changed_date=None, logs=None, orchestration_plan=None, parameters=None, plans=None, priority=None, project=None, properties=None, quality=None, queue=None, queue_options=None, queue_position=None, queue_time=None, reason=None, repository=None, requested_by=None, requested_for=None, result=None, retained_by_release=None, source_branch=None, source_version=None, start_time=None, status=None, tags=None, triggered_by_build=None, trigger_info=None, uri=None, url=None, validation_results=None):
         super(Build, self).__init__()
         self._links = _links
+        self.agent_specification = agent_specification
         self.build_number = build_number
         self.build_number_revision = build_number_revision
         self.controller = controller
@@ -1432,7 +1452,7 @@ class JsonPatchOperation(Model):
     :type from_: str
     :param op: The patch operation
     :type op: object
-    :param path: The path for the operation
+    :param path: The path for the operation. In the case of an array, a zero based index can be used to specify the position in the array (e.g. /biscuits/0/name). The "-" character can be used instead of an index to insert at the end of the array (e.g. /biscuits/-).
     :type path: str
     :param value: The value for the operation. This is either a primitive or a JToken.
     :type value: object
@@ -2963,6 +2983,7 @@ class BuildDefinition3_2(BuildDefinitionReference3_2):
 
 __all__ = [
     'AgentPoolQueue',
+    'AgentSpecification',
     'AggregatedResultsAnalysis',
     'AggregatedResultsByOutcome',
     'AggregatedResultsDifference',

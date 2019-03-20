@@ -869,6 +869,94 @@ class FilterCriteria(Model):
         self.value = value
 
 
+class GraphSubjectBase(Model):
+    """GraphSubjectBase.
+
+    :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
+    :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
+    :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
+    :type descriptor: str
+    :param display_name: This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider.
+    :type display_name: str
+    :param url: This url is the full route to the source resource of this graph subject.
+    :type url: str
+    """
+
+    _attribute_map = {
+        '_links': {'key': '_links', 'type': 'ReferenceLinks'},
+        'descriptor': {'key': 'descriptor', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'url': {'key': 'url', 'type': 'str'}
+    }
+
+    def __init__(self, _links=None, descriptor=None, display_name=None, url=None):
+        super(GraphSubjectBase, self).__init__()
+        self._links = _links
+        self.descriptor = descriptor
+        self.display_name = display_name
+        self.url = url
+
+
+class IdentityRef(GraphSubjectBase):
+    """IdentityRef.
+
+    :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
+    :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
+    :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
+    :type descriptor: str
+    :param display_name: This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider.
+    :type display_name: str
+    :param url: This url is the full route to the source resource of this graph subject.
+    :type url: str
+    :param directory_alias: Deprecated - Can be retrieved by querying the Graph user referenced in the "self" entry of the IdentityRef "_links" dictionary
+    :type directory_alias: str
+    :param id:
+    :type id: str
+    :param image_url: Deprecated - Available in the "avatar" entry of the IdentityRef "_links" dictionary
+    :type image_url: str
+    :param inactive: Deprecated - Can be retrieved by querying the Graph membership state referenced in the "membershipState" entry of the GraphUser "_links" dictionary
+    :type inactive: bool
+    :param is_aad_identity: Deprecated - Can be inferred from the subject type of the descriptor (Descriptor.IsAadUserType/Descriptor.IsAadGroupType)
+    :type is_aad_identity: bool
+    :param is_container: Deprecated - Can be inferred from the subject type of the descriptor (Descriptor.IsGroupType)
+    :type is_container: bool
+    :param is_deleted_in_origin:
+    :type is_deleted_in_origin: bool
+    :param profile_url: Deprecated - not in use in most preexisting implementations of ToIdentityRef
+    :type profile_url: str
+    :param unique_name: Deprecated - use Domain+PrincipalName instead
+    :type unique_name: str
+    """
+
+    _attribute_map = {
+        '_links': {'key': '_links', 'type': 'ReferenceLinks'},
+        'descriptor': {'key': 'descriptor', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'url': {'key': 'url', 'type': 'str'},
+        'directory_alias': {'key': 'directoryAlias', 'type': 'str'},
+        'id': {'key': 'id', 'type': 'str'},
+        'image_url': {'key': 'imageUrl', 'type': 'str'},
+        'inactive': {'key': 'inactive', 'type': 'bool'},
+        'is_aad_identity': {'key': 'isAadIdentity', 'type': 'bool'},
+        'is_container': {'key': 'isContainer', 'type': 'bool'},
+        'is_deleted_in_origin': {'key': 'isDeletedInOrigin', 'type': 'bool'},
+        'profile_url': {'key': 'profileUrl', 'type': 'str'},
+        'unique_name': {'key': 'uniqueName', 'type': 'str'}
+    }
+
+    def __init__(self, _links=None, descriptor=None, display_name=None, url=None, directory_alias=None, id=None, image_url=None, inactive=None, is_aad_identity=None, is_container=None, is_deleted_in_origin=None, profile_url=None, unique_name=None):
+        super(IdentityRef, self).__init__(_links=_links, descriptor=descriptor, display_name=display_name, url=url)
+        self.directory_alias = directory_alias
+        self.id = id
+        self.image_url = image_url
+        self.inactive = inactive
+        self.is_aad_identity = is_aad_identity
+        self.is_container = is_container
+        self.is_deleted_in_origin = is_deleted_in_origin
+        self.profile_url = profile_url
+        self.unique_name = unique_name
+
+
 class InstallationTarget(Model):
     """InstallationTarget.
 
@@ -1187,6 +1275,98 @@ class PublisherQueryResult(Model):
     def __init__(self, results=None):
         super(PublisherQueryResult, self).__init__()
         self.results = results
+
+
+class PublisherRoleAssignment(Model):
+    """PublisherRoleAssignment.
+
+    :param access: Designates the role as explicitly assigned or inherited.
+    :type access: object
+    :param access_display_name: User friendly description of access assignment.
+    :type access_display_name: str
+    :param identity: The user to whom the role is assigned.
+    :type identity: :class:`IdentityRef <azure.devops.v5_1.gallery.models.IdentityRef>`
+    :param role: The role assigned to the user.
+    :type role: :class:`PublisherSecurityRole <azure.devops.v5_1.gallery.models.PublisherSecurityRole>`
+    """
+
+    _attribute_map = {
+        'access': {'key': 'access', 'type': 'object'},
+        'access_display_name': {'key': 'accessDisplayName', 'type': 'str'},
+        'identity': {'key': 'identity', 'type': 'IdentityRef'},
+        'role': {'key': 'role', 'type': 'PublisherSecurityRole'}
+    }
+
+    def __init__(self, access=None, access_display_name=None, identity=None, role=None):
+        super(PublisherRoleAssignment, self).__init__()
+        self.access = access
+        self.access_display_name = access_display_name
+        self.identity = identity
+        self.role = role
+
+
+class PublisherSecurityRole(Model):
+    """PublisherSecurityRole.
+
+    :param allow_permissions: Permissions the role is allowed.
+    :type allow_permissions: int
+    :param deny_permissions: Permissions the role is denied.
+    :type deny_permissions: int
+    :param description: Description of user access defined by the role
+    :type description: str
+    :param display_name: User friendly name of the role.
+    :type display_name: str
+    :param identifier: Globally unique identifier for the role.
+    :type identifier: str
+    :param name: Unique name of the role in the scope.
+    :type name: str
+    :param scope: Returns the id of the ParentScope.
+    :type scope: str
+    """
+
+    _attribute_map = {
+        'allow_permissions': {'key': 'allowPermissions', 'type': 'int'},
+        'deny_permissions': {'key': 'denyPermissions', 'type': 'int'},
+        'description': {'key': 'description', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'identifier': {'key': 'identifier', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'scope': {'key': 'scope', 'type': 'str'}
+    }
+
+    def __init__(self, allow_permissions=None, deny_permissions=None, description=None, display_name=None, identifier=None, name=None, scope=None):
+        super(PublisherSecurityRole, self).__init__()
+        self.allow_permissions = allow_permissions
+        self.deny_permissions = deny_permissions
+        self.description = description
+        self.display_name = display_name
+        self.identifier = identifier
+        self.name = name
+        self.scope = scope
+
+
+class PublisherUserRoleAssignmentRef(Model):
+    """PublisherUserRoleAssignmentRef.
+
+    :param role_name: The name of the role assigned.
+    :type role_name: str
+    :param unique_name: Identifier of the user given the role assignment.
+    :type unique_name: str
+    :param user_id: Unique id of the user given the role assignment.
+    :type user_id: str
+    """
+
+    _attribute_map = {
+        'role_name': {'key': 'roleName', 'type': 'str'},
+        'unique_name': {'key': 'uniqueName', 'type': 'str'},
+        'user_id': {'key': 'userId', 'type': 'str'}
+    }
+
+    def __init__(self, role_name=None, unique_name=None, user_id=None):
+        super(PublisherUserRoleAssignmentRef, self).__init__()
+        self.role_name = role_name
+        self.unique_name = unique_name
+        self.user_id = user_id
 
 
 class QnAItem(Model):
@@ -1825,6 +2005,8 @@ __all__ = [
     'ExtensionStatisticUpdate',
     'ExtensionVersion',
     'FilterCriteria',
+    'GraphSubjectBase',
+    'IdentityRef',
     'InstallationTarget',
     'MetadataItem',
     'NotificationsData',
@@ -1836,6 +2018,9 @@ __all__ = [
     'PublisherFilterResult',
     'PublisherQuery',
     'PublisherQueryResult',
+    'PublisherRoleAssignment',
+    'PublisherSecurityRole',
+    'PublisherUserRoleAssignmentRef',
     'QnAItem',
     'QueryFilter',
     'Question',

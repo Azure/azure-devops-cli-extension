@@ -364,7 +364,7 @@ class Group(Model):
 class HideStateModel(Model):
     """HideStateModel.
 
-    :param hidden:
+    :param hidden: Returns 'true', if workitem state is hidden, 'false' otherwise.
     :type hidden: bool
     """
 
@@ -822,7 +822,7 @@ class ProcessWorkItemTypeField(Model):
 
     :param allow_groups: Allow setting field value to a group identity. Only applies to identity fields.
     :type allow_groups: bool
-    :param customization:
+    :param customization: Indicates the type of customization on this work item.
     :type customization: object
     :param default_value: The default value of the field.
     :type default_value: object
@@ -1236,9 +1236,9 @@ class WorkItemBehaviorField(Model):
 class WorkItemBehaviorReference(Model):
     """WorkItemBehaviorReference.
 
-    :param id:
+    :param id: The ID of the reference behavior.
     :type id: str
-    :param url:
+    :param url: The url of the reference behavior.
     :type url: str
     """
 
@@ -1284,21 +1284,21 @@ class WorkItemStateInputModel(Model):
 class WorkItemStateResultModel(Model):
     """WorkItemStateResultModel.
 
-    :param color:
+    :param color: Work item state color.
     :type color: str
-    :param customization_type:
+    :param customization_type: Work item state customization type.
     :type customization_type: object
-    :param hidden:
+    :param hidden: If the Work item state is hidden.
     :type hidden: bool
-    :param id:
+    :param id: Id of the Workitemstate.
     :type id: str
-    :param name:
+    :param name: Work item state name.
     :type name: str
-    :param order:
+    :param order: Work item state order.
     :type order: int
-    :param state_category:
+    :param state_category: Work item state statecategory.
     :type state_category: str
-    :param url:
+    :param url: Work item state url.
     :type url: str
     """
 

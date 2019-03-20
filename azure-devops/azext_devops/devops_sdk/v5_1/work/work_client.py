@@ -378,12 +378,12 @@ class WorkClient(Client):
                               content=content)
         return self._deserialize('BoardUserSettings', response)
 
-    def get_capacities(self, team_context, iteration_id):
-        """GetCapacities.
+    def get_capacities_with_identity_ref(self, team_context, iteration_id):
+        """GetCapacitiesWithIdentityRef.
         [Preview API] Get a team's capacity
         :param :class:`<TeamContext> <azure.devops.v5_1.work.models.TeamContext>` team_context: The team context for the operation
         :param str iteration_id: ID of the iteration
-        :rtype: [TeamMemberCapacity]
+        :rtype: [TeamMemberCapacityIdentityRef]
         """
         project = None
         team = None
@@ -406,17 +406,17 @@ class WorkClient(Client):
             route_values['iterationId'] = self._serialize.url('iteration_id', iteration_id, 'str')
         response = self._send(http_method='GET',
                               location_id='74412d15-8c1a-4352-a48d-ef1ed5587d57',
-                              version='5.1-preview.1',
+                              version='5.1-preview.2',
                               route_values=route_values)
-        return self._deserialize('[TeamMemberCapacity]', self._unwrap_collection(response))
+        return self._deserialize('[TeamMemberCapacityIdentityRef]', self._unwrap_collection(response))
 
-    def get_capacity(self, team_context, iteration_id, team_member_id):
-        """GetCapacity.
+    def get_capacity_with_identity_ref(self, team_context, iteration_id, team_member_id):
+        """GetCapacityWithIdentityRef.
         [Preview API] Get a team member's capacity
         :param :class:`<TeamContext> <azure.devops.v5_1.work.models.TeamContext>` team_context: The team context for the operation
         :param str iteration_id: ID of the iteration
         :param str team_member_id: ID of the team member
-        :rtype: :class:`<TeamMemberCapacity> <azure.devops.v5_1.work.models.TeamMemberCapacity>`
+        :rtype: :class:`<TeamMemberCapacityIdentityRef> <azure.devops.v5_1.work.models.TeamMemberCapacityIdentityRef>`
         """
         project = None
         team = None
@@ -441,17 +441,17 @@ class WorkClient(Client):
             route_values['teamMemberId'] = self._serialize.url('team_member_id', team_member_id, 'str')
         response = self._send(http_method='GET',
                               location_id='74412d15-8c1a-4352-a48d-ef1ed5587d57',
-                              version='5.1-preview.1',
+                              version='5.1-preview.2',
                               route_values=route_values)
-        return self._deserialize('TeamMemberCapacity', response)
+        return self._deserialize('TeamMemberCapacityIdentityRef', response)
 
-    def replace_capacities(self, capacities, team_context, iteration_id):
-        """ReplaceCapacities.
+    def replace_capacities_with_identity_ref(self, capacities, team_context, iteration_id):
+        """ReplaceCapacitiesWithIdentityRef.
         [Preview API] Replace a team's capacity
-        :param [TeamMemberCapacity] capacities: Team capacity to replace
+        :param [TeamMemberCapacityIdentityRef] capacities: Team capacity to replace
         :param :class:`<TeamContext> <azure.devops.v5_1.work.models.TeamContext>` team_context: The team context for the operation
         :param str iteration_id: ID of the iteration
-        :rtype: [TeamMemberCapacity]
+        :rtype: [TeamMemberCapacityIdentityRef]
         """
         project = None
         team = None
@@ -472,22 +472,22 @@ class WorkClient(Client):
             route_values['team'] = self._serialize.url('team', team, 'string')
         if iteration_id is not None:
             route_values['iterationId'] = self._serialize.url('iteration_id', iteration_id, 'str')
-        content = self._serialize.body(capacities, '[TeamMemberCapacity]')
+        content = self._serialize.body(capacities, '[TeamMemberCapacityIdentityRef]')
         response = self._send(http_method='PUT',
                               location_id='74412d15-8c1a-4352-a48d-ef1ed5587d57',
-                              version='5.1-preview.1',
+                              version='5.1-preview.2',
                               route_values=route_values,
                               content=content)
-        return self._deserialize('[TeamMemberCapacity]', self._unwrap_collection(response))
+        return self._deserialize('[TeamMemberCapacityIdentityRef]', self._unwrap_collection(response))
 
-    def update_capacity(self, patch, team_context, iteration_id, team_member_id):
-        """UpdateCapacity.
+    def update_capacity_with_identity_ref(self, patch, team_context, iteration_id, team_member_id):
+        """UpdateCapacityWithIdentityRef.
         [Preview API] Update a team member's capacity
         :param :class:`<CapacityPatch> <azure.devops.v5_1.work.models.CapacityPatch>` patch: Updated capacity
         :param :class:`<TeamContext> <azure.devops.v5_1.work.models.TeamContext>` team_context: The team context for the operation
         :param str iteration_id: ID of the iteration
         :param str team_member_id: ID of the team member
-        :rtype: :class:`<TeamMemberCapacity> <azure.devops.v5_1.work.models.TeamMemberCapacity>`
+        :rtype: :class:`<TeamMemberCapacityIdentityRef> <azure.devops.v5_1.work.models.TeamMemberCapacityIdentityRef>`
         """
         project = None
         team = None
@@ -513,10 +513,10 @@ class WorkClient(Client):
         content = self._serialize.body(patch, 'CapacityPatch')
         response = self._send(http_method='PATCH',
                               location_id='74412d15-8c1a-4352-a48d-ef1ed5587d57',
-                              version='5.1-preview.1',
+                              version='5.1-preview.2',
                               route_values=route_values,
                               content=content)
-        return self._deserialize('TeamMemberCapacity', response)
+        return self._deserialize('TeamMemberCapacityIdentityRef', response)
 
     def get_board_card_rule_settings(self, team_context, board):
         """GetBoardCardRuleSettings.

@@ -25,6 +25,58 @@ class GraphClient(Client):
 
     resource_area_identifier = 'bb1e7ec9-e901-4b68-999a-de7012b920f8'
 
+    def delete_avatar(self, subject_descriptor):
+        """DeleteAvatar.
+        [Preview API]
+        :param str subject_descriptor:
+        """
+        route_values = {}
+        if subject_descriptor is not None:
+            route_values['subjectDescriptor'] = self._serialize.url('subject_descriptor', subject_descriptor, 'str')
+        self._send(http_method='DELETE',
+                   location_id='801eaf9c-0585-4be8-9cdb-b0efa074de91',
+                   version='5.1-preview.1',
+                   route_values=route_values)
+
+    def get_avatar(self, subject_descriptor, size=None, format=None):
+        """GetAvatar.
+        [Preview API]
+        :param str subject_descriptor:
+        :param str size:
+        :param str format:
+        :rtype: :class:`<Avatar> <azure.devops.v5_1.graph.models.Avatar>`
+        """
+        route_values = {}
+        if subject_descriptor is not None:
+            route_values['subjectDescriptor'] = self._serialize.url('subject_descriptor', subject_descriptor, 'str')
+        query_parameters = {}
+        if size is not None:
+            query_parameters['size'] = self._serialize.query('size', size, 'str')
+        if format is not None:
+            query_parameters['format'] = self._serialize.query('format', format, 'str')
+        response = self._send(http_method='GET',
+                              location_id='801eaf9c-0585-4be8-9cdb-b0efa074de91',
+                              version='5.1-preview.1',
+                              route_values=route_values,
+                              query_parameters=query_parameters)
+        return self._deserialize('Avatar', response)
+
+    def set_avatar(self, avatar, subject_descriptor):
+        """SetAvatar.
+        [Preview API]
+        :param :class:`<Avatar> <azure.devops.v5_1.graph.models.Avatar>` avatar:
+        :param str subject_descriptor:
+        """
+        route_values = {}
+        if subject_descriptor is not None:
+            route_values['subjectDescriptor'] = self._serialize.url('subject_descriptor', subject_descriptor, 'str')
+        content = self._serialize.body(avatar, 'Avatar')
+        self._send(http_method='PUT',
+                   location_id='801eaf9c-0585-4be8-9cdb-b0efa074de91',
+                   version='5.1-preview.1',
+                   route_values=route_values,
+                   content=content)
+
     def get_descriptor(self, storage_key):
         """GetDescriptor.
         [Preview API] Resolve a storage key to a descriptor
@@ -351,4 +403,22 @@ class GraphClient(Client):
         response_object.graph_users = self._deserialize('[GraphUser]', self._unwrap_collection(response))
         response_object.continuation_token = response.headers.get('X-MS-ContinuationToken')
         return response_object
+
+    def update_user(self, update_context, user_descriptor):
+        """UpdateUser.
+        [Preview API] Map an existing user to a different identity
+        :param :class:`<GraphUserUpdateContext> <azure.devops.v5_1.graph.models.GraphUserUpdateContext>` update_context: The subset of the full graph user used to uniquely find the graph subject in an external provider.
+        :param str user_descriptor: the descriptor of the user to update
+        :rtype: :class:`<GraphUser> <azure.devops.v5_1.graph.models.GraphUser>`
+        """
+        route_values = {}
+        if user_descriptor is not None:
+            route_values['userDescriptor'] = self._serialize.url('user_descriptor', user_descriptor, 'str')
+        content = self._serialize.body(update_context, 'GraphUserUpdateContext')
+        response = self._send(http_method='PATCH',
+                              location_id='005e26ec-6b77-4e4f-a986-b3827bf241f5',
+                              version='5.1-preview.1',
+                              route_values=route_values,
+                              content=content)
+        return self._deserialize('GraphUser', response)
 

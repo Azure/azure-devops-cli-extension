@@ -60,27 +60,6 @@ class WorkItemTrackingProcessTemplateClient(Client):
                               route_values=route_values)
         return self._deserialize('[AdminBehavior]', self._unwrap_collection(response))
 
-    def check_template_existence(self, upload_stream, **kwargs):
-        """CheckTemplateExistence.
-        [Preview API] Check if process template exists.
-        :param object upload_stream: Stream to upload
-        :rtype: :class:`<CheckTemplateExistenceResult> <azure.devops.v5_0.work_item_tracking_process_template.models.CheckTemplateExistenceResult>`
-        """
-        route_values = {}
-        route_values['action'] = 'CheckTemplateExistence'
-        if "callback" in kwargs:
-            callback = kwargs["callback"]
-        else:
-            callback = None
-        content = self._client.stream_upload(upload_stream, callback=callback)
-        response = self._send(http_method='POST',
-                              location_id='29e1f38d-9e9c-4358-86a5-cdf9896a5759',
-                              version='5.0-preview.1',
-                              route_values=route_values,
-                              content=content,
-                              media_type='application/octet-stream')
-        return self._deserialize('CheckTemplateExistenceResult', response)
-
     def export_process_template(self, id, **kwargs):
         """ExportProcessTemplate.
         [Preview API] Returns requested process template.

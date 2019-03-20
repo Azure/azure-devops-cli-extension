@@ -3017,6 +3017,24 @@ class GitClientBase(Client):
                               content=content)
         return self._deserialize('GitRepository', response)
 
+    def get_stats(self, project, repository_id):
+        """GetStats.
+        [Preview API] Retrieves statistics of a repository.
+        :param str project: Project ID or project name
+        :param str repository_id: Friendly name or guid of repository.
+        :rtype: :class:`<GitRepositoryStats> <azure.devops.v5_1.git.models.GitRepositoryStats>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        if repository_id is not None:
+            route_values['repositoryId'] = self._serialize.url('repository_id', repository_id, 'str')
+        response = self._send(http_method='GET',
+                              location_id='616a5255-74b3-40f5-ae1d-bbae2eec8db5',
+                              version='5.1-preview.1',
+                              route_values=route_values)
+        return self._deserialize('GitRepositoryStats', response)
+
     def create_revert(self, revert_to_create, project, repository_id):
         """CreateRevert.
         [Preview API] Starts the operation to create a new branch which reverts changes introduced by either a specific commit or commits that are associated to a pull request.

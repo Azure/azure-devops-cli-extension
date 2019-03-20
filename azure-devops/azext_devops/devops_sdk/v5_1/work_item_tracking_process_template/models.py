@@ -116,6 +116,8 @@ class CheckTemplateExistenceResult(Model):
 class ProcessImportResult(Model):
     """ProcessImportResult.
 
+    :param check_existence_result: Check template existence result.
+    :type check_existence_result: :class:`CheckTemplateExistenceResult <azure.devops.v5_1.work_item_tracking_process_template.models.CheckTemplateExistenceResult>`
     :param help_url: Help URL.
     :type help_url: str
     :param id: ID of the import operation.
@@ -129,6 +131,7 @@ class ProcessImportResult(Model):
     """
 
     _attribute_map = {
+        'check_existence_result': {'key': 'checkExistenceResult', 'type': 'CheckTemplateExistenceResult'},
         'help_url': {'key': 'helpUrl', 'type': 'str'},
         'id': {'key': 'id', 'type': 'str'},
         'is_new': {'key': 'isNew', 'type': 'bool'},
@@ -136,8 +139,9 @@ class ProcessImportResult(Model):
         'validation_results': {'key': 'validationResults', 'type': '[ValidationIssue]'}
     }
 
-    def __init__(self, help_url=None, id=None, is_new=None, promote_job_id=None, validation_results=None):
+    def __init__(self, check_existence_result=None, help_url=None, id=None, is_new=None, promote_job_id=None, validation_results=None):
         super(ProcessImportResult, self).__init__()
+        self.check_existence_result = check_existence_result
         self.help_url = help_url
         self.id = id
         self.is_new = is_new

@@ -11,6 +11,7 @@ from .build_client import BuildClient
 
 __all__ = [
     'AgentPoolQueue',
+    'AgentSpecification',
     'AggregatedResultsAnalysis',
     'AggregatedResultsByOutcome',
     'AggregatedResultsDifference',

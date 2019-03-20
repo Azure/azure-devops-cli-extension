@@ -226,6 +226,8 @@ class BuildConfiguration(Model):
     :type repository_type: str
     :param source_version:
     :type source_version: str
+    :param target_branch_name:
+    :type target_branch_name: str
     :param uri:
     :type uri: str
     """
@@ -244,10 +246,11 @@ class BuildConfiguration(Model):
         'repository_id': {'key': 'repositoryId', 'type': 'int'},
         'repository_type': {'key': 'repositoryType', 'type': 'str'},
         'source_version': {'key': 'sourceVersion', 'type': 'str'},
+        'target_branch_name': {'key': 'targetBranchName', 'type': 'str'},
         'uri': {'key': 'uri', 'type': 'str'}
     }
 
-    def __init__(self, branch_name=None, build_definition_id=None, build_system=None, creation_date=None, flavor=None, id=None, number=None, platform=None, project=None, repository_guid=None, repository_id=None, repository_type=None, source_version=None, uri=None):
+    def __init__(self, branch_name=None, build_definition_id=None, build_system=None, creation_date=None, flavor=None, id=None, number=None, platform=None, project=None, repository_guid=None, repository_id=None, repository_type=None, source_version=None, target_branch_name=None, uri=None):
         super(BuildConfiguration, self).__init__()
         self.branch_name = branch_name
         self.build_definition_id = build_definition_id
@@ -262,6 +265,7 @@ class BuildConfiguration(Model):
         self.repository_id = repository_id
         self.repository_type = repository_type
         self.source_version = source_version
+        self.target_branch_name = target_branch_name
         self.uri = uri
 
 
@@ -542,19 +546,23 @@ class CodeCoverageSummary(Model):
     :type coverage_data: list of :class:`CodeCoverageData <azure.devops.v5_1.test.models.CodeCoverageData>`
     :param delta_build: Uri of build against which difference in coverage is computed
     :type delta_build: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
+    :param status: Uri of build against which difference in coverage is computed
+    :type status: object
     """
 
     _attribute_map = {
         'build': {'key': 'build', 'type': 'ShallowReference'},
         'coverage_data': {'key': 'coverageData', 'type': '[CodeCoverageData]'},
-        'delta_build': {'key': 'deltaBuild', 'type': 'ShallowReference'}
+        'delta_build': {'key': 'deltaBuild', 'type': 'ShallowReference'},
+        'status': {'key': 'status', 'type': 'object'}
     }
 
-    def __init__(self, build=None, coverage_data=None, delta_build=None):
+    def __init__(self, build=None, coverage_data=None, delta_build=None, status=None):
         super(CodeCoverageSummary, self).__init__()
         self.build = build
         self.coverage_data = coverage_data
         self.delta_build = delta_build
+        self.status = status
 
 
 class CoverageStatistics(Model):
@@ -1408,6 +1416,8 @@ class RunCreateModel(Model):
     :type start_date: str
     :param state: The state of the run. Valid states - NotStarted, InProgress, Waiting
     :type state: str
+    :param tags: Tags to attach with the test run, maximum of 5 tags can be added to run.
+    :type tags: list of :class:`TestTag <azure.devops.v5_1.test.models.TestTag>`
     :param test_configurations_mapping:
     :type test_configurations_mapping: str
     :param test_environment_id: ID of the test environment associated with the run.
@@ -1449,13 +1459,14 @@ class RunCreateModel(Model):
         'source_workflow': {'key': 'sourceWorkflow', 'type': 'str'},
         'start_date': {'key': 'startDate', 'type': 'str'},
         'state': {'key': 'state', 'type': 'str'},
+        'tags': {'key': 'tags', 'type': '[TestTag]'},
         'test_configurations_mapping': {'key': 'testConfigurationsMapping', 'type': 'str'},
         'test_environment_id': {'key': 'testEnvironmentId', 'type': 'str'},
         'test_settings': {'key': 'testSettings', 'type': 'ShallowReference'},
         'type': {'key': 'type', 'type': 'str'}
     }
 
-    def __init__(self, automated=None, build=None, build_drop_location=None, build_flavor=None, build_platform=None, build_reference=None, comment=None, complete_date=None, configuration_ids=None, controller=None, custom_test_fields=None, dtl_aut_environment=None, dtl_test_environment=None, due_date=None, environment_details=None, error_message=None, filter=None, iteration=None, name=None, owner=None, plan=None, point_ids=None, release_environment_uri=None, release_reference=None, release_uri=None, run_summary=None, run_timeout=None, source_workflow=None, start_date=None, state=None, test_configurations_mapping=None, test_environment_id=None, test_settings=None, type=None):
+    def __init__(self, automated=None, build=None, build_drop_location=None, build_flavor=None, build_platform=None, build_reference=None, comment=None, complete_date=None, configuration_ids=None, controller=None, custom_test_fields=None, dtl_aut_environment=None, dtl_test_environment=None, due_date=None, environment_details=None, error_message=None, filter=None, iteration=None, name=None, owner=None, plan=None, point_ids=None, release_environment_uri=None, release_reference=None, release_uri=None, run_summary=None, run_timeout=None, source_workflow=None, start_date=None, state=None, tags=None, test_configurations_mapping=None, test_environment_id=None, test_settings=None, type=None):
         super(RunCreateModel, self).__init__()
         self.automated = automated
         self.build = build
@@ -1487,6 +1498,7 @@ class RunCreateModel(Model):
         self.source_workflow = source_workflow
         self.start_date = start_date
         self.state = state
+        self.tags = tags
         self.test_configurations_mapping = test_configurations_mapping
         self.test_environment_id = test_environment_id
         self.test_settings = test_settings
@@ -1614,6 +1626,8 @@ class RunUpdateModel(Model):
     :type state: str
     :param substate:
     :type substate: object
+    :param tags: Tags to attach with the test run.
+    :type tags: list of :class:`TestTag <azure.devops.v5_1.test.models.TestTag>`
     :param test_environment_id:
     :type test_environment_id: str
     :param test_settings: An abstracted reference to test setting resource.
@@ -1644,11 +1658,12 @@ class RunUpdateModel(Model):
         'started_date': {'key': 'startedDate', 'type': 'str'},
         'state': {'key': 'state', 'type': 'str'},
         'substate': {'key': 'substate', 'type': 'object'},
+        'tags': {'key': 'tags', 'type': '[TestTag]'},
         'test_environment_id': {'key': 'testEnvironmentId', 'type': 'str'},
         'test_settings': {'key': 'testSettings', 'type': 'ShallowReference'}
     }
 
-    def __init__(self, build=None, build_drop_location=None, build_flavor=None, build_platform=None, comment=None, completed_date=None, controller=None, delete_in_progress_results=None, dtl_aut_environment=None, dtl_environment=None, dtl_environment_details=None, due_date=None, error_message=None, iteration=None, log_entries=None, name=None, release_environment_uri=None, release_uri=None, run_summary=None, source_workflow=None, started_date=None, state=None, substate=None, test_environment_id=None, test_settings=None):
+    def __init__(self, build=None, build_drop_location=None, build_flavor=None, build_platform=None, comment=None, completed_date=None, controller=None, delete_in_progress_results=None, dtl_aut_environment=None, dtl_environment=None, dtl_environment_details=None, due_date=None, error_message=None, iteration=None, log_entries=None, name=None, release_environment_uri=None, release_uri=None, run_summary=None, source_workflow=None, started_date=None, state=None, substate=None, tags=None, test_environment_id=None, test_settings=None):
         super(RunUpdateModel, self).__init__()
         self.build = build
         self.build_drop_location = build_drop_location
@@ -1673,6 +1688,7 @@ class RunUpdateModel(Model):
         self.started_date = started_date
         self.state = state
         self.substate = substate
+        self.tags = tags
         self.test_environment_id = test_environment_id
         self.test_settings = test_settings
 
@@ -2577,6 +2593,26 @@ class TestFailuresAnalysis(Model):
         self.previous_context = previous_context
 
 
+class TestFlakyIdentifier(Model):
+    """TestFlakyIdentifier.
+
+    :param branch_name: Branch Name where Flakiness has to be Marked/Unmarked
+    :type branch_name: str
+    :param is_flaky: State for Flakiness
+    :type is_flaky: bool
+    """
+
+    _attribute_map = {
+        'branch_name': {'key': 'branchName', 'type': 'str'},
+        'is_flaky': {'key': 'isFlaky', 'type': 'bool'}
+    }
+
+    def __init__(self, branch_name=None, is_flaky=None):
+        super(TestFlakyIdentifier, self).__init__()
+        self.branch_name = branch_name
+        self.is_flaky = is_flaky
+
+
 class TestHistoryQuery(Model):
     """TestHistoryQuery.
 
@@ -3268,6 +3304,8 @@ class TestResultMetaData(Model):
     :type automated_test_name: str
     :param automated_test_storage: AutomatedTestStorage of test result.
     :type automated_test_storage: str
+    :param flaky_identifiers: List of Flaky Identifier for TestCaseReferenceId
+    :type flaky_identifiers: list of :class:`TestFlakyIdentifier <azure.devops.v5_1.test.models.TestFlakyIdentifier>`
     :param owner: Owner of test result.
     :type owner: str
     :param priority: Priority of test result.
@@ -3281,16 +3319,18 @@ class TestResultMetaData(Model):
     _attribute_map = {
         'automated_test_name': {'key': 'automatedTestName', 'type': 'str'},
         'automated_test_storage': {'key': 'automatedTestStorage', 'type': 'str'},
+        'flaky_identifiers': {'key': 'flakyIdentifiers', 'type': '[TestFlakyIdentifier]'},
         'owner': {'key': 'owner', 'type': 'str'},
         'priority': {'key': 'priority', 'type': 'int'},
         'test_case_reference_id': {'key': 'testCaseReferenceId', 'type': 'int'},
         'test_case_title': {'key': 'testCaseTitle', 'type': 'str'}
     }
 
-    def __init__(self, automated_test_name=None, automated_test_storage=None, owner=None, priority=None, test_case_reference_id=None, test_case_title=None):
+    def __init__(self, automated_test_name=None, automated_test_storage=None, flaky_identifiers=None, owner=None, priority=None, test_case_reference_id=None, test_case_title=None):
         super(TestResultMetaData, self).__init__()
         self.automated_test_name = automated_test_name
         self.automated_test_storage = automated_test_storage
+        self.flaky_identifiers = flaky_identifiers
         self.owner = owner
         self.priority = priority
         self.test_case_reference_id = test_case_reference_id
@@ -3688,6 +3728,8 @@ class TestRun(Model):
     :type state: str
     :param substate:
     :type substate: object
+    :param tags: Tags attached with this test run.
+    :type tags: list of :class:`TestTag <azure.devops.v5_1.test.models.TestTag>`
     :param test_environment: Test environment associated with the run.
     :type test_environment: :class:`TestEnvironment <azure.devops.v5_1.test.models.TestEnvironment>`
     :param test_message_log_id:
@@ -3741,6 +3783,7 @@ class TestRun(Model):
         'started_date': {'key': 'startedDate', 'type': 'iso-8601'},
         'state': {'key': 'state', 'type': 'str'},
         'substate': {'key': 'substate', 'type': 'object'},
+        'tags': {'key': 'tags', 'type': '[TestTag]'},
         'test_environment': {'key': 'testEnvironment', 'type': 'TestEnvironment'},
         'test_message_log_id': {'key': 'testMessageLogId', 'type': 'int'},
         'test_settings': {'key': 'testSettings', 'type': 'ShallowReference'},
@@ -3750,7 +3793,7 @@ class TestRun(Model):
         'web_access_url': {'key': 'webAccessUrl', 'type': 'str'}
     }
 
-    def __init__(self, build=None, build_configuration=None, comment=None, completed_date=None, controller=None, created_date=None, custom_fields=None, drop_location=None, dtl_aut_environment=None, dtl_environment=None, dtl_environment_creation_details=None, due_date=None, error_message=None, filter=None, id=None, incomplete_tests=None, is_automated=None, iteration=None, last_updated_by=None, last_updated_date=None, name=None, not_applicable_tests=None, owner=None, passed_tests=None, phase=None, plan=None, post_process_state=None, project=None, release=None, release_environment_uri=None, release_uri=None, revision=None, run_statistics=None, started_date=None, state=None, substate=None, test_environment=None, test_message_log_id=None, test_settings=None, total_tests=None, unanalyzed_tests=None, url=None, web_access_url=None):
+    def __init__(self, build=None, build_configuration=None, comment=None, completed_date=None, controller=None, created_date=None, custom_fields=None, drop_location=None, dtl_aut_environment=None, dtl_environment=None, dtl_environment_creation_details=None, due_date=None, error_message=None, filter=None, id=None, incomplete_tests=None, is_automated=None, iteration=None, last_updated_by=None, last_updated_date=None, name=None, not_applicable_tests=None, owner=None, passed_tests=None, phase=None, plan=None, post_process_state=None, project=None, release=None, release_environment_uri=None, release_uri=None, revision=None, run_statistics=None, started_date=None, state=None, substate=None, tags=None, test_environment=None, test_message_log_id=None, test_settings=None, total_tests=None, unanalyzed_tests=None, url=None, web_access_url=None):
         super(TestRun, self).__init__()
         self.build = build
         self.build_configuration = build_configuration
@@ -3788,6 +3831,7 @@ class TestRun(Model):
         self.started_date = started_date
         self.state = state
         self.substate = substate
+        self.tags = tags
         self.test_environment = test_environment
         self.test_message_log_id = test_message_log_id
         self.test_settings = test_settings
@@ -4197,6 +4241,22 @@ class TestSummaryForWorkItem(Model):
         self.work_item = work_item
 
 
+class TestTag(Model):
+    """TestTag.
+
+    :param name: Name of the tag, alphanumeric value less than 30 chars
+    :type name: str
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'}
+    }
+
+    def __init__(self, name=None):
+        super(TestTag, self).__init__()
+        self.name = name
+
+
 class TestToWorkItemLinks(Model):
     """TestToWorkItemLinks.
 
@@ -4431,6 +4491,7 @@ __all__ = [
     'TestEnvironment',
     'TestFailureDetails',
     'TestFailuresAnalysis',
+    'TestFlakyIdentifier',
     'TestHistoryQuery',
     'TestIterationDetailsModel',
     'TestMessageLogDetails',
@@ -4468,6 +4529,7 @@ __all__ = [
     'TestSuite',
     'TestSuiteCloneRequest',
     'TestSummaryForWorkItem',
+    'TestTag',
     'TestToWorkItemLinks',
     'TestVariable',
     'WorkItemReference',

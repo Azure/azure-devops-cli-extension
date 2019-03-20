@@ -79,25 +79,33 @@ class FeedClient(Client):
                               query_parameters=query_parameters)
         return self._deserialize('FeedChangesResponse', response)
 
-    def create_feed(self, feed):
+    def create_feed(self, feed, project=None):
         """CreateFeed.
         [Preview API] Create a feed, a container for various package types.
         :param :class:`<Feed> <azure.devops.v5_1.feed.models.Feed>` feed: A JSON object containing both required and optional attributes for the feed. Name is the only required value.
+        :param str project: Project ID or project name
         :rtype: :class:`<Feed> <azure.devops.v5_1.feed.models.Feed>`
         """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         content = self._serialize.body(feed, 'Feed')
         response = self._send(http_method='POST',
                               location_id='c65009a7-474a-4ad1-8b42-7d852107ef8c',
                               version='5.1-preview.1',
+                              route_values=route_values,
                               content=content)
         return self._deserialize('Feed', response)
 
-    def delete_feed(self, feed_id):
+    def delete_feed(self, feed_id, project=None):
         """DeleteFeed.
         [Preview API] Remove a feed and all its packages.  The action does not result in packages moving to the RecycleBin and is not reversible.
         :param str feed_id: Name or Id of the feed.
+        :param str project: Project ID or project name
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed_id is not None:
             route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
         self._send(http_method='DELETE',
@@ -105,14 +113,17 @@ class FeedClient(Client):
                    version='5.1-preview.1',
                    route_values=route_values)
 
-    def get_feed(self, feed_id, include_deleted_upstreams=None):
+    def get_feed(self, feed_id, project=None, include_deleted_upstreams=None):
         """GetFeed.
         [Preview API] Get the settings for a specific feed.
         :param str feed_id: Name or Id of the feed.
+        :param str project: Project ID or project name
         :param bool include_deleted_upstreams: Include upstreams that have been deleted in the response.
         :rtype: :class:`<Feed> <azure.devops.v5_1.feed.models.Feed>`
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed_id is not None:
             route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
         query_parameters = {}
@@ -125,13 +136,17 @@ class FeedClient(Client):
                               query_parameters=query_parameters)
         return self._deserialize('Feed', response)
 
-    def get_feeds(self, feed_role=None, include_deleted_upstreams=None):
+    def get_feeds(self, project=None, feed_role=None, include_deleted_upstreams=None):
         """GetFeeds.
         [Preview API] Get all feeds in an account where you have the provided role access.
+        :param str project: Project ID or project name
         :param str feed_role: Filter by this role, either Administrator(4), Contributor(3), or Reader(2) level permissions.
         :param bool include_deleted_upstreams: Include upstreams that have been deleted in the response.
         :rtype: [Feed]
         """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         query_parameters = {}
         if feed_role is not None:
             query_parameters['feedRole'] = self._serialize.query('feed_role', feed_role, 'str')
@@ -140,17 +155,21 @@ class FeedClient(Client):
         response = self._send(http_method='GET',
                               location_id='c65009a7-474a-4ad1-8b42-7d852107ef8c',
                               version='5.1-preview.1',
+                              route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[Feed]', self._unwrap_collection(response))
 
-    def update_feed(self, feed, feed_id):
+    def update_feed(self, feed, feed_id, project=None):
         """UpdateFeed.
         [Preview API] Change the attributes of a feed.
         :param :class:`<FeedUpdate> <azure.devops.v5_1.feed.models.FeedUpdate>` feed: A JSON object containing the feed settings to be updated.
         :param str feed_id: Name or Id of the feed.
+        :param str project: Project ID or project name
         :rtype: :class:`<Feed> <azure.devops.v5_1.feed.models.Feed>`
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed_id is not None:
             route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
         content = self._serialize.body(feed, 'FeedUpdate')
