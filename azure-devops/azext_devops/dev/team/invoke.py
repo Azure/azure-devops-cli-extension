@@ -16,7 +16,7 @@ from azext_devops.vstsCompressed.vss_client import VssClient
 logger = get_logger(__name__)
 
 
-# pylint: disable=too-many-locals
+# pylint: disable=too-many-locals, too-many-statements, inconsistent-return-statements
 def invoke(area=None, resource=None,
            route_parameters=None,
            query_parameters=None,
