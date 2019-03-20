@@ -9,7 +9,7 @@ import unittest
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
+from .utilities.helper import disable_telemetry
 
 class ExtensionSearchTest(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
