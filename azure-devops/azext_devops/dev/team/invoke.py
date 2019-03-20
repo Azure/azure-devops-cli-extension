@@ -16,7 +16,7 @@ from azext_devops.vstsCompressed.vss_client import VssClient
 logger = get_logger(__name__)
 
 
-# pylint: disable=too-many-locals, too-many-statements, inconsistent-return-statements
+# pylint: disable=too-many-locals, too-many-statements, inconsistent-return-statements, protected-access
 def invoke(area=None, resource=None,
            route_parameters=None,
            query_parameters=None,
@@ -140,7 +140,7 @@ def stringToDict(inputList):
     for inputSet in inputList:
         parts = inputSet.split('=', 1)
         if len(parts) != 2:
-            raise CLIError('%s is not valid it needs to be in format param=value', inputSet)
+            raise CLIError('%s is not valid it needs to be in format param=value' %(inputSet))
         key = parts[0]
         value = parts[1]
         result[key] = value
