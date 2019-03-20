@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Azure DevOps CLI Debug (Integrated Console)",
+            "type": "python",
+            "request": "launch",
+            "pythonPath": "${config:python.pythonPath}",
+            "program": "${workspaceRoot}/scripts/run_az.py",
+            "cwd": "${workspaceRoot}/azure-devops/",
+            "args": [
+                "repos",
+                "list",
+                "--debug"
+            ],
+            "console": "integratedTerminal",
+            "debugOptions": [
+                "WaitOnAbnormalExit",
+                "WaitOnNormalExit",
+                "RedirectOutput"
+            ],
+            "debugStdLib": true,
+            "preLaunchTask": "BuildWheel",
+            "env": {
+                "AZURE_EXTENSION_DIR": "${workspaceRoot}"
+            }
+        }
+    ]
+}
