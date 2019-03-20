@@ -19,7 +19,7 @@ logger = get_logger(__name__)
 def invoke(area=None, resource=None,
            route_parameters=None,
            query_parameters=None,
-           api_version='4.1',
+           api_version='5.0',
            http_method='GET',
            in_file=None,
            media_type='application/json',
@@ -37,6 +37,9 @@ def invoke(area=None, resource=None,
 
     request_body = None
     if in_file:
+        from os import path
+        if not path.exists(in_file):
+            raise CLIError('--in-file does not point to a valid file location')
         with open(in_file) as f:
             import json
             request_body = json.load(f)
@@ -89,7 +92,7 @@ def invoke(area=None, resource=None,
                 current_version = current_maxVersion
 
     if not location_id:
-        raise CLIError('--resource and api-version combination is not correct')
+        raise CLIError('--resource and --api-version combination is not correct')
 
     route_values = stringToDict(route_parameters)
     query_values = stringToDict(query_parameters)
@@ -109,14 +112,13 @@ def invoke(area=None, resource=None,
         return response.json()
 
     if not out_file:
-        raise CLIError('response is not json, you need to provide --out-file where it can be written')
+        raise CLIError('Response is not json, you need to provide --out-file where it can be written')
 
     import os
     if os.path.exists(out_file):
-        raise CLIError('out file already exists, please give a new name')
+        raise CLIError('Out file already exists, please give a new name')
 
-    if not os.path.exists(out_file):
-        open(out_file, "a").close()
+    open(out_file, "a").close()
 
     with open(out_file, 'ab') as f:
         for chunk in client._client.stream_download(response, callback=None):
@@ -136,6 +138,8 @@ def stringToDict(inputList):
 
     for inputSet in inputList:
         parts=inputSet.split('=', 1)
+        if len(parts) != 2:
+            raise CLIError('%s is not valid it needs to be in format param=value', inputSet)
         key=parts[0]
         value=parts[1]
         result[key]=value
