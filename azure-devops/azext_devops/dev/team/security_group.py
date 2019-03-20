@@ -29,12 +29,12 @@ def list_groups(project_id=None, continuation_token=None, subject_types=None, or
                                              continuation_token=continuation_token, subject_types=subject_types)
     if group_list_response.continuation_token is not None:
         print('Showing only 500 groups.' +
-              ' To list next set of groups use this continuation token and run the command again. TOKEN:'
-              , group_list_response.continuation_token)
+              ' To list next set of groups use this continuation token and run the command again. TOKEN:',
+              group_list_response.continuation_token)
     return group_list_response.graph_groups
 
 
-def get_group(id, organization=None, detect=None):
+def get_group(id, organization=None, detect=None): # pylint: disable=redefined-builtin
     """Show group details.
     :param str id: The UUID of the group.
     """
@@ -45,7 +45,7 @@ def get_group(id, organization=None, detect=None):
     return group_details
 
 
-def update_group(id, name=None, description=None, organization=None, detect=None):
+def update_group(id, name=None, description=None, organization=None, detect=None): # pylint: disable=redefined-builtin
     """Update name AND/OR description for a group.
     :param str id: The UUID of the group.
     """
@@ -63,7 +63,7 @@ def update_group(id, name=None, description=None, organization=None, detect=None
     return update_group_details
 
 
-def delete_group(id, organization=None, detect=None):
+def delete_group(id, organization=None, detect=None): # pylint: disable=redefined-builtin
     """Delete group.
     :param str id: The UUID of the group.
     """
@@ -74,7 +74,7 @@ def delete_group(id, organization=None, detect=None):
     return delete_group_details
 
 
-def list_memberships(id, relationship='members', organization=None, detect=None):
+def list_memberships(id, relationship='members', organization=None, detect=None): # pylint: disable=redefined-builtin
     """List memberships.
     :param str id: Group UUID whose membership details are required.
     """
