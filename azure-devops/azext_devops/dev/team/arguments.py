@@ -60,7 +60,7 @@ def load_team_arguments(self, _):
                          help='Specifies the list of route parameters')
         context.argument('query_parameters', nargs='*',
                          help='Specifies the list of query parameters')
-        context.argument('http_method',  arg_type=get_enum_type(_HTTP_METHOD_VALUES),
+        context.argument('http_method', arg_type=get_enum_type(_HTTP_METHOD_VALUES),
                          help='Specifies the method used for the request.')
         context.argument('media_type',
                          help='Specifies the content type of the request.')
