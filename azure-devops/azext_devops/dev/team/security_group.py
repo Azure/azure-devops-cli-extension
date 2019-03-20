@@ -25,10 +25,10 @@ def list_groups(project_id=None, continuation_token=None, subject_types=None, or
         scope_descriptor = get_descriptor_from_storage_key(project_id, client)
     if subject_types is not None:
         subject_types = subject_types.split(',')
-    group_list_response = client.list_groups(scope_descriptor=scope_descriptor, 
+    group_list_response = client.list_groups(scope_descriptor=scope_descriptor,
                                              continuation_token=continuation_token, subject_types=subject_types)
     if group_list_response.continuation_token is not None:
-        print('Showing only 500 groups.'+
+        print('Showing only 500 groups.' +
               ' To list next set of groups use this continuation token and run the command again. TOKEN:'
               , group_list_response.continuation_token)
     return group_list_response.graph_groups
@@ -88,13 +88,13 @@ def list_memberships(id, relationship='members', organization=None, detect=None)
         direction = 'up'
     membership_list = client.list_memberships(subject_descriptor, direction=direction)
     lookup_keys = []
-    for members in membership_list :
+    for members in membership_list:
         if relationship == 'memberof':
             key = GraphSubjectLookupKey(members.container_descriptor)
         else:
             key = GraphSubjectLookupKey(members.member_descriptor)
         lookup_keys.append(key)
-    subject_lookup = GraphSubjectLookup(lookup_keys = lookup_keys)
+    subject_lookup = GraphSubjectLookup(lookup_keys=lookup_keys)
     members_details = client.lookup_subjects(subject_lookup=subject_lookup)
     return members_details
 
@@ -115,7 +115,7 @@ def add_membership(member_id, group_id, organization=None, detect=None):
     lookup_keys = []
     lookup_keys.append(GraphSubjectLookupKey(membership_details.member_descriptor))
     lookup_keys.append(GraphSubjectLookupKey(membership_details.container_descriptor))
-    subject_lookup = GraphSubjectLookup(lookup_keys = lookup_keys)
+    subject_lookup = GraphSubjectLookup(lookup_keys=lookup_keys)
     members_lookup_details = client.lookup_subjects(subject_lookup=subject_lookup)
     return members_lookup_details
 
@@ -132,10 +132,10 @@ def remove_membership(member_id, group_id, organization=None, detect=None):
     subject_descriptor = get_descriptor_from_storage_key(member_id, client)
     container_descriptor = get_descriptor_from_storage_key(group_id, client)
     try:
-        check_membership = client.check_membership_existence(subject_descriptor=subject_descriptor,
-                                                         container_descriptor=container_descriptor)
+        client.check_membership_existence(subject_descriptor=subject_descriptor,
+                                          container_descriptor=container_descriptor)
         membership_details = client.remove_membership(subject_descriptor=subject_descriptor,
-                                                  container_descriptor=container_descriptor)
+                                                      container_descriptor=container_descriptor)
     except:
         raise CLIError("Membership doesn't exists.")
     return membership_details

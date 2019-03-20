@@ -28,6 +28,21 @@ def load_team_help():
     short-summary: Manage service endpoints/service connections
     """
 
+    helps['devops security'] = """
+    type: group
+    short-summary: Manage security related operations
+    """
+
+    helps['devops security group'] = """
+    type: group
+    short-summary: Manage security groups
+    """
+
+    helps['devops security group membership'] = """
+    type: group
+    short-summary: Manage memberships for security groups
+    """
+
     helps['devops team'] = """
     type: group
     short-summary: Manage teams
