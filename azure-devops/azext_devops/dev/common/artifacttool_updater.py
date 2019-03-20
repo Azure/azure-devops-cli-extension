@@ -19,7 +19,7 @@ from knack.log import get_logger
 from knack.util import CLIError
 import distro
 
-from azext_devops.dev.common.services import get_vss_connection
+from azext_devops.dev.common.services import get_connection
 from azext_devops.dev.common.config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
 from azext_devops.dev.common.const import (ARTIFACTTOOL_OVERRIDE_PATH_ENVKEY,
                                            ARTIFACTTOOL_OVERRIDE_URL_ENVKEY,
@@ -134,7 +134,7 @@ def _update_artifacttool(uri, release_id):
 
 
 def _get_current_release(organization, override_version):
-    connection = get_vss_connection(organization)
+    connection = get_connection(organization)
     client = connection.get_client('azext_devops.dev.common.client_tool.client_tool_client.ClientToolClient')
     logger.debug("Looking up current version of ArtifactTool...")
     # Distro returns empty strings on Windows currently, so don't even send

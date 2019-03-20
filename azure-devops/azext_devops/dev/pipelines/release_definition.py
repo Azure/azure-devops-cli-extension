@@ -67,7 +67,7 @@ def release_definition_show(id=None, name=None, open=False, organization=None, p
 
 def _open_definition(definition):
     """Opens the release definition in the default browser.
-    :param :class:`<ReleaseDefinitionReference> <release.v4_0.models.ReleaseDefinitionReference>` definition:
+    :param :class:`<ReleaseDefinitionReference> <v5_0.release.models.ReleaseDefinitionReference>` definition:
     """
     url = _get_release_definition_web_url(definition)
     if url is not None and url:

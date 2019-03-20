@@ -6,9 +6,7 @@
 from webbrowser import open_new
 
 from knack.log import get_logger
-from azext_devops.vstsCompressed.release.v4_0.models.models import ReleaseStartMetadata
-from azext_devops.vstsCompressed.release.v4_0.models.models import ArtifactMetadata
-from azext_devops.vstsCompressed.release.v4_0.models.models import BuildVersion
+from azext_devops.devops_sdk.v5_0.release.models import ArtifactMetadata, BuildVersion, ReleaseStartMetadata
 from azext_devops.dev.common.services import (get_release_client, resolve_instance_and_project)
 from .release_definition import get_definition_id_from_name
 
@@ -28,7 +26,7 @@ def release_create(definition_id=None, definition_name=None, artifact_metadata_l
     :type artifact_metadata_list: [str]
     :param description: Description of the release.
     :type description: str
-    :rtype: :class:`<ReleaseStartMetadata> <release.v4_0.models.ReleaseStartMetadata>`
+    :rtype: :class:`<ReleaseStartMetadata> <v5_0.release.models.ReleaseStartMetadata>`
     """
 
     organization, project = resolve_instance_and_project(
@@ -70,7 +68,7 @@ def release_show(id, open=False, organization=None, project=None, detect=None): 
     :type id: int
     :param open: Open the release results page in your web browser.
     :type open: bool
-    :rtype: :class:`<Release> <release.v4_0.models.Release>`
+    :rtype: :class:`<Release> <v5_0.release.models.Release>`
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
@@ -94,7 +92,7 @@ def release_list(definition_id=None, source_branch=None, organization=None, proj
     :type status: str
     :param source_branch: Filter releases for this branch.
     :type source_branch: str
-    :rtype: :class:`<Release> <release.v4_0.models.Release>`
+    :rtype: :class:`<Release> <v5_0.release.models.Release>`
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
@@ -110,7 +108,7 @@ def release_list(definition_id=None, source_branch=None, organization=None, proj
 
 def _open_release(release):
     """Open the release results page in your web browser.
-    :param :class:`<Release> <release.v4_0.models.Release>` release:
+    :param :class:`<Release> <v5_0.release.models.Release>` release:
     """
     url = _get_release_web_url(release)
     if url is not None and url:

@@ -6,7 +6,7 @@
 import os
 
 from knack.util import ensure_dir
-from azext_devops.vstsCompressed._file_cache import get_cache, DEFAULT_MAX_AGE
+from azext_devops.devops_sdk._file_cache import get_cache, DEFAULT_MAX_AGE
 from .config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
 
 

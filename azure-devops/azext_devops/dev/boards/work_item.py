@@ -8,9 +8,8 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
-from azext_devops.vstsCompressed.work_item_tracking.v4_0.models.models import JsonPatchOperation
-from azext_devops.vstsCompressed.work_item_tracking.v4_0.models.models import Wiql
+from azext_devops.devops_sdk.exceptions import AzureDevOpsServiceError
+from azext_devops.devops_sdk.v5_0.work_item_tracking.models import JsonPatchOperation, Wiql
 from azext_devops.dev.common.identities import (ME, get_current_identity,
                                                 resolve_identity,
                                                 get_account_from_identity)
@@ -46,7 +45,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
     :type fields: [str]
     :param open: Open the work item in the default web browser.
     :type open: bool
-    :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
+    :rtype: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItem>`
     """
     try:
         organization, project = resolve_instance_and_project(
@@ -88,7 +87,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
         if open:
             _open_work_item(work_item, organization)
         return work_item
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         _handle_vsts_service_error(ex)
 
 
@@ -118,7 +117,7 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
     :type fields: [str]
     :param open: Open the work item in the default web browser.
     :type open: bool
-    :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
+    :rtype: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItem>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     patch_document = []
@@ -166,7 +165,7 @@ def delete_work_item(id, destroy=False, organization=None, detect=None):  # pyli
     :type id: int
     :param destroy: Permanently delete this work item.
     :type destroy: bool
-    :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItemDelete>`
+    :rtype: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItemDelete>`
     """
     try:
         organization = resolve_instance(detect=detect, organization=organization)
@@ -174,7 +173,7 @@ def delete_work_item(id, destroy=False, organization=None, detect=None):  # pyli
         delete_response = client.delete_work_item(id, destroy)
         print('Deleted work item {}'.format(id))
         return delete_response
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         _handle_vsts_service_error(ex)
 
 
@@ -205,13 +204,13 @@ def show_work_item(id, open=False, organization=None, detect=None):  # pylint: d
     :type id: int
     :param open: Open the work item in the default web browser.
     :type open: bool
-    :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
+    :rtype: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItem>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     try:
         client = get_work_item_tracking_client(organization)
         work_item = client.get_work_item(id)
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         _handle_vsts_service_error(ex)
 
     if open:
@@ -228,7 +227,7 @@ def query_work_items(wiql=None, id=None, path=None, organization=None, project=N
     :type id: str
     :param path: The path of an existing query.  Ignored if --id is specified.
     :type path: str
-    :rtype: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
+    :rtype: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItem>`
     """
     if wiql is None and path is None and id is None:
         raise CLIError("Either the --wiql, --id, or --path argument must be specified.")
@@ -327,7 +326,7 @@ def get_last_query_result():
 def _open_work_item(work_item, organization):
     """Opens the work item in the default browser.
     :param work_item: The work item to open.
-    :type work_item: :class:`<WorkItem> <work-item-tracking.v4_0.models.WorkItem>`
+    :type work_item: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItem>`
     """
     project = work_item.fields['System.TeamProject']
     url = organization.rstrip('/') + '/' + uri_quote(project) + '/_workitems?id='\
