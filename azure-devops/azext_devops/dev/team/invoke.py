@@ -1,5 +1,3 @@
-# pylint: skip-file
-# flake8: noqa
 # --------------------------------------------------------------------------------------------
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for license information.
@@ -17,6 +15,7 @@ from azext_devops.vstsCompressed.vss_client import VssClient
 
 logger = get_logger(__name__)
 
+# pylint: disable=too-many-locals
 def invoke(area=None, resource=None,
            route_parameters=None,
            query_parameters=None,
@@ -69,7 +68,7 @@ def invoke(area=None, resource=None,
     if not resource_areas:
         #this is for on-prem
         client_url = connection.base_url
-    
+
     for resource_area in resource_areas:
         if resource_area.name.lower() == area.lower():
             client_url = resource_area.location_url
@@ -84,7 +83,8 @@ def invoke(area=None, resource=None,
     current_version = 0.0
     resource_locations = client._get_resource_locations(all_host_types=True)
     for resource_location in resource_locations:
-        if resource.lower() == resource_location.resource_name.lower() and area.lower() == resource_location.area.lower():
+        if resource.lower() == resource_location.resource_name.lower() and \
+        area.lower() == resource_location.area.lower():
             current_maxVersion = float(resource_location.max_version)
             if current_maxVersion > current_version and  version >= current_version:
                 location_id = resource_location.id
@@ -136,16 +136,11 @@ def stringToDict(inputList):
     result = {}
 
     for inputSet in inputList:
-        parts=inputSet.split('=', 1)
+        parts = inputSet.split('=', 1)
         if len(parts) != 2:
             raise CLIError('%s is not valid it needs to be in format param=value', inputSet)
-        key=parts[0]
-        value=parts[1]
-        result[key]=value
+        key = parts[0]
+        value = parts[1]
+        result[key] = value
 
     return result
-
-    
-
-
-
