@@ -47,4 +47,9 @@ def load_team_help():
     type: command
     short-summary: This command will invoke request for any DevOps area and resource.
                    Please use only json output as the response of this command is not fixed.
+    long-summary:
+    examples:
+        - name: Discover areas related to 'Wiki'
+          text: |
+            az devops invoke --query "[?contains(area,'wiki')]"
     """
