@@ -5,6 +5,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from __future__ import print_function
 from knack.log import get_logger
 from knack.util import CLIError
 
@@ -47,6 +48,7 @@ def invoke(area=None, resource=None,
     resource_areas = connection._get_resource_areas(force=True)
 
     if(not area and not resource):
+        print('Please wait a couple of seconds while we fetch all required information.')
         service_list = []
 
         for x in resource_areas:
