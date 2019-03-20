@@ -56,9 +56,26 @@ def load_team_arguments(self, _):
         context.argument('list_config', options_list=('--list', '-l'))
 
     with self.argument_context('devops invoke') as context:
-        context.argument('route_parameters', nargs='*')
-        context.argument('query_parameters', nargs='*')
-        context.argument('http_method', **enum_choice_list(_HTTP_METHOD_VALUES))
+        context.argument('route_parameters', nargs='*',
+                         help='Specifies the list of route parameters')
+        context.argument('query_parameters', nargs='*',
+                         help='Specifies the list of query parameters')
+        context.argument('http_method', **enum_choice_list(_HTTP_METHOD_VALUES),
+                         help='Specifies the method used for the request.')
+        context.argument('media_type',
+                         help='Specifies the content type of the request.')
+        context.argument('accept_media_type',
+                         help='Specifies the content type of the response.')
+        context.argument('in_file',
+                         help='Path and file name to the file that contains the contents of the request.')
+        context.argument('out_file',
+                         help='Path and file name to the file  for which this function saves the response body.')
+        context.argument('area',
+                         help='The area to find the resource.')
+        context.argument('resource',
+                         help='The name of the resource to operate on.')
+        context.argument('api_version',
+                         help='The version of the API to target')
 
     with self.argument_context('devops user') as context:
         from azure.cli.core.commands.parameters import get_enum_type
