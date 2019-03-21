@@ -23,7 +23,7 @@
         }
       },
       {
-        "label": "Uninstall existing",
+        "label": "Uninstall extension",
         "type": "shell",
         "command": "az extension remove -n azure-devops",
         "options": {
@@ -59,7 +59,7 @@
           "cwd": "${workspaceRoot}/azure-devops/"
         },
         "dependsOn": [
-            "Uninstall existing",
+            "Uninstall extension",
             "BuildWheel"
         ],
         "group": "build",
