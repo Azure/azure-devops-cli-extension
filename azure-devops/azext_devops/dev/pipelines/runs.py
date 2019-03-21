@@ -16,7 +16,7 @@ from azext_devops.dev.common.external_tool import ProgressReportingExternalToolI
 logger = get_logger(__name__)
 
 
-def run_artifact_download(run_id=None, artifact_name=None, path=None, organization=None, project=None, detect=None):
+def run_artifact_download(run_id, artifact_name, path, organization=None, project=None, detect=None):
     """Download a pipeline artifact.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
@@ -34,7 +34,7 @@ def run_artifact_download(run_id=None, artifact_name=None, path=None, organizati
         raise CLIError(ex)
 
 
-def run_artifact_list(run_id=None, organization=None, project=None, detect=None):
+def run_artifact_list(run_id, organization=None, project=None, detect=None):
     """List artifacts associate with run.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
@@ -49,7 +49,7 @@ def run_artifact_list(run_id=None, organization=None, project=None, detect=None)
         raise CLIError(ex)
 
 
-def run_artifact_upload(run_id=None, artifact_name=None, path=None, organization=None, project=None, detect=None):
+def run_artifact_upload(run_id, artifact_name, path, organization=None, project=None, detect=None):
     """Upload a pipeline artifact.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
