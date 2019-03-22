@@ -7,8 +7,7 @@ from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.dev.common.services import (get_build_client,
-                                              resolve_instance_and_project,
-                                              resolve_instance)
+                                              resolve_instance_and_project)
 from azext_devops.dev.common.artifacttool import ArtifactToolInvoker
 from azext_devops.dev.common.artifacttool_updater import ArtifactToolUpdater
 from azext_devops.dev.common.external_tool import ProgressReportingExternalToolInvoker
