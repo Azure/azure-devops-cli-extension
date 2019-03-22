@@ -27,7 +27,7 @@ def run_artifact_download(run_id, artifact_name, path, organization=None, projec
     """
 
     try:
-        organization = resolve_instance(detect=detect, organization=organization)
+        organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         return artifact_tool.download_pipeline_artifact(organization, project, run_id, artifact_name, path)
     except VstsServiceError as ex:
@@ -60,7 +60,7 @@ def run_artifact_upload(run_id, artifact_name, path, organization=None, project=
     """
 
     try:
-        organization = resolve_instance(detect=detect, organization=organization)
+        organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         return artifact_tool.upload_pipeline_artifact(organization, project, run_id, artifact_name, path)
     except VstsServiceError as ex:
