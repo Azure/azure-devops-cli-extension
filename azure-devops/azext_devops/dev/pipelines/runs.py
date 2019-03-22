@@ -7,8 +7,7 @@ from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.dev.common.services import (get_build_client,
-                                              resolve_instance_and_project,
-                                              resolve_instance)
+                                              resolve_instance_and_project)
 from azext_devops.dev.common.artifacttool import ArtifactToolInvoker
 from azext_devops.dev.common.artifacttool_updater import ArtifactToolUpdater
 from azext_devops.dev.common.external_tool import ProgressReportingExternalToolInvoker
@@ -27,7 +26,7 @@ def run_artifact_download(run_id, artifact_name, path, organization=None, projec
     """
 
     try:
-        organization = resolve_instance(detect=detect, organization=organization)
+        organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         return artifact_tool.download_pipeline_artifact(organization, project, run_id, artifact_name, path)
     except VstsServiceError as ex:
@@ -60,7 +59,7 @@ def run_artifact_upload(run_id, artifact_name, path, organization=None, project=
     """
 
     try:
-        organization = resolve_instance(detect=detect, organization=organization)
+        organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         return artifact_tool.upload_pipeline_artifact(organization, project, run_id, artifact_name, path)
     except VstsServiceError as ex:
