@@ -449,9 +449,9 @@ def checkout(id, organization=None, detect=None):  # pylint: disable=redefined-b
     # favorite the ref
     refFavoriteRequest = GitRefFavorite(name=pr.source_ref_name, repository_id=pr.repository.id, type=2)
     try:
-        refFavoriteResponse = client.create_favorite(favorite=refFavoriteRequest, project=pr.repository.project.id)
+        client.create_favorite(favorite=refFavoriteRequest, project=pr.repository.project.id)
     except Exception as ex:
-        if not 'is already a favorite for user' in str(ex):
+        if 'is already a favorite for user' not in str(ex):
             raise Exception(ex)
 
     fetch_remote_and_checkout(pr.source_ref_name)
