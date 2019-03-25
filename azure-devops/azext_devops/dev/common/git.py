@@ -39,6 +39,7 @@ def _get_git_config_scope_arg(local):
 def fetch_remote_and_checkout(refName):
     subprocess.run([_GIT_EXE, 'fetch', 'origin', refName])
     subprocess.run([_GIT_EXE, 'checkout', get_branch_name_from_ref(refName)])
+    subprocess.run([_GIT_EXE, 'pull', 'origin', get_branch_name_from_ref(refName)])
 
 
 def get_current_branch_name():

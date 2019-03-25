@@ -437,12 +437,15 @@ def add_pull_request_work_items(id, work_items, organization=None, detect=None):
     return wit_client.get_work_items(ids=ids)
 
 
-def checkout(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def checkout(id):  # pylint: disable=redefined-builtin
     """Checkout the PR source branch locally, if no local changes are present
     :param id: ID of the pull request.
     :type id: int
     """
-    organization = resolve_instance(detect=detect, organization=organization)
+    organization = resolve_instance(detect='on', organization=None)
+    if not organization:
+        raise CLIError('this command should be used from a valid git repository only')
+
     client = get_git_client(organization)
     pr = client.get_pull_request_by_id(id)
 
