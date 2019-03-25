@@ -131,9 +131,9 @@ def transform_team_members_table_output(result):
 
 def _transform_team_member_row(row):
     table_row = OrderedDict()
-    table_row['ID'] = row['id']
-    table_row['Name'] = row['displayName']
-    table_row['Email'] = row['uniqueName']
+    table_row['ID'] = row['identity']['id']
+    table_row['Name'] = row['identity']['displayName']
+    table_row['Email'] = row['identity']['uniqueName']
 
     return table_row
 
@@ -178,4 +178,4 @@ def _get_team_key(team_row):
 
 
 def _get_member_key(member_row):
-    return member_row['uniqueName'].lower()
+    return member_row['identity']['uniqueName'].lower()
