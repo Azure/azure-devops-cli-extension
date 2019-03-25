@@ -14,7 +14,7 @@ from azext_devops.dev.common.identities import resolve_identity_as_id
 
 
 def get_user_entitlements(top=100, skip=None, organization=None, detect=None):
-    """List users for an organization [except for AAD users].
+    """List users for an organization [except for users which are added via AAD groups].
     :param int top: Maximum number of the users to return. Max value is 10000.
     :param int skip: Offset: Number of records to skip.
     :rtype: [UserEntitlement]
@@ -102,7 +102,7 @@ def add_user_entitlement(user, license_type, send_email_invite='true', organizat
     try:
         user_entitlement_details = client.update_user_entitlements(document=patch_document,
                                                                    do_not_send_invite_for_new_users=do_not_send_invite)
-        user_entitlement_details.results[0].result                                    
+        return user_entitlement_details.results[0].result
     except Exception:
         raise CLIError('Invalid license type.')
 

@@ -28,13 +28,14 @@ class TestUser(ScenarioTest):
             for item in user_list_response :
                 if item['user']['mailAddress'] == _TEST_EMAIL_ID:
                     user_id_found = True
-            assert user_id_found == False
+            # Remove the user if already present in the organization.
+            if user_id_found == True:
+                user_remove_response = self.cmd('az devops user remove --user ' + _TEST_EMAIL_ID + ' -o json --detect off -y')
 
             #add user
             user_add_response = self.cmd('az devops user add -o json --detect off --user ' + _TEST_EMAIL_ID + ' --license-type stakeholder').get_output_in_json()
             user_id = user_add_response['id']
             assert user_add_response['user']['mailAddress'] == _TEST_EMAIL_ID
-            assert user_add_response['accessLevel']['accountLicenseType'] == 'earlyAdopter'
 
             # check if user is present in list response
             user_list_response = self.cmd('az devops user list -o json --detect off').get_output_in_json()
@@ -54,8 +55,6 @@ class TestUser(ScenarioTest):
             # can't verify this for organizations created by microsoft account, since access level type is always earlyAdopter
             user_update_response = self.cmd('az devops user update -o json --detect off --user ' + _TEST_EMAIL_ID + ' --license-type express').get_output_in_json()
             assert user_add_response['user']['mailAddress'] == _TEST_EMAIL_ID
-            assert user_update_response['accessLevel']['accountLicenseType'] == 'earlyAdopter'
-
         
         finally:
             if user_id is not None:
