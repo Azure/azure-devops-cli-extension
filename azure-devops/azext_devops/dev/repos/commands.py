@@ -101,6 +101,7 @@ def load_code_commands(self, _):  # pylint: disable=too-many-statements
         g.command('update', 'update_pull_request', table_transformer=transform_pull_request_table_output)
         g.command('show', 'show_pull_request', table_transformer=transform_pull_request_table_output)
         g.command('list', 'list_pull_requests', table_transformer=transform_pull_requests_table_output)
+        g.command('checkout', 'checkout')
 
         # pr status update commands
         g.command('complete', 'complete_pull_request', table_transformer=transform_pull_request_table_output)
@@ -138,4 +139,3 @@ def load_code_commands(self, _):  # pylint: disable=too-many-statements
         g.command('list', 'list_refs', table_transformer=transform_refs_table_output)
         g.command('lock', 'lock_ref', table_transformer=transform_ref_table_output)
         g.command('unlock', 'unlock_ref', table_transformer=transform_ref_table_output)
-        g.command('favorite', 'favorit_ref')
