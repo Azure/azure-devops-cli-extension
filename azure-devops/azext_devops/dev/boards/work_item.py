@@ -159,7 +159,8 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
     return work_item
 
 
-def delete_work_item(id, destroy=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def delete_work_item(id,  # pylint: disable=redefined-builtin
+                     destroy=False, organization=None, project=None, detect=None):
     """Delete a work item.
     :param id: Unique id of the work item.
     :type id: int
