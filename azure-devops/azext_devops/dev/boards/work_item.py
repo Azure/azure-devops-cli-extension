@@ -159,7 +159,7 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
     return work_item
 
 
-def delete_work_item(id, destroy=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def delete_work_item(id, destroy=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete a work item.
     :param id: Unique id of the work item.
     :type id: int
@@ -168,9 +168,9 @@ def delete_work_item(id, destroy=False, organization=None, detect=None):  # pyli
     :rtype: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItemDelete>`
     """
     try:
-        organization = resolve_instance(detect=detect, organization=organization)
+        organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
         client = get_work_item_tracking_client(organization)
-        delete_response = client.delete_work_item(id, destroy)
+        delete_response = client.delete_work_item(id=id, project=project, destroy=destroy)
         print('Deleted work item {}'.format(id))
         return delete_response
     except AzureDevOpsServiceError as ex:

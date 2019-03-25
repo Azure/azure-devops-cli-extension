@@ -18,7 +18,6 @@ from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
 
 
-
 class TestWorkItemMethods(unittest.TestCase):
 
     _TEST_DEVOPS_ORGANIZATION = TEST_DEVOPS_ORG_URL
@@ -115,11 +114,11 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_validate_token.return_value = True
         self.mock_delete_WI.return_value.id = test_work_item_id
 
-        response = delete_work_item(id=test_work_item_id, destroy=False, organization=self._TEST_DEVOPS_ORGANIZATION, detect='Off')
+        response = delete_work_item(id=test_work_item_id, destroy=False, project='testproject', organization=self._TEST_DEVOPS_ORGANIZATION, detect='Off')
 
         # assert
         self.mock_validate_token.assert_not_called()
-        self.mock_delete_WI.assert_called_once_with(test_work_item_id, False)
+        self.mock_delete_WI.assert_called_once_with(id=test_work_item_id, project='testproject', destroy=False)
         assert response.id == test_work_item_id
 
 
@@ -131,10 +130,10 @@ class TestWorkItemMethods(unittest.TestCase):
         self.mock_delete_WI.side_effect = Exception(r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         with self.assertRaises(Exception) as exc:
-            response = delete_work_item(id=test_work_item_id, organization=self._TEST_DEVOPS_ORGANIZATION)
+            response = delete_work_item(id=test_work_item_id, project='test', organization=self._TEST_DEVOPS_ORGANIZATION)
         self.assertEqual(str(exc.exception),r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
-        self.mock_delete_WI.assert_called_once_with(test_work_item_id,False)
+        self.mock_delete_WI.assert_called_once_with(id=test_work_item_id, project='test', destroy=False)
         self.mock_validate_token.assert_not_called()
 
 

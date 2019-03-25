@@ -14,7 +14,6 @@ from .utilities.helper import disable_telemetry, set_authentication, get_test_or
 
 DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
-@pytest.mark.skip(reason="Delete Workitem requires project now")
 class BoardsWorkItemTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
@@ -49,7 +48,9 @@ class BoardsWorkItemTests(ScenarioTest):
 
         finally:
             #delete the work item created for test
-            delete_wi_command = 'az boards work-item delete --org ' + DEVOPS_CLI_TEST_ORGANIZATION + ' --id ' + str(wi_id) + ' --yes ' + ' --detect off --output json'
+            delete_wi_command = ('az boards work-item delete --org {org_name} --id {wit_id} --project {project_name} '
+                '--yes --detect off --output json'.format(org_name=DEVOPS_CLI_TEST_ORGANIZATION, wit_id=str(wi_id),
+                project_name=wi_test_project_name))
             delete_wi_response = self.cmd(delete_wi_command , checks=[
                 self.check('id', wi_id)
             ]).get_output_in_json()
