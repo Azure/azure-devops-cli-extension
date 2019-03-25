@@ -74,7 +74,7 @@ class TestUserMethods(unittest.TestCase):
         self.mock_get_user.assert_called_once_with(user_id = 'adda517c-0398-42dc-b2a8-0d3f240757f9')
 
     def test_add_user(self):
-        add_user_entitlement(user='someuser@xyz.com', license_type='stakeholder', 
+        add_user_entitlement(email_id='someuser@xyz.com', license_type='stakeholder', 
                              organization=self._TEST_DEVOPS_ORGANIZATION, detect=self._OFF)
         #assert
         self.mock_add_user.assert_called_once()
