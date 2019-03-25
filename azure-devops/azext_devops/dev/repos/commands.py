@@ -138,3 +138,4 @@ def load_code_commands(self, _):  # pylint: disable=too-many-statements
         g.command('list', 'list_refs', table_transformer=transform_refs_table_output)
         g.command('lock', 'lock_ref', table_transformer=transform_ref_table_output)
         g.command('unlock', 'unlock_ref', table_transformer=transform_ref_table_output)
+        g.command('favorite', 'favorit_ref')

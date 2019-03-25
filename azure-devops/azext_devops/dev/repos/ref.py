@@ -5,7 +5,7 @@
 
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.vstsCompressed.git.v4_0.models import GitRefUpdate
+from azext_devops.vstsCompressed.git.v4_0.models import GitRefUpdate, GitRefFavorite
 from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.dev.common.git import resolve_git_refs
 from azext_devops.dev.common.services import (get_git_client,
@@ -112,6 +112,25 @@ def unlock_ref(name, repository=None, organization=None, project=None, detect=No
     :param str detect: Automatically detect organization and project. Default is "on".
     """
     return _update_ref(name, False, repository, organization, project, detect)
+
+
+def favorit_ref(name, repository=None, organization=None, project=None, detect=None):
+    """Favorites a reference
+    :param str name: Name of the reference to favorite (example: heads/my_branch).
+    :param str repository: Name or ID of the repository.
+    :param str organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
+    :param str project: Name or ID of the project.
+    :param str detect: Automatically detect organization and project. Default is "on".
+    """
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect,
+        organization=organization,
+        project=project,
+        repo=repository)
+    client = get_git_client(organization)
+    refFavorite = GitRefFavorite(name=resolve_git_refs(name), repository_id=repository, type=2)
+    refFavoriteResponse = client.create_favorite(favorite=refFavorite, project=project)
+    return refFavoriteResponse
 
 
 def _update_ref(name, locked, repository, organization, project, detect):
