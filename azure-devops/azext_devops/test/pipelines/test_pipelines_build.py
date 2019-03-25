@@ -14,26 +14,23 @@ except ImportError:
 
 from azext_devops.dev.pipelines.build import (build_show)
 from azext_devops.dev.common.services import clear_connection_cache
+from azext_devops.test.utils.authentication import AuthenticatedTests
 from azext_devops.vstsCompressed.build.v4_0.build_client import BuildClient
 
-class TestPipelinesBuildMethods(unittest.TestCase):
+class TestPipelinesBuildMethods(AuthenticatedTests):
 
     _TEST_DEVOPS_ORGANIZATION = 'https://someorganization.visualstudio.com'
     _TEST_PAT_TOKEN = 'Some_PAT_Token'
     
     def setUp(self):
-
+        self.authentication_setUp()
         self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
         self.get_build_patcher = patch('azext_devops.vstsCompressed.build.v4_0.build_client.BuildClient.get_build')
-        self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
-        self.validate_token_patcher = patch('azext_devops.dev.common.services.validate_token_for_instance')
         self.open_in_browser_patcher = patch('azext_devops.dev.pipelines.build._open_build')
 
         #start the patchers
         self.mock_get_build= self.get_build_patcher.start()
         self.mock_get_client = self.get_client.start()
-        self.mock_get_credential = self.get_credential_patcher.start()
-        self.mock_validate_token = self.validate_token_patcher.start()
         self.mock_open_browser = self.open_in_browser_patcher.start()
 
         # Set return values which will be same across tests
@@ -43,16 +40,12 @@ class TestPipelinesBuildMethods(unittest.TestCase):
         clear_connection_cache()
 
     def tearDown(self):
-        self.mock_get_build.stop()
-        self.get_client.stop()
-        self.mock_get_credential.stop()
-        self.mock_validate_token.stop()
-        self.mock_open_browser.stop()
+        self.authentication_tearDown()
+        patch.stopall()
 
     def test_show_build(self):
         # set return values
-        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
-        self.mock_validate_token.return_value = True
+        self.authenticate()
         response = build_show(id=12345, open=False, organization=self._TEST_DEVOPS_ORGANIZATION, 
             project='testproject', detect=None)
         #assert
@@ -61,8 +54,7 @@ class TestPipelinesBuildMethods(unittest.TestCase):
 
     def test_show_build_with_open_browser(self):
         # set return values
-        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
-        self.mock_validate_token.return_value = True
+        self.authenticate()
         self.mock_get_build.return_value = "dummy_build"
         response = build_show(id=12345, open=True, organization=self._TEST_DEVOPS_ORGANIZATION, 
             project='testproject', detect=None)
@@ -79,8 +71,7 @@ class TestPipelinesBuildMethods(unittest.TestCase):
             mock_resolve_instance_project_repo.return_value = _DUMMY_INSTANCE, _DUMMY_PROJECT, _DUMMY_REPO
 
             # set return values
-            self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
-            self.mock_validate_token.return_value = True
+            self.authenticate()
             self.mock_get_build.return_value = _DUMMY_BUILD
 
             response = build_show(id=12345)

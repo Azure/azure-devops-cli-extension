@@ -42,7 +42,7 @@ class TestUniversalPackages(unittest.TestCase):
 
 
     def tearDown(self):
-        self.mock_run_artifacttool.stop()
+        patch.stopall()
 
 
     def test_publish_package(self):

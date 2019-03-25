@@ -15,10 +15,11 @@ except ImportError:
 from azext_devops.dev.repos.policy import *
 from azext_devops.vstsCompressed.policy.v4_0.models.models import PolicyConfiguration, PolicyTypeRef
 from azext_devops.dev.common.services import clear_connection_cache
+from azext_devops.test.utils.authentication import AuthenticatedTests
 from azext_devops.vstsCompressed.policy.v4_0.policy_client import PolicyClient
 
 
-class TestUuidMethods(unittest.TestCase):
+class TestUuidMethods(AuthenticatedTests):
 
     _TEST_DEVOPS_ORGANIZATION = 'https://someorg.visualstudio.com'
     _TEST_DEVOPS_PROJECT = 'sample project'
@@ -26,6 +27,7 @@ class TestUuidMethods(unittest.TestCase):
     _TEST_REPOSITORY_ID = 'b4da517c-0398-42dc-b2a8-0d3f240757f9'
 
     def setUp(self):
+        self.authentication_setUp()
         self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
         self.get_policies_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.get_policy_configurations')
         self.get_policy_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.get_policy_configuration')
@@ -45,12 +47,8 @@ class TestUuidMethods(unittest.TestCase):
         clear_connection_cache()
 
     def tearDown(self):
-        self.get_client.stop()
-        self.get_policies_patcher.stop()
-        self.get_policy_patcher.stop()
-        self.delete_policy_patcher.stop()
-        self.create_policy_patcher.stop()
-        self.update_policy_patcher.stop()
+        self.authentication_tearDown()
+        patch.stopall()
 
     def test_list_policy(self):
         list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
