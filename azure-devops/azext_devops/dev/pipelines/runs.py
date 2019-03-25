@@ -34,7 +34,7 @@ def run_artifact_download(run_id, artifact_name, path, organization=None, projec
 
 
 def run_artifact_list(run_id, organization=None, project=None, detect=None):
-    """List artifacts associate with run.
+    """List artifacts associated with a run.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
     """
