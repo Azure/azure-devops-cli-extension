@@ -21,25 +21,26 @@ from azext_devops.dev.team.extension import  (list_extensions,
                                               disable_extension)
 
 from azext_devops.dev.common.services import clear_connection_cache
+from azext_devops.test.utils.authentication import AuthenticatedTests
 
 class MockInstalledExtension(object):
     def __init__(self, flags, install_state=None):
         self.flags = flags
         self.install_state = install_state
     
-class TestExtensionMethods(unittest.TestCase):
+class TestExtensionMethods(AuthenticatedTests):
 
     _TEST_DEVOPS_ORGANIZATION = 'https://someorganization.visualstudio.com'
     _EXT_MGMT_CLIENT_LOCATION = 'azext_devops.devops_sdk.v5_0.extension_management.extension_management_client.ExtensionManagementClient.'
 
     def setUp(self):
+        self.authentication_setup()
         self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client')
         self.get_installed_extensions_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'get_installed_extensions')
         self.get_installed_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'get_installed_extension_by_name')
         self.install_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'install_extension_by_name')
         self.uninstall_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'uninstall_extension_by_name')
         self.update_installed_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'update_installed_extension')
-        self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
 
         #start the patcher
         self.mock_get_client = self.get_client.start()
@@ -48,7 +49,6 @@ class TestExtensionMethods(unittest.TestCase):
         self.mock_install_extension = self.install_extension_patcher.start()
         self.mock_uninstall_extension = self.uninstall_extension_patcher.start()
         self.mock_update_installed_extension = self.update_installed_extension_patcher.start()
-        self.mock_get_credential = self.get_credential_patcher.start()
 
         #set return values
         self.mock_get_client.return_value = ExtensionManagementClient(base_url=self._TEST_DEVOPS_ORGANIZATION)
@@ -57,13 +57,7 @@ class TestExtensionMethods(unittest.TestCase):
         clear_connection_cache()
 
     def tearDown(self):
-        self.get_client.stop()
-        self.get_installed_extensions_patcher.stop()
-        self.get_installed_extension_patcher.stop()
-        self.install_extension_patcher.stop()
-        self.uninstall_extension_patcher.stop()
-        self.update_installed_extension_patcher.stop()
-        self.get_credential_patcher.stop()
+        patch.stopall()
         
 
     def test_list_extensions(self):
