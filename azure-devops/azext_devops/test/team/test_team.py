@@ -21,9 +21,10 @@ from azext_devops.dev.team.team import  (create_team,
                                         update_team)
 
 from azext_devops.dev.common.services import clear_connection_cache
+from azext_devops.test.utils.authentication import AuthenticatedTests
 
-    
-class TestTeamMethods(unittest.TestCase):
+
+class TestTeamMethods(AuthenticatedTests):
 
     _TEST_DEVOPS_ORGANIZATION = 'https://someorganization.visualstudio.com'
     _TEST_PROJECT_NAME = 'sample_project'
@@ -34,6 +35,7 @@ class TestTeamMethods(unittest.TestCase):
     _OFF = 'Off'
 
     def setUp(self):
+        self.authentication_setup()
         self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
         self.create_team_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.create_team')
         self.delete_team_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.delete_team')
@@ -41,7 +43,6 @@ class TestTeamMethods(unittest.TestCase):
         self.get_teams_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.get_teams')
         self.get_team_members_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.get_team_members')
         self.update_team_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.update_team')
-        self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
 
         #start the patcher
         self.mock_get_client = self.get_client.start()
@@ -51,7 +52,6 @@ class TestTeamMethods(unittest.TestCase):
         self.mock_get_teams = self.get_teams_patcher.start()
         self.mock_get_team_members = self.get_team_members_patcher.start()
         self.mock_update_team = self.update_team_patcher.start()
-        self.mock_get_credential = self.get_credential_patcher.start()
 
         #set return values
         self.mock_get_client.return_value = CoreClient(base_url=self._TEST_DEVOPS_ORGANIZATION)

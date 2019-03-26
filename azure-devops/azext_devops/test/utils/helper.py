@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 TEST_DEVOPS_ORG_URL = "https://someorg.visualstudio.com"
+UNIT_TEST_PAT_TOKEN = "somePATToken"
 
 # Use this when mocking multiple get clients is required for a single test.
 def get_client_mock_helper(_self_dummy, client_type):
