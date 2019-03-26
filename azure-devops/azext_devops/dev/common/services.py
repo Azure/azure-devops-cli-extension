@@ -189,7 +189,7 @@ def get_location_client(organization=None):
 
 def get_member_entitlement_management_client(organization=None):
     connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'member_entitlement_management.v4_1.'
+    return connection.get_client(VSTS_MODULE + 'v5_0.member_entitlement_management.'
                                  'member_entitlement_management_client.MemberEntitlementManagementClient')
 
 

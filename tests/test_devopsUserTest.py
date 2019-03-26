@@ -21,6 +21,7 @@ class TestUser(ScenarioTest):
     def test_devops_user_command_addUpdateListShowRemove(self):
         self.cmd('az devops configure --defaults organization=' +  DEVOPS_CLI_TEST_ORGANIZATION)
         try:
+            user_id = None
             # check user list before adding the user
             user_list_response = self.cmd('az devops user list -o json --detect off').get_output_in_json()
             assert len(user_list_response) > 0
