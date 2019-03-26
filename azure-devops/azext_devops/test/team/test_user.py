@@ -34,7 +34,7 @@ class TestUserMethods(AuthenticatedTests):
     _USER_MGMT_CLIENT_LOCATION = 'azext_devops.vstsCompressed.member_entitlement_management.v4_1.member_entitlement_management_client.MemberEntitlementManagementClient.'
 
     def setUp(self):
-        self.authentication_setUp()
+        self.authentication_setup()
         self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
         self.get_patch_op_patcher = patch('azext_devops.dev.team.user._create_patch_operation')
         self.list_user_patcher = patch(self._USER_MGMT_CLIENT_LOCATION + 'get_user_entitlements')

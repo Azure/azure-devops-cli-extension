@@ -26,7 +26,8 @@ class TestWorkItemMethods(AuthenticatedTests):
     _TEST_PAT_TOKEN = 'somepat'
 
     def setUp(self):
-        self.authentication_setUp()
+        self.authentication_setup()
+        self.authenticate()
         self.get_WI_patcher = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.get_work_item')
         self.create_WI_patcher = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.create_work_item')
         self.delete_WI_patcher = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.delete_work_item')
@@ -55,7 +56,6 @@ class TestWorkItemMethods(AuthenticatedTests):
         test_work_item_id = 1
 
         # set return values
-        self.authenticate()
         self.mock_get_WI.return_value.id = test_work_item_id
 
         response = show_work_item(id=test_work_item_id, organization=self._TEST_DEVOPS_ORGANIZATION)
@@ -71,7 +71,6 @@ class TestWorkItemMethods(AuthenticatedTests):
         test_work_item_id = 1
 
         # set return values
-        self.authenticate()
         self.mock_get_WI.return_value.id = test_work_item_id
 
         response = show_work_item(id=test_work_item_id, open=True, organization=self._TEST_DEVOPS_ORGANIZATION)
@@ -86,7 +85,6 @@ class TestWorkItemMethods(AuthenticatedTests):
 
         test_work_item_id = 1000
 
-        self.authenticate()
         self.mock_get_WI.side_effect = Exception(r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         with self.assertRaises(Exception) as exc:
@@ -103,7 +101,6 @@ class TestWorkItemMethods(AuthenticatedTests):
         test_work_item_id = 1
 
         # set return values
-        self.authenticate()
         self.mock_delete_WI.return_value.id = test_work_item_id
 
         response = delete_work_item(id=test_work_item_id, destroy=False, organization=self._TEST_DEVOPS_ORGANIZATION, detect='Off')
@@ -118,7 +115,6 @@ class TestWorkItemMethods(AuthenticatedTests):
 
         test_work_item_id = 1000
 
-        self.authenticate()
         self.mock_delete_WI.side_effect = Exception(r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         with self.assertRaises(Exception) as exc:

@@ -32,7 +32,7 @@ class TestRepositoryMethods(AuthenticatedTests):
     _TEST_PAT_TOKEN = 'lwghjbj67fghokrgxsytghg75nk2ssguljk7a78qpcg2ttygviyt'
 
     def setUp(self):
-        self.authentication_setUp()
+        self.authentication_setup()
         self.create_repository_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.create_repository')
         self.delete_repository_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.delete_repository')
         self.get_repositories_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_repositories')

@@ -27,7 +27,7 @@ class TestUuidMethods(AuthenticatedTests):
     _TEST_REPOSITORY_ID = 'b4da517c-0398-42dc-b2a8-0d3f240757f9'
 
     def setUp(self):
-        self.authentication_setUp()
+        self.authentication_setup()
         self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
         self.get_policies_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.get_policy_configurations')
         self.get_policy_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.get_policy_configuration')

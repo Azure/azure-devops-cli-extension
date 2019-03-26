@@ -14,7 +14,7 @@ from .helper import UNIT_TEST_PAT_TOKEN
 
 class AuthenticatedTests(unittest.TestCase):
 
-    def authentication_setUp(self):
+    def authentication_setup(self):
         self.resolve_identity_patcher = patch('azext_devops.dev.common.identities.resolve_identity_as_id') # pylint: disable=attribute-defined-outside-init
         self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential') # pylint: disable=attribute-defined-outside-init
         self.validate_token_patcher = patch('azext_devops.dev.common.services.validate_token_for_instance') # pylint: disable=attribute-defined-outside-init

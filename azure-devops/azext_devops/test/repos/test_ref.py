@@ -22,8 +22,8 @@ from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_O
 class TestRefMethods(AuthenticatedTests):
 
     def setUp(self):
-        self.authentication_setUp()
-
+        self.authentication_setup()
+        self.authenticate()
         self.get_refs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_refs')
         self.update_ref_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_ref')
         self.update_refs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_refs')
@@ -42,8 +42,7 @@ class TestRefMethods(AuthenticatedTests):
     def tearDown(self):
         patch.stopall()
 
-    def test_list_refs(self):
-        self.authenticate()
+    def test_list_refs(self):      
 
         response = list_refs(organization=TEST_DEVOPS_ORG_URL,
                              project='sample_project',
@@ -54,7 +53,6 @@ class TestRefMethods(AuthenticatedTests):
                                                    repository_id=None)
 
     def test_create_ref(self):
-        self.authenticate()
 
         response = create_ref(name='sample_ref',
                               object_id='1234567890',
@@ -67,7 +65,6 @@ class TestRefMethods(AuthenticatedTests):
                                                       repository_id=None)
 
     def test_lock_ref(self):
-        self.authenticate()
 
         response = lock_ref(name='sample_ref',
                             organization=TEST_DEVOPS_ORG_URL,
@@ -80,7 +77,6 @@ class TestRefMethods(AuthenticatedTests):
                                                      repository_id=None)
 
     def test_unlock_ref(self):
-        self.authenticate()
 
         response = unlock_ref(name='sample_ref',
                               organization=TEST_DEVOPS_ORG_URL,
@@ -93,7 +89,6 @@ class TestRefMethods(AuthenticatedTests):
                                                      repository_id=None)
 
     def test_delete_ref(self):
-        self.authenticate()
 
         response = delete_ref(name='sample_ref',
                               object_id='1234567890',

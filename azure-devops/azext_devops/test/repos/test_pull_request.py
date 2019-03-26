@@ -51,7 +51,8 @@ class TestPullRequestMethods(AuthenticatedTests):
     _TEST_PR_DESCRIPTION = 'sample_pr_description'
 
     def setUp(self):
-        self.authentication_setUp()
+        self.authentication_setup()
+        self.authenticate()
         self.create_PR_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.create_pull_request')
         self.udpate_PR_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_pull_request')
         self.get_PR_byId_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_request_by_id')
@@ -114,7 +115,6 @@ class TestPullRequestMethods(AuthenticatedTests):
         test_pr_id = 1
 
         # set return values
-        self.authenticate()
         self.mock_create_PR.return_value.id = test_pr_id
 
         response = create_pull_request(project = self._TEST_PROJECT_NAME,
@@ -144,9 +144,6 @@ class TestPullRequestMethods(AuthenticatedTests):
 
         test_pr_id = 1
         merge_complete_message = 'merge complete message'
-
-        # set return values
-        self.authenticate()
 
         #big setup because this object is passed around in create with auto complete flow
         pr_to_return = GitPullRequest()
@@ -181,9 +178,6 @@ class TestPullRequestMethods(AuthenticatedTests):
         test_pr_id = 1
         test_project_id = 20
         test_repository_id = 25
-
-        # set return values
-        self.authenticate()
 
         #big setup because this object is passed around
         pr_to_return = GitPullRequest()
@@ -399,9 +393,6 @@ class TestPullRequestMethods(AuthenticatedTests):
         test_project_id = 20
         test_repository_id = 25
 
-        # set return values
-        self.authenticate()
-
         #big setup because this object is passed around
         pr_to_return = GitPullRequest()
         pr_to_return.pull_request_id = test_pr_id
@@ -423,9 +414,6 @@ class TestPullRequestMethods(AuthenticatedTests):
         test_pr_id = 1
         test_project_id = 20
         test_repository_id = 25
-
-        # set return values
-        self.authenticate()
 
         #big setup because this object is passed around
         pr_to_return = GitPullRequest()

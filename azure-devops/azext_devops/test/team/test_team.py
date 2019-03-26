@@ -35,7 +35,7 @@ class TestTeamMethods(AuthenticatedTests):
     _OFF = 'Off'
 
     def setUp(self):
-        self.authentication_setUp()
+        self.authentication_setup()
         self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
         self.create_team_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.create_team')
         self.delete_team_patcher = patch('azext_devops.vstsCompressed.core.v4_0.core_client.CoreClient.delete_team')

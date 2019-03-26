@@ -34,7 +34,7 @@ class TestExtensionMethods(AuthenticatedTests):
     _EXT_MGMT_CLIENT_LOCATION = 'azext_devops.vstsCompressed.extension_management.v4_1.extension_management_client.ExtensionManagementClient.'
 
     def setUp(self):
-        self.authentication_setUp()
+        self.authentication_setup()
         self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
         self.get_installed_extensions_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'get_installed_extensions')
         self.get_installed_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'get_installed_extension_by_name')

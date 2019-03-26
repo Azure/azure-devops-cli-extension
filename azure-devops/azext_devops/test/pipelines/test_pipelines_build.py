@@ -23,7 +23,8 @@ class TestPipelinesBuildMethods(AuthenticatedTests):
     _TEST_PAT_TOKEN = 'Some_PAT_Token'
     
     def setUp(self):
-        self.authentication_setUp()
+        self.authentication_setup()
+        self.authenticate()
         self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
         self.get_build_patcher = patch('azext_devops.vstsCompressed.build.v4_0.build_client.BuildClient.get_build')
         self.open_in_browser_patcher = patch('azext_devops.dev.pipelines.build._open_build')
@@ -44,7 +45,6 @@ class TestPipelinesBuildMethods(AuthenticatedTests):
 
     def test_show_build(self):
         # set return values
-        self.authenticate()
         response = build_show(id=12345, open=False, organization=self._TEST_DEVOPS_ORGANIZATION, 
             project='testproject', detect=None)
         #assert
@@ -53,7 +53,6 @@ class TestPipelinesBuildMethods(AuthenticatedTests):
 
     def test_show_build_with_open_browser(self):
         # set return values
-        self.authenticate()
         self.mock_get_build.return_value = "dummy_build"
         response = build_show(id=12345, open=True, organization=self._TEST_DEVOPS_ORGANIZATION, 
             project='testproject', detect=None)
@@ -70,7 +69,6 @@ class TestPipelinesBuildMethods(AuthenticatedTests):
             mock_resolve_instance_project_repo.return_value = _DUMMY_INSTANCE, _DUMMY_PROJECT, _DUMMY_REPO
 
             # set return values
-            self.authenticate()
             self.mock_get_build.return_value = _DUMMY_BUILD
 
             response = build_show(id=12345)
