@@ -448,7 +448,7 @@ def checkout(id, remote_name='origin'):  # pylint: disable=redefined-builtin
     git_info = get_vsts_info_from_current_remote_url()
     organization = git_info.uri
     if not organization:
-        raise CLIError('this command should be used from a valid git repository only')
+        raise CLIError('This command should be used from a valid Azure DevOps git repository only')
 
     client = get_git_client(organization)
     pr = client.get_pull_request_by_id(id)
