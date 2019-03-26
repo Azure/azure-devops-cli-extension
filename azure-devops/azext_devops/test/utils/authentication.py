@@ -15,19 +15,19 @@ from .helper import UNIT_TEST_PAT_TOKEN
 class AuthenticatedTests(unittest.TestCase):
 
     def authentication_setUp(self):
-        self.resolve_identity_patcher = patch('azext_devops.dev.common.identities.resolve_identity_as_id')
-        self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
-        self.validate_token_patcher = patch('azext_devops.dev.common.services.validate_token_for_instance')
+        self.resolve_identity_patcher = patch('azext_devops.dev.common.identities.resolve_identity_as_id') # pylint: disable=attribute-defined-outside-init
+        self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential') # pylint: disable=attribute-defined-outside-init
+        self.validate_token_patcher = patch('azext_devops.dev.common.services.validate_token_for_instance') # pylint: disable=attribute-defined-outside-init
 
         # start the patchers
-        self.mock_resolve_identity = self.resolve_identity_patcher.start()
-        self.mock_get_credential = self.get_credential_patcher.start()
-        self.mock_validate_token = self.validate_token_patcher.start()
+        self.mock_resolve_identity = self.resolve_identity_patcher.start() # pylint: disable=attribute-defined-outside-init
+        self.mock_get_credential = self.get_credential_patcher.start() # pylint: disable=attribute-defined-outside-init
+        self.mock_validate_token = self.validate_token_patcher.start() # pylint: disable=attribute-defined-outside-init
 
     def authenticate(self):
         # set return values
         self.mock_validate_token.return_value = True
         self.mock_get_credential.return_value = UNIT_TEST_PAT_TOKEN
 
-    def authentication_tearDown(self):
+    def authentication_tearDown(self): #pylint disable=no-self-use
         patch.stopall()
