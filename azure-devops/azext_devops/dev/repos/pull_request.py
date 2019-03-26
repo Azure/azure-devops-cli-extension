@@ -26,7 +26,8 @@ from azext_devops.dev.common.services import (get_git_client,
                                               get_policy_client,
                                               get_work_item_tracking_client,
                                               resolve_instance,
-                                              resolve_instance_project_and_repo)
+                                              resolve_instance_project_and_repo,
+                                              get_vsts_info_from_current_remote_url)
 
 logger = get_logger(__name__)
 
@@ -437,12 +438,15 @@ def add_pull_request_work_items(id, work_items, organization=None, detect=None):
     return wit_client.get_work_items(ids=ids)
 
 
-def checkout(id):  # pylint: disable=redefined-builtin
+def checkout(id, remote_name='origin'):  # pylint: disable=redefined-builtin
     """Checkout the PR source branch locally, if no local changes are present
     :param id: ID of the pull request.
     :type id: int
+    :param remote_name: Name of git remote against which PR is raised
+    :type remote_name: str
     """
-    organization = resolve_instance(detect='on', organization=None)
+    git_info = get_vsts_info_from_current_remote_url()
+    organization = git_info.uri
     if not organization:
         raise CLIError('this command should be used from a valid git repository only')
 
@@ -455,9 +459,9 @@ def checkout(id):  # pylint: disable=redefined-builtin
         client.create_favorite(favorite=refFavoriteRequest, project=pr.repository.project.id)
     except Exception as ex:  # pylint: disable=broad-except
         if 'is already a favorite for user' not in str(ex):
-            raise Exception(ex)
+            raise ex
 
-    fetch_remote_and_checkout(pr.source_ref_name)
+    fetch_remote_and_checkout(pr.source_ref_name, remote_name)
 
 
 def remove_pull_request_work_items(id, work_items, organization=None, detect=None):  # pylint: disable=redefined-builtin

@@ -36,10 +36,10 @@ def _get_git_config_scope_arg(local):
     return '--global'
 
 
-def fetch_remote_and_checkout(refName):
-    subprocess.run([_GIT_EXE, 'fetch', 'origin', refName])
+def fetch_remote_and_checkout(refName, remote_name):
+    subprocess.run([_GIT_EXE, 'fetch', remote_name, refName])
     subprocess.run([_GIT_EXE, 'checkout', get_branch_name_from_ref(refName)])
-    subprocess.run([_GIT_EXE, 'pull', 'origin', get_branch_name_from_ref(refName)])
+    subprocess.run([_GIT_EXE, 'pull', remote_name, get_branch_name_from_ref(refName)])
 
 
 def get_current_branch_name():
