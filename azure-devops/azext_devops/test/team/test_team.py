@@ -60,7 +60,6 @@ class TestTeamMethods(AuthenticatedTests):
         clear_connection_cache()
 
     def tearDown(self):
-        self.authentication_tearDown()
         patch.stopall()
 
     def test_create_team(self):

@@ -57,7 +57,6 @@ class TestExtensionMethods(AuthenticatedTests):
         clear_connection_cache()
 
     def tearDown(self):
-        self.authentication_tearDown()
         patch.stopall()
         
 

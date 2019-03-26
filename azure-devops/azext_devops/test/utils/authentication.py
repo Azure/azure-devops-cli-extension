@@ -29,5 +29,3 @@ class AuthenticatedTests(unittest.TestCase):
         self.mock_validate_token.return_value = True
         self.mock_get_credential.return_value = UNIT_TEST_PAT_TOKEN
 
-    def authentication_tearDown(self): #pylint disable=no-self-use
-        patch.stopall()

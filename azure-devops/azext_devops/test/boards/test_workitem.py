@@ -47,7 +47,6 @@ class TestWorkItemMethods(AuthenticatedTests):
 
 
     def tearDown(self):
-        self.authentication_tearDown()
         patch.stopall()
 
 
