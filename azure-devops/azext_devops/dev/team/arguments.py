@@ -85,7 +85,6 @@ def load_team_arguments(self, _):
                          help='Whether to send email invite for new user or not.')
 
     with self.argument_context('devops security group membership') as context:
-        from azure.cli.core.commands.parameters import get_enum_type
         context.argument('relationship', arg_type=get_enum_type(_RELATIONSHIP_TYPES),
                          help='Get member of/members for this group.')
 

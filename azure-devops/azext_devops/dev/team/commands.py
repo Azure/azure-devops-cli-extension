@@ -129,6 +129,7 @@ def load_team_commands(self, _):
         g.command('list', 'list_groups', table_transformer=transform_groups_table_output)
         g.command('show', 'get_group', table_transformer=transform_group_table_output)
         g.command('update', 'update_group', table_transformer=transform_group_table_output)
+        g.command('create', 'create_group', table_transformer=transform_group_table_output)
         g.command('delete', 'delete_group', confirmation='Are you sure you want to delete this group?')
 
     with self.command_group('devops security group membership', command_type=security_groupOps) as g:

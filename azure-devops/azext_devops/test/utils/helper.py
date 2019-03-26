@@ -21,6 +21,7 @@ def get_client_mock_helper(_self_dummy, client_type):
     from azext_devops.vstsCompressed.identity.v4_0.identity_client import IdentityClient
     from azext_devops.vstsCompressed.member_entitlement_management.v4_1.member_entitlement_management_client import (
         MemberEntitlementManagementClient)
+    from azext_devops.vstsCompressed.graph.v4_1.graph_client import (GraphClient)
     from azext_devops.vstsCompressed.location.v4_0.location_client import LocationClient
     from azext_devops.vstsCompressed.build.v4_0.build_client import BuildClient
 
@@ -48,6 +49,8 @@ def get_client_mock_helper(_self_dummy, client_type):
         vsts+'member_entitlement_management.v4_1.member_entitlement_management_client.  \
             MemberEntitlementManagementClient': MemberEntitlementManagementClient(
                 base_url=TEST_DEVOPS_ORG_URL),
+        vsts+'graph.v4_1.graph_client.GraphClient': GraphClient(
+            base_url=TEST_DEVOPS_ORG_URL),
         vsts+'location.v4_0.location_client.LocationClient': LocationClient(
             base_url=TEST_DEVOPS_ORG_URL),
         vsts+'build.v4_0.build_client.BuildClient': BuildClient(base_url=TEST_DEVOPS_ORG_URL)
