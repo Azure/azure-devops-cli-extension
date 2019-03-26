@@ -28,4 +28,3 @@ class AuthenticatedTests(unittest.TestCase):
         # set return values
         self.mock_validate_token.return_value = True
         self.mock_get_credential.return_value = UNIT_TEST_PAT_TOKEN
-
