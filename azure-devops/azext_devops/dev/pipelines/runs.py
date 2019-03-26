@@ -7,8 +7,7 @@ from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.dev.common.services import (get_build_client,
-                                              resolve_instance_and_project,
-                                              resolve_instance)
+                                              resolve_instance_and_project)
 from azext_devops.dev.common.artifacttool import ArtifactToolInvoker
 from azext_devops.dev.common.artifacttool_updater import ArtifactToolUpdater
 from azext_devops.dev.common.external_tool import ProgressReportingExternalToolInvoker
@@ -16,7 +15,7 @@ from azext_devops.dev.common.external_tool import ProgressReportingExternalToolI
 logger = get_logger(__name__)
 
 
-def run_artifact_download(run_id=None, artifact_name=None, path=None, organization=None, project=None, detect=None):
+def run_artifact_download(run_id, artifact_name, path, organization=None, project=None, detect=None):
     """Download a pipeline artifact.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
@@ -27,15 +26,15 @@ def run_artifact_download(run_id=None, artifact_name=None, path=None, organizati
     """
 
     try:
-        organization = resolve_instance(detect=detect, organization=organization)
+        organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         return artifact_tool.download_pipeline_artifact(organization, project, run_id, artifact_name, path)
     except VstsServiceError as ex:
         raise CLIError(ex)
 
 
-def run_artifact_list(run_id=None, organization=None, project=None, detect=None):
-    """List artifacts associate with run.
+def run_artifact_list(run_id, organization=None, project=None, detect=None):
+    """List artifacts associated with a run.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
     """
@@ -49,7 +48,7 @@ def run_artifact_list(run_id=None, organization=None, project=None, detect=None)
         raise CLIError(ex)
 
 
-def run_artifact_upload(run_id=None, artifact_name=None, path=None, organization=None, project=None, detect=None):
+def run_artifact_upload(run_id, artifact_name, path, organization=None, project=None, detect=None):
     """Upload a pipeline artifact.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
@@ -60,7 +59,7 @@ def run_artifact_upload(run_id=None, artifact_name=None, path=None, organization
     """
 
     try:
-        organization = resolve_instance(detect=detect, organization=organization)
+        organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
         artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
         return artifact_tool.upload_pipeline_artifact(organization, project, run_id, artifact_name, path)
     except VstsServiceError as ex:

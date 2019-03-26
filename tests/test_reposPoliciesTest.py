@@ -10,7 +10,7 @@ from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/gsaralprivate'
 
 class DevopsReposPoliciesTests(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -55,7 +55,7 @@ class DevopsReposPoliciesTests(ScenarioTest):
             show_policy_output = self.cmd(show_policy_command).get_output_in_json()
             assert show_policy_output["id"] == policy_id
             assert show_policy_output["type"]["id"] == 'fa4e907d-c16b-4a4c-9dfa-4916e5d171ab' #id of merge strategy policy
-            assert show_policy_output["settings"]["useSquashMerge"] == False
+            self.failUnlessRaises(KeyError, lambda: show_policy_output["settings"]["useSquashMerge"])
 
             update_policy_command = 'az repos policy merge-strategy update --id ' + str(policy_id) + ' --use-squash-merge True --output json --detect off'
             update_policy_output = self.cmd(update_policy_command).get_output_in_json()
