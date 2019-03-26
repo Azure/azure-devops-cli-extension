@@ -47,7 +47,7 @@ def show_service_endpoint(id, organization=None, project=None, detect=None):  # 
 def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
                             github_access_token=None, github_url=None,
                             azure_rm_tenant_id=None, azure_rm_service_principal_id=None,
-                            azure_rm_service_prinicipal_key=None, azure_rm_subscription_id=None,
+                            azure_rm_service_principal_key=None, azure_rm_subscription_id=None,
                             azure_rm_subscription_name=None, organization=None,
                             project=None, detect=None):
     """Create a service endpoint
@@ -67,8 +67,8 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
     :type azure_rm_tenant_id: str
     :param azure_rm_service_principal_id: service principal id for creating azure rm service endpoint
     :type azure_rm_service_principal_id: str
-    :param azure_rm_service_prinicipal_key: key/password for service principal used to create azure rm service endpoint
-    :type azure_rm_service_prinicipal_key: str
+    :param azure_rm_service_principal_key: key/password for service principal used to create azure rm service endpoint
+    :type azure_rm_service_principal_key: str
     :param azure_rm_subscription_id: subscription id for azure rm service endpoint
     :type azure_rm_subscription_id: str
     :param azure_rm_subscription_name: name of azure subscription for azure rm service endpoint
@@ -98,16 +98,16 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
 
     if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_AZURE_RM and
             authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL):
-        if not azure_rm_service_prinicipal_key:
+        if not azure_rm_service_principal_key:
             try:
-                azure_rm_service_prinicipal_key = prompt_pass('Azure RM service principal key:', confirm=True)
+                azure_rm_service_principal_key = prompt_pass('Azure RM service principal key:', confirm=True)
             except NoTTYException:
-                raise CLIError('Please specify --azure-rm-service-prinicipal-key in non-interactive mode.')
+                raise CLIError('Please specify --azure-rm-service-principal-key in non-interactive mode.')
         service_endpoint_authorization = EndpointAuthorization(
             parameters={'tenantid': azure_rm_tenant_id,
                         'serviceprincipalid': azure_rm_service_principal_id,
                         'authenticationType': 'spnKey',
-                        'serviceprincipalkey': azure_rm_service_prinicipal_key},
+                        'serviceprincipalkey': azure_rm_service_principal_key},
             scheme=SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL)
         service_endpoint_data = {
             'subscriptionId': azure_rm_subscription_id,
