@@ -139,14 +139,16 @@ def _transform_team_member_row(row):
 
 
 def transform_users_table_output(result):
+    members = result['members']
     table_output = []
-    for item in result:
+    for item in members:
         table_output.append(_transform_user_row(item))
     return table_output
 
 
 def transform_user_table_output(result):
-    table_output = [_transform_user_row(result)]
+    members = result['members']
+    table_output = [_transform_user_row(members)]
     return table_output
 
 
