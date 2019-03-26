@@ -453,7 +453,7 @@ def checkout(id):  # pylint: disable=redefined-builtin
     refFavoriteRequest = GitRefFavorite(name=pr.source_ref_name, repository_id=pr.repository.id, type=2)
     try:
         client.create_favorite(favorite=refFavoriteRequest, project=pr.repository.project.id)
-    except Exception as ex:
+    except Exception as ex:  # pylint: disable=broad-except
         if 'is already a favorite for user' not in str(ex):
             raise Exception(ex)
 
