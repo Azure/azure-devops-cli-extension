@@ -9,6 +9,8 @@ import subprocess
 
 oldArguments = []
 newArguments = []
+allowedMissingArguments = {}
+allowedMissingArguments['devops service-endpoint create'] = ['--azure-rm-service-prinicipal-key']
 
 class Arguments(dict):
     def __init__(self, command, name, isRequired):
@@ -43,7 +45,7 @@ def extractArgumentsFromCommand(command):
     return argumentList
 
 # install extension from index
-subprocess.run(['az','extension','add','-n','azure-devops'], shell=True, stdout=subprocess.PIPE)
+subprocess.run(['az', 'extension', 'add', '-n', 'azure-devops'], shell=True, stdout=subprocess.PIPE)
 
 # add extension path to sys.path so that we can get all the commands
 import sys
@@ -63,7 +65,7 @@ for command in loader.command_table:
     oldArguments.extend(extractArgumentsFromCommand(command))
 
 # uninstall extension loaded from index
-subprocess.run(['az','extension','remove','-n','azure-devops'], shell=True, stdout=subprocess.PIPE)
+subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True, stdout=subprocess.PIPE)
 
 # search and install extension from given path
 def findExtension():
@@ -73,7 +75,7 @@ def findExtension():
                 return os.path.join(p, file)
 
 newExtensionLocation = findExtension()
-subprocess.run(['az','extension','add','--source', newExtensionLocation, '-y'], shell=True, stdout=subprocess.PIPE)
+subprocess.run(['az', 'extension', 'add', '--source', newExtensionLocation, '-y'], shell=True, stdout=subprocess.PIPE)
 
 # get a set of old commands, we are not reusing the set from ext because we want to keep this clean
 oldCommands = []
@@ -108,7 +110,9 @@ for oldArgument in oldArguments:
             break
 
     if isArgumentMissing is True:
-        errorList.append('Argument missing for command ' + oldArgument.command + ' argument ' +  oldArgument.name)
+        allowedMissingArgumetsForCommand = allowedMissingArguments.get(oldArgument.command, [])
+        if not oldArgument.name in allowedMissingArgumetsForCommand:
+            errorList.append('Argument missing for command ' + oldArgument.command + ' argument ' +  oldArgument.name)
 
 if len(errorList) > 0:
     print(' '.join(errorList))
