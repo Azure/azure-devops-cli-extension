@@ -9,7 +9,7 @@ import subprocess
 
 oldArguments = []
 newArguments = []
-allowedMissingArguments = ['azure_rm_service_prinicipal_key']
+allowedMissingArguments = ['--azure-rm-service-prinicipal-key']
 
 class Arguments(dict):
     def __init__(self, command, name, isRequired):
