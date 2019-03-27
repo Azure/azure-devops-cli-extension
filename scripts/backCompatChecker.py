@@ -10,7 +10,7 @@ import subprocess
 oldArguments = []
 newArguments = []
 allowedMissingArguments = {}
-allowedMissingArguments['devops service-endpoint'] = ['--azure-rm-service-prinicipal-key']
+allowedMissingArguments['devops service-endpoint create'] = ['--azure-rm-service-prinicipal-key']
 
 class Arguments(dict):
     def __init__(self, command, name, isRequired):
@@ -110,12 +110,8 @@ for oldArgument in oldArguments:
             break
 
     if isArgumentMissing is True:
-        allowedEntryFound = False
-        for key, value in allowedMissingArguments.items():
-            if oldArgument.command == key and oldArgument.name == value:
-                allowedEntryFound = True
-
-        if not allowedEntryFound:
+        allowedMissingArgumetsForCommand = allowedMissingArguments.get(oldArgument.command, [])
+        if not oldArgument.name in allowedMissingArgumetsForCommand:
             errorList.append('Argument missing for command ' + oldArgument.command + ' argument ' +  oldArgument.name)
 
 if len(errorList) > 0:
