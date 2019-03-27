@@ -41,7 +41,7 @@ def set_tracking_data(**kwargs):
         vsts_tracking_data.properties['Args'] = ''.join(args)
         vsts_tracking_data.properties['ShellType'] = _get_shell_type()
         import sys
-        vsts_tracking_data.properties['IsInteractive'] = sys.stdin.isatty()
+        vsts_tracking_data.properties['IsInteractive'] = str(sys.stdin.isatty())
         vsts_tracking_data.properties['OutputType'] = command_line_args['_output_format']
 
     except BaseException as ex:
