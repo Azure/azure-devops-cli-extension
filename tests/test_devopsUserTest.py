@@ -23,7 +23,9 @@ class TestUser(ScenarioTest):
         try:
             user_id = None
             # check user list before adding the user
-            user_list_response = self.cmd('az devops user list -o json --detect off').get_output_in_json()
+            list_response = self.cmd('az devops user list -o json --detect off').get_output_in_json()
+            assert list_response.get('members') is not None
+            user_list_response = list_response['members']
             assert len(user_list_response) > 0
             user_id_found = False
             for item in user_list_response :
@@ -39,7 +41,9 @@ class TestUser(ScenarioTest):
             assert user_add_response['user']['mailAddress'] == _TEST_EMAIL_ID
 
             # check if user is present in list response
-            user_list_response = self.cmd('az devops user list -o json --detect off').get_output_in_json()
+            list_response = self.cmd('az devops user list -o json --detect off').get_output_in_json()
+            assert list_response.get('members') is not None
+            user_list_response = list_response['members']
             assert len(user_list_response) > 1
             user_id_found = False
             for item in user_list_response :
@@ -62,7 +66,9 @@ class TestUser(ScenarioTest):
                 user_remove_response = self.cmd('az devops user remove --user ' + _TEST_EMAIL_ID + ' -o json --detect off -y')
                 
                 # check user list
-                user_list_response = self.cmd('az devops user list -o json --detect off').get_output_in_json()
+                list_response = self.cmd('az devops user list -o json --detect off').get_output_in_json()
+                assert list_response.get('members') is not None
+                user_list_response = list_response['members']
                 assert len(user_list_response) > 0
                 user_id_found = False
                 for item in user_list_response :

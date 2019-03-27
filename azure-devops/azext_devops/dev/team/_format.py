@@ -147,8 +147,7 @@ def transform_users_table_output(result):
 
 
 def transform_user_table_output(result):
-    members = result['members']
-    table_output = [_transform_user_row(members)]
+    table_output = [_transform_user_row(result)]
     return table_output
 
 

@@ -22,7 +22,7 @@ from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_O
 class TestRefMethods(AuthenticatedTests):
 
     def setUp(self):
-        self.authentication_setUp()
+        self.authentication_setup()
         self.authenticate()
         self.get_refs_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_refs')
         self.update_ref_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.update_ref')
