@@ -38,19 +38,6 @@ jobs:
 
   - template: templates/build-publish-azure-cli-test-sdk.yml
 
-# - job: 'Run_Test_From_Old_Release'
-#   dependsOn : Build_Publish_Azure_CLI_Test_SDK
-#   pool:
-#     vmImage: 'macOS-10.13'
-
-#   steps:
-#   - script: git checkout release-0.3.0
-
-#   - template: templates/run-tests.yml
-#     parameters:
-#       pythonVersion: '3.7.0'
-#       runOnlyRecordedTests: 'true'
-
 - job: 'Run_Test_Windows'
   dependsOn : [ 'Build_Publish_Azure_CLI_Test_SDK', 'Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
@@ -68,7 +55,7 @@ jobs:
   - task: AzureFileCopy@2
     displayName: 'Publish wheel to azure storage'
     inputs:
-      sourcePath: 'azure-devops/dist/azure_devops-0.4.0-py2.py3-none-any.whl'
+      sourcePath: 'azure-devops/dist/azure_devops-0.5.0-py2.py3-none-any.whl'
       azureConnectionType: 'ConnectedServiceNameARM'
       azureSubscription: 'CodeLens_Test (6bd70c51-ff44-4c89-9212-8d3f10e2a90a)'
       destination: 'azureBlob'
