@@ -23,31 +23,26 @@ def try_send_telemetry_data(organization):
         logger.debug('Azure devops telemetry sending failed.')
 
 
-def set_tracking_data(argv):
+def set_tracking_data(**kwargs):
     try:
         vsts_tracking_data.area = 'AzureDevopsCli'
         vsts_tracking_data.properties = {}
-        if argv:
-            vsts_tracking_data.feature = argv[0]
-        else:
-            vsts_tracking_data.feature = None
-        if len(argv) > 1:
-            command = []
-            args = []
-            command_populated = False
-            for arg in argv[1:]:
-                if arg and argv:
-                    if not command_populated and arg[0] != '-':
-                        command.append(arg)
-                    elif arg[0] == '-':
-                        args.append(arg.lstrip('-'))
-                        command_populated = True
-            if command:
-                vsts_tracking_data.properties['Command'] = ' '.join(command)
-            else:
-                vsts_tracking_data.properties['Command'] = ''
-            vsts_tracking_data.properties['Args'] = args
-            vsts_tracking_data.properties['ShellType'] = _get_shell_type()
+        command_line_args = vars(kwargs.get('args', None))
+        command_line_split = command_line_args['command'].split()
+        vsts_tracking_data.feature = command_line_split[0]
+        if len(command_line_split) > 1:
+            vsts_tracking_data.properties['Command'] = ''.join(command_line_split[1:])
+
+        args = []
+        for key, value in command_line_args.items():
+            if value and type(value) == 'str' and not key.startswith('_') and key != 'command':
+                args.append(key)
+
+        vsts_tracking_data.properties['Args'] = ''.join(args)
+        vsts_tracking_data.properties['ShellType'] = _get_shell_type()
+        import sys
+        vsts_tracking_data.properties['IsInteractive'] = sys.stdin.isatty()
+        vsts_tracking_data.properties['OutputType'] = command_line_args['_output_format']
 
     except BaseException as ex:
         logger.debug(ex, exc_info=True)
