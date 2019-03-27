@@ -35,7 +35,7 @@ def set_tracking_data(**kwargs):
 
         args = []
         for key, value in command_line_args.items():
-            if value and type(value) == 'str' and not key.startswith('_') and key != 'command':
+            if value and isinstance(value, str) and not key.startswith('_') and key != 'command':
                 args.append(key)
 
         vsts_tracking_data.properties['Args'] = ''.join(args)
