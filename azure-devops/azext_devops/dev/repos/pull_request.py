@@ -10,10 +10,10 @@ from knack.util import CLIError
 from azext_devops.devops_sdk.exceptions import AzureDevOpsClientRequestError
 from azext_devops.devops_sdk.v5_0.git.models import (GitPullRequest, GitPullRequestCompletionOptions,
                                                      GitPullRequestSearchCriteria, IdentityRef, IdentityRefWithVote,
-                                                     ResourceRef)
+                                                     ResourceRef, GitRefFavorite)
 from azext_devops.devops_sdk.v5_0.work_item_tracking.models import JsonPatchOperation, WorkItemRelation
 from azext_devops.dev.common.arguments import resolve_on_off_switch, should_detect
-from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads
+from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads, fetch_remote_and_checkout
 from azext_devops.dev.common.identities import ME, resolve_identity_as_id
 from azext_devops.dev.common.uri import uri_quote
 from azext_devops.dev.common.uuid import EMPTY_UUID
@@ -21,7 +21,8 @@ from azext_devops.dev.common.services import (get_git_client,
                                               get_policy_client,
                                               get_work_item_tracking_client,
                                               resolve_instance,
-                                              resolve_instance_project_and_repo)
+                                              resolve_instance_project_and_repo,
+                                              get_vsts_info_from_current_remote_url)
 
 logger = get_logger(__name__)
 
@@ -430,6 +431,32 @@ def add_pull_request_work_items(id, work_items, organization=None, detect=None):
     for ref in refs:
         ids.append(ref.id)
     return wit_client.get_work_items(ids=ids)
+
+
+def checkout(id, remote_name='origin'):  # pylint: disable=redefined-builtin
+    """Checkout the PR source branch locally, if no local changes are present
+    :param id: ID of the pull request.
+    :type id: int
+    :param remote_name: Name of git remote against which PR is raised
+    :type remote_name: str
+    """
+    git_info = get_vsts_info_from_current_remote_url()
+    organization = git_info.uri
+    if not organization:
+        raise CLIError('This command should be used from a valid Azure DevOps git repository only')
+
+    client = get_git_client(organization)
+    pr = client.get_pull_request_by_id(id)
+
+    # favorite the ref
+    refFavoriteRequest = GitRefFavorite(name=pr.source_ref_name, repository_id=pr.repository.id, type=2)
+    try:
+        client.create_favorite(favorite=refFavoriteRequest, project=pr.repository.project.id)
+    except Exception as ex:  # pylint: disable=broad-except
+        if 'is already a favorite for user' not in str(ex):
+            raise ex
+
+    fetch_remote_and_checkout(pr.source_ref_name, remote_name)
 
 
 def remove_pull_request_work_items(id, work_items, organization=None, detect=None):  # pylint: disable=redefined-builtin
