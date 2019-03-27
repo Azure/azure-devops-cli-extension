@@ -12,6 +12,7 @@ from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from azure.cli.core._profile import Profile
 from azext_devops.devops_sdk.connection import Connection
+from azext_devops.devops_sdk.v5_0.client_factory import ClientFactoryV5_0
 from azext_devops.version import VERSION
 from .arguments import should_detect
 from .const import (DEFAULTS_SECTION,
@@ -146,83 +147,69 @@ def get_first_vss_instance_uri():
         return key
 
 
-def get_release_client(team_instance=None):
-    connection = get_connection(team_instance)
-    return connection.get_client(VSTS_MODULE + 'v5_0.release.release_client.ReleaseClient')
+def get_client_factory(organization):
+    connection = get_connection(organization)
+    return ClientFactoryV5_0(connection)
+
+
+def get_release_client(organization=None):
+    return get_client_factory(organization).get_release_client()
 
 
 def get_build_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'v5_0.build.build_client.BuildClient')
+    return get_client_factory(organization).get_build_client()
 
 
 def get_ci_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(
-        VSTS_MODULE + 'v5_0.customer_intelligence.customer_intelligence_client.CustomerIntelligenceClient')
+    return get_client_factory(organization).get_customer_intelligence_client()
 
 
 def get_core_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'v5_0.core.core_client.CoreClient')
-
+    return get_client_factory(organization).get_core_client()
+    
 
 def get_git_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'v5_0.git.git_client.GitClient')
+    return get_client_factory(organization).get_git_client()
 
 
 def get_identity_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'v5_0.identity.identity_client.IdentityClient')
+    return get_client_factory(organization).get_identity_client()
 
 
 def get_service_endpoint_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'v5_0.service_endpoint.service_endpoint_client.ServiceEndpointClient')
+    return get_client_factory(organization).get_service_endpoint_client()
 
 
 def get_location_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'v5_0.location.location_client.LocationClient')
+    return get_client_factory(organization).get_location_client()
 
 
 def get_member_entitlement_management_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'v5_0.member_entitlement_management.'
-                                 'member_entitlement_management_client.MemberEntitlementManagementClient')
+    return get_client_factory(organization).get_member_entitlement_management_client()
 
 
 def get_operations_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'v5_0.operations.operations_client.OperationsClient')
+    return get_client_factory(organization).get_operations_client()
 
 
 def get_policy_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'v5_0.policy.policy_client.PolicyClient')
+    return get_client_factory(organization).get_policy_client()
 
 
 def get_settings_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'v5_0.settings.settings_client.SettingsClient')
+    return get_client_factory(organization).get_settings_client()
 
 
 def get_task_agent_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'v5_0.task_agent.task_agent_client.TaskAgentClient')
+    return get_client_factory(organization).get_task_agent_client()
 
 
 def get_work_item_tracking_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'v5_0.work_item_tracking.'
-                                 'work_item_tracking_client.WorkItemTrackingClient')
+    return get_client_factory(organization).get_work_item_tracking_client()
 
 
 def get_extension_client(organization=None):
-    connection = get_connection(organization)
-    return connection.get_client(VSTS_MODULE +
-                                 'v5_0.extension_management.extension_management_client.ExtensionManagementClient')
+    return get_client_factory(organization).get_extension_management_client()
 
 
 def get_base_url(organization):
