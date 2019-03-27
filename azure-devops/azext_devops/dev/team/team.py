@@ -4,8 +4,8 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.util import CLIError
-from azext_devops.vstsCompressed.core.v4_0.models.models import WebApiTeam
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
+from azext_devops.devops_sdk.v5_0.core.models import WebApiTeam
+from azext_devops.devops_sdk.exceptions import AzureDevOpsServiceError
 from azext_devops.dev.common.services import (get_core_client,
                                               resolve_instance_and_project)
 
@@ -16,7 +16,7 @@ def create_team(name, description=None, organization=None, project=None, detect=
     :type name: str
     :param description: Description of the new team.
     :type description: str
-    :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
+    :rtype: :class:`<WebApiTeam> <v5_0.core.models.WebApiTeam>`
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -42,7 +42,7 @@ def get_team(team, organization=None, project=None, detect=None):
     """Show team details.
     :param team: The name or id of the team to show.
     :type team: str
-    :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
+    :rtype: :class:`<WebApiTeam> <v5_0.core.models.WebApiTeam>`
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -80,7 +80,7 @@ def get_team_members(team, top=None, skip=None, organization=None, project=None,
                                                          organization=organization,
                                                          project=project)
     core_client = get_core_client(organization)
-    return core_client.get_team_members(team_id=team, top=top, skip=skip, project_id=project)
+    return core_client.get_team_members_with_extended_properties(team_id=team, top=top, skip=skip, project_id=project)
 
 
 def update_team(team, name=None, description=None, organization=None, project=None, detect=None):
@@ -91,7 +91,7 @@ def update_team(team, name=None, description=None, organization=None, project=No
     :type name: str
     :param description: New description of the team.
     :type description: str
-    :rtype: :class:`<WebApiTeam> <core.v4_0.models.WebApiTeam>`
+    :rtype: :class:`<WebApiTeam> <v5_0.core.models.WebApiTeam>`
     """
     if name is None and description is None:
         raise CLIError('Either name or description argument must be provided.')
@@ -102,5 +102,5 @@ def update_team(team, name=None, description=None, organization=None, project=No
         core_client = get_core_client(organization)
         updated_team_data = WebApiTeam(name=name, description=description)
         return core_client.update_team(team_data=updated_team_data, project_id=project, team_id=team)
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)

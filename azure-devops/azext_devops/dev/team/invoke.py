@@ -8,9 +8,9 @@ from knack.log import get_logger
 from knack.util import CLIError
 
 from azext_devops.dev.common.services import (resolve_instance,
-                                              get_vss_connection)
+                                              get_connection)
 
-from azext_devops.vstsCompressed.vss_client import VssClient
+from azext_devops.devops_sdk.client import Client
 
 
 logger = get_logger(__name__)
@@ -31,7 +31,7 @@ def invoke(area=None, resource=None,
     version = apiVersionToFloat(api_version)
 
     organization = resolve_instance(detect=detect, organization=organization)
-    connection = get_vss_connection(organization)
+    connection = get_connection(organization)
 
     request_body = None
     if in_file:
@@ -57,7 +57,7 @@ def invoke(area=None, resource=None,
         for x in service_list:
             try:
                 logger.info('trying to get locations from %s', x)
-                clientMock = VssClient(x, connection._creds)
+                clientMock = Client(x, connection._creds)
                 resource_location_on_this_service = clientMock._get_resource_locations(all_host_types=True)
                 resource_locations.extend(resource_location_on_this_service)
             except:  # pylint: disable=bare-except
@@ -77,7 +77,7 @@ def invoke(area=None, resource=None,
     if not client_url:
         raise CLIError('--area is not present in current organization')
 
-    client = VssClient(client_url, connection._creds)
+    client = Client(client_url, connection._creds)
 
     # there can be multiple resouce/ area with different version so this version comparision is needed
     location_id = ''

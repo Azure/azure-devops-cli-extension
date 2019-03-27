@@ -5,6 +5,7 @@
 
 import os
 import unittest
+import pytest
 
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
@@ -12,6 +13,7 @@ from .utilities.helper import disable_telemetry, set_authentication, get_test_or
 
 DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
+@pytest.mark.skip(reason="no way of currently testing this")
 class PipelinesBuildTaskTests(ScenarioTest): 
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry

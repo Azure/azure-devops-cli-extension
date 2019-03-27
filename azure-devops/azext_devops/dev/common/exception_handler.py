@@ -12,7 +12,7 @@ logger = get_logger(__name__)
 def azure_devops_exception_handler(ex):
     # we are taking dependency on string here because taking dependency on
     # Azure DevOps Client will increase load time for every command
-    if type(ex).__name__ == 'VstsServiceError':
+    if type(ex).__name__ == 'AzureDevOpsServiceError':
         logger.debug('handling vsts service error')
         raise CLIError(ex)
     else:

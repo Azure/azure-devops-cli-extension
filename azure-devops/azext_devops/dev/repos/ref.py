@@ -5,8 +5,8 @@
 
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.vstsCompressed.git.v4_0.models import GitRefUpdate
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
+from azext_devops.devops_sdk.v5_0.git.models import GitRefUpdate
+from azext_devops.devops_sdk.exceptions import AzureDevOpsServiceError
 from azext_devops.dev.common.git import resolve_git_refs
 from azext_devops.dev.common.services import (get_git_client,
                                               resolve_instance_project_and_repo)
@@ -33,7 +33,7 @@ def list_refs(filter=None, repository=None, organization=None, project=None, det
         return client.get_refs(repository_id=repository,
                                project=project,
                                filter=filter)
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)
 
 
@@ -62,7 +62,7 @@ def create_ref(name, object_id, repository=None, organization=None, project=None
         return client.update_refs(ref_updates=[ref_update],
                                   repository_id=repository,
                                   project=project)[0]
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)
 
 
@@ -88,7 +88,7 @@ def delete_ref(name, object_id, repository=None, organization=None, project=None
         return client.update_refs(ref_updates=[ref_update],
                                   repository_id=repository,
                                   project=project)[0]
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)
 
 
@@ -127,5 +127,5 @@ def _update_ref(name, locked, repository, organization, project, detect):
                                  repository_id=repository,
                                  filter=name,
                                  project=project)
-    except VstsServiceError as ex:
+    except AzureDevOpsServiceError as ex:
         raise CLIError(ex)

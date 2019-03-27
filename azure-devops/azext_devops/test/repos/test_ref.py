@@ -12,7 +12,7 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch, ANY
 
-from azext_devops.vstsCompressed.git.v4_0.git_client import GitClient
+from azext_devops.devops_sdk.v5_0.git.git_client import GitClient
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.dev.repos.ref import (list_refs, create_ref, delete_ref, lock_ref, unlock_ref)
 from azext_devops.test.utils.authentication import AuthenticatedTests
@@ -24,16 +24,16 @@ class TestRefMethods(AuthenticatedTests):
     def setUp(self):
         self.authentication_setup()
         self.authenticate()
-        self.get_refs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_refs')
-        self.update_ref_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_ref')
-        self.update_refs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_refs')
+        self.get_refs_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_refs')
+        self.update_ref_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.update_ref')
+        self.update_refs_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.update_refs')
 
         self.mock_get_refs = self.get_refs_patcher.start()
         self.mock_update_ref = self.update_ref_patcher.start()
         self.mock_update_refs = self.update_refs_patcher.start()
 
         # Setup mocks for clients
-        self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client', new=get_client_mock_helper)
+        self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client', new=get_client_mock_helper)
         self.mock_get_client = self.get_client.start()
 
         # clear connection cache before running each test

@@ -16,4 +16,4 @@ exclude =
     doc
     build_scripts
 	*/test/*
-    */vstsCompressed/*
+    */devops_sdk/*

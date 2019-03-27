@@ -12,7 +12,7 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from azext_devops.vstsCompressed.member_entitlement_management.v4_1.member_entitlement_management_client import (MemberEntitlementManagementClient)
+from azext_devops.devops_sdk.v5_0.member_entitlement_management.member_entitlement_management_client import (MemberEntitlementManagementClient)
 from azext_devops.dev.team.user import (get_user_entitlements,
                                         get_user_entitlement,
                                         add_user_entitlement,
@@ -31,11 +31,12 @@ class TestUserMethods(AuthenticatedTests):
     _SKIP_VALUE = 2
     _OFF = 'Off'
     _TEST_USER_ID = 'adda517c-0398-42dc-b2a8-0d3f240757f9'
-    _USER_MGMT_CLIENT_LOCATION = 'azext_devops.vstsCompressed.member_entitlement_management.v4_1.member_entitlement_management_client.MemberEntitlementManagementClient.'
+    _USER_MGMT_CLIENT_LOCATION = 'azext_devops.devops_sdk.v5_0.member_entitlement_management.member_entitlement_management_client.MemberEntitlementManagementClient.'
 
     def setUp(self):
         self.authentication_setup()
-        self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
+        self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client')
+
         self.get_patch_op_patcher = patch('azext_devops.dev.team.user._create_patch_operation')
         self.list_user_patcher = patch(self._USER_MGMT_CLIENT_LOCATION + 'get_user_entitlements')
         self.get_user_patcher = patch(self._USER_MGMT_CLIENT_LOCATION + 'get_user_entitlement')
