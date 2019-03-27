@@ -31,14 +31,14 @@ def set_tracking_data(**kwargs):
         command_line_split = command_line_args['command'].split()
         vsts_tracking_data.feature = command_line_split[0]
         if len(command_line_split) > 1:
-            vsts_tracking_data.properties['Command'] = ''.join(command_line_split[1:])
+            vsts_tracking_data.properties['Command'] = ' '.join(command_line_split[1:])
 
         args = []
         for key, value in command_line_args.items():
             if value and isinstance(value, str) and not key.startswith('_') and key != 'command':
                 args.append(key)
 
-        vsts_tracking_data.properties['Args'] = ''.join(args)
+        vsts_tracking_data.properties['Args'] = ' '.join(args)
         vsts_tracking_data.properties['ShellType'] = _get_shell_type()
         import sys
         vsts_tracking_data.properties['IsInteractive'] = str(sys.stdin.isatty())
