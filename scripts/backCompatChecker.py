@@ -9,7 +9,8 @@ import subprocess
 
 oldArguments = []
 newArguments = []
-allowedMissingArguments = ['--azure-rm-service-prinicipal-key']
+allowedMissingArguments = {}
+allowedMissingArguments['devops service-endpoint'] = ['--azure-rm-service-prinicipal-key']
 
 class Arguments(dict):
     def __init__(self, command, name, isRequired):
@@ -74,7 +75,7 @@ def findExtension():
                 return os.path.join(p, file)
 
 newExtensionLocation = findExtension()
-subprocess.run(['az','extension','add','--source', newExtensionLocation, '-y'], shell=True, stdout=subprocess.PIPE)
+subprocess.run(['az', 'extension', 'add', '--source', newExtensionLocation, '-y'], shell=True, stdout=subprocess.PIPE)
 
 # get a set of old commands, we are not reusing the set from ext because we want to keep this clean
 oldCommands = []
@@ -109,7 +110,12 @@ for oldArgument in oldArguments:
             break
 
     if isArgumentMissing is True:
-        if oldArgument.name not in allowedMissingArguments:
+        allowedEntryFound = False
+        for key, value in allowedMissingArguments.items():
+            if oldArgument.command == key and oldArgument.name == value:
+                allowedEntryFound = True
+
+        if not allowedEntryFound:
             errorList.append('Argument missing for command ' + oldArgument.command + ' argument ' +  oldArgument.name)
 
 if len(errorList) > 0:
