@@ -12,8 +12,7 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from azext_devops.dev.common.telemetry import (set_tracking_data, 
-    try_send_telemetry_data, vsts_tracking_data)
+from azext_devops.dev.common.telemetry import (set_tracking_data, try_send_telemetry_data)
 
 
 class TestTelemetryMethods(unittest.TestCase):
@@ -39,14 +38,17 @@ class TestTelemetryMethods(unittest.TestCase):
 
 
     def test_set_tracking_data_should_set_data_correctly_with_command(self):
-        set_tracking_data(['devops', 'project', 'list'])
+        class FakeTelemetryClass:
+            def __init__(self, command):
+                self.command = command
+
+            def __iter__():
+                for key, value in self.command:
+                    yield(key, value)
+
+        command_dict = FakeTelemetryClass('devops repos list')
+        set_tracking_data(**{'args': command_dict})
+        from azext_devops.dev.common.telemetry import vsts_tracking_data
         assert vsts_tracking_data.area == 'AzureDevopsCli'
         assert vsts_tracking_data.feature == 'devops'
-        assert vsts_tracking_data.properties['Command'] == 'project list'
-
-
-    def test_set_tracking_data_should_set_data_correctly_with_none(self):
-        set_tracking_data(None)
-        assert vsts_tracking_data.area == 'AzureDevopsCli'
-        assert vsts_tracking_data.feature == None
-        assert vsts_tracking_data.properties == {} 
+        assert vsts_tracking_data.properties['Command'] == 'repos list'
