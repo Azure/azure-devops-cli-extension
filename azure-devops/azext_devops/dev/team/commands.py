@@ -66,7 +66,8 @@ extensionOps = CliCommandType(
 )
 
 wikiOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.team.wiki#{}'
+    operations_tmpl='azext_devops.dev.team.wiki#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 

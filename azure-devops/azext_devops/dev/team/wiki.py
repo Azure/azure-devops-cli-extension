@@ -6,7 +6,6 @@
 import webbrowser
 
 from knack.util import CLIError
-from vsts.exceptions import VstsServiceError
 from azext_devops.dev.common.services import (get_wiki_client,
                                               get_core_client,
                                               get_git_client,
@@ -41,33 +40,30 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     """
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(detect=detect,
-                                                                              organization=organization,
-                                                                              project=project,
-                                                                              repo=repository)
-        wiki_client = get_wiki_client(organization)
-        from vsts.wiki.v4_1.models.wiki_create_parameters_v2 import WikiCreateParametersV2
-        wiki_params = WikiCreateParametersV2()
-        wiki_params.name = name
-        wiki_params.type = wiki_type
-        project_id = _get_project_id_from_name(organization=organization,
-                                               project=project)
-        wiki_params.project_id = project_id
-        repository_id = _get_repository_id_from_name(organization=organization,
-                                                     project=project,
-                                                     repository=repository)
-        wiki_params.repository_id = repository_id
-        if mapped_path:
-            wiki_params.mapped_path = mapped_path
-        if version:
-            from vsts.wiki.v4_1.models.git_version_descriptor import GitVersionDescriptor
-            version_descriptor = GitVersionDescriptor()
-            version_descriptor.version = version
-            wiki_params.version = version_descriptor
-        return wiki_client.create_wiki(wiki_create_params=wiki_params, project=project)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project, repository = resolve_instance_project_and_repo(detect=detect,
+                                                                          organization=organization,
+                                                                          project=project,
+                                                                          repo=repository)
+    wiki_client = get_wiki_client(organization)
+    from azext_devops.devops_sdk.v5_0.wiki.models import  WikiCreateParametersV2
+    wiki_params = WikiCreateParametersV2()
+    wiki_params.name = name
+    wiki_params.type = wiki_type
+    project_id = _get_project_id_from_name(organization=organization,
+                                           project=project)
+    wiki_params.project_id = project_id
+    repository_id = _get_repository_id_from_name(organization=organization,
+                                                 project=project,
+                                                 repository=repository)
+    wiki_params.repository_id = repository_id
+    if mapped_path:
+        wiki_params.mapped_path = mapped_path
+    if version:
+        from azext_devops.devops_sdk.v5_0.wiki.models import GitVersionDescriptor
+        version_descriptor = GitVersionDescriptor()
+        version_descriptor.version = version
+        wiki_params.version = version_descriptor
+    return wiki_client.create_wiki(wiki_create_params=wiki_params, project=project)
 
 
 def delete_wiki(wiki, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
@@ -81,35 +77,29 @@ def delete_wiki(wiki, organization=None, project=None, detect=None):  # pylint: 
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        wiki_client = get_wiki_client(organization)
-        return wiki_client.delete_wiki(wiki_identifier=wiki, project=project)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    wiki_client = get_wiki_client(organization)
+    return wiki_client.delete_wiki(wiki_identifier=wiki, project=project)
 
 
 def list_wiki(organization=None, project=None, detect=None):
     """List all the wikis in a project or organization.
     :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :type organization: str
-    :param project: Name or ID of the project.
+    :param project: Name or ID of the project to filter based on project.
     :type project: str
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     """
-    try:
-        organization = resolve_instance(detect=detect,
-                                        organization=organization)
-        wiki_client = get_wiki_client(organization)
-        return wiki_client.get_all_wikis(project=project)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization = resolve_instance(detect=detect,
+                                    organization=organization)
+    wiki_client = get_wiki_client(organization)
+    return wiki_client.get_all_wikis(project=project)
 
 
-def show_wiki(wiki, organization=None, project=None, detect=None):
+def show_wiki(wiki, open=False, organization=None, project=None, detect=None):
     """Show details of a wiki.
     :param wiki: Name or Id of the wiki.
     :type wiki: str
@@ -119,15 +109,17 @@ def show_wiki(wiki, organization=None, project=None, detect=None):
     :type project: str
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
+    :param open: Open the wiki in your web browser.
+    :type open: bool
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        wiki_client = get_wiki_client(organization)
-        return wiki_client.get_wiki(wiki_identifier=wiki, project=project)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    wiki_client = get_wiki_client(organization)
+    wiki_object = wiki_client.get_wiki(wiki_identifier=wiki, project=project)
+    if open:
+        webbrowser.open_new(url=wiki_object.remote_url)
+    return wiki_object
 
 
 def add_page(wiki, path, comment=_DEFAULT_PAGE_ADD_MESSAGE, content=None, file_path=None,
@@ -150,26 +142,22 @@ def add_page(wiki, path, comment=_DEFAULT_PAGE_ADD_MESSAGE, content=None, file_p
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     """
-    try:
-        if not content and not file_path:
-            raise CLIError('Either --file-path or --content must be specified.')
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        wiki_client = get_wiki_client(organization)
-        from vsts.wiki.v4_1.models.wiki_page_create_or_update_parameters import (
-            WikiPageCreateOrUpdateParameters)
-        parameters = WikiPageCreateOrUpdateParameters()
-        if content:
-            parameters.content = content
-        if file_path:
-            fp = open(file_path, mode='r')
-            parameters.content = fp.read()
-            fp.close()
-        return wiki_client.create_or_update_page(parameters=parameters, wiki_identifier=wiki,
-                                                 project=project, path=path, version=None, comment=comment)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    if not content and not file_path:
+        raise CLIError('Either --file-path or --content must be specified.')
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    wiki_client = get_wiki_client(organization)
+    from azext_devops.devops_sdk.v5_0.wiki.models import WikiPageCreateOrUpdateParameters
+    parameters = WikiPageCreateOrUpdateParameters()
+    if content:
+        parameters.content = content
+    if file_path:
+        fp = open(file_path, mode='r')
+        parameters.content = fp.read()
+        fp.close()
+    return wiki_client.create_or_update_page(parameters=parameters, wiki_identifier=wiki,
+                                             project=project, path=path, version=None, comment=comment)
 
 
 def update_page(wiki, path, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, content=None, file_path=None,
@@ -194,26 +182,22 @@ def update_page(wiki, path, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, content=None, 
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     """
-    try:
-        if not content and not file_path:
-            raise CLIError('Either --file-path or --content must be specified.')
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        wiki_client = get_wiki_client(organization)
-        from vsts.wiki.v4_1.models.wiki_page_create_or_update_parameters import (
-            WikiPageCreateOrUpdateParameters)
-        parameters = WikiPageCreateOrUpdateParameters()
-        if content:
-            parameters.content = content
-        if file_path:
-            fp = open(file_path, mode='r')
-            parameters.content = fp.read()
-            fp.close()
-        return wiki_client.create_or_update_page(parameters=parameters, wiki_identifier=wiki,
-                                                 project=project, path=path, version=page_version, comment=comment)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    if not content and not file_path:
+        raise CLIError('Either --file-path or --content must be specified.')
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    wiki_client = get_wiki_client(organization)
+    from azext_devops.devops_sdk.v5_0.wiki.models import WikiPageCreateOrUpdateParameters
+    parameters = WikiPageCreateOrUpdateParameters()
+    if content:
+        parameters.content = content
+    if file_path:
+        fp = open(file_path, mode='r')
+        parameters.content = fp.read()
+        fp.close()
+    return wiki_client.create_or_update_page(parameters=parameters, wiki_identifier=wiki,
+                                             project=project, path=path, version=page_version, comment=comment)
 
 
 def get_page(wiki, path, version=None, recursion_level=None, open=False,  # pylint: disable=redefined-builtin
@@ -233,26 +217,22 @@ def get_page(wiki, path, version=None, recursion_level=None, open=False,  # pyli
     :type organization: str
     :param project: Name or ID of the project.
     :type project: str
-    :param open: Open the pull request in your web browser.
+    :param open: Open the wiki page in your web browser.
     :type open: bool
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        wiki_client = get_wiki_client(organization)
-        page_object = wiki_client.get_page(
-            wiki_identifier=wiki, project=project, path=path,
-            recursion_level=recursion_level, version_descriptor=version,
-            include_content=include_content)
-        if open:
-            webbrowser.open_new(url=page_object.page.remote_url)
-        return page_object
-
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    wiki_client = get_wiki_client(organization)
+    page_object = wiki_client.get_page(
+        wiki_identifier=wiki, project=project, path=path,
+        recursion_level=recursion_level, version_descriptor=version,
+        include_content=include_content)
+    if open:
+        webbrowser.open_new(url=page_object.page.remote_url)
+    return page_object
 
 
 def delete_page(wiki, path, comment=_DEFAULT_PAGE_DELETE_MESSAGE, organization=None, project=None, detect=None):
@@ -270,14 +250,11 @@ def delete_page(wiki, path, comment=_DEFAULT_PAGE_DELETE_MESSAGE, organization=N
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        wiki_client = get_wiki_client(organization)
-        return wiki_client.delete_page(wiki_identifier=wiki, path=path, comment=comment, project=project)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    wiki_client = get_wiki_client(organization)
+    return wiki_client.delete_page(wiki_identifier=wiki, path=path, comment=comment, project=project)
 
 
 def _get_project_id_from_name(organization, project):
