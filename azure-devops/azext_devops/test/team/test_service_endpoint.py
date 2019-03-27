@@ -22,31 +22,33 @@ from azext_devops.dev.team.const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL
                                         SERVICE_ENDPOINT_TYPE_AZURE_RM)
 
 from azext_devops.dev.common.services import clear_connection_cache
-    
-class TestServiceEndpointMethods(unittest.TestCase):
+from azext_devops.test.utils.authentication import AuthenticatedTests
+from azext_devops.test.utils.helper import get_client_mock_helper
+
+
+class TestServiceEndpointMethods(AuthenticatedTests):
 
     _TEST_DEVOPS_ORGANIZATION = 'https://dev.azure.com/someorg'
     _TEST_PROJECT_NAME = 'sample_project'
 
     def setUp(self):
-        self.get_SEs_patcher = patch('azext_devops.vstsCompressed.service_endpoint.v4_1.service_endpoint_client.ServiceEndpointClient.get_service_endpoints')
-        self.get_SE_details_patcher = patch('azext_devops.vstsCompressed.service_endpoint.v4_1.service_endpoint_client.ServiceEndpointClient.get_service_endpoint_details')
-        self.create_SE_patcher = patch('azext_devops.vstsCompressed.service_endpoint.v4_1.service_endpoint_client.ServiceEndpointClient.create_service_endpoint')
-        self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
+        self.authentication_setup()
+        self.authenticate()
+        self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client', new=get_client_mock_helper)
+        self.get_SEs_patcher = patch('azext_devops.devops_sdk.v5_0.service_endpoint.service_endpoint_client.ServiceEndpointClient.get_service_endpoints')
+        self.get_SE_details_patcher = patch('azext_devops.devops_sdk.v5_0.service_endpoint.service_endpoint_client.ServiceEndpointClient.get_service_endpoint_details')
+        self.create_SE_patcher = patch('azext_devops.devops_sdk.v5_0.service_endpoint.service_endpoint_client.ServiceEndpointClient.create_service_endpoint')
 
+        self.mock_get_client = self.get_client.start()
         self.mock_get_SEs = self.get_SEs_patcher.start()
         self.mock_get_SE_detail = self.get_SE_details_patcher.start()
         self.mock_create_SE = self.create_SE_patcher.start()
-        self.mock_get_credential = self.get_credential_patcher.start()
 
         #clear connection cache before running each test
         clear_connection_cache()
 
     def tearDown(self):
-        self.mock_get_SEs.stop()
-        self.mock_get_credential.stop()
-        self.mock_create_SE.stop()
-        self.mock_get_SE_detail.stop()
+        patch.stopall()
 
     def test_list_service_endpoint(self):
         response = list_service_endpoints(self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)
@@ -84,7 +86,7 @@ class TestServiceEndpointMethods(unittest.TestCase):
         response = create_service_endpoint(service_endpoint_type = SERVICE_ENDPOINT_TYPE_AZURE_RM, 
                                            authorization_scheme = SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL, 
                                            name = '',
-                                           azure_rm_service_prinicipal_key = 'fake',
+                                           azure_rm_service_principal_key = 'fake',
                                            organization = self._TEST_DEVOPS_ORGANIZATION,
                                            project = self._TEST_PROJECT_NAME)
 

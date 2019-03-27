@@ -5,6 +5,7 @@
 
 import os
 import unittest
+import pytest
 
 from knack.util import CLIError
 from azure.cli.testsdk import ScenarioTest
@@ -47,7 +48,9 @@ class BoardsWorkItemTests(ScenarioTest):
 
         finally:
             #delete the work item created for test
-            delete_wi_command = 'az boards work-item delete --org ' + DEVOPS_CLI_TEST_ORGANIZATION + ' --id ' + str(wi_id) + ' --yes ' + ' --detect off --output json'
+            delete_wi_command = ('az boards work-item delete --org {org_name} --id {wit_id} --project {project_name} '
+                '--yes --detect off --output json'.format(org_name=DEVOPS_CLI_TEST_ORGANIZATION, wit_id=str(wi_id),
+                project_name=wi_test_project_name))
             delete_wi_response = self.cmd(delete_wi_command , checks=[
                 self.check('id', wi_id)
             ]).get_output_in_json()

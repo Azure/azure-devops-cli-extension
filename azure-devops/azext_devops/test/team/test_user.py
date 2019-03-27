@@ -12,7 +12,7 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from azext_devops.vstsCompressed.member_entitlement_management.v4_1.member_entitlement_management_client import (MemberEntitlementManagementClient)
+from azext_devops.devops_sdk.v5_0.member_entitlement_management.member_entitlement_management_client import (MemberEntitlementManagementClient)
 from azext_devops.dev.team.user import (get_user_entitlements,
                                         get_user_entitlement,
                                         add_user_entitlement,
@@ -20,9 +20,10 @@ from azext_devops.dev.team.user import (get_user_entitlements,
                                         update_user_entitlement)
 
 from azext_devops.dev.common.services import clear_connection_cache
+from azext_devops.test.utils.authentication import AuthenticatedTests
 
     
-class TestUserMethods(unittest.TestCase):
+class TestUserMethods(AuthenticatedTests):
 
     _TEST_DEVOPS_ORGANIZATION = 'https://someorganization.visualstudio.com'
     _TEST_PROJECT_NAME = 'sample_project'
@@ -30,11 +31,12 @@ class TestUserMethods(unittest.TestCase):
     _SKIP_VALUE = 2
     _OFF = 'Off'
     _TEST_USER_ID = 'adda517c-0398-42dc-b2a8-0d3f240757f9'
-    _USER_MGMT_CLIENT_LOCATION = 'azext_devops.vstsCompressed.member_entitlement_management.v4_1.member_entitlement_management_client.MemberEntitlementManagementClient.'
+    _USER_MGMT_CLIENT_LOCATION = 'azext_devops.devops_sdk.v5_0.member_entitlement_management.member_entitlement_management_client.MemberEntitlementManagementClient.'
 
     def setUp(self):
-        self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
-        self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
+        self.authentication_setup()
+        self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client')
+
         self.get_patch_op_patcher = patch('azext_devops.dev.team.user._create_patch_operation')
         self.list_user_patcher = patch(self._USER_MGMT_CLIENT_LOCATION + 'get_user_entitlements')
         self.get_user_patcher = patch(self._USER_MGMT_CLIENT_LOCATION + 'get_user_entitlement')
@@ -48,7 +50,6 @@ class TestUserMethods(unittest.TestCase):
         self.mock_get_user = self.get_user_patcher.start()
         self.mock_remove_user = self.remove_user_patcher.start()
         self.mock_update_user = self.update_user_patcher.start()
-        self.mock_get_credential = self.get_credential_patcher.start()
         
         #set return values
         self.mock_get_client.return_value = MemberEntitlementManagementClient(base_url=self._TEST_DEVOPS_ORGANIZATION)

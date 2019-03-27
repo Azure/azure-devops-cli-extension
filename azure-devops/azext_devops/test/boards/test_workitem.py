@@ -16,33 +16,30 @@ from azext_devops.dev.boards.work_item import (delete_work_item,
                                             show_work_item)
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
+from azext_devops.test.utils.authentication import AuthenticatedTests
 
 
-
-class TestWorkItemMethods(unittest.TestCase):
+class TestWorkItemMethods(AuthenticatedTests):
 
     _TEST_DEVOPS_ORGANIZATION = TEST_DEVOPS_ORG_URL
     _TEST_PAT_TOKEN = 'somepat'
 
     def setUp(self):
-
-        self.get_WI_patcher = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.get_work_item')
-        self.create_WI_patcher = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.create_work_item')
-        self.delete_WI_patcher = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.delete_work_item')
-        self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
+        self.authentication_setup()
+        self.authenticate()
+        self.get_WI_patcher = patch('azext_devops.devops_sdk.v5_0.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient.get_work_item')
+        self.create_WI_patcher = patch('azext_devops.devops_sdk.v5_0.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient.create_work_item')
+        self.delete_WI_patcher = patch('azext_devops.devops_sdk.v5_0.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient.delete_work_item')
         self.open_in_browser_patcher = patch('azext_devops.dev.boards.work_item._open_work_item')
-        self.validate_token_patcher = patch('azext_devops.dev.common.services.validate_token_for_instance')
 
         # patch get client so no network call is made
-        self.get_client_patcher = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client', new=get_client_mock_helper)
+        self.get_client_patcher = patch('azext_devops.devops_sdk.connection.Connection.get_client', new=get_client_mock_helper)
         self.get_client_patcher.start()
 
         #start the patchers
         self.mock_get_WI = self.get_WI_patcher.start()
         self.mock_create_WI = self. create_WI_patcher.start()
         self.mock_delete_WI = self.delete_WI_patcher.start()
-        self.mock_get_credential = self.get_credential_patcher.start()
-        self.mock_validate_token = self.validate_token_patcher.start()
         self.mock_open_browser = self.open_in_browser_patcher.start()
 
         #clear connection cache before running each test
@@ -50,12 +47,7 @@ class TestWorkItemMethods(unittest.TestCase):
 
 
     def tearDown(self):
-        self.mock_get_WI.stop()
-        self.mock_create_WI.stop()
-        self.mock_delete_WI.stop()
-        self.mock_get_credential.stop()
-        self.mock_validate_token.stop()
-        self.mock_open_browser.stop()
+        patch.stopall()
 
 
     def test_show_work_item_correct_id(self):
@@ -63,8 +55,6 @@ class TestWorkItemMethods(unittest.TestCase):
         test_work_item_id = 1
 
         # set return values
-        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
-        self.mock_validate_token.return_value = True
         self.mock_get_WI.return_value.id = test_work_item_id
 
         response = show_work_item(id=test_work_item_id, organization=self._TEST_DEVOPS_ORGANIZATION)
@@ -80,7 +70,6 @@ class TestWorkItemMethods(unittest.TestCase):
         test_work_item_id = 1
 
         # set return values
-        self.mock_validate_token.return_value = True
         self.mock_get_WI.return_value.id = test_work_item_id
 
         response = show_work_item(id=test_work_item_id, open=True, organization=self._TEST_DEVOPS_ORGANIZATION)
@@ -95,7 +84,6 @@ class TestWorkItemMethods(unittest.TestCase):
 
         test_work_item_id = 1000
 
-        self.mock_validate_token.return_value = True
         self.mock_get_WI.side_effect = Exception(r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         with self.assertRaises(Exception) as exc:
@@ -112,14 +100,13 @@ class TestWorkItemMethods(unittest.TestCase):
         test_work_item_id = 1
 
         # set return values
-        self.mock_validate_token.return_value = True
         self.mock_delete_WI.return_value.id = test_work_item_id
 
-        response = delete_work_item(id=test_work_item_id, destroy=False, organization=self._TEST_DEVOPS_ORGANIZATION, detect='Off')
+        response = delete_work_item(id=test_work_item_id, destroy=False, project='testproject', organization=self._TEST_DEVOPS_ORGANIZATION, detect='Off')
 
         # assert
         self.mock_validate_token.assert_not_called()
-        self.mock_delete_WI.assert_called_once_with(test_work_item_id, False)
+        self.mock_delete_WI.assert_called_once_with(id=test_work_item_id, project='testproject', destroy=False)
         assert response.id == test_work_item_id
 
 
@@ -127,14 +114,13 @@ class TestWorkItemMethods(unittest.TestCase):
 
         test_work_item_id = 1000
 
-        self.mock_validate_token.return_value = True
         self.mock_delete_WI.side_effect = Exception(r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         with self.assertRaises(Exception) as exc:
-            response = delete_work_item(id=test_work_item_id, organization=self._TEST_DEVOPS_ORGANIZATION)
+            response = delete_work_item(id=test_work_item_id, project='test', organization=self._TEST_DEVOPS_ORGANIZATION)
         self.assertEqual(str(exc.exception),r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
-        self.mock_delete_WI.assert_called_once_with(test_work_item_id,False)
+        self.mock_delete_WI.assert_called_once_with(id=test_work_item_id, project='test', destroy=False)
         self.mock_validate_token.assert_not_called()
 
 

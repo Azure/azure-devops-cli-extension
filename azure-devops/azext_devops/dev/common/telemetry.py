@@ -6,7 +6,7 @@
 import threading
 from knack.log import get_logger
 
-from azext_devops.vstsCompressed.customer_intelligence.v4_0.models.models import CustomerIntelligenceEvent
+from azext_devops.devops_sdk.v5_0.customer_intelligence.models import CustomerIntelligenceEvent
 
 logger = get_logger(__name__)
 

@@ -12,10 +12,8 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from azext_devops.vstsCompressed.git.v4_0.models.models import GitPullRequest
-from azext_devops.vstsCompressed.git.v4_0.models.models import GitRepository
-from azext_devops.vstsCompressed.git.v4_0.models.models import TeamProjectReference
-from azext_devops.vstsCompressed.git.v4_0.git_client import GitClient
+from azext_devops.devops_sdk.v5_0.git.models import GitPullRequest, GitRepository, TeamProjectReference
+from azext_devops.devops_sdk.v5_0.git.git_client import GitClient
 from azext_devops.dev.repos.pull_request import (create_pull_request,
                                                  show_pull_request,
                                                  list_pull_requests,
@@ -35,10 +33,11 @@ from azext_devops.dev.repos.pull_request import (create_pull_request,
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads
                                             
 from azext_devops.dev.common.services import clear_connection_cache
+from azext_devops.test.utils.authentication import AuthenticatedTests
 from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
 
 
-class TestPullRequestMethods(unittest.TestCase):
+class TestPullRequestMethods(AuthenticatedTests):
 
     _TEST_DEVOPS_ORGANIZATION = TEST_DEVOPS_ORG_URL
     _TEST_PAT_TOKEN = 'pat_token'
@@ -50,36 +49,33 @@ class TestPullRequestMethods(unittest.TestCase):
     _TEST_PR_DESCRIPTION = 'sample_pr_description'
 
     def setUp(self):
-
-        self.create_PR_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.create_pull_request')
-        self.udpate_PR_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_pull_request')
-        self.get_PR_byId_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_request_by_id')
-        self.get_PR_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_request')
-        self.get_PRsByProject_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_requests_by_project')
-        self.get_PRs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_requests')
-        self.create_PR_reviewers_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.create_pull_request_reviewers')
-        self.create_PR_reviewer_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.create_pull_request_reviewer')
-        self.delete_PR_reviewers_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.delete_pull_request_reviewer')
-        self.get_PR_reviewers_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_request_reviewers')
-        self.get_PR_WIs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_request_work_items')
+        self.authentication_setup()
+        self.authenticate()
+        self.create_PR_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.create_pull_request')
+        self.udpate_PR_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.update_pull_request')
+        self.get_PR_byId_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request_by_id')
+        self.get_PR_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request')
+        self.get_PRsByProject_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_requests_by_project')
+        self.get_PRs_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_requests')
+        self.create_PR_reviewers_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.create_pull_request_reviewers')
+        self.create_PR_reviewer_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.create_pull_request_reviewer')
+        self.delete_PR_reviewers_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.delete_pull_request_reviewer')
+        self.get_PR_reviewers_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request_reviewers')
+        self.get_PR_WIs_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request_work_item_refs')
         
         # patch get client so no network call is made
-        self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client', new=get_client_mock_helper)
+        self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client', new=get_client_mock_helper)
 
-        self.resolve_identity_patcher = patch('azext_devops.dev.common.identities.resolve_identity_as_id')
-
-        self.get_credential_patcher = patch('azext_devops.dev.common.services.get_credential')
         self.open_in_browser_patcher = patch('azext_devops.dev.boards.work_item._open_work_item')
-        self.validate_token_patcher = patch('azext_devops.dev.common.services.validate_token_for_instance')
 
         self.resolve_reviewers_as_refs_patcher = patch('azext_devops.dev.repos.pull_request._resolve_reviewers_as_refs')
         self.resolve_reviewers_as_ids = patch('azext_devops.dev.repos.pull_request._resolve_reviewers_as_ids')
 
-        self.update_WI_patcher = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.update_work_item')
-        self.get_WIs_pacther = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.get_work_items')
+        self.update_WI_patcher = patch('azext_devops.devops_sdk.v5_0.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient.update_work_item')
+        self.get_WIs_pacther = patch('azext_devops.devops_sdk.v5_0.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient.get_work_items')
 
-        self.get_policy_evaluation_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.get_policy_evaluations')
-        self.requeue_policy_evaluation_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.requeue_policy_evaluation')
+        self.get_policy_evaluation_patcher = patch('azext_devops.devops_sdk.v5_0.policy.policy_client.PolicyClient.get_policy_evaluations')
+        self.requeue_policy_evaluation_patcher = patch('azext_devops.devops_sdk.v5_0.policy.policy_client.PolicyClient.requeue_policy_evaluation')
 
         #start the patchers
         self.mock_create_PR = self.create_PR_patcher.start()
@@ -93,9 +89,6 @@ class TestPullRequestMethods(unittest.TestCase):
         self.mock_delete_PR_reviewer = self.delete_PR_reviewers_patcher.start()
         self.mock_get_PR_reviewer = self.get_PR_reviewers_patcher.start()
         self.mock_get_PR_WIs = self.get_PR_WIs_patcher.start()
-        self.mock_resolve_identity = self.resolve_identity_patcher.start()
-        self.mock_get_credential = self.get_credential_patcher.start()
-        self.mock_validate_token = self.validate_token_patcher.start()
         self.mock_open_browser = self.open_in_browser_patcher.start()
         self.mock_resolve_reviewers_as_refs = self.resolve_reviewers_as_refs_patcher.start()
         self.mock_resolve_reviewers_as_ids = self.resolve_reviewers_as_ids.start()
@@ -112,27 +105,7 @@ class TestPullRequestMethods(unittest.TestCase):
 
 
     def tearDown(self):
-        self.mock_create_PR.stop()
-        self.mock_update_PR.stop()
-        self.mock_get_PR_byId.stop()
-        self.mock_get_PR.stop()
-        self.mock_get_PRsByProject.stop()
-        self.mock_get_PRs.stop()
-        self.mock_create_PR_reviewers.stop()
-        self.mock_create_PR_reviewer.stop()
-        self.mock_delete_PR_reviewer.stop()
-        self.mock_get_PR_reviewer.stop()
-        self.mock_get_PR_WIs.stop()
-        self.mock_resolve_identity.stop()
-        self.mock_get_credential.stop()
-        self.mock_validate_token.stop()
-        self.mock_open_browser.stop()
-        self.mock_resolve_reviewers_as_refs.stop()
-        self.mock_resolve_reviewers_as_ids.stop()
-        self.mock_udpate_WI.stop()
-        self.mock_get_WIs.stop()
-        self.mock_get_policy_evaluation.stop()
-        self.mock_requeue_policy_evaluation.stop()
+        patch.stopall()
 
 
     def test_create_pull_request(self):
@@ -140,7 +113,6 @@ class TestPullRequestMethods(unittest.TestCase):
         test_pr_id = 1
 
         # set return values
-        self.mock_validate_token.return_value = True
         self.mock_create_PR.return_value.id = test_pr_id
 
         response = create_pull_request(project = self._TEST_PROJECT_NAME,
@@ -170,10 +142,6 @@ class TestPullRequestMethods(unittest.TestCase):
 
         test_pr_id = 1
         merge_complete_message = 'merge complete message'
-
-        # set return values
-        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
-        self.mock_validate_token.return_value = True
 
         #big setup because this object is passed around in create with auto complete flow
         pr_to_return = GitPullRequest()
@@ -208,10 +176,6 @@ class TestPullRequestMethods(unittest.TestCase):
         test_pr_id = 1
         test_project_id = 20
         test_repository_id = 25
-
-        # set return values
-        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
-        self.mock_validate_token.return_value = True
 
         #big setup because this object is passed around
         pr_to_return = GitPullRequest()
@@ -427,10 +391,6 @@ class TestPullRequestMethods(unittest.TestCase):
         test_project_id = 20
         test_repository_id = 25
 
-        # set return values
-        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
-        self.mock_validate_token.return_value = True
-
         #big setup because this object is passed around
         pr_to_return = GitPullRequest()
         pr_to_return.pull_request_id = test_pr_id
@@ -452,10 +412,6 @@ class TestPullRequestMethods(unittest.TestCase):
         test_pr_id = 1
         test_project_id = 20
         test_repository_id = 25
-
-        # set return values
-        self.mock_get_credential.return_value = self._TEST_PAT_TOKEN
-        self.mock_validate_token.return_value = True
 
         #big setup because this object is passed around
         pr_to_return = GitPullRequest()

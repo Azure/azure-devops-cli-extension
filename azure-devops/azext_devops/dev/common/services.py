@@ -11,7 +11,7 @@ from knack.log import get_logger
 from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from azure.cli.core._profile import Profile
-from azext_devops.vstsCompressed.vss_connection import VssConnection
+from azext_devops.devops_sdk.connection import Connection
 from azext_devops.version import VERSION
 from .arguments import should_detect
 from .const import (DEFAULTS_SECTION,
@@ -26,18 +26,18 @@ from .uri import uri_parse_instance_from_git_uri
 logger = get_logger(__name__)
 
 
-def get_vss_connection(organization):
+def get_connection(organization):
     organization = organization.lower()
-    if organization not in _vss_connection:
+    if organization not in _connection:
         credentials = _get_credentials(organization)
         try:
             from .telemetry import try_send_telemetry_data
-            _vss_connection[organization] = _get_vss_connection(organization, credentials)
+            _connection[organization] = _get_connection(organization, credentials)
             try_send_telemetry_data(organization)
         except Exception as ex:
             logger.debug(ex, exc_info=True)
             raise CLIError(ex)
-    return _vss_connection[organization]
+    return _connection[organization]
 
 
 def _get_credentials(organization):
@@ -76,8 +76,8 @@ def validate_token_for_instance(organization, credentials):
     logger.debug("instance recieved in validate_token_for_instance %s", organization)
     organization = uri_parse_instance_from_git_uri(organization)
     logger.debug("instance processed in validate_token_for_instance %s", organization)
-    connection = _get_vss_connection(organization, credentials)
-    core_client = connection.get_client(VSTS_MODULE + 'core.v4_0.core_client.CoreClient')
+    connection = _get_connection(organization, credentials)
+    core_client = connection.get_client(VSTS_MODULE + 'v5_0.core.core_client.CoreClient')
     try:
         core_client.get_projects(state_filter='all', top=1, skip=0)
         return True
@@ -136,93 +136,93 @@ def get_token_from_az_login(profile, user, tenant):
         return ""
 
 
-def _get_vss_connection(organization, credentials):
-    return VssConnection(get_base_url(organization), creds=credentials,
-                         user_agent='devOpsCli/{}'.format(VERSION))
+def _get_connection(organization, credentials):
+    return Connection(get_base_url(organization), creds=credentials,
+                      user_agent='devOpsCli/{}'.format(VERSION))
 
 
 def get_first_vss_instance_uri():
-    for key in _vss_connection:
+    for key in _connection:
         return key
 
 
 def get_release_client(team_instance=None):
-    connection = get_vss_connection(team_instance)
-    return connection.get_client(VSTS_MODULE + 'release.v4_0.release_client.ReleaseClient')
+    connection = get_connection(team_instance)
+    return connection.get_client(VSTS_MODULE + 'v5_0.release.release_client.ReleaseClient')
 
 
 def get_build_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'build.v4_0.build_client.BuildClient')
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.build.build_client.BuildClient')
 
 
 def get_ci_client(organization=None):
-    connection = get_vss_connection(organization)
+    connection = get_connection(organization)
     return connection.get_client(
-        VSTS_MODULE + 'customer_intelligence.v4_0.customer_intelligence_client.CustomerIntelligenceClient')
+        VSTS_MODULE + 'v5_0.customer_intelligence.customer_intelligence_client.CustomerIntelligenceClient')
 
 
 def get_core_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'core.v4_0.core_client.CoreClient')
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.core.core_client.CoreClient')
 
 
 def get_git_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'git.v4_0.git_client.GitClient')
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.git.git_client.GitClient')
 
 
 def get_identity_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'identity.v4_0.identity_client.IdentityClient')
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.identity.identity_client.IdentityClient')
 
 
 def get_service_endpoint_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'service_endpoint.v4_1.service_endpoint_client.ServiceEndpointClient')
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.service_endpoint.service_endpoint_client.ServiceEndpointClient')
 
 
 def get_location_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'location.v4_0.location_client.LocationClient')
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.location.location_client.LocationClient')
 
 
 def get_member_entitlement_management_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'member_entitlement_management.v4_1.'
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.member_entitlement_management.'
                                  'member_entitlement_management_client.MemberEntitlementManagementClient')
 
 
 def get_operations_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'operations.v4_0.operations_client.OperationsClient')
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.operations.operations_client.OperationsClient')
 
 
 def get_policy_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'policy.v4_0.policy_client.PolicyClient')
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.policy.policy_client.PolicyClient')
 
 
 def get_settings_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'settings.v4_0.settings_client.SettingsClient')
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.settings.settings_client.SettingsClient')
 
 
 def get_task_agent_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'task_agent.v4_0.task_agent_client.TaskAgentClient')
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.task_agent.task_agent_client.TaskAgentClient')
 
 
 def get_work_item_tracking_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'work_item_tracking.v4_0.'
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.work_item_tracking.'
                                  'work_item_tracking_client.WorkItemTrackingClient')
 
 
 def get_extension_client(organization=None):
-    connection = get_vss_connection(organization)
+    connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE +
-                                 'extension_management.v4_1.extension_management_client.ExtensionManagementClient')
+                                 'v5_0.extension_management.extension_management_client.ExtensionManagementClient')
 
 
 def get_base_url(organization):
@@ -330,9 +330,9 @@ def get_authentication_error(message):
 
 
 def clear_connection_cache():
-    _vss_connection.clear()
+    _connection.clear()
 
 
 _connection_data = {}
-_vss_connection = OrderedDict()
-VSTS_MODULE = 'azext_devops.vstsCompressed.'
+_connection = OrderedDict()
+VSTS_MODULE = 'azext_devops.devops_sdk.'

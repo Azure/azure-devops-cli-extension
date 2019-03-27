@@ -7,17 +7,13 @@ import webbrowser
 
 from knack.log import get_logger
 from knack.util import CLIError
-from azext_devops.vstsCompressed.exceptions import VstsClientRequestError
-from azext_devops.vstsCompressed.git.v4_0.models.models import GitPullRequest
-from azext_devops.vstsCompressed.git.v4_0.models.models import GitPullRequestCompletionOptions
-from azext_devops.vstsCompressed.git.v4_0.models.models import GitPullRequestSearchCriteria
-from azext_devops.vstsCompressed.git.v4_0.models.models import IdentityRef
-from azext_devops.vstsCompressed.git.v4_0.models.models import IdentityRefWithVote
-from azext_devops.vstsCompressed.git.v4_0.models.models import ResourceRef
-from azext_devops.vstsCompressed.work_item_tracking.v4_0.models.models import JsonPatchOperation
-from azext_devops.vstsCompressed.work_item_tracking.v4_0.models.models import WorkItemRelation
+from azext_devops.devops_sdk.exceptions import AzureDevOpsClientRequestError
+from azext_devops.devops_sdk.v5_0.git.models import (GitPullRequest, GitPullRequestCompletionOptions,
+                                                     GitPullRequestSearchCriteria, IdentityRef, IdentityRefWithVote,
+                                                     ResourceRef, GitRefFavorite)
+from azext_devops.devops_sdk.v5_0.work_item_tracking.models import JsonPatchOperation, WorkItemRelation
 from azext_devops.dev.common.arguments import resolve_on_off_switch, should_detect
-from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads
+from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads, fetch_remote_and_checkout
 from azext_devops.dev.common.identities import ME, resolve_identity_as_id
 from azext_devops.dev.common.uri import uri_quote
 from azext_devops.dev.common.uuid import EMPTY_UUID
@@ -25,7 +21,8 @@ from azext_devops.dev.common.services import (get_git_client,
                                               get_policy_client,
                                               get_work_item_tracking_client,
                                               resolve_instance,
-                                              resolve_instance_project_and_repo)
+                                              resolve_instance_project_and_repo,
+                                              get_vsts_info_from_current_remote_url)
 
 logger = get_logger(__name__)
 
@@ -36,7 +33,7 @@ def show_pull_request(id, open=False, organization=None, detect=None):  # pylint
     :type id: int
     :param open: Open the pull request in your web browser.
     :type open: bool
-    :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
+    :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_git_client(organization)
@@ -73,7 +70,7 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     :type skip: int
     :param top: Maximum number of pull requests to list.
     :type top: int
-    :rtype: list of :class:`VssJsonCollectionWrapper <git.v4_0.models.VssJsonCollectionWrapper>`
+    :rtype: list of :class:`VssJsonCollectionWrapper <v5_0.git.models.VssJsonCollectionWrapper>`
     """
     organization, project, repository = resolve_instance_project_and_repo(
         detect=detect,
@@ -145,7 +142,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
                    (e.g. Active -> Resolved)
     :type transition_work_items: bool
-    :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
+    :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
     """
     organization, project, repository = resolve_instance_project_and_repo(
         detect=detect,
@@ -265,7 +262,7 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
                    (e.g. Active -> Resolved)
     :type transition_work_items: str
-    :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
+    :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_git_client(organization)
@@ -313,7 +310,7 @@ def complete_pull_request(id, organization=None, detect=None):  # pylint: disabl
     """Complete a pull request.
     :param id: ID of the pull request to complete.
     :type id: int
-    :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
+    :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
     """
     return _update_pull_request_status(pull_request_id=id, new_status='completed',
                                        organization=organization, detect=detect)
@@ -323,7 +320,7 @@ def abandon_pull_request(id, organization=None, detect=None):  # pylint: disable
     """Abandon a pull request.
     :param id: ID of the pull request to abandon.
     :type id: int
-    :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
+    :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
     """
     return _update_pull_request_status(pull_request_id=id, new_status='abandoned',
                                        organization=organization, detect=detect)
@@ -333,7 +330,7 @@ def reactivate_pull_request(id, organization=None, detect=None):  # pylint: disa
     """Reactivate an abandoned pull request.
     :param id: ID of the pull request to reactivate.
     :type id: int
-    :rtype: :class:`GitPullRequest <git.v4_0.models.GitPullRequest>`
+    :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
     """
     return _update_pull_request_status(pull_request_id=id, new_status='active',
                                        organization=organization, detect=detect)
@@ -345,7 +342,7 @@ def create_pull_request_reviewers(id, reviewers, organization=None, detect=None)
     :type id: int
     :param reviewers: Users or groups to include as reviewers on a pull request. Space separated.
     :type reviewers: list of str
-    :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
+    :rtype: list of :class:`IdentityRefWithVote <v5_0.git.models.IdentityRefWithVote>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_git_client(organization)
@@ -364,7 +361,7 @@ def delete_pull_request_reviewers(id, reviewers, organization=None, detect=None)
     :type id: int
     :param reviewers: Users or groups to remove as reviewers on a pull request. Space separated.
     :type reviewers: list of str
-    :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
+    :rtype: list of :class:`IdentityRefWithVote <v5_0.git.models.IdentityRefWithVote>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_git_client(organization)
@@ -384,7 +381,7 @@ def list_pull_request_reviewers(id, organization=None, detect=None):  # pylint: 
     """List reviewers of a pull request.
     :param id: ID of the pull request.
     :type id: int
-    :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
+    :rtype: list of :class:`IdentityRefWithVote <v5_0.git.models.IdentityRefWithVote>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_git_client(organization)
@@ -400,7 +397,7 @@ def add_pull_request_work_items(id, work_items, organization=None, detect=None):
     :type id: int
     :param work_items: IDs of the work items to link. Space separated.
     :type work_items: list of int
-    :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
+    :rtype: list of :class:`AssociatedWorkItem <v5_0.git.models.AssociatedWorkItem>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_git_client(organization)
@@ -422,18 +419,44 @@ def add_pull_request_work_items(id, work_items, organization=None, detect=None):
             patch_document.append(patch_operation)
             try:
                 wit_client.update_work_item(document=patch_document, id=work_item_id)
-            except VstsClientRequestError as ex:
+            except AzureDevOpsClientRequestError as ex:
                 logger.debug(ex, exc_info=True)
                 message = ex.args[0]
                 if message != 'Relation already exists.':
                     raise CLIError(ex)
-        refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
-                                                  repository_id=existing_pr.repository.id,
-                                                  pull_request_id=id)
+        refs = client.get_pull_request_work_item_refs(project=existing_pr.repository.project.id,
+                                                      repository_id=existing_pr.repository.id,
+                                                      pull_request_id=id)
     ids = []
     for ref in refs:
         ids.append(ref.id)
     return wit_client.get_work_items(ids=ids)
+
+
+def checkout(id, remote_name='origin'):  # pylint: disable=redefined-builtin
+    """Checkout the PR source branch locally, if no local changes are present
+    :param id: ID of the pull request.
+    :type id: int
+    :param remote_name: Name of git remote against which PR is raised
+    :type remote_name: str
+    """
+    git_info = get_vsts_info_from_current_remote_url()
+    organization = git_info.uri
+    if not organization:
+        raise CLIError('This command should be used from a valid Azure DevOps git repository only')
+
+    client = get_git_client(organization)
+    pr = client.get_pull_request_by_id(id)
+
+    # favorite the ref
+    refFavoriteRequest = GitRefFavorite(name=pr.source_ref_name, repository_id=pr.repository.id, type=2)
+    try:
+        client.create_favorite(favorite=refFavoriteRequest, project=pr.repository.project.id)
+    except Exception as ex:  # pylint: disable=broad-except
+        if 'is already a favorite for user' not in str(ex):
+            raise ex
+
+    fetch_remote_and_checkout(pr.source_ref_name, remote_name)
 
 
 def remove_pull_request_work_items(id, work_items, organization=None, detect=None):  # pylint: disable=redefined-builtin
@@ -442,7 +465,7 @@ def remove_pull_request_work_items(id, work_items, organization=None, detect=Non
     :type id: int
     :param work_items: IDs of the work items to unlink. Space separated.
     :type work_items: list of int
-    :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
+    :rtype: list of :class:`AssociatedWorkItem <v5_0.git.models.AssociatedWorkItem>`
     """
     # pylint: disable=too-many-nested-blocks
     organization = resolve_instance(detect=detect, organization=organization)
@@ -476,9 +499,9 @@ def remove_pull_request_work_items(id, work_items, organization=None, detect=Non
                             wit_client.update_work_item(document=patch_document, id=work_item.id)
                         else:
                             index += 1
-            refs = client.get_pull_request_work_items(project=existing_pr.repository.project.id,
-                                                      repository_id=existing_pr.repository.id,
-                                                      pull_request_id=id)
+            refs = client.get_pull_request_work_item_refs(project=existing_pr.repository.project.id,
+                                                          repository_id=existing_pr.repository.id,
+                                                          pull_request_id=id)
             if refs:
                 ids = []
                 for ref in refs:
@@ -492,14 +515,14 @@ def list_pull_request_work_items(id, organization=None, detect=None):  # pylint:
     """List linked work items for a pull request.
     :param id: ID of the pull request.
     :type id: int
-    :rtype: list of :class:`AssociatedWorkItem <git.v4_0.models.AssociatedWorkItem>`
+    :rtype: list of :class:`AssociatedWorkItem <v5_0.git.models.AssociatedWorkItem>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_git_client(organization)
     pr = client.get_pull_request_by_id(id)
-    refs = client.get_pull_request_work_items(project=pr.repository.project.id,
-                                              repository_id=pr.repository.id,
-                                              pull_request_id=id)
+    refs = client.get_pull_request_work_item_refs(project=pr.repository.project.id,
+                                                  repository_id=pr.repository.id,
+                                                  pull_request_id=id)
     if refs:
         ids = []
         for ref in refs:
@@ -530,7 +553,7 @@ def vote_pull_request(id, vote, organization=None, detect=None):  # pylint: disa
     :type id: int
     :param vote: New vote value for the pull request.
     :type vote: int
-    :rtype: :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
+    :rtype: :class:`IdentityRefWithVote <v5_0.git.models.IdentityRefWithVote>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_git_client(organization)
@@ -600,7 +623,7 @@ def queue_pr_policy(id, evaluation_id, organization=None, detect=None):  # pylin
 def _resolve_reviewers_as_refs(reviewers, organization):
     """Takes a list containing identity names, emails, and ids,
     and return a list of IdentityRefWithVote objects.
-    :rtype: list of :class:`IdentityRefWithVote <git.v4_0.models.IdentityRefWithVote>`
+    :rtype: list of :class:`IdentityRefWithVote <v5_0.git.models.IdentityRefWithVote>`
     """
     resolved_reviewers = None
     if reviewers is not None and reviewers:

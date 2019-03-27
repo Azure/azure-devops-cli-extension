@@ -101,6 +101,7 @@ def load_code_commands(self, _):  # pylint: disable=too-many-statements
         g.command('update', 'update_pull_request', table_transformer=transform_pull_request_table_output)
         g.command('show', 'show_pull_request', table_transformer=transform_pull_request_table_output)
         g.command('list', 'list_pull_requests', table_transformer=transform_pull_requests_table_output)
+        g.command('checkout', 'checkout')
 
         # pr status update commands
         g.command('complete', 'complete_pull_request', table_transformer=transform_pull_request_table_output)
