@@ -79,7 +79,7 @@ def build_definition_show(id=None, name=None, open=False, organization=None, pro
 
 def _open_definition(definition, organization):
     """Opens the build definition in the default browser.
-    :param :class:`<BuildDefinitionReference> <build.v4_0.models.BuildDefinitionReference>` definition:
+    :param :class:`<BuildDefinitionReference> <v5_0.build.models.BuildDefinitionReference>` definition:
     :param str organization:
     """
     # https://dev.azure.com/OrgName/ProjectName/_build/index?definitionId=1234

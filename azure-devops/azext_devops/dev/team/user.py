@@ -4,9 +4,9 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.util import CLIError
-from azext_devops.vstsCompressed.member_entitlement_management.v4_1.models.models import (AccessLevel,
-                                                                                          GraphUser,
-                                                                                          JsonPatchOperation)
+from azext_devops.devops_sdk.v5_0.member_entitlement_management.models import (AccessLevel,
+                                                                               GraphUser,
+                                                                               JsonPatchOperation)
 from azext_devops.dev.common.services import (get_member_entitlement_management_client,
                                               resolve_instance)
 from azext_devops.dev.common.arguments import resolve_true_false

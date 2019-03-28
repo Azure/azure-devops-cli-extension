@@ -53,7 +53,7 @@ class DevCommandsLoader(AzCommandsLoader):
             # we need to set tracking data only after we know that all args are valid,
             # otherwise we may log EUII data that a user inadvertently sent as an argument
             # name.  We already don't log argument values.
-            set_tracking_data(kwargs['command'].split())
+            set_tracking_data(**kwargs)
 
 
 COMMAND_LOADER_CLS = DevCommandsLoader

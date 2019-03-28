@@ -8,7 +8,7 @@
 
 from knack.util import CLIError
 from knack.log import get_logger
-from azext_devops.vstsCompressed.policy.v4_0.models.models import PolicyConfiguration
+from azext_devops.devops_sdk.v5_0.policy.models import PolicyConfiguration
 
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.services import (get_policy_client, resolve_instance_and_project)

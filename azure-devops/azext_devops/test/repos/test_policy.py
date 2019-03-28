@@ -13,10 +13,10 @@ except ImportError:
     from mock import patch
 
 from azext_devops.dev.repos.policy import *
-from azext_devops.vstsCompressed.policy.v4_0.models.models import PolicyConfiguration, PolicyTypeRef
+from azext_devops.devops_sdk.v5_0.policy.models import PolicyConfiguration, PolicyTypeRef
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.test.utils.authentication import AuthenticatedTests
-from azext_devops.vstsCompressed.policy.v4_0.policy_client import PolicyClient
+from azext_devops.devops_sdk.v5_0.policy.policy_client import PolicyClient
 
 
 class TestUuidMethods(AuthenticatedTests):
@@ -28,12 +28,12 @@ class TestUuidMethods(AuthenticatedTests):
 
     def setUp(self):
         self.authentication_setup()
-        self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
-        self.get_policies_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.get_policy_configurations')
-        self.get_policy_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.get_policy_configuration')
-        self.delete_policy_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.delete_policy_configuration')
-        self.create_policy_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.create_policy_configuration')
-        self.update_policy_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.update_policy_configuration')
+        self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client')
+        self.get_policies_patcher = patch('azext_devops.devops_sdk.v5_0.policy.policy_client.PolicyClient.get_policy_configurations')
+        self.get_policy_patcher = patch('azext_devops.devops_sdk.v5_0.policy.policy_client.PolicyClient.get_policy_configuration')
+        self.delete_policy_patcher = patch('azext_devops.devops_sdk.v5_0.policy.policy_client.PolicyClient.delete_policy_configuration')
+        self.create_policy_patcher = patch('azext_devops.devops_sdk.v5_0.policy.policy_client.PolicyClient.create_policy_configuration')
+        self.update_policy_patcher = patch('azext_devops.devops_sdk.v5_0.policy.policy_client.PolicyClient.update_policy_configuration')
 
         self.mock_get_client = self.get_client.start()
         self.mock_get_policies = self.get_policies_patcher.start()

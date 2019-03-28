@@ -15,7 +15,8 @@ except ImportError:
 from azext_devops.dev.pipelines.build import (build_show)
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.test.utils.authentication import AuthenticatedTests
-from azext_devops.vstsCompressed.build.v4_0.build_client import BuildClient
+from azext_devops.devops_sdk.v5_0.build.build_client import BuildClient
+
 
 class TestPipelinesBuildMethods(AuthenticatedTests):
 
@@ -25,8 +26,8 @@ class TestPipelinesBuildMethods(AuthenticatedTests):
     def setUp(self):
         self.authentication_setup()
         self.authenticate()
-        self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
-        self.get_build_patcher = patch('azext_devops.vstsCompressed.build.v4_0.build_client.BuildClient.get_build')
+        self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client')
+        self.get_build_patcher = patch('azext_devops.devops_sdk.v5_0.build.build_client.BuildClient.get_build')
         self.open_in_browser_patcher = patch('azext_devops.dev.pipelines.build._open_build')
 
         #start the patchers

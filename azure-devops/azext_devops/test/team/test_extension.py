@@ -12,7 +12,7 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from azext_devops.vstsCompressed.extension_management.v4_1.extension_management_client import ExtensionManagementClient
+from azext_devops.devops_sdk.v5_0.extension_management.extension_management_client import ExtensionManagementClient
 from azext_devops.dev.team.extension import  (list_extensions,
                                               get_extension,
                                               install_extension,
@@ -31,11 +31,11 @@ class MockInstalledExtension(object):
 class TestExtensionMethods(AuthenticatedTests):
 
     _TEST_DEVOPS_ORGANIZATION = 'https://someorganization.visualstudio.com'
-    _EXT_MGMT_CLIENT_LOCATION = 'azext_devops.vstsCompressed.extension_management.v4_1.extension_management_client.ExtensionManagementClient.'
+    _EXT_MGMT_CLIENT_LOCATION = 'azext_devops.devops_sdk.v5_0.extension_management.extension_management_client.ExtensionManagementClient.'
 
     def setUp(self):
         self.authentication_setup()
-        self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client')
+        self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client')
         self.get_installed_extensions_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'get_installed_extensions')
         self.get_installed_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'get_installed_extension_by_name')
         self.install_extension_patcher = patch(self._EXT_MGMT_CLIENT_LOCATION + 'install_extension_by_name')

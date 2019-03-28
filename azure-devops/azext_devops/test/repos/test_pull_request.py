@@ -12,10 +12,8 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from azext_devops.vstsCompressed.git.v4_0.models.models import GitPullRequest
-from azext_devops.vstsCompressed.git.v4_0.models.models import GitRepository
-from azext_devops.vstsCompressed.git.v4_0.models.models import TeamProjectReference
-from azext_devops.vstsCompressed.git.v4_0.git_client import GitClient
+from azext_devops.devops_sdk.v5_0.git.models import GitPullRequest, GitRepository, TeamProjectReference
+from azext_devops.devops_sdk.v5_0.git.git_client import GitClient
 from azext_devops.dev.repos.pull_request import (create_pull_request,
                                                  show_pull_request,
                                                  list_pull_requests,
@@ -53,31 +51,31 @@ class TestPullRequestMethods(AuthenticatedTests):
     def setUp(self):
         self.authentication_setup()
         self.authenticate()
-        self.create_PR_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.create_pull_request')
-        self.udpate_PR_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.update_pull_request')
-        self.get_PR_byId_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_request_by_id')
-        self.get_PR_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_request')
-        self.get_PRsByProject_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_requests_by_project')
-        self.get_PRs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_requests')
-        self.create_PR_reviewers_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.create_pull_request_reviewers')
-        self.create_PR_reviewer_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.create_pull_request_reviewer')
-        self.delete_PR_reviewers_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.delete_pull_request_reviewer')
-        self.get_PR_reviewers_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_request_reviewers')
-        self.get_PR_WIs_patcher = patch('azext_devops.vstsCompressed.git.v4_0.git_client.GitClient.get_pull_request_work_items')
+        self.create_PR_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.create_pull_request')
+        self.udpate_PR_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.update_pull_request')
+        self.get_PR_byId_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request_by_id')
+        self.get_PR_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request')
+        self.get_PRsByProject_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_requests_by_project')
+        self.get_PRs_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_requests')
+        self.create_PR_reviewers_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.create_pull_request_reviewers')
+        self.create_PR_reviewer_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.create_pull_request_reviewer')
+        self.delete_PR_reviewers_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.delete_pull_request_reviewer')
+        self.get_PR_reviewers_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request_reviewers')
+        self.get_PR_WIs_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request_work_item_refs')
         
         # patch get client so no network call is made
-        self.get_client = patch('azext_devops.vstsCompressed.vss_connection.VssConnection.get_client', new=get_client_mock_helper)
+        self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client', new=get_client_mock_helper)
 
         self.open_in_browser_patcher = patch('azext_devops.dev.boards.work_item._open_work_item')
 
         self.resolve_reviewers_as_refs_patcher = patch('azext_devops.dev.repos.pull_request._resolve_reviewers_as_refs')
         self.resolve_reviewers_as_ids = patch('azext_devops.dev.repos.pull_request._resolve_reviewers_as_ids')
 
-        self.update_WI_patcher = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.update_work_item')
-        self.get_WIs_pacther = patch('azext_devops.vstsCompressed.work_item_tracking.v4_0.work_item_tracking_client.WorkItemTrackingClient.get_work_items')
+        self.update_WI_patcher = patch('azext_devops.devops_sdk.v5_0.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient.update_work_item')
+        self.get_WIs_pacther = patch('azext_devops.devops_sdk.v5_0.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient.get_work_items')
 
-        self.get_policy_evaluation_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.get_policy_evaluations')
-        self.requeue_policy_evaluation_patcher = patch('azext_devops.vstsCompressed.policy.v4_0.policy_client.PolicyClient.requeue_policy_evaluation')
+        self.get_policy_evaluation_patcher = patch('azext_devops.devops_sdk.v5_0.policy.policy_client.PolicyClient.get_policy_evaluations')
+        self.requeue_policy_evaluation_patcher = patch('azext_devops.devops_sdk.v5_0.policy.policy_client.PolicyClient.requeue_policy_evaluation')
 
         #start the patchers
         self.mock_create_PR = self.create_PR_patcher.start()
