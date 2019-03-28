@@ -10,7 +10,7 @@ from azext_devops.devops_sdk.v5_0.member_entitlement_management.models import (A
 from azext_devops.dev.common.services import (get_member_entitlement_management_client,
                                               resolve_instance)
 from azext_devops.dev.common.arguments import resolve_true_false
-from azext_devops.dev.common.identities import resolve_identity_as_id,get_current_identity
+from azext_devops.dev.common.identities import resolve_identity_as_id
 
 
 def get_user_entitlements(top=100, skip=None, organization=None, detect=None):
