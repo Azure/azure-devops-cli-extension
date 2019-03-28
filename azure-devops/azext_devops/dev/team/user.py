@@ -10,8 +10,10 @@ from azext_devops.devops_sdk.v5_0.member_entitlement_management.models import (A
 from azext_devops.dev.common.services import (get_member_entitlement_management_client,
                                               resolve_instance)
 from azext_devops.dev.common.arguments import resolve_true_false
-from azext_devops.dev.common.identities import resolve_identity_as_id
+from azext_devops.dev.common.identities import resolve_identity_as_id,get_current_identity
 
+from knack.log import get_logger
+logger = get_logger(__name__)
 
 def get_user_entitlements(top=100, skip=None, organization=None, detect=None):
     """List users in an organization [except for users which are added via AAD groups].
@@ -20,6 +22,8 @@ def get_user_entitlements(top=100, skip=None, organization=None, detect=None):
     :rtype: [UserEntitlement]
     """
     organization = resolve_instance(detect=detect, organization=organization)
+    current_user = get_current_identity(organization)
+    logger.info("Current user is : %s" , current_user)
     client = get_member_entitlement_management_client(organization)
     user_entitlements = client.get_user_entitlements(top=top, skip=skip)
     return user_entitlements
