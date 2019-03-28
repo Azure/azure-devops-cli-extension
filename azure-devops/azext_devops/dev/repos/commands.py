@@ -27,7 +27,8 @@ reposPullRequestOps = CliCommandType(
 )
 
 reposRefOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.repos.ref#{}'
+    operations_tmpl='azext_devops.dev.repos.ref#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 reposRepositoryOps = CliCommandType(

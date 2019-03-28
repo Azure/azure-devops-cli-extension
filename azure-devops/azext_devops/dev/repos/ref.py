@@ -4,9 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.log import get_logger
-from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.git.models import GitRefUpdate
-from azext_devops.devops_sdk.exceptions import AzureDevOpsServiceError
 from azext_devops.dev.common.git import resolve_git_refs
 from azext_devops.dev.common.services import (get_git_client,
                                               resolve_instance_project_and_repo)
@@ -23,18 +21,15 @@ def list_refs(filter=None, repository=None, organization=None, project=None, det
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(
-            detect=detect,
-            organization=organization,
-            project=project,
-            repo=repository)
-        client = get_git_client(organization)
-        return client.get_refs(repository_id=repository,
-                               project=project,
-                               filter=filter)
-    except AzureDevOpsServiceError as ex:
-        raise CLIError(ex)
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect,
+        organization=organization,
+        project=project,
+        repo=repository)
+    client = get_git_client(organization)
+    return client.get_refs(repository_id=repository,
+                           project=project,
+                           filter=filter)
 
 
 def create_ref(name, object_id, repository=None, organization=None, project=None, detect=None):
@@ -46,24 +41,21 @@ def create_ref(name, object_id, repository=None, organization=None, project=None
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(
-            detect=detect,
-            organization=organization,
-            project=project,
-            repo=repository)
-        client = get_git_client(organization)
-        # by default, the create method does not support setting the is_locked value
-        # to True.
-        ref_update = GitRefUpdate(is_locked=False,
-                                  name=resolve_git_refs(name),
-                                  new_object_id=object_id,
-                                  old_object_id='0000000000000000000000000000000000000000')
-        return client.update_refs(ref_updates=[ref_update],
-                                  repository_id=repository,
-                                  project=project)[0]
-    except AzureDevOpsServiceError as ex:
-        raise CLIError(ex)
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect,
+        organization=organization,
+        project=project,
+        repo=repository)
+    client = get_git_client(organization)
+    # by default, the create method does not support setting the is_locked value
+    # to True.
+    ref_update = GitRefUpdate(is_locked=False,
+                              name=resolve_git_refs(name),
+                              new_object_id=object_id,
+                              old_object_id='0000000000000000000000000000000000000000')
+    return client.update_refs(ref_updates=[ref_update],
+                              repository_id=repository,
+                              project=project)[0]
 
 
 def delete_ref(name, object_id, repository=None, organization=None, project=None, detect=None):
@@ -75,21 +67,18 @@ def delete_ref(name, object_id, repository=None, organization=None, project=None
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(
-            detect=detect,
-            organization=organization,
-            project=project,
-            repo=repository)
-        client = get_git_client(organization)
-        ref_update = GitRefUpdate(name=resolve_git_refs(name),
-                                  new_object_id='0000000000000000000000000000000000000000',
-                                  old_object_id=object_id)
-        return client.update_refs(ref_updates=[ref_update],
-                                  repository_id=repository,
-                                  project=project)[0]
-    except AzureDevOpsServiceError as ex:
-        raise CLIError(ex)
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect,
+        organization=organization,
+        project=project,
+        repo=repository)
+    client = get_git_client(organization)
+    ref_update = GitRefUpdate(name=resolve_git_refs(name),
+                              new_object_id='0000000000000000000000000000000000000000',
+                              old_object_id=object_id)
+    return client.update_refs(ref_updates=[ref_update],
+                              repository_id=repository,
+                              project=project)[0]
 
 
 def lock_ref(name, repository=None, organization=None, project=None, detect=None):
@@ -115,17 +104,14 @@ def unlock_ref(name, repository=None, organization=None, project=None, detect=No
 
 
 def _update_ref(name, locked, repository, organization, project, detect):
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(
-            detect=detect,
-            organization=organization,
-            project=project,
-            repo=repository)
-        client = get_git_client(organization)
-        ref_update = GitRefUpdate(is_locked=locked)
-        return client.update_ref(new_ref_info=ref_update,
-                                 repository_id=repository,
-                                 filter=name,
-                                 project=project)
-    except AzureDevOpsServiceError as ex:
-        raise CLIError(ex)
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect,
+        organization=organization,
+        project=project,
+        repo=repository)
+    client = get_git_client(organization)
+    ref_update = GitRefUpdate(is_locked=locked)
+    return client.update_ref(new_ref_info=ref_update,
+                             repository_id=repository,
+                             filter=name,
+                             project=project)
