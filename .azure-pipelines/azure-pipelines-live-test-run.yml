@@ -17,11 +17,7 @@ jobs:
     inputs:
       versionSpec: '$(python.version)'
 
-  - task: PowerShell@2
-    displayName: 'Setup test machine'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/setupCiMachine.ps1'
+  - template: templates/setup-ci-machine.yml
 
   - script: pip install "git+https://github.com/Azure/azure-cli@master#egg=azure-cli-testsdk&subdirectory=src/azure-cli-testsdk" -q
     displayName: 'Install Azure Test SDK'
@@ -35,13 +31,10 @@ jobs:
     env:
       AZURE_DEVOPS_EXT_PAT: $(pat)
 
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      # Do not run UTs since this is only for live run
-      arguments: '-outputTestResultAsJunit $True -run_UT $False'
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.7.0'
+      runOnlyRecordedTests: 'true'
     env:
       AZURE_DEVOPS_EXT_PAT: $(pat)
 
