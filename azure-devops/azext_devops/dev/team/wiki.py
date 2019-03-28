@@ -45,7 +45,7 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
                                                                           project=project,
                                                                           repo=repository)
     wiki_client = get_wiki_client(organization)
-    from azext_devops.devops_sdk.v5_0.wiki.models import  WikiCreateParametersV2
+    from azext_devops.devops_sdk.v5_0.wiki.models import WikiCreateParametersV2
     wiki_params = WikiCreateParametersV2()
     wiki_params.name = name
     wiki_params.type = wiki_type
@@ -99,7 +99,7 @@ def list_wiki(organization=None, project=None, detect=None):
     return wiki_client.get_all_wikis(project=project)
 
 
-def show_wiki(wiki, open=False, organization=None, project=None, detect=None): # pylint: disable=redefined-builtin
+def show_wiki(wiki, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details of a wiki.
     :param wiki: Name or Id of the wiki.
     :type wiki: str
