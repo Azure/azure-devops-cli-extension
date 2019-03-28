@@ -36,7 +36,7 @@ class TestUser(ScenarioTest):
                 user_remove_response = self.cmd('az devops user remove --user ' + _TEST_EMAIL_ID + ' -o json --detect off -y')
 
             #add user
-            user_add_response = self.cmd('az devops user add -o json --detect off --email-id ' + _TEST_EMAIL_ID + ' --license-type stakeholder --send-email-invite ' + 'False').get_output_in_json()
+            user_add_response = self.cmd('az devops user add -o json --detect off --email-id ' + _TEST_EMAIL_ID + ' --license-type stakeholder').get_output_in_json()
             user_id = user_add_response['id']
             assert user_add_response['user']['mailAddress'] == _TEST_EMAIL_ID
 
