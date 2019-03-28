@@ -19,6 +19,9 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
+  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
+    displayName: 'Install Azure CLI'
+
   - script: pip install "git+https://github.com/Azure/azure-cli@master#egg=azure-cli-testsdk&subdirectory=src/azure-cli-testsdk" -q
     displayName: 'Install Azure Test SDK'
 
