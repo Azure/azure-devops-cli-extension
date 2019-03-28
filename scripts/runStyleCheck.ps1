@@ -1,5 +1,3 @@
-scripts/setupCiMachine.ps1
-
 $failure = $false             
 
 Write-Output "Installing pylint"
