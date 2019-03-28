@@ -224,6 +224,7 @@ class MemberEntitlementManagementClient(Client):
                               query_parameters=query_parameters,
                               content=content,
                               media_type='application/json-patch+json')
+        print("Add user API response:"+response)
         return self._deserialize('UserEntitlementOperationReference', response)
 
     def delete_user_entitlement(self, user_id):

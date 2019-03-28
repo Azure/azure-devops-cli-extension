@@ -23,7 +23,8 @@ def get_user_entitlements(top=100, skip=None, organization=None, detect=None):
     """
     organization = resolve_instance(detect=detect, organization=organization)
     current_user = get_current_identity(organization)
-    logger.info("Current user is : %s" , current_user)
+    print("Current user is : " + current_user.id)
+    print("Descriptor for user is : " + current_user.descriptor)
     client = get_member_entitlement_management_client(organization)
     user_entitlements = client.get_user_entitlements(top=top, skip=skip)
     return user_entitlements
