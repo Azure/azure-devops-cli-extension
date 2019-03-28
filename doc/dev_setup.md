@@ -85,5 +85,3 @@ Run `az extension list` and `az devops -h` to verify your environment is setup p
     ```
 
 1. Run `az devops -h` again to verify if extension is installed properly.
-
-1. Run `tests\runTests.ps1` to run recorded tests.
