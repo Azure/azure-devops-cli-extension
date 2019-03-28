@@ -31,10 +31,8 @@ jobs:
     env:
       AZURE_DEVOPS_EXT_PAT: $(pat)
 
-  - template: templates/run-tests.yml
-    parameters:
-      pythonVersion: '3.7.0'
-      runOnlyRecordedTests: 'true'
+  - script: pytest tests --junitxml "TEST-results.xml"
+    displayName: 'Run Tests'
     env:
       AZURE_DEVOPS_EXT_PAT: $(pat)
 
