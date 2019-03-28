@@ -81,7 +81,7 @@ def banner_update(message=None, banner_type=None, id=None, expiration=None, orga
     """
     if message is None and banner_type is None and expiration is None:
         raise ValueError('At least one of the following arguments need to be supplied: --message, --type, '
-                            '--expiration.')
+                         '--expiration.')
     if expiration is not None:
         expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
     else:
