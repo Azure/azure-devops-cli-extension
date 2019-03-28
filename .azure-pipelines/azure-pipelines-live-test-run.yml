@@ -8,7 +8,36 @@ pr: none
 
 jobs:
 
+- job: 'Build_Publish_Azure_DevOps_CLI_Extension'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/build-publish-azure-devops-cli-extension.yml
+
+- job: 'Build_Publish_Azure_CLI_Test_SDK'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.7.0'
+      architecture: 'x64'
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/build-publish-azure-cli-test-sdk.yml
+
 - job: 'Run_Test_Ubuntu'
+  dependsOn : [ 'Build_Publish_Azure_CLI_Test_SDK', 'Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
     vmImage: 'Ubuntu-16.04'
   
@@ -17,14 +46,14 @@ jobs:
     inputs:
       versionSpec: '$(python.version)'
 
-  - task: PowerShell@2
-    displayName: 'Setup test machine'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/setupCiMachine.ps1'
+  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
+    displayName: 'Install Azure CLI'
 
-  - script: pip install "git+https://github.com/Azure/azure-cli@master#egg=azure-cli-testsdk&subdirectory=src/azure-cli-testsdk" -q
-    displayName: 'Install Azure Test SDK'
+  - template: templates/download-install-local-azure-test-sdk.yml
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/download-install-local-azure-devops-cli-extension.yml
 
   # Run a Python script.
   - task: PythonScript@0
@@ -35,13 +64,8 @@ jobs:
     env:
       AZURE_DEVOPS_EXT_PAT: $(pat)
 
-  - task: PowerShell@2
-    displayName: 'Run Tests'
-    inputs:
-      targetType: 'filePath'
-      filePath: 'scripts/runTests.ps1'
-      # Do not run UTs since this is only for live run
-      arguments: '-outputTestResultAsJunit $True -run_UT $False'
+  - script: pytest tests --junitxml "TEST-results.xml"
+    displayName: 'Run Live Tests'
     env:
       AZURE_DEVOPS_EXT_PAT: $(pat)
 
