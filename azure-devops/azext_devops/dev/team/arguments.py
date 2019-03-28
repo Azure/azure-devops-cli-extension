@@ -36,6 +36,7 @@ def load_global_args(context):
     context.argument('project', options_list=('--project', '-p'), help='Name or ID of the project.')
 
 
+# pylint: disable=too-many-statements
 def load_team_arguments(self, _):
     with self.argument_context('devops configure') as context:
         context.argument('defaults', options_list=('--defaults', '-d'), nargs='*')

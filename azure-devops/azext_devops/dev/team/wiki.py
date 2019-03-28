@@ -99,7 +99,7 @@ def list_wiki(organization=None, project=None, detect=None):
     return wiki_client.get_all_wikis(project=project)
 
 
-def show_wiki(wiki, open=False, organization=None, project=None, detect=None):
+def show_wiki(wiki, open=False, organization=None, project=None, detect=None): # pylint: disable=redefined-builtin
     """Show details of a wiki.
     :param wiki: Name or Id of the wiki.
     :type wiki: str
