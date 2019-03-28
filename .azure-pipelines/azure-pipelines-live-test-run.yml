@@ -65,7 +65,7 @@ jobs:
       AZURE_DEVOPS_EXT_PAT: $(pat)
 
   - script: pytest tests --junitxml "TEST-results.xml"
-    displayName: 'Run Tests'
+    displayName: 'Run Live Tests'
     env:
       AZURE_DEVOPS_EXT_PAT: $(pat)
 
