@@ -1,6 +1,4 @@
-from knack.util import CLIError
 from azext_devops.dev.common.services import resolve_instance_and_project, get_pipeline_client
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.identities import resolve_identity_as_id
 from .pipeline import _open_pipeline_run
@@ -20,16 +18,13 @@ def pipeline_run_show(id, open=False, organization=None, project=None, detect=No
     :type detect: str
     :rtype: :class:`<Build> <build.v5_1.models.Build>`
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        client = get_pipeline_client(organization)
-        build = client.get_build(build_id=id, project=project)
-        if open:
-            _open_pipeline_run(build, organization)
-        return build
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_pipeline_client(organization)
+    build = client.get_build(build_id=id, project=project)
+    if open:
+        _open_pipeline_run(build, organization)
+    return build
 
 
 def pipeline_run_list(pipeline_id=None, branch=None, organization=None, project=None, detect=None, top=None,
@@ -53,26 +48,23 @@ def pipeline_run_list(pipeline_id=None, branch=None, organization=None, project=
     :type requested_for: str
     :rtype: :class:`<Build> <build.v5_1.models.Build>`
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        client = get_pipeline_client(organization)
-        if pipeline_id is not None and pipeline_id:
-            pipeline_id = list(set(pipeline_id))  # make distinct
-        if tags is not None and tags:
-            tags = list(set(tags))  # make distinct
-        builds = client.get_builds(definitions=pipeline_id,
-                                   project=project,
-                                   branch_name=resolve_git_ref_heads(branch),
-                                   top=top,
-                                   result_filter=result,
-                                   status_filter=status,
-                                   reason_filter=reason,
-                                   tag_filters=tags,
-                                   requested_for=resolve_identity_as_id(requested_for, organization))
-        return builds
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_pipeline_client(organization)
+    if pipeline_id is not None and pipeline_id:
+        pipeline_id = list(set(pipeline_id))  # make distinct
+    if tags is not None and tags:
+        tags = list(set(tags))  # make distinct
+    builds = client.get_builds(definitions=pipeline_id,
+                               project=project,
+                               branch_name=resolve_git_ref_heads(branch),
+                               top=top,
+                               result_filter=result,
+                               status_filter=status,
+                               reason_filter=reason,
+                               tag_filters=tags,
+                               requested_for=resolve_identity_as_id(requested_for, organization))
+    return builds
 
 
 def pipeline_run_add_tag(run_id, tags, organization=None, project=None, detect=None):
@@ -83,19 +75,16 @@ def pipeline_run_add_tag(run_id, tags, organization=None, project=None, detect=N
     :type tags: str
     :rtype: list of str
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        client = get_pipeline_client(organization)
-        tags = list(map(str, tags.split(',')))
-        if len(tags) == 1:
-            tags = client.add_build_tag(project=project, build_id=run_id, tag=tags[0])
-        else:
-            tags = client.add_build_tags(tags=tags, project=project, build_id=run_id)
-        return tags
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    client = get_pipeline_client(organization)
+    tags = list(map(str, tags.split(',')))
+    if len(tags) == 1:
+        tags = client.add_build_tag(project=project, build_id=run_id, tag=tags[0])
+    else:
+        tags = client.add_build_tags(tags=tags, project=project, build_id=run_id)
+    return tags
 
 
 def pipeline_run_delete_tag(run_id, tag, organization=None, project=None, detect=None):
@@ -106,15 +95,12 @@ def pipeline_run_delete_tag(run_id, tag, organization=None, project=None, detect
     :type tag: str
     :rtype: list of str
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        client = get_pipeline_client(organization)
-        tags = client.delete_build_tag(project=project, build_id=run_id, tag=tag)
-        return tags
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    client = get_pipeline_client(organization)
+    tags = client.delete_build_tag(project=project, build_id=run_id, tag=tag)
+    return tags
 
 
 def pipeline_run_get_tags(run_id, organization=None, project=None, detect=None):
@@ -123,12 +109,9 @@ def pipeline_run_get_tags(run_id, organization=None, project=None, detect=None):
     :type run_id: int
     :rtype: list of str
     """
-    try:
-        organization, project = resolve_instance_and_project(detect=detect,
-                                                             organization=organization,
-                                                             project=project)
-        client = get_pipeline_client(organization)
-        tags = client.get_build_tags(build_id=run_id, project=project)
-        return tags
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    client = get_pipeline_client(organization)
+    tags = client.get_build_tags(build_id=run_id, project=project)
+    return tags

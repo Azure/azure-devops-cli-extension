@@ -6,11 +6,11 @@
 # --------------------------------------------------------------------------------------------
 
 from msrest import Serializer, Deserializer
-from azext_devops.vstsCompressed.vss_client import VssClient
+from azext_devops.devops_sdk.client import Client
 from . import unreleased_models as models
 
 
-class TaskAgentClient(VssClient):
+class TaskAgentClient(Client):
     """TaskAgent
     :param str base_url: Service URL
     :param Authentication creds: Authenticated credentials.

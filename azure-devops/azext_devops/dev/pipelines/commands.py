@@ -56,19 +56,23 @@ runOps = CliCommandType(
 )
 
 pipelinesOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.pipelines.pipeline#{}'
+    operations_tmpl='azext_devops.dev.pipelines.pipeline#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 pipelinesRunOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.pipelines.pipeline_run#{}'
+    operations_tmpl='azext_devops.dev.pipelines.pipeline_run#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 pipelinesEnvironmentsOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.pipelines.pipeline_environment#{}'
+    operations_tmpl='azext_devops.dev.pipelines.pipeline_environment#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 pipelinesEnvironmentResourceOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.pipelines.pipeline_environment#{}'
+    operations_tmpl='azext_devops.dev.pipelines.pipeline_environment#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 def load_build_commands(self, _):

@@ -22,14 +22,9 @@ from azext_devops.dev.common.arguments import should_detect
 from azext_devops.dev.common.prompting import (prompt_user_friendly_choice_list,
                                                verify_is_a_tty_or_raise_error)
 from azext_devops.dev.common.const import AZ_DEVOPS_GITHUB_PAT_ENVKEY
-from azext_devops.vstsCompressed.exceptions import VstsServiceError
-from azext_devops.vstsCompressed.build.v5_1.models import Build
-from azext_devops.vstsCompressed.build.v5_1.models import BuildDefinition
-from azext_devops.vstsCompressed.build.v5_1.models import BuildRepository
-from azext_devops.vstsCompressed.build.v5_1.models import AgentPoolQueue
-from azext_devops.vstsCompressed.build.v5_1.models import DefinitionReference
-from azext_devops.vstsCompressed.service_endpoint.v5_1.models import ServiceEndpoint
-from azext_devops.vstsCompressed.service_endpoint.v5_1.models import EndpointAuthorization
+from azext_devops.devops_sdk.v5_1.build.models import (Build, BuildDefinition,
+                                                       BuildRepository, AgentPoolQueue, DefinitionReference)
+from azext_devops.devops_sdk.v5_1.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
 from .github_file_checkin import checkin_file_to_github
 from .build_definition import get_definition_id_from_name
 
@@ -81,73 +76,70 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
     :type detect: str
     """
     url = None
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(
-            detect=detect, organization=organization, project=project, repo=repository_name)
-        if not url and not repository_url and not repository:
-            repository_url = _get_repository_url_from_local_repo(detect=detect)
-        if not branch and should_detect(detect):
-            branch = get_current_branch_name()
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect, organization=organization, project=project, repo=repository_name)
+    if not url and not repository_url and not repository:
+        repository_url = _get_repository_url_from_local_repo(detect=detect)
+    if not branch and should_detect(detect):
+        branch = get_current_branch_name()
+    if not repository_type:
+        if url:
+            repository_type = try_get_repository_type(url)
+        elif repository_url:
+            repository_type = try_get_repository_type(repository_url)
+        elif repository:
+            repository_type = 'tfsgit'
         if not repository_type:
-            if url:
-                repository_type = try_get_repository_type(url)
-            elif repository_url:
-                repository_type = try_get_repository_type(repository_url)
-            elif repository:
-                repository_type = 'tfsgit'
-            if not repository_type:
-                raise CLIError("--repository-url or --repository-type must be specified.")
+            raise CLIError("--repository-url or --repository-type must be specified.")
+    else:
+        repository_type = repository_type.lower()
+
+    if not url:
+        if not repository_url or not branch:
+            if (not repository and not repository_name) or not repository_type or not branch:
+                raise CLIError("Either --repository-url and --branch OR "\
+                            "--repository-name, --repository-type and --branch must be specified.")
+
+    # Parse repository information according to repository type
+    repo_name = None
+    repo_id = None
+    if repository_type.lower() == "github":
+        if url:
+            repository_url, repo_id, branch, yml_path = _parse_github_repo_info(url)
+            repo_name = repo_id
+        elif repository_url:
+            repo_id = _get_repo_id_from_repo_url(repository_url)
+            repo_name = repo_id
         else:
-            repository_type = repository_type.lower()
-
-        if not url:
-            if not repository_url or not branch:
-                if (not repository and not repository_name) or not repository_type or not branch:
-                    raise CLIError("Either --repository-url and --branch OR "\
-                                "--repository-name, --repository-type and --branch must be specified.")
-
-        # Parse repository information according to repository type
-        repo_name = None
-        repo_id = None
-        if repository_type.lower() == "github":
-            if url:
-                repository_url, repo_id, branch, yml_path = _parse_github_repo_info(url)
-                repo_name = repo_id
-            elif repository_url:
-                repo_id = _get_repo_id_from_repo_url(repository_url)
-                repo_name = repo_id
-            else:
-                repo_name = repository_name
-                repo_id = repository_name
-                repository_url = 'https://github.com/' + repo_name
-        if repository_type.lower() == 'tfsgit':
             repo_name = repository_name
-            repo_id = _get_repository_id_from_name(organization, project, repository)
+            repo_id = repository_name
+            repository_url = 'https://github.com/' + repo_name
+    if repository_type.lower() == 'tfsgit':
+        repo_name = repository_name
+        repo_id = _get_repository_id_from_name(organization, project, repository)
 
-        if not service_connection and repository_type != 'tfsgit':
-            service_connection = get_github_service_endpoint(organization, project)
+    if not service_connection and repository_type != 'tfsgit':
+        service_connection = get_github_service_endpoint(organization, project)
 
-        new_pipeline_client = get_new_pipeline_client(organization=organization)
-        # No yml path => find or recommend yml scenario
-        if not yml_path:
-            yml_path = _create_and_get_yml_path(new_pipeline_client, repository_type, repo_id, repo_name, branch,
-                                                yml_props, service_connection, project, organization)
+    new_pipeline_client = get_new_pipeline_client(organization=organization)
+    # No yml path => find or recommend yml scenario
+    if not yml_path:
+        yml_path = _create_and_get_yml_path(new_pipeline_client, repository_type, repo_id, repo_name, branch,
+                                            yml_props, service_connection, project, organization)
 
-        # todo Fix the use of unreleased client since this API is made public preview in 149
-        if not queue_id:
-            queue_id = get_agent_queue_by_heuristic(organization=organization, project=project)
-            if queue_id is None:
-                logger.warning('Cannot find a hosted pool queue in the project. Provide a --queue-id in command params.')
-        # Create build definition
-        definition = _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, branch,
-                                                   service_connection, repository_type, yml_path, queue_id)
-        client = get_pipeline_client(organization)
-        created_definition = client.create_definition(definition=definition, project=project)
-        logger.warning('Successfully create a pipeline with Name: %s, Id: %s.',
-                       created_definition.name, created_definition.id)
-        return client.queue_build(build=Build(definition=created_definition), project=project)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    # todo Fix the use of unreleased client since this API is made public preview in 149
+    if not queue_id:
+        queue_id = get_agent_queue_by_heuristic(organization=organization, project=project)
+        if queue_id is None:
+            logger.warning('Cannot find a hosted pool queue in the project. Provide a --queue-id in command params.')
+    # Create build definition
+    definition = _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, branch,
+                                                service_connection, repository_type, yml_path, queue_id)
+    client = get_pipeline_client(organization)
+    created_definition = client.create_definition(definition=definition, project=project)
+    logger.warning('Successfully create a pipeline with Name: %s, Id: %s.',
+                    created_definition.name, created_definition.id)
+    return client.queue_build(build=Build(definition=created_definition), project=project)
 
 
 def pipeline_list(name=None, top=None, organization=None, project=None, repository=None,
@@ -170,25 +162,22 @@ def pipeline_list(name=None, top=None, organization=None, project=None, reposito
     :type repository_type: str
     :rtype: [BuildDefinitionReference]
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        client = get_pipeline_client(organization)
-        query_order = 'DefinitionNameAscending'
-        if repository is not None:
-            if repository_type is None:
-                repository_type = 'TfsGit'
-            if repository_type.lower() == 'tfsgit':
-                repository = _resolve_repository_as_id(repository, organization, project)
-            if repository is None:
-                raise ValueError("Could not find a repository with name '{}', in project '{}'."
-                                 .format(repository, project))
-        definition_references = client.get_definitions(project=project, name=name, repository_id=repository,
-                                                       repository_type=repository_type, top=top,
-                                                       query_order=query_order)
-        return definition_references
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_pipeline_client(organization)
+    query_order = 'DefinitionNameAscending'
+    if repository is not None:
+        if repository_type is None:
+            repository_type = 'TfsGit'
+        if repository_type.lower() == 'tfsgit':
+            repository = _resolve_repository_as_id(repository, organization, project)
+        if repository is None:
+            raise ValueError("Could not find a repository with name '{}', in project '{}'."
+                                .format(repository, project))
+    definition_references = client.get_definitions(project=project, name=name, repository_id=repository,
+                                                    repository_type=repository_type, top=top,
+                                                    query_order=query_order)
+    return definition_references
 
 
 def pipeline_show(id=None, name=None, open=False, organization=None, project=None,  # pylint: disable=redefined-builtin
@@ -208,21 +197,18 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
     :type detect: str
     :rtype: BuildDefinitionReference
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        client = get_pipeline_client(organization)
-        if id is None:
-            if name is not None:
-                id = get_definition_id_from_name(name, client, project)
-            else:
-                raise CLIError("Either the --id argument or the --name argument must be supplied for this command.")
-        build_definition = client.get_definition(definition_id=id, project=project)
-        if open:
-            _open_pipeline(build_definition, organization)
-        return build_definition
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_pipeline_client(organization)
+    if id is None:
+        if name is not None:
+            id = get_definition_id_from_name(name, client, project)
+        else:
+            raise CLIError("Either the --id argument or the --name argument must be supplied for this command.")
+    build_definition = client.get_definition(definition_id=id, project=project)
+    if open:
+        _open_pipeline(build_definition, organization)
+    return build_definition
 
 
 def pipeline_update(name=None, id=None, description=None, new_name=None, repository_url=None,  # pylint: disable=redefined-builtin
@@ -261,60 +247,57 @@ def pipeline_update(name=None, id=None, description=None, new_name=None, reposit
     :type detect: str
     """
     # pylint: disable=too-many-branches
-    try:
-        organization, project, repository = resolve_instance_project_and_repo(
-            detect=detect, organization=organization, project=project, repo=repository_name)
-        pipeline_client = get_pipeline_client(organization=organization)
-        if id is None:
-            if name is not None:
-                id = get_definition_id_from_name(name, pipeline_client, project)
-            else:
-                raise CLIError("Either the --id argument or the --name argument must be supplied for this command.")
-        if not repository_type:
-            if repository_url:
-                repository_type = try_get_repository_type(repository_url)
-            elif repository:
-                repository_type = 'tfsgit'
+    organization, project, repository = resolve_instance_project_and_repo(
+        detect=detect, organization=organization, project=project, repo=repository_name)
+    pipeline_client = get_pipeline_client(organization=organization)
+    if id is None:
+        if name is not None:
+            id = get_definition_id_from_name(name, pipeline_client, project)
         else:
-            repository_type = repository_type.lower()
-        repo_name = None
-        repo_id = None
-        if repository_name and not repository_type:
-            raise CLIError("--repository-type must be specified.")
-        elif repository_type:
-            if repository_type.lower() == "github":
-                if repository_url:
-                    repo_id = _get_repo_id_from_repo_url(repository_url)
-                    repo_name = repo_id
-                else:
-                    repo_name = repository_name
-            if repository_type.lower() == 'tfsgit':
+            raise CLIError("Either the --id argument or the --name argument must be supplied for this command.")
+    if not repository_type:
+        if repository_url:
+            repository_type = try_get_repository_type(repository_url)
+        elif repository:
+            repository_type = 'tfsgit'
+    else:
+        repository_type = repository_type.lower()
+    repo_name = None
+    repo_id = None
+    if repository_name and not repository_type:
+        raise CLIError("--repository-type must be specified.")
+    elif repository_type:
+        if repository_type.lower() == "github":
+            if repository_url:
+                repo_id = _get_repo_id_from_repo_url(repository_url)
+                repo_name = repo_id
+            else:
                 repo_name = repository_name
-                repo_id = _get_repository_id_from_name(organization, project, repository)
-        definition = pipeline_client.get_definition(definition_id=id, project=project)
-        if new_name:
-            definition.name = new_name
-        if description:
-            definition.description = description
-        if repo_name:
-            definition.repository.name = repo_name
-        if repo_id:
-            definition.repository.id = repo_id
-        if repository_type:
-            definition.repository.type = repository_type
-        if branch:
-            definition.repository.default_branch = branch
-        if service_connection:
-            definition.repository.connected_service_id = service_connection
-        if queue_id:
-            definition.queue = AgentPoolQueue()
-            definition.queue.id = queue_id
-        if yml_path:
-            definition.process = _create_process_object(yml_path)
+        if repository_type.lower() == 'tfsgit':
+            repo_name = repository_name
+            repo_id = _get_repository_id_from_name(organization, project, repository)
+    definition = pipeline_client.get_definition(definition_id=id, project=project)
+    if new_name:
+        definition.name = new_name
+    if description:
+        definition.description = description
+    if repo_name:
+        definition.repository.name = repo_name
+    if repo_id:
+        definition.repository.id = repo_id
+    if repository_type:
+        definition.repository.type = repository_type
+    if branch:
+        definition.repository.default_branch = branch
+    if service_connection:
+        definition.repository.connected_service_id = service_connection
+    if queue_id:
+        definition.queue = AgentPoolQueue()
+        definition.queue.id = queue_id
+    if yml_path:
+        definition.process = _create_process_object(yml_path)
 
-        return pipeline_client.update_definition(project=project, definition_id=id, definition=definition)
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    return pipeline_client.update_definition(project=project, definition_id=id, definition=definition)
 
 
 def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False,  # pylint: disable=redefined-builtin
@@ -338,23 +321,20 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False,  #
     :type detect: str
     :rtype: :class:`<Build> <build.v5_1.models.Build>`
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        if id is None and name is None:
-            raise ValueError('Either the --id argument or the --name argument ' +
-                             'must be supplied for this command.')
-        client = get_pipeline_client(organization)
-        if id is None:
-            id = get_definition_id_from_name(name, client, project)
-        definition_reference = DefinitionReference(id=id)
-        build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)
-        queued_build = client.queue_build(build=build, project=project)
-        if open:
-            _open_pipeline(queued_build, organization)
-        return queued_build
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    if id is None and name is None:
+        raise ValueError('Either the --id argument or the --name argument ' +
+                            'must be supplied for this command.')
+    client = get_pipeline_client(organization)
+    if id is None:
+        id = get_definition_id_from_name(name, client, project)
+    definition_reference = DefinitionReference(id=id)
+    build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)
+    queued_build = client.queue_build(build=build, project=project)
+    if open:
+        _open_pipeline(queued_build, organization)
+    return queued_build
 
 
 def pipeline_delete(id, organization=None, project=None, detect=None): # pylint: disable=redefined-builtin
@@ -368,14 +348,11 @@ def pipeline_delete(id, organization=None, project=None, detect=None): # pylint:
     :param detect: Automatically detect instance and project. Default is "on".
     :type detect: str
     """
-    try:
-        organization, project = resolve_instance_and_project(
-            detect=detect, organization=organization, project=project)
-        client = get_pipeline_client(organization)
-        build = client.delete_definition(definition_id=id, project=project)
-        return build
-    except VstsServiceError as ex:
-        raise CLIError(ex)
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_pipeline_client(organization)
+    build = client.delete_definition(definition_id=id, project=project)
+    return build
 
 
 def _open_pipeline_run(run, organization):
@@ -663,7 +640,7 @@ def _open_file(filepath):
 def _checkin_file_to_azure_repo(path_to_commit, content, repo_name, branch,
                                 organization, project, message="Set up CI with Azure Pipelines"):
     git_client = get_git_client(organization=organization)
-    from azext_devops.vstsCompressed.git.v4_0.models import GitPush, GitRefUpdate
+    from azext_devops.devops_sdk.v5_0.git.models import GitPush, GitRefUpdate
     # Get base commit Id
     all_heads_refs = git_client.get_refs(repository_id=repo_name,
                                          project=project,
