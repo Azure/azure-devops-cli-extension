@@ -3,8 +3,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from knack.util import CLIError
-from azext_devops.devops_sdk.exceptions import AzureDevOpsServiceError
 from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
 from .setting import setting_add_or_update, setting_list, setting_remove, GLOBAL_MESSAGE_BANNERS_KEY, USER_SCOPE_HOST
 
@@ -13,11 +11,8 @@ def banner_list(organization=None, detect=None):
     """List banners.
     :rtype: [object]
     """
-    try:
-        return setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY,
-                            organization=organization, detect=detect)
-    except AzureDevOpsServiceError as ex:
-        raise CLIError(ex)
+    return setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY,
+                        organization=organization, detect=detect)
 
 
 def banner_show(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
@@ -26,14 +21,11 @@ def banner_show(id, organization=None, detect=None):  # pylint: disable=redefine
     :type id: str
     :rtype: [object]
     """
-    try:
-        existing_entries = setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY,
-                                        organization=organization, detect=detect)
-        if id not in existing_entries:
-            raise ValueError('The following banner was not found: %s' % id)
-        return {id: existing_entries[id]}
-    except AzureDevOpsServiceError as ex:
-        raise CLIError(ex)
+    existing_entries = setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY,
+                                    organization=organization, detect=detect)
+    if id not in existing_entries:
+        raise ValueError('The following banner was not found: %s' % id)
+    return {id: existing_entries[id]}
 
 
 def banner_add(message, banner_type=None, id=None, expiration=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
@@ -51,29 +43,26 @@ def banner_add(message, banner_type=None, id=None, expiration=None, organization
     :type expiration: date
     :rtype: [object]
     """
-    try:
-        if expiration is not None:
-            expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
-        else:
-            expiration_iso8601 = None
-        if id is None or id == '':
-            import uuid
-            id = str(uuid.uuid4())
-        setting_key = _get_banner_key(id)
-        entries = {
-            setting_key: {
-                "message": message
-            }
+    if expiration is not None:
+        expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
+    else:
+        expiration_iso8601 = None
+    if id is None or id == '':
+        import uuid
+        id = str(uuid.uuid4())
+    setting_key = _get_banner_key(id)
+    entries = {
+        setting_key: {
+            "message": message
         }
-        if banner_type is not None:
-            entries[setting_key]['level'] = banner_type
-        if expiration_iso8601 is not None:
-            entries[setting_key]['expirationDate'] = expiration_iso8601
-        setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST,
-                              organization=organization, detect=detect)
-        return {id: entries[setting_key]}
-    except AzureDevOpsServiceError as ex:
-        raise CLIError(ex)
+    }
+    if banner_type is not None:
+        entries[setting_key]['level'] = banner_type
+    if expiration_iso8601 is not None:
+        entries[setting_key]['expirationDate'] = expiration_iso8601
+    setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST,
+                          organization=organization, detect=detect)
+    return {id: entries[setting_key]}
 
 
 def banner_update(message=None, banner_type=None, id=None, expiration=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
@@ -90,47 +79,44 @@ def banner_update(message=None, banner_type=None, id=None, expiration=None, orga
     :type expiration: date
     :rtype: [object]
     """
-    try:
-        if message is None and banner_type is None and expiration is None:
-            raise ValueError('At least one of the following arguments need to be supplied: --message, --type, '
-                             '--expiration.')
-        if expiration is not None:
-            expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
-        else:
-            expiration_iso8601 = None
-        existing_entries = setting_list(user_scope='host',
-                                        key=GLOBAL_MESSAGE_BANNERS_KEY,
-                                        organization=organization,
-                                        detect=detect)
-        if id not in existing_entries:
-            raise ValueError('The following banner was not found: %s' % id)
-        existing_entry = existing_entries[id]
-        setting_key = _get_banner_key(id)
-        entries = {
-            setting_key: {
-                "message": message
-            }
+    if message is None and banner_type is None and expiration is None:
+        raise ValueError('At least one of the following arguments need to be supplied: --message, --type, '
+                         '--expiration.')
+    if expiration is not None:
+        expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
+    else:
+        expiration_iso8601 = None
+    existing_entries = setting_list(user_scope='host',
+                                    key=GLOBAL_MESSAGE_BANNERS_KEY,
+                                    organization=organization,
+                                    detect=detect)
+    if id not in existing_entries:
+        raise ValueError('The following banner was not found: %s' % id)
+    existing_entry = existing_entries[id]
+    setting_key = _get_banner_key(id)
+    entries = {
+        setting_key: {
+            "message": message
         }
-        if message is not None:
-            entries[setting_key]['message'] = message
-        elif 'message' in existing_entry:
-            entries[setting_key]['message'] = existing_entry['message']
+    }
+    if message is not None:
+        entries[setting_key]['message'] = message
+    elif 'message' in existing_entry:
+        entries[setting_key]['message'] = existing_entry['message']
 
-        if banner_type is not None:
-            entries[setting_key]['level'] = banner_type
-        elif 'level' in existing_entry:
-            entries[setting_key]['level'] = existing_entry['level']
+    if banner_type is not None:
+        entries[setting_key]['level'] = banner_type
+    elif 'level' in existing_entry:
+        entries[setting_key]['level'] = existing_entry['level']
 
-        if expiration_iso8601 is not None:
-            entries[setting_key]['expirationDate'] = expiration_iso8601
-        elif 'expirationDate' in existing_entry:
-            entries[setting_key]['expirationDate'] = existing_entry['expirationDate']
+    if expiration_iso8601 is not None:
+        entries[setting_key]['expirationDate'] = expiration_iso8601
+    elif 'expirationDate' in existing_entry:
+        entries[setting_key]['expirationDate'] = existing_entry['expirationDate']
 
-        setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST, organization=organization,
-                              detect=detect)
-        return {id: entries[setting_key]}
-    except AzureDevOpsServiceError as ex:
-        raise CLIError(ex)
+    setting_add_or_update(entries=entries, user_scope=USER_SCOPE_HOST, organization=organization,
+                          detect=detect)
+    return {id: entries[setting_key]}
 
 
 def banner_remove(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
@@ -139,11 +125,8 @@ def banner_remove(id, organization=None, detect=None):  # pylint: disable=redefi
     :type id: str
     :rtype: [object]
     """
-    try:
-        setting_key = _get_banner_key(id)
-        setting_remove(key=setting_key, user_scope='host', organization=organization, detect=detect)
-    except AzureDevOpsServiceError as ex:
-        raise CLIError(ex)
+    setting_key = _get_banner_key(id)
+    setting_remove(key=setting_key, user_scope='host', organization=organization, detect=detect)
 
 
 def _get_banner_key(message_id):
