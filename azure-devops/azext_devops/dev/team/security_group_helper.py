@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 from azext_devops.devops_sdk.v5_0.graph.models import (GraphGroupCreationContext)
 
+
 class GraphGroupVstsCreationContext(GraphGroupCreationContext):
     """GraphGroupVstsCreationContext.
 
@@ -17,6 +18,6 @@ class GraphGroupVstsCreationContext(GraphGroupCreationContext):
     }
 
     def __init__(self, display_name, description=None):
-        super(GraphGroupCreationContext, self).__init__()
+        super(GraphGroupVstsCreationContext, self).__init__()
         self.display_name = display_name
         self.description = description

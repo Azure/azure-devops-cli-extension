@@ -6,14 +6,15 @@
 from __future__ import print_function
 import pdb
 from knack.util import CLIError
-from azext_devops.devops_sdk.v5_0.graph.models import (JsonPatchOperation,GraphGroupCreationContext,
-                                                                  GraphSubjectLookup,
-                                                                  GraphSubjectLookupKey)
+from azext_devops.devops_sdk.v5_0.graph.models import (JsonPatchOperation,
+                                                       GraphSubjectLookup,
+                                                       GraphSubjectLookupKey)
 from azext_devops.dev.common.identities import resolve_identity_as_id
 from azext_devops.dev.common.services import (get_graph_client,
                                               resolve_instance)
 
 from .security_group_helper import GraphGroupVstsCreationContext
+
 
 def list_groups(project_id=None, continuation_token=None, subject_types=None, organization=None, detect=None):
     """ List all groups.
@@ -39,7 +40,6 @@ def list_groups(project_id=None, continuation_token=None, subject_types=None, or
 def create_group(name, description=None, project_id=None, organization=None, detect=None):
     """Create a group.
     """
-    #pdb.set_trace()
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     scope_descriptor = None
@@ -49,7 +49,8 @@ def create_group(name, description=None, project_id=None, organization=None, det
     group_details = client.create_group(creation_context=group_creation_context, scope_descriptor=scope_descriptor)
     return group_details
 
-def get_group(id, organization=None, detect=None): # pylint: disable=redefined-builtin
+
+def get_group(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show group details.
     :param str id: The UUID of the group.
     """
@@ -60,7 +61,7 @@ def get_group(id, organization=None, detect=None): # pylint: disable=redefined-b
     return group_details
 
 
-def update_group(id, name=None, description=None, organization=None, detect=None): # pylint: disable=redefined-builtin
+def update_group(id, name=None, description=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Update name AND/OR description for a group.
     :param str id: The UUID of the group.
     """
@@ -78,7 +79,7 @@ def update_group(id, name=None, description=None, organization=None, detect=None
     return update_group_details
 
 
-def delete_group(id, organization=None, detect=None): # pylint: disable=redefined-builtin
+def delete_group(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete group.
     :param str id: The UUID of the group.
     """
@@ -89,7 +90,7 @@ def delete_group(id, organization=None, detect=None): # pylint: disable=redefine
     return delete_group_details
 
 
-def list_memberships(id, relationship='members', organization=None, detect=None): # pylint: disable=redefined-builtin
+def list_memberships(id, relationship='members', organization=None, detect=None):  # pylint: disable=redefined-builtin
     """List memberships.
     :param str id: Group UUID whose membership details are required.
     """
