@@ -99,7 +99,7 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
-                        merge_commit_message=None, reviewers=None, work_items=None, draft_mode=False,
+                        merge_commit_message=None, reviewers=None, work_items=None, is_draft=False,
                         open=False, organization=None, detect=None, transition_work_items=False):  # pylint: disable=redefined-builtin
     """Create a pull request.
     :param project: Name or ID of the team project.
@@ -113,8 +113,8 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type target_branch: str
     :param title: Title for the new pull request.
     :type title: str
-    :param draft_mode: Use this flag to create the pull request in draft/work in progress mode.
-    :type draft_mode: bool
+    :param is_draft: Use this flag to create the pull request in draft/work in progress mode.
+    :type is_draft: bool
     :param description: Description for the new pull request. Can include markdown.
                         Each value sent to this arg will be a new line.
                         For example: --description "First Line" "Second Line"
@@ -159,7 +159,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
         multi_line_description = '\n'.join(description)
 
     pr = GitPullRequest(description=multi_line_description, source_ref_name=source_branch,
-                        target_ref_name=target_branch, is_draft=draft_mode)
+                        target_ref_name=target_branch, is_draft=is_draft)
     if title is not None:
         pr.title = title
     else:
@@ -261,7 +261,7 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     :type bypass_policy_reason: str
     :param publish: Publish a pull request which is in draft mode.
     :type publish: bool
-    :param mark_as_draft: Mark a published pull request as draft again.
+    :param mark_as_draft: Mark a published pull request as draft mode.
     :type mark_as_draft: bool
     :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
