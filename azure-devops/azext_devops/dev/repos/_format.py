@@ -68,6 +68,7 @@ def _transform_pull_request_row(row):
         title = title[0:_PR_TITLE_TRUNCATION_LENGTH - 3] + '...'
     table_row['Title'] = title
     table_row['Status'] = row['status'].capitalize()
+    table_row['IsDraft'] = str(row['isDraft']).capitalize()
     table_row['Repository'] = row['repository']['name']
     return table_row
 

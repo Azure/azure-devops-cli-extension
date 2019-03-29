@@ -99,7 +99,7 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
-                        merge_commit_message=None, reviewers=None, work_items=None,
+                        merge_commit_message=None, reviewers=None, work_items=None, draft_mode=False,
                         open=False, organization=None, detect=None, transition_work_items=False):  # pylint: disable=redefined-builtin
     """Create a pull request.
     :param project: Name or ID of the team project.
@@ -113,6 +113,8 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type target_branch: str
     :param title: Title for the new pull request.
     :type title: str
+    :param draft_mode: Use this flag to create the pull request in draft/work in progress mode.
+    :type draft_mode: bool
     :param description: Description for the new pull request. Can include markdown.
                         Each value sent to this arg will be a new line.
                         For example: --description "First Line" "Second Line"
@@ -157,7 +159,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
         multi_line_description = '\n'.join(description)
 
     pr = GitPullRequest(description=multi_line_description, source_ref_name=source_branch,
-                        target_ref_name=target_branch)
+                        target_ref_name=target_branch, is_draft=draft_mode)
     if title is not None:
         pr.title = title
     else:
@@ -233,7 +235,7 @@ def _get_branches_for_pull_request(organization, project, repository, source_bra
 
 
 def update_pull_request(id, title=None, description=None, auto_complete=None,  # pylint: disable=redefined-builtin
-                        squash=None, delete_source_branch=None, bypass_policy=None,
+                        squash=None, delete_source_branch=None, bypass_policy=None, publish=False, mark_as_draft=False,
                         bypass_policy_reason=None, merge_commit_message=None, organization=None, detect=None,
                         transition_work_items=None):
     """Update a pull request.
@@ -257,6 +259,10 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     :type bypass_policy: str
     :param bypass_policy_reason: Reason for bypassing the required policies.
     :type bypass_policy_reason: str
+    :param publish: Publish a pull request which is in draft mode.
+    :type publish: bool
+    :param mark_as_draft: Mark a published pull request as draft again.
+    :type mark_as_draft: bool
     :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
@@ -299,6 +305,10 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
             pr.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, organization))
         else:
             pr.auto_complete_set_by = IdentityRef(id=EMPTY_UUID)
+    if publish and existing_pr.is_draft:
+        pr.is_draft = False
+    if mark_as_draft and not existing_pr.is_draft:
+        pr.is_draft = True
     pr = client.update_pull_request(git_pull_request_to_update=pr,
                                     project=existing_pr.repository.project.name,
                                     repository_id=existing_pr.repository.name,
