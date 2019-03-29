@@ -6,7 +6,7 @@
 from __future__ import print_function
 import pdb
 from knack.util import CLIError
-from azext_devops.vstsCompressed.graph.v4_1.models.models import (JsonPatchOperation,GraphGroupCreationContext,
+from azext_devops.devops_sdk.v5_0.graph.models import (JsonPatchOperation,GraphGroupCreationContext,
                                                                   GraphSubjectLookup,
                                                                   GraphSubjectLookupKey)
 from azext_devops.dev.common.identities import resolve_identity_as_id
@@ -36,17 +36,17 @@ def list_groups(project_id=None, continuation_token=None, subject_types=None, or
     return group_list_response.graph_groups
 
 
-def create_group(name, description=None, scope_id=None, organization=None, detect=None):
+def create_group(name, description=None, project_id=None, organization=None, detect=None):
     """Create a group.
     """
-    pdb.set_trace()
+    #pdb.set_trace()
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     scope_descriptor = None
-    if scope_id is not None:
-        scope_descriptor = get_descriptor_from_storage_key(scope_id, client)
+    if project_id is not None:
+        scope_descriptor = get_descriptor_from_storage_key(project_id, client)
     group_creation_context = GraphGroupVstsCreationContext(display_name=name, description=description)
-    group_details = client.create_group(creation_context=group_creation_context)
+    group_details = client.create_group(creation_context=group_creation_context, scope_descriptor=scope_descriptor)
     return group_details
 
 def get_group(id, organization=None, detect=None): # pylint: disable=redefined-builtin

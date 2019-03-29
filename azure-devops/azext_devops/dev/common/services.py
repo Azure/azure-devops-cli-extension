@@ -173,8 +173,8 @@ def get_git_client(organization=None):
 
 
 def get_graph_client(organization=None):
-    connection = get_vss_connection(organization)
-    return connection.get_client(VSTS_MODULE + 'graph.v4_1.graph_client.GraphClient')
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.graph.graph_client.GraphClient')
 
 
 def get_identity_client(organization=None):

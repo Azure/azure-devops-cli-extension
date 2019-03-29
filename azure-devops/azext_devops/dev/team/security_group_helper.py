@@ -2,7 +2,7 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
-from azext_devops.vstsCompressed.graph.v4_1.models.models import (GraphGroupCreationContext)
+from azext_devops.devops_sdk.v5_0.graph.models import (GraphGroupCreationContext)
 
 class GraphGroupVstsCreationContext(GraphGroupCreationContext):
     """GraphGroupVstsCreationContext.
