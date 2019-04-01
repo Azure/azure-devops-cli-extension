@@ -118,4 +118,4 @@ def load_team_arguments(self, _):
 
     with self.argument_context('devops wiki') as context:
         context.argument('wiki_type', options_list=('--wiki-type', '--type'), **enum_choice_list(_WIKI_TYPE_VALUES))
-        context.argument('version', options_list=('--version', '-v'), **enum_choice_list(_WIKI_TYPE_VALUES))
+        context.argument('version', options_list=('--version', '-v'))

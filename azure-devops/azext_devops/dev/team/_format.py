@@ -124,7 +124,7 @@ def _transform_team_row(row):
 
 def transform_wikis_table_output(result):
     table_output = []
-    for item in sorted(result, key=_get_team_key):
+    for item in sorted(result, key=_get_wiki_key):
         table_output.append(_transform_wiki_row(item))
     return table_output
 
@@ -210,6 +210,10 @@ def _get_project_key(project_row):
 
 def _get_team_key(team_row):
     return team_row['name'].lower()
+
+
+def _get_wiki_key(wiki_row):
+    return wiki_row['name'].lower()
 
 
 def _get_member_key(member_row):
