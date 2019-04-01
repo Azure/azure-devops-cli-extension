@@ -32,7 +32,6 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     :type mapped_path: str
     :param repository: Name or ID of the repository to publish the wiki from. Only required for codewiki type.
     :type repository: str
-    
     """
     organization, project, repository = resolve_instance_project_and_repo(detect=detect,
                                                                           organization=organization,
