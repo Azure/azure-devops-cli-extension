@@ -12,7 +12,7 @@ from azext_devops.devops_sdk.v5_0.git.models import (GitPullRequest, GitPullRequ
                                                      GitPullRequestSearchCriteria, IdentityRef, IdentityRefWithVote,
                                                      ResourceRef, GitRefFavorite)
 from azext_devops.devops_sdk.v5_0.work_item_tracking.models import JsonPatchOperation, WorkItemRelation
-from azext_devops.dev.common.arguments import resolve_on_off_switch, should_detect
+from azext_devops.dev.common.arguments import resolve_on_off_switch, resolve_true_false, should_detect
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads, fetch_remote_and_checkout
 from azext_devops.dev.common.identities import ME, resolve_identity_as_id
 from azext_devops.dev.common.uri import uri_quote
@@ -235,7 +235,7 @@ def _get_branches_for_pull_request(organization, project, repository, source_bra
 
 
 def update_pull_request(id, title=None, description=None, auto_complete=None,  # pylint: disable=redefined-builtin
-                        squash=None, delete_source_branch=None, bypass_policy=None, publish=False, mark_as_draft=False,
+                        squash=None, delete_source_branch=None, bypass_policy=None, is_draft=None,
                         bypass_policy_reason=None, merge_commit_message=None, organization=None, detect=None,
                         transition_work_items=None):
     """Update a pull request.
@@ -260,9 +260,8 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     :param bypass_policy_reason: Reason for bypassing the required policies.
     :type bypass_policy_reason: str
     :param publish: Publish a pull request which is in draft mode.
-    :type publish: bool
-    :param mark_as_draft: Mark a published pull request as draft mode.
-    :type mark_as_draft: bool
+    :type is_draft: str
+    :param is_draft: Publish the PR or convert to draft mode.
     :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
@@ -305,10 +304,9 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
             pr.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, organization))
         else:
             pr.auto_complete_set_by = IdentityRef(id=EMPTY_UUID)
-    if publish and existing_pr.is_draft:
-        pr.is_draft = False
-    if mark_as_draft and not existing_pr.is_draft:
-        pr.is_draft = True
+    if is_draft:
+        is_draft_mode = resolve_true_false(is_draft)
+        pr.is_draft = is_draft_mode
     pr = client.update_pull_request(git_pull_request_to_update=pr,
                                     project=existing_pr.repository.project.name,
                                     repository_id=existing_pr.repository.name,
