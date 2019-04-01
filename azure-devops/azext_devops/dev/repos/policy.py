@@ -65,7 +65,7 @@ def delete_policy(policy_id, organization=None, project=None, detect=None):
 def create_policy_configuration_file(policy_configuration, organization=None, project=None, detect=None):
     '''Create a policy using a configuration file.
     Recommended when creating policies using multiple scopes for a policy.
-    See https://aka.ms/azure-devops-cli-docs for more information.
+    See https://aka.ms/azure-devops-cli-docs-policy-file for more information.
     '''
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
@@ -79,7 +79,7 @@ def create_policy_configuration_file(policy_configuration, organization=None, pr
 def update_policy_configuration_file(policy_id, policy_configuration, organization=None, project=None, detect=None):
     """Update a policy using a configuration file.
     Recommended when creating policies using multiple scopes for a policy.
-    See https://aka.ms/azure-devops-cli-docs for more information.
+    See https://aka.ms/azure-devops-cli-docs-policy-file for more information.
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
