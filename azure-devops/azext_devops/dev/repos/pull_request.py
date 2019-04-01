@@ -259,7 +259,6 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     :type bypass_policy: str
     :param bypass_policy_reason: Reason for bypassing the required policies.
     :type bypass_policy_reason: str
-    :param publish: Publish a pull request which is in draft mode.
     :type is_draft: str
     :param is_draft: Publish the PR or convert to draft mode.
     :param merge_commit_message: Message displayed when commits are merged.
