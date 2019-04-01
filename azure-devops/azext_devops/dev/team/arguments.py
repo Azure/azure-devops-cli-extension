@@ -42,8 +42,6 @@ def load_team_arguments(self, _):
         context.argument('defaults', options_list=('--defaults', '-d'), nargs='*')
 
     with self.argument_context('devops') as context:
-        context.argument('organization', options_list=('--organization', '--org'))
-        context.argument('project', options_list=('--project', '-p'))
         context.argument('repository', options_list=('--repository', '-r'))
 
     with self.argument_context('devops project') as context:

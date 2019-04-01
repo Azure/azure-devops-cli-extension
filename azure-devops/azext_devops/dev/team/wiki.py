@@ -4,7 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 import webbrowser
-
 from knack.util import CLIError
 from azext_devops.dev.common.services import (get_wiki_client,
                                               get_core_client,
@@ -26,19 +25,14 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     :type name: str
     :param wiki_type: Type of wiki to create.
     :type wiki_type: str
-    :param version: Version of the new wiki. Not required for project wiki. Repository branch name for code wiki.
+    :param version: Repository branch name to publish the code wiki from. Only required for codewiki type.
     :type version: str
     :param mapped_path: Mapped path of the new wiki e.g. '/' to publish from root of repository.
     Not required for project wiki.
     :type mapped_path: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param repository: Name or ID of the repository.
+    :param repository: Name or ID of the repository to publish the wiki from. Only required for codewiki type.
     :type repository: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
+    
     """
     organization, project, repository = resolve_instance_project_and_repo(detect=detect,
                                                                           organization=organization,
@@ -70,12 +64,6 @@ def delete_wiki(wiki, organization=None, project=None, detect=None):  # pylint: 
     """Delete a wiki.
     :param wiki: Name or Id of the wiki to delete.
     :type wiki: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -86,12 +74,6 @@ def delete_wiki(wiki, organization=None, project=None, detect=None):  # pylint: 
 
 def list_wiki(organization=None, project=None, detect=None):
     """List all the wikis in a project or organization.
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project to filter based on project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     """
     organization = resolve_instance(detect=detect,
                                     organization=organization)
@@ -103,12 +85,6 @@ def show_wiki(wiki, open=False, organization=None, project=None, detect=None):  
     """Show details of a wiki.
     :param wiki: Name or Id of the wiki.
     :type wiki: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     :param open: Open the wiki in your web browser.
     :type open: bool
     """
@@ -135,12 +111,6 @@ def add_page(wiki, path, comment=_DEFAULT_PAGE_ADD_MESSAGE, content=None, file_p
     :type file_path: str
     :param comment: Comment in the commit message of file add operation.
     :type comment: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     """
     if not content and not file_path:
         raise CLIError('Either --file-path or --content must be specified.')
@@ -175,12 +145,6 @@ def update_page(wiki, path, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, content=None, 
     :type comment: str
     :param page_version: Version of file to edit.
     :type page_version: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     """
     if not content and not file_path:
         raise CLIError('Either --file-path or --content must be specified.')
@@ -213,14 +177,8 @@ def get_page(wiki, path, version=None, recursion_level=None, open=False,  # pyli
     :type recursion_level: str
     :param include_content: Include content of the page.
     :type include_content: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
     :param open: Open the wiki page in your web browser.
     :type open: bool
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -243,12 +201,6 @@ def delete_page(wiki, path, comment=_DEFAULT_PAGE_DELETE_MESSAGE, organization=N
     :type path: str
     :param comment: Comment in the commit message of delete operation.
     :type comment: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the project.
-    :type project: str
-    :param detect: Automatically detect organization and project. Default is "on".
-    :type detect: str
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
