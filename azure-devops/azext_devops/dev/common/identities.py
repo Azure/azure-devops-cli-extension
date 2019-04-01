@@ -72,8 +72,8 @@ def resolve_identity(identity_filter, organization):
             return identities_with_tenant[0]
         raise CLIError('There are multiple identities found for "' + identity_filter + '" '
                        'Please provide a more specific identifier for this identity.')
-    else:
-        return identities[0]
+
+    return identities[0]
 
 
 def get_current_identity(organization):

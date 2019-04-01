@@ -80,15 +80,15 @@ def get_definition_id_from_name(name, client, project):
         project=project, search_text=name, is_exact_name_match='true')
     if len(definition_references) == 1:
         return definition_references[0].id
-    elif len(definition_references) > 1:
+    if len(definition_references) > 1:
         if is_uuid(project):
             project = definition_references[0].project.name
         message = 'Multiple definitions were found matching name "{name}" in project "{project}".  Try '\
                   + 'supplying the definition ID.'
         raise ValueError(message.format(name=name, project=project))
-    else:
-        raise ValueError('There were no release definitions matching name "{name}" in project "{project}".'
-                         .format(name=name, project=project))
+
+    raise ValueError('There were no release definitions matching name "{name}" in project "{project}".'
+                     .format(name=name, project=project))
 
 
 def _get_release_definition_web_url(definition):
