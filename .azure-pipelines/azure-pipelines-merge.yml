@@ -137,7 +137,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.6'
+      versionSpec: '3.7.0'
       architecture: 'x64'
 
   - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
