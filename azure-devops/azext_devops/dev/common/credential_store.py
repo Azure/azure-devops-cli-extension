@@ -102,7 +102,7 @@ class CredentialStore:
             credential_list = CredentialStore._get_config_parser()
             credential_list.read(CredentialStore._PAT_FILE)
             return credential_list
-        except BaseException:
+        except BaseException:  # pylint: disable=broad-except
             return CredentialStore._get_config_parser()
 
     @staticmethod

@@ -18,7 +18,7 @@ def try_send_telemetry_data(organization):
             _try_send_tracking_ci_event_async(organization)
         else:
             logger.debug('Azure devops telemetry disabled.')
-    except BaseException as ex:
+    except BaseException as ex:  # pylint: disable=broad-except
         logger.debug(ex, exc_info=True)
         logger.debug('Azure devops telemetry sending failed.')
 
@@ -44,7 +44,7 @@ def set_tracking_data(**kwargs):
         vsts_tracking_data.properties['IsInteractive'] = str(sys.stdin.isatty())
         vsts_tracking_data.properties['OutputType'] = command_line_args['_output_format']
 
-    except BaseException as ex:
+    except BaseException as ex:  # pylint: disable=broad-except
         logger.debug(ex, exc_info=True)
 
 
@@ -66,7 +66,7 @@ def _try_send_tracking_ci_event_async(organization=None):
         try:
             thread = threading.Thread(target=_send_tracking_ci_event, args=[organization])
             thread.start()
-        except BaseException as ex:
+        except BaseException as ex:  # pylint: disable=broad-except
             # we should always continue if we fail to set tracking data
             logger.debug(ex, exc_info=True)
     else:
@@ -80,7 +80,7 @@ def _send_tracking_ci_event(organization=None, ci_client=None):
     try:
         ci_client.publish_events([vsts_tracking_data])
         return True
-    except BaseException as ex:
+    except BaseException as ex:  # pylint: disable=broad-except
         logger.debug(ex, exc_info=True)
         return False
 
