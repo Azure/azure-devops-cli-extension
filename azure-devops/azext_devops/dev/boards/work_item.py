@@ -195,8 +195,8 @@ def _handle_vsts_service_error(ex):
         else:
             message = "RuleValidationException for FieldReferenceName: " + ex.custom_properties["FieldReferenceName"]
         raise CLIError(ValueError(message))
-    else:
-        raise CLIError(ex)
+
+    raise CLIError(ex)
 
 
 def show_work_item(id, open=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
