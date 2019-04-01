@@ -127,7 +127,7 @@ def _update_artifacttool(uri, release_id):
             logger.debug("Moving downloaded ArtifactTool from %s to %s", release_temp_dir, release_dir)
             os.rename(release_temp_dir, release_dir)
             logger.info("Downloaded Universal Packages tooling successfully")
-        except BaseException as ex:
+        except BaseException as ex:  # pylint: disable=broad-except
             logger.error("An error occurred while extracting the Universal Packages tooling: %s", ex)
             logger.debug("Removing temporary directory %s", release_temp_dir)
             shutil.rmtree(release_temp_dir, ignore_errors=True)

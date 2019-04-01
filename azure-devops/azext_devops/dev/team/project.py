@@ -76,7 +76,7 @@ def create_project(name, organization=None, process=None, source_control='git', 
     status = operation.status.lower()
     if status == 'failed':
         raise CLIError('Project creation failed.')
-    elif status == 'cancelled':
+    if status == 'cancelled':
         raise CLIError('Project creation was cancelled.')
 
     team_project = core_client.get_project(project_id=name, include_capabilities=True)
@@ -97,7 +97,7 @@ def delete_project(id, organization=None, detect=None):  # pylint: disable=redef
     status = operation.status.lower()
     if status == 'failed':
         raise CLIError('Project deletion failed.')
-    elif status == 'cancelled':
+    if status == 'cancelled':
         raise CLIError('Project deletion was cancelled.')
     print('Deleted project {}'.format(id))
     return operation

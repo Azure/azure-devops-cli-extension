@@ -12,7 +12,7 @@ from .uri import uri_parse
 logger = get_logger(__name__)
 
 
-class VstsGitUrlInfo(object):
+class VstsGitUrlInfo():
     """ VstsGitUrlInfo.
     """
 
@@ -99,8 +99,8 @@ class VstsGitUrlInfo(object):
             return None
         if netloc.find('@') < 0:
             # on premise url
-            logger.warning('TFS SSH URLs are not supported for repo auto-detection yet. See the following issue for ' +
-                           'latest updates: https://github.com/Microsoft/azure-devops-cli-extension/issues/142')
+            logger.warning('DevOps SSH URLs are not supported for repo auto-detection yet. See the following issue for \
+                           latest updates: https://github.com/Microsoft/azure-devops-cli-extension/issues/142')
             return None
         # hosted url
         import re

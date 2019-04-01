@@ -14,12 +14,13 @@ def resolve_on_off_switch(switch):
     """
     if switch is None:
         raise ValueError('Expecting "on" or "off" value for switch, but value was None.')
-    elif switch == 'on':
+
+    if switch == 'on':
         return True
-    elif switch == 'off':
+    if switch == 'off':
         return False
-    else:
-        raise ValueError('Expecting "on" or "off" value for switch, but value was "' + switch + "'.")
+
+    raise ValueError('Expecting "on" or "off" value for switch, but value was "' + switch + "'.")
 
 
 def resolve_true_false(inputString):
@@ -39,12 +40,12 @@ def convert_date_string_to_iso8601(value, argument=None):
     import dateutil.parser
     try:
         d = dateutil.parser.parse(value)
-    except BaseException as ex:
+    except BaseException as ex:  # pylint: disable=broad-except
         logging.info(msg=ex)
         if argument is None:
             raise ValueError('The string "%s" must be a valid date or datetime string.' % value)
-        else:
-            raise ValueError('The --%s argument must be a valid ISO 8601 string.' % argument)
+
+        raise ValueError('The --%s argument must be a valid ISO 8601 string.' % argument)
     if d.tzinfo is None:
         from dateutil.tz import tzlocal
         d = d.replace(tzinfo=tzlocal())

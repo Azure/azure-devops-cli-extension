@@ -94,24 +94,25 @@ def get_definition_id_from_name(name, client, project):
     definition_references = client.get_definitions(project=project, name=name)
     if len(definition_references) == 1:
         return definition_references[0].id
-    elif len(definition_references) > 1:
+    if len(definition_references) > 1:
         if is_uuid(project):
             project = definition_references[0].project.name
         message = 'Multiple definitions were found matching name "{name}" in project "{project}".  Try '\
                   + 'supplying the definition ID.'
         raise ValueError(message.format(name=name, project=project))
-    else:
-        raise ValueError('There were no build definitions matching name "{name}" in project "{project}".'
-                         .format(name=name, project=project))
+
+    raise ValueError('There were no build definitions matching name "{name}" in project "{project}".'
+                     .format(name=name, project=project))
 
 
 def _resolve_repository_as_id(repository, organization, project):
     if is_uuid(repository):
         return repository
-    else:
-        git_client = get_git_client(organization)
-        repositories = git_client.get_repositories(project=project, include_links=False, include_all_urls=False)
-        for found_repository in repositories:
-            if found_repository.name.lower() == repository.lower():
-                return found_repository.id
+
+    git_client = get_git_client(organization)
+    repositories = git_client.get_repositories(project=project, include_links=False, include_all_urls=False)
+    for found_repository in repositories:
+        if found_repository.name.lower() == repository.lower():
+            return found_repository.id
+
     return None
