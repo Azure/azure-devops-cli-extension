@@ -58,7 +58,7 @@ def resolve_identity(identity_filter, organization):
                                                          filter_value=identity_filter)
     if not identities:
         raise CLIError('Could not resolve identity: ' + identity_filter)
-    elif len(identities) > 1:
+    if len(identities) > 1:
         # prefer users with same domain
         identities_with_tenant = []
         for identity in identities:
