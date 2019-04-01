@@ -69,7 +69,7 @@ class ArtifactToolInvoker:
 def _process_stderr(line, update_progress_callback):
     try:
         json_line = json.loads(line)
-    except BaseException as ex: # pylint: disable=broad-except
+    except BaseException as ex:  # pylint: disable=broad-except
         json_line = None
         logger.warning("Failed to parse structured output from Universal Packages tooling (ArtifactTool)")
         logger.warning("Exception: %s", ex)
