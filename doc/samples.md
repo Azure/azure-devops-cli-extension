@@ -24,7 +24,8 @@ Once successfully logged in, this would also set your default organization to Co
 
 In the above experience, you need to manually enter the token when prompted. However, you might want to login in a non-interactive manner, especially when running automation scripts. For this, you can use one of the following methods:
 
-1. Use environment variables.  
+- Use environment variables.
+
 There are cases where persisting a personal access token on the machine where the Azure CLI is running is not technically possible or is not secure. In these cases you can get a token from an environment variable.
 To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment variable:
 
@@ -44,7 +45,7 @@ To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment varia
 
     Now run any command without having to login explicitly. Each command will try to use the PAT in the environment variable for authentication. 
 
-1. Fetch PAT from a file and pass it to login command.
+- Fetch PAT from a file and pass it to login command.
 
     ```bash
     cat my_pat_token.txt | az devops login --organization https://dev.azure.com/contoso/
@@ -108,17 +109,28 @@ This will show the details of build with id 1 on command-line and also open it i
 
 To use the Azure DevOps Extension in a hosted agent using a Release Pipeline, execute the following steps:
 
-1. Create a New Release Pipeline
+- Create a New Release Pipeline
+
 ![new release pipeline](/doc/images/New%20Pipeline.PNG)
-1. Select an empty job
+
+- Select an empty job
+
 ![select template](/doc/images/SelectTemplate.PNG)
-1. Click Stage 1 to configure the Stage.
+
+- Click Stage 1 to configure the Stage.
+
 ![Stage 1](/doc/images/Stage.PNG)
-1. Configure the job to use Hosted Mac OS in Agent Pools
+
+- Configure the job to use Hosted Mac OS in Agent Pools
+
 ![Agent Job Configuration](/doc/images/JobConfig.PNG)
-1. Click on the + button to add a task and add PowerShell task
+
+- Click on the + button to add a task and add PowerShell task
+
 ![PowerShell](/doc/images/PowerShell.PNG)
-1. Add the script - either via file or inline. For the example, the script has been included inline. 
+
+- Add the script - either via file or inline. For the example, the script has been included inline.
+
 ![PowerShell](/doc/images/Script.PNG)
 
 Including the inline script for reference
@@ -308,7 +320,8 @@ Say you want to create a manual queue build policy across all branch folders tha
 
 Refer the [Policy create](https://docs.microsoft.com/en-us/rest/api/azure/devops/policy/configurations/create?view=azure-devops-rest-5.0#examples) documentation to know more about the structure for various policy types.
 
-- Save the file and run the create policy command  
+- Save the file and run the create policy command
+
 `az repos policy create C:\policyConfiguration.txt`
 
 *Note that the path is provided using '\\' backslash.
