@@ -11,7 +11,7 @@
 
 ## Log in via Azure DevOps Personal Access Token (PAT)
 
-You can log in using an Azure DevOps Personal Access Token. See the [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
+You can log in using an Azure DevOps Personal Access Token. See the [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one.
 
 Once you have the PAT Token, run the `az devops login` command. You will be prompted to enter PAT token.
 
@@ -138,7 +138,7 @@ If you prefer to use YAML to provide your release pipeline configuration, you ca
 
 In the example, you will learn how to add the Azure DevOps extension to Azure CLI and run the build and PR list commands on Linux, Mac OS and Windows hosted agents
 
-1. Create the azure-pipelines-steps.yml file and include the content below.
+- Create the azure-pipelines-steps.yml file and include the content below.
 
 For Mac OS: azure-pipelines-steps-mac.yml
 
@@ -160,15 +160,17 @@ steps:
     git pr list
   displayName: 'Show build list and PRs'
 ```
+
 For Linux: azure-pipelines-steps-linux.yml
-```
+
+```yaml
 steps:
   # Updating the python version available on the linux agent
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '3.7.0'
       architecture: 'x64'
-      
+
   # Updating pip to latest
   - script: python -m pip install --upgrade pip
     displayName: 'Upgrade pip'
@@ -190,7 +192,7 @@ steps:
 
   - script: az devops configure --defaults organization=https://georgeverghese.visualstudio.com project="Movie Search Web App" --use-git-aliases yes
     displayName: 'Set default Azure DevOps organization and project'
-    
+
   - script: |
       az pipelines build list
       git pr list
@@ -199,7 +201,7 @@ steps:
 
 For Windows: azure-pipelines-steps-win.yml
 
-```
+```yaml
 steps:
   # Updating the python version available on the linux agent
   - task: UsePythonVersion@0
@@ -220,7 +222,7 @@ steps:
 
   - script: az extension add -n azure-devops
     displayName: 'Install Azure DevOps Extension'
-    
+
   - script: echo $(System.AccessToken) | az devops login
     env:
       AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
@@ -234,8 +236,10 @@ steps:
       git pr list
     displayName: 'Show build list and PRs'
 ```
-2. Create the azure-pipelines.yml and include the content below.
-```
+
+- Create the azure-pipelines.yml and include the content below.
+
+```yaml
 jobs:
 # Running Azure DevOps extension commands on a hosted Mac agent 
 - job:
@@ -262,13 +266,15 @@ jobs:
   - template: azure-pipelines-steps-win.yml
 ```
 
-# Use policy configuration file to configure policies
+## Use policy configuration file to configure policies
 
 You can easily configure branch policies for your repository using the various policy commands. However, the policy commands accept a single scope, i.e., single combination of repository, branch and match type. If you want to apply the same policy across various scopes, you can do that using a policy configuration file.
 
 Say you want to create a manual queue build policy across all branch folders that start with "release" and also on the master branch. To achieve this, execute the following steps:
-1. Create a policy configuration file for build polcy, including the multiple application scopes:
-```
+
+- Create a policy configuration file for build polcy, including the multiple application scopes:
+
+```json
 {
 "isBlocking": true,
 "isDeleted": false,
@@ -280,16 +286,16 @@ Say you want to create a manual queue build policy across all branch folders tha
   "manualQueueOnly": true,
   "queueOnSourceUpdateOnly": false,
   "scope": [
-	{
-	  "matchKind": "Prefix",
-	  "refName": "refs/heads/release",
-	  "repositoryId": "e646f204-53c9-4153-9ab9-fd41a11e3564"
-	},
-	{
-	  "matchKind": "Exact",
-	  "refName": "refs/heads/master",
-	  "repositoryId": "e646f204-53c9-4153-9ab9-fd41a11e1234"
-	}
+  {
+    "matchKind": "Prefix",
+    "refName": "refs/heads/release",
+    "repositoryId": "e646f204-53c9-4153-9ab9-fd41a11e3564"
+  },
+  {
+    "matchKind": "Exact",
+    "refName": "refs/heads/master",
+    "repositoryId": "e646f204-53c9-4153-9ab9-fd41a11e1234"
+  }
   ],
   "validDuration": 0
 },
@@ -299,10 +305,10 @@ Say you want to create a manual queue build policy across all branch folders tha
 }
 }
 ```
+
 Refer the [Policy create](https://docs.microsoft.com/en-us/rest/api/azure/devops/policy/configurations/create?view=azure-devops-rest-5.0#examples) documentation to know more about the structure for various policy types.
 
-2. Save the file and run the create policy command  
+- Save the file and run the create policy command  
 `az repos policy create C:\policyConfiguration.txt`
 
 *Note that the path is provided using '\\' backslash.
-
