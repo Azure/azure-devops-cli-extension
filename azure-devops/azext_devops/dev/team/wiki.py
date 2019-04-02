@@ -28,7 +28,7 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     :param version: Repository branch name to publish the code wiki from. Only required for codewiki type.
     :type version: str
     :param mapped_path: Mapped path of the new wiki e.g. '/' to publish from root of repository.
-    Not required for project wiki.
+    Only required for codewiki type.
     :type mapped_path: str
     :param repository: Name or ID of the repository to publish the wiki from. Only required for codewiki type.
     :type repository: str
@@ -59,7 +59,7 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     return wiki_client.create_wiki(wiki_create_params=wiki_params, project=project)
 
 
-def delete_wiki(wiki, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def delete_wiki(wiki, organization=None, project=None, detect=None):
     """Delete a wiki.
     :param wiki: Name or Id of the wiki to delete.
     :type wiki: str
@@ -130,7 +130,7 @@ def add_page(wiki, path, comment=_DEFAULT_PAGE_ADD_MESSAGE, content=None, file_p
 
 
 def update_page(wiki, path, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, content=None, file_path=None,
-                page_version=None, organization=None, project=None, detect=None):
+                version=None, organization=None, project=None, detect=None):
     """Edit a page.
      :param wiki: Name or Id of the wiki.
     :type wiki: str
@@ -142,8 +142,8 @@ def update_page(wiki, path, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, content=None, 
     :type file_path: str
     :param comment: Comment in the commit message of file edit operation.
     :type comment: str
-    :param page_version: Version of file to edit.
-    :type page_version: str
+    :param version: Version (ETag) of file to edit.
+    :type version: str
     """
     if not content and not file_path:
         raise CLIError('Either --file-path or --content must be specified.')
@@ -160,7 +160,7 @@ def update_page(wiki, path, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, content=None, 
         parameters.content = fp.read()
         fp.close()
     return wiki_client.create_or_update_page(parameters=parameters, wiki_identifier=wiki,
-                                             project=project, path=path, version=page_version, comment=comment)
+                                             project=project, path=path, version=version, comment=comment)
 
 
 def get_page(wiki, path, version=None, recursion_level=None, open=False,  # pylint: disable=redefined-builtin
@@ -170,7 +170,7 @@ def get_page(wiki, path, version=None, recursion_level=None, open=False,  # pyli
     :type wiki: str
     :param path: Path of the wiki page.
     :type path: str
-    :param version: Version of the wiki page.
+    :param version: Version (ETag) of the wiki page.
     :type version: str
     :param recursion_level: Recursion level of the wiki page.
     :type recursion_level: str
