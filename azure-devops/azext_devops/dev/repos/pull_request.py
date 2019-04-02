@@ -304,8 +304,7 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
         else:
             pr.auto_complete_set_by = IdentityRef(id=EMPTY_UUID)
     if is_draft:
-        is_draft_mode = resolve_true_false(is_draft)
-        pr.is_draft = is_draft_mode
+        pr.is_draft = resolve_true_false(is_draft)
     pr = client.update_pull_request(git_pull_request_to_update=pr,
                                     project=existing_pr.repository.project.name,
                                     repository_id=existing_pr.repository.name,
