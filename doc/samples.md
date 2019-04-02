@@ -43,7 +43,7 @@ To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment varia
 
     Replace *xxxxxxxxxx* with the your PAT.
 
-    Now run any command without having to login explicitly. Each command will try to use the PAT in the environment variable for authentication. 
+    Now run any command without having to login explicitly. Each command will try to use the PAT in the environment variable for authentication.
 
 - Fetch PAT from a file and pass it to login command.
 
@@ -53,9 +53,9 @@ To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment varia
 
 ## Auto detect and git aliases
 
-The Azure DevOps Extension has been optimized for Azure Repos to work well with git workflows. 
+The Azure DevOps Extension has been optimized for Azure Repos to work well with git workflows.
 
-The Azure DevOps Extension evaluates if your current working directory is an Azure Repos git repository to auto detect configuration setting - organization, project and repository. This is achieved using the `detect` flag which is ON by default. 
+The Azure DevOps Extension evaluates if your current working directory is an Azure Repos git repository to auto detect configuration setting - organization, project and repository. This is achieved using the `detect` flag which is ON by default.
 
 If you are working in a local check out of a repository, you can simply run `az repos pr list` from the local directory to view all PRs.
 
@@ -187,7 +187,7 @@ steps:
   - script: python -m pip install --upgrade pip
     displayName: 'Upgrade pip'
 
-  # Updating to latest Azure CLI version.  
+  # Updating to latest Azure CLI version.
   - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
     displayName: 'upgrade azure cli'
 
@@ -200,7 +200,7 @@ steps:
   - script: echo ${AZURE_DEVOPS_CLI_PAT} | az devops login
     env:
       AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
-    displayName: 'Login Azure DevOps Extension'  
+    displayName: 'Login Azure DevOps Extension'
 
   - script: az devops configure --defaults organization=https://georgeverghese.visualstudio.com project="Movie Search Web App" --use-git-aliases yes
     displayName: 'Set default Azure DevOps organization and project'
@@ -239,7 +239,7 @@ steps:
     env:
       AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
     displayName: 'Login Azure DevOps Extension'
-  
+
   - script: az devops configure --defaults organization=https://georgeverghese.visualstudio.com project="Movie Search Web App" --use-git-aliases yes
     displayName: 'Set default Azure DevOps organization and project'
 
@@ -253,22 +253,22 @@ steps:
 
 ```yaml
 jobs:
-# Running Azure DevOps extension commands on a hosted Mac agent 
+# Running Azure DevOps extension commands on a hosted Mac agent
 - job:
   displayName: 'macOS'
   pool:
     vmImage: 'macOS-10.13'
   steps:
   - template: azure-pipelines-steps-mac.yml
-  
-# Running Azure DevOps extension commands on a hosted Linux agent 
+
+# Running Azure DevOps extension commands on a hosted Linux agent
 - job:
   displayName: 'Linux'
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
   - template: azure-pipelines-steps-linux.yml
-  
+
 # Runnig Azure DevOps extension commands on a hosted Windows agent
 - job:
   displayName: 'Windows'
@@ -313,7 +313,7 @@ Say you want to create a manual queue build policy across all branch folders tha
 },
 "type": {
   "displayName": "Build",
-  "id": "0609b952-1397-4640-95ec-e00a01b2f659" 
+  "id": "0609b952-1397-4640-95ec-e00a01b2f659"
 }
 }
 ```

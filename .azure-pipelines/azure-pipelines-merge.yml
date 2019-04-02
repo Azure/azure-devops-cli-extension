@@ -208,7 +208,7 @@ jobs:
 
 - job: 'Run_Markdown_Lin_Check'
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'vs2017-win2016'
   
   steps:
   - script: gem install mdl
