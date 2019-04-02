@@ -205,3 +205,14 @@ jobs:
     inputs:
       scriptSource: 'filePath'
       scriptPath: 'scripts/backCompatChecker.py' 
+
+- job: 'Run Markdown Lint Check'
+  pool:
+    vmImage: 'macOS-10.13'
+  
+  steps:
+  - script: gem install mdl
+    displayName: 'Install markdown lint'
+
+  - script: mdl . -c .mdlrc
+    displayName: 'Run markdown lint'
