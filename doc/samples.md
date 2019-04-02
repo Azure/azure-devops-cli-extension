@@ -1,4 +1,4 @@
-## Table of Contents
+# Table of Contents
 1. [Log in via Azure DevOps Personal Access Token (PAT)](samples.md#log-in-via-azure-devops-personal-access-token-pat)
 2. [Auto detect and git aliases](samples.md#auto-detect-and-git-aliases)
 3. [Configure output formats](samples.md#configure-output-formats)
@@ -8,7 +8,7 @@
 6. [Use the Azure DevOps Extension with YAML](samples.md#use-the-azure-devops-extension-with-yaml)
 7. [Use policy configuration file to configure policies](samples.md#use-policy-configuration-file-to-configure-policies)
 
-## Log in via Azure DevOps Personal Access Token (PAT)
+# Log in via Azure DevOps Personal Access Token (PAT)
 You can log in using an Azure DevOps Personal Access Token. See the [create personal access token guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts#create-personal-access-tokens-to-authenticate-access) to create one. 
 
 Once you have the PAT Token, run the `az devops login` command. You will be prompted to enter PAT token.
@@ -40,7 +40,7 @@ To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment varia
 
     Now run any command without having to login explicitly. Each command will try to use the PAT in the environment variable for authentication. 
     
-## Auto detect and git aliases
+# Auto detect and git aliases
 The Azure DevOps Extension has been optimized for Azure Repos to work well with git workflows. 
 
 The Azure DevOps Extension evaluates if your current working directory is an Azure Repos git repository to auto detect configuration setting - organization, project and repository. This is achieved using the `detect` flag which is ON by default. 
@@ -50,34 +50,33 @@ If you are working in a local check out of a repository, you can simply run `az 
 You can also configure the Azure Devops Extension to add git aliases for common git-based Azure Repos commands like creating or adding reviewers to pull requests. This can be enabled by running the following command:
 
 ```
-$ az devops configure --use-git-aliases yes
+az devops configure --use-git-aliases yes
 ```
 This will alias all `az repos` commands to `git` and all `az repos pr` commands to `git pr`.
 
 For example, a pull request can now be created using the following command:
 ```
-$ git pr create --target-branch {branch\_name}
+git pr create --target-branch {branch\_name}
 ```
 
-## Configure output formats
+# Configure output formats
 
 The output formats are inherited from Azure CLI. The Azure CLI uses JSON as its default output option, but offers various ways for you to format the output of any command.  Refer [Set the default output format](https://docs.microsoft.com/cli/azure/format-output-azure-cli?view=azure-cli-latest#set-the-default-output-format) guide to update default output format.
 
-## Query output
+# Query output
 You can use the --query parameter and the JMESPath query syntax to customize your output.
 
 ```
 
 $ az devops project list --query "[?visibility=='private'].{ProjectName: name, ProjectDescription: description}"
-```
-```
+
 ProjectName                                 ProjectDescription
 --------------------------------            -------------------------------------------------
 Foobar                                      Sample Foobar project
 Fabrikam                                    Sample Fabrikam Project
 ```
 
-## Open items in browser
+# Open items in browser
 
 You can use --open switch to open any artifact in Azure DevOps portal in your default browser.
 
@@ -87,7 +86,7 @@ $az pipelines build show --build-id 1 --open
 ```
 This will show the details of build with id 1 on command-line and also open it in the default browser.
 
-## Use the Azure DevOps Extension in a release pipeline
+# Use the Azure DevOps Extension in a release pipeline
 To use the Azure DevOps Extension in a hosted agent using a Release Pipeline, execute the following steps:
 1. Create a New Release Pipeline
 ![new release pipeline](/doc/images/New%20Pipeline.PNG)
@@ -258,16 +257,16 @@ Say you want to create a manual queue build policy across all branch folders tha
   "manualQueueOnly": true,
   "queueOnSourceUpdateOnly": false,
   "scope": [
-	{
-	  "matchKind": "Prefix",
-	  "refName": "refs/heads/release",
-	  "repositoryId": "e646f204-53c9-4153-9ab9-fd41a11e3564"
-	},
-	{
-	  "matchKind": "Exact",
-	  "refName": "refs/heads/master",
-	  "repositoryId": "e646f204-53c9-4153-9ab9-fd41a11e1234"
-	}
+  {
+    "matchKind": "Prefix",
+    "refName": "refs/heads/release",
+    "repositoryId": "e646f204-53c9-4153-9ab9-fd41a11e3564"
+  },
+  {
+    "matchKind": "Exact",
+    "refName": "refs/heads/master",
+    "repositoryId": "e646f204-53c9-4153-9ab9-fd41a11e1234"
+  }
   ],
   "validDuration": 0
 },
