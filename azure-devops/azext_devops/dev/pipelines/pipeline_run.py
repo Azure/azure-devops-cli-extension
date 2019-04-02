@@ -1,4 +1,4 @@
-from azext_devops.dev.common.services import resolve_instance_and_project, get_pipeline_client
+from azext_devops.dev.common.services import resolve_instance_and_project, get_new_pipeline_client
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.identities import resolve_identity_as_id
 from .pipeline import _open_pipeline_run
@@ -20,7 +20,7 @@ def pipeline_run_show(id, open=False, organization=None, project=None, detect=No
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
-    client = get_pipeline_client(organization)
+    client = get_new_pipeline_client(organization)
     build = client.get_build(build_id=id, project=project)
     if open:
         _open_pipeline_run(build, organization)
@@ -50,7 +50,7 @@ def pipeline_run_list(pipeline_id=None, branch=None, organization=None, project=
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
-    client = get_pipeline_client(organization)
+    client = get_new_pipeline_client(organization)
     if pipeline_id is not None and pipeline_id:
         pipeline_id = list(set(pipeline_id))  # make distinct
     if tags is not None and tags:
@@ -78,7 +78,7 @@ def pipeline_run_add_tag(run_id, tags, organization=None, project=None, detect=N
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)
-    client = get_pipeline_client(organization)
+    client = get_new_pipeline_client(organization)
     tags = list(map(str, tags.split(',')))
     if len(tags) == 1:
         tags = client.add_build_tag(project=project, build_id=run_id, tag=tags[0])
@@ -98,7 +98,7 @@ def pipeline_run_delete_tag(run_id, tag, organization=None, project=None, detect
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)
-    client = get_pipeline_client(organization)
+    client = get_new_pipeline_client(organization)
     tags = client.delete_build_tag(project=project, build_id=run_id, tag=tag)
     return tags
 
@@ -112,6 +112,6 @@ def pipeline_run_get_tags(run_id, organization=None, project=None, detect=None):
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)
-    client = get_pipeline_client(organization)
+    client = get_new_pipeline_client(organization)
     tags = client.get_build_tags(build_id=run_id, project=project)
     return tags

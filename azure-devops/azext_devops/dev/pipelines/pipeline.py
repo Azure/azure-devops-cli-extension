@@ -9,8 +9,8 @@ import os
 from knack.log import get_logger
 from knack.util import CLIError
 from knack.prompting import prompt_pass, prompt, verify_is_a_tty, NoTTYException
-from azext_devops.dev.common.services import (get_pipeline_client,
-                                              get_new_pipeline_client,
+from azext_devops.dev.common.services import (get_new_pipeline_client,
+                                              get_new_cix_client,
                                               get_git_client,
                                               get_service_endpoint_client,
                                               resolve_instance_and_project,
@@ -103,6 +103,7 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
     # Parse repository information according to repository type
     repo_name = None
     repo_id = None
+    api_url = None
     if repository_type.lower() == "github":
         if url:
             repository_url, repo_id, branch, yml_path = _parse_github_repo_info(url)
@@ -114,6 +115,7 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
             repo_name = repository_name
             repo_id = repository_name
             repository_url = 'https://github.com/' + repo_name
+        api_url = _get_github_repos_api_url(repo_id)
     if repository_type.lower() == 'tfsgit':
         repo_name = repository_name
         repo_id = _get_repository_id_from_name(organization, project, repository)
@@ -121,24 +123,23 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
     if not service_connection and repository_type != 'tfsgit':
         service_connection = get_github_service_endpoint(organization, project)
 
-    new_pipeline_client = get_new_pipeline_client(organization=organization)
+    new_cix_client = get_new_cix_client(organization=organization)
     # No yml path => find or recommend yml scenario
     if not yml_path:
-        yml_path = _create_and_get_yml_path(new_pipeline_client, repository_type, repo_id, repo_name, branch,
+        yml_path = _create_and_get_yml_path(new_cix_client, repository_type, repo_id, repo_name, branch,
                                             yml_props, service_connection, project, organization)
-
-    # todo Fix the use of unreleased client since this API is made public preview in 149
     if not queue_id:
         queue_id = get_agent_queue_by_heuristic(organization=organization, project=project)
         if queue_id is None:
             logger.warning('Cannot find a hosted pool queue in the project. Provide a --queue-id in command params.')
+
     # Create build definition
-    definition = _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, branch,
-                                                service_connection, repository_type, yml_path, queue_id)
-    client = get_pipeline_client(organization)
+    definition = _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, api_url, branch,
+                                               service_connection, repository_type, yml_path, queue_id)
+    client = get_new_pipeline_client(organization)
     created_definition = client.create_definition(definition=definition, project=project)
-    logger.warning('Successfully create a pipeline with Name: %s, Id: %s.',
-                    created_definition.name, created_definition.id)
+    logger.warning('Successfully created a pipeline with Name: %s, Id: %s.',
+                   created_definition.name, created_definition.id)
     return client.queue_build(build=Build(definition=created_definition), project=project)
 
 
@@ -164,7 +165,7 @@ def pipeline_list(name=None, top=None, organization=None, project=None, reposito
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
-    client = get_pipeline_client(organization)
+    client = get_new_pipeline_client(organization)
     query_order = 'DefinitionNameAscending'
     if repository is not None:
         if repository_type is None:
@@ -199,7 +200,7 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
-    client = get_pipeline_client(organization)
+    client = get_new_pipeline_client(organization)
     if id is None:
         if name is not None:
             id = get_definition_id_from_name(name, client, project)
@@ -249,7 +250,7 @@ def pipeline_update(name=None, id=None, description=None, new_name=None, reposit
     # pylint: disable=too-many-branches
     organization, project, repository = resolve_instance_project_and_repo(
         detect=detect, organization=organization, project=project, repo=repository_name)
-    pipeline_client = get_pipeline_client(organization=organization)
+    pipeline_client = get_new_pipeline_client(organization=organization)
     if id is None:
         if name is not None:
             id = get_definition_id_from_name(name, pipeline_client, project)
@@ -326,7 +327,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False,  #
     if id is None and name is None:
         raise ValueError('Either the --id argument or the --name argument ' +
                             'must be supplied for this command.')
-    client = get_pipeline_client(organization)
+    client = get_new_pipeline_client(organization)
     if id is None:
         id = get_definition_id_from_name(name, client, project)
     definition_reference = DefinitionReference(id=id)
@@ -350,7 +351,7 @@ def pipeline_delete(id, organization=None, project=None, detect=None): # pylint:
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
-    client = get_pipeline_client(organization)
+    client = get_new_pipeline_client(organization)
     build = client.delete_definition(definition_id=id, project=project)
     return build
 
@@ -447,10 +448,11 @@ def _get_repo_id_from_repo_url(repository_url):
     raise CLIError('Could not parse repository url.')
 
 
-def _create_repo_properties_object(service_endpoint, branch):
+def _create_repo_properties_object(service_endpoint, branch, api_url):
     return {
         "connectedServiceId": service_endpoint,
-        "defaultBranch": branch
+        "defaultBranch": branch,
+        "apiUrl": api_url
     }
 
 
@@ -491,7 +493,10 @@ def get_github_service_endpoint(organization, project):
     choice = 0
     for endpoint in existing_service_endpoints:
         if 'github.com' in endpoint.url:
-            service_endpoints_choice_list.append('Name: {}, Url: {}'.format(endpoint.name, endpoint.url))
+            if endpoint.authorization.scheme == 'InstallationToken':
+                service_endpoints_choice_list.append('Name: {} {}'.format(endpoint.name, '(Recommended)'))
+            else:
+                service_endpoints_choice_list.append('Name: {}'.format(endpoint.name))
             github_service_endpoints.append(endpoint)
     if github_service_endpoints:
         choice = prompt_user_friendly_choice_list("Create or choose existing service connection? ",
@@ -541,13 +546,13 @@ def try_get_repository_type(url):
     return None
 
 
-def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_name, branch, yml_props,
+def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, branch, yml_props,
                              service_endpoint, project, organization):
     logger.debug('No yml file was given. Trying to find the yml file in the repo.')
     default_yml_exists = False
     yml_names = []
     yml_options = []
-    configurations = pipeline_client.get_configurations(
+    configurations = cix_client.get_configurations(
         project=project, repository_type=repository_type,
         repository_id=repo_id, branch=branch, service_connection_id=service_endpoint)
     for configuration in configurations:
@@ -559,7 +564,7 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
         yml_options.append(YmlOptions(name=custom_name, content=configuration.content, id='customid',
                                       path=configuration.path))
 
-    recommendations = pipeline_client.get_recommended_templates(
+    recommendations = cix_client.get_template_recommendations(
         project=project, repository_type=repository_type,
         repository_id=repo_id, branch=branch, service_connection_id=service_endpoint)
     logger.debug('List of recommended templates..')
@@ -580,7 +585,7 @@ def _create_and_get_yml_path(pipeline_client, repository_type, repo_id, repo_nam
                 params_required=yml_options[yml_selection_index].params,
                 yml_props=yml_props,
                 template_id=yml_options[yml_selection_index].id,
-                pipeline_client=pipeline_client,
+                cix_client=cix_client,
                 repo_name=repo_name,
                 organization=organization,
                 project=project)
@@ -687,7 +692,7 @@ def _get_pipelines_trigger():
              "settingsSourceType":2, "triggerType": "pullRequest"}]
 
 
-def _handle_yml_props(params_required, yml_props, template_id, pipeline_client, repo_name, organization, project):
+def _handle_yml_props(params_required, yml_props, template_id, cix_client, repo_name, organization, project):
     logger.warning('The template requires a few inputs. '
                    'These can be provided as --yml-props in the command arguments or be input interactively.')
     params_to_render = {}
@@ -725,7 +730,7 @@ def _handle_yml_props(params_required, yml_props, template_id, pipeline_client, 
             raise CLIError('Missing required property for this template. '\
                             'Property Name: {propname} of type: {proptype} needs to be provided '\
                             'in --yml-props.'.format(propname=param.name, proptype=param.type))
-    rendered_template = pipeline_client.render_template(template_id=template_id,
+    rendered_template = cix_client.render_template(template_id=template_id,
                                                         template_parameters={'tokens':params_to_render})
     return rendered_template.content
 
@@ -777,7 +782,7 @@ def _prompt_for_prop_input(prop_name, prop_type):
                   help_string='Value of type {prop_type} is required.'.format(prop_type=prop_type))
 
 
-def _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, branch,
+def _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, api_url, branch,
                                   service_endpoint, repository_type, yml_path, queue_id):
     definition = BuildDefinition()
     definition.name = name
@@ -794,16 +799,24 @@ def _create_pipeline_build_object(name, description, repo_id, repo_name, reposit
     if branch:
         definition.repository.default_branch = branch
     if service_endpoint:
-        definition.repository.properties = _create_repo_properties_object(service_endpoint, branch)
-    definition.repository.type = repository_type
+        definition.repository.properties = _create_repo_properties_object(service_endpoint, branch, api_url)
+    # Hack to avoid the case sensitive GitHub type for service hooks.
+    if repository_type == 'github':
+        definition.repository.type = 'GitHub'
+    else:
+        definition.repository.type = repository_type
     # Set build process
     definition.process = _create_process_object(yml_path)
     # set agent queue
     definition.queue = AgentPoolQueue()
     definition.triggers = _get_pipelines_trigger()
     if queue_id:
-        definition.queue.id = queue_id  # todo atbagga This should not be hardcoded
+        definition.queue.id = queue_id
     return definition
+
+
+def _get_github_repos_api_url(repo_id):
+    return 'https://api.github.com/repos/' + repo_id
 
 
 def _get_repository_id_from_name(organization, project, repository):
@@ -818,9 +831,9 @@ def get_agent_queue_by_heuristic(organization, project):
     Returns id of Hosted Ubuntu 16.04, first hosted pool queue, first queue in that order
     None if no queues are returned
     """
-    from azext_devops.dev.common.services import get_unreleased_task_agent_client
+    from azext_devops.dev.common.services import get_new_task_agent_client
     choosen_queue = None
-    agent_client = get_unreleased_task_agent_client(organization=organization)
+    agent_client = get_new_task_agent_client(organization=organization)
     queues = agent_client.get_agent_queues(project=project)
     if queues:
         choosen_queue = queues[0]
