@@ -16,7 +16,6 @@ You can log in using an Azure DevOps Personal Access Token. See the [create pers
 Once you have the PAT Token, run the `az devops login` command. You will be prompted to enter PAT token.
 
 ```bash
-
 $az devops login --organization https://dev.azure.com/contoso
 Token:
 ```
@@ -33,14 +32,12 @@ To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment varia
     Windows:
 
     ```powershell
-
       set AZURE_DEVOPS_EXT_PAT=xxxxxxxxxx
     ```
 
     Linux or macOS:
 
     ```bash
-
       export AZURE_DEVOPS_EXT_PAT=xxxxxxxxxx
     ```
 
@@ -51,7 +48,6 @@ To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment varia
 - Fetch PAT from a file and pass it to login command.
 
     ```bash
-
     cat my_pat_token.txt | az devops login --organization https://dev.azure.com/contoso/
     ```
 
@@ -66,7 +62,6 @@ If you are working in a local check out of a repository, you can simply run `az 
 You can also configure the Azure Devops Extension to add git aliases for common git-based Azure Repos commands like creating or adding reviewers to pull requests. This can be enabled by running the following command:
 
 ```bash
-
 az devops configure --use-git-aliases yes
 ```
 
@@ -76,7 +71,6 @@ So `az repos list` becomes `git repo list` and `az repo pr list` becomes `git pr
 For example, a pull request can now be created using the following command:
 
 ```bash
-
 git pr create --target-branch {branch\_name}
 ```
 
@@ -89,12 +83,10 @@ The output formats are inherited from Azure CLI. The Azure CLI uses JSON as its 
 You can use the --query parameter and the JMESPath query syntax to customize your output.
 
 ```bash
-
 az devops project list --query "[?visibility=='private'].{ProjectName: name, ProjectDescription: description}"
 ```
 
 ```bash
-
 ProjectName                                 ProjectDescription
 --------------------------------            -------------------------------------------------
 Foobar                                      Sample Foobar project
@@ -108,7 +100,6 @@ You can use --open switch to open any artifact in Azure DevOps portal in your de
 For example :
 
 ```bash
-
 az pipelines build show --build-id 1 --open
 ```
 
@@ -145,7 +136,6 @@ To use the Azure DevOps Extension in a hosted agent using a Release Pipeline, ex
 Including the inline script for reference
 
 ```bash
-
 pip install --pre azure-cli==2.0.55 --extra-index-url https://azurecliprod.blob.core.windows.net/edgeaz --h
 az --version
 az extension add --name azure-devops
@@ -164,8 +154,7 @@ In the example, you will learn how to add the Azure DevOps extension to Azure CL
 
 For Mac OS: azure-pipelines-steps-mac.yml
 
-```bash
-
+```yaml
 steps:
 - script: az extension add -n azure-devops
   displayName: 'Install Azure DevOps Extension'
@@ -187,7 +176,6 @@ steps:
 For Linux: azure-pipelines-steps-linux.yml
 
 ```yaml
-
 steps:
   # Updating the python version available on the linux agent
   - task: UsePythonVersion@0
@@ -226,7 +214,6 @@ steps:
 For Windows: azure-pipelines-steps-win.yml
 
 ```yaml
-
 steps:
   # Updating the python version available on the linux agent
   - task: UsePythonVersion@0
@@ -265,7 +252,6 @@ steps:
 - Create the azure-pipelines.yml and include the content below.
 
 ```yaml
-
 jobs:
 # Running Azure DevOps extension commands on a hosted Mac agent 
 - job:
@@ -301,7 +287,6 @@ Say you want to create a manual queue build policy across all branch folders tha
 - Create a policy configuration file for build polcy, including the multiple application scopes:
 
 ```json
-
 {
 "isBlocking": true,
 "isDeleted": false,
