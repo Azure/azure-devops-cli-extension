@@ -206,7 +206,7 @@ jobs:
       scriptSource: 'filePath'
       scriptPath: 'scripts/backCompatChecker.py' 
 
-- job: 'Run Markdown Lint Check'
+- job: 'Run_Markdown_Lin_Check'
   pool:
     vmImage: 'macOS-10.13'
   
