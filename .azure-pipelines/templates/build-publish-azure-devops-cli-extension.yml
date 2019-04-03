@@ -3,6 +3,13 @@ steps:
     displayName: 'Install Azure DevOps CLI extension'
     workingDirectory: 'azure-devops/'
 
+  - task: PythonScript@0
+    displayName: 'Run Back Compat Argument Check'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: 'scripts/removeComments.py' 
+      workingDirectory: 'azure-devops/devops_sdk'
+
   - script: 'python setup.py sdist bdist_wheel'
     displayName: 'Build wheel for Azure DevOps CLI extension'
     workingDirectory: 'azure-devops/'
