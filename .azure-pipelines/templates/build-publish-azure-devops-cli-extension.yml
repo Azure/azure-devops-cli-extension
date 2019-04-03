@@ -4,7 +4,7 @@ steps:
     workingDirectory: 'azure-devops/'
 
   - task: PythonScript@0
-    displayName: 'Run Back Compat Argument Check'
+    displayName: 'Remove code comments from SDK files'
     inputs:
       scriptSource: 'filePath'
       scriptPath: 'scripts/removeComments.py' 
