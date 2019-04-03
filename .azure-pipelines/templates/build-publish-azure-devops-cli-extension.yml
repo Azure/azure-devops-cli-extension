@@ -7,8 +7,7 @@ steps:
     displayName: 'Remove code comments from SDK files'
     inputs:
       scriptSource: 'filePath'
-      scriptPath: 'scripts/removeComments.py' 
-      workingDirectory: 'azure-devops/devops_sdk'
+      scriptPath: 'scripts/removeComments.py'
 
   - script: 'python setup.py sdist bdist_wheel'
     displayName: 'Build wheel for Azure DevOps CLI extension'

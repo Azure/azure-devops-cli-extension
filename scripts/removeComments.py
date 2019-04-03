@@ -22,9 +22,9 @@ def remove_comment_from_file(filePath):
 
     os.replace(temp_file, filePath)
 
-for path, subdirs, files in os.walk(os.getcwd()):
+for path, subdirs, files in os.walk('.'):
     for name in files:
         file_path = os.path.join(path, name)
-        if file_path.endswith(".py"):
+        if file_path.endswith(".py") and "devops_sdk" in file_path:
             remove_comment_from_file(file_path)
 
