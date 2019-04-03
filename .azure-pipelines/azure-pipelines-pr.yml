@@ -191,3 +191,14 @@ jobs:
     inputs:
       scriptSource: 'filePath'
       scriptPath: 'scripts/backCompatChecker.py' 
+
+- job: 'Run_Markdown_Lint_Check'
+  pool:
+    vmImage: 'vs2017-win2016'
+  
+  steps:
+  - script: gem install mdl
+    displayName: 'Install markdown lint'
+
+  - script: mdl . -c .mdlrc
+    displayName: 'Run markdown lint'
