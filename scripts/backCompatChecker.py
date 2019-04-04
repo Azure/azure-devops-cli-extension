@@ -11,6 +11,7 @@ oldArguments = []
 newArguments = []
 allowedMissingArguments = {}
 allowedMissingArguments['devops service-endpoint create'] = ['--azure-rm-service-prinicipal-key']
+allowedMissingArguments['pipelines build queue'] = ['--source-branch']
 
 class Arguments(dict):
     def __init__(self, command, name, isRequired):

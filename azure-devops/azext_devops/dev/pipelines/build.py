@@ -18,7 +18,7 @@ logger = get_logger(__name__)
 
 
 def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open=False,  # pylint: disable=redefined-builtin
-                organization=None, project=None, detect=None, source_branch=None, commit_id=None):
+                organization=None, project=None, detect=None, commit_id=None):
     """Request (queue) a build.
     :param definition_id: ID of the definition to queue. Required if --name is not supplied.
     :type definition_id: int
@@ -30,14 +30,10 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type variables: [str]
     :param open: Open the build results page in your web browser.
     :type open: bool
-    :param source_branch: Obsolete. Use --branch instead.
-    :type source_branch: str
     :param commit_id: Commit ID of the branch to build.
     :type commit_id: str
     :rtype: :class:`<Build> <v5_0.build.models.Build>`
     """
-    if branch is None:
-        branch = source_branch
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
     if definition_id is None and definition_name is None:
