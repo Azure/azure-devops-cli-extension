@@ -157,6 +157,40 @@ def _transform_team_row(row):
     return table_row
 
 
+def transform_wikis_table_output(result):
+    table_output = []
+    for item in sorted(result, key=_get_wiki_key):
+        table_output.append(_transform_wiki_row(item))
+    return table_output
+
+
+def transform_wiki_table_output(result):
+    table_output = [_transform_wiki_row(result)]
+    return table_output
+
+
+def _transform_wiki_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Name'] = row['name']
+    table_row['Type'] = row['type']
+    return table_row
+
+
+def transform_wiki_page_table_output(result):
+    table_output = [_transform_wiki_page_row(result)]
+    return table_output
+
+
+def _transform_wiki_page_row(row):
+    table_row = OrderedDict()
+    table_row['ETag'] = row['eTag']
+    table_row['Git Path'] = row['page']['gitItemPath']
+    table_row['Is Parent'] = row['page']['isParentPage']
+    table_row['order'] = row['page']['order']
+    return table_row
+
+
 def transform_team_members_table_output(result):
     table_output = []
     for item in sorted(result, key=_get_member_key):
@@ -211,6 +245,10 @@ def _get_project_key(project_row):
 
 def _get_team_key(team_row):
     return team_row['name'].lower()
+
+
+def _get_wiki_key(wiki_row):
+    return wiki_row['name'].lower()
 
 
 def _get_member_key(member_row):

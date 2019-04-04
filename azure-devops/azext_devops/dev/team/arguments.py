@@ -16,6 +16,7 @@ from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
 # CUSTOM CHOICE LISTS
 _YES_NO_SWITCH_VALUES = ['yes', 'no']
 _SOURCE_CONTROL_VALUES = ['git', 'tfvc']
+_WIKI_TYPE_VALUES = ['projectwiki', 'codewiki']
 _PROJECT_VISIBILITY_VALUES = ['private', 'public']
 _STATE_VALUES = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting', 'createpending']
 _SERVICE_ENDPOINT_TYPE = [SERVICE_ENDPOINT_TYPE_GITHUB, SERVICE_ENDPOINT_TYPE_AZURE_RM]
@@ -36,9 +37,14 @@ def load_global_args(context):
     context.argument('project', options_list=('--project', '-p'), help='Name or ID of the project.')
 
 
+# pylint: disable=too-many-statements
 def load_team_arguments(self, _):
     with self.argument_context('devops configure') as context:
         context.argument('defaults', options_list=('--defaults', '-d'), nargs='*')
+
+    with self.argument_context('devops') as context:
+        context.argument('repository', options_list=('--repository', '-r'))
+
     with self.argument_context('devops project') as context:
         context.argument('process', options_list=('--process', '-p'))
         context.argument('source_control', options_list=('--source-control', '-s'),
@@ -46,6 +52,7 @@ def load_team_arguments(self, _):
         context.argument('description', options_list=('--description', '-d'))
         context.argument('state', **enum_choice_list(_STATE_VALUES))
         context.argument('visibility', **enum_choice_list(_PROJECT_VISIBILITY_VALUES))
+
     with self.argument_context('devops service-endpoint create') as context:
         context.argument('service_endpoint_type', **enum_choice_list(_SERVICE_ENDPOINT_TYPE))
         context.argument('authorization_scheme', **enum_choice_list(_SERVICE_ENDPOINT_AUTHORIZATION_SCHEME))
@@ -111,3 +118,7 @@ def load_team_arguments(self, _):
 
     with self.argument_context('pipelines') as context:
         load_global_args(context)
+
+    with self.argument_context('devops wiki') as context:
+        context.argument('wiki_type', options_list=('--wiki-type', '--type'), **enum_choice_list(_WIKI_TYPE_VALUES))
+        context.argument('version', options_list=('--version', '-v'))

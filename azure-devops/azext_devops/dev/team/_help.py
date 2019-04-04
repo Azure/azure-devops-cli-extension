@@ -84,3 +84,13 @@ def load_team_help():
             wikiIdentifier=e479f402-2be8-4953-bb0b-3a0209cbc2d2 --in-file D:/temp/createWikiRequestBody.txt
             --query-parameters path=sample738 --http-method PUT --api-version 5.1-preview -o json
     """
+
+    helps['devops wiki'] = """
+    type: group
+    short-summary: Manage wikis
+    """
+
+    helps['devops wiki page'] = """
+    type: group
+    short-summary: Manage wiki pages
+    """

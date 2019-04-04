@@ -123,7 +123,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.6'
+      versionSpec: '3.7.0'
       architecture: 'x64'
 
   - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
@@ -191,3 +191,14 @@ jobs:
     inputs:
       scriptSource: 'filePath'
       scriptPath: 'scripts/backCompatChecker.py' 
+
+- job: 'Run_Markdown_Lint_Check'
+  pool:
+    vmImage: 'vs2017-win2016'
+  
+  steps:
+  - script: gem install mdl
+    displayName: 'Install markdown lint'
+
+  - script: mdl . -c .mdlrc
+    displayName: 'Run markdown lint'

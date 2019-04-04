@@ -15,8 +15,12 @@ def azure_devops_exception_handler(ex):
     if type(ex).__name__ == 'AzureDevOpsServiceError':
         logger.debug('handling vsts service error')
         raise CLIError(ex)
-    else:
-        logger.debug('handling generic error')
-        import sys
-        from six import reraise
-        reraise(*sys.exc_info())
+
+    if type(ex).__name__ == 'ValueError':
+        logger.debug('handling value error')
+        raise CLIError(ex)
+
+    logger.debug('handling generic error')
+    import sys
+    from six import reraise
+    reraise(*sys.exc_info())

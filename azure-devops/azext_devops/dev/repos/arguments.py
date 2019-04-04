@@ -115,6 +115,7 @@ def load_code_arguments(self, _):
         context.argument('delete_source_branch', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         context.argument('bypass_policy', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
         context.argument('transition_work_items', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
+        context.argument('is_draft', **enum_choice_list(_TRUE_FALSE_SWITCH))
 
     with self.argument_context('repos pr policy') as context:
         context.argument('evaluation_id', options_list=('--evaluation-id', '-e'))

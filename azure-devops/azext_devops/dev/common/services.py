@@ -51,7 +51,7 @@ def _get_credentials(organization):
         if token_from_az_login:
             credentials = BasicAuthentication('', token_from_az_login)
             return credentials
-    except BaseException as ex:
+    except BaseException as ex:  # pylint: disable=broad-except
         logger.debug("az login is not present")
         logger.debug(ex, exc_info=True)
 
@@ -81,7 +81,7 @@ def validate_token_for_instance(organization, credentials):
     try:
         core_client.get_projects(state_filter='all', top=1, skip=0)
         return True
-    except BaseException as ex2:
+    except BaseException as ex2:  # pylint: disable=broad-except
         logger.debug(ex2, exc_info=True)
         logger.debug("Failed to connect using provided credentials")
     return False
@@ -117,10 +117,10 @@ def get_token_from_az_logins(organization, pat_token_present):
                 if validate_token_for_instance(organization, credentials):
                     return token
                 logger.debug('invalid token obtained for tenant %s', key[0])
-            except BaseException as ex2:
+            except BaseException as ex2:  # pylint: disable=broad-except
                 logger.debug(ex2)
                 logger.debug('failed while trying to get token for tenant %s', key[0])
-    except BaseException as ex:
+    except BaseException as ex:  # pylint: disable=broad-except
         logger.debug(ex)
 
     return ''
@@ -130,7 +130,7 @@ def get_token_from_az_login(profile, user, tenant):
     try:
         auth_token = profile.get_access_token_for_resource(user, tenant, '499b84ac-1321-427f-aa17-267ca6975798')
         return auth_token
-    except BaseException as ex:
+    except BaseException as ex:  # pylint: disable=broad-except
         logger.debug('not able to get token from az login')
         logger.debug(ex, exc_info=True)
         return ""
@@ -165,6 +165,11 @@ def get_ci_client(organization=None):
 def get_core_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_0.core.core_client.CoreClient')
+
+
+def get_wiki_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.wiki.wiki_client.WikiClient')
 
 
 def get_git_client(organization=None):
