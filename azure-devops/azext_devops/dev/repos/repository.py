@@ -56,7 +56,6 @@ def delete_repo(id, organization=None, project=None, detect=None):  # pylint: di
 
 def list_repos(organization=None, project=None, detect=None):
     """List Git repositories of a team project.
-    :rtype: list of :class:`<GitRepository> <v5_0.git.models.GitRepository>`
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
