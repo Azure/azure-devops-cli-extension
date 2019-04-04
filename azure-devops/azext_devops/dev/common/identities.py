@@ -56,6 +56,9 @@ def resolve_identity(identity_filter, organization):
         if identities is None or not identities:
             identities = identity_client.read_identities(search_filter='General',
                                                          filter_value=identity_filter)
+    if identities is None or not identities:
+            identities = identity_client.read_identities(search_filter='MailAddress',
+                                                         filter_value=identity_filter)
     if not identities:
         raise CLIError('Could not resolve identity: ' + identity_filter)
     elif len(identities) > 1:

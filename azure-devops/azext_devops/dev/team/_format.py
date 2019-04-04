@@ -115,9 +115,8 @@ def transform_group_table_output(result):
 
 def _transform_group_row(row):
     table_row = OrderedDict()
-    table_row['Id'] = row['originId']
     table_row['Display Name'] = row['principalName']
-    table_row['Description'] = trim_for_display(row['description'], 80)
+    table_row['Descriptor'] = row['descriptor']
     return table_row
 
 
