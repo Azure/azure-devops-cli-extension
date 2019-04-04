@@ -26,10 +26,10 @@ from azext_devops.test.utils.authentication import AuthenticatedTests
     
 class TestSecurityGroupMethods(AuthenticatedTests):
     _TEST_DEVOPS_ORGANIZATION = 'https://someorganization.visualstudio.com'
-    _TEST_PROJECT_NAME = 'sample_project'
+    _TEST_PROJECT_DESCRIPTOR = 'scp.someRandomDescriptorForProject'
     _OFF = 'Off'
     _GROUP_MGMT_CLIENT_LOCATION = 'azext_devops.devops_sdk.v5_0.graph.graph_client.GraphClient.'
-    _GROUP_ID = 'adda517c-0398-42dc-b2a8-0d3f240757f9'
+    _GROUP_ID = 'vssgp.someRandomDescriptorForGroup'
 
     def setUp(self):
         self.authentication_setup()
@@ -69,30 +69,31 @@ class TestSecurityGroupMethods(AuthenticatedTests):
 
     def test_list_groups_with_project_filter(self):
         pass
+        response = list_groups(project=self._TEST_PROJECT_DESCRIPTOR,organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        #assert
+        self.mock_list_groups.assert_called_once()
+        list_groups_param = self.mock_mock_list_groups.call_args_list[0][1]
+        self.assertEqual(self._TEST_PROJECT_DESCRIPTOR, list_groups_param['scope_descriptor'], str(list_groups_param))
 
     def test_show_group(self):
         response = get_group(id=self._GROUP_ID, organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
         #assert
         self.mock_get_group.assert_called_once()
-        self.mock_get_descriptor.assert_called_once()
     
     def test_delete_group(self):
         response = delete_group(id=self._GROUP_ID, organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
         #assert
         self.mock_delete_group.assert_called_once()
-        self.mock_get_descriptor.assert_called_once()
 
     def test_update_group(self):
         response = update_group(id=self._GROUP_ID, description='Updated description for the test group', organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
         #assert
         self.mock_update_group.assert_called_once()
-        self.mock_get_descriptor.assert_called_once()
 
     def test_list_memberships(self):
         response = list_memberships(id=self._GROUP_ID,  organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
         #assert
         self.mock_list_memberships.assert_called_once()
-        self.mock_get_descriptor.assert_called_once()
         self.mock_lookup_subjects.assert_called_once()
     
     def test_list_memberships_members_of(self):
