@@ -22,8 +22,8 @@ from .security_group_helper import (GraphGroupVstsCreationContext,
 def list_groups(project=None, continuation_token=None, subject_types=None, organization=None, detect=None):
     """ List all groups.
     :param str project: List groups for a particular project.
-    :param str continuation_token : If there are more results than can't be returned in a single page,\
-     the result set will containt a continuation token for retrieval of the next set of results.
+    :param str continuation_token : If there are more results than can't be returned in a single page, 
+                                    the result set will contain a continuation token for retrieval of the next set of results.
     :param [str] subject_types: A comma separated list of user subject subtypes to reduce the retrieved results.
     """
     organization = resolve_instance(detect=detect, organization=organization)
@@ -43,26 +43,36 @@ def list_groups(project=None, continuation_token=None, subject_types=None, organ
     return group_list_response.graph_groups
 
 
-def create_group(name=None, description=None, origin_id=None, groups, email_id=None, project=None, organization=None, detect=None):
+def create_group(name=None, description=None, origin_id=None, groups=None, email_id=None, project=None, organization=None, detect=None):
     """Create a new Azure DevOps group or materialize an existing AAD group.
+    :param str project: Project in which Azure DevOps group should be created.
+    :param [str] groups: A comma separated list of descriptors referencing groups you want the newly created group to join.
+    :param str name: Name of Azure DevOps group.
+    :param str description: Description of Azure DevOps group.
+    :param str email_id: Create new group using the mail address as a reference to an existing group
+                         from an external AD or AAD backed provider. Required if name or origin_id is missing.
+    :param str origin_id: Create new group using the OriginID as a reference to an existing group 
+                          from an external AD or AAD backed provider. Required if name or email_id is missing.
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
-    scope_descriptor = None
-    if project is not None and not is_uuid(project):
-        if name is None:
-            raise CLIError('--project argument is only valid for VSTS groups.')
-        project = _get_project_id(organization,project)
-        scope_descriptor = get_descriptor_from_storage_key(project, client)
-    if name is not None and origin_id is None and emaild_id is None:
+    if name is not None and origin_id is None and email_id is None:
         group_creation_context = GraphGroupVstsCreationContext(display_name=name, description=description)
-    elif origin_id is not None and email_id is None:
+    elif origin_id is not None and email_id is None and name is None:
         group_creation_context = GraphGroupOriginIdCreationContext(origin_id=origin_id)
-    elif email_id is not None:
-        group_creation_context =GraphGroupMailAddressCreationContext(mail_address=email_id)
+    elif email_id is not None and name is None and origin_id is None:
+        group_creation_context = GraphGroupMailAddressCreationContext(mail_address=email_id)
     else:
-        raise CLIError('Provide exactly one value out of name, origin_id and email_id')
-    group_details = client.create_group(creation_context=group_creation_context, scope_descriptor=scope_descriptor)
+        raise CLIError('Provide exactly one argument out of name, origin_id or email_id.')
+    scope_descriptor = None
+    if project is not None:
+        if not is_uuid(project):
+            project = _get_project_id(organization,project)
+        scope_descriptor = get_descriptor_from_storage_key(project, client)
+    if groups is not None:
+        groups = groups.split(',')
+    group_details = client.create_group(creation_context=group_creation_context,
+                                        scope_descriptor=scope_descriptor,group_descriptors=groups)
     return group_details
 
 
@@ -79,6 +89,8 @@ def get_group(id, organization=None, detect=None):
 def update_group(id, name=None, description=None, organization=None, detect=None):
     """Update name AND/OR description for a Azure DevOps group.
     :param str id: Descriptor of the group.
+    :param str name: New name of Azure DevOps group.
+    :param str description: New description of Azure DevOps group.
     """
     if name is None and description is None:
         raise CLIError('Either name or description argument must be provided.')
@@ -95,7 +107,7 @@ def update_group(id, name=None, description=None, organization=None, detect=None
 
 def delete_group(id, organization=None, detect=None):
     """Delete an Azure DevOps group.
-    :param str id: ID of the group.
+    :param str id: Descriptor of the group.
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
@@ -108,13 +120,15 @@ def list_memberships(id, relationship='members', organization=None, detect=None)
     :param str id: Group descriptor whose membership details are required.
     """
     organization = resolve_instance(detect=detect, organization=organization)
+    subject_descriptor=id
     client = get_graph_client(organization)
     if '@' in id:
         id = resolve_identity_as_id(id, organization)
+        subject_descriptor = get_descriptor_from_storage_key(id, client)  
     direction = 'down'
     if relationship == 'memberof':
         direction = 'up'
-    membership_list = client.list_memberships(subject_descriptor=id, direction=direction)
+    membership_list = client.list_memberships(subject_descriptor=subject_descriptor, direction=direction)
     lookup_keys = []
     for members in membership_list:
         if relationship == 'memberof':
@@ -129,30 +143,38 @@ def list_memberships(id, relationship='members', organization=None, detect=None)
 
 def add_membership(member_id, group_id, organization=None, detect=None):
     """Add membership.
-    :param str member_id: Id of User or group to be added.
-    :param str group_id: Id of the group to which member needs to be added.
+    :param str member_id: Descriptor of the group or Email Id of the user to be added.
+    :param str group_id: Descriptor of the group to which member needs to be added.
     """
-    pdb.set_trace()
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
-    if not is_uuid(member_id):
+    subject_descriptor = member_id
+    if '@' in member_id:
         member_id = resolve_identity_as_id(member_id, organization)
-    subject_descriptor = get_descriptor_from_storage_key(member_id, client)
+        subject_descriptor = get_descriptor_from_storage_key(member_id, client)
     membership_details = client.add_membership(subject_descriptor=subject_descriptor,
                                                container_descriptor=group_id)
+    lookup_keys = []
+    container = GraphSubjectLookupKey(membership_details.container_descriptor)
+    subject = GraphSubjectLookupKey(membership_details.member_descriptor)
+    lookup_keys.append(container)
+    lookup_keys.append(subject)
+    subject_lookup = GraphSubjectLookup(lookup_keys=lookup_keys)
+    membership_details = client.lookup_subjects(subject_lookup=subject_lookup)
     return membership_details
     
 
 def remove_membership(member_id, group_id, organization=None, detect=None):
     """Remove membership.
-    :param str member_id: Id of User or group to be removed.
-    :param str group_id: Id of the group from which member needs to be removed.
+    :param str member_id: Descriptor of the group or Email Id of the user to be removed.
+    :param str group_id: Descriptor of the group from which member needs to be removed.
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
-    if not is_uuid(member_id):
+    subject_descriptor = member_id
+    if '@' in member_id:
         member_id = resolve_identity_as_id(member_id, organization)
-    subject_descriptor = get_descriptor_from_storage_key(member_id, client)
+        subject_descriptor = get_descriptor_from_storage_key(member_id, client)
     try:
         client.check_membership_existence(subject_descriptor=subject_descriptor,
                                           container_descriptor=group_id)

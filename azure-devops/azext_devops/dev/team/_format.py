@@ -129,10 +129,13 @@ def transform_memberships_table_output(result):
 
 def _transform_membership_row(row):
     table_row = OrderedDict()
-    table_row['Id'] = row['originId']
-    table_row['Name'] = row['principalName']
+    if row['subjectKind'] == 'user':
+        table_row['Name'] = row['displayName']
+    else:
+        table_row['Name'] = row['principalName']
     table_row['Type'] = row['subjectKind']
     table_row['Email'] = row['mailAddress']
+    table_row['Descriptor'] = row['descriptor']
     return table_row
 
 
