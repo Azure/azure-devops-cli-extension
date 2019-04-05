@@ -36,8 +36,8 @@ def list_groups(project=None, continuation_token=None, subject_types=None, organ
     group_list_response = client.list_groups(scope_descriptor=scope_descriptor,
                                              continuation_token=continuation_token, subject_types=subject_types)
     if group_list_response.continuation_token is not None:
-        print('Showing only 500 groups.' +
-              ' To list next set of groups use this token as --continuation-token argument and run the command again.'+
+        print('Showing only 500 groups. ' +
+              'To list next set of groups use this token as --continuation-token argument and run the command again.' +
               ' TOKEN:', group_list_response.continuation_token)
     return group_list_response.graph_groups
 
@@ -125,7 +125,7 @@ def list_memberships(id, relationship='members', organization=None, detect=None)
     client = get_graph_client(organization)
     if '@' in id:
         id = resolve_identity_as_id(id, organization)
-        subject_descriptor = get_descriptor_from_storage_key(id, client)  
+        subject_descriptor = get_descriptor_from_storage_key(id, client)
     direction = 'down'
     if relationship == 'memberof':
         direction = 'up'
@@ -190,9 +190,11 @@ def get_descriptor_from_storage_key(storage_key, client):
     descriptor = client.get_descriptor(storage_key)
     return descriptor
 
+
 def get_storage_key_from_descriptor(descriptor, client):
     storage_key = client.get_storage_key(subject_descriptor=descriptor)
     return storage_key
+
 
 def _create_patch_operation(op, path, value):
     patch_operation = JsonPatchOperation()
@@ -200,6 +202,7 @@ def _create_patch_operation(op, path, value):
     patch_operation.path = path
     patch_operation.value = value
     return patch_operation
+
 
 def _get_project_id(organization, project):
     core_client = get_core_client(organization)

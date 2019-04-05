@@ -83,6 +83,7 @@ wikiOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+
 # pylint: disable=too-many-statements
 def load_team_commands(self, _):
     with self.command_group('devops', command_type=credentialsOps) as g:
