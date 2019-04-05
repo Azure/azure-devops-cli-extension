@@ -4,7 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 from __future__ import print_function
-import pdb
 from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.graph.models import (JsonPatchOperation,
                                                        GraphSubjectLookup,
@@ -22,15 +21,15 @@ from .security_group_helper import (GraphGroupVstsCreationContext,
 def list_groups(project=None, continuation_token=None, subject_types=None, organization=None, detect=None):
     """ List all groups.
     :param str project: List groups for a particular project.
-    :param str continuation_token : If there are more results than can't be returned in a single page, 
-                                    the result set will contain a continuation token for retrieval of the next set of results.
+    :param str continuation_token : If there are more results than can't be returned in a single page, the result set
+                                    will contain a continuation token for retrieval of the next set of results.
     :param [str] subject_types: A comma separated list of user subject subtypes to reduce the retrieved results.
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     scope_descriptor = None
     if project is not None and not is_uuid(project):
-        project = _get_project_id(organization,project)
+        project = _get_project_id(organization, project)
         scope_descriptor = get_descriptor_from_storage_key(project, client)
     if subject_types is not None:
         subject_types = subject_types.split(',')
@@ -38,20 +37,22 @@ def list_groups(project=None, continuation_token=None, subject_types=None, organ
                                              continuation_token=continuation_token, subject_types=subject_types)
     if group_list_response.continuation_token is not None:
         print('Showing only 500 groups.' +
-              ' To list next set of groups use this token as --continuation-token argument and run the command again. TOKEN:',
-              group_list_response.continuation_token)
+              ' To list next set of groups use this token as --continuation-token argument and run the command again.'+
+              ' TOKEN:', group_list_response.continuation_token)
     return group_list_response.graph_groups
 
 
-def create_group(name=None, description=None, origin_id=None, groups=None, email_id=None, project=None, organization=None, detect=None):
+def create_group(name=None, description=None, origin_id=None, groups=None,
+                 email_id=None, project=None, organization=None, detect=None):
     """Create a new Azure DevOps group or materialize an existing AAD group.
     :param str project: Project in which Azure DevOps group should be created.
-    :param [str] groups: A comma separated list of descriptors referencing groups you want the newly created group to join.
+    :param [str] groups: A comma separated list of descriptors referencing groups you want the newly created
+                         group to join.
     :param str name: Name of Azure DevOps group.
     :param str description: Description of Azure DevOps group.
     :param str email_id: Create new group using the mail address as a reference to an existing group
                          from an external AD or AAD backed provider. Required if name or origin_id is missing.
-    :param str origin_id: Create new group using the OriginID as a reference to an existing group 
+    :param str origin_id: Create new group using the OriginID as a reference to an existing group
                           from an external AD or AAD backed provider. Required if name or email_id is missing.
     """
     organization = resolve_instance(detect=detect, organization=organization)
@@ -67,16 +68,16 @@ def create_group(name=None, description=None, origin_id=None, groups=None, email
     scope_descriptor = None
     if project is not None:
         if not is_uuid(project):
-            project = _get_project_id(organization,project)
+            project = _get_project_id(organization, project)
         scope_descriptor = get_descriptor_from_storage_key(project, client)
     if groups is not None:
         groups = groups.split(',')
     group_details = client.create_group(creation_context=group_creation_context,
-                                        scope_descriptor=scope_descriptor,group_descriptors=groups)
+                                        scope_descriptor=scope_descriptor, group_descriptors=groups)
     return group_details
 
 
-def get_group(id, organization=None, detect=None):
+def get_group(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show group details.
     :param str id: Descriptor of the group.
     """
@@ -86,7 +87,7 @@ def get_group(id, organization=None, detect=None):
     return group_details
 
 
-def update_group(id, name=None, description=None, organization=None, detect=None):
+def update_group(id, name=None, description=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Update name AND/OR description for a Azure DevOps group.
     :param str id: Descriptor of the group.
     :param str name: New name of Azure DevOps group.
@@ -105,7 +106,7 @@ def update_group(id, name=None, description=None, organization=None, detect=None
     return update_group_details
 
 
-def delete_group(id, organization=None, detect=None):
+def delete_group(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete an Azure DevOps group.
     :param str id: Descriptor of the group.
     """
@@ -115,12 +116,12 @@ def delete_group(id, organization=None, detect=None):
     return delete_group_details
 
 
-def list_memberships(id, relationship='members', organization=None, detect=None):
+def list_memberships(id, relationship='members', organization=None, detect=None):  # pylint: disable=redefined-builtin
     """List memberships.
     :param str id: Group descriptor whose membership details are required.
     """
     organization = resolve_instance(detect=detect, organization=organization)
-    subject_descriptor=id
+    subject_descriptor = id
     client = get_graph_client(organization)
     if '@' in id:
         id = resolve_identity_as_id(id, organization)
@@ -139,7 +140,7 @@ def list_memberships(id, relationship='members', organization=None, detect=None)
     subject_lookup = GraphSubjectLookup(lookup_keys=lookup_keys)
     members_details = client.lookup_subjects(subject_lookup=subject_lookup)
     return members_details
-    
+
 
 def add_membership(member_id, group_id, organization=None, detect=None):
     """Add membership.
@@ -162,7 +163,7 @@ def add_membership(member_id, group_id, organization=None, detect=None):
     subject_lookup = GraphSubjectLookup(lookup_keys=lookup_keys)
     membership_details = client.lookup_subjects(subject_lookup=subject_lookup)
     return membership_details
-    
+
 
 def remove_membership(member_id, group_id, organization=None, detect=None):
     """Remove membership.
@@ -190,7 +191,7 @@ def get_descriptor_from_storage_key(storage_key, client):
     return descriptor
 
 def get_storage_key_from_descriptor(descriptor, client):
-    storage_key= client.get_storage_key(subject_descriptor=descriptor)
+    storage_key = client.get_storage_key(subject_descriptor=descriptor)
     return storage_key
 
 def _create_patch_operation(op, path, value):
