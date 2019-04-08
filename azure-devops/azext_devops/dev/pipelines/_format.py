@@ -96,31 +96,6 @@ def _transform_definition_row(row, include_draft_column=False):
     return table_row
 
 
-def transform_tasks_table_output(result):
-    table_output = []
-    for item in sorted(result, key=_get_task_key):
-        table_output.append(_transform_task_row(item))
-    return table_output
-
-
-def transform_task_table_output(result):
-    table_output = [_transform_task_row(result)]
-    return table_output
-
-
-def _transform_task_row(row):
-    table_row = OrderedDict()
-    table_row['ID'] = row['id']
-    table_row['Name'] = row['name']
-    table_row['Author'] = row['author']
-    table_row['Version'] = '.'.join([str(row['version']['major']),
-                                     str(row['version']['minor']),
-                                     str(row['version']['patch'])])
-    if row['version']['isTest']:
-        table_row['Version'] += '*'
-    return table_row
-
-
 def _get_task_key(row):
     return row['name'].lower()
 

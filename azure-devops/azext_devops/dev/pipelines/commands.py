@@ -10,8 +10,6 @@ from ._format import (transform_build_table_output,
                       transform_build_tags_output,
                       transform_definition_table_output,
                       transform_definitions_table_output,
-                      transform_tasks_table_output,
-                      transform_task_table_output,
                       transform_releases_table_output,
                       transform_release_table_output,
                       transform_release_definitions_table_output,
@@ -65,11 +63,6 @@ def load_build_commands(self, _):
         # basic build definition commands
         g.command('list', 'build_definition_list', table_transformer=transform_definitions_table_output)
         g.command('show', 'build_definition_show', table_transformer=transform_definition_table_output)
-
-    with self.command_group('pipelines build task', command_type=buildTaskOps) as g:
-        # basic build task commands
-        g.command('list', 'task_list', table_transformer=transform_tasks_table_output)
-        g.command('show', 'task_show', table_transformer=transform_task_table_output)
 
     with self.command_group('pipelines release', command_type=releaseOps) as g:
         # basic release commands
