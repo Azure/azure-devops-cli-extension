@@ -13,6 +13,10 @@ allowedMissingArguments = {}
 allowedMissingArguments['devops service-endpoint create'] = ['--azure-rm-service-prinicipal-key']
 allowedMissingArguments['pipelines build queue'] = ['--source-branch']
 
+# Do not compare these commands
+ignoreCommands = []
+ignoreCommands.append('pipelines build task')
+
 class Arguments(dict):
     def __init__(self, command, name, isRequired):
         self.command = command
@@ -81,8 +85,9 @@ subprocess.run(['az', 'extension', 'add', '--source', newExtensionLocation, '-y'
 # get a set of old commands, we are not reusing the set from ext because we want to keep this clean
 oldCommands = []
 for oldArgument in oldArguments:
-    if not any(oldArgument.command in s for s in oldCommands):
-        oldCommands.append(oldArgument.command)
+    if oldArgument.command not in ignoreCommands:
+        if not any(oldArgument.command in s for s in oldCommands):
+            oldCommands.append(oldArgument.command)
 
 # prepare argument set from new extension
 for oldCommand in oldCommands:
