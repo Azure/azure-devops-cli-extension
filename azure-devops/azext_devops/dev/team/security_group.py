@@ -123,7 +123,7 @@ def list_memberships(id, relationship='members', organization=None, detect=None)
     organization = resolve_instance(detect=detect, organization=organization)
     subject_descriptor = id
     client = get_graph_client(organization)
-    if '@' in id:
+    if '@' in id or '.' not in id:
         id = resolve_identity_as_id(id, organization)
         subject_descriptor = get_descriptor_from_storage_key(id, client)
     direction = 'down'
@@ -150,7 +150,7 @@ def add_membership(member_id, group_id, organization=None, detect=None):
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     subject_descriptor = member_id
-    if '@' in member_id:
+    if '@' in member_id or '.' not in member_id:
         member_id = resolve_identity_as_id(member_id, organization)
         subject_descriptor = get_descriptor_from_storage_key(member_id, client)
     membership_details = client.add_membership(subject_descriptor=subject_descriptor,
@@ -173,7 +173,7 @@ def remove_membership(member_id, group_id, organization=None, detect=None):
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     subject_descriptor = member_id
-    if '@' in member_id:
+    if '@' in member_id or '.' not in member_id:
         member_id = resolve_identity_as_id(member_id, organization)
         subject_descriptor = get_descriptor_from_storage_key(member_id, client)
     try:
