@@ -9,8 +9,7 @@ from azext_devops.dev.common.services import (get_wiki_client,
                                               get_core_client,
                                               get_git_client,
                                               resolve_instance,
-                                              resolve_instance_and_project,
-                                              resolve_instance_project_and_repo)
+                                              resolve_instance_and_project)
 
 
 _DEFAULT_PAGE_ADD_MESSAGE = 'Added a new page using Azure DevOps CLI'
@@ -33,10 +32,10 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     :param repository: Name or ID of the repository to publish the wiki from. Only required for codewiki type.
     :type repository: str
     """
-    organization, project, repository = resolve_instance_project_and_repo(detect=detect,
-                                                                          organization=organization,
-                                                                          project=project,
-                                                                          repo=repository)
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project,
+                                                         project_required=True)
     wiki_client = get_wiki_client(organization)
     from azext_devops.devops_sdk.v5_0.wiki.models import WikiCreateParametersV2
     wiki_params = WikiCreateParametersV2()
