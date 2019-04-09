@@ -6,7 +6,6 @@
 import webbrowser
 from knack.util import CLIError
 from azext_devops.dev.common.services import (get_wiki_client,
-                                              get_core_client,
                                               get_git_client,
                                               get_project_id_from_name,
                                               resolve_instance,
@@ -44,7 +43,7 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     wiki_params.name = name
     wiki_params.type = wiki_type
     project_id = get_project_id_from_name(organization=organization,
-                                           project=project)
+                                          project=project)
     wiki_params.project_id = project_id
     repository_id = _get_repository_id_from_name(organization=organization,
                                                  project=project,

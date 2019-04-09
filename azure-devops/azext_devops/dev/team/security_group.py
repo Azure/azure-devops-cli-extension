@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from __future__ import print_function
+from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.devops_sdk.exceptions import AzureDevOpsClientRequestError
 from azext_devops.devops_sdk.v5_0.graph.models import (JsonPatchOperation,
@@ -11,13 +12,13 @@ from azext_devops.devops_sdk.v5_0.graph.models import (JsonPatchOperation,
                                                        GraphSubjectLookupKey)
 from azext_devops.dev.common.identities import resolve_identity_as_id
 from azext_devops.dev.common.services import (get_graph_client,
-                                              get_core_client,
                                               get_project_id_from_name,
                                               resolve_instance)
-from azext_devops.dev.common.uuid import is_uuid
 from .security_group_helper import (GraphGroupVstsCreationContext,
                                     GraphGroupMailAddressCreationContext,
                                     GraphGroupOriginIdCreationContext)
+
+logger = get_logger(__name__)
 
 
 def list_groups(project=None, continuation_token=None, subject_types=None, organization=None, detect=None):
@@ -181,7 +182,7 @@ def remove_membership(member_id, group_id, organization=None, detect=None):
         client.check_membership_existence(subject_descriptor=subject_descriptor,
                                           container_descriptor=group_id)
         membership_details = client.remove_membership(subject_descriptor=subject_descriptor,
-                                                  container_descriptor=group_id)
+                                                      container_descriptor=group_id)
     except AzureDevOpsClientRequestError as ex:
         logger.debug(ex, exc_info=True)
         raise CLIError("Membership doesn't exists.")
