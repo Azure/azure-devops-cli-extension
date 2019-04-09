@@ -1572,13 +1572,13 @@ class ReferenceLinks(Model):
 class ReleaseReference(Model):
     """ReleaseReference.
 
-    :param attempt:
+    :param attempt: Number of Release Attempt.
     :type attempt: int
-    :param creation_date:
+    :param creation_date: Release Creation Date.
     :type creation_date: datetime
     :param definition_id: Release definition ID.
     :type definition_id: int
-    :param environment_creation_date:
+    :param environment_creation_date: Environment creation Date.
     :type environment_creation_date: datetime
     :param environment_definition_id: Release environment definition ID.
     :type environment_definition_id: int

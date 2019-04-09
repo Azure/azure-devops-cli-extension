@@ -794,15 +794,23 @@ class ProjectReference(Model):
 
     :param id: Gets or sets id of the project.
     :type id: str
+    :param name: Gets or sets name of the project.
+    :type name: str
+    :param visibility: Gets or sets visibility of the project.
+    :type visibility: str
     """
 
     _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'}
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'visibility': {'key': 'visibility', 'type': 'str'}
     }
 
-    def __init__(self, id=None):
+    def __init__(self, id=None, name=None, visibility=None):
         super(ProjectReference, self).__init__()
         self.id = id
+        self.name = name
+        self.visibility = visibility
 
 
 class ProtocolMetadata(Model):

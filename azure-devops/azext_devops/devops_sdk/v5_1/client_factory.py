@@ -22,6 +22,13 @@ class ClientFactoryV5_1(object):
         """
         return self._connection.get_client('azure.devops.v5_1.accounts.accounts_client.AccountsClient')
 
+    def get_authorization_client(self):
+        """get_authorization_client.
+        Gets the 5.1 version of the AuthorizationClient
+        :rtype: :class:`<AuthorizationClient> <azure.devops.v5_1.authorization.authorization_client.AuthorizationClient>`
+        """
+        return self._connection.get_client('azure.devops.v5_1.authorization.authorization_client.AuthorizationClient')
+
     def get_build_client(self):
         """get_build_client.
         Gets the 5.1 version of the BuildClient
@@ -308,6 +315,13 @@ class ClientFactoryV5_1(object):
         :rtype: :class:`<TestClient> <azure.devops.v5_1.test.test_client.TestClient>`
         """
         return self._connection.get_client('azure.devops.v5_1.test.test_client.TestClient')
+
+    def get_test_plan_client(self):
+        """get_test_plan_client.
+        Gets the 5.1 version of the TestPlanClient
+        :rtype: :class:`<TestPlanClient> <azure.devops.v5_1.test_plan.test_plan_client.TestPlanClient>`
+        """
+        return self._connection.get_client('azure.devops.v5_1.test_plan.test_plan_client.TestPlanClient')
 
     def get_tfvc_client(self):
         """get_tfvc_client.

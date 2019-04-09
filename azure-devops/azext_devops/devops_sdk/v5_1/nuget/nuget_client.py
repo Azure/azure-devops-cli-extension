@@ -25,16 +25,19 @@ class NuGetClient(Client):
 
     resource_area_identifier = 'b3be7473-68ea-4a81-bfc7-9530baaa19ad'
 
-    def download_package(self, feed_id, package_name, package_version, source_protocol_version=None):
+    def download_package(self, feed_id, package_name, package_version, project=None, source_protocol_version=None):
         """DownloadPackage.
         [Preview API] Download a package version directly.  This API is intended for manual UI download options, not for programmatic access and scripting.  You may be heavily throttled if accessing this api for scripting purposes.
         :param str feed_id: Name or ID of the feed.
         :param str package_name: Name of the package.
         :param str package_version: Version of the package.
+        :param str project: Project ID or project name
         :param str source_protocol_version: Unused
         :rtype: object
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed_id is not None:
             route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
         if package_name is not None:
@@ -51,13 +54,16 @@ class NuGetClient(Client):
                               query_parameters=query_parameters)
         return self._deserialize('object', response)
 
-    def update_package_versions(self, batch_request, feed_id):
+    def update_package_versions(self, batch_request, feed_id, project=None):
         """UpdatePackageVersions.
         [Preview API] Update several packages from a single feed in a single request. The updates to the packages do not happen atomically.
         :param :class:`<NuGetPackagesBatchRequest> <azure.devops.v5_1.nuget.models.NuGetPackagesBatchRequest>` batch_request: Information about the packages to update, the operation to perform, and its associated data.
         :param str feed_id: Name or ID of the feed.
+        :param str project: Project ID or project name
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed_id is not None:
             route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
         content = self._serialize.body(batch_request, 'NuGetPackagesBatchRequest')
@@ -67,14 +73,17 @@ class NuGetClient(Client):
                    route_values=route_values,
                    content=content)
 
-    def delete_package_version_from_recycle_bin(self, feed_id, package_name, package_version):
+    def delete_package_version_from_recycle_bin(self, feed_id, package_name, package_version, project=None):
         """DeletePackageVersionFromRecycleBin.
         [Preview API] Delete a package version from a feed's recycle bin.
         :param str feed_id: Name or ID of the feed.
         :param str package_name: Name of the package.
         :param str package_version: Version of the package.
+        :param str project: Project ID or project name
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed_id is not None:
             route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
         if package_name is not None:
@@ -86,15 +95,18 @@ class NuGetClient(Client):
                    version='5.1-preview.1',
                    route_values=route_values)
 
-    def get_package_version_metadata_from_recycle_bin(self, feed_id, package_name, package_version):
+    def get_package_version_metadata_from_recycle_bin(self, feed_id, package_name, package_version, project=None):
         """GetPackageVersionMetadataFromRecycleBin.
         [Preview API] View a package version's deletion/recycled status
         :param str feed_id: Name or ID of the feed.
         :param str package_name: Name of the package.
         :param str package_version: Version of the package.
+        :param str project: Project ID or project name
         :rtype: :class:`<NuGetPackageVersionDeletionState> <azure.devops.v5_1.nuGet.models.NuGetPackageVersionDeletionState>`
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed_id is not None:
             route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
         if package_name is not None:
@@ -107,15 +119,18 @@ class NuGetClient(Client):
                               route_values=route_values)
         return self._deserialize('NuGetPackageVersionDeletionState', response)
 
-    def restore_package_version_from_recycle_bin(self, package_version_details, feed_id, package_name, package_version):
+    def restore_package_version_from_recycle_bin(self, package_version_details, feed_id, package_name, package_version, project=None):
         """RestorePackageVersionFromRecycleBin.
         [Preview API] Restore a package version from a feed's recycle bin back into the active feed.
         :param :class:`<NuGetRecycleBinPackageVersionDetails> <azure.devops.v5_1.nuget.models.NuGetRecycleBinPackageVersionDetails>` package_version_details: Set the 'Deleted' member to 'false' to apply the restore operation
         :param str feed_id: Name or ID of the feed.
         :param str package_name: Name of the package.
         :param str package_version: Version of the package.
+        :param str project: Project ID or project name
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed_id is not None:
             route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
         if package_name is not None:
@@ -129,15 +144,18 @@ class NuGetClient(Client):
                    route_values=route_values,
                    content=content)
 
-    def delete_package_version(self, feed_id, package_name, package_version):
+    def delete_package_version(self, feed_id, package_name, package_version, project=None):
         """DeletePackageVersion.
         [Preview API] Send a package version from the feed to its paired recycle bin.
         :param str feed_id: Name or ID of the feed.
         :param str package_name: Name of the package to delete.
         :param str package_version: Version of the package to delete.
+        :param str project: Project ID or project name
         :rtype: :class:`<Package> <azure.devops.v5_1.nuGet.models.Package>`
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed_id is not None:
             route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
         if package_name is not None:
@@ -150,16 +168,19 @@ class NuGetClient(Client):
                               route_values=route_values)
         return self._deserialize('Package', response)
 
-    def get_package_version(self, feed_id, package_name, package_version, show_deleted=None):
+    def get_package_version(self, feed_id, package_name, package_version, project=None, show_deleted=None):
         """GetPackageVersion.
         [Preview API] Get information about a package version.
         :param str feed_id: Name or ID of the feed.
         :param str package_name: Name of the package.
         :param str package_version: Version of the package.
+        :param str project: Project ID or project name
         :param bool show_deleted: True to include deleted packages in the response.
         :rtype: :class:`<Package> <azure.devops.v5_1.nuGet.models.Package>`
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed_id is not None:
             route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
         if package_name is not None:
@@ -176,15 +197,18 @@ class NuGetClient(Client):
                               query_parameters=query_parameters)
         return self._deserialize('Package', response)
 
-    def update_package_version(self, package_version_details, feed_id, package_name, package_version):
+    def update_package_version(self, package_version_details, feed_id, package_name, package_version, project=None):
         """UpdatePackageVersion.
         [Preview API] Set mutable state on a package version.
         :param :class:`<PackageVersionDetails> <azure.devops.v5_1.nuget.models.PackageVersionDetails>` package_version_details: New state to apply to the referenced package.
         :param str feed_id: Name or ID of the feed.
         :param str package_name: Name of the package to update.
         :param str package_version: Version of the package to update.
+        :param str project: Project ID or project name
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed_id is not None:
             route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
         if package_name is not None:

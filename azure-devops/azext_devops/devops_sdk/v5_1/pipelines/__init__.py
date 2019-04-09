@@ -10,6 +10,8 @@ from .models import *
 from .pipelines_client import PipelinesClient
 
 __all__ = [
+    'CreatePipelineConfigurationParameters',
+    'CreatePipelineParameters',
     'Pipeline',
     'PipelineConfiguration',
     'PipelinesClient'

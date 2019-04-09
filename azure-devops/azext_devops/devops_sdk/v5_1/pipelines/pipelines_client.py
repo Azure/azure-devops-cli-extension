@@ -25,6 +25,24 @@ class PipelinesClient(Client):
 
     resource_area_identifier = None
 
+    def create_pipeline(self, input_parameters, project):
+        """CreatePipeline.
+        [Preview API]
+        :param :class:`<CreatePipelineParameters> <azure.devops.v5_1.pipelines.models.CreatePipelineParameters>` input_parameters:
+        :param str project: Project ID or project name
+        :rtype: :class:`<Pipeline> <azure.devops.v5_1.pipelines.models.Pipeline>`
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        content = self._serialize.body(input_parameters, 'CreatePipelineParameters')
+        response = self._send(http_method='POST',
+                              location_id='28e1305e-2afe-47bf-abaf-cbb0e6a91988',
+                              version='5.1-preview.1',
+                              route_values=route_values,
+                              content=content)
+        return self._deserialize('Pipeline', response)
+
     def get_pipeline(self, project, pipeline_id, revision=None):
         """GetPipeline.
         [Preview API]

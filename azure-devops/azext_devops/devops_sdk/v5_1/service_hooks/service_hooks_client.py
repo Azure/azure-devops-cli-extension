@@ -327,7 +327,7 @@ class ServiceHooksClient(Client):
         """ListSubscriptions.
         [Preview API] Get a list of subscriptions.
         :param str publisher_id: ID for a subscription.
-        :param str event_type: Maximum number of notifications to return. Default is 100.
+        :param str event_type: The event type to filter on (if any).
         :param str consumer_id: ID for a consumer.
         :param str consumer_action_id: ID for a consumerActionId.
         :rtype: [Subscription]

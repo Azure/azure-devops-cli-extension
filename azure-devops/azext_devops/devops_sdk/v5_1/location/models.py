@@ -114,6 +114,8 @@ class IdentityBase(Model):
     :type provider_display_name: str
     :param resource_version:
     :type resource_version: int
+    :param social_descriptor:
+    :type social_descriptor: :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
     :param subject_descriptor:
     :type subject_descriptor: :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
     :param unique_user_id:
@@ -134,11 +136,12 @@ class IdentityBase(Model):
         'properties': {'key': 'properties', 'type': 'object'},
         'provider_display_name': {'key': 'providerDisplayName', 'type': 'str'},
         'resource_version': {'key': 'resourceVersion', 'type': 'int'},
+        'social_descriptor': {'key': 'socialDescriptor', 'type': 'str'},
         'subject_descriptor': {'key': 'subjectDescriptor', 'type': 'str'},
         'unique_user_id': {'key': 'uniqueUserId', 'type': 'int'}
     }
 
-    def __init__(self, custom_display_name=None, descriptor=None, id=None, is_active=None, is_container=None, master_id=None, member_ids=None, member_of=None, members=None, meta_type_id=None, properties=None, provider_display_name=None, resource_version=None, subject_descriptor=None, unique_user_id=None):
+    def __init__(self, custom_display_name=None, descriptor=None, id=None, is_active=None, is_container=None, master_id=None, member_ids=None, member_of=None, members=None, meta_type_id=None, properties=None, provider_display_name=None, resource_version=None, social_descriptor=None, subject_descriptor=None, unique_user_id=None):
         super(IdentityBase, self).__init__()
         self.custom_display_name = custom_display_name
         self.descriptor = descriptor
@@ -153,6 +156,7 @@ class IdentityBase(Model):
         self.properties = properties
         self.provider_display_name = provider_display_name
         self.resource_version = resource_version
+        self.social_descriptor = social_descriptor
         self.subject_descriptor = subject_descriptor
         self.unique_user_id = unique_user_id
 
@@ -358,6 +362,8 @@ class Identity(IdentityBase):
     :type provider_display_name: str
     :param resource_version:
     :type resource_version: int
+    :param social_descriptor:
+    :type social_descriptor: :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
     :param subject_descriptor:
     :type subject_descriptor: :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
     :param unique_user_id:
@@ -378,12 +384,13 @@ class Identity(IdentityBase):
         'properties': {'key': 'properties', 'type': 'object'},
         'provider_display_name': {'key': 'providerDisplayName', 'type': 'str'},
         'resource_version': {'key': 'resourceVersion', 'type': 'int'},
+        'social_descriptor': {'key': 'socialDescriptor', 'type': 'str'},
         'subject_descriptor': {'key': 'subjectDescriptor', 'type': 'str'},
         'unique_user_id': {'key': 'uniqueUserId', 'type': 'int'},
     }
 
-    def __init__(self, custom_display_name=None, descriptor=None, id=None, is_active=None, is_container=None, master_id=None, member_ids=None, member_of=None, members=None, meta_type_id=None, properties=None, provider_display_name=None, resource_version=None, subject_descriptor=None, unique_user_id=None):
-        super(Identity, self).__init__(custom_display_name=custom_display_name, descriptor=descriptor, id=id, is_active=is_active, is_container=is_container, master_id=master_id, member_ids=member_ids, member_of=member_of, members=members, meta_type_id=meta_type_id, properties=properties, provider_display_name=provider_display_name, resource_version=resource_version, subject_descriptor=subject_descriptor, unique_user_id=unique_user_id)
+    def __init__(self, custom_display_name=None, descriptor=None, id=None, is_active=None, is_container=None, master_id=None, member_ids=None, member_of=None, members=None, meta_type_id=None, properties=None, provider_display_name=None, resource_version=None, social_descriptor=None, subject_descriptor=None, unique_user_id=None):
+        super(Identity, self).__init__(custom_display_name=custom_display_name, descriptor=descriptor, id=id, is_active=is_active, is_container=is_container, master_id=master_id, member_ids=member_ids, member_of=member_of, members=members, meta_type_id=meta_type_id, properties=properties, provider_display_name=provider_display_name, resource_version=resource_version, social_descriptor=social_descriptor, subject_descriptor=subject_descriptor, unique_user_id=unique_user_id)
 
 
 __all__ = [

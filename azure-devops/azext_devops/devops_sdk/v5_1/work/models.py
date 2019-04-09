@@ -213,6 +213,26 @@ class BacklogLevelWorkItems(Model):
         self.work_items = work_items
 
 
+class BoardBadge(Model):
+    """BoardBadge.
+
+    :param board_id: The ID of the board represented by this badge.
+    :type board_id: str
+    :param image_url: A link to the SVG resource.
+    :type image_url: str
+    """
+
+    _attribute_map = {
+        'board_id': {'key': 'boardId', 'type': 'str'},
+        'image_url': {'key': 'imageUrl', 'type': 'str'}
+    }
+
+    def __init__(self, board_id=None, image_url=None):
+        super(BoardBadge, self).__init__()
+        self.board_id = board_id
+        self.image_url = image_url
+
+
 class BoardCardRuleSettings(Model):
     """BoardCardRuleSettings.
 
@@ -1910,6 +1930,7 @@ __all__ = [
     'BacklogLevel',
     'BacklogLevelConfiguration',
     'BacklogLevelWorkItems',
+    'BoardBadge',
     'BoardCardRuleSettings',
     'BoardCardSettings',
     'BoardChartReference',

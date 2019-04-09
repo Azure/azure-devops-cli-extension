@@ -7,26 +7,13 @@
 # --------------------------------------------------------------------------------------------
 
 from .models import *
-from .cix_client import CixClient
+from .authorization_client import authorizationClient
 
 __all__ = [
-    'ConfigurationFile',
-    'CreatedResources',
-    'CreatePipelineConnectionInputs',
-    'DetectedBuildFramework',
-    'DetectedBuildTarget',
-    'Operation',
-    'OperationReference',
-    'OperationResultReference',
-    'PipelineConnection',
+    'AuthorizedDefinitions',
+    'GraphSubjectBase',
+    'IdentityRef',
     'ReferenceLinks',
-    'ResourceCreationParameter',
-    'TeamProject',
-    'TeamProjectReference',
-    'Template',
-    'TemplateAsset',
-    'TemplateParameterDefinition',
-    'TemplateParameters',
-    'WebApiTeamRef',
-    'CixClient'
+    'ResourceAuthorizedDefinitions',
+    'authorizationClient'
 ]

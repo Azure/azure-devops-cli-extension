@@ -761,7 +761,7 @@ class TestClient(Client):
 
     def get_test_run_statistics(self, project, run_id):
         """GetTestRunStatistics.
-        [Preview API] Get test run statistics
+        [Preview API] Get test run statistics , used when we want to get summary of a run by outcome.
         :param str project: Project ID or project name
         :param int run_id: ID of the run to get.
         :rtype: :class:`<TestRunStatistic> <azure.devops.v5_1.test.models.TestRunStatistic>`

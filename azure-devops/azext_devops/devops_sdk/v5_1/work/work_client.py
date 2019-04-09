@@ -546,7 +546,7 @@ class WorkClient(Client):
             route_values['board'] = self._serialize.url('board', board, 'str')
         response = self._send(http_method='GET',
                               location_id='b044a3d9-02ea-49c7-91a1-b730949cc896',
-                              version='5.1-preview.1',
+                              version='5.1-preview.2',
                               route_values=route_values)
         return self._deserialize('BoardCardRuleSettings', response)
 
@@ -580,10 +580,40 @@ class WorkClient(Client):
         content = self._serialize.body(board_card_rule_settings, 'BoardCardRuleSettings')
         response = self._send(http_method='PATCH',
                               location_id='b044a3d9-02ea-49c7-91a1-b730949cc896',
-                              version='5.1-preview.1',
+                              version='5.1-preview.2',
                               route_values=route_values,
                               content=content)
         return self._deserialize('BoardCardRuleSettings', response)
+
+    def update_taskboard_card_rule_settings(self, board_card_rule_settings, team_context):
+        """UpdateTaskboardCardRuleSettings.
+        [Preview API] Update taskboard card Rule settings
+        :param :class:`<BoardCardRuleSettings> <azure.devops.v5_1.work.models.BoardCardRuleSettings>` board_card_rule_settings:
+        :param :class:`<TeamContext> <azure.devops.v5_1.work.models.TeamContext>` team_context: The team context for the operation
+        """
+        project = None
+        team = None
+        if team_context is not None:
+            if team_context.project_id:
+                project = team_context.project_id
+            else:
+                project = team_context.project
+            if team_context.team_id:
+                team = team_context.team_id
+            else:
+                team = team_context.team
+
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'string')
+        if team is not None:
+            route_values['team'] = self._serialize.url('team', team, 'string')
+        content = self._serialize.body(board_card_rule_settings, 'BoardCardRuleSettings')
+        self._send(http_method='PATCH',
+                   location_id='3f84a8d1-1aab-423e-a94b-6dcbdcca511f',
+                   version='5.1-preview.2',
+                   route_values=route_values,
+                   content=content)
 
     def get_board_card_settings(self, team_context, board):
         """GetBoardCardSettings.

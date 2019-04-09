@@ -212,32 +212,40 @@ class AttachmentReference(Model):
 class CommentCreate(Model):
     """CommentCreate.
 
+    :param format: The format of the comment. Defaults to HTML if null.
+    :type format: object
     :param text: The text of the comment.
     :type text: str
     """
 
     _attribute_map = {
+        'format': {'key': 'format', 'type': 'object'},
         'text': {'key': 'text', 'type': 'str'}
     }
 
-    def __init__(self, text=None):
+    def __init__(self, format=None, text=None):
         super(CommentCreate, self).__init__()
+        self.format = format
         self.text = text
 
 
 class CommentUpdate(Model):
     """CommentUpdate.
 
+    :param format: The format of the comment. Defaults to HTML if null.
+    :type format: object
     :param text: The updated text of the comment.
     :type text: str
     """
 
     _attribute_map = {
+        'format': {'key': 'format', 'type': 'object'},
         'text': {'key': 'text', 'type': 'str'}
     }
 
-    def __init__(self, text=None):
+    def __init__(self, format=None, text=None):
         super(CommentUpdate, self).__init__()
+        self.format = format
         self.text = text
 
 
@@ -419,7 +427,7 @@ class JsonPatchOperation(Model):
     :param from_: The path to copy from for the Move/Copy operation.
     :type from_: str
     :param op: The patch operation
-    :type op: :class:`Operation <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.Operation>`
+    :type op: object
     :param path: The path for the operation. In the case of an array, a zero based index can be used to specify the position in the array (e.g. /biscuits/0/name). The "-" character can be used instead of an index to insert at the end of the array (e.g. /biscuits/-).
     :type path: str
     :param value: The value for the operation. This is either a primitive or a JToken.
@@ -428,7 +436,7 @@ class JsonPatchOperation(Model):
 
     _attribute_map = {
         'from_': {'key': 'from', 'type': 'str'},
-        'op': {'key': 'op', 'type': 'Operation'},
+        'op': {'key': 'op', 'type': 'object'},
         'path': {'key': 'path', 'type': 'str'},
         'value': {'key': 'value', 'type': 'object'}
     }
@@ -463,50 +471,6 @@ class Link(Model):
         self.attributes = attributes
         self.rel = rel
         self.url = url
-
-
-class OperationReference(Model):
-    """OperationReference.
-
-    :param id: Unique identifier for the operation.
-    :type id: str
-    :param plugin_id: Unique identifier for the plugin.
-    :type plugin_id: str
-    :param status: The current status of the operation.
-    :type status: object
-    :param url: URL to get the full operation object.
-    :type url: str
-    """
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'plugin_id': {'key': 'pluginId', 'type': 'str'},
-        'status': {'key': 'status', 'type': 'object'},
-        'url': {'key': 'url', 'type': 'str'}
-    }
-
-    def __init__(self, id=None, plugin_id=None, status=None, url=None):
-        super(OperationReference, self).__init__()
-        self.id = id
-        self.plugin_id = plugin_id
-        self.status = status
-        self.url = url
-
-
-class OperationResultReference(Model):
-    """OperationResultReference.
-
-    :param result_url: URL to the operation result.
-    :type result_url: str
-    """
-
-    _attribute_map = {
-        'result_url': {'key': 'resultUrl', 'type': 'str'}
-    }
-
-    def __init__(self, result_url=None):
-        super(OperationResultReference, self).__init__()
-        self.result_url = result_url
 
 
 class ProjectWorkItemStateColors(Model):
@@ -1506,46 +1470,6 @@ class AccountRecentActivityWorkItemModel2(AccountRecentActivityWorkItemModelBase
         self.assigned_to = assigned_to
 
 
-class Operation(OperationReference):
-    """Operation.
-
-    :param id: Unique identifier for the operation.
-    :type id: str
-    :param plugin_id: Unique identifier for the plugin.
-    :type plugin_id: str
-    :param status: The current status of the operation.
-    :type status: object
-    :param url: URL to get the full operation object.
-    :type url: str
-    :param _links: Links to other related objects.
-    :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
-    :param detailed_message: Detailed messaged about the status of an operation.
-    :type detailed_message: str
-    :param result_message: Result message for an operation.
-    :type result_message: str
-    :param result_url: URL to the operation result.
-    :type result_url: :class:`OperationResultReference <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.OperationResultReference>`
-    """
-
-    _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'},
-        'plugin_id': {'key': 'pluginId', 'type': 'str'},
-        'status': {'key': 'status', 'type': 'object'},
-        'url': {'key': 'url', 'type': 'str'},
-        '_links': {'key': '_links', 'type': 'ReferenceLinks'},
-        'detailed_message': {'key': 'detailedMessage', 'type': 'str'},
-        'result_message': {'key': 'resultMessage', 'type': 'str'},
-        'result_url': {'key': 'resultUrl', 'type': 'OperationResultReference'}
-    }
-
-    def __init__(self, id=None, plugin_id=None, status=None, url=None, _links=None, detailed_message=None, result_message=None, result_url=None):
-        super(Operation, self).__init__(id=id, plugin_id=plugin_id, status=status, url=url)
-        self._links = _links
-        self.detailed_message = detailed_message
-        self.result_message = result_message
-        self.result_url = result_url
-
-
 class ReportingWorkItemLinksBatch(StreamedBatch):
     """ReportingWorkItemLinksBatch.
 
@@ -1866,12 +1790,16 @@ class Comment(WorkItemTrackingResource):
     :type id: int
     :param is_deleted: Indicates if the comment has been deleted.
     :type is_deleted: bool
+    :param mentions: The mentions of the comment.
+    :type mentions: list of :class:`CommentMention <azure.devops.v5_1.work_item_tracking.models.CommentMention>`
     :param modified_by: IdentityRef of the user who last modified the comment.
     :type modified_by: :class:`IdentityRef <azure.devops.v5_1.work_item_tracking.models.IdentityRef>`
     :param modified_date: The last modification date of the comment.
     :type modified_date: datetime
     :param reactions: The reactions of the comment.
     :type reactions: list of :class:`CommentReaction <azure.devops.v5_1.work_item_tracking.models.CommentReaction>`
+    :param rendered_text: The rendered text of the comment.
+    :type rendered_text: str
     :param text: The text of the comment.
     :type text: str
     :param version: The current version of the comment.
@@ -1889,15 +1817,17 @@ class Comment(WorkItemTrackingResource):
         'created_on_behalf_of': {'key': 'createdOnBehalfOf', 'type': 'IdentityRef'},
         'id': {'key': 'id', 'type': 'int'},
         'is_deleted': {'key': 'isDeleted', 'type': 'bool'},
+        'mentions': {'key': 'mentions', 'type': '[CommentMention]'},
         'modified_by': {'key': 'modifiedBy', 'type': 'IdentityRef'},
         'modified_date': {'key': 'modifiedDate', 'type': 'iso-8601'},
         'reactions': {'key': 'reactions', 'type': '[CommentReaction]'},
+        'rendered_text': {'key': 'renderedText', 'type': 'str'},
         'text': {'key': 'text', 'type': 'str'},
         'version': {'key': 'version', 'type': 'int'},
         'work_item_id': {'key': 'workItemId', 'type': 'int'}
     }
 
-    def __init__(self, url=None, _links=None, created_by=None, created_date=None, created_on_behalf_date=None, created_on_behalf_of=None, id=None, is_deleted=None, modified_by=None, modified_date=None, reactions=None, text=None, version=None, work_item_id=None):
+    def __init__(self, url=None, _links=None, created_by=None, created_date=None, created_on_behalf_date=None, created_on_behalf_of=None, id=None, is_deleted=None, mentions=None, modified_by=None, modified_date=None, reactions=None, rendered_text=None, text=None, version=None, work_item_id=None):
         super(Comment, self).__init__(url=url, _links=_links)
         self.created_by = created_by
         self.created_date = created_date
@@ -1905,9 +1835,11 @@ class Comment(WorkItemTrackingResource):
         self.created_on_behalf_of = created_on_behalf_of
         self.id = id
         self.is_deleted = is_deleted
+        self.mentions = mentions
         self.modified_by = modified_by
         self.modified_date = modified_date
         self.reactions = reactions
+        self.rendered_text = rendered_text
         self.text = text
         self.version = version
         self.work_item_id = work_item_id
@@ -1949,6 +1881,40 @@ class CommentList(WorkItemTrackingResource):
         self.count = count
         self.next_page = next_page
         self.total_count = total_count
+
+
+class CommentMention(WorkItemTrackingResource):
+    """CommentMention.
+
+    :param url:
+    :type url: str
+    :param _links: Link references to related REST resources.
+    :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work_item_tracking.models.ReferenceLinks>`
+    :param artifact_id: The artifact portion of the parsed text. (i.e. the work item's id)
+    :type artifact_id: str
+    :param artifact_type: The type the parser assigned to the mention. (i.e. person, work item, etc)
+    :type artifact_type: str
+    :param comment_id: The comment id of the mention.
+    :type comment_id: int
+    :param target_id: The resolved target of the mention. An example of this could be a user's tfid
+    :type target_id: str
+    """
+
+    _attribute_map = {
+        'url': {'key': 'url', 'type': 'str'},
+        '_links': {'key': '_links', 'type': 'ReferenceLinks'},
+        'artifact_id': {'key': 'artifactId', 'type': 'str'},
+        'artifact_type': {'key': 'artifactType', 'type': 'str'},
+        'comment_id': {'key': 'commentId', 'type': 'int'},
+        'target_id': {'key': 'targetId', 'type': 'str'}
+    }
+
+    def __init__(self, url=None, _links=None, artifact_id=None, artifact_type=None, comment_id=None, target_id=None):
+        super(CommentMention, self).__init__(url=url, _links=_links)
+        self.artifact_id = artifact_id
+        self.artifact_type = artifact_type
+        self.comment_id = comment_id
+        self.target_id = target_id
 
 
 class CommentReaction(WorkItemTrackingResource):
@@ -2622,8 +2588,6 @@ __all__ = [
     'IdentityReference',
     'JsonPatchOperation',
     'Link',
-    'OperationReference',
-    'OperationResultReference',
     'ProjectWorkItemStateColors',
     'ProvisioningResult',
     'QueryBatchGetRequest',
@@ -2663,7 +2627,6 @@ __all__ = [
     'WorkItemTypeTemplateUpdateModel',
     'AccountRecentActivityWorkItemModel',
     'AccountRecentActivityWorkItemModel2',
-    'Operation',
     'ReportingWorkItemLinksBatch',
     'ReportingWorkItemRevisionsBatch',
     'WorkItemCommentVersionRef',
@@ -2675,6 +2638,7 @@ __all__ = [
     'WorkItemUpdate',
     'Comment',
     'CommentList',
+    'CommentMention',
     'CommentReaction',
     'CommentReportingList',
     'CommentVersion',
