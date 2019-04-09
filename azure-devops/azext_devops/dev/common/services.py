@@ -343,6 +343,12 @@ def clear_connection_cache():
     _connection.clear()
 
 
+def get_project_id_from_name(organization, project):
+    core_client = get_core_client(organization)
+    team_project = core_client.get_project(project_id=project)
+    return team_project.id
+
+
 _connection_data = {}
 _connection = OrderedDict()
 VSTS_MODULE = 'azext_devops.devops_sdk.'

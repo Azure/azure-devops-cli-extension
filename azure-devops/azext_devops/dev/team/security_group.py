@@ -12,6 +12,7 @@ from azext_devops.devops_sdk.v5_0.graph.models import (JsonPatchOperation,
 from azext_devops.dev.common.identities import resolve_identity_as_id
 from azext_devops.dev.common.services import (get_graph_client,
                                               get_core_client,
+                                              get_project_id_from_name,
                                               resolve_instance)
 from azext_devops.dev.common.uuid import is_uuid
 from .security_group_helper import (GraphGroupVstsCreationContext,
@@ -29,8 +30,8 @@ def list_groups(project=None, continuation_token=None, subject_types=None, organ
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     scope_descriptor = None
-    if project is not None and not is_uuid(project):
-        project = _get_project_id(organization, project)
+    if project is not None:
+        project = get_project_id_from_name(organization, project)
         scope_descriptor = get_descriptor_from_storage_key(project, client)
     if subject_types is not None:
         subject_types = subject_types.split(',')
@@ -68,8 +69,7 @@ def create_group(name=None, description=None, origin_id=None, email_id=None,
         raise CLIError('Provide exactly one argument out of name, origin_id or email_id.')
     scope_descriptor = None
     if project is not None:
-        if not is_uuid(project):
-            project = _get_project_id(organization, project)
+        project = get_project_id_from_name(organization, project)
         scope_descriptor = get_descriptor_from_storage_key(project, client)
     if groups is not None:
         groups = groups.split(',')
@@ -171,7 +171,6 @@ def remove_membership(member_id, group_id, organization=None, detect=None):
     :param str member_id: Descriptor of the group or Email Id of the user to be removed.
     :param str group_id: Descriptor of the group from which member needs to be removed.
     """
-    pdb.set_trace()
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     subject_descriptor = member_id
@@ -205,9 +204,3 @@ def _create_patch_operation(op, path, value):
     patch_operation.path = path
     patch_operation.value = value
     return patch_operation
-
-
-def _get_project_id(organization, project):
-    core_client = get_core_client(organization)
-    project = core_client.get_project(project_id=project)
-    return project.id

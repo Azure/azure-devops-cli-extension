@@ -8,6 +8,7 @@ from knack.util import CLIError
 from azext_devops.dev.common.services import (get_wiki_client,
                                               get_core_client,
                                               get_git_client,
+                                              get_project_id_from_name,
                                               resolve_instance,
                                               resolve_instance_and_project,
                                               resolve_instance_project_and_repo)
@@ -42,7 +43,7 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     wiki_params = WikiCreateParametersV2()
     wiki_params.name = name
     wiki_params.type = wiki_type
-    project_id = _get_project_id_from_name(organization=organization,
+    project_id = get_project_id_from_name(organization=organization,
                                            project=project)
     wiki_params.project_id = project_id
     repository_id = _get_repository_id_from_name(organization=organization,
@@ -206,12 +207,6 @@ def delete_page(wiki, path, comment=_DEFAULT_PAGE_DELETE_MESSAGE, organization=N
                                                          project=project)
     wiki_client = get_wiki_client(organization)
     return wiki_client.delete_page(wiki_identifier=wiki, path=path, comment=comment, project=project)
-
-
-def _get_project_id_from_name(organization, project):
-    core_client = get_core_client(organization)
-    team_project = core_client.get_project(project_id=project)
-    return team_project.id
 
 
 def _get_repository_id_from_name(organization, project, repository):

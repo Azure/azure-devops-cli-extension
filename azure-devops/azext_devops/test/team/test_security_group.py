@@ -48,7 +48,7 @@ class TestSecurityGroupMethods(AuthenticatedTests):
         self.update_group_patcher = patch(self._GROUP_MGMT_CLIENT_LOCATION + 'update_group')
         self.list_memberships_patcher = patch(self._GROUP_MGMT_CLIENT_LOCATION + 'list_memberships')
         self.lookup_subjects_patcher = patch(self._GROUP_MGMT_CLIENT_LOCATION + 'lookup_subjects')
-        self.get_project_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient')
+        self.get_project_patcher = patch('azext_devops.devops_sdk.v5_0.core.core_client.CoreClient.get_project')
         self.add_membership_patcher = patch(self._GROUP_MGMT_CLIENT_LOCATION + 'add_membership')
         self.remove_membership_patcher = patch(self._GROUP_MGMT_CLIENT_LOCATION + 'remove_membership')
         self.check_membership_patcher = patch(self._GROUP_MGMT_CLIENT_LOCATION + 'check_membership_existence')
