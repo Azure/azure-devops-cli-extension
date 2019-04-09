@@ -37,7 +37,7 @@ def _transform_work_items_row(row):
         else:
             table_row['Title'] = ' '
         if 'System.AssignedTo' in row['fields']:
-            table_row['Assigned To'] = row['fields']['System.AssignedTo']
+            table_row['Assigned To'] = row['fields']['System.AssignedTo']['uniqueName']
         else:
             table_row['Assigned To'] = ' '
         if 'System.State' in row['fields']:
