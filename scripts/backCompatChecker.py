@@ -15,7 +15,8 @@ allowedMissingArguments['pipelines build queue'] = ['--source-branch']
 
 # Do not compare these commands
 ignoreCommands = []
-ignoreCommands.append('pipelines build task')
+ignoreCommands.append('pipelines build task list')
+ignoreCommands.append('pipelines build task show')
 
 class Arguments(dict):
     def __init__(self, command, name, isRequired):
@@ -88,6 +89,9 @@ for oldArgument in oldArguments:
     if oldArgument.command not in ignoreCommands:
         if not any(oldArgument.command in s for s in oldCommands):
             oldCommands.append(oldArgument.command)
+    else:
+        print('Ignoring command.. ' + oldArgument.command)
+
 
 # prepare argument set from new extension
 for oldCommand in oldCommands:
