@@ -160,6 +160,9 @@ def get_new_pipeline_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_1.build.build_client.BuildClient')
 
+def get_unreleased_task_agent_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client('azext_devops.dev.pipelines.unreleased_clients.TaskAgentClient')
 
 def get_new_task_agent_client(organization=None):
     connection = get_connection(organization)

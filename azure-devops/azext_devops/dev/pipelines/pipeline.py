@@ -716,6 +716,16 @@ def _handle_yml_props(params_required, yml_props, template_id, cix_client, repo_
                 logger.warning('Auto filling param %s: %s', param.name, repo_name)
                 params_to_render[param.name] = repo_name
                 prop_found = True
+            if param.name == 'servicePort':
+                import pdb
+                pdb.set_trace()
+                if param.defaultValue:
+                    port = param.defaultValue
+                else:
+                    port = '80'
+                logger.warning('Auto filling param %s: %s', param.name, port)
+                params_to_render[param.name] = port
+                prop_found = True
             else:
                 fetched_value = fetch_yaml_prop_intelligently(param.type, organization, project)
                 if fetched_value is not None:
@@ -731,14 +741,45 @@ def _handle_yml_props(params_required, yml_props, template_id, cix_client, repo_
                             'Property Name: {propname} of type: {proptype} needs to be provided '\
                             'in --yml-props.'.format(propname=param.name, proptype=param.type))
     rendered_template = cix_client.render_template(template_id=template_id,
-                                                        template_parameters={'tokens':params_to_render})
+                                                   template_parameters={'tokens':params_to_render})
     return rendered_template.content
 
 
 def fetch_yaml_prop_intelligently(prop_type, organization, project):
     if prop_type.lower() == 'connectedservice:azurerm':
         return get_azure_rm_service_connection(organization, project)
+    if prop_type.lower() == 'endpoint:kubernetes':
+        return get_kubernetes_service_connection(organization, project)
+    if prop_type.lower() == 'endpoint:containerregistry':
+        return get_container_registry_service_connection(organization, project)
+    if prop_type.lower() == 'environment':
+        return get_pipeline_environment(organization, project)
     return None
+
+
+def get_pipeline_environment(organization, project):
+    from .pipeline_environment import create_environment, get_environments
+    existing_env = get_environments(organization, project)
+    if existing_env:
+        environments_choice_list = ['Create a new pipeline environment']
+        choice = 0
+        for environment in existing_env:
+            environments_choice_list.append('Name: {}'.format(environment.name))
+        if environments_choice_list:
+            choice = prompt_user_friendly_choice_list("Create or choose existing pipeline environment? ",
+                                                      environments_choice_list)
+        if choice == 0:
+            logger.debug("Creating a new environment.")
+            env = create_environment(
+                name="NewEnvironment",
+                description="Auto created in pipeline creation through Cli",
+                organization=organization,
+                project=project)
+            return env.id
+        else:
+            return existing_env[choice-1].id
+    else:
+        return None
 
 
 def get_azure_rm_service_connection(organization, project):
@@ -749,15 +790,13 @@ def get_azure_rm_service_connection(organization, project):
         for endpoint in azurerm_connections:
             service_endpoints_choice_list.append('Name: {}'.format(endpoint.name))
         if service_endpoints_choice_list:
-            choice = prompt_user_friendly_choice_list("Create or choose existing service connection? ",
+            choice = prompt_user_friendly_choice_list("Create or choose existing Azure RM service connection? ",
                                                       service_endpoints_choice_list)
         if choice == 0:
             logger.debug("Creating a new service connection.")
-            logger.warning("Not implemented yet.")
-            # run command to create service principle 
-            
+            logger.warning("New service connection creation is not handled yet.")
+            # run command to create service principle
             # create azure rm service connection
-
             # return connection id
         else:
             return azurerm_connections[choice-1].id
@@ -765,9 +804,58 @@ def get_azure_rm_service_connection(organization, project):
         return None
 
 
+def get_kubernetes_service_connection(organization, project):
+    k8s_connections = _get_service_endpoints(organization=organization, project=project,
+                                             endpoint_type='kubernetes')
+    if k8s_connections:
+        service_endpoints_choice_list = ['Create new Kubernetes service connection']
+        choice = 0
+        for endpoint in k8s_connections:
+            service_endpoints_choice_list.append('Name: {}'.format(endpoint.name))
+        if service_endpoints_choice_list:
+            choice = prompt_user_friendly_choice_list("Create or choose existing Kubernetes service connection? ",
+                                                      service_endpoints_choice_list)
+        if choice == 0:
+            logger.debug("Creating a new service connection.")
+            logger.warning("New service connection creation is not handled yet.")
+            # run command to create service principle
+            # create azure rm service connection
+            # return connection id
+        else:
+            return k8s_connections[choice-1].id
+    else:
+        return None
+
+
+def get_container_registry_service_connection(organization, project):
+    acr_connections = _get_service_endpoints(organization=organization, project=project,
+                                             endpoint_type='dockerregistry')
+    if acr_connections:
+        service_endpoints_choice_list = ['Create new container registry service connection']
+        choice = 0
+        for endpoint in acr_connections:
+            service_endpoints_choice_list.append('Name: {}'.format(endpoint.name))
+        if service_endpoints_choice_list:
+            choice = prompt_user_friendly_choice_list("Create or choose existing Docker Registry service connection? ",
+                                                      service_endpoints_choice_list)
+        if choice == 0:
+            logger.debug("Creating a new service connection.")
+            logger.warning("New service connection creation is not handled yet.")
+            # run command to create service principle
+            # create azure rm service connection
+            # return connection id
+        else:
+            return acr_connections[choice-1].id
+    else:
+        return None
+
+
 def _is_intelligent_handling_enabled_for_prop_name_or_type(prop_name, prop_type):
-    SMART_HANDLING_FOR_PROP_TYPES = ['connectedservice:azurerm']
-    SMART_HANDLING_FOR_PROP_NAMES = ['repositoryname']
+    SMART_HANDLING_FOR_PROP_TYPES = ['connectedservice:azurerm',
+                                     'endpoint:kubernetes',
+                                     'endpoint:containerregistry',
+                                     'environment']
+    SMART_HANDLING_FOR_PROP_NAMES = ['repositoryname', 'serviceport']
     if prop_name.lower() in SMART_HANDLING_FOR_PROP_NAMES:
         return True
     if prop_type.lower() in SMART_HANDLING_FOR_PROP_TYPES:
