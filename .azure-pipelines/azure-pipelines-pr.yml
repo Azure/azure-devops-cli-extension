@@ -47,7 +47,7 @@ jobs:
       Python27:
         python.version: '2.7.15'
       Python36:
-        python.version: '3.6.5'
+        python.version: '3.6.8'
       Python37:
         python.version: '3.7.2'
     maxParallel: 3
@@ -65,7 +65,7 @@ jobs:
   steps:
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.7.2'
+      pythonVersion: '3.7.0'
 
 - job: 'Run_Test_Windows'
   dependsOn : Build_Publish_Azure_CLI_Test_SDK
@@ -85,7 +85,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.7.0'
       architecture: 'x64'
 
   - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
