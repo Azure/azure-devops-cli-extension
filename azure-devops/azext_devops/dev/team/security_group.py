@@ -119,7 +119,7 @@ def delete_group(id, organization=None, detect=None):  # pylint: disable=redefin
 
 def list_memberships(id, relationship='members', organization=None, detect=None):  # pylint: disable=redefined-builtin
     """List memberships.
-    :param str id: Group descriptor whose membership details are required.
+    :param str id: Group descriptor or User Email whose membership details are required.
     """
     organization = resolve_instance(detect=detect, organization=organization)
     subject_descriptor = id
@@ -191,11 +191,6 @@ def remove_membership(member_id, group_id, organization=None, detect=None):
 def get_descriptor_from_storage_key(storage_key, client):
     descriptor = client.get_descriptor(storage_key)
     return descriptor
-
-
-def get_storage_key_from_descriptor(descriptor, client):
-    storage_key = client.get_storage_key(subject_descriptor=descriptor)
-    return storage_key
 
 
 def _create_patch_operation(op, path, value):
