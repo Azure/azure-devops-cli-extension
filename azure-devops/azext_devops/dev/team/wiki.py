@@ -27,7 +27,8 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     :type wiki_type: str
     :param version: [Required for codewiki type] Repository branch name to publish the code wiki from.
     :type version: str
-    :param mapped_path: [Required for codewiki type] Mapped path of the new wiki e.g. '/' to publish from root of repository.
+    :param mapped_path: [Required for codewiki type] Mapped path of the new wiki
+    e.g. '/' to publish from root of repository.
     :type mapped_path: str
     :param repository: [Required for codewiki type] Name or ID of the repository to publish the wiki from.
     :type repository: str
