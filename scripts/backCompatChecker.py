@@ -113,16 +113,17 @@ for newArgument in newArguments:
 
 # make sure no argument is removed
 for oldArgument in oldArguments:
-    isArgumentMissing = True
-    for newArgument in newArguments:
-        if oldArgument.name == newArgument.name and oldArgument.command == newArgument.command:
-            isArgumentMissing = False
-            break
+    if oldArgument.command not in ignoreCommands:
+        isArgumentMissing = True
+        for newArgument in newArguments:
+            if oldArgument.name == newArgument.name and oldArgument.command == newArgument.command:
+                isArgumentMissing = False
+                break
 
-    if isArgumentMissing is True:
-        allowedMissingArgumetsForCommand = allowedMissingArguments.get(oldArgument.command, [])
-        if not oldArgument.name in allowedMissingArgumetsForCommand:
-            errorList.append('Argument missing for command ' + oldArgument.command + ' argument ' +  oldArgument.name)
+        if isArgumentMissing is True:
+            allowedMissingArgumetsForCommand = allowedMissingArguments.get(oldArgument.command, [])
+            if not oldArgument.name in allowedMissingArgumetsForCommand:
+                errorList.append('Argument missing for command ' + oldArgument.command + ' argument ' +  oldArgument.name)
 
 if len(errorList) > 0:
     print(' '.join(errorList))
