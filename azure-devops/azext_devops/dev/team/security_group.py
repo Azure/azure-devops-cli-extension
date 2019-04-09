@@ -5,6 +5,7 @@
 
 from __future__ import print_function
 from knack.util import CLIError
+from azext_devops.devops_sdk.exceptions import AzureDevOpsClientRequestError
 from azext_devops.devops_sdk.v5_0.graph.models import (JsonPatchOperation,
                                                        GraphSubjectLookup,
                                                        GraphSubjectLookupKey)
@@ -42,18 +43,18 @@ def list_groups(project=None, continuation_token=None, subject_types=None, organ
     return group_list_response.graph_groups
 
 
-def create_group(name=None, description=None, origin_id=None, groups=None,
-                 email_id=None, project=None, organization=None, detect=None):
+def create_group(name=None, description=None, origin_id=None, email_id=None,
+                 groups=None, project=None, organization=None, detect=None):
     """Create a new Azure DevOps group or materialize an existing AAD group.
-    :param str project: Project in which Azure DevOps group should be created.
-    :param [str] groups: A comma separated list of descriptors referencing groups you want the newly created
-                         group to join.
     :param str name: Name of Azure DevOps group.
     :param str description: Description of Azure DevOps group.
-    :param str email_id: Create new group using the mail address as a reference to an existing group
-                         from an external AD or AAD backed provider. Required if name or origin_id is missing.
     :param str origin_id: Create new group using the OriginID as a reference to an existing group
                           from an external AD or AAD backed provider. Required if name or email_id is missing.
+    :param str email_id: Create new group using the mail address as a reference to an existing group
+                         from an external AD or AAD backed provider. Required if name or origin_id is missing.
+    :param [str] groups: A comma separated list of descriptors referencing groups you want the newly created
+                         group to join.
+    :param str project: Project in which Azure DevOps group should be created.
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
@@ -88,10 +89,10 @@ def get_group(id, organization=None, detect=None):  # pylint: disable=redefined-
 
 
 def update_group(id, name=None, description=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
-    """Update name AND/OR description for a Azure DevOps group.
+    """Update name AND/OR description for an Azure DevOps group.
     :param str id: Descriptor of the group.
-    :param str name: New name of Azure DevOps group.
-    :param str description: New description of Azure DevOps group.
+    :param str name: New name for Azure DevOps group.
+    :param str description: New description for Azure DevOps group.
     """
     if name is None and description is None:
         raise CLIError('Either name or description argument must be provided.')
@@ -170,6 +171,7 @@ def remove_membership(member_id, group_id, organization=None, detect=None):
     :param str member_id: Descriptor of the group or Email Id of the user to be removed.
     :param str group_id: Descriptor of the group from which member needs to be removed.
     """
+    pdb.set_trace()
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     subject_descriptor = member_id
@@ -180,8 +182,9 @@ def remove_membership(member_id, group_id, organization=None, detect=None):
         client.check_membership_existence(subject_descriptor=subject_descriptor,
                                           container_descriptor=group_id)
         membership_details = client.remove_membership(subject_descriptor=subject_descriptor,
-                                                      container_descriptor=group_id)
-    except:
+                                                  container_descriptor=group_id)
+    except AzureDevOpsClientRequestError as ex:
+        logger.debug(ex, exc_info=True)
         raise CLIError("Membership doesn't exists.")
     return membership_details
 
