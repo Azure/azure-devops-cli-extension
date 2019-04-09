@@ -31,12 +31,6 @@ def load_pipelines_help():
     long-summary:
     """
 
-    helps['pipelines build task'] = """
-    type: group
-    short-summary: Manage build pipelines task.
-    long-summary:
-    """
-
     helps['pipelines release'] = """
     type: group
     short-summary: Manage releases.
