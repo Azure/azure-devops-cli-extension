@@ -25,18 +25,28 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     :type name: str
     :param wiki_type: Type of wiki to create.
     :type wiki_type: str
-    :param version: Repository branch name to publish the code wiki from. Only required for codewiki type.
+    :param version: [Required for codewiki type] Repository branch name to publish the code wiki from.
     :type version: str
-    :param mapped_path: Mapped path of the new wiki e.g. '/' to publish from root of repository.
-    Only required for codewiki type.
+    :param mapped_path: [Required for codewiki type] Mapped path of the new wiki
+    e.g. '/' to publish from root of repository.
     :type mapped_path: str
-    :param repository: Name or ID of the repository to publish the wiki from. Only required for codewiki type.
+    :param repository: [Required for codewiki type] Name or ID of the repository to publish the wiki from.
     :type repository: str
     """
-    organization, project, repository = resolve_instance_project_and_repo(detect=detect,
-                                                                          organization=organization,
-                                                                          project=project,
-                                                                          repo=repository)
+    repository_id = None
+    if wiki_type == 'codewiki':
+        organization, project, repository = resolve_instance_project_and_repo(detect=detect,
+                                                                              organization=organization,
+                                                                              project=project,
+                                                                              repo=repository,
+                                                                              repo_required=True)
+        repository_id = _get_repository_id_from_name(organization=organization,
+                                                     project=project,
+                                                     repository=repository)
+    else:
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                             organization=organization,
+                                                             project=project)
     wiki_client = get_wiki_client(organization)
     from azext_devops.devops_sdk.v5_0.wiki.models import WikiCreateParametersV2
     wiki_params = WikiCreateParametersV2()
@@ -45,9 +55,6 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     project_id = _get_project_id_from_name(organization=organization,
                                            project=project)
     wiki_params.project_id = project_id
-    repository_id = _get_repository_id_from_name(organization=organization,
-                                                 project=project,
-                                                 repository=repository)
     wiki_params.repository_id = repository_id
     if mapped_path:
         wiki_params.mapped_path = mapped_path
@@ -71,11 +78,18 @@ def delete_wiki(wiki, organization=None, project=None, detect=None):
     return wiki_client.delete_wiki(wiki_identifier=wiki, project=project)
 
 
-def list_wiki(organization=None, project=None, detect=None):
+def list_wiki(scope='project', organization=None, project=None, detect=None):
     """List all the wikis in a project or organization.
+    :param scope: List the wikis at project or organization level.
+    :type scope: str
     """
-    organization = resolve_instance(detect=detect,
-                                    organization=organization)
+    if scope == 'project':
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                             organization=organization,
+                                                             project=project)
+    else:
+        organization = resolve_instance(detect=detect,
+                                        organization=organization)
     wiki_client = get_wiki_client(organization)
     return wiki_client.get_all_wikis(project=project)
 
