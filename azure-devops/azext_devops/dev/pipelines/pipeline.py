@@ -74,6 +74,8 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
     :type project: str
     :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
+    :param queue_id: Id of the queue in the available agent pools. Will be auto detected if not specified.
+    :type queue_id: str
     """
     url = None
     organization, project, repository = resolve_instance_project_and_repo(
@@ -568,6 +570,9 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         project=project, repository_type=repository_type,
         repository_id=repo_id, branch=branch, service_connection_id=service_endpoint)
     logger.debug('List of recommended templates..')
+    # sort recommendations
+    from operator import attrgetter
+    recommendations = sorted(recommendations, key=attrgetter('recommended_weight'), reverse=True)
     for recommendation in recommendations:
         logger.debug(recommendation.name)
         yml_names.append(recommendation.name)
@@ -697,9 +702,6 @@ def _handle_yml_props(params_required, yml_props, template_id, cix_client, repo_
                    'These can be provided as --yml-props in the command arguments or be input interactively.')
     params_to_render = {}
     for param in params_required:
-        # hack this is fixed in 149
-        if param.name == 'serviceEndpointId':
-            param.name = 'azureServiceConnectionId'
         logger.debug('looking for param %s in props', param.name)
         prop_found = False
         if yml_props:
@@ -710,6 +712,9 @@ def _handle_yml_props(params_required, yml_props, template_id, cix_client, repo_
                 if parts[0] == param.name:
                     prop_found = True
                     params_to_render[parts[0]] = parts[1]
+        if param.required == False and param.default_value:
+            prop_found = True
+            params_to_render[param.name] = param.default_value
         elif _is_intelligent_handling_enabled_for_prop_name_or_type(prop_type=param.type, prop_name=param.name):
             logger.debug('This property is handled intelligently (Name: %s) (Type: %s)', param.name, param.type)
             if param.name == 'repositoryName':
@@ -717,10 +722,8 @@ def _handle_yml_props(params_required, yml_props, template_id, cix_client, repo_
                 params_to_render[param.name] = repo_name
                 prop_found = True
             if param.name == 'servicePort':
-                import pdb
-                pdb.set_trace()
-                if param.defaultValue:
-                    port = param.defaultValue
+                if param.default_value:
+                    port = param.default_value
                 else:
                     port = '80'
                 logger.warning('Auto filling param %s: %s', param.name, port)
@@ -733,7 +736,11 @@ def _handle_yml_props(params_required, yml_props, template_id, cix_client, repo_
                     params_to_render[param.name] = fetched_value
                     prop_found = True
         if not prop_found:
-            input_value = _prompt_for_prop_input(param.name, param.type)
+            if param.display_name:
+                param_name_for_user = param.display_name
+            else:
+                param_name_for_user = param.name
+            input_value = _prompt_for_prop_input(param_name_for_user, param.type)
             params_to_render[param.name] = input_value
             prop_found = True
         if not prop_found:
@@ -775,9 +782,9 @@ def get_pipeline_environment(organization, project):
                 description="Auto created in pipeline creation through Cli",
                 organization=organization,
                 project=project)
-            return env.id
+            return env.name
         else:
-            return existing_env[choice-1].id
+            return existing_env[choice-1].name
     else:
         return None
 
