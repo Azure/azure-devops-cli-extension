@@ -119,7 +119,7 @@ def delete_group(id, organization=None, detect=None):  # pylint: disable=redefin
 
 
 def list_memberships(id, relationship='members', organization=None, detect=None):  # pylint: disable=redefined-builtin
-    """List memberships.
+    """List memberships for a group or user.
     :param str id: Group descriptor or User Email whose membership details are required.
     """
     organization = resolve_instance(detect=detect, organization=organization)
