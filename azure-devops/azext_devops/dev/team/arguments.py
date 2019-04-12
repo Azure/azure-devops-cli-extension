@@ -17,6 +17,7 @@ from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
 _YES_NO_SWITCH_VALUES = ['yes', 'no']
 _SOURCE_CONTROL_VALUES = ['git', 'tfvc']
 _WIKI_TYPE_VALUES = ['projectwiki', 'codewiki']
+_WIKI_LIST_SCOPE_VALUES = ['project', 'organization']
 _PROJECT_VISIBILITY_VALUES = ['private', 'public']
 _STATE_VALUES = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting', 'createpending']
 _SERVICE_ENDPOINT_TYPE = [SERVICE_ENDPOINT_TYPE_GITHUB, SERVICE_ENDPOINT_TYPE_AZURE_RM]
@@ -122,3 +123,6 @@ def load_team_arguments(self, _):
     with self.argument_context('devops wiki') as context:
         context.argument('wiki_type', options_list=('--wiki-type', '--type'), **enum_choice_list(_WIKI_TYPE_VALUES))
         context.argument('version', options_list=('--version', '-v'))
+
+    with self.argument_context('devops wiki list') as context:
+        context.argument('scope', **enum_choice_list(_WIKI_LIST_SCOPE_VALUES))

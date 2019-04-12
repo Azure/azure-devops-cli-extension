@@ -13,6 +13,11 @@ allowedMissingArguments = {}
 allowedMissingArguments['devops service-endpoint create'] = ['--azure-rm-service-prinicipal-key']
 allowedMissingArguments['pipelines build queue'] = ['--source-branch']
 
+# Do not compare these commands
+ignoreCommands = []
+ignoreCommands.append('pipelines build task list')
+ignoreCommands.append('pipelines build task show')
+
 class Arguments(dict):
     def __init__(self, command, name, isRequired):
         self.command = command
@@ -81,8 +86,12 @@ subprocess.run(['az', 'extension', 'add', '--source', newExtensionLocation, '-y'
 # get a set of old commands, we are not reusing the set from ext because we want to keep this clean
 oldCommands = []
 for oldArgument in oldArguments:
-    if not any(oldArgument.command in s for s in oldCommands):
-        oldCommands.append(oldArgument.command)
+    if oldArgument.command not in ignoreCommands:
+        if not any(oldArgument.command in s for s in oldCommands):
+            oldCommands.append(oldArgument.command)
+    else:
+        print('Ignoring command.. ' + oldArgument.command)
+
 
 # prepare argument set from new extension
 for oldCommand in oldCommands:
@@ -104,16 +113,17 @@ for newArgument in newArguments:
 
 # make sure no argument is removed
 for oldArgument in oldArguments:
-    isArgumentMissing = True
-    for newArgument in newArguments:
-        if oldArgument.name == newArgument.name and oldArgument.command == newArgument.command:
-            isArgumentMissing = False
-            break
+    if oldArgument.command not in ignoreCommands:
+        isArgumentMissing = True
+        for newArgument in newArguments:
+            if oldArgument.name == newArgument.name and oldArgument.command == newArgument.command:
+                isArgumentMissing = False
+                break
 
-    if isArgumentMissing is True:
-        allowedMissingArgumetsForCommand = allowedMissingArguments.get(oldArgument.command, [])
-        if not oldArgument.name in allowedMissingArgumetsForCommand:
-            errorList.append('Argument missing for command ' + oldArgument.command + ' argument ' +  oldArgument.name)
+        if isArgumentMissing is True:
+            allowedMissingArgumetsForCommand = allowedMissingArguments.get(oldArgument.command, [])
+            if not oldArgument.name in allowedMissingArgumetsForCommand:
+                errorList.append('Argument missing for command ' + oldArgument.command + ' argument ' +  oldArgument.name)
 
 if len(errorList) > 0:
     print(' '.join(errorList))
