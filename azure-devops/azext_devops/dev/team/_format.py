@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from __future__ import print_function
 from collections import OrderedDict
 from azext_devops.dev.common.format import trim_for_display, date_time_to_only_date
 
@@ -103,7 +104,11 @@ def _transform_service_endpoint_row(row):
 
 def transform_groups_table_output(result):
     table_output = []
-    for item in result:
+    if result.continuation_token is not None:
+        print('Showing only 500 groups. ' +
+              'To list next set of groups use this token as --continuation-token argument and run the command again.' +
+              ' TOKEN:', group_list_response.continuation_token)
+    for item in result.graph_groups:
         table_output.append(_transform_group_row(item))
     return table_output
 

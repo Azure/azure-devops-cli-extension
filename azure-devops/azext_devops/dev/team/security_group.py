@@ -3,7 +3,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from __future__ import print_function
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.devops_sdk.exceptions import AzureDevOpsClientRequestError
@@ -23,40 +22,47 @@ logger = get_logger(__name__)
 
 def list_groups(project=None, continuation_token=None, subject_types=None, organization=None, detect=None):
     """ List all groups.
-    :param str project: List groups for a particular project.
-    :param str continuation_token : If there are more results than can't be returned in a single page, the result set
-                                    will contain a continuation token for retrieval of the next set of results.
-    :param [str] subject_types: A comma separated list of user subject subtypes to reduce the retrieved results.
+    :param project: List groups for a particular project.
+    :type project: str
+    :param continuation_token : If there are more results than can't be returned in a single page, the result set
+                                will contain a continuation token for retrieval of the next set of results.
+    :type continuation_token: str
+    :param subject_types: A comma separated list of user subject subtypes to reduce the retrieved results.
+    :type subject_types: [str]
+    :rtype: :class:`<PagedGraphGroups> <azure.devops.v5_0.graph.models.PagedGraphGroups>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     scope_descriptor = None
     if project is not None:
-        project = get_project_id_from_name(organization, project)
-        scope_descriptor = get_descriptor_from_storage_key(project, client)
+        project_id = get_project_id_from_name(organization, project)
+        scope_descriptor = get_descriptor_from_storage_key(project_id, client)
     if subject_types is not None:
         subject_types = subject_types.split(',')
     group_list_response = client.list_groups(scope_descriptor=scope_descriptor,
                                              continuation_token=continuation_token, subject_types=subject_types)
-    if group_list_response.continuation_token is not None:
-        print('Showing only 500 groups. ' +
-              'To list next set of groups use this token as --continuation-token argument and run the command again.' +
-              ' TOKEN:', group_list_response.continuation_token)
-    return group_list_response.graph_groups
+    return group_list_response
 
 
 def create_group(name=None, description=None, origin_id=None, email_id=None,
                  groups=None, project=None, organization=None, detect=None):
     """Create a new Azure DevOps group or materialize an existing AAD group.
-    :param str name: Name of Azure DevOps group.
+    :param name: Name of Azure DevOps group.
+    :type name: str
     :param str description: Description of Azure DevOps group.
-    :param str origin_id: Create new group using the OriginID as a reference to an existing group
-                          from an external AD or AAD backed provider. Required if name or email_id is missing.
-    :param str email_id: Create new group using the mail address as a reference to an existing group
-                         from an external AD or AAD backed provider. Required if name or origin_id is missing.
-    :param [str] groups: A comma separated list of descriptors referencing groups you want the newly created
-                         group to join.
-    :param str project: Project in which Azure DevOps group should be created.
+    :type description: str
+    :param origin_id: Create new group using the OriginID as a reference to an existing group
+                      from an external AD or AAD backed provider. Required if name or email_id is missing.
+    :type origin_id: str
+    :param email_id: Create new group using the mail address as a reference to an existing group
+                     from an external AD or AAD backed provider. Required if name or origin_id is missing.
+    :type email_id: str
+    :param groups: A comma separated list of descriptors referencing groups you want the newly created
+                   group to join.
+    :type groups: [str]
+    :param project: Project in which Azure DevOps group should be created.
+    :type project: str
+    :rtype: :class:`<GraphGroup> <azure.devops.v5_0.graph.models.GraphGroup>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
@@ -70,8 +76,8 @@ def create_group(name=None, description=None, origin_id=None, email_id=None,
         raise CLIError('Provide exactly one argument out of name, origin_id or email_id.')
     scope_descriptor = None
     if project is not None:
-        project = get_project_id_from_name(organization, project)
-        scope_descriptor = get_descriptor_from_storage_key(project, client)
+        project_id = get_project_id_from_name(organization, project)
+        scope_descriptor = get_descriptor_from_storage_key(project_id, client)
     if groups is not None:
         groups = groups.split(',')
     group_details = client.create_group(creation_context=group_creation_context,
@@ -81,7 +87,9 @@ def create_group(name=None, description=None, origin_id=None, email_id=None,
 
 def get_group(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show group details.
-    :param str id: Descriptor of the group.
+    :param id: Descriptor of the group.
+    :type id: str
+    :rtype: :class:`<GraphGroup> <azure.devops.v5_0.graph.models.GraphGroup>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
@@ -91,9 +99,13 @@ def get_group(id, organization=None, detect=None):  # pylint: disable=redefined-
 
 def update_group(id, name=None, description=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Update name AND/OR description for an Azure DevOps group.
-    :param str id: Descriptor of the group.
-    :param str name: New name for Azure DevOps group.
-    :param str description: New description for Azure DevOps group.
+    :param id: Descriptor of the group.
+    :type id: str
+    :param name: New name for Azure DevOps group.
+    :type name: str
+    :param description: New description for Azure DevOps group.
+    :type description: str
+    :rtype: :class:`<GraphGroup> <azure.devops.v5_0.graph.models.GraphGroup>`
     """
     if name is None and description is None:
         raise CLIError('Either name or description argument must be provided.')
@@ -110,7 +122,8 @@ def update_group(id, name=None, description=None, organization=None, detect=None
 
 def delete_group(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete an Azure DevOps group.
-    :param str id: Descriptor of the group.
+    :param id: Descriptor of the group.
+    :type id: str
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
@@ -120,7 +133,11 @@ def delete_group(id, organization=None, detect=None):  # pylint: disable=redefin
 
 def list_memberships(id, relationship='members', organization=None, detect=None):  # pylint: disable=redefined-builtin
     """List memberships for a group or user.
-    :param str id: Group descriptor or User Email whose membership details are required.
+    :param id: Group descriptor or User Email whose membership details are required.
+    :type id: str
+    :param relationship: Type of relationship details to be fetched. Members or Member of.
+    :type relationship: str
+    :rtype: [GraphMembership]
     """
     organization = resolve_instance(detect=detect, organization=organization)
     subject_descriptor = id
@@ -146,8 +163,11 @@ def list_memberships(id, relationship='members', organization=None, detect=None)
 
 def add_membership(member_id, group_id, organization=None, detect=None):
     """Add membership.
-    :param str member_id: Descriptor of the group or Email Id of the user to be added.
-    :param str group_id: Descriptor of the group to which member needs to be added.
+    :param member_id: Descriptor of the group or Email Id of the user to be added.
+    :type member_id: str
+    :param group_id: Descriptor of the group to which member needs to be added.
+    :type group_id: str
+    :rtype: :class:`<GraphMembership> <azure.devops.v5_0.graph.models.GraphMembership>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
@@ -169,8 +189,10 @@ def add_membership(member_id, group_id, organization=None, detect=None):
 
 def remove_membership(member_id, group_id, organization=None, detect=None):
     """Remove membership.
-    :param str member_id: Descriptor of the group or Email Id of the user to be removed.
-    :param str group_id: Descriptor of the group from which member needs to be removed.
+    :param member_id: Descriptor of the group or Email Id of the user to be removed.
+    :type member_id: str
+    :param group_id: Descriptor of the group from which member needs to be removed.
+    :type group_id: str
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)

@@ -73,10 +73,6 @@ security_groupOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
-security_permissionOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.team.security_permission#{}',
-    exception_handler=azure_devops_exception_handler
-)
 
 wikiOps = CliCommandType(
     operations_tmpl='azext_devops.dev.team.wiki#{}',

@@ -22,6 +22,7 @@ from ._credentials import get_credential
 from .git import get_remote_url
 from .vsts_git_url_info import VstsGitUrlInfo
 from .uri import uri_parse_instance_from_git_uri
+from .uuid import is_uuid
 
 logger = get_logger(__name__)
 
@@ -344,9 +345,11 @@ def clear_connection_cache():
 
 
 def get_project_id_from_name(organization, project):
-    core_client = get_core_client(organization)
-    team_project = core_client.get_project(project_id=project)
-    return team_project.id
+    if not is_uuid(project):
+        core_client = get_core_client(organization)
+        team_project = core_client.get_project(project_id=project)
+        return team_project.id
+    return project
 
 
 _connection_data = {}
