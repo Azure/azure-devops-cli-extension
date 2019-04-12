@@ -49,7 +49,7 @@ def create_group(name=None, description=None, origin_id=None, email_id=None,
     """Create a new Azure DevOps group or materialize an existing AAD group.
     :param name: Name of Azure DevOps group.
     :type name: str
-    :param str description: Description of Azure DevOps group.
+    :param description: Description of Azure DevOps group.
     :type description: str
     :param origin_id: Create new group using the OriginID as a reference to an existing group
                       from an external AD or AAD backed provider. Required if name or email_id is missing.
@@ -135,8 +135,6 @@ def list_memberships(id, relationship='members', organization=None, detect=None)
     """List memberships for a group or user.
     :param id: Group descriptor or User Email whose membership details are required.
     :type id: str
-    :param relationship: Type of relationship details to be fetched. Members or Member of.
-    :type relationship: str
     :rtype: [GraphMembership]
     """
     organization = resolve_instance(detect=detect, organization=organization)

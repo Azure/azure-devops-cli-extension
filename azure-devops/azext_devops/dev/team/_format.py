@@ -104,11 +104,11 @@ def _transform_service_endpoint_row(row):
 
 def transform_groups_table_output(result):
     table_output = []
-    if result.continuation_token is not None:
+    if result['continuationToken'] is not None:
         print('Showing only 500 groups. ' +
               'To list next set of groups use this token as --continuation-token argument and run the command again.' +
-              ' TOKEN:', group_list_response.continuation_token)
-    for item in result.graph_groups:
+              ' TOKEN:', result['continuationToken'])
+    for item in result['graphGroups']:
         table_output.append(_transform_group_row(item))
     return table_output
 
