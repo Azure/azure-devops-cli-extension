@@ -115,7 +115,8 @@ class WikiClient(Client):
                               version='5.0',
                               route_values=route_values,
                               query_parameters=query_parameters,
-                              content=content)
+                              content=content,
+                              if_match=version)
         response_object = models.WikiPageResponse()
         response_object.page = self._deserialize('WikiPage', response)
         response_object.eTag = response.headers.get('ETag')
