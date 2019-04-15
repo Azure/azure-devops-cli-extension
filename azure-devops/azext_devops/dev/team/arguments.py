@@ -92,6 +92,14 @@ def load_team_arguments(self, _):
         context.argument('send_email_invite', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to send email invite for new user or not.')
 
+    with self.argument_context('devops security group create') as context:
+        context.argument('project',
+                         help='Name or ID of the project in which Azure DevOps group should be created.')
+
+    with self.argument_context('devops security group list') as context:
+        context.argument('project',
+                         help='List groups for a particular project')
+
     with self.argument_context('devops security group membership') as context:
         context.argument('relationship', arg_type=get_enum_type(_RELATIONSHIP_TYPES),
                          help='Get member of/members for this group.')

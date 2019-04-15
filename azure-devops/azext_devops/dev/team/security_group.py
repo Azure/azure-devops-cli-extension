@@ -22,8 +22,6 @@ logger = get_logger(__name__)
 
 def list_groups(project=None, continuation_token=None, subject_types=None, organization=None, detect=None):
     """ List all groups.
-    :param project: List groups for a particular project.
-    :type project: str
     :param continuation_token : If there are more results that can't be returned in a single page, the result set
                                 will contain a continuation token for retrieval of the next set of results.
     :type continuation_token: str
@@ -52,16 +50,14 @@ def create_group(name=None, description=None, origin_id=None, email_id=None,
     :param description: Description of Azure DevOps group.
     :type description: str
     :param origin_id: Create new group using the OriginID as a reference to an existing group
-                      from an external AD or AAD backed provider. Required if name or email_id is missing.
+                      from an external AD or AAD backed provider. Required if name or email-id is missing.
     :type origin_id: str
     :param email_id: Create new group using the mail address as a reference to an existing group
-                     from an external AD or AAD backed provider. Required if name or origin_id is missing.
+                     from an external AD or AAD backed provider. Required if name or origin-id is missing.
     :type email_id: str
     :param groups: A comma separated list of descriptors referencing groups you want the newly created
                    group to join.
     :type groups: [str]
-    :param project: Project in which Azure DevOps group should be created.
-    :type project: str
     :rtype: :class:`<GraphGroup> <azure.devops.v5_0.graph.models.GraphGroup>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
@@ -73,7 +69,7 @@ def create_group(name=None, description=None, origin_id=None, email_id=None,
     elif email_id is not None and name is None and origin_id is None:
         group_creation_context = GraphGroupMailAddressCreationContext(mail_address=email_id)
     else:
-        raise CLIError('Provide exactly one argument out of name, origin_id or email_id.')
+        raise CLIError('Provide exactly one argument out of name, origin-id or email-id.')
     scope_descriptor = None
     if project is not None:
         project_id = get_project_id_from_name(organization, project)

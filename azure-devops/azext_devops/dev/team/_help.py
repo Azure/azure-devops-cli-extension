@@ -59,7 +59,7 @@ def load_team_help():
               az devops security group create --email-id {Email ID of AAD group}
               --groups 'vssgp.someDescriptorForGroup'
 
-          - name: Create a new Azure DevOps group and add it to existing Azure DevOps groups. 
+          - name: Create a new Azure DevOps group and add it to existing Azure DevOps groups.
             text: |
               az devops security group create --name 'Some group name'
               --groups 'vssgp.someDescriptorForGroupOne,vssgp.someDescriptorForGroupTwo'
