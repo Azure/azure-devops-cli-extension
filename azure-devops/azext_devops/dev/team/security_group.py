@@ -46,7 +46,7 @@ def list_groups(project=None, continuation_token=None, subject_types=None, organ
 
 def create_group(name=None, description=None, origin_id=None, email_id=None,
                  groups=None, project=None, organization=None, detect=None):
-    """Create a new Azure DevOps group or materialize an existing AAD group.
+    """
     :param name: Name of Azure DevOps group.
     :type name: str
     :param description: Description of Azure DevOps group.
