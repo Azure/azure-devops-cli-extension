@@ -24,7 +24,7 @@ def list_groups(project=None, continuation_token=None, subject_types=None, organ
     """ List all groups.
     :param project: List groups for a particular project.
     :type project: str
-    :param continuation_token : If there are more results than can't be returned in a single page, the result set
+    :param continuation_token : If there are more results that can't be returned in a single page, the result set
                                 will contain a continuation token for retrieval of the next set of results.
     :type continuation_token: str
     :param subject_types: A comma separated list of user subject subtypes to reduce the retrieved results.

@@ -40,7 +40,7 @@ def load_team_help():
 
     helps['devops security group create'] = """
     type: command
-    short-summary: Create a new Azure DevOps group or materialize an existing AAD group.
+    short-summary: Create a new Azure DevOps group.
     long-summary:
     examples:
           - name: Create an Azure DevOps Group with name and description
@@ -48,23 +48,21 @@ def load_team_help():
               az devops security group create --name 'Some group name' --description
               'Something to describe this group'
 
-          - name: Materialize an existing AAD Group with its origin ID/AAD object ID
-            text: |
-              Get object ID of an existing AAD group
-              az ad group show -g {Group Name}
-              az devops security group create --origin-id {Object ID}
-              Use this descriptor to add this group to other Azure DevOps Groups.
-
-          - name: Materialize an existing AAD Group with its origin ID/AAD object ID and also add it to an Azure DevOps group.
+          - name: Add an existing AAD group to an Azure DevOps group
             text: |
               Get object ID of an existing AAD group
               az ad group show -g {Group Name}
               az devops security group create --origin-id {Object ID} --groups 'vssgp.someDescriptorForGroup'
 
-          - name: Materialize an existing AAD Group with its Email ID
+          - name: Add an existing AAD group to an Azure DevOps group with AAD group Email ID
             text: |
               az devops security group create --email-id {Email ID of AAD group}
-              Use this descriptor to add this group to other Azure DevOps Groups.
+              --groups 'vssgp.someDescriptorForGroup'
+
+          - name: Create a new Azure DevOps group and add it to existing Azure DevOps groups. 
+            text: |
+              az devops security group create --name 'Some group name'
+              --groups 'vssgp.someDescriptorForGroupOne,vssgp.someDescriptorForGroupTwo'
     """
 
     helps['devops security group membership'] = """
