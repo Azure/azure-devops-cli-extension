@@ -143,8 +143,8 @@ def add_page(wiki, path, comment=_DEFAULT_PAGE_ADD_MESSAGE, content=None, file_p
                                              project=project, path=path, version=None, comment=comment)
 
 
-def update_page(wiki, path, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, content=None, file_path=None,
-                version=None, organization=None, project=None, detect=None):
+def update_page(wiki, path, version, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, content=None, file_path=None,
+                organization=None, project=None, detect=None):
     """Edit a page.
      :param wiki: Name or Id of the wiki.
     :type wiki: str
