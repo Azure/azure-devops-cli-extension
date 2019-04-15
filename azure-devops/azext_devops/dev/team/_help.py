@@ -46,18 +46,18 @@ def load_team_help():
           - name: Create an Azure DevOps Group with name and description
             text: |
               az devops security group create --name 'Some group name' --description
-              'Something to describe this group' 
-              
+              'Something to describe this group'
+
           - name: Materialize an existing AAD Group with its origin ID/AAD object ID
             text: |
-              Get object ID of the existing AAD group 
+              Get object ID of an existing AAD group
               az ad group show -g {Group Name}
               az devops security group create --origin-id {Object ID}
               Use this descriptor to add this group to other Azure DevOps Groups.
 
-          - name: Materialize an existing AAD Group with its origin ID/AAD object ID and also add it to an AzureDevOps group.
+          - name: Materialize an existing AAD Group with its origin ID/AAD object ID and also add it to an Azure DevOps group.
             text: |
-              Get object ID of the existing AAD group               
+              Get object ID of an existing AAD group
               az ad group show -g {Group Name}
               az devops security group create --origin-id {Object ID} --groups 'vssgp.someDescriptorForGroup'
 
