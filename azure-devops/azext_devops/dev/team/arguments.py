@@ -27,6 +27,7 @@ _SERVICE_ENDPOINT_AUTHORIZATION_SCHEME = [SERVICE_ENDPOINT_AUTHORIZATION_PERSONA
 _HTTP_METHOD_VALUES = ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS', 'PUT', 'HEAD']
 
 _LICENSE_TYPES = ['advanced', 'earlyAdopter', 'express', 'none', 'professional', 'stakeholder']
+_RELATIONSHIP_TYPES = ['members', 'memberof']
 
 
 def load_global_args(context):
@@ -90,6 +91,18 @@ def load_team_arguments(self, _):
     with self.argument_context('devops user add') as context:
         context.argument('send_email_invite', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Whether to send email invite for new user or not.')
+
+    with self.argument_context('devops security group create') as context:
+        context.argument('project',
+                         help='Name or ID of the project in which Azure DevOps group should be created.')
+
+    with self.argument_context('devops security group list') as context:
+        context.argument('project',
+                         help='List groups for a particular project')
+
+    with self.argument_context('devops security group membership') as context:
+        context.argument('relationship', arg_type=get_enum_type(_RELATIONSHIP_TYPES),
+                         help='Get member of/members for this group.')
 
     with self.argument_context('devops extension') as context:
         context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
