@@ -220,18 +220,22 @@ def show_work_item(id, open=False, organization=None, detect=None):  # pylint: d
 
 
 # pylint: disable=too-many-statements
-def query_work_items(wiql=None, id=None, path=None, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def query_work_items(wiql=None, wiql_file_path=None, id=None, path=None, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Query for a list of work items.
     :param wiql: The query in Work Item Query Language format.  Ignored if --id or --path is specified.
     :type wiql: str
+    :param wiql_file_path: The query in Work Item Query Language format in a file.
+                           Ignored if --wiql, --id or --path is specified.
+                           Please use / backslash when typing in directory path.
+    :type wiql_file_path: str
     :param id: The UUID of an existing query.  Required unless --path or --wiql are specified.
     :type id: str
     :param path: The path of an existing query.  Ignored if --id is specified.
     :type path: str
     :rtype: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItem>`
     """
-    if wiql is None and path is None and id is None:
-        raise CLIError("Either the --wiql, --id, or --path argument must be specified.")
+    if wiql is None and path is None and id is None and wiql_file_path is None:
+        raise CLIError("Either the --wiql, --wiql-file-path, --id, or --path argument must be specified.")
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project, project_required=False)
     client = get_work_item_tracking_client(organization)
@@ -242,9 +246,14 @@ def query_work_items(wiql=None, id=None, path=None, organization=None, project=N
         id = query.id
     if id is not None:
         query_result = client.query_by_id(id=id)
-    else:
+    if wiql is not None:
         wiql_object = Wiql()
         wiql_object.query = wiql
+        query_result = client.query_by_wiql(wiql=wiql_object)
+    else:
+        wiql_object = Wiql()
+        with open(wiql_file_path, 'r') as file:
+            wiql_object.query = file.read().replace('\n', '')
         query_result = client.query_by_wiql(wiql=wiql_object)
     if query_result.work_items:
         _last_query_result[_LAST_QUERY_RESULT_KEY] = query_result  # store query result for table view
