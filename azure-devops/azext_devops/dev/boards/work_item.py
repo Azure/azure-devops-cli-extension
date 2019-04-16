@@ -250,7 +250,7 @@ def query_work_items(wiql=None, wiql_file_path=None, id=None, path=None, organiz
         wiql_object = Wiql()
         wiql_object.query = wiql
         query_result = client.query_by_wiql(wiql=wiql_object)
-    else:
+    if wiql_file_path is not None:
         wiql_object = Wiql()
         with open(wiql_file_path, 'r') as file:
             wiql_object.query = file.read().replace('\n', '')
