@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from __future__ import print_function
 from collections import OrderedDict
 from azext_devops.dev.common.format import trim_for_display, date_time_to_only_date
 
@@ -98,6 +99,48 @@ def _transform_service_endpoint_row(row):
     table_row['Is Ready'] = row['isReady']
     table_row['Created By'] = row['createdBy']['displayName']
 
+    return table_row
+
+
+def transform_groups_table_output(result):
+    table_output = []
+    if result['continuationToken'] is not None:
+        print('Showing only 500 groups. ' +
+              'To list next set of groups use this token as --continuation-token argument and run the command again.' +
+              ' TOKEN:', result['continuationToken'])
+    for item in result['graphGroups']:
+        table_output.append(_transform_group_row(item))
+    return table_output
+
+
+def transform_group_table_output(result):
+    table_output = [_transform_group_row(result)]
+    return table_output
+
+
+def _transform_group_row(row):
+    table_row = OrderedDict()
+    table_row['Display Name'] = row['principalName']
+    table_row['Descriptor'] = row['descriptor']
+    return table_row
+
+
+def transform_memberships_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_membership_row(result[item]))
+    return table_output
+
+
+def _transform_membership_row(row):
+    table_row = OrderedDict()
+    if row['subjectKind'] == 'user':
+        table_row['Name'] = row['displayName']
+    else:
+        table_row['Name'] = row['principalName']
+    table_row['Type'] = row['subjectKind']
+    table_row['Email'] = row['mailAddress']
+    table_row['Descriptor'] = row['descriptor']
     return table_row
 
 

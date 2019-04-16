@@ -22,6 +22,7 @@ from ._credentials import get_credential
 from .git import get_remote_url
 from .vsts_git_url_info import VstsGitUrlInfo
 from .uri import uri_parse_instance_from_git_uri
+from .uuid import is_uuid
 
 logger = get_logger(__name__)
 
@@ -175,6 +176,11 @@ def get_wiki_client(organization=None):
 def get_git_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_0.git.git_client.GitClient')
+
+
+def get_graph_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.graph.graph_client.GraphClient')
 
 
 def get_identity_client(organization=None):
@@ -336,6 +342,14 @@ def get_authentication_error(message):
 
 def clear_connection_cache():
     _connection.clear()
+
+
+def get_project_id_from_name(organization, project):
+    if not is_uuid(project):
+        core_client = get_core_client(organization)
+        team_project = core_client.get_project(project_id=project)
+        return team_project.id
+    return project
 
 
 _connection_data = {}
