@@ -13,6 +13,10 @@ _BUILD_RESULT_VALUES = ['canceled', 'failed', 'none', 'partiallySucceeded', 'suc
 
 _BUILD_STATUS_VALUES = ['all', 'cancelling', 'completed', 'inProgress', 'none', 'notStarted', 'postponed']
 
+_PIPELINES_QUERY_ORDER = ['NameAsc', 'NameDesc', 'ModifiedAsc', 'ModifiedDesc', 'None']
+
+_PIPELINES_RUNS_QUERY_ORDER = ['FinishTimeAsc', 'FinishTimeDesc', 'StartTimeAsc', 'StartTimeDesc', 'QueueTimeAsc', 'QueueTimeDesc']
+
 
 def load_build_arguments(self, _):
     with self.argument_context('pipelines build list') as context:
@@ -42,3 +46,22 @@ def load_build_arguments(self, _):
     with self.argument_context('pipelines release definition list') as context:
         context.argument('artifact_type', choices=['build', 'jenkins', 'github', 'externaltfsbuild', 'git', 'tfvc'],
                          type=str.lower)
+
+    with self.argument_context('pipelines runs list') as context:
+        context.argument('pipeline_ids', nargs='*', type=int)
+        context.argument('tags', nargs='*')
+        context.argument('reason', **enum_choice_list(_BUILD_REASON_VALUES))
+        context.argument('result', **enum_choice_list(_BUILD_RESULT_VALUES))
+        context.argument('status', **enum_choice_list(_BUILD_STATUS_VALUES))
+        context.argument('query_order', **enum_choice_list(_PIPELINES_RUNS_QUERY_ORDER))
+
+    with self.argument_context('pipelines run') as context:
+        context.argument('id', type=int)
+        context.argument('variables', nargs='*')
+
+    with self.argument_context('pipelines list') as context:
+        context.argument('query_order', **enum_choice_list(_PIPELINES_QUERY_ORDER))
+        context.argument(
+            'repository_type',
+            choices=['tfsversioncontrol', 'tfsgit', 'git', 'github', 'githubenterprise', 'bitbucket', 'svn'],
+            type=str.lower)

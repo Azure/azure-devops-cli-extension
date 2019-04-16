@@ -13,9 +13,21 @@ def load_pipelines_help():
     long-summary:
     """
 
+    helps['pipelines runs'] = """
+    type: group
+    short-summary: Manage pipeline runs.
+    long-summary:
+    """
+
+    helps['pipelines runs tag'] = """
+    type: group
+    short-summary: Manage pipeline run tags.
+    long-summary:
+    """
+
     helps['pipelines build'] = """
     type: group
-    short-summary: Manage Azure Pipelines build.
+    short-summary: Manage builds.
     long-summary:
     """
 
@@ -27,7 +39,7 @@ def load_pipelines_help():
 
     helps['pipelines build definition'] = """
     type: group
-    short-summary: Manage build pipelines definitions.
+    short-summary: Manage build definitions.
     long-summary:
     """
 
@@ -51,6 +63,6 @@ def load_pipelines_help():
 
     helps['pipelines runs artifact'] = """
     type: group
-    short-summary: Manage pipeline artifacts.
+    short-summary: Manage pipeline run artifacts.
     long-summary:
     """
