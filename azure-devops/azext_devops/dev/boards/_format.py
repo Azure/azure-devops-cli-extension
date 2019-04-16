@@ -9,6 +9,18 @@ from collections import OrderedDict
 _WORK_ITEM_TITLE_TRUNCATION_LENGTH = 70
 
 
+def transform_work_item_relation_type_table_output(result):
+    table_output = []
+    for item in result:
+        table_row = OrderedDict()
+        table_row['Name'] = item['name']
+        table_row['ReferenceName'] = item['referenceName']
+        table_row['Enabled'] = item['attributes']['enabled']
+        table_row['Usage'] = item['attributes']['usage']
+        table_output.append(table_row)
+
+    return table_output
+
 def transform_work_items_table_output(result):
     table_output = []
     for item in result:

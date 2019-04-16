@@ -7,7 +7,8 @@
 from azure.cli.core.commands import CliCommandType
 from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 from ._format import (transform_work_item_table_output,
-                      transform_work_item_query_result_table_output)
+                      transform_work_item_query_result_table_output,
+                      transform_work_item_relation_type_table_output)
 
 
 workItemOps = CliCommandType(
@@ -15,6 +16,10 @@ workItemOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+relationsOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.boards.relations#{}',
+    exception_handler=azure_devops_exception_handler
+)
 
 def load_work_commands(self, _):
     with self.command_group('boards', command_type=workItemOps) as g:
@@ -27,3 +32,7 @@ def load_work_commands(self, _):
 
         # query commands
         g.command('query', 'query_work_items', table_transformer=transform_work_item_query_result_table_output)
+
+    with self.command_group('boards work-item', command_type=relationsOps) as g:
+        # relation commands
+        g.command('relation-type list', 'get_relation_types_show', table_transformer=transform_work_item_relation_type_table_output)
