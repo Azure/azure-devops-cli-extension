@@ -159,10 +159,9 @@ def _open_pipeline(definition, organization):
 def _resolve_repository_as_id(repository, organization, project):
     if is_uuid(repository):
         return repository
-    else:
-        git_client = get_git_client(organization)
-        repositories = git_client.get_repositories(project=project, include_links=False, include_all_urls=False)
-        for found_repository in repositories:
-            if found_repository.name.lower() == repository.lower():
-                return found_repository.id
+    git_client = get_git_client(organization)
+    repositories = git_client.get_repositories(project=project, include_links=False, include_all_urls=False)
+    for found_repository in repositories:
+        if found_repository.name.lower() == repository.lower():
+            return found_repository.id
     return None

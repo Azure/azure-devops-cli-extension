@@ -15,7 +15,8 @@ _BUILD_STATUS_VALUES = ['all', 'cancelling', 'completed', 'inProgress', 'none', 
 
 _PIPELINES_QUERY_ORDER = ['NameAsc', 'NameDesc', 'ModifiedAsc', 'ModifiedDesc', 'None']
 
-_PIPELINES_RUNS_QUERY_ORDER = ['FinishTimeAsc', 'FinishTimeDesc', 'StartTimeAsc', 'StartTimeDesc', 'QueueTimeAsc', 'QueueTimeDesc']
+_PIPELINES_RUNS_QUERY_ORDER = ['FinishTimeAsc', 'FinishTimeDesc', 'StartTimeAsc', 'StartTimeDesc',
+                               'QueueTimeAsc', 'QueueTimeDesc']
 
 
 def load_build_arguments(self, _):
