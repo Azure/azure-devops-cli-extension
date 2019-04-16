@@ -70,6 +70,16 @@ def load_team_help():
     short-summary: Manage memberships for security groups
     """
 
+    helps['devops security permission'] = """
+    type: group
+    short-summary: Manage security permissions
+    """
+
+    helps['devops security permission namespace'] = """
+    type: group
+    short-summary: Manage security namespaces
+    """
+
     helps['devops team'] = """
     type: group
     short-summary: Manage teams

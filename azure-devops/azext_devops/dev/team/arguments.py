@@ -104,6 +104,10 @@ def load_team_arguments(self, _):
         context.argument('relationship', arg_type=get_enum_type(_RELATIONSHIP_TYPES),
                          help='Get member of/members for this group.')
 
+    with self.argument_context('devops security permission') as context:
+        context.argument('namespace_id', options_list=('--namespace-id', '--id'),
+                         help='ID of security namespace')
+
     with self.argument_context('devops extension') as context:
         context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Include built in extensions.')

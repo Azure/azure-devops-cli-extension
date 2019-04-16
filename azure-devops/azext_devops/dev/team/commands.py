@@ -10,6 +10,8 @@ from ._format import (transform_project_table_output,
                       transform_groups_table_output,
                       transform_group_table_output,
                       transform_memberships_table_output,
+                      transform_namespaces_table_output,
+                      transform_namespace_table_output,
                       transform_team_table_output,
                       transform_teams_table_output,
                       transform_team_members_table_output,
@@ -73,6 +75,10 @@ security_groupOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+security_permissionOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.team.security_permission#{}',
+    exception_handler=azure_devops_exception_handler
+)
 
 wikiOps = CliCommandType(
     operations_tmpl='azext_devops.dev.team.wiki#{}',
@@ -141,6 +147,10 @@ def load_team_commands(self, _):
         g.command('list', 'list_memberships', table_transformer=transform_memberships_table_output)
         g.command('add', 'add_membership', table_transformer=transform_memberships_table_output)
         g.command('remove', 'remove_membership', confirmation='Are you sure you want to delete this relationship?')
+
+    with self.command_group('devops security permission namespace', command_type=security_permissionOps) as g:
+        g.command('list', 'list_namespaces', table_transformer=transform_namespaces_table_output)
+        g.command('show', 'show_namespace', table_transformer=transform_namespace_table_output)
 
     with self.command_group('devops wiki', command_type=wikiOps) as g:
         g.command('create', 'create_wiki', table_transformer=transform_wiki_table_output)

@@ -144,6 +144,35 @@ def _transform_membership_row(row):
     return table_row
 
 
+def transform_namespaces_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_namespace_row(item))
+    return table_output
+
+
+def _transform_namespace_row(row):
+    table_row = OrderedDict()
+    table_row['Id'] = row['namespaceId']
+    table_row['Name'] = row['name']
+    return table_row
+
+
+def transform_namespace_table_output(result):
+    table_output = []
+    for item in result[0]['actions']:
+        table_output.append(_transform_namespace_details_row(item))
+    return table_output
+
+
+def _transform_namespace_details_row(row):
+    table_row = OrderedDict()
+    table_row['Name'] = row['name']
+    table_row['Permission Description'] = row['displayName']
+    table_row['Permission Bit'] = row['bit']
+    return table_row
+
+
 def transform_teams_table_output(result):
     table_output = []
     for item in sorted(result, key=_get_team_key):
