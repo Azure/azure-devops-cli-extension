@@ -89,7 +89,7 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
     return build_definition
 
 
-def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, variables=None, # pylint: disable=redefined-builtin
+def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, variables=None,  # pylint: disable=redefined-builtin
                  organization=None, project=None, detect=None):
     """Queue (run) a pipeline.
     :param id: ID of the pipeline to queue. Required if --name is not supplied.
@@ -131,7 +131,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     return queued_build
 
 
-def pipeline_delete(id, organization=None, project=None, detect=None): # pylint: disable=redefined-builtin
+def pipeline_delete(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete a pipeline.
     :param id: ID of the pipeline.
     :type id: int
