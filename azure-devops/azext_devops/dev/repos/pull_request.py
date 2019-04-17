@@ -12,7 +12,7 @@ from azext_devops.devops_sdk.v5_0.git.models import (GitPullRequest, GitPullRequ
                                                      GitPullRequestSearchCriteria, IdentityRef, IdentityRefWithVote,
                                                      ResourceRef, GitRefFavorite)
 from azext_devops.devops_sdk.v5_0.work_item_tracking.models import JsonPatchOperation, WorkItemRelation
-from azext_devops.dev.common.arguments import resolve_on_off_switch, resolve_true_false, should_detect
+from azext_devops.dev.common.arguments import resolve_on_off_switch, should_detect
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads, fetch_remote_and_checkout
 from azext_devops.dev.common.identities import ME, resolve_identity_as_id
 from azext_devops.dev.common.uri import uri_quote
@@ -99,7 +99,7 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
-                        merge_commit_message=None, reviewers=None, work_items=None, is_draft=False,
+                        merge_commit_message=None, reviewers=None, work_items=None, draft=None,
                         open=False, organization=None, detect=None, transition_work_items=False):  # pylint: disable=redefined-builtin
     """Create a pull request.
     :param project: Name or ID of the team project.
@@ -113,8 +113,8 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type target_branch: str
     :param title: Title for the new pull request.
     :type title: str
-    :param is_draft: Use this flag to create the pull request in draft/work in progress mode.
-    :type is_draft: bool
+    :param draft: Use this flag to create the pull request in draft/work in progress mode.
+    :type draft: bool
     :param description: Description for the new pull request. Can include markdown.
                         Each value sent to this arg will be a new line.
                         For example: --description "First Line" "Second Line"
@@ -157,9 +157,10 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     multi_line_description = None
     if description is not None:
         multi_line_description = '\n'.join(description)
-
     pr = GitPullRequest(description=multi_line_description, source_ref_name=source_branch,
-                        target_ref_name=target_branch, is_draft=is_draft)
+                        target_ref_name=target_branch)
+    if draft is not None:
+        pr.is_draft = draft
     if title is not None:
         pr.title = title
     else:
@@ -235,7 +236,7 @@ def _get_branches_for_pull_request(organization, project, repository, source_bra
 
 
 def update_pull_request(id, title=None, description=None, auto_complete=None,  # pylint: disable=redefined-builtin
-                        squash=None, delete_source_branch=None, bypass_policy=None, is_draft=None,
+                        squash=None, delete_source_branch=None, bypass_policy=None, draft=None,
                         bypass_policy_reason=None, merge_commit_message=None, organization=None, detect=None,
                         transition_work_items=None):
     """Update a pull request.
@@ -259,8 +260,8 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     :type bypass_policy: str
     :param bypass_policy_reason: Reason for bypassing the required policies.
     :type bypass_policy_reason: str
-    :type is_draft: str
-    :param is_draft: Publish the PR or convert to draft mode.
+    :param draft: Publish the PR or convert to draft mode.
+    :type draft: str
     :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
@@ -303,8 +304,8 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
             pr.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, organization))
         else:
             pr.auto_complete_set_by = IdentityRef(id=EMPTY_UUID)
-    if is_draft:
-        pr.is_draft = resolve_true_false(is_draft)
+    if draft is not None:
+        pr.is_draft = draft
     pr = client.update_pull_request(git_pull_request_to_update=pr,
                                     project=existing_pr.repository.project.name,
                                     repository_id=existing_pr.repository.name,
