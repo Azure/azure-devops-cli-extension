@@ -114,8 +114,9 @@ class WikiTests(ScenarioTest):
             # Verify deletion
             with self.assertRaises(Exception) as exc:
                 response = self.cmd(show_page_command).get_output_in_json()
-            self.assertEqual(str(exc.exception).startswith('Wiki page ‘/abc’ could not be found.'), True)
-
+            self.assertEqual(str(exc.exception).startswith('Wiki page'), True)
+            self.assertEqual('could not be found.' in str(exc.exception), True)
+            
         finally:
             if created_project_id is not None:
                 delete_project_command = 'az devops project delete --id ' + created_project_id + ' --output json --detect off -y'
