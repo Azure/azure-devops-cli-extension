@@ -30,3 +30,9 @@ def load_boards_help():
     short-summary: Manage work item relations.
     long-summary:
     """
+
+    helps['boards work-item relation-type'] = """
+    type: command
+    short-summary: Manage work item relation-types.
+    long-summary:
+    """
