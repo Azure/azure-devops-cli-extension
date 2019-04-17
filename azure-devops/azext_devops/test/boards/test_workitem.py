@@ -61,7 +61,7 @@ class TestWorkItemMethods(AuthenticatedTests):
 
         # assert
         self.mock_validate_token.assert_not_called()
-        self.mock_get_WI.assert_called_once_with(test_work_item_id)
+        self.mock_get_WI.assert_called_once_with(test_work_item_id, expand='All')
         assert response.id == test_work_item_id
 
 
@@ -77,7 +77,7 @@ class TestWorkItemMethods(AuthenticatedTests):
         # assert
         self.mock_open_browser.assert_called_with(response,self._TEST_DEVOPS_ORGANIZATION)
         self.mock_validate_token.assert_not_called()
-        self.mock_get_WI.assert_called_once_with(test_work_item_id)
+        self.mock_get_WI.assert_called_once_with(test_work_item_id, expand='All')
 
 
     def test_show_work_item_raises_exception_invalid_id(self):
@@ -91,7 +91,7 @@ class TestWorkItemMethods(AuthenticatedTests):
         self.assertEqual(str(exc.exception),r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         #assert
-        self.mock_get_WI.assert_called_once_with(test_work_item_id)
+        self.mock_get_WI.assert_called_once_with(test_work_item_id, expand='All')
         self.mock_validate_token.assert_not_called()
 
 
