@@ -38,4 +38,5 @@ def load_work_commands(self, _):
         g.command('relation-type list', 'get_relation_types_show',
                   table_transformer=transform_work_item_relation_type_table_output)
         g.command('relation add', 'add_relation', table_transformer=transform_work_item_table_output)
-        g.command('relation remove', 'remove_relation', table_transformer=transform_work_item_table_output)
+        g.command('relation remove', 'remove_relation', table_transformer=transform_work_item_table_output,
+                  confirmation='Are you sure you want to remove this relation(s)?')
