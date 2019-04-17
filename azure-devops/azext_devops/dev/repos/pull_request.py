@@ -12,7 +12,7 @@ from azext_devops.devops_sdk.v5_0.git.models import (GitPullRequest, GitPullRequ
                                                      GitPullRequestSearchCriteria, IdentityRef, IdentityRefWithVote,
                                                      ResourceRef, GitRefFavorite)
 from azext_devops.devops_sdk.v5_0.work_item_tracking.models import JsonPatchOperation, WorkItemRelation
-from azext_devops.dev.common.arguments import resolve_on_off_switch, resolve_true_false, should_detect
+from azext_devops.dev.common.arguments import resolve_on_off_switch, should_detect
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads, fetch_remote_and_checkout
 from azext_devops.dev.common.identities import ME, resolve_identity_as_id
 from azext_devops.dev.common.uri import uri_quote
