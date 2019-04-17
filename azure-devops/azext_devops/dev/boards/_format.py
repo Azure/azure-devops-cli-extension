@@ -21,6 +21,7 @@ def transform_work_item_relation_type_table_output(result):
 
     return table_output
 
+
 def transform_work_items_table_output(result):
     table_output = []
     for item in result:

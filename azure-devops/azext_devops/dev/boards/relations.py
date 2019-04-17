@@ -12,10 +12,12 @@ from azext_devops.dev.common.services import (get_work_item_tracking_client,
 
 logger = get_logger(__name__)
 
+
 def get_relation_types_show(organization=None, detect=None):
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_work_item_tracking_client(organization)
     return client.get_relation_types()
+
 
 def add_relation(id, relation_type, target_ids, organization=None, detect=None):  # pylint: disable=redefined-builtin
     organization = resolve_instance(detect=detect, organization=organization)
@@ -46,6 +48,7 @@ def add_relation(id, relation_type, target_ids, organization=None, detect=None):
     work_item = client.get_work_item(id, expand='All')
 
     return work_item
+
 
 def remove_relation(id, relation_type, target_ids, organization=None, detect=None):  # pylint: disable=redefined-builtin
     organization = resolve_instance(detect=detect, organization=organization)
@@ -93,6 +96,6 @@ def _create_patch_operation(op, path, rel=None, url=None):
         patch_operation.value = {
             'rel': rel,
             'url': url
-            }
+        }
 
     return patch_operation

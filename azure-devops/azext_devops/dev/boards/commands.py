@@ -21,6 +21,7 @@ relationsOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+
 def load_work_commands(self, _):
     with self.command_group('boards', command_type=workItemOps) as g:
         # basic work item commands
