@@ -61,7 +61,7 @@ class WikiTests(ScenarioTest):
 
             # Create Code wiki
             create_code_wiki_command = 'az devops wiki create --name ' + code_wiki_name + ' --mapped-path / --type codewiki --version master --repository ' + random_repo_name +  ' --output json --detect off'
-            create_code_wiki_output =self.cmd(create_code_wiki_command).get_output_in_json()
+            create_code_wiki_output = self.cmd(create_code_wiki_command).get_output_in_json()
             created_code_wiki_id = create_code_wiki_output["id"]
             assert create_code_wiki_output["name"] == code_wiki_name
             assert create_code_wiki_output["type"].lower() == 'codewiki'
@@ -114,9 +114,9 @@ class WikiTests(ScenarioTest):
             # Verify deletion
             with self.assertRaises(Exception) as exc:
                 response = self.cmd(show_page_command).get_output_in_json()
-            self.assertEqual(str(exc.exception).startswith('Wiki page'), True)
-            self.assertEqual('could not be found.' in str(exc.exception), True)
-            
+            self.assertEqual(exc.exception.args[0].message.startswith('Wiki page'), True)
+            self.assertEqual('could not be found.' in exc.exception.args[0].message, True)
+
         finally:
             if created_project_id is not None:
                 delete_project_command = 'az devops project delete --id ' + created_project_id + ' --output json --detect off -y'
