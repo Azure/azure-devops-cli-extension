@@ -17,7 +17,7 @@ def get_relation_types_show(organization=None, detect=None):
     client = get_work_item_tracking_client(organization)
     return client.get_relation_types()
 
-def add_relation(id, relation_type, target_ids, organization=None, detect=None):
+def add_relation(id, relation_type, target_ids, organization=None, detect=None):  # pylint: disable=redefined-builtin
     organization = resolve_instance(detect=detect, organization=organization)
     patch_document = []
     client = get_work_item_tracking_client(organization)
@@ -47,7 +47,7 @@ def add_relation(id, relation_type, target_ids, organization=None, detect=None):
 
     return work_item
 
-def remove_relation(id, relation_type, target_ids, organization=None, detect=None):
+def remove_relation(id, relation_type, target_ids, organization=None, detect=None):  # pylint: disable=redefined-builtin
     organization = resolve_instance(detect=detect, organization=organization)
     patch_document = []
     client = get_work_item_tracking_client(organization)
@@ -96,8 +96,3 @@ def _create_patch_operation(op, path, rel=None, url=None):
             }
 
     return patch_operation
-
-
-
-
-    
