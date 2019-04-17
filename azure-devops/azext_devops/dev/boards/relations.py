@@ -14,12 +14,16 @@ logger = get_logger(__name__)
 
 
 def get_relation_types_show(organization=None, detect=None):
+    """ List work item relations supported in the organization.
+    """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_work_item_tracking_client(organization)
     return client.get_relation_types()
 
 
 def add_relation(id, relation_type, target_ids, organization=None, detect=None):  # pylint: disable=redefined-builtin
+    """ Add relation(s) to work item.
+    """
     organization = resolve_instance(detect=detect, organization=organization)
     patch_document = []
     client = get_work_item_tracking_client(organization)
@@ -51,6 +55,8 @@ def add_relation(id, relation_type, target_ids, organization=None, detect=None):
 
 
 def remove_relation(id, relation_type, target_ids, organization=None, detect=None):  # pylint: disable=redefined-builtin
+    """ Remove relation(s) from work item.
+    """
     organization = resolve_instance(detect=detect, organization=organization)
     patch_document = []
     client = get_work_item_tracking_client(organization)
