@@ -62,19 +62,19 @@ class BoardsRelationsTest(ScenarioTest):
             assert len(remove_relation_output['relations']) == 1
             self.validate_relation_count_on_work_item(wi_set, [1, 0, 0, 1, 0])
 
-            #add 4 as child of 0 (single add)
-            create_relation_command = 'az boards work-item relation add --id {} --detect off --output json'.format(wi_set[0]['id']) \
-                + ' --relation-type child --target-ids {}'.format(wi_set[4]['id'])
-            create_relation_output = self.cmd(create_relation_command).get_output_in_json()
-            assert len(create_relation_output['relations']) == 2
-            self.validate_relation_count_on_work_item(wi_set, [2, 0, 0, 1, 1])
+            # #add 4 as child of 0 (single add)
+            # create_relation_command = 'az boards work-item relation add --id {} --detect off --output json'.format(wi_set[0]['id']) \
+            #     + ' --relation-type child --target-ids {}'.format(wi_set[4]['id'])
+            # create_relation_output = self.cmd(create_relation_command).get_output_in_json()
+            # assert len(create_relation_output['relations']) == 2
+            # self.validate_relation_count_on_work_item(wi_set, [2, 0, 0, 1, 1])
 
-            #remove 3 as child of 0 (single remove)
-            remove_relation_command = 'az boards work-item relation remove --id {} --detect off --output json'.format(wi_set[0]['id']) \
-                + ' --relation-type child --target-ids {}'.format(wi_set[3]['id'])
-            remove_relation_output = self.cmd(remove_relation_command).get_output_in_json()
-            assert len(remove_relation_output['relations']) == 1
-            self.validate_relation_count_on_work_item(wi_set, [1, 0, 0, 0, 1])
+            # #remove 3 as child of 0 (single remove)
+            # remove_relation_command = 'az boards work-item relation remove --id {} --detect off --output json'.format(wi_set[0]['id']) \
+            #     + ' --relation-type child --target-ids {}'.format(wi_set[3]['id'])
+            # remove_relation_output = self.cmd(remove_relation_command).get_output_in_json()
+            # assert len(remove_relation_output['relations']) == 1
+            # self.validate_relation_count_on_work_item(wi_set, [1, 0, 0, 0, 1])
 
         finally:
             if created_project_id is not None:
