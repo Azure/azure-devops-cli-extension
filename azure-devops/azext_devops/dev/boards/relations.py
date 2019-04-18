@@ -42,6 +42,9 @@ def add_relation(id, relation_type, target_ids, organization=None, detect=None):
     wiql_object.query = wiql_query_to_get_target_work_items
     target_work_items = client.query_by_wiql(wiql=wiql_object).work_items
 
+    if len(target_work_items) != len(target_work_item_ids):
+        raise CLIError('Id(s) supplied in --target-ids is not valid')
+
     patch_document = []
 
     for target_work_item in target_work_items:
@@ -91,7 +94,8 @@ def get_system_relation_name(client, relation_type):
         if relation_type_from_service.name.lower() == relation_type.lower():
             return relation_type_from_service.reference_name
 
-    raise CLIError("--relation-type is not valid")
+    raise CLIError("--relation-type is not valid. Use \"az boards work-item relation list-type\" " +
+                   "command to list possible relation types in your project")
 
 
 def _create_patch_operation(op, path, rel=None, url=None):
