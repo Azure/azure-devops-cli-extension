@@ -100,7 +100,6 @@ def show_work_item(id, organization=None, detect=None):  # pylint: disable=redef
     work_item = client.get_work_item(id, expand='All')
     relation_types_from_service = client.get_relation_types()
     work_item = fill_friendly_name_for_relations_in_work_item(relation_types_from_service, work_item)
-
     return work_item
 
 
@@ -109,7 +108,6 @@ def fill_friendly_name_for_relations_in_work_item(relation_types_from_service, w
         for relation_type_from_service in relation_types_from_service:
             if relation_type_from_service.reference_name == relation.rel:
                 relation.rel = relation_type_from_service.name
-
     return wi
 
 

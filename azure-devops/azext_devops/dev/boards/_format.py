@@ -36,6 +36,7 @@ def transform_work_item_relations(result):
 
     return table_output
 
+
 def transform_work_items_table_output(result):
     table_output = []
     for item in result:
