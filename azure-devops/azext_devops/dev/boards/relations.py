@@ -28,7 +28,8 @@ def add_relation(id, relation_type, target_ids, organization=None, detect=None):
     patch_document = []
     client = get_work_item_tracking_client(organization)
 
-    relation_type_system_name = get_system_relation_name(client, relation_type)
+    relation_types_from_service = client.get_relation_types()
+    relation_type_system_name = get_system_relation_name(relation_types_from_service, relation_type)
 
     target_work_item_ids = target_ids.split(',')
     work_item_query_clause = []
@@ -53,6 +54,7 @@ def add_relation(id, relation_type, target_ids, organization=None, detect=None):
 
     client.update_work_item(document=patch_document, id=id)
     work_item = client.get_work_item(id, expand='All')
+    work_item = fill_friendly_name_for_relations_in_work_item(relation_types_from_service, work_item)
 
     return work_item
 
@@ -64,7 +66,8 @@ def remove_relation(id, relation_type, target_ids, organization=None, detect=Non
     patch_document = []
     client = get_work_item_tracking_client(organization)
 
-    relation_type_system_name = get_system_relation_name(client, relation_type)
+    relation_types_from_service = client.get_relation_types()
+    relation_type_system_name = get_system_relation_name(relation_types_from_service, relation_type)
     target_work_item_ids = target_ids.split(',')
 
     main_work_item = client.get_work_item(id, expand='All')
@@ -83,13 +86,20 @@ def remove_relation(id, relation_type, target_ids, organization=None, detect=Non
 
     client.update_work_item(document=patch_document, id=id)
     work_item = client.get_work_item(id, expand='All')
+    work_item = fill_friendly_name_for_relations_in_work_item(relation_types_from_service, work_item)
 
     return work_item
 
 
-def get_system_relation_name(client, relation_type):
-    relation_types_from_service = client.get_relation_types()
+def fill_friendly_name_for_relations_in_work_item(relation_types_from_service, wi):
+    for relation in wi.relations:
+        for relation_type_from_service in relation_types_from_service:
+            if relation_type_from_service.reference_name == relation.rel:
+                relation.rel = relation_type_from_service.name
 
+    return wi
+
+def get_system_relation_name(relation_types_from_service, relation_type):
     for relation_type_from_service in relation_types_from_service:
         if relation_type_from_service.name.lower() == relation_type.lower():
             return relation_type_from_service.reference_name
