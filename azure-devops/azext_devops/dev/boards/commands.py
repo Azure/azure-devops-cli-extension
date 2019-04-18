@@ -36,7 +36,7 @@ def load_work_commands(self, _):
 
     with self.command_group('boards work-item', command_type=relationsOps) as g:
         # relation commands
-        g.command('relation-type list', 'get_relation_types_show',
+        g.command('relation list-type', 'get_relation_types_show',
                   table_transformer=transform_work_item_relation_type_table_output)
         g.command('relation add', 'add_relation', table_transformer=transform_work_item_table_output)
         g.command('relation remove', 'remove_relation', table_transformer=transform_work_item_table_output,
