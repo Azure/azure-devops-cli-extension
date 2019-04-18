@@ -70,11 +70,18 @@ wikiOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+mineOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.team.mine#{}',
+    exception_handler=azure_devops_exception_handler
+)
 
 def load_team_commands(self, _):
     with self.command_group('devops', command_type=credentialsOps) as g:
         g.command('login', 'credential_set')
         g.command('logout', 'credential_clear')
+
+    with self.command_group('devops', command_type=mineOps) as g:
+        g.command('mine', 'manage_mine')
 
     with self.command_group('devops', command_type=feedbackOps) as g:
         g.command('feedback', 'feedback')

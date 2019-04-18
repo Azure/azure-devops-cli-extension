@@ -18,6 +18,7 @@ _YES_NO_SWITCH_VALUES = ['yes', 'no']
 _SOURCE_CONTROL_VALUES = ['git', 'tfvc']
 _WIKI_TYPE_VALUES = ['projectwiki', 'codewiki']
 _PROJECT_VISIBILITY_VALUES = ['private', 'public']
+_ASSIGNED_CREATED_VALUES = ['assigned', 'created']
 _STATE_VALUES = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting', 'createpending']
 _SERVICE_ENDPOINT_TYPE = [SERVICE_ENDPOINT_TYPE_GITHUB, SERVICE_ENDPOINT_TYPE_AZURE_RM]
 _SERVICE_ENDPOINT_AUTHORIZATION_SCHEME = [SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
@@ -98,6 +99,10 @@ def load_team_arguments(self, _):
         context.argument('publisher_id', help='Publisher ID')
         context.argument('extension_id', help='Extension ID')
         context.argument('search_query', options_list=('--search-query', '-q'), help='Search term')
+
+    with self.argument_context('devops mine') as context:
+        context.argument('work-items', arg_type=get_enum_type(_ASSIGNED_CREATED_VALUES))
+        context.argument('pull_requests', arg_type=get_enum_type(_ASSIGNED_CREATED_VALUES))
 
     with self.argument_context('devops') as context:
         load_global_args(context)
