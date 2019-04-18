@@ -116,5 +116,14 @@ def get_account_from_identity(identity):
     return identity.provider_display_name
 
 
+def get_identity_descriptor_from_subject_descriptor(organization, subject_descriptor):
+    identity_client = get_identity_client(organization)
+    identities = identity_client.read_identities(subject_descriptors=subject_descriptor)
+    if identities is not None:
+        return identities[0].descriptor
+    return subject_descriptor
+
+
+
 ME = 'me'
 _display_name_cache = get_cli_cache('identity_display_names', 3600 * 6)

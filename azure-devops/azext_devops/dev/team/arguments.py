@@ -108,6 +108,12 @@ def load_team_arguments(self, _):
         context.argument('namespace_id', options_list=('--namespace-id', '--id'),
                          help='ID of security namespace')
 
+    with self.argument_context('devops security permission resolve') as context:
+        context.argument('allow_bit',type=int, 
+                         help='Allow bit')
+        context.argument('deny_bit',type=int, 
+                         help='Deny bit')
+
     with self.argument_context('devops extension') as context:
         context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Include built in extensions.')
