@@ -26,13 +26,13 @@ def load_boards_help():
     """
 
     helps['boards work-item relation'] = """
-    type: command
+    type: group
     short-summary: Manage work item relations.
     long-summary:
     """
 
     helps['boards work-item relation-type'] = """
-    type: command
+    type: group
     short-summary: Manage work item relation-types.
     long-summary:
     """
