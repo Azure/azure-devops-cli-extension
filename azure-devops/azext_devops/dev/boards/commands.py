@@ -43,4 +43,3 @@ def load_work_commands(self, _):
         g.command('relation remove', 'remove_relation', table_transformer=transform_work_item_relations,
                   confirmation='Are you sure you want to remove this relation(s)?')
         g.command('relation show', 'show_work_item', table_transformer=transform_work_item_relations)
-
