@@ -12,7 +12,7 @@ from azext_devops.devops_sdk.v5_0.git.models import (GitPullRequest, GitPullRequ
                                                      GitPullRequestSearchCriteria, IdentityRef, IdentityRefWithVote,
                                                      ResourceRef, GitRefFavorite)
 from azext_devops.devops_sdk.v5_0.work_item_tracking.models import JsonPatchOperation, WorkItemRelation
-from azext_devops.dev.common.arguments import resolve_on_off_switch, should_detect
+from azext_devops.dev.common.arguments import should_detect
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads, fetch_remote_and_checkout
 from azext_devops.dev.common.identities import ME, resolve_identity_as_id
 from azext_devops.dev.common.uri import uri_quote
@@ -249,24 +249,24 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     :type description: list of str
     :param auto_complete: Set the pull request to complete automatically when all policies have passed and
                           the source branch can be merged into the target branch.
-    :type auto_complete: str
+    :type auto_complete: bool
     :param squash: Squash the commits in the source branch when merging into the target branch.
-    :type squash: str
+    :type squash: bool
     :param delete_source_branch: Delete the source branch after the pull request has been completed
                                  and merged into the target branch.
-    :type delete_source_branch: str
+    :type delete_source_branch: bool
     :param bypass_policy: Bypass required policies (if any) and completes the pull request once it
                           can be merged.
-    :type bypass_policy: str
+    :type bypass_policy: bool
     :param bypass_policy_reason: Reason for bypassing the required policies.
     :type bypass_policy_reason: str
     :param draft: Publish the PR or convert to draft mode.
-    :type draft: str
+    :type draft: bool
     :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
                    (e.g. Active -> Resolved)
-    :type transition_work_items: str
+    :type transition_work_items: bool
     :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
@@ -287,20 +287,20 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
         if completion_options is None:
             completion_options = GitPullRequestCompletionOptions()
         if bypass_policy is not None:
-            completion_options.bypass_policy = resolve_on_off_switch(bypass_policy)
+            completion_options.bypass_policy = bypass_policy
         if bypass_policy_reason is not None:
             completion_options.bypass_reason = bypass_policy_reason
         if delete_source_branch is not None:
-            completion_options.delete_source_branch = resolve_on_off_switch(delete_source_branch)
+            completion_options.delete_source_branch = delete_source_branch
         if squash is not None:
-            completion_options.squash_merge = resolve_on_off_switch(squash)
+            completion_options.squash_merge = squash
         if merge_commit_message is not None:
             completion_options.merge_commit_message = merge_commit_message
         if transition_work_items is not None:
-            completion_options.transition_work_items = resolve_on_off_switch(transition_work_items)
+            completion_options.transition_work_items = transition_work_items
         pr.completion_options = completion_options
     if auto_complete is not None:
-        if resolve_on_off_switch(auto_complete):
+        if auto_complete:
             pr.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, organization))
         else:
             pr.auto_complete_set_by = IdentityRef(id=EMPTY_UUID)
