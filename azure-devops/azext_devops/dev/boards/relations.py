@@ -91,6 +91,19 @@ def remove_relation(id, relation_type, target_ids, organization=None, detect=Non
     return work_item
 
 
+def show_work_item(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
+    """ Get work item, shows relations in table format.
+    """
+    organization = resolve_instance(detect=detect, organization=organization)
+    client = get_work_item_tracking_client(organization)
+
+    work_item = client.get_work_item(id, expand='All')
+    relation_types_from_service = client.get_relation_types()
+    work_item = fill_friendly_name_for_relations_in_work_item(relation_types_from_service, work_item)
+
+    return work_item
+
+
 def fill_friendly_name_for_relations_in_work_item(relation_types_from_service, wi):
     for relation in wi.relations:
         for relation_type_from_service in relation_types_from_service:
@@ -98,6 +111,7 @@ def fill_friendly_name_for_relations_in_work_item(relation_types_from_service, w
                 relation.rel = relation_type_from_service.name
 
     return wi
+
 
 def get_system_relation_name(relation_types_from_service, relation_type):
     for relation_type_from_service in relation_types_from_service:
