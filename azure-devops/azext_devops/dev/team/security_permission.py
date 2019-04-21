@@ -3,7 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import pdb
+import os
+import json
 from knack.util import CLIError
 from knack.log import get_logger
 from azext_devops.devops_sdk.exceptions import AzureDevOpsClientRequestError
@@ -45,7 +46,6 @@ def list_permissions(namespace_id, subject, token=None, include_extended_info=Tr
     :param subject: User or Group ID for which permission details are required.
     :type subject: str
     """
-    #pdb.set_trace()
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
     if '@' in subject:
@@ -115,7 +115,6 @@ def add_permissions(namespace_id, subject, token, merge=True, allow_bit=None, de
     :param merge: Merge the existing permissions or replace them.
     :type auto_complete: bool
     """
-    pdb.set_trace()
     if allow_bit is None and deny_bit is None:
         raise CLIError('Either --allow-bit or --deny-bit parameter should be provided.')
     organization = resolve_instance(detect=detect, organization=organization)
@@ -144,6 +143,51 @@ def add_permissions(namespace_id, subject, token, merge=True, allow_bit=None, de
         if 'it is reserved by the system' not in message:
             raise CLIError(ex)
 
+
+def resolve_permissions_json(namespace_id, json_path, organization=None, detect=None):
+    """ Resolve permissions with json
+    """
+    organization = resolve_instance(detect=detect, organization=organization)
+    client = get_security_client(organization)
+    permissions_types = client.query_security_namespaces(security_namespace_id=namespace_id)    
+    with open(json_path) as file:
+        response_json = json.load(file)
+        inherited_allow = 0
+        inherited_deny = 0
+        effective_allow = 0
+        effective_deny = 0
+        if len(response_json) > 1 or len(response_json[0]['acesDictionary']) > 1:
+            raise CLIError('The Json response can only have one entry in acesDictionary.')
+        acl = list(response_json[0]['acesDictionary'].values())[0]
+        print(acl)
+        allow_bit = acl['allow']
+        deny_bit = acl['deny']
+        if acl['extendedInfo']['effectiveAllow'] is not None:
+            effective_allow = acl['extendedInfo']['effectiveAllow']
+        if acl['extendedInfo']['effectiveDeny'] is not None:
+            effective_deny = acl['extendedInfo']['effectiveDeny']
+        if response_json[0]['includeExtendedInfo'] is True:
+            inherited_allow = allow_bit ^ effective_allow
+            inherited_deny = deny_bit ^ effective_deny       
+        permission_response = []
+        for item in permissions_types[0].actions:
+            permission = {}
+            permission['displayName'] = item.display_name
+            permission['name'] = item.name
+            if effective_deny and item.bit & effective_deny:
+                permission['effectivePermission'] = 'Deny'
+                if inherited_deny & item.bit:
+                    permission['effectivePermission'] = 'Deny(Inherited)'
+            elif effective_allow and item.bit & effective_allow:
+                permission['effectivePermission'] = 'Allow'
+                if inherited_allow & item.bit:
+                    permission['effectivePermission'] = 'Allow(Inherited)'
+            else:
+                permission['effectivePermission'] = 'Not set'
+            permission_response.append(permission)
+        return permission_response
+
+                
 
 def get_storage_key_from_graph_descriptor(descriptor, organization):
     client = get_graph_client(organization)

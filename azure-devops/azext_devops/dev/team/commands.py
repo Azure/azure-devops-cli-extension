@@ -156,6 +156,7 @@ def load_team_commands(self, _):
         g.command('reset-all', 'reset_all_permissions',
                   confirmation='Are you sure you want to reset all permissions for this user and token?')
         g.command('reset', 'reset_permissions')
+        g.command('resolve-json', 'resolve_permissions_json')
 
     with self.command_group('devops security permission namespace', command_type=security_permissionOps) as g:
         g.command('list', 'list_namespaces', table_transformer=transform_namespaces_table_output)
