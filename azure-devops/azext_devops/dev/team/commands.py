@@ -12,6 +12,7 @@ from ._format import (transform_project_table_output,
                       transform_memberships_table_output,
                       transform_namespaces_table_output,
                       transform_namespace_table_output,
+                      transform_acl_output,
                       transform_team_table_output,
                       transform_teams_table_output,
                       transform_team_members_table_output,
@@ -149,12 +150,12 @@ def load_team_commands(self, _):
         g.command('remove', 'remove_membership', confirmation='Are you sure you want to delete this relationship?')
 
     with self.command_group('devops security permission', command_type=security_permissionOps) as g:
-        g.command('list', 'list_permissions', table_transformer=transform_namespace_table_output)
+        g.command('list', 'list_permissions', table_transformer=transform_acl_output)
         g.command('resolve', 'resolve_permissions')
-        #g.command('add', 'add_permissions', table_transformer=transform_namespace_table_output)
-        #g.command('reset-all', 'reset_all_permissions',
-        #          confirmation='Are you sure you want to reset all permissions for this user and token?')
-        #g.command('reset', 'reset_permissions', table_transformer=transform_namespace_table_output)
+        g.command('add', 'add_permissions')
+        g.command('reset-all', 'reset_all_permissions',
+                  confirmation='Are you sure you want to reset all permissions for this user and token?')
+        g.command('reset', 'reset_permissions')
 
     with self.command_group('devops security permission namespace', command_type=security_permissionOps) as g:
         g.command('list', 'list_namespaces', table_transformer=transform_namespaces_table_output)

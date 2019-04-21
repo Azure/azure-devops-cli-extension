@@ -173,6 +173,25 @@ def _transform_namespace_details_row(row):
     return table_row
 
 
+def transform_acl_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_acl_details_row(item))
+    return table_output
+
+def _transform_acl_details_row(row):
+    table_row = OrderedDict()
+    table_row['token'] = row['token']
+    return table_row
+
+def transform_resolve_permission_bits(result):
+    table_row = OrderedDict()
+    table_row['Name'] = result['name']
+    table_row['Permission Description'] = row['displayName']
+    table_row['Permission Bit'] = row['bit']
+    return table_row
+
+
 def transform_teams_table_output(result):
     table_output = []
     for item in sorted(result, key=_get_team_key):

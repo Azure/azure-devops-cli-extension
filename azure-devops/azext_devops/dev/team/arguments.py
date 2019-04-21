@@ -5,7 +5,7 @@
 
 
 from knack.arguments import enum_choice_list
-from azure.cli.core.commands.parameters import get_enum_type
+from azure.cli.core.commands.parameters import get_enum_type,get_three_state_flag
 from azext_devops.dev.common.const import _TRUE_FALSE_SWITCH
 from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_GITHUB,
@@ -107,6 +107,7 @@ def load_team_arguments(self, _):
     with self.argument_context('devops security permission') as context:
         context.argument('namespace_id', options_list=('--namespace-id', '--id'),
                          help='ID of security namespace')
+        context.argument('merge', arg_type=get_three_state_flag())
 
     with self.argument_context('devops security permission resolve') as context:
         context.argument('allow_bit',type=int, 

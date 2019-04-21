@@ -23,6 +23,19 @@ def resolve_identity_as_id(identity_filter, organization):
     return None
 
 
+def resolve_identity_as_identity_descriptor(identity_filter, organization):
+    """Takes an identity name, email, alias, or id, and returns the id.
+    """
+    if identity_filter is None:
+        return identity_filter
+    if identity_filter.lower() == ME:
+        return get_current_identity(organization).descriptor
+    identity = resolve_identity(identity_filter, organization)
+    if identity is not None:
+        return identity.descriptor
+    return None
+
+
 def resolve_identity_as_display_name(identity_filter, organization):
     """Takes an identity name, email, alias, or id, and returns the display name.
     """
