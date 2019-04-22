@@ -154,7 +154,7 @@ def load_team_commands(self, _):
         g.command('resolve', 'resolve_permissions')
         g.command('add', 'add_permissions')
         g.command('reset-all', 'reset_all_permissions',
-                  confirmation='Are you sure you want to reset all permissions for this user and token?')
+                  confirmation='Are you sure you want to reset all explicit permissions for this user/group and token?')
         g.command('reset', 'reset_permissions')
         g.command('resolve-json', 'resolve_permissions_json')
 

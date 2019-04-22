@@ -107,13 +107,23 @@ def load_team_arguments(self, _):
     with self.argument_context('devops security permission') as context:
         context.argument('namespace_id', options_list=('--namespace-id', '--id'),
                          help='ID of security namespace')
-        context.argument('merge', arg_type=get_three_state_flag())
-
-    with self.argument_context('devops security permission resolve') as context:
+        context.argument('token',
+                         help='Security token.')
+        context.argument('subject',
+                         help='User Email ID or Group descriptor')
         context.argument('allow_bit',type=int, 
-                         help='Allow bit')
+                         help='Allow bit(s)')
         context.argument('deny_bit',type=int, 
-                         help='Deny bit')
+                         help='Deny bit(s)')
+    
+    with self.argument_context('devops security permission add') as context:
+        context.argument('merge', arg_type=get_three_state_flag(),
+                         help='If set, the existing ACE has its allow and deny merged with \
+                         the incoming ACE\'s allow and deny. If unset, the existing ACE is displaced.')
+    
+    with self.argument_context('devops security permission list') as context:
+        context.argument('recurse', arg_type=get_three_state_flag())
+        context.argument('include_extended_info', arg_type=get_three_state_flag())
 
     with self.argument_context('devops extension') as context:
         context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),

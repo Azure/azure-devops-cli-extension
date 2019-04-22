@@ -39,35 +39,39 @@ def show_namespace(namespace_id, organization=None, detect=None):
     return response
 
 
-def list_permissions(namespace_id, subject, token=None, include_extended_info=True, recurse=False, organization=None, detect=None):
+def list_permissions(namespace_id, subject, token=None, include_extended_info=True,
+                     recurse=False, organization=None, detect=None):
     """ List permissions
-    :param token: Security token.
-    :type token: str
-    :param subject: User or Group ID for which permission details are required.
-    :type subject: str
+    :param include_extended_info: Populate the extended information properties for the access control entries
+                                  contained in the returned lists.
+    :type include_extended_info: bool
+    :param recurse: If true and this is a hierarchical namespace, return child ACLs of the specified token.
+    :type recurse: bool
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
     if '@' in subject:
         subject = resolve_identity_as_identity_descriptor(subject, organization)
     elif not is_uuid(subject) and '.' in subject:
-        # try to solve graph descriptor
-        subject = get_identity_descriptor_from_subject_descriptor(organization,subject)
-    response = client.query_access_control_lists(security_namespace_id=namespace_id, 
-                                                token=token, descriptors=subject, 
-                                                include_extended_info=include_extended_info, recurse=recurse )
+        # try to solve graph subject descriptor for groups
+        subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
+    response = client.query_access_control_lists(security_namespace_id=namespace_id,
+                                                 token=token, descriptors=subject,
+                                                 include_extended_info=include_extended_info, recurse=recurse)
     return response
 
 def reset_all_permissions(namespace_id, subject, token, organization=None, detect=None):
+    """ Clear all permissions of this token for a user or group.
+    """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
     if '@' in subject:
         subject = resolve_identity_as_identity_descriptor(subject, organization)
     elif not is_uuid(subject) and '.' in subject:
-        # try to solve graph descriptor
+        # try to solve graph subject descriptor for groups
         subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
     response = client.remove_access_control_entries(security_namespace_id=namespace_id,
-                                                   token=token, descriptors=subject)
+                                                    token=token, descriptors=subject)
     return response
 
 
@@ -98,22 +102,25 @@ def resolve_permissions(namespace_id, allow_bit=None, deny_bit=None, organizatio
 
 
 def reset_permissions(namespace_id, permissions, subject, token, organization=None, detect=None):
+    """ Reset permission for given permission bits
+    :param permissions: Permission bits which needs to be reset for given user/group and token.
+    :type permissions:str
+    """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
     if '@' in subject:
         subject = resolve_identity_as_identity_descriptor(subject, organization)
     elif not is_uuid(subject) and '.' in subject:
-        # try to solve graph descriptor
+        # try to solve graph subject descriptor for groups
         subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
     response = client.remove_permission(security_namespace_id=namespace_id, permissions=permissions,
                                         descriptor=subject, token=token)
     return response
 
 
-def add_permissions(namespace_id, subject, token, merge=True, allow_bit=None, deny_bit=None, organization=None, detect=None):
-    """
-    :param merge: Merge the existing permissions or replace them.
-    :type auto_complete: bool
+def add_permissions(namespace_id, subject, token, merge=True, allow_bit=None, deny_bit=None,
+                    organization=None, detect=None):
+    """ Assign Allow or Deny permission to this user/group.
     """
     if allow_bit is None and deny_bit is None:
         raise CLIError('Either --allow-bit or --deny-bit parameter should be provided.')
@@ -122,7 +129,7 @@ def add_permissions(namespace_id, subject, token, merge=True, allow_bit=None, de
     if '@' in subject:
         subject = resolve_identity_as_identity_descriptor(subject, organization)
     elif not is_uuid(subject) and '.' in subject:
-        # try to solve graph descriptor
+        # try to solve graph subject descriptor for groups
         subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
     container_object = {}
     aces_list = []
@@ -132,7 +139,7 @@ def add_permissions(namespace_id, subject, token, merge=True, allow_bit=None, de
     if merge:
         container_object['merge'] = True
     else:
-       container_object['merge'] = False
+        container_object['merge'] = False
     container_object['accessControlEntries'] = aces_list
     try:
         response = client.set_access_control_entries(security_namespace_id=namespace_id, container=container_object)
@@ -149,7 +156,7 @@ def resolve_permissions_json(namespace_id, json_path, organization=None, detect=
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
-    permissions_types = client.query_security_namespaces(security_namespace_id=namespace_id)    
+    permissions_types = client.query_security_namespaces(security_namespace_id=namespace_id)
     with open(json_path) as file:
         response_json = json.load(file)
         inherited_allow = 0
@@ -168,7 +175,7 @@ def resolve_permissions_json(namespace_id, json_path, organization=None, detect=
             effective_deny = acl['extendedInfo']['effectiveDeny']
         if response_json[0]['includeExtendedInfo'] is True:
             inherited_allow = allow_bit ^ effective_allow
-            inherited_deny = deny_bit ^ effective_deny       
+            inherited_deny = deny_bit ^ effective_deny
         permission_response = []
         for item in permissions_types[0].actions:
             permission = {}
@@ -186,11 +193,3 @@ def resolve_permissions_json(namespace_id, json_path, organization=None, detect=
                 permission['effectivePermission'] = 'Not set'
             permission_response.append(permission)
         return permission_response
-
-                
-
-def get_storage_key_from_graph_descriptor(descriptor, organization):
-    client = get_graph_client(organization)
-    storage_key = client.get_storage_key(subject_descriptor=descriptor)
-    return storage_key
-
