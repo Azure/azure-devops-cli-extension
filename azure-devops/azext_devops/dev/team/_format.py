@@ -182,13 +182,45 @@ def transform_acl_output(result):
 def _transform_acl_details_row(row):
     table_row = OrderedDict()
     table_row['token'] = row['token']
+    ace = list(row['acesDictionary'].values())[0]
+    if row['includeExtendedInfo'] == True:
+        if ace['extendedInfo']['effectiveAllow'] is not None:
+            table_row['Effective Allow'] = ace['extendedInfo']['effectiveAllow']
+        else:
+            table_row['Effective Allow'] = 0
+        if ace['extendedInfo']['effectiveDeny'] is not None:
+            table_row['Effective Deny'] = ace['extendedInfo']['effectiveDeny']
+        else:
+            table_row['Effective Deny'] = 0
+    else:
+        table_row['Allow'] = ace['allow']
+        table_row['Deny'] = ace['deny']
+    return table_row
+
+
+def transform_ace_list(result):
+    table_output = []
+    for item in result:
+        table_output.append(transform_ace_details_row(item))
+    return table_output
+
+def transform_ace_details_row(row):
+    table_row = OrderedDict()
+    table_row['allow'] = row['allow']
+    table_row['deny'] = row['deny']
     return table_row
 
 def transform_resolve_permission_bits(result):
+    table_output = []
+    for item in sorted(result, key=_get_permission_key):
+        table_output.append(_transform_resolve_bits_row(item))
+    return table_output
+
+def _transform_resolve_bits_row(row):
     table_row = OrderedDict()
-    table_row['Name'] = result['name']
+    table_row['Name'] = row['name']
     table_row['Permission Description'] = row['displayName']
-    table_row['Permission Bit'] = row['bit']
+    table_row['Permission Value'] = row['effectivePermission']
     return table_row
 
 
@@ -289,6 +321,10 @@ def _transform_user_row(row):
 
 def _get_extension_key(extension):
     return extension['extensionName'].lower()
+
+
+def _get_permission_key(permission_row):
+    return permission_row['displayName'].lower()
 
 
 def _get_service_endpoint_key(service_endpoint_row):

@@ -21,7 +21,7 @@ Basically tokens in this namespace are of the following format
  Root token : '$PROJECT'
 
  Token to secure permissions for each project in your organization
- Token: '$PROJECT:vstfs:///Classification/TeamProject/PROJECT_ID'
+ '$PROJECT:vstfs:///Classification/TeamProject/PROJECT_ID'
 
  So, let's assume you have a project named 'Test Project 1'.
  You can get the project ID for this project by referring project show command
