@@ -13,9 +13,11 @@ Tokens in a flat namespace have no concept of a parent-child relationship betwee
 Tokens in a hierarchical namespace either have a fixed length for each path part, or variable length.
 If the tokens have variable-length path parts, then a separator character is used to distinguish where one path part ends and another begins.
 
-### Project namespace
+### Token examples for different namespaces
 
-Get/Form tokens for project namespace [Namespace ID:52d39943-cb85-4d7f-8fa8-c6baac873819]
+1. Namespace name: Project 
+
+Namespace ID:52d39943-cb85-4d7f-8fa8-c6baac873819
 
 Basically tokens in this namespace are of the following format
  Root token : '$PROJECT'
@@ -31,3 +33,19 @@ Basically tokens in this namespace are of the following format
 
  Thus, the token to secure project related permissions for 'Test Project 1' would be
   '$PROJECT:vstfs:///Classification/TeamProject/xxxxxxxx-a1de-4bc8-b751-188eea17c3ba'
+  
+ 2. Namespace name : Tagging
+  Namespace ID : bb50f182-8e5e-40b8-bc21-e8752a1e7ae2
+  Token format for project level permissions : '/PROJECT_ID'
+  Example : '/xxxxxxxx-a1de-4bc8-b751-188eea17c3ba'
+  
+  3. Namespace name : AnalyticsViews
+  Namespace ID : d34d3680-dfe5-4cc6-a949-7d9c68f73cba
+  Token format for project level permissions : '$/Shared/PROJECT_ID'
+  Example : '$/Shared/xxxxxxxx-a1de-4bc8-b751-188eea17c3ba'
+  
+  4.  Namespace name : Analytics
+  Namespace ID : 58450c49-b02d-465a-ab12-59ae512d6531
+  Token format for project level permissions : '$/PROJECT_ID'
+  Example : '$/xxxxxxxx-a1de-4bc8-b751-188eea17c3ba'
+  
