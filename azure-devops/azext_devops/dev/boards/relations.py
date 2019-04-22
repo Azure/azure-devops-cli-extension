@@ -31,7 +31,7 @@ def add_relation(id, relation_type, target_id, organization=None, detect=None): 
     relation_types_from_service = client.get_relation_types()
     relation_type_system_name = get_system_relation_name(relation_types_from_service, relation_type)
 
-    target_work_item_ids = target_ids.split(',')
+    target_work_item_ids = target_id.split(',')
     work_item_query_clause = []
     for target_work_item_id in target_work_item_ids:
         work_item_query_clause.append('[System.Id] = {}'.format(target_work_item_id))
@@ -68,7 +68,7 @@ def remove_relation(id, relation_type, target_id, organization=None, detect=None
 
     relation_types_from_service = client.get_relation_types()
     relation_type_system_name = get_system_relation_name(relation_types_from_service, relation_type)
-    target_work_item_ids = target_ids.split(',')
+    target_work_item_ids = target_id.split(',')
 
     main_work_item = client.get_work_item(id, expand='All')
 
