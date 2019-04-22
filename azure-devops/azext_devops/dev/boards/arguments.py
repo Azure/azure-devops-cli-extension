@@ -23,8 +23,8 @@ def load_work_arguments(self, _):
 
     with self.argument_context('boards work-item relation') as context:
         context.argument('id', help='The ID of the work item')
-        context.argument('target_ids', help='ID(s) of work-items to create relation with. \
-                         Multiple values can be passed comma seperated. Example: 1,2 ')
+        context.argument('target_id', help='ID(s) of work-items to create relation with. \
+                         Multiple values can be passed comma separated. Example: 1,2 ')
 
     with self.argument_context('boards work-item relation add') as context:
         context.argument('relation_type', help='Relation type to create. example: parent, child ')

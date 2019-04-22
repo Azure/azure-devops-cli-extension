@@ -21,7 +21,7 @@ def get_relation_types_show(organization=None, detect=None):
     return client.get_relation_types()
 
 
-def add_relation(id, relation_type, target_ids, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def add_relation(id, relation_type, target_id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """ Add relation(s) to work item.
     """
     organization = resolve_instance(detect=detect, organization=organization)
@@ -59,7 +59,7 @@ def add_relation(id, relation_type, target_ids, organization=None, detect=None):
     return work_item
 
 
-def remove_relation(id, relation_type, target_ids, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def remove_relation(id, relation_type, target_id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """ Remove relation(s) from work item.
     """
     organization = resolve_instance(detect=detect, organization=organization)

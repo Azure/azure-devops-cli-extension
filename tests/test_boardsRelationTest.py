@@ -50,28 +50,28 @@ class BoardsRelationsTest(ScenarioTest):
 
             #add bug 1,2,3 as child of 0  (multiple add)
             create_relation_command = 'az boards work-item relation add --id {} --detect off --output json'.format(wi_set[0]['id']) \
-                + ' --relation-type child --target-ids {},{},{}'.format(wi_set[1]['id'], wi_set[2]['id'], wi_set[3]['id'])
+                + ' --relation-type child --target-id {},{},{}'.format(wi_set[1]['id'], wi_set[2]['id'], wi_set[3]['id'])
             create_relation_output = self.cmd(create_relation_command).get_output_in_json()
             assert len(create_relation_output['relations']) == 3
             self.validate_relation_count_on_work_item(wi_set, [3, 1, 1, 1, 0])
 
             #remove 1,2 as child of 0  (multiple remove)
             remove_relation_command = 'az boards work-item relation remove --id {} -y --detect off --output json'.format(wi_set[0]['id']) \
-                + ' --relation-type child --target-ids {},{}'.format(wi_set[1]['id'], wi_set[2]['id'])
+                + ' --relation-type child --target-id {},{}'.format(wi_set[1]['id'], wi_set[2]['id'])
             remove_relation_output = self.cmd(remove_relation_command).get_output_in_json()
             assert len(remove_relation_output['relations']) == 1
             self.validate_relation_count_on_work_item(wi_set, [1, 0, 0, 1, 0])
 
             #add 4 as child of 0 (single add)
             create_relation_command = 'az boards work-item relation add --id {} --detect off --output json'.format(wi_set[0]['id']) \
-                + ' --relation-type child --target-ids {}'.format(wi_set[4]['id'])
+                + ' --relation-type child --target-id {}'.format(wi_set[4]['id'])
             create_relation_output = self.cmd(create_relation_command).get_output_in_json()
             assert len(create_relation_output['relations']) == 2
             self.validate_relation_count_on_work_item(wi_set, [2, 0, 0, 1, 1])
 
             #remove 3 as child of 0 (single remove)
             remove_relation_command = 'az boards work-item relation remove -y --id {} --detect off --output json'.format(wi_set[0]['id']) \
-                + ' --relation-type child --target-ids {}'.format(wi_set[3]['id'])
+                + ' --relation-type child --target-id {}'.format(wi_set[3]['id'])
             remove_relation_output = self.cmd(remove_relation_command).get_output_in_json()
             assert len(remove_relation_output['relations']) == 1
             self.validate_relation_count_on_work_item(wi_set, [1, 0, 0, 0, 1])
