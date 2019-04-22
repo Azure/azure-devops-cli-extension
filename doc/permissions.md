@@ -50,9 +50,11 @@ You will have to pass this permission bits while assigning allow/deny permission
 
 #### Reset permissions
 
-`az  devops security permission add  --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR> --token <SECURITY_TOKEN> --permissions 5`
+`az  devops security permission reset  --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR> --token <SECURITY_TOKEN> --permissions 5`
 
 #### Reset all permissions 
 
 You can clear all explicit permissions for given token , given user or group with following command.
-`az devops security permission add  --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR> --token <SECURITY_TOKEN>`
+`az devops security permission reset-all --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR> --token <SECURITY_TOKEN>`
+
+
