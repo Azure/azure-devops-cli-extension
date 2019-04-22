@@ -20,3 +20,14 @@ def load_work_arguments(self, _):
     with self.argument_context('boards work-item delete') as context:
         context.argument('yes', options_list=['--yes', '-y'], action='store_true',
                          help='Do not prompt for confirmation.')
+
+    with self.argument_context('boards work-item relation') as context:
+        context.argument('id', help='The ID of the work item')
+        context.argument('target_id', help='ID(s) of work-items to create relation with. \
+                         Multiple values can be passed comma separated. Example: 1,2 ')
+
+    with self.argument_context('boards work-item relation add') as context:
+        context.argument('relation_type', help='Relation type to create. example: parent, child ')
+
+    with self.argument_context('boards work-item relation remove') as context:
+        context.argument('relation_type', help='Relation type to remove. example: parent, child ')
