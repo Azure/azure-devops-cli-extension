@@ -35,17 +35,27 @@ Basically tokens in this namespace are of the following format
   '$PROJECT:vstfs:///Classification/TeamProject/xxxxxxxx-a1de-4bc8-b751-188eea17c3ba'
   
  2. Namespace name : Tagging
+ 
   Namespace ID : bb50f182-8e5e-40b8-bc21-e8752a1e7ae2
+  
   Token format for project level permissions : '/PROJECT_ID'
+  
   Example : '/xxxxxxxx-a1de-4bc8-b751-188eea17c3ba'
   
   3. Namespace name : AnalyticsViews
+  
   Namespace ID : d34d3680-dfe5-4cc6-a949-7d9c68f73cba
+  
   Token format for project level permissions : '$/Shared/PROJECT_ID'
+  
   Example : '$/Shared/xxxxxxxx-a1de-4bc8-b751-188eea17c3ba'
   
   4.  Namespace name : Analytics
+  
+  
   Namespace ID : 58450c49-b02d-465a-ab12-59ae512d6531
+  
   Token format for project level permissions : '$/PROJECT_ID'
+  
   Example : '$/xxxxxxxx-a1de-4bc8-b751-188eea17c3ba'
   
