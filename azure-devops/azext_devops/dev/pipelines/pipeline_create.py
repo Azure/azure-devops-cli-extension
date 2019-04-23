@@ -241,33 +241,6 @@ def is_github_url_candidate(url):
     return False
 
 
-def _parse_github_repo_info(github_file_url):
-    _REPOSITORY_PARSE_ERROR = 'Repository could not be parsed to a yml file in a GitHub repository.'
-    parsed_url = uri_parse(github_file_url)
-    logger.debug('Parsing GitHub url: %s', parsed_url)
-    if parsed_url.scheme == 'https' and parsed_url.netloc == 'github.com':
-        # Parse path to find Id and file path
-        logger.debug('Parsing path in the url to find repo, branch and yml path')
-        stripped_path = parsed_url.path.strip('/')
-        if stripped_path.count('/') > 2:
-            owner, repository_name, path = stripped_path.split('/', 2)
-        else:
-            raise CLIError(_REPOSITORY_PARSE_ERROR)
-        repo_id = '{owner}/{repo_name}'.format(owner=owner, repo_name=repository_name)
-        repo_url = 'https://github.com/{id}.git'.format(id=repo_id)
-        path = path.strip('/')
-        if path.count('/') > 1:
-            blob, branch_name, file_path = path.split('/', 2)
-            file_path = './{}'.format(file_path)
-        else:
-            raise CLIError(_REPOSITORY_PARSE_ERROR)
-        if blob != 'blob':
-            raise CLIError(_REPOSITORY_PARSE_ERROR)
-        return repo_url, repo_id, branch_name, file_path
-    else:
-        raise CLIError(_REPOSITORY_PARSE_ERROR)
-
-
 def _get_repo_id_from_repo_url(repository_url):
     parsed_url = uri_parse(repository_url)
     logger.debug('Parsing GitHub url: %s', parsed_url)
@@ -393,7 +366,7 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         yml_selection_index = prompt_user_friendly_choice_list("Choose a yml template to create a pipeline:",
                                                                yml_names)
         if yml_options[yml_selection_index].params:
-            yml_options[yml_selection_index].content = _handle_yml_props(
+            yml_options[yml_selection_index].content, yml_options[yml_selection_index].assets = _handle_yml_props(
                 params_required=yml_options[yml_selection_index].params,
                 template_id=yml_options[yml_selection_index].id,
                 cix_client=cix_client,
@@ -448,7 +421,7 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         if repository_type == 'github':
             checkin_files_to_github(files, repo_name, branch)
         elif repository_type == 'tfsgit':
-            _checkin_file_to_azure_repo(checkin_path, content, repo_name, branch, organization, project)
+            _checkin_files_to_azure_repo(files, repo_name, branch, organization, project)
         else:
             logger.warning('File checkin is not handled for this repository type. '\
                         'Checkin the created yml in the repository and then run the pipeline created by this command.')
@@ -466,8 +439,18 @@ def _open_file(filepath):
         subprocess.call(('xdg-open', filepath))
 
 
+def _checkin_files_to_azure_repo(files, repo_name, branch, organization, project,
+                                 message="Set up CI with Azure Pipelines"):
+    if files:
+        for file in files:
+            _checkin_file_to_azure_repo(file.path, file.content, repo_name, branch, organization, project, message)
+    else:
+        raise CLIError("No files to checkin.")
+
+
 def _checkin_file_to_azure_repo(path_to_commit, content, repo_name, branch,
                                 organization, project, message="Set up CI with Azure Pipelines"):
+    logger.warning('Checking in file %s in the Azure repo %s', path_to_commit, repo_name)    
     message = message + ' [skip ci]'
     git_client = get_git_client(organization=organization)
     from azext_devops.devops_sdk.v5_0.git.models import GitPush, GitRefUpdate
@@ -554,7 +537,7 @@ def _handle_yml_props(params_required, template_id, cix_client, repo_name, organ
             prop_found = True
     rendered_template = cix_client.render_template(template_id=template_id,
                                                    template_parameters={'tokens':params_to_render})
-    return rendered_template.content
+    return rendered_template.content, rendered_template.assets
 
 
 def fetch_yaml_prop_intelligently(prop_type, organization, project, repo_name):
