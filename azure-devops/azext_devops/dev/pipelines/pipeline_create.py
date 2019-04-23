@@ -454,6 +454,7 @@ def _open_file(filepath):
 
 def _checkin_file_to_azure_repo(path_to_commit, content, repo_name, branch,
                                 organization, project, message="Set up CI with Azure Pipelines"):
+    message = message + ' [skip ci]'
     git_client = get_git_client(organization=organization)
     from azext_devops.devops_sdk.v5_0.git.models import GitPush, GitRefUpdate
     # Get base commit Id
@@ -515,18 +516,17 @@ def _handle_yml_props(params_required, template_id, cix_client, repo_name, organ
         logger.debug('looking for param %s in props', param.name)
         prop_found = False
         if param.name == 'imageRepository':
-            param.default_value = "atbagga_image"
+            param.default_value = repo_name
         if param.name == 'servicePort':
             param.default_value = "8080"
         if param.default_value:
             prop_found = True
-            user_input_val = prompt(msg='Enter a value for {param_name} [Default value: {param_default}]:'
+            user_input_val = prompt(msg='Enter a value for {param_name} [Press Enter for default: {param_default}]:'
                                         .format(param_name=param_name_for_user, param_default=param.default_value))
-            if user_input_val is not None:
+            if user_input_val:
                 params_to_render[param.name] = user_input_val
             else:
                 params_to_render[param.name] = param.default_value
-            logger.warning('Auto filling param %s: %s', param.name, params_to_render[param.name])
         elif _is_intelligent_handling_enabled_for_prop_type(prop_type=param.type):
             logger.debug('This property is handled intelligently (Name: %s) (Type: %s)', param.name, param.type)
             fetched_value = fetch_yaml_prop_intelligently(param.type, organization, project, repo_name)
@@ -591,7 +591,9 @@ def get_kubernetes_environment_resource(organization, project, repo_name):
         cluster_choice = prompt_user_friendly_choice_list("Select a Kubernetes cluster to use for this pipeline",
                                                           cluster_choice_list)
         selected_cluster = aks_list[cluster_choice]
-        create_namespace, namespace = get_kubernetes_namespace()
+        create_namespace, namespace = get_kubernetes_namespace(organization, project, selected_cluster,
+                                                               subscription_id, subscription_name, tenant_id,
+                                                               environment_name)
         kubernetes_connection_obj = get_kubernetes_connection_create_object(subscription_id, subscription_name, selected_cluster['id'],
                                                 selected_cluster['name'], selected_cluster['fqdn'], tenant_id,
                                                 namespace, create_namespace, environment_name)
@@ -613,19 +615,65 @@ def get_kubernetes_environment_resource(organization, project, repo_name):
     return None
 
 
-def get_kubernetes_namespace():
+def get_kubernetes_namespace(organization, project, cluster, subscription_id, subscription_name,
+                             tenant_id, azure_env):
     choice_list = []
-    choice_list.append("Create a new namespace")
-    choice_list.append("Use existing namespace")
-    choice = prompt_user_friendly_choice_list("We need a kubernetes namespace for the deployment.",
+    existing_namespace_list = []
+    choice_list.append("Create new")
+    se_request_obj = get_se_kubernetes_namespace_request_obj(subscription_id, subscription_name, cluster['id'],
+                                                             cluster['name'], cluster['fqdn'], azure_env, tenant_id)
+    se_client = get_service_endpoint_client(organization=organization)
+    se_result = se_client.execute_service_endpoint_request(service_endpoint_request=se_request_obj, project=project,
+                                               endpoint_id=cluster['name'])
+    if se_result.result:
+        import json
+        for namespace in se_result.result:
+            ns_json_obj = json.loads(namespace)
+            existing_namespace_list.append(ns_json_obj['Value'])
+            choice_list.append(ns_json_obj['Value'])
+    choice = prompt_user_friendly_choice_list("Create a new kubernetes namespace or chose from existing:",
                                               choice_list)
     if choice == 0:
         create_namespace = True
         namespace = prompt("Enter a name for new namespace to create: ")
     else:
         create_namespace = False
-        namespace = prompt("Enter a name of an existing namespace in the selected AKS cluster: ")
+        namespace = existing_namespace_list[choice-1]
     return create_namespace, namespace
+
+
+def get_se_kubernetes_namespace_request_obj(subscription_id, subscription_name, cluster_id, cluster_name, fqdn, azure_env, tenant_id):
+    return {
+        "dataSourceDetails": {
+            "dataSourceName": "KubernetesNamespaces",
+            "headers": [
+            ],
+            "resourceUrl": "",
+            "parameters": {
+            "clusterName": cluster_name
+            }
+        },
+        "resultTransformationDetails": {
+            "resultTemplate": "{ \"Value\" : \"{{metadata.name}}\", \"DisplayValue\" : \"{{metadata.name}}\" }"
+        },
+        "serviceEndpointDetails": {
+            "authorization": {
+            "parameters": {
+                "azureEnvironment": azure_env,
+                "azureTenantId": tenant_id
+            },
+            "scheme": "Kubernetes"
+            },
+            "data": {
+            "authorizationType": "AzureSubscription",
+            "azureSubscriptionId": subscription_id,
+            "azureSubscriptionName": subscription_name,
+            "clusterId": cluster_id
+            },
+            "type": "Kubernetes",
+            "url": "https://" + fqdn
+        }
+        }
 
 
 def get_container_registry_service_connection(organization, project):
@@ -662,11 +710,13 @@ def get_container_registry_service_connection(organization, project):
 def poll_connection_ready(organization, project, connection_id):
     import colorama
     import humanfriendly
+    import time
     colorama.init()
     with humanfriendly.Spinner(label="Checking resource readiness") as spinner:
         se_client = get_service_endpoint_client(organization)
         while True:
             spinner.step()
+            time.sleep(0.5)
             service_endpoint = se_client.get_service_endpoint_details(project, connection_id)
             if service_endpoint.is_ready:
                 break

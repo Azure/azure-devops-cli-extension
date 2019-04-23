@@ -10,6 +10,7 @@ logger = get_logger(__name__)
 
 def checkin_file_to_github(path_to_commit, content, service_endpoint_id, repo_name, branch,
                            organization, project, message="Set up CI with Azure Pipelines"):
+    message = message + ' [skip ci]'
     vss_credentials = _get_credentials(organization)
     headers = {'Content-Type': 'application/json' + '; charset=utf-8',
                'Accept': 'application/json'}
