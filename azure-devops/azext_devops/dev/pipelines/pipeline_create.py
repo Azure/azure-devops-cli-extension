@@ -27,20 +27,21 @@ from azext_devops.dev.common.const import AZ_DEVOPS_GITHUB_PAT_ENVKEY
 from azext_devops.devops_sdk.v5_1.build.models import (Build, BuildDefinition,
                                                        BuildRepository, AgentPoolQueue)
 from azext_devops.devops_sdk.v5_1.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
-from .github_file_checkin import checkin_file_to_github
 from .build_definition import get_definition_id_from_name
+from .github_api_helper import get_github_pat_token, checkin_files_to_github, Files
 
 logger = get_logger(__name__)
 
 # pylint: disable=too-few-public-methods
 class YmlOptions:
-    def __init__(self, name, id, content, description='Custom yml', params=None, path=None):  # pylint: disable=redefined-builtin
+    def __init__(self, name, id, content, description='Custom yml', params=None, path=None, assets=None):  # pylint: disable=redefined-builtin
         self.name = name
         self.id = id
         self.description = description
         self.content = content
         self.path = path
         self.params = params
+        self.assets = assets
 
 
 def pipeline_create(name, description=None, repository_name=None, repository_url=None, branch=None, yml_path=None,
@@ -344,12 +345,6 @@ def get_github_service_endpoint(organization, project):
     return existing_service_endpoints[choice-1].id
 
 
-def get_github_pat_token():
-    from azext_devops.dev.common.github_credential_manager import GithubCredentialManager
-    github_manager = GithubCredentialManager()
-    return github_manager.get_token()
-
-
 def try_get_repository_type(url):
     if 'https://github.com' in url:
         return 'github'
@@ -388,11 +383,13 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         yml_names.append(recommendation.name)
         yml_options.append(YmlOptions(name=recommendation.name, content=recommendation.content,
                                       id=recommendation.id, description=recommendation.description,
-                                      params=recommendation.parameters))
+                                      params=recommendation.parameters, assets=recommendation.assets))
     temp_filename = None
+    files = []
     yml_selection_index = 0
     proceed_selection = 1
     while proceed_selection == 1:
+        del files[:]
         yml_selection_index = prompt_user_friendly_choice_list("Choose a yml template to create a pipeline:",
                                                                yml_names)
         if yml_options[yml_selection_index].params:
@@ -408,6 +405,10 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         f = open(temp_filename, mode='w')
         f.write(yml_options[yml_selection_index].content)
         f.close()
+        assets = yml_options[yml_selection_index].assets
+        if assets:
+            for asset in assets:
+                files.append(Files(asset.destination_path, asset.content))
         # open the file
         _open_file(temp_filename)
         proceed_selection = prompt_user_friendly_choice_list(
@@ -421,20 +422,31 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
     f.close()
     import shutil
     shutil.rmtree(temp_dir)
-
     checkin_path = 'azure-pipelines.yml'
     if default_yml_exists and not yml_options[yml_selection_index].path:  # We need yml path from user
         logger.warning('A yml file azure-pipelines.yml already exists in the repository root.')
         checkin_path = prompt(msg='Enter a yml file path to checkin the new pipeline yml in the repository? ',
                               help_string='e.g. /new_azure-pipeline.yml to add in the root folder.')
+    
+    files.append(Files(checkin_path, content))
+    print('Files to be added to your repository ({numfiles})'.format(numfiles=len(files)))
+    count_file = 1
+    for file in files:
+        print('{index}) {file}'.format(index=count_file, file=file.path))
+        count_file = count_file + 1
+    
+    commit_strategy_choice_list = ['Commit directly to the master branch.', 'Create a new branch for this commit and start a pull request.']
+    commit_choice = prompt_user_friendly_choice_list("Commit pipeline files:", commit_strategy_choice_list)
+    if commit_choice == 1:
+        branch_name = prompt("New branch name to start a pull request")
+
     if default_yml_exists and checkin_path.strip('/') == 'azure-pipelines.yml':
         # atbagga todo update file
         logger.debug('File update is not handled. We will create the pipeline with the yaml selected. '
                        'Checkin the created yml in the repository and then run the pipeline created by this command.')
     else:
         if repository_type == 'github':
-            checkin_file_to_github(checkin_path, content, service_endpoint, repo_name, branch,
-                                   organization, project)
+            checkin_files_to_github(files, repo_name, branch)
         elif repository_type == 'tfsgit':
             _checkin_file_to_azure_repo(checkin_path, content, repo_name, branch, organization, project)
         else:
@@ -581,7 +593,7 @@ def get_kubernetes_environment_resource(organization, project, repo_name):
     import subprocess
     import json
     subscription_id, subscription_name, tenant_id, environment_name = get_default_subscription_info()
-    print("Using the default azure subscription {subscription_name} for fetching AKS clusters."
+    print("Using your default Azure subscription {subscription_name} for fetching AKS clusters."
           .format(subscription_name=subscription_name))
     aks_list = subprocess.check_output('az aks list -o json', shell=True)
     aks_list = json.loads(aks_list)
@@ -682,7 +694,7 @@ def get_container_registry_service_connection(organization, project):
     import subprocess
     import json
     subscription_id, subscription_name, _tenant_id, _environment_name = get_default_subscription_info()
-    print("Using your default azure subscription {subscription_name} for fetching Azure Container Registries."
+    print("Using your default Azure subscription {subscription_name} for fetching Azure Container Registries."
           .format(subscription_name=subscription_name))
     acr_list = subprocess.check_output('az acr list -o json', shell=True)
     acr_list = json.loads(acr_list)
