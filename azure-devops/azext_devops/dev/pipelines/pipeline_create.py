@@ -3,6 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+# pylint: skip-file
+
 from webbrowser import open_new
 import tempfile
 import os
@@ -426,8 +428,8 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         checkin_path = prompt(msg='Enter a yml file path to checkin the new pipeline yml in the repository? ',
                               help_string='e.g. /new_azure-pipeline.yml to add in the root folder.')
     if default_yml_exists and checkin_path.strip('/') == 'azure-pipelines.yml':
-        # atbagga todo
-        logger.warning('File update is not handled. We will create the pipeline with the yaml selected. '
+        # atbagga todo update file
+        logger.debug('File update is not handled. We will create the pipeline with the yaml selected. '
                        'Checkin the created yml in the repository and then run the pipeline created by this command.')
     else:
         if repository_type == 'github':
