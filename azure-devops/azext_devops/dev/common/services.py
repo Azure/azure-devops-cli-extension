@@ -88,6 +88,19 @@ def validate_token_for_instance(organization, credentials):
     return False
 
 
+def get_default_subscription_info():
+    """
+    Returns the Id, name, tenantID and environmentName of the default subscription
+    None if no default is set or no subscription is found
+    """
+    profile = Profile()
+    dummy_user = profile.get_current_account_user()     # noqa: F841
+    subscriptions = profile.load_cached_subscriptions(False)
+    for subscription in subscriptions:
+        if subscription['isDefault']:
+            return subscription['id'], subscription['name'], subscription['tenantId'], subscription['environmentName']
+
+
 def get_token_from_az_logins(organization, pat_token_present):
     profile = Profile()
     dummy_user = profile.get_current_account_user()     # noqa: F841
@@ -155,6 +168,21 @@ def get_release_client(team_instance=None):
 def get_build_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_0.build.build_client.BuildClient')
+
+
+def get_new_pipeline_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_1.build.build_client.BuildClient')
+
+
+def get_new_task_agent_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_1.task_agent.task_agent_client.TaskAgentClient')
+
+
+def get_new_cix_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_1.cix.cix_client.CixClient')
 
 
 def get_ci_client(organization=None):
