@@ -121,9 +121,10 @@ def load_team_arguments(self, _):
                          help='If set, the existing ACE has its allow and deny merged with \
                          the incoming ACE\'s allow and deny. If unset, the existing ACE is displaced.')
     
-    with self.argument_context('devops security permission list') as context:
+    with self.argument_context('devops security permission') as context:
         context.argument('recurse', arg_type=get_three_state_flag())
         context.argument('include_extended_info', arg_type=get_three_state_flag())
+        context.argument('resolve_bits', arg_type=get_three_state_flag())
 
     with self.argument_context('devops extension') as context:
         context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),

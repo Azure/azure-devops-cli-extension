@@ -38,10 +38,30 @@ def show_namespace(namespace_id, organization=None, detect=None):
     response = client.query_security_namespaces(security_namespace_id=namespace_id)
     return response
 
-
-def list_permissions(namespace_id, subject, token=None, include_extended_info=True,
+def list_tokens(namespace_id, subject, include_extended_info=True,
                      recurse=False, organization=None, detect=None):
-    """ List permissions
+    """ List tokens for given user/group and namespace.
+    :param include_extended_info: Populate the extended information properties for the access control entries
+                                  contained in the returned lists.
+    :type include_extended_info: bool
+    :param recurse: If true and this is a hierarchical namespace, return child ACLs of the specified token.
+    :type recurse: bool
+    """
+    organization = resolve_instance(detect=detect, organization=organization)
+    client = get_security_client(organization)
+    if '@' in subject:
+        subject = resolve_identity_as_identity_descriptor(subject, organization)
+    elif not is_uuid(subject) and '.' in subject:
+        # try to solve graph subject descriptor for groups
+        subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
+    response = client.query_access_control_lists(security_namespace_id=namespace_id, descriptors=subject,
+                                                 include_extended_info=include_extended_info, recurse=recurse)
+    return response
+
+
+def show_permissions(namespace_id, subject, token, resolve_bits=False, include_extended_info=True,
+                     recurse=False, organization=None, detect=None):
+    """ Show permissions for given token, namespace and user/group.
     :param include_extended_info: Populate the extended information properties for the access control entries
                                   contained in the returned lists.
     :type include_extended_info: bool
@@ -58,7 +78,46 @@ def list_permissions(namespace_id, subject, token=None, include_extended_info=Tr
     response = client.query_access_control_lists(security_namespace_id=namespace_id,
                                                  token=token, descriptors=subject,
                                                  include_extended_info=include_extended_info, recurse=recurse)
-    return response
+    if not resolve_bits:
+        return response
+    # Resolve permissions response
+    permissions_types = client.query_security_namespaces(security_namespace_id=namespace_id)
+    permission_response = []
+    inherited_allow = 0
+    inherited_deny = 0
+    effective_allow = 0
+    effective_deny = 0
+    if len(response) > 1 or len(response[0].aces_dictionary) > 1:
+        raise CLIError('Multiple entries found in acesDictionary. Please filter the response by token.')
+    acl = response[0]
+    ace = list(acl.aces_dictionary.values())[0]
+    allow_bit = ace.allow
+    deny_bit = ace.deny
+    if acl.include_extended_info is True:
+        if ace.extended_info.effective_allow is not None:
+            effective_allow = ace.extended_info.effective_allow
+        if ace.extended_info.effective_deny is not None:
+            effective_deny = ace.extended_info.effective_deny       
+    if acl.include_extended_info is True:
+        inherited_allow = allow_bit ^ effective_allow
+        inherited_deny = deny_bit ^ effective_deny
+    for item in permissions_types[0].actions:
+        permission = {}
+        permission['displayName'] = item.display_name
+        permission['name'] = item.name
+        permission['bit'] = item.bit
+        if effective_deny and item.bit & effective_deny:
+            permission['effectivePermission'] = 'Deny'
+            if inherited_deny & item.bit:
+                permission['effectivePermission'] = 'Deny (inherited)'
+        elif effective_allow and item.bit & effective_allow:
+            permission['effectivePermission'] = 'Allow'
+            if inherited_allow & item.bit:
+                permission['effectivePermission'] = 'Allow (inherited)'
+        else:
+            permission['effectivePermission'] = 'Not set'
+        permission_response.append(permission)
+    return permission_response
 
 def reset_all_permissions(namespace_id, subject, token, organization=None, detect=None):
     """ Clear all permissions of this token for a user or group.
@@ -123,50 +182,3 @@ def add_permissions(namespace_id, subject, token, merge=True, allow_bit=None, de
         message = ex.args[0]
         if 'it is reserved by the system' not in message:
             raise CLIError(ex)
-
-
-def resolve_permissions(namespace_id, file_path, organization=None, detect=None):
-    """ Resolve permissions from json response
-    :param file_path: Path where json response of permissions is located.
-    :type file_path: str
-    """
-    organization = resolve_instance(detect=detect, organization=organization)
-    client = get_security_client(organization)
-    permissions_types = client.query_security_namespaces(security_namespace_id=namespace_id)
-    permission_response = []
-    response_json = None
-    with open(file_path, encoding='utf16') as file:
-        response_json = json.load(file)
-        inherited_allow = 0
-        inherited_deny = 0
-        effective_allow = 0
-        effective_deny = 0
-        if len(response_json) > 1 or len(response_json[0]['acesDictionary']) > 1:
-            raise CLIError('Multiple entries found in acesDictionary. Please filter the response by token.')
-        acl = list(response_json[0]['acesDictionary'].values())[0]
-        allow_bit = acl['allow']
-        deny_bit = acl['deny']
-        if response_json[0]['includeExtendedInfo'] is True:
-            if acl['extendedInfo']['effectiveAllow'] is not None:
-                effective_allow = acl['extendedInfo']['effectiveAllow']
-            if acl['extendedInfo']['effectiveDeny'] is not None:
-                effective_deny = acl['extendedInfo']['effectiveDeny']
-        if response_json[0]['includeExtendedInfo'] is True:
-            inherited_allow = allow_bit ^ effective_allow
-            inherited_deny = deny_bit ^ effective_deny
-        for item in permissions_types[0].actions:
-            permission = {}
-            permission['displayName'] = item.display_name
-            permission['name'] = item.name
-            if effective_deny and item.bit & effective_deny:
-                permission['effectivePermission'] = 'Deny'
-                if inherited_deny & item.bit:
-                    permission['effectivePermission'] = 'Deny (inherited)'
-            elif effective_allow and item.bit & effective_allow:
-                permission['effectivePermission'] = 'Allow'
-                if inherited_allow & item.bit:
-                    permission['effectivePermission'] = 'Allow (inherited)'
-            else:
-                permission['effectivePermission'] = 'Not set'
-            permission_response.append(permission)
-    return permission_response

@@ -219,6 +219,7 @@ def transform_resolve_permission_bits(result):
 def _transform_resolve_bits_row(row):
     table_row = OrderedDict()
     table_row['Name'] = row['name']
+    table_row['Bit'] = row['bit']
     table_row['Permission Description'] = row['displayName']
     table_row['Permission Value'] = row['effectivePermission']
     return table_row
