@@ -513,7 +513,7 @@ def _handle_yml_props(params_required, template_id, cix_client, repo_name, organ
         logger.debug('looking for param %s in props', param.name)
         prop_found = False
         if param.name == 'imageRepository':
-            param.default_value = repo_name
+            param.default_value = ''.join(e for e in repo_name if e.isalnum()) 
         if param.name == 'servicePort':
             param.default_value = "8080"
         if param.default_value:

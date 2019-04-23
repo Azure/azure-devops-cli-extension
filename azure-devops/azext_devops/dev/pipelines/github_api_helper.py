@@ -46,8 +46,9 @@ def checkin_file_to_github(path_to_commit, content, repo_name, branch, message):
             "branch": branch,
             "content": encoded_content
         }
+        token = get_github_pat_token()
         logger.warning('Checking in file %s in the Github repository %s', path_to_commit, repo_name)
         # Todo: Validate response and return status from function
-        response = requests.put(url_for_github_file_api, auth=('', get_github_pat_token()),
+        response = requests.put(url_for_github_file_api, auth=('', token),
                                 json=request_body, headers=headers)
         logger.debug(response)
