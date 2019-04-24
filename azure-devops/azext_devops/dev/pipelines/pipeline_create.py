@@ -18,6 +18,7 @@ from azext_devops.dev.common.services import (get_new_pipeline_client,
                                               get_default_subscription_info,
                                               resolve_instance_project_and_repo)
 from azext_devops.dev.common.uri import uri_parse
+from azext_devops.dev.common.utils import open_file, delete_dir
 from azext_devops.dev.common.git import get_remote_url, get_current_branch_name, resolve_git_ref_heads
 from azext_devops.dev.common.arguments import should_detect
 from azext_devops.dev.common.prompting import (prompt_user_friendly_choice_list,
@@ -362,6 +363,8 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
     yml_selection_index = 0
     proceed_selection = 1
     while proceed_selection == 1:
+        proceed_selection = 0
+        # Clear files since user can change the template now
         del files[:]
         yml_selection_index = prompt_user_friendly_choice_list("Choose a yml template to create a pipeline:",
                                                                yml_names)
@@ -382,19 +385,21 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         if assets:
             for asset in assets:
                 files.append(Files(asset.destination_path, asset.content))
-        # open the file
-        _open_file(temp_filename)
-        proceed_selection = prompt_user_friendly_choice_list(
-            'We have opened the pipeline yaml file for you to review/edit. '\
-            'Please edit, save and close the file in the editor before proceeding. '\
-            'Do you want to proceed creating a pipeline?',
-            ['Proceed with this yml', 'Revisit recommendations'])
+        view_choice = prompt_user_friendly_choice_list(
+            'Do you want to view/edit the yaml before proceeding?',
+            ['View/Edit', 'Continue with generated yaml'])
+        if view_choice == 0:
+            # open the file
+            open_file(temp_filename)
+            proceed_selection = prompt_user_friendly_choice_list(
+                'Do you want to proceed creating a pipeline?',
+                ['Proceed with this yml', 'Revisit recommendations'])
+        
     # Read updated data from the file
     f = open(temp_filename, mode='r')
     content = f.read()
     f.close()
-    import shutil
-    shutil.rmtree(temp_dir)
+    delete_dir(temp_dir)
     checkin_path = 'azure-pipelines.yml'
     if default_yml_exists and not yml_options[yml_selection_index].path:  # We need yml path from user
         logger.warning('A yml file azure-pipelines.yml already exists in the repository root.')
@@ -426,17 +431,6 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
             logger.warning('File checkin is not handled for this repository type. '\
                         'Checkin the created yml in the repository and then run the pipeline created by this command.')
     return checkin_path
-
-
-def _open_file(filepath):
-    import subprocess
-    import platform
-    if platform.system() == 'Darwin':       # macOS
-        subprocess.call(('open', filepath))
-    elif platform.system() == 'Windows':    # Windows
-        os.startfile(filepath)
-    else:                                   # linux variants
-        subprocess.call(('xdg-open', filepath))
 
 
 def _checkin_files_to_azure_repo(files, repo_name, branch, organization, project,
