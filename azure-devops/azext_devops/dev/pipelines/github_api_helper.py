@@ -21,6 +21,10 @@ def get_github_pat_token():
     return github_manager.get_token()
 
 
+def get_github_repos_api_url(repo_id):
+    return 'https://api.github.com/repos/' + repo_id
+
+
 def checkin_files_to_github(files, repo_name, branch, message="Set up CI with Azure Pipelines"):
     if files:
         for file in files:

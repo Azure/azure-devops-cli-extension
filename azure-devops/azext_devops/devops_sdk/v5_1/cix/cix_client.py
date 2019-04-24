@@ -138,7 +138,7 @@ class CixClient(Client):
         [Preview API]
         :param {ResourceCreationParameter} creation_parameters:
         :param str project: Project ID or project name
-        :rtype: {object}
+        :rtype: :class:`<CreatedResources> <azure.devops.v5_1.cix.models.CreatedResources>`
         """
         route_values = {}
         if project is not None:
@@ -149,7 +149,7 @@ class CixClient(Client):
                               version='5.1-preview.1',
                               route_values=route_values,
                               content=content)
-        return self._deserialize('{object}', self._unwrap_collection(response))
+        return self._deserialize('CreatedResources', response)
 
     def render_template(self, template_parameters, template_id):
         """RenderTemplate.

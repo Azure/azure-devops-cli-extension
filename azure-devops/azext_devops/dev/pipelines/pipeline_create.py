@@ -29,7 +29,7 @@ from azext_devops.devops_sdk.v5_1.build.models import (Build, BuildDefinition,
                                                        BuildRepository, AgentPoolQueue)
 from azext_devops.devops_sdk.v5_1.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
 from .build_definition import get_definition_id_from_name
-from .github_api_helper import get_github_pat_token, checkin_files_to_github, Files
+from .github_api_helper import get_github_pat_token, checkin_files_to_github, get_github_repos_api_url, Files
 
 logger = get_logger(__name__)
 
@@ -44,6 +44,8 @@ class YmlOptions:
         self.params = params
         self.assets = assets
 
+_GITHUB_REPO_TYPE = 'github'
+_AZURE_GIT_REPO_TYPE = 'tfsgit'
 
 def pipeline_create(name, description=None, repository_name=None, repository_url=None, branch=None, yml_path=None,
                     repository_type=None, service_connection=None,
@@ -56,8 +58,8 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
     :param repository_url: Repository clone url for which the pipeline will be configured.
     :type repository_url: str
     :param repository_name: Name of the repository for a Azure Devops repository or owner/reponame
-    in case of GitHub Repo.
-    --repository-type argument is required with this. Ignored if --repository-url is supplied
+    in case of GitHub Repo. --repository-type argument is required with this. 
+    Ignored if --repository-url is supplied
     :type repository_name: str
     :param branch: Branch name for which the pipeline will be configured.
     :type branch: str
@@ -68,17 +70,12 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
     :param service_connection: Id of the Service Endpoint created for the repository.
     Use command az devops service-endpoint -h for creating/listing service_connections.
     :type service_connection: str
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
-    :param project: Name or ID of the team project.
-    :type project: str
-    :param detect: Automatically detect values for organization and project. Default is "on".
-    :type detect: str
     :param queue_id: Id of the queue in the available agent pools. Will be auto detected if not specified.
     :type queue_id: str
     """
     organization, project, repository = resolve_instance_project_and_repo(
         detect=detect, organization=organization, project=project, repo=repository_name)
+    
     if not repository_url and not repository:
         repository_url = _get_repository_url_from_local_repo(detect=detect)
     if not branch and should_detect(detect):
@@ -87,7 +84,7 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
         if repository_url:
             repository_type = try_get_repository_type(repository_url)
         elif repository:
-            repository_type = 'tfsgit'
+            repository_type = _AZURE_GIT_REPO_TYPE
         if not repository_type:
             raise CLIError("--repository-url or --repository-type must be specified.")
     else:
@@ -102,7 +99,7 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
     repo_name = None
     repo_id = None
     api_url = None
-    if repository_type.lower() == "github":
+    if repository_type.lower() == _GITHUB_REPO_TYPE:
         if repository_url:
             repo_id = _get_repo_id_from_repo_url(repository_url)
             repo_name = repo_id
@@ -110,12 +107,12 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
             repo_name = repository_name
             repo_id = repository_name
             repository_url = 'https://github.com/' + repo_name
-        api_url = _get_github_repos_api_url(repo_id)
-    if repository_type.lower() == 'tfsgit':
+        api_url = get_github_repos_api_url(repo_id)
+    if repository_type.lower() == _AZURE_GIT_REPO_TYPE:
         repo_name = repository_name
         repo_id = _get_repository_id_from_name(organization, project, repository)
 
-    if not service_connection and repository_type != 'tfsgit':
+    if not service_connection and repository_type != _AZURE_GIT_REPO_TYPE:
         service_connection = get_github_service_endpoint(organization, project)
 
     new_cix_client = get_new_cix_client(organization=organization)
@@ -186,7 +183,7 @@ def pipeline_update(name=None, id=None, description=None, new_name=None, reposit
         if repository_url:
             repository_type = try_get_repository_type(repository_url)
         elif repository:
-            repository_type = 'tfsgit'
+            repository_type = _AZURE_GIT_REPO_TYPE
     else:
         repository_type = repository_type.lower()
     repo_name = None
@@ -194,13 +191,13 @@ def pipeline_update(name=None, id=None, description=None, new_name=None, reposit
     if repository_name and not repository_type:
         raise CLIError("--repository-type must be specified.")
     elif repository_type:
-        if repository_type.lower() == "github":
+        if repository_type.lower() == _GITHUB_REPO_TYPE:
             if repository_url:
                 repo_id = _get_repo_id_from_repo_url(repository_url)
                 repo_name = repo_id
             else:
                 repo_name = repository_name
-        if repository_type.lower() == 'tfsgit':
+        if repository_type.lower() == _AZURE_GIT_REPO_TYPE:
             repo_name = repository_name
             repo_id = _get_repository_id_from_name(organization, project, repository)
     definition = pipeline_client.get_definition(definition_id=id, project=project)
@@ -321,9 +318,9 @@ def get_github_service_endpoint(organization, project):
 
 def try_get_repository_type(url):
     if 'https://github.com' in url:
-        return 'github'
+        return _GITHUB_REPO_TYPE
     if 'https://dev.azure.com' or '.visualstudio.com' in url:
-        return 'tfsgit'
+        return _AZURE_GIT_REPO_TYPE
     return None
 
 
@@ -423,9 +420,9 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         logger.debug('File update is not handled. We will create the pipeline with the yaml selected. '
                        'Checkin the created yml in the repository and then run the pipeline created by this command.')
     else:
-        if repository_type == 'github':
+        if repository_type == _GITHUB_REPO_TYPE:
             checkin_files_to_github(files, repo_name, branch)
-        elif repository_type == 'tfsgit':
+        elif repository_type == _AZURE_GIT_REPO_TYPE:
             _checkin_files_to_azure_repo(files, repo_name, branch, organization, project)
         else:
             logger.warning('File checkin is not handled for this repository type. '\
@@ -489,7 +486,7 @@ def _get_commits_object(path_to_commit, content, message):
 
 
 def _get_pipelines_trigger(repo_type):
-    if repo_type.lower() == 'github':
+    if repo_type.lower() == _GITHUB_REPO_TYPE:
         return [{"settingsSourceType":2, "triggerType":2},
             {"forks":{"enabled": "true", "allowSecrets": "false"},
              "settingsSourceType":2, "triggerType": "pullRequest"}]
@@ -504,12 +501,8 @@ def _handle_yml_props(params_required, template_id, cix_client, repo_name, organ
         # override with more user friendly name if available
         if param.display_name:
             param_name_for_user = param.display_name
-        logger.debug('looking for param %s in props', param.name)
+        logger.debug('Looking for param %s in props', param.name)
         prop_found = False
-        if param.name == 'imageRepository':
-            param.default_value = ''.join(e for e in repo_name if e.isalnum()).lower() 
-        if param.name == 'servicePort':
-            param.default_value = "8080"
         if param.default_value:
             prop_found = True
             user_input_val = prompt(msg='Enter a value for {param_name} [Press Enter for default: {param_default}]:'
@@ -522,7 +515,7 @@ def _handle_yml_props(params_required, template_id, cix_client, repo_name, organ
             logger.debug('This property is handled intelligently (Name: %s) (Type: %s)', param.name, param.type)
             fetched_value = fetch_yaml_prop_intelligently(param.type, organization, project, repo_name)
             if fetched_value is not None:
-                # logger.warning('Auto filling param %s', param.name)
+                logger.debug('Auto filling param %s', param.name, fetched_value)
                 params_to_render[param.name] = fetched_value
                 prop_found = True
         if not prop_found:
@@ -590,7 +583,7 @@ def get_kubernetes_environment_resource(organization, project, repo_name):
                                                 namespace, create_namespace, environment_name)
         cix_client = get_new_cix_client(organization=organization)
         kubernetes_connection = cix_client.create_resources(creation_parameters=kubernetes_connection_obj, project=project)
-        k8s_connection_obj = kubernetes_connection['k8sConnection']
+        k8s_connection_obj = kubernetes_connection.resources['k8sConnection']
         poll_connection_ready(organization, project, k8s_connection_obj['Id'])
         kubernetes_env_obj = get_kubernetes_resource_create_object(
             k8s_connection_obj['Name'],
@@ -600,7 +593,7 @@ def get_kubernetes_environment_resource(organization, project, repo_name):
             namespace)
         kubernetes_environment_resource = cix_client.create_resources(creation_parameters=kubernetes_env_obj,
                                                                       project=project)
-        return kubernetes_environment_resource['k8sResource']
+        return kubernetes_environment_resource.resources['k8sResource']
     else:
         raise CLIError('There are no AKS clusters under your subscription. Create the clusters or switch to another subscription, verify with command \'az aks list\' and try again.')
     return None
@@ -691,8 +684,8 @@ def get_container_registry_service_connection(organization, project):
             selected_registry['name'],
             selected_registry['loginServer'])
         acr_container_resource = cix_client.create_resources(creation_parameters=acr_connection_obj, project=project)
-        poll_connection_ready(organization, project, acr_container_resource['containerRegistryConnection']['Id'])
-        return acr_container_resource['containerRegistryConnection']
+        poll_connection_ready(organization, project, acr_container_resource.resources['containerRegistryConnection']['Id'])
+        return acr_container_resource.resources['containerRegistryConnection']
     else:
         raise CLIError('There is no Azure container registry under your subscription. Create an ACR or switch to another subscription, verify with command \'az acr list\' and try again.')
     return None
@@ -748,7 +741,7 @@ def _create_pipeline_build_object(name, description, repo_id, repo_name, reposit
     if service_endpoint:
         definition.repository.properties = _create_repo_properties_object(service_endpoint, branch, api_url)
     # Hack to avoid the case sensitive GitHub type for service hooks.
-    if repository_type == 'github':
+    if repository_type.lower() == _GITHUB_REPO_TYPE:
         definition.repository.type = 'GitHub'
     else:
         definition.repository.type = repository_type
@@ -760,10 +753,6 @@ def _create_pipeline_build_object(name, description, repo_id, repo_name, reposit
     if queue_id:
         definition.queue.id = queue_id
     return definition
-
-
-def _get_github_repos_api_url(repo_id):
-    return 'https://api.github.com/repos/' + repo_id
 
 
 def _get_repository_id_from_name(organization, project, repository):
