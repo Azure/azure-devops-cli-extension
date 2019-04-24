@@ -151,8 +151,6 @@ if ($devopsFound -eq $False){
 }
 ```
 
-The first line of the script installs the Azure CLI.
-
 ### Use the Azure DevOps Extension with YAML
 
 If you prefer to use YAML to provide your release pipeline configuration, you can use the following example to understand how YAML can be used to install Azure CLI and add the Azure DevOps extension.
