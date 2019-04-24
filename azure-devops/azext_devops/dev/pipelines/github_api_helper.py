@@ -9,7 +9,7 @@ from knack.util import CLIError
 logger = get_logger(__name__)
 
 
-class Files:
+class Files:  # pylint: disable=too-few-public-methods
     def __init__(self, path, content):
         self.path = path
         self.content = content

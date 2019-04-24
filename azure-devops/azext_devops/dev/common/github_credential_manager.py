@@ -3,30 +3,14 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import random
-import string
 import base64
 import requests
 from knack.prompting import prompt, prompt_pass
 from knack.log import get_logger
 from knack.util import CLIError
+from azext_devops.dev.common.utils import randomword, singleton
 
 logger = get_logger(__name__)
-
-
-def randomword(length):
-    letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for i in range(length))
-
-
-def singleton(myclass):
-    instance = [None]
-    def wrapper(*args, **kwargs):
-        if instance[0] is None:
-            instance[0] = myclass(*args, **kwargs)
-        return instance[0]
-
-    return wrapper
 
 
 @singleton
@@ -43,7 +27,6 @@ class GithubCredentialManager():
         if not self.username:
             self.token = prompt_pass(msg='Enter your GitHub PAT: ')
             return self.token
-
         self.password = prompt_pass(msg='Enter your GitHub password: ')
         if not note:
             note = "AzureDevopsCLIExtensionToken_" + randomword(10)
@@ -61,7 +44,6 @@ class GithubCredentialManager():
                    'Accept': 'application/json',
                    'Authorization': basic_auth}
         response = self.post_authorization_request(headers=headers, body=request_body)
-
         if (response.status_code == 401 and response.headers.get('X-GitHub-OTP') and
                 response.headers.get('X-GitHub-OTP').startswith('required')):
             two_factor_code = prompt(msg='Enter your two factor authentication code: ')
@@ -73,8 +55,9 @@ class GithubCredentialManager():
         import json
         response_json = json.loads(response.content)
         if response.status_code == 200 or response.status_code == 201:
-            logger.warning('Created new personal access token with scopes (admin:repo_hook, repo, user). Name: %s'
-                           ' You can revoke this from your GitHub settings if the pipeline is no longer required.', note)
+            logger.warning('Created new personal access token with scopes (admin:repo_hook, repo, user). Name: %s '
+                           'You can revoke this from your GitHub settings if the pipeline is no longer required.',
+                           note)
             self.token = response_json['token']
             return self.token
         else:

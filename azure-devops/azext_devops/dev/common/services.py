@@ -99,7 +99,7 @@ def get_default_subscription_info():
     for subscription in subscriptions:
         if subscription['isDefault']:
             return subscription['id'], subscription['name'], subscription['tenantId'], subscription['environmentName']
-
+    return None, None, None, None
 
 def get_token_from_az_logins(organization, pat_token_present):
     profile = Profile()

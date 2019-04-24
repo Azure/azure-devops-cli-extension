@@ -3,7 +3,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-
 def open_file(filepath):
     import subprocess
     import platform
@@ -19,3 +18,22 @@ def open_file(filepath):
 def delete_dir(path):
     import shutil
     shutil.rmtree(path)
+
+
+def randomword(length):
+    import string
+    import random
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(length))
+
+
+# Decorators
+
+def singleton(myclass):
+    instance = [None]
+    def wrapper(*args, **kwargs):
+        if instance[0] is None:
+            instance[0] = myclass(*args, **kwargs)
+        return instance[0]
+    return wrapper
+
