@@ -18,7 +18,7 @@ _DEFAULT_PAGE_UPDATE_MESSAGE = 'Updated the page using Azure DevOps CLI'
 _DEFAULT_PAGE_DELETE_MESSAGE = 'Deleted the page using Azure DevOps CLI'
 
 
-def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
+def create_wiki(name=None, wiki_type='projectwiki', mapped_path=None, version=None,
                 organization=None, project=None, repository=None, detect=None):
     """Create a wiki.
     :param name: Name of the new wiki.
@@ -35,6 +35,8 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     """
     repository_id = None
     if wiki_type == 'codewiki':
+        if not name:
+            raise CLIError('--name is required for wiki type \'codewiki\'')
         organization, project, repository = resolve_instance_project_and_repo(detect=detect,
                                                                               organization=organization,
                                                                               project=project,
