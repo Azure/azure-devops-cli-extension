@@ -246,13 +246,14 @@ class BuildClient(Client):
                               query_parameters=query_parameters)
         return self._deserialize('[DefinitionResourceReference]', self._unwrap_collection(response))
 
-    def list_branches(self, project, provider_name, service_endpoint_id=None, repository=None):
+    def list_branches(self, project, provider_name, service_endpoint_id=None, repository=None, branch_name=None):
         """ListBranches.
         [Preview API] Gets a list of branches for the given source code repository.
         :param str project: Project ID or project name
         :param str provider_name: The name of the source provider.
         :param str service_endpoint_id: If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit.
-        :param str repository: If specified, the vendor-specific identifier or the name of the repository to get branches. Can only be omitted for providers that do not support multiple repositories.
+        :param str repository: The vendor-specific identifier or the name of the repository to get branches. Can only be omitted for providers that do not support multiple repositories.
+        :param str branch_name: If supplied, the name of the branch to check for specifically.
         :rtype: [str]
         """
         route_values = {}
@@ -265,6 +266,8 @@ class BuildClient(Client):
             query_parameters['serviceEndpointId'] = self._serialize.query('service_endpoint_id', service_endpoint_id, 'str')
         if repository is not None:
             query_parameters['repository'] = self._serialize.query('repository', repository, 'str')
+        if branch_name is not None:
+            query_parameters['branchName'] = self._serialize.query('branch_name', branch_name, 'str')
         response = self._send(http_method='GET',
                               location_id='e05d4403-9b81-4244-8763-20fde28d1976',
                               version='5.1-preview.1',

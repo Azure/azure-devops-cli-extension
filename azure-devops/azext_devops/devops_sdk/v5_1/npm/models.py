@@ -216,9 +216,11 @@ class ReferenceLinks(Model):
 class UpstreamSourceInfo(Model):
     """UpstreamSourceInfo.
 
+    :param display_location: Locator for connecting to the upstream source in a user friendly format, that may potentially change over time
+    :type display_location: str
     :param id: Identity of the upstream source.
     :type id: str
-    :param location: Locator for connecting to the upstream source.
+    :param location: Locator for connecting to the upstream source
     :type location: str
     :param name: Display name.
     :type name: str
@@ -227,14 +229,16 @@ class UpstreamSourceInfo(Model):
     """
 
     _attribute_map = {
+        'display_location': {'key': 'displayLocation', 'type': 'str'},
         'id': {'key': 'id', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'source_type': {'key': 'sourceType', 'type': 'object'}
     }
 
-    def __init__(self, id=None, location=None, name=None, source_type=None):
+    def __init__(self, display_location=None, id=None, location=None, name=None, source_type=None):
         super(UpstreamSourceInfo, self).__init__()
+        self.display_location = display_location
         self.id = id
         self.location = location
         self.name = name

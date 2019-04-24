@@ -37,6 +37,82 @@ class GraphSubjectBase(Model):
         self.url = url
 
 
+class IdentityBase(Model):
+    """IdentityBase.
+
+    :param custom_display_name: The custom display name for the identity (if any). Setting this property to an empty string will clear the existing custom display name. Setting this property to null will not affect the existing persisted value (since null values do not get sent over the wire or to the database)
+    :type custom_display_name: str
+    :param descriptor:
+    :type descriptor: :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
+    :param id:
+    :type id: str
+    :param is_active:
+    :type is_active: bool
+    :param is_container:
+    :type is_container: bool
+    :param master_id:
+    :type master_id: str
+    :param member_ids:
+    :type member_ids: list of str
+    :param member_of:
+    :type member_of: list of :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
+    :param members:
+    :type members: list of :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
+    :param meta_type_id:
+    :type meta_type_id: int
+    :param properties:
+    :type properties: :class:`object <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.object>`
+    :param provider_display_name: The display name for the identity as specified by the source identity provider.
+    :type provider_display_name: str
+    :param resource_version:
+    :type resource_version: int
+    :param social_descriptor:
+    :type social_descriptor: :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
+    :param subject_descriptor:
+    :type subject_descriptor: :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
+    :param unique_user_id:
+    :type unique_user_id: int
+    """
+
+    _attribute_map = {
+        'custom_display_name': {'key': 'customDisplayName', 'type': 'str'},
+        'descriptor': {'key': 'descriptor', 'type': 'str'},
+        'id': {'key': 'id', 'type': 'str'},
+        'is_active': {'key': 'isActive', 'type': 'bool'},
+        'is_container': {'key': 'isContainer', 'type': 'bool'},
+        'master_id': {'key': 'masterId', 'type': 'str'},
+        'member_ids': {'key': 'memberIds', 'type': '[str]'},
+        'member_of': {'key': 'memberOf', 'type': '[str]'},
+        'members': {'key': 'members', 'type': '[str]'},
+        'meta_type_id': {'key': 'metaTypeId', 'type': 'int'},
+        'properties': {'key': 'properties', 'type': 'object'},
+        'provider_display_name': {'key': 'providerDisplayName', 'type': 'str'},
+        'resource_version': {'key': 'resourceVersion', 'type': 'int'},
+        'social_descriptor': {'key': 'socialDescriptor', 'type': 'str'},
+        'subject_descriptor': {'key': 'subjectDescriptor', 'type': 'str'},
+        'unique_user_id': {'key': 'uniqueUserId', 'type': 'int'}
+    }
+
+    def __init__(self, custom_display_name=None, descriptor=None, id=None, is_active=None, is_container=None, master_id=None, member_ids=None, member_of=None, members=None, meta_type_id=None, properties=None, provider_display_name=None, resource_version=None, social_descriptor=None, subject_descriptor=None, unique_user_id=None):
+        super(IdentityBase, self).__init__()
+        self.custom_display_name = custom_display_name
+        self.descriptor = descriptor
+        self.id = id
+        self.is_active = is_active
+        self.is_container = is_container
+        self.master_id = master_id
+        self.member_ids = member_ids
+        self.member_of = member_of
+        self.members = members
+        self.meta_type_id = meta_type_id
+        self.properties = properties
+        self.provider_display_name = provider_display_name
+        self.resource_version = resource_version
+        self.social_descriptor = social_descriptor
+        self.subject_descriptor = subject_descriptor
+        self.unique_user_id = unique_user_id
+
+
 class IdentityData(Model):
     """IdentityData.
 
@@ -525,6 +601,66 @@ class WebApiTeamRef(Model):
         self.url = url
 
 
+class Identity(IdentityBase):
+    """Identity.
+
+    :param custom_display_name: The custom display name for the identity (if any). Setting this property to an empty string will clear the existing custom display name. Setting this property to null will not affect the existing persisted value (since null values do not get sent over the wire or to the database)
+    :type custom_display_name: str
+    :param descriptor:
+    :type descriptor: :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
+    :param id:
+    :type id: str
+    :param is_active:
+    :type is_active: bool
+    :param is_container:
+    :type is_container: bool
+    :param master_id:
+    :type master_id: str
+    :param member_ids:
+    :type member_ids: list of str
+    :param member_of:
+    :type member_of: list of :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
+    :param members:
+    :type members: list of :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
+    :param meta_type_id:
+    :type meta_type_id: int
+    :param properties:
+    :type properties: :class:`object <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.object>`
+    :param provider_display_name: The display name for the identity as specified by the source identity provider.
+    :type provider_display_name: str
+    :param resource_version:
+    :type resource_version: int
+    :param social_descriptor:
+    :type social_descriptor: :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
+    :param subject_descriptor:
+    :type subject_descriptor: :class:`str <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.str>`
+    :param unique_user_id:
+    :type unique_user_id: int
+    """
+
+    _attribute_map = {
+        'custom_display_name': {'key': 'customDisplayName', 'type': 'str'},
+        'descriptor': {'key': 'descriptor', 'type': 'str'},
+        'id': {'key': 'id', 'type': 'str'},
+        'is_active': {'key': 'isActive', 'type': 'bool'},
+        'is_container': {'key': 'isContainer', 'type': 'bool'},
+        'master_id': {'key': 'masterId', 'type': 'str'},
+        'member_ids': {'key': 'memberIds', 'type': '[str]'},
+        'member_of': {'key': 'memberOf', 'type': '[str]'},
+        'members': {'key': 'members', 'type': '[str]'},
+        'meta_type_id': {'key': 'metaTypeId', 'type': 'int'},
+        'properties': {'key': 'properties', 'type': 'object'},
+        'provider_display_name': {'key': 'providerDisplayName', 'type': 'str'},
+        'resource_version': {'key': 'resourceVersion', 'type': 'int'},
+        'social_descriptor': {'key': 'socialDescriptor', 'type': 'str'},
+        'subject_descriptor': {'key': 'subjectDescriptor', 'type': 'str'},
+        'unique_user_id': {'key': 'uniqueUserId', 'type': 'int'},
+    }
+
+    def __init__(self, custom_display_name=None, descriptor=None, id=None, is_active=None, is_container=None, master_id=None, member_ids=None, member_of=None, members=None, meta_type_id=None, properties=None, provider_display_name=None, resource_version=None, social_descriptor=None, subject_descriptor=None, unique_user_id=None):
+        super(Identity, self).__init__(custom_display_name=custom_display_name, descriptor=descriptor, id=id, is_active=is_active, is_container=is_container, master_id=master_id, member_ids=member_ids, member_of=member_of, members=members, meta_type_id=meta_type_id, properties=properties, provider_display_name=provider_display_name, resource_version=resource_version, social_descriptor=social_descriptor, subject_descriptor=subject_descriptor, unique_user_id=unique_user_id)
+
+
 class Process(ProcessReference):
     """Process.
 
@@ -738,6 +874,8 @@ class WebApiTeam(WebApiTeamRef):
     :type url: str
     :param description: Team description
     :type description: str
+    :param identity: Team identity.
+    :type identity: :class:`Identity <azure.devops.v5_1.core.models.Identity>`
     :param identity_url: Identity REST API Url to this team
     :type identity_url: str
     :param project_id:
@@ -751,14 +889,16 @@ class WebApiTeam(WebApiTeamRef):
         'name': {'key': 'name', 'type': 'str'},
         'url': {'key': 'url', 'type': 'str'},
         'description': {'key': 'description', 'type': 'str'},
+        'identity': {'key': 'identity', 'type': 'Identity'},
         'identity_url': {'key': 'identityUrl', 'type': 'str'},
         'project_id': {'key': 'projectId', 'type': 'str'},
         'project_name': {'key': 'projectName', 'type': 'str'}
     }
 
-    def __init__(self, id=None, name=None, url=None, description=None, identity_url=None, project_id=None, project_name=None):
+    def __init__(self, id=None, name=None, url=None, description=None, identity=None, identity_url=None, project_id=None, project_name=None):
         super(WebApiTeam, self).__init__(id=id, name=name, url=url)
         self.description = description
+        self.identity = identity
         self.identity_url = identity_url
         self.project_id = project_id
         self.project_name = project_name
@@ -766,6 +906,7 @@ class WebApiTeam(WebApiTeamRef):
 
 __all__ = [
     'GraphSubjectBase',
+    'IdentityBase',
     'IdentityData',
     'IdentityRef',
     'JsonPatchOperation',
@@ -783,6 +924,7 @@ __all__ = [
     'TeamProjectReference',
     'WebApiConnectedServiceRef',
     'WebApiTeamRef',
+    'Identity',
     'Process',
     'TeamProject',
     'TeamProjectCollection',

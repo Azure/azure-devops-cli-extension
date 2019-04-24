@@ -25,14 +25,17 @@ class ProvenanceClient(Client):
 
     resource_area_identifier = 'b40c1171-807a-493a-8f3f-5c26d5e2f5aa'
 
-    def create_session(self, session_request, protocol):
+    def create_session(self, session_request, protocol, project=None):
         """CreateSession.
         [Preview API] Creates a session, a wrapper around a feed that can store additional metadata on the packages published to it.
         :param :class:`<SessionRequest> <azure.devops.v5_1.provenance.models.SessionRequest>` session_request: The feed and metadata for the session
         :param str protocol: The protocol that the session will target
+        :param str project: Project ID or project name
         :rtype: :class:`<SessionResponse> <azure.devops.v5_1.provenance.models.SessionResponse>`
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if protocol is not None:
             route_values['protocol'] = self._serialize.url('protocol', protocol, 'str')
         content = self._serialize.body(session_request, 'SessionRequest')

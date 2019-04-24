@@ -246,6 +246,58 @@ class ExtensionAcquisitionRequest(Model):
         self.quantity = quantity
 
 
+class ExtensionAuditLog(Model):
+    """ExtensionAuditLog.
+
+    :param entries: Collection of audit log entries
+    :type entries: list of :class:`ExtensionAuditLogEntry <azure.devops.v5_1.extension_management.models.ExtensionAuditLogEntry>`
+    :param extension_name: Extension that the change was made for
+    :type extension_name: str
+    :param publisher_name: Publisher that the extension is part of
+    :type publisher_name: str
+    """
+
+    _attribute_map = {
+        'entries': {'key': 'entries', 'type': '[ExtensionAuditLogEntry]'},
+        'extension_name': {'key': 'extensionName', 'type': 'str'},
+        'publisher_name': {'key': 'publisherName', 'type': 'str'}
+    }
+
+    def __init__(self, entries=None, extension_name=None, publisher_name=None):
+        super(ExtensionAuditLog, self).__init__()
+        self.entries = entries
+        self.extension_name = extension_name
+        self.publisher_name = publisher_name
+
+
+class ExtensionAuditLogEntry(Model):
+    """ExtensionAuditLogEntry.
+
+    :param audit_action: Change that was made to extension
+    :type audit_action: str
+    :param audit_date: Date at which the change was made
+    :type audit_date: datetime
+    :param comment: Extra information about the change
+    :type comment: str
+    :param updated_by: Represents the user who made the change
+    :type updated_by: :class:`IdentityRef <azure.devops.v5_1.extension_management.models.IdentityRef>`
+    """
+
+    _attribute_map = {
+        'audit_action': {'key': 'auditAction', 'type': 'str'},
+        'audit_date': {'key': 'auditDate', 'type': 'iso-8601'},
+        'comment': {'key': 'comment', 'type': 'str'},
+        'updated_by': {'key': 'updatedBy', 'type': 'IdentityRef'}
+    }
+
+    def __init__(self, audit_action=None, audit_date=None, comment=None, updated_by=None):
+        super(ExtensionAuditLogEntry, self).__init__()
+        self.audit_action = audit_action
+        self.audit_date = audit_date
+        self.comment = comment
+        self.updated_by = updated_by
+
+
 class ExtensionAuthorization(Model):
     """ExtensionAuthorization.
 
@@ -1232,6 +1284,8 @@ __all__ = [
     'ContributionPropertyDescription',
     'ContributionType',
     'ExtensionAcquisitionRequest',
+    'ExtensionAuditLog',
+    'ExtensionAuditLogEntry',
     'ExtensionAuthorization',
     'ExtensionBadge',
     'ExtensionDataCollection',

@@ -2185,6 +2185,8 @@ class GitRepository(Model):
     :type url: str
     :param valid_remote_urls:
     :type valid_remote_urls: list of str
+    :param web_url:
+    :type web_url: str
     """
 
     _attribute_map = {
@@ -2199,10 +2201,11 @@ class GitRepository(Model):
         'size': {'key': 'size', 'type': 'long'},
         'ssh_url': {'key': 'sshUrl', 'type': 'str'},
         'url': {'key': 'url', 'type': 'str'},
-        'valid_remote_urls': {'key': 'validRemoteUrls', 'type': '[str]'}
+        'valid_remote_urls': {'key': 'validRemoteUrls', 'type': '[str]'},
+        'web_url': {'key': 'webUrl', 'type': 'str'}
     }
 
-    def __init__(self, _links=None, default_branch=None, id=None, is_fork=None, name=None, parent_repository=None, project=None, remote_url=None, size=None, ssh_url=None, url=None, valid_remote_urls=None):
+    def __init__(self, _links=None, default_branch=None, id=None, is_fork=None, name=None, parent_repository=None, project=None, remote_url=None, size=None, ssh_url=None, url=None, valid_remote_urls=None, web_url=None):
         super(GitRepository, self).__init__()
         self._links = _links
         self.default_branch = default_branch
@@ -2216,6 +2219,7 @@ class GitRepository(Model):
         self.ssh_url = ssh_url
         self.url = url
         self.valid_remote_urls = valid_remote_urls
+        self.web_url = web_url
 
 
 class GitRepositoryCreateOptions(Model):
