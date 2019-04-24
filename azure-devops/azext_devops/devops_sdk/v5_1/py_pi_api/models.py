@@ -82,6 +82,8 @@ class Package(Model):
     :type name: str
     :param permanently_deleted_date: If and when the package was permanently deleted.
     :type permanently_deleted_date: datetime
+    :param source_chain: The history of upstream sources for this package. The first source in the list is the immediate source from which this package was saved.
+    :type source_chain: list of :class:`UpstreamSourceInfo <azure.devops.v5_1.py_pi.models.UpstreamSourceInfo>`
     :param version: The version of the package.
     :type version: str
     """
@@ -92,16 +94,18 @@ class Package(Model):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'permanently_deleted_date': {'key': 'permanentlyDeletedDate', 'type': 'iso-8601'},
+        'source_chain': {'key': 'sourceChain', 'type': '[UpstreamSourceInfo]'},
         'version': {'key': 'version', 'type': 'str'}
     }
 
-    def __init__(self, _links=None, deleted_date=None, id=None, name=None, permanently_deleted_date=None, version=None):
+    def __init__(self, _links=None, deleted_date=None, id=None, name=None, permanently_deleted_date=None, source_chain=None, version=None):
         super(Package, self).__init__()
         self._links = _links
         self.deleted_date = deleted_date
         self.id = id
         self.name = name
         self.permanently_deleted_date = permanently_deleted_date
+        self.source_chain = source_chain
         self.version = version
 
 
@@ -201,6 +205,38 @@ class ReferenceLinks(Model):
         self.links = links
 
 
+class UpstreamSourceInfo(Model):
+    """UpstreamSourceInfo.
+
+    :param display_location: Locator for connecting to the upstream source in a user friendly format, that may potentially change over time
+    :type display_location: str
+    :param id: Identity of the upstream source.
+    :type id: str
+    :param location: Locator for connecting to the upstream source
+    :type location: str
+    :param name: Display name.
+    :type name: str
+    :param source_type: Source type, such as Public or Internal.
+    :type source_type: object
+    """
+
+    _attribute_map = {
+        'display_location': {'key': 'displayLocation', 'type': 'str'},
+        'id': {'key': 'id', 'type': 'str'},
+        'location': {'key': 'location', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'source_type': {'key': 'sourceType', 'type': 'object'}
+    }
+
+    def __init__(self, display_location=None, id=None, location=None, name=None, source_type=None):
+        super(UpstreamSourceInfo, self).__init__()
+        self.display_location = display_location
+        self.id = id
+        self.location = location
+        self.name = name
+        self.source_type = source_type
+
+
 __all__ = [
     'BatchOperationData',
     'JsonPatchOperation',
@@ -211,4 +247,5 @@ __all__ = [
     'PyPiPackageVersionDeletionState',
     'PyPiRecycleBinPackageVersionDetails',
     'ReferenceLinks',
+    'UpstreamSourceInfo',
 ]

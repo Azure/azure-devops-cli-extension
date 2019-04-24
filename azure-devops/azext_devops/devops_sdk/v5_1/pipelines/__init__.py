@@ -10,7 +10,17 @@ from .models import *
 from .pipelines_client import PipelinesClient
 
 __all__ = [
+    'CreatePipelineConfigurationParameters',
+    'CreatePipelineParameters',
     'Pipeline',
+    'PipelineBase',
     'PipelineConfiguration',
+    'PipelineReference',
+    'ReferenceLinks',
+    'Run',
+    'RunPipelineParameters',
+    'RunPipelineVariableParameters',
+    'RunReference',
+    'Variable',
     'PipelinesClient'
 ]

@@ -7,34 +7,13 @@
 # --------------------------------------------------------------------------------------------
 
 from .models import *
-from .core_client import CoreClient
+from .authorization_client import authorizationClient
 
 __all__ = [
+    'AuthorizedDefinitions',
     'GraphSubjectBase',
-    'Identity',
-    'IdentityBase',
-    'IdentityData',
     'IdentityRef',
-    'JsonPatchOperation',
-    'OperationReference',
-    'Process',
-    'ProcessReference',
-    'ProjectAvatar',
-    'ProjectInfo',
-    'ProjectProperty',
-    'Proxy',
-    'ProxyAuthorization',
-    'PublicKey',
     'ReferenceLinks',
-    'TeamMember',
-    'TeamProject',
-    'TeamProjectCollection',
-    'TeamProjectCollectionReference',
-    'TeamProjectReference',
-    'WebApiConnectedService',
-    'WebApiConnectedServiceDetails',
-    'WebApiConnectedServiceRef',
-    'WebApiTeam',
-    'WebApiTeamRef',
-    'CoreClient'
+    'ResourceAuthorizedDefinitions',
+    'authorizationClient'
 ]

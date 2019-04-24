@@ -54,22 +54,9 @@ class CixClient(Client):
                               query_parameters=query_parameters)
         return self._deserialize('[ConfigurationFile]', self._unwrap_collection(response))
 
-    def create_connection(self, create_connection_inputs):
-        """CreateConnection.
-        [Preview API] LEGACY METHOD - Obsolete Creates a new team project with the name provided if one does not already exist and then creates a new Pipeline connection within that project. Returns an Operation object that wraps the Job and provides status
-        :param :class:`<CreatePipelineConnectionInputs> <azure.devops.v5_1.cix.models.CreatePipelineConnectionInputs>` create_connection_inputs:
-        :rtype: :class:`<Operation> <azure.devops.v5_1.cix.models.Operation>`
-        """
-        content = self._serialize.body(create_connection_inputs, 'CreatePipelineConnectionInputs')
-        response = self._send(http_method='POST',
-                              location_id='00df4879-9216-45d5-b38d-4a487b626b2c',
-                              version='5.1-preview.1',
-                              content=content)
-        return self._deserialize('Operation', response)
-
     def create_project_connection(self, create_connection_inputs, project):
         """CreateProjectConnection.
-        [Preview API] Creates a new team project with the name provided if one does not already exist and then creates a new Pipeline connection within that project. Returns an Operation object that wraps the Job and provides status
+        [Preview API] Creates a new Pipeline connection between the provider installation and the specified project. Returns the PipelineConnection object created.
         :param :class:`<CreatePipelineConnectionInputs> <azure.devops.v5_1.cix.models.CreatePipelineConnectionInputs>` create_connection_inputs:
         :param str project:
         :rtype: :class:`<PipelineConnection> <azure.devops.v5_1.cix.models.PipelineConnection>`
@@ -145,6 +132,24 @@ class CixClient(Client):
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[Template]', self._unwrap_collection(response))
+
+    def create_resources(self, creation_parameters, project):
+        """CreateResources.
+        [Preview API]
+        :param {ResourceCreationParameter} creation_parameters:
+        :param str project: Project ID or project name
+        :rtype: {object}
+        """
+        route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
+        content = self._serialize.body(creation_parameters, '{ResourceCreationParameter}')
+        response = self._send(http_method='POST',
+                              location_id='43201899-7690-4870-9c79-ab69605f21ed',
+                              version='5.1-preview.1',
+                              route_values=route_values,
+                              content=content)
+        return self._deserialize('{object}', self._unwrap_collection(response))
 
     def render_template(self, template_parameters, template_id):
         """RenderTemplate.

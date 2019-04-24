@@ -372,12 +372,13 @@ class CoreClient(Client):
                               query_parameters=query_parameters)
         return self._deserialize('[Proxy]', self._unwrap_collection(response))
 
-    def get_all_teams(self, mine=None, top=None, skip=None):
+    def get_all_teams(self, mine=None, top=None, skip=None, expand_identity=None):
         """GetAllTeams.
         [Preview API] Get a list of all teams.
-        :param bool mine: If true return all the teams requesting user is member, otherwise return all the teams user has read access
+        :param bool mine: If true, then return all teams requesting user is member. Otherwise return all teams user has read access.
         :param int top: Maximum number of teams to return.
         :param int skip: Number of teams to skip.
+        :param bool expand_identity: A value indicating whether or not to expand Identity information in the result WebApiTeam object.
         :rtype: [WebApiTeam]
         """
         query_parameters = {}
@@ -387,9 +388,11 @@ class CoreClient(Client):
             query_parameters['$top'] = self._serialize.query('top', top, 'int')
         if skip is not None:
             query_parameters['$skip'] = self._serialize.query('skip', skip, 'int')
+        if expand_identity is not None:
+            query_parameters['$expandIdentity'] = self._serialize.query('expand_identity', expand_identity, 'bool')
         response = self._send(http_method='GET',
                               location_id='7a4d9ee9-3433-4347-b47a-7a80f1cf307e',
-                              version='5.1-preview.2',
+                              version='5.1-preview.3',
                               query_parameters=query_parameters)
         return self._deserialize('[WebApiTeam]', self._unwrap_collection(response))
 
@@ -406,7 +409,7 @@ class CoreClient(Client):
         content = self._serialize.body(team, 'WebApiTeam')
         response = self._send(http_method='POST',
                               location_id='d30a3dd1-f8ba-442a-b86a-bd0c0c383e59',
-                              version='5.1-preview.2',
+                              version='5.1-preview.3',
                               route_values=route_values,
                               content=content)
         return self._deserialize('WebApiTeam', response)
@@ -424,14 +427,15 @@ class CoreClient(Client):
             route_values['teamId'] = self._serialize.url('team_id', team_id, 'str')
         self._send(http_method='DELETE',
                    location_id='d30a3dd1-f8ba-442a-b86a-bd0c0c383e59',
-                   version='5.1-preview.2',
+                   version='5.1-preview.3',
                    route_values=route_values)
 
-    def get_team(self, project_id, team_id):
+    def get_team(self, project_id, team_id, expand_identity=None):
         """GetTeam.
         [Preview API] Get a specific team.
         :param str project_id: The name or ID (GUID) of the team project containing the team.
         :param str team_id: The name or ID (GUID) of the team.
+        :param bool expand_identity: A value indicating whether or not to expand Identity information in the result WebApiTeam object.
         :rtype: :class:`<WebApiTeam> <azure.devops.v5_1.core.models.WebApiTeam>`
         """
         route_values = {}
@@ -439,19 +443,24 @@ class CoreClient(Client):
             route_values['projectId'] = self._serialize.url('project_id', project_id, 'str')
         if team_id is not None:
             route_values['teamId'] = self._serialize.url('team_id', team_id, 'str')
+        query_parameters = {}
+        if expand_identity is not None:
+            query_parameters['$expandIdentity'] = self._serialize.query('expand_identity', expand_identity, 'bool')
         response = self._send(http_method='GET',
                               location_id='d30a3dd1-f8ba-442a-b86a-bd0c0c383e59',
-                              version='5.1-preview.2',
-                              route_values=route_values)
+                              version='5.1-preview.3',
+                              route_values=route_values,
+                              query_parameters=query_parameters)
         return self._deserialize('WebApiTeam', response)
 
-    def get_teams(self, project_id, mine=None, top=None, skip=None):
+    def get_teams(self, project_id, mine=None, top=None, skip=None, expand_identity=None):
         """GetTeams.
         [Preview API] Get a list of teams.
         :param str project_id:
-        :param bool mine: If true return all the teams requesting user is member, otherwise return all the teams user has read access
+        :param bool mine: If true return all the teams requesting user is member, otherwise return all the teams user has read access.
         :param int top: Maximum number of teams to return.
         :param int skip: Number of teams to skip.
+        :param bool expand_identity: A value indicating whether or not to expand Identity information in the result WebApiTeam object.
         :rtype: [WebApiTeam]
         """
         route_values = {}
@@ -464,9 +473,11 @@ class CoreClient(Client):
             query_parameters['$top'] = self._serialize.query('top', top, 'int')
         if skip is not None:
             query_parameters['$skip'] = self._serialize.query('skip', skip, 'int')
+        if expand_identity is not None:
+            query_parameters['$expandIdentity'] = self._serialize.query('expand_identity', expand_identity, 'bool')
         response = self._send(http_method='GET',
                               location_id='d30a3dd1-f8ba-442a-b86a-bd0c0c383e59',
-                              version='5.1-preview.2',
+                              version='5.1-preview.3',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[WebApiTeam]', self._unwrap_collection(response))
@@ -487,7 +498,7 @@ class CoreClient(Client):
         content = self._serialize.body(team_data, 'WebApiTeam')
         response = self._send(http_method='PATCH',
                               location_id='d30a3dd1-f8ba-442a-b86a-bd0c0c383e59',
-                              version='5.1-preview.2',
+                              version='5.1-preview.3',
                               route_values=route_values,
                               content=content)
         return self._deserialize('WebApiTeam', response)
