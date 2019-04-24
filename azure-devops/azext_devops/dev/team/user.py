@@ -69,7 +69,8 @@ def update_user_entitlement(user, license_type, organization=None, detect=None):
         user = resolve_identity_as_id(user, organization)
     client = get_member_entitlement_management_client(organization)
     user_entitlement_update = client.update_user_entitlement(document=patch_document, user_id=user)
-    if user_entitlement_update.is_success == False and user_entitlement_update.operation_results[0].errors[0] != None:
+    if user_entitlement_update.is_success is False and \
+            user_entitlement_update.operation_results[0].errors[0] is not None:
         raise CLIError(user_entitlement_update.operation_results[0].errors[0]['value'])
     return user_entitlement_update.user_entitlement
 
@@ -100,8 +101,8 @@ def add_user_entitlement(email_id, license_type, send_email_invite='true', organ
     patch_document.append(_create_patch_operation('add', '', value))
     user_entitlement = client.update_user_entitlements(document=patch_document,
                                                        do_not_send_invite_for_new_users=do_not_send_invite)
-    if user_entitlement.have_results_succeeded == False and user_entitlement.results[0].errors[0] != None:
-        raise CLIError(user_entitlement.results[0].errors[0]['value'])                                             
+    if user_entitlement.have_results_succeeded is False and user_entitlement.results[0].errors[0] is not None:
+        raise CLIError(user_entitlement.results[0].errors[0]['value'])
     return user_entitlement.results[0].result
 
 
