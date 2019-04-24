@@ -135,11 +135,20 @@ To use the Azure DevOps Extension in a hosted agent using a Release Pipeline, ex
 
 Including the inline script for reference
 
-```bash
-pip install --pre azure-cli==2.0.55 --extra-index-url https://azurecliprod.blob.core.windows.net/edgeaz --h
-az --version
-az extension add --name azure-devops
-az devops -h
+```powershell
+$extensions = az extension list -o json | ConvertFrom-Json
+
+$devopsFound = $False
+foreach($extension in $extensions)
+{
+    if($extension.name -eq 'azure-devops'){
+        $devopsFound = $True
+    }
+}
+
+if ($devopsFound -eq $False){
+    az extension add -n azure-devops
+}
 ```
 
 The first line of the script installs the Azure CLI.
