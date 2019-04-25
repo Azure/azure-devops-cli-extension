@@ -187,7 +187,7 @@ steps:
   # Updating the python version available on the linux agent
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   # Updating pip to latest
@@ -225,7 +225,7 @@ steps:
   # Updating the python version available on the linux agent
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   # Updating pip to latest which is required by the Azure DevOps extension
