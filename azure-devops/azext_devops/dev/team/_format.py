@@ -211,9 +211,11 @@ def transform_ace_details_row(row):
     return table_row
 
 def transform_resolve_permission_bits(result):
-    table_output = []
-    for item in sorted(result, key=_get_permission_key):
-        table_output.append(_transform_resolve_bits_row(item))
+    table_output = [] 
+    ace_entry = list(result[0]['acesDictionary'].values())[0]
+    permissions = ace_entry['resolvedPermissions']
+    for permission in permissions:
+        table_output.append(_transform_resolve_bits_row(permission))
     return table_output
 
 def _transform_resolve_bits_row(row):
