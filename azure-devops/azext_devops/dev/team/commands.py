@@ -10,6 +10,7 @@ from ._format import (transform_project_table_output,
                       transform_groups_table_output,
                       transform_group_table_output,
                       transform_memberships_table_output,
+                      transform_membership_table_output,
                       transform_team_table_output,
                       transform_teams_table_output,
                       transform_team_members_table_output,
@@ -139,7 +140,7 @@ def load_team_commands(self, _):
 
     with self.command_group('devops security group membership', command_type=security_groupOps) as g:
         g.command('list', 'list_memberships', table_transformer=transform_memberships_table_output)
-        g.command('add', 'add_membership', table_transformer=transform_memberships_table_output)
+        g.command('add', 'add_membership', table_transformer=transform_membership_table_output)
         g.command('remove', 'remove_membership', confirmation='Are you sure you want to delete this relationship?')
 
     with self.command_group('devops wiki', command_type=wikiOps) as g:

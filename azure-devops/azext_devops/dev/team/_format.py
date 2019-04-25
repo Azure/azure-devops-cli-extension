@@ -114,13 +114,20 @@ def transform_groups_table_output(result):
 
 
 def transform_group_table_output(result):
-    table_output = [_transform_group_row(result)]
+    table_output = [_transform_group_show_table_output(result)]
     return table_output
+
+
+def _transform_group_show_table_output(row):
+    table_row = OrderedDict()
+    table_row['Name'] = row['principalName']
+    table_row['Description'] = row['description']
+    return table_row
 
 
 def _transform_group_row(row):
     table_row = OrderedDict()
-    table_row['Display Name'] = row['principalName']
+    table_row['Name'] = row['principalName']
     table_row['Descriptor'] = row['descriptor']
     return table_row
 
@@ -129,6 +136,21 @@ def transform_memberships_table_output(result):
     table_output = []
     for item in result:
         table_output.append(_transform_membership_row(result[item]))
+    return table_output
+
+
+def transform_membership_table_output(result):
+    table_output = []
+    for item in result:
+        table_row = OrderedDict()
+        row = result[item]
+        if row['subjectKind'] == 'user':
+            table_row['Name'] = row['displayName']
+        else:
+            table_row['Name'] = row['principalName']
+        table_row['Type'] = row['subjectKind']
+        table_row['Email'] = row['mailAddress']
+        table_output.append(table_row)
     return table_output
 
 
