@@ -383,14 +383,14 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
             for asset in assets:
                 files.append(Files(asset.destination_path, asset.content))
         view_choice = prompt_user_friendly_choice_list(
-            'Do you want to view/edit the yaml before proceeding?',
-            ['View/Edit', 'Continue with generated yaml'])
+            'Do you want to view/edit the yml before proceeding?',
+            ['View/Edit', 'Continue with generated yml'])
         if view_choice == 0:
             # open the file
             open_file(temp_filename)
             proceed_selection = prompt_user_friendly_choice_list(
                 'Do you want to proceed creating a pipeline?',
-                ['Proceed with this yml', 'Revisit recommendations'])
+                ['Proceed with this yml', 'Choose another template'])
         
     # Read updated data from the file
     f = open(temp_filename, mode='r')
