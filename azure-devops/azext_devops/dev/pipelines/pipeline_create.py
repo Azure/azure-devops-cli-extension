@@ -29,7 +29,7 @@ from azext_devops.devops_sdk.v5_1.build.models import (Build, BuildDefinition,
                                                        BuildRepository, AgentPoolQueue)
 from azext_devops.devops_sdk.v5_1.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
 from .build_definition import get_definition_id_from_name
-from .github_api_helper import get_github_pat_token, checkin_files_to_github, get_github_repos_api_url, Files
+from .github_api_helper import get_github_pat_token, push_files_github, get_github_repos_api_url, Files
 
 logger = get_logger(__name__)
 
@@ -409,21 +409,23 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
     for file in files:
         print('{index}) {file}'.format(index=count_file, file=file.path))
         count_file = count_file + 1
-    
-    commit_strategy_choice_list = ['Commit directly to the master branch.', 'Create a new branch for this commit and start a pull request.']
-    commit_choice = prompt_user_friendly_choice_list("Commit pipeline files:", commit_strategy_choice_list)
-    if commit_choice == 1:
-        branch_name = prompt("New branch name to start a pull request")
-
+   
     if default_yml_exists and checkin_path.strip('/') == 'azure-pipelines.yml':
         # atbagga todo update file
         logger.debug('File update is not handled. We will create the pipeline with the yaml selected. '
-                       'Checkin the created yml in the repository and then run the pipeline created by this command.')
+                     'Checkin the created yml in the repository and then run the pipeline created by this command.')
     else:
+        commit_strategy_choice_list = ['Commit directly to the {branch} branch.'.format(branch=branch),
+                                       'Create a new branch for this commit and start a pull request.']
+        commit_choice = prompt_user_friendly_choice_list("Commit pipeline files to the repository:", commit_strategy_choice_list)
+        commit_direct_to_branch = True
+        if commit_choice == 1:
+            commit_direct_to_branch = False
+
         if repository_type == _GITHUB_REPO_TYPE:
-            checkin_files_to_github(files, repo_name, branch)
+            push_files_github(files, repo_name, branch, commit_direct_to_branch)
         elif repository_type == _AZURE_GIT_REPO_TYPE:
-            _checkin_files_to_azure_repo(files, repo_name, branch, organization, project)
+            _checkin_files_to_azure_repo(files, repo_name, branch, organization, project, commit_direct_to_branch)
         else:
             logger.warning('File checkin is not handled for this repository type. '\
                         'Checkin the created yml in the repository and then run the pipeline created by this command.')
