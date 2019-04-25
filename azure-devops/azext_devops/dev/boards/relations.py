@@ -72,7 +72,7 @@ def remove_relation(id, relation_type, target_id, organization=None, detect=None
 
     main_work_item = client.get_work_item(id, expand='All')
 
-    if main_work_item.relations is not None:
+    if not main_work_item.relations:
         for target_work_item_id in target_work_item_ids:
             target_work_item = client.get_work_item(target_work_item_id, expand='All')
             target_work_item_url = target_work_item.url
