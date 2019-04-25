@@ -75,7 +75,8 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
     """
     organization, project, repository = resolve_instance_project_and_repo(
         detect=detect, organization=organization, project=project, repo=repository_name)
-    
+    if not validate_name_is_available(name, organization, project):
+        raise CLIError('Pipeline with name {name} already exists.'.format(name=name))
     if not repository_url and not repository:
         repository_url = _get_repository_url_from_local_repo(detect=detect)
     if not branch and should_detect(detect):
@@ -222,6 +223,14 @@ def pipeline_update(name=None, id=None, description=None, new_name=None, reposit
         definition.process = _create_process_object(yml_path)
 
     return pipeline_client.update_definition(project=project, definition_id=id, definition=definition)
+
+
+def validate_name_is_available(name, organization, project):
+    client = get_new_pipeline_client(organization=organization)
+    definition_references = client.get_definitions(project=project, name=name)
+    if len(definition_references) == 0:
+        return True
+    return False
 
 
 def _get_repository_url_from_local_repo(detect):
