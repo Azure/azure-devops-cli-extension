@@ -44,7 +44,7 @@ def add_relation(id, relation_type, target_id, organization=None, detect=None): 
     target_work_items = client.query_by_wiql(wiql=wiql_object).work_items
 
     if len(target_work_items) != len(target_work_item_ids):
-        raise CLIError('Id(s) supplied in --target-ids is not valid')
+        raise CLIError('Id(s) supplied in --target-id is not valid')
 
     patch_document = []
 
@@ -72,17 +72,21 @@ def remove_relation(id, relation_type, target_id, organization=None, detect=None
 
     main_work_item = client.get_work_item(id, expand='All')
 
-    for target_work_item_id in target_work_item_ids:
-        target_work_item = client.get_work_item(target_work_item_id, expand='All')
-        target_work_item_url = target_work_item.url
+    if main_work_item.relations is not None:
+        for target_work_item_id in target_work_item_ids:
+            target_work_item = client.get_work_item(target_work_item_id, expand='All')
+            target_work_item_url = target_work_item.url
 
-        index = 0
-        for relation in main_work_item.relations:
-            if relation.rel == relation_type_system_name and relation.url == target_work_item_url:
-                po = _create_patch_operation('remove', '/relations/{}'.format(index))
-                patch_document.append(po)
-                break
-            index = index + 1
+            index = 0
+            for relation in main_work_item.relations:
+                if relation.rel == relation_type_system_name and relation.url == target_work_item_url:
+                    po = _create_patch_operation('remove', '/relations/{}'.format(index))
+                    patch_document.append(po)
+                    break
+                index = index + 1
+
+    if len(patch_document) != len(target_work_item_ids):
+        raise CLIError('Id(s) supplied in --target-id is not valid')
 
     client.update_work_item(document=patch_document, id=id)
     work_item = client.get_work_item(id, expand='All')
@@ -92,7 +96,7 @@ def remove_relation(id, relation_type, target_id, organization=None, detect=None
 
 
 def show_work_item(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
-    """ Get work item, shows relations in table format.
+    """ Get work item, fill relations with friendly name
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_work_item_tracking_client(organization)
@@ -104,6 +108,9 @@ def show_work_item(id, organization=None, detect=None):  # pylint: disable=redef
 
 
 def fill_friendly_name_for_relations_in_work_item(relation_types_from_service, wi):
+    if not wi.relations:
+        return wi
+
     for relation in wi.relations:
         for relation_type_from_service in relation_types_from_service:
             if relation_type_from_service.reference_name == relation.rel:
