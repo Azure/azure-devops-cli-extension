@@ -17,7 +17,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   - template: templates/setup-ci-machine.yml
@@ -31,7 +31,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   - template: templates/setup-ci-machine.yml
@@ -46,7 +46,7 @@ jobs:
   steps:
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.7.2'
+      pythonVersion: '3.x'
 
   - script: 'pip install .'
     displayName: 'Install the whl locally'
