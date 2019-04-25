@@ -13,7 +13,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   - template: templates/setup-ci-machine.yml
@@ -28,7 +28,7 @@ jobs:
   steps:
     - task: UsePythonVersion@0
       inputs:
-        versionSpec: '3.7.2'
+        versionSpec: '3.x'
         architecture: 'x64'
 
     - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge

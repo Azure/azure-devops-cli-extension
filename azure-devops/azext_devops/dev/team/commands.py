@@ -131,6 +131,7 @@ def load_team_commands(self, _):
         g.command('disable', 'disable_extension', table_transformer=transform_extension_table_output)
         g.command('search', 'search_extensions', table_transformer=transform_extension_search_results_table_output)
 
+
     with self.command_group('devops security group', command_type=security_groupOps) as g:
         g.command('list', 'list_groups', table_transformer=transform_groups_table_output)
         g.command('show', 'get_group', table_transformer=transform_group_table_output)
@@ -142,6 +143,7 @@ def load_team_commands(self, _):
         g.command('list', 'list_memberships', table_transformer=transform_memberships_table_output)
         g.command('add', 'add_membership', table_transformer=transform_membership_table_output)
         g.command('remove', 'remove_membership', confirmation='Are you sure you want to delete this relationship?')
+
 
     with self.command_group('devops wiki', command_type=wikiOps) as g:
         g.command('create', 'create_wiki', table_transformer=transform_wiki_table_output)
