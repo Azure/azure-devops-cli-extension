@@ -30,7 +30,7 @@ def list_groups(scope='project', project=None, continuation_token=None,
                                 will contain a continuation token for retrieval of the next set of results.
     :type continuation_token: str
     :param subject_types: A comma separated list of user subject subtypes to reduce the retrieved results.
-                          This could be the initial part of descriptor [before the dot] e.g. vssgp,aad
+                          You can give initial part of descriptor [before the dot] as a filter e.g. vssgp,aadgp
     :type subject_types: [str]
     :rtype: :class:`<PagedGraphGroups> <azure.devops.v5_0.graph.models.PagedGraphGroups>`
     """
