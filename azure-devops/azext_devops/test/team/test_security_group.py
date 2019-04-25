@@ -75,12 +75,12 @@ class TestSecurityGroupMethods(AuthenticatedTests):
     def tearDown(self):
         patch.stopall()
 
-    def test_list_groups(self):
-        response = list_groups(organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+    def test_list_groups_with_org_filter(self):
+        response = list_groups(scope='organization', organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
         #assert
         self.mock_list_groups.assert_called_once()
 
-    def test_list_groups_with_project_filter(self):
+    def test_list_groups(self):
         self.mock_get_descriptor.return_value = self._TEST_PROJECT_DESCRIPTOR
         response = list_groups(project=self._TEST_PROJECT_DESCRIPTOR,organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
         #assert
@@ -106,15 +106,15 @@ class TestSecurityGroupMethods(AuthenticatedTests):
         #assert
         self.mock_update_group.assert_called_once()
 
-    def test_create_group(self):
-        response = create_group(name=self._TEST_GROUP_NAME, description= self._TEST_GROUP_DESCRIPTION, organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+    def test_create_group_in_org(self):
+        response = create_group(scope='organization', name=self._TEST_GROUP_NAME, description= self._TEST_GROUP_DESCRIPTION, organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
         #assert
         self.mock_create_group.assert_called_once()
         create_group_param = self.mock_create_group.call_args_list[0][1]
         self.assertEqual(self._TEST_GROUP_NAME, create_group_param['creation_context'].display_name, str(create_group_param))
         self.assertEqual(self._TEST_GROUP_DESCRIPTION, create_group_param['creation_context'].description, str(create_group_param))
 
-    def test_create_group_in_project(self):
+    def test_create_group(self):
         self.mock_get_descriptor.return_value = self._TEST_PROJECT_DESCRIPTOR
         response = create_group(name=self._TEST_GROUP_NAME, description= self._TEST_GROUP_DESCRIPTION, project=self._TEST_PROJECT_DESCRIPTOR, organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
         #assert

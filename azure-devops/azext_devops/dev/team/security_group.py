@@ -21,7 +21,8 @@ from .security_group_helper import (GraphGroupVstsCreationContext,
 logger = get_logger(__name__)
 
 
-def list_groups(scope='project', project=None, continuation_token=None, subject_types=None, organization=None, detect=None):
+def list_groups(scope='project', project=None, continuation_token=None,
+                subject_types=None, organization=None, detect=None):
     """ List all the groups in a project or organization
     :param scope: List groups at project or organization level.
     :type scope: str
@@ -37,7 +38,7 @@ def list_groups(scope='project', project=None, continuation_token=None, subject_
         organization, project = resolve_instance_and_project(detect=detect,
                                                              organization=organization,
                                                              project=project)
-    else:                                                             
+    else:
         organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     scope_descriptor = None
@@ -75,7 +76,7 @@ def create_group(name=None, description=None, origin_id=None, email_id=None,
         organization, project = resolve_instance_and_project(detect=detect,
                                                              organization=organization,
                                                              project=project)
-    else:                                                             
+    else:
         organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     if name is not None and origin_id is None and email_id is None:
