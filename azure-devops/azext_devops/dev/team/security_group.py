@@ -22,7 +22,7 @@ logger = get_logger(__name__)
 
 
 def list_groups(scope='project', project=None, continuation_token=None, subject_types=None, organization=None, detect=None):
-    """ List all groups.
+    """ List all the groups in a project or organization
     :param scope: List groups at project or organization level.
     :type scope: str
     :param continuation_token : If there are more results that can't be returned in a single page, the result set
