@@ -177,7 +177,7 @@ jobs:
 
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.7.0'
+      pythonVersion: '3.x'
       runOnlyRecordedTests: 'true'
 
 - job: 'Check_Back_Compat_Arguments'
