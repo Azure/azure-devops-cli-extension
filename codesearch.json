@@ -1,0 +1,10 @@
+{
+  "searchText": "snake*",
+  "$skip": 0,
+  "$top": 1000,
+  "filters": {
+  },
+  "$orderBy": [
+  ],
+  "includeFacets": true
+}
