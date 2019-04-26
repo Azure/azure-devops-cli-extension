@@ -430,7 +430,7 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         if repository_type == _GITHUB_REPO_TYPE:
             push_files_github(files, repo_name, branch, commit_direct_to_branch)
         elif repository_type == _AZURE_GIT_REPO_TYPE:
-            _checkin_files_to_azure_repo(files, repo_name, branch, organization, project, commit_direct_to_branch)
+            _checkin_files_to_azure_repo(files, repo_name, branch, organization, project)
         else:
             logger.warning('File checkin is not handled for this repository type. '
                            'Checkin the created yml in the repository and then run '
