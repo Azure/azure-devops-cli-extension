@@ -50,19 +50,22 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
     :type name: str
     :param description: Description for the new pipeline
     :type description: str
-    :param repository_url: Repository clone url for which the pipeline will be configured.
+    :param repository_url: Repository clone url for which the pipeline will be configured. If omitted along with
+    --repository-name and --repository-type, it will be auto-detected from the git remote url of local repository.
     :type repository_url: str
     :param repository_name: Name of the repository for a Azure Devops repository or owner/reponame
     in case of GitHub Repo. --repository-type argument is required with this.
     Ignored if --repository-url is supplied
     :type repository_name: str
-    :param branch: Branch name for which the pipeline will be configured.
+    :param branch: Branch name for which the pipeline will be configured. If omitted, it will be auto-detected
+    from local repository
     :type branch: str
     :param yml_path: Path of the pipelines yml file in the repo (if yml is already present in the repo).
     :type yml_path: str
-    :param repository_type: Type of repository. Auto detected for GitHub and Azure Repos.
+    :param repository_type: Type of repository. If omitted, it will be auto-detected from remote url
+    of local repository. 'tfsgit' for Azure Repos, 'github' for GitHub repository.
     :type repository_type: str
-    :param service_connection: Id of the Service Endpoint created for the repository.
+    :param service_connection: Id of the Service connection created for the repository.
     Use command az devops service-endpoint -h for creating/listing service_connections.
     :type service_connection: str
     :param queue_id: Id of the queue in the available agent pools. Will be auto detected if not specified.
