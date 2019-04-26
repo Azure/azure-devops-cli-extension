@@ -24,10 +24,13 @@ class GithubCredentialManager():
 
     def create_token(self, note=None):
         self.username = prompt(msg='Enter your GitHub username (leave blank for using already generated PAT): ')
+        print('')
         if not self.username:
             self.token = prompt_pass(msg='Enter your GitHub PAT: ')
+            print('')
             return self.token
         self.password = prompt_pass(msg='Enter your GitHub password: ')
+        print('')
         if not note:
             note = "AzureDevopsCLIExtensionToken_" + randomword(10)
         encoded_pass = base64.b64encode(self.username.encode('utf-8') + b':' + self.password.encode('utf-8'))
@@ -46,7 +49,8 @@ class GithubCredentialManager():
         response = self.post_authorization_request(headers=headers, body=request_body)
         if (response.status_code == 401 and response.headers.get('X-GitHub-OTP') and
                 response.headers.get('X-GitHub-OTP').startswith('required')):
-            two_factor_code = prompt(msg='Enter your two factor authentication code: ')
+            two_factor_code = prompt_pass(msg='Enter your two factor authentication code: ')
+            print('')
             headers = {'Content-Type': 'application/json' + '; charset=utf-8',
                        'Accept': 'application/json',
                        'Authorization': basic_auth,

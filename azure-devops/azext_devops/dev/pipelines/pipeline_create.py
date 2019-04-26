@@ -305,12 +305,14 @@ def get_github_service_endpoint(organization, project):
             service_endpoints_choice_list.append('Name: {}'.format(endpoint.name))
         github_service_endpoints.append(endpoint)
     if github_service_endpoints:
-        choice = prompt_user_friendly_choice_list("Create or choose existing service connection? ",
-                                                  service_endpoints_choice_list)
+        choice = prompt_user_friendly_choice_list(
+            "Which service connection do you want to use to communicate with GitHub?",
+            service_endpoints_choice_list)
     if choice == 0:
         logger.debug("Creating a new service endpoint.")
         github_pat = get_github_pat_token()
         se_name = prompt('Enter a service endpoint name to create? ')
+        print('')
         service_endpoint_authorization = EndpointAuthorization(parameters={'accessToken':github_pat},
                                                                scheme='PersonalAccessToken')
         service_endpoint_to_create = ServiceEndpoint(authorization=service_endpoint_authorization,
@@ -367,7 +369,7 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         proceed_selection = 0
         # Clear files since user can change the template now
         del files[:]
-        yml_selection_index = prompt_user_friendly_choice_list("Choose a yml template to create a pipeline:",
+        yml_selection_index = prompt_user_friendly_choice_list("Which template do you want to use for this pipeline?",
                                                                yml_names)
         if yml_options[yml_selection_index].params:
             yml_options[yml_selection_index].content, yml_options[yml_selection_index].assets = _handle_yml_props(
@@ -387,15 +389,14 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
             for asset in assets:
                 files.append(Files(asset.destination_path, asset.content))
         view_choice = prompt_user_friendly_choice_list(
-            'Do you want to view/edit the yml before proceeding?',
-            ['View/Edit', 'Continue with generated yml'])
-        if view_choice == 0:
+            'Do you want to view/edit the template yaml before proceeding?',
+            ['Continue with generated yaml', 'View or edit the yaml'])
+        if view_choice == 1:
             # open the file
             open_file(temp_filename)
             proceed_selection = prompt_user_friendly_choice_list(
                 'Do you want to proceed creating a pipeline?',
-                ['Proceed with this yml', 'Choose another template'])
-
+                ['Proceed with this yaml', 'Choose another template'])
     # Read updated data from the file
     f = open(temp_filename, mode='r')
     content = f.read()
@@ -403,10 +404,10 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
     delete_dir(temp_dir)
     checkin_path = 'azure-pipelines.yml'
     if default_yml_exists and not yml_options[yml_selection_index].path:  # We need yml path from user
-        logger.warning('A yml file azure-pipelines.yml already exists in the repository root.')
-        checkin_path = prompt(msg='Enter a yml file path to checkin the new pipeline yml in the repository? ',
+        logger.warning('A yaml file azure-pipelines.yml already exists in the repository root.')
+        checkin_path = prompt(msg='Enter a yaml file path to checkin the new pipeline yaml in the repository? ',
                               help_string='e.g. /new_azure-pipeline.yml to add in the root folder.')
-
+        print('')
     files.append(Files(checkin_path, content))
     print('Files to be added to your repository ({numfiles})'.format(numfiles=len(files)))
     count_file = 1
@@ -416,11 +417,11 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
 
     if default_yml_exists and checkin_path.strip('/') == 'azure-pipelines.yml':
         # atbagga todo update file
-        print('Edits on the existing yml can be done in the code repository.')
+        print('Edits on the existing yaml can be done in the code repository.')
     else:
         commit_strategy_choice_list = ['Commit directly to the {branch} branch.'.format(branch=branch),
                                        'Create a new branch for this commit and start a pull request.']
-        commit_choice = prompt_user_friendly_choice_list("Commit pipeline files to the repository:",
+        commit_choice = prompt_user_friendly_choice_list("How do you want to commit the files to the repository?",
                                                          commit_strategy_choice_list)
         commit_direct_to_branch = True
         if commit_choice == 1:
@@ -431,8 +432,9 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         elif repository_type == _AZURE_GIT_REPO_TYPE:
             _checkin_files_to_azure_repo(files, repo_name, branch, organization, project, commit_direct_to_branch)
         else:
-            logger.warning('File checkin is not handled for this repository type. '\
-                        'Checkin the created yml in the repository and then run the pipeline created by this command.')
+            logger.warning('File checkin is not handled for this repository type. '
+                           'Checkin the created yml in the repository and then run '
+                           'the pipeline created by this command.')
     return checkin_path
 
 
@@ -513,6 +515,7 @@ def _handle_yml_props(params_required, template_id, cix_client, repo_name, organ
             prop_found = True
             user_input_val = prompt(msg='Enter a value for {param_name} [Press Enter for default: {param_default}]:'
                                     .format(param_name=param_name_for_user, param_default=param.default_value))
+            print('')
             if user_input_val:
                 params_to_render[param.name] = user_input_val
             else:
@@ -534,8 +537,10 @@ def _handle_yml_props(params_required, template_id, cix_client, repo_name, organ
 
 
 def fetch_yaml_prop_intelligently(prop_type, organization, project, repo_name):
-    if prop_type.lower() == 'connectedservice:azurerm':
+    if prop_type.lower() == 'endpoint:azurerm':
         return get_azure_rm_service_connection(organization, project)
+    if prop_type.lower() == 'connectedservice:azurerm':
+        return get_azure_rm_service_connection_id(organization, project)
     if prop_type.lower() == 'environmentresource:kubernetes':
         return get_kubernetes_environment_resource(organization, project, repo_name)
     if prop_type.lower() == 'endpoint:containerregistry':
@@ -543,25 +548,22 @@ def fetch_yaml_prop_intelligently(prop_type, organization, project, repo_name):
     return None
 
 
+def get_azure_rm_service_connection_id(organization, project):
+    azure_rm_connection = get_azure_rm_service_connection(organization, project)
+    return azure_rm_connection['Id']
+
+
 def get_azure_rm_service_connection(organization, project):
-    azurerm_connections = _get_service_endpoints(organization=organization, project=project, endpoint_type='azurerm')
-    choice = 0
-    if azurerm_connections:
-        service_endpoints_choice_list = ['Create new AzureRM Service connection']
-        for endpoint in azurerm_connections:
-            service_endpoints_choice_list.append('Name: {}'.format(endpoint.name))
-        if service_endpoints_choice_list:
-            choice = prompt_user_friendly_choice_list("Create or choose existing Azure RM service connection? ",
-                                                      service_endpoints_choice_list)
-        if choice > 0:
-            return azurerm_connections[choice-1].id
-    if choice == 0:
-        logger.debug("Creating a new service connection.")
-        logger.warning("New service connection creation is not handled yet.")
-        # run command to create service principle
-        # create azure rm service connection
-        # return connection id
-    return None
+    logger.debug('Create a new Azure Resource Manager service connection')
+    subscription_id, subscription_name, tenant_id, environment_name = get_default_subscription_info()
+    cix_client = get_new_cix_client(organization=organization)
+    azure_rm_connection_create_obj = get_azure_rm_connection_create_object(
+        subscription_id, subscription_name, environment_name, tenant_id)
+    azure_rm_connection = cix_client.create_resources(creation_parameters=azure_rm_connection_create_obj,
+                                                      project=project)
+    azure_rm_connection_obj = azure_rm_connection.resources['azureRmConnection']
+    poll_connection_ready(organization, project, azure_rm_connection_obj['Id'])
+    return azure_rm_connection_obj
 
 
 def get_kubernetes_environment_resource(organization, project, repo_name):
@@ -569,8 +571,7 @@ def get_kubernetes_environment_resource(organization, project, repo_name):
     import subprocess
     import json
     subscription_id, subscription_name, tenant_id, environment_name = get_default_subscription_info()
-    print("Using your default Azure subscription {subscription_name} for fetching AKS clusters."
-          .format(subscription_name=subscription_name))
+    logger.warning("Using your default Azure subscription %s for fetching AKS clusters.", subscription_name)
     aks_list = subprocess.check_output('az aks list -o json', shell=True)
     aks_list = json.loads(aks_list)
     if aks_list:
@@ -578,8 +579,8 @@ def get_kubernetes_environment_resource(organization, project, repo_name):
         cluster_choice_list = []
         for aks_clusters in aks_list:
             cluster_choice_list.append(aks_clusters['name'])
-        cluster_choice = prompt_user_friendly_choice_list("Select a Kubernetes cluster to use for this pipeline",
-                                                          cluster_choice_list)
+        cluster_choice = prompt_user_friendly_choice_list(
+            "Which kubernetes cluster do you want to target for this pipeline?", cluster_choice_list)
         selected_cluster = aks_list[cluster_choice]
         create_namespace, namespace = get_kubernetes_namespace(organization, project, selected_cluster,
                                                                subscription_id, subscription_name, tenant_id,
@@ -624,11 +625,12 @@ def get_kubernetes_namespace(organization, project, cluster, subscription_id, su
             ns_json_obj = json.loads(namespace)
             existing_namespace_list.append(ns_json_obj['Value'])
             choice_list.append(ns_json_obj['Value'])
-    choice = prompt_user_friendly_choice_list("Create a new kubernetes namespace or chose from existing:",
+    choice = prompt_user_friendly_choice_list("Which kubernetes namespace do you want to target?",
                                               choice_list)
     if choice == 0:
         create_namespace = True
         namespace = prompt("Enter a name for new namespace to create: ")
+        print('')
     else:
         create_namespace = False
         namespace = existing_namespace_list[choice-1]
@@ -674,8 +676,8 @@ def get_container_registry_service_connection(organization, project):
     import subprocess
     import json
     subscription_id, subscription_name, _tenant_id, _environment_name = get_default_subscription_info()
-    print("Using your default Azure subscription {subscription_name} for fetching Azure Container Registries."
-          .format(subscription_name=subscription_name))
+    logger.warning("Using your default Azure subscription %s for fetching Azure Container Registries.",
+                   subscription_name)
     acr_list = subprocess.check_output('az acr list -o json', shell=True)
     acr_list = json.loads(acr_list)
     if acr_list:
@@ -683,8 +685,8 @@ def get_container_registry_service_connection(organization, project):
         registry_choice_list = []
         for acr_clusters in acr_list:
             registry_choice_list.append(acr_clusters['name'])
-        registry_choice = prompt_user_friendly_choice_list("Select a Azure Container Registry to use for this pipeline",
-                                                           registry_choice_list)
+        registry_choice = prompt_user_friendly_choice_list(
+            "Which Azure Container Registry do you want to use for this pipeline", registry_choice_list)
         selected_registry = acr_list[registry_choice]
         cix_client = get_new_cix_client(organization=organization)
         acr_connection_obj = get_container_registry_connection_create_object(
@@ -721,6 +723,7 @@ def poll_connection_ready(organization, project, connection_id):
 
 def _is_intelligent_handling_enabled_for_prop_type(prop_type):
     SMART_HANDLING_FOR_PROP_TYPES = ['connectedservice:azurerm',
+                                     'endpoint:azurerm',
                                      'environmentresource:kubernetes',
                                      'endpoint:containerregistry']
     if prop_type.lower() in SMART_HANDLING_FOR_PROP_TYPES:
@@ -731,8 +734,10 @@ def _is_intelligent_handling_enabled_for_prop_type(prop_type):
 def _prompt_for_prop_input(prop_name, prop_type):
     verify_is_a_tty_or_raise_error('The template requires a few inputs. These can be provided as --yml-props '\
                                    'in the command arguments or be input interatively.')
-    return prompt(msg='Please enter a value for {prop_name}: '.format(prop_name=prop_name),
-                  help_string='Value of type {prop_type} is required.'.format(prop_type=prop_type))
+    val = prompt(msg='Please enter a value for {prop_name}: '.format(prop_name=prop_name),
+                 help_string='Value of type {prop_type} is required.'.format(prop_type=prop_type))
+    print('')
+    return val
 
 
 def _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, api_url, branch,
@@ -873,5 +878,38 @@ def get_container_registry_connection_create_object(subscription_id, subscriptio
                 }
             },
             "type": "endpoint:containerRegistry"
+        }
+    }
+
+
+def get_azure_rm_connection_create_object(subscription_id, subscription_name, azure_env, tenant_id):
+    return {
+        "azureRmConnection": {
+            "resourcetocreate": {
+                "data": {
+                    "subscriptionId": subscription_id,
+                    "subscriptionName": subscription_name,
+                    "environment": azure_env,
+                    "scopeLevel": "Subscription",
+                    "creationMode": "Automatic",
+                    "azureSpnRoleAssignmentId": "",
+                    "azureSpnPermissions": "",
+                    "spnObjectId": "",
+                    "appObjectId": ""
+                },
+                "name": "{sub_name} ({sub_id})".format(sub_name=subscription_name, sub_id=subscription_id),
+                "type": "azurerm",
+                "url": "https://management.azure.com/",
+                "authorization": {
+                    "scheme": "ServicePrincipal",
+                    "parameters": {
+                        "tenantid": tenant_id,
+                        "serviceprincipalid": "",
+                        "authenticationType": "spnKey",
+                        "serviceprincipalkey": ""
+                    }
+                }
+            },
+            "type": "endpoint:azureRm"
         }
     }

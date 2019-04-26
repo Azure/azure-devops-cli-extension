@@ -66,6 +66,7 @@ def prompt_user_friendly_choice_list(msg, a_list, default=1, help_string=None, e
                 for x in range(0, linesToDelete):
                     delete_last_line()
                 print('Please enter a choice [Default choice({})]: {}'.format(default, a_list[ans - 1]))
+                print('')
                 # array index is 0-based, user input is 1-based
                 return ans - 1
             raise ValueError
