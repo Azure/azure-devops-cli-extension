@@ -6,11 +6,10 @@
 import datetime
 import os
 from collections import OrderedDict
-
-from knack.log import get_logger
-from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from azure.cli.core._profile import Profile
+from knack.log import get_logger
+from knack.util import CLIError
 from azext_devops.devops_sdk.connection import Connection
 from azext_devops.version import VERSION
 from .arguments import should_detect

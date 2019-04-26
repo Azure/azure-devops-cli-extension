@@ -119,7 +119,7 @@ def commit_files_to_github_branch(files, repo_name, branch, message):
 
 def get_application_json_header():
     return {'Content-Type': 'application/json' + '; charset=utf-8',
-               'Accept': 'application/json'}
+            'Accept': 'application/json'}
 
 def commit_file_to_github_branch(path_to_commit, content, repo_name, branch, message, skip_ci=True):
     import base64

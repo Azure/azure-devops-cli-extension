@@ -10,7 +10,8 @@ def open_file(filepath):
     if platform.system() == 'Darwin':       # macOS
         subprocess.call(('open', filepath))
     elif platform.system() == 'Windows':    # Windows
-        os.startfile(filepath)
+        # disable pylint warning since we run pylint on linux agent and startfile is a windows only function
+        os.startfile(filepath)  # pylint: disable=no-member
     else:                                   # linux variants
         subprocess.call(('xdg-open', filepath))
 
@@ -36,4 +37,3 @@ def singleton(myclass):
             instance[0] = myclass(*args, **kwargs)
         return instance[0]
     return wrapper
-

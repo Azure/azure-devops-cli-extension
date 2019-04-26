@@ -60,10 +60,9 @@ class GithubCredentialManager():
                            note)
             self.token = response_json['token']
             return self.token
-        else:
-            raise CLIError('Could not create GitHub token. Check your credentials and try again.')
+        raise CLIError('Could not create GitHub token. Check your credentials and try again.')
 
-    def post_authorization_request(self, headers, body):
+    def post_authorization_request(self, headers, body):  # pylint: disable=no-self-use
         return requests.post('https://api.github.com/authorizations',
                              json=body, headers=headers)
 

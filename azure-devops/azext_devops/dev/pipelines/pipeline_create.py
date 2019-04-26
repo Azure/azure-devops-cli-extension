@@ -3,14 +3,11 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-# pylint: skip-file
-
-from webbrowser import open_new
 import tempfile
 import os
 from knack.log import get_logger
 from knack.util import CLIError
-from knack.prompting import prompt_pass, prompt, verify_is_a_tty, NoTTYException
+from knack.prompting import prompt
 from azext_devops.dev.common.services import (get_new_pipeline_client,
                                               get_new_cix_client,
                                               get_git_client,
@@ -22,9 +19,7 @@ from azext_devops.dev.common.utils import open_file, delete_dir
 from azext_devops.dev.common.git import get_remote_url, get_current_branch_name, resolve_git_ref_heads
 from azext_devops.dev.common.arguments import should_detect
 from azext_devops.dev.common.prompting import (prompt_user_friendly_choice_list,
-                                               verify_is_a_tty_or_raise_error,
-                                               try_verify_is_a_tty)
-from azext_devops.dev.common.const import AZ_DEVOPS_GITHUB_PAT_ENVKEY
+                                               verify_is_a_tty_or_raise_error)
 from azext_devops.devops_sdk.v5_1.build.models import (Build, BuildDefinition,
                                                        BuildRepository, AgentPoolQueue)
 from azext_devops.devops_sdk.v5_1.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
@@ -58,7 +53,7 @@ def pipeline_create(name, description=None, repository_name=None, repository_url
     :param repository_url: Repository clone url for which the pipeline will be configured.
     :type repository_url: str
     :param repository_name: Name of the repository for a Azure Devops repository or owner/reponame
-    in case of GitHub Repo. --repository-type argument is required with this. 
+    in case of GitHub Repo. --repository-type argument is required with this.
     Ignored if --repository-url is supplied
     :type repository_name: str
     :param branch: Branch name for which the pipeline will be configured.
@@ -228,7 +223,7 @@ def pipeline_update(name=None, id=None, description=None, new_name=None, reposit
 def validate_name_is_available(name, organization, project):
     client = get_new_pipeline_client(organization=organization)
     definition_references = client.get_definitions(project=project, name=name)
-    if len(definition_references) == 0:
+    if not definition_references:
         return True
     return False
 
@@ -400,7 +395,7 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
             proceed_selection = prompt_user_friendly_choice_list(
                 'Do you want to proceed creating a pipeline?',
                 ['Proceed with this yml', 'Choose another template'])
-        
+
     # Read updated data from the file
     f = open(temp_filename, mode='r')
     content = f.read()
@@ -411,22 +406,22 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         logger.warning('A yml file azure-pipelines.yml already exists in the repository root.')
         checkin_path = prompt(msg='Enter a yml file path to checkin the new pipeline yml in the repository? ',
                               help_string='e.g. /new_azure-pipeline.yml to add in the root folder.')
-    
+
     files.append(Files(checkin_path, content))
     print('Files to be added to your repository ({numfiles})'.format(numfiles=len(files)))
     count_file = 1
     for file in files:
         print('{index}) {file}'.format(index=count_file, file=file.path))
         count_file = count_file + 1
-   
+
     if default_yml_exists and checkin_path.strip('/') == 'azure-pipelines.yml':
         # atbagga todo update file
-        logger.debug('File update is not handled. We will create the pipeline with the yaml selected. '
-                     'Checkin the created yml in the repository and then run the pipeline created by this command.')
+        print('Edits on the existing yml can be done in the code repository.')
     else:
         commit_strategy_choice_list = ['Commit directly to the {branch} branch.'.format(branch=branch),
                                        'Create a new branch for this commit and start a pull request.']
-        commit_choice = prompt_user_friendly_choice_list("Commit pipeline files to the repository:", commit_strategy_choice_list)
+        commit_choice = prompt_user_friendly_choice_list("Commit pipeline files to the repository:",
+                                                         commit_strategy_choice_list)
         commit_direct_to_branch = True
         if commit_choice == 1:
             commit_direct_to_branch = False
@@ -452,7 +447,7 @@ def _checkin_files_to_azure_repo(files, repo_name, branch, organization, project
 
 def _checkin_file_to_azure_repo(path_to_commit, content, repo_name, branch,
                                 organization, project, message="Set up CI with Azure Pipelines"):
-    logger.warning('Checking in file %s in the Azure repo %s', path_to_commit, repo_name)    
+    logger.warning('Checking in file %s in the Azure repo %s', path_to_commit, repo_name)
     message = message + ' [skip ci]'
     git_client = get_git_client(organization=organization)
     from azext_devops.devops_sdk.v5_0.git.models import GitPush, GitRefUpdate
@@ -499,8 +494,8 @@ def _get_commits_object(path_to_commit, content, message):
 def _get_pipelines_trigger(repo_type):
     if repo_type.lower() == _GITHUB_REPO_TYPE:
         return [{"settingsSourceType":2, "triggerType":2},
-            {"forks":{"enabled": "true", "allowSecrets": "false"},
-             "settingsSourceType":2, "triggerType": "pullRequest"}]
+                {"forks":{"enabled": "true", "allowSecrets": "false"},
+                 "settingsSourceType":2, "triggerType": "pullRequest"}]
     return [{"settingsSourceType":2, "triggerType":2}]
 
 
@@ -517,7 +512,7 @@ def _handle_yml_props(params_required, template_id, cix_client, repo_name, organ
         if param.default_value:
             prop_found = True
             user_input_val = prompt(msg='Enter a value for {param_name} [Press Enter for default: {param_default}]:'
-                                        .format(param_name=param_name_for_user, param_default=param.default_value))
+                                    .format(param_name=param_name_for_user, param_default=param.default_value))
             if user_input_val:
                 params_to_render[param.name] = user_input_val
             else:
@@ -526,7 +521,7 @@ def _handle_yml_props(params_required, template_id, cix_client, repo_name, organ
             logger.debug('This property is handled intelligently (Name: %s) (Type: %s)', param.name, param.type)
             fetched_value = fetch_yaml_prop_intelligently(param.type, organization, project, repo_name)
             if fetched_value is not None:
-                logger.debug('Auto filling param %s', param.name, fetched_value)
+                logger.debug('Auto filling param %s with value %s', param.name, fetched_value)
                 params_to_render[param.name] = fetched_value
                 prop_found = True
         if not prop_found:
@@ -589,11 +584,12 @@ def get_kubernetes_environment_resource(organization, project, repo_name):
         create_namespace, namespace = get_kubernetes_namespace(organization, project, selected_cluster,
                                                                subscription_id, subscription_name, tenant_id,
                                                                environment_name)
-        kubernetes_connection_obj = get_kubernetes_connection_create_object(subscription_id, subscription_name, selected_cluster['id'],
-                                                selected_cluster['name'], selected_cluster['fqdn'], tenant_id,
-                                                namespace, create_namespace, environment_name)
+        kubernetes_connection_obj = get_kubernetes_connection_create_object(
+            subscription_id, subscription_name, selected_cluster['id'], selected_cluster['name'],
+            selected_cluster['fqdn'], tenant_id, namespace, create_namespace, environment_name)
         cix_client = get_new_cix_client(organization=organization)
-        kubernetes_connection = cix_client.create_resources(creation_parameters=kubernetes_connection_obj, project=project)
+        kubernetes_connection = cix_client.create_resources(creation_parameters=kubernetes_connection_obj,
+                                                            project=project)
         k8s_connection_obj = kubernetes_connection.resources['k8sConnection']
         poll_connection_ready(organization, project, k8s_connection_obj['Id'])
         kubernetes_env_obj = get_kubernetes_resource_create_object(
@@ -606,7 +602,9 @@ def get_kubernetes_environment_resource(organization, project, repo_name):
                                                                       project=project)
         return kubernetes_environment_resource.resources['k8sResource']
     else:
-        raise CLIError('There are no AKS clusters under your subscription. Create the clusters or switch to another subscription, verify with command \'az aks list\' and try again.')
+        raise CLIError('There are no AKS clusters under your subscription. '
+                       'Create the clusters or switch to another subscription, verify with '
+                       'command \'az aks list\' and try again.')
     return None
 
 
@@ -619,7 +617,7 @@ def get_kubernetes_namespace(organization, project, cluster, subscription_id, su
                                                              cluster['name'], cluster['fqdn'], azure_env, tenant_id)
     se_client = get_service_endpoint_client(organization=organization)
     se_result = se_client.execute_service_endpoint_request(service_endpoint_request=se_request_obj, project=project,
-                                               endpoint_id=cluster['name'])
+                                                           endpoint_id=cluster['name'])
     if se_result.result:
         import json
         for namespace in se_result.result:
@@ -637,7 +635,8 @@ def get_kubernetes_namespace(organization, project, cluster, subscription_id, su
     return create_namespace, namespace
 
 
-def get_se_kubernetes_namespace_request_obj(subscription_id, subscription_name, cluster_id, cluster_name, fqdn, azure_env, tenant_id):
+def get_se_kubernetes_namespace_request_obj(subscription_id, subscription_name, cluster_id, cluster_name, fqdn,
+                                            azure_env, tenant_id):
     return {
         "dataSourceDetails": {
             "dataSourceName": "KubernetesNamespaces",
@@ -645,7 +644,7 @@ def get_se_kubernetes_namespace_request_obj(subscription_id, subscription_name, 
             ],
             "resourceUrl": "",
             "parameters": {
-            "clusterName": cluster_name
+                "clusterName": cluster_name
             }
         },
         "resultTransformationDetails": {
@@ -653,21 +652,21 @@ def get_se_kubernetes_namespace_request_obj(subscription_id, subscription_name, 
         },
         "serviceEndpointDetails": {
             "authorization": {
-            "parameters": {
-                "azureEnvironment": azure_env,
-                "azureTenantId": tenant_id
-            },
-            "scheme": "Kubernetes"
+                "parameters": {
+                    "azureEnvironment": azure_env,
+                    "azureTenantId": tenant_id
+                },
+                "scheme": "Kubernetes"
             },
             "data": {
-            "authorizationType": "AzureSubscription",
-            "azureSubscriptionId": subscription_id,
-            "azureSubscriptionName": subscription_name,
-            "clusterId": cluster_id
+                "authorizationType": "AzureSubscription",
+                "azureSubscriptionId": subscription_id,
+                "azureSubscriptionName": subscription_name,
+                "clusterId": cluster_id
             },
             "type": "Kubernetes",
             "url": "https://" + fqdn
-        }
+            }
         }
 
 
@@ -695,10 +694,13 @@ def get_container_registry_service_connection(organization, project):
             selected_registry['name'],
             selected_registry['loginServer'])
         acr_container_resource = cix_client.create_resources(creation_parameters=acr_connection_obj, project=project)
-        poll_connection_ready(organization, project, acr_container_resource.resources['containerRegistryConnection']['Id'])
+        poll_connection_ready(organization, project,
+                              acr_container_resource.resources['containerRegistryConnection']['Id'])
         return acr_container_resource.resources['containerRegistryConnection']
     else:
-        raise CLIError('There is no Azure container registry under your subscription. Create an ACR or switch to another subscription, verify with command \'az acr list\' and try again.')
+        raise CLIError('There is no Azure container registry under your subscription. '
+                       'Create an ACR or switch to another subscription, '
+                       'verify with command \'az acr list\' and try again.')
     return None
 
 
@@ -799,30 +801,30 @@ def _get_agent_queue_by_heuristic(organization, project):
 
 def get_kubernetes_resource_create_object(resource_name, cluster_name, repo_name,
                                           kubernetes_service_connection_id, namespace):
-   return {
-    "k8sResource": {
-        "resourcetocreate": {
-        "name": resource_name,
-        "namespace": namespace,
-        "clusterName": cluster_name,
-        "serviceEndpointId": kubernetes_service_connection_id
+    return {
+        "k8sResource": {
+            "resourcetocreate": {
+                "name": resource_name,
+                "namespace": namespace,
+                "clusterName": cluster_name,
+                "serviceEndpointId": kubernetes_service_connection_id
+            },
+            "type": "environmentResource:kubernetes"
         },
-        "type": "environmentResource:kubernetes"
-    },
-    "environment": {
-        "resourcetocreate": {
-        "name": repo_name,
-        "description": "CI/CD setup from this repo: '{reponame}'".format(reponame=repo_name)
-        },
-        "type": "environment"
+        "environment": {
+            "resourcetocreate": {
+                "name": repo_name,
+                "description": "CI/CD setup from this repo: '{reponame}'".format(reponame=repo_name)
+            },
+            "type": "environment"
+        }
     }
-   }
 
 def get_kubernetes_connection_create_object(subscription_id, subscription_name, cluster_id, cluster_name, fqdn,
-                                          tenant_id, namespace, create_namespace, azure_env):
+                                            tenant_id, namespace, create_namespace, azure_env):
     return {
-            "k8sConnection": {
-                "resourcetocreate": {
+        "k8sConnection": {
+            "resourcetocreate": {
                 "data": {
                     "authorizationType": "AzureSubscription",
                     "azureSubscriptionId": subscription_id,
@@ -837,20 +839,20 @@ def get_kubernetes_connection_create_object(subscription_id, subscription_name, 
                 "authorization": {
                     "scheme": "Kubernetes",
                     "parameters": {
-                    "azureEnvironment": azure_env,
-                    "azureTenantId": tenant_id
+                        "azureEnvironment": azure_env,
+                        "azureTenantId": tenant_id
                     }
                 }
-                },
-                "type": "endpoint:kubernetes"
-            }
-            }
+            },
+            "type": "endpoint:kubernetes"
+        }
+    }
 
 def get_container_registry_connection_create_object(subscription_id, subscription_name, registry_id, registry_name,
-                                           login_server):
+                                                    login_server):
     return {
-            "containerRegistryConnection": {
-                "resourcetocreate": {
+        "containerRegistryConnection": {
+            "resourcetocreate": {
                 "data": {
                     "registrytype": "ACR",
                     "registryId": registry_id,
@@ -863,13 +865,13 @@ def get_container_registry_connection_create_object(subscription_id, subscriptio
                 "authorization": {
                     "scheme": "serviceprincipal",
                     "parameters": {
-                    "tenantId": "00000000-0000-0000-0000-000000000000",
-                    "servicePrincipalId": "<placeholder>",
-                    "scope": registry_id,
-                    "loginServer": login_server
+                        "tenantId": "00000000-0000-0000-0000-000000000000",
+                        "servicePrincipalId": "<placeholder>",
+                        "scope": registry_id,
+                        "loginServer": login_server
                     }
                 }
-                },
-                "type": "endpoint:containerRegistry"
-            }
-            }
+            },
+            "type": "endpoint:containerRegistry"
+        }
+    }
