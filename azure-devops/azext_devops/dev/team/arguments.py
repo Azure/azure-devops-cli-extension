@@ -17,7 +17,7 @@ from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
 _YES_NO_SWITCH_VALUES = ['yes', 'no']
 _SOURCE_CONTROL_VALUES = ['git', 'tfvc']
 _WIKI_TYPE_VALUES = ['projectwiki', 'codewiki']
-_WIKI_LIST_SCOPE_VALUES = ['project', 'organization']
+_SCOPE_VALUES = ['project', 'organization']
 _PROJECT_VISIBILITY_VALUES = ['private', 'public']
 _STATE_VALUES = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting', 'createpending']
 _SERVICE_ENDPOINT_TYPE = [SERVICE_ENDPOINT_TYPE_GITHUB, SERVICE_ENDPOINT_TYPE_AZURE_RM]
@@ -95,10 +95,12 @@ def load_team_arguments(self, _):
     with self.argument_context('devops security group create') as context:
         context.argument('project',
                          help='Name or ID of the project in which Azure DevOps group should be created.')
+        context.argument('scope', **enum_choice_list(_SCOPE_VALUES))
 
     with self.argument_context('devops security group list') as context:
         context.argument('project',
                          help='List groups for a particular project')
+        context.argument('scope', **enum_choice_list(_SCOPE_VALUES))
 
     with self.argument_context('devops security group membership') as context:
         context.argument('relationship', arg_type=get_enum_type(_RELATIONSHIP_TYPES),
@@ -133,4 +135,4 @@ def load_team_arguments(self, _):
         context.argument('version', options_list=('--version', '-v'))
 
     with self.argument_context('devops wiki list') as context:
-        context.argument('scope', **enum_choice_list(_WIKI_LIST_SCOPE_VALUES))
+        context.argument('scope', **enum_choice_list(_SCOPE_VALUES))
