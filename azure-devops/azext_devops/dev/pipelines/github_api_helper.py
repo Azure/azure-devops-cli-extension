@@ -32,14 +32,16 @@ def get_github_repos_api_url(repo_id):
 def push_files_github(files, repo_name, branch, commit_to_branch, message="Set up CI with Azure Pipelines"):
     if commit_to_branch:
         commit_files_to_github_branch(files, repo_name, branch, message)
-    else:
-        # Create Branch
-        new_branch = create_github_branch(repo=repo_name, source=branch)
-        # Commit files to branch
-        commit_files_to_github_branch(files, repo_name, new_branch, message)
-        # Create PR from new branch
-        pr = create_pr_github(branch, new_branch, repo_name, message)
-        print('Created a Pull Request - {url}'.format(url=pr['url']))
+        return branch
+    # Pull request flow
+    # Create Branch
+    new_branch = create_github_branch(repo=repo_name, source=branch)
+    # Commit files to branch
+    commit_files_to_github_branch(files, repo_name, new_branch, message)
+    # Create PR from new branch
+    pr = create_pr_github(branch, new_branch, repo_name, message)
+    print('Created a Pull Request - {url}'.format(url=pr['url']))
+    return new_branch
 
 
 def create_pr_github(branch, new_branch, repo_name, message):
