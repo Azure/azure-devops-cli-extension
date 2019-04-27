@@ -61,7 +61,8 @@ pipelinesRunOps = CliCommandType(
 )
 
 pipelineRunArtifactsOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.pipelines.runs#{}'
+    operations_tmpl='azext_devops.dev.pipelines.runs#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 
