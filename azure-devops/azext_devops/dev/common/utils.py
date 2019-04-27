@@ -4,6 +4,9 @@
 # --------------------------------------------------------------------------------------------
 
 def open_file(filepath):
+    """
+    Opens a file in the default editor for the file type and exits.
+    """
     import subprocess
     import platform
     import os

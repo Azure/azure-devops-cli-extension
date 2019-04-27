@@ -23,6 +23,8 @@ class GithubCredentialManager():
         self.token = None
 
     def create_token(self, note=None):
+        logger.warning('We need to create a Personal Access Token to communicate with GitHub. '
+                       'A new PAT with scopes (admin:repo_hook, repo, user) will be created.')
         self.username = prompt(msg='Enter your GitHub username (leave blank for using already generated PAT): ')
         print('')
         if not self.username:
@@ -64,7 +66,7 @@ class GithubCredentialManager():
                            note)
             self.token = response_json['token']
             return self.token
-        raise CLIError('Could not create GitHub token. Check your credentials and try again.')
+        raise CLIError('Could not create a Personal Access Token for GitHub. Check your credentials and try again.')
 
     def post_authorization_request(self, headers, body):  # pylint: disable=no-self-use
         return requests.post('https://api.github.com/authorizations',
