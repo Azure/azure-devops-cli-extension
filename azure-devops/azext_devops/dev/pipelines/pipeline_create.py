@@ -678,7 +678,7 @@ def get_se_kubernetes_namespace_request_obj(subscription_id, subscription_name, 
 def get_container_registry_service_connection(organization, project):
     import subprocess
     import json
-    subscription_id, subscription_name, _tenant_id, _environment_name = get_default_subscription_info()
+    subscription_id, subscription_name, tenant_id, _environment_name = get_default_subscription_info()
     logger.warning("Using your default Azure subscription %s for fetching Azure Container Registries.",
                    subscription_name)
     acr_list = subprocess.check_output('az acr list -o json', shell=True)
@@ -695,6 +695,7 @@ def get_container_registry_service_connection(organization, project):
         acr_connection_obj = get_container_registry_connection_create_object(
             subscription_id,
             subscription_name,
+            tenant_id,
             selected_registry['id'],
             selected_registry['name'],
             selected_registry['loginServer'])
@@ -856,8 +857,8 @@ def get_kubernetes_connection_create_object(subscription_id, subscription_name, 
         }
     }
 
-def get_container_registry_connection_create_object(subscription_id, subscription_name, registry_id, registry_name,
-                                                    login_server):
+def get_container_registry_connection_create_object(subscription_id, subscription_name, tenant_id, registry_id,
+                                                    registry_name, login_server):
     return {
         "containerRegistryConnection": {
             "resourcetocreate": {
@@ -873,7 +874,7 @@ def get_container_registry_connection_create_object(subscription_id, subscriptio
                 "authorization": {
                     "scheme": "serviceprincipal",
                     "parameters": {
-                        "tenantId": "00000000-0000-0000-0000-000000000000",
+                        "tenantId": tenant_id,
                         "servicePrincipalId": "<placeholder>",
                         "scope": registry_id,
                         "loginServer": login_server
