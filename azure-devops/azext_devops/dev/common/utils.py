@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+
 def open_file(filepath):
     """
     Opens a file in the default editor for the file type and exits.
@@ -32,9 +33,9 @@ def randomword(length):
 
 
 # Decorators
-
 def singleton(myclass):
     instance = [None]
+
     def wrapper(*args, **kwargs):
         if instance[0] is None:
             instance[0] = myclass(*args, **kwargs)

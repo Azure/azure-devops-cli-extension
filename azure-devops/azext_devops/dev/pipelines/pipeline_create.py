@@ -24,6 +24,7 @@ from .github_api_helper import get_github_pat_token, push_files_github, get_gith
 
 logger = get_logger(__name__)
 
+
 # pylint: disable=too-few-public-methods
 class YmlOptions:
     def __init__(self, name, id, content, description='Custom yml', params=None, path=None, assets=None):  # pylint: disable=redefined-builtin
@@ -35,8 +36,10 @@ class YmlOptions:
         self.params = params
         self.assets = assets
 
+
 _GITHUB_REPO_TYPE = 'github'
 _AZURE_GIT_REPO_TYPE = 'tfsgit'
+
 
 def pipeline_create(name, description=None, repository=None, branch=None, yml_path=None, repository_type=None,
                     service_connection=None, organization=None, project=None, detect=None, queue_id=None):
@@ -257,12 +260,12 @@ def _get_service_endpoints(organization, project, endpoint_type=None):
     all_connections = client.get_service_endpoints(project)
     if endpoint_type is None:
         return all_connections
-    else:
-        filtered_connection = []
-        for connection in all_connections:
-            if connection.type.lower() == endpoint_type.lower():
-                filtered_connection.append(connection)
-        return filtered_connection
+    filtered_connection = []
+    for connection in all_connections:
+        if connection.type.lower() == endpoint_type.lower():
+            filtered_connection.append(connection)
+    return filtered_connection
+
 
 def get_github_service_endpoint(organization, project):
     """
@@ -292,13 +295,13 @@ def get_github_service_endpoint(organization, project):
         github_pat = get_github_pat_token()
         se_name = prompt('Enter a service endpoint name to create? ')
         print('')
-        service_endpoint_authorization = EndpointAuthorization(parameters={'accessToken':github_pat},
+        service_endpoint_authorization = EndpointAuthorization(parameters={'accessToken': github_pat},
                                                                scheme='PersonalAccessToken')
         service_endpoint_to_create = ServiceEndpoint(authorization=service_endpoint_authorization,
                                                      name=se_name, type='github',
                                                      url='https://github.com/')
         return se_client.create_service_endpoint(service_endpoint_to_create, project).id
-    return existing_service_endpoints[choice-1].id
+    return existing_service_endpoints[choice - 1].id
 
 
 def try_get_repository_type(url):
@@ -336,7 +339,6 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
     from operator import attrgetter
     recommendations = sorted(recommendations, key=attrgetter('recommended_weight'), reverse=True)
     for recommendation in recommendations:
-        logger.debug(recommendation.name)
         yml_names.append(recommendation.name)
         yml_options.append(YmlOptions(name=recommendation.name, content=recommendation.content,
                                       id=recommendation.id, description=recommendation.description,
@@ -355,10 +357,7 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
             yml_options[yml_selection_index].content, yml_options[yml_selection_index].assets = _handle_yml_props(
                 params_required=yml_options[yml_selection_index].params,
                 template_id=yml_options[yml_selection_index].id,
-                cix_client=cix_client,
-                repo_name=repo_name,
-                organization=organization,
-                project=project)
+                cix_client=cix_client, repo_name=repo_name, organization=organization, project=project)
         temp_dir = tempfile.mkdtemp(prefix='AzurePipelines_')
         temp_filename = os.path.join(temp_dir, 'azure-pipelines.yml')
         f = open(temp_filename, mode='w')
@@ -372,7 +371,6 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
             'Do you want to view/edit the template yaml before proceeding?',
             ['Continue with generated yaml', 'View or edit the yaml'])
         if view_choice == 1:
-            # open the file
             open_file(temp_filename)
             proceed_selection = prompt_user_friendly_choice_list(
                 'Do you want to proceed creating a pipeline?',
@@ -396,27 +394,23 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
         count_file = count_file + 1
 
     if default_yml_exists and checkin_path.strip('/') == 'azure-pipelines.yml':
-        # atbagga todo update file
         print('Edits on the existing yaml can be done in the code repository.')
     else:
-        commit_strategy_choice_list = ['Commit directly to the {branch} branch.'.format(branch=branch),
-                                       'Create a new branch for this commit and start a pull request.']
-        commit_choice = prompt_user_friendly_choice_list("How do you want to commit the files to the repository?",
-                                                         commit_strategy_choice_list)
-        commit_direct_to_branch = True
-        if commit_choice == 1:
-            commit_direct_to_branch = False
-
-        if repository_type == _GITHUB_REPO_TYPE:
-            queue_branch = push_files_github(files, repo_name, branch, commit_direct_to_branch)
-        elif repository_type == _AZURE_GIT_REPO_TYPE:
-            queue_branch = push_files_to_azure_repo(files, repo_name, branch, commit_direct_to_branch,
-                                                    organization, project)
-        else:
-            logger.warning('File checkin is not handled for this repository type. '
-                           'Checkin the created yml in the repository and then run '
-                           'the pipeline created by this command.')
+        queue_branch = push_files_to_repository(organization, project, repo_name, branch, files, repository_type)
     return checkin_path, queue_branch
+
+
+def push_files_to_repository(organization, project, repo_name, branch, files, repository_type):
+    commit_strategy_choice_list = ['Commit directly to the {branch} branch.'.format(branch=branch),
+                                   'Create a new branch for this commit and start a pull request.']
+    commit_choice = prompt_user_friendly_choice_list("How do you want to commit the files to the repository?",
+                                                     commit_strategy_choice_list)
+    commit_direct_to_branch = commit_choice == 1
+    if repository_type == _GITHUB_REPO_TYPE:
+        return push_files_github(files, repo_name, branch, commit_direct_to_branch)
+    elif repository_type == _AZURE_GIT_REPO_TYPE:
+        return push_files_to_azure_repo(files, repo_name, branch, commit_direct_to_branch, organization, project)
+    raise CLIError('File push failed: Repository type not supported.')
 
 
 def push_files_to_azure_repo(files, repo_name, branch, commit_to_branch, organization, project,
@@ -439,7 +433,7 @@ def get_new_azure_repo_branch(organization, project, repository, source):
     # get source ref object id
     object_id = None
     branch = resolve_git_ref_heads(source)
-    filter_str = branch[5:] # remove 'refs' to use as filter
+    filter_str = branch[5:]  # remove 'refs' to use as filter
     refs_list = list_refs(filter=filter_str, repository=repository, organization=organization, project=project)
     for ref in refs_list:
         if ref.name == branch:
@@ -452,10 +446,9 @@ def get_new_azure_repo_branch(organization, project, repository, source):
     while not branch_is_valid:
         new_branch = prompt(msg='Enter new branch name to create: ')
         try:
-            _created_ref = create_ref('heads/' + new_branch, object_id, repository, organization, project)
+            create_ref('heads/' + new_branch, object_id, repository, organization, project)
             branch_is_valid = True
-            # todo atbagga handle exceptions correctly
-        except BaseException:
+        except Exception:  # pylint: disable=broad-except
             logger.warning('Not a valid branch name.')
     return new_branch
 
@@ -525,10 +518,10 @@ def _get_commits_object(path_to_commit, content, message):
 
 def _get_pipelines_trigger(repo_type):
     if repo_type.lower() == _GITHUB_REPO_TYPE:
-        return [{"settingsSourceType":2, "triggerType":2},
-                {"forks":{"enabled": "true", "allowSecrets": "false"},
-                 "settingsSourceType":2, "triggerType": "pullRequest"}]
-    return [{"settingsSourceType":2, "triggerType":2}]
+        return [{"settingsSourceType": 2, "triggerType": 2},
+                {"forks": {"enabled": "true", "allowSecrets": "false"},
+                 "settingsSourceType": 2, "triggerType": "pullRequest"}]
+    return [{"settingsSourceType": 2, "triggerType": 2}]
 
 
 def _handle_yml_props(params_required, template_id, cix_client, repo_name, organization, project):
@@ -562,7 +555,7 @@ def _handle_yml_props(params_required, template_id, cix_client, repo_name, organ
             params_to_render[param.name] = input_value
             prop_found = True
     rendered_template = cix_client.render_template(template_id=template_id,
-                                                   template_parameters={'tokens':params_to_render})
+                                                   template_parameters={'tokens': params_to_render})
     return rendered_template.content, rendered_template.assets
 
 
@@ -632,11 +625,9 @@ def get_kubernetes_environment_resource(organization, project, repo_name):
         kubernetes_environment_resource = cix_client.create_resources(creation_parameters=kubernetes_env_obj,
                                                                       project=project)
         return kubernetes_environment_resource.resources['k8sResource']
-    else:
-        raise CLIError('There are no AKS clusters under your subscription. '
-                       'Create the clusters or switch to another subscription, verify with '
-                       'command \'az aks list\' and try again.')
-    return None
+    raise CLIError('There are no AKS clusters under your subscription. '
+                   'Create the clusters or switch to another subscription, verify with '
+                   'command \'az aks list\' and try again.')
 
 
 def get_kubernetes_namespace(organization, project, cluster, subscription_id, subscription_name,
@@ -663,7 +654,7 @@ def get_kubernetes_namespace(organization, project, cluster, subscription_id, su
         print('')
     else:
         create_namespace = False
-        namespace = existing_namespace_list[choice-1]
+        namespace = existing_namespace_list[choice - 1]
     return create_namespace, namespace
 
 
@@ -698,8 +689,8 @@ def get_se_kubernetes_namespace_request_obj(subscription_id, subscription_name, 
             },
             "type": "Kubernetes",
             "url": "https://" + fqdn
-            }
         }
+    }
 
 
 def get_container_registry_service_connection(organization, project):
@@ -730,11 +721,9 @@ def get_container_registry_service_connection(organization, project):
         poll_connection_ready(organization, project,
                               acr_container_resource.resources['containerRegistryConnection']['Id'])
         return acr_container_resource.resources['containerRegistryConnection']
-    else:
-        raise CLIError('There is no Azure container registry associated with your subscription. '
-                       'Create an ACR or switch to another subscription, '
-                       'verify with command \'az acr list\' and try again.')
-    return None
+    raise CLIError('There is no Azure container registry associated with your subscription. '
+                   'Create an ACR or switch to another subscription, '
+                   'verify with command \'az acr list\' and try again.')
 
 
 def poll_connection_ready(organization, project, connection_id):
@@ -763,8 +752,8 @@ def _is_intelligent_handling_enabled_for_prop_type(prop_type):
 
 
 def _prompt_for_prop_input(prop_name, prop_type):
-    verify_is_a_tty_or_raise_error('The template requires a few inputs. These can be provided as --yml-props '\
-                                   'in the command arguments or be input interatively.')
+    verify_is_a_tty_or_raise_error('The template requires a few inputs. These cannot be provided as in command '
+                                   'arguments. It can only be input interatively.')
     val = prompt(msg='Please enter a value for {prop_name}: '.format(prop_name=prop_name),
                  help_string='Value of type {prop_type} is required.'.format(prop_type=prop_type))
     print('')
@@ -856,6 +845,7 @@ def get_kubernetes_resource_create_object(resource_name, cluster_name, repo_name
         }
     }
 
+
 def get_kubernetes_connection_create_object(subscription_id, subscription_name, cluster_id, cluster_name, fqdn,
                                             tenant_id, namespace, create_namespace, azure_env):
     return {
@@ -883,6 +873,7 @@ def get_kubernetes_connection_create_object(subscription_id, subscription_name, 
             "type": "endpoint:kubernetes"
         }
     }
+
 
 def get_container_registry_connection_create_object(subscription_id, subscription_name, tenant_id, registry_id,
                                                     registry_name, login_server):

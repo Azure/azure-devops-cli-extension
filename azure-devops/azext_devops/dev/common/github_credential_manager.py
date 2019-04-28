@@ -38,13 +38,13 @@ class GithubCredentialManager():
         encoded_pass = base64.b64encode(self.username.encode('utf-8') + b':' + self.password.encode('utf-8'))
         basic_auth = 'basic ' + encoded_pass.decode("utf-8")
         request_body = {
-            "scopes": [
+            'scopes': [
                 'admin:repo_hook',
                 'repo',
                 'user'
-                ],
-            "note": note
-            }
+            ],
+            'note': note
+        }
         headers = {'Content-Type': 'application/json' + '; charset=utf-8',
                    'Accept': 'application/json',
                    'Authorization': basic_auth}
@@ -79,7 +79,6 @@ class GithubCredentialManager():
         if github_pat:
             logger.warning('Using GitHub PAT token found in environment variable (%s).', AZ_DEVOPS_GITHUB_PAT_ENVKEY)
             return github_pat
-
         if not self.token:
             return self.create_token(note=note)
         return self.token

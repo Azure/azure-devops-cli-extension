@@ -20,10 +20,8 @@ def delete_last_line():
     "Use this function to delete the last line in the STDOUT"
     from colorama import init
     init()
-
     # cursor up one line
     sys.stdout.write('\x1b[1A')
-
     # delete last line
     sys.stdout.write('\x1b[2K')
 
@@ -86,6 +84,7 @@ def verify_is_a_tty_or_raise_error(error_msg=None):
         verify_is_a_tty()
     except NoTTYException:
         raise NoTTYException(error_msg)
+
 
 def try_verify_is_a_tty():
     """

@@ -100,6 +100,7 @@ def get_default_subscription_info():
             return subscription['id'], subscription['name'], subscription['tenantId'], subscription['environmentName']
     return None, None, None, None
 
+
 def get_token_from_az_logins(organization, pat_token_present):
     profile = Profile()
     dummy_user = profile.get_current_account_user()     # noqa: F841
