@@ -405,7 +405,7 @@ def push_files_to_repository(organization, project, repo_name, branch, files, re
                                    'Create a new branch for this commit and start a pull request.']
     commit_choice = prompt_user_friendly_choice_list("How do you want to commit the files to the repository?",
                                                      commit_strategy_choice_list)
-    commit_direct_to_branch = commit_choice == 1
+    commit_direct_to_branch = commit_choice == 0
     if repository_type == _GITHUB_REPO_TYPE:
         return push_files_github(files, repo_name, branch, commit_direct_to_branch)
     if repository_type == _AZURE_GIT_REPO_TYPE:
@@ -707,7 +707,7 @@ def get_container_registry_service_connection(organization, project):
         for acr_clusters in acr_list:
             registry_choice_list.append(acr_clusters['name'])
         registry_choice = prompt_user_friendly_choice_list(
-            "Which Azure Container Registry do you want to use for this pipeline", registry_choice_list)
+            "Which Azure Container Registry do you want to use for this pipeline?", registry_choice_list)
         selected_registry = acr_list[registry_choice]
         cix_client = get_new_cix_client(organization=organization)
         acr_connection_obj = get_container_registry_connection_create_object(
