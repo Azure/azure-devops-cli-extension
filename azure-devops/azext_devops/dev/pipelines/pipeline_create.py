@@ -579,6 +579,7 @@ def get_azure_rm_service_connection_id(organization, project):
 def get_azure_rm_service_connection(organization, project):
     logger.debug('Create a new Azure Resource Manager service connection')
     subscription_id, subscription_name, tenant_id, environment_name = get_default_subscription_info()
+    logger.warning("Using your default Azure subscription %s for creating Azure RM connection.", subscription_name)
     cix_client = get_new_cix_client(organization=organization)
     azure_rm_connection_create_obj = get_azure_rm_connection_create_object(
         subscription_id, subscription_name, environment_name, tenant_id)
