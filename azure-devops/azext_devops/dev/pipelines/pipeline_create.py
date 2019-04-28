@@ -312,7 +312,7 @@ def try_get_repository_type(url):
     return None
 
 
-def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, branch,
+def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, branch,  # pylint: disable=too-many-locals, too-many-statements
                              service_endpoint, project, organization):
     logger.debug('No yml file was given. Trying to find the yml file in the repo.')
     queue_branch = branch
@@ -408,7 +408,7 @@ def push_files_to_repository(organization, project, repo_name, branch, files, re
     commit_direct_to_branch = commit_choice == 1
     if repository_type == _GITHUB_REPO_TYPE:
         return push_files_github(files, repo_name, branch, commit_direct_to_branch)
-    elif repository_type == _AZURE_GIT_REPO_TYPE:
+    if repository_type == _AZURE_GIT_REPO_TYPE:
         return push_files_to_azure_repo(files, repo_name, branch, commit_direct_to_branch, organization, project)
     raise CLIError('File push failed: Repository type not supported.')
 

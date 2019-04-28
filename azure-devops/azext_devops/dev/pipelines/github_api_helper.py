@@ -122,10 +122,9 @@ def get_github_branch(repo, branch):
                 if ref['ref'] == head_ref_name:
                     return ref, False
             return None, False
-        elif refs['ref'] == head_ref_name:
+        if refs['ref'] == head_ref_name:
             return refs, False
-        else:
-            raise CLIError('Cannot get branch ({branch})'.format(branch=branch))
+    raise CLIError('Cannot get branch ({branch})'.format(branch=branch))
 
 
 def commit_files_to_github_branch(files, repo_name, branch, message):
