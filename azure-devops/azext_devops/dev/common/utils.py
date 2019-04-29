@@ -25,7 +25,6 @@ def delete_dir(path):
     shutil.rmtree(path)
 
 
-
 def datetime_now_as_string():
     from datetime import datetime
     now = datetime.utcnow().isoformat()
