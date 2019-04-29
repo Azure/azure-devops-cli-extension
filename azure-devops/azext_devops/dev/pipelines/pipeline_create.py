@@ -254,6 +254,7 @@ def _create_process_object(yaml_path):
         "type": 2
     }
 
+
 def try_get_repository_type(url):
     if 'https://github.com' in url:
         return _GITHUB_REPO_TYPE

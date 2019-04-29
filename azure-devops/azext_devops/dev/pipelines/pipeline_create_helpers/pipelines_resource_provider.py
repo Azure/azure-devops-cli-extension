@@ -52,7 +52,6 @@ def get_github_service_endpoint(organization, project):
     return existing_service_endpoints[choice - 1].id
 
 
-
 def _get_service_endpoints(organization, project, endpoint_type=None):
     """
     Get the list of existing service connections filtered by type if mentioned
