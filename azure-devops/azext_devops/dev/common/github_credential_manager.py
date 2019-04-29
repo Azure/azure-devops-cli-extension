@@ -33,7 +33,7 @@ class GithubCredentialManager():
         if not self.username:
             self.token = prompt_pass(msg='Enter your GitHub PAT: ')
             print('')
-            return self.token
+            return
         self.password = prompt_pass(msg='Enter your GitHub password: ')
         print('')
         if not note:
