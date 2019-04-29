@@ -9,6 +9,7 @@ from knack.prompting import prompt, prompt_pass
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.utils import randomword, singleton
+from azext_devops.dev.common.const import AZ_DEVOPS_GITHUB_PAT_ENVKEY
 
 logger = get_logger(__name__)
 
@@ -25,6 +26,8 @@ class GithubCredentialManager():
     def create_token(self, note=None):
         logger.warning('We need to create a Personal Access Token to communicate with GitHub. '
                        'A new PAT with scopes (admin:repo_hook, repo, user) will be created.')
+        logger.warning('You can set the PAT in the environment variable (%s) to avoid getting prompted.',
+                       AZ_DEVOPS_GITHUB_PAT_ENVKEY)
         self.username = prompt(msg='Enter your GitHub username (leave blank for using already generated PAT): ')
         print('')
         if not self.username:
@@ -74,7 +77,6 @@ class GithubCredentialManager():
 
     def get_token(self, note=None):
         import os
-        from azext_devops.dev.common.const import AZ_DEVOPS_GITHUB_PAT_ENVKEY
         github_pat = os.getenv(AZ_DEVOPS_GITHUB_PAT_ENVKEY, None)
         if github_pat:
             logger.warning('Using GitHub PAT token found in environment variable (%s).', AZ_DEVOPS_GITHUB_PAT_ENVKEY)
