@@ -33,6 +33,26 @@ class ConfigurationFile(Model):
         self.path = path
 
 
+class CreatedResources(Model):
+    """CreatedResources.
+
+    :param error:
+    :type error: str
+    :param resources:
+    :type resources: dict
+    """
+
+    _attribute_map = {
+        'error': {'key': 'error', 'type': 'str'},
+        'resources': {'key': 'resources', 'type': '{object}'}
+    }
+
+    def __init__(self, error=None, resources=None):
+        super(CreatedResources, self).__init__()
+        self.error = error
+        self.resources = resources
+
+
 class CreatePipelineConnectionInputs(Model):
     """CreatePipelineConnectionInputs.
 
@@ -525,6 +545,7 @@ class TeamProject(TeamProjectReference):
 
 __all__ = [
     'ConfigurationFile',
+    'CreatedResources',
     'CreatePipelineConnectionInputs',
     'DetectedBuildFramework',
     'DetectedBuildTarget',
