@@ -25,11 +25,11 @@ def delete_dir(path):
     shutil.rmtree(path)
 
 
-def randomword(length):
-    import string
-    import random
-    letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for i in range(length))
+
+def datetime_now_as_string():
+    from datetime import datetime
+    now = datetime.utcnow().isoformat()
+    return ''.join(e for e in now if e.isalnum())
 
 
 # Decorators

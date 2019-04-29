@@ -98,6 +98,7 @@ def get_default_subscription_info():
     for subscription in subscriptions:
         if subscription['isDefault']:
             return subscription['id'], subscription['name'], subscription['tenantId'], subscription['environmentName']
+    logger.debug('Your account does not have a default Azure subscription. Please run \'az login\' to setup account.')
     return None, None, None, None
 
 
