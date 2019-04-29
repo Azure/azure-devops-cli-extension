@@ -46,7 +46,7 @@ _AZURE_GIT_REPO_TYPE = 'tfsgit'
 
 def pipeline_create(name, description=None, repository=None, branch=None, yml_path=None, repository_type=None,
                     service_connection=None, organization=None, project=None, detect=None, queue_id=None):
-    """Create a pipeline
+    """ Create a new Azure Pipeline (YAML based)
     :param name: Name of the new pipeline
     :type name: str
     :param description: Description for the new pipeline
