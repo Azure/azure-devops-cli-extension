@@ -504,6 +504,6 @@ def _get_agent_queue_by_heuristic(organization, project):
             if not found_first_hosted_pool_queue and queue.pool.is_hosted:
                 choosen_queue = queue
                 found_first_hosted_pool_queue = True
-        logger.warning('Auto detecting agent pool. Queue: %s, Pool: %s', choosen_queue.name, choosen_queue.pool.name)
+        logger.debug('Auto detecting agent pool. Queue: %s, Pool: %s', choosen_queue.name, choosen_queue.pool.name)
         return choosen_queue.id
     return None
