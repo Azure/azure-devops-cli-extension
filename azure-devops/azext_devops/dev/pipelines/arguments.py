@@ -66,3 +66,6 @@ def load_build_arguments(self, _):
             'repository_type',
             choices=['tfsversioncontrol', 'tfsgit', 'git', 'github', 'githubenterprise', 'bitbucket', 'svn'],
             type=str.lower)
+
+    with self.argument_context('pipelines create') as context:
+        context.argument('repository_type', choices=['tfsgit', 'github'], type=str.lower)

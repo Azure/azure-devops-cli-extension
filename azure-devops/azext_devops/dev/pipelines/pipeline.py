@@ -142,6 +142,7 @@ def pipeline_delete(id, organization=None, project=None, detect=None):  # pylint
         detect=detect, organization=organization, project=project)
     client = get_build_client(organization)
     build = client.delete_definition(definition_id=id, project=project)
+    print('Pipeline {id} was deleted successfully.'.format(id=id))
     return build
 
 

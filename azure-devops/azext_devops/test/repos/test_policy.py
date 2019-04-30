@@ -195,7 +195,8 @@ class TestUuidMethods(AuthenticatedTests):
             'scope':[
                 {
                     'refName': 'ref\heads\master',
-                        'repositoryId':self._TEST_REPOSITORY_ID
+                    'repositoryId':self._TEST_REPOSITORY_ID,
+                    'matchKind': 'exact'
                         }
                         ]
             }

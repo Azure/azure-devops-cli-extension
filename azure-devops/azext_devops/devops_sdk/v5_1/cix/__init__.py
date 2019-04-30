@@ -11,6 +11,7 @@ from .cix_client import CixClient
 
 __all__ = [
     'ConfigurationFile',
+    'CreatedResources',
     'CreatePipelineConnectionInputs',
     'DetectedBuildFramework',
     'DetectedBuildTarget',
