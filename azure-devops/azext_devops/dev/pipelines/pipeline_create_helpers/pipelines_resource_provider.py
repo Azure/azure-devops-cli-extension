@@ -22,6 +22,8 @@ def get_github_service_endpoint(organization, project):
     Service endpoint connection name is asked as input from the user, if the environment is non interative
     name is set to default  AzureDevopsCliCreatePipelineFlow
     """
+    from azext_devops.dev.common.identities import get_current_identity, get_account_from_identity
+    authenticated_user_unique_id = get_account_from_identity(get_current_identity(organization))
     se_client = get_service_endpoint_client(organization)
     existing_service_endpoints = _get_service_endpoints(organization, project, 'github')
     service_endpoints_choice_list = ['Create new GitHub service connection']
@@ -30,9 +32,10 @@ def get_github_service_endpoint(organization, project):
     for endpoint in existing_service_endpoints:
         if endpoint.authorization.scheme == 'InstallationToken':
             service_endpoints_choice_list.append('{} {}'.format(endpoint.name, '(Recommended)'))
-        else:
+            github_service_endpoints.append(endpoint)
+        elif authenticated_user_unique_id == endpoint.created_by.unique_name:
             service_endpoints_choice_list.append('{}'.format(endpoint.name))
-        github_service_endpoints.append(endpoint)
+            github_service_endpoints.append(endpoint)
     if github_service_endpoints:
         choice = prompt_user_friendly_choice_list(
             "Which service connection do you want to use to communicate with GitHub?",
