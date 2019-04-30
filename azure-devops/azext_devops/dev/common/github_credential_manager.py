@@ -31,10 +31,12 @@ class GithubCredentialManager():
         self.username = prompt(msg='Enter your GitHub username (leave blank for using already generated PAT): ')
         print('')
         if not self.username:
-            self.token = prompt_pass(msg='Enter your GitHub PAT: ')
+            while not self.token:
+                self.token = prompt_pass(msg='Enter your GitHub PAT: ', help_string='Generate a Personal Access Token '
+                                         'with approproate permissions from GitHub Developer settings and paste here.')
             print('')
             return
-        self.password = prompt_pass(msg='Enter your GitHub password: ')
+        self.password = prompt_pass(msg='Enter your GitHub password: ', confirm=True)
         print('')
         if not note:
             note = "AzureDevopsCLIExtensionToken_" + datetime_now_as_string()
@@ -54,7 +56,9 @@ class GithubCredentialManager():
         response = self.post_authorization_request(headers=headers, body=request_body)
         if (response.status_code == 401 and response.headers.get('X-GitHub-OTP') and
                 response.headers.get('X-GitHub-OTP').startswith('required')):
-            two_factor_code = prompt_pass(msg='Enter your two factor authentication code: ')
+            two_factor_code = None
+            while not two_factor_code:
+                two_factor_code = prompt_pass(msg='Enter your two factor authentication code: ')
             print('')
             headers = {'Content-Type': 'application/json' + '; charset=utf-8',
                        'Accept': 'application/json',

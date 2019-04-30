@@ -6,8 +6,7 @@
 import sys
 
 from knack.log import get_logger
-from knack.prompting import NoTTYException
-from knack.prompting import verify_is_a_tty
+from knack.prompting import NoTTYException, verify_is_a_tty, prompt
 
 logger = get_logger(__name__)
 
@@ -73,6 +72,18 @@ def prompt_user_friendly_choice_list(msg, a_list, default=1, help_string=None, e
                 delete_last_line()
             print('Please enter a choice [Default choice({})]: {}'.format(default, val))
             logger.warning('Valid values are %s', allowed_vals)
+
+
+def prompt_not_empty(msg, help_string=None):
+    """
+    Wrapper on knacks prompt function which does not return until non none value is recieved from user input.
+    """
+    if not help_string:
+        help_string = 'This field cannot be left blank.'
+    user_input = None
+    while not user_input:
+        user_input = prompt(msg=msg, help_string=help_string)
+    return user_input
 
 
 def verify_is_a_tty_or_raise_error(error_msg=None):

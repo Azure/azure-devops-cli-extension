@@ -15,7 +15,8 @@ from azext_devops.dev.common.utils import open_file, delete_dir
 from azext_devops.dev.common.git import get_remote_url, get_current_branch_name
 from azext_devops.dev.common.arguments import should_detect
 from azext_devops.dev.common.prompting import (prompt_user_friendly_choice_list,
-                                               verify_is_a_tty_or_raise_error)
+                                               verify_is_a_tty_or_raise_error,
+                                               prompt_not_empty)
 from azext_devops.dev.pipelines.pipeline_create_helpers.github_api_helper import (
     push_files_github, get_github_repos_api_url, Files)
 from azext_devops.dev.pipelines.pipeline_create_helpers.pipelines_resource_provider import (
@@ -334,8 +335,9 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
     checkin_path = 'azure-pipelines.yml'
     if default_yml_exists and not yml_options[yml_selection_index].path:  # We need yml path from user
         logger.warning('A yaml file azure-pipelines.yml already exists in the repository root.')
-        checkin_path = prompt(msg='Enter a yaml file path to checkin the new pipeline yaml in the repository? ',
-                              help_string='e.g. /new_azure-pipeline.yml to add in the root folder.')
+        checkin_path = prompt_not_empty(
+            msg='Enter a yaml file path to checkin the new pipeline yaml in the repository? ',
+            help_string='e.g. /new_azure-pipeline.yml to add in the root folder.')
         print('')
     files.append(Files(checkin_path, content))
     print('Files to be added to your repository ({numfiles})'.format(numfiles=len(files)))

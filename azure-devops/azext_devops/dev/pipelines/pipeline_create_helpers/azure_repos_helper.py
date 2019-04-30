@@ -4,8 +4,8 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.log import get_logger
-from knack.prompting import prompt
 from knack.util import CLIError
+from azext_devops.dev.common.prompting import prompt_not_empty
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.services import get_git_client
 
@@ -44,7 +44,7 @@ def get_new_azure_repo_branch(organization, project, repository, source):
     # get valid branch name
     branch_is_valid = False
     while not branch_is_valid:
-        new_branch = prompt(msg='Enter new branch name to create: ')
+        new_branch = prompt_not_empty(msg='Enter new branch name to create: ')
         try:
             create_ref('heads/' + new_branch, object_id, repository, organization, project)
             branch_is_valid = True
