@@ -93,8 +93,9 @@ def update_policy_configuration_file(policy_id, policy_configuration, organizati
             configuration_id=policy_id)
 
 
-def create_policy_approver_count(repository_id, branch, branch_match_type, is_blocking, is_enabled,
+def create_policy_approver_count(repository_id, branch, is_blocking, is_enabled,
                                  minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
+                                 branch_match_type='exact',
                                  organization=None, project=None, detect=None):
     """Create approver count policy
     """
@@ -150,8 +151,9 @@ def update_policy_approver_count(policy_id,
     )
 
 
-def create_policy_required_reviewer(repository_id, branch, branch_match_type, is_blocking, is_enabled,
+def create_policy_required_reviewer(repository_id, branch, is_blocking, is_enabled,
                                     message, required_reviewer_ids,
+                                    branch_match_type='exact',
                                     path_filter=None,
                                     organization=None, project=None, detect=None):
     """Create required reviewer policy
@@ -212,8 +214,9 @@ def update_policy_required_reviewer(policy_id,
     )
 
 
-def create_policy_merge_strategy(repository_id, branch, is_blocking, is_enabled, branch_match_type,
+def create_policy_merge_strategy(repository_id, branch, is_blocking, is_enabled,
                                  use_squash_merge,
+                                 branch_match_type='exact',
                                  organization=None, project=None, detect=None):
     """Create merge strategy policy
     """
@@ -267,9 +270,10 @@ def update_policy_merge_strategy(policy_id,
     )
 
 
-def create_policy_build(repository_id, branch, branch_match_type, is_blocking, is_enabled,
+def create_policy_build(repository_id, branch, is_blocking, is_enabled,
                         build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
                         path_filter=None,
+                        branch_match_type='exact',
                         organization=None, project=None, detect=None):
     """Create build policy
     """
@@ -401,8 +405,9 @@ def update_policy_file_size(policy_id,
     )
 
 
-def create_policy_comment_required(repository_id, branch, branch_match_type,
+def create_policy_comment_required(repository_id, branch,
                                    is_blocking, is_enabled,
+                                   branch_match_type='exact',
                                    organization=None, project=None, detect=None):
     """Create comment resolution required policy.
     """
@@ -446,8 +451,9 @@ def update_policy_comment_required(policy_id,
     )
 
 
-def create_policy_work_item_linking(repository_id, branch, branch_match_type,
+def create_policy_work_item_linking(repository_id, branch,
                                     is_blocking, is_enabled,
+                                    branch_match_type='exact',
                                     organization=None, project=None, detect=None):
     """Create work item linking policy.
     """
