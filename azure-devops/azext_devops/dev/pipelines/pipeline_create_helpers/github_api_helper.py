@@ -5,7 +5,7 @@
 import requests
 from knack.log import get_logger
 from knack.util import CLIError
-from knack.prompting import prompt
+from azext_devops.dev.common.prompting import prompt_not_empty
 from azext_devops.dev.common.git import resolve_git_ref_heads, get_branch_name_from_ref
 
 logger = get_logger(__name__)
@@ -73,7 +73,7 @@ def create_github_branch(repo, source):
     # Validate new branch name is valid
     branch_is_valid = False
     while not branch_is_valid:
-        new_branch = prompt(msg='Enter new branch name to create: ')
+        new_branch = prompt_not_empty(msg='Enter new branch name to create: ')
         ref, is_folder = get_github_branch(repo, new_branch)
         if not ref and not is_folder:
             branch_is_valid = True

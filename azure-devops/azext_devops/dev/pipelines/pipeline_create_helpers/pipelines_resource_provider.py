@@ -5,8 +5,7 @@
 
 from knack.log import get_logger
 from knack.util import CLIError
-from knack.prompting import prompt
-from azext_devops.dev.common.prompting import prompt_user_friendly_choice_list
+from azext_devops.dev.common.prompting import prompt_user_friendly_choice_list, prompt_not_empty
 from azext_devops.dev.common.services import (
     get_service_endpoint_client, get_new_cix_client, get_default_subscription_info)
 from azext_devops.dev.pipelines.pipeline_create_helpers.github_api_helper import get_github_pat_token
@@ -30,9 +29,9 @@ def get_github_service_endpoint(organization, project):
     choice = 0
     for endpoint in existing_service_endpoints:
         if endpoint.authorization.scheme == 'InstallationToken':
-            service_endpoints_choice_list.append('Name: {} {}'.format(endpoint.name, '(Recommended)'))
+            service_endpoints_choice_list.append('{} {}'.format(endpoint.name, '(Recommended)'))
         else:
-            service_endpoints_choice_list.append('Name: {}'.format(endpoint.name))
+            service_endpoints_choice_list.append('{}'.format(endpoint.name))
         github_service_endpoints.append(endpoint)
     if github_service_endpoints:
         choice = prompt_user_friendly_choice_list(
@@ -41,7 +40,7 @@ def get_github_service_endpoint(organization, project):
     if choice == 0:
         logger.debug("Creating a new service endpoint.")
         github_pat = get_github_pat_token()
-        se_name = prompt('Enter a service endpoint name to create? ')
+        se_name = prompt_not_empty('Enter a service endpoint name to create? ')
         print('')
         service_endpoint_authorization = EndpointAuthorization(parameters={'accessToken': github_pat},
                                                                scheme='PersonalAccessToken')
@@ -147,7 +146,7 @@ def get_kubernetes_namespace(organization, project, cluster, subscription_id, su
                                               choice_list)
     if choice == 0:
         create_namespace = True
-        namespace = prompt("Enter a name for new namespace to create: ")
+        namespace = prompt_not_empty("Enter a name for new namespace to create: ")
         print('')
     else:
         create_namespace = False
@@ -255,7 +254,7 @@ def get_webapp_from_list_selection():
             "Which Web App do you want to target?", app_choice_list)
         return webapp_list[app_choice]['name']
     raise CLIError('There are no Web apps in this subscription. Either create a Web App using this subscription '
-                   'or change to another subscription. Verify with command \'az webapp list\'')
+                   'or change to another subscription. Verify with command \'az webapp list\'.')
 
 
 def get_kubernetes_resource_create_object(resource_name, cluster_name, repo_name,
