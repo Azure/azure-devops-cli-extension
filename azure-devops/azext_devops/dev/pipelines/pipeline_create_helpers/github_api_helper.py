@@ -167,4 +167,5 @@ def commit_file_to_github_branch(path_to_commit, content, repo_name, branch, mes
         if not response.status_code == _HTTP_CREATED_STATUS:
             raise CLIError('GitHub file checkin failed for file ({file}). Status Code ({code}).'.format(
                 file=path_to_commit, code=response.status_code))
-    raise CLIError('GitHub file checkin failed. File path or content is empty.')
+    else:
+        raise CLIError('GitHub file checkin failed. File path or content is empty.')
