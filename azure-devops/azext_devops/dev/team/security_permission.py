@@ -34,15 +34,13 @@ def show_namespace(namespace_id, organization=None, detect=None):
     """ Show details of permissions avaialble in each namespace.
     """
     organization = resolve_instance(detect=detect, organization=organization)
-    response = _get_permission_types(namespace_id, organization)
+    client = get_security_client(organization)
+    response = _get_permission_types(client, namespace_id)
     return response
 
-def list_tokens(namespace_id, subject, include_extended_info=True,
-                     recurse=False, organization=None, detect=None):
+def list_tokens(namespace_id, subject, token=None,
+                recurse=False, organization=None, detect=None):
     """ List tokens for given user/group and namespace.
-    :param include_extended_info: Populate the extended information properties for the access control entries
-                                  contained in the returned lists.
-    :type include_extended_info: bool
     :param recurse: If true and this is a hierarchical namespace, return child ACLs of the specified token.
     :type recurse: bool
     """
@@ -53,19 +51,12 @@ def list_tokens(namespace_id, subject, include_extended_info=True,
     elif not is_uuid(subject) and '.' in subject:
         # try to solve graph subject descriptor for groups
         subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
-    response = client.query_access_control_lists(security_namespace_id=namespace_id, descriptors=subject,
-                                                 include_extended_info=include_extended_info, recurse=recurse)
+    response = _query_permissions(client, namespace_id, subject, token, recurse)                                                
     return response
 
 
-def show_permissions(namespace_id, subject, token, include_extended_info=True,
-                     recurse=False, organization=None, detect=None):
+def show_permissions(namespace_id, subject, token, organization=None, detect=None):
     """ Show permissions for given token, namespace and user/group.
-    :param include_extended_info: Populate the extended information properties for the access control entries
-                                  contained in the returned lists.
-    :type include_extended_info: bool
-    :param recurse: If true and this is a hierarchical namespace, return child ACLs of the specified token.
-    :type recurse: bool
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
@@ -74,24 +65,14 @@ def show_permissions(namespace_id, subject, token, include_extended_info=True,
     elif not is_uuid(subject) and '.' in subject:
         # try to solve graph subject descriptor for groups
         subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
-    raw_response = client.query_access_control_lists(security_namespace_id=namespace_id,
-                                                 token=token, descriptors=subject,
-                                                 include_extended_info=include_extended_info, recurse=recurse)
-    permissions_types = client.query_security_namespaces(security_namespace_id=namespace_id)
-    resolved_permissions_response = None
-    resolved_permissions_response = _resolve_bits(raw_response, permissions_types)
-    import pdb
-    pdb.set_trace()
-    for acl in raw_response:
-        for ace in acl.aces_dictionary:
-            ace_value = acl.aces_dictionary[ace].serialize()
-            ace_value['resolvedPermissions'] = resolved_permissions_response
-
-    response = _update_json(raw_response, resolved_permissions_response)
+    list_response = _query_permissions(client, namespace_id, subject, token, False)
+    permissions_types = _get_permission_types(client, namespace_id)
+    resolved_permissions_response = _resolve_bits(list_response, permissions_types)
+    response = _update_json(list_response, resolved_permissions_response)
     return response
 
 def reset_all_permissions(namespace_id, subject, token, organization=None, detect=None):
-    """ Clear all permissions of this token for a user or group.
+    """ Clear all permissions of this token for a user/group.
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
@@ -105,10 +86,11 @@ def reset_all_permissions(namespace_id, subject, token, organization=None, detec
     return response
 
 
-def reset_permissions(namespace_id, permissions, subject, token, organization=None, detect=None):
-    """ Reset permission for given permission bits
-    :param permissions: Permission bits which needs to be reset for given user/group and token.
-    :type permissions:str
+def reset_permissions(namespace_id, permission_bit, subject, token, organization=None, detect=None):
+    """ Reset permission for given permission bit(s)
+    :param permission_bit: Permission bit or addition of permission bits which needs to be reset
+                           for given user/group and token.
+    :type permission_bit:int
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
@@ -117,16 +99,21 @@ def reset_permissions(namespace_id, permissions, subject, token, organization=No
     elif not is_uuid(subject) and '.' in subject:
         # try to solve graph subject descriptor for groups
         subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
-    response = client.remove_permission(security_namespace_id=namespace_id, permissions=permissions,
+    api_response = client.remove_permission(security_namespace_id=namespace_id, permissions=permission_bit,
                                         descriptor=subject, token=token)
+    # get the effective permission list for this namespace , token
+    list_response = _query_permissions(client, namespace_id, subject, token, False)
+    permissions_types = _get_permission_types(client, namespace_id)
+    resolved_permissions_response = _resolve_bits(list_response, permissions_types, permission_bit)
+    response = _update_json(list_response, resolved_permissions_response)
     return response
 
 
-def add_permissions(namespace_id, subject, token, merge=True, allow_bit=None, deny_bit=None,
+def add_permissions(namespace_id, subject, token, merge=True, allow_bit=0, deny_bit=0,
                     organization=None, detect=None):
     """ Assign allow or deny permission to this user/group.
     """
-    if allow_bit is None and deny_bit is None:
+    if allow_bit == 0 and deny_bit == 0:
         raise CLIError('Either --allow-bit or --deny-bit parameter should be provided.')
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
@@ -145,18 +132,17 @@ def add_permissions(namespace_id, subject, token, merge=True, allow_bit=None, de
     else:
         container_object['merge'] = False
     container_object['accessControlEntries'] = aces_list
-    try:
-        response = client.set_access_control_entries(security_namespace_id=namespace_id, container=container_object)
-        return response
-    except Exception as ex:
-        logger.debug(ex, exc_info=True)
-        message = ex.args[0]
-        if 'it is reserved by the system' not in message:
-            raise CLIError(ex)
+    api_response = client.set_access_control_entries(security_namespace_id=namespace_id, container=container_object)
+    allow_bit = allow_bit & (~deny_bit)
+    changed_bits = allow_bit + deny_bit
+    list_response = _query_permissions(client, namespace_id, subject, token, False)
+    permissions_types = _get_permission_types(client, namespace_id)
+    resolved_permissions_response = _resolve_bits(list_response, permissions_types, changed_bits)
+    response = _update_json(list_response, resolved_permissions_response)
+    return response
 
 
-def _resolve_bits(response, permissions_types):
-    
+def _resolve_bits(response, permissions_types, changed_bits=0):
     inherited_allow = 0
     inherited_deny = 0
     effective_allow = 0
@@ -175,27 +161,33 @@ def _resolve_bits(response, permissions_types):
     if acl.include_extended_info is True:
         inherited_allow = allow_bit ^ effective_allow
         inherited_deny = deny_bit ^ effective_deny
+    # If changed_bits is zero, display all permissions
+    if changed_bits == 0:
+        total_permission_types = len(permissions_types[0].actions)
+        last_permission_bit_value = permissions_types[0].actions[total_permission_types-1].bit
+        changed_bits = 2*last_permission_bit_value - 1
 
     permission_response = []
     for item in permissions_types[0].actions:
-        permission_value_string = None
-        if effective_deny and item.bit & effective_deny:
-            permission_value_string = 'Deny'
-            if inherited_deny & item.bit:
-                permission_value_string = 'Deny (inherited)'
-        elif effective_allow and item.bit & effective_allow:
-            permission_value_string = 'Allow'
-            if inherited_allow & item.bit:
-                permission_value_string = 'Allow (inherited)'
-        else:
-            permission_value_string = 'Not set'
+        if changed_bits & item.bit:
+            permission_value_string = None
+            if effective_deny and item.bit & effective_deny:
+                permission_value_string = 'Deny'
+                if inherited_deny & item.bit:
+                    permission_value_string = 'Deny (inherited)'
+            elif effective_allow and item.bit & effective_allow:
+                permission_value_string = 'Allow'
+                if inherited_allow & item.bit:
+                    permission_value_string = 'Allow (inherited)'
+            else:
+                permission_value_string = 'Not set'
 
-        perm_obj = PermissionDetails()
-        perm_obj.bit = item.bit
-        perm_obj.name = item.name
-        perm_obj.display_name = item.display_name
-        perm_obj.effective_permission = permission_value_string
-        permission_response.append(perm_obj) 
+            perm_obj = PermissionDetails()
+            perm_obj.bit = item.bit
+            perm_obj.name = item.name
+            perm_obj.display_name = item.display_name
+            perm_obj.effective_permission = permission_value_string
+            permission_response.append(perm_obj) 
     return permission_response
 
 
@@ -209,7 +201,12 @@ def _update_json(original_response, permissions_response):
     return response
 
 
-def _get_permission_types(namespace_id, organization):
-    client = get_security_client(organization)
+def _get_permission_types(client, namespace_id):
     response = client.query_security_namespaces(security_namespace_id=namespace_id)
     return response
+
+def _query_permissions(client, namespace_id, subject, token, recurse):
+    list_response = client.query_access_control_lists(security_namespace_id=namespace_id,
+                                                      token=token, descriptors=subject,
+                                                      include_extended_info=True, recurse=recurse)
+    return list_response

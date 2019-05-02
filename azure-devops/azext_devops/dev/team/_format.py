@@ -5,6 +5,7 @@
 
 from __future__ import print_function
 from collections import OrderedDict
+from knack.util import CLIError
 from azext_devops.dev.common.format import trim_for_display, date_time_to_only_date
 
 
@@ -202,6 +203,8 @@ def transform_acl_output(result):
     return table_output
 
 def _transform_acl_details_row(row):
+    if len(row['acesDictionary']) > 1:
+        raise CLIError('More than one entry found in Aces dictionary for this user/group.')
     table_row = OrderedDict()
     table_row['token'] = row['token']
     ace = list(row['acesDictionary'].values())[0]

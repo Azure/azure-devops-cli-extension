@@ -113,20 +113,20 @@ def load_team_arguments(self, _):
                          help='Security token.')
         context.argument('subject',
                          help='User Email ID or Group descriptor')
-        context.argument('allow_bit',type=int, 
-                         help='Allow bit(s)')
-        context.argument('deny_bit',type=int, 
-                         help='Deny bit(s)')
-    
+
     with self.argument_context('devops security permission add') as context:
         context.argument('merge', arg_type=get_three_state_flag(),
                          help='If set, the existing ACE has its allow and deny merged with \
                          the incoming ACE\'s allow and deny. If unset, the existing ACE is displaced.')
-    
-    with self.argument_context('devops security permission') as context:
-        context.argument('recurse', arg_type=get_three_state_flag())
-        context.argument('include_extended_info', arg_type=get_three_state_flag())
-        context.argument('resolve_bits', arg_type=get_three_state_flag())
+        context.argument('allow_bit', type=int,
+                         help='Allow bit or addition of bits. Required if --deny-bit is missing.')
+        context.argument('deny_bit', type=int,
+                         help='Deny bit or addition of bits. Required if --allow-bit is missing.')
+
+    with self.argument_context('devops security permission reset') as context:
+        context.argument('permission_bit', type=int,
+                         help='Permission bit or addition of permission bits which needs to be reset\
+                         for given user/group and token.')
 
     with self.argument_context('devops extension') as context:
         context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
