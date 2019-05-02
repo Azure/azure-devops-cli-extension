@@ -62,7 +62,7 @@ If you are working in a local check out of a repository, you can simply run `az 
 You can also configure the Azure Devops Extension to add git aliases for common git-based Azure Repos commands like creating or adding reviewers to pull requests. This can be enabled by running the following command:
 
 ```bash
-az devops configure --use-git-aliases yes
+az devops configure --use-git-alias yes
 ```
 
 This will alias all `az repos` commands to `git repo` and all `az repos pr` commands to `git pr`.
@@ -135,14 +135,21 @@ To use the Azure DevOps Extension in a hosted agent using a Release Pipeline, ex
 
 Including the inline script for reference
 
-```bash
-pip install --pre azure-cli==2.0.55 --extra-index-url https://azurecliprod.blob.core.windows.net/edgeaz --h
-az --version
-az extension add --name azure-devops
-az devops -h
-```
+```powershell
+$extensions = az extension list -o json | ConvertFrom-Json
 
-The first line of the script installs the Azure CLI.
+$devopsFound = $False
+foreach($extension in $extensions)
+{
+    if($extension.name -eq 'azure-devops'){
+        $devopsFound = $True
+    }
+}
+
+if ($devopsFound -eq $False){
+    az extension add -n azure-devops
+}
+```
 
 ### Use the Azure DevOps Extension with YAML
 
@@ -180,7 +187,7 @@ steps:
   # Updating the python version available on the linux agent
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   # Updating pip to latest
@@ -218,7 +225,7 @@ steps:
   # Updating the python version available on the linux agent
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   # Updating pip to latest which is required by the Azure DevOps extension

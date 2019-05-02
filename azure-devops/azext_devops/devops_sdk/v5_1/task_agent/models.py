@@ -712,6 +712,10 @@ class EnvironmentDeploymentExecutionRecord(Model):
     :type finish_time: datetime
     :param id: Id of the Environment deployment execution history record
     :type id: long
+    :param job_attempt: Job Attempt
+    :type job_attempt: int
+    :param job_name: Job name
+    :type job_name: str
     :param owner: Owner of the environment deployment execution record
     :type owner: :class:`TaskOrchestrationOwner <azure.devops.v5_1.task_agent.models.TaskOrchestrationOwner>`
     :param plan_id: Plan Id
@@ -730,6 +734,10 @@ class EnvironmentDeploymentExecutionRecord(Model):
     :type scope_id: str
     :param service_owner: Service owner Id
     :type service_owner: str
+    :param stage_attempt: Stage Attempt
+    :type stage_attempt: int
+    :param stage_name: Stage name
+    :type stage_name: str
     :param start_time: Start time of the environment deployment execution
     :type start_time: datetime
     """
@@ -739,6 +747,8 @@ class EnvironmentDeploymentExecutionRecord(Model):
         'environment_id': {'key': 'environmentId', 'type': 'int'},
         'finish_time': {'key': 'finishTime', 'type': 'iso-8601'},
         'id': {'key': 'id', 'type': 'long'},
+        'job_attempt': {'key': 'jobAttempt', 'type': 'int'},
+        'job_name': {'key': 'jobName', 'type': 'str'},
         'owner': {'key': 'owner', 'type': 'TaskOrchestrationOwner'},
         'plan_id': {'key': 'planId', 'type': 'str'},
         'plan_type': {'key': 'planType', 'type': 'str'},
@@ -748,15 +758,19 @@ class EnvironmentDeploymentExecutionRecord(Model):
         'result': {'key': 'result', 'type': 'object'},
         'scope_id': {'key': 'scopeId', 'type': 'str'},
         'service_owner': {'key': 'serviceOwner', 'type': 'str'},
+        'stage_attempt': {'key': 'stageAttempt', 'type': 'int'},
+        'stage_name': {'key': 'stageName', 'type': 'str'},
         'start_time': {'key': 'startTime', 'type': 'iso-8601'}
     }
 
-    def __init__(self, definition=None, environment_id=None, finish_time=None, id=None, owner=None, plan_id=None, plan_type=None, queue_time=None, request_identifier=None, resource_id=None, result=None, scope_id=None, service_owner=None, start_time=None):
+    def __init__(self, definition=None, environment_id=None, finish_time=None, id=None, job_attempt=None, job_name=None, owner=None, plan_id=None, plan_type=None, queue_time=None, request_identifier=None, resource_id=None, result=None, scope_id=None, service_owner=None, stage_attempt=None, stage_name=None, start_time=None):
         super(EnvironmentDeploymentExecutionRecord, self).__init__()
         self.definition = definition
         self.environment_id = environment_id
         self.finish_time = finish_time
         self.id = id
+        self.job_attempt = job_attempt
+        self.job_name = job_name
         self.owner = owner
         self.plan_id = plan_id
         self.plan_type = plan_type
@@ -766,6 +780,8 @@ class EnvironmentDeploymentExecutionRecord(Model):
         self.result = result
         self.scope_id = scope_id
         self.service_owner = service_owner
+        self.stage_attempt = stage_attempt
+        self.stage_name = stage_name
         self.start_time = start_time
 
 
@@ -1256,6 +1272,8 @@ class KubernetesResource(EnvironmentResource):
     :type name: str
     :param type: Environment resource type
     :type type: object
+    :param cluster_name:
+    :type cluster_name: str
     :param namespace:
     :type namespace: str
     :param service_endpoint_id:
@@ -1271,12 +1289,14 @@ class KubernetesResource(EnvironmentResource):
         'last_modified_on': {'key': 'lastModifiedOn', 'type': 'iso-8601'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'object'},
+        'cluster_name': {'key': 'clusterName', 'type': 'str'},
         'namespace': {'key': 'namespace', 'type': 'str'},
         'service_endpoint_id': {'key': 'serviceEndpointId', 'type': 'str'}
     }
 
-    def __init__(self, created_by=None, created_on=None, environment_reference=None, id=None, last_modified_by=None, last_modified_on=None, name=None, type=None, namespace=None, service_endpoint_id=None):
+    def __init__(self, created_by=None, created_on=None, environment_reference=None, id=None, last_modified_by=None, last_modified_on=None, name=None, type=None, cluster_name=None, namespace=None, service_endpoint_id=None):
         super(KubernetesResource, self).__init__(created_by=created_by, created_on=created_on, environment_reference=environment_reference, id=id, last_modified_by=last_modified_by, last_modified_on=last_modified_on, name=name, type=type)
+        self.cluster_name = cluster_name
         self.namespace = namespace
         self.service_endpoint_id = service_endpoint_id
 
@@ -1284,6 +1304,8 @@ class KubernetesResource(EnvironmentResource):
 class KubernetesResourceCreateParameters(Model):
     """KubernetesResourceCreateParameters.
 
+    :param cluster_name:
+    :type cluster_name: str
     :param name:
     :type name: str
     :param namespace:
@@ -1293,13 +1315,15 @@ class KubernetesResourceCreateParameters(Model):
     """
 
     _attribute_map = {
+        'cluster_name': {'key': 'clusterName', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'namespace': {'key': 'namespace', 'type': 'str'},
         'service_endpoint_id': {'key': 'serviceEndpointId', 'type': 'str'}
     }
 
-    def __init__(self, name=None, namespace=None, service_endpoint_id=None):
+    def __init__(self, cluster_name=None, name=None, namespace=None, service_endpoint_id=None):
         super(KubernetesResourceCreateParameters, self).__init__()
+        self.cluster_name = cluster_name
         self.name = name
         self.namespace = namespace
         self.service_endpoint_id = service_endpoint_id
@@ -2532,6 +2556,8 @@ class TaskAgentPoolReference(Model):
     :type id: int
     :param is_hosted: Gets or sets a value indicating whether or not this pool is managed by the service.
     :type is_hosted: bool
+    :param is_legacy: Determines whether the pool is legacy.
+    :type is_legacy: bool
     :param name:
     :type name: str
     :param pool_type: Gets or sets the type of the pool
@@ -2545,16 +2571,18 @@ class TaskAgentPoolReference(Model):
     _attribute_map = {
         'id': {'key': 'id', 'type': 'int'},
         'is_hosted': {'key': 'isHosted', 'type': 'bool'},
+        'is_legacy': {'key': 'isLegacy', 'type': 'bool'},
         'name': {'key': 'name', 'type': 'str'},
         'pool_type': {'key': 'poolType', 'type': 'object'},
         'scope': {'key': 'scope', 'type': 'str'},
         'size': {'key': 'size', 'type': 'int'}
     }
 
-    def __init__(self, id=None, is_hosted=None, name=None, pool_type=None, scope=None, size=None):
+    def __init__(self, id=None, is_hosted=None, is_legacy=None, name=None, pool_type=None, scope=None, size=None):
         super(TaskAgentPoolReference, self).__init__()
         self.id = id
         self.is_hosted = is_hosted
+        self.is_legacy = is_legacy
         self.name = name
         self.pool_type = pool_type
         self.scope = scope
@@ -4179,6 +4207,8 @@ class TaskAgentPool(TaskAgentPoolReference):
     :type id: int
     :param is_hosted: Gets or sets a value indicating whether or not this pool is managed by the service.
     :type is_hosted: bool
+    :param is_legacy: Determines whether the pool is legacy.
+    :type is_legacy: bool
     :param name:
     :type name: str
     :param pool_type: Gets or sets the type of the pool
@@ -4208,6 +4238,7 @@ class TaskAgentPool(TaskAgentPoolReference):
     _attribute_map = {
         'id': {'key': 'id', 'type': 'int'},
         'is_hosted': {'key': 'isHosted', 'type': 'bool'},
+        'is_legacy': {'key': 'isLegacy', 'type': 'bool'},
         'name': {'key': 'name', 'type': 'str'},
         'pool_type': {'key': 'poolType', 'type': 'object'},
         'scope': {'key': 'scope', 'type': 'str'},
@@ -4222,8 +4253,8 @@ class TaskAgentPool(TaskAgentPoolReference):
         'target_size': {'key': 'targetSize', 'type': 'int'}
     }
 
-    def __init__(self, id=None, is_hosted=None, name=None, pool_type=None, scope=None, size=None, agent_cloud_id=None, auto_provision=None, auto_size=None, created_by=None, created_on=None, owner=None, properties=None, target_size=None):
-        super(TaskAgentPool, self).__init__(id=id, is_hosted=is_hosted, name=name, pool_type=pool_type, scope=scope, size=size)
+    def __init__(self, id=None, is_hosted=None, is_legacy=None, name=None, pool_type=None, scope=None, size=None, agent_cloud_id=None, auto_provision=None, auto_size=None, created_by=None, created_on=None, owner=None, properties=None, target_size=None):
+        super(TaskAgentPool, self).__init__(id=id, is_hosted=is_hosted, is_legacy=is_legacy, name=name, pool_type=pool_type, scope=scope, size=size)
         self.agent_cloud_id = agent_cloud_id
         self.auto_provision = auto_provision
         self.auto_size = auto_size

@@ -19,5 +19,6 @@ __all__ = [
     'PyPiPackageVersionDeletionState',
     'PyPiRecycleBinPackageVersionDetails',
     'ReferenceLinks',
+    'UpstreamSourceInfo',
     'PyPiApiClient'
 ]

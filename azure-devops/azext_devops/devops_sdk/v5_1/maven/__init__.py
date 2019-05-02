@@ -38,5 +38,6 @@ __all__ = [
     'PluginConfiguration',
     'ReferenceLink',
     'ReferenceLinks',
+    'UpstreamSourceInfo',
     'MavenClient'
 ]

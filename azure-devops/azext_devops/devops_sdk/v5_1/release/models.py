@@ -3177,6 +3177,8 @@ class RetentionSettings(Model):
 class SourcePullRequestVersion(Model):
     """SourcePullRequestVersion.
 
+    :param iteration_id: Pull Request Iteration Id for which the release will publish status.
+    :type iteration_id: str
     :param pull_request_id: Pull Request Id for which the release will publish status.
     :type pull_request_id: str
     :param pull_request_merged_at: Date and time of the pull request merge creation. It is required to keep timeline record of Releases created by pull request.
@@ -3190,6 +3192,7 @@ class SourcePullRequestVersion(Model):
     """
 
     _attribute_map = {
+        'iteration_id': {'key': 'iterationId', 'type': 'str'},
         'pull_request_id': {'key': 'pullRequestId', 'type': 'str'},
         'pull_request_merged_at': {'key': 'pullRequestMergedAt', 'type': 'iso-8601'},
         'source_branch': {'key': 'sourceBranch', 'type': 'str'},
@@ -3197,8 +3200,9 @@ class SourcePullRequestVersion(Model):
         'target_branch': {'key': 'targetBranch', 'type': 'str'}
     }
 
-    def __init__(self, pull_request_id=None, pull_request_merged_at=None, source_branch=None, source_branch_commit_id=None, target_branch=None):
+    def __init__(self, iteration_id=None, pull_request_id=None, pull_request_merged_at=None, source_branch=None, source_branch_commit_id=None, target_branch=None):
         super(SourcePullRequestVersion, self).__init__()
+        self.iteration_id = iteration_id
         self.pull_request_id = pull_request_id
         self.pull_request_merged_at = pull_request_merged_at
         self.source_branch = source_branch

@@ -200,35 +200,35 @@ class AggregatedRunsByState(Model):
 class BuildConfiguration(Model):
     """BuildConfiguration.
 
-    :param branch_name:
+    :param branch_name: Branch name for which build is generated.
     :type branch_name: str
-    :param build_definition_id:
+    :param build_definition_id: BuildDefnitionId for build.
     :type build_definition_id: int
-    :param build_system:
+    :param build_system: Build system.
     :type build_system: str
-    :param creation_date:
+    :param creation_date: Build Creation Date.
     :type creation_date: datetime
-    :param flavor:
+    :param flavor: Build flavor (eg Build/Release).
     :type flavor: str
-    :param id:
+    :param id: BuildConfiguration Id.
     :type id: int
-    :param number:
+    :param number: Build Number.
     :type number: str
-    :param platform:
+    :param platform: BuildConfiguration Platform.
     :type platform: str
-    :param project:
+    :param project: Project associated with this BuildConfiguration.
     :type project: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
-    :param repository_guid:
+    :param repository_guid: ResposotoryGuid for the Build.
     :type repository_guid: str
-    :param repository_id:
+    :param repository_id: Repository Id.
     :type repository_id: int
-    :param repository_type:
+    :param repository_type: Repository Type (eg. TFSGit).
     :type repository_type: str
-    :param source_version:
+    :param source_version: Source Version(/first commit) for the build was triggered.
     :type source_version: str
-    :param target_branch_name:
+    :param target_branch_name: Target BranchName.
     :type target_branch_name: str
-    :param uri:
+    :param uri: Build Uri.
     :type uri: str
     """
 
@@ -833,14 +833,34 @@ class IdentityRef(GraphSubjectBase):
         self.unique_name = unique_name
 
 
+class JobReference(Model):
+    """JobReference.
+
+    :param attempt: Attempt number of the job
+    :type attempt: int
+    :param job_name: Matrixing in YAML generates copies of a job with different inputs in matrix. JobName is the name of those input.
+    :type job_name: str
+    """
+
+    _attribute_map = {
+        'attempt': {'key': 'attempt', 'type': 'int'},
+        'job_name': {'key': 'jobName', 'type': 'str'}
+    }
+
+    def __init__(self, attempt=None, job_name=None):
+        super(JobReference, self).__init__()
+        self.attempt = attempt
+        self.job_name = job_name
+
+
 class LastResultDetails(Model):
     """LastResultDetails.
 
-    :param date_completed:
+    :param date_completed: CompletedDate of LastResult.
     :type date_completed: datetime
-    :param duration:
+    :param duration: Duration of LastResult.
     :type duration: long
-    :param run_by:
+    :param run_by: RunBy.
     :type run_by: :class:`IdentityRef <azure.devops.v5_1.test.models.IdentityRef>`
     """
 
@@ -991,6 +1011,54 @@ class NameValuePair(Model):
         super(NameValuePair, self).__init__()
         self.name = name
         self.value = value
+
+
+class PhaseReference(Model):
+    """PhaseReference.
+
+    :param attempt: Attempt number of the pahse
+    :type attempt: int
+    :param phase_name: Name of the phase
+    :type phase_name: str
+    """
+
+    _attribute_map = {
+        'attempt': {'key': 'attempt', 'type': 'int'},
+        'phase_name': {'key': 'phaseName', 'type': 'str'}
+    }
+
+    def __init__(self, attempt=None, phase_name=None):
+        super(PhaseReference, self).__init__()
+        self.attempt = attempt
+        self.phase_name = phase_name
+
+
+class PipelineReference(Model):
+    """PipelineReference.
+
+    :param job_reference: Reference of the job
+    :type job_reference: :class:`JobReference <azure.devops.v5_1.test.models.JobReference>`
+    :param phase_reference: Reference of the phase.
+    :type phase_reference: :class:`PhaseReference <azure.devops.v5_1.test.models.PhaseReference>`
+    :param pipeline_id: Reference of the pipeline with which this pipeline intance is related.
+    :type pipeline_id: int
+    :param stage_reference: Reference of the stage.
+    :type stage_reference: :class:`StageReference <azure.devops.v5_1.test.models.StageReference>`
+    """
+
+    _attribute_map = {
+        'job_reference': {'key': 'jobReference', 'type': 'JobReference'},
+        'phase_reference': {'key': 'phaseReference', 'type': 'PhaseReference'},
+        'pipeline_id': {'key': 'pipelineId', 'type': 'int'},
+        'stage_reference': {'key': 'stageReference', 'type': 'StageReference'}
+    }
+
+    def __init__(self, job_reference=None, phase_reference=None, pipeline_id=None, stage_reference=None):
+        super(PipelineReference, self).__init__()
+        self.job_reference = job_reference
+        self.phase_reference = phase_reference
+        self.pipeline_id = pipeline_id
+        self.stage_reference = stage_reference
 
 
 class PlanUpdateModel(Model):
@@ -1216,13 +1284,13 @@ class ReleaseEnvironmentDefinitionReference(Model):
 class ReleaseReference(Model):
     """ReleaseReference.
 
-    :param attempt:
+    :param attempt: Number of Release Attempt.
     :type attempt: int
-    :param creation_date:
+    :param creation_date: Release Creation Date.
     :type creation_date: datetime
     :param definition_id: Release definition ID.
     :type definition_id: int
-    :param environment_creation_date:
+    :param environment_creation_date: Environment creation Date.
     :type environment_creation_date: datetime
     :param environment_definition_id: Release environment definition ID.
     :type environment_definition_id: int
@@ -1366,7 +1434,7 @@ class RunCreateModel(Model):
     :type build_flavor: str
     :param build_platform: Platform of the build used for test run. (E.g.: x86, amd64)
     :type build_platform: str
-    :param build_reference:
+    :param build_reference: BuildReference of the test run.
     :type build_reference: :class:`BuildConfiguration <azure.devops.v5_1.test.models.BuildConfiguration>`
     :param comment: Comments entered by those analyzing the run.
     :type comment: str
@@ -1376,7 +1444,7 @@ class RunCreateModel(Model):
     :type configuration_ids: list of int
     :param controller: Name of the test controller used for automated run.
     :type controller: str
-    :param custom_test_fields:
+    :param custom_test_fields: Additional properties of test Run.
     :type custom_test_fields: list of :class:`CustomTestField <azure.devops.v5_1.test.models.CustomTestField>`
     :param dtl_aut_environment: An abstracted reference to DtlAutEnvironment.
     :type dtl_aut_environment: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -1388,7 +1456,7 @@ class RunCreateModel(Model):
     :type environment_details: :class:`DtlEnvironmentDetails <azure.devops.v5_1.test.models.DtlEnvironmentDetails>`
     :param error_message: Error message associated with the run.
     :type error_message: str
-    :param filter:
+    :param filter: Filter used for discovering the Run.
     :type filter: :class:`RunFilter <azure.devops.v5_1.test.models.RunFilter>`
     :param iteration: The iteration in which to create the run. Root iteration of the team project will be default
     :type iteration: str
@@ -1396,35 +1464,37 @@ class RunCreateModel(Model):
     :type name: str
     :param owner: Display name of the owner of the run.
     :type owner: :class:`IdentityRef <azure.devops.v5_1.test.models.IdentityRef>`
+    :param pipeline_reference: Reference of the pipeline to which this test run belongs. PipelineReference.PipelineId should be equal to RunCreateModel.Build.Id
+    :type pipeline_reference: :class:`PipelineReference <azure.devops.v5_1.test.models.PipelineReference>`
     :param plan: An abstracted reference to the plan that it belongs.
     :type plan: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
     :param point_ids: IDs of the test points to use in the run.
     :type point_ids: list of int
     :param release_environment_uri: URI of release environment associated with the run.
     :type release_environment_uri: str
-    :param release_reference:
+    :param release_reference: Reference to release associated with test run.
     :type release_reference: :class:`ReleaseReference <azure.devops.v5_1.test.models.ReleaseReference>`
     :param release_uri: URI of release associated with the run.
     :type release_uri: str
     :param run_summary: Run summary for run Type = NoConfigRun.
     :type run_summary: list of :class:`RunSummaryModel <azure.devops.v5_1.test.models.RunSummaryModel>`
-    :param run_timeout:
+    :param run_timeout: Timespan till the Run RunTimesout.
     :type run_timeout: object
-    :param source_workflow:
+    :param source_workflow: SourceWorkFlow(CI/CD) of the test run.
     :type source_workflow: str
     :param start_date: Start date time of the run.
     :type start_date: str
-    :param state: The state of the run. Valid states - NotStarted, InProgress, Waiting
+    :param state: The state of the run. Type TestRunState Valid states - Unspecified ,NotStarted, InProgress, Completed, Waiting, Aborted, NeedsInvestigation
     :type state: str
     :param tags: Tags to attach with the test run, maximum of 5 tags can be added to run.
     :type tags: list of :class:`TestTag <azure.devops.v5_1.test.models.TestTag>`
-    :param test_configurations_mapping:
+    :param test_configurations_mapping: TestConfgurationMapping of the test run.
     :type test_configurations_mapping: str
     :param test_environment_id: ID of the test environment associated with the run.
     :type test_environment_id: str
     :param test_settings: An abstracted reference to the test settings resource.
     :type test_settings: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
-    :param type: Type of the run(RunType)
+    :param type: Type of the run(RunType) Valid Values : (Unspecified, Normal, Blocking, Web, MtrRunInitiatedFromWeb, RunWithDtlEnv, NoConfigRun)
     :type type: str
     """
 
@@ -1449,6 +1519,7 @@ class RunCreateModel(Model):
         'iteration': {'key': 'iteration', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'owner': {'key': 'owner', 'type': 'IdentityRef'},
+        'pipeline_reference': {'key': 'pipelineReference', 'type': 'PipelineReference'},
         'plan': {'key': 'plan', 'type': 'ShallowReference'},
         'point_ids': {'key': 'pointIds', 'type': '[int]'},
         'release_environment_uri': {'key': 'releaseEnvironmentUri', 'type': 'str'},
@@ -1466,7 +1537,7 @@ class RunCreateModel(Model):
         'type': {'key': 'type', 'type': 'str'}
     }
 
-    def __init__(self, automated=None, build=None, build_drop_location=None, build_flavor=None, build_platform=None, build_reference=None, comment=None, complete_date=None, configuration_ids=None, controller=None, custom_test_fields=None, dtl_aut_environment=None, dtl_test_environment=None, due_date=None, environment_details=None, error_message=None, filter=None, iteration=None, name=None, owner=None, plan=None, point_ids=None, release_environment_uri=None, release_reference=None, release_uri=None, run_summary=None, run_timeout=None, source_workflow=None, start_date=None, state=None, tags=None, test_configurations_mapping=None, test_environment_id=None, test_settings=None, type=None):
+    def __init__(self, automated=None, build=None, build_drop_location=None, build_flavor=None, build_platform=None, build_reference=None, comment=None, complete_date=None, configuration_ids=None, controller=None, custom_test_fields=None, dtl_aut_environment=None, dtl_test_environment=None, due_date=None, environment_details=None, error_message=None, filter=None, iteration=None, name=None, owner=None, pipeline_reference=None, plan=None, point_ids=None, release_environment_uri=None, release_reference=None, release_uri=None, run_summary=None, run_timeout=None, source_workflow=None, start_date=None, state=None, tags=None, test_configurations_mapping=None, test_environment_id=None, test_settings=None, type=None):
         super(RunCreateModel, self).__init__()
         self.automated = automated
         self.build = build
@@ -1488,6 +1559,7 @@ class RunCreateModel(Model):
         self.iteration = iteration
         self.name = name
         self.owner = owner
+        self.pipeline_reference = pipeline_reference
         self.plan = plan
         self.point_ids = point_ids
         self.release_environment_uri = release_environment_uri
@@ -1528,11 +1600,11 @@ class RunFilter(Model):
 class RunStatistic(Model):
     """RunStatistic.
 
-    :param count:
+    :param count: Test result count fo the given outcome.
     :type count: int
-    :param outcome: Test run outcome
+    :param outcome: Test result outcome
     :type outcome: str
-    :param resolution_state:
+    :param resolution_state: Test run Resolution State.
     :type resolution_state: :class:`TestResolutionState <azure.devops.v5_1.test.models.TestResolutionState>`
     :param state: State of the test run
     :type state: str
@@ -1582,11 +1654,11 @@ class RunUpdateModel(Model):
 
     :param build: An abstracted reference to the build that it belongs.
     :type build: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
-    :param build_drop_location:
+    :param build_drop_location: Drop location of the build used for test run.
     :type build_drop_location: str
-    :param build_flavor:
+    :param build_flavor: Flavor of the build used for test run. (E.g: Release, Debug)
     :type build_flavor: str
-    :param build_platform:
+    :param build_platform: Platform of the build used for test run. (E.g.: x86, amd64)
     :type build_platform: str
     :param comment: Comments entered by those analyzing the run.
     :type comment: str
@@ -1594,7 +1666,7 @@ class RunUpdateModel(Model):
     :type completed_date: str
     :param controller: Name of the test controller used for automated run.
     :type controller: str
-    :param delete_in_progress_results:
+    :param delete_in_progress_results: true to delete inProgess Results , false otherwise.
     :type delete_in_progress_results: bool
     :param dtl_aut_environment: An abstracted reference to DtlAutEnvironment.
     :type dtl_aut_environment: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -1612,23 +1684,23 @@ class RunUpdateModel(Model):
     :type log_entries: list of :class:`TestMessageLogDetails <azure.devops.v5_1.test.models.TestMessageLogDetails>`
     :param name: Name of the test run.
     :type name: str
-    :param release_environment_uri:
+    :param release_environment_uri: URI of release environment associated with the run.
     :type release_environment_uri: str
-    :param release_uri:
+    :param release_uri: URI of release associated with the run.
     :type release_uri: str
     :param run_summary: Run summary for run Type = NoConfigRun.
     :type run_summary: list of :class:`RunSummaryModel <azure.devops.v5_1.test.models.RunSummaryModel>`
-    :param source_workflow:
+    :param source_workflow: SourceWorkFlow(CI/CD) of the test run.
     :type source_workflow: str
     :param started_date: Start date time of the run.
     :type started_date: str
     :param state: The state of the test run Below are the valid values - NotStarted, InProgress, Completed, Aborted, Waiting
     :type state: str
-    :param substate:
+    :param substate: The types of sub states for test run.
     :type substate: object
     :param tags: Tags to attach with the test run.
     :type tags: list of :class:`TestTag <azure.devops.v5_1.test.models.TestTag>`
-    :param test_environment_id:
+    :param test_environment_id: ID of the test environment associated with the run.
     :type test_environment_id: str
     :param test_settings: An abstracted reference to test setting resource.
     :type test_settings: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -1795,6 +1867,26 @@ class SharedStepModel(Model):
         super(SharedStepModel, self).__init__()
         self.id = id
         self.revision = revision
+
+
+class StageReference(Model):
+    """StageReference.
+
+    :param attempt: Attempt number of stage
+    :type attempt: int
+    :param stage_name: Name of the stage.
+    :type stage_name: str
+    """
+
+    _attribute_map = {
+        'attempt': {'key': 'attempt', 'type': 'int'},
+        'stage_name': {'key': 'stageName', 'type': 'str'}
+    }
+
+    def __init__(self, attempt=None, stage_name=None):
+        super(StageReference, self).__init__()
+        self.attempt = attempt
+        self.stage_name = stage_name
 
 
 class SuiteCreateModel(Model):
@@ -2134,41 +2226,41 @@ class TestCaseResult(Model):
     :type automated_test_storage: str
     :param automated_test_type: Type of automated test.
     :type automated_test_type: str
-    :param automated_test_type_id:
+    :param automated_test_type_id: TypeId of automated test.
     :type automated_test_type_id: str
     :param build: Shallow reference to build associated with test result.
     :type build: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
     :param build_reference: Reference to build associated with test result.
     :type build_reference: :class:`BuildReference <azure.devops.v5_1.test.models.BuildReference>`
-    :param comment: Comment in a test result.
+    :param comment: Comment in a test result with maxSize= 1000 chars.
     :type comment: str
-    :param completed_date: Time when test execution completed.
+    :param completed_date: Time when test execution completed. Completed date should be greater than StartedDate.
     :type completed_date: datetime
     :param computer_name: Machine name where test executed.
     :type computer_name: str
-    :param configuration: Test configuration of a test result.
+    :param configuration: Reference to test configuration. Type ShallowReference.
     :type configuration: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
     :param created_date: Timestamp when test result created.
     :type created_date: datetime
     :param custom_fields: Additional properties of test result.
     :type custom_fields: list of :class:`CustomTestField <azure.devops.v5_1.test.models.CustomTestField>`
-    :param duration_in_ms: Duration of test execution in milliseconds.
+    :param duration_in_ms: Duration of test execution in milliseconds. If not provided value will be set as CompletedDate - StartedDate
     :type duration_in_ms: float
     :param error_message: Error message in test execution.
     :type error_message: str
     :param failing_since: Information when test results started failing.
     :type failing_since: :class:`FailingSince <azure.devops.v5_1.test.models.FailingSince>`
-    :param failure_type: Failure type of test result.
+    :param failure_type: Failure type of test result. Valid Value= (Known Issue, New Issue, Regression, Unknown, None)
     :type failure_type: str
     :param id: ID of a test result.
     :type id: int
-    :param iteration_details: Test result details of test iterations.
+    :param iteration_details: Test result details of test iterations used only for Manual Testing.
     :type iteration_details: list of :class:`TestIterationDetailsModel <azure.devops.v5_1.test.models.TestIterationDetailsModel>`
     :param last_updated_by: Reference to identity last updated test result.
     :type last_updated_by: :class:`IdentityRef <azure.devops.v5_1.test.models.IdentityRef>`
     :param last_updated_date: Last updated datetime of test result.
     :type last_updated_date: datetime
-    :param outcome: Test outcome of test result.
+    :param outcome: Test outcome of test result. Valid values = (Unspecified, None, Passed, Failed, Inconclusive, Timeout, Aborted, Blocked, NotExecuted, Warning, Error, NotApplicable, Paused, InProgress, NotImpacted)
     :type outcome: str
     :param owner: Reference to test owner.
     :type owner: :class:`IdentityRef <azure.devops.v5_1.test.models.IdentityRef>`
@@ -2180,7 +2272,7 @@ class TestCaseResult(Model):
     :type release: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
     :param release_reference: Reference to release associated with test result.
     :type release_reference: :class:`ReleaseReference <azure.devops.v5_1.test.models.ReleaseReference>`
-    :param reset_count:
+    :param reset_count: ResetCount.
     :type reset_count: int
     :param resolution_state: Resolution state of test result.
     :type resolution_state: str
@@ -2192,19 +2284,19 @@ class TestCaseResult(Model):
     :type revision: int
     :param run_by: Reference to identity executed the test.
     :type run_by: :class:`IdentityRef <azure.devops.v5_1.test.models.IdentityRef>`
-    :param stack_trace: Stacktrace.
+    :param stack_trace: Stacktrace with maxSize= 1000 chars.
     :type stack_trace: str
     :param started_date: Time when test execution started.
     :type started_date: datetime
-    :param state: State of test result.
+    :param state: State of test result. Type TestRunState.
     :type state: str
     :param sub_results: List of sub results inside a test result, if ResultGroupType is not None, it holds corresponding type sub results.
     :type sub_results: list of :class:`TestSubResult <azure.devops.v5_1.test.models.TestSubResult>`
     :param test_case: Reference to the test executed.
     :type test_case: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
-    :param test_case_reference_id: Reference ID of test used by test result.
+    :param test_case_reference_id: Reference ID of test used by test result. Type TestResultMetaData
     :type test_case_reference_id: int
-    :param test_case_revision: Name of test.
+    :param test_case_revision: TestCaseRevision Number.
     :type test_case_revision: int
     :param test_case_title: Name of test.
     :type test_case_title: str
@@ -2528,9 +2620,9 @@ class TestConfiguration(Model):
 class TestEnvironment(Model):
     """TestEnvironment.
 
-    :param environment_id:
+    :param environment_id: Test Environment Id.
     :type environment_id: str
-    :param environment_name:
+    :param environment_name: Test Environment Name.
     :type environment_name: str
     """
 
@@ -3076,9 +3168,9 @@ class TestPointsQuery(Model):
 class TestResolutionState(Model):
     """TestResolutionState.
 
-    :param id:
+    :param id: Test Resolution state Id.
     :type id: int
-    :param name:
+    :param name: Test Resolution State Name.
     :type name: str
     :param project:
     :type project: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -3664,13 +3756,13 @@ class TestRun(Model):
     :type comment: str
     :param completed_date: Completed date time of the run.
     :type completed_date: datetime
-    :param controller:
+    :param controller: Test Run Controller.
     :type controller: str
-    :param created_date:
+    :param created_date: Test Run CreatedDate.
     :type created_date: datetime
-    :param custom_fields:
+    :param custom_fields: List of Custom Fields for TestRun.
     :type custom_fields: list of :class:`CustomTestField <azure.devops.v5_1.test.models.CustomTestField>`
-    :param drop_location:
+    :param drop_location: Drop Location for the test Run.
     :type drop_location: str
     :param dtl_aut_environment:
     :type dtl_aut_environment: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -3686,7 +3778,7 @@ class TestRun(Model):
     :type filter: :class:`RunFilter <azure.devops.v5_1.test.models.RunFilter>`
     :param id: ID of the test run.
     :type id: int
-    :param incomplete_tests:
+    :param incomplete_tests: Number of Incomplete Tests.
     :type incomplete_tests: int
     :param is_automated: true if test run is automated, false otherwise.
     :type is_automated: bool
@@ -3698,35 +3790,35 @@ class TestRun(Model):
     :type last_updated_date: datetime
     :param name: Name of the test run.
     :type name: str
-    :param not_applicable_tests:
+    :param not_applicable_tests: Number of Not Applicable Tests.
     :type not_applicable_tests: int
     :param owner: Team Foundation ID of the owner of the runs.
     :type owner: :class:`IdentityRef <azure.devops.v5_1.test.models.IdentityRef>`
     :param passed_tests: Number of passed tests in the run
     :type passed_tests: int
-    :param phase:
+    :param phase: Phase/State for the testRun.
     :type phase: str
     :param plan: Test plan associated with this test run.
     :type plan: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
-    :param post_process_state:
+    :param post_process_state: Post Process State.
     :type post_process_state: str
     :param project: Project associated with this run.
     :type project: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
-    :param release:
+    :param release: Release Reference for the Test Run.
     :type release: :class:`ReleaseReference <azure.devops.v5_1.test.models.ReleaseReference>`
-    :param release_environment_uri:
+    :param release_environment_uri: Release Environment Uri for TestRun.
     :type release_environment_uri: str
-    :param release_uri:
+    :param release_uri: Release Uri for TestRun.
     :type release_uri: str
     :param revision:
     :type revision: int
-    :param run_statistics:
+    :param run_statistics: RunSummary by outcome.
     :type run_statistics: list of :class:`RunStatistic <azure.devops.v5_1.test.models.RunStatistic>`
     :param started_date: Start date time of the run.
     :type started_date: datetime
-    :param state: The state of the run. { NotStarted, InProgress, Waiting }
+    :param state: The state of the run. Type TestRunState Valid states - Unspecified ,NotStarted, InProgress, Completed, Waiting, Aborted, NeedsInvestigation
     :type state: str
-    :param substate:
+    :param substate: TestRun Substate.
     :type substate: object
     :param tags: Tags attached with this test run.
     :type tags: list of :class:`TestTag <azure.devops.v5_1.test.models.TestTag>`
@@ -3738,11 +3830,11 @@ class TestRun(Model):
     :type test_settings: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
     :param total_tests: Total tests in the run
     :type total_tests: int
-    :param unanalyzed_tests:
+    :param unanalyzed_tests: Number of failed tests in the run.
     :type unanalyzed_tests: int
     :param url: Url of the test run
     :type url: str
-    :param web_access_url:
+    :param web_access_url: Web Access Url for TestRun.
     :type web_access_url: str
     """
 
@@ -4320,15 +4412,15 @@ class TestVariable(Model):
 class WorkItemReference(Model):
     """WorkItemReference.
 
-    :param id:
+    :param id: WorkItem Id.
     :type id: str
-    :param name:
+    :param name: WorkItem Name.
     :type name: str
-    :param type:
+    :param type: WorkItem Type.
     :type type: str
-    :param url:
+    :param url: WorkItem Url. Valid Values : (Bug, Task, User Story, Test Case)
     :type url: str
-    :param web_url:
+    :param web_url: WorkItem WebUrl.
     :type web_url: str
     """
 
@@ -4448,11 +4540,14 @@ __all__ = [
     'FunctionCoverage',
     'GraphSubjectBase',
     'IdentityRef',
+    'JobReference',
     'LastResultDetails',
     'LinkedWorkItemsQuery',
     'LinkedWorkItemsQueryResult',
     'ModuleCoverage',
     'NameValuePair',
+    'PhaseReference',
+    'PipelineReference',
     'PlanUpdateModel',
     'PointAssignment',
     'PointsFilter',
@@ -4472,6 +4567,7 @@ __all__ = [
     'ShallowReference',
     'ShallowTestCaseResult',
     'SharedStepModel',
+    'StageReference',
     'SuiteCreateModel',
     'SuiteEntry',
     'SuiteEntryUpdateModel',

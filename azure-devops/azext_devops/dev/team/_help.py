@@ -47,18 +47,15 @@ def load_team_help():
             text: |
               az devops security group create --name 'Some group name' --description
               'Something to describe this group'
-
           - name: Add an existing AAD group to an Azure DevOps group
             text: |
               Get object ID of an existing AAD group
               az ad group show -g {Group Name}
               az devops security group create --origin-id {Object ID} --groups 'vssgp.someDescriptorForGroup'
-
           - name: Add an existing AAD group to an Azure DevOps group with AAD group Email ID
             text: |
               az devops security group create --email-id {Email ID of AAD group}
               --groups 'vssgp.someDescriptorForGroup'
-
           - name: Create a new Azure DevOps group and add it to existing Azure DevOps groups.
             text: |
               az devops security group create --name 'Some group name'

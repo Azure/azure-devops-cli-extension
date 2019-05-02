@@ -33,13 +33,29 @@ class ConfigurationFile(Model):
         self.path = path
 
 
+class CreatedResources(Model):
+    """CreatedResources.
+
+    :param error:
+    :type error: str
+    :param resources:
+    :type resources: dict
+    """
+
+    _attribute_map = {
+        'error': {'key': 'error', 'type': 'str'},
+        'resources': {'key': 'resources', 'type': '{object}'}
+    }
+
+    def __init__(self, error=None, resources=None):
+        super(CreatedResources, self).__init__()
+        self.error = error
+        self.resources = resources
+
+
 class CreatePipelineConnectionInputs(Model):
     """CreatePipelineConnectionInputs.
 
-    :param configuration_file_path: The path to the VSTS YAML file in the repository. (use only forward slashes as path separators)
-    :type configuration_file_path: str
-    :param create_build_definition: Use true to create a build definition for this connection. Requires repository information be supplied.
-    :type create_build_definition: bool
     :param project: The team project settings for an existing team project or for a new team project.
     :type project: :class:`TeamProject <azure.devops.v5_1.pipelines.models.TeamProject>`
     :param provider_data: This dictionary contains information that is specific to the provider. This data is opaque to the rest of the Pipelines infrastructure and does NOT contribute to the resources Token. The format of the string and its contents depend on the implementation of the provider.
@@ -48,45 +64,25 @@ class CreatePipelineConnectionInputs(Model):
     :type provider_id: str
     :param redirect_url: If provided, this will be the URL returned with the PipelineConnection. This will override any other redirect URL that would have been generated for the connection.
     :type redirect_url: str
-    :param repository_id: The repository id for which the connection is being made. This may be the same as the name.
-    :type repository_id: str
-    :param repository_name: The repository name for which the connection is being made.
-    :type repository_name: str
     :param request_source: Where the request to create the pipeline originated (such as 'GitHub Marketplace' or 'Azure DevOps')
     :type request_source: str
-    :param routing_method: The method used to identify the target hostd.
-    :type routing_method: object
-    :param target_branch: The target branch for which the connection is being made.
-    :type target_branch: str
     """
 
     _attribute_map = {
-        'configuration_file_path': {'key': 'configurationFilePath', 'type': 'str'},
-        'create_build_definition': {'key': 'createBuildDefinition', 'type': 'bool'},
         'project': {'key': 'project', 'type': 'TeamProject'},
         'provider_data': {'key': 'providerData', 'type': '{str}'},
         'provider_id': {'key': 'providerId', 'type': 'str'},
         'redirect_url': {'key': 'redirectUrl', 'type': 'str'},
-        'repository_id': {'key': 'repositoryId', 'type': 'str'},
-        'repository_name': {'key': 'repositoryName', 'type': 'str'},
-        'request_source': {'key': 'requestSource', 'type': 'str'},
-        'routing_method': {'key': 'routingMethod', 'type': 'object'},
-        'target_branch': {'key': 'targetBranch', 'type': 'str'}
+        'request_source': {'key': 'requestSource', 'type': 'str'}
     }
 
-    def __init__(self, configuration_file_path=None, create_build_definition=None, project=None, provider_data=None, provider_id=None, redirect_url=None, repository_id=None, repository_name=None, request_source=None, routing_method=None, target_branch=None):
+    def __init__(self, project=None, provider_data=None, provider_id=None, redirect_url=None, request_source=None):
         super(CreatePipelineConnectionInputs, self).__init__()
-        self.configuration_file_path = configuration_file_path
-        self.create_build_definition = create_build_definition
         self.project = project
         self.provider_data = provider_data
         self.provider_id = provider_id
         self.redirect_url = redirect_url
-        self.repository_id = repository_id
-        self.repository_name = repository_name
         self.request_source = request_source
-        self.routing_method = routing_method
-        self.target_branch = target_branch
 
 
 class DetectedBuildFramework(Model):
@@ -233,6 +229,26 @@ class ReferenceLinks(Model):
         self.links = links
 
 
+class ResourceCreationParameter(Model):
+    """ResourceCreationParameter.
+
+    :param resource_to_create:
+    :type resource_to_create: :class:`object <azure.devops.v5_1.pipelines.models.object>`
+    :param type:
+    :type type: str
+    """
+
+    _attribute_map = {
+        'resource_to_create': {'key': 'resourceToCreate', 'type': 'object'},
+        'type': {'key': 'type', 'type': 'str'}
+    }
+
+    def __init__(self, resource_to_create=None, type=None):
+        super(ResourceCreationParameter, self).__init__()
+        self.resource_to_create = resource_to_create
+        self.type = type
+
+
 class TeamProjectReference(Model):
     """TeamProjectReference.
 
@@ -288,6 +304,8 @@ class TeamProjectReference(Model):
 class Template(Model):
     """Template.
 
+    :param assets:
+    :type assets: list of :class:`TemplateAsset <azure.devops.v5_1.pipelines.models.TemplateAsset>`
     :param content:
     :type content: str
     :param description:
@@ -305,6 +323,7 @@ class Template(Model):
     """
 
     _attribute_map = {
+        'assets': {'key': 'assets', 'type': '[TemplateAsset]'},
         'content': {'key': 'content', 'type': 'str'},
         'description': {'key': 'description', 'type': 'str'},
         'icon_url': {'key': 'iconUrl', 'type': 'str'},
@@ -314,8 +333,9 @@ class Template(Model):
         'recommended_weight': {'key': 'recommendedWeight', 'type': 'int'}
     }
 
-    def __init__(self, content=None, description=None, icon_url=None, id=None, name=None, parameters=None, recommended_weight=None):
+    def __init__(self, assets=None, content=None, description=None, icon_url=None, id=None, name=None, parameters=None, recommended_weight=None):
         super(Template, self).__init__()
+        self.assets = assets
         self.content = content
         self.description = description
         self.icon_url = icon_url
@@ -325,9 +345,45 @@ class Template(Model):
         self.recommended_weight = recommended_weight
 
 
+class TemplateAsset(Model):
+    """TemplateAsset.
+
+    :param content:
+    :type content: str
+    :param description:
+    :type description: str
+    :param destination_path:
+    :type destination_path: str
+    :param path:
+    :type path: str
+    :param type:
+    :type type: str
+    """
+
+    _attribute_map = {
+        'content': {'key': 'content', 'type': 'str'},
+        'description': {'key': 'description', 'type': 'str'},
+        'destination_path': {'key': 'destinationPath', 'type': 'str'},
+        'path': {'key': 'path', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'}
+    }
+
+    def __init__(self, content=None, description=None, destination_path=None, path=None, type=None):
+        super(TemplateAsset, self).__init__()
+        self.content = content
+        self.description = description
+        self.destination_path = destination_path
+        self.path = path
+        self.type = type
+
+
 class TemplateParameterDefinition(Model):
     """TemplateParameterDefinition.
 
+    :param default_value:
+    :type default_value: str
+    :param display_name:
+    :type display_name: str
     :param name:
     :type name: str
     :param required:
@@ -337,13 +393,17 @@ class TemplateParameterDefinition(Model):
     """
 
     _attribute_map = {
+        'default_value': {'key': 'defaultValue', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'required': {'key': 'required', 'type': 'bool'},
         'type': {'key': 'type', 'type': 'str'}
     }
 
-    def __init__(self, name=None, required=None, type=None):
+    def __init__(self, default_value=None, display_name=None, name=None, required=None, type=None):
         super(TemplateParameterDefinition, self).__init__()
+        self.default_value = default_value
+        self.display_name = display_name
         self.name = name
         self.required = required
         self.type = type
@@ -357,7 +417,7 @@ class TemplateParameters(Model):
     """
 
     _attribute_map = {
-        'tokens': {'key': 'tokens', 'type': '{str}'}
+        'tokens': {'key': 'tokens', 'type': '{object}'}
     }
 
     def __init__(self, tokens=None):
@@ -485,6 +545,7 @@ class TeamProject(TeamProjectReference):
 
 __all__ = [
     'ConfigurationFile',
+    'CreatedResources',
     'CreatePipelineConnectionInputs',
     'DetectedBuildFramework',
     'DetectedBuildTarget',
@@ -492,8 +553,10 @@ __all__ = [
     'OperationResultReference',
     'PipelineConnection',
     'ReferenceLinks',
+    'ResourceCreationParameter',
     'TeamProjectReference',
     'Template',
+    'TemplateAsset',
     'TemplateParameterDefinition',
     'TemplateParameters',
     'WebApiTeamRef',

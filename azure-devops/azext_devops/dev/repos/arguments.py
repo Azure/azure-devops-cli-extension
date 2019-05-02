@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.arguments import enum_choice_list
-from azure.cli.core.commands.parameters import get_enum_type
+from azure.cli.core.commands.parameters import get_enum_type, get_three_state_flag
 
 # CUSTOM CHOICE LISTS
 _ON_OFF_SWITCH_VALUES = ['on', 'off']
@@ -99,6 +99,12 @@ def load_code_arguments(self, _):
 
     with self.argument_context('repos pr create') as context:
         context.argument('work_items', nargs='*')
+        context.argument('draft', arg_type=get_three_state_flag())
+        context.argument('auto_complete', arg_type=get_three_state_flag())
+        context.argument('squash', arg_type=get_three_state_flag())
+        context.argument('delete_source_branch', arg_type=get_three_state_flag())
+        context.argument('bypass_policy', arg_type=get_three_state_flag())
+        context.argument('transition_work_items', arg_type=get_three_state_flag())
 
     with self.argument_context('repos pr list') as context:
         context.argument('status', **enum_choice_list(_PR_STATUS_VALUES))
@@ -110,12 +116,12 @@ def load_code_arguments(self, _):
         context.argument('work_items', nargs='+')
 
     with self.argument_context('repos pr update') as context:
-        context.argument('auto_complete', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('squash', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('delete_source_branch', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('bypass_policy', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('transition_work_items', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('is_draft', **enum_choice_list(_TRUE_FALSE_SWITCH))
+        context.argument('auto_complete', arg_type=get_three_state_flag())
+        context.argument('squash', arg_type=get_three_state_flag())
+        context.argument('delete_source_branch', arg_type=get_three_state_flag())
+        context.argument('bypass_policy', arg_type=get_three_state_flag())
+        context.argument('transition_work_items', arg_type=get_three_state_flag())
+        context.argument('draft', arg_type=get_three_state_flag())
 
     with self.argument_context('repos pr policy') as context:
         context.argument('evaluation_id', options_list=('--evaluation-id', '-e'))

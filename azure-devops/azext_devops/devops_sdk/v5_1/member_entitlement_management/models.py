@@ -1080,6 +1080,8 @@ class GraphUser(GraphMember):
     :type mail_address: str
     :param principal_name: This is the PrincipalName of this graph member from the source provider. The source provider may change this field over time and it is not guaranteed to be immutable for the life of the graph member by VSTS.
     :type principal_name: str
+    :param directory_alias: The short, generally unique name for the user in the backing directory. For AAD users, this corresponds to the mail nickname, which is often but not necessarily similar to the part of the user's mail address before the @ sign. For GitHub users, this corresponds to the GitHub user handle.
+    :type directory_alias: str
     :param is_deleted_in_origin: When true, the group has been deleted in the identity provider
     :type is_deleted_in_origin: bool
     :param metadata_update_date:
@@ -1100,13 +1102,15 @@ class GraphUser(GraphMember):
         'domain': {'key': 'domain', 'type': 'str'},
         'mail_address': {'key': 'mailAddress', 'type': 'str'},
         'principal_name': {'key': 'principalName', 'type': 'str'},
+        'directory_alias': {'key': 'directoryAlias', 'type': 'str'},
         'is_deleted_in_origin': {'key': 'isDeletedInOrigin', 'type': 'bool'},
         'metadata_update_date': {'key': 'metadataUpdateDate', 'type': 'iso-8601'},
         'meta_type': {'key': 'metaType', 'type': 'str'}
     }
 
-    def __init__(self, _links=None, descriptor=None, display_name=None, url=None, legacy_descriptor=None, origin=None, origin_id=None, subject_kind=None, domain=None, mail_address=None, principal_name=None, is_deleted_in_origin=None, metadata_update_date=None, meta_type=None):
+    def __init__(self, _links=None, descriptor=None, display_name=None, url=None, legacy_descriptor=None, origin=None, origin_id=None, subject_kind=None, domain=None, mail_address=None, principal_name=None, directory_alias=None, is_deleted_in_origin=None, metadata_update_date=None, meta_type=None):
         super(GraphUser, self).__init__(_links=_links, descriptor=descriptor, display_name=display_name, url=url, legacy_descriptor=legacy_descriptor, origin=origin, origin_id=origin_id, subject_kind=subject_kind, domain=domain, mail_address=mail_address, principal_name=principal_name)
+        self.directory_alias = directory_alias
         self.is_deleted_in_origin = is_deleted_in_origin
         self.metadata_update_date = metadata_update_date
         self.meta_type = meta_type

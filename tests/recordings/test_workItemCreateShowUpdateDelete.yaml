@@ -154,7 +154,7 @@ interactions:
       X-TFS-Session: [81c994ca-282f-421a-aaf6-a5fa08f08068]
       X-VSS-ForceMsaPassThrough: ['true']
     method: GET
-    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/wit/workItems/139
+    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/wit/workItems/139?$expand=All
   response:
     body: {string: '{"id":139,"rev":1,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Bug","System.State":"New","System.Reason":"New","System.CreatedDate":"2019-03-27T08:40:20.5Z","System.CreatedBy":{"displayName":"Atul
         Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"System.ChangedDate":"2019-03-27T08:40:20.5Z","System.ChangedBy":{"displayName":"Atul
@@ -283,7 +283,7 @@ interactions:
       X-TFS-Session: [81c994ca-282f-421a-aaf6-a5fa08f08068]
       X-VSS-ForceMsaPassThrough: ['true']
     method: GET
-    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/wit/workItems/139
+    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/wit/workItems/139?$expand=All
   response:
     body: {string: '{"$id":"1","innerException":null,"message":"TF401232: Work item
         139 does not exist, or you do not have permissions to read it.","typeName":"Microsoft.TeamFoundation.WorkItemTracking.Server.WorkItemUnauthorizedAccessException,

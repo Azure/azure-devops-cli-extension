@@ -210,7 +210,7 @@ def show_work_item(id, open=False, organization=None, detect=None):  # pylint: d
     organization = resolve_instance(detect=detect, organization=organization)
     try:
         client = get_work_item_tracking_client(organization)
-        work_item = client.get_work_item(id)
+        work_item = client.get_work_item(id, expand='All')
     except AzureDevOpsServiceError as ex:
         _handle_vsts_service_error(ex)
 

@@ -12,6 +12,7 @@ from azext_devops.devops_sdk.v5_0.graph.models import (JsonPatchOperation,
 from azext_devops.dev.common.identities import resolve_identity_as_id
 from azext_devops.dev.common.services import (get_graph_client,
                                               get_project_id_from_name,
+                                              resolve_instance_and_project,
                                               resolve_instance)
 from .security_group_helper import (GraphGroupVstsCreationContext,
                                     GraphGroupMailAddressCreationContext,
@@ -20,16 +21,25 @@ from .security_group_helper import (GraphGroupVstsCreationContext,
 logger = get_logger(__name__)
 
 
-def list_groups(project=None, continuation_token=None, subject_types=None, organization=None, detect=None):
-    """ List all groups.
+def list_groups(scope='project', project=None, continuation_token=None,
+                subject_types=None, organization=None, detect=None):
+    """ List all the groups in a project or organization
+    :param scope: List groups at project or organization level.
+    :type scope: str
     :param continuation_token : If there are more results that can't be returned in a single page, the result set
                                 will contain a continuation token for retrieval of the next set of results.
     :type continuation_token: str
     :param subject_types: A comma separated list of user subject subtypes to reduce the retrieved results.
+                          You can give initial part of descriptor [before the dot] as a filter e.g. vssgp,aadgp
     :type subject_types: [str]
     :rtype: :class:`<PagedGraphGroups> <azure.devops.v5_0.graph.models.PagedGraphGroups>`
     """
-    organization = resolve_instance(detect=detect, organization=organization)
+    if scope == 'project':
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                             organization=organization,
+                                                             project=project)
+    else:
+        organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     scope_descriptor = None
     if project is not None:
@@ -43,7 +53,7 @@ def list_groups(project=None, continuation_token=None, subject_types=None, organ
 
 
 def create_group(name=None, description=None, origin_id=None, email_id=None,
-                 groups=None, project=None, organization=None, detect=None):
+                 groups=None, scope='project', project=None, organization=None, detect=None):
     """
     :param name: Name of Azure DevOps group.
     :type name: str
@@ -58,9 +68,16 @@ def create_group(name=None, description=None, origin_id=None, email_id=None,
     :param groups: A comma separated list of descriptors referencing groups you want the newly created
                    group to join.
     :type groups: [str]
+    :param scope: Create group at project or organization level.
+    :type scope: str
     :rtype: :class:`<GraphGroup> <azure.devops.v5_0.graph.models.GraphGroup>`
     """
-    organization = resolve_instance(detect=detect, organization=organization)
+    if scope == 'project':
+        organization, project = resolve_instance_and_project(detect=detect,
+                                                             organization=organization,
+                                                             project=project)
+    else:
+        organization = resolve_instance(detect=detect, organization=organization)
     client = get_graph_client(organization)
     if name is not None and origin_id is None and email_id is None:
         group_creation_context = GraphGroupVstsCreationContext(display_name=name, description=description)

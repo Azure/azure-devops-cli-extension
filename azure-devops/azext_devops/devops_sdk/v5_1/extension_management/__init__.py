@@ -19,6 +19,8 @@ __all__ = [
     'ContributionPropertyDescription',
     'ContributionType',
     'ExtensionAcquisitionRequest',
+    'ExtensionAuditLog',
+    'ExtensionAuditLogEntry',
     'ExtensionAuthorization',
     'ExtensionBadge',
     'ExtensionDataCollection',

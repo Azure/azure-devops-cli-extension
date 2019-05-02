@@ -95,6 +95,7 @@ def update_policy_configuration_file(policy_id, policy_configuration, organizati
 
 def create_policy_approver_count(repository_id, branch, is_blocking, is_enabled,
                                  minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push,
+                                 branch_match_type='exact',
                                  organization=None, project=None, detect=None):
     """Create approver count policy
     """
@@ -105,13 +106,13 @@ def create_policy_approver_count(repository_id, branch, is_blocking, is_enabled,
     param_value_array = [minimum_approver_count, creator_vote_counts, allow_downvotes, reset_on_source_push]
     configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
                                                 'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd',
-                                                param_name_array, param_value_array)
+                                                param_name_array, param_value_array, branch_match_type)
 
     return policy_client.create_policy_configuration(configuration=configuration, project=project)
 
 
 def update_policy_approver_count(policy_id,
-                                 repository_id=None, branch=None, is_blocking=None, is_enabled=None,
+                                 repository_id=None, branch=None, is_blocking=None, is_enabled=None, branch_match_type=None,
                                  minimum_approver_count=None, creator_vote_counts=None, allow_downvotes=None, reset_on_source_push=None,
                                  organization=None, project=None, detect=None):
     """Update approver count policy
@@ -139,7 +140,8 @@ def update_policy_approver_count(policy_id,
         is_enabled or str(current_policy.is_enabled),
         'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd',
         param_name_array,
-        param_value_array
+        param_value_array,
+        branch_match_type or current_scope['matchKind']
     )
 
     return policy_client.update_policy_configuration(
@@ -149,8 +151,9 @@ def update_policy_approver_count(policy_id,
     )
 
 
-def create_policy_required_reviewer(repository_id, branch, branch_match_type, is_blocking, is_enabled,
+def create_policy_required_reviewer(repository_id, branch, is_blocking, is_enabled,
                                     message, required_reviewer_ids,
+                                    branch_match_type='exact',
                                     path_filter=None,
                                     organization=None, project=None, detect=None):
     """Create required reviewer policy
@@ -170,7 +173,8 @@ def create_policy_required_reviewer(repository_id, branch, branch_match_type, is
 
 
 def update_policy_required_reviewer(policy_id,
-                                    repository_id=None, branch=None, branch_match_type=None, is_blocking=None, is_enabled=None,
+                                    repository_id=None, branch=None, branch_match_type=None,
+                                    is_blocking=None, is_enabled=None,
                                     message=None, required_reviewer_ids=None,
                                     path_filter=None,
                                     organization=None, project=None, detect=None):
@@ -212,6 +216,7 @@ def update_policy_required_reviewer(policy_id,
 
 def create_policy_merge_strategy(repository_id, branch, is_blocking, is_enabled,
                                  use_squash_merge,
+                                 branch_match_type='exact',
                                  organization=None, project=None, detect=None):
     """Create merge strategy policy
     """
@@ -222,13 +227,14 @@ def create_policy_merge_strategy(repository_id, branch, is_blocking, is_enabled,
     param_value_array = [use_squash_merge]
     configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
                                                 'fa4e907d-c16b-4a4c-9dfa-4916e5d171ab',
-                                                param_name_array, param_value_array)
+                                                param_name_array, param_value_array, branch_match_type)
 
     return policy_client.create_policy_configuration(configuration=configuration, project=project)
 
 
 def update_policy_merge_strategy(policy_id,
-                                 repository_id=None, branch=None, is_blocking=None, is_enabled=None,
+                                 repository_id=None, branch=None, branch_match_type=None,
+                                 is_blocking=None, is_enabled=None,
                                  use_squash_merge=None,
                                  organization=None, project=None, detect=None):
     """Update merge strategy policy
@@ -253,7 +259,8 @@ def update_policy_merge_strategy(policy_id,
         is_enabled or str(current_policy.is_enabled),
         'fa4e907d-c16b-4a4c-9dfa-4916e5d171ab',
         param_name_array,
-        param_value_array
+        param_value_array,
+        branch_match_type or current_scope['matchKind']
     )
 
     return policy_client.update_policy_configuration(
@@ -263,9 +270,10 @@ def update_policy_merge_strategy(policy_id,
     )
 
 
-def create_policy_build(repository_id, branch, branch_match_type, is_blocking, is_enabled,
+def create_policy_build(repository_id, branch, is_blocking, is_enabled,
                         build_definition_id, queue_on_source_update_only, manual_queue_only, display_name, valid_duration,
                         path_filter=None,
+                        branch_match_type='exact',
                         organization=None, project=None, detect=None):
     """Create build policy
     """
@@ -397,7 +405,9 @@ def update_policy_file_size(policy_id,
     )
 
 
-def create_policy_comment_required(repository_id, branch, is_blocking, is_enabled,
+def create_policy_comment_required(repository_id, branch,
+                                   is_blocking, is_enabled,
+                                   branch_match_type='exact',
                                    organization=None, project=None, detect=None):
     """Create comment resolution required policy.
     """
@@ -405,13 +415,14 @@ def create_policy_comment_required(repository_id, branch, is_blocking, is_enable
         detect=detect, organization=organization, project=project)
     policy_client = get_policy_client(organization)
     configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
-                                                'c6a1889d-b943-4856-b76f-9e46bb6b0df2', [], [])
+                                                'c6a1889d-b943-4856-b76f-9e46bb6b0df2', [], [], branch_match_type)
 
     return policy_client.create_policy_configuration(configuration=configuration, project=project)
 
 
 def update_policy_comment_required(policy_id,
-                                   repository_id=None, branch=None, is_blocking=None, is_enabled=None,
+                                   repository_id=None, branch=None, branch_match_type=None,
+                                   is_blocking=None, is_enabled=None,
                                    organization=None, project=None, detect=None):
     """Update comment resolution required policy.
     """
@@ -429,7 +440,8 @@ def update_policy_comment_required(policy_id,
         is_enabled or str(current_policy.is_enabled),
         'c6a1889d-b943-4856-b76f-9e46bb6b0df2',
         [],
-        []
+        [],
+        branch_match_type or current_scope['matchKind']
     )
 
     return policy_client.update_policy_configuration(
@@ -439,7 +451,9 @@ def update_policy_comment_required(policy_id,
     )
 
 
-def create_policy_work_item_linking(repository_id, branch, is_blocking, is_enabled,
+def create_policy_work_item_linking(repository_id, branch,
+                                    is_blocking, is_enabled,
+                                    branch_match_type='exact',
                                     organization=None, project=None, detect=None):
     """Create work item linking policy.
     """
@@ -447,13 +461,14 @@ def create_policy_work_item_linking(repository_id, branch, is_blocking, is_enabl
         detect=detect, organization=organization, project=project)
     policy_client = get_policy_client(organization)
     configuration = create_configuration_object(repository_id, branch, is_blocking, is_enabled,
-                                                '40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e', [], [])
+                                                '40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e', [], [], branch_match_type)
 
     return policy_client.create_policy_configuration(configuration=configuration, project=project)
 
 
 def update_policy_work_item_linking(policy_id,
-                                    repository_id=None, branch=None, is_blocking=None, is_enabled=None,
+                                    repository_id=None, branch=None, branch_match_type=None,
+                                    is_blocking=None, is_enabled=None,
                                     organization=None, project=None, detect=None):
     """Update work item linking policy.
     """
@@ -471,7 +486,8 @@ def update_policy_work_item_linking(policy_id,
         is_enabled or str(current_policy.is_enabled),
         '40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e',
         [],
-        []
+        [],
+        branch_match_type or current_scope['matchKind']
     )
 
     return policy_client.update_policy_configuration(
