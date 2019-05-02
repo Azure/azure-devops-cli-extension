@@ -161,7 +161,11 @@ def commit_file_to_github_branch(path_to_commit, content, repo_name, branch, mes
         }
         token = get_github_pat_token()
         logger.warning('Checking in file %s in the Github repository %s', path_to_commit, repo_name)
-        # Todo: Validate response and return status from function
         response = requests.put(url_for_github_file_api, auth=('', token),
                                 json=request_body, headers=headers)
         logger.debug(response)
+        if not response.status_code == _HTTP_CREATED_STATUS:
+            raise CLIError('GitHub file checkin failed for file ({file}). Status Code ({code}).'.format(
+                file=path_to_commit, code=response.status_code))
+    else:
+        raise CLIError('GitHub file checkin failed. File path or content is empty.')

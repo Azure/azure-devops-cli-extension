@@ -19,36 +19,36 @@ def get_github_service_endpoint(organization, project):
     This will try to create a GitHub service connection if there is no existing one in the project
     GitHub pat token will be asked for interactively or can be provided
     by setting the Environment variable AZ_DEVOPS_GITHUB_PAT_ENVKEY.
-    Service endpoint connection name is asked as input from the user, if the environment is non interative
-    name is set to default  AzureDevopsCliCreatePipelineFlow
+    Service endpoint connection name is asked as input from the user
     """
+    from azext_devops.dev.common.identities import get_current_identity, get_account_from_identity
+    authenticated_user_unique_id = get_account_from_identity(get_current_identity(organization))
     se_client = get_service_endpoint_client(organization)
     existing_service_endpoints = _get_service_endpoints(organization, project, 'github')
     service_endpoints_choice_list = ['Create new GitHub service connection']
     github_service_endpoints = []
     choice = 0
     for endpoint in existing_service_endpoints:
-        if endpoint.authorization.scheme == 'InstallationToken':
-            service_endpoints_choice_list.append('{} {}'.format(endpoint.name, '(Recommended)'))
-        else:
+        if (endpoint.authorization.scheme == 'InstallationToken' or
+                authenticated_user_unique_id == endpoint.created_by.unique_name):
             service_endpoints_choice_list.append('{}'.format(endpoint.name))
-        github_service_endpoints.append(endpoint)
+            github_service_endpoints.append(endpoint)
     if github_service_endpoints:
         choice = prompt_user_friendly_choice_list(
-            "Which service connection do you want to use to communicate with GitHub?",
-            service_endpoints_choice_list)
-    if choice == 0:
-        logger.debug("Creating a new service endpoint.")
-        github_pat = get_github_pat_token()
-        se_name = prompt_not_empty('Enter a service endpoint name to create? ')
-        print('')
-        service_endpoint_authorization = EndpointAuthorization(parameters={'accessToken': github_pat},
-                                                               scheme='PersonalAccessToken')
-        service_endpoint_to_create = ServiceEndpoint(authorization=service_endpoint_authorization,
-                                                     name=se_name, type='github',
-                                                     url='https://github.com/')
-        return se_client.create_service_endpoint(service_endpoint_to_create, project).id
-    return existing_service_endpoints[choice - 1].id
+            "Which service connection do you want to use to communicate with GitHub?", service_endpoints_choice_list)
+        if choice > 0:
+            logger.debug(
+                'Using service endpoint index (%s) name (%s)', choice, github_service_endpoints[choice - 1].name)
+            return github_service_endpoints[choice - 1].id
+    logger.debug("Creating a new service endpoint.")
+    github_pat = get_github_pat_token()
+    se_name = prompt_not_empty('Enter a service connection name to create? ')
+    print('')
+    service_endpoint_authorization = EndpointAuthorization(
+        parameters={'accessToken': github_pat}, scheme='PersonalAccessToken')
+    service_endpoint_to_create = ServiceEndpoint(
+        authorization=service_endpoint_authorization, name=se_name, type='github', url='https://github.com/')
+    return se_client.create_service_endpoint(service_endpoint_to_create, project).id
 
 
 def _get_service_endpoints(organization, project, endpoint_type=None):

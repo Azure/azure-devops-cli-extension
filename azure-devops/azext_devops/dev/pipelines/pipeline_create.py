@@ -345,7 +345,7 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
     for file in files:
         print('{index}) {file}'.format(index=count_file, file=file.path))
         count_file = count_file + 1
-
+    print('')
     if default_yml_exists and checkin_path.strip('/') == 'azure-pipelines.yml':
         print('Edits on the existing yaml can be done in the code repository.')
     else:
