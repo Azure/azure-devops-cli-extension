@@ -20,7 +20,7 @@ Azure-Devops extension version:
 Use az --version
 Look for something like-
 Extensions:
-azure-devops (0.6.0)
+azure-devops (0.7.0)
 
 Steps to reproduce the behavior:
 1. login using az login
