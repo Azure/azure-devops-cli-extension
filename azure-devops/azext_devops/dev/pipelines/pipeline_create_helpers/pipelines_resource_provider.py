@@ -29,27 +29,25 @@ def get_github_service_endpoint(organization, project):
     github_service_endpoints = []
     choice = 0
     for endpoint in existing_service_endpoints:
-        if (endpoint.authorization.scheme == 'InstallationToken' or 
-            authenticated_user_unique_id == endpoint.created_by.unique_name):
+        if (endpoint.authorization.scheme == 'InstallationToken' or
+                authenticated_user_unique_id == endpoint.created_by.unique_name):
             service_endpoints_choice_list.append('{}'.format(endpoint.name))
             github_service_endpoints.append(endpoint)
     if github_service_endpoints:
         choice = prompt_user_friendly_choice_list(
-            "Which service connection do you want to use to communicate with GitHub?",
-            service_endpoints_choice_list)
+            "Which service connection do you want to use to communicate with GitHub?", service_endpoints_choice_list)
         if choice > 0:
-            logger.debug('Using service endpoint index (%s) name (%s)',
-                           choice, github_service_endpoints[choice - 1].name)
+            logger.debug(
+                'Using service endpoint index (%s) name (%s)', choice, github_service_endpoints[choice - 1].name)
             return github_service_endpoints[choice - 1].id
     logger.debug("Creating a new service endpoint.")
     github_pat = get_github_pat_token()
     se_name = prompt_not_empty('Enter a service connection name to create? ')
     print('')
-    service_endpoint_authorization = EndpointAuthorization(parameters={'accessToken': github_pat},
-                                                            scheme='PersonalAccessToken')
-    service_endpoint_to_create = ServiceEndpoint(authorization=service_endpoint_authorization,
-                                                    name=se_name, type='github',
-                                                    url='https://github.com/')
+    service_endpoint_authorization = EndpointAuthorization(
+        parameters={'accessToken': github_pat}, scheme='PersonalAccessToken')
+    service_endpoint_to_create = ServiceEndpoint(
+        authorization=service_endpoint_authorization, name=se_name, type='github', url='https://github.com/')
     return se_client.create_service_endpoint(service_endpoint_to_create, project).id
 
 
