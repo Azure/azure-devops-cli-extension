@@ -34,8 +34,6 @@ def get_github_service_endpoint(organization, project):
             service_endpoints_choice_list.append('{}'.format(endpoint.name))
             github_service_endpoints.append(endpoint)
     if github_service_endpoints:
-        import pdb
-        pdb.set_trace()
         choice = prompt_user_friendly_choice_list(
             "Which service connection do you want to use to communicate with GitHub?",
             service_endpoints_choice_list)
