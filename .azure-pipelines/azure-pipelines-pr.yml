@@ -133,6 +133,8 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
+  - template: templates/download-install-local-azure-devops-cli-extension-with-pip.yml
+
   - task: PowerShell@2
     displayName: 'Run Style Check'
     inputs:
