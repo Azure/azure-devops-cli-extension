@@ -29,6 +29,10 @@ class AdminBannerTests(ScenarioTest):
         admin_banner_updated_type = 'error'
         admin_banner_id = self.create_random_name(prefix='banner-id-', length=15)
 
+        from azext_devops.dev.common.config import azdevops_config
+        things = azdevops_config.items('defaults')
+        print(things)
+
         from azext_devops.dev.common.services import _resolve_instance_from_config
         org = _resolve_instance_from_config(None)
         print(org)
