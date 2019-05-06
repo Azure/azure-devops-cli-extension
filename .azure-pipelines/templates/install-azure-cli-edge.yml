@@ -1,0 +1,7 @@
+steps:
+  #  commented out for now because DevOps CLI is broken with latest Azure CLI build
+  # - script: 'pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge'
+  #   displayName: 'Install Azure CLI Edge'
+
+  - script: pip install azure-cli
+    displayName: 'Install Azure CLI released version'

@@ -8,8 +8,7 @@ steps:
       versionSpec: ${{ parameters.pythonVersion }}
       architecture: 'x64'
 
-  - script: pip install azure-cli
-    displayName: 'Install Azure CLI'
+  - template: install-azure-cli-edge.yml
 
   - template: download-install-local-azure-test-sdk.yml
 
