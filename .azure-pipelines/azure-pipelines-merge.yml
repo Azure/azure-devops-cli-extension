@@ -102,8 +102,8 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  # - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-  #   displayName: 'Install Azure CLI'
+  - script: pip install azure-cli
+    displayName: 'Install Azure CLI'
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
@@ -140,8 +140,8 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  # - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-  #   displayName: 'Install Azure CLI'
+  - script: pip install azure-cli
+    displayName: 'Install Azure CLI'
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
@@ -166,8 +166,8 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  # - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-  #   displayName: 'Install Azure CLI'
+  - script: pip install azure-cli
+    displayName: 'Install Azure CLI'
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
@@ -208,8 +208,8 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  # - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-  #   displayName: 'Install Azure CLI'
+  - script: pip install azure-cli
+    displayName: 'Install Azure CLI'
 
   - script: 'python setup.py sdist bdist_wheel'
     displayName: 'Build wheel for Azure DevOps CLI extension'
