@@ -19,6 +19,9 @@ class AdminBannerTests(ScenarioTest):
     @set_authentication
     def test_admin_banner_addUpdateShowListRemove(self):
         self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
+
+        configure_command_output = self.cmd('az devops configure -l')
+        print(configure_command_output)
     
         admin_banner_message = 'Sample banner message'
         admin_banner_type = 'warning'
