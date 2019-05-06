@@ -1,6 +1,7 @@
 parameters:
   pythonVersion: ''
   runOnlyRecordedTests: 'false'
+  runWithAzureCliReleased: 'false'
 
 steps:
   - task: UsePythonVersion@0
@@ -8,8 +9,11 @@ steps:
       versionSpec: ${{ parameters.pythonVersion }}
       architecture: 'x64'
 
-  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-    displayName: 'Install Azure CLI'
+  - ${{ if eq(parameters.runWithAzureCliReleased, 'false') }}:
+    - template: install-azure-cli-edge.yml
+
+  - ${{ if eq(parameters.runWithAzureCliReleased, 'true') }}:
+    - template: install-azure-cli-released.yml
 
   - template: download-install-local-azure-test-sdk.yml
 
