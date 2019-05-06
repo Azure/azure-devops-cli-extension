@@ -71,8 +71,7 @@ class ServiceEndpointClient(Client):
         [Preview API] Delete a service endpoint.
         :param str project: Project ID or project name
         :param str endpoint_id: Id of the service endpoint to delete.
-        :param bool deep: Specific to AzureRM endpoint created in Automatic flow.
-        When set to true, this will also delete corresponding AAD application in Azure. Default value is true.
+        :param bool deep: Specific to AzureRM endpoint created in Automatic flow. When set to true, this will also delete corresponding AAD application in Azure. Default value is true.
         """
         route_values = {}
         if project is not None:
