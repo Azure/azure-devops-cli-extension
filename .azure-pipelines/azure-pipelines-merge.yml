@@ -91,6 +91,17 @@ jobs:
     parameters:
       pythonVersion: '3.x'
 
+- job: 'Run_Test_Mac_Azure_CLI_Released_Version'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'macOS-10.13'
+
+  steps:
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.x'
+      runWithAzureCliReleased: 'true'
+
 - job: 'Code_Coverage'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
@@ -102,8 +113,7 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-    displayName: 'Install Azure CLI'
+  - template: templates/install-azure-cli-edge.yml
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
@@ -140,8 +150,7 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-    displayName: 'Install Azure CLI'
+  - template: templates/install-azure-cli-edge.yml
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
@@ -166,8 +175,7 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-    displayName: 'Install Azure CLI'
+  - template: templates/install-azure-cli-edge.yml
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
@@ -208,8 +216,7 @@ jobs:
 
   - template: templates/setup-ci-machine.yml
 
-  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-    displayName: 'Install Azure CLI'
+  - template: templates/install-azure-cli-edge.yml
 
   - script: 'python setup.py sdist bdist_wheel'
     displayName: 'Build wheel for Azure DevOps CLI extension'
