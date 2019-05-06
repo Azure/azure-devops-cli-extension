@@ -4,8 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 import os
-import stat
-from six.moves import configparser
 
 from knack.config import CLIConfig, get_config_parser
 from knack.util import ensure_dir
@@ -39,24 +37,7 @@ azdevops_config = AzDevopsConfig()
 azdevops_config.config_parser.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
 
 
-# def set_global_config(config):
-# ensure_dir(AZ_DEVOPS_GLOBAL_CONFIG_DIR)
-# with open(AZ_DEVOPS_GLOBAL_CONFIG_PATH, 'w') as configfile:
-#     config.write(configfile)
-# os.chmod(AZ_DEVOPS_GLOBAL_CONFIG_PATH, stat.S_IRUSR | stat.S_IWUSR)
-# # reload config
-# azdevops_config.config_parser.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
-
-
 def set_global_config_value(section, option, value):
-    # config = get_config_parser()
-    # config.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
-    # try:
-    #     config.add_section(section)
-    # except configparser.DuplicateSectionError:
-    #     pass
-    # config.set(section, option, _normalize_config_value(value))
-    # set_global_config(config)
     azdevops_config.set_value(section, option, _normalize_config_value(value))
     azdevops_config.config_parser.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
 
