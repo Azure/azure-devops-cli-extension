@@ -32,9 +32,8 @@ class AdminBannerTests(ScenarioTest):
         from azext_devops.dev.common.config import azdevops_config
         things = azdevops_config.items('defaults')
         for thing in things:
-            print(thing.name)
-            print(thing.value)
-            print(thing.source)
+            import json
+            print(json.dumps(thing))
 
         from azext_devops.dev.common.services import _resolve_instance_from_config
         org = _resolve_instance_from_config(None)
