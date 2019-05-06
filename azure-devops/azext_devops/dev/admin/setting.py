@@ -5,6 +5,9 @@
 
 from azext_devops.dev.common.services import (get_settings_client,
                                               resolve_instance)
+from knack.log import get_logger
+
+logger = get_logger(__name__)
 
 
 def setting_list(user_scope, key=None, organization=None, detect=None):
@@ -15,9 +18,9 @@ def setting_list(user_scope, key=None, organization=None, detect=None):
 
 
 def setting_add_or_update(entries, user_scope, organization=None, detect=None):
-    print('Organization received inside setting_add_or_update ' + organization)
+    logger.debug('Organization received inside setting_add_or_update %s'.(organization)
     organization = resolve_instance(detect=detect, organization=organization)
-    print('Organization after resolve_instance ' + organization)
+    logger.debug('Organization after resolve_instance %s'.(organization))
     client = get_settings_client(organization)
     client.set_entries(entries=entries, user_scope=user_scope)
 
