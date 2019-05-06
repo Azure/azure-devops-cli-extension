@@ -31,8 +31,7 @@ AZ_DEVOPS_GLOBAL_CONFIG_PATH = os.path.join(AZ_DEVOPS_GLOBAL_CONFIG_DIR, CONFIG_
 
 class AzDevopsConfig(CLIConfig):
     def __init__(self, config_dir=AZ_DEVOPS_GLOBAL_CONFIG_DIR, config_env_var_prefix=CLI_ENV_VARIABLE_PREFIX):
-        super(AzDevopsConfig, self).__init__(config_dir=config_dir, config_env_var_prefix=config_env_var_prefix,
-                                             use_local_config=True)
+        super(AzDevopsConfig, self).__init__(config_dir=config_dir, config_env_var_prefix=config_env_var_prefix)
         self.config_parser = get_config_parser()
 
 
@@ -40,24 +39,26 @@ azdevops_config = AzDevopsConfig()
 azdevops_config.config_parser.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
 
 
-def set_global_config(config):
-    ensure_dir(AZ_DEVOPS_GLOBAL_CONFIG_DIR)
-    with open(AZ_DEVOPS_GLOBAL_CONFIG_PATH, 'w') as configfile:
-        config.write(configfile)
-    os.chmod(AZ_DEVOPS_GLOBAL_CONFIG_PATH, stat.S_IRUSR | stat.S_IWUSR)
-    # reload config
-    azdevops_config.config_parser.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
+# def set_global_config(config):
+# ensure_dir(AZ_DEVOPS_GLOBAL_CONFIG_DIR)
+# with open(AZ_DEVOPS_GLOBAL_CONFIG_PATH, 'w') as configfile:
+#     config.write(configfile)
+# os.chmod(AZ_DEVOPS_GLOBAL_CONFIG_PATH, stat.S_IRUSR | stat.S_IWUSR)
+# # reload config
+# azdevops_config.config_parser.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
 
 
 def set_global_config_value(section, option, value):
-    config = get_config_parser()
-    config.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
-    try:
-        config.add_section(section)
-    except configparser.DuplicateSectionError:
-        pass
-    config.set(section, option, _normalize_config_value(value))
-    set_global_config(config)
+    # config = get_config_parser()
+    # config.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
+    # try:
+    #     config.add_section(section)
+    # except configparser.DuplicateSectionError:
+    #     pass
+    # config.set(section, option, _normalize_config_value(value))
+    # set_global_config(config)
+    azdevops_config.set_value(section, option, _normalize_config_value(value))
+    azdevops_config.config_parser.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
 
 
 def _normalize_config_value(value):
