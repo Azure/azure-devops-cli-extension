@@ -75,7 +75,7 @@ def print_current_configuration(file_config=None):
     env_vars = [ev for ev in os.environ if ev.startswith(CLI_ENV_VARIABLE_PREFIX)]
     if env_vars:
         print(MSG_HEADING_ENV_VARS)
-        print('\n'.join(['{} = {}'.format(ev, os.environ[ev]) for ev in env_vars]))
+        print('\n'.join(['{}'.format(ev) for ev in env_vars]))
 
 
 MSG_INTRO = '\nWelcome to the Azure DevOps CLI! This command will guide you through setting some default values.\n'
