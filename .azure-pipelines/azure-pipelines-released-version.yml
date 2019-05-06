@@ -31,8 +31,7 @@ jobs:
         versionSpec: '3.x'
         architecture: 'x64'
 
-    - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-      displayName: 'Install Azure CLI'
+    - template: templates/install-azure-cli-edge.yml
 
     - template: templates/download-install-local-azure-test-sdk.yml
 
