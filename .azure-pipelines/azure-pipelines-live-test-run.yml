@@ -46,8 +46,8 @@ jobs:
     inputs:
       versionSpec: '$(python.version)'
 
-  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-    displayName: 'Install Azure CLI'
+  # - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
+  #   displayName: 'Install Azure CLI'
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
