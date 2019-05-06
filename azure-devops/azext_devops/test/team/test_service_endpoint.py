@@ -68,10 +68,10 @@ class TestServiceEndpointMethods(AuthenticatedTests):
 
     def test_delete_service_endpoint(self):
         randomId = 'abcdfe34343'
-        delete_service_endpoint(randomId, false, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)
+        delete_service_endpoint(randomId, 'false', self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)
 
         #assert 
-        self.mock_delete_SE(self._TEST_PROJECT_NAME, randomId, false)
+        self.mock_delete_SE(self._TEST_PROJECT_NAME, randomId, 'false')
 
     def test_create_service_endpoint_unsupported(self):
         try:
