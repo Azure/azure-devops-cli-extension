@@ -4,4 +4,4 @@ steps:
   #   displayName: 'Install Azure CLI Edge'
 
   - script: pip install azure-cli
-    displayName: 'Install Azure CLI released version'
+    displayName: 'Install Azure CLI released version (in place of edge due to active bug)'
