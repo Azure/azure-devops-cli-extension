@@ -15,7 +15,9 @@ def setting_list(user_scope, key=None, organization=None, detect=None):
 
 
 def setting_add_or_update(entries, user_scope, organization=None, detect=None):
+    print('Organization received inside setting_add_or_update ' + organization)
     organization = resolve_instance(detect=detect, organization=organization)
+    print('Organization after resolve_instance ' + organization)
     client = get_settings_client(organization)
     client.set_entries(entries=entries, user_scope=user_scope)
 
