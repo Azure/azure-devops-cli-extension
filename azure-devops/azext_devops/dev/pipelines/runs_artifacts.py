@@ -24,7 +24,8 @@ def run_artifact_download(run_id, artifact_name, path, organization=None, projec
     """
     organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
     artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-    return artifact_tool.download_pipeline_artifact(organization, project, run_id, artifact_name, path)
+    return artifact_tool.download_pipeline_artifact(
+        organization=organization, project=project, run_id=run_id, artifact_name=artifact_name, path=path)
 
 
 def run_artifact_list(run_id, organization=None, project=None, detect=None):
@@ -34,7 +35,7 @@ def run_artifact_list(run_id, organization=None, project=None, detect=None):
     """
     organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
     client = get_build_client(organization)
-    artifacts = client.get_artifacts(run_id, project)
+    artifacts = client.get_artifacts(project=project, build_id=run_id)
     return artifacts
 
 
@@ -49,4 +50,5 @@ def run_artifact_upload(run_id, artifact_name, path, organization=None, project=
     """
     organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
     artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-    return artifact_tool.upload_pipeline_artifact(organization, project, run_id, artifact_name, path)
+    return artifact_tool.upload_pipeline_artifact(
+        organization=organization, project=project, run_id=run_id, artifact_name=artifact_name, path=path)
