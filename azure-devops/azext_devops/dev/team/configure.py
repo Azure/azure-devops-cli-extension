@@ -14,18 +14,18 @@ from knack.util import CLIError
 
 from azext_devops.dev.common.config import (set_global_config_value, AZ_DEVOPS_GLOBAL_CONFIG_PATH)
 from azext_devops.dev.common.const import (CLI_ENV_VARIABLE_PREFIX, DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT,
-                                           DEVOPS_TEAM_PROJECT_DEFAULT)
+                                           DEVOPS_TEAM_PROJECT_DEFAULT, DEVOPS_PREVIEW_DEFAULT)
 
 logger = get_logger(__name__)
 
 
-CONFIG_VALID_DEFAULT_KEYS_LIST = [DEVOPS_ORGANIZATION_DEFAULT, DEVOPS_TEAM_PROJECT_DEFAULT]
+CONFIG_VALID_DEFAULT_KEYS_LIST = [DEVOPS_ORGANIZATION_DEFAULT, DEVOPS_TEAM_PROJECT_DEFAULT, DEVOPS_PREVIEW_DEFAULT]
 
 
 def configure(defaults=None, use_git_aliases=None, list_config=False):
     """Configure the Azure DevOps CLI or view your configuration.
     :param defaults: Space separated 'name=value' pairs for common arguments defaults,
-        e.g. '--defaults project=my-project-name organization=https://dev.azure.com/organizationName
+        e.g. '--defaults project=my-project-name organization=https://dev.azure.com/organizationName preview=true
         arg=value' Use '' to clear the defaults, e.g. --defaults project=''.
     :type defaults: str
     :param use_git_aliases: Set to 'yes' to configure Git aliases global git config file

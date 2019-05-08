@@ -10,7 +10,9 @@ from knack.util import ensure_dir
 from .const import (AZ_DEVOPS_CONFIG_DIR_ENVKEY,
                     AZ_DEVOPS_DEFAULT_CONFIG_DIR,
                     CLI_ENV_VARIABLE_PREFIX,
-                    CONFIG_FILE_NAME)
+                    CONFIG_FILE_NAME,
+                    DEFAULTS_SECTION,
+                    DEVOPS_PREVIEW_DEFAULT)
 
 
 _UNSET = object()
@@ -40,6 +42,14 @@ azdevops_config.config_parser.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
 def set_global_config_value(section, option, value):
     azdevops_config.set_value(section, option, _normalize_config_value(value))
     azdevops_config.config_parser.read(AZ_DEVOPS_GLOBAL_CONFIG_PATH)
+
+
+def get_preview_value():
+    if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_PREVIEW_DEFAULT):
+        preview = azdevops_config.get(DEFAULTS_SECTION, DEVOPS_PREVIEW_DEFAULT)
+        return bool(preview)
+
+    return False
 
 
 def _normalize_config_value(value):
