@@ -19,13 +19,13 @@ from azext_devops.dev.common.const import (CLI_ENV_VARIABLE_PREFIX, DEFAULTS_SEC
 logger = get_logger(__name__)
 
 
-CONFIG_VALID_DEFAULT_KEYS_LIST = [DEVOPS_ORGANIZATION_DEFAULT, DEVOPS_TEAM_PROJECT_DEFAULT, DEVOPS_PREVIEW_DEFAULT]
+CONFIG_VALID_DEFAULT_KEYS_LIST = [DEVOPS_ORGANIZATION_DEFAULT, DEVOPS_TEAM_PROJECT_DEFAULT]
 
 
-def configure(defaults=None, use_git_aliases=None, list_config=False):
+def configure(defaults=None, use_git_aliases=None, list_config=False, enable_preview_commands=None):
     """Configure the Azure DevOps CLI or view your configuration.
     :param defaults: Space separated 'name=value' pairs for common arguments defaults,
-        e.g. '--defaults project=my-project-name organization=https://dev.azure.com/organizationName preview=true
+        e.g. '--defaults project=my-project-name organization=https://dev.azure.com/organizationName
         arg=value' Use '' to clear the defaults, e.g. --defaults project=''.
     :type defaults: str
     :param use_git_aliases: Set to 'yes' to configure Git aliases global git config file
@@ -34,8 +34,11 @@ def configure(defaults=None, use_git_aliases=None, list_config=False):
     :type use_git_aliases: str
     :param list_config: Lists the contents of the config file.
     :type list_config: bool
+    :param enable_preview_commands: Set to 'yes' to use preview commands
+        Set to 'no' to not use any preview commands
+    :type enable_preview_commands: str
     """
-    if defaults is None and use_git_aliases is None and list_config is False:
+    if defaults is None and use_git_aliases is None and list_config is False and enable_preview_commands is None:
         raise CLIError('usage error: atleast one of the options must be specified.'
                        'For list of supported options see help using -h flag.')
     if defaults:
@@ -47,6 +50,8 @@ def configure(defaults=None, use_git_aliases=None, list_config=False):
                 raise CLIError('usage error: invalid default value setup. Supported values are {}.'
                                .format(CONFIG_VALID_DEFAULT_KEYS_LIST))
             set_global_config_value(DEFAULTS_SECTION, parts[0], parts[1])
+    if enable_preview_commands is not None:
+        set_global_config_value(DEFAULTS_SECTION, DEVOPS_PREVIEW_DEFAULT, enable_preview_commands)
     if use_git_aliases is not None:
         from azext_devops.dev.repos.git_alias import setup_git_aliases, clear_git_aliases
         if use_git_aliases == 'yes':

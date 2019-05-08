@@ -62,6 +62,7 @@ def load_team_arguments(self, _):
                          help='Do not prompt for confirmation.')
     with self.argument_context('devops configure') as context:
         context.argument('use_git_aliases', **enum_choice_list(_YES_NO_SWITCH_VALUES))
+        context.argument('enable_preview_commands', **enum_choice_list(_YES_NO_SWITCH_VALUES))
         context.argument('list_config', options_list=('--list', '-l'))
 
     with self.argument_context('devops invoke') as context:

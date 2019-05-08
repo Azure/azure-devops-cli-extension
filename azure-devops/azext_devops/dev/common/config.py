@@ -51,7 +51,9 @@ def get_preview_value():
     preview = False
 
     if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_PREVIEW_DEFAULT):
-        preview = bool(azdevops_config.get(DEFAULTS_SECTION, DEVOPS_PREVIEW_DEFAULT))
+        preview_from_config = azdevops_config.get(DEFAULTS_SECTION, DEVOPS_PREVIEW_DEFAULT)
+        if preview_from_config == 'yes':
+            preview = True
 
     _config_cache[DEVOPS_PREVIEW_DEFAULT] = preview
     return preview
