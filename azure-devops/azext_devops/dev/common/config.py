@@ -45,14 +45,21 @@ def set_global_config_value(section, option, value):
 
 
 def get_preview_value():
-    if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_PREVIEW_DEFAULT):
-        preview = azdevops_config.get(DEFAULTS_SECTION, DEVOPS_PREVIEW_DEFAULT)
-        return bool(preview)
+    if DEVOPS_PREVIEW_DEFAULT in _config_cache:
+        return _config_cache[DEVOPS_PREVIEW_DEFAULT]
 
-    return False
+    preview = False
+
+    if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_PREVIEW_DEFAULT):
+        preview = bool(azdevops_config.get(DEFAULTS_SECTION, DEVOPS_PREVIEW_DEFAULT))
+
+    _config_cache[DEVOPS_PREVIEW_DEFAULT] = preview
+    return preview
 
 
 def _normalize_config_value(value):
     if value:
         value = '' if value in ["''", '""'] else value
     return value
+
+_config_cache = {}
