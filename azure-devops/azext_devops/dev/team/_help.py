@@ -162,10 +162,10 @@ def load_team_help():
         - name: Update content of page with path 'my page' in a wiki named 'myprojectwiki' with inline content
           text: |
             az devops wiki page update --path 'my page' --wiki myprojectwiki --content "Hello World"
-            --etag 4ae78ad5835cb7dd55072fe210c9ee7eb6d6413b
+            --version 4ae78ad5835cb7dd55072fe210c9ee7eb6d6413b
 
         - name: Update content of page with path 'my page' in a wiki with content from a file
           text: |
             az devops wiki page update --path 'my page' --wiki myprojectwiki --file-path a.txt
-            --etag 4ae78ad5835cb7dd55072fe210c9ee7eb6d6413b
+            --version 4ae78ad5835cb7dd55072fe210c9ee7eb6d6413b
     """
