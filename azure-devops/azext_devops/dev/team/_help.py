@@ -114,7 +114,32 @@ def load_team_help():
     short-summary: Manage wikis
     """
 
+    helps['devops wiki create'] = """
+    type: command
+    examples:
+        - name: Create a project wiki
+          text: |
+            az devops wiki create --name myprojectwiki
+
+        - name: Create a code wiki from a folder in a code repository
+          text: |
+            az devops wiki create --name WIKI_NAME --type codewiki --version BRANCH_NAME
+            --repository REPO_NAME --mapped-path PATH_TO_PUBLISH
+    """
+
     helps['devops wiki page'] = """
     type: group
     short-summary: Manage wiki pages
+    """
+
+    helps['devops wiki page create'] = """
+    type: command
+    examples:
+        - name: Create a new page with path 'my page' in a wiki named 'myprojectwiki' with inline content
+          text: |
+            az devops wiki page create --path 'my page' --wiki myprojectwiki --content "Hello World"
+
+        - name: Create a new page with path 'my page' in a wiki named 'myprojectwiki' with content from a file
+          text: |
+            az devops wiki page create --path 'my page' --wiki myprojectwiki --file-path a.txt
     """
