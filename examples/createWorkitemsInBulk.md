@@ -46,7 +46,7 @@ Service enhancement - add caching logic
 Fix the issue in caching
 ```
 
-1. Create a file with template for default organization and project to be used when creating workitems. e.g. my_wit_template.txt has content-
+2. Create a file with template for default organization and project to be used when creating workitems. e.g. my_wit_template.txt has content-
 
 ```
 organization=https://dev.azure.com/ContosoOrg
