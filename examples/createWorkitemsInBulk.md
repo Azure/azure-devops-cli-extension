@@ -38,21 +38,21 @@ Enter workitem title: :
 
 ### Script Mode
 
-    1. Create a file with workitem titles in different lines e.g. my_wit_title.txt has content-
+1. Create a file with workitem titles in different lines e.g. my_wit_title.txt has content-
 
-```
-XYZ is not working
-Service enhancement - add caching logic
-Fix the issue in caching
-```
+    ```
+    XYZ is not working
+    Service enhancement - add caching logic
+    Fix the issue in caching
+    ```
 
-    1. Create a file with template for default organization and project to be used when creating workitems. e.g. my_wit_template.txt has content-
+1. Create a file with template for default organization and project to be used when creating workitems. e.g. my_wit_template.txt has content-
 
-```
-organization=https://dev.azure.com/ContosoOrg
-project=ContosoProject
-workitem_type=Bug
-```
+    ```
+    organization=https://dev.azure.com/ContosoOrg
+    project=ContosoProject
+    workitem_type=Bug
+    ```
 
 Invoke the Script with the template and titles files as follows-
 
