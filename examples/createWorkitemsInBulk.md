@@ -2,7 +2,7 @@
 
 ## When to use
 
-You can create large number of workitems through a text file input or interactively. Common use case is when planning a project or bug bash. 
+You can create large number of workitems through a text file input or interactively. Common use case is when planning a project or bug bash.
 
 ## How to use
 
@@ -42,7 +42,7 @@ Enter workitem title: :
 
 ```
 XYZ is not working
-Service enhancement - add caching logic 
+Service enhancement - add caching logic
 Fix the issue in caching
 ```
 
@@ -59,9 +59,3 @@ Invoke the Script with the template and titles files as follows-
 ```
 .\createWorkitemsInBulk.ps1 -workitem_titles .\my_wit_titles.txt -wit_template .\my_wit_template.txt
 ```
-
-
-
-
-
-
