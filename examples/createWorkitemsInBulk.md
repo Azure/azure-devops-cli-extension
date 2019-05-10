@@ -54,7 +54,7 @@ Enter workitem title: :
     workitem_type=Bug
     ```
 
-Invoke the Script with the template and titles files as follows-
+1. Invoke the Script with the template and titles files as follows-
 
 ```
 .\createWorkitemsInBulk.ps1 -workitem_titles .\my_wit_titles.txt -wit_template .\my_wit_template.txt
