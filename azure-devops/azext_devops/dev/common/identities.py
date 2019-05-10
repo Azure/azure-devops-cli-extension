@@ -132,7 +132,7 @@ def get_account_from_identity(identity):
 def get_identity_descriptor_from_subject_descriptor(organization, subject_descriptor):
     identity_client = get_identity_client(organization)
     identities = identity_client.read_identities(subject_descriptors=subject_descriptor)
-    if identities is not None:
+    if identities:
         return identities[0].descriptor
     return subject_descriptor
 

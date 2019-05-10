@@ -28,7 +28,7 @@ class PermissionDetails(Model):
 
     def __init__(self, bit=None, display_name=None, effective_permission=None, name=None):
         super(PermissionDetails, self).__init__()
-        self.bit = bit,
-        self.display_name = display_name,
-        self.effective_permission = effective_permission,
+        self.bit = bit
+        self.display_name = display_name
+        self.effective_permission = effective_permission
         self.name = name

@@ -222,21 +222,8 @@ def _transform_acl_details_row(row):
         table_row['Deny'] = ace['deny']
     return table_row
 
-
-def transform_ace_list(result):
-    table_output = []
-    for item in result:
-        table_output.append(transform_ace_details_row(item))
-    return table_output
-
-def transform_ace_details_row(row):
-    table_row = OrderedDict()
-    table_row['allow'] = row['allow']
-    table_row['deny'] = row['deny']
-    return table_row
-
 def transform_resolve_permission_bits(result):
-    table_output = [] 
+    table_output = []
     ace_entry = list(result[0]['acesDictionary'].values())[0]
     permissions = ace_entry['resolvedPermissions']
     for permission in permissions:

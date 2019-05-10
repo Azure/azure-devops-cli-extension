@@ -3,7 +3,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import os
 import json
 from knack.util import CLIError
 from knack.log import get_logger
@@ -31,7 +30,7 @@ def list_namespaces(local_only=False, organization=None, detect=None):
 
 
 def show_namespace(namespace_id, organization=None, detect=None):
-    """ Show details of permissions avaialble in each namespace.
+    """ Show details of permissions available in each namespace.
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
@@ -46,11 +45,7 @@ def list_tokens(namespace_id, subject, token=None,
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
-    if '@' in subject:
-        subject = resolve_identity_as_identity_descriptor(subject, organization)
-    elif not is_uuid(subject) and '.' in subject:
-        # try to solve graph subject descriptor for groups
-        subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
+    subject = _resolve_subject_as_identity_descriptor(subject)
     response = _query_permissions(client, namespace_id, subject, token, recurse)                                                
     return response
 
@@ -60,11 +55,7 @@ def show_permissions(namespace_id, subject, token, organization=None, detect=Non
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
-    if '@' in subject:
-        subject = resolve_identity_as_identity_descriptor(subject, organization)
-    elif not is_uuid(subject) and '.' in subject:
-        # try to solve graph subject descriptor for groups
-        subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
+    subject = _resolve_subject_as_identity_descriptor(subject)
     list_response = _query_permissions(client, namespace_id, subject, token, False)
     permissions_types = _get_permission_types(client, namespace_id)
     resolved_permissions_response = _resolve_bits(list_response, permissions_types)
@@ -76,11 +67,7 @@ def reset_all_permissions(namespace_id, subject, token, organization=None, detec
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
-    if '@' in subject:
-        subject = resolve_identity_as_identity_descriptor(subject, organization)
-    elif not is_uuid(subject) and '.' in subject:
-        # try to solve graph subject descriptor for groups
-        subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
+    subject = _resolve_subject_as_identity_descriptor(subject)
     response = client.remove_access_control_entries(security_namespace_id=namespace_id,
                                                     token=token, descriptors=subject)
     return response
@@ -94,11 +81,7 @@ def reset_permissions(namespace_id, permission_bit, subject, token, organization
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
-    if '@' in subject:
-        subject = resolve_identity_as_identity_descriptor(subject, organization)
-    elif not is_uuid(subject) and '.' in subject:
-        # try to solve graph subject descriptor for groups
-        subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
+    subject = _resolve_subject_as_identity_descriptor(subject)
     api_response = client.remove_permission(security_namespace_id=namespace_id, permissions=permission_bit,
                                         descriptor=subject, token=token)
     # get the effective permission list for this namespace , token
@@ -109,19 +92,15 @@ def reset_permissions(namespace_id, permission_bit, subject, token, organization
     return response
 
 
-def add_permissions(namespace_id, subject, token, merge=True, allow_bit=0, deny_bit=0,
-                    organization=None, detect=None):
-    """ Assign allow or deny permission to this user/group.
+def update_permissions(namespace_id, subject, token, merge=True, allow_bit=0, deny_bit=0,
+                       organization=None, detect=None):
+    """ Assign allow or deny permission to given user/group.
     """
     if allow_bit == 0 and deny_bit == 0:
         raise CLIError('Either --allow-bit or --deny-bit parameter should be provided.')
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
-    if '@' in subject:
-        subject = resolve_identity_as_identity_descriptor(subject, organization)
-    elif not is_uuid(subject) and '.' in subject:
-        # try to solve graph subject descriptor for groups
-        subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
+    subject = _resolve_subject_as_identity_descriptor(subject)
     container_object = {}
     aces_list = []
     ace_object = AccessControlEntry(descriptor=subject, allow=allow_bit, deny=deny_bit)
@@ -205,8 +184,19 @@ def _get_permission_types(client, namespace_id):
     response = client.query_security_namespaces(security_namespace_id=namespace_id)
     return response
 
+
 def _query_permissions(client, namespace_id, subject, token, recurse):
     list_response = client.query_access_control_lists(security_namespace_id=namespace_id,
                                                       token=token, descriptors=subject,
                                                       include_extended_info=True, recurse=recurse)
     return list_response
+
+
+def _resolve_subject_as_identity_descriptor(subject):
+    if '@' in subject:
+        subject = resolve_identity_as_identity_descriptor(subject, organization)
+    elif '.' in subject:
+        # try to solve graph subject descriptor for groups
+        subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
+    return subject
+    

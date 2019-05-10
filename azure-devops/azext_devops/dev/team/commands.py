@@ -14,8 +14,6 @@ from ._format import (transform_project_table_output,
                       transform_namespaces_table_output,
                       transform_namespace_table_output,
                       transform_acl_output,
-                      transform_ace_list,
-                      transform_ace_details_row,
                       transform_resolve_permission_bits,
                       transform_team_table_output,
                       transform_teams_table_output,
@@ -155,7 +153,7 @@ def load_team_commands(self, _):
 
     with self.command_group('devops security permission', command_type=security_permissionOps) as g:
         g.command('list', 'list_tokens', table_transformer=transform_acl_output)
-        g.command('add', 'add_permissions', table_transformer=transform_resolve_permission_bits)
+        g.command('update', 'update_permissions', table_transformer=transform_resolve_permission_bits)
         g.command('reset-all', 'reset_all_permissions',
                   confirmation='Are you sure you want to reset all explicit permissions for this user/group and token?')
         g.command('reset', 'reset_permissions', table_transformer=transform_resolve_permission_bits)
