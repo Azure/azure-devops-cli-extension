@@ -127,6 +127,18 @@ def load_team_help():
             --repository REPO_NAME --mapped-path PATH_TO_PUBLISH
     """
 
+    helps['devops wiki list'] = """
+    type: command
+    examples:
+        - name: List all wikis for a project
+          text: |
+            az devops wiki list
+
+        - name: List all wikis in the organization
+          text: |
+            az devops wiki list --scope organization
+    """
+
     helps['devops wiki page'] = """
     type: group
     short-summary: Manage wiki pages
@@ -142,4 +154,18 @@ def load_team_help():
         - name: Create a new page with path 'my page' in a wiki named 'myprojectwiki' with content from a file
           text: |
             az devops wiki page create --path 'my page' --wiki myprojectwiki --file-path a.txt
+    """
+
+    helps['devops wiki page update'] = """
+    type: command
+    examples:
+        - name: Update content of page with path 'my page' in a wiki named 'myprojectwiki' with inline content
+          text: |
+            az devops wiki page update --path 'my page' --wiki myprojectwiki --content "Hello World"
+            --etag 4ae78ad5835cb7dd55072fe210c9ee7eb6d6413b
+
+        - name: Update content of page with path 'my page' in a wiki with content from a file
+          text: |
+            az devops wiki page update --path 'my page' --wiki myprojectwiki --file-path a.txt
+            --etag 4ae78ad5835cb7dd55072fe210c9ee7eb6d6413b
     """
