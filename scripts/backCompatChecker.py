@@ -10,24 +10,16 @@ import subprocess
 oldArguments = []
 newArguments = []
 allowedMissingArguments = {}
-allowedMissingArguments['devops extension disable'] = ['--extension-id']
-allowedMissingArguments['devops extension enable'] = ['--extension-id']
-allowedMissingArguments['devops extension install'] = ['--extension-id']
-allowedMissingArguments['devops extension uninstall'] = ['--extension-id']
-allowedMissingArguments['devops extension disable'] = ['--publisher-id']
-allowedMissingArguments['devops extension enable'] = ['--publisher-id']
-allowedMissingArguments['devops extension install'] = ['--publisher-id']
-allowedMissingArguments['devops extension uninstall'] = ['--publisher-id']
+allowedMissingArguments['devops extension disable'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension enable'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension install'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension uninstall'] = ['--extension-id', '--publisher-id']
 
 allowedNewMandatoryArguments = {}
-allowedNewMandatoryArguments['devops extension disable'] = ['--extension-name']
-allowedNewMandatoryArguments['devops extension enable'] = ['--extension-name']
-allowedNewMandatoryArguments['devops extension install'] = ['--extension-name']
-allowedNewMandatoryArguments['devops extension uninstall'] = ['--extension-name']
-allowedNewMandatoryArguments['devops extension disable'] = ['--publisher-name']
-allowedNewMandatoryArguments['devops extension enable'] = ['--publisher-name']
-allowedNewMandatoryArguments['devops extension install'] = ['--publisher-name']
-allowedNewMandatoryArguments['devops extension uninstall'] = ['--publisher-name']
+allowedNewMandatoryArguments['devops extension disable'] = ['--extension-name', '--publisher-name']
+allowedNewMandatoryArguments['devops extension enable'] = ['--extension-name', '--publisher-name']
+allowedNewMandatoryArguments['devops extension install'] = ['--extension-name', '--publisher-name']
+allowedNewMandatoryArguments['devops extension uninstall'] = ['--extension-name', '--publisher-name']
 
 # Do not compare these commands
 ignoreCommands = []
