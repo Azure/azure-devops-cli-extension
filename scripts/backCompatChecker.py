@@ -10,8 +10,14 @@ import subprocess
 oldArguments = []
 newArguments = []
 allowedMissingArguments = {}
-allowedMissingArguments['devops service-endpoint create'] = ['--azure-rm-service-prinicipal-key']
-allowedMissingArguments['pipelines build queue'] = ['--source-branch']
+allowedMissingArguments['az devops extension disable'] = ['--extension-id']
+allowedMissingArguments['az devops extension enable'] = ['--extension-id']
+allowedMissingArguments['az devops extension install'] = ['--extension-id']
+allowedMissingArguments['az devops extension uninstall'] = ['--extension-id']
+allowedMissingArguments['az devops extension disable'] = ['--publisher-id']
+allowedMissingArguments['az devops extension enable'] = ['--publisher-id']
+allowedMissingArguments['az devops extension install'] = ['--publisher-id']
+allowedMissingArguments['az devops extension uninstall'] = ['--publisher-id']
 
 # Do not compare these commands
 ignoreCommands = []

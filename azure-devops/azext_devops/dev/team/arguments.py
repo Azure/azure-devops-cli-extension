@@ -111,8 +111,8 @@ def load_team_arguments(self, _):
                          help='Include built in extensions.')
         context.argument('include_disabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
                          help='Include disabled extensions.')
-        context.argument('publisher_id', help='Publisher ID')
-        context.argument('extension_id', help='Extension ID')
+        context.argument('publisher_name', help='Publisher Name')
+        context.argument('extension_name', help='Extension Name')
         context.argument('search_query', options_list=('--search-query', '-q'), help='Search term')
 
     with self.argument_context('devops') as context:
