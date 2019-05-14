@@ -10,29 +10,27 @@ import subprocess
 oldArguments = []
 newArguments = []
 allowedMissingArguments = {}
-allowedMissingArguments['az devops extension disable'] = ['--extension-id']
-allowedMissingArguments['az devops extension enable'] = ['--extension-id']
-allowedMissingArguments['az devops extension install'] = ['--extension-id']
-allowedMissingArguments['az devops extension uninstall'] = ['--extension-id']
-allowedMissingArguments['az devops extension disable'] = ['--publisher-id']
-allowedMissingArguments['az devops extension enable'] = ['--publisher-id']
-allowedMissingArguments['az devops extension install'] = ['--publisher-id']
-allowedMissingArguments['az devops extension uninstall'] = ['--publisher-id']
+allowedMissingArguments['devops extension disable'] = ['--extension-id']
+allowedMissingArguments['devops extension enable'] = ['--extension-id']
+allowedMissingArguments['devops extension install'] = ['--extension-id']
+allowedMissingArguments['devops extension uninstall'] = ['--extension-id']
+allowedMissingArguments['devops extension disable'] = ['--publisher-id']
+allowedMissingArguments['devops extension enable'] = ['--publisher-id']
+allowedMissingArguments['devops extension install'] = ['--publisher-id']
+allowedMissingArguments['devops extension uninstall'] = ['--publisher-id']
 
 allowedNewMandatoryArguments = {}
-allowedMissingArguments['az devops extension disable'] = ['--extension-name']
-allowedMissingArguments['az devops extension enable'] = ['--extension-name']
-allowedMissingArguments['az devops extension install'] = ['--extension-name']
-allowedMissingArguments['az devops extension uninstall'] = ['--extension-name']
-allowedMissingArguments['az devops extension disable'] = ['--publisher-name']
-allowedMissingArguments['az devops extension enable'] = ['--publisher-name']
-allowedMissingArguments['az devops extension install'] = ['--publisher-name']
-allowedMissingArguments['az devops extension uninstall'] = ['--publisher-name']
+allowedMissingArguments['devops extension disable'] = ['--extension-name']
+allowedMissingArguments['devops extension enable'] = ['--extension-name']
+allowedMissingArguments['devops extension install'] = ['--extension-name']
+allowedMissingArguments['devops extension uninstall'] = ['--extension-name']
+allowedMissingArguments['devops extension disable'] = ['--publisher-name']
+allowedMissingArguments['devops extension enable'] = ['--publisher-name']
+allowedMissingArguments['devops extension install'] = ['--publisher-name']
+allowedMissingArguments['devops extension uninstall'] = ['--publisher-name']
 
 # Do not compare these commands
 ignoreCommands = []
-ignoreCommands.append('pipelines build task list')
-ignoreCommands.append('pipelines build task show')
 
 class Arguments(dict):
     def __init__(self, command, name, isRequired):
