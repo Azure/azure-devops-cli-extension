@@ -332,3 +332,37 @@ Refer the [Policy create](https://docs.microsoft.com/en-us/rest/api/azure/devops
 `az repos policy create C:\policyConfiguration.txt`
 
 *Note that the path is provided using '\\' backslash.
+
+## Create an Azure DevOps YAML based multi stage pipeline
+You can create and manage YAML based multi stage Azure Pipelines using the `az pipelines` commands. 
+
+### Prerequisites
+- A Github account, where you can create a repository. If you don't have one, you can [create one for free](https://github.com/)  
+- An Azure Devops organization. If you don't have one, you can [create one for free](https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/pipelines-sign-up?view=azure-devops)   
+If your team already has one, then make sure you're an administrator of the Azure DevOps project that you want to use.
+- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) along with the [azure-devops extension](../getting_started.md) added.
+- You can use Azure Pipelines to build an app written in any language. For this quickstart, we will use Java. To get started, fork the following repository into your GitHub account.   
+```
+https://github.com/MicrosoftDocs/pipelines-java
+```
+
+To create the pipeline, execute the following steps:
+1. Sign in to Azure CLI using your crendentials.
+
+1. Configure your defaults to include the Azure DevOps organization and project
+`az devops configure --defaults organization=https://dev.azure.com/contosoWebApp project=PaymentModule`
+
+1. Clone your GitHub repository and navigate to the source code directory
+
+1. Run `az pipelines create` command
+`az pipelines create --name "Contoso.CI"`
+
+1. You will be asked for a service connection which enables Azure DevOps to communicate to GitHub. If you don't have one, you can create one and provide your GitHub credentials.
+
+1. Select the Maven pipeline template from the list of recommended templates. 
+
+1. The pipeline YAML is generated. You can open the YAML in your default editor to view and make changes.
+
+1. Select option to commit changes to master. A new run is started. Wait for the run to finish. 
+
+
