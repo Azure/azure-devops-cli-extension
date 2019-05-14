@@ -27,12 +27,12 @@ class Arguments(dict):
         dict.__init__(self,command = command, name = name, isRequired = isRequired)
 
 def extractArgumentsFromCommand(command):
-    print('running extractArgumentsFromCommand for ' + command)
+    # print('running extractArgumentsFromCommand for ' + command)
     argumentList = []
     commandExtended = 'az ' + command + ' -h'
     help_text = subprocess.run(commandExtended.split(' '), shell=True, stdout=subprocess.PIPE)
-    print('help text for ' + command)
-    print(help_text)
+    # print('help text for ' + command)
+    # print(help_text)
     regexReesult = re.search('Arguments(.*)Global Arguments',str(help_text))
     result = regexReesult.group(1)
     argumentLines = result.split('\\r\\n')
