@@ -19,6 +19,16 @@ allowedMissingArguments['az devops extension enable'] = ['--publisher-id']
 allowedMissingArguments['az devops extension install'] = ['--publisher-id']
 allowedMissingArguments['az devops extension uninstall'] = ['--publisher-id']
 
+allowedNewMandatoryArguments = {}
+allowedMissingArguments['az devops extension disable'] = ['--extension-name']
+allowedMissingArguments['az devops extension enable'] = ['--extension-name']
+allowedMissingArguments['az devops extension install'] = ['--extension-name']
+allowedMissingArguments['az devops extension uninstall'] = ['--extension-name']
+allowedMissingArguments['az devops extension disable'] = ['--publisher-name']
+allowedMissingArguments['az devops extension enable'] = ['--publisher-name']
+allowedMissingArguments['az devops extension install'] = ['--publisher-name']
+allowedMissingArguments['az devops extension uninstall'] = ['--publisher-name']
+
 # Do not compare these commands
 ignoreCommands = []
 ignoreCommands.append('pipelines build task list')
@@ -115,7 +125,9 @@ for newArgument in newArguments:
                 break
 
         if isNewMandatory is True:
-            errorList.append('New Mandatory argument found for command ' + newArgument.command + ' argument ' +  newArgument.name)
+            allowedNewMandatoryArgumentsForCommand = allowedNewMandatoryArguments.get(oldArgument.command, [])
+            if not newArgument.name in allowedNewMandatoryArgumentsForCommand:
+                errorList.append('New Mandatory argument found for command ' + newArgument.command + ' argument ' +  newArgument.name)
 
 # make sure no argument is removed
 for oldArgument in oldArguments:
