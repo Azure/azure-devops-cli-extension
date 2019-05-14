@@ -20,14 +20,14 @@ allowedMissingArguments['devops extension install'] = ['--publisher-id']
 allowedMissingArguments['devops extension uninstall'] = ['--publisher-id']
 
 allowedNewMandatoryArguments = {}
-allowedMissingArguments['devops extension disable'] = ['--extension-name']
-allowedMissingArguments['devops extension enable'] = ['--extension-name']
-allowedMissingArguments['devops extension install'] = ['--extension-name']
-allowedMissingArguments['devops extension uninstall'] = ['--extension-name']
-allowedMissingArguments['devops extension disable'] = ['--publisher-name']
-allowedMissingArguments['devops extension enable'] = ['--publisher-name']
-allowedMissingArguments['devops extension install'] = ['--publisher-name']
-allowedMissingArguments['devops extension uninstall'] = ['--publisher-name']
+allowedNewMandatoryArguments['devops extension disable'] = ['--extension-name']
+allowedNewMandatoryArguments['devops extension enable'] = ['--extension-name']
+allowedNewMandatoryArguments['devops extension install'] = ['--extension-name']
+allowedNewMandatoryArguments['devops extension uninstall'] = ['--extension-name']
+allowedNewMandatoryArguments['devops extension disable'] = ['--publisher-name']
+allowedNewMandatoryArguments['devops extension enable'] = ['--publisher-name']
+allowedNewMandatoryArguments['devops extension install'] = ['--publisher-name']
+allowedNewMandatoryArguments['devops extension uninstall'] = ['--publisher-name']
 
 # Do not compare these commands
 ignoreCommands = []
@@ -123,7 +123,7 @@ for newArgument in newArguments:
                 break
 
         if isNewMandatory is True:
-            allowedNewMandatoryArgumentsForCommand = allowedNewMandatoryArguments.get(oldArgument.command, [])
+            allowedNewMandatoryArgumentsForCommand = allowedNewMandatoryArguments.get(newArgument.command, [])
             if not newArgument.name in allowedNewMandatoryArgumentsForCommand:
                 errorList.append('New Mandatory argument found for command ' + newArgument.command + ' argument ' +  newArgument.name)
 
