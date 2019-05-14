@@ -6,6 +6,7 @@
 import re
 import os
 import subprocess
+from concurrent import futures
 
 oldArguments = []
 newArguments = []
@@ -67,8 +68,9 @@ cli_ctx = DummyCli()
 loader = DevCommandsLoader(cli_ctx)
 loader.load_command_table(None)
 
-for command in loader.command_table:
-    oldArguments.extend(extractArgumentsFromCommand(command))
+with futures.ProcessPoolExecutor() as pool:
+    for oldArgumentsInCommand in pool.map(extractArgumentsFromCommand, loader.command_table):
+        oldArguments.extend(oldArgumentsInCommand)
 
 # uninstall extension loaded from index
 subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True, stdout=subprocess.PIPE)
@@ -94,8 +96,9 @@ for oldArgument in oldArguments:
 
 
 # prepare argument set from new extension
-for oldCommand in oldCommands:
-    newArguments.extend(extractArgumentsFromCommand(oldCommand))
+with futures.ProcessPoolExecutor() as pool:
+    for newArgumentsInCommand in pool.map(extractArgumentsFromCommand, oldCommands):
+        newArguments.extend(newArgumentsInCommand)
 
 errorList = []
 
