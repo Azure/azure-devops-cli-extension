@@ -68,9 +68,10 @@ cli_ctx = DummyCli()
 loader = DevCommandsLoader(cli_ctx)
 loader.load_command_table(None)
 
-with futures.ProcessPoolExecutor() as pool:
-    for oldArgumentsInCommand in pool.map(extractArgumentsFromCommand, loader.command_table):
-        oldArguments.extend(oldArgumentsInCommand)
+if __name__ == '__main__':
+    with futures.ProcessPoolExecutor() as pool:
+        for oldArgumentsInCommand in pool.map(extractArgumentsFromCommand, loader.command_table):
+            oldArguments.extend(oldArgumentsInCommand)
 
 # uninstall extension loaded from index
 subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True, stdout=subprocess.PIPE)
@@ -96,9 +97,10 @@ for oldArgument in oldArguments:
 
 
 # prepare argument set from new extension
-with futures.ProcessPoolExecutor() as pool:
-    for newArgumentsInCommand in pool.map(extractArgumentsFromCommand, oldCommands):
-        newArguments.extend(newArgumentsInCommand)
+if __name__ == '__main__':
+    with futures.ProcessPoolExecutor() as pool:
+        for newArgumentsInCommand in pool.map(extractArgumentsFromCommand, oldCommands):
+            newArguments.extend(newArgumentsInCommand)
 
 errorList = []
 
