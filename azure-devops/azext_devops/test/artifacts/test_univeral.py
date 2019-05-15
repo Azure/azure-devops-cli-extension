@@ -29,6 +29,7 @@ class TestUniversalPackages(unittest.TestCase):
     _TEST_PACKAGE_VERSION = '0.0.1-preview'
     _TEST_PACKAGE_DESCRIPTION = 'test description'
     _TEST_PATH = '.'
+    _TEST_FILEFILTER = '*'
 
     def setUp(self):
 
@@ -73,6 +74,7 @@ class TestUniversalPackages(unittest.TestCase):
             name = self._TEST_PACKAGE_NAME,
             version = self._TEST_PACKAGE_VERSION,
             path = self._TEST_PATH,
+            filter= self._TEST_FILTER,
             organization = self._TEST_DEVOPS_ORGANIZATION,
             detect='off')
 
@@ -86,6 +88,7 @@ class TestUniversalPackages(unittest.TestCase):
                     '--package-name', self._TEST_PACKAGE_NAME, 
                     '--package-version', self._TEST_PACKAGE_VERSION, 
                     '--path', self._TEST_PATH, 
+                    '--filter', self._TEST_FILTER,
             ], 
             'Downloading')
                 
