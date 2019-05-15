@@ -14,12 +14,14 @@ allowedMissingArguments['devops extension disable'] = ['--extension-id', '--publ
 allowedMissingArguments['devops extension enable'] = ['--extension-id', '--publisher-id']
 allowedMissingArguments['devops extension install'] = ['--extension-id', '--publisher-id']
 allowedMissingArguments['devops extension uninstall'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension show'] = ['--extension-id', '--publisher-id']
 
 allowedNewMandatoryArguments = {}
 allowedNewMandatoryArguments['devops extension disable'] = ['--extension-name', '--publisher-name']
 allowedNewMandatoryArguments['devops extension enable'] = ['--extension-name', '--publisher-name']
 allowedNewMandatoryArguments['devops extension install'] = ['--extension-name', '--publisher-name']
 allowedNewMandatoryArguments['devops extension uninstall'] = ['--extension-name', '--publisher-name']
+allowedNewMandatoryArguments['devops extension show'] = ['--extension-name', '--publisher-name']
 
 # Do not compare these commands
 ignoreCommands = []
