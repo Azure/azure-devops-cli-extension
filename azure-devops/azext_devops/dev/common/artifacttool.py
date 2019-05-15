@@ -32,7 +32,8 @@ class ArtifactToolInvoker:
 
     def download_universal(self, organization, feed, package_name, package_version, path, fileFilter):
         args = ["universal", "download", "--service", organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
-                "--feed", feed, "--package-name", package_name, "--package-version", package_version, "--path", path, 
+                "--feed", feed, "--package-name", package_name, "--package-version", package_version,
+                "--path", path,
                 "--filter", fileFilter]
         return self.run_artifacttool(organization, args, "Downloading")
 

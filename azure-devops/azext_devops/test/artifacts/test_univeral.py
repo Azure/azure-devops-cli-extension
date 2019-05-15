@@ -29,7 +29,7 @@ class TestUniversalPackages(unittest.TestCase):
     _TEST_PACKAGE_VERSION = '0.0.1-preview'
     _TEST_PACKAGE_DESCRIPTION = 'test description'
     _TEST_PATH = '.'
-    _TEST_FILEFILTER = '*'
+    _TEST_FILTER = '*'
 
     def setUp(self):
 
