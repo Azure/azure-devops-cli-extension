@@ -202,6 +202,7 @@ def transform_acl_output(result):
         table_output.append(_transform_acl_details_row(item))
     return table_output
 
+
 def _transform_acl_details_row(row):
     if len(row['acesDictionary']) > 1:
         raise CLIError('More than one entry found in Aces dictionary for this user/group.')
@@ -219,6 +220,7 @@ def _transform_acl_details_row(row):
             table_row['Effective Deny'] = 0
     return table_row
 
+
 def transform_resolve_permission_bits(result):
     table_output = []
     ace_entry = list(result[0]['acesDictionary'].values())[0]
@@ -226,6 +228,7 @@ def transform_resolve_permission_bits(result):
     for permission in permissions:
         table_output.append(_transform_resolve_bits_row(permission))
     return table_output
+
 
 def _transform_resolve_bits_row(row):
     table_row = OrderedDict()

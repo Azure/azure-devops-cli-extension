@@ -33,6 +33,7 @@ def show_namespace(namespace_id, organization=None, detect=None):
     response = _get_permission_types(client, namespace_id)
     return response
 
+
 def list_tokens(namespace_id, subject, token=None,
                 recurse=False, organization=None, detect=None):
     """ List tokens for given user/group and namespace.
@@ -57,6 +58,7 @@ def show_permissions(namespace_id, subject, token, organization=None, detect=Non
     resolved_permissions_response = _resolve_bits(list_response, permissions_types)
     response = _update_json(list_response, resolved_permissions_response)
     return response
+
 
 def reset_all_permissions(namespace_id, subject, token, organization=None, detect=None):
     """ Clear all permissions of this token for a user/group.
@@ -139,8 +141,8 @@ def _resolve_bits(response, permissions_types, changed_bits=0):
     # If changed_bits is zero, display all permissions
     if changed_bits == 0:
         total_permission_types = len(permissions_types[0].actions)
-        last_permission_bit_value = permissions_types[0].actions[total_permission_types-1].bit
-        changed_bits = 2*last_permission_bit_value - 1
+        last_permission_bit_value = permissions_types[0].actions[total_permission_types - 1].bit
+        changed_bits = 2 * last_permission_bit_value - 1
 
     permission_response = []
     for item in permissions_types[0].actions:
@@ -188,11 +190,10 @@ def _query_permissions(client, namespace_id, subject, token, recurse):
     return list_response
 
 
-def _resolve_subject_as_identity_descriptor(subject,organization):
+def _resolve_subject_as_identity_descriptor(subject, organization):
     if '@' in subject:
         subject = resolve_identity_as_identity_descriptor(identity_filter=subject, organization=organization)
     elif '.' in subject:
         # try to solve graph subject descriptor for groups
         subject = get_identity_descriptor_from_subject_descriptor(subject_descriptor=subject, organization=organization)
     return subject
-    

@@ -6,6 +6,7 @@
 
 from msrest.serialization import Model
 
+
 class PermissionDetails(Model):
     """PermissionDetails.
 

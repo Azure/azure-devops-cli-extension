@@ -137,6 +137,5 @@ def get_identity_descriptor_from_subject_descriptor(subject_descriptor, organiza
     return subject_descriptor
 
 
-
 ME = 'me'
 _display_name_cache = get_cli_cache('identity_display_names', 3600 * 6)
