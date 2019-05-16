@@ -547,6 +547,7 @@ def _update_pull_request_status(pull_request_id, new_status, organization=None, 
     pr = GitPullRequest(status=new_status)
     if new_status == 'completed':
         pr.last_merge_source_commit = existing_pr.last_merge_source_commit
+        pr.completion_options = existing_pr.completion_options
     pr = client.update_pull_request(git_pull_request_to_update=pr,
                                     project=existing_pr.repository.project.name,
                                     repository_id=existing_pr.repository.name,

@@ -288,7 +288,7 @@ def transform_wiki_page_table_output(result):
 def _transform_wiki_page_row(row):
     table_row = OrderedDict()
     table_row['ETag'] = row['eTag']
-    table_row['Git Path'] = row['page']['gitItemPath']
+    table_row['Page Path'] = '\'{}\''.format(row['page']['path'])
     table_row['Is Parent'] = row['page']['isParentPage']
     table_row['order'] = row['page']['order']
     return table_row
