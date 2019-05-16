@@ -129,7 +129,7 @@ def get_account_from_identity(identity):
     return identity.provider_display_name
 
 
-def get_identity_descriptor_from_subject_descriptor(organization, subject_descriptor):
+def get_identity_descriptor_from_subject_descriptor(subject_descriptor, organization):
     identity_client = get_identity_client(organization)
     identities = identity_client.read_identities(subject_descriptors=subject_descriptor)
     if identities:

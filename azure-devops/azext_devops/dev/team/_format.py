@@ -208,7 +208,7 @@ def _transform_acl_details_row(row):
     table_row = OrderedDict()
     table_row['token'] = row['token']
     ace = list(row['acesDictionary'].values())[0]
-    if row['includeExtendedInfo'] == True:
+    if row['includeExtendedInfo']:
         if ace['extendedInfo']['effectiveAllow'] is not None:
             table_row['Effective Allow'] = ace['extendedInfo']['effectiveAllow']
         else:
@@ -217,9 +217,6 @@ def _transform_acl_details_row(row):
             table_row['Effective Deny'] = ace['extendedInfo']['effectiveDeny']
         else:
             table_row['Effective Deny'] = 0
-    else:
-        table_row['Allow'] = ace['allow']
-        table_row['Deny'] = ace['deny']
     return table_row
 
 def transform_resolve_permission_bits(result):

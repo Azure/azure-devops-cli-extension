@@ -3,17 +3,13 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import json
 from knack.util import CLIError
 from knack.log import get_logger
-from azext_devops.devops_sdk.exceptions import AzureDevOpsClientRequestError
 from azext_devops.devops_sdk.v5_0.security.models import (AccessControlEntry)
 from azext_devops.dev.common.services import (get_security_client,
-                                              get_graph_client,
                                               resolve_instance)
 from azext_devops.dev.common.identities import (get_identity_descriptor_from_subject_descriptor,
                                                 resolve_identity_as_identity_descriptor)
-from azext_devops.dev.common.uuid import is_uuid
 from .security_permission_helper import PermissionDetails
 logger = get_logger(__name__)
 
@@ -45,8 +41,8 @@ def list_tokens(namespace_id, subject, token=None,
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
-    subject = _resolve_subject_as_identity_descriptor(subject)
-    response = _query_permissions(client, namespace_id, subject, token, recurse)                                                
+    subject = _resolve_subject_as_identity_descriptor(subject, organization)
+    response = _query_permissions(client, namespace_id, subject, token, recurse)
     return response
 
 
@@ -55,7 +51,7 @@ def show_permissions(namespace_id, subject, token, organization=None, detect=Non
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
-    subject = _resolve_subject_as_identity_descriptor(subject)
+    subject = _resolve_subject_as_identity_descriptor(subject, organization)
     list_response = _query_permissions(client, namespace_id, subject, token, False)
     permissions_types = _get_permission_types(client, namespace_id)
     resolved_permissions_response = _resolve_bits(list_response, permissions_types)
@@ -67,7 +63,7 @@ def reset_all_permissions(namespace_id, subject, token, organization=None, detec
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
-    subject = _resolve_subject_as_identity_descriptor(subject)
+    subject = _resolve_subject_as_identity_descriptor(subject, organization)
     response = client.remove_access_control_entries(security_namespace_id=namespace_id,
                                                     token=token, descriptors=subject)
     return response
@@ -81,9 +77,9 @@ def reset_permissions(namespace_id, permission_bit, subject, token, organization
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
-    subject = _resolve_subject_as_identity_descriptor(subject)
-    api_response = client.remove_permission(security_namespace_id=namespace_id, permissions=permission_bit,
-                                        descriptor=subject, token=token)
+    subject = _resolve_subject_as_identity_descriptor(subject, organization)
+    client.remove_permission(security_namespace_id=namespace_id, permissions=permission_bit,
+                             descriptor=subject, token=token)
     # get the effective permission list for this namespace , token
     list_response = _query_permissions(client, namespace_id, subject, token, False)
     permissions_types = _get_permission_types(client, namespace_id)
@@ -100,7 +96,7 @@ def update_permissions(namespace_id, subject, token, merge=True, allow_bit=0, de
         raise CLIError('Either --allow-bit or --deny-bit parameter should be provided.')
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
-    subject = _resolve_subject_as_identity_descriptor(subject)
+    subject = _resolve_subject_as_identity_descriptor(subject, organization)
     container_object = {}
     aces_list = []
     ace_object = AccessControlEntry(descriptor=subject, allow=allow_bit, deny=deny_bit)
@@ -111,7 +107,7 @@ def update_permissions(namespace_id, subject, token, merge=True, allow_bit=0, de
     else:
         container_object['merge'] = False
     container_object['accessControlEntries'] = aces_list
-    api_response = client.set_access_control_entries(security_namespace_id=namespace_id, container=container_object)
+    client.set_access_control_entries(security_namespace_id=namespace_id, container=container_object)
     allow_bit = allow_bit & (~deny_bit)
     changed_bits = allow_bit + deny_bit
     list_response = _query_permissions(client, namespace_id, subject, token, False)
@@ -136,7 +132,7 @@ def _resolve_bits(response, permissions_types, changed_bits=0):
         if ace.extended_info.effective_allow is not None:
             effective_allow = ace.extended_info.effective_allow
         if ace.extended_info.effective_deny is not None:
-            effective_deny = ace.extended_info.effective_deny       
+            effective_deny = ace.extended_info.effective_deny
     if acl.include_extended_info is True:
         inherited_allow = allow_bit ^ effective_allow
         inherited_deny = deny_bit ^ effective_deny
@@ -161,12 +157,12 @@ def _resolve_bits(response, permissions_types, changed_bits=0):
             else:
                 permission_value_string = 'Not set'
 
-            perm_obj = PermissionDetails()
-            perm_obj.bit = item.bit
-            perm_obj.name = item.name
-            perm_obj.display_name = item.display_name
-            perm_obj.effective_permission = permission_value_string
-            permission_response.append(perm_obj) 
+            permission_obj = PermissionDetails()
+            permission_obj.bit = item.bit
+            permission_obj.name = item.name
+            permission_obj.display_name = item.display_name
+            permission_obj.effective_permission = permission_value_string
+            permission_response.append(permission_obj)
     return permission_response
 
 
@@ -192,11 +188,11 @@ def _query_permissions(client, namespace_id, subject, token, recurse):
     return list_response
 
 
-def _resolve_subject_as_identity_descriptor(subject):
+def _resolve_subject_as_identity_descriptor(subject,organization):
     if '@' in subject:
-        subject = resolve_identity_as_identity_descriptor(subject, organization)
+        subject = resolve_identity_as_identity_descriptor(identity_filter=subject, organization=organization)
     elif '.' in subject:
         # try to solve graph subject descriptor for groups
-        subject = get_identity_descriptor_from_subject_descriptor(organization, subject)
+        subject = get_identity_descriptor_from_subject_descriptor(subject_descriptor=subject, organization=organization)
     return subject
     

@@ -114,7 +114,7 @@ def load_team_arguments(self, _):
         context.argument('subject',
                          help='User Email ID or Group descriptor')
 
-    with self.argument_context('devops security permission add') as context:
+    with self.argument_context('devops security permission update') as context:
         context.argument('merge', arg_type=get_three_state_flag(),
                          help='If set, the existing ACE has its allow and deny merged with \
                          the incoming ACE\'s allow and deny. If unset, the existing ACE is displaced.')
