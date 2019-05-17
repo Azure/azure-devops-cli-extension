@@ -100,7 +100,7 @@ def list_extensions(include_built_in=None, include_disabled=None, organization=N
     if include_disabled is None:
         include_disabled = False
 
-    extensions = extension_client.get_installed_extensions(include_disabled)
+    extensions = extension_client.get_installed_extensions(include_disabled_extensions=include_disabled)
 
     if not include_built_in:
         filteredResult = []
