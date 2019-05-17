@@ -4,8 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 import unittest
-from azext_devops.dev.common.arguments import (resolve_on_off_switch,
-                                should_detect)
+from azext_devops.dev.common.arguments import (should_detect)
 
 
 class TestArgumentsMethods(unittest.TestCase):
