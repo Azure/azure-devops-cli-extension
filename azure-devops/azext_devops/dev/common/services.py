@@ -243,6 +243,11 @@ def get_policy_client(organization=None):
     return connection.get_client(VSTS_MODULE + 'v5_0.policy.policy_client.PolicyClient')
 
 
+def get_security_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.security.security_client.SecurityClient')
+
+
 def get_settings_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_0.settings.settings_client.SettingsClient')

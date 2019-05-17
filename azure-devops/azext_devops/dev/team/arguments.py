@@ -5,7 +5,7 @@
 
 
 from knack.arguments import enum_choice_list
-from azure.cli.core.commands.parameters import get_enum_type
+from azure.cli.core.commands.parameters import get_enum_type, get_three_state_flag
 from azext_devops.dev.common.const import _TRUE_FALSE_SWITCH
 from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_GITHUB,
@@ -105,6 +105,28 @@ def load_team_arguments(self, _):
     with self.argument_context('devops security group membership') as context:
         context.argument('relationship', arg_type=get_enum_type(_RELATIONSHIP_TYPES),
                          help='Get member of/members for this group.')
+
+    with self.argument_context('devops security permission') as context:
+        context.argument('namespace_id', options_list=('--namespace-id', '--id'),
+                         help='ID of security namespace')
+        context.argument('token',
+                         help='Security token.')
+        context.argument('subject',
+                         help='User Email ID or Group descriptor')
+
+    with self.argument_context('devops security permission update') as context:
+        context.argument('merge', arg_type=get_three_state_flag(),
+                         help='If set, the existing ACE has its allow and deny merged with \
+                         the incoming ACE\'s allow and deny. If unset, the existing ACE is displaced.')
+        context.argument('allow_bit', type=int,
+                         help='Allow bit or addition of bits. Required if --deny-bit is missing.')
+        context.argument('deny_bit', type=int,
+                         help='Deny bit or addition of bits. Required if --allow-bit is missing.')
+
+    with self.argument_context('devops security permission reset') as context:
+        context.argument('permission_bit', type=int,
+                         help='Permission bit or addition of permission bits which needs to be reset\
+                         for given user/group and token.')
 
     with self.argument_context('devops extension') as context:
         context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
