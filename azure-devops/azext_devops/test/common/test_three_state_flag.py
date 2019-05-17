@@ -36,16 +36,4 @@ class Test_ThreeStateFlagTests(unittest.TestCase):
         except:
             print("something wrong in az cli")
 
-        
-
-        # test_work_item_id = 1
-
-        # # set return values
-        # self.mock_get_WI.return_value.id = test_work_item_id
-
-        # response = show_work_item(id=test_work_item_id, organization=self._TEST_DEVOPS_ORGANIZATION)
-
-        # # assert
-        # self.mock_validate_token.assert_not_called()
-        # self.mock_get_WI.assert_called_once_with(test_work_item_id, expand='All')
-        # assert response.id == test_work_item_id
+        self.mock_list_banner.assert_called_once_with(organization=None, detect=None)
