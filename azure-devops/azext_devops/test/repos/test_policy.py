@@ -162,7 +162,7 @@ class TestUuidMethods(AuthenticatedTests):
         minimum_approver_count='5',
         creator_vote_counts=True,
         allow_downvotes=True,
-        reset_on_source_push=True,
+        reset_on_source_push=False,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect=False)
@@ -174,9 +174,9 @@ class TestUuidMethods(AuthenticatedTests):
         self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'])
         settings = create_policy_object['configuration'].settings
         self.assertEqual(settings['minimumApproverCount'], '5')
-        self.assertEqual(settings['creatorVoteCounts'], False)
-        self.assertEqual(settings['allowDownvotes'], False)
-        self.assertEqual(settings['resetOnSourcePush'], True)
+        self.assertEqual(settings['creatorVoteCounts'], True)
+        self.assertEqual(settings['allowDownvotes'], True)
+        self.assertEqual(settings['resetOnSourcePush'], False)
         scope = create_policy_object['configuration'].settings['scope'][0]  # 0 because we set only only scope from CLI
         self.assertEqual(scope['repositoryId'], self._TEST_REPOSITORY_ID)
         self.assertEqual(scope['refName'], 'refs/heads/master')
