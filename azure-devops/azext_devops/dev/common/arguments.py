@@ -31,6 +31,9 @@ def resolve_true_false(inputString):
 
 
 def should_detect(detect):
+    if detect is None:
+        return True
+
     return detect
 
 

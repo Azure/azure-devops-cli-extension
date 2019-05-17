@@ -302,7 +302,9 @@ def resolve_instance_project_and_repo(
         repo=None,
         repo_required=False):
     if organization is None:
+        logger.debug("Detect is observed to be %s", detect)
         if should_detect(detect):
+            logger.debug("Detecting Org/Project from current git repo")
             git_info = get_vsts_info_from_current_remote_url()
             organization = git_info.uri
             if project is None:
