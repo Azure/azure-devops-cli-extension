@@ -29,18 +29,18 @@ class ReposRefTests(ScenarioTest):
         created_project_id = None
 
         try:
-            create_project_command = 'az devops project create --name ' + random_project_name + ' --output json --detect off'
+            create_project_command = 'az devops project create --name ' + random_project_name + ' --output json --detect false'
             project_create_output = self.cmd(create_project_command).get_output_in_json()
             created_project_id = project_create_output["id"]
 
-            create_repo_command = 'az repos create --name ' + random_repo_name + ' -p ' +  created_project_id + ' --output json --detect off'
+            create_repo_command = 'az repos create --name ' + random_repo_name + ' -p ' +  created_project_id + ' --output json --detect false'
             repo_create_output = self.cmd(create_repo_command).get_output_in_json()
             create_repo_id = repo_create_output["id"]
 
-            import_repo_command = 'az repos import create --git-url https://github.com/hkasera/snakes-and-ladders.git' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
+            import_repo_command = 'az repos import create --git-url https://github.com/hkasera/snakes-and-ladders.git' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect false'
             import_repo_output = self.cmd(import_repo_command)
 
-            REPO_NAME = '--repository {random_repo_name} --output json --detect off'.format(random_repo_name=random_repo_name)
+            REPO_NAME = '--repository {random_repo_name} --output json --detect false'.format(random_repo_name=random_repo_name)
             REF_NAME = 'heads/branchnametocreate'
 
             list_command = 'az repos ref list {}'.format(REPO_NAME)
@@ -81,5 +81,5 @@ class ReposRefTests(ScenarioTest):
 
         finally:
             if created_project_id is not None:
-                delete_project_command = 'az devops project delete --id ' + created_project_id + ' --output json --detect off -y'
+                delete_project_command = 'az devops project delete --id ' + created_project_id + ' --output json --detect false -y'
                 self.cmd(delete_project_command)
