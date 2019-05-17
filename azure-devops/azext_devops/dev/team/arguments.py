@@ -33,8 +33,8 @@ _RELATIONSHIP_TYPES = ['members', 'memberof']
 def load_global_args(context):
     context.argument('organization', options_list=('--organization', '--org'),
                      help='Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/')
-    context.argument('detect', arg_type=get_enum_type(['on', 'off']),
-                     help='Automatically detect organization. Default is "on".')
+    context.argument('detect', arg_type=get_three_state_flag(),
+                     help='Automatically detect organization.')
     context.argument('project', options_list=('--project', '-p'), help='Name or ID of the project.')
 
 

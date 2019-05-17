@@ -9,7 +9,6 @@ from .setting import setting_add_or_update, setting_list, setting_remove, GLOBAL
 
 def banner_list(organization=None, detect=None):
     """List banners.
-    :rtype: [object]
     """
     return setting_list(user_scope='host', key=GLOBAL_MESSAGE_BANNERS_KEY,
                         organization=organization, detect=detect)

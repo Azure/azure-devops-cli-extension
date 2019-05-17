@@ -31,9 +31,7 @@ def resolve_true_false(inputString):
 
 
 def should_detect(detect):
-    if detect is None:
-        return True
-    return resolve_on_off_switch(detect)
+    return detect
 
 
 def convert_date_string_to_iso8601(value, argument=None):
