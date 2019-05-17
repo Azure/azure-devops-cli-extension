@@ -550,7 +550,7 @@ def create_configuration_object(repository_id,
                                 param_value_array,
                                 branch_match_type='exact'):
     branch = resolve_git_ref_heads(branch)
-    policyConfiguration = PolicyConfiguration(is_blocking=parseTrueFalse(is_blocking), is_enabled=parseTrueFalse(is_enabled))
+    policyConfiguration = PolicyConfiguration(is_blocking=is_blocking, is_enabled=is_enabled)
     scope = createScope(repository_id, branch, branch_match_type)
     policyConfiguration.settings = {
         'scope': scope
@@ -591,13 +591,6 @@ def createScope(repository_id, branch, branch_match_type):
         ]
 
     return scope
-
-
-def parseTrueFalse(inputString):
-    if inputString is not None and inputString.lower() == 'true':
-        return True
-
-    return False
 
 
 def resolveIdentityMailsToIds(mailList, organization):
