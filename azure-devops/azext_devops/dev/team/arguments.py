@@ -13,7 +13,6 @@ from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
 
 
 # CUSTOM CHOICE LISTS
-_YES_NO_SWITCH_VALUES = ['yes', 'no']
 _SOURCE_CONTROL_VALUES = ['git', 'tfvc']
 _WIKI_TYPE_VALUES = ['projectwiki', 'codewiki']
 _SCOPE_VALUES = ['project', 'organization']
