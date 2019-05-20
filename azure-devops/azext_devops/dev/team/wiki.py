@@ -180,7 +180,7 @@ def update_page(wiki, path, version, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, conte
 
 
 def get_page(wiki, path, version=None, open=None,  # pylint: disable=redefined-builtin
-             include_content=False, organization=None, project=None, detect=None):
+             include_content=None, organization=None, project=None, detect=None):
     """Get the content of a page or open a page.
     :param wiki: Name or Id of the wiki.
     :type wiki: str
@@ -193,6 +193,8 @@ def get_page(wiki, path, version=None, open=None,  # pylint: disable=redefined-b
     :param open: Open the wiki page in your web browser.
     :type open: bool
     """
+    if not include_content:
+        include_content = False
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)

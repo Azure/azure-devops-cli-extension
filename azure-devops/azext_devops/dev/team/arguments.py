@@ -158,3 +158,6 @@ def load_team_arguments(self, _):
 
     with self.argument_context('devops wiki list') as context:
         context.argument('scope', **enum_choice_list(_SCOPE_VALUES))
+
+    with self.argument_context('devops wiki page show') as context:
+        context.argument('include_content', arg_type=get_three_state_flag())
