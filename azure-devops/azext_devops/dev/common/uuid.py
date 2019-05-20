@@ -8,7 +8,7 @@ import re
 
 
 def is_uuid(text):
-    """Returns true if the text is a UUID.
+    """Returns true if the text is a GUID.
     :param text: The text to validate.
     :type text: str
     :rtype: bool
