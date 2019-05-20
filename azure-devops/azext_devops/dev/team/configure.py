@@ -22,7 +22,7 @@ logger = get_logger(__name__)
 CONFIG_VALID_DEFAULT_KEYS_LIST = [DEVOPS_ORGANIZATION_DEFAULT, DEVOPS_TEAM_PROJECT_DEFAULT]
 
 
-def configure(defaults=None, use_git_aliases=None, list_config=False):
+def configure(defaults=None, use_git_aliases=None, list_config=None):
     """Configure the Azure DevOps CLI or view your configuration.
     :param defaults: Space separated 'name=value' pairs for common arguments defaults,
         e.g. '--defaults project=my-project-name organization=https://dev.azure.com/organizationName

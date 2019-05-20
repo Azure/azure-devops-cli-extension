@@ -41,6 +41,7 @@ def load_global_args(context):
 def load_team_arguments(self, _):
     with self.argument_context('devops configure') as context:
         context.argument('defaults', options_list=('--defaults', '-d'), nargs='*')
+        context.argument('list_config', arg_type=get_three_state_flag())
 
     with self.argument_context('devops') as context:
         context.argument('repository', options_list=('--repository', '-r'))
