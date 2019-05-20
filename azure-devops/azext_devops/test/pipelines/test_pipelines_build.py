@@ -46,7 +46,7 @@ class TestPipelinesBuildMethods(AuthenticatedTests):
 
     def test_show_build(self):
         # set return values
-        response = build_show(id=12345, open=False, organization=self._TEST_DEVOPS_ORGANIZATION, 
+        response = build_show(id=12345, open=None, organization=self._TEST_DEVOPS_ORGANIZATION, 
             project='testproject', detect=None)
         #assert
         self.mock_get_build.assert_called_once_with(build_id=12345, project='testproject')

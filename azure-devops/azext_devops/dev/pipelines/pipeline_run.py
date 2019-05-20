@@ -11,7 +11,7 @@ from azext_devops.dev.common.identities import resolve_identity_as_id
 logger = get_logger(__name__)
 
 
-def pipeline_run_show(id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def pipeline_run_show(id, open=None, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details of a pipeline run.
     :param id: ID of the pipeline run.
     :type id: int

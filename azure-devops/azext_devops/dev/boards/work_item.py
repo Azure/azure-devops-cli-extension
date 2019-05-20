@@ -22,7 +22,7 @@ logger = get_logger(__name__)
 
 
 def create_work_item(work_item_type, title, description=None, assigned_to=None, area=None,
-                     iteration=None, reason=None, discussion=None, fields=None, open=False,  # pylint: disable=redefined-builtin
+                     iteration=None, reason=None, discussion=None, fields=None, open=None,  # pylint: disable=redefined-builtin
                      organization=None, project=None, detect=None):
     r"""Create a work item.
     :param work_item_type: Name of the work item type (e.g. Bug).
@@ -92,7 +92,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
 
 
 def update_work_item(id, title=None, description=None, assigned_to=None, state=None, area=None,  # pylint: disable=redefined-builtin
-                     iteration=None, reason=None, discussion=None, fields=None, open=False,  # pylint: disable=redefined-builtin
+                     iteration=None, reason=None, discussion=None, fields=None, open=None,  # pylint: disable=redefined-builtin
                      organization=None, detect=None):
     r"""Update work items.
     :param id: The id of the work item to update.
@@ -199,7 +199,7 @@ def _handle_vsts_service_error(ex):
     raise CLIError(ex)
 
 
-def show_work_item(id, open=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def show_work_item(id, open=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details for a work item.
     :param id: The ID of the work item
     :type id: int

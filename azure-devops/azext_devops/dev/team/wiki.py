@@ -96,7 +96,7 @@ def list_wiki(scope='project', organization=None, project=None, detect=None):
     return wiki_client.get_all_wikis(project=project)
 
 
-def show_wiki(wiki, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def show_wiki(wiki, open=None, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details of a wiki.
     :param wiki: Name or Id of the wiki.
     :type wiki: str
@@ -179,7 +179,7 @@ def update_page(wiki, path, version, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, conte
                                              project=project, path=path, version=version, comment=comment)
 
 
-def get_page(wiki, path, version=None, open=False,  # pylint: disable=redefined-builtin
+def get_page(wiki, path, version=None, open=None,  # pylint: disable=redefined-builtin
              include_content=False, organization=None, project=None, detect=None):
     """Get the content of a page or open a page.
     :param wiki: Name or Id of the wiki.

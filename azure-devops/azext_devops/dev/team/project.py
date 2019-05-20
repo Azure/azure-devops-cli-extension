@@ -18,7 +18,7 @@ logger = get_logger(__name__)
 
 
 def create_project(name, organization=None, process=None, source_control='git', description=None,
-                   visibility='private', detect=None, open=False):  # pylint: disable=redefined-builtin
+                   visibility='private', detect=None, open=None):  # pylint: disable=redefined-builtin
     """Create a team project.
     :param name: Name of the new project.
     :type name: str
@@ -103,7 +103,7 @@ def delete_project(id, organization=None, detect=None):  # pylint: disable=redef
     return operation
 
 
-def show_project(project, organization=None, detect=None, open=False):  # pylint: disable=redefined-builtin
+def show_project(project, organization=None, detect=None, open=None):  # pylint: disable=redefined-builtin
     """Show team project.
     :param project: The id (UUID) or name of the project to show.
     :type project: str

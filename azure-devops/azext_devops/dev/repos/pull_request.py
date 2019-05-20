@@ -27,7 +27,7 @@ from azext_devops.dev.common.services import (get_git_client,
 logger = get_logger(__name__)
 
 
-def show_pull_request(id, open=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def show_pull_request(id, open=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a pull request.
     :param id: ID of the pull request.
     :type id: int
@@ -100,7 +100,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
                         merge_commit_message=None, reviewers=None, work_items=None, draft=None,
-                        open=False, organization=None, detect=None, transition_work_items=False):  # pylint: disable=redefined-builtin
+                        open=None, organization=None, detect=None, transition_work_items=False):  # pylint: disable=redefined-builtin
     """Create a pull request.
     :param project: Name or ID of the team project.
     :type project: str

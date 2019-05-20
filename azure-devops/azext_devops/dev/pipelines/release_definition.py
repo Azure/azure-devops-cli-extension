@@ -40,7 +40,7 @@ def release_definition_list(name=None, top=None, organization=None, project=None
     return definition_references
 
 
-def release_definition_show(id=None, name=None, open=False, organization=None, project=None,  # pylint: disable=redefined-builtin
+def release_definition_show(id=None, name=None, open=None, organization=None, project=None,  # pylint: disable=redefined-builtin
                             detect=None):
     """Get the details of a release definition.
     :param id: ID of the definition.

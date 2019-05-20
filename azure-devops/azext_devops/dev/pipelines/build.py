@@ -17,7 +17,7 @@ from .build_definition import get_definition_id_from_name
 logger = get_logger(__name__)
 
 
-def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open=False,  # pylint: disable=redefined-builtin
+def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open=None,  # pylint: disable=redefined-builtin
                 organization=None, project=None, detect=None, commit_id=None):
     """Request (queue) a build.
     :param definition_id: ID of the definition to queue. Required if --name is not supplied.
@@ -60,7 +60,7 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     return queued_build
 
 
-def build_show(id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def build_show(id, open=None, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Get the details of a build.
     :param id: ID of the build.
     :type id: int

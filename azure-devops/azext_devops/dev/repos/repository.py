@@ -19,7 +19,7 @@ from azext_devops.dev.common.uri import uri_quote
 logger = get_logger(__name__)
 
 
-def create_repo(name, organization=None, project=None, detect=None, open=False):  # pylint: disable=redefined-builtin
+def create_repo(name, organization=None, project=None, detect=None, open=None):  # pylint: disable=redefined-builtin
     """Create a Git repository in a team project.
     :param name: Name for the new repository.
     :type name: str
@@ -95,7 +95,7 @@ def update_repo(repository, default_branch=None, name=None, organization=None, p
     return repository
 
 
-def show_repo(repository, organization=None, project=None, detect=None, open=False):  # pylint: disable=redefined-builtin
+def show_repo(repository, organization=None, project=None, detect=None, open=None):  # pylint: disable=redefined-builtin
     """Get the details of a Git repository.
     :param repository: Name or ID of the repository.
     :type repository: str

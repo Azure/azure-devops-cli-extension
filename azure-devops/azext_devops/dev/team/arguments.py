@@ -34,6 +34,7 @@ def load_global_args(context):
     context.argument('detect', arg_type=get_three_state_flag(),
                      help='Automatically detect organization.')
     context.argument('project', options_list=('--project', '-p'), help='Name or ID of the project.')
+    context.argument('open', arg_type=get_three_state_flag())
 
 
 # pylint: disable=too-many-statements
