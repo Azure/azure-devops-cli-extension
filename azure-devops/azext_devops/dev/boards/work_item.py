@@ -160,7 +160,7 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
 
 
 def delete_work_item(id,  # pylint: disable=redefined-builtin
-                     destroy=False, organization=None, project=None, detect=None):
+                     destroy=None, organization=None, project=None, detect=None):
     """Delete a work item.
     :param id: Unique id of the work item.
     :type id: int
@@ -168,6 +168,8 @@ def delete_work_item(id,  # pylint: disable=redefined-builtin
     :type destroy: bool
     :rtype: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItemDelete>`
     """
+    if not destroy:
+        destroy = False
     try:
         organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
         client = get_work_item_tracking_client(organization)
