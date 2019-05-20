@@ -48,7 +48,7 @@ def show_pull_request(id, open=None, organization=None, detect=None):  # pylint:
     return pr
 
 
-def list_pull_requests(repository=None, creator=None, include_links=False, reviewer=None,
+def list_pull_requests(repository=None, creator=None, include_links=None, reviewer=None,
                        source_branch=None, status=None, target_branch=None, project=None,
                        skip=None, top=None, organization=None, detect=None):
     """List pull requests.
@@ -97,10 +97,10 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
 
 # pylint: disable=too-many-locals
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
-                        title=None, description=None, auto_complete=False, squash=False,
-                        delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
+                        title=None, description=None, auto_complete=None, squash=None,
+                        delete_source_branch=None, bypass_policy=None, bypass_policy_reason=None,
                         merge_commit_message=None, reviewers=None, work_items=None, draft=None,
-                        open=None, organization=None, detect=None, transition_work_items=False):  # pylint: disable=redefined-builtin
+                        open=None, organization=None, detect=None, transition_work_items=None):  # pylint: disable=redefined-builtin
     """Create a pull request.
     :param project: Name or ID of the team project.
     :type project: str
