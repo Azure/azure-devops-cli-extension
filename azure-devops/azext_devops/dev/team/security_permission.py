@@ -14,11 +14,13 @@ from .security_permission_helper import PermissionDetails
 logger = get_logger(__name__)
 
 
-def list_namespaces(local_only=False, organization=None, detect=None):
+def list_namespaces(local_only=None, organization=None, detect=None):
     """ List all available namespaces for an organization.
     :param local_only: If true, retrieve only local security namespaces.
     :type local_only: bool
     """
+    if not local_only:
+        local_only = False
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
     response = client.query_security_namespaces(local_only=local_only)
@@ -35,11 +37,13 @@ def show_namespace(namespace_id, organization=None, detect=None):
 
 
 def list_tokens(namespace_id, subject, token=None,
-                recurse=False, organization=None, detect=None):
+                recurse=None, organization=None, detect=None):
     """ List tokens for given user/group and namespace.
     :param recurse: If true and this is a hierarchical namespace, return child ACLs of the specified token.
     :type recurse: bool
     """
+    if not recurse:
+        recurse = False
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
     subject = _resolve_subject_as_identity_descriptor(subject, organization)

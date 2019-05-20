@@ -114,6 +114,9 @@ def load_team_arguments(self, _):
         context.argument('subject',
                          help='User Email ID or Group descriptor')
 
+    with self.argument_context('devops security permission list') as context:
+        context.argument('recurse', arg_type=get_three_state_flag())
+
     with self.argument_context('devops security permission update') as context:
         context.argument('merge', arg_type=get_three_state_flag(),
                          help='If set, the existing ACE has its allow and deny merged with \
@@ -127,6 +130,9 @@ def load_team_arguments(self, _):
         context.argument('permission_bit', type=int,
                          help='Permission bit or addition of permission bits which needs to be reset\
                          for given user/group and token.')
+
+    with self.argument_context('devops security permission namespace list') as context:
+        context.argument('local_only', arg_type=get_three_state_flag())
 
     with self.argument_context('devops extension') as context:
         context.argument('include_built_in', arg_type=get_three_state_flag(),
