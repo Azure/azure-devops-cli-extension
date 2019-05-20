@@ -72,6 +72,8 @@ def list_pull_requests(repository=None, creator=None, include_links=None, review
     :type top: int
     :rtype: list of :class:`VssJsonCollectionWrapper <v5_0.git.models.VssJsonCollectionWrapper>`
     """
+    if not include_links:
+        include_links = False
     organization, project, repository = resolve_instance_project_and_repo(
         detect=detect,
         organization=organization,
