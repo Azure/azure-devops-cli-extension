@@ -35,7 +35,7 @@ class AzReposPrTests(ScenarioTest):
             import_repo_output = self.cmd(import_repo_command).get_output_in_json()
             import_repo_status = import_repo_output["status"]
             assert import_repo_status == 'completed'
-            print('flag')
+
             #Create a PR in imported repo
             pr_title = 'Fixing a bug in cli engine'
             create_pr_command = 'az repos pr create -p PullRequestLiveTest -r ' + created_repo_id + ' -s testbranch -t master --title "' + pr_title + '" -d "Sample PR description" --detect Off --output json'
@@ -44,14 +44,14 @@ class AzReposPrTests(ScenarioTest):
             create_pr_datetime = parser.parse(create_pr_output["creationDate"])
             assert create_pr_id > 0
             create_pr_id = str(create_pr_id)
-            print('flag u1s')
+
             #Update PR to change description 
             updated_description = 'This should be the pr description'
             update_pr_command = 'az repos pr update --id ' + create_pr_id + ' -d "' + updated_description + '" --detect off --output json'
             update_pr_output = self.cmd(update_pr_command).get_output_in_json()
             update_pr_description = update_pr_output["description"]
             assert update_pr_description == updated_description
-            print('flag u1c')
+
             #List PR
             pr_list_output = self.cmd('az repos pr list -p PullRequestLiveTest -r ' + created_repo_id + ' --detect Off --output json', checks=[
                 self.check("[0].description", updated_description)
@@ -65,14 +65,12 @@ class AzReposPrTests(ScenarioTest):
             show_pr_description = show_pr_output["description"]
             assert show_pr_title == pr_title
             assert show_pr_description == update_pr_description
-            
-            print('flag abon s')
+
             #Abandon PR
             abandon_pr_command = 'az repos pr update --id ' + create_pr_id + ' --detect Off --output json --status abandoned --debug'
             abandon_pr_output = self.cmd(abandon_pr_command).get_output_in_json()
             abandon_pr_status = abandon_pr_output["status"]
             assert abandon_pr_status == 'abandoned'
-            print('flag abon e')
             #Reactivate PR 
             reactivate_pr_command = 'az repos pr update --status active --id ' + create_pr_id + ' --detect Off --output json'
             reactivate_pr_output = self.cmd(reactivate_pr_command).get_output_in_json()
