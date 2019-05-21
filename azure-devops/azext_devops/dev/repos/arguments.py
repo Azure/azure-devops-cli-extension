@@ -12,6 +12,7 @@ _BRANCH_MATCH_KIND_VALUES = ['prefix', 'exact']
 _TRUE_FALSE_SWITCH = ['true', 'false']
 _VOTE_VALUES = ['approve', 'approve-with-suggestions', 'reset', 'wait-for-author', 'reject']
 _PR_STATUS_VALUES = ['all', 'active', 'completed', 'abandoned']
+_PR_TARGET_STATUS_VALUES = ['active', 'completed', 'abandoned']
 
 
 # pylint: disable=too-many-statements
@@ -122,6 +123,7 @@ def load_code_arguments(self, _):
         context.argument('bypass_policy', arg_type=get_three_state_flag())
         context.argument('transition_work_items', arg_type=get_three_state_flag())
         context.argument('draft', arg_type=get_three_state_flag())
+        context.argument('status', **enum_choice_list(_PR_TARGET_STATUS_VALUES))
 
     with self.argument_context('repos pr policy') as context:
         context.argument('evaluation_id', options_list=('--evaluation-id', '-e'))

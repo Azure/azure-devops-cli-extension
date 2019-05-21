@@ -67,13 +67,13 @@ class AzReposPrTests(ScenarioTest):
             assert show_pr_description == update_pr_description
             
             #Abandon PR
-            abandon_pr_command = 'az repos pr abandon --id ' + create_pr_id + ' --detect Off --output json'
+            abandon_pr_command = 'az repos pr update --status abandoned --id ' + create_pr_id + ' --detect Off --output json'
             abandon_pr_output = self.cmd(abandon_pr_command).get_output_in_json()
             abandon_pr_status = abandon_pr_output["status"]
             assert abandon_pr_status == 'abandoned'
             
             #Reactivate PR 
-            reactivate_pr_command = 'az repos pr reactivate --id ' + create_pr_id + ' --detect Off --output json'
+            reactivate_pr_command = 'az repos pr update --status active --id ' + create_pr_id + ' --detect Off --output json'
             reactivate_pr_output = self.cmd(reactivate_pr_command).get_output_in_json()
             reactivate_pr_status = reactivate_pr_output["status"]
             assert reactivate_pr_status == 'active'
@@ -104,7 +104,7 @@ class AzReposPrTests(ScenarioTest):
             assert vote_pr_status == 10
 
             #Complete PR 
-            complete_pr_command = 'az repos pr complete --id ' + create_pr_id + ' --detect Off --output json'
+            complete_pr_command = 'az repos pr update --status complete --id ' + create_pr_id + ' --detect Off --output json'
             complete_pr_output = self.cmd(complete_pr_command).get_output_in_json()
             complete_pr_queued_time = parser.parse(complete_pr_output["completionQueueTime"])
             complete_pr_completion_options = complete_pr_output["completionOptions"]

@@ -238,7 +238,7 @@ def _get_branches_for_pull_request(organization, project, repository, source_bra
 def update_pull_request(id, title=None, description=None, auto_complete=None,  # pylint: disable=redefined-builtin
                         squash=None, delete_source_branch=None, bypass_policy=None, draft=None,
                         bypass_policy_reason=None, merge_commit_message=None, organization=None, detect=None,
-                        transition_work_items=None):
+                        transition_work_items=None, status=None):
     """Update a pull request.
     :param id: ID of the pull request.
     :type id: int
@@ -267,6 +267,8 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
                    (e.g. Active -> Resolved)
     :type transition_work_items: bool
+    :param status: Set the new state of pull request.
+    :type status: str
     :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
@@ -306,41 +308,17 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
             pr.auto_complete_set_by = IdentityRef(id=EMPTY_UUID)
     if draft is not None:
         pr.is_draft = draft
+    if status is not None:
+        pr.status = status
+        if status == 'completed':
+            pr.last_merge_source_commit = existing_pr.last_merge_source_commit
+            pr.completion_options = existing_pr.completion_options
     pr = client.update_pull_request(git_pull_request_to_update=pr,
                                     project=existing_pr.repository.project.name,
                                     repository_id=existing_pr.repository.name,
                                     pull_request_id=id)
     return pr
 
-
-def complete_pull_request(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
-    """Complete a pull request.
-    :param id: ID of the pull request to complete.
-    :type id: int
-    :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
-    """
-    return _update_pull_request_status(pull_request_id=id, new_status='completed',
-                                       organization=organization, detect=detect)
-
-
-def abandon_pull_request(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
-    """Abandon a pull request.
-    :param id: ID of the pull request to abandon.
-    :type id: int
-    :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
-    """
-    return _update_pull_request_status(pull_request_id=id, new_status='abandoned',
-                                       organization=organization, detect=detect)
-
-
-def reactivate_pull_request(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
-    """Reactivate an abandoned pull request.
-    :param id: ID of the pull request to reactivate.
-    :type id: int
-    :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
-    """
-    return _update_pull_request_status(pull_request_id=id, new_status='active',
-                                       organization=organization, detect=detect)
 
 
 def create_pull_request_reviewers(id, reviewers, organization=None, detect=None):  # pylint: disable=redefined-builtin
@@ -538,21 +516,6 @@ def list_pull_request_work_items(id, organization=None, detect=None):  # pylint:
         return wit_client.get_work_items(ids=ids)
 
     return refs
-
-
-def _update_pull_request_status(pull_request_id, new_status, organization=None, detect=None):
-    organization = resolve_instance(detect=detect, organization=organization)
-    client = get_git_client(organization)
-    existing_pr = client.get_pull_request_by_id(pull_request_id)
-    pr = GitPullRequest(status=new_status)
-    if new_status == 'completed':
-        pr.last_merge_source_commit = existing_pr.last_merge_source_commit
-        pr.completion_options = existing_pr.completion_options
-    pr = client.update_pull_request(git_pull_request_to_update=pr,
-                                    project=existing_pr.repository.project.name,
-                                    repository_id=existing_pr.repository.name,
-                                    pull_request_id=pull_request_id)
-    return pr
 
 
 def vote_pull_request(id, vote, organization=None, detect=None):  # pylint: disable=redefined-builtin
