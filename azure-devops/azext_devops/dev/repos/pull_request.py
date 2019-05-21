@@ -320,7 +320,6 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     return pr
 
 
-
 def create_pull_request_reviewers(id, reviewers, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Add one or more reviewers to a pull request.
     :param id: ID of the pull request.
