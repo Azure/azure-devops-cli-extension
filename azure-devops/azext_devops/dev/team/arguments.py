@@ -40,8 +40,9 @@ def load_global_args(context):
 # pylint: disable=too-many-statements
 def load_team_arguments(self, _):
     with self.argument_context('devops configure') as context:
+        context.argument('use_git_aliases', arg_type=get_three_state_flag())
         context.argument('defaults', options_list=('--defaults', '-d'), nargs='*')
-        context.argument('list_config', arg_type=get_three_state_flag())
+        context.argument('list_config',, options_list=('--list', '-l'), arg_type=get_three_state_flag())
 
     with self.argument_context('devops') as context:
         context.argument('repository', options_list=('--repository', '-r'))
@@ -60,9 +61,6 @@ def load_team_arguments(self, _):
     with self.argument_context('devops project delete') as context:
         context.argument('yes', options_list=['--yes', '-y'], action='store_true',
                          help='Do not prompt for confirmation.')
-    with self.argument_context('devops configure') as context:
-        context.argument('use_git_aliases', arg_type=get_three_state_flag())
-        context.argument('list_config', options_list=('--list', '-l'))
 
     with self.argument_context('devops invoke') as context:
         context.argument('route_parameters', nargs='*',
