@@ -18,9 +18,6 @@ from azext_devops.dev.repos.pull_request import (create_pull_request,
                                                  show_pull_request,
                                                  list_pull_requests,
                                                  update_pull_request,
-                                                 complete_pull_request,
-                                                 abandon_pull_request,
-                                                 reactivate_pull_request,
                                                  create_pull_request_reviewers,
                                                  delete_pull_request_reviewers,
                                                  list_pull_request_reviewers,
@@ -256,8 +253,9 @@ class TestPullRequestMethods(AuthenticatedTests):
 
     def test_complete_pull_request(self):
         test_pr_id = 1
-        response = complete_pull_request(id = test_pr_id,
+        response = update_pull_request(id = test_pr_id,
         organization = self._TEST_DEVOPS_ORGANIZATION,
+        status='completed',
         detect='off')
 
         #assert
@@ -268,8 +266,9 @@ class TestPullRequestMethods(AuthenticatedTests):
 
     def test_abandon_pull_request(self):
         test_pr_id = 1
-        response = abandon_pull_request(id = test_pr_id,
+        response = update_pull_request(id = test_pr_id,
         organization = self._TEST_DEVOPS_ORGANIZATION,
+        status='abandoned',
         detect='off')
 
         #assert
@@ -280,8 +279,9 @@ class TestPullRequestMethods(AuthenticatedTests):
 
     def test_reactivate_pull_request(self):
         test_pr_id = 1
-        response = reactivate_pull_request(id = test_pr_id,
+        response = update_pull_request(id = test_pr_id,
         organization = self._TEST_DEVOPS_ORGANIZATION,
+        status='active',
         detect='off')
 
         #assert
