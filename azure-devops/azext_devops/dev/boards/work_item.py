@@ -224,7 +224,7 @@ def query_work_items(wiql=None, id=None, path=None, organization=None, project=N
     """Query for a list of work items.
     :param wiql: The query in Work Item Query Language format.  Ignored if --id or --path is specified.
     :type wiql: str
-    :param id: The UUID of an existing query.  Required unless --path or --wiql are specified.
+    :param id: The ID of an existing query.  Required unless --path or --wiql are specified.
     :type id: str
     :param path: The path of an existing query.  Ignored if --id is specified.
     :type path: str
