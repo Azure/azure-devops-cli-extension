@@ -67,7 +67,7 @@ class AzReposPrTests(ScenarioTest):
             assert show_pr_description == update_pr_description
 
             #Abandon PR
-            abandon_pr_command = 'az repos pr update --id ' + create_pr_id + ' --detect Off --output json --status abandoned --debug'
+            abandon_pr_command = 'az repos pr update --id ' + create_pr_id + ' --detect Off --output json --status abandoned'
             abandon_pr_output = self.cmd(abandon_pr_command).get_output_in_json()
             abandon_pr_status = abandon_pr_output["status"]
             assert abandon_pr_status == 'abandoned'

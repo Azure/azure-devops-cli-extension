@@ -312,7 +312,7 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
         pr.status = status
         if status == 'completed':
             pr.last_merge_source_commit = existing_pr.last_merge_source_commit
-            pr.completion_options = existing_pr.completion_options
+            pr.completion_options = pr.completion_options
     pr = client.update_pull_request(git_pull_request_to_update=pr,
                                     project=existing_pr.repository.project.name,
                                     repository_id=existing_pr.repository.name,
