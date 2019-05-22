@@ -127,17 +127,17 @@ def update_policy_approver_count(policy_id,
     current_scope = current_policy.settings['scope'][0]
 
     param_value_array = [
-        minimum_approver_count or current_setting.get('minimumApproverCount', None),
-        creator_vote_counts or current_setting.get('creatorVoteCounts', None),
-        allow_downvotes or current_setting.get('allowDownvotes', None),
-        reset_on_source_push or current_setting.get('resetOnSourcePush', None)
+        minimum_approver_count if minimum_approver_count is not None else current_setting.get('minimumApproverCount', None),
+        creator_vote_counts if creator_vote_counts is not None else current_setting.get('creatorVoteCounts', None),
+        allow_downvotes if allow_downvotes is not None else current_setting.get('allowDownvotes', None),
+        reset_on_source_push if reset_on_source_push is not None else current_setting.get('resetOnSourcePush', None)
     ]
 
     updated_configuration = create_configuration_object(
         repository_id or current_scope['repositoryId'],
         branch or current_scope['refName'],
-        is_blocking or str(current_policy.is_blocking),
-        is_enabled or str(current_policy.is_enabled),
+        is_blocking if is_blocking is not None else current_policy.is_blocking,
+        is_enabled if is_enabled is not None else current_policy.is_enabled,
         'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd',
         param_name_array,
         param_value_array,
@@ -199,8 +199,8 @@ def update_policy_required_reviewer(policy_id,
     updated_configuration = create_configuration_object(
         repository_id or current_scope['repositoryId'],
         branch or current_scope['refName'],
-        is_blocking or str(current_policy.is_blocking),
-        is_enabled or str(current_policy.is_enabled),
+        is_blocking if is_blocking is not None else current_policy.is_blocking,
+        is_enabled if is_enabled is not None else current_policy.is_enabled,
         'fd2167ab-b0be-447a-8ec8-39368250530e',
         param_name_array,
         param_value_array,
@@ -249,14 +249,14 @@ def update_policy_merge_strategy(policy_id,
     current_scope = current_policy.settings['scope'][0]
 
     param_value_array = [
-        use_squash_merge or current_setting.get('useSquashMerge', None)
+        use_squash_merge if use_squash_merge is not None else current_setting.get('useSquashMerge', None)
     ]
 
     updated_configuration = create_configuration_object(
         repository_id or current_scope['repositoryId'],
         branch or current_scope['refName'],
-        is_blocking or str(current_policy.is_blocking),
-        is_enabled or str(current_policy.is_enabled),
+        is_blocking if is_blocking is not None else current_policy.is_blocking,
+        is_enabled if is_enabled is not None else current_policy.is_enabled,
         'fa4e907d-c16b-4a4c-9dfa-4916e5d171ab',
         param_name_array,
         param_value_array,
@@ -326,8 +326,8 @@ def update_policy_build(policy_id,
 
     param_value_array = [
         build_definition_id or current_setting.get('buildDefinitionId', None),
-        queue_on_source_update_only or current_setting.get('queueOnSourceUpdateOnly', None),
-        manual_queue_only or current_setting.get('manualQueueOnly', None),
+        queue_on_source_update_only if queue_on_source_update_only is not None else current_setting.get('queueOnSourceUpdateOnly', None),
+        manual_queue_only if manual_queue_only is not None else current_setting.get('manualQueueOnly', None),
         display_name or current_setting.get('displayName', None),
         valid_duration or current_setting.get('validDuration', None),
         createFileNamePatterns(path_filter) or current_setting.get('filenamePatterns', None)
@@ -336,8 +336,8 @@ def update_policy_build(policy_id,
     updated_configuration = create_configuration_object(
         repository_id or current_scope['repositoryId'],
         branch or current_scope['refName'],
-        is_blocking or str(current_policy.is_blocking),
-        is_enabled or str(current_policy.is_enabled),
+        is_blocking if is_blocking is not None else current_policy.is_blocking,
+        is_enabled if is_enabled is not None else current_policy.is_enabled,
         '0609b952-1397-4640-95ec-e00a01b2c241',
         param_name_array,
         param_value_array,
@@ -385,14 +385,14 @@ def update_policy_file_size(policy_id,
 
     param_value_array = [
         maximum_git_blob_size or current_setting.get('maximumGitBlobSizeInBytes', None),
-        use_uncompressed_size or current_setting.get('useUncompressedSize', None)
+        use_uncompressed_size if use_uncompressed_size is not None else current_setting.get('useUncompressedSize', None)
     ]
 
     updated_configuration = create_configuration_object(
         repository_id or current_scope['repositoryId'],
         None,
-        is_blocking or str(current_policy.is_blocking),
-        is_enabled or str(current_policy.is_enabled),
+        is_blocking if is_blocking is not None else current_policy.is_blocking,
+        is_enabled if is_enabled is not None else current_policy.is_enabled,
         '2e26e725-8201-4edd-8bf5-978563c34a80',
         param_name_array,
         param_value_array
@@ -436,8 +436,8 @@ def update_policy_comment_required(policy_id,
     updated_configuration = create_configuration_object(
         repository_id or current_scope['repositoryId'],
         branch or current_scope['refName'],
-        is_blocking or str(current_policy.is_blocking),
-        is_enabled or str(current_policy.is_enabled),
+        is_blocking if is_blocking is not None else current_policy.is_blocking,
+        is_enabled if is_enabled is not None else current_policy.is_enabled,
         'c6a1889d-b943-4856-b76f-9e46bb6b0df2',
         [],
         [],
@@ -482,8 +482,8 @@ def update_policy_work_item_linking(policy_id,
     updated_configuration = create_configuration_object(
         repository_id or current_scope['repositoryId'],
         branch or current_scope['refName'],
-        is_blocking or str(current_policy.is_blocking),
-        is_enabled or str(current_policy.is_enabled),
+        is_blocking if is_blocking is not None else current_policy.is_blocking,
+        is_enabled if is_enabled is not None else current_policy.is_enabled,
         '40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e',
         [],
         [],
@@ -527,8 +527,8 @@ def update_policy_case_enforcement(policy_id,
     updated_configuration = create_configuration_object(
         repository_id or current_scope['repositoryId'],
         None,
-        is_blocking or str(current_policy.is_blocking),
-        is_enabled or str(current_policy.is_enabled),
+        is_blocking if is_blocking is not None else current_policy.is_blocking,
+        is_enabled if is_enabled is not None else current_policy.is_enabled,
         '40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e',
         ['enforceConsistentCase'],
         ['true']
@@ -550,7 +550,7 @@ def create_configuration_object(repository_id,
                                 param_value_array,
                                 branch_match_type='exact'):
     branch = resolve_git_ref_heads(branch)
-    policyConfiguration = PolicyConfiguration(is_blocking=parseTrueFalse(is_blocking), is_enabled=parseTrueFalse(is_enabled))
+    policyConfiguration = PolicyConfiguration(is_blocking=is_blocking, is_enabled=is_enabled)
     scope = createScope(repository_id, branch, branch_match_type)
     policyConfiguration.settings = {
         'scope': scope
@@ -591,13 +591,6 @@ def createScope(repository_id, branch, branch_match_type):
         ]
 
     return scope
-
-
-def parseTrueFalse(inputString):
-    if inputString is not None and inputString.lower() == 'true':
-        return True
-
-    return False
 
 
 def resolveIdentityMailsToIds(mailList, organization):
