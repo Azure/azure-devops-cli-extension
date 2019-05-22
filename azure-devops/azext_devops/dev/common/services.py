@@ -281,7 +281,7 @@ def _team_organization_arg_error():
                     'organization, for example: https://dev.azure.com/MyOrganization/ or your TFS organization. '
                     'You can set a default value by running: az devops configure --defaults '
                     'organization=https://dev.azure.com/MyOrganization/. For auto detection to work '
-                    '(--detect on), you must be in a local Git directory that has a "remote" referencing a '
+                    '(--detect true), you must be in a local Git directory that has a "remote" referencing a '
                     'Azure DevOps or TFS repository.')
 
 
