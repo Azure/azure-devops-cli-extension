@@ -6,13 +6,6 @@
 import logging
 
 
-def resolve_true_false(inputString):
-    if inputString is not None and inputString.lower() == 'true':
-        return True
-
-    return False
-
-
 def should_detect(detect):
     if detect is None:
         return True

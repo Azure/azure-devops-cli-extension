@@ -89,8 +89,7 @@ def load_team_arguments(self, _):
     with self.argument_context('devops user') as context:
         context.argument('license_type', arg_type=get_enum_type(_LICENSE_TYPES))
     with self.argument_context('devops user add') as context:
-        context.argument('send_email_invite', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
-                         help='Whether to send email invite for new user or not.')
+        context.argument('send_email_invite', help='Whether to send email invite for new user or not.')
 
     with self.argument_context('devops security group create') as context:
         context.argument('project',
@@ -129,10 +128,8 @@ def load_team_arguments(self, _):
                          for given user/group and token.')
 
     with self.argument_context('devops extension') as context:
-        context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
-                         help='Include built in extensions.')
-        context.argument('include_disabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
-                         help='Include disabled extensions.')
+        context.argument('include_built_in', help='Include built in extensions.')
+        context.argument('include_disabled', help='Include disabled extensions.')
         context.argument('publisher_name', help='Publisher Name')
         context.argument('extension_name', help='Extension Name')
         context.argument('search_query', options_list=('--search-query', '-q'), help='Search term')

@@ -61,13 +61,13 @@ class TestExtensionMethods(AuthenticatedTests):
         
 
     def test_list_extensions(self):
-        list_extensions('false','false',self._TEST_DEVOPS_ORGANIZATION, 'off')
+        list_extensions(False,False,self._TEST_DEVOPS_ORGANIZATION, False)
                 
         #assert
         self.mock_get_installed_extensions.assert_called_once_with(include_disabled_extensions=False)
 
     def test_list_extensions_include_disabled_extension(self):
-        list_extensions('false','true',self._TEST_DEVOPS_ORGANIZATION, 'off')
+        list_extensions(False,True,self._TEST_DEVOPS_ORGANIZATION, False)
                 
         #assert
         self.mock_get_installed_extensions.assert_called_once_with(include_disabled_extensions=True)
@@ -80,7 +80,7 @@ class TestExtensionMethods(AuthenticatedTests):
 
         self.mock_get_installed_extensions.return_value = extensions
 
-        result = list_extensions('true','true',self._TEST_DEVOPS_ORGANIZATION, 'off')
+        result = list_extensions(True,True,self._TEST_DEVOPS_ORGANIZATION, False)
 
         self.assertEqual(len(result), 3)
 
@@ -92,7 +92,7 @@ class TestExtensionMethods(AuthenticatedTests):
 
         self.mock_get_installed_extensions.return_value = extensions
 
-        result = list_extensions('false','true',self._TEST_DEVOPS_ORGANIZATION, 'off')
+        result = list_extensions(False,False,self._TEST_DEVOPS_ORGANIZATION, False)
 
         self.assertEqual(len(result), 1)
 
