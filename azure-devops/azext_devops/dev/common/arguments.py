@@ -6,23 +6,6 @@
 import logging
 
 
-def resolve_on_off_switch(switch):
-    """Returns True if value is On or False if value is Off
-    :param switch: The text to validate.
-    :type switch: str
-    :rtype: bool
-    """
-    if switch is None:
-        raise ValueError('Expecting "on" or "off" value for switch, but value was None.')
-
-    if switch == 'on':
-        return True
-    if switch == 'off':
-        return False
-
-    raise ValueError('Expecting "on" or "off" value for switch, but value was "' + switch + "'.")
-
-
 def resolve_true_false(inputString):
     if inputString is not None and inputString.lower() == 'true':
         return True
@@ -33,7 +16,7 @@ def resolve_true_false(inputString):
 def should_detect(detect):
     if detect is None:
         return True
-    return resolve_on_off_switch(detect)
+    return detect
 
 
 def convert_date_string_to_iso8601(value, argument=None):

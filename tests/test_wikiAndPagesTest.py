@@ -30,15 +30,15 @@ class WikiTests(ScenarioTest):
         created_project_id = None
 
         try:
-            create_project_command = 'az devops project create --name ' + random_project_name + ' --output json --detect off'
+            create_project_command = 'az devops project create --name ' + random_project_name + ' --output json --detect false'
             project_create_output = self.cmd(create_project_command).get_output_in_json()
             created_project_id = project_create_output["id"]
 
-            create_repo_command = 'az repos create --name ' + random_repo_name + ' -p ' +  created_project_id + ' --output json --detect off'
+            create_repo_command = 'az repos create --name ' + random_repo_name + ' -p ' +  created_project_id + ' --output json --detect false'
             repo_create_output = self.cmd(create_repo_command).get_output_in_json()
             create_repo_id = repo_create_output["id"]
 
-            import_repo_command = 'az repos import create --git-url https://github.com/hkasera/snakes-and-ladders.git' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
+            import_repo_command = 'az repos import create --git-url https://github.com/hkasera/snakes-and-ladders.git' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect false'
             import_repo_output = self.cmd(import_repo_command)
 
             list_wiki_command = 'az devops wiki list -o json'
@@ -48,7 +48,7 @@ class WikiTests(ScenarioTest):
             assert num_wikis == 0
 
             # Create Project wiki 
-            create_wiki_command = 'az devops wiki create --name ' + project_wiki_name + ' --output json --detect off'
+            create_wiki_command = 'az devops wiki create --name ' + project_wiki_name + ' --output json --detect false'
             create_wiki_output = self.cmd(create_wiki_command).get_output_in_json()
             created_wiki_id = create_wiki_output["id"]
             assert create_wiki_output["name"] == project_wiki_name
@@ -60,7 +60,7 @@ class WikiTests(ScenarioTest):
             assert list_wikis[0]["type"].lower() == 'projectwiki'
 
             # Create Code wiki
-            create_code_wiki_command = 'az devops wiki create --name ' + code_wiki_name + ' --mapped-path / --type codewiki --version master --repository ' + random_repo_name +  ' --output json --detect off'
+            create_code_wiki_command = 'az devops wiki create --name ' + code_wiki_name + ' --mapped-path / --type codewiki --version master --repository ' + random_repo_name +  ' --output json --detect false'
             create_code_wiki_output = self.cmd(create_code_wiki_command).get_output_in_json()
             created_code_wiki_id = create_code_wiki_output["id"]
             assert create_code_wiki_output["name"] == code_wiki_name
@@ -119,5 +119,5 @@ class WikiTests(ScenarioTest):
 
         finally:
             if created_project_id is not None:
-                delete_project_command = 'az devops project delete --id ' + created_project_id + ' --output json --detect off -y'
+                delete_project_command = 'az devops project delete --id ' + created_project_id + ' --output json --detect false -y'
                 self.cmd(delete_project_command)

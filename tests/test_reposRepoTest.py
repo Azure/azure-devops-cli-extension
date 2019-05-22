@@ -22,13 +22,13 @@ class ReposRepoTests(ScenarioTest):
         
         created_repo_id = None
         try:
-            create_repo_command = 'az repos create --name ' + random_name +' --project RepoCreateListShowDeleteTests --output json --detect off'
+            create_repo_command = 'az repos create --name ' + random_name +' --project RepoCreateListShowDeleteTests --output json --detect false'
             repo_create_output = self.cmd(create_repo_command).get_output_in_json()
             created_repo_id = repo_create_output["id"]
             created_repo_name = repo_create_output["name"]
             assert len(created_repo_id) > 0
 
-            list_repo_command = 'az repos list --project RepoCreateListShowDeleteTests --output json  --detect off'
+            list_repo_command = 'az repos list --project RepoCreateListShowDeleteTests --output json  --detect false'
             verified_repo_list = False
             list_repo_output_before_delete = self.cmd(list_repo_command).get_output_in_json()
             for repos in list_repo_output_before_delete:
@@ -36,18 +36,18 @@ class ReposRepoTests(ScenarioTest):
                     verified_repo_list = True
             assert verified_repo_list == True
 
-            show_repo_command = 'az repos show -r ' + created_repo_id + ' --project RepoCreateListShowDeleteTests --output json --detect off'
+            show_repo_command = 'az repos show -r ' + created_repo_id + ' --project RepoCreateListShowDeleteTests --output json --detect false'
             show_repo_output = self.cmd(show_repo_command).get_output_in_json()
             assert show_repo_output["id"] == created_repo_id
             
             updated_repo_name = created_repo_name + 'Updated'
-            update_repo_command = 'az repos update -r ' + created_repo_id + ' -p RepoCreateListShowDeleteTests --name ' + updated_repo_name  + ' -o json --detect off'
+            update_repo_command = 'az repos update -r ' + created_repo_id + ' -p RepoCreateListShowDeleteTests --name ' + updated_repo_name  + ' -o json --detect false'
             update_repo_output = self.cmd(update_repo_command).get_output_in_json()
             assert update_repo_output["id"] == created_repo_id
             assert update_repo_output["name"] == updated_repo_name
 
         finally:
-            delete_repo_command = 'az repos delete --id ' + created_repo_id + ' --project RepoCreateListShowDeleteTests -y --output json --detect off'
+            delete_repo_command = 'az repos delete --id ' + created_repo_id + ' --project RepoCreateListShowDeleteTests -y --output json --detect false'
             self.cmd(delete_repo_command)
             
             #Verify Deletion

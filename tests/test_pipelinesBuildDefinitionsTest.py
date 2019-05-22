@@ -22,7 +22,7 @@ class PipelinesBuildDefinitionTests(ScenarioTest):
         build_definition_name = 'BuildTests Definition1'
 
         #list build definition
-        list_build_definition_command = 'az pipelines build definition list --detect off --output json'
+        list_build_definition_command = 'az pipelines build definition list --detect false --output json'
         list_build_definition_output = self.cmd(list_build_definition_command).get_output_in_json()
         assert len(list_build_definition_output) > 0
         for build_definition in list_build_definition_output:
@@ -32,7 +32,7 @@ class PipelinesBuildDefinitionTests(ScenarioTest):
 
 
         #show build definition
-        show_build_definition_command = 'az pipelines build definition show --id ' + str(build_definition_id) + ' --detect off --output json'
+        show_build_definition_command = 'az pipelines build definition show --id ' + str(build_definition_id) + ' --detect false --output json'
         show_build_definition_output = self.cmd(show_build_definition_command).get_output_in_json()
         assert len(show_build_definition_output) > 0
         assert show_build_definition_output["name"] == build_definition_name
