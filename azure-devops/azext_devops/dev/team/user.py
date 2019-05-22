@@ -82,7 +82,6 @@ def add_user_entitlement(email_id, license_type, send_email_invite=True, organiz
     :type license_type: str
     :rtype: UserEntitlementsPatchResponse
     """
-    do_not_send_invite = False
     do_not_send_invite = not send_email_invite
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_member_entitlement_management_client(organization)
