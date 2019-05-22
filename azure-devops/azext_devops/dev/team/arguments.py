@@ -6,7 +6,6 @@
 
 from knack.arguments import enum_choice_list
 from azure.cli.core.commands.parameters import get_enum_type, get_three_state_flag
-from azext_devops.dev.common.const import _TRUE_FALSE_SWITCH
 from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_GITHUB,
                     SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL,
@@ -42,6 +41,8 @@ def load_global_args(context):
 def load_team_arguments(self, _):
     with self.argument_context('devops configure') as context:
         context.argument('defaults', options_list=('--defaults', '-d'), nargs='*')
+        context.argument('use_git_aliases', arg_type=get_three_state_flag())
+        context.argument('list_config', options_list=('--list', '-l'))
 
     with self.argument_context('devops') as context:
         context.argument('repository', options_list=('--repository', '-r'))
@@ -60,9 +61,6 @@ def load_team_arguments(self, _):
     with self.argument_context('devops project delete') as context:
         context.argument('yes', options_list=['--yes', '-y'], action='store_true',
                          help='Do not prompt for confirmation.')
-    with self.argument_context('devops configure') as context:
-        context.argument('use_git_aliases', **enum_choice_list(_YES_NO_SWITCH_VALUES))
-        context.argument('list_config', options_list=('--list', '-l'))
 
     with self.argument_context('devops invoke') as context:
         context.argument('route_parameters', nargs='*',
