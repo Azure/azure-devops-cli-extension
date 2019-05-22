@@ -43,7 +43,7 @@ def show_service_endpoint(id, organization=None, project=None, detect=None):  # 
     return client.get_service_endpoint_details(project, id)
 
 
-def delete_service_endpoint(id, deep=None, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def delete_service_endpoint(id, deep=True, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Deletes service endpoint
     :param id: Id of the service endpoint to delete.
     :type id: str
