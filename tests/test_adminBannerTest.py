@@ -29,7 +29,7 @@ class AdminBannerTests(ScenarioTest):
         try:
             #add a banner to the project
             add_admin_banner_command = ('az devops admin banner add --id ' + admin_banner_id + ' --message "' + admin_banner_message + '" --type ' + admin_banner_type + 
-                ' --output json --detect off --debug')
+                ' --output json --detect false --debug')
             add_admin_banner_output = self.cmd(add_admin_banner_command).get_output_in_json()
             assert len(add_admin_banner_output) > 0
             assert add_admin_banner_output[admin_banner_id]["level"] == admin_banner_type
@@ -40,7 +40,7 @@ class AdminBannerTests(ScenarioTest):
             
             #update banner 
             update_admin_banner_command = ('az devops admin banner update --id ' + admin_banner_id + ' --message "' + admin_banner_updated_message + 
-                '" --type ' + admin_banner_updated_type + ' --output json --detect off')
+                '" --type ' + admin_banner_updated_type + ' --output json --detect false')
             update_admin_banner_output = self.cmd(update_admin_banner_command).get_output_in_json()
             assert len(update_admin_banner_output[admin_banner_id]) > 0
             assert update_admin_banner_output[admin_banner_id]["level"] == admin_banner_updated_type
@@ -50,14 +50,14 @@ class AdminBannerTests(ScenarioTest):
             time.sleep(5)
             
             #list banner command
-            list_admin_banner_command = 'az devops admin banner list --output json --detect off'
+            list_admin_banner_command = 'az devops admin banner list --output json --detect false'
             list_admin_banner_output = self.cmd(list_admin_banner_command).get_output_in_json()
             assert len(list_admin_banner_output[admin_banner_id]) > 0
             assert list_admin_banner_output[admin_banner_id]["level"] == admin_banner_updated_type
             assert list_admin_banner_output[admin_banner_id]["message"] == admin_banner_updated_message
 
             #show banner command
-            show_admin_banner_command = 'az devops admin banner show --id ' + admin_banner_id + ' --output json --detect off'
+            show_admin_banner_command = 'az devops admin banner show --id ' + admin_banner_id + ' --output json --detect false'
             show_admin_banner_output = self.cmd(show_admin_banner_command).get_output_in_json()
             assert len(show_admin_banner_output[admin_banner_id]) > 0
             assert show_admin_banner_output[admin_banner_id]["level"] == admin_banner_updated_type
@@ -66,13 +66,13 @@ class AdminBannerTests(ScenarioTest):
 
         finally:
             #TestCleanup - remove admin banner
-            remove_admin_banner_command = 'az devops admin banner remove --id ' + admin_banner_id + ' --output json --detect off'
+            remove_admin_banner_command = 'az devops admin banner remove --id ' + admin_banner_id + ' --output json --detect false'
             self.cmd(remove_admin_banner_command)
             
             #Verify remove
             #Test was failing without adding a sleep here. Though the remove was successful. 
             time.sleep(5) 
-            list_admin_banner_command = 'az devops admin banner list --output json --detect off'
+            list_admin_banner_command = 'az devops admin banner list --output json --detect false'
             list_admin_banner_output = self.cmd(list_admin_banner_command).get_output_in_json()
             assert admin_banner_id not in list(list_admin_banner_output.keys())
 

@@ -8,7 +8,6 @@ from knack.util import CLIError
 
 from azext_devops.dev.common.services import (get_extension_client,
                                               resolve_instance)
-from azext_devops.dev.common.arguments import resolve_true_false
 
 logger = get_logger(__name__)
 
@@ -92,11 +91,9 @@ def search_extensions(search_query):
     return response_json['results'][0]['extensions']
 
 
-def list_extensions(include_built_in='true', include_disabled='true', organization=None, detect=None):
+def list_extensions(include_built_in=True, include_disabled=True, organization=None, detect=None):
     """ List extensions installed in an organization
     """
-    include_built_in = resolve_true_false(include_built_in)
-    include_disabled = resolve_true_false(include_disabled)
     organization = resolve_instance(detect=detect, organization=organization)
     extension_client = get_extension_client(organization)
     extensions = extension_client.get_installed_extensions(include_disabled_extensions=include_disabled)

@@ -87,7 +87,7 @@ def create_project(name, organization=None, process=None, source_control='git', 
 
 def delete_project(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete team project.
-    :param id: The id (UUID) of the project to delete.
+    :param id: The id of the project to delete.
     :type id: str
     """
     organization = resolve_instance(detect=detect, organization=organization)
@@ -105,7 +105,7 @@ def delete_project(id, organization=None, detect=None):  # pylint: disable=redef
 
 def show_project(project, organization=None, detect=None, open=False):  # pylint: disable=redefined-builtin
     """Show team project.
-    :param project: The id (UUID) or name of the project to show.
+    :param project: The id or name of the project to show.
     :type project: str
     :param open: Open the team project in the default web browser.
     :type open: bool

@@ -24,23 +24,23 @@ class DevopsReposPoliciesTests(ScenarioTest):
         created_project_id = None
 
         try:
-            create_project_command = 'az devops project create --name ' + random_project_name + ' --output json --detect off'
+            create_project_command = 'az devops project create --name ' + random_project_name + ' --output json --detect false'
             project_create_output = self.cmd(create_project_command).get_output_in_json()
             created_project_id = project_create_output["id"]
 
-            create_repo_command = 'az repos create --name ' + random_repo_name + ' -p ' +  created_project_id + ' --output json --detect off'
+            create_repo_command = 'az repos create --name ' + random_repo_name + ' -p ' +  created_project_id + ' --output json --detect false'
             repo_create_output = self.cmd(create_repo_command).get_output_in_json()
             create_repo_id = repo_create_output["id"]
 
-            import_repo_command = 'az repos import create --git-url https://github.com/hkasera/snakes-and-ladders.git' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect off'
+            import_repo_command = 'az repos import create --git-url https://github.com/hkasera/snakes-and-ladders.git' + ' -p ' + created_project_id + ' -r ' + create_repo_id + ' --output json --detect false'
             import_repo_output = self.cmd(import_repo_command)
 
-            list_policy_command = 'az repos policy list -p ' + created_project_id + ' --output json --detect off'
+            list_policy_command = 'az repos policy list -p ' + created_project_id + ' --output json --detect false'
             list_policy_output = self.cmd(list_policy_command).get_output_in_json()
             # empty project so no policy is expected
             assert len(list_policy_output) == 0
 
-            create_policy_command = 'az repos policy merge-strategy create --use-squash-merge False --branch master' + ' -p ' + created_project_id + ' --repository-id ' + create_repo_id + ' --is-blocking true --is-enabled true --output json --detect off'
+            create_policy_command = 'az repos policy merge-strategy create --use-squash-merge False --branch master' + ' -p ' + created_project_id + ' --repository-id ' + create_repo_id + ' --blocking true --enabled true --output json --detect false'
             create_policy_output = self.cmd(create_policy_command).get_output_in_json()
             policy_id = create_policy_output["id"]
 
@@ -51,13 +51,13 @@ class DevopsReposPoliciesTests(ScenarioTest):
             # now we have one policy so we should get it
             assert len(list_policy_output) == 1
 
-            show_policy_command = 'az repos policy show --id ' + str(policy_id) + ' -p ' + created_project_id + ' --output json --detect off'
+            show_policy_command = 'az repos policy show --id ' + str(policy_id) + ' -p ' + created_project_id + ' --output json --detect false'
             show_policy_output = self.cmd(show_policy_command).get_output_in_json()
             assert show_policy_output["id"] == policy_id
             assert show_policy_output["type"]["id"] == 'fa4e907d-c16b-4a4c-9dfa-4916e5d171ab' #id of merge strategy policy
             self.failUnlessRaises(KeyError, lambda: show_policy_output["settings"]["useSquashMerge"])
 
-            update_policy_command = 'az repos policy merge-strategy update --id ' + str(policy_id) + ' --use-squash-merge True --output json --detect off'
+            update_policy_command = 'az repos policy merge-strategy update --id ' + str(policy_id) + ' --use-squash-merge True --output json --detect false'
             update_policy_output = self.cmd(update_policy_command).get_output_in_json()
             assert update_policy_output["id"] == policy_id
 
@@ -67,7 +67,7 @@ class DevopsReposPoliciesTests(ScenarioTest):
             show_policy_output = self.cmd(show_policy_command).get_output_in_json()
             assert show_policy_output["settings"]["useSquashMerge"] == True
 
-            delete_policy_command = 'az repos policy delete --id ' + str(policy_id) + ' -p ' + created_project_id + ' --output json --detect off -y'
+            delete_policy_command = 'az repos policy delete --id ' + str(policy_id) + ' -p ' + created_project_id + ' --output json --detect false -y'
             self.cmd(delete_policy_command)
 
             list_policy_output = self.cmd(list_policy_command).get_output_in_json()
@@ -76,5 +76,5 @@ class DevopsReposPoliciesTests(ScenarioTest):
 
         finally:
             if created_project_id is not None:
-                delete_project_command = 'az devops project delete --id ' + created_project_id + ' --output json --detect off -y'
+                delete_project_command = 'az devops project delete --id ' + created_project_id + ' --output json --detect false -y'
                 self.cmd(delete_project_command)

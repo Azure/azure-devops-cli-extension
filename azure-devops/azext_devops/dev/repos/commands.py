@@ -104,11 +104,6 @@ def load_code_commands(self, _):  # pylint: disable=too-many-statements
         g.command('list', 'list_pull_requests', table_transformer=transform_pull_requests_table_output)
         g.command('checkout', 'checkout')
 
-        # pr status update commands
-        g.command('complete', 'complete_pull_request', table_transformer=transform_pull_request_table_output)
-        g.command('abandon', 'abandon_pull_request', table_transformer=transform_pull_request_table_output)
-        g.command('reactivate', 'reactivate_pull_request', table_transformer=transform_pull_request_table_output)
-
         # pr reviewer commands
         g.command('reviewer add', 'create_pull_request_reviewers', table_transformer=transform_reviewers_table_output)
         g.command('reviewer list', 'list_pull_request_reviewers', table_transformer=transform_reviewers_table_output)

@@ -27,7 +27,7 @@ class DevopsTeamTests(ScenarioTest):
     
         try:
             # create a team
-            create_team_command = ('az devops team create --name "' + team_name + '" --description "' + team_description + '" --output json --detect off')
+            create_team_command = ('az devops team create --name "' + team_name + '" --description "' + team_description + '" --output json --detect false')
             create_team_output = self.cmd(create_team_command).get_output_in_json()
             created_team_id = create_team_output['id']
             assert len(create_team_output) > 0
@@ -35,7 +35,7 @@ class DevopsTeamTests(ScenarioTest):
             assert create_team_output["description"] == team_description
 
             # create one more team
-            create_team_command = ('az devops team create --name "' + team_name2 + '" --description "' + team_description + '" --output json --detect off')
+            create_team_command = ('az devops team create --name "' + team_name2 + '" --description "' + team_description + '" --output json --detect false')
             create_team_output2 = self.cmd(create_team_command).get_output_in_json()
             created_team_id2 = create_team_output2['id'] 
             assert len(create_team_output2) > 0
@@ -43,7 +43,7 @@ class DevopsTeamTests(ScenarioTest):
             assert create_team_output2["description"] == team_description
 
             #list team command
-            list_teams_command = 'az devops team list --output json --detect off'
+            list_teams_command = 'az devops team list --output json --detect false'
             list_teams_output = self.cmd(list_teams_command).get_output_in_json()
             assert len(list_teams_output) == 3  # one default project team and 2 teams created by test
             list_team_ids = []
@@ -53,7 +53,7 @@ class DevopsTeamTests(ScenarioTest):
             assert created_team_id2 in list_team_ids
 
             #show team command
-            show_team_command = 'az devops team show --team "' + created_team_id + '" --output json --detect off'
+            show_team_command = 'az devops team show --team "' + created_team_id + '" --output json --detect false'
             show_team_output = self.cmd(show_team_command).get_output_in_json()
             assert len(show_team_output) > 0
             assert show_team_output["name"] == team_name
@@ -62,7 +62,7 @@ class DevopsTeamTests(ScenarioTest):
 
             #update team  
             update_team_command = ('az devops team update --team "' + team_name + '" --name "' + updated_team_name + 
-                '" --description "' + updated_team_description + '" --output json --detect off')
+                '" --description "' + updated_team_description + '" --output json --detect false')
             update_team_output = self.cmd(update_team_command).get_output_in_json()
             assert len(update_team_output) > 0
             assert update_team_output["name"] == updated_team_name
@@ -70,20 +70,20 @@ class DevopsTeamTests(ScenarioTest):
             assert update_team_output["id"] == created_team_id
 
             # Testing 'list-member' command for default team in this project
-            list_team_members_command = 'az devops team list-member --team "' + "DevopsTeamTests Team" + '" --output json --detect off'
+            list_team_members_command = 'az devops team list-member --team "' + "DevopsTeamTests Team" + '" --output json --detect false'
             list_team_members_output = self.cmd(list_team_members_command).get_output_in_json()
             assert len(list_team_members_output) == 3
 
         finally:
             # TestCleanup - delete team
-            delete_team_command = 'az devops team delete --id "' + created_team_id + '" --output json --detect off --yes'
+            delete_team_command = 'az devops team delete --id "' + created_team_id + '" --output json --detect false --yes'
             self.cmd(delete_team_command)
 
             # delete second team 
-            delete_team_command = 'az devops team delete --id "' + created_team_id2 + '" --output json --detect off --yes'
+            delete_team_command = 'az devops team delete --id "' + created_team_id2 + '" --output json --detect false --yes'
             self.cmd(delete_team_command)
 
-            list_teams_command = 'az devops team list --output json --detect off'
+            list_teams_command = 'az devops team list --output json --detect false'
             list_teams_output_after_delete = self.cmd(list_teams_command).get_output_in_json()
             for team in list_teams_output_after_delete:
                 if (team["id"] == created_team_id or team["id"] == created_team_id2):

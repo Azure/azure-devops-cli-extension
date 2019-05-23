@@ -27,7 +27,7 @@ def create_team(name, description=None, organization=None, project=None, detect=
 
 def delete_team(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Delete a team.
-    :param id: The id (UUID) of the team to delete.
+    :param id: The id of the team to delete.
     :type id: str
     """
     organization, project = resolve_instance_and_project(detect=detect,
