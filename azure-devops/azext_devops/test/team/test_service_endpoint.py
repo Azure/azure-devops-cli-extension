@@ -81,10 +81,11 @@ class TestServiceEndpointMethods(AuthenticatedTests):
             pass
 
     def test_create_service_endpoint_github(self):
+        import os
+        os.environ['AZURE_DEVOPS_EXT_GITHUB_ACCESS_TOKEN'] = 'fakeToken'
         response = create_service_endpoint(service_endpoint_type = SERVICE_ENDPOINT_TYPE_GITHUB, 
                                            authorization_scheme = SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN, 
                                            name = '',
-                                           github_access_token = 'fake',
                                            organization = self._TEST_DEVOPS_ORGANIZATION,
                                            project = self._TEST_PROJECT_NAME)
 
@@ -93,10 +94,11 @@ class TestServiceEndpointMethods(AuthenticatedTests):
         self.mock_create_SE.assert_called_once()
 
     def test_create_service_endpoint_azure_rm(self):
+        import os
+        os.environ['AZURE_DEVOPS_EXT_AZURE_RM_SERVICE_PRINCIPAL_KEY'] = 'fakeKey'
         response = create_service_endpoint(service_endpoint_type = SERVICE_ENDPOINT_TYPE_AZURE_RM, 
                                            authorization_scheme = SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL, 
                                            name = '',
-                                           azure_rm_service_principal_key = 'fake',
                                            organization = self._TEST_DEVOPS_ORGANIZATION,
                                            project = self._TEST_PROJECT_NAME)
 
