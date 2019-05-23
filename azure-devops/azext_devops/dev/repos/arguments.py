@@ -33,9 +33,9 @@ def load_code_arguments(self, _):
                          'exact match on the --branch argument. ' +
                          'If value is \'prefix\' the policy is applied across all branch folders that ' +
                          'match the prefix provided by the --branch argument.')
-        context.argument('is_blocking', arg_type=get_three_state_flag(),
+        context.argument('blocking', arg_type=get_three_state_flag(),
                          help='Whether the policy should be blocking or not')
-        context.argument('is_enabled', arg_type=get_three_state_flag(),
+        context.argument('enabled', arg_type=get_three_state_flag(),
                          help='Whether the policy is enabled or not')
         context.argument('path_filter',
                          help='Filter path(s) on which the policy is applied. ' +

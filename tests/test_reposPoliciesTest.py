@@ -40,7 +40,7 @@ class DevopsReposPoliciesTests(ScenarioTest):
             # empty project so no policy is expected
             assert len(list_policy_output) == 0
 
-            create_policy_command = 'az repos policy merge-strategy create --use-squash-merge False --branch master' + ' -p ' + created_project_id + ' --repository-id ' + create_repo_id + ' --is-blocking true --is-enabled true --output json --detect false'
+            create_policy_command = 'az repos policy merge-strategy create --use-squash-merge False --branch master' + ' -p ' + created_project_id + ' --repository-id ' + create_repo_id + ' --blocking true --enabled true --output json --detect false'
             create_policy_output = self.cmd(create_policy_command).get_output_in_json()
             policy_id = create_policy_output["id"]
 

@@ -157,8 +157,8 @@ class TestUuidMethods(AuthenticatedTests):
     def test_create_policy_approver_count(self):
         create_policy_approver_count(repository_id = self._TEST_REPOSITORY_ID,
         branch='master',
-        is_blocking=False,
-        is_enabled=True,
+        blocking=False,
+        enabled=True,
         minimum_approver_count='5',
         creator_vote_counts=False,
         allow_downvotes=False,
@@ -205,7 +205,7 @@ class TestUuidMethods(AuthenticatedTests):
 
         update_policy_approver_count(policy_id=121,
         allow_downvotes=True,
-        is_blocking=True,
+        blocking=True,
         reset_on_source_push=False,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
