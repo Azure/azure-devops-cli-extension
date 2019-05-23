@@ -7,11 +7,12 @@ from __future__ import print_function
 
 import os
 from knack.log import get_logger
-from knack.prompting import prompt_pass, NoTTYException
+from knack.prompting import prompt_pass
 from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
 from azext_devops.dev.common.services import get_service_endpoint_client, resolve_instance_and_project
-from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX
+from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX, AZ_DEVOPS_GITHUB_PAT_ENVKEY
+from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
 
 from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_GITHUB,
@@ -95,15 +96,12 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
     if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_GITHUB and
             authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN):
 
-        GIT_HUB_ACCESS_TOKEN_ENV_VARIABLE_NAME = CLI_ENV_VARIABLE_PREFIX + 'GITHUB_ACCESS_TOKEN'
-        if GIT_HUB_ACCESS_TOKEN_ENV_VARIABLE_NAME not in os.environ:
-            try:
-                github_access_token = prompt_pass('GitHub access token:', confirm=True)
-            except NoTTYException:
-                raise CLIError('Please pass github access token in %s environment variable in non-interactive mode.'
-                               % (GIT_HUB_ACCESS_TOKEN_ENV_VARIABLE_NAME))
+        if AZ_DEVOPS_GITHUB_PAT_ENVKEY not in os.environ:
+            verify_is_a_tty_or_raise_error('Please pass github access token in %s environment variable in\
+                                            non-interactive mode.' % (AZ_DEVOPS_GITHUB_PAT_ENVKEY))
+            github_access_token = prompt_pass('GitHub access token:', confirm=True)
         else:
-            github_access_token = os.environ[GIT_HUB_ACCESS_TOKEN_ENV_VARIABLE_NAME]
+            github_access_token = os.environ[AZ_DEVOPS_GITHUB_PAT_ENVKEY]
 
         service_endpoint_authorization = EndpointAuthorization(
             parameters={'accessToken': github_access_token},
@@ -116,15 +114,13 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
     if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_AZURE_RM and
             authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL):
 
-        AZURE_RM_SERVICE_PRINCIPAL_KEY_END_VARIABLE_NAME = CLI_ENV_VARIABLE_PREFIX + 'AZURE_RM_SERVICE_PRINCIPAL_KEY'
-        if AZURE_RM_SERVICE_PRINCIPAL_KEY_END_VARIABLE_NAME not in os.environ:
-            try:
-                azure_rm_service_principal_key = prompt_pass('Azure RM service principal key:', confirm=True)
-            except NoTTYException:
-                raise CLIError('Please specify azure service principal key in %s environment variable in \
-                                non-interactive mode.' % (AZURE_RM_SERVICE_PRINCIPAL_KEY_END_VARIABLE_NAME))
+        AZURE_RM_SP_KEY_END_VARIABLE_NAME = CLI_ENV_VARIABLE_PREFIX + 'AZURE_RM_SERVICE_PRINCIPAL_KEY'
+        if AZURE_RM_SP_KEY_END_VARIABLE_NAME not in os.environ:
+            verify_is_a_tty_or_raise_error('Please specify azure service principal key in %s environment variable \
+                                            in non-interactive mode.' % (AZURE_RM_SP_KEY_END_VARIABLE_NAME))
+            azure_rm_service_principal_key = prompt_pass('Azure RM service principal key:', confirm=True)
         else:
-            azure_rm_service_principal_key = os.environ[AZURE_RM_SERVICE_PRINCIPAL_KEY_END_VARIABLE_NAME]
+            azure_rm_service_principal_key = os.environ[AZURE_RM_SP_KEY_END_VARIABLE_NAME]
 
         service_endpoint_authorization = EndpointAuthorization(
             parameters={'tenantid': azure_rm_tenant_id,

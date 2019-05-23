@@ -82,7 +82,7 @@ class TestServiceEndpointMethods(AuthenticatedTests):
 
     def test_create_service_endpoint_github(self):
         import os
-        os.environ['AZURE_DEVOPS_EXT_GITHUB_ACCESS_TOKEN'] = 'fakeToken'
+        os.environ['AZURE_DEVOPS_EXT_GITHUB_PAT'] = 'fakeToken'
         response = create_service_endpoint(service_endpoint_type = SERVICE_ENDPOINT_TYPE_GITHUB, 
                                            authorization_scheme = SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN, 
                                            name = '',
