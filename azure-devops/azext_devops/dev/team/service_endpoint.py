@@ -5,11 +5,14 @@
 
 from __future__ import print_function
 
+import os
 from knack.log import get_logger
-from knack.prompting import prompt_pass, NoTTYException
+from knack.prompting import prompt_pass
 from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
 from azext_devops.dev.common.services import get_service_endpoint_client, resolve_instance_and_project
+from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX, AZ_DEVOPS_GITHUB_PAT_ENVKEY
+from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
 
 from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_GITHUB,
@@ -60,9 +63,9 @@ def delete_service_endpoint(id, deep=True, organization=None, project=None, dete
 
 
 def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
-                            github_access_token=None, github_url=None,
+                            github_url=None,
                             azure_rm_tenant_id=None, azure_rm_service_principal_id=None,
-                            azure_rm_service_principal_key=None, azure_rm_subscription_id=None,
+                            azure_rm_subscription_id=None,
                             azure_rm_subscription_name=None, organization=None,
                             project=None, detect=None):
     """ (PREVIEW) Create a service endpoint
@@ -74,16 +77,12 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
      Github service endpoint supports PersonalAccessToken
      AzureRm service endpoint supports ServicePrincipal
     :type authorization_scheme: str
-    :param github_access_token: PAT token of github for creating github service endpoint
-    :type github_access_token: str
     :param github_url: Url for github for creating service endpoint
     :type github_url: str
     :param azure_rm_tenant_id: tenant id for creating azure rm service endpoint
     :type azure_rm_tenant_id: str
     :param azure_rm_service_principal_id: service principal id for creating azure rm service endpoint
     :type azure_rm_service_principal_id: str
-    :param azure_rm_service_principal_key: key/password for service principal used to create azure rm service endpoint
-    :type azure_rm_service_principal_key: str
     :param azure_rm_subscription_id: subscription id for azure rm service endpoint
     :type azure_rm_subscription_id: str
     :param azure_rm_subscription_name: name of azure subscription for azure rm service endpoint
@@ -94,14 +93,16 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
                                                          organization=organization,
                                                          project=project)
     client = get_service_endpoint_client(organization)
-
     if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_GITHUB and
             authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN):
-        if not github_access_token:
-            try:
-                github_access_token = prompt_pass('GitHub access token:', confirm=True)
-            except NoTTYException:
-                raise CLIError('Please specify --github-access-token in non-interactive mode.')
+
+        if AZ_DEVOPS_GITHUB_PAT_ENVKEY not in os.environ:
+            error_message = 'Please pass GitHub access token in ' + AZ_DEVOPS_GITHUB_PAT_ENVKEY +\
+                            ' environment variable in non-interactive mode.'
+            verify_is_a_tty_or_raise_error(error_message)
+            github_access_token = prompt_pass('GitHub access token:', confirm=True)
+        else:
+            github_access_token = os.environ[AZ_DEVOPS_GITHUB_PAT_ENVKEY]
 
         service_endpoint_authorization = EndpointAuthorization(
             parameters={'accessToken': github_access_token},
@@ -113,11 +114,16 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
 
     if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_AZURE_RM and
             authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL):
-        if not azure_rm_service_principal_key:
-            try:
-                azure_rm_service_principal_key = prompt_pass('Azure RM service principal key:', confirm=True)
-            except NoTTYException:
-                raise CLIError('Please specify --azure-rm-service-principal-key in non-interactive mode.')
+
+        AZURE_RM_SP_KEY_END_VARIABLE_NAME = CLI_ENV_VARIABLE_PREFIX + 'AZURE_RM_SERVICE_PRINCIPAL_KEY'
+        if AZURE_RM_SP_KEY_END_VARIABLE_NAME not in os.environ:
+            error_message = 'Please specify azure service principal key in ' + AZURE_RM_SP_KEY_END_VARIABLE_NAME +\
+                            ' environment variable in non-interactive mode.'
+            verify_is_a_tty_or_raise_error(error_message)
+            azure_rm_service_principal_key = prompt_pass('Azure RM service principal key:', confirm=True)
+        else:
+            azure_rm_service_principal_key = os.environ[AZURE_RM_SP_KEY_END_VARIABLE_NAME]
+
         service_endpoint_authorization = EndpointAuthorization(
             parameters={'tenantid': azure_rm_tenant_id,
                         'serviceprincipalid': azure_rm_service_principal_id,
