@@ -15,7 +15,7 @@ logger = get_logger(__name__)
 
 
 def list_namespaces(local_only=False, organization=None, detect=None):
-    """ List all available namespaces for an organization.
+    """ (PREVIEW) List all available namespaces for an organization.
     :param local_only: If true, retrieve only local security namespaces.
     :type local_only: bool
     """
@@ -26,7 +26,7 @@ def list_namespaces(local_only=False, organization=None, detect=None):
 
 
 def show_namespace(namespace_id, organization=None, detect=None):
-    """ Show details of permissions available in each namespace.
+    """ (PREVIEW) Show details of permissions available in each namespace.
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
@@ -36,7 +36,7 @@ def show_namespace(namespace_id, organization=None, detect=None):
 
 def list_tokens(namespace_id, subject, token=None,
                 recurse=False, organization=None, detect=None):
-    """ List tokens for given user/group and namespace.
+    """ (PREVIEW) List tokens for given user/group and namespace.
     :param recurse: If true and this is a hierarchical namespace, return child ACLs of the specified token.
     :type recurse: bool
     """
@@ -48,7 +48,7 @@ def list_tokens(namespace_id, subject, token=None,
 
 
 def show_permissions(namespace_id, subject, token, organization=None, detect=None):
-    """ Show permissions for given token, namespace and user/group.
+    """ (PREVIEW) Show permissions for given token, namespace and user/group.
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
@@ -61,7 +61,7 @@ def show_permissions(namespace_id, subject, token, organization=None, detect=Non
 
 
 def reset_all_permissions(namespace_id, subject, token, organization=None, detect=None):
-    """ Clear all permissions of this token for a user/group.
+    """ (PREVIEW) Clear all permissions of this token for a user/group.
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_security_client(organization)
@@ -72,7 +72,7 @@ def reset_all_permissions(namespace_id, subject, token, organization=None, detec
 
 
 def reset_permissions(namespace_id, permission_bit, subject, token, organization=None, detect=None):
-    """ Reset permission for given permission bit(s)
+    """ (PREVIEW) Reset permission for given permission bit(s)
     :param permission_bit: Permission bit or addition of permission bits which needs to be reset
                            for given user/group and token.
     :type permission_bit:int
@@ -92,7 +92,7 @@ def reset_permissions(namespace_id, permission_bit, subject, token, organization
 
 def update_permissions(namespace_id, subject, token, merge=True, allow_bit=0, deny_bit=0,
                        organization=None, detect=None):
-    """ Assign allow or deny permission to given user/group.
+    """ (PREVIEW) Assign allow or deny permission to given user/group.
     """
     if allow_bit == 0 and deny_bit == 0:
         raise CLIError('Either --allow-bit or --deny-bit parameter should be provided.')
