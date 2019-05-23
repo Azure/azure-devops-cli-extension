@@ -101,7 +101,7 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
                 github_access_token = prompt_pass('GitHub access token:', confirm=True)
             except NoTTYException:
                 raise CLIError('Please pass github access token in %s environment variable in non-interactive mode.'
-                               %(GIT_HUB_ACCESS_TOKEN_ENV_VARIABLE_NAME))
+                               % (GIT_HUB_ACCESS_TOKEN_ENV_VARIABLE_NAME))
         else:
             github_access_token = os.environ[GIT_HUB_ACCESS_TOKEN_ENV_VARIABLE_NAME]
 
@@ -122,7 +122,7 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
                 azure_rm_service_principal_key = prompt_pass('Azure RM service principal key:', confirm=True)
             except NoTTYException:
                 raise CLIError('Please specify azure service principal key in %s environment variable in \
-                                non-interactive mode.' %(AZURE_RM_SERVICE_PRINCIPAL_KEY_END_VARIABLE_NAME))
+                                non-interactive mode.' % (AZURE_RM_SERVICE_PRINCIPAL_KEY_END_VARIABLE_NAME))
         else:
             azure_rm_service_principal_key = os.environ[AZURE_RM_SERVICE_PRINCIPAL_KEY_END_VARIABLE_NAME]
 
