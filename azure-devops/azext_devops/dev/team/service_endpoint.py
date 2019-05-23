@@ -97,8 +97,9 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
             authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN):
 
         if AZ_DEVOPS_GITHUB_PAT_ENVKEY not in os.environ:
-            verify_is_a_tty_or_raise_error('Please pass github access token in %s environment variable in\
-                                            non-interactive mode.' % (AZ_DEVOPS_GITHUB_PAT_ENVKEY))
+            error_message = 'Please pass github access token in ' + AZ_DEVOPS_GITHUB_PAT_ENVKEY +\
+                            ' environment variable in non-interactive mode.'
+            verify_is_a_tty_or_raise_error(error_message)
             github_access_token = prompt_pass('GitHub access token:', confirm=True)
         else:
             github_access_token = os.environ[AZ_DEVOPS_GITHUB_PAT_ENVKEY]
@@ -116,8 +117,7 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
 
         AZURE_RM_SP_KEY_END_VARIABLE_NAME = CLI_ENV_VARIABLE_PREFIX + 'AZURE_RM_SERVICE_PRINCIPAL_KEY'
         if AZURE_RM_SP_KEY_END_VARIABLE_NAME not in os.environ:
-            verify_is_a_tty_or_raise_error('Please specify azure service principal key in %s environment variable \
-                                            in non-interactive mode.' % (AZURE_RM_SP_KEY_END_VARIABLE_NAME))
+            verify_is_a_tty_or_raise_error('Please specify azure service principal key in %s environment variable in non-interactive mode.' % (AZURE_RM_SP_KEY_END_VARIABLE_NAME))
             azure_rm_service_principal_key = prompt_pass('Azure RM service principal key:', confirm=True)
         else:
             azure_rm_service_principal_key = os.environ[AZURE_RM_SP_KEY_END_VARIABLE_NAME]
