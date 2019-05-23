@@ -22,6 +22,7 @@ from .git import get_remote_url
 from .vsts_git_url_info import VstsGitUrlInfo
 from .uri import uri_parse_instance_from_git_uri
 from .uuid import is_uuid
+from .telemetry import vsts_tracking_data
 
 logger = get_logger(__name__)
 
@@ -301,18 +302,32 @@ def resolve_instance_project_and_repo(
         project_required=True,
         repo=None,
         repo_required=False):
+    vsts_tracking_data.properties['OrgPresentInCommand'] = organization is not None
+    vsts_tracking_data.properties['ProjectPresentInCommand'] = project is not None
+    vsts_tracking_data.properties['RepoPresentInCommand'] = repo is not None
     if organization is None:
         if should_detect(detect):
             git_info = get_vsts_info_from_current_remote_url()
             organization = git_info.uri
+            vsts_tracking_data.properties['OrgPickedFromGit'] = organization is not None
             if project is None:
                 project = git_info.project
+                vsts_tracking_data.properties['ProjectPickedFromGit'] = project is not None
                 if repo is None:
                     repo = git_info.repo
+                    vsts_tracking_data.properties['RepoPickedFromGit'] = repo is not None
         if organization is None:
             organization = _resolve_instance_from_config(organization)
+            vsts_tracking_data.properties['OrgPickedFromConfig'] = organization is not None
+        else:
+            orgFromConfig = _resolve_instance_from_config(organization)
+            vsts_tracking_data.properties['OrgIgnoredFromConfig'] = orgFromConfig is not None
         if project is None:
             project = _resolve_project_from_config(project, project_required)
+            vsts_tracking_data.properties['projectPickedFromConfig'] = organization is not None
+        else:
+            projectFromConfig = _resolve_project_from_config(project, False)
+            vsts_tracking_data.properties['ProjectIgnoredFromConfig'] = projectFromConfig is not None
     if project_required and project is None:
         _raise_team_project_arg_error()
     if repo_required and repo is None:
