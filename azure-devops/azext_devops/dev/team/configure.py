@@ -49,9 +49,9 @@ def configure(defaults=None, use_git_aliases=None, list_config=False):
             set_global_config_value(DEFAULTS_SECTION, parts[0], parts[1])
     if use_git_aliases is not None:
         from azext_devops.dev.repos.git_alias import setup_git_aliases, clear_git_aliases
-        if use_git_aliases == 'yes':
+        if use_git_aliases:
             setup_git_aliases()
-        elif use_git_aliases == 'no':
+        else:
             clear_git_aliases()
     if list_config:
         print_current_configuration()

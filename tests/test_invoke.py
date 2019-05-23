@@ -19,6 +19,6 @@ class TestInvoke(ScenarioTest):
     def test_invoke_command_basic(self):
         self.cmd('az devops configure --defaults organization=' +  DEVOPS_CLI_TEST_ORGANIZATION)
 
-        projects_classic = self.cmd('az devops project list -o json --detect off').get_output_in_json()
-        projects = self.cmd('az devops invoke --area core --resource projects -o json --detect off').get_output_in_json()['value']
+        projects_classic = self.cmd('az devops project list -o json --detect false').get_output_in_json()
+        projects = self.cmd('az devops invoke --area core --resource projects -o json --detect false').get_output_in_json()['value']
         assert len(projects) == len(projects_classic)

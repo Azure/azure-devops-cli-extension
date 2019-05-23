@@ -9,7 +9,6 @@ from azext_devops.devops_sdk.v5_0.member_entitlement_management.models import (A
                                                                                JsonPatchOperation)
 from azext_devops.dev.common.services import (get_member_entitlement_management_client,
                                               resolve_instance)
-from azext_devops.dev.common.arguments import resolve_true_false
 from azext_devops.dev.common.identities import resolve_identity_as_id
 
 
@@ -75,7 +74,7 @@ def update_user_entitlement(user, license_type, organization=None, detect=None):
     return user_entitlement_update.user_entitlement
 
 
-def add_user_entitlement(email_id, license_type, send_email_invite='true', organization=None, detect=None):
+def add_user_entitlement(email_id, license_type, send_email_invite=True, organization=None, detect=None):
     """Add user.
     :param email_id: Email ID of the user.
     :type email_id: str
@@ -83,8 +82,7 @@ def add_user_entitlement(email_id, license_type, send_email_invite='true', organ
     :type license_type: str
     :rtype: UserEntitlementsPatchResponse
     """
-    do_not_send_invite = False
-    do_not_send_invite = not resolve_true_false(send_email_invite)
+    do_not_send_invite = not send_email_invite
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_member_entitlement_management_client(organization)
     user_access_level = AccessLevel()
