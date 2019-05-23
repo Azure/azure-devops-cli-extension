@@ -7,6 +7,10 @@ from azure.cli.core.commands import CliCommandType
 from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
 from ._format import (transform_build_table_output,
                       transform_builds_table_output,
+                      transform_pipeline_run_table_output,
+                      transform_pipeline_runs_table_output,
+                      transform_pipeline_table_output,
+                      transform_pipelines_table_output,
                       transform_build_tags_output,
                       transform_definition_table_output,
                       transform_definitions_table_output,
@@ -41,12 +45,38 @@ releaseDefinitionOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
-runOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.pipelines.runs#{}'
+pipelinesOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.pipeline#{}',
+    exception_handler=azure_devops_exception_handler
+)
+
+pipelineCreateOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.pipeline_create#{}',
+    exception_handler=azure_devops_exception_handler
+)
+
+pipelinesRunOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.pipeline_run#{}',
+    exception_handler=azure_devops_exception_handler
+)
+
+pipelineRunArtifactsOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.runs_artifacts#{}',
+    exception_handler=azure_devops_exception_handler
 )
 
 
 def load_build_commands(self, _):
+    with self.command_group('pipelines', command_type=pipelineCreateOps) as g:
+        g.command('create', 'pipeline_create', table_transformer=transform_pipeline_run_table_output)
+        g.command('update', 'pipeline_update', table_transformer=transform_pipeline_table_output)
+
+    with self.command_group('pipelines', command_type=pipelinesOps) as g:
+        g.command('list', 'pipeline_list', table_transformer=transform_pipelines_table_output)
+        g.command('show', 'pipeline_show', table_transformer=transform_pipeline_table_output)
+        g.command('delete', 'pipeline_delete', confirmation='Are you sure you want to delete this pipeline?')
+        g.command('run', 'pipeline_run', table_transformer=transform_pipeline_run_table_output)
+
     with self.command_group('pipelines build', command_type=buildOps) as g:
         # basic build commands
         g.command('list', 'build_list', table_transformer=transform_builds_table_output)
@@ -75,7 +105,16 @@ def load_build_commands(self, _):
         g.command('list', 'release_definition_list', table_transformer=transform_release_definitions_table_output)
         g.command('show', 'release_definition_show', table_transformer=transform_release_definition_table_output)
 
-    with self.command_group('pipelines runs artifact', command_type=runOps) as g:
+    with self.command_group('pipelines runs artifact', command_type=pipelineRunArtifactsOps) as g:
         g.command('download', 'run_artifact_download')
         g.command('list', 'run_artifact_list', table_transformer=transform_runs_artifact_table_output)
         g.command('upload', 'run_artifact_upload')
+
+    with self.command_group('pipelines runs tag', command_type=pipelinesRunOps) as g:
+        g.command('add', 'pipeline_run_add_tag', table_transformer=transform_build_tags_output)
+        g.command('list', 'pipeline_run_get_tags', table_transformer=transform_build_tags_output)
+        g.command('delete', 'pipeline_run_delete_tag', table_transformer=transform_build_tags_output)
+
+    with self.command_group('pipelines runs', command_type=pipelinesRunOps) as g:
+        g.command('list', 'pipeline_run_list', table_transformer=transform_pipeline_runs_table_output)
+        g.command('show', 'pipeline_run_show', table_transformer=transform_pipeline_run_table_output)

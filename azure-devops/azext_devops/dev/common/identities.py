@@ -23,6 +23,19 @@ def resolve_identity_as_id(identity_filter, organization):
     return None
 
 
+def resolve_identity_as_identity_descriptor(identity_filter, organization):
+    """Takes an identity name, email, alias, or id, and returns the id.
+    """
+    if identity_filter is None:
+        return identity_filter
+    if identity_filter.lower() == ME:
+        return get_current_identity(organization).descriptor
+    identity = resolve_identity(identity_filter, organization)
+    if identity is not None:
+        return identity.descriptor
+    return None
+
+
 def resolve_identity_as_display_name(identity_filter, organization):
     """Takes an identity name, email, alias, or id, and returns the display name.
     """
@@ -114,6 +127,14 @@ def get_account_from_identity(identity):
     if 'Account' in identity.properties and '$value' in identity.properties['Account']:
         return identity.properties['Account']['$value']
     return identity.provider_display_name
+
+
+def get_identity_descriptor_from_subject_descriptor(subject_descriptor, organization):
+    identity_client = get_identity_client(organization)
+    identities = identity_client.read_identities(subject_descriptors=subject_descriptor)
+    if identities:
+        return identities[0].descriptor
+    return subject_descriptor
 
 
 ME = 'me'

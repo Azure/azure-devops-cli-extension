@@ -157,12 +157,12 @@ class TestUuidMethods(AuthenticatedTests):
     def test_create_policy_approver_count(self):
         create_policy_approver_count(repository_id = self._TEST_REPOSITORY_ID,
         branch='master',
-        is_blocking='false',
-        is_enabled='true',
+        blocking=False,
+        enabled=True,
         minimum_approver_count='5',
-        creator_vote_counts='false',
-        allow_downvotes='false',
-        reset_on_source_push='true',
+        creator_vote_counts=False,
+        allow_downvotes=False,
+        reset_on_source_push=True,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
@@ -174,28 +174,29 @@ class TestUuidMethods(AuthenticatedTests):
         self.assertEqual(self._TEST_DEVOPS_PROJECT, create_policy_object['project'])
         settings = create_policy_object['configuration'].settings
         self.assertEqual(settings['minimumApproverCount'], '5')
-        self.assertEqual(settings['creatorVoteCounts'], 'false')
-        self.assertEqual(settings['allowDownvotes'], 'false')
-        self.assertEqual(settings['resetOnSourcePush'], 'true')
+        self.assertEqual(settings['creatorVoteCounts'], False)
+        self.assertEqual(settings['allowDownvotes'], False)
+        self.assertEqual(settings['resetOnSourcePush'], True)
         scope = create_policy_object['configuration'].settings['scope'][0]  # 0 because we set only only scope from CLI
         self.assertEqual(scope['repositoryId'], self._TEST_REPOSITORY_ID)
         self.assertEqual(scope['refName'], 'refs/heads/master')
         self.assertEqual(scope['matchKind'], 'exact')
 
     def test_update_policy_approver_count(self):
-        current_policy = PolicyConfiguration(is_blocking='False', is_enabled='False')
+        current_policy = PolicyConfiguration(is_blocking=False, is_enabled=False)
         policy_type = PolicyTypeRef()
         policy_type.id = 'fa4e907d-c16b-4a4c-9dfa-4906e5d171dd'
         current_policy.type = policy_type
         current_policy.settings = {
             'minimumApproverCount' : 2,
-            'creatorVoteCounts' : 'false',
-            'allowDownvotes' : 'false',
-            'resetOnSourcePush' : 'false',
+            'creatorVoteCounts' : False,
+            'allowDownvotes' : False,
+            'resetOnSourcePush' : False,
             'scope':[
                 {
                     'refName': 'ref\heads\master',
-                        'repositoryId':self._TEST_REPOSITORY_ID
+                    'repositoryId':self._TEST_REPOSITORY_ID,
+                    'matchKind': 'exact'
                         }
                         ]
             }
@@ -203,9 +204,9 @@ class TestUuidMethods(AuthenticatedTests):
         self.mock_get_policy.return_value = current_policy
 
         update_policy_approver_count(policy_id=121,
-        allow_downvotes='true',
-        is_blocking='true',
-        reset_on_source_push='false',
+        allow_downvotes=True,
+        blocking=True,
+        reset_on_source_push=False,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
         detect='off')
@@ -219,9 +220,9 @@ class TestUuidMethods(AuthenticatedTests):
         self.assertEqual(update_policy_object['configuration'].is_blocking, True)
         settings = update_policy_object['configuration'].settings
         self.assertEqual(settings['minimumApproverCount'], 2)
-        self.assertEqual(settings['creatorVoteCounts'], 'false')
-        self.assertEqual(settings['allowDownvotes'], 'true')
-        self.assertEqual(settings['resetOnSourcePush'], 'false')
+        self.assertEqual(settings['creatorVoteCounts'], False)
+        self.assertEqual(settings['allowDownvotes'], True)
+        self.assertEqual(settings['resetOnSourcePush'], False)
 
 
 

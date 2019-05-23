@@ -49,9 +49,9 @@ def configure(defaults=None, use_git_aliases=None, list_config=False):
             set_global_config_value(DEFAULTS_SECTION, parts[0], parts[1])
     if use_git_aliases is not None:
         from azext_devops.dev.repos.git_alias import setup_git_aliases, clear_git_aliases
-        if use_git_aliases == 'yes':
+        if use_git_aliases:
             setup_git_aliases()
-        elif use_git_aliases == 'no':
+        else:
             clear_git_aliases()
     if list_config:
         print_current_configuration()
@@ -75,7 +75,7 @@ def print_current_configuration(file_config=None):
     env_vars = [ev for ev in os.environ if ev.startswith(CLI_ENV_VARIABLE_PREFIX)]
     if env_vars:
         print(MSG_HEADING_ENV_VARS)
-        print('\n'.join(['{} = {}'.format(ev, os.environ[ev]) for ev in env_vars]))
+        print('\n'.join(['{}'.format(ev) for ev in env_vars]))
 
 
 MSG_INTRO = '\nWelcome to the Azure DevOps CLI! This command will guide you through setting some default values.\n'

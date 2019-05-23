@@ -10,13 +10,21 @@ import subprocess
 oldArguments = []
 newArguments = []
 allowedMissingArguments = {}
-allowedMissingArguments['devops service-endpoint create'] = ['--azure-rm-service-prinicipal-key']
-allowedMissingArguments['pipelines build queue'] = ['--source-branch']
+allowedMissingArguments['devops extension disable'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension enable'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension install'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension uninstall'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension show'] = ['--extension-id', '--publisher-id']
+
+allowedNewMandatoryArguments = {}
+allowedNewMandatoryArguments['devops extension disable'] = ['--extension-name', '--publisher-name']
+allowedNewMandatoryArguments['devops extension enable'] = ['--extension-name', '--publisher-name']
+allowedNewMandatoryArguments['devops extension install'] = ['--extension-name', '--publisher-name']
+allowedNewMandatoryArguments['devops extension uninstall'] = ['--extension-name', '--publisher-name']
+allowedNewMandatoryArguments['devops extension show'] = ['--extension-name', '--publisher-name']
 
 # Do not compare these commands
 ignoreCommands = []
-ignoreCommands.append('pipelines build task list')
-ignoreCommands.append('pipelines build task show')
 
 class Arguments(dict):
     def __init__(self, command, name, isRequired):
@@ -109,7 +117,9 @@ for newArgument in newArguments:
                 break
 
         if isNewMandatory is True:
-            errorList.append('New Mandatory argument found for command ' + newArgument.command + ' argument ' +  newArgument.name)
+            allowedNewMandatoryArgumentsForCommand = allowedNewMandatoryArguments.get(newArgument.command, [])
+            if not newArgument.name in allowedNewMandatoryArgumentsForCommand:
+                errorList.append('New Mandatory argument found for command ' + newArgument.command + ' argument ' +  newArgument.name)
 
 # make sure no argument is removed
 for oldArgument in oldArguments:

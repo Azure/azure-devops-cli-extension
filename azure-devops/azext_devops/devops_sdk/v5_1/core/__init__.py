@@ -11,6 +11,8 @@ from .core_client import CoreClient
 
 __all__ = [
     'GraphSubjectBase',
+    'Identity',
+    'IdentityBase',
     'IdentityData',
     'IdentityRef',
     'JsonPatchOperation',

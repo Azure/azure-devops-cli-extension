@@ -12,7 +12,7 @@ from azext_devops.devops_sdk.v5_0.git.models import (GitPullRequest, GitPullRequ
                                                      GitPullRequestSearchCriteria, IdentityRef, IdentityRefWithVote,
                                                      ResourceRef, GitRefFavorite)
 from azext_devops.devops_sdk.v5_0.work_item_tracking.models import JsonPatchOperation, WorkItemRelation
-from azext_devops.dev.common.arguments import resolve_on_off_switch, resolve_true_false, should_detect
+from azext_devops.dev.common.arguments import should_detect
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads, fetch_remote_and_checkout
 from azext_devops.dev.common.identities import ME, resolve_identity_as_id
 from azext_devops.dev.common.uri import uri_quote
@@ -99,7 +99,7 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
-                        merge_commit_message=None, reviewers=None, work_items=None, is_draft=False,
+                        merge_commit_message=None, reviewers=None, work_items=None, draft=None,
                         open=False, organization=None, detect=None, transition_work_items=False):  # pylint: disable=redefined-builtin
     """Create a pull request.
     :param project: Name or ID of the team project.
@@ -113,8 +113,8 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type target_branch: str
     :param title: Title for the new pull request.
     :type title: str
-    :param is_draft: Use this flag to create the pull request in draft/work in progress mode.
-    :type is_draft: bool
+    :param draft: Use this flag to create the pull request in draft/work in progress mode.
+    :type draft: bool
     :param description: Description for the new pull request. Can include markdown.
                         Each value sent to this arg will be a new line.
                         For example: --description "First Line" "Second Line"
@@ -157,9 +157,10 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     multi_line_description = None
     if description is not None:
         multi_line_description = '\n'.join(description)
-
     pr = GitPullRequest(description=multi_line_description, source_ref_name=source_branch,
-                        target_ref_name=target_branch, is_draft=is_draft)
+                        target_ref_name=target_branch)
+    if draft is not None:
+        pr.is_draft = draft
     if title is not None:
         pr.title = title
     else:
@@ -235,9 +236,9 @@ def _get_branches_for_pull_request(organization, project, repository, source_bra
 
 
 def update_pull_request(id, title=None, description=None, auto_complete=None,  # pylint: disable=redefined-builtin
-                        squash=None, delete_source_branch=None, bypass_policy=None, is_draft=None,
+                        squash=None, delete_source_branch=None, bypass_policy=None, draft=None,
                         bypass_policy_reason=None, merge_commit_message=None, organization=None, detect=None,
-                        transition_work_items=None):
+                        transition_work_items=None, status=None):
     """Update a pull request.
     :param id: ID of the pull request.
     :type id: int
@@ -248,24 +249,26 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     :type description: list of str
     :param auto_complete: Set the pull request to complete automatically when all policies have passed and
                           the source branch can be merged into the target branch.
-    :type auto_complete: str
+    :type auto_complete: bool
     :param squash: Squash the commits in the source branch when merging into the target branch.
-    :type squash: str
+    :type squash: bool
     :param delete_source_branch: Delete the source branch after the pull request has been completed
                                  and merged into the target branch.
-    :type delete_source_branch: str
+    :type delete_source_branch: bool
     :param bypass_policy: Bypass required policies (if any) and completes the pull request once it
                           can be merged.
-    :type bypass_policy: str
+    :type bypass_policy: bool
     :param bypass_policy_reason: Reason for bypassing the required policies.
     :type bypass_policy_reason: str
-    :type is_draft: str
-    :param is_draft: Publish the PR or convert to draft mode.
+    :param draft: Publish the PR or convert to draft mode.
+    :type draft: bool
     :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
                    (e.g. Active -> Resolved)
-    :type transition_work_items: str
+    :type transition_work_items: bool
+    :param status: Set the new state of pull request.
+    :type status: str
     :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
@@ -286,60 +289,36 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
         if completion_options is None:
             completion_options = GitPullRequestCompletionOptions()
         if bypass_policy is not None:
-            completion_options.bypass_policy = resolve_on_off_switch(bypass_policy)
+            completion_options.bypass_policy = bypass_policy
         if bypass_policy_reason is not None:
             completion_options.bypass_reason = bypass_policy_reason
         if delete_source_branch is not None:
-            completion_options.delete_source_branch = resolve_on_off_switch(delete_source_branch)
+            completion_options.delete_source_branch = delete_source_branch
         if squash is not None:
-            completion_options.squash_merge = resolve_on_off_switch(squash)
+            completion_options.squash_merge = squash
         if merge_commit_message is not None:
             completion_options.merge_commit_message = merge_commit_message
         if transition_work_items is not None:
-            completion_options.transition_work_items = resolve_on_off_switch(transition_work_items)
+            completion_options.transition_work_items = transition_work_items
         pr.completion_options = completion_options
     if auto_complete is not None:
-        if resolve_on_off_switch(auto_complete):
+        if auto_complete:
             pr.auto_complete_set_by = IdentityRef(id=resolve_identity_as_id(ME, organization))
         else:
             pr.auto_complete_set_by = IdentityRef(id=EMPTY_UUID)
-    if is_draft:
-        pr.is_draft = resolve_true_false(is_draft)
+    if draft is not None:
+        pr.is_draft = draft
+    if status is not None:
+        pr.status = status
+        if status == 'completed':
+            pr.last_merge_source_commit = existing_pr.last_merge_source_commit
+            if not pr.completion_options:
+                pr.completion_options = existing_pr.completion_options
     pr = client.update_pull_request(git_pull_request_to_update=pr,
                                     project=existing_pr.repository.project.name,
                                     repository_id=existing_pr.repository.name,
                                     pull_request_id=id)
     return pr
-
-
-def complete_pull_request(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
-    """Complete a pull request.
-    :param id: ID of the pull request to complete.
-    :type id: int
-    :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
-    """
-    return _update_pull_request_status(pull_request_id=id, new_status='completed',
-                                       organization=organization, detect=detect)
-
-
-def abandon_pull_request(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
-    """Abandon a pull request.
-    :param id: ID of the pull request to abandon.
-    :type id: int
-    :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
-    """
-    return _update_pull_request_status(pull_request_id=id, new_status='abandoned',
-                                       organization=organization, detect=detect)
-
-
-def reactivate_pull_request(id, organization=None, detect=None):  # pylint: disable=redefined-builtin
-    """Reactivate an abandoned pull request.
-    :param id: ID of the pull request to reactivate.
-    :type id: int
-    :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
-    """
-    return _update_pull_request_status(pull_request_id=id, new_status='active',
-                                       organization=organization, detect=detect)
 
 
 def create_pull_request_reviewers(id, reviewers, organization=None, detect=None):  # pylint: disable=redefined-builtin
@@ -537,20 +516,6 @@ def list_pull_request_work_items(id, organization=None, detect=None):  # pylint:
         return wit_client.get_work_items(ids=ids)
 
     return refs
-
-
-def _update_pull_request_status(pull_request_id, new_status, organization=None, detect=None):
-    organization = resolve_instance(detect=detect, organization=organization)
-    client = get_git_client(organization)
-    existing_pr = client.get_pull_request_by_id(pull_request_id)
-    pr = GitPullRequest(status=new_status)
-    if new_status == 'completed':
-        pr.last_merge_source_commit = existing_pr.last_merge_source_commit
-    pr = client.update_pull_request(git_pull_request_to_update=pr,
-                                    project=existing_pr.repository.project.name,
-                                    repository_id=existing_pr.repository.name,
-                                    pull_request_id=pull_request_id)
-    return pr
 
 
 def vote_pull_request(id, vote, organization=None, detect=None):  # pylint: disable=redefined-builtin

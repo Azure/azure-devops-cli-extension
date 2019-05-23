@@ -794,15 +794,23 @@ class ProjectReference(Model):
 
     :param id: Gets or sets id of the project.
     :type id: str
+    :param name: Gets or sets name of the project.
+    :type name: str
+    :param visibility: Gets or sets visibility of the project.
+    :type visibility: str
     """
 
     _attribute_map = {
-        'id': {'key': 'id', 'type': 'str'}
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'visibility': {'key': 'visibility', 'type': 'str'}
     }
 
-    def __init__(self, id=None):
+    def __init__(self, id=None, name=None, visibility=None):
         super(ProjectReference, self).__init__()
         self.id = id
+        self.name = name
+        self.visibility = visibility
 
 
 class ProtocolMetadata(Model):
@@ -962,6 +970,8 @@ class UpstreamSource(Model):
 
     :param deleted_date: UTC date that this upstream was deleted.
     :type deleted_date: datetime
+    :param display_location: Locator for connecting to the upstream source in a user friendly format, that may potentially change over time
+    :type display_location: str
     :param id: Identity of the upstream source.
     :type id: str
     :param internal_upstream_collection_id: For an internal upstream type, track the Azure DevOps organization that contains it.
@@ -970,7 +980,7 @@ class UpstreamSource(Model):
     :type internal_upstream_feed_id: str
     :param internal_upstream_view_id: For an internal upstream type, track the view of the feed being referenced.
     :type internal_upstream_view_id: str
-    :param location: Locator for connecting to the upstream source.
+    :param location: Consistent locator for connecting to the upstream source.
     :type location: str
     :param name: Display name.
     :type name: str
@@ -982,6 +992,7 @@ class UpstreamSource(Model):
 
     _attribute_map = {
         'deleted_date': {'key': 'deletedDate', 'type': 'iso-8601'},
+        'display_location': {'key': 'displayLocation', 'type': 'str'},
         'id': {'key': 'id', 'type': 'str'},
         'internal_upstream_collection_id': {'key': 'internalUpstreamCollectionId', 'type': 'str'},
         'internal_upstream_feed_id': {'key': 'internalUpstreamFeedId', 'type': 'str'},
@@ -992,9 +1003,10 @@ class UpstreamSource(Model):
         'upstream_source_type': {'key': 'upstreamSourceType', 'type': 'object'}
     }
 
-    def __init__(self, deleted_date=None, id=None, internal_upstream_collection_id=None, internal_upstream_feed_id=None, internal_upstream_view_id=None, location=None, name=None, protocol=None, upstream_source_type=None):
+    def __init__(self, deleted_date=None, display_location=None, id=None, internal_upstream_collection_id=None, internal_upstream_feed_id=None, internal_upstream_view_id=None, location=None, name=None, protocol=None, upstream_source_type=None):
         super(UpstreamSource, self).__init__()
         self.deleted_date = deleted_date
+        self.display_location = display_location
         self.id = id
         self.internal_upstream_collection_id = internal_upstream_collection_id
         self.internal_upstream_feed_id = internal_upstream_feed_id

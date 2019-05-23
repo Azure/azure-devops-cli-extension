@@ -18,7 +18,7 @@ _DEFAULT_PAGE_UPDATE_MESSAGE = 'Updated the page using Azure DevOps CLI'
 _DEFAULT_PAGE_DELETE_MESSAGE = 'Deleted the page using Azure DevOps CLI'
 
 
-def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
+def create_wiki(name=None, wiki_type='projectwiki', mapped_path=None, version=None,
                 organization=None, project=None, repository=None, detect=None):
     """Create a wiki.
     :param name: Name of the new wiki.
@@ -35,6 +35,8 @@ def create_wiki(name, wiki_type='projectwiki', mapped_path=None, version=None,
     """
     repository_id = None
     if wiki_type == 'codewiki':
+        if not name:
+            raise CLIError('--name is required for wiki type \'codewiki\'')
         organization, project, repository = resolve_instance_project_and_repo(detect=detect,
                                                                               organization=organization,
                                                                               project=project,
@@ -177,7 +179,7 @@ def update_page(wiki, path, version, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, conte
                                              project=project, path=path, version=version, comment=comment)
 
 
-def get_page(wiki, path, version=None, recursion_level=None, open=False,  # pylint: disable=redefined-builtin
+def get_page(wiki, path, version=None, open=False,  # pylint: disable=redefined-builtin
              include_content=False, organization=None, project=None, detect=None):
     """Get the content of a page or open a page.
     :param wiki: Name or Id of the wiki.
@@ -186,8 +188,6 @@ def get_page(wiki, path, version=None, recursion_level=None, open=False,  # pyli
     :type path: str
     :param version: Version (ETag) of the wiki page.
     :type version: str
-    :param recursion_level: Recursion level of the wiki page.
-    :type recursion_level: str
     :param include_content: Include content of the page.
     :type include_content: str
     :param open: Open the wiki page in your web browser.
@@ -199,7 +199,7 @@ def get_page(wiki, path, version=None, recursion_level=None, open=False,  # pyli
     wiki_client = get_wiki_client(organization)
     page_object = wiki_client.get_page(
         wiki_identifier=wiki, project=project, path=path,
-        recursion_level=recursion_level, version_descriptor=version,
+        recursion_level=None, version_descriptor=version,
         include_content=include_content)
     if open:
         webbrowser.open_new(url=page_object.page.remote_url)

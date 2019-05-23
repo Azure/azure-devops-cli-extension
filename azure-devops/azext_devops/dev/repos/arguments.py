@@ -4,14 +4,13 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.arguments import enum_choice_list
-from azure.cli.core.commands.parameters import get_enum_type
+from azure.cli.core.commands.parameters import get_enum_type, get_three_state_flag
 
 # CUSTOM CHOICE LISTS
-_ON_OFF_SWITCH_VALUES = ['on', 'off']
 _BRANCH_MATCH_KIND_VALUES = ['prefix', 'exact']
-_TRUE_FALSE_SWITCH = ['true', 'false']
 _VOTE_VALUES = ['approve', 'approve-with-suggestions', 'reset', 'wait-for-author', 'reject']
 _PR_STATUS_VALUES = ['all', 'active', 'completed', 'abandoned']
+_PR_TARGET_STATUS_VALUES = ['active', 'completed', 'abandoned']
 
 
 # pylint: disable=too-many-statements
@@ -34,9 +33,9 @@ def load_code_arguments(self, _):
                          'exact match on the --branch argument. ' +
                          'If value is \'prefix\' the policy is applied across all branch folders that ' +
                          'match the prefix provided by the --branch argument.')
-        context.argument('is_blocking', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+        context.argument('blocking', arg_type=get_three_state_flag(),
                          help='Whether the policy should be blocking or not')
-        context.argument('is_enabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+        context.argument('enabled', arg_type=get_three_state_flag(),
                          help='Whether the policy is enabled or not')
         context.argument('path_filter',
                          help='Filter path(s) on which the policy is applied. ' +
@@ -56,22 +55,22 @@ def load_code_arguments(self, _):
     with self.argument_context('repos policy approver-count') as context:
         context.argument('minimum_approver_count',
                          help='Minimum number of approvers required. For example: 2')
-        context.argument('creator_vote_counts', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+        context.argument('creator_vote_counts', arg_type=get_three_state_flag(),
                          help='Whether the creator\'s vote counts or not.')
-        context.argument('allow_downvotes', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+        context.argument('allow_downvotes', arg_type=get_three_state_flag(),
                          help='Whether to allow downvotes or not.')
-        context.argument('reset_on_source_push', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+        context.argument('reset_on_source_push', arg_type=get_three_state_flag(),
                          help='Whether to reset source on push.')
 
     with self.argument_context('repos policy merge-strategy') as context:
-        context.argument('use_squash_merge', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+        context.argument('use_squash_merge', arg_type=get_three_state_flag(),
                          help='Whether to squash merge always.')
 
     with self.argument_context('repos policy build') as context:
         context.argument('build_definition_id', help='Build Definition Id.')
-        context.argument('queue_on_source_update_only', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+        context.argument('queue_on_source_update_only', arg_type=get_three_state_flag(),
                          help='Queue Only on source update.')
-        context.argument('manual_queue_only', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+        context.argument('manual_queue_only', arg_type=get_three_state_flag(),
                          help='Whether to allow only manual queue of builds.')
         context.argument('display_name',
                          help='Display name for this build policy to identify the policy. ' +
@@ -82,7 +81,7 @@ def load_code_arguments(self, _):
         context.argument('maximum_git_blob_size',
                          help='Maximum git blob size in bytes. ' +
                          'For example, to specify a 10byte limit, --maximum-git-blob-size 10.')
-        context.argument('use_uncompressed_size', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+        context.argument('use_uncompressed_size', arg_type=get_three_state_flag(),
                          help='Whether to use uncompressed size.')
 
     with self.argument_context('repos policy required-reviewer') as context:
@@ -99,6 +98,12 @@ def load_code_arguments(self, _):
 
     with self.argument_context('repos pr create') as context:
         context.argument('work_items', nargs='*')
+        context.argument('draft', arg_type=get_three_state_flag())
+        context.argument('auto_complete', arg_type=get_three_state_flag())
+        context.argument('squash', arg_type=get_three_state_flag())
+        context.argument('delete_source_branch', arg_type=get_three_state_flag())
+        context.argument('bypass_policy', arg_type=get_three_state_flag())
+        context.argument('transition_work_items', arg_type=get_three_state_flag())
 
     with self.argument_context('repos pr list') as context:
         context.argument('status', **enum_choice_list(_PR_STATUS_VALUES))
@@ -110,12 +115,13 @@ def load_code_arguments(self, _):
         context.argument('work_items', nargs='+')
 
     with self.argument_context('repos pr update') as context:
-        context.argument('auto_complete', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('squash', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('delete_source_branch', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('bypass_policy', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('transition_work_items', **enum_choice_list(_ON_OFF_SWITCH_VALUES))
-        context.argument('is_draft', **enum_choice_list(_TRUE_FALSE_SWITCH))
+        context.argument('auto_complete', arg_type=get_three_state_flag())
+        context.argument('squash', arg_type=get_three_state_flag())
+        context.argument('delete_source_branch', arg_type=get_three_state_flag())
+        context.argument('bypass_policy', arg_type=get_three_state_flag())
+        context.argument('transition_work_items', arg_type=get_three_state_flag())
+        context.argument('draft', arg_type=get_three_state_flag())
+        context.argument('status', **enum_choice_list(_PR_TARGET_STATUS_VALUES))
 
     with self.argument_context('repos pr policy') as context:
         context.argument('evaluation_id', options_list=('--evaluation-id', '-e'))

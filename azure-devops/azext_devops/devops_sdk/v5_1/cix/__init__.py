@@ -11,6 +11,7 @@ from .cix_client import CixClient
 
 __all__ = [
     'ConfigurationFile',
+    'CreatedResources',
     'CreatePipelineConnectionInputs',
     'DetectedBuildFramework',
     'DetectedBuildTarget',
@@ -19,9 +20,11 @@ __all__ = [
     'OperationResultReference',
     'PipelineConnection',
     'ReferenceLinks',
+    'ResourceCreationParameter',
     'TeamProject',
     'TeamProjectReference',
     'Template',
+    'TemplateAsset',
     'TemplateParameterDefinition',
     'TemplateParameters',
     'WebApiTeamRef',

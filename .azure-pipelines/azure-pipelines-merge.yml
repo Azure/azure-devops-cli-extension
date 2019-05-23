@@ -17,7 +17,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   - template: templates/setup-ci-machine.yml
@@ -31,7 +31,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   - template: templates/setup-ci-machine.yml
@@ -46,7 +46,7 @@ jobs:
   steps:
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.7.2'
+      pythonVersion: '3.x'
 
   - script: 'python setup.py sdist bdist_wheel'
     displayName: 'Build wheel for Azure DevOps CLI extension'
@@ -55,7 +55,7 @@ jobs:
   - task: AzureFileCopy@2
     displayName: 'Publish wheel to azure storage'
     inputs:
-      sourcePath: 'azure-devops/dist/azure_devops-0.5.0-py2.py3-none-any.whl'
+      sourcePath: 'azure-devops/dist/azure_devops-0.9.0-py2.py3-none-any.whl'
       azureConnectionType: 'ConnectedServiceNameARM'
       azureSubscription: 'CodeLens_Test (6bd70c51-ff44-4c89-9212-8d3f10e2a90a)'
       destination: 'azureBlob'
@@ -73,7 +73,7 @@ jobs:
       Python36:
         python.version: '3.6.8'
       Python37:
-        python.version: '3.7.2'
+        python.version: '3.x'
     maxParallel: 3
 
   steps:
@@ -89,7 +89,18 @@ jobs:
   steps:
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.7.2'
+      pythonVersion: '3.x'
+
+- job: 'Run_Test_Mac_Azure_CLI_Released_Version'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'macOS-10.13'
+
+  steps:
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.x'
+      runWithAzureCliReleased: 'true'
 
 - job: 'Code_Coverage'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
@@ -99,11 +110,10 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.x'
       architecture: 'x64'
 
-  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-    displayName: 'Install Azure CLI'
+  - template: templates/install-azure-cli-edge.yml
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
@@ -137,15 +147,16 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.x'
       architecture: 'x64'
 
-  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-    displayName: 'Install Azure CLI'
+  - template: templates/install-azure-cli-edge.yml
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
   - template: templates/setup-ci-machine.yml
+
+  - template: templates/download-install-local-azure-devops-cli-extension-with-pip.yml
 
   - task: PowerShell@2
     displayName: 'Run Style Check'
@@ -161,11 +172,10 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7.2'
+      versionSpec: '3.x'
       architecture: 'x64'
 
-  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-    displayName: 'Install Azure CLI'
+  - template: templates/install-azure-cli-edge.yml
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
@@ -181,30 +191,42 @@ jobs:
       scriptSource: 'filePath'
       scriptPath: 'scripts/findEmptyHelpTexts.py' 
 
-- job: 'Check_Back_Compat_Arguments'
-  pool:
-    vmImage: 'vs2017-win2016'
+# - job: 'Run_Test_From_Old_Release'
+#   dependsOn : Build_Publish_Azure_CLI_Test_SDK
+#   pool:
+#     vmImage: 'macOS-10.13'
 
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.7.2'
-      architecture: 'x64'
+#   steps:
+#   - script: git checkout release-0.8.0
 
-  - template: templates/setup-ci-machine.yml
+#   - template: templates/run-tests.yml
+#     parameters:
+#       pythonVersion: '3.x'
+#       runOnlyRecordedTests: 'true'
 
-  - script: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge
-    displayName: 'Install Azure CLI'
+# - job: 'Check_Back_Compat_Arguments'
+#   pool:
+#     vmImage: 'vs2017-win2016'
 
-  - script: 'python setup.py sdist bdist_wheel'
-    displayName: 'Build wheel for Azure DevOps CLI extension'
-    workingDirectory: 'azure-devops/'
+#   steps:
+#   - task: UsePythonVersion@0
+#     inputs:
+#       versionSpec: '3.x'
+#       architecture: 'x64'
 
-  - task: PythonScript@0
-    displayName: 'Run Back Compat Argument Check'
-    inputs:
-      scriptSource: 'filePath'
-      scriptPath: 'scripts/backCompatChecker.py' 
+#   - template: templates/setup-ci-machine.yml
+
+#   - template: templates/install-azure-cli-edge.yml
+
+#   - script: 'python setup.py sdist bdist_wheel'
+#     displayName: 'Build wheel for Azure DevOps CLI extension'
+#     workingDirectory: 'azure-devops/'
+
+#   - task: PythonScript@0
+#     displayName: 'Run Back Compat Argument Check'
+#     inputs:
+#       scriptSource: 'filePath'
+#       scriptPath: 'scripts/backCompatChecker.py' 
 
 - job: 'Run_Markdown_Lint_Check'
   pool:

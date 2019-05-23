@@ -122,13 +122,14 @@ class TaskAgentClient(Client):
                    version='5.1-preview.1',
                    route_values=route_values)
 
-    def get_agent(self, pool_id, agent_id, include_capabilities=None, include_assigned_request=None, property_filters=None):
+    def get_agent(self, pool_id, agent_id, include_capabilities=None, include_assigned_request=None, include_last_completed_request=None, property_filters=None):
         """GetAgent.
         [Preview API] Get information about an agent.
         :param int pool_id: The agent pool containing the agent
         :param int agent_id: The agent ID to get information about
         :param bool include_capabilities: Whether to include the agent's capabilities in the response
         :param bool include_assigned_request: Whether to include details about the agent's current work
+        :param bool include_last_completed_request: Whether to include details about the agents' most recent completed work
         :param [str] property_filters: Filter which custom properties will be returned
         :rtype: :class:`<TaskAgent> <azure.devops.v5_1.task-agent.models.TaskAgent>`
         """
@@ -142,6 +143,8 @@ class TaskAgentClient(Client):
             query_parameters['includeCapabilities'] = self._serialize.query('include_capabilities', include_capabilities, 'bool')
         if include_assigned_request is not None:
             query_parameters['includeAssignedRequest'] = self._serialize.query('include_assigned_request', include_assigned_request, 'bool')
+        if include_last_completed_request is not None:
+            query_parameters['includeLastCompletedRequest'] = self._serialize.query('include_last_completed_request', include_last_completed_request, 'bool')
         if property_filters is not None:
             property_filters = ",".join(property_filters)
             query_parameters['propertyFilters'] = self._serialize.query('property_filters', property_filters, 'str')
@@ -152,13 +155,14 @@ class TaskAgentClient(Client):
                               query_parameters=query_parameters)
         return self._deserialize('TaskAgent', response)
 
-    def get_agents(self, pool_id, agent_name=None, include_capabilities=None, include_assigned_request=None, property_filters=None, demands=None):
+    def get_agents(self, pool_id, agent_name=None, include_capabilities=None, include_assigned_request=None, include_last_completed_request=None, property_filters=None, demands=None):
         """GetAgents.
         [Preview API] Get a list of agents.
         :param int pool_id: The agent pool containing the agents
         :param str agent_name: Filter on agent name
         :param bool include_capabilities: Whether to include the agents' capabilities in the response
         :param bool include_assigned_request: Whether to include details about the agents' current work
+        :param bool include_last_completed_request: Whether to include details about the agents' most recent completed work
         :param [str] property_filters: Filter which custom properties will be returned
         :param [str] demands: Filter by demands the agents can satisfy
         :rtype: [TaskAgent]
@@ -173,6 +177,8 @@ class TaskAgentClient(Client):
             query_parameters['includeCapabilities'] = self._serialize.query('include_capabilities', include_capabilities, 'bool')
         if include_assigned_request is not None:
             query_parameters['includeAssignedRequest'] = self._serialize.query('include_assigned_request', include_assigned_request, 'bool')
+        if include_last_completed_request is not None:
+            query_parameters['includeLastCompletedRequest'] = self._serialize.query('include_last_completed_request', include_last_completed_request, 'bool')
         if property_filters is not None:
             property_filters = ",".join(property_filters)
             query_parameters['propertyFilters'] = self._serialize.query('property_filters', property_filters, 'str')
@@ -412,6 +418,25 @@ class TaskAgentClient(Client):
             query_parameters['properties'] = self._serialize.query('properties', properties, 'str')
         if pool_type is not None:
             query_parameters['poolType'] = self._serialize.query('pool_type', pool_type, 'str')
+        if action_filter is not None:
+            query_parameters['actionFilter'] = self._serialize.query('action_filter', action_filter, 'str')
+        response = self._send(http_method='GET',
+                              location_id='a8c47e17-4d56-4a56-92bb-de7ea7dc65be',
+                              version='5.1-preview.1',
+                              query_parameters=query_parameters)
+        return self._deserialize('[TaskAgentPool]', self._unwrap_collection(response))
+
+    def get_agent_pools_by_ids(self, pool_ids, action_filter=None):
+        """GetAgentPoolsByIds.
+        [Preview API] Get a list of agent pools.
+        :param [int] pool_ids: pool Ids to fetch
+        :param str action_filter: Filter by whether the calling user has use or manage permissions
+        :rtype: [TaskAgentPool]
+        """
+        query_parameters = {}
+        if pool_ids is not None:
+            pool_ids = ",".join(map(str, pool_ids))
+            query_parameters['poolIds'] = self._serialize.query('pool_ids', pool_ids, 'str')
         if action_filter is not None:
             query_parameters['actionFilter'] = self._serialize.query('action_filter', action_filter, 'str')
         response = self._send(http_method='GET',

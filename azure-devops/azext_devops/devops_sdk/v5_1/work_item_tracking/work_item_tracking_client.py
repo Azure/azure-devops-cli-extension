@@ -373,7 +373,7 @@ class WorkItemTrackingClient(Client):
                               query_parameters=query_parameters)
         return self._deserialize('Comment', response)
 
-    def get_comments(self, project, work_item_id, top=None, continuation_token=None, include_deleted=None, expand=None):
+    def get_comments(self, project, work_item_id, top=None, continuation_token=None, include_deleted=None, expand=None, order=None):
         """GetComments.
         [Preview API] Returns a list of work item comments, pageable.
         :param str project: Project ID or project name
@@ -382,6 +382,7 @@ class WorkItemTrackingClient(Client):
         :param str continuation_token: Used to query for the next page of comments.
         :param bool include_deleted: Specify if the deleted comments should be retrieved.
         :param str expand: Specifies the additional data retrieval options for work item comments.
+        :param str order: Order in which the comments should be returned.
         :rtype: :class:`<CommentList> <azure.devops.v5_1.work-item-tracking.models.CommentList>`
         """
         route_values = {}
@@ -398,6 +399,8 @@ class WorkItemTrackingClient(Client):
             query_parameters['includeDeleted'] = self._serialize.query('include_deleted', include_deleted, 'bool')
         if expand is not None:
             query_parameters['$expand'] = self._serialize.query('expand', expand, 'str')
+        if order is not None:
+            query_parameters['order'] = self._serialize.query('order', order, 'str')
         response = self._send(http_method='GET',
                               location_id='608aac0a-32e1-4493-a863-b9cf4566d257',
                               version='5.1-preview.3',
@@ -528,35 +531,6 @@ class WorkItemTrackingClient(Client):
                               route_values=route_values)
         return self._deserialize('[CommentReaction]', self._unwrap_collection(response))
 
-    def read_reporting_comments(self, project, continuation_token=None, top=None, include_deleted=None, expand=None):
-        """ReadReportingComments.
-        [Preview API]
-        :param str project: Project ID or project name
-        :param str continuation_token:
-        :param int top:
-        :param bool include_deleted:
-        :param str expand:
-        :rtype: :class:`<CommentReportingList> <azure.devops.v5_1.work-item-tracking.models.CommentReportingList>`
-        """
-        route_values = {}
-        if project is not None:
-            route_values['project'] = self._serialize.url('project', project, 'str')
-        query_parameters = {}
-        if continuation_token is not None:
-            query_parameters['continuationToken'] = self._serialize.query('continuation_token', continuation_token, 'str')
-        if top is not None:
-            query_parameters['top'] = self._serialize.query('top', top, 'int')
-        if include_deleted is not None:
-            query_parameters['includeDeleted'] = self._serialize.query('include_deleted', include_deleted, 'bool')
-        if expand is not None:
-            query_parameters['$expand'] = self._serialize.query('expand', expand, 'str')
-        response = self._send(http_method='GET',
-                              location_id='370b8590-9562-42be-b0d8-ac06668fc5dc',
-                              version='5.1-preview.1',
-                              route_values=route_values,
-                              query_parameters=query_parameters)
-        return self._deserialize('CommentReportingList', response)
-
     def get_comment_version(self, project, work_item_id, comment_id, version):
         """GetCommentVersion.
         [Preview API]
@@ -674,12 +648,13 @@ class WorkItemTrackingClient(Client):
                               query_parameters=query_parameters)
         return self._deserialize('[WorkItemField]', self._unwrap_collection(response))
 
-    def create_query(self, posted_query, project, query):
+    def create_query(self, posted_query, project, query, validate_wiql_only=None):
         """CreateQuery.
         [Preview API] Creates a query, or moves a query.
         :param :class:`<QueryHierarchyItem> <azure.devops.v5_1.work_item_tracking.models.QueryHierarchyItem>` posted_query: The query to create.
         :param str project: Project ID or project name
         :param str query: The parent id or path under which the query is to be created.
+        :param bool validate_wiql_only: If you only want to validate your WIQL query without actually creating one, set it to true. Default is false.
         :rtype: :class:`<QueryHierarchyItem> <azure.devops.v5_1.work-item-tracking.models.QueryHierarchyItem>`
         """
         route_values = {}
@@ -687,11 +662,15 @@ class WorkItemTrackingClient(Client):
             route_values['project'] = self._serialize.url('project', project, 'str')
         if query is not None:
             route_values['query'] = self._serialize.url('query', query, 'str')
+        query_parameters = {}
+        if validate_wiql_only is not None:
+            query_parameters['validateWiqlOnly'] = self._serialize.query('validate_wiql_only', validate_wiql_only, 'bool')
         content = self._serialize.body(posted_query, 'QueryHierarchyItem')
         response = self._send(http_method='POST',
                               location_id='a67d190c-c41f-424b-814d-0e906f659301',
                               version='5.1-preview.2',
                               route_values=route_values,
+                              query_parameters=query_parameters,
                               content=content)
         return self._deserialize('QueryHierarchyItem', response)
 

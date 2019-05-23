@@ -45,20 +45,17 @@ def load_team_help():
     examples:
           - name: Create an Azure DevOps Group with name and description
             text: |
-              az devops security group create --name 'Some group name' --description
-              'Something to describe this group'
-
+              az devops security group create --name 'Some group name'
+              --description 'Something to describe this group'
           - name: Add an existing AAD group to an Azure DevOps group
             text: |
               Get object ID of an existing AAD group
-              az ad group show -g {Group Name}
-              az devops security group create --origin-id {Object ID} --groups 'vssgp.someDescriptorForGroup'
-
+              az ad group show -g '{Group Name}'
+              az devops security group create --origin-id '{Object ID}' --groups 'vssgp.someDescriptorForGroup'
           - name: Add an existing AAD group to an Azure DevOps group with AAD group Email ID
             text: |
-              az devops security group create --email-id {Email ID of AAD group}
+              az devops security group create --email-id '{Email ID of AAD group}'
               --groups 'vssgp.someDescriptorForGroup'
-
           - name: Create a new Azure DevOps group and add it to existing Azure DevOps groups.
             text: |
               az devops security group create --name 'Some group name'
@@ -68,6 +65,16 @@ def load_team_help():
     helps['devops security group membership'] = """
     type: group
     short-summary: Manage memberships for security groups
+    """
+
+    helps['devops security permission'] = """
+    type: group
+    short-summary: Manage security permissions
+    """
+
+    helps['devops security permission namespace'] = """
+    type: group
+    short-summary: Manage security namespaces
     """
 
     helps['devops team'] = """
@@ -117,7 +124,58 @@ def load_team_help():
     short-summary: Manage wikis
     """
 
+    helps['devops wiki create'] = """
+    type: command
+    examples:
+        - name: Create a project wiki
+          text: |
+            az devops wiki create --name myprojectwiki
+
+        - name: Create a code wiki from a folder in a code repository
+          text: |
+            az devops wiki create --name WIKI_NAME --type codewiki --version BRANCH_NAME
+            --repository REPO_NAME --mapped-path PATH_TO_PUBLISH
+    """
+
+    helps['devops wiki list'] = """
+    type: command
+    examples:
+        - name: List all wikis for a project
+          text: |
+            az devops wiki list
+
+        - name: List all wikis in the organization
+          text: |
+            az devops wiki list --scope organization
+    """
+
     helps['devops wiki page'] = """
     type: group
     short-summary: Manage wiki pages
+    """
+
+    helps['devops wiki page create'] = """
+    type: command
+    examples:
+        - name: Create a new page with path 'my page' in a wiki named 'myprojectwiki' with inline content
+          text: |
+            az devops wiki page create --path 'my page' --wiki myprojectwiki --content "Hello World"
+
+        - name: Create a new page with path 'my page' in a wiki named 'myprojectwiki' with content from a file
+          text: |
+            az devops wiki page create --path 'my page' --wiki myprojectwiki --file-path a.txt
+    """
+
+    helps['devops wiki page update'] = """
+    type: command
+    examples:
+        - name: Update content of page with path 'my page' in a wiki named 'myprojectwiki' with inline content
+          text: |
+            az devops wiki page update --path 'my page' --wiki myprojectwiki --content "Hello World"
+            --version 4ae78ad5835cb7dd55072fe210c9ee7eb6d6413b
+
+        - name: Update content of page with path 'my page' in a wiki with content from a file
+          text: |
+            az devops wiki page update --path 'my page' --wiki myprojectwiki --file-path a.txt
+            --version 4ae78ad5835cb7dd55072fe210c9ee7eb6d6413b
     """

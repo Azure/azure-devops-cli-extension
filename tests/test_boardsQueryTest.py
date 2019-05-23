@@ -20,7 +20,7 @@ class BoardsQueryTests(ScenarioTest):
         wi_test_project_name = 'WorkItemCreateShowUpdateDeleteTests'
         self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
 
-        show_query_command_with_id = 'az boards query --org '+ DEVOPS_CLI_TEST_ORGANIZATION +' --detect off -p ' + wi_test_project_name + ' --id 51a3e288-2372-4af7-b722-79806154084b --output json'
+        show_query_command_with_id = 'az boards query --org '+ DEVOPS_CLI_TEST_ORGANIZATION +' --detect false -p ' + wi_test_project_name + ' --id 51a3e288-2372-4af7-b722-79806154084b --output json'
         query_result = self.cmd(show_query_command_with_id).get_output_in_json()
         assert len(query_result) > 0
 

@@ -1,0 +1,22 @@
+steps:
+  - task: DownloadBuildArtifacts@0
+    displayName : 'Download Extension wheel from Build Artifacts'
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'azure-devops-cli-extension'
+      downloadPath: '$(System.ArtifactsDirectory)/extension'
+
+  - task: PowerShell@2
+    displayName: 'Install Downloaded Extension'
+    inputs:
+      targetType: 'inline'
+      script: |
+        $extensions = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
+        Foreach ($extension in $extensions)
+        {
+            Write-Host "installing " $extension.FullName
+            pip install $extension.FullName
+        }
+        Write-Host "done"
+      workingDirectory: '$(System.ArtifactsDirectory)/extension'

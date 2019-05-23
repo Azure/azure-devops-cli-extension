@@ -6,11 +6,10 @@
 import datetime
 import os
 from collections import OrderedDict
-
-from knack.log import get_logger
-from knack.util import CLIError
 from msrest.authentication import BasicAuthentication
 from azure.cli.core._profile import Profile
+from knack.log import get_logger
+from knack.util import CLIError
 from azext_devops.devops_sdk.connection import Connection
 from azext_devops.version import VERSION
 from .arguments import should_detect
@@ -88,6 +87,21 @@ def validate_token_for_instance(organization, credentials):
     return False
 
 
+def get_default_subscription_info():
+    """
+    Returns the Id, name, tenantID and environmentName of the default subscription
+    None if no default is set or no subscription is found
+    """
+    profile = Profile()
+    dummy_user = profile.get_current_account_user()     # noqa: F841
+    subscriptions = profile.load_cached_subscriptions(False)
+    for subscription in subscriptions:
+        if subscription['isDefault']:
+            return subscription['id'], subscription['name'], subscription['tenantId'], subscription['environmentName']
+    logger.debug('Your account does not have a default Azure subscription. Please run \'az login\' to setup account.')
+    return None, None, None, None
+
+
 def get_token_from_az_logins(organization, pat_token_present):
     profile = Profile()
     dummy_user = profile.get_current_account_user()     # noqa: F841
@@ -157,6 +171,21 @@ def get_build_client(organization=None):
     return connection.get_client(VSTS_MODULE + 'v5_0.build.build_client.BuildClient')
 
 
+def get_new_pipeline_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_1.build.build_client.BuildClient')
+
+
+def get_new_task_agent_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_1.task_agent.task_agent_client.TaskAgentClient')
+
+
+def get_new_cix_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_1.cix.cix_client.CixClient')
+
+
 def get_ci_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(
@@ -214,6 +243,11 @@ def get_policy_client(organization=None):
     return connection.get_client(VSTS_MODULE + 'v5_0.policy.policy_client.PolicyClient')
 
 
+def get_security_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.security.security_client.SecurityClient')
+
+
 def get_settings_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_0.settings.settings_client.SettingsClient')
@@ -247,7 +281,7 @@ def _team_organization_arg_error():
                     'organization, for example: https://dev.azure.com/MyOrganization/ or your TFS organization. '
                     'You can set a default value by running: az devops configure --defaults '
                     'organization=https://dev.azure.com/MyOrganization/. For auto detection to work '
-                    '(--detect on), you must be in a local Git directory that has a "remote" referencing a '
+                    '(--detect true), you must be in a local Git directory that has a "remote" referencing a '
                     'Azure DevOps or TFS repository.')
 
 

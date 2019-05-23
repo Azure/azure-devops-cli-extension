@@ -18,6 +18,7 @@ __all__ = [
     'BacklogLevelConfiguration',
     'BacklogLevelWorkItems',
     'Board',
+    'BoardBadge',
     'BoardCardRuleSettings',
     'BoardCardSettings',
     'BoardChart',

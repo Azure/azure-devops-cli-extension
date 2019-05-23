@@ -9,7 +9,6 @@ from azext_devops.devops_sdk.v5_0.member_entitlement_management.models import (A
                                                                                JsonPatchOperation)
 from azext_devops.dev.common.services import (get_member_entitlement_management_client,
                                               resolve_instance)
-from azext_devops.dev.common.arguments import resolve_true_false
 from azext_devops.dev.common.identities import resolve_identity_as_id
 
 
@@ -68,14 +67,14 @@ def update_user_entitlement(user, license_type, organization=None, detect=None):
     if '@' in user:
         user = resolve_identity_as_id(user, organization)
     client = get_member_entitlement_management_client(organization)
-    try:
-        user_entitlement_update = client.update_user_entitlement(document=patch_document, user_id=user)
-        return user_entitlement_update.user_entitlement
-    except Exception:
-        raise CLIError('Invalid license type.')
+    user_entitlement_update = client.update_user_entitlement(document=patch_document, user_id=user)
+    if user_entitlement_update.is_success is False and \
+            user_entitlement_update.operation_results[0].errors[0] is not None:
+        raise CLIError(user_entitlement_update.operation_results[0].errors[0]['value'])
+    return user_entitlement_update.user_entitlement
 
 
-def add_user_entitlement(email_id, license_type, send_email_invite='true', organization=None, detect=None):
+def add_user_entitlement(email_id, license_type, send_email_invite=True, organization=None, detect=None):
     """Add user.
     :param email_id: Email ID of the user.
     :type email_id: str
@@ -83,8 +82,7 @@ def add_user_entitlement(email_id, license_type, send_email_invite='true', organ
     :type license_type: str
     :rtype: UserEntitlementsPatchResponse
     """
-    do_not_send_invite = False
-    do_not_send_invite = not resolve_true_false(send_email_invite)
+    do_not_send_invite = not send_email_invite
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_member_entitlement_management_client(organization)
     user_access_level = AccessLevel()
@@ -99,12 +97,11 @@ def add_user_entitlement(email_id, license_type, send_email_invite='true', organ
     value['user'] = graph_user
     patch_document = []
     patch_document.append(_create_patch_operation('add', '', value))
-    try:
-        user_entitlement_details = client.update_user_entitlements(document=patch_document,
-                                                                   do_not_send_invite_for_new_users=do_not_send_invite)
-        return user_entitlement_details.results[0].result
-    except Exception:
-        raise CLIError('Invalid license type.')
+    user_entitlement = client.update_user_entitlements(document=patch_document,
+                                                       do_not_send_invite_for_new_users=do_not_send_invite)
+    if user_entitlement.have_results_succeeded is False and user_entitlement.results[0].errors[0] is not None:
+        raise CLIError(user_entitlement.results[0].errors[0]['value'])
+    return user_entitlement.results[0].result
 
 
 def _create_patch_operation(op, path, value):

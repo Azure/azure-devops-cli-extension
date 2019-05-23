@@ -25,6 +25,33 @@ class MavenClient(Client):
 
     resource_area_identifier = '6f7f8c07-ff36-473c-bcf3-bd6cc9b6c066'
 
+    def download_package(self, feed_id, group_id, artifact_id, version, file_name):
+        """DownloadPackage.
+        [Preview API] Fulfills maven package file download requests by returning the url of the package file requested.
+        :param str feed_id: Name or ID of the feed.
+        :param str group_id: GroupId of the maven package
+        :param str artifact_id: ArtifactId of the maven package
+        :param str version: Version of the package
+        :param str file_name: File name to download
+        :rtype: object
+        """
+        route_values = {}
+        if feed_id is not None:
+            route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
+        if group_id is not None:
+            route_values['groupId'] = self._serialize.url('group_id', group_id, 'str')
+        if artifact_id is not None:
+            route_values['artifactId'] = self._serialize.url('artifact_id', artifact_id, 'str')
+        if version is not None:
+            route_values['version'] = self._serialize.url('version', version, 'str')
+        if file_name is not None:
+            route_values['fileName'] = self._serialize.url('file_name', file_name, 'str')
+        response = self._send(http_method='GET',
+                              location_id='c338d4b5-d30a-47e2-95b7-f157ef558833',
+                              version='5.1-preview.1',
+                              route_values=route_values)
+        return self._deserialize('object', response)
+
     def delete_package_version_from_recycle_bin(self, feed, group_id, artifact_id, version):
         """DeletePackageVersionFromRecycleBin.
         [Preview API] Permanently delete a package from a feed's recycle bin.
