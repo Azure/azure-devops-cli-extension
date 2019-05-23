@@ -1,3 +1,3 @@
 {
-    "python.unitTest.pyTestEnabled": true,
+    "python.testing.pyTestEnabled": true,
 }
