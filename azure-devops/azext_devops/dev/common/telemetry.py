@@ -10,6 +10,14 @@ from azext_devops.devops_sdk.v5_0.customer_intelligence.models import CustomerIn
 
 logger = get_logger(__name__)
 
+vsts_tracking_data = CustomerIntelligenceEvent()
+
+def init_telemetry():
+    global vsts_tracking_data  # pylint: disable=global-statement
+    if vsts_tracking_data is None:
+        vsts_tracking_data = CustomerIntelligenceEvent()
+    if vsts_tracking_data.properties is None:
+        vsts_tracking_data.properties = {}
 
 def try_send_telemetry_data(organization):
     try:
@@ -24,6 +32,7 @@ def try_send_telemetry_data(organization):
 
 
 def set_tracking_data(**kwargs):
+    init_telemetry()
     try:
         vsts_tracking_data.area = 'AzureDevopsCli'
         vsts_tracking_data.properties = {}
@@ -110,6 +119,3 @@ def _remove_symbols(s):
         for c in '$%^&|':
             s = s.replace(c, '_')
     return s
-
-
-vsts_tracking_data = CustomerIntelligenceEvent()

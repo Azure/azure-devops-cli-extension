@@ -22,7 +22,7 @@ from .git import get_remote_url
 from .vsts_git_url_info import VstsGitUrlInfo
 from .uri import uri_parse_instance_from_git_uri
 from .uuid import is_uuid
-from .telemetry import vsts_tracking_data
+from .telemetry import vsts_tracking_data, init_telemetry
 
 logger = get_logger(__name__)
 
@@ -302,6 +302,7 @@ def resolve_instance_project_and_repo(
         project_required=True,
         repo=None,
         repo_required=False):
+    init_telemetry()
     vsts_tracking_data.properties['OrgPresentInCommand'] = organization is not None
     vsts_tracking_data.properties['ProjectPresentInCommand'] = project is not None
     vsts_tracking_data.properties['RepoPresentInCommand'] = repo is not None
