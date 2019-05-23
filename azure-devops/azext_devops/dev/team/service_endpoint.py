@@ -97,7 +97,7 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
             authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN):
 
         if AZ_DEVOPS_GITHUB_PAT_ENVKEY not in os.environ:
-            error_message = 'Please pass github access token in ' + AZ_DEVOPS_GITHUB_PAT_ENVKEY +\
+            error_message = 'Please pass GitHub access token in ' + AZ_DEVOPS_GITHUB_PAT_ENVKEY +\
                             ' environment variable in non-interactive mode.'
             verify_is_a_tty_or_raise_error(error_message)
             github_access_token = prompt_pass('GitHub access token:', confirm=True)

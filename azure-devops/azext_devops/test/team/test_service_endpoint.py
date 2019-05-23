@@ -118,8 +118,7 @@ class TestServiceEndpointMethods(AuthenticatedTests):
                                                project = self._TEST_PROJECT_NAME)
             self.fail('exception was expected')
         except NoTTYException as ex:
-            self.assertEqual(str(ex), 'Please pass github access token in AZURE_DEVOPS_EXT_GITHUB_PAT environment variable in non-interactive mode.')
-            pass
+            self.assertEqual(str(ex), 'Please pass GitHub access token in AZURE_DEVOPS_EXT_GITHUB_PAT environment variable in non-interactive mode.')
 
     def test_create_service_endpoint_ttyi_exception_azure_se(self):
         try:
@@ -131,7 +130,6 @@ class TestServiceEndpointMethods(AuthenticatedTests):
             self.fail('exception was expected')
         except NoTTYException as ex:
             self.assertEqual(str(ex), 'Please specify azure service principal key in AZURE_DEVOPS_EXT_AZURE_RM_SERVICE_PRINCIPAL_KEY environment variable in non-interactive mode.')
-            pass
 
 if __name__ == '__main__':
     unittest.main()
