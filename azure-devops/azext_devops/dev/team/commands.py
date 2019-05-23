@@ -111,6 +111,8 @@ def load_team_commands(self, _):
         g.command('list', 'list_service_endpoints', table_transformer=transform_service_endpoints_table_output)
         g.command('show', 'show_service_endpoint')  # no table transform because type is not well defined
         g.command('create', 'create_service_endpoint')
+        g.command('delete', 'delete_service_endpoint',
+                  confirmation='Are you sure you want to delete this service-endpoint?')
 
     with self.command_group('devops team', command_type=teamOps) as g:
         g.command('create', 'create_team', table_transformer=transform_team_table_output)

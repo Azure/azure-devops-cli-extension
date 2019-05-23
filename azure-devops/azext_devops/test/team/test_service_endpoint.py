@@ -15,7 +15,8 @@ except ImportError:
 from knack.util import CLIError
 from azext_devops.dev.team.service_endpoint import (list_service_endpoints,
                                                     show_service_endpoint,
-                                                    create_service_endpoint)
+                                                    create_service_endpoint,
+                                                    delete_service_endpoint)
 from azext_devops.dev.team.const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                                         SERVICE_ENDPOINT_TYPE_GITHUB,
                                         SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL,
@@ -38,11 +39,13 @@ class TestServiceEndpointMethods(AuthenticatedTests):
         self.get_SEs_patcher = patch('azext_devops.devops_sdk.v5_0.service_endpoint.service_endpoint_client.ServiceEndpointClient.get_service_endpoints')
         self.get_SE_details_patcher = patch('azext_devops.devops_sdk.v5_0.service_endpoint.service_endpoint_client.ServiceEndpointClient.get_service_endpoint_details')
         self.create_SE_patcher = patch('azext_devops.devops_sdk.v5_0.service_endpoint.service_endpoint_client.ServiceEndpointClient.create_service_endpoint')
+        self.delete_SE_patcher = patch('azext_devops.devops_sdk.v5_0.service_endpoint.service_endpoint_client.ServiceEndpointClient.delete_service_endpoint')
 
         self.mock_get_client = self.get_client.start()
         self.mock_get_SEs = self.get_SEs_patcher.start()
         self.mock_get_SE_detail = self.get_SE_details_patcher.start()
         self.mock_create_SE = self.create_SE_patcher.start()
+        self.mock_delete_SE = self.delete_SE_patcher.start()
 
         #clear connection cache before running each test
         clear_connection_cache()
@@ -62,6 +65,13 @@ class TestServiceEndpointMethods(AuthenticatedTests):
 
         #assert
         self.mock_get_SE_detail.assert_called_once_with(self._TEST_PROJECT_NAME, randomId)
+
+    def test_delete_service_endpoint(self):
+        randomId = 'abcdfe34343'
+        delete_service_endpoint(randomId, 'false', self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)
+
+        #assert 
+        self.mock_delete_SE(self._TEST_PROJECT_NAME, randomId, 'false')
 
     def test_create_service_endpoint_unsupported(self):
         try:
