@@ -15,13 +15,13 @@ def load_pipelines_help():
 
     helps['pipelines runs'] = """
     type: group
-    short-summary: Manage pipeline runs.
+    short-summary: (PREVIEW) Manage pipeline runs.
     long-summary:
     """
 
     helps['pipelines runs tag'] = """
     type: group
-    short-summary: Manage pipeline run tags.
+    short-summary: (PREVIEW) Manage pipeline run tags.
     long-summary:
     """
 
@@ -55,21 +55,15 @@ def load_pipelines_help():
     long-summary:
     """
 
-    helps['pipelines runs'] = """
-    type: group
-    short-summary: Manage pipeline runs.
-    long-summary:
-    """
-
     helps['pipelines runs artifact'] = """
     type: group
-    short-summary: Manage pipeline run artifacts.
+    short-summary: (PREVIEW) Manage pipeline run artifacts.
     long-summary:
     """
 
     helps['pipelines create'] = """
     type: command
-    short-summary: Create a new Azure Pipeline (YAML based).
+    short-summary: (PREVIEW) Create a new Azure Pipeline (YAML based).
     long-summary:
     examples:
       - name: Create an Azure Pipeline from local checkout repository context
