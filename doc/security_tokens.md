@@ -1,6 +1,6 @@
 # Security tokens for Permissions management
 
-Tokens are arbitrary strings representing resources in VSTS and TFS. Token format differs per resource type, however hierarchy and separator characters are common between all tokens.
+Tokens are arbitrary strings representing resources in Azure DevOps. Token format differs per resource type, however hierarchy and separator characters are common between all tokens.
 
 ## Hierarchy
 
@@ -57,3 +57,79 @@ If the tokens have variable-length path parts, then a separator character is use
    Token format for project level permissions : '$/PROJECT_ID'
 
    Example : '$/xxxxxxxx-a1de-4bc8-b751-188eea17c3ba'
+
+1. Namespace name: Iteration
+    
+   Namespace ID : bf7bfa03-b2b7-47db-8113-fa2e002cc5b1
+
+   Token format: 'vstfs:///Classification/Node/Iteration_Identifier/'
+
+   Suppose, you have following iterations configured for your team.
+   ProjectIteration1
+    -TeamIteration1
+        -I1ChildIteration1
+        -I1ChildIteration2
+        -I1ChildIteration3
+    -TeamIteration2
+        -I2ChildIteration1
+        -I2ChildIteration2
+
+   If you need to update permissions for ProjectIteration1\TeamIteration1\I1ChildIteration1, security token would like this:
+
+   'vstfs:///Classification/Node/ProjectIteration1_Identifier:vstfs:///Classification/Node/TeamIteration1_Identifier:vstfs:///Classification/Node/I1ChildIteration1_Identifier'
+
+1. Namespace name :  BuildAdministration
+
+   Namespace ID : 302acaca-b667-436d-a946-87133492041c
+
+   Token format: 'BuildPrivileges'
+
+1. Namespace name :  Build
+
+   Namespace ID : 33344d9c-fc72-4d6f-aba5-fa317101a7e9
+
+   Token format for project level build permissions : 'PROJECT_ID'
+
+   If you need to update permissions for a particular build definition ID [Let's say 12], security token for that build definition would look like this
+
+   Token format for project level build permissions : 'PROJECT_ID/12'
+
+   Example : 'xxxxxxxx-a1de-4bc8-b751-188eea17c3ba/12'
+   
+1. Namespace name :  Identity
+
+   Namespace ID : 5a27515b-ccd7-42c9-84f1-54c998f03866
+
+   Token format for project level permissions : 'PROJECT_ID'
+
+   Example : 'xxxxxxxx-a1de-4bc8-b751-188eea17c3ba'
+
+   To modify group level permissions for Group Origin ID [2b087996-2e64-4cc1-a1dc-1ccd5e7eb95b]
+
+   Token : 'xxxxxxxx-a1de-4bc8-b751-188eea17c3ba\2b087996-2e64-4cc1-a1dc-1ccd5e7eb95b'
+
+1. Namespace name :  ReleaseManagement
+
+   Namespace ID : c788c23e-1b46-4162-8f5e-d7585343b5de
+
+   Token format for project level permissions : 'PROJECT_ID'
+
+   Example : 'xxxxxxxx-a1de-4bc8-b751-188eea17c3ba'
+
+   If you need to update permissions for a particular release definition ID [Let's say 12], security token for that release definition would look like this
+
+   Token format for project level build permissions : 'PROJECT_ID/12'
+
+   Example : 'xxxxxxxx-a1de-4bc8-b751-188eea17c3ba/12'
+
+1. Namespace name :  Git Repositories
+
+   Namespace ID : 2e9eb7ed-3c0a-47d4-87c1-0ffdd275fd87
+
+   Token format for project level permissions : 'repoV2/PROJECT_ID'
+
+   You need to append RepositoryID to update repo level permissions
+
+   Token format for project level permissions : 'repoV2/PROJECT_ID/REPO_ID'
+
+   For more information on this namespace and its tokens refer this [blog](https://devblogs.microsoft.com/devops/git-repo-tokens-for-the-security-service/)
