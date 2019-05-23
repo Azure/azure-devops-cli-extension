@@ -12,12 +12,14 @@ logger = get_logger(__name__)
 
 vsts_tracking_data = CustomerIntelligenceEvent()
 
+
 def init_telemetry():
     global vsts_tracking_data  # pylint: disable=global-statement
     if vsts_tracking_data is None:
         vsts_tracking_data = CustomerIntelligenceEvent()
     if vsts_tracking_data.properties is None:
         vsts_tracking_data.properties = {}
+
 
 def try_send_telemetry_data(organization):
     try:
