@@ -12,7 +12,7 @@ logger = get_logger(__name__)
 
 
 def pipeline_run_show(id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """Show details of a pipeline run.
+    """ (PREVIEW) Show details of a pipeline run.
     :param id: ID of the pipeline run.
     :type id: int
     :param open: Open the build results page in your web browser.
@@ -36,7 +36,7 @@ def pipeline_run_show(id, open=False, organization=None, project=None, detect=No
 
 def pipeline_run_list(pipeline_ids=None, branch=None, organization=None, project=None, detect=None, top=None,
                       query_order=None, result=None, status=None, reason=None, tags=None, requested_for=None):
-    """List the pipeline runs in a project.
+    """ (PREVIEW) List the pipeline runs in a project.
     :param pipeline_ids: ID of definition to list builds for.
     :type pipeline_ids: int
     :param branch: Filter by builds for this branch.
@@ -89,7 +89,7 @@ def _resolve_runs_query_order(query_order):
 
 
 def pipeline_run_add_tag(run_id, tags, organization=None, project=None, detect=None):
-    """Add tag(s) for a pipeline run.
+    """ (PREVIEW) Add tag(s) for a pipeline run.
     :param run_id: ID of the pipeline run.
     :type run_id: int
     :param tags: Tag(s) to be added to the pipeline run. [Comma seperated values]
@@ -109,7 +109,7 @@ def pipeline_run_add_tag(run_id, tags, organization=None, project=None, detect=N
 
 
 def pipeline_run_delete_tag(run_id, tag, organization=None, project=None, detect=None):
-    """Delete a pipeline run tag.
+    """ (PREVIEW) Delete a pipeline run tag.
     :param run_id: ID of the pipeline run.
     :type run_id: int
     :param tag: Tag to be deleted from the pipeline run.
@@ -125,7 +125,7 @@ def pipeline_run_delete_tag(run_id, tag, organization=None, project=None, detect
 
 
 def pipeline_run_get_tags(run_id, organization=None, project=None, detect=None):
-    """Get tags for a pipeline run.
+    """ (PREVIEW) Get tags for a pipeline run.
     :param run_id: ID of the  pipeline run.
     :type run_id: int
     :rtype: list of str
