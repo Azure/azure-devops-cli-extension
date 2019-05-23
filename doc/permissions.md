@@ -28,7 +28,7 @@ Tokens are arbitrary strings representing resources in Azure DevOps. Token forma
 Once you have figured the required namespace, you can list all the tokens available in namespace for a specific user or security group.
 `az devops security permission list --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR>`
 
-You can also use token parameter in above command if you have know the token already and want to list only root/ or child tokens of a resource. This way you will be able to filter results when some namespace has long list of ACL for given user/group.
+You can also use token parameter in above command if you know the token already and want to list only root and/or child tokens of a resource. This way you will be able to filter results when some namespace has long list of ACLs for given user/group.
 `az devops security permission list  --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR> --token <SECURITY_TOKEN> --recurse`
 
 To get the required token for different namespaces, refer following [doc](security_tokens.md)
