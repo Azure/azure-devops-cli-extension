@@ -74,7 +74,7 @@ class PyPiApiClient(Client):
         :param str feed_id: Name or ID of the feed.
         :param str package_name: Name of the package.
         :param str package_version: Version of the package.
-        :rtype: :class:`<PyPiPackageVersionDeletionState> <azure.devops.v5_1.py-pi-api.models.PyPiPackageVersionDeletionState>`
+        :rtype: :class:`<PyPiPackageVersionDeletionState> <azure.devops.v5_1.py_pi_api.models.PyPiPackageVersionDeletionState>`
         """
         route_values = {}
         if feed_id is not None:
@@ -117,7 +117,7 @@ class PyPiApiClient(Client):
         :param str feed_id: Name or ID of the feed.
         :param str package_name: Name of the package.
         :param str package_version: Version of the package.
-        :rtype: :class:`<Package> <azure.devops.v5_1.py-pi-api.models.Package>`
+        :rtype: :class:`<Package> <azure.devops.v5_1.py_pi_api.models.Package>`
         """
         route_values = {}
         if feed_id is not None:
@@ -139,7 +139,7 @@ class PyPiApiClient(Client):
         :param str package_name: Name of the package.
         :param str package_version: Version of the package.
         :param bool show_deleted: True to show information for deleted package versions.
-        :rtype: :class:`<Package> <azure.devops.v5_1.py-pi-api.models.Package>`
+        :rtype: :class:`<Package> <azure.devops.v5_1.py_pi_api.models.Package>`
         """
         route_values = {}
         if feed_id is not None:

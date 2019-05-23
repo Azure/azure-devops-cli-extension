@@ -30,7 +30,7 @@ class MemberEntitlementManagementClient(Client):
         [Preview API] Create a group entitlement with license rule, extension rule.
         :param :class:`<GroupEntitlement> <azure.devops.v5_1.member_entitlement_management.models.GroupEntitlement>` group_entitlement: GroupEntitlement object specifying License Rule, Extensions Rule for the group. Based on the rules the members of the group will be given licenses and extensions. The Group Entitlement can be used to add the group to another project level groups
         :param str rule_option: RuleOption [ApplyGroupRule/TestApplyGroupRule] - specifies if the rules defined in group entitlement should be created and applied to it’s members (default option) or just be tested
-        :rtype: :class:`<GroupEntitlementOperationReference> <azure.devops.v5_1.member-entitlement-management.models.GroupEntitlementOperationReference>`
+        :rtype: :class:`<GroupEntitlementOperationReference> <azure.devops.v5_1.member_entitlement_management.models.GroupEntitlementOperationReference>`
         """
         query_parameters = {}
         if rule_option is not None:
@@ -49,7 +49,7 @@ class MemberEntitlementManagementClient(Client):
         :param str group_id: ID of the group to delete.
         :param str rule_option: RuleOption [ApplyGroupRule/TestApplyGroupRule] - specifies if the rules defined in group entitlement should be deleted and the changes are applied to it’s members (default option) or just be tested
         :param bool remove_group_membership: Optional parameter that specifies whether the group with the given ID should be removed from all other groups
-        :rtype: :class:`<GroupEntitlementOperationReference> <azure.devops.v5_1.member-entitlement-management.models.GroupEntitlementOperationReference>`
+        :rtype: :class:`<GroupEntitlementOperationReference> <azure.devops.v5_1.member_entitlement_management.models.GroupEntitlementOperationReference>`
         """
         route_values = {}
         if group_id is not None:
@@ -70,7 +70,7 @@ class MemberEntitlementManagementClient(Client):
         """GetGroupEntitlement.
         [Preview API] Get a group entitlement.
         :param str group_id: ID of the group.
-        :rtype: :class:`<GroupEntitlement> <azure.devops.v5_1.member-entitlement-management.models.GroupEntitlement>`
+        :rtype: :class:`<GroupEntitlement> <azure.devops.v5_1.member_entitlement_management.models.GroupEntitlement>`
         """
         route_values = {}
         if group_id is not None:
@@ -97,7 +97,7 @@ class MemberEntitlementManagementClient(Client):
         :param :class:`<[JsonPatchOperation]> <azure.devops.v5_1.member_entitlement_management.models.[JsonPatchOperation]>` document: JsonPatchDocument containing the operations to perform on the group.
         :param str group_id: ID of the group.
         :param str rule_option: RuleOption [ApplyGroupRule/TestApplyGroupRule] - specifies if the rules defined in group entitlement should be updated and the changes are applied to it’s members (default option) or just be tested
-        :rtype: :class:`<GroupEntitlementOperationReference> <azure.devops.v5_1.member-entitlement-management.models.GroupEntitlementOperationReference>`
+        :rtype: :class:`<GroupEntitlementOperationReference> <azure.devops.v5_1.member_entitlement_management.models.GroupEntitlementOperationReference>`
         """
         route_values = {}
         if group_id is not None:
@@ -137,7 +137,7 @@ class MemberEntitlementManagementClient(Client):
         :param str group_id: Id of the Group.
         :param int max_results: Maximum number of results to retrieve.
         :param str paging_token: Paging Token from the previous page fetched. If the 'pagingToken' is null, the results would be fetched from the begining of the Members List.
-        :rtype: :class:`<PagedGraphMemberList> <azure.devops.v5_1.member-entitlement-management.models.PagedGraphMemberList>`
+        :rtype: :class:`<PagedGraphMemberList> <azure.devops.v5_1.member_entitlement_management.models.PagedGraphMemberList>`
         """
         route_values = {}
         if group_id is not None:
@@ -174,7 +174,7 @@ class MemberEntitlementManagementClient(Client):
         """AddUserEntitlement.
         [Preview API] Add a user, assign license and extensions and make them a member of a project group in an account.
         :param :class:`<UserEntitlement> <azure.devops.v5_1.member_entitlement_management.models.UserEntitlement>` user_entitlement: UserEntitlement object specifying License, Extensions and Project/Team groups the user should be added to.
-        :rtype: :class:`<UserEntitlementsPostResponse> <azure.devops.v5_1.member-entitlement-management.models.UserEntitlementsPostResponse>`
+        :rtype: :class:`<UserEntitlementsPostResponse> <azure.devops.v5_1.member_entitlement_management.models.UserEntitlementsPostResponse>`
         """
         content = self._serialize.body(user_entitlement, 'UserEntitlement')
         response = self._send(http_method='POST',
@@ -190,7 +190,7 @@ class MemberEntitlementManagementClient(Client):
         :param int skip: Offset: Number of records to skip. Default value is 0
         :param str filter: Comma (",") separated list of properties and their values to filter on. Currently, the API only supports filtering by ExtensionId. An example parameter would be filter=extensionId eq search.
         :param str sort_option: PropertyName and Order (separated by a space ( )) to sort on (e.g. LastAccessDate Desc)
-        :rtype: :class:`<PagedGraphMemberList> <azure.devops.v5_1.member-entitlement-management.models.PagedGraphMemberList>`
+        :rtype: :class:`<PagedGraphMemberList> <azure.devops.v5_1.member_entitlement_management.models.PagedGraphMemberList>`
         """
         query_parameters = {}
         if top is not None:
@@ -212,7 +212,7 @@ class MemberEntitlementManagementClient(Client):
         [Preview API] Edit the entitlements (License, Extensions, Projects, Teams etc) for one or more users.
         :param :class:`<[JsonPatchOperation]> <azure.devops.v5_1.member_entitlement_management.models.[JsonPatchOperation]>` document: JsonPatchDocument containing the operations to perform.
         :param bool do_not_send_invite_for_new_users: Whether to send email invites to new users or not
-        :rtype: :class:`<UserEntitlementOperationReference> <azure.devops.v5_1.member-entitlement-management.models.UserEntitlementOperationReference>`
+        :rtype: :class:`<UserEntitlementOperationReference> <azure.devops.v5_1.member_entitlement_management.models.UserEntitlementOperationReference>`
         """
         query_parameters = {}
         if do_not_send_invite_for_new_users is not None:
@@ -243,7 +243,7 @@ class MemberEntitlementManagementClient(Client):
         """GetUserEntitlement.
         [Preview API] Get User Entitlement for a user.
         :param str user_id: ID of the user.
-        :rtype: :class:`<UserEntitlement> <azure.devops.v5_1.member-entitlement-management.models.UserEntitlement>`
+        :rtype: :class:`<UserEntitlement> <azure.devops.v5_1.member_entitlement_management.models.UserEntitlement>`
         """
         route_values = {}
         if user_id is not None:
@@ -259,7 +259,7 @@ class MemberEntitlementManagementClient(Client):
         [Preview API] Edit the entitlements (License, Extensions, Projects, Teams etc) for a user.
         :param :class:`<[JsonPatchOperation]> <azure.devops.v5_1.member_entitlement_management.models.[JsonPatchOperation]>` document: JsonPatchDocument containing the operations to perform on the user.
         :param str user_id: ID of the user.
-        :rtype: :class:`<UserEntitlementsPatchResponse> <azure.devops.v5_1.member-entitlement-management.models.UserEntitlementsPatchResponse>`
+        :rtype: :class:`<UserEntitlementsPatchResponse> <azure.devops.v5_1.member_entitlement_management.models.UserEntitlementsPatchResponse>`
         """
         route_values = {}
         if user_id is not None:
@@ -277,7 +277,7 @@ class MemberEntitlementManagementClient(Client):
         """GetUsersSummary.
         [Preview API] Get summary of Licenses, Extension, Projects, Groups and their assignments in the collection.
         :param str select: Comma (",") separated list of properties to select. Supported property names are {AccessLevels, Licenses, Extensions, Projects, Groups}.
-        :rtype: :class:`<UsersSummary> <azure.devops.v5_1.member-entitlement-management.models.UsersSummary>`
+        :rtype: :class:`<UsersSummary> <azure.devops.v5_1.member_entitlement_management.models.UsersSummary>`
         """
         query_parameters = {}
         if select is not None:

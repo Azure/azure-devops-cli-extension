@@ -109,12 +109,16 @@ class WikiClient(Client):
             query_parameters['path'] = self._serialize.query('path', path, 'str')
         if comment is not None:
             query_parameters['comment'] = self._serialize.query('comment', comment, 'str')
+        additional_headers = {}
+        if version is not None:
+            additional_headers['If-Match'] = version
         content = self._serialize.body(parameters, 'WikiPageCreateOrUpdateParameters')
         response = self._send(http_method='PUT',
                               location_id='25d3fbc7-fe3d-46cb-b5a5-0b6f79caf27b',
                               version='5.1-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters,
+                              additional_headers=additional_headers,
                               content=content)
         response_object = models.WikiPageResponse()
         response_object.page = self._deserialize('WikiPage', response)
@@ -424,12 +428,16 @@ class WikiClient(Client):
         query_parameters = {}
         if comment is not None:
             query_parameters['comment'] = self._serialize.query('comment', comment, 'str')
+        additional_headers = {}
+        if version is not None:
+            additional_headers['If-Match'] = version
         content = self._serialize.body(parameters, 'WikiPageCreateOrUpdateParameters')
         response = self._send(http_method='PATCH',
                               location_id='ceddcf75-1068-452d-8b13-2d4d76e1f970',
                               version='5.1-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters,
+                              additional_headers=additional_headers,
                               content=content)
         response_object = models.WikiPageResponse()
         response_object.page = self._deserialize('WikiPage', response)

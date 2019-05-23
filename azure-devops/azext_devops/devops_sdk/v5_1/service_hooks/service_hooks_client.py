@@ -31,7 +31,7 @@ class ServiceHooksClient(Client):
         :param str consumer_id: ID for a consumer.
         :param str consumer_action_id: ID for a consumerActionId.
         :param str publisher_id:
-        :rtype: :class:`<ConsumerAction> <azure.devops.v5_1.service-hooks.models.ConsumerAction>`
+        :rtype: :class:`<ConsumerAction> <azure.devops.v5_1.service_hooks.models.ConsumerAction>`
         """
         route_values = {}
         if consumer_id is not None:
@@ -73,7 +73,7 @@ class ServiceHooksClient(Client):
         [Preview API] Get a specific consumer service. Optionally filter out consumer actions that do not support any event types for the specified publisher.
         :param str consumer_id: ID for a consumer.
         :param str publisher_id:
-        :rtype: :class:`<Consumer> <azure.devops.v5_1.service-hooks.models.Consumer>`
+        :rtype: :class:`<Consumer> <azure.devops.v5_1.service_hooks.models.Consumer>`
         """
         route_values = {}
         if consumer_id is not None:
@@ -107,7 +107,7 @@ class ServiceHooksClient(Client):
         """GetSubscriptionDiagnostics.
         [Preview API]
         :param str subscription_id:
-        :rtype: :class:`<SubscriptionDiagnostics> <azure.devops.v5_1.service-hooks.models.SubscriptionDiagnostics>`
+        :rtype: :class:`<SubscriptionDiagnostics> <azure.devops.v5_1.service_hooks.models.SubscriptionDiagnostics>`
         """
         route_values = {}
         if subscription_id is not None:
@@ -123,7 +123,7 @@ class ServiceHooksClient(Client):
         [Preview API]
         :param :class:`<UpdateSubscripitonDiagnosticsParameters> <azure.devops.v5_1.service_hooks.models.UpdateSubscripitonDiagnosticsParameters>` update_parameters:
         :param str subscription_id:
-        :rtype: :class:`<SubscriptionDiagnostics> <azure.devops.v5_1.service-hooks.models.SubscriptionDiagnostics>`
+        :rtype: :class:`<SubscriptionDiagnostics> <azure.devops.v5_1.service_hooks.models.SubscriptionDiagnostics>`
         """
         route_values = {}
         if subscription_id is not None:
@@ -141,7 +141,7 @@ class ServiceHooksClient(Client):
         [Preview API] Get a specific event type.
         :param str publisher_id: ID for a publisher.
         :param str event_type_id:
-        :rtype: :class:`<EventTypeDescriptor> <azure.devops.v5_1.service-hooks.models.EventTypeDescriptor>`
+        :rtype: :class:`<EventTypeDescriptor> <azure.devops.v5_1.service_hooks.models.EventTypeDescriptor>`
         """
         route_values = {}
         if publisher_id is not None:
@@ -174,7 +174,7 @@ class ServiceHooksClient(Client):
         [Preview API] Get a specific notification for a subscription.
         :param str subscription_id: ID for a subscription.
         :param int notification_id:
-        :rtype: :class:`<Notification> <azure.devops.v5_1.service-hooks.models.Notification>`
+        :rtype: :class:`<Notification> <azure.devops.v5_1.service_hooks.models.Notification>`
         """
         route_values = {}
         if subscription_id is not None:
@@ -217,7 +217,7 @@ class ServiceHooksClient(Client):
         """QueryNotifications.
         [Preview API] Query for notifications. A notification includes details about the event, the request to and the response from the consumer service.
         :param :class:`<NotificationsQuery> <azure.devops.v5_1.service_hooks.models.NotificationsQuery>` query:
-        :rtype: :class:`<NotificationsQuery> <azure.devops.v5_1.service-hooks.models.NotificationsQuery>`
+        :rtype: :class:`<NotificationsQuery> <azure.devops.v5_1.service_hooks.models.NotificationsQuery>`
         """
         content = self._serialize.body(query, 'NotificationsQuery')
         response = self._send(http_method='POST',
@@ -231,7 +231,7 @@ class ServiceHooksClient(Client):
         [Preview API]
         :param :class:`<InputValuesQuery> <azure.devops.v5_1.service_hooks.models.InputValuesQuery>` input_values_query:
         :param str publisher_id:
-        :rtype: :class:`<InputValuesQuery> <azure.devops.v5_1.service-hooks.models.InputValuesQuery>`
+        :rtype: :class:`<InputValuesQuery> <azure.devops.v5_1.service_hooks.models.InputValuesQuery>`
         """
         route_values = {}
         if publisher_id is not None:
@@ -248,7 +248,7 @@ class ServiceHooksClient(Client):
         """GetPublisher.
         [Preview API] Get a specific service hooks publisher.
         :param str publisher_id: ID for a publisher.
-        :rtype: :class:`<Publisher> <azure.devops.v5_1.service-hooks.models.Publisher>`
+        :rtype: :class:`<Publisher> <azure.devops.v5_1.service_hooks.models.Publisher>`
         """
         route_values = {}
         if publisher_id is not None:
@@ -273,7 +273,7 @@ class ServiceHooksClient(Client):
         """QueryPublishers.
         [Preview API] Query for service hook publishers.
         :param :class:`<PublishersQuery> <azure.devops.v5_1.service_hooks.models.PublishersQuery>` query:
-        :rtype: :class:`<PublishersQuery> <azure.devops.v5_1.service-hooks.models.PublishersQuery>`
+        :rtype: :class:`<PublishersQuery> <azure.devops.v5_1.service_hooks.models.PublishersQuery>`
         """
         content = self._serialize.body(query, 'PublishersQuery')
         response = self._send(http_method='POST',
@@ -286,7 +286,7 @@ class ServiceHooksClient(Client):
         """CreateSubscription.
         [Preview API] Create a subscription.
         :param :class:`<Subscription> <azure.devops.v5_1.service_hooks.models.Subscription>` subscription: Subscription to be created.
-        :rtype: :class:`<Subscription> <azure.devops.v5_1.service-hooks.models.Subscription>`
+        :rtype: :class:`<Subscription> <azure.devops.v5_1.service_hooks.models.Subscription>`
         """
         content = self._serialize.body(subscription, 'Subscription')
         response = self._send(http_method='POST',
@@ -312,7 +312,7 @@ class ServiceHooksClient(Client):
         """GetSubscription.
         [Preview API] Get a specific service hooks subscription.
         :param str subscription_id: ID for a subscription.
-        :rtype: :class:`<Subscription> <azure.devops.v5_1.service-hooks.models.Subscription>`
+        :rtype: :class:`<Subscription> <azure.devops.v5_1.service_hooks.models.Subscription>`
         """
         route_values = {}
         if subscription_id is not None:
@@ -352,7 +352,7 @@ class ServiceHooksClient(Client):
         [Preview API] Update a subscription. <param name="subscriptionId">ID for a subscription that you wish to update.</param>
         :param :class:`<Subscription> <azure.devops.v5_1.service_hooks.models.Subscription>` subscription:
         :param str subscription_id:
-        :rtype: :class:`<Subscription> <azure.devops.v5_1.service-hooks.models.Subscription>`
+        :rtype: :class:`<Subscription> <azure.devops.v5_1.service_hooks.models.Subscription>`
         """
         route_values = {}
         if subscription_id is not None:
@@ -369,7 +369,7 @@ class ServiceHooksClient(Client):
         """CreateSubscriptionsQuery.
         [Preview API] Query for service hook subscriptions.
         :param :class:`<SubscriptionsQuery> <azure.devops.v5_1.service_hooks.models.SubscriptionsQuery>` query:
-        :rtype: :class:`<SubscriptionsQuery> <azure.devops.v5_1.service-hooks.models.SubscriptionsQuery>`
+        :rtype: :class:`<SubscriptionsQuery> <azure.devops.v5_1.service_hooks.models.SubscriptionsQuery>`
         """
         content = self._serialize.body(query, 'SubscriptionsQuery')
         response = self._send(http_method='POST',
@@ -383,7 +383,7 @@ class ServiceHooksClient(Client):
         [Preview API] Sends a test notification. This is useful for verifying the configuration of an updated or new service hooks subscription.
         :param :class:`<Notification> <azure.devops.v5_1.service_hooks.models.Notification>` test_notification:
         :param bool use_real_data: Only allow testing with real data in existing subscriptions.
-        :rtype: :class:`<Notification> <azure.devops.v5_1.service-hooks.models.Notification>`
+        :rtype: :class:`<Notification> <azure.devops.v5_1.service_hooks.models.Notification>`
         """
         query_parameters = {}
         if use_real_data is not None:

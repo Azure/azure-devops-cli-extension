@@ -29,7 +29,7 @@ class ProjectAnalysisClient(Client):
         """GetProjectLanguageAnalytics.
         [Preview API]
         :param str project: Project ID or project name
-        :rtype: :class:`<ProjectLanguageAnalytics> <azure.devops.v5_1.project-analysis.models.ProjectLanguageAnalytics>`
+        :rtype: :class:`<ProjectLanguageAnalytics> <azure.devops.v5_1.project_analysis.models.ProjectLanguageAnalytics>`
         """
         route_values = {}
         if project is not None:
@@ -46,7 +46,7 @@ class ProjectAnalysisClient(Client):
         :param str project: Project ID or project name
         :param datetime from_date:
         :param str aggregation_type:
-        :rtype: :class:`<ProjectActivityMetrics> <azure.devops.v5_1.project-analysis.models.ProjectActivityMetrics>`
+        :rtype: :class:`<ProjectActivityMetrics> <azure.devops.v5_1.project_analysis.models.ProjectActivityMetrics>`
         """
         route_values = {}
         if project is not None:
@@ -99,7 +99,7 @@ class ProjectAnalysisClient(Client):
         :param str repository_id:
         :param datetime from_date:
         :param str aggregation_type:
-        :rtype: :class:`<RepositoryActivityMetrics> <azure.devops.v5_1.project-analysis.models.RepositoryActivityMetrics>`
+        :rtype: :class:`<RepositoryActivityMetrics> <azure.devops.v5_1.project_analysis.models.RepositoryActivityMetrics>`
         """
         route_values = {}
         if project is not None:

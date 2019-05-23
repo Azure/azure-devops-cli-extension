@@ -109,12 +109,16 @@ class WikiClient(Client):
             query_parameters['path'] = self._serialize.query('path', path, 'str')
         if comment is not None:
             query_parameters['comment'] = self._serialize.query('comment', comment, 'str')
+        additional_headers = {}
+        if version is not None:
+            additional_headers['If-Match'] = version
         content = self._serialize.body(parameters, 'WikiPageCreateOrUpdateParameters')
         response = self._send(http_method='PUT',
                               location_id='25d3fbc7-fe3d-46cb-b5a5-0b6f79caf27b',
                               version='5.0',
                               route_values=route_values,
                               query_parameters=query_parameters,
+                              additional_headers=additional_headers,
                               content=content)
         response_object = models.WikiPageResponse()
         response_object.page = self._deserialize('WikiPage', response)
