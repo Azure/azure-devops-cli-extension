@@ -59,7 +59,7 @@ If the tokens have variable-length path parts, then a separator character is use
    Example : '$/xxxxxxxx-a1de-4bc8-b751-188eea17c3ba'
 
 1. Namespace name: Iteration
-    
+
    Namespace ID : bf7bfa03-b2b7-47db-8113-fa2e002cc5b1
 
    Token format: 'vstfs:///Classification/Node/Iteration_Identifier/'
@@ -95,7 +95,7 @@ If the tokens have variable-length path parts, then a separator character is use
    Token format for project level build permissions : 'PROJECT_ID/12'
 
    Example : 'xxxxxxxx-a1de-4bc8-b751-188eea17c3ba/12'
-   
+
 1. Namespace name :  Identity
 
    Namespace ID : 5a27515b-ccd7-42c9-84f1-54c998f03866
