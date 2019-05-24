@@ -333,7 +333,6 @@ Refer the [Policy create](https://docs.microsoft.com/en-us/rest/api/azure/devops
 
 *Note that the path is provided using '\\' backslash.
 
-
 ## Manage permissions with Azure DevOps CLI
 
 You can update/reset/list permissions for an user or group with the help of security commands.
