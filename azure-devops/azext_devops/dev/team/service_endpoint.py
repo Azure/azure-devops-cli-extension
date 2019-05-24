@@ -50,9 +50,8 @@ def delete_service_endpoint(id, deep=False, organization=None, project=None, det
     """Deletes service endpoint
     :param id: Id of the service endpoint to delete.
     :type id: str
-    :param deep: Specific to AzureRM endpoint created in Automatic flow. When set to true,
+    :param deep: Specific to AzureRM endpoint created in Automatic flow. When it is specified,
     this will also delete corresponding AAD application in Azure.
-    Default value is false.
     :type deep: bool
     """
     organization, project = resolve_instance_and_project(detect=detect,
