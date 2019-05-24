@@ -24,7 +24,7 @@ from azext_devops.test.utils.authentication import AuthenticatedTests
 from azext_devops.test.utils.helper import get_client_mock_helper
 
 
-class TestRepositoryMethods(AuthenticatedTests):
+class TestImportRepositoryMethods(AuthenticatedTests):
 
     _TEST_DEVOPS_ORGANIZATION = 'https://someorg.visualstudio.com'
     _TEST_PAT_TOKEN = 'some bad token'
