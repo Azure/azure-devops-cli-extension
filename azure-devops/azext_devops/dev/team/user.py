@@ -74,7 +74,7 @@ def update_user_entitlement(user, license_type, organization=None, detect=None):
     return user_entitlement_update.user_entitlement
 
 
-def add_user_entitlement(email_id, license_type, send_email_invite=True, organization=None, detect=None):
+def add_user_entitlement(email_id, license_type, send_email_invite=None, organization=None, detect=None):
     """Add user.
     :param email_id: Email ID of the user.
     :type email_id: str
@@ -82,6 +82,8 @@ def add_user_entitlement(email_id, license_type, send_email_invite=True, organiz
     :type license_type: str
     :rtype: UserEntitlementsPatchResponse
     """
+    if send_email_invite is None:
+        send_email_invite = True
     do_not_send_invite = not send_email_invite
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_member_entitlement_management_client(organization)
