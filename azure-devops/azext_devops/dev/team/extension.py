@@ -91,9 +91,13 @@ def search_extensions(search_query):
     return response_json['results'][0]['extensions']
 
 
-def list_extensions(include_built_in=True, include_disabled=True, organization=None, detect=None):
+def list_extensions(include_built_in=None, include_disabled=None, organization=None, detect=None):
     """ List extensions installed in an organization
     """
+    if include_built_in is None:
+        include_built_in = True
+    if include_disabled is None:
+        include_disabled = True
     organization = resolve_instance(detect=detect, organization=organization)
     extension_client = get_extension_client(organization)
     extensions = extension_client.get_installed_extensions(include_disabled_extensions=include_disabled)

@@ -46,13 +46,12 @@ def show_service_endpoint(id, organization=None, project=None, detect=None):  # 
     return client.get_service_endpoint_details(project, id)
 
 
-def delete_service_endpoint(id, deep=True, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def delete_service_endpoint(id, deep=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Deletes service endpoint
     :param id: Id of the service endpoint to delete.
     :type id: str
-    :pram deep: Specific to AzureRM endpoint created in Automatic flow. When set to true,
+    :param deep: Specific to AzureRM endpoint created in Automatic flow. When it is specified,
     this will also delete corresponding AAD application in Azure.
-    Default value is true.
     :type deep: bool
     """
     organization, project = resolve_instance_and_project(detect=detect,
