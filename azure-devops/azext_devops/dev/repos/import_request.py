@@ -25,13 +25,13 @@ def create_import_request(git_source_url, project=None, repository=None,
     """Create a git import request (currently only supports import from public git source)
     :param repository: Name or ID of the repository to create the import request in.
     :type repository: str
-    :param git_source_url: Url of the source git repository
+    :param git_source_url: Url of the source git repository.
     :type git_source_url: str
     :param requires_authorization: Flag to tell if source git repository is private.
     :type requires_authorization: bool
-    :param user_name: User name in case source git repository is private
+    :param user_name: User name in case source git repository is private.
     :type user_name: str
-    :param git_service_endpoint_id: Service Endpoint for connection to external endpoint
+    :param git_service_endpoint_id: Service Endpoint for connection to external endpoint.
     :type git_service_endpoint_id: str
     """
     organization, project, repository = resolve_instance_project_and_repo(
