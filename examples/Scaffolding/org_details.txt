@@ -1,0 +1,11 @@
+org=https://dev.azure.com/contoso
+projectName=cliDemoScaffolding
+repoName=cli_repo
+repoToImport = https://github.com/ishitam8/snake.git
+teamName=Protocol CLI team
+optionalReviewers=user1@contoso.com,user2@contoso.com
+requiredReviewers=user3@contoso.com,user4@contoso.com
+teamMembers=user1@contoso.com,user2@contoso.com,user3@contoso.com
+teamAdminMembers=admin1@contoso.com,admin2@contoso.com
+childIterationNamesList=Sprint1,Sprint2,Sprint3
+iterationsPermissionsBit=7
