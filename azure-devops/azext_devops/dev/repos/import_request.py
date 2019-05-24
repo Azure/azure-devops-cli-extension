@@ -13,7 +13,7 @@ from azext_devops.devops_sdk.v5_0.git.models import GitImportRequest
 from azext_devops.dev.common.services import (get_git_client,
                                               resolve_instance_project_and_repo,
                                               get_service_endpoint_client)
-from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX
+from azext_devops.dev.common.const import GIT_SOURCE_PASSWORD_OR_PAT
 from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
 
 
@@ -49,7 +49,6 @@ def create_import_request(git_source_url, project=None, repository=None,
     import os
     if requires_authorization and git_service_endpoint_id is None:
         delete_se_after_import = True
-        GIT_SOURCE_PASSWORD_OR_PAT = CLI_ENV_VARIABLE_PREFIX + 'GIT_SOURCE_PASSWORD_OR_PAT'
         if GIT_SOURCE_PASSWORD_OR_PAT in os.environ:
             password = os.environ[GIT_SOURCE_PASSWORD_OR_PAT]
         else:
