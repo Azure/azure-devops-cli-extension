@@ -190,8 +190,7 @@ def _get_alias_key(alias):
 
 
 def _get_alias_value(command):
-    mime = ''
-    return f'!f() {{ exec az{ mime } { command } \"$@\"; }}; f'
+    return '!f() { exec az ' + command + ' \"$@\"; }; f'
 
 
 _git_remotes = {}
