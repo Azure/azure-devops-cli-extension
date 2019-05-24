@@ -190,7 +190,7 @@ def _get_alias_key(alias):
 
 
 def _get_alias_value(command):
-    return '!f() { exec az ' + command + ' \"$@\"; }; f'
+    return '!f() { exec az1 ' + command + ' \"$@\"; }; f'
 
 
 _git_remotes = {}
