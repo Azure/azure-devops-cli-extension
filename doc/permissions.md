@@ -36,7 +36,6 @@ To get the required token for different namespaces, refer following [doc](securi
 For given token, and group/user, if you need to list permissions or resolve the allow/deny bits to its corresponding permission types,use following command.
 `az devops security permission show  --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR> --token <SECURITY_TOKEN>`
 
-
 ### Changing permissions
 
 Here, permissions could be a single permission type or combination of multiple permission types.
