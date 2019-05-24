@@ -6,7 +6,7 @@
 from webbrowser import open_new
 
 from knack.log import get_logger
-from azext_devops.devops_sdk.v5_0.build.models import Build, DefinitionReference
+from azext_devops.devops_sdk.v5_0.build.models import Build, DefinitionReference, AgentPoolQueue
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.dev.common.identities import resolve_identity_as_id
 from azext_devops.dev.common.services import (get_build_client,
@@ -18,7 +18,7 @@ logger = get_logger(__name__)
 
 
 def build_queue(definition_id=None, definition_name=None, branch=None, variables=None, open=False,  # pylint: disable=redefined-builtin
-                organization=None, project=None, detect=None, commit_id=None):
+                organization=None, project=None, detect=None, commit_id=None, queue_id=None):
     """Request (queue) a build.
     :param definition_id: ID of the definition to queue. Required if --name is not supplied.
     :type definition_id: int
@@ -32,6 +32,8 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type open: bool
     :param commit_id: Commit ID of the branch to build.
     :type commit_id: str
+    :param queue_id: Queue Id of the pool that will be used to queue the build.
+    :type queue_id: str
     :rtype: :class:`<Build> <v5_0.build.models.Build>`
     """
     organization, project = resolve_instance_and_project(
@@ -46,6 +48,9 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     build = Build(definition=definition_reference)
     build.source_branch = resolve_git_ref_heads(branch)
     build.source_version = commit_id
+    if queue_id is not None:
+        build.queue = AgentPoolQueue()
+        build.queue.id = queue_id
     if variables is not None and variables:
         build.parameters = {}
         for variable in variables:
