@@ -126,8 +126,10 @@ def load_team_arguments(self, _):
                          for given user/group and token.')
 
     with self.argument_context('devops extension') as context:
-        context.argument('include_built_in', help='Include built in extensions.')
-        context.argument('include_disabled', help='Include disabled extensions.')
+        context.argument('include_built_in', arg_type=get_three_state_flag(),
+                         help='Include built in extensions.')
+        context.argument('include_disabled', arg_type=get_three_state_flag(),
+                         help='Include disabled extensions.')
         context.argument('publisher_name', help='Publisher Name')
         context.argument('extension_name', help='Extension Name')
         context.argument('search_query', options_list=('--search-query', '-q'), help='Search term')

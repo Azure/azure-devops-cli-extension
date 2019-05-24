@@ -28,7 +28,7 @@ def configure(defaults=None, use_git_aliases=None, list_config=False):
         e.g. '--defaults project=my-project-name organization=https://dev.azure.com/organizationName
         arg=value' Use '' to clear the defaults, e.g. --defaults project=''.
     :type defaults: str
-    :param use_git_aliases: Set to 'yes' to configure Git aliases global git config file
+    :param use_git_aliases: Set to 'true' to configure Git aliases global git config file
         (to enable commands like "git pr list").
         Set to 'no' to remove any aliases set by the tool.
     :type use_git_aliases: str
