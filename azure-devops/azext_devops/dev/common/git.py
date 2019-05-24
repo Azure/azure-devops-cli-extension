@@ -190,8 +190,8 @@ def _get_alias_key(alias):
 
 
 def _get_alias_value(command):
-    mime = '.cmd' if 'win' in sys.platform else ''
-    return f'!f() {{ exec az{ mime } { command } \"$@\"; }}; f'
+    mime = '.cmd' if sys.platform.lower().startswith('win') else ''
+    return '!f() { exec az' + mime + ' ' + command + ' \"$@\"; }; f'
 
 
 _git_remotes = {}
