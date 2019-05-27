@@ -190,7 +190,7 @@ class TestSecurityPermissionsMethods(AuthenticatedTests):
         writeAction.name = 'GENERIC_WRITE'
         writeAction.namespace_id = self._TEST_SECURITY_NAMESPACE_ID
         dummy_actions.append(writeAction)
-        # GENERIC_WRITE
+        # GENERIC_UPDATE
         updateAction = ActionDefinition()
         updateAction.bit = 4
         updateAction.displayName = 'Update Resource'
