@@ -1,4 +1,3 @@
 {
-    "azext.minCliCoreVersion": "2.0.49",
-    "azext.isPreview": true
+    "azext.minCliCoreVersion": "2.0.49"
 }
