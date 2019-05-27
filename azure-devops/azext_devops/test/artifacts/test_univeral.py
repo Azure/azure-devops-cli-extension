@@ -74,7 +74,7 @@ class TestUniversalPackages(unittest.TestCase):
             name = self._TEST_PACKAGE_NAME,
             version = self._TEST_PACKAGE_VERSION,
             path = self._TEST_PATH,
-            file_filter= self._TEST_FILTER,
+            fileFilter= self._TEST_FILTER,
             organization = self._TEST_DEVOPS_ORGANIZATION,
             detect='off')
 
