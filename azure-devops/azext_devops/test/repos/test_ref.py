@@ -45,8 +45,7 @@ class TestRefMethods(AuthenticatedTests):
     def test_list_refs(self):      
 
         response = list_refs(organization=TEST_DEVOPS_ORG_URL,
-                             project='sample_project',
-                             detect='off')
+                             project='sample_project')
         # assert
         self.mock_get_refs.assert_called_once_with(filter=None,
                                                    project='sample_project',
@@ -57,8 +56,7 @@ class TestRefMethods(AuthenticatedTests):
         response = create_ref(name='sample_ref',
                               object_id='1234567890',
                               organization=TEST_DEVOPS_ORG_URL,
-                              project='sample_project',
-                              detect='off')
+                              project='sample_project')
         # assert
         self.mock_update_refs.assert_called_once_with(project='sample_project',
                                                       ref_updates=ANY,
@@ -68,8 +66,7 @@ class TestRefMethods(AuthenticatedTests):
 
         response = lock_ref(name='sample_ref',
                             organization=TEST_DEVOPS_ORG_URL,
-                            project='sample_project',
-                            detect='off')
+                            project='sample_project')
         # assert
         self.mock_update_ref.assert_called_once_with(project='sample_project',
                                                      new_ref_info=ANY,
@@ -80,8 +77,7 @@ class TestRefMethods(AuthenticatedTests):
 
         response = unlock_ref(name='sample_ref',
                               organization=TEST_DEVOPS_ORG_URL,
-                              project='sample_project',
-                              detect='off')
+                              project='sample_project')
         # assert
         self.mock_update_ref.assert_called_once_with(project='sample_project',
                                                      new_ref_info=ANY,
@@ -93,8 +89,7 @@ class TestRefMethods(AuthenticatedTests):
         response = delete_ref(name='sample_ref',
                               object_id='1234567890',
                               organization=TEST_DEVOPS_ORG_URL,
-                              project='sample_project',
-                              detect='off')
+                              project='sample_project')
         # assert
         self.mock_update_refs.assert_called_once_with(project='sample_project',
                                                       ref_updates=ANY,

@@ -118,8 +118,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         target_branch = self._TEST_TARGET_BRANCH,
         title = self._TEST_PR_TITLE,
         description = self._TEST_PR_DESCRIPTION,
-        organization = self._TEST_DEVOPS_ORGANIZATION,
-        detect='off')
+        organization = self._TEST_DEVOPS_ORGANIZATION)
 
         # assert
         self.mock_validate_token.assert_not_called()
@@ -157,8 +156,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         description = self._TEST_PR_DESCRIPTION,
         organization = self._TEST_DEVOPS_ORGANIZATION,
         auto_complete = True,
-        merge_commit_message = merge_complete_message,
-        detect='off')
+        merge_commit_message = merge_complete_message)
 
         # assert
         self.mock_create_PR.assert_called_once()
@@ -185,8 +183,7 @@ class TestPullRequestMethods(AuthenticatedTests):
 
         response = show_pull_request(id = test_pr_id,
         open = False,
-        organization = self._TEST_DEVOPS_ORGANIZATION,
-        detect='off')
+        organization = self._TEST_DEVOPS_ORGANIZATION)
 
         #assert
         self.mock_get_PR_byId.assert_called_once_with(test_pr_id)
@@ -244,8 +241,7 @@ class TestPullRequestMethods(AuthenticatedTests):
     def test_update_pull_request(self):
         test_pr_id = 1
         response = update_pull_request(id = test_pr_id,
-        organization = self._TEST_DEVOPS_ORGANIZATION,
-        detect='off')
+        organization = self._TEST_DEVOPS_ORGANIZATION)
 
         #assert
         self.mock_get_PR_byId.assert_called_once_with(test_pr_id)
@@ -255,8 +251,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         test_pr_id = 1
         response = update_pull_request(id = test_pr_id,
         organization = self._TEST_DEVOPS_ORGANIZATION,
-        status='completed',
-        detect='off')
+        status='completed')
 
         #assert
         self.mock_get_PR_byId.assert_called_once_with(test_pr_id)
@@ -268,8 +263,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         test_pr_id = 1
         response = update_pull_request(id = test_pr_id,
         organization = self._TEST_DEVOPS_ORGANIZATION,
-        status='abandoned',
-        detect='off')
+        status='abandoned')
 
         #assert
         self.mock_get_PR_byId.assert_called_once_with(test_pr_id)
@@ -281,8 +275,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         test_pr_id = 1
         response = update_pull_request(id = test_pr_id,
         organization = self._TEST_DEVOPS_ORGANIZATION,
-        status='active',
-        detect='off')
+        status='active')
 
         #assert
         self.mock_get_PR_byId.assert_called_once_with(test_pr_id)
@@ -298,8 +291,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         #work
         response = create_pull_request_reviewers(id = test_pr_id,
         reviewers = 'sample',
-        organization = self._TEST_DEVOPS_ORGANIZATION,
-        detect='off')
+        organization = self._TEST_DEVOPS_ORGANIZATION)
 
         #assert
         self.mock_create_PR_reviewers.assert_called_once()
@@ -313,8 +305,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         #work
         response = delete_pull_request_reviewers(id = test_pr_id,
         reviewers = 'sample',
-        organization = self._TEST_DEVOPS_ORGANIZATION,
-        detect='off')
+        organization = self._TEST_DEVOPS_ORGANIZATION)
 
         #assert
         self.mock_delete_PR_reviewer.assert_called_once()
@@ -328,8 +319,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         #work
         response = delete_pull_request_reviewers(id = test_pr_id,
         reviewers = 'sample',
-        organization = self._TEST_DEVOPS_ORGANIZATION,
-        detect='off')
+        organization = self._TEST_DEVOPS_ORGANIZATION)
 
         #assert
         assert self.mock_delete_PR_reviewer.call_count == 3
@@ -341,8 +331,7 @@ class TestPullRequestMethods(AuthenticatedTests):
 
         #work
         response = list_pull_request_reviewers(id = test_pr_id,
-        organization = self._TEST_DEVOPS_ORGANIZATION,
-        detect='off')
+        organization = self._TEST_DEVOPS_ORGANIZATION)
 
         #assert
         self.mock_get_PR_reviewer.assert_called_once()
@@ -350,8 +339,7 @@ class TestPullRequestMethods(AuthenticatedTests):
     def test_add_pull_request_work_items(self):
         response = add_pull_request_work_items(id = 1,
         work_items = [2, 4],
-        organization = self._TEST_DEVOPS_ORGANIZATION,
-        detect='off')
+        organization = self._TEST_DEVOPS_ORGANIZATION)
 
         #assert
         self.mock_get_PR_byId.assert_called_once()
@@ -361,8 +349,7 @@ class TestPullRequestMethods(AuthenticatedTests):
 
     def test_list_pull_request_work_items(self):
         response = list_pull_request_work_items(id = 1,
-        organization = self._TEST_DEVOPS_ORGANIZATION,
-        detect='off')
+        organization = self._TEST_DEVOPS_ORGANIZATION)
 
         #assert
         self.mock_get_PR_byId.assert_called_once()
@@ -372,8 +359,7 @@ class TestPullRequestMethods(AuthenticatedTests):
     def test_vote_pull_request(self):
         response = vote_pull_request(id = 1,
         vote = 'approve', 
-        organization = self._TEST_DEVOPS_ORGANIZATION,
-        detect='off')
+        organization = self._TEST_DEVOPS_ORGANIZATION)
 
         #assert
         self.mock_get_PR_byId.assert_called_once()
@@ -401,8 +387,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         self.mock_get_PR_byId.return_value = pr_to_return
 
         response = list_pr_policies(id = 1,
-        organization = self._TEST_DEVOPS_ORGANIZATION,
-        detect='off')
+        organization = self._TEST_DEVOPS_ORGANIZATION)
 
         #assert
         self.mock_get_PR_byId.assert_called_once()
@@ -424,8 +409,7 @@ class TestPullRequestMethods(AuthenticatedTests):
 
         response = queue_pr_policy(id = 1,
         evaluation_id = 2,
-        organization = self._TEST_DEVOPS_ORGANIZATION,
-        detect='off')
+        organization = self._TEST_DEVOPS_ORGANIZATION)
 
         #assert
         self.mock_get_PR_byId.assert_called_once()

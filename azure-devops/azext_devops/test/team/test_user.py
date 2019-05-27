@@ -29,7 +29,6 @@ class TestUserMethods(AuthenticatedTests):
     _TEST_PROJECT_NAME = 'sample_project'
     _TOP_VALUE = 10
     _SKIP_VALUE = 2
-    _OFF = 'Off'
     _TEST_USER_ID = 'adda517c-0398-42dc-b2a8-0d3f240757f9'
     _USER_MGMT_CLIENT_LOCATION = 'azext_devops.devops_sdk.v5_0.member_entitlement_management.member_entitlement_management_client.MemberEntitlementManagementClient.'
 
@@ -62,7 +61,7 @@ class TestUserMethods(AuthenticatedTests):
 
     def test_list_user(self):
         get_user_entitlements(top=self._TOP_VALUE, skip=self._SKIP_VALUE, 
-                              organization=self._TEST_DEVOPS_ORGANIZATION, detect=self._OFF)            
+                              organization=self._TEST_DEVOPS_ORGANIZATION)            
         #assert
         self.mock_get_users.assert_called_once()
         list_user_param = self.mock_get_users.call_args_list[0][1]
@@ -70,13 +69,13 @@ class TestUserMethods(AuthenticatedTests):
         self.assertEqual(2, list_user_param['skip'])
 
     def test_show_user(self):
-        get_user_entitlement(user=self._TEST_USER_ID, organization=self._TEST_DEVOPS_ORGANIZATION, detect=self._OFF)
+        get_user_entitlement(user=self._TEST_USER_ID, organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_get_user.assert_called_once_with(user_id = 'adda517c-0398-42dc-b2a8-0d3f240757f9')
 
     def test_add_user(self):
         add_user_entitlement(email_id='someuser@xyz.com', license_type='stakeholder', 
-                             organization=self._TEST_DEVOPS_ORGANIZATION, detect=self._OFF)
+                             organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_add_user.assert_called_once()
         add_user_param = self.mock_add_user.call_args_list[0][1]
@@ -87,13 +86,13 @@ class TestUserMethods(AuthenticatedTests):
         self.assertEqual('someuser@xyz.com', add_user_param_document['user'].principal_name)
     
     def test_remove_user(self):
-        delete_user_entitlement(user=self._TEST_USER_ID, organization= self._TEST_DEVOPS_ORGANIZATION, detect=self._OFF)
+        delete_user_entitlement(user=self._TEST_USER_ID, organization= self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_remove_user.assert_called_once()
 
     def test_update_user(self):
         update_user_entitlement(user=self._TEST_USER_ID, license_type='express', 
-                                organization=self._TEST_DEVOPS_ORGANIZATION, detect=self._OFF)
+                                organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_update_user.assert_called_once()
         update_user_param = self.mock_update_user.call_args_list[0][1]

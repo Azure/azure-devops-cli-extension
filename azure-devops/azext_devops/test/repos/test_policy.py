@@ -51,8 +51,7 @@ class TestUuidMethods(AuthenticatedTests):
 
     def test_list_policy(self):
         list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
-        project = self._TEST_DEVOPS_PROJECT,
-        detect='off')
+        project = self._TEST_DEVOPS_PROJECT)
 
         #assert
         self.mock_get_policies.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, scope=None)
@@ -60,7 +59,6 @@ class TestUuidMethods(AuthenticatedTests):
     def test_list_policy_repo_scope(self):
         list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
-        detect='off',
         repository_id='fake_repo_id')
 
         #assert
@@ -69,7 +67,6 @@ class TestUuidMethods(AuthenticatedTests):
     def test_list_policy_branch_scope(self):
         list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
         project = self._TEST_DEVOPS_PROJECT,
-        detect='off',
         repository_id='1d1dad71-f27c-4370-810d-838ec41efd41',
         branch='master')
 
@@ -80,7 +77,6 @@ class TestUuidMethods(AuthenticatedTests):
         try:
             list_policy(organization = self._TEST_DEVOPS_ORGANIZATION,
             project = self._TEST_DEVOPS_PROJECT,
-            detect='off',
             branch='master')
             self.fail('failure was expected')
         except CLIError as ex:
@@ -91,8 +87,7 @@ class TestUuidMethods(AuthenticatedTests):
     def test_get_policy(self):
         get_policy(policy_id = 121,
         organization = self._TEST_DEVOPS_ORGANIZATION,
-        project = self._TEST_DEVOPS_PROJECT,
-        detect='off')
+        project = self._TEST_DEVOPS_PROJECT)
 
         #assert
         self.mock_get_policy.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, configuration_id=121)
@@ -100,8 +95,7 @@ class TestUuidMethods(AuthenticatedTests):
     def test_delete_policy(self):
         delete_policy(policy_id = 121,
         organization = self._TEST_DEVOPS_ORGANIZATION,
-        project = self._TEST_DEVOPS_PROJECT,
-        detect='off')
+        project = self._TEST_DEVOPS_PROJECT)
 
         #assert
         self.mock_delete_policy.assert_called_once_with(project=self._TEST_DEVOPS_PROJECT, configuration_id=121)
@@ -119,8 +113,7 @@ class TestUuidMethods(AuthenticatedTests):
 
         create_policy_configuration_file(policy_configuration = temp_config_file.name,
         organization = self._TEST_DEVOPS_ORGANIZATION,
-        project = self._TEST_DEVOPS_PROJECT,
-        detect='off')
+        project = self._TEST_DEVOPS_PROJECT)
 
         #assert
         self.mock_create_policy.assert_called_once()
@@ -143,8 +136,7 @@ class TestUuidMethods(AuthenticatedTests):
         update_policy_configuration_file(policy_id = 121,
         policy_configuration = temp_config_file.name,
         organization = self._TEST_DEVOPS_ORGANIZATION,
-        project = self._TEST_DEVOPS_PROJECT,
-        detect='off')
+        project = self._TEST_DEVOPS_PROJECT)
 
         #assert
         self.mock_update_policy.assert_called_once()
@@ -164,8 +156,7 @@ class TestUuidMethods(AuthenticatedTests):
         allow_downvotes=False,
         reset_on_source_push=True,
         organization = self._TEST_DEVOPS_ORGANIZATION,
-        project = self._TEST_DEVOPS_PROJECT,
-        detect='off')
+        project = self._TEST_DEVOPS_PROJECT)
 
         #assert
         self.mock_create_policy.assert_called_once()
@@ -208,8 +199,7 @@ class TestUuidMethods(AuthenticatedTests):
         blocking=True,
         reset_on_source_push=False,
         organization = self._TEST_DEVOPS_ORGANIZATION,
-        project = self._TEST_DEVOPS_PROJECT,
-        detect='off')
+        project = self._TEST_DEVOPS_PROJECT)
 
         self.mock_get_policy.assert_called_once()
 
