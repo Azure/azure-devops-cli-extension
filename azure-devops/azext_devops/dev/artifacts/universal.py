@@ -45,6 +45,8 @@ def download_package(feed, name, version, path, file_filter=None, organization=N
     :type version: str
     :param path: Directory to place the package contents.
     :type path: str
+    :param file_filter: File filter.
+    :type file_filter: str
     """
     colorama.init()  # Needed for humanfriendly spinner to display correctly
     logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
