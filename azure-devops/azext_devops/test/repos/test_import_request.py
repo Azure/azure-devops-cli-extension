@@ -58,8 +58,7 @@ class TestImportRepositoryMethods(AuthenticatedTests):
         response = create_import_request(git_source_url = 'random_repo_name',
         organization = self._TEST_DEVOPS_ORGANIZATION,
         project = 'sample project',
-        repository = 'sample repository',
-        detect='off')
+        repository = 'sample repository')
 
         #assert
         self.mock_create_import_request.assert_called_once()
@@ -70,8 +69,7 @@ class TestImportRepositoryMethods(AuthenticatedTests):
             organization = self._TEST_DEVOPS_ORGANIZATION,
             requires_authorization=True,
             project = 'sample project',
-            repository = 'sample repository',
-            detect='off')
+            repository = 'sample repository')
             self.fail('exception was expected')
         except NoTTYException as ex:
             self.assertEqual(str(ex), 'Please specify target git password / PAT in AZURE_DEVOPS_EXT_GIT_SOURCE_PASSWORD_OR_PAT environment variable in non-interactive mode.')

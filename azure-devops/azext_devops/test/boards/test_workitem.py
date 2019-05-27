@@ -102,7 +102,7 @@ class TestWorkItemMethods(AuthenticatedTests):
         # set return values
         self.mock_delete_WI.return_value.id = test_work_item_id
 
-        response = delete_work_item(id=test_work_item_id, destroy=False, project='testproject', organization=self._TEST_DEVOPS_ORGANIZATION, detect='Off')
+        response = delete_work_item(id=test_work_item_id, destroy=False, project='testproject', organization=self._TEST_DEVOPS_ORGANIZATION)
 
         # assert
         self.mock_validate_token.assert_not_called()

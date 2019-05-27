@@ -59,8 +59,7 @@ class TestRepositoryMethods(AuthenticatedTests):
     def test_create_repo(self):
         response = create_repo(name = 'sample repo',
         organization = self._TEST_DEVOPS_ORGANIZATION,
-        project = 'sample project',
-        detect='off')
+        project = 'sample project')
 
         #assert
         self.mock_create_repo.assert_called_once()
@@ -68,16 +67,14 @@ class TestRepositoryMethods(AuthenticatedTests):
     def test_delete_repo(self):
         response = delete_repo(id = 'sample repo',
         organization = self._TEST_DEVOPS_ORGANIZATION,
-        project = 'sample project',
-        detect='off')
+        project = 'sample project')
 
         #assert
         self.mock_delete_repo.assert_called_once()
 
     def test_list_repos(self):
         response = list_repos(organization = self._TEST_DEVOPS_ORGANIZATION,
-        project = 'sample project',
-        detect='off')
+        project = 'sample project')
 
         #assert
         self.mock_get_repositories.assert_called_once()
@@ -85,20 +82,19 @@ class TestRepositoryMethods(AuthenticatedTests):
     def test_show_repo(self):
         response = show_repo(repository = 'sample repo id',
         organization = self._TEST_DEVOPS_ORGANIZATION,
-        project = 'sample project',
-        detect='off')
+        project = 'sample project')
 
         #assert
         self.mock_get_repository.assert_called_once()
    
     def test_update_repo_should_throw_for_no_default_branch_or_name(self):
         with self.assertRaises(Exception) as exc:
-            response = update_repo(repository = 'sample repo id', organization = self._TEST_DEVOPS_ORGANIZATION, project = 'sample project', detect='off')
+            response = update_repo(repository = 'sample repo id', organization = self._TEST_DEVOPS_ORGANIZATION, project = 'sample project')
         self.assertEqual(str(exc.exception),r'Either --default-branch or --name (for rename) must be provided to update repository.')
 
     def test_update_repo_should_call_update_api(self):
         response = update_repo(repository = 'sample repo id', organization = self._TEST_DEVOPS_ORGANIZATION,
-            project = 'sample project', detect='off', name="new repo name", default_branch="live")
+            project = 'sample project', name="new repo name", default_branch="live")
         #assert
         self.mock_get_repository.assert_called_once()
         self.mock_update_repository.assert_called_once()

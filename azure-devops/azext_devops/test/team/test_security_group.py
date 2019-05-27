@@ -29,7 +29,6 @@ from azext_devops.test.utils.helper import get_client_mock_helper
 class TestSecurityGroupMethods(AuthenticatedTests):
     _TEST_DEVOPS_ORGANIZATION = 'https://someorganization.visualstudio.com'
     _TEST_PROJECT_DESCRIPTOR = 'scp.someRandomDescriptorForProject'
-    _OFF = 'Off'
     _GROUP_MGMT_CLIENT_LOCATION = 'azext_devops.devops_sdk.v5_0.graph.graph_client.GraphClient.'
     _TEST_GROUP_DESCRIPTOR = 'vssgp.someRandomDescriptorForGroup'
     _TEST_GROUP_NAME = 'New test security group'
@@ -76,20 +75,20 @@ class TestSecurityGroupMethods(AuthenticatedTests):
         patch.stopall()
 
     def test_list_groups_with_org_filter(self):
-        response = list_groups(scope='organization', organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = list_groups(scope='organization', organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_list_groups.assert_called_once()
 
     def test_list_groups(self):
         self.mock_get_descriptor.return_value = self._TEST_PROJECT_DESCRIPTOR
-        response = list_groups(project=self._TEST_PROJECT_DESCRIPTOR,organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = list_groups(project=self._TEST_PROJECT_DESCRIPTOR,organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_list_groups.assert_called_once()
         list_groups_param = self.mock_list_groups.call_args_list[0][1]
         self.assertEqual(self._TEST_PROJECT_DESCRIPTOR, list_groups_param['scope_descriptor'], str(list_groups_param))
 
     def test_show_group(self):
-        response = get_group(id=self._TEST_GROUP_DESCRIPTOR, organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = get_group(id=self._TEST_GROUP_DESCRIPTOR, organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_get_group.assert_called_once()
         get_group_param = self.mock_get_group.call_args_list[0][1]
@@ -97,17 +96,17 @@ class TestSecurityGroupMethods(AuthenticatedTests):
 
 
     def test_delete_group(self):
-        response = delete_group(id=self._TEST_GROUP_DESCRIPTOR, organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = delete_group(id=self._TEST_GROUP_DESCRIPTOR, organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_delete_group.assert_called_once()
 
     def test_update_group(self):
-        response = update_group(id=self._TEST_GROUP_DESCRIPTOR, description='Updated description for the test group', organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = update_group(id=self._TEST_GROUP_DESCRIPTOR, description='Updated description for the test group', organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_update_group.assert_called_once()
 
     def test_create_group_in_org(self):
-        response = create_group(scope='organization', name=self._TEST_GROUP_NAME, description= self._TEST_GROUP_DESCRIPTION, organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = create_group(scope='organization', name=self._TEST_GROUP_NAME, description= self._TEST_GROUP_DESCRIPTION, organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_create_group.assert_called_once()
         create_group_param = self.mock_create_group.call_args_list[0][1]
@@ -116,7 +115,7 @@ class TestSecurityGroupMethods(AuthenticatedTests):
 
     def test_create_group(self):
         self.mock_get_descriptor.return_value = self._TEST_PROJECT_DESCRIPTOR
-        response = create_group(name=self._TEST_GROUP_NAME, description= self._TEST_GROUP_DESCRIPTION, project=self._TEST_PROJECT_DESCRIPTOR, organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = create_group(name=self._TEST_GROUP_NAME, description= self._TEST_GROUP_DESCRIPTION, project=self._TEST_PROJECT_DESCRIPTOR, organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_create_group.assert_called_once()
         create_group_param = self.mock_create_group.call_args_list[0][1]
@@ -125,7 +124,7 @@ class TestSecurityGroupMethods(AuthenticatedTests):
         self.assertEqual(self._TEST_PROJECT_DESCRIPTOR, create_group_param['scope_descriptor'], str(create_group_param))
 
     def test_list_memberships(self):
-        response = list_memberships(id=self._TEST_GROUP_DESCRIPTOR,  organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = list_memberships(id=self._TEST_GROUP_DESCRIPTOR,  organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_list_memberships.assert_called_once()
         self.mock_lookup_subjects.assert_called_once()
@@ -134,7 +133,7 @@ class TestSecurityGroupMethods(AuthenticatedTests):
         self.assertEqual('down', list_memberships_param['direction'], str(list_memberships_param))
 
     def test_list_memberships_member_of(self):
-        response = list_memberships(id=self._TEST_GROUP_DESCRIPTOR, relationship='memberof', organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = list_memberships(id=self._TEST_GROUP_DESCRIPTOR, relationship='memberof', organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_list_memberships.assert_called_once()
         self.mock_lookup_subjects.assert_called_once()
@@ -143,7 +142,7 @@ class TestSecurityGroupMethods(AuthenticatedTests):
         self.assertEqual('up', list_memberships_param['direction'], str(list_memberships_param))
 
     def test_add_membership(self):
-        response = add_membership(group_id=self._TEST_GROUP_DESCRIPTOR, member_id=self._TEST_USER_DESCRIPTOR, organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = add_membership(group_id=self._TEST_GROUP_DESCRIPTOR, member_id=self._TEST_USER_DESCRIPTOR, organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_add_membership.assert_called_once()
         self.mock_lookup_subjects.assert_called_once()
@@ -153,7 +152,7 @@ class TestSecurityGroupMethods(AuthenticatedTests):
 
     
     def test_remove_membership(self):
-        response = remove_membership(group_id=self._TEST_GROUP_DESCRIPTOR, member_id=self._TEST_USER_DESCRIPTOR, organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = remove_membership(group_id=self._TEST_GROUP_DESCRIPTOR, member_id=self._TEST_USER_DESCRIPTOR, organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_remove_membership.assert_called_once()
         remove_membership_param = self.mock_remove_membership.call_args_list[0][1]

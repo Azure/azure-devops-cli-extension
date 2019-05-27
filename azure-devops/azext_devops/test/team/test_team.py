@@ -32,7 +32,6 @@ class TestTeamMethods(AuthenticatedTests):
     _TEST_TEAM_DESCRIPTION = 'sample_team_description'
     _TOP_VALUE = 10
     _SKIP_VALUE = 2
-    _OFF = 'Off'
 
     def setUp(self):
         self.authentication_setup()
@@ -63,7 +62,7 @@ class TestTeamMethods(AuthenticatedTests):
         patch.stopall()
 
     def test_create_team(self):
-        create_team(self._TEST_TEAM_NAME, self._TEST_TEAM_DESCRIPTION, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, self._OFF)
+        create_team(self._TEST_TEAM_NAME, self._TEST_TEAM_DESCRIPTION, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)
         
         #assert
         self.mock_create_team.assert_called_once()
@@ -73,7 +72,7 @@ class TestTeamMethods(AuthenticatedTests):
         self.assertEqual(self._TEST_TEAM_DESCRIPTION, create_team_param['team'].description, str(create_team_param))
 
     def test_delete_team(self):
-        delete_team(self._TEST_TEAM_NAME, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, self._OFF)
+        delete_team(self._TEST_TEAM_NAME, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)
 
         #assert
         self.mock_delete_team.assert_called_once()
@@ -82,7 +81,7 @@ class TestTeamMethods(AuthenticatedTests):
         self.assertEqual(self._TEST_TEAM_NAME, delete_team_param['team_id'], str(delete_team_param))
 
     def test_get_team(self):
-        get_team(self._TEST_TEAM_NAME, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, self._OFF)
+        get_team(self._TEST_TEAM_NAME, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)
         
         #assert
         self.mock_get_team.assert_called_once()
@@ -91,7 +90,7 @@ class TestTeamMethods(AuthenticatedTests):
         self.assertEqual(self._TEST_TEAM_NAME, get_team_param['team_id'], str(get_team_param))
     
     def test_get_teams(self):
-        get_teams(self._TOP_VALUE, self._SKIP_VALUE, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, self._OFF)
+        get_teams(self._TOP_VALUE, self._SKIP_VALUE, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)
 
         #assert
         self.mock_get_teams.assert_called_once()
@@ -101,7 +100,7 @@ class TestTeamMethods(AuthenticatedTests):
         self.assertEqual(2, get_teams_param['skip'], str(get_teams_param))
 
     def test_get_team_members(self):
-        get_team_members(self._TEST_TEAM_NAME, self._TOP_VALUE, self._SKIP_VALUE, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+        get_team_members(self._TEST_TEAM_NAME, self._TOP_VALUE, self._SKIP_VALUE, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)
 
         #assert
         self.mock_get_team_members.assert_called_once()
@@ -114,7 +113,7 @@ class TestTeamMethods(AuthenticatedTests):
     def test_update_team(self):
         _NEW_TEAM_NAME = 'updated_team_name'
         _NEW_TEAM_DESCRIPTION = 'update description'
-        update_team(self._TEST_TEAM_NAME, _NEW_TEAM_NAME, _NEW_TEAM_DESCRIPTION, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+        update_team(self._TEST_TEAM_NAME, _NEW_TEAM_NAME, _NEW_TEAM_DESCRIPTION, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)
         
         #assert
         self.mock_update_team.assert_called_once()
@@ -126,7 +125,7 @@ class TestTeamMethods(AuthenticatedTests):
 
     def test_update_team_with_no_name_and_description(self):
         with self.assertRaises(Exception) as exc:
-            response = update_team(self._TEST_TEAM_NAME, None, None, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME, 'Off')
+            response = update_team(self._TEST_TEAM_NAME, None, None, self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)
         self.assertEqual(str(exc.exception),r'Either name or description argument must be provided.')
         
         #assert

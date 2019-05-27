@@ -49,7 +49,7 @@ class TestServicesMethods(unittest.TestCase):
 
     def test_resolve_instance_project_and_repo(self):
         try:
-            resolve_instance_project_and_repo(detect='off',
+            resolve_instance_project_and_repo(detect='false',
                                               organization='',
                                               project='',
                                               project_required=False,
