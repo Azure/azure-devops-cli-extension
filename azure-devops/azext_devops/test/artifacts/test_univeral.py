@@ -52,8 +52,7 @@ class TestUniversalPackages(unittest.TestCase):
             version = self._TEST_PACKAGE_VERSION,
             description = self._TEST_PACKAGE_DESCRIPTION,
             path = self._TEST_PATH,
-            organization = self._TEST_DEVOPS_ORGANIZATION,
-            detect='off')
+            organization = self._TEST_DEVOPS_ORGANIZATION)
 
         # assert
         self.mock_run_artifacttool.assert_called_with(self._TEST_DEVOPS_ORGANIZATION,
@@ -75,8 +74,7 @@ class TestUniversalPackages(unittest.TestCase):
             version = self._TEST_PACKAGE_VERSION,
             path = self._TEST_PATH,
             file_filter= self._TEST_FILTER,
-            organization = self._TEST_DEVOPS_ORGANIZATION,
-            detect='off')
+            organization = self._TEST_DEVOPS_ORGANIZATION)
 
         # assert
         self.mock_run_artifacttool.assert_called_with(self._TEST_DEVOPS_ORGANIZATION,

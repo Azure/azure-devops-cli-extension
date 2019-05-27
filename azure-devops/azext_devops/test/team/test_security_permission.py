@@ -33,7 +33,6 @@ from azext_devops.test.utils.helper import get_client_mock_helper
 
 class TestSecurityPermissionsMethods(AuthenticatedTests):
     _TEST_DEVOPS_ORGANIZATION = 'https://someorganization.visualstudio.com'
-    _OFF = 'Off'
     _SECURITY_CLIENT_LOCATION = 'azext_devops.devops_sdk.v5_0.security.security_client.SecurityClient.'
     _TEST_GROUP_DESCRIPTOR = 'vssgp.someRandomDescriptorForGroup'
     _TEST_GROUP_NAME = 'New test security group'
@@ -72,14 +71,14 @@ class TestSecurityPermissionsMethods(AuthenticatedTests):
         patch.stopall()
 
     def test_list_namespaces(self):
-        response = list_namespaces(False,organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = list_namespaces(False,organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_list_namespaces.assert_called_once()
         list_namespaces_param = self.mock_list_namespaces.call_args_list[0][1]
         self.assertEqual(False, list_namespaces_param['local_only'])
     
     def test_show_namespace(self):
-        response = show_namespace(namespace_id=self._TEST_SECURITY_NAMESPACE_ID,organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+        response = show_namespace(namespace_id=self._TEST_SECURITY_NAMESPACE_ID,organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_list_namespaces.assert_called_once()
         show_namespace_param = self.mock_list_namespaces.call_args_list[0][1]
@@ -88,7 +87,7 @@ class TestSecurityPermissionsMethods(AuthenticatedTests):
     def test_list_tokens(self):
         response = list_tokens(namespace_id=self._TEST_SECURITY_NAMESPACE_ID,
                                 subject = self._TEST_GROUP_DESCRIPTOR, 
-                                recurse=False,organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+                                recurse=False,organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_list_acl.assert_called_once()
         list_tokens_param = self.mock_list_acl.call_args_list[0][1]
@@ -102,7 +101,7 @@ class TestSecurityPermissionsMethods(AuthenticatedTests):
         response = show_permissions(namespace_id=self._TEST_SECURITY_NAMESPACE_ID,
                                     subject = self._TEST_GROUP_DESCRIPTOR, 
                                     token= self._TEST_SECURITY_TOKEN,
-                                    organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+                                    organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_list_acl.assert_called_once()
         show_permissions_param = self.mock_list_acl.call_args_list[0][1]
@@ -119,8 +118,7 @@ class TestSecurityPermissionsMethods(AuthenticatedTests):
                                     subject = self._TEST_GROUP_DESCRIPTOR, 
                                     token= self._TEST_SECURITY_TOKEN,
                                     organization=self._TEST_DEVOPS_ORGANIZATION,
-                                    merge=True,
-                                    detect=self._OFF)
+                                    merge=True)
         #assert
         self.mock_list_acl.assert_called_once()
         self.mock_set_ace.assert_called_once()
@@ -137,8 +135,7 @@ class TestSecurityPermissionsMethods(AuthenticatedTests):
                                     permission_bit = 3,
                                     subject = self._TEST_GROUP_DESCRIPTOR, 
                                     token= self._TEST_SECURITY_TOKEN,
-                                    organization=self._TEST_DEVOPS_ORGANIZATION,
-                                    detect=self._OFF)
+                                    organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_list_acl.assert_called_once()
         self.mock_remove_permission.assert_called_once()
@@ -156,7 +153,7 @@ class TestSecurityPermissionsMethods(AuthenticatedTests):
         response = reset_all_permissions(namespace_id=self._TEST_SECURITY_NAMESPACE_ID,
                                          subject = self._TEST_GROUP_DESCRIPTOR,
                                          token = self._TEST_SECURITY_TOKEN,
-                                         organization=self._TEST_DEVOPS_ORGANIZATION,detect=self._OFF)
+                                         organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_remove_ace.assert_called_once()
         remove_ace_param = self.mock_remove_ace.call_args_list[0][1]
