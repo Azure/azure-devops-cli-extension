@@ -11,10 +11,6 @@ from knack.prompting import NoTTYException, verify_is_a_tty, prompt
 logger = get_logger(__name__)
 
 
-def _input(msg):
-    return input(msg)
-
-
 def delete_last_line():
     "Use this function to delete the last line in the STDOUT"
     from colorama import init
@@ -48,7 +44,7 @@ def prompt_user_friendly_choice_list(msg, a_list, default=1, help_string=None, e
     allowed_vals = list(range(1, len(a_list) + 1))
     linesToDelete = len(a_list) + 1
     while True:
-        val = _input('{}\n{}\nPlease enter a choice [Default choice({})]: '.format(msg, options, default))
+        val = prompt('{}\n{}\nPlease enter a choice [Default choice({})]: '.format(msg, options, default))
         if val == '?' and help_string is not None:
             for x in range(0, linesToDelete):
                 delete_last_line()
