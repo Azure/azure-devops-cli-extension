@@ -5,6 +5,36 @@ You may want to templatize the project creation  process.
 
 **Scaffolding.ps1** is a powershell script which helps users of an organization to have a standard getting started experience.
 
+## Sample command to invoke the script –
+
+.\scaffolding.ps1 -filePath .\org_details.txt
+
+## Input parameters expected
+
+You can either interactively provide inputs or pass a file instead. The contents of file would look something like this:
+
+    org=https://dev.azure.com/contoso
+
+    projectName=cliDemoScaffolding
+
+    repoName=cli_repo
+
+    repoToImport = https://github.com/ishitam8/snake.git
+
+    teamName=Protocol CLI team
+
+    optionalReviewers=user1@contoso.com,user2@contoso.com
+
+    requiredReviewers=user3@contoso.com,user4@contoso.com
+
+    teamMembers=user1@contoso.com,user2@contoso.com,user3@contoso.com
+
+    teamAdminMembers=admin1@contoso.com,admin2@contoso.com
+
+    childIterationNamesList=Sprint 1,Sprint 2,Sprint 3
+
+    iterationsPermissionsBit=7
+
 ## What does this script do
 
 1. Takes Your organization URL
@@ -48,33 +78,3 @@ You may want to templatize the project creation  process.
     General settings
     - Configure backlog navigation settings [Currently assumed as epics: true, features: true, stories: true]
     - Configure working days [Currently assumed as Monday to Friday]
-
-## Sample command to invoke the script –
-
-.\scaffolding.ps1 -filePath .\org_details.txt
-
-## Input parameters expected
-
-You can either interactively provide inputs or pass a file instead. The contents of file would look something like this:
-
-    org=https://dev.azure.com/contoso
-
-    projectName=cliDemoScaffolding
-
-    repoName=cli_repo
-
-    repoToImport = https://github.com/ishitam8/snake.git
-
-    teamName=Protocol CLI team
-
-    optionalReviewers=user1@contoso.com,user2@contoso.com
-
-    requiredReviewers=user3@contoso.com,user4@contoso.com
-
-    teamMembers=user1@contoso.com,user2@contoso.com,user3@contoso.com
-
-    teamAdminMembers=admin1@contoso.com,admin2@contoso.com
-
-    childIterationNamesList=Sprint 1,Sprint 2,Sprint 3
-
-    iterationsPermissionsBit=7
