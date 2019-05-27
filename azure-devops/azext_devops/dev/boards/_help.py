@@ -25,6 +25,24 @@ def load_boards_help():
     long-summary:
     """
 
+    helps['boards iteration'] = """
+    type: group
+    short-summary: Manage iterations.
+    long-summary:
+    """
+
+    helps['boards iteration team'] = """
+    type: group
+    short-summary: Manage iterations for a team.
+    long-summary:
+    """
+
+    helps['boards iteration project'] = """
+    type: group
+    short-summary: Manage iterations for a project.
+    long-summary:
+    """
+
     helps['boards work-item relation'] = """
     type: group
     short-summary: Manage work item relations.

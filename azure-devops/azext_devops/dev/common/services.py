@@ -269,6 +269,11 @@ def get_task_agent_client(organization=None):
     return connection.get_client(VSTS_MODULE + 'v5_0.task_agent.task_agent_client.TaskAgentClient')
 
 
+def get_work_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.work.work_client.WorkClient')
+
+
 def get_work_item_tracking_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_0.work_item_tracking.'
