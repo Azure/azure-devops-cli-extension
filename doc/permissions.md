@@ -21,20 +21,20 @@ To get the details of a namespace, and check what are the permission types secur
 
 ## Understanding security tokens
 
-Tokens are arbitrary strings representing resources in VSTS and TFS. Token format differs per resource type, however hierarchy and separator characters are common between all tokens.
+Tokens are arbitrary strings representing resources in Azure DevOps. Token format differs per resource type, however hierarchy and separator characters are common between all tokens.
 
 ### Listing tokens for a namespace
 
 Once you have figured the required namespace, you can list all the tokens available in namespace for a specific user or security group.
 `az devops security permission list --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR>`
 
+You can also use token parameter in above command if you know the token already and want to list only root and/or child tokens of a resource. This way you will be able to filter results when some namespace has long list of ACLs for given user/group.
+`az devops security permission list  --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR> --token <SECURITY_TOKEN> --recurse`
+
 To get the required token for different namespaces, refer following [doc](security_tokens.md)
 
-To list permissions for given token, for a group or user
-`az devops security permission list  --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR> --token <SECURITY_TOKEN>`
-
-Check `resolve-json` command to interpret the json response and resolving it to corresponding permmission types.
-`az devops security permission resolve-json --namespace-id <NAMESPACE_ID> --json-path listPermissionsJsonResponse.txt`
+For given token, and group/user, if you need to list permissions or resolve the allow/deny bits to its corresponding permission types,use following command.
+`az devops security permission show  --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR> --token <SECURITY_TOKEN>`
 
 ### Changing permissions
 
@@ -46,9 +46,13 @@ You will have to pass this permission bits while assigning allow/deny permission
 
 `az  devops security permission add  --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR> --token <SECURITY_TOKEN> --allow-bit 4 deny-bit 1`
 
+Here, --allow-bit/--deny-bit could be a single permission bit or addition of multiple permission bits.
+
 #### Reset permissions
 
 `az  devops security permission reset  --namespace-id <NAMESPACE_ID> --subject <USER_ID/GROUP_DESCRIPTOR> --token <SECURITY_TOKEN> --permissions 5`
+
+Here, --permissions could be a single permission bit or addition of multiple permission bits.
 
 #### Reset all permissions
 
