@@ -35,7 +35,7 @@ def publish_package(feed, name, version, path, description=None, organization=No
     return artifact_tool.publish_universal(organization, feed, name, version, description, path)
 
 
-def download_package(feed, name, version, path, fileFilter=None, organization=None, detect=None):
+def download_package(feed, name, version, path, file_filter=None, organization=None, detect=None):
     """(PREVIEW) Download a package.
     :param feed: Name or ID of the feed.
     :type feed: str
@@ -50,4 +50,4 @@ def download_package(feed, name, version, path, fileFilter=None, organization=No
     logger.warning(_UNIVERSAL_PREVIEW_MESSAGE)
     organization = resolve_instance(detect=detect, organization=organization)
     artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-    return artifact_tool.download_universal(organization, feed, name, version, path, fileFilter)
+    return artifact_tool.download_universal(organization, feed, name, version, path, file_filter)
