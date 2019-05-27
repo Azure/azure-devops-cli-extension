@@ -31,6 +31,13 @@ def datetime_now_as_string():
     return ''.join(e for e in now if e.isalnum())
 
 
+def open_url(url):
+    """Opens the url in new window in the default browser.
+    """
+    from webbrowser import open_new
+    open_new(url=url)
+
+
 # Decorators
 def singleton(myclass):
     instance = [None]
