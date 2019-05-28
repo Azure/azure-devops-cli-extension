@@ -10,6 +10,7 @@ from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_GITHUB,
                     SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL,
                     SERVICE_ENDPOINT_TYPE_AZURE_RM)
+from azext_devops.dev.common.utils import FILE_ENCODING_TYPES
 
 
 # CUSTOM CHOICE LISTS
@@ -27,6 +28,7 @@ _HTTP_METHOD_VALUES = ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS', 'PUT', 'HEAD
 
 _LICENSE_TYPES = ['advanced', 'earlyAdopter', 'express', 'none', 'professional', 'stakeholder']
 _RELATIONSHIP_TYPES = ['members', 'memberof']
+_FILE_ENCODING_TYPE_VALUES = FILE_ENCODING_TYPES
 
 
 def load_global_args(context):
@@ -153,6 +155,7 @@ def load_team_arguments(self, _):
     with self.argument_context('devops wiki') as context:
         context.argument('wiki_type', options_list=('--wiki-type', '--type'), **enum_choice_list(_WIKI_TYPE_VALUES))
         context.argument('version', options_list=('--version', '-v'))
+        context.argument('encoding', **enum_choice_list(_FILE_ENCODING_TYPE_VALUES))
 
     with self.argument_context('devops wiki list') as context:
         context.argument('scope', **enum_choice_list(_SCOPE_VALUES))

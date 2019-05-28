@@ -2,6 +2,35 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
+from knack.log import get_logger
+from knack.util import CLIError
+
+logger = get_logger(__name__)
+
+FILE_ENCODING_TYPES = ['ascii', 'utf-16be', 'utf-16le', 'utf-8']
+
+
+def read_file_content(file_path, encoding):
+    if not file_path or not encoding:
+        logger.debug("File path (%s) or encoding (%s) is missing.", file_path, encoding)
+        return None
+
+    if encoding in FILE_ENCODING_TYPES:
+        with open(file_path, 'r', encoding=encoding) as f:
+            try:
+                content = f.read()
+            except UnicodeDecodeError:
+                raise CLIError("Unable to decode file '{}' with '{}' encoding.".format(
+                    file_path, encoding))
+            encoded_str = content
+            encoded = content.encode(encoding)
+            decoded = encoded.decode(encoding)
+
+    if content != decoded:
+        raise CLIError("Invalid encoding '{}'".format(encoding))
+
+    return encoded_str
+
 
 
 def open_file(filepath):

@@ -114,7 +114,7 @@ def show_wiki(wiki, open=False, organization=None, project=None, detect=None):  
 
 
 def add_page(wiki, path, comment=_DEFAULT_PAGE_ADD_MESSAGE, content=None, file_path=None,
-             organization=None, project=None, detect=None):
+             encoding='utf-8', organization=None, project=None, detect=None):
     """Add a new page.
     :param wiki: Name or Id of the wiki.
     :type wiki: str
@@ -124,6 +124,8 @@ def add_page(wiki, path, comment=_DEFAULT_PAGE_ADD_MESSAGE, content=None, file_p
     :type content: str
     :param file_path: Path of the file input if content is specified in the file.
     :type file_path: str
+    :param encoding: Encoding of the file. Used in conjunction with --file-path parameter.
+    :type encoding: str
     :param comment: Comment in the commit message of file add operation.
     :type comment: str
     """
@@ -137,16 +139,15 @@ def add_page(wiki, path, comment=_DEFAULT_PAGE_ADD_MESSAGE, content=None, file_p
     parameters = WikiPageCreateOrUpdateParameters()
     if content:
         parameters.content = content
-    if file_path:
-        fp = open(file_path, mode='r')
-        parameters.content = fp.read()
-        fp.close()
+    elif file_path:
+        from azext_devops.dev.common.utils import read_file_content
+        parameters.content = read_file_content(file_path=file_path, encoding=encoding)
     return wiki_client.create_or_update_page(parameters=parameters, wiki_identifier=wiki,
                                              project=project, path=path, version=None, comment=comment)
 
 
 def update_page(wiki, path, version, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, content=None, file_path=None,
-                organization=None, project=None, detect=None):
+                encoding='utf-8', organization=None, project=None, detect=None):
     """Edit a page.
      :param wiki: Name or Id of the wiki.
     :type wiki: str
@@ -156,6 +157,8 @@ def update_page(wiki, path, version, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, conte
     :type content: str
     :param file_path: Path of the file input if content is specified in the file.
     :type file_path: str
+    :param encoding: Encoding of the file. Used in conjunction with --file-path parameter.
+    :type encoding: str
     :param comment: Comment in the commit message of file edit operation.
     :type comment: str
     :param version: Version (ETag) of file to edit.
@@ -171,10 +174,9 @@ def update_page(wiki, path, version, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, conte
     parameters = WikiPageCreateOrUpdateParameters()
     if content:
         parameters.content = content
-    if file_path:
-        fp = open(file_path, mode='r')
-        parameters.content = fp.read()
-        fp.close()
+    elif file_path:
+        from azext_devops.dev.common.utils import read_file_content
+        parameters.content = read_file_content(file_path=file_path, encoding=encoding)
     return wiki_client.create_or_update_page(parameters=parameters, wiki_identifier=wiki,
                                              project=project, path=path, version=version, comment=comment)
 
