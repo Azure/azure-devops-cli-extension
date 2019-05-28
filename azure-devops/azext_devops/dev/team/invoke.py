@@ -9,7 +9,6 @@ from knack.util import CLIError
 
 from azext_devops.dev.common.services import (resolve_instance,
                                               get_connection)
-
 from azext_devops.devops_sdk.client import Client
 
 
@@ -23,6 +22,7 @@ def invoke(area=None, resource=None,
            api_version='5.0',
            http_method='GET',
            in_file=None,
+           encoding='utf-8',
            media_type='application/json',
            accept_media_type='application/json',
            out_file=None,
@@ -38,9 +38,10 @@ def invoke(area=None, resource=None,
         from os import path
         if not path.exists(in_file):
             raise CLIError('--in-file does not point to a valid file location')
-        with open(in_file) as f:
-            import json
-            request_body = json.load(f)
+        from azext_devops.dev.common.utils import read_file_content
+        in_file_content = read_file_content(file_path=in_file, encoding=encoding)
+        import json
+        request_body = json.load(in_file_content)
 
     resource_areas = connection._get_resource_areas(force=True)
 
@@ -116,7 +117,7 @@ def invoke(area=None, resource=None,
 
     import os
     if os.path.exists(out_file):
-        raise CLIError('Out file already exists, please give a new name')
+        raise CLIError('Out file already exists, please give a new name.')
 
     open(out_file, "a").close()
 

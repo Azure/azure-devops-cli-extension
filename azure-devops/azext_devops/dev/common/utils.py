@@ -18,20 +18,13 @@ def read_file_content(file_path, encoding):
     if encoding in FILE_ENCODING_TYPES:
         with open(file_path, 'r', encoding=encoding) as f:
             try:
-                content = f.read()
+                return f.read()
             except UnicodeDecodeError as ex:
                 logger.debug(msg=ex)
                 raise CLIError("Unable to decode file '{}' with '{}' encoding.".format(
                     file_path, encoding))
-            encoded_str = content
-            encoded = content.encode(encoding)
-            decoded = encoded.decode(encoding)
-
-    if content != decoded:
-        raise CLIError("Invalid encoding '{}'".format(encoding))
-
-    return encoded_str
-
+    else:
+        raise CLIError("File encoding {encoding} is not supported.".format(encoding=encoding))
 
 
 def open_file(filepath):
