@@ -77,6 +77,9 @@ def load_team_arguments(self, _):
                          help='Specifies the content type of the response.')
         context.argument('in_file',
                          help='Path and file name to the file that contains the contents of the request.')
+        context.argument('encoding',
+                         help='Encoding of the input file. Used in conjunction with --in-file.',
+                         **enum_choice_list(_FILE_ENCODING_TYPE_VALUES))
         context.argument('out_file',
                          help='Path and file name to the file  for which this function saves the response body.')
         context.argument('area',

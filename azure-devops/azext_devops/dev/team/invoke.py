@@ -41,7 +41,7 @@ def invoke(area=None, resource=None,
         from azext_devops.dev.common.utils import read_file_content
         in_file_content = read_file_content(file_path=in_file, encoding=encoding)
         import json
-        request_body = json.load(in_file_content)
+        request_body = json.loads(in_file_content)
 
     resource_areas = connection._get_resource_areas(force=True)
 
