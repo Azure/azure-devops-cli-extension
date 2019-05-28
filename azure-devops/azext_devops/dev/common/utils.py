@@ -19,7 +19,8 @@ def read_file_content(file_path, encoding):
         with open(file_path, 'r', encoding=encoding) as f:
             try:
                 content = f.read()
-            except UnicodeDecodeError:
+            except UnicodeDecodeError as ex:
+                logger.debug(msg=ex)
                 raise CLIError("Unable to decode file '{}' with '{}' encoding.".format(
                     file_path, encoding))
             encoded_str = content
