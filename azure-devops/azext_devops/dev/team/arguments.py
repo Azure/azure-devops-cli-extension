@@ -6,11 +6,11 @@
 
 from knack.arguments import enum_choice_list
 from azure.cli.core.commands.parameters import get_enum_type, get_three_state_flag
+from azext_devops.dev.common.utils import FILE_ENCODING_TYPES
 from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_GITHUB,
                     SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL,
                     SERVICE_ENDPOINT_TYPE_AZURE_RM)
-from azext_devops.dev.common.utils import FILE_ENCODING_TYPES
 
 
 # CUSTOM CHOICE LISTS
