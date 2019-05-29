@@ -45,7 +45,7 @@ def download_package(feed, name, version, path, file_filter=None, organization=N
     :type version: str
     :param path: Directory to place the package contents.
     :type path: str
-    :param file_filter: File filter.
+    :param file-filter: Wildcard filter for file download.
     :type file_filter: str
     """
     colorama.init()  # Needed for humanfriendly spinner to display correctly
@@ -53,3 +53,4 @@ def download_package(feed, name, version, path, file_filter=None, organization=N
     organization = resolve_instance(detect=detect, organization=organization)
     artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
     return artifact_tool.download_universal(organization, feed, name, version, path, file_filter)
+
