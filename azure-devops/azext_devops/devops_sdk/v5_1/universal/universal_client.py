@@ -50,7 +50,7 @@ class UPackApiClient(Client):
         :param str feed_id: Name or ID of the feed.
         :param str package_name: Name of the package.
         :param str package_version: Version of the package.
-        :rtype: :class:`<UPackPackageVersionDeletionState> <azure.devops.v5_1.uPack-api.models.UPackPackageVersionDeletionState>`
+        :rtype: :class:`<UPackPackageVersionDeletionState> <azure.devops.v5_1.upack_api.models.UPackPackageVersionDeletionState>`
         """
         route_values = {}
         if feed_id is not None:
@@ -93,7 +93,7 @@ class UPackApiClient(Client):
         :param str feed_id: Name or ID of the feed.
         :param str package_name: Name of the package.
         :param str package_version: Version of the package.
-        :rtype: :class:`<Package> <azure.devops.v5_1.uPack-api.models.Package>`
+        :rtype: :class:`<Package> <azure.devops.v5_1.upack_api.models.Package>`
         """
         route_values = {}
         if feed_id is not None:
@@ -115,7 +115,7 @@ class UPackApiClient(Client):
         :param str package_name: Name of the package.
         :param str package_version: Version of the package.
         :param bool show_deleted: True to show information for deleted versions
-        :rtype: :class:`<Package> <azure.devops.v5_1.uPack-api.models.Package>`
+        :rtype: :class:`<Package> <azure.devops.v5_1.upack_api.models.Package>`
         """
         route_values = {}
         if feed_id is not None:

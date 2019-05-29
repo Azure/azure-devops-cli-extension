@@ -25,7 +25,7 @@ class NuGetClient(Client):
 
     resource_area_identifier = 'b3be7473-68ea-4a81-bfc7-9530baaa19ad'
 
-    def download_package(self, feed_id, package_name, package_version, source_protocol_version=None):
+    def download_package(self, feed_id, package_name, package_version, source_protocol_version=None, **kwargs):
         """DownloadPackage.
         [Preview API] Download a package version directly.  This API is intended for manual UI download options, not for programmatic access and scripting.  You may be heavily throttled if accessing this api for scripting purposes.
         :param str feed_id: Name or ID of the feed.
@@ -48,8 +48,13 @@ class NuGetClient(Client):
                               location_id='6ea81b8c-7386-490b-a71f-6cf23c80b388',
                               version='5.0-preview.1',
                               route_values=route_values,
-                              query_parameters=query_parameters)
-        return self._deserialize('object', response)
+                              query_parameters=query_parameters,
+                              accept_media_type='application/octet-stream')
+        if "callback" in kwargs:
+            callback = kwargs["callback"]
+        else:
+            callback = None
+        return self._client.stream_download(response, callback=callback)
 
     def update_package_versions(self, batch_request, feed_id):
         """UpdatePackageVersions.

@@ -29,7 +29,7 @@ class FeatureManagementClient(Client):
         """GetFeature.
         [Preview API] Get a specific feature by its id
         :param str feature_id: The contribution id of the feature
-        :rtype: :class:`<ContributedFeature> <azure.devops.v5_1.feature-management.models.ContributedFeature>`
+        :rtype: :class:`<ContributedFeature> <azure.devops.v5_1.feature_management.models.ContributedFeature>`
         """
         route_values = {}
         if feature_id is not None:
@@ -60,7 +60,7 @@ class FeatureManagementClient(Client):
         [Preview API] Get the state of the specified feature for the given user/all-users scope
         :param str feature_id: Contribution id of the feature
         :param str user_scope: User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
-        :rtype: :class:`<ContributedFeatureState> <azure.devops.v5_1.feature-management.models.ContributedFeatureState>`
+        :rtype: :class:`<ContributedFeatureState> <azure.devops.v5_1.feature_management.models.ContributedFeatureState>`
         """
         route_values = {}
         if feature_id is not None:
@@ -81,7 +81,7 @@ class FeatureManagementClient(Client):
         :param str user_scope: User-Scope at which to set the value. Should be "me" for the current user or "host" for all users.
         :param str reason: Reason for changing the state
         :param str reason_code: Short reason code
-        :rtype: :class:`<ContributedFeatureState> <azure.devops.v5_1.feature-management.models.ContributedFeatureState>`
+        :rtype: :class:`<ContributedFeatureState> <azure.devops.v5_1.feature_management.models.ContributedFeatureState>`
         """
         route_values = {}
         if feature_id is not None:
@@ -109,7 +109,7 @@ class FeatureManagementClient(Client):
         :param str user_scope: User-Scope at which to get the value. Should be "me" for the current user or "host" for all users.
         :param str scope_name: Scope at which to get the feature setting for (e.g. "project" or "team")
         :param str scope_value: Value of the scope (e.g. the project or team id)
-        :rtype: :class:`<ContributedFeatureState> <azure.devops.v5_1.feature-management.models.ContributedFeatureState>`
+        :rtype: :class:`<ContributedFeatureState> <azure.devops.v5_1.feature_management.models.ContributedFeatureState>`
         """
         route_values = {}
         if feature_id is not None:
@@ -136,7 +136,7 @@ class FeatureManagementClient(Client):
         :param str scope_value: Value of the scope (e.g. the project or team id)
         :param str reason: Reason for changing the state
         :param str reason_code: Short reason code
-        :rtype: :class:`<ContributedFeatureState> <azure.devops.v5_1.feature-management.models.ContributedFeatureState>`
+        :rtype: :class:`<ContributedFeatureState> <azure.devops.v5_1.feature_management.models.ContributedFeatureState>`
         """
         route_values = {}
         if feature_id is not None:
@@ -165,7 +165,7 @@ class FeatureManagementClient(Client):
         """QueryFeatureStates.
         [Preview API] Get the effective state for a list of feature ids
         :param :class:`<ContributedFeatureStateQuery> <azure.devops.v5_1.feature_management.models.ContributedFeatureStateQuery>` query: Features to query along with current scope values
-        :rtype: :class:`<ContributedFeatureStateQuery> <azure.devops.v5_1.feature-management.models.ContributedFeatureStateQuery>`
+        :rtype: :class:`<ContributedFeatureStateQuery> <azure.devops.v5_1.feature_management.models.ContributedFeatureStateQuery>`
         """
         content = self._serialize.body(query, 'ContributedFeatureStateQuery')
         response = self._send(http_method='POST',
@@ -179,7 +179,7 @@ class FeatureManagementClient(Client):
         [Preview API] Get the states of the specified features for the default scope
         :param :class:`<ContributedFeatureStateQuery> <azure.devops.v5_1.feature_management.models.ContributedFeatureStateQuery>` query: Query describing the features to query.
         :param str user_scope:
-        :rtype: :class:`<ContributedFeatureStateQuery> <azure.devops.v5_1.feature-management.models.ContributedFeatureStateQuery>`
+        :rtype: :class:`<ContributedFeatureStateQuery> <azure.devops.v5_1.feature_management.models.ContributedFeatureStateQuery>`
         """
         route_values = {}
         if user_scope is not None:
@@ -199,7 +199,7 @@ class FeatureManagementClient(Client):
         :param str user_scope:
         :param str scope_name:
         :param str scope_value:
-        :rtype: :class:`<ContributedFeatureStateQuery> <azure.devops.v5_1.feature-management.models.ContributedFeatureStateQuery>`
+        :rtype: :class:`<ContributedFeatureStateQuery> <azure.devops.v5_1.feature_management.models.ContributedFeatureStateQuery>`
         """
         route_values = {}
         if user_scope is not None:
