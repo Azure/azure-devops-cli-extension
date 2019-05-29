@@ -34,7 +34,6 @@ class ArtifactToolInvoker:
         args = ["universal", "download", "--service", organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
                 "--feed", feed, "--package-name", package_name, "--package-version", package_version,
                 "--path", path]
-        
         if file_filter:
             args.extend(["--filter", file_filter])
         return self.run_artifacttool(organization, args, "Downloading")
