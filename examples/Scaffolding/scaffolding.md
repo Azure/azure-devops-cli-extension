@@ -1,6 +1,6 @@
 # Automating Team Project set up
 
-In any team, project, or an enterprise there is a need to templatize and automate processes associated with a project. E.g.
+In any team, project, or an organization there is a need to templatize and automate processes associated with a project. E.g.
 You may want to templatize the project creation  process.
 
 **Scaffolding.ps1** is a powershell script which helps users of an organization to have a standard getting started experience.
