@@ -53,4 +53,3 @@ def download_package(feed, name, version, path, file_filter=None, organization=N
     organization = resolve_instance(detect=detect, organization=organization)
     artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
     return artifact_tool.download_universal(organization, feed, name, version, path, file_filter)
-
