@@ -2,4 +2,4 @@ steps:
 - task: PythonScript@0
   inputs:
     targetType: 'filePath'
-    script: 'scripts/dev_setup.py'
+    script: './scripts/dev_setup.py'
