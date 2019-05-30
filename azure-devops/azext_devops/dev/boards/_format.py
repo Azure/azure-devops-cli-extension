@@ -173,3 +173,18 @@ def _transform_project_classification_node_row(row):
     table_row['Path'] = path
     table_row['Has Children'] = row['hasChildren']
     return table_row
+
+
+def transform_work_item_team_areas_table_output(result):
+    table_output = []
+    for item in result['values']:
+        table_output.append(_transform_work_item_team_area_row(item))
+    return table_output
+
+
+def _transform_work_item_team_area_row(row):
+    table_row = OrderedDict()
+    table_row['Area'] = row['value']
+    table_row['Include sub areas'] = row['includeChildren']
+    return table_row
+    
