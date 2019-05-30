@@ -28,7 +28,7 @@ def get_project_iterations(depth=1, path=None, organization=None, project=None, 
     return list_of_iterations
 
 
-def update_project_iteration(path, name=None,start_date=None, finish_date=None,  organization=None, project=None, detect=None):
+def update_project_iteration(path, child_id, name=None,start_date=None, finish_date=None,  organization=None, project=None, detect=None):
     """Update iteration.
     :param start_date: Start date of the iteration.
     :type: str
@@ -36,13 +36,23 @@ def update_project_iteration(path, name=None,start_date=None, finish_date=None, 
     :type: str
     :param name: New name of the iteration.
     :type: str
+    :param child_id: Add a child node for this iteration.
+    :type: int
     """
-    if start_date is None and finish_date is None and name is None:
-        raise CLIError('At least one of --start-date , --finish-date or --name arguments is required.')
+    if start_date is None and finish_date is None and name is None and child_id is None:
+        raise CLIError('At least one of --start-date , --finish-date , --child-id or --name arguments is required.')
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
+    if child_id:
+        move_classification_node_object = WorkItemClassificationNode()
+        move_classification_node_object.id = child_id
+        response = client.create_or_update_classification_node(project=project,
+                                                          posted_node = move_classification_node_object,
+                                                          structure_group='iterations',
+                                                          path=path)
+    
     classification_node_object = client.get_classification_node(project=project,
                                                                 structure_group='iterations',
                                                                 path=path)
