@@ -159,6 +159,11 @@ def transform_work_item_project_classification_nodes_table_output_recursive(resu
     return table_output
 
 
+def transform_work_item_project_classification_node_table_output(result):
+    table_output = [_transform_project_classification_node_row(result[0])]
+    return table_output
+
+
 def _transform_project_classification_node_row(row):
     table_row = OrderedDict()
     table_row['ID'] = row['id']

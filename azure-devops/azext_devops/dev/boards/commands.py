@@ -13,6 +13,7 @@ from ._format import (transform_work_item_table_output,
                       transform_work_item_team_iterations_table_output,
                       transform_work_item_team_iteration_table_output,
                       transform_work_item_project_classification_nodes_table_output,
+                      transform_work_item_project_classification_node_table_output,
                       transform_work_item_team_areas_table_output,
                       transform_work_item_team_default_area_table_output)
 
@@ -80,7 +81,7 @@ def load_work_commands(self, _):
         g.command('delete', 'delete_project_area', confirmation='Are you sure you want to delete this area?')
         g.command('create', 'create_project_area', table_transformer=transform_work_item_project_classification_nodes_table_output)
         g.command('update', 'update_project_area', table_transformer=transform_work_item_project_classification_nodes_table_output)
-        g.command('show', 'get_project_area', table_transformer=transform_work_item_project_classification_nodes_table_output)
+        g.command('show', 'get_project_area', table_transformer=transform_work_item_project_classification_node_table_output)
 
     with self.command_group('boards area team', command_type=workProjectAndTeamAreaOps) as g:
         # team iteration commands
