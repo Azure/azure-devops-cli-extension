@@ -100,7 +100,8 @@ jobs:
   - template: templates/run-tests.yml
     parameters:
       pythonVersion: '3.x'
-      runWithAzureCliReleased: 'true'
+    env:
+    USE_AZURE_CLI_RELEASED_VERSION: 'random'
 
 - job: 'Code_Coverage'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
