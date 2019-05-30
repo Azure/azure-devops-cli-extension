@@ -22,7 +22,7 @@ def exec_command(command):
         check_call(command.split(), cwd=root_dir)
         print()
     except CalledProcessError as err:
-        print(err, file=sys.stderr)
+        print(err, sys.stderr)
         sys.exit(1)
 
 
