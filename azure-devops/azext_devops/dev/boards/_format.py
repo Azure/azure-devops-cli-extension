@@ -142,3 +142,24 @@ def _transform_team_iteration_row(row):
         table_row['Finish Date'] = row['attributes']['finishDate']
     table_row['Path'] = row['path']
     return table_row
+
+def transform_work_item_project_classification_nodes_table_output(result):
+    table_output = []
+    if result['hasChildren'] is True and result['children']:
+        for item in result['children']:
+            table_output.append(_transform_project_claasification_node_row(item))
+    else:
+        table_output = [_transform_project_claasification_node_row(result)]
+    return table_output
+
+def _transform_project_claasification_node_row(row):
+    table_row = OrderedDict()
+    table_row['Identifier'] = row['identifier']
+    table_row['ID'] = row['id']
+    table_row['Name'] = row['name']
+    if row['attributes']:
+        table_row['Start Date'] = row['attributes']['startDate']
+        table_row['Finish Date'] = row['attributes']['finishDate']
+    table_row['Path'] = row['path']
+    table_row['Has Children'] = row['hasChildren']
+    return table_row

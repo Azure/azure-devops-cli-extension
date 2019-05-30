@@ -33,3 +33,6 @@ def load_work_arguments(self, _):
         context.argument('relation_type', help='Relation type to remove. Example: parent, child ')
         context.argument('target_id', help='ID(s) of work-items to remove relation from. \
                          Multiple values can be passed comma separated. Example: 1,2 ')
+
+    with self.argument_context('boards iteration project show') as context:
+        context.argument('id', type=int)

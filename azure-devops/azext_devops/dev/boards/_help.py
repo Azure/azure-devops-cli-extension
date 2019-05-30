@@ -43,6 +43,24 @@ def load_boards_help():
     long-summary:
     """
 
+    helps['boards area'] = """
+    type: group
+    short-summary: Manage area paths.
+    long-summary:
+    """
+
+    helps['boards area project'] = """
+    type: group
+    short-summary: Manage areas for a project.
+    long-summary:
+    """
+
+    helps['boards area team'] = """
+    type: group
+    short-summary: Manage areas for a team.
+    long-summary:
+    """
+
     helps['boards work-item relation'] = """
     type: group
     short-summary: Manage work item relations.
