@@ -13,7 +13,7 @@ steps:
     - task: PowerShell@2
       inputs:
         targetType: 'inline'
-        script: '[Environment]::SetEnvironmentVariable("USE_AZURE_CLI_RELEASED_VERSION", "Random", "User")'
+        script: '[Environment]::SetEnvironmentVariable("USE_AZURE_CLI_RELEASED_VERSION", "Random", "Machine")'
 
   - template: setup-ci-machine.yml
 
