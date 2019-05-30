@@ -99,8 +99,6 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  - template: templates/install-azure-cli-edge.yml
-
   - template: templates/download-install-local-azure-test-sdk.yml
 
   - template: templates/setup-ci-machine.yml
@@ -127,6 +125,7 @@ jobs:
       additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/azure-devops/htmlcov/**/*.*'
 
 - job: 'Run_Style_Check'
+  dependsOn : [ 'Build_Publish_Azure_CLI_Test_SDK', 'Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
     vmImage: 'Ubuntu-16.04'
 
@@ -135,8 +134,6 @@ jobs:
     inputs:
       versionSpec: '3.x'
       architecture: 'x64'
-
-  - template: templates/install-azure-cli-edge.yml
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
@@ -160,8 +157,6 @@ jobs:
     inputs:
       versionSpec: '3.x'
       architecture: 'x64'
-
-  - template: templates/install-azure-cli-edge.yml
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
@@ -201,8 +196,6 @@ jobs:
 #       architecture: 'x64'
 
 #   - template: templates/setup-ci-machine.yml
-
-#   - template: templates/install-azure-cli-edge.yml
 
 #   - script: 'python setup.py sdist bdist_wheel'
 #     displayName: 'Build wheel for Azure DevOps CLI extension'

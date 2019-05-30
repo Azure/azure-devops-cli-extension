@@ -31,11 +31,9 @@ jobs:
         versionSpec: '3.x'
         architecture: 'x64'
 
-    - template: templates/install-azure-cli-edge.yml
-
-    - template: templates/download-install-local-azure-test-sdk.yml
-
     - template: templates/setup-ci-machine.yml
+    
+    - template: templates/download-install-local-azure-test-sdk.yml
 
     - task: CmdLine@2
       displayName: 'Install azure devops extension from azure cli index'
