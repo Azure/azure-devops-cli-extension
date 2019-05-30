@@ -9,10 +9,13 @@ steps:
       versionSpec: ${{ parameters.pythonVersion }}
       architecture: 'x64'
 
-  - template: setup-ci-machine.yml
-
   - ${{ if eq(parameters.runWithAzureCliReleased, 'true') }}:
-    - template: install-azure-cli-released.yml
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: '[Environment]::SetEnvironmentVariable("USE_AZURE_CLI_RELEASED_VERSION", "Random", "User")'
+
+  - template: setup-ci-machine.yml
 
   - template: download-install-local-azure-test-sdk.yml
 

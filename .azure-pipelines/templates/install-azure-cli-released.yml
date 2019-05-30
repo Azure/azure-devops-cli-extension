@@ -1,3 +1,0 @@
-steps:
-  - script: pip install azure-cli
-    displayName: 'Install Azure CLI released version'
