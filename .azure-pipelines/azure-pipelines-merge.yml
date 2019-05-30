@@ -92,6 +92,8 @@ jobs:
       pythonVersion: '3.x'
 
 - job: 'Run_Test_Mac_Azure_CLI_Released_Version'
+  variables:
+    USE_AZURE_CLI_RELEASED_VERSION: 'random'
   dependsOn : Build_Publish_Azure_CLI_Test_SDK
   pool:
     vmImage: 'macOS-10.13'
@@ -100,8 +102,6 @@ jobs:
   - template: templates/run-tests.yml
     parameters:
       pythonVersion: '3.x'
-    env:
-    USE_AZURE_CLI_RELEASED_VERSION: 'random'
 
 - job: 'Code_Coverage'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
