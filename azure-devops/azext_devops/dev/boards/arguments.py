@@ -34,11 +34,11 @@ def load_work_arguments(self, _):
         context.argument('target_id', help='ID(s) of work-items to remove relation from. \
                          Multiple values can be passed comma separated. Example: 1,2 ')
 
-    with self.argument_context('boards iteration project show') as context:
-        context.argument('id', type=int)
-    
     with self.argument_context('boards iteration project') as context:
         context.argument('path',  help='Iteration path.')
+
+    with self.argument_context('boards iteration project show') as context:
+        context.argument('id', type=int)
 
     with self.argument_context('boards iteration project create') as context:
         context.argument('path',  help='Iteration path. Creates an iteration at root level if --path is not specified.')

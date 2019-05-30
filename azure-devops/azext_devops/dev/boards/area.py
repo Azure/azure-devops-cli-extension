@@ -155,4 +155,19 @@ def remove_team_area(path, team, organization=None, project=None, detect=None):
     patch_doc.values = get_response.values
     update_response = client.update_team_field_values(patch=patch_doc, team_context=team_context)
     return update_response
-    
+
+
+def configure_team_area(default_area, team, include_sub_areas=None, organization=None, project=None, detect=None):
+    """Configure default area for a team.
+    :param default_area:default_area: Default area path value
+    :type default_area: str
+    """
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    client = get_work_client(organization)
+    team_context = TeamContext(project=project, team=team)
+    get_response = client.get_team_field_values(team_context=team_context)
+    get_response.default_value = default_area
+    update_response = client.update_team_field_values(patch=get_response, team_context=team_context)
+    return update_response

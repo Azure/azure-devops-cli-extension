@@ -188,3 +188,10 @@ def _transform_work_item_team_area_row(row):
     table_row['Include sub areas'] = row['includeChildren']
     return table_row
     
+
+def transform_work_item_team_default_area_table_output(result):
+    table_output = []
+    row = {}
+    row['Default Area'] = result['defaultValue']
+    table_output.append(row)
+    return table_output

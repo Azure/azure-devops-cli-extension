@@ -13,7 +13,8 @@ from ._format import (transform_work_item_table_output,
                       transform_work_item_team_iterations_table_output,
                       transform_work_item_team_iteration_table_output,
                       transform_work_item_project_classification_nodes_table_output,
-                      transform_work_item_team_areas_table_output)
+                      transform_work_item_team_areas_table_output,
+                      transform_work_item_team_default_area_table_output)
 
 
 workItemOps = CliCommandType(
@@ -86,3 +87,4 @@ def load_work_commands(self, _):
         g.command('list', 'get_team_areas', table_transformer=transform_work_item_team_areas_table_output)
         g.command('add', 'add_team_area', table_transformer=transform_work_item_team_areas_table_output)
         g.command('remove', 'remove_team_area', table_transformer=transform_work_item_team_areas_table_output)
+        g.command('configure-default', 'configure_team_area', table_transformer=transform_work_item_team_default_area_table_output)
