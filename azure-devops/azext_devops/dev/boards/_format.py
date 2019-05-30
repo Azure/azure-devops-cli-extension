@@ -7,6 +7,7 @@ from collections import OrderedDict
 
 
 _WORK_ITEM_TITLE_TRUNCATION_LENGTH = 70
+_PATH_TRUNCATION_LENGTH = 50
 
 
 def transform_work_item_relation_type_table_output(result):
@@ -143,23 +144,32 @@ def _transform_team_iteration_row(row):
     table_row['Path'] = row['path']
     return table_row
 
-def transform_work_item_project_classification_nodes_table_output(result):
-    table_output = []
-    if result['hasChildren'] is True and result['children']:
+
+def transform_work_item_project_classification_nodes_table_output(response):
+    table_op = []
+    table_op = transform_work_item_project_classification_nodes_table_output_recursive(response, table_op)
+    return table_op
+
+
+def transform_work_item_project_classification_nodes_table_output_recursive(result, table_output):
+    table_output.append(_transform_project_classification_node_row(result))    
+    if result['children']:
         for item in result['children']:
-            table_output.append(_transform_project_claasification_node_row(item))
-    else:
-        table_output = [_transform_project_claasification_node_row(result)]
+            table_output = transform_work_item_project_classification_nodes_table_output_recursive(item, table_output)
     return table_output
 
-def _transform_project_claasification_node_row(row):
+
+def _transform_project_classification_node_row(row):
     table_row = OrderedDict()
-    table_row['Identifier'] = row['identifier']
     table_row['ID'] = row['id']
+    table_row['Identifier'] = row['identifier']
     table_row['Name'] = row['name']
     if row['attributes']:
         table_row['Start Date'] = row['attributes']['startDate']
         table_row['Finish Date'] = row['attributes']['finishDate']
-    table_row['Path'] = row['path']
+    path = row['path']
+    if len(path) > _PATH_TRUNCATION_LENGTH:
+        path = path[0:_PATH_TRUNCATION_LENGTH - 3] + '...'
+    table_row['Path'] = path
     table_row['Has Children'] = row['hasChildren']
     return table_row
