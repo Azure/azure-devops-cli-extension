@@ -99,9 +99,9 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  - template: templates/download-install-local-azure-test-sdk.yml
-
   - template: templates/setup-ci-machine.yml
+
+  - template: templates/download-install-local-azure-test-sdk.yml
 
   - template: templates/download-install-local-azure-devops-cli-extension.yml
 
@@ -135,9 +135,9 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  - template: templates/download-install-local-azure-test-sdk.yml
-
   - template: templates/setup-ci-machine.yml
+
+  - template: templates/download-install-local-azure-test-sdk.yml
 
   - template: templates/download-install-local-azure-devops-cli-extension-with-pip.yml
 
@@ -158,9 +158,9 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  - template: templates/download-install-local-azure-test-sdk.yml
-
   - template: templates/setup-ci-machine.yml
+
+  - template: templates/download-install-local-azure-test-sdk.yml
 
   - script: 'pip install --upgrade .'
     displayName: 'Install Azure DevOps CLI extension'

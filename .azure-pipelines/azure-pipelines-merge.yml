@@ -113,9 +113,9 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  - template: templates/download-install-local-azure-test-sdk.yml
-
   - template: templates/setup-ci-machine.yml
+  
+  - template: templates/download-install-local-azure-test-sdk.yml
 
   - template: templates/download-install-local-azure-devops-cli-extension.yml
 
@@ -148,10 +148,10 @@ jobs:
     inputs:
       versionSpec: '3.x'
       architecture: 'x64'
-
-  - template: templates/download-install-local-azure-test-sdk.yml
-
+  
   - template: templates/setup-ci-machine.yml
+  
+  - template: templates/download-install-local-azure-test-sdk.yml
 
   - template: templates/download-install-local-azure-devops-cli-extension-with-pip.yml
 
