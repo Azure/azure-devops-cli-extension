@@ -1,5 +1,6 @@
 steps:
 - task: PythonScript@0
+  displayName: 'Run Dev Setup'
   inputs:
     scriptSource: 'filePath'
     scriptPath: 'scripts/dev_setup.py'
