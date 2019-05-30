@@ -31,7 +31,7 @@ exec_command('python -m pip install --upgrade pip')
 
 # install to edge build of azure-cli
 exec_command('pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge --no-cache-dir')
-
+exec_command('pip install -r requirements.txt')
 os.environ['AZURE_EXTENSION_DIR'] = os.path.join(azure_dir,'devcliextensions')
 
 exec_command('pip install -e {}'.format(extension_dir))

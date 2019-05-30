@@ -1,11 +1,5 @@
 steps:
-- script: python -m pip install --upgrade pip
-  displayName: 'Upgrade pip'
-- script: pip install wheel==0.30.0
-  displayName: 'Install Wheel'
-- script: pip install pytest
-  displayName: 'Install pytest'
-- script: pip install coverage
-  displayName: 'Install coverage'
-- script: pip install pytest-cov
-  displayName: 'Install pytest-cov'
+- task: PythonScript@0
+  inputs:
+    targetType: 'filePath'
+    script: 'scripts/dev_setup.py'
