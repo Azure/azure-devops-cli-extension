@@ -36,3 +36,19 @@ def load_work_arguments(self, _):
 
     with self.argument_context('boards iteration project show') as context:
         context.argument('id', type=int)
+    
+    with self.argument_context('boards iteration project') as context:
+        context.argument('path',  help='Iteration path.')
+
+    with self.argument_context('boards iteration project create') as context:
+        context.argument('path',  help='Iteration path. Creates an iteration at root level if --path is not specified.')
+
+    with self.argument_context('boards area') as context:
+        context.argument('path',  help='Area path.')
+
+    with self.argument_context('boards area project create') as context:
+        context.argument('path',  help='Area path. Creates an area at root level if --path is not specified.')
+
+    with self.argument_context('boards area team') as context:
+        context.argument('team',  help='The name or id of the team.')
+

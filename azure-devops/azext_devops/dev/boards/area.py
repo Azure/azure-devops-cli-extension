@@ -18,8 +18,6 @@ def get_project_areas(depth=1, path=None, organization=None, project=None, detec
     """List areas for a project.
     :param depth: Depth of children to fetch.
     :type depth: int
-    :param path: Area path.
-    :type: str
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -33,8 +31,6 @@ def get_project_areas(depth=1, path=None, organization=None, project=None, detec
 
 def delete_project_area(path, organization=None, project=None, detect=None):
     """Delete area for a project.
-    :param path: Area path.
-    :type: str
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -48,8 +44,6 @@ def delete_project_area(path, organization=None, project=None, detect=None):
 
 def create_project_area(name, path=None, organization=None, project=None, detect=None):
     """Create area path.
-    :param path: Area path. Creates at root level if path is not specified.
-    :type: str
     :param name: Name of the area.
     :type: str
     """
@@ -83,8 +77,6 @@ def get_project_area(id, organization=None, project=None, detect=None):
 
 def update_project_area(path=None, name=None, new_path_id=None, organization=None, project=None, detect=None):
     """Update Area.
-    :param path: Path of area.
-    :type: str
     :param name: New name of the area.
     :type: str
     :param new_path_id: ID of the New path for this area.
@@ -116,8 +108,6 @@ def update_project_area(path=None, name=None, new_path_id=None, organization=Non
 
 def get_team_areas(team, organization=None, project=None, detect=None):
     """List areas for a team.
-    :param team: The name or id of the team.
-    :type team: str
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -129,9 +119,7 @@ def get_team_areas(team, organization=None, project=None, detect=None):
 
 
 def add_team_area(path, team, include_sub_areas=None, organization=None, project=None, detect=None):
-    """Add area for a team.
-    :param team: The name or id of the team.
-    :type team: str
+    """Add area to a team.
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -152,8 +140,6 @@ def add_team_area(path, team, include_sub_areas=None, organization=None, project
 
 def remove_team_area(path, team, organization=None, project=None, detect=None):
     """Remove area from a team.
-    :param team: The name or id of the team.
-    :type team: str
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,

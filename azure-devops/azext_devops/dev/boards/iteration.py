@@ -17,8 +17,6 @@ def get_project_iterations(depth=1, path=None, organization=None, project=None, 
     """List iterations for a project.
     :param depth: Depth of children to fetch.
     :type depth: int
-    :param path: Path of the iteration.
-    :type: str
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -32,8 +30,6 @@ def get_project_iterations(depth=1, path=None, organization=None, project=None, 
 
 def update_project_iteration(path, name=None,start_date=None, finish_date=None,  organization=None, project=None, detect=None):
     """Update iteration.
-    :param path: Path of the iteration.
-    :type: str
     :param start_date: Start date of the iteration.
     :type: str
     :param finish_date: Finish date of the iteration.
@@ -74,8 +70,6 @@ def update_project_iteration(path, name=None,start_date=None, finish_date=None, 
 
 def delete_project_iteration(path, organization=None, project=None, detect=None):
     """Delete iteration for a project.
-    :param path: Path of the iteration.
-    :type: str
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -104,8 +98,6 @@ def get_project_iteration(id, organization=None, project=None, detect=None):
 
 def create_project_iteration(name, path=None,start_date=None, finish_date=None,  organization=None, project=None, detect=None):
     """Create iteration.
-    :param path: Path of the iteration. Creates a root if path is not specified.
-    :type: str
     :param start_date: Start date of the iteration.
     :type: str
     :param finish_date: Finish date of the iteration.
