@@ -29,7 +29,7 @@ def get_project_iterations(depth=1, path=None, organization=None, project=None, 
     return list_of_iterations
 
 
-def update_project_iteration(path, child_id, name=None,start_date=None, finish_date=None,  organization=None, project=None, detect=None):
+def update_project_iteration(path, child_id=None, name=None,start_date=None, finish_date=None,  organization=None, project=None, detect=None):
     """Update iteration.
     :param name: New name of the iteration.
     :type: str
