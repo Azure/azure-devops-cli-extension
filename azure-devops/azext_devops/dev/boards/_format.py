@@ -119,7 +119,8 @@ def transform_work_item_query_result_row_output(row):
 
 def transform_work_item_team_iterations_table_output(result):
     table_output = []
-    for item in result:
+    _get_team_iteration_key
+    for item in sorted(result, key=_get_team_iteration_key):
         table_output.append(_transform_team_iteration_row(item))
     return table_output
 
@@ -182,7 +183,8 @@ def _transform_project_classification_node_row(row):
 
 def transform_work_item_team_areas_table_output(result):
     table_output = []
-    for item in result['values']:
+    _get_team_iteration_key
+    for item in sorted(result['values'], key=_get_team_area_key):
         table_output.append(_transform_work_item_team_area_row(item))
     return table_output
 
@@ -200,3 +202,11 @@ def transform_work_item_team_default_area_table_output(result):
     row['Default Area'] = result['defaultValue']
     table_output.append(row)
     return table_output
+
+
+def _get_team_iteration_key(team_iteration_row):
+    return team_iteration_row['name'].lower()
+
+
+def _get_team_area_key(team_area_row):
+    return team_area_row['value'].lower()

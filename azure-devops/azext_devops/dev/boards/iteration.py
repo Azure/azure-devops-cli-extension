@@ -11,6 +11,7 @@ from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
 from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
                                               get_work_client)
+_STRUCTURE_GROUP_ITERATION = 'iterations'
 
 
 def get_project_iterations(depth=1, path=None, organization=None, project=None, detect=None):
@@ -23,17 +24,13 @@ def get_project_iterations(depth=1, path=None, organization=None, project=None, 
                                                          project=project)
     client = get_work_item_tracking_client(organization)
     list_of_iterations = client.get_classification_node(project=project,
-                                                        structure_group='iterations',
+                                                        structure_group=_STRUCTURE_GROUP_ITERATION,
                                                         depth=depth, path=path)
     return list_of_iterations
 
 
 def update_project_iteration(path, child_id, name=None,start_date=None, finish_date=None,  organization=None, project=None, detect=None):
     """Update iteration.
-    :param start_date: Start date of the iteration.
-    :type: str
-    :param finish_date: Finish date of the iteration.
-    :type: str
     :param name: New name of the iteration.
     :type: str
     :param child_id: Add a child node for this iteration.
@@ -50,11 +47,11 @@ def update_project_iteration(path, child_id, name=None,start_date=None, finish_d
         move_classification_node_object.id = child_id
         response = client.create_or_update_classification_node(project=project,
                                                           posted_node = move_classification_node_object,
-                                                          structure_group='iterations',
+                                                          structure_group=_STRUCTURE_GROUP_ITERATION,
                                                           path=path)
     
     classification_node_object = client.get_classification_node(project=project,
-                                                                structure_group='iterations',
+                                                                structure_group=_STRUCTURE_GROUP_ITERATION,
                                                                 path=path)
     if classification_node_object.attributes is None and ((start_date and not finish_date) or (not start_date and finish_date)):
         raise CLIError('You must specify both start and finish dates or neither date')
@@ -73,7 +70,7 @@ def update_project_iteration(path, child_id, name=None,start_date=None, finish_d
         classification_node_object.name = name
     update_iteration = client.update_classification_node(project=project,
                                                         posted_node = classification_node_object,
-                                                        structure_group='iterations',
+                                                        structure_group=_STRUCTURE_GROUP_ITERATION,
                                                         path=path)
     return update_iteration
 
@@ -86,7 +83,7 @@ def delete_project_iteration(path, organization=None, project=None, detect=None)
                                                          project=project)
     client = get_work_item_tracking_client(organization)
     response = client.delete_classification_node(project=project,
-                                                                   structure_group='iterations',
+                                                                   structure_group=_STRUCTURE_GROUP_ITERATION,
                                                                    path=path)
     return response
 
@@ -108,10 +105,6 @@ def get_project_iteration(id, organization=None, project=None, detect=None):
 
 def create_project_iteration(name, path=None,start_date=None, finish_date=None,  organization=None, project=None, detect=None):
     """Create iteration.
-    :param start_date: Start date of the iteration.
-    :type: str
-    :param finish_date: Finish date of the iteration.
-    :type: str
     :param name: Name of the iteration.
     :type: str
     """
@@ -139,7 +132,7 @@ def create_project_iteration(name, path=None,start_date=None, finish_date=None, 
         classification_node_object.name = name
     response = client.create_or_update_classification_node(project=project,
                                                           posted_node = classification_node_object,
-                                                          structure_group='iterations',
+                                                          structure_group=_STRUCTURE_GROUP_ITERATION,
                                                           path=path)
     return response
 

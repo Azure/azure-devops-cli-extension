@@ -13,6 +13,7 @@ from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
                                               get_work_client)
 
+_STRUCTURE_GROUP_AREA = 'areas'
 
 def get_project_areas(depth=1, path=None, organization=None, project=None, detect=None):
     """List areas for a project.
@@ -24,7 +25,7 @@ def get_project_areas(depth=1, path=None, organization=None, project=None, detec
                                                          project=project)
     client = get_work_item_tracking_client(organization)
     list_of_areas = client.get_classification_node(project=project,
-                                                        structure_group='areas',
+                                                        structure_group=_STRUCTURE_GROUP_AREA,
                                                         depth=depth, path=path)
     return list_of_areas
     
@@ -37,7 +38,7 @@ def delete_project_area(path, organization=None, project=None, detect=None):
                                                          project=project)
     client = get_work_item_tracking_client(organization)
     response = client.delete_classification_node(project=project,
-                                                 structure_group='areas',
+                                                 structure_group=_STRUCTURE_GROUP_AREA,
                                                  path=path)
     return response
 
@@ -55,7 +56,7 @@ def create_project_area(name, path=None, organization=None, project=None, detect
     classification_node_object.name = name
     response = client.create_or_update_classification_node(project=project,
                                                           posted_node = classification_node_object,
-                                                          structure_group='areas',
+                                                          structure_group=_STRUCTURE_GROUP_AREA,
                                                           path=path)
     return response
 
@@ -93,16 +94,16 @@ def update_project_area(path=None, name=None, child_id=None, organization=None, 
         move_classification_node_object.id = child_id
         response = client.create_or_update_classification_node(project=project,
                                                           posted_node = move_classification_node_object,
-                                                          structure_group='areas',
+                                                          structure_group=_STRUCTURE_GROUP_AREA,
                                                           path=path)
     classification_node_object = client.get_classification_node(project=project,
-                                                                structure_group='areas',
+                                                                structure_group=_STRUCTURE_GROUP_AREA,
                                                                 path=path)
     if name is not None:
         classification_node_object.name = name
         response = client.update_classification_node(project=project,
                                                     posted_node = classification_node_object,
-                                                    structure_group='areas',
+                                                    structure_group=_STRUCTURE_GROUP_AREA,
                                                     path=path)
     return response
 
