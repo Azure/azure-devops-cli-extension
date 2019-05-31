@@ -13,12 +13,13 @@ logger = get_logger(__name__)
 
 def delete_last_line():
     "Use this function to delete the last line in the STDOUT"
-    from colorama import init
+    from colorama import init, deinit
     init()
     # cursor up one line
     sys.stdout.write('\x1b[1A')
     # delete last line
     sys.stdout.write('\x1b[2K')
+    deinit()
 
 
 def prompt_user_friendly_choice_list(msg, a_list, default=1, help_string=None, error_msg=None):
