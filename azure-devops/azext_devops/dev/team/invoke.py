@@ -15,7 +15,7 @@ from azext_devops.devops_sdk.client import Client
 logger = get_logger(__name__)
 
 
-# pylint: disable=too-many-locals, too-many-statements, inconsistent-return-statements, protected-access
+# pylint: disable=too-many-locals, too-many-statements, inconsistent-return-statements, protected-access, too-many-branches
 def invoke(area=None, resource=None,
            route_parameters=None,
            query_parameters=None,
@@ -80,7 +80,7 @@ def invoke(area=None, resource=None,
 
     client = Client(client_url, connection._creds)
 
-    # there can be multiple resouce/ area with different version so this version comparision is needed
+    # there can be multiple resource/ area with different version so this version comparision is needed
     location_id = ''
     current_version = 0.0
     resource_locations = client._get_resource_locations(all_host_types=True)
