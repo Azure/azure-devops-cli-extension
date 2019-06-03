@@ -29,7 +29,8 @@ def get_project_iterations(depth=1, path=None, organization=None, project=None, 
     return list_of_iterations
 
 
-def update_project_iteration(path, child_id=None, name=None,start_date=None, finish_date=None,  organization=None, project=None, detect=None):
+def update_project_iteration(path, child_id=None, name=None, start_date=None,
+                             finish_date=None,  organization=None, project=None, detect=None):
     """Update iteration.
     :param name: New name of the iteration.
     :type: str
@@ -45,33 +46,33 @@ def update_project_iteration(path, child_id=None, name=None,start_date=None, fin
     if child_id:
         move_classification_node_object = WorkItemClassificationNode()
         move_classification_node_object.id = child_id
-        response = client.create_or_update_classification_node(project=project,
-                                                          posted_node = move_classification_node_object,
-                                                          structure_group=_STRUCTURE_GROUP_ITERATION,
-                                                          path=path)
+        update_iteration = client.create_or_update_classification_node(project=project,
+                                                                       posted_node = move_classification_node_object,
+                                                                       structure_group=_STRUCTURE_GROUP_ITERATION,
+                                                                       path=path)
     
     classification_node_object = client.get_classification_node(project=project,
                                                                 structure_group=_STRUCTURE_GROUP_ITERATION,
                                                                 path=path)
     if classification_node_object.attributes is None and ((start_date and not finish_date) or (not start_date and finish_date)):
         raise CLIError('You must specify both start and finish dates or neither date')
-    else:
-        if classification_node_object.attributes is None:
-            attributes_obj = {}
-            classification_node_object.attributes = attributes_obj
-        if start_date:
-            start_date = convert_date_string_to_iso8601(value=start_date, argument='start_date')
-            classification_node_object.attributes['startDate'] = start_date
-        if finish_date:
-            finish_date = convert_date_string_to_iso8601(value=finish_date, argument='finish_date')
-            classification_node_object.attributes['finishDate'] = finish_date
+    
+    if classification_node_object.attributes is None:
+        attributes_obj = {}
+        classification_node_object.attributes = attributes_obj
+    if start_date:
+        start_date = convert_date_string_to_iso8601(value=start_date, argument='start_date')
+        classification_node_object.attributes['startDate'] = start_date
+    if finish_date:
+        finish_date = convert_date_string_to_iso8601(value=finish_date, argument='finish_date')
+        classification_node_object.attributes['finishDate'] = finish_date
         
     if name is not None:
         classification_node_object.name = name
     update_iteration = client.update_classification_node(project=project,
-                                                        posted_node = classification_node_object,
-                                                        structure_group=_STRUCTURE_GROUP_ITERATION,
-                                                        path=path)
+                                                         posted_node = classification_node_object,
+                                                         structure_group=_STRUCTURE_GROUP_ITERATION,
+                                                         path=path)
     return update_iteration
 
 
@@ -83,12 +84,12 @@ def delete_project_iteration(path, organization=None, project=None, detect=None)
                                                          project=project)
     client = get_work_item_tracking_client(organization)
     response = client.delete_classification_node(project=project,
-                                                                   structure_group=_STRUCTURE_GROUP_ITERATION,
-                                                                   path=path)
+                                                 structure_group=_STRUCTURE_GROUP_ITERATION,
+                                                 path=path)
     return response
 
 
-def get_project_iteration(id, organization=None, project=None, detect=None):
+def get_project_iteration(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Show iteration details for a project.
     :param id: Iteration ID.
     :type id: int
@@ -103,7 +104,8 @@ def get_project_iteration(id, organization=None, project=None, detect=None):
     return response
 
 
-def create_project_iteration(name, path=None,start_date=None, finish_date=None,  organization=None, project=None, detect=None):
+def create_project_iteration(name, path=None, start_date=None, finish_date=None,
+                             organization=None, project=None, detect=None):
     """Create iteration.
     :param name: Name of the iteration.
     :type: str
@@ -131,9 +133,9 @@ def create_project_iteration(name, path=None,start_date=None, finish_date=None, 
     if name is not None:
         classification_node_object.name = name
     response = client.create_or_update_classification_node(project=project,
-                                                          posted_node = classification_node_object,
-                                                          structure_group=_STRUCTURE_GROUP_ITERATION,
-                                                          path=path)
+                                                           posted_node = classification_node_object,
+                                                           structure_group=_STRUCTURE_GROUP_ITERATION,
+                                                           path=path)
     return response
 
 
@@ -155,7 +157,7 @@ def get_team_iterations(team, timeframe=None, organization=None, project=None, d
     return list_of_iterations
 
 
-def get_team_iteration(id, team, organization=None, project=None, detect=None):
+def get_team_iteration(id, team, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """ Get iteration details for a team.
     :param id: Identifier of the iteration.
     :type: str
@@ -171,7 +173,7 @@ def get_team_iteration(id, team, organization=None, project=None, detect=None):
     return team_iteration
 
 
-def delete_team_iteration(id, team, organization=None, project=None, detect=None):
+def delete_team_iteration(id, team, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """ Remove iteration from a team.
     :param id: Identifier of the iteration.
     :type: str
@@ -185,7 +187,7 @@ def delete_team_iteration(id, team, organization=None, project=None, detect=None
     return team_iteration
 
 
-def post_team_iteration(id, team, organization=None, project=None, detect=None):
+def post_team_iteration(id, team, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Add iteration to a team.
     :param id: Identifier of the iteration.
     :type: str

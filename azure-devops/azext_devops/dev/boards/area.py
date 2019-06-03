@@ -8,7 +8,6 @@ from azext_devops.devops_sdk.v5_0.work_item_tracking.models import WorkItemClass
 from azext_devops.devops_sdk.v5_0.work.models import (TeamContext,
                                                       TeamFieldValuesPatch,
                                                       TeamFieldValue)
-from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
 from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
                                               get_work_client)
@@ -17,7 +16,7 @@ _STRUCTURE_GROUP_AREA = 'areas'
 
 def get_project_areas(depth=1, path=None, organization=None, project=None, detect=None):
     """List areas for a project.
-    :param depth: Depth of children to fetch.
+    :param depth: Depth of child nodes to be fetched.
     :type depth: int
     """
     organization, project = resolve_instance_and_project(detect=detect,
@@ -25,10 +24,10 @@ def get_project_areas(depth=1, path=None, organization=None, project=None, detec
                                                          project=project)
     client = get_work_item_tracking_client(organization)
     list_of_areas = client.get_classification_node(project=project,
-                                                        structure_group=_STRUCTURE_GROUP_AREA,
-                                                        depth=depth, path=path)
+                                                   structure_group=_STRUCTURE_GROUP_AREA,
+                                                   depth=depth, path=path)
     return list_of_areas
-    
+
 
 def delete_project_area(path, organization=None, project=None, detect=None):
     """Delete area for a project.
@@ -52,16 +51,16 @@ def create_project_area(name, path=None, organization=None, project=None, detect
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
-    classification_node_object = WorkItemClassificationNode()    
+    classification_node_object = WorkItemClassificationNode()
     classification_node_object.name = name
     response = client.create_or_update_classification_node(project=project,
-                                                          posted_node = classification_node_object,
-                                                          structure_group=_STRUCTURE_GROUP_AREA,
-                                                          path=path)
+                                                           posted_node = classification_node_object,
+                                                           structure_group=_STRUCTURE_GROUP_AREA,
+                                                           path=path)
     return response
 
 
-def get_project_area(id, organization=None, project=None, detect=None):
+def get_project_area(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Show area details for a project.
     :param id: Area ID.
     :type id: int
@@ -93,18 +92,18 @@ def update_project_area(path=None, name=None, child_id=None, organization=None, 
         move_classification_node_object = WorkItemClassificationNode()
         move_classification_node_object.id = child_id
         response = client.create_or_update_classification_node(project=project,
-                                                          posted_node = move_classification_node_object,
-                                                          structure_group=_STRUCTURE_GROUP_AREA,
-                                                          path=path)
+                                                               posted_node = move_classification_node_object,
+                                                               structure_group=_STRUCTURE_GROUP_AREA,
+                                                               path=path)
     classification_node_object = client.get_classification_node(project=project,
                                                                 structure_group=_STRUCTURE_GROUP_AREA,
                                                                 path=path)
     if name is not None:
         classification_node_object.name = name
         response = client.update_classification_node(project=project,
-                                                    posted_node = classification_node_object,
-                                                    structure_group=_STRUCTURE_GROUP_AREA,
-                                                    path=path)
+                                                     posted_node = classification_node_object,
+                                                     structure_group=_STRUCTURE_GROUP_AREA,
+                                                     path=path)
     return response
 
 def get_team_areas(team, organization=None, project=None, detect=None):
@@ -156,7 +155,7 @@ def remove_team_area(path, team, organization=None, project=None, detect=None):
     return update_response
 
 
-def configure_team_area(default_area, team, include_sub_areas=None, organization=None, project=None, detect=None):
+def configure_team_area(default_area, team, organization=None, project=None, detect=None):
     """Configure default area for a team.
     :param default_area:default_area: Default area path value
     :type default_area: str
@@ -166,7 +165,6 @@ def configure_team_area(default_area, team, include_sub_areas=None, organization
                                                          project=project)
     client = get_work_client(organization)
     team_context = TeamContext(project=project, team=team)
-    get_response = client.get_team_field_values(team_context=team_context)
     patch_doc = TeamFieldValuesPatch()
     patch_doc.default_value = default_area
     update_response = client.update_team_field_values(patch=patch_doc, team_context=team_context)

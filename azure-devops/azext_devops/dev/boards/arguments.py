@@ -35,24 +35,23 @@ def load_work_arguments(self, _):
                          Multiple values can be passed comma separated. Example: 1,2 ')
 
     with self.argument_context('boards iteration project') as context:
-        context.argument('path',  help='Iteration path.')
+        context.argument('path', help='Iteration path.')
         context.argument('start_date',
-         help='Start date of the iteration. Example : "2019-06-10 UTC", "2019-06-10"')
+                         help='Start date of the iteration. Example : "2019-06-10 UTC", "2019-06-10"')
         context.argument('finish_date',
-         help='Finish date of the iteration. Example : "2019-06-10 UTC", "2019-06-10"')
+                         help='Finish date of the iteration. Example : "2019-06-10 UTC", "2019-06-10"')
 
     with self.argument_context('boards iteration project show') as context:
         context.argument('id', type=int)
 
     with self.argument_context('boards iteration project create') as context:
-        context.argument('path',  help='Iteration path. Creates an iteration at root level if --path is not specified.')
+        context.argument('path', help='Iteration path. Creates an iteration at root level if --path is not specified.')
 
     with self.argument_context('boards area') as context:
-        context.argument('path',  help='Area path.')
+        context.argument('path', help='Area path.')
 
     with self.argument_context('boards area project create') as context:
-        context.argument('path',  help='Area path. Creates an area at root level if --path is not specified.')
+        context.argument('path', help='Area path. Creates an area at root level if --path is not specified.')
 
     with self.argument_context('boards area team') as context:
-        context.argument('team',  help='The name or id of the team.')
-
+        context.argument('team', help='The name or id of the team.')
