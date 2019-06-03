@@ -108,15 +108,16 @@ def invoke(area=None, resource=None,
                             content=request_body)
     logger.info('content type header')
     logger.info(response.headers.get("content-type"))
-    no_content = False
+    is_content_available = True
 
     if not response.headers.get("content-type"):
         logger.info('Content type header is None.')
-        no_content = True
+        is_content_available = False
     elif 'json' in response.headers.get("content-type") and not out_file:
         return response.json()
 
-    if not no_content:
+    # Only handle out file scenario if the content is available (content-type is not None)
+    if is_content_available:
         if not out_file:
             raise CLIError('Response is not json, you need to provide --out-file where it can be written')
 
