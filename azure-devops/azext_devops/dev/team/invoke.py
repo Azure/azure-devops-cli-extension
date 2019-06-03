@@ -106,24 +106,29 @@ def invoke(area=None, resource=None,
                             media_type=media_type,
                             accept_media_type=accept_media_type,
                             content=request_body)
-
     logger.info('content type header')
     logger.info(response.headers.get("content-type"))
-    if 'json' in response.headers.get("content-type") and not out_file:
+    no_content = False
+
+    if not response.headers.get("content-type"):
+        logger.info('Content type header is None.')
+        no_content = True
+    elif 'json' in response.headers.get("content-type") and not out_file:
         return response.json()
 
-    if not out_file:
-        raise CLIError('Response is not json, you need to provide --out-file where it can be written')
+    if not no_content:
+        if not out_file:
+            raise CLIError('Response is not json, you need to provide --out-file where it can be written')
 
-    import os
-    if os.path.exists(out_file):
-        raise CLIError('Out file already exists, please give a new name.')
+        import os
+        if os.path.exists(out_file):
+            raise CLIError('Out file already exists, please give a new name.')
 
-    open(out_file, "a").close()
+        open(out_file, "a").close()
 
-    with open(out_file, 'ab') as f:
-        for chunk in client._client.stream_download(response, callback=None):
-            f.write(chunk)
+        with open(out_file, 'ab') as f:
+            for chunk in client._client.stream_download(response, callback=None):
+                f.write(chunk)
 
 
 def apiVersionToFloat(apiVersion):
