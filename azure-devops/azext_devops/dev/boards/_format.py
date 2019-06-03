@@ -152,7 +152,7 @@ def transform_work_item_project_classification_nodes_table_output(response):
 
 
 def transform_work_item_project_classification_nodes_table_output_recursive(result, table_output):
-    table_output.append(_transform_project_classification_node_row(result))    
+    table_output.append(_transform_project_classification_node_row(result))
     if result['children']:
         for item in result['children']:
             table_output = transform_work_item_project_classification_nodes_table_output_recursive(item, table_output)

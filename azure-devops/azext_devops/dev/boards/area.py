@@ -14,6 +14,7 @@ from azext_devops.dev.common.services import (resolve_instance_and_project,
 
 _STRUCTURE_GROUP_AREA = 'areas'
 
+
 def get_project_areas(depth=1, path=None, organization=None, project=None, detect=None):
     """List areas for a project.
     :param depth: Depth of child nodes to be fetched.
@@ -54,7 +55,7 @@ def create_project_area(name, path=None, organization=None, project=None, detect
     classification_node_object = WorkItemClassificationNode()
     classification_node_object.name = name
     response = client.create_or_update_classification_node(project=project,
-                                                           posted_node = classification_node_object,
+                                                           posted_node=classification_node_object,
                                                            structure_group=_STRUCTURE_GROUP_AREA,
                                                            path=path)
     return response
@@ -92,7 +93,7 @@ def update_project_area(path=None, name=None, child_id=None, organization=None, 
         move_classification_node_object = WorkItemClassificationNode()
         move_classification_node_object.id = child_id
         response = client.create_or_update_classification_node(project=project,
-                                                               posted_node = move_classification_node_object,
+                                                               posted_node=move_classification_node_object,
                                                                structure_group=_STRUCTURE_GROUP_AREA,
                                                                path=path)
     classification_node_object = client.get_classification_node(project=project,
@@ -101,10 +102,11 @@ def update_project_area(path=None, name=None, child_id=None, organization=None, 
     if name is not None:
         classification_node_object.name = name
         response = client.update_classification_node(project=project,
-                                                     posted_node = classification_node_object,
+                                                     posted_node=classification_node_object,
                                                      structure_group=_STRUCTURE_GROUP_AREA,
                                                      path=path)
     return response
+
 
 def get_team_areas(team, organization=None, project=None, detect=None):
     """List areas for a team.
