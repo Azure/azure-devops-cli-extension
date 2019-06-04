@@ -27,3 +27,15 @@ def convert_date_string_to_iso8601(value, argument=None):
         d = d.replace(tzinfo=tzlocal())
         d = d.isoformat()
     return d
+
+def convert_date_only_string_to_iso8601(value, argument=None):
+    import dateutil.parser
+    try:
+        d = dateutil.parser.parse(value)
+    except BaseException as ex:  # pylint: disable=broad-except
+        logging.info(msg=ex)
+        if argument is None:
+            raise ValueError('The string "%s" must be a valid date.' % value)
+        raise ValueError('The --%s argument must be a valid ISO 8601 string.' % argument)
+    d = d.isoformat()
+    return d

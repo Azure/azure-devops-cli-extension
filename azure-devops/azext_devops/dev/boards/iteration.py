@@ -7,7 +7,7 @@ from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.work_item_tracking.models import WorkItemClassificationNode
 from azext_devops.devops_sdk.v5_0.work.models import (TeamContext,
                                                       TeamSettingsIteration)
-from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
+from azext_devops.dev.common.arguments import convert_date_only_string_to_iso8601
 from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
                                               get_work_client)
@@ -16,7 +16,7 @@ _STRUCTURE_GROUP_ITERATION = 'iterations'
 
 def get_project_iterations(depth=1, path=None, organization=None, project=None, detect=None):
     """List iterations for a project.
-    :param depth: Depth of children to fetch.
+    :param depth: Depth of child nodes to be fetched.
     :type depth: int
     """
     organization, project = resolve_instance_and_project(detect=detect,
@@ -31,10 +31,10 @@ def get_project_iterations(depth=1, path=None, organization=None, project=None, 
 
 def update_project_iteration(path, child_id=None, name=None, start_date=None,
                              finish_date=None, organization=None, project=None, detect=None):
-    """Update iteration.
+    """Move iteration or update iteration details like name AND/OR start-date and finish-date.
     :param name: New name of the iteration.
     :type: str
-    :param child_id: Add a child node for this iteration.
+    :param child_id: Move an existing iteration and add as child node for this iteration.
     :type: int
     """
     if start_date is None and finish_date is None and name is None and child_id is None:
@@ -55,16 +55,16 @@ def update_project_iteration(path, child_id=None, name=None, start_date=None,
                                                                 path=path)
     if classification_node_object.attributes is None and \
        ((start_date and not finish_date) or (not start_date and finish_date)):
-        raise CLIError('You must specify both start and finish dates or neither date')    
+        raise CLIError('You must specify both start and finish dates or neither date')
     if classification_node_object.attributes is None:
         attributes_obj = {}
         classification_node_object.attributes = attributes_obj
     if start_date:
-        start_date = convert_date_string_to_iso8601(value=start_date, argument='start_date')
+        start_date = convert_date_only_string_to_iso8601(value=start_date, argument='start_date')
         classification_node_object.attributes['startDate'] = start_date
     if finish_date:
-        finish_date = convert_date_string_to_iso8601(value=finish_date, argument='finish_date')
-        classification_node_object.attributes['finishDate'] = finish_date        
+        finish_date = convert_date_only_string_to_iso8601(value=finish_date, argument='finish_date')
+        classification_node_object.attributes['finishDate'] = finish_date
     if name is not None:
         classification_node_object.name = name
     update_iteration = client.update_classification_node(project=project,
@@ -75,7 +75,7 @@ def update_project_iteration(path, child_id=None, name=None, start_date=None,
 
 
 def delete_project_iteration(path, organization=None, project=None, detect=None):
-    """Delete iteration for a project.
+    """Delete iteration.
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -108,6 +108,8 @@ def create_project_iteration(name, path=None, start_date=None, finish_date=None,
     :param name: Name of the iteration.
     :type: str
     """
+    import pdb
+    pdb.set_trace()
     if start_date is None and finish_date is None and name is None:
         raise CLIError('At least one of --start-date , --finish-date or --name arguments is required.')
     organization, project = resolve_instance_and_project(detect=detect,
@@ -115,16 +117,16 @@ def create_project_iteration(name, path=None, start_date=None, finish_date=None,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
     classification_node_object = WorkItemClassificationNode()
-    if  ((start_date and not finish_date) or (not start_date and finish_date)):
+    if ((start_date and not finish_date) or (not start_date and finish_date)):
         raise CLIError('You must specify both start and finish dates or neither date')
     if classification_node_object.attributes is None:
         attributes_obj = {}
         classification_node_object.attributes = attributes_obj
         if start_date:
-            start_date = convert_date_string_to_iso8601(value=start_date, argument='start_date')
+            start_date = convert_date_only_string_to_iso8601(value=start_date, argument='start_date')
             classification_node_object.attributes['startDate'] = start_date
         if finish_date:
-            finish_date = convert_date_string_to_iso8601(value=finish_date, argument='finish_date')
+            finish_date = convert_date_only_string_to_iso8601(value=finish_date, argument='finish_date')
             classification_node_object.attributes['finishDate'] = finish_date
     if name is not None:
         classification_node_object.name = name

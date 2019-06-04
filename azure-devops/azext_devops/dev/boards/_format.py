@@ -183,23 +183,19 @@ def _transform_project_classification_node_row(row):
 def transform_work_item_team_areas_table_output(result):
     table_output = []
     for item in sorted(result['values'], key=_get_team_area_key):
-        table_output.append(_transform_work_item_team_area_row(item))
+        table_output.append(_transform_work_item_team_area_row(item, default_area_path=result['defaultValue']))
     return table_output
 
 
-def _transform_work_item_team_area_row(row):
+def _transform_work_item_team_area_row(row, default_area_path):
     table_row = OrderedDict()
     table_row['Area'] = row['value']
     table_row['Include sub areas'] = row['includeChildren']
+    if row['value'] == default_area_path:
+        table_row['Is Default'] = True
+    else:
+        table_row['Is Default'] = False
     return table_row
-
-
-def transform_work_item_team_default_area_table_output(result):
-    table_output = []
-    row = {}
-    row['Default Area'] = result['defaultValue']
-    table_output.append(row)
-    return table_output
 
 
 def _get_team_iteration_key(team_iteration_row):
