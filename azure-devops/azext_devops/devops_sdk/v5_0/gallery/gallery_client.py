@@ -160,11 +160,15 @@ class GalleryClient(Client):
             query_parameters['accountToken'] = self._serialize.query('account_token', account_token, 'str')
         if accept_default is not None:
             query_parameters['acceptDefault'] = self._serialize.query('accept_default', accept_default, 'bool')
+        additional_headers = {}
+        if account_token_header is not None:
+            additional_headers['X-Market-AccountToken'] = account_token_header
         response = self._send(http_method='GET',
                               location_id='7529171f-a002-4180-93ba-685f358a0482',
                               version='5.0-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters,
+                              additional_headers=additional_headers,
                               accept_media_type='application/octet-stream')
         if "callback" in kwargs:
             callback = kwargs["callback"]
@@ -195,11 +199,15 @@ class GalleryClient(Client):
             query_parameters['accountToken'] = self._serialize.query('account_token', account_token, 'str')
         if accept_default is not None:
             query_parameters['acceptDefault'] = self._serialize.query('accept_default', accept_default, 'bool')
+        additional_headers = {}
+        if account_token_header is not None:
+            additional_headers['X-Market-AccountToken'] = account_token_header
         response = self._send(http_method='GET',
                               location_id='5d545f3d-ef47-488b-8be3-f5ee1517856c',
                               version='5.0-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters,
+                              additional_headers=additional_headers,
                               accept_media_type='application/octet-stream')
         if "callback" in kwargs:
             callback = kwargs["callback"]
@@ -230,11 +238,15 @@ class GalleryClient(Client):
         query_parameters = {}
         if account_token is not None:
             query_parameters['accountToken'] = self._serialize.query('account_token', account_token, 'str')
+        additional_headers = {}
+        if account_token_header is not None:
+            additional_headers['X-Market-AccountToken'] = account_token_header
         response = self._send(http_method='GET',
                               location_id='506aff36-2622-4f70-8063-77cce6366d20',
                               version='5.0-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters,
+                              additional_headers=additional_headers,
                               accept_media_type='application/octet-stream')
         if "callback" in kwargs:
             callback = kwargs["callback"]
@@ -490,6 +502,9 @@ class GalleryClient(Client):
             route_values['extensionName'] = self._serialize.url('extension_name', extension_name, 'str')
         if draft_id is not None:
             route_values['draftId'] = self._serialize.url('draft_id', draft_id, 'str')
+        additional_headers = {}
+        if file_name is not None:
+            additional_headers['X-Market-UploadFileName'] = file_name
         if "callback" in kwargs:
             callback = kwargs["callback"]
         else:
@@ -499,6 +514,7 @@ class GalleryClient(Client):
                               location_id='02b33873-4e61-496e-83a2-59d1df46b7d8',
                               version='5.0-preview.1',
                               route_values=route_values,
+                              additional_headers=additional_headers,
                               content=content,
                               media_type='application/octet-stream')
         return self._deserialize('ExtensionDraft', response)
@@ -547,6 +563,11 @@ class GalleryClient(Client):
         route_values = {}
         if publisher_name is not None:
             route_values['publisherName'] = self._serialize.url('publisher_name', publisher_name, 'str')
+        additional_headers = {}
+        if product is not None:
+            additional_headers['X-Market-UploadFileProduct'] = product
+        if file_name is not None:
+            additional_headers['X-Market-UploadFileName'] = file_name
         if "callback" in kwargs:
             callback = kwargs["callback"]
         else:
@@ -556,6 +577,7 @@ class GalleryClient(Client):
                               location_id='b3ab127d-ebb9-4d22-b611-4e09593c8d79',
                               version='5.0-preview.1',
                               route_values=route_values,
+                              additional_headers=additional_headers,
                               content=content,
                               media_type='application/octet-stream')
         return self._deserialize('ExtensionDraft', response)
@@ -595,6 +617,9 @@ class GalleryClient(Client):
             route_values['publisherName'] = self._serialize.url('publisher_name', publisher_name, 'str')
         if draft_id is not None:
             route_values['draftId'] = self._serialize.url('draft_id', draft_id, 'str')
+        additional_headers = {}
+        if file_name is not None:
+            additional_headers['X-Market-UploadFileName'] = file_name
         if "callback" in kwargs:
             callback = kwargs["callback"]
         else:
@@ -604,6 +629,7 @@ class GalleryClient(Client):
                               location_id='b3ab127d-ebb9-4d22-b611-4e09593c8d79',
                               version='5.0-preview.1',
                               route_values=route_values,
+                              additional_headers=additional_headers,
                               content=content,
                               media_type='application/octet-stream')
         return self._deserialize('ExtensionDraft', response)
@@ -748,11 +774,15 @@ class GalleryClient(Client):
         query_parameters = {}
         if account_token is not None:
             query_parameters['accountToken'] = self._serialize.query('account_token', account_token, 'str')
+        additional_headers = {}
+        if account_token_header is not None:
+            additional_headers['X-Market-AccountToken'] = account_token_header
         content = self._serialize.body(extension_query, 'ExtensionQuery')
         response = self._send(http_method='POST',
                               location_id='eb9d5ee1-6d43-456b-b80e-8a96fbc014b6',
                               version='5.0-preview.1',
                               query_parameters=query_parameters,
+                              additional_headers=additional_headers,
                               content=content)
         return self._deserialize('ExtensionQueryResult', response)
 
@@ -897,11 +927,15 @@ class GalleryClient(Client):
             query_parameters['flags'] = self._serialize.query('flags', flags, 'str')
         if account_token is not None:
             query_parameters['accountToken'] = self._serialize.query('account_token', account_token, 'str')
+        additional_headers = {}
+        if account_token_header is not None:
+            additional_headers['X-Market-AccountToken'] = account_token_header
         response = self._send(http_method='GET',
                               location_id='e11ea35a-16fe-4b80-ab11-c4cab88a0966',
                               version='5.0-preview.2',
                               route_values=route_values,
-                              query_parameters=query_parameters)
+                              query_parameters=query_parameters,
+                              additional_headers=additional_headers)
         return self._deserialize('PublishedExtension', response)
 
     def update_extension(self, upload_stream, publisher_name, extension_name, bypass_scope_check=None, **kwargs):
@@ -1047,11 +1081,15 @@ class GalleryClient(Client):
             query_parameters['accountToken'] = self._serialize.query('account_token', account_token, 'str')
         if accept_default is not None:
             query_parameters['acceptDefault'] = self._serialize.query('accept_default', accept_default, 'bool')
+        additional_headers = {}
+        if account_token_header is not None:
+            additional_headers['X-Market-AccountToken'] = account_token_header
         response = self._send(http_method='GET',
                               location_id='7cb576f8-1cae-4c4b-b7b1-e4af5759e965',
                               version='5.0-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters,
+                              additional_headers=additional_headers,
                               accept_media_type='application/octet-stream')
         if "callback" in kwargs:
             callback = kwargs["callback"]
@@ -1088,11 +1126,15 @@ class GalleryClient(Client):
             query_parameters['accountToken'] = self._serialize.query('account_token', account_token, 'str')
         if accept_default is not None:
             query_parameters['acceptDefault'] = self._serialize.query('accept_default', accept_default, 'bool')
+        additional_headers = {}
+        if account_token_header is not None:
+            additional_headers['X-Market-AccountToken'] = account_token_header
         response = self._send(http_method='GET',
                               location_id='364415a1-0077-4a41-a7a0-06edd4497492',
                               version='5.0-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters,
+                              additional_headers=additional_headers,
                               accept_media_type='application/octet-stream')
         if "callback" in kwargs:
             callback = kwargs["callback"]
@@ -1158,6 +1200,9 @@ class GalleryClient(Client):
         query_parameters = {}
         if asset_type is not None:
             query_parameters['assetType'] = self._serialize.query('asset_type', asset_type, 'str')
+        additional_headers = {}
+        if file_name is not None:
+            additional_headers['X-Market-UploadFileName'] = file_name
         if "callback" in kwargs:
             callback = kwargs["callback"]
         else:
@@ -1168,6 +1213,7 @@ class GalleryClient(Client):
                               version='5.0-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters,
+                              additional_headers=additional_headers,
                               content=content,
                               media_type='application/octet-stream')
         return self._deserialize('{str}', self._unwrap_collection(response))

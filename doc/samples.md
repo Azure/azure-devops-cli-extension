@@ -62,7 +62,7 @@ If you are working in a local check out of a repository, you can simply run `az 
 You can also configure the Azure Devops Extension to add git aliases for common git-based Azure Repos commands like creating or adding reviewers to pull requests. This can be enabled by running the following command:
 
 ```bash
-az devops configure --use-git-alias yes
+az devops configure --use-git-alias true
 ```
 
 This will alias all `az repos` commands to `git repo` and all `az repos pr` commands to `git pr`.
@@ -100,7 +100,7 @@ You can use --open switch to open any artifact in Azure DevOps portal in your de
 For example :
 
 ```bash
-az pipelines build show --build-id 1 --open
+az pipelines build show --id 1 --open
 ```
 
 This will show the details of build with id 1 on command-line and also open it in the default browser.

@@ -140,33 +140,21 @@ class ReferenceLinks(Model):
 class RunPipelineParameters(Model):
     """RunPipelineParameters.
 
+    :param configuration:
+    :type configuration: JustInTimeConfiguration
     :param variables:
     :type variables: dict
     """
 
     _attribute_map = {
-        'variables': {'key': 'variables', 'type': '{RunPipelineVariableParameters}'}
+        'configuration': {'key': 'configuration', 'type': 'JustInTimeConfiguration'},
+        'variables': {'key': 'variables', 'type': '{Variable}'}
     }
 
-    def __init__(self, variables=None):
+    def __init__(self, configuration=None, variables=None):
         super(RunPipelineParameters, self).__init__()
+        self.configuration = configuration
         self.variables = variables
-
-
-class RunPipelineVariableParameters(Model):
-    """RunPipelineVariableParameters.
-
-    :param value: The value of the variable
-    :type value: str
-    """
-
-    _attribute_map = {
-        'value': {'key': 'value', 'type': 'str'}
-    }
-
-    def __init__(self, value=None):
-        super(RunPipelineVariableParameters, self).__init__()
-        self.value = value
 
 
 class RunReference(Model):
@@ -303,7 +291,6 @@ __all__ = [
     'PipelineReference',
     'ReferenceLinks',
     'RunPipelineParameters',
-    'RunPipelineVariableParameters',
     'RunReference',
     'Variable',
     'Pipeline',

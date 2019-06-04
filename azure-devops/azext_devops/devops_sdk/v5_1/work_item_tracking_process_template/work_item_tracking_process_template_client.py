@@ -30,7 +30,7 @@ class WorkItemTrackingProcessTemplateClient(Client):
         [Preview API] Returns a behavior for the process.
         :param str process_id: The ID of the process
         :param str behavior_ref_name: The reference name of the behavior
-        :rtype: :class:`<AdminBehavior> <azure.devops.v5_1.work-item-tracking-process-template.models.AdminBehavior>`
+        :rtype: :class:`<AdminBehavior> <azure.devops.v5_1.work_item_tracking_process_template.models.AdminBehavior>`
         """
         route_values = {}
         if process_id is not None:
@@ -87,7 +87,7 @@ class WorkItemTrackingProcessTemplateClient(Client):
         :param object upload_stream: Stream to upload
         :param bool ignore_warnings: Ignores validation warnings. Default value is false.
         :param bool replace_existing_template: Replaces the existing template. Default value is true.
-        :rtype: :class:`<ProcessImportResult> <azure.devops.v5_1.work-item-tracking-process-template.models.ProcessImportResult>`
+        :rtype: :class:`<ProcessImportResult> <azure.devops.v5_1.work_item_tracking_process_template.models.ProcessImportResult>`
         """
         route_values = {}
         route_values['action'] = 'Import'
@@ -114,7 +114,7 @@ class WorkItemTrackingProcessTemplateClient(Client):
         """ImportProcessTemplateStatus.
         [Preview API] Tells whether promote has completed for the specified promote job ID.
         :param str id: The ID of the promote job operation
-        :rtype: :class:`<ProcessPromoteStatus> <azure.devops.v5_1.work-item-tracking-process-template.models.ProcessPromoteStatus>`
+        :rtype: :class:`<ProcessPromoteStatus> <azure.devops.v5_1.work_item_tracking_process_template.models.ProcessPromoteStatus>`
         """
         route_values = {}
         if id is not None:

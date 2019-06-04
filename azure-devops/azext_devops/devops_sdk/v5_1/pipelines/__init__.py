@@ -19,7 +19,6 @@ __all__ = [
     'ReferenceLinks',
     'Run',
     'RunPipelineParameters',
-    'RunPipelineVariableParameters',
     'RunReference',
     'Variable',
     'PipelinesClient'

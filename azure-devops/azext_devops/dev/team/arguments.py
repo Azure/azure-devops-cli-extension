@@ -6,6 +6,7 @@
 
 from knack.arguments import enum_choice_list
 from azure.cli.core.commands.parameters import get_enum_type, get_three_state_flag
+from azext_devops.dev.common.utils import FILE_ENCODING_TYPES
 from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_GITHUB,
                     SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL,
@@ -27,6 +28,7 @@ _HTTP_METHOD_VALUES = ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS', 'PUT', 'HEAD
 
 _LICENSE_TYPES = ['advanced', 'earlyAdopter', 'express', 'none', 'professional', 'stakeholder']
 _RELATIONSHIP_TYPES = ['members', 'memberof']
+_FILE_ENCODING_TYPE_VALUES = FILE_ENCODING_TYPES
 
 
 def load_global_args(context):
@@ -75,6 +77,9 @@ def load_team_arguments(self, _):
                          help='Specifies the content type of the response.')
         context.argument('in_file',
                          help='Path and file name to the file that contains the contents of the request.')
+        context.argument('encoding',
+                         help='Encoding of the input file. Used in conjunction with --in-file.',
+                         **enum_choice_list(_FILE_ENCODING_TYPE_VALUES))
         context.argument('out_file',
                          help='Path and file name to the file  for which this function saves the response body.')
         context.argument('area',
@@ -153,6 +158,7 @@ def load_team_arguments(self, _):
     with self.argument_context('devops wiki') as context:
         context.argument('wiki_type', options_list=('--wiki-type', '--type'), **enum_choice_list(_WIKI_TYPE_VALUES))
         context.argument('version', options_list=('--version', '-v'))
+        context.argument('encoding', **enum_choice_list(_FILE_ENCODING_TYPE_VALUES))
 
     with self.argument_context('devops wiki list') as context:
         context.argument('scope', **enum_choice_list(_SCOPE_VALUES))

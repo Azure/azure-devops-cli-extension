@@ -347,10 +347,14 @@ class DashboardClient(Client):
             route_values['team'] = self._serialize.url('team', team, 'string')
         if dashboard_id is not None:
             route_values['dashboardId'] = self._serialize.url('dashboard_id', dashboard_id, 'str')
+        additional_headers = {}
+        if eTag is not None:
+            additional_headers['ETag'] = eTag
         response = self._send(http_method='GET',
                               location_id='bdcff53a-8355-4172-a00a-40497ea23afc',
                               version='5.1-preview.2',
-                              route_values=route_values)
+                              route_values=route_values,
+                              additional_headers=additional_headers)
         response_object = models.WidgetsVersionedList()
         response_object.widgets = self._deserialize('[Widget]', self._unwrap_collection(response))
         response_object.eTag = response.headers.get('ETag')
@@ -422,11 +426,15 @@ class DashboardClient(Client):
             route_values['team'] = self._serialize.url('team', team, 'string')
         if dashboard_id is not None:
             route_values['dashboardId'] = self._serialize.url('dashboard_id', dashboard_id, 'str')
+        additional_headers = {}
+        if eTag is not None:
+            additional_headers['ETag'] = eTag
         content = self._serialize.body(widgets, '[Widget]')
         response = self._send(http_method='PUT',
                               location_id='bdcff53a-8355-4172-a00a-40497ea23afc',
                               version='5.1-preview.2',
                               route_values=route_values,
+                              additional_headers=additional_headers,
                               content=content)
         response_object = models.WidgetsVersionedList()
         response_object.widgets = self._deserialize('[Widget]', self._unwrap_collection(response))
@@ -499,11 +507,15 @@ class DashboardClient(Client):
             route_values['team'] = self._serialize.url('team', team, 'string')
         if dashboard_id is not None:
             route_values['dashboardId'] = self._serialize.url('dashboard_id', dashboard_id, 'str')
+        additional_headers = {}
+        if eTag is not None:
+            additional_headers['ETag'] = eTag
         content = self._serialize.body(widgets, '[Widget]')
         response = self._send(http_method='PATCH',
                               location_id='bdcff53a-8355-4172-a00a-40497ea23afc',
                               version='5.1-preview.2',
                               route_values=route_values,
+                              additional_headers=additional_headers,
                               content=content)
         response_object = models.WidgetsVersionedList()
         response_object.widgets = self._deserialize('[Widget]', self._unwrap_collection(response))
