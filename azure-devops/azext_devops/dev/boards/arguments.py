@@ -2,6 +2,7 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
+from azure.cli.core.commands.parameters import get_three_state_flag
 
 
 def load_work_arguments(self, _):
@@ -33,3 +34,27 @@ def load_work_arguments(self, _):
         context.argument('relation_type', help='Relation type to remove. Example: parent, child ')
         context.argument('target_id', help='ID(s) of work-items to remove relation from. \
                          Multiple values can be passed comma separated. Example: 1,2 ')
+
+    with self.argument_context('boards iteration project') as context:
+        context.argument('path', help='Iteration path.')
+        context.argument('start_date',
+                         help='Start date of the iteration. Example : "2019-06-03"')
+        context.argument('finish_date',
+                         help='Finish date of the iteration. Example : "2019-06-21"')
+
+    with self.argument_context('boards iteration project show') as context:
+        context.argument('id', type=int)
+
+    with self.argument_context('boards iteration project create') as context:
+        context.argument('path', help='Iteration path. Creates an iteration at root level if --path is not specified.')
+
+    with self.argument_context('boards area') as context:
+        context.argument('path', help='Area path.')
+
+    with self.argument_context('boards area project create') as context:
+        context.argument('path', help='Area path. Creates an area at root level if --path is not specified.')
+
+    with self.argument_context('boards area team') as context:
+        context.argument('team', help='The name or id of the team.')
+        context.argument('include_sub_areas', arg_type=get_three_state_flag(),
+                         help='Include child nodes of this area.')
