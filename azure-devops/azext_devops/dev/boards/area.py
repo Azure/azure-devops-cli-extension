@@ -120,10 +120,9 @@ def get_team_areas(team, organization=None, project=None, detect=None):
     return list_of_areas
 
 
-def add_team_area(path, team, set_as_default=False, include_sub_areas=None, organization=None, project=None, detect=None):
+def add_team_area(path, team, set_as_default=False, include_sub_areas=None,
+                  organization=None, project=None, detect=None):
     """Add area to a team.
-    :param include_sub_areas: Include child nodes of this area.
-    :type include_sub_areas:bool
     :param set_as_default: Set this area path as default area for this team.
     :type set_as_default: bool
     """
@@ -167,7 +166,8 @@ def remove_team_area(path, team, organization=None, project=None, detect=None):
     return update_response
 
 
-def update_team_area(path, team, include_sub_areas=None, set_as_default=False, organization=None, project=None, detect=None):
+def update_team_area(path, team, include_sub_areas=None, set_as_default=False,
+                     organization=None, project=None, detect=None):
     """Update any area to include/exclude sub areas OR Set already added area as default.
     :param default_area:set_as_default: Set as default team area path.
     :type set_as_default: bool
