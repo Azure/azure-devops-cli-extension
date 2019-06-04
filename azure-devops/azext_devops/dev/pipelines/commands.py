@@ -65,6 +65,11 @@ pipelineRunArtifactsOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+pipelineAgentPoolQueueOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.agent_pool_queue#{}',
+    exception_handler=azure_devops_exception_handler
+)
+
 
 def load_build_commands(self, _):
     with self.command_group('pipelines', command_type=pipelineCreateOps) as g:
@@ -118,3 +123,15 @@ def load_build_commands(self, _):
     with self.command_group('pipelines runs', command_type=pipelinesRunOps) as g:
         g.command('list', 'pipeline_run_list', table_transformer=transform_pipeline_runs_table_output)
         g.command('show', 'pipeline_run_show', table_transformer=transform_pipeline_run_table_output)
+
+    with self.command_group('pipelines pool', command_type=pipelineAgentPoolQueueOps) as g:
+        g.command('list', 'list_pools')
+        g.command('show', 'show_pool')
+
+    with self.command_group('pipelines agent', command_type=pipelineAgentPoolQueueOps) as g:
+        g.command('list', 'list_agents')
+        g.command('show', 'show_agent')
+
+    with self.command_group('pipelines queue', command_type=pipelineAgentPoolQueueOps) as g:
+        g.command('list', 'list_queues')
+        g.command('show', 'show_queue')

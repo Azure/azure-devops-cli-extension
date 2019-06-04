@@ -18,6 +18,9 @@ _PIPELINES_QUERY_ORDER = ['NameAsc', 'NameDesc', 'ModifiedAsc', 'ModifiedDesc', 
 _PIPELINES_RUNS_QUERY_ORDER = ['FinishTimeAsc', 'FinishTimeDesc', 'StartTimeAsc', 'StartTimeDesc',
                                'QueueTimeAsc', 'QueueTimeDesc']
 
+_AGENT_POOL_TYPES = ['automation', 'deployment']
+
+_AGENT_ACTION_FILTER_TYPES = ['use', 'manage', 'none']
 
 def load_build_arguments(self, _):
     with self.argument_context('pipelines build list') as context:
@@ -69,3 +72,7 @@ def load_build_arguments(self, _):
 
     with self.argument_context('pipelines create') as context:
         context.argument('repository_type', choices=['tfsgit', 'github'], type=str.lower)
+
+    with self.argument_context('pipelines pool') as context:
+        context.argument('action', **enum_choice_list(_AGENT_ACTION_FILTER_TYPES))
+        context.argument('pool_type', **enum_choice_list(_AGENT_POOL_TYPES))
