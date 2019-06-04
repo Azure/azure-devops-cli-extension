@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 from azure.cli.core.commands.parameters import get_three_state_flag
 
+
 def load_work_arguments(self, _):
     with self.argument_context('boards') as context:
         context.argument('project', options_list=('--project', '-p'))
