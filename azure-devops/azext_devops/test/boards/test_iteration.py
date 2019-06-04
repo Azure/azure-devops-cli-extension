@@ -21,18 +21,25 @@ from azext_devops.dev.boards.iteration import (get_project_iterations,
                                                get_project_iteration,
                                                delete_project_iteration,
                                                create_project_iteration,
-                                               update_project_iteration)
+                                               update_project_iteration,
+                                               get_team_iterations,
+                                               get_team_iteration,
+                                               post_team_iteration,
+                                               delete_team_iteration)
 
 class TestBoardsIterationMethods(AuthenticatedTests):
     _TEST_DEVOPS_ORGANIZATION = 'https://someorganization.visualstudio.com'
     _TEST_PROJECT_NAME = 'sample_project'
     _WORK_ITEM_TRACKING_CLIENT_LOCATION = 'azext_devops.devops_sdk.v5_0.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient.'
+    _WORK_CLIENT_LOCATION = 'azext_devops.devops_sdk.v5_0.work.work_client.WorkClient.'
     _STRUCTURE_GROUP = 'iterations'
     _ROOT_ITERATION_PATH = _TEST_PROJECT_NAME + '\root_iteration'
     _ROOT_ITERATION_NAME = 'root_iteration'
     _CHILD_ITERATION_NAME = 'child_iteration'
     _NEW_ITERATION_NAME = 'root_iteration_renamed'
     _ITERATION_ID = 1
+    _TEAM = 'sample_team'
+    _ITERATION_IDENTIFIER = 'some-guid'
 
     def setUp(self):
         self.authentication_setup()
@@ -42,6 +49,10 @@ class TestBoardsIterationMethods(AuthenticatedTests):
         self.delete_classification_node_patcher = patch(self._WORK_ITEM_TRACKING_CLIENT_LOCATION + 'delete_classification_node')
         self.create_update_classification_node_patcher = patch(self._WORK_ITEM_TRACKING_CLIENT_LOCATION + 'create_or_update_classification_node')
         self.update_classification_node_patcher = patch(self._WORK_ITEM_TRACKING_CLIENT_LOCATION + 'update_classification_node')
+        self.get_team_iterations_patcher = patch(self._WORK_CLIENT_LOCATION + 'get_team_iterations')
+        self.get_team_iteration_patcher = patch(self._WORK_CLIENT_LOCATION + 'get_team_iteration')
+        self.delete_team_iteration_patcher = patch(self._WORK_CLIENT_LOCATION + 'delete_team_iteration')
+        self.post_team_iteration_patcher = patch(self._WORK_CLIENT_LOCATION + 'post_team_iteration')
 
         self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client', new=get_client_mock_helper)
 
@@ -51,6 +62,10 @@ class TestBoardsIterationMethods(AuthenticatedTests):
         self.mock_delete_classification_node = self.delete_classification_node_patcher.start()
         self.mock_create_update_classification_node = self.create_update_classification_node_patcher.start()
         self.mock_update_classification_node = self.update_classification_node_patcher.start()
+        self.mock_get_team_iterations = self.get_team_iterations_patcher.start()
+        self.mock_get_team_iteration = self.get_team_iteration_patcher.start()
+        self.mock_delete_team_iteration = self.delete_team_iteration_patcher.start()
+        self.mock_post_team_iteration = self.post_team_iteration_patcher.start()
         #clear connection cache before running each test
         clear_connection_cache()
 
@@ -146,3 +161,34 @@ class TestBoardsIterationMethods(AuthenticatedTests):
         self.assertEqual(self._STRUCTURE_GROUP, create_project_iteration_param['structure_group'], str(create_project_iteration_param))
         self.assertEqual(child_iteration_id, create_project_iteration_param['posted_node'].id, str(create_project_iteration_param))
         self.assertEqual(self._ROOT_ITERATION_PATH, create_project_iteration_param['path'], str(create_project_iteration_param))
+
+    def test_get_team_iterations(self):
+        response = get_team_iterations(team=self._TEAM,project=self._TEST_PROJECT_NAME,organization=self._TEST_DEVOPS_ORGANIZATION)
+        self.mock_get_team_iterations.assert_called_once()
+        list_team_iterations_param = self.mock_get_team_iterations.call_args_list[0][1]
+        self.assertEqual(self._TEAM, list_team_iterations_param['team_context'].team, str(list_team_iterations_param))
+        self.assertEqual(self._TEST_PROJECT_NAME, list_team_iterations_param['team_context'].project, str(list_team_iterations_param))
+
+    def test_get_team_iteration(self):
+        response = get_team_iteration(id=self._ITERATION_IDENTIFIER,team=self._TEAM,project=self._TEST_PROJECT_NAME,organization=self._TEST_DEVOPS_ORGANIZATION)
+        self.mock_get_team_iteration.assert_called_once()
+        show_team_iteration_param = self.mock_get_team_iteration.call_args_list[0][1]
+        self.assertEqual(self._TEAM, show_team_iteration_param['team_context'].team, str(show_team_iteration_param))
+        self.assertEqual(self._TEST_PROJECT_NAME, show_team_iteration_param['team_context'].project, str(show_team_iteration_param))
+        self.assertEqual(self._ITERATION_IDENTIFIER, show_team_iteration_param['id'], str(show_team_iteration_param))
+
+    def test_remove_team_iteration(self):
+        response = delete_team_iteration(id=self._ITERATION_IDENTIFIER,team=self._TEAM,project=self._TEST_PROJECT_NAME,organization=self._TEST_DEVOPS_ORGANIZATION)
+        self.mock_delete_team_iteration.assert_called_once()
+        remove_team_iteration_param = self.mock_delete_team_iteration.call_args_list[0][1]
+        self.assertEqual(self._TEAM, remove_team_iteration_param['team_context'].team, str(remove_team_iteration_param))
+        self.assertEqual(self._TEST_PROJECT_NAME, remove_team_iteration_param['team_context'].project, str(remove_team_iteration_param))
+        self.assertEqual(self._ITERATION_IDENTIFIER, remove_team_iteration_param['id'], str(remove_team_iteration_param))
+
+    def test_add_team_iteration(self):
+        response = post_team_iteration(id=self._ITERATION_IDENTIFIER,team=self._TEAM,project=self._TEST_PROJECT_NAME,organization=self._TEST_DEVOPS_ORGANIZATION)
+        self.mock_post_team_iteration.assert_called_once()
+        create_team_iteration_param = self.mock_post_team_iteration.call_args_list[0][1]
+        self.assertEqual(self._TEAM, create_team_iteration_param['team_context'].team, str(create_team_iteration_param))
+        self.assertEqual(self._TEST_PROJECT_NAME, create_team_iteration_param['team_context'].project, str(create_team_iteration_param))
+        self.assertEqual(self._ITERATION_IDENTIFIER, create_team_iteration_param['iteration'].id, str(create_team_iteration_param))
