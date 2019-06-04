@@ -45,13 +45,20 @@ Group
 
 Subgroups:
     admin            : Manage administration operations.
+    extension        : Manage extensions.
     project          : Manage team projects.
+    security         : Manage security related operations.
     service-endpoint : Manage service endpoints/service connections.
     team             : Manage teams.
+    user             : Manage users.
+    wiki             : Manage wikis.
 
 Commands:
     configure        : Configure the Azure DevOps CLI or view your configuration.
     feedback         : Displays information on how to provide feedback to the Azure DevOps CLI team.
+    invoke           : This command will invoke request for any DevOps area and resource. Please use
+                       only json output as the response of this command is not fixed. Helpful docs -
+                       https://docs.microsoft.com/en-us/rest/api/azure/devops/.
     login            : Set the credential (PAT) to use for a particular organization.
     logout           : Clear the credential for all or a particular organization.
 ```

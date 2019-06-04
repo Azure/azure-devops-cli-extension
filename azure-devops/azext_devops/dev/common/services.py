@@ -16,12 +16,23 @@ from .arguments import should_detect
 from .const import (DEFAULTS_SECTION,
                     DEVOPS_ORGANIZATION_DEFAULT,
                     DEVOPS_TEAM_PROJECT_DEFAULT,
-                    PAT_ENV_VARIABLE_NAME)
+                    PAT_ENV_VARIABLE_NAME,
+                    ORG_PRESENT_IN_COMMAND,
+                    PROJECT_PRESENT_IN_COMMAND,
+                    REPO_PRESENT_IN_COMMAND,
+                    ORG_PICKED_FROM_GIT,
+                    PROJECT_PICKED_FROM_GIT,
+                    REPO_PICKED_FROM_GIT,
+                    ORG_PICKED_FROM_CONFIG,
+                    ORG_IGNORED_FROM_CONFIG,
+                    PROJECT_PICKED_FROM_CONFIG,
+                    PROJECT_IGNORED_FROM_CONFIG)
 from ._credentials import get_credential
 from .git import get_remote_url
 from .vsts_git_url_info import VstsGitUrlInfo
 from .uri import uri_parse_instance_from_git_uri
 from .uuid import is_uuid
+from .telemetry import vsts_tracking_data, init_telemetry
 
 logger = get_logger(__name__)
 
@@ -243,6 +254,11 @@ def get_policy_client(organization=None):
     return connection.get_client(VSTS_MODULE + 'v5_0.policy.policy_client.PolicyClient')
 
 
+def get_security_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.security.security_client.SecurityClient')
+
+
 def get_settings_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_0.settings.settings_client.SettingsClient')
@@ -251,6 +267,11 @@ def get_settings_client(organization=None):
 def get_task_agent_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_0.task_agent.task_agent_client.TaskAgentClient')
+
+
+def get_work_client(organization=None):
+    connection = get_connection(organization)
+    return connection.get_client(VSTS_MODULE + 'v5_0.work.work_client.WorkClient')
 
 
 def get_work_item_tracking_client(organization=None):
@@ -276,7 +297,7 @@ def _team_organization_arg_error():
                     'organization, for example: https://dev.azure.com/MyOrganization/ or your TFS organization. '
                     'You can set a default value by running: az devops configure --defaults '
                     'organization=https://dev.azure.com/MyOrganization/. For auto detection to work '
-                    '(--detect on), you must be in a local Git directory that has a "remote" referencing a '
+                    '(--detect true), you must be in a local Git directory that has a "remote" referencing a '
                     'Azure DevOps or TFS repository.')
 
 
@@ -296,18 +317,33 @@ def resolve_instance_project_and_repo(
         project_required=True,
         repo=None,
         repo_required=False):
+    init_telemetry()
+    vsts_tracking_data.properties[ORG_PRESENT_IN_COMMAND] = organization is not None
+    vsts_tracking_data.properties[PROJECT_PRESENT_IN_COMMAND] = project is not None
+    vsts_tracking_data.properties[REPO_PRESENT_IN_COMMAND] = repo is not None
     if organization is None:
         if should_detect(detect):
             git_info = get_vsts_info_from_current_remote_url()
             organization = git_info.uri
+            vsts_tracking_data.properties[ORG_PICKED_FROM_GIT] = organization is not None
             if project is None:
                 project = git_info.project
+                vsts_tracking_data.properties[PROJECT_PICKED_FROM_GIT] = project is not None
                 if repo is None:
                     repo = git_info.repo
+                    vsts_tracking_data.properties[REPO_PICKED_FROM_GIT] = repo is not None
         if organization is None:
             organization = _resolve_instance_from_config(organization)
+            vsts_tracking_data.properties[ORG_PICKED_FROM_CONFIG] = organization is not None
+        else:
+            orgFromConfig = _resolve_instance_from_config(organization)
+            vsts_tracking_data.properties[ORG_IGNORED_FROM_CONFIG] = orgFromConfig is not None
         if project is None:
             project = _resolve_project_from_config(project, project_required)
+            vsts_tracking_data.properties[PROJECT_PICKED_FROM_CONFIG] = organization is not None
+        else:
+            projectFromConfig = _resolve_project_from_config(project, False)
+            vsts_tracking_data.properties[PROJECT_IGNORED_FROM_CONFIG] = projectFromConfig is not None
     if project_required and project is None:
         _raise_team_project_arg_error()
     if repo_required and repo is None:

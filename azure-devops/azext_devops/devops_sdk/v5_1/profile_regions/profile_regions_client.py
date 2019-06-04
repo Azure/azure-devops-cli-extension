@@ -23,13 +23,13 @@ class ProfileRegionsClient(Client):
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
-    resource_area_identifier = None
+    resource_area_identifier = '8ccfef3d-2b87-4e99-8ccb-66e343d2daa8'
 
     def get_geo_region(self, ip):
         """GetGeoRegion.
         [Preview API] Lookup up country/region based on provided IPv4, null if using the remote IPv4 address.
         :param str ip:
-        :rtype: :class:`<GeoRegion> <azure.devops.v5_1.profile-regions.models.GeoRegion>`
+        :rtype: :class:`<GeoRegion> <azure.devops.v5_1.profile_regions.models.GeoRegion>`
         """
         query_parameters = {}
         if ip is not None:
@@ -43,7 +43,7 @@ class ProfileRegionsClient(Client):
     def get_regions(self):
         """GetRegions.
         [Preview API]
-        :rtype: :class:`<ProfileRegions> <azure.devops.v5_1.profile-regions.models.ProfileRegions>`
+        :rtype: :class:`<ProfileRegions> <azure.devops.v5_1.profile_regions.models.ProfileRegions>`
         """
         response = self._send(http_method='GET',
                               location_id='b129ca90-999d-47bb-ab37-0dcf784ee633',

@@ -61,13 +61,13 @@ class TestExtensionMethods(AuthenticatedTests):
         
 
     def test_list_extensions(self):
-        list_extensions('false','false',self._TEST_DEVOPS_ORGANIZATION, 'off')
+        list_extensions(False,False,self._TEST_DEVOPS_ORGANIZATION, False)
                 
         #assert
         self.mock_get_installed_extensions.assert_called_once_with(include_disabled_extensions=False)
 
     def test_list_extensions_include_disabled_extension(self):
-        list_extensions('false','true',self._TEST_DEVOPS_ORGANIZATION, 'off')
+        list_extensions(False,True,self._TEST_DEVOPS_ORGANIZATION, False)
                 
         #assert
         self.mock_get_installed_extensions.assert_called_once_with(include_disabled_extensions=True)
@@ -80,7 +80,7 @@ class TestExtensionMethods(AuthenticatedTests):
 
         self.mock_get_installed_extensions.return_value = extensions
 
-        result = list_extensions('true','true',self._TEST_DEVOPS_ORGANIZATION, 'off')
+        result = list_extensions(True,True,self._TEST_DEVOPS_ORGANIZATION, False)
 
         self.assertEqual(len(result), 3)
 
@@ -92,22 +92,22 @@ class TestExtensionMethods(AuthenticatedTests):
 
         self.mock_get_installed_extensions.return_value = extensions
 
-        result = list_extensions('false','true',self._TEST_DEVOPS_ORGANIZATION, 'off')
+        result = list_extensions(False,False,self._TEST_DEVOPS_ORGANIZATION, False)
 
         self.assertEqual(len(result), 1)
 
     def test_get_extension(self):
-        get_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
+        get_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION)
 
         self.mock_get_installed_extension.assert_called_once_with(publisher_name='ms', extension_name='code-search')
 
     def test_install_extension(self):
-        install_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
+        install_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION)
 
         self.mock_install_extension.assert_called_once_with(publisher_name='ms', extension_name='code-search')
         
     def test_uninstall_extension(self):
-        uninstall_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
+        uninstall_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION)
 
         self.mock_uninstall_extension.assert_called_once_with(publisher_name='ms', extension_name='code-search')
 
@@ -115,7 +115,7 @@ class TestExtensionMethods(AuthenticatedTests):
         extension = MockInstalledExtension('builtIn', MockInstalledExtension('disabled , buildIn , multiVersion'))
         self.mock_get_installed_extension.return_value = extension
 
-        enable_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
+        enable_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION)
 
         self.mock_update_installed_extension.assert_called_once()
         udpate_extension_object = self.mock_update_installed_extension.call_args_list[0][0]
@@ -126,7 +126,7 @@ class TestExtensionMethods(AuthenticatedTests):
         extension = MockInstalledExtension('builtIn', MockInstalledExtension('buildIn , multiVersion , disabled'))
         self.mock_get_installed_extension.return_value = extension
 
-        enable_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
+        enable_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION)
 
         self.mock_update_installed_extension.assert_called_once()
         udpate_extension_object = self.mock_update_installed_extension.call_args_list[0][0]
@@ -138,7 +138,7 @@ class TestExtensionMethods(AuthenticatedTests):
         extension = MockInstalledExtension('builtIn', MockInstalledExtension('buildIn, multiVersion'))
         self.mock_get_installed_extension.return_value = extension
 
-        disable_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION, 'off')
+        disable_extension('ms', 'code-search', self._TEST_DEVOPS_ORGANIZATION)
 
         self.mock_update_installed_extension.assert_called_once()
         udpate_extension_object = self.mock_update_installed_extension.call_args_list[0][0]

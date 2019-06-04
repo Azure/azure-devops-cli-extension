@@ -60,7 +60,7 @@ If you are working in a local check out of a repository, you can simply run `az 
 You can also configure the Azure Devops Extension to add git aliases for common git-based Azure Repos commands like creating or adding reviewers to pull requests. This can be enabled by running the following command:
 
 ```bash
-az devops configure --use-git-alias yes
+az devops configure --use-git-alias true
 ```
 
 This will alias all `az repos` commands to `git repo` and all `az repos pr` commands to `git pr`.
@@ -98,7 +98,7 @@ You can use --open switch to open any artifact in Azure DevOps portal in your de
 For example :
 
 ```bash
-az pipelines build show --build-id 1 --open
+az pipelines build show --id 1 --open
 ```
 
 This will show the details of build with id 1 on command-line and also open it in the default browser.
@@ -287,7 +287,22 @@ jobs:
 
 You can easily configure branch policies for your repository using the various policy commands. However, the policy commands accept a single scope, i.e., single combination of repository, branch and match type. If you want to apply the same policy across various scopes, you can do that using a policy configuration file.
 
-Say you want to create a manual queue build policy across all branch folders that start with "release" and also on the master branch. To achieve this, execute the following steps:
+Say you want to create a manual queue build policy across all branch folders that start with "release" and also on the 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+branch. To achieve this, execute the following steps:
 
 - Create a policy configuration file for build polcy, including the multiple application scopes:
 
@@ -331,6 +346,7 @@ Refer the [Policy create](https://docs.microsoft.com/en-us/rest/api/azure/devops
 
 *Note that the path is provided using '\\' backslash.
 
+
 ## Create an Azure DevOps YAML based multi stage pipeline
 
 You can create and manage YAML based multi stage Azure Pipelines using the `az pipelines` commands.
@@ -369,3 +385,10 @@ To create the pipeline, execute the following steps:
 1. The pipeline YAML is generated. You can open the YAML in your default editor to view and make changes.
 
 1. Select option to commit changes to master. A new run is started. Wait for the run to finish.
+
+## Manage permissions with Azure DevOps CLI
+
+You can update/reset/list permissions for an user or group with the help of security commands.
+
+Refer [Permissions Documentation](permissions.md) for more details on how to get security tokens and manage permissions for a Azure DevOps resource.
+

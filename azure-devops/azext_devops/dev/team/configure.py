@@ -28,9 +28,9 @@ def configure(defaults=None, use_git_aliases=None, list_config=False):
         e.g. '--defaults project=my-project-name organization=https://dev.azure.com/organizationName
         arg=value' Use '' to clear the defaults, e.g. --defaults project=''.
     :type defaults: str
-    :param use_git_aliases: Set to 'yes' to configure Git aliases global git config file
+    :param use_git_aliases: Set to 'true' to configure Git aliases global git config file
         (to enable commands like "git pr list").
-        Set to 'no' to remove any aliases set by the tool.
+        Set to 'false' to remove any aliases set by the tool.
     :type use_git_aliases: str
     :param list_config: Lists the contents of the config file.
     :type list_config: bool
@@ -49,9 +49,9 @@ def configure(defaults=None, use_git_aliases=None, list_config=False):
             set_global_config_value(DEFAULTS_SECTION, parts[0], parts[1])
     if use_git_aliases is not None:
         from azext_devops.dev.repos.git_alias import setup_git_aliases, clear_git_aliases
-        if use_git_aliases == 'yes':
+        if use_git_aliases:
             setup_git_aliases()
-        elif use_git_aliases == 'no':
+        else:
             clear_git_aliases()
     if list_config:
         print_current_configuration()

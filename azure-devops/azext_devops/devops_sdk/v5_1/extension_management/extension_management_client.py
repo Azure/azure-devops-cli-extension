@@ -54,7 +54,7 @@ class ExtensionManagementClient(Client):
         """UpdateInstalledExtension.
         [Preview API] Update an installed extension. Typically this API is used to enable or disable an extension.
         :param :class:`<InstalledExtension> <azure.devops.v5_1.extension_management.models.InstalledExtension>` extension:
-        :rtype: :class:`<InstalledExtension> <azure.devops.v5_1.extension-management.models.InstalledExtension>`
+        :rtype: :class:`<InstalledExtension> <azure.devops.v5_1.extension_management.models.InstalledExtension>`
         """
         content = self._serialize.body(extension, 'InstalledExtension')
         response = self._send(http_method='PATCH',
@@ -69,7 +69,7 @@ class ExtensionManagementClient(Client):
         :param str publisher_name: Name of the publisher. Example: "fabrikam".
         :param str extension_name: Name of the extension. Example: "ops-tools".
         :param [str] asset_types:
-        :rtype: :class:`<InstalledExtension> <azure.devops.v5_1.extension-management.models.InstalledExtension>`
+        :rtype: :class:`<InstalledExtension> <azure.devops.v5_1.extension_management.models.InstalledExtension>`
         """
         route_values = {}
         if publisher_name is not None:
@@ -93,7 +93,7 @@ class ExtensionManagementClient(Client):
         :param str publisher_name: Name of the publisher. Example: "fabrikam".
         :param str extension_name: Name of the extension. Example: "ops-tools".
         :param str version:
-        :rtype: :class:`<InstalledExtension> <azure.devops.v5_1.extension-management.models.InstalledExtension>`
+        :rtype: :class:`<InstalledExtension> <azure.devops.v5_1.extension_management.models.InstalledExtension>`
         """
         route_values = {}
         if publisher_name is not None:

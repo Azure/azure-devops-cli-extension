@@ -14,13 +14,13 @@ A clear and concise description of what the bug is.
 Azure Cli Version: 
 Use az --version 
 Look for something like-
-azure-cli (2.0.52)
+azure-cli (2.0.55)
 
 Azure-Devops extension version: 
 Use az --version
 Look for something like-
 Extensions:
-azure-devops (0.8.0)
+azure-devops (0.10.0)
 
 Steps to reproduce the behavior:
 1. login using az login

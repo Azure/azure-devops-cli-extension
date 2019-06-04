@@ -29,7 +29,7 @@ class CloudLoadTestClient(Client):
         """CreateAgentGroup.
         [Preview API]
         :param :class:`<AgentGroup> <azure.devops.v5_1.cloud_load_test.models.AgentGroup>` group: Agent group to be created
-        :rtype: :class:`<AgentGroup> <azure.devops.v5_1.cloud-load-test.models.AgentGroup>`
+        :rtype: :class:`<AgentGroup> <azure.devops.v5_1.cloud_load_test.models.AgentGroup>`
         """
         content = self._serialize.body(group, 'AgentGroup')
         response = self._send(http_method='POST',
@@ -111,7 +111,7 @@ class CloudLoadTestClient(Client):
         """GetApplication.
         [Preview API]
         :param str application_id: Filter by APM application identifier.
-        :rtype: :class:`<Application> <azure.devops.v5_1.cloud-load-test.models.Application>`
+        :rtype: :class:`<Application> <azure.devops.v5_1.cloud_load_test.models.Application>`
         """
         route_values = {}
         if application_id is not None:
@@ -183,7 +183,7 @@ class CloudLoadTestClient(Client):
         [Preview API]
         :param :class:`<VssJsonCollectionWrapper> <azure.devops.v5_1.cloud_load_test.models.VssJsonCollectionWrapper>` counter_sample_query_details:
         :param str test_run_id: The test run identifier
-        :rtype: :class:`<CounterSamplesResult> <azure.devops.v5_1.cloud-load-test.models.CounterSamplesResult>`
+        :rtype: :class:`<CounterSamplesResult> <azure.devops.v5_1.cloud_load_test.models.CounterSamplesResult>`
         """
         route_values = {}
         if test_run_id is not None:
@@ -203,7 +203,7 @@ class CloudLoadTestClient(Client):
         :param str type: Filter for the particular type of errors.
         :param str sub_type: Filter for a particular subtype of errors. You should not provide error subtype without error type.
         :param bool detailed: To include the details of test errors such as messagetext, request, stacktrace, testcasename, scenarioname, and lasterrordate.
-        :rtype: :class:`<LoadTestErrors> <azure.devops.v5_1.cloud-load-test.models.LoadTestErrors>`
+        :rtype: :class:`<LoadTestErrors> <azure.devops.v5_1.cloud_load_test.models.LoadTestErrors>`
         """
         route_values = {}
         if test_run_id is not None:
@@ -241,7 +241,7 @@ class CloudLoadTestClient(Client):
         """GetPlugin.
         [Preview API]
         :param str type: Currently ApplicationInsights is the only available plugin type.
-        :rtype: :class:`<ApplicationType> <azure.devops.v5_1.cloud-load-test.models.ApplicationType>`
+        :rtype: :class:`<ApplicationType> <azure.devops.v5_1.cloud_load_test.models.ApplicationType>`
         """
         route_values = {}
         if type is not None:
@@ -266,7 +266,7 @@ class CloudLoadTestClient(Client):
         """GetLoadTestResult.
         [Preview API]
         :param str test_run_id: The test run identifier
-        :rtype: :class:`<TestResults> <azure.devops.v5_1.cloud-load-test.models.TestResults>`
+        :rtype: :class:`<TestResults> <azure.devops.v5_1.cloud_load_test.models.TestResults>`
         """
         route_values = {}
         if test_run_id is not None:
@@ -281,7 +281,7 @@ class CloudLoadTestClient(Client):
         """CreateTestDefinition.
         [Preview API]
         :param :class:`<TestDefinition> <azure.devops.v5_1.cloud_load_test.models.TestDefinition>` test_definition: Test definition to be created
-        :rtype: :class:`<TestDefinition> <azure.devops.v5_1.cloud-load-test.models.TestDefinition>`
+        :rtype: :class:`<TestDefinition> <azure.devops.v5_1.cloud_load_test.models.TestDefinition>`
         """
         content = self._serialize.body(test_definition, 'TestDefinition')
         response = self._send(http_method='POST',
@@ -294,7 +294,7 @@ class CloudLoadTestClient(Client):
         """GetTestDefinition.
         [Preview API]
         :param str test_definition_id: The test definition identifier
-        :rtype: :class:`<TestDefinition> <azure.devops.v5_1.cloud-load-test.models.TestDefinition>`
+        :rtype: :class:`<TestDefinition> <azure.devops.v5_1.cloud_load_test.models.TestDefinition>`
         """
         route_values = {}
         if test_definition_id is not None:
@@ -330,7 +330,7 @@ class CloudLoadTestClient(Client):
         """UpdateTestDefinition.
         [Preview API]
         :param :class:`<TestDefinition> <azure.devops.v5_1.cloud_load_test.models.TestDefinition>` test_definition:
-        :rtype: :class:`<TestDefinition> <azure.devops.v5_1.cloud-load-test.models.TestDefinition>`
+        :rtype: :class:`<TestDefinition> <azure.devops.v5_1.cloud_load_test.models.TestDefinition>`
         """
         content = self._serialize.body(test_definition, 'TestDefinition')
         response = self._send(http_method='PUT',
@@ -343,7 +343,7 @@ class CloudLoadTestClient(Client):
         """CreateTestDrop.
         [Preview API]
         :param :class:`<TestDrop> <azure.devops.v5_1.cloud_load_test.models.TestDrop>` web_test_drop: Test drop to be created
-        :rtype: :class:`<TestDrop> <azure.devops.v5_1.cloud-load-test.models.TestDrop>`
+        :rtype: :class:`<TestDrop> <azure.devops.v5_1.cloud_load_test.models.TestDrop>`
         """
         content = self._serialize.body(web_test_drop, 'TestDrop')
         response = self._send(http_method='POST',
@@ -356,7 +356,7 @@ class CloudLoadTestClient(Client):
         """GetTestDrop.
         [Preview API]
         :param str test_drop_id: The test drop identifier
-        :rtype: :class:`<TestDrop> <azure.devops.v5_1.cloud-load-test.models.TestDrop>`
+        :rtype: :class:`<TestDrop> <azure.devops.v5_1.cloud_load_test.models.TestDrop>`
         """
         route_values = {}
         if test_drop_id is not None:
@@ -371,7 +371,7 @@ class CloudLoadTestClient(Client):
         """CreateTestRun.
         [Preview API]
         :param :class:`<TestRun> <azure.devops.v5_1.cloud_load_test.models.TestRun>` web_test_run:
-        :rtype: :class:`<TestRun> <azure.devops.v5_1.cloud-load-test.models.TestRun>`
+        :rtype: :class:`<TestRun> <azure.devops.v5_1.cloud_load_test.models.TestRun>`
         """
         content = self._serialize.body(web_test_run, 'TestRun')
         response = self._send(http_method='POST',
@@ -384,7 +384,7 @@ class CloudLoadTestClient(Client):
         """GetTestRun.
         [Preview API]
         :param str test_run_id: Unique ID of the test run
-        :rtype: :class:`<TestRun> <azure.devops.v5_1.cloud-load-test.models.TestRun>`
+        :rtype: :class:`<TestRun> <azure.devops.v5_1.cloud_load_test.models.TestRun>`
         """
         route_values = {}
         if test_run_id is not None:

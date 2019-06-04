@@ -30,7 +30,7 @@ class TestPlanClient(Client):
         [Preview API] Create a test configuration.
         :param :class:`<TestConfigurationCreateUpdateParameters> <azure.devops.v5_1.test_plan.models.TestConfigurationCreateUpdateParameters>` test_configuration_create_update_parameters: TestConfigurationCreateUpdateParameters
         :param str project: Project ID or project name
-        :rtype: :class:`<TestConfiguration> <azure.devops.v5_1.test-plan.models.TestConfiguration>`
+        :rtype: :class:`<TestConfiguration> <azure.devops.v5_1.test_plan.models.TestConfiguration>`
         """
         route_values = {}
         if project is not None:
@@ -66,7 +66,7 @@ class TestPlanClient(Client):
         [Preview API] Get a test configuration
         :param str project: Project ID or project name
         :param int test_configuration_id: ID of the test configuration to get.
-        :rtype: :class:`<TestConfiguration> <azure.devops.v5_1.test-plan.models.TestConfiguration>`
+        :rtype: :class:`<TestConfiguration> <azure.devops.v5_1.test_plan.models.TestConfiguration>`
         """
         route_values = {}
         if project is not None:
@@ -105,7 +105,7 @@ class TestPlanClient(Client):
         :param :class:`<TestConfigurationCreateUpdateParameters> <azure.devops.v5_1.test_plan.models.TestConfigurationCreateUpdateParameters>` test_configuration_create_update_parameters: TestConfigurationCreateUpdateParameters
         :param str project: Project ID or project name
         :param int test_configuartion_id: ID of the test configuration to update.
-        :rtype: :class:`<TestConfiguration> <azure.devops.v5_1.test-plan.models.TestConfiguration>`
+        :rtype: :class:`<TestConfiguration> <azure.devops.v5_1.test_plan.models.TestConfiguration>`
         """
         route_values = {}
         if project is not None:
@@ -127,7 +127,7 @@ class TestPlanClient(Client):
         [Preview API] Create a test plan.
         :param :class:`<TestPlanCreateParams> <azure.devops.v5_1.test_plan.models.TestPlanCreateParams>` test_plan_create_params: A testPlanCreateParams object.TestPlanCreateParams
         :param str project: Project ID or project name
-        :rtype: :class:`<TestPlan> <azure.devops.v5_1.test-plan.models.TestPlan>`
+        :rtype: :class:`<TestPlan> <azure.devops.v5_1.test_plan.models.TestPlan>`
         """
         route_values = {}
         if project is not None:
@@ -161,7 +161,7 @@ class TestPlanClient(Client):
         [Preview API] Get a test plan by Id.
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan to get.
-        :rtype: :class:`<TestPlan> <azure.devops.v5_1.test-plan.models.TestPlan>`
+        :rtype: :class:`<TestPlan> <azure.devops.v5_1.test_plan.models.TestPlan>`
         """
         route_values = {}
         if project is not None:
@@ -209,7 +209,7 @@ class TestPlanClient(Client):
         :param :class:`<TestPlanUpdateParams> <azure.devops.v5_1.test_plan.models.TestPlanUpdateParams>` test_plan_update_params: A testPlanUpdateParams object.TestPlanUpdateParams
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan to be updated.
-        :rtype: :class:`<TestPlan> <azure.devops.v5_1.test-plan.models.TestPlan>`
+        :rtype: :class:`<TestPlan> <azure.devops.v5_1.test_plan.models.TestPlan>`
         """
         route_values = {}
         if project is not None:
@@ -274,7 +274,7 @@ class TestPlanClient(Client):
         :param :class:`<TestSuiteCreateParams> <azure.devops.v5_1.test_plan.models.TestSuiteCreateParams>` test_suite_create_params: Parameters for suite creation
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan that contains the suites.
-        :rtype: :class:`<TestSuite> <azure.devops.v5_1.test-plan.models.TestSuite>`
+        :rtype: :class:`<TestSuite> <azure.devops.v5_1.test_plan.models.TestSuite>`
         """
         route_values = {}
         if project is not None:
@@ -315,7 +315,7 @@ class TestPlanClient(Client):
         :param int plan_id: ID of the test plan that contains the suites.
         :param int suite_id: ID of the suite to get.
         :param str expand: Include the children suites and testers details
-        :rtype: :class:`<TestSuite> <azure.devops.v5_1.test-plan.models.TestSuite>`
+        :rtype: :class:`<TestSuite> <azure.devops.v5_1.test_plan.models.TestSuite>`
         """
         route_values = {}
         if project is not None:
@@ -370,7 +370,7 @@ class TestPlanClient(Client):
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan that contains the suites.
         :param int suite_id: ID of the parent suite.
-        :rtype: :class:`<TestSuite> <azure.devops.v5_1.test-plan.models.TestSuite>`
+        :rtype: :class:`<TestSuite> <azure.devops.v5_1.test_plan.models.TestSuite>`
         """
         route_values = {}
         if project is not None:
@@ -558,7 +558,7 @@ class TestPlanClient(Client):
         :param :class:`<CloneTestPlanParams> <azure.devops.v5_1.test_plan.models.CloneTestPlanParams>` clone_request_body: Plan Clone Request Body detail TestPlanCloneRequest
         :param str project: Project ID or project name
         :param bool deep_clone: Clones all the associated test cases as well
-        :rtype: :class:`<CloneTestPlanOperationInformation> <azure.devops.v5_1.test-plan.models.CloneTestPlanOperationInformation>`
+        :rtype: :class:`<CloneTestPlanOperationInformation> <azure.devops.v5_1.test_plan.models.CloneTestPlanOperationInformation>`
         """
         route_values = {}
         if project is not None:
@@ -580,7 +580,7 @@ class TestPlanClient(Client):
         [Preview API] Get clone information.
         :param str project: Project ID or project name
         :param int clone_operation_id: Operation ID returned when we queue a clone operation
-        :rtype: :class:`<CloneTestPlanOperationInformation> <azure.devops.v5_1.test-plan.models.CloneTestPlanOperationInformation>`
+        :rtype: :class:`<CloneTestPlanOperationInformation> <azure.devops.v5_1.test_plan.models.CloneTestPlanOperationInformation>`
         """
         route_values = {}
         if project is not None:
@@ -679,7 +679,7 @@ class TestPlanClient(Client):
         :param :class:`<CloneTestSuiteParams> <azure.devops.v5_1.test_plan.models.CloneTestSuiteParams>` clone_request_body: Suite Clone Request Body detail TestSuiteCloneRequest
         :param str project: Project ID or project name
         :param bool deep_clone: Clones all the associated test cases as well
-        :rtype: :class:`<CloneTestSuiteOperationInformation> <azure.devops.v5_1.test-plan.models.CloneTestSuiteOperationInformation>`
+        :rtype: :class:`<CloneTestSuiteOperationInformation> <azure.devops.v5_1.test_plan.models.CloneTestSuiteOperationInformation>`
         """
         route_values = {}
         if project is not None:
@@ -701,7 +701,7 @@ class TestPlanClient(Client):
         [Preview API] Get clone information.
         :param str project: Project ID or project name
         :param int clone_operation_id: Operation ID returned when we queue a clone operation
-        :rtype: :class:`<CloneTestSuiteOperationInformation> <azure.devops.v5_1.test-plan.models.CloneTestSuiteOperationInformation>`
+        :rtype: :class:`<CloneTestSuiteOperationInformation> <azure.devops.v5_1.test_plan.models.CloneTestSuiteOperationInformation>`
         """
         route_values = {}
         if project is not None:
@@ -719,7 +719,7 @@ class TestPlanClient(Client):
         [Preview API] Create a test variable.
         :param :class:`<TestVariableCreateUpdateParameters> <azure.devops.v5_1.test_plan.models.TestVariableCreateUpdateParameters>` test_variable_create_update_parameters: TestVariableCreateUpdateParameters
         :param str project: Project ID or project name
-        :rtype: :class:`<TestVariable> <azure.devops.v5_1.test-plan.models.TestVariable>`
+        :rtype: :class:`<TestVariable> <azure.devops.v5_1.test_plan.models.TestVariable>`
         """
         route_values = {}
         if project is not None:
@@ -753,7 +753,7 @@ class TestPlanClient(Client):
         [Preview API] Get a test variable by its ID.
         :param str project: Project ID or project name
         :param int test_variable_id: ID of the test variable to get.
-        :rtype: :class:`<TestVariable> <azure.devops.v5_1.test-plan.models.TestVariable>`
+        :rtype: :class:`<TestVariable> <azure.devops.v5_1.test_plan.models.TestVariable>`
         """
         route_values = {}
         if project is not None:
@@ -792,7 +792,7 @@ class TestPlanClient(Client):
         :param :class:`<TestVariableCreateUpdateParameters> <azure.devops.v5_1.test_plan.models.TestVariableCreateUpdateParameters>` test_variable_create_update_parameters: TestVariableCreateUpdateParameters
         :param str project: Project ID or project name
         :param int test_variable_id: ID of the test variable to update.
-        :rtype: :class:`<TestVariable> <azure.devops.v5_1.test-plan.models.TestVariable>`
+        :rtype: :class:`<TestVariable> <azure.devops.v5_1.test_plan.models.TestVariable>`
         """
         route_values = {}
         if project is not None:

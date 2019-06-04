@@ -5,8 +5,8 @@
 
 
 from knack.arguments import enum_choice_list
-from azure.cli.core.commands.parameters import get_enum_type
-from azext_devops.dev.common.const import _TRUE_FALSE_SWITCH
+from azure.cli.core.commands.parameters import get_enum_type, get_three_state_flag
+from azext_devops.dev.common.utils import FILE_ENCODING_TYPES
 from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_GITHUB,
                     SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL,
@@ -28,13 +28,14 @@ _HTTP_METHOD_VALUES = ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS', 'PUT', 'HEAD
 
 _LICENSE_TYPES = ['advanced', 'earlyAdopter', 'express', 'none', 'professional', 'stakeholder']
 _RELATIONSHIP_TYPES = ['members', 'memberof']
+_FILE_ENCODING_TYPE_VALUES = FILE_ENCODING_TYPES
 
 
 def load_global_args(context):
     context.argument('organization', options_list=('--organization', '--org'),
                      help='Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/')
-    context.argument('detect', arg_type=get_enum_type(['on', 'off']),
-                     help='Automatically detect organization. Default is "on".')
+    context.argument('detect', arg_type=get_three_state_flag(),
+                     help='Automatically detect organization.')
     context.argument('project', options_list=('--project', '-p'), help='Name or ID of the project.')
 
 
@@ -42,6 +43,8 @@ def load_global_args(context):
 def load_team_arguments(self, _):
     with self.argument_context('devops configure') as context:
         context.argument('defaults', options_list=('--defaults', '-d'), nargs='*')
+        context.argument('use_git_aliases', arg_type=get_three_state_flag())
+        context.argument('list_config', options_list=('--list', '-l'))
 
     with self.argument_context('devops') as context:
         context.argument('repository', options_list=('--repository', '-r'))
@@ -60,9 +63,6 @@ def load_team_arguments(self, _):
     with self.argument_context('devops project delete') as context:
         context.argument('yes', options_list=['--yes', '-y'], action='store_true',
                          help='Do not prompt for confirmation.')
-    with self.argument_context('devops configure') as context:
-        context.argument('use_git_aliases', **enum_choice_list(_YES_NO_SWITCH_VALUES))
-        context.argument('list_config', options_list=('--list', '-l'))
 
     with self.argument_context('devops invoke') as context:
         context.argument('route_parameters', nargs='*',
@@ -77,6 +77,9 @@ def load_team_arguments(self, _):
                          help='Specifies the content type of the response.')
         context.argument('in_file',
                          help='Path and file name to the file that contains the contents of the request.')
+        context.argument('encoding',
+                         help='Encoding of the input file. Used in conjunction with --in-file.',
+                         **enum_choice_list(_FILE_ENCODING_TYPE_VALUES))
         context.argument('out_file',
                          help='Path and file name to the file  for which this function saves the response body.')
         context.argument('area',
@@ -89,7 +92,7 @@ def load_team_arguments(self, _):
     with self.argument_context('devops user') as context:
         context.argument('license_type', arg_type=get_enum_type(_LICENSE_TYPES))
     with self.argument_context('devops user add') as context:
-        context.argument('send_email_invite', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+        context.argument('send_email_invite', arg_type=get_three_state_flag(),
                          help='Whether to send email invite for new user or not.')
 
     with self.argument_context('devops security group create') as context:
@@ -106,13 +109,35 @@ def load_team_arguments(self, _):
         context.argument('relationship', arg_type=get_enum_type(_RELATIONSHIP_TYPES),
                          help='Get member of/members for this group.')
 
+    with self.argument_context('devops security permission') as context:
+        context.argument('namespace_id', options_list=('--namespace-id', '--id'),
+                         help='ID of security namespace')
+        context.argument('token',
+                         help='Security token.')
+        context.argument('subject',
+                         help='User Email ID or Group descriptor')
+
+    with self.argument_context('devops security permission update') as context:
+        context.argument('merge', arg_type=get_three_state_flag(),
+                         help='If set, the existing ACE has its allow and deny merged with \
+                         the incoming ACE\'s allow and deny. If unset, the existing ACE is displaced.')
+        context.argument('allow_bit', type=int,
+                         help='Allow bit or addition of bits. Required if --deny-bit is missing.')
+        context.argument('deny_bit', type=int,
+                         help='Deny bit or addition of bits. Required if --allow-bit is missing.')
+
+    with self.argument_context('devops security permission reset') as context:
+        context.argument('permission_bit', type=int,
+                         help='Permission bit or addition of permission bits which needs to be reset\
+                         for given user/group and token.')
+
     with self.argument_context('devops extension') as context:
-        context.argument('include_built_in', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+        context.argument('include_built_in', arg_type=get_three_state_flag(),
                          help='Include built in extensions.')
-        context.argument('include_disabled', arg_type=get_enum_type(_TRUE_FALSE_SWITCH),
+        context.argument('include_disabled', arg_type=get_three_state_flag(),
                          help='Include disabled extensions.')
-        context.argument('publisher_id', help='Publisher ID')
-        context.argument('extension_id', help='Extension ID')
+        context.argument('publisher_name', help='Publisher Name')
+        context.argument('extension_name', help='Extension Name')
         context.argument('search_query', options_list=('--search-query', '-q'), help='Search term')
 
     with self.argument_context('devops') as context:
@@ -133,6 +158,7 @@ def load_team_arguments(self, _):
     with self.argument_context('devops wiki') as context:
         context.argument('wiki_type', options_list=('--wiki-type', '--type'), **enum_choice_list(_WIKI_TYPE_VALUES))
         context.argument('version', options_list=('--version', '-v'))
+        context.argument('encoding', **enum_choice_list(_FILE_ENCODING_TYPE_VALUES))
 
     with self.argument_context('devops wiki list') as context:
         context.argument('scope', **enum_choice_list(_SCOPE_VALUES))

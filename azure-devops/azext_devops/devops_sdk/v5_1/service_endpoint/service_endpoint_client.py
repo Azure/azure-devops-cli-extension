@@ -31,7 +31,7 @@ class ServiceEndpointClient(Client):
         :param :class:`<ServiceEndpointRequest> <azure.devops.v5_1.service_endpoint.models.ServiceEndpointRequest>` service_endpoint_request: Service endpoint request.
         :param str project: Project ID or project name
         :param str endpoint_id: Id of the service endpoint.
-        :rtype: :class:`<ServiceEndpointRequestResult> <azure.devops.v5_1.service-endpoint.models.ServiceEndpointRequestResult>`
+        :rtype: :class:`<ServiceEndpointRequestResult> <azure.devops.v5_1.service_endpoint.models.ServiceEndpointRequestResult>`
         """
         route_values = {}
         if project is not None:
@@ -53,7 +53,7 @@ class ServiceEndpointClient(Client):
         [Preview API] Create a service endpoint.
         :param :class:`<ServiceEndpoint> <azure.devops.v5_1.service_endpoint.models.ServiceEndpoint>` endpoint: Service endpoint to create.
         :param str project: Project ID or project name
-        :rtype: :class:`<ServiceEndpoint> <azure.devops.v5_1.service-endpoint.models.ServiceEndpoint>`
+        :rtype: :class:`<ServiceEndpoint> <azure.devops.v5_1.service_endpoint.models.ServiceEndpoint>`
         """
         route_values = {}
         if project is not None:
@@ -92,7 +92,7 @@ class ServiceEndpointClient(Client):
         [Preview API] Get the service endpoint details.
         :param str project: Project ID or project name
         :param str endpoint_id: Id of the service endpoint.
-        :rtype: :class:`<ServiceEndpoint> <azure.devops.v5_1.service-endpoint.models.ServiceEndpoint>`
+        :rtype: :class:`<ServiceEndpoint> <azure.devops.v5_1.service_endpoint.models.ServiceEndpoint>`
         """
         route_values = {}
         if project is not None:
@@ -186,7 +186,7 @@ class ServiceEndpointClient(Client):
         :param str project: Project ID or project name
         :param str endpoint_id: Id of the service endpoint to update.
         :param str operation: Operation for the service endpoint.
-        :rtype: :class:`<ServiceEndpoint> <azure.devops.v5_1.service-endpoint.models.ServiceEndpoint>`
+        :rtype: :class:`<ServiceEndpoint> <azure.devops.v5_1.service_endpoint.models.ServiceEndpoint>`
         """
         route_values = {}
         if project is not None:

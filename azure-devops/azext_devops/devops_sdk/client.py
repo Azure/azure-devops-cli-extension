@@ -46,7 +46,7 @@ class Client(object):
         if user_agent is not None:
             self.config.add_user_agent(user_agent)
 
-    def _send_request(self, request, headers=None, content=None, **operation_config):
+    def _send_request(self, request, headers=None, content=None, media_type=None, **operation_config):
         """Prepare and send request object according to configuration.
         :param ClientRequest request: The request object to be sent.
         :param dict headers: Any headers to add to the request.
@@ -57,16 +57,20 @@ class Client(object):
                 or (TRACE_ENV_VAR_COMPAT in os.environ and os.environ[TRACE_ENV_VAR_COMPAT] == 'true'):
             print(request.method + ' ' + request.url)
         logger.debug('%s %s', request.method, request.url)
-        logger.debug('Request content: %s', content)
+        if media_type is not None and media_type == 'application/json':
+            logger.debug('Request content: %s', content)
         response = self._client.send(request=request, headers=headers,
                                      content=content, **operation_config)
-        logger.debug('Response content: %s', response.content)
+        if ('Content-Type' in response.headers
+                and response.headers['Content-Type'].startswith('application/json')):
+            logger.debug('Response content: %s', response.content)
         if response.status_code < 200 or response.status_code >= 300:
             self._handle_error(request, response)
         return response
 
     def _send(self, http_method, location_id, version, route_values=None,
-              query_parameters=None, content=None, media_type='application/json', accept_media_type='application/json', if_match=None):
+              query_parameters=None, content=None, media_type='application/json', accept_media_type='application/json',
+              additional_headers=None):
         request = self._create_request_message(http_method=http_method,
                                                location_id=location_id,
                                                route_values=route_values,
@@ -85,8 +89,9 @@ class Client(object):
         # Construct headers
         headers = {'Content-Type': media_type + '; charset=utf-8',
                    'Accept': accept_media_type + ';api-version=' + negotiated_version}
-        if if_match:
-            headers['if-match'] = if_match
+        if additional_headers is not None:
+            for key in additional_headers:
+                headers[key] = str(additional_headers[key])
         if self.config.additional_headers is not None:
             for key in self.config.additional_headers:
                 headers[key] = self.config.additional_headers[key]
@@ -96,7 +101,7 @@ class Client(object):
             headers['X-VSS-ForceMsaPassThrough'] = 'true'
         if Client._session_header_key in Client._session_data and Client._session_header_key not in headers:
             headers[Client._session_header_key] = Client._session_data[Client._session_header_key]
-        response = self._send_request(request=request, headers=headers, content=content)
+        response = self._send_request(request=request, headers=headers, content=content, media_type=media_type)
         if Client._session_header_key in response.headers:
             Client._session_data[Client._session_header_key] = response.headers[Client._session_header_key]
         return response

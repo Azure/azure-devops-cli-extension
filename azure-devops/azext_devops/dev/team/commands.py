@@ -11,6 +11,10 @@ from ._format import (transform_project_table_output,
                       transform_group_table_output,
                       transform_memberships_table_output,
                       transform_membership_table_output,
+                      transform_namespaces_table_output,
+                      transform_namespace_table_output,
+                      transform_acl_output,
+                      transform_resolve_permission_bits,
                       transform_team_table_output,
                       transform_teams_table_output,
                       transform_team_members_table_output,
@@ -74,6 +78,10 @@ security_groupOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+security_permissionOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.team.security_permission#{}',
+    exception_handler=azure_devops_exception_handler
+)
 
 wikiOps = CliCommandType(
     operations_tmpl='azext_devops.dev.team.wiki#{}',
@@ -103,6 +111,8 @@ def load_team_commands(self, _):
         g.command('list', 'list_service_endpoints', table_transformer=transform_service_endpoints_table_output)
         g.command('show', 'show_service_endpoint')  # no table transform because type is not well defined
         g.command('create', 'create_service_endpoint')
+        g.command('delete', 'delete_service_endpoint',
+                  confirmation='Are you sure you want to delete this service-endpoint?')
 
     with self.command_group('devops team', command_type=teamOps) as g:
         g.command('create', 'create_team', table_transformer=transform_team_table_output)
@@ -142,6 +152,18 @@ def load_team_commands(self, _):
         g.command('list', 'list_memberships', table_transformer=transform_memberships_table_output)
         g.command('add', 'add_membership', table_transformer=transform_membership_table_output)
         g.command('remove', 'remove_membership', confirmation='Are you sure you want to delete this relationship?')
+
+    with self.command_group('devops security permission', command_type=security_permissionOps) as g:
+        g.command('list', 'list_tokens', table_transformer=transform_acl_output)
+        g.command('update', 'update_permissions', table_transformer=transform_resolve_permission_bits)
+        g.command('reset-all', 'reset_all_permissions',
+                  confirmation='Are you sure you want to reset all explicit permissions for this user/group and token?')
+        g.command('reset', 'reset_permissions', table_transformer=transform_resolve_permission_bits)
+        g.command('show', 'show_permissions', table_transformer=transform_resolve_permission_bits)
+
+    with self.command_group('devops security permission namespace', command_type=security_permissionOps) as g:
+        g.command('list', 'list_namespaces', table_transformer=transform_namespaces_table_output)
+        g.command('show', 'show_namespace', table_transformer=transform_namespace_table_output)
 
     with self.command_group('devops wiki', command_type=wikiOps) as g:
         g.command('create', 'create_wiki', table_transformer=transform_wiki_table_output)

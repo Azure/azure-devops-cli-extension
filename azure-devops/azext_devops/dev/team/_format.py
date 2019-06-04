@@ -5,6 +5,7 @@
 
 from __future__ import print_function
 from collections import OrderedDict
+from knack.util import CLIError
 from azext_devops.dev.common.format import trim_for_display, date_time_to_only_date
 
 
@@ -166,6 +167,78 @@ def _transform_membership_row(row):
     return table_row
 
 
+def transform_namespaces_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_namespace_row(item))
+    return table_output
+
+
+def _transform_namespace_row(row):
+    table_row = OrderedDict()
+    table_row['Id'] = row['namespaceId']
+    table_row['Name'] = row['name']
+    return table_row
+
+
+def transform_namespace_table_output(result):
+    table_output = []
+    for item in result[0]['actions']:
+        table_output.append(_transform_namespace_details_row(item))
+    return table_output
+
+
+def _transform_namespace_details_row(row):
+    table_row = OrderedDict()
+    table_row['Name'] = row['name']
+    table_row['Permission Description'] = row['displayName']
+    table_row['Permission Bit'] = row['bit']
+    return table_row
+
+
+def transform_acl_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_acl_details_row(item))
+    return table_output
+
+
+def _transform_acl_details_row(row):
+    if len(row['acesDictionary']) > 1:
+        raise CLIError('More than one entry found in Aces dictionary for this user/group.')
+    table_row = OrderedDict()
+    table_row['token'] = row['token']
+    ace = list(row['acesDictionary'].values())[0]
+    if row['includeExtendedInfo']:
+        if ace['extendedInfo']['effectiveAllow'] is not None:
+            table_row['Effective Allow'] = ace['extendedInfo']['effectiveAllow']
+        else:
+            table_row['Effective Allow'] = 0
+        if ace['extendedInfo']['effectiveDeny'] is not None:
+            table_row['Effective Deny'] = ace['extendedInfo']['effectiveDeny']
+        else:
+            table_row['Effective Deny'] = 0
+    return table_row
+
+
+def transform_resolve_permission_bits(result):
+    table_output = []
+    ace_entry = list(result[0]['acesDictionary'].values())[0]
+    permissions = ace_entry['resolvedPermissions']
+    for permission in permissions:
+        table_output.append(_transform_resolve_bits_row(permission))
+    return table_output
+
+
+def _transform_resolve_bits_row(row):
+    table_row = OrderedDict()
+    table_row['Name'] = row['name']
+    table_row['Bit'] = row['bit']
+    table_row['Permission Description'] = row['displayName']
+    table_row['Permission Value'] = row['effectivePermission']
+    return table_row
+
+
 def transform_teams_table_output(result):
     table_output = []
     for item in sorted(result, key=_get_team_key):
@@ -263,6 +336,10 @@ def _transform_user_row(row):
 
 def _get_extension_key(extension):
     return extension['extensionName'].lower()
+
+
+def _get_permission_key(permission_row):
+    return permission_row['displayName'].lower()
 
 
 def _get_service_endpoint_key(service_endpoint_row):

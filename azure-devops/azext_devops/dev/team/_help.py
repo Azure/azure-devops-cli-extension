@@ -67,6 +67,16 @@ def load_team_help():
     short-summary: Manage memberships for security groups
     """
 
+    helps['devops security permission'] = """
+    type: group
+    short-summary: Manage security permissions
+    """
+
+    helps['devops security permission namespace'] = """
+    type: group
+    short-summary: Manage security namespaces
+    """
+
     helps['devops team'] = """
     type: group
     short-summary: Manage teams
@@ -106,7 +116,7 @@ def load_team_help():
             --query-parameters path={Page Path In Wiki} --http-method PUT --api-version 5.1-preview -o json
             az devops invoke --area wiki --resource pages --route-parameters project=WikiIssue
             wikiIdentifier=e479f402-2be8-4953-bb0b-3a0209cbc2d2 --in-file D:/temp/createWikiRequestBody.txt
-            --query-parameters path=sample738 --http-method PUT --api-version 5.1-preview -o json
+            --encoding 'utf-8' --query-parameters path=sample738 --http-method PUT --api-version 5.1-preview -o json
     """
 
     helps['devops wiki'] = """
@@ -153,7 +163,8 @@ def load_team_help():
 
         - name: Create a new page with path 'my page' in a wiki named 'myprojectwiki' with content from a file
           text: |
-            az devops wiki page create --path 'my page' --wiki myprojectwiki --file-path a.txt
+            az devops wiki page create --path 'my page' --wiki myprojectwiki --file-path a.txt\
+            --encoding utf-8
     """
 
     helps['devops wiki page update'] = """
@@ -161,11 +172,11 @@ def load_team_help():
     examples:
         - name: Update content of page with path 'my page' in a wiki named 'myprojectwiki' with inline content
           text: |
-            az devops wiki page update --path 'my page' --wiki myprojectwiki --content "Hello World"
+            az devops wiki page update --path 'my page' --wiki myprojectwiki --content "Hello World"\
             --version 4ae78ad5835cb7dd55072fe210c9ee7eb6d6413b
 
         - name: Update content of page with path 'my page' in a wiki with content from a file
           text: |
-            az devops wiki page update --path 'my page' --wiki myprojectwiki --file-path a.txt
-            --version 4ae78ad5835cb7dd55072fe210c9ee7eb6d6413b
+            az devops wiki page update --path 'my page' --wiki myprojectwiki --file-path a.txt\
+            --encoding utf-8 --version 4ae78ad5835cb7dd55072fe210c9ee7eb6d6413b
     """

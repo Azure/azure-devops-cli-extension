@@ -54,7 +54,7 @@ class UPackPackagingClient(Client):
         :param str package_name:
         :param str package_version:
         :param str intent:
-        :rtype: :class:`<UPackPackageMetadata> <azure.devops.v5_1.uPack-packaging.models.UPackPackageMetadata>`
+        :rtype: :class:`<UPackPackageMetadata> <azure.devops.v5_1.upack_packaging.models.UPackPackageMetadata>`
         """
         route_values = {}
         if feed_id is not None:
@@ -78,7 +78,7 @@ class UPackPackagingClient(Client):
         [Preview API]
         :param str feed_id:
         :param str package_name:
-        :rtype: :class:`<UPackLimitedPackageMetadataListResponse> <azure.devops.v5_1.uPack-packaging.models.UPackLimitedPackageMetadataListResponse>`
+        :rtype: :class:`<UPackLimitedPackageMetadataListResponse> <azure.devops.v5_1.upack_packaging.models.UPackLimitedPackageMetadataListResponse>`
         """
         route_values = {}
         if feed_id is not None:

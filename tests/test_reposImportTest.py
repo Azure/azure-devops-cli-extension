@@ -23,17 +23,17 @@ class ReposImportTests(ScenarioTest):
         
         try:
             #Create a repo with random name
-            create_repo_command = 'az repos create --detect off --name ' + random_repo_name +' --project ImportRepoTest --output json'
+            create_repo_command = 'az repos create --detect false --name ' + random_repo_name +' --project ImportRepoTest --output json'
             repo_create_output = self.cmd(create_repo_command).get_output_in_json()
             created_repo_id = repo_create_output["id"]
             assert len(created_repo_id) > 0
             
             #Import repo
-            import_repo_command = 'az repos import create --git-source-url https://dev.azure.com/AzureDevOpsCliTest/ImportRepoTest/_git/snakes-and-ladders --repository ' + created_repo_id + ' --project ImportRepoTest --detect Off --output json'
+            import_repo_command = 'az repos import create --git-source-url https://dev.azure.com/AzureDevOpsCliTest/ImportRepoTest/_git/snakes-and-ladders --repository ' + created_repo_id + ' --project ImportRepoTest --detect false --output json'
             import_repo_output = self.cmd(import_repo_command).get_output_in_json()
             import_repo_status = import_repo_output["status"]
             assert import_repo_status == 'completed'
-            list_repo_command = 'az repos list --project ImportRepoTest --output json --detect off'
+            list_repo_command = 'az repos list --project ImportRepoTest --output json --detect false'
             verified_repo_list = False
             list_repo_output_before_delete = self.cmd(list_repo_command).get_output_in_json()
             for repos in list_repo_output_before_delete:
@@ -44,8 +44,8 @@ class ReposImportTests(ScenarioTest):
 
         finally:
             #TestCleanup - Delete the temporary repo we created for the test
-            list_repo_command = 'az repos list --project ImportRepoTest --output json --detect off'
-            delete_repo_command = 'az repos delete --detect off --id ' + created_repo_id + ' --project ImportRepoTest -y --output json'
+            list_repo_command = 'az repos list --project ImportRepoTest --output json --detect false'
+            delete_repo_command = 'az repos delete --detect false --id ' + created_repo_id + ' --project ImportRepoTest -y --output json'
             self.cmd(delete_repo_command)
             
             #Verify Deletion

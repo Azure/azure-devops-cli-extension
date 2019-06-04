@@ -107,7 +107,7 @@ class NuGetClient(Client):
         :param str package_name: Name of the package.
         :param str package_version: Version of the package.
         :param str project: Project ID or project name
-        :rtype: :class:`<NuGetPackageVersionDeletionState> <azure.devops.v5_1.nuGet.models.NuGetPackageVersionDeletionState>`
+        :rtype: :class:`<NuGetPackageVersionDeletionState> <azure.devops.v5_1.nuget.models.NuGetPackageVersionDeletionState>`
         """
         route_values = {}
         if project is not None:
@@ -156,7 +156,7 @@ class NuGetClient(Client):
         :param str package_name: Name of the package to delete.
         :param str package_version: Version of the package to delete.
         :param str project: Project ID or project name
-        :rtype: :class:`<Package> <azure.devops.v5_1.nuGet.models.Package>`
+        :rtype: :class:`<Package> <azure.devops.v5_1.nuget.models.Package>`
         """
         route_values = {}
         if project is not None:
@@ -181,7 +181,7 @@ class NuGetClient(Client):
         :param str package_version: Version of the package.
         :param str project: Project ID or project name
         :param bool show_deleted: True to include deleted packages in the response.
-        :rtype: :class:`<Package> <azure.devops.v5_1.nuGet.models.Package>`
+        :rtype: :class:`<Package> <azure.devops.v5_1.nuget.models.Package>`
         """
         route_values = {}
         if project is not None:
