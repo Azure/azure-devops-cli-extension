@@ -108,8 +108,6 @@ def create_project_iteration(name, path=None, start_date=None, finish_date=None,
     :param name: Name of the iteration.
     :type: str
     """
-    import pdb
-    pdb.set_trace()
     if start_date is None and finish_date is None and name is None:
         raise CLIError('At least one of --start-date , --finish-date or --name arguments is required.')
     organization, project = resolve_instance_and_project(detect=detect,
