@@ -287,22 +287,7 @@ jobs:
 
 You can easily configure branch policies for your repository using the various policy commands. However, the policy commands accept a single scope, i.e., single combination of repository, branch and match type. If you want to apply the same policy across various scopes, you can do that using a policy configuration file.
 
-Say you want to create a manual queue build policy across all branch folders that start with "release" and also on the 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-branch. To achieve this, execute the following steps:
+Say you want to create a manual queue build policy across all branch folders that start with "release" and also on the branch. To achieve this, execute the following steps:
 
 - Create a policy configuration file for build polcy, including the multiple application scopes:
 
@@ -346,7 +331,6 @@ Refer the [Policy create](https://docs.microsoft.com/en-us/rest/api/azure/devops
 
 *Note that the path is provided using '\\' backslash.
 
-
 ## Create an Azure DevOps YAML based multi stage pipeline
 
 You can create and manage YAML based multi stage Azure Pipelines using the `az pipelines` commands.
@@ -355,8 +339,7 @@ You can create and manage YAML based multi stage Azure Pipelines using the `az p
 
 - A Github account, where you can create a repository. If you don't have one, you can [create one for free](https://github.com/)
 
-- An Azure Devops organization. If you don't have one, you can [create one for free](https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/pipelines-sign-up?view=azure-devops)
-If your team already has one, then make sure you're an administrator of the Azure DevOps project that you want to use.
+- An Azure Devops organization. If you don't have one, you can [create one for free](https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/pipelines-sign-up?view=azure-devops). If your team already has one, then make sure you're an administrator of the Azure DevOps project that you want to use.
 
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) along with the [azure-devops extension](../getting_started.md) added.
 
@@ -391,4 +374,3 @@ To create the pipeline, execute the following steps:
 You can update/reset/list permissions for an user or group with the help of security commands.
 
 Refer [Permissions Documentation](permissions.md) for more details on how to get security tokens and manage permissions for a Azure DevOps resource.
-
