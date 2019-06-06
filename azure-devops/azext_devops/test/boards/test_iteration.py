@@ -92,14 +92,14 @@ class TestBoardsIterationMethods(AuthenticatedTests):
         self.assertEqual(self._ROOT_ITERATION_PATH, list_project_iterations_param['path'], str(list_project_iterations_param))
 
     def test_show_project_iteration(self):
-        iteratin_ids_list = []
-        iteratin_ids_list.append(1)
+        iteration_ids_list = []
+        iteration_ids_list.append(1)
         response = get_project_iteration(id=self._ITERATION_ID,project=self._TEST_PROJECT_NAME,organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
         self.mock_get_classification_nodes.assert_called_once()
         show_project_iteration_param = self.mock_get_classification_nodes.call_args_list[0][1]
         self.assertEqual(self._TEST_PROJECT_NAME, show_project_iteration_param['project'], str(show_project_iteration_param))
-        self.assertEqual(iteratin_ids_list, show_project_iteration_param['ids'], str(show_project_iteration_param))
+        self.assertEqual(iteration_ids_list, show_project_iteration_param['ids'], str(show_project_iteration_param))
 
     def test_delete_project_iteration(self):
         response = delete_project_iteration(path=self._ROOT_ITERATION_PATH,project=self._TEST_PROJECT_NAME,organization=self._TEST_DEVOPS_ORGANIZATION)
@@ -118,7 +118,6 @@ class TestBoardsIterationMethods(AuthenticatedTests):
         self.assertEqual(self._TEST_PROJECT_NAME, create_project_iteration_param['project'], str(create_project_iteration_param))
         self.assertEqual(self._STRUCTURE_GROUP, create_project_iteration_param['structure_group'], str(create_project_iteration_param))
         self.assertEqual(self._ROOT_ITERATION_NAME, create_project_iteration_param['posted_node'].name, str(create_project_iteration_param))
-        #self.assertEqual(self._ROOT_ITERATION_PATH, create_project_iteration_param['path'], str(delete_project_iteration_param))
 
     def test_create_project_iteration_with_path(self):
         response = create_project_iteration(name=self._CHILD_ITERATION_NAME,path=self._ROOT_ITERATION_PATH,project=self._TEST_PROJECT_NAME,organization=self._TEST_DEVOPS_ORGANIZATION)
@@ -133,7 +132,6 @@ class TestBoardsIterationMethods(AuthenticatedTests):
     def test_update_project_iteration(self):
         response = update_project_iteration(path=self._ROOT_ITERATION_PATH, name=self._NEW_ITERATION_NAME,project=self._TEST_PROJECT_NAME,organization=self._TEST_DEVOPS_ORGANIZATION)
         #assert
-        #self.mock_create_update_classification_node.assert_called_once()
         self.mock_get_classification_node.assert_called_once()
         self.mock_update_classification_node.assert_called_once()
         update_project_iteration_param = self.mock_update_classification_node.call_args_list[0][1]
