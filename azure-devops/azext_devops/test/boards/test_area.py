@@ -12,7 +12,6 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from azext_devops.devops_sdk.v5_0.work_item_tracking.work_item_tracking_client import (WorkItemTrackingClient)
 from azext_devops.devops_sdk.v5_0.work.models import (TeamFieldValue,
                                                       TeamFieldValuesPatch)
 from azext_devops.dev.common.services import clear_connection_cache
