@@ -4,12 +4,11 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.log import get_logger
-logger = get_logger(__name__)
-
 from azext_devops.dev.common.services import (get_new_task_agent_client,
                                               resolve_instance,
                                               resolve_instance_and_project)
 
+logger = get_logger(__name__)
 
 def list_pools(pool_name=None, pool_type=None, action=None, properties=None, organization=None, detect=None):
     """
