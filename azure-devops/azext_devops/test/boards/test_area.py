@@ -13,7 +13,8 @@ except ImportError:
     from mock import patch
 
 from azext_devops.devops_sdk.v5_0.work_item_tracking.work_item_tracking_client import (WorkItemTrackingClient)
-
+from azext_devops.devops_sdk.v5_0.work.models import (TeamFieldValue,
+                                                      TeamFieldValuesPatch)
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.test.utils.authentication import AuthenticatedTests
 from azext_devops.test.utils.helper import get_client_mock_helper
@@ -21,7 +22,11 @@ from azext_devops.dev.boards.area import (get_project_areas,
                                           get_project_area,
                                           delete_project_area,
                                           create_project_area,
-                                          update_project_area)
+                                          update_project_area,
+                                          get_team_areas,
+                                          add_team_area,
+                                          remove_team_area,
+                                          update_team_area)
 
 class TestBoardsAreaMethods(AuthenticatedTests):
     _TEST_DEVOPS_ORGANIZATION = 'https://someorganization.visualstudio.com'
@@ -29,9 +34,10 @@ class TestBoardsAreaMethods(AuthenticatedTests):
     _WORK_ITEM_TRACKING_CLIENT_LOCATION = 'azext_devops.devops_sdk.v5_0.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient.'
     _WORK_CLIENT_LOCATION = 'azext_devops.devops_sdk.v5_0.work.work_client.WorkClient.'
     _STRUCTURE_GROUP = 'areas'
-    _ROOT_AREA_PATH = _TEST_PROJECT_NAME + '\root_area'
     _ROOT_AREA_NAME = 'root_area'
+    _ROOT_AREA_PATH = _TEST_PROJECT_NAME + '\\' + _ROOT_AREA_NAME 
     _CHILD_AREA_NAME = 'child_area'
+    _CHILD_AREA_PATH = _ROOT_AREA_PATH + '\\' + _CHILD_AREA_NAME 
     _NEW_AREA_NAME = 'root_area_renamed'
     _TEAM = 'sample_team'
     _AREA_ID = 1
@@ -45,10 +51,8 @@ class TestBoardsAreaMethods(AuthenticatedTests):
         self.delete_classification_node_patcher = patch(self._WORK_ITEM_TRACKING_CLIENT_LOCATION + 'delete_classification_node')
         self.create_update_classification_node_patcher = patch(self._WORK_ITEM_TRACKING_CLIENT_LOCATION + 'create_or_update_classification_node')
         self.update_classification_node_patcher = patch(self._WORK_ITEM_TRACKING_CLIENT_LOCATION + 'update_classification_node')
-        #self.get_team_iterations_patcher = patch(self._WORK_CLIENT_LOCATION + 'get_team_iterations')
-        #self.get_team_iteration_patcher = patch(self._WORK_CLIENT_LOCATION + 'get_team_iteration')
-        #self.delete_team_iteration_patcher = patch(self._WORK_CLIENT_LOCATION + 'delete_team_iteration')
-        #self.post_team_iteration_patcher = patch(self._WORK_CLIENT_LOCATION + 'post_team_iteration')
+        self.get_team_field_values_patcher = patch(self._WORK_CLIENT_LOCATION + 'get_team_field_values')
+        self.update_team_field_values_patcher = patch(self._WORK_CLIENT_LOCATION + 'update_team_field_values')
 
         self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client', new=get_client_mock_helper)
 
@@ -58,10 +62,9 @@ class TestBoardsAreaMethods(AuthenticatedTests):
         self.mock_delete_classification_node = self.delete_classification_node_patcher.start()
         self.mock_create_update_classification_node = self.create_update_classification_node_patcher.start()
         self.mock_update_classification_node = self.update_classification_node_patcher.start()
-        #self.mock_get_team_iterations = self.get_team_iterations_patcher.start()
-        #self.mock_get_team_iteration = self.get_team_iteration_patcher.start()
-        #self.mock_delete_team_iteration = self.delete_team_iteration_patcher.start()
-        #self.mock_post_team_iteration = self.post_team_iteration_patcher.start()
+        self.mock_get_team_field_values = self.get_team_field_values_patcher.start()
+        self.mock_update_team_field_values = self.update_team_field_values_patcher.start()
+
         #clear connection cache before running each test
         clear_connection_cache()
 
@@ -157,3 +160,73 @@ class TestBoardsAreaMethods(AuthenticatedTests):
         self.assertEqual(child_area_id, create_project_area_param['posted_node'].id, str(create_project_area_param))
         self.assertEqual(self._ROOT_AREA_PATH, create_project_area_param['path'], str(create_project_area_param))
 
+    def test_get_team_areas(self):
+        response = get_team_areas(team=self._TEAM,project=self._TEST_PROJECT_NAME,organization=self._TEST_DEVOPS_ORGANIZATION)
+        self.mock_get_team_field_values.assert_called_once()
+        list_team_areas_param = self.mock_get_team_field_values.call_args_list[0][1]
+        self.assertEqual(self._TEAM, list_team_areas_param['team_context'].team, str(list_team_areas_param))
+        self.assertEqual(self._TEST_PROJECT_NAME, list_team_areas_param['team_context'].project, str(list_team_areas_param))
+
+    def test_update_team_area(self):
+        self.mock_get_team_field_values.return_value = self._prepare_team_field_values_patch_object(path=self._CHILD_AREA_PATH, include_children=False, is_default=False)
+        self.mock_update_team_field_values.return_value = self._prepare_team_field_values_patch_object(path=self._CHILD_AREA_PATH, include_children=True, is_default=True)
+        response = update_team_area(path=self._CHILD_AREA_PATH, set_as_default=True, include_sub_areas=True, team=self._TEAM,project=self._TEST_PROJECT_NAME,organization=self._TEST_DEVOPS_ORGANIZATION)
+        self.mock_get_team_field_values.assert_called_once()
+        update_team_area_param = self.mock_update_team_field_values.call_args_list[0][1]
+        self.assertEqual(self._TEAM, update_team_area_param['team_context'].team, str(update_team_area_param))
+        self.assertEqual(self._TEST_PROJECT_NAME, update_team_area_param['team_context'].project, str(update_team_area_param))
+        area_path_include_children= False
+        area_path_found = False
+        area_path_is_default = False
+        for entry in response.values:
+            if self._CHILD_AREA_PATH ==  entry.value:
+                area_path_found = True
+                area_path_include_children = ( entry.include_children is True )
+        if response.default_value == self._CHILD_AREA_PATH:
+            area_path_is_default = True
+        self.assertEqual(area_path_found, True)
+        self.assertEqual(area_path_is_default, True)
+        self.assertEqual(area_path_include_children, True)
+
+    def test_remove_team_area(self):
+        self.mock_get_team_field_values.return_value = self._prepare_team_field_values_patch_object(path=self._CHILD_AREA_PATH, include_children=False, is_default=False)
+        response = remove_team_area(path=self._CHILD_AREA_PATH,team=self._TEAM,project=self._TEST_PROJECT_NAME,organization=self._TEST_DEVOPS_ORGANIZATION)
+        self.mock_get_team_field_values.assert_called_once()
+        self.mock_update_team_field_values.assert_called_once()
+        remove_team_area_param = self.mock_update_team_field_values.call_args_list[0][1]
+        self.assertEqual(self._TEAM, remove_team_area_param['team_context'].team, str(remove_team_area_param))
+        self.assertEqual(self._TEST_PROJECT_NAME, remove_team_area_param['team_context'].project, str(remove_team_area_param))
+        updated_team_field_values = remove_team_area_param['patch'].values
+        for entry in updated_team_field_values:
+            self.assertNotEqual(self._CHILD_AREA_PATH, entry.value , str(remove_team_area_param))
+
+    def test_add_team_area(self):
+        self.mock_update_team_field_values.return_value = self._prepare_team_field_values_patch_object(path=self._CHILD_AREA_PATH, include_children=True, is_default=False)
+        response = add_team_area(path=self._CHILD_AREA_PATH,team=self._TEAM,project=self._TEST_PROJECT_NAME,organization=self._TEST_DEVOPS_ORGANIZATION)
+        self.mock_get_team_field_values.assert_called_once()
+        self.mock_update_team_field_values.assert_called_once()
+        add_team_area_param = self.mock_update_team_field_values.call_args_list[0][1]
+        self.assertEqual(self._TEAM, add_team_area_param['team_context'].team, str(add_team_area_param))
+        self.assertEqual(self._TEST_PROJECT_NAME, add_team_area_param['team_context'].project, str(add_team_area_param))
+        area_path_found = False
+        for entry in response.values:
+            if self._CHILD_AREA_PATH ==  entry.value:
+                area_path_found = True
+        self.assertEqual(area_path_found, True)
+
+
+    def _prepare_team_field_values_patch_object(self, path, include_children=False, is_default=True):
+        patch_obj = TeamFieldValuesPatch()
+        patch_obj.values = []
+        # add root node
+        team_field_value = TeamFieldValue(include_children=False, value=self._ROOT_AREA_PATH)
+        patch_obj.values.append(team_field_value)
+        patch_obj.default_value = self._ROOT_AREA_PATH
+        # add child node
+        team_field_value = TeamFieldValue(include_children=include_children, value=path)
+        if is_default:
+            patch_obj.default_value = path
+        patch_obj.values.append(team_field_value)
+        team_field_value = TeamFieldValue(include_children=False, value=self._ROOT_AREA_PATH)
+        patch_obj.values.append(team_field_value)
+        return patch_obj
