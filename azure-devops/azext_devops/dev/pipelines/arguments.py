@@ -75,13 +75,16 @@ def load_build_arguments(self, _):
         context.argument('repository_type', choices=['tfsgit', 'github'], type=str.lower)
 
     with self.argument_context('pipelines pool') as context:
+        context.argument('pool_id', options_list=('--pool-id', '--id'))
         context.argument('action', **enum_choice_list(_AGENT_ACTION_FILTER_TYPES))
         context.argument('pool_type', **enum_choice_list(_AGENT_POOL_TYPES))
 
     with self.argument_context('pipelines agent') as context:
+        context.argument('agent_id', options_list=('--agent-id', '--id'))
         context.argument('include_capabilities', arg_type=get_three_state_flag())
         context.argument('include_assigned_request', arg_type=get_three_state_flag())
         context.argument('include_last_completed_request', arg_type=get_three_state_flag())
 
     with self.argument_context('pipelines queue') as context:
+        context.argument('queue_id', options_list=('--queue-id', '--id'))
         context.argument('action', **enum_choice_list(_AGENT_ACTION_FILTER_TYPES))

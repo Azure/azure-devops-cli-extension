@@ -236,3 +236,67 @@ def _transform_pipeline_run_row(row):
     table_row['Queued Time'] = str(queued_time.date()) + ' ' + str(queued_time.time())
     table_row['Reason'] = row['reason']
     return table_row
+
+
+def transform_pipelines_pools_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_pipeline_pool_row(item))
+    return table_output
+
+
+def transform_pipelines_pool_table_output(result):
+    table_output = [_transform_pipeline_pool_row(result)]
+    return table_output
+
+
+def _transform_pipeline_pool_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Name'] = row['name']
+    table_row['Is Hosted'] = row['isHosted']
+    table_row['Pool Type'] = row['poolType']
+    return table_row
+
+
+def transform_pipelines_agents_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_pipeline_agent_row(item))
+    return table_output
+
+
+def transform_pipelines_agent_table_output(result):
+    table_output = [_transform_pipeline_agent_row(result)]
+    return table_output
+
+
+def _transform_pipeline_agent_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Name'] = row['name']
+    table_row['Is Enabled'] = row['enabled']
+    table_row['Status'] = row['status']
+    table_row['Version'] = row['version']
+    return table_row
+
+
+def transform_pipelines_queues_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_pipeline_queue_row(item))
+    return table_output
+
+
+def transform_pipelines_queue_table_output(result):
+    table_output = [_transform_pipeline_queue_row(result)]
+    return table_output
+
+
+def _transform_pipeline_queue_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Name'] = row['name']
+    table_row['Pool IsHosted'] = row['pool']['isHosted']
+    table_row['Pool Type'] = row['pool']['poolType']
+    return table_row

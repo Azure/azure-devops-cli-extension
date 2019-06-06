@@ -18,7 +18,13 @@ from ._format import (transform_build_table_output,
                       transform_release_table_output,
                       transform_release_definitions_table_output,
                       transform_release_definition_table_output,
-                      transform_runs_artifact_table_output)
+                      transform_runs_artifact_table_output,
+                      transform_pipelines_pools_table_output,
+                      transform_pipelines_pool_table_output,
+                      transform_pipelines_agents_table_output,
+                      transform_pipelines_agent_table_output,
+                      transform_pipelines_queues_table_output,
+                      transform_pipelines_queue_table_output)
 
 buildOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.build#{}',
@@ -125,13 +131,13 @@ def load_build_commands(self, _):
         g.command('show', 'pipeline_run_show', table_transformer=transform_pipeline_run_table_output)
 
     with self.command_group('pipelines pool', command_type=pipelineAgentPoolQueueOps) as g:
-        g.command('list', 'list_pools')
-        g.command('show', 'show_pool')
+        g.command('list', 'list_pools', table_transformer=transform_pipelines_pools_table_output)
+        g.command('show', 'show_pool', table_transformer=transform_pipelines_pool_table_output)
 
     with self.command_group('pipelines agent', command_type=pipelineAgentPoolQueueOps) as g:
-        g.command('list', 'list_agents')
-        g.command('show', 'show_agent')
+        g.command('list', 'list_agents', table_transformer=transform_pipelines_agents_table_output)
+        g.command('show', 'show_agent', table_transformer=transform_pipelines_agent_table_output)
 
     with self.command_group('pipelines queue', command_type=pipelineAgentPoolQueueOps) as g:
-        g.command('list', 'list_queues')
-        g.command('show', 'show_queue')
+        g.command('list', 'list_queues', table_transformer=transform_pipelines_queues_table_output)
+        g.command('show', 'show_queue', table_transformer=transform_pipelines_queue_table_output)
