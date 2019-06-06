@@ -354,12 +354,12 @@ To create the pipeline, execute the following steps:
 1. Sign in to Azure CLI using your crendentials.
 
 1. Configure your defaults to include the Azure DevOps organization and project
-`az devops configure --defaults organization=https://dev.azure.com/contosoWebApp project=PaymentModule`
+   `az devops configure --defaults organization=https://dev.azure.com/contosoWebApp project=PaymentModule`
 
 1. Clone your GitHub repository and navigate to the source code directory
 
 1. Run `az pipelines create` command
-`az pipelines create --name "Contoso.CI"`
+   `az pipelines create --name "Contoso.CI"`
 
 1. You will be asked for a service connection which enables Azure DevOps to communicate to GitHub. If you don't have one, you can create one and provide your GitHub credentials.
 
