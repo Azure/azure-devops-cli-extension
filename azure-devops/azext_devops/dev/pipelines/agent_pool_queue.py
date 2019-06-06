@@ -10,6 +10,7 @@ from azext_devops.dev.common.services import (get_new_task_agent_client,
 
 logger = get_logger(__name__)
 
+
 def list_pools(pool_name=None, pool_type=None, action=None, properties=None, organization=None, detect=None):
     """
     List agent pools

@@ -23,6 +23,7 @@ _AGENT_POOL_TYPES = ['automation', 'deployment']
 
 _AGENT_ACTION_FILTER_TYPES = ['use', 'manage', 'none']
 
+
 def load_build_arguments(self, _):
     with self.argument_context('pipelines build list') as context:
         context.argument('definition_ids', nargs='*', type=int)
