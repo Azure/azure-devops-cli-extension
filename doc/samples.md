@@ -29,27 +29,25 @@ In the above experience, you need to manually enter the token when prompted. How
 There are cases where persisting a personal access token on the machine where the Azure CLI is running is not technically possible or is not secure. In these cases you can get a token from an environment variable.
 To use a personal access token, set the `AZURE_DEVOPS_EXT_PAT` environment variable:
 
-    Windows:
+Windows:
 
-    ```powershell
-      set AZURE_DEVOPS_EXT_PAT=xxxxxxxxxx
-    ```
+```powershell
+  set AZURE_DEVOPS_EXT_PAT=xxxxxxxxxx
+```
 
-    Linux or macOS:
+Linux or macOS:
 
-    ```bash
-      export AZURE_DEVOPS_EXT_PAT=xxxxxxxxxx
-    ```
+```bash
+export AZURE_DEVOPS_EXT_PAT=xxxxxxxxxx
+```
 
-    Replace *xxxxxxxxxx* with the your PAT.
+Replace *xxxxxxxxxx* with the your PAT.
 
-    Now run any command without having to login explicitly. Each command will try to use the PAT in the environment variable for authentication.
+Now run any command without having to login explicitly. Each command will try to use the PAT in the environment variable for authentication.
 
-- Fetch PAT from a file and pass it to login command.
-
-    ```bash
-    cat my_pat_token.txt | az devops login --organization https://dev.azure.com/contoso/
-    ```
+```bash
+cat my_pat_token.txt | az devops login --organization https://dev.azure.com/contoso/
+```
 
 ## Auto detect and git aliases
 
@@ -289,7 +287,7 @@ jobs:
 
 You can easily configure branch policies for your repository using the various policy commands. However, the policy commands accept a single scope, i.e., single combination of repository, branch and match type. If you want to apply the same policy across various scopes, you can do that using a policy configuration file.
 
-Say you want to create a manual queue build policy across all branch folders that start with "release" and also on the master branch. To achieve this, execute the following steps:
+Say you want to create a manual queue build policy across all branch folders that start with "release" and also on the branch. To achieve this, execute the following steps:
 
 - Create a policy configuration file for build polcy, including the multiple application scopes:
 
@@ -332,6 +330,44 @@ Refer the [Policy create](https://docs.microsoft.com/en-us/rest/api/azure/devops
 `az repos policy create C:\policyConfiguration.txt`
 
 *Note that the path is provided using '\\' backslash.
+
+## Create an Azure DevOps YAML based multi stage pipeline
+
+You can create and manage YAML based multi stage Azure Pipelines using the `az pipelines` commands.
+
+### Prerequisites
+
+- A Github account, where you can create a repository. If you don't have one, you can [create one for free](https://github.com/)
+
+- An Azure Devops organization. If you don't have one, you can [create one for free](https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/pipelines-sign-up?view=azure-devops). If your team already has one, then make sure you're an administrator of the Azure DevOps project that you want to use.
+
+- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) along with the [azure-devops extension](../getting_started.md) added.
+
+- You can use Azure Pipelines to build an app written in any language. For this quickstart, we will use Java. To get started, fork the following repository into your GitHub account.
+
+```BASH
+https://github.com/MicrosoftDocs/pipelines-java
+```
+
+To create the pipeline, execute the following steps:
+
+1. Sign in to Azure CLI using your crendentials.
+
+1. Configure your defaults to include the Azure DevOps organization and project
+   `az devops configure --defaults organization=https://dev.azure.com/contosoWebApp project=PaymentModule`
+
+1. Clone your GitHub repository and navigate to the source code directory
+
+1. Run `az pipelines create` command
+   `az pipelines create --name "Contoso.CI"`
+
+1. You will be asked for a service connection which enables Azure DevOps to communicate to GitHub. If you don't have one, you can create one and provide your GitHub credentials.
+
+1. Select the Maven pipeline template from the list of recommended templates.
+
+1. The pipeline YAML is generated. You can open the YAML in your default editor to view and make changes.
+
+1. Select option to commit changes to master. A new run is started. Wait for the run to finish.
 
 ## Manage permissions with Azure DevOps CLI
 
