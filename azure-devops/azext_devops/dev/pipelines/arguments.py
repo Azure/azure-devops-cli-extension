@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.arguments import enum_choice_list
+from azure.cli.core.commands.parameters import get_three_state_flag
 
 _BUILD_REASON_VALUES = ['all', 'batchedCI', 'buildCompletion', 'checkInShelveset',
                         'individualCI', 'manual', 'pullRequest', 'schedule',
@@ -76,3 +77,11 @@ def load_build_arguments(self, _):
     with self.argument_context('pipelines pool') as context:
         context.argument('action', **enum_choice_list(_AGENT_ACTION_FILTER_TYPES))
         context.argument('pool_type', **enum_choice_list(_AGENT_POOL_TYPES))
+
+    with self.argument_context('pipelines agent') as context:
+        context.argument('include_capabilities', arg_type=get_three_state_flag())
+        context.argument('include_assigned_request', arg_type=get_three_state_flag())
+        context.argument('include_last_completed_request', arg_type=get_three_state_flag())
+
+    with self.argument_context('pipelines queue') as context:
+        context.argument('action', **enum_choice_list(_AGENT_ACTION_FILTER_TYPES))

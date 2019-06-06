@@ -31,6 +31,24 @@ def load_pipelines_help():
     long-summary:
     """
 
+    helps['pipelines pool'] = """
+    type: group
+    short-summary: (PREVIEW) Manage agent pools.
+    long-summary:
+    """
+
+    helps['pipelines agent'] = """
+    type: group
+    short-summary: (PREVIEW) Manage agents.
+    long-summary:
+    """
+
+    helps['pipelines queue'] = """
+    type: group
+    short-summary: (PREVIEW) Manage agent queues.
+    long-summary:
+    """
+
     helps['pipelines build tag'] = """
     type: group
     short-summary: Manage build tags.
