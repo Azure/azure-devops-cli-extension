@@ -20,14 +20,12 @@ def get_project_areas(depth=1, path=None, organization=None, project=None, detec
     :param depth: Depth of child nodes to be fetched.
     :type depth: int
     """
-    import pdb
-    pdb.set_trace()
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
     if path:
-        path = resolve_classification_node_path(client, path, project, 'areas')
+        path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_AREA)
     list_of_areas = client.get_classification_node(project=project,
                                                    structure_group=_STRUCTURE_GROUP_AREA,
                                                    depth=depth, path=path)
@@ -42,7 +40,7 @@ def delete_project_area(path, organization=None, project=None, detect=None):
                                                          organization=organization,
                                                          project=project)
 
-    path = resolve_classification_node_path(client, path, project, 'areas')                                                        
+    path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_AREA)
     client = get_work_item_tracking_client(organization)
     response = client.delete_classification_node(project=project,
                                                  structure_group=_STRUCTURE_GROUP_AREA,
@@ -60,7 +58,7 @@ def create_project_area(name, path=None, organization=None, project=None, detect
                                                          project=project)
     client = get_work_item_tracking_client(organization)
     if path:
-        path = resolve_classification_node_path(client, path, project, 'areas')
+        path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_AREA)
     classification_node_object = WorkItemClassificationNode()
     classification_node_object.name = name
     response = client.create_or_update_classification_node(project=project,
@@ -98,7 +96,7 @@ def update_project_area(path, name=None, child_id=None, organization=None, proje
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
-    path = resolve_classification_node_path(client,path, project, 'areas')
+    path = resolve_classification_node_path(client,path, project, _STRUCTURE_GROUP_AREA)
     if child_id:
         move_classification_node_object = WorkItemClassificationNode()
         move_classification_node_object.id = child_id

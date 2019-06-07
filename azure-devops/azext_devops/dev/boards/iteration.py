@@ -23,6 +23,8 @@ def get_project_iterations(depth=1, path=None, organization=None, project=None, 
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
+    if path:
+        path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_ITERATION)
     list_of_iterations = client.get_classification_node(project=project,
                                                         structure_group=_STRUCTURE_GROUP_ITERATION,
                                                         depth=depth, path=path)
@@ -43,6 +45,7 @@ def update_project_iteration(path, child_id=None, name=None, start_date=None,
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
+    path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_ITERATION)
     if child_id:
         move_classification_node_object = WorkItemClassificationNode()
         move_classification_node_object.id = child_id
@@ -81,6 +84,7 @@ def delete_project_iteration(path, organization=None, project=None, detect=None)
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
+    path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_ITERATION)
     response = client.delete_classification_node(project=project,
                                                  structure_group=_STRUCTURE_GROUP_ITERATION,
                                                  path=path)
@@ -92,8 +96,6 @@ def get_project_iteration(id, organization=None, project=None, detect=None):  # 
     :param id: Iteration ID.
     :type id: int
     """
-    import pdb
-    pdb.set_trace()
     ids = [int(id)]
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -116,6 +118,8 @@ def create_project_iteration(name, path=None, start_date=None, finish_date=None,
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
+    if path:
+        path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_ITERATION)
     classification_node_object = WorkItemClassificationNode()
     if ((start_date and not finish_date) or (not start_date and finish_date)):
         raise CLIError('You must specify both start and finish dates or neither date')
