@@ -92,6 +92,8 @@ def get_project_iteration(id, organization=None, project=None, detect=None):  # 
     :param id: Iteration ID.
     :type id: int
     """
+    import pdb
+    pdb.set_trace()
     ids = [int(id)]
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -196,3 +198,17 @@ def post_team_iteration(id, team, organization=None, project=None, detect=None):
     team_setting_iteration = TeamSettingsIteration(id=id)
     team_iteration = client.post_team_iteration(iteration=team_setting_iteration, team_context=team_context)
     return team_iteration
+
+
+def list_iteration_work_items(id, team, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+    """List work-items for an iteration.
+    :param id: Identifier of the iteration.
+    :type: str
+    :param team: Name or ID of the team.
+    :type: str
+    """
+    organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
+    client = get_work_client(organization)
+    team_context = TeamContext(project=project, team=team)
+    work_items = client.get_iteration_work_items(iteration_id=id, team_context=team_context)
+    return work_items

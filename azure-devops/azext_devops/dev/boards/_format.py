@@ -145,6 +145,22 @@ def _transform_team_iteration_row(row):
     return table_row
 
 
+def transform_iteration_work_item(result):
+    if result['workItemRelations'] is None:
+        return []
+
+    relations = result['workItemRelations']
+    table_output = []
+    for item in relations:
+        table_row = OrderedDict()
+        table_row['Relation Type'] = item['rel']
+        table_row['Source'] = item['source']
+        table_row['Target'] = item['target']
+        table_output.append(table_row)
+
+    return table_output
+
+
 def transform_work_item_project_classification_nodes_table_output(response):
     table_op = []
     table_op = transform_work_item_project_classification_nodes_table_output_recursive(response, table_op)

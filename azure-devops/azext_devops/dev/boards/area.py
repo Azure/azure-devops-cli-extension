@@ -11,7 +11,7 @@ from azext_devops.devops_sdk.v5_0.work.models import (TeamContext,
 from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
                                               get_work_client)
-
+from .path_helper import resolve_classification_node_path
 _STRUCTURE_GROUP_AREA = 'areas'
 
 
@@ -20,13 +20,18 @@ def get_project_areas(depth=1, path=None, organization=None, project=None, detec
     :param depth: Depth of child nodes to be fetched.
     :type depth: int
     """
+    import pdb
+    pdb.set_trace()
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
+    if path:
+        path = resolve_classification_node_path(client, path, project, 'areas')
     list_of_areas = client.get_classification_node(project=project,
                                                    structure_group=_STRUCTURE_GROUP_AREA,
                                                    depth=depth, path=path)
+    
     return list_of_areas
 
 
@@ -36,6 +41,8 @@ def delete_project_area(path, organization=None, project=None, detect=None):
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)
+
+    path = resolve_classification_node_path(client, path, project, 'areas')                                                        
     client = get_work_item_tracking_client(organization)
     response = client.delete_classification_node(project=project,
                                                  structure_group=_STRUCTURE_GROUP_AREA,
@@ -52,6 +59,8 @@ def create_project_area(name, path=None, organization=None, project=None, detect
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
+    if path:
+        path = resolve_classification_node_path(client, path, project, 'areas')
     classification_node_object = WorkItemClassificationNode()
     classification_node_object.name = name
     response = client.create_or_update_classification_node(project=project,
@@ -76,7 +85,7 @@ def get_project_area(id, organization=None, project=None, detect=None):  # pylin
     return response
 
 
-def update_project_area(path=None, name=None, child_id=None, organization=None, project=None, detect=None):
+def update_project_area(path, name=None, child_id=None, organization=None, project=None, detect=None):
     """Move area or update area name.
     :param name: New name of the area.
     :type: str
@@ -89,6 +98,7 @@ def update_project_area(path=None, name=None, child_id=None, organization=None, 
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
+    path = resolve_classification_node_path(client,path, project, 'areas')
     if child_id:
         move_classification_node_object = WorkItemClassificationNode()
         move_classification_node_object.id = child_id
