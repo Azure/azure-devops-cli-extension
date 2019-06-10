@@ -12,6 +12,9 @@ from ._format import (transform_work_item_table_output,
                       transform_work_item_relations,
                       transform_work_item_team_iterations_table_output,
                       transform_work_item_team_iteration_table_output,
+                      transform_work_item_team_iteration_work_items,
+                      transform_work_item_team_default_iteration_table_output,
+                      transform_work_item_team_backlog_iteration_table_output,
                       transform_work_item_project_classification_nodes_table_output,
                       transform_work_item_project_classification_node_table_output,
                       transform_work_item_team_areas_table_output)
@@ -62,8 +65,16 @@ def load_work_commands(self, _):
     with self.command_group('boards iteration team', command_type=workProjectAndTeamIterationOps) as g:
         # team iteration commands
         g.command('list', 'get_team_iterations', table_transformer=transform_work_item_team_iterations_table_output)
-        g.command('list-work-items', 'list_iteration_work_items')#, table_transformer=transform_work_item_team_iterations_table_output)
-        g.command('show', 'get_team_iteration', table_transformer=transform_work_item_team_iteration_table_output)
+        g.command('list-work-items', 'list_iteration_work_items',
+                  table_transformer=transform_work_item_team_iteration_work_items)
+        g.command('set-default-iteration', 'set_default_iteration',
+                  table_transformer=transform_work_item_team_default_iteration_table_output)
+        g.command('set-backlog-iteration', 'set_backlog_iteration',
+                  table_transformer=transform_work_item_team_backlog_iteration_table_output)
+        g.command('show-default-iteration', 'show_default_iteration',
+                  table_transformer=transform_work_item_team_default_iteration_table_output)
+        g.command('show-backlog-iteration', 'show_backlog_iteration',
+                  table_transformer=transform_work_item_team_backlog_iteration_table_output)
         g.command('remove', 'delete_team_iteration', table_transformer=transform_work_item_team_iteration_table_output)
         g.command('add', 'post_team_iteration', table_transformer=transform_work_item_team_iteration_table_output)
 
@@ -100,4 +111,3 @@ def load_work_commands(self, _):
         g.command('remove', 'remove_team_area', table_transformer=transform_work_item_team_areas_table_output)
         g.command('update', 'update_team_area',
                   table_transformer=transform_work_item_team_areas_table_output)
-

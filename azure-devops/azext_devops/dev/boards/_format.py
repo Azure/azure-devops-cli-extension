@@ -133,31 +133,47 @@ def _transform_team_iteration_row(row):
     table_row = OrderedDict()
     table_row['ID'] = row['id']
     table_row['Name'] = row['name']
-    if row['attributes']['startDate'] is None:
-        table_row['Start Date'] = ''
-    else:
-        table_row['Start Date'] = row['attributes']['startDate']
-    if row['attributes']['finishDate'] is None:
-        table_row['Finish Date'] = ''
-    else:
-        table_row['Finish Date'] = row['attributes']['finishDate']
+    if row['attributes']:
+        if row['attributes']['startDate'] is None:
+            table_row['Start Date'] = ''
+        else:
+            table_row['Start Date'] = row['attributes']['startDate']
+        if row['attributes']['finishDate'] is None:
+            table_row['Finish Date'] = ''
+        else:
+            table_row['Finish Date'] = row['attributes']['finishDate']
+        if 'timeFrame' in row['attributes']:
+            table_row['Time Frame'] = row['attributes']['timeFrame']
     table_row['Path'] = row['path']
     return table_row
 
-
-def transform_iteration_work_item(result):
-    if result['workItemRelations'] is None:
-        return []
-
-    relations = result['workItemRelations']
+def transform_work_item_team_iteration_work_items(result):
     table_output = []
-    for item in relations:
-        table_row = OrderedDict()
-        table_row['Relation Type'] = item['rel']
-        table_row['Source'] = item['source']
-        table_row['Target'] = item['target']
-        table_output.append(table_row)
+    for item in result['workItemRelations']:
+        table_output.append(_transform_team_iteration_work_item_row(item))
+    return table_output
 
+def _transform_team_iteration_work_item_row(row):
+    table_row = OrderedDict()
+    if row['source']:
+        table_row['Source'] = row['source']['id']
+    if row['target']:
+        table_row['Target'] = row['target']['id']
+    table_row['Relation Type'] = row['rel']
+    return table_row
+
+
+def transform_work_item_team_default_iteration_table_output(result):
+    table_output = []
+    table_row = _transform_team_iteration_row(result['defaultIteration'])
+    table_row['Default Iteration Macro'] = result['defaultIterationMacro']
+    table_output.append(table_row)
+    return table_output
+
+
+def transform_work_item_team_backlog_iteration_table_output(result):
+    table_output = []
+    table_output.append(_transform_team_iteration_row(result['backlogIteration']))
     return table_output
 
 

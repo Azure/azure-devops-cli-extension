@@ -6,7 +6,8 @@
 from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.work_item_tracking.models import WorkItemClassificationNode
 from azext_devops.devops_sdk.v5_0.work.models import (TeamContext,
-                                                      TeamSettingsIteration)
+                                                      TeamSettingsIteration,
+                                                      TeamSettingsPatch)
 from azext_devops.dev.common.arguments import convert_date_only_string_to_iso8601
 from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
@@ -159,22 +160,6 @@ def get_team_iterations(team, timeframe=None, organization=None, project=None, d
     return list_of_iterations
 
 
-def get_team_iteration(id, team, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """ Get iteration details for a team.
-    :param id: Identifier of the iteration.
-    :type: str
-    :param team: Name or ID of the team.
-    :type: str
-    """
-    organization, project = resolve_instance_and_project(detect=detect,
-                                                         organization=organization,
-                                                         project=project)
-    client = get_work_client(organization)
-    team_context = TeamContext(project=project, team=team)
-    team_iteration = client.get_team_iteration(team_context=team_context, id=id)
-    return team_iteration
-
-
 def delete_team_iteration(id, team, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """ Remove iteration from a team.
     :param id: Identifier of the iteration.
@@ -215,4 +200,79 @@ def list_iteration_work_items(id, team, organization=None, project=None, detect=
     client = get_work_client(organization)
     team_context = TeamContext(project=project, team=team)
     work_items = client.get_iteration_work_items(iteration_id=id, team_context=team_context)
+    wit_client = get_work_item_tracking_client(organization)
+    relation_types = wit_client.get_relation_types()
+    work_items = _fill_friendly_name_for_relations_in_iteration_work_items(relation_types_from_service=relation_types,iteration_work_items=work_items)
     return work_items
+
+
+def set_default_iteration(team, id=None, default_iteration_macro=None, organization=None, project=None, detect=None):
+    """Set default iteration for a team.
+    :param id: Identifier of the iteration which needs to be set as default.
+    :type: str
+    :param team: Name or ID of the team.
+    :type: str
+    :param default_iteration_macro: Default iteration macro. Example: @CurrentIteration.
+    :type: str
+    """
+    if default_iteration_macro is None and id is None:
+        raise CLIError('Either --id or --default-iteration-macro is required.')
+    organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
+    client = get_work_client(organization)
+    team_context = TeamContext(project=project, team=team)
+    patch_object = TeamSettingsPatch()
+    if id:
+        patch_object.default_iteration = id
+    if default_iteration_macro:
+        patch_object.default_iteration_macro = default_iteration_macro
+    team_iteration_setting = client.update_team_settings(team_settings_patch=patch_object, team_context=team_context)
+    return team_iteration_setting
+
+
+def set_backlog_iteration(team, id, organization=None, project=None, detect=None):
+    """Set backlog iteration for a team.
+    :param id: Identifier of the iteration which needs to be set as backlog iteration.
+    :type: str
+    :param team: Name or ID of the team.
+    :type: str
+    """
+    organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
+    client = get_work_client(organization)
+    team_context = TeamContext(project=project, team=team)
+    patch_object = TeamSettingsPatch()
+    patch_object.backlog_iteration = id
+    team_iteration_setting = client.update_team_settings(team_settings_patch=patch_object, team_context=team_context)
+    return team_iteration_setting
+
+
+def show_default_iteration(team, organization=None, project=None, detect=None):
+    """Show default iteration for a team.
+    :param team: Name or ID of the team.
+    :type: str
+    """
+    organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
+    client = get_work_client(organization)
+    team_context = TeamContext(project=project, team=team)
+    team_iteration_setting = client.get_team_settings(team_context=team_context)
+    return team_iteration_setting
+
+
+def show_backlog_iteration(team, organization=None, project=None, detect=None):
+    """Show backlog iteration for a team.
+    :param team: Name or ID of the team.
+    :type: str
+    """
+    organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
+    client = get_work_client(organization)
+    team_context = TeamContext(project=project, team=team)
+    team_iteration_setting = client.get_team_settings(team_context=team_context)
+    return team_iteration_setting
+
+def _fill_friendly_name_for_relations_in_iteration_work_items(relation_types_from_service, iteration_work_items):
+    if not iteration_work_items.work_item_relations:
+        return iteration_work_items
+    for relation in iteration_work_items.work_item_relations:
+        for relation_type_from_service in relation_types_from_service:
+            if relation_type_from_service.reference_name == relation.rel:
+                relation.rel = relation_type_from_service.name
+    return iteration_work_items
