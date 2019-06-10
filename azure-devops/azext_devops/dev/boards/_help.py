@@ -43,6 +43,11 @@ def load_boards_help():
     long-summary:
     """
 
+    helps['boards iteration project update'] = """
+    type: command
+    long-summary: Move iteration or update iteration details like name AND/OR start-date and finish-date.
+    """
+
     helps['boards area'] = """
     type: group
     short-summary: Manage area paths.
@@ -55,10 +60,20 @@ def load_boards_help():
     long-summary:
     """
 
+    helps['boards area project update'] = """
+    type: command
+    long-summary: Move area or update area name.
+    """
+
     helps['boards area team'] = """
     type: group
     short-summary: Manage areas for a team.
     long-summary:
+    """
+
+    helps['boards area team update'] = """
+    type: command
+    long-summary:Update any area to include/exclude sub areas OR Set already added area as default.
     """
 
     helps['boards work-item relation'] = """

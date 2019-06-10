@@ -84,7 +84,7 @@ def get_project_area(id, organization=None, project=None, detect=None):  # pylin
 
 
 def update_project_area(path, name=None, child_id=None, organization=None, project=None, detect=None):
-    """Move area or update area name.
+    """Update area.
     :param name: New name of the area.
     :type: str
     :param child_id: Move an existing area and add as child node for this area.
@@ -179,7 +179,7 @@ def remove_team_area(path, team, organization=None, project=None, detect=None):
 
 def update_team_area(path, team, include_sub_areas=None, set_as_default=False,
                      organization=None, project=None, detect=None):
-    """Update any area to include/exclude sub areas OR Set already added area as default.
+    """Update team area.
     :param default_area:set_as_default: Set as default team area path.
     :type set_as_default: bool
     """

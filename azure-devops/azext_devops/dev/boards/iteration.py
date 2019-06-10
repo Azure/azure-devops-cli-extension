@@ -34,7 +34,7 @@ def get_project_iterations(depth=1, path=None, organization=None, project=None, 
 
 def update_project_iteration(path, child_id=None, name=None, start_date=None,
                              finish_date=None, organization=None, project=None, detect=None):
-    """Move iteration or update iteration details like name AND/OR start-date and finish-date.
+    """Update project iteration.
     :param name: New name of the iteration.
     :type: str
     :param child_id: Move an existing iteration and add as child node for this iteration.
