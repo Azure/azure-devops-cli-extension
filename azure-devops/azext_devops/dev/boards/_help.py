@@ -73,7 +73,7 @@ def load_boards_help():
 
     helps['boards area team update'] = """
     type: command
-    long-summary:Update any area to include/exclude sub areas OR Set already added area as default.
+    long-summary: Update any area to include/exclude sub areas OR Set already added area as default.
     """
 
     helps['boards work-item relation'] = """

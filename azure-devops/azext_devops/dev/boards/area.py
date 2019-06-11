@@ -17,7 +17,7 @@ _STRUCTURE_GROUP_AREA = 'areas'
 
 def get_project_areas(depth=1, path=None, organization=None, project=None, detect=None):
     """List areas for a project.
-    :param depth: Depth of child nodes to be fetched.
+    :param depth: Depth of child nodes to be fetched. Example: --depth 3
     :type depth: int
     """
     organization, project = resolve_instance_and_project(detect=detect,
@@ -131,7 +131,7 @@ def get_team_areas(team, organization=None, project=None, detect=None):
 def add_team_area(path, team, set_as_default=False, include_sub_areas=None,
                   organization=None, project=None, detect=None):
     """Add area to a team.
-    :param set_as_default: Set this area path as default area for this team.
+    :param set_as_default: Set this area path as default area for this team. Default: False
     :type set_as_default: bool
     """
     organization, project = resolve_instance_and_project(detect=detect,
@@ -180,7 +180,7 @@ def remove_team_area(path, team, organization=None, project=None, detect=None):
 def update_team_area(path, team, include_sub_areas=None, set_as_default=False,
                      organization=None, project=None, detect=None):
     """Update team area.
-    :param default_area:set_as_default: Set as default team area path.
+    :param set_as_default: Set as default team area path. Default: False
     :type set_as_default: bool
     """
     if include_sub_areas is None and set_as_default is False:

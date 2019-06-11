@@ -12,17 +12,18 @@ from azext_devops.dev.common.arguments import convert_date_only_string_to_iso860
 from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
                                               get_work_client)
+from .boards_helper import resolve_classification_node_path
 _STRUCTURE_GROUP_ITERATION = 'iterations'
 
 
 def get_project_iterations(depth=1, path=None, organization=None, project=None, detect=None):
     """List iterations for a project.
-    :param depth: Depth of child nodes to be fetched.
+    :param depth: Depth of child nodes to be fetched. Example: --depth 3.
     :type depth: int
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
-                                                         project=project)
+                                                         project=project)                                                    
     client = get_work_item_tracking_client(organization)
     if path:
         path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_ITERATION)
