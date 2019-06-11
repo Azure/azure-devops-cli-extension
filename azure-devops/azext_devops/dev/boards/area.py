@@ -39,9 +39,8 @@ def delete_project_area(path, organization=None, project=None, detect=None):
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)
-
-    path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_AREA)
     client = get_work_item_tracking_client(organization)
+    path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_AREA)
     response = client.delete_classification_node(project=project,
                                                  structure_group=_STRUCTURE_GROUP_AREA,
                                                  path=path)
@@ -138,7 +137,6 @@ def add_team_area(path, team, set_as_default=False, include_sub_areas=None,
                                                          organization=organization,
                                                          project=project)
     client = get_work_client(organization)
-
     team_context = TeamContext(project=project, team=team)
     get_response = client.get_team_field_values(team_context=team_context)
     patch_doc = TeamFieldValuesPatch()
@@ -167,9 +165,13 @@ def remove_team_area(path, team, organization=None, project=None, detect=None):
     if get_response.default_value == path:
         raise CLIError('You are trying to remove the default area for this team. '
                        'Please change the default area node and then try this command again.')
+    area_found = False
     for entry in get_response.values:
         if path == entry.value[:]:
+            area_found = True
             get_response.values.remove(entry)
+    if not area_found:
+        raise CLIError('Path is not added to team area list.')
     patch_doc = TeamFieldValuesPatch()
     patch_doc.values = get_response.values
     patch_doc.default_value = get_response.default_value

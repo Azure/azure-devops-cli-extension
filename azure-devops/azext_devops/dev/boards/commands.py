@@ -87,7 +87,7 @@ def load_work_commands(self, _):
         g.command('delete', 'delete_project_iteration',
                   confirmation='Are you sure you want to delete this iteration?')
         g.command('show', 'get_project_iteration',
-                  table_transformer=transform_work_item_project_classification_nodes_table_output)
+                  table_transformer=transform_work_item_project_classification_node_table_output)
         g.command('create', 'create_project_iteration',
                   table_transformer=transform_work_item_project_classification_nodes_table_output)
 

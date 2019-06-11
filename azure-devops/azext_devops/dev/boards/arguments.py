@@ -62,3 +62,4 @@ def load_work_arguments(self, _):
         context.argument('team', help='The name or id of the team.')
         context.argument('include_sub_areas', arg_type=get_three_state_flag(),
                          help='Include child nodes of this area.')
+        context.argument('path', help='Area path. Example:'+r'\ProjectName\AreaName')
