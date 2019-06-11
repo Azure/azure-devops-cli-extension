@@ -30,7 +30,7 @@ from .const import (DEFAULTS_SECTION,
 from ._credentials import get_credential
 from .git import get_remote_url
 from .vsts_git_url_info import VstsGitUrlInfo
-from .uri import uri_parse_instance_from_git_uri
+from .uri import uri_parse_instance_from_git_uri, is_valid_url
 from .uuid import is_uuid
 from .telemetry import vsts_tracking_data, init_telemetry
 
@@ -344,6 +344,8 @@ def resolve_instance_project_and_repo(
         else:
             projectFromConfig = _resolve_project_from_config(project, False)
             vsts_tracking_data.properties[PROJECT_IGNORED_FROM_CONFIG] = projectFromConfig is not None
+    if not is_valid_url(organization):
+        raise _team_organization_arg_error()
     if project_required and project is None:
         _raise_team_project_arg_error()
     if repo_required and repo is None:

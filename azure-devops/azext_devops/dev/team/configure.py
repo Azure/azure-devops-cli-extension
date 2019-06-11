@@ -15,6 +15,7 @@ from knack.util import CLIError
 from azext_devops.dev.common.config import (set_global_config_value, AZ_DEVOPS_GLOBAL_CONFIG_PATH)
 from azext_devops.dev.common.const import (CLI_ENV_VARIABLE_PREFIX, DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT,
                                            DEVOPS_TEAM_PROJECT_DEFAULT)
+from azext_devops.dev.common.uri import is_valid_url
 
 logger = get_logger(__name__)
 
@@ -26,7 +27,7 @@ def configure(defaults=None, use_git_aliases=None, list_config=False):
     """Configure the Azure DevOps CLI or view your configuration.
     :param defaults: Space separated 'name=value' pairs for common arguments defaults,
         e.g. '--defaults project=my-project-name organization=https://dev.azure.com/organizationName
-        arg=value' Use '' to clear the defaults, e.g. --defaults project=''.
+        arg=value'. Use '' to clear the defaults, e.g. --defaults project=''.
     :type defaults: str
     :param use_git_aliases: Set to 'true' to configure Git aliases global git config file
         (to enable commands like "git pr list").
@@ -46,7 +47,8 @@ def configure(defaults=None, use_git_aliases=None, list_config=False):
             if parts[0] not in CONFIG_VALID_DEFAULT_KEYS_LIST:
                 raise CLIError('usage error: invalid default value setup. Supported values are {}.'
                                .format(CONFIG_VALID_DEFAULT_KEYS_LIST))
-            set_global_config_value(DEFAULTS_SECTION, parts[0], parts[1])
+            _validate_configuration(key=parts[0], value=parts[1])
+            set_global_config_value(section=DEFAULTS_SECTION, option=parts[0], value=parts[1])
     if use_git_aliases is not None:
         from azext_devops.dev.repos.git_alias import setup_git_aliases, clear_git_aliases
         if use_git_aliases:
@@ -76,6 +78,14 @@ def print_current_configuration(file_config=None):
     if env_vars:
         print(MSG_HEADING_ENV_VARS)
         print('\n'.join(['{}'.format(ev) for ev in env_vars]))
+
+
+def _validate_configuration(key, value):
+    if key == DEVOPS_ORGANIZATION_DEFAULT:
+        # value can be '' or a valid url
+        if not value == '' and not is_valid_url(value):
+            raise CLIError('Organization should be a valid Azure DevOps or TFS repository url. '
+                           'See command help for details.')
 
 
 MSG_INTRO = '\nWelcome to the Azure DevOps CLI! This command will guide you through setting some default values.\n'

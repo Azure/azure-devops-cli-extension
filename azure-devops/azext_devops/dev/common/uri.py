@@ -37,3 +37,10 @@ def uri_parse_instance_from_git_uri(uri):
             return parsed_uri.scheme + "://" + parsed_uri.hostname + "/" + org_name
 
     return uri
+
+
+def is_valid_url(url):
+    parsed_url = uri_parse(url)
+    if not parsed_url.scheme or not parsed_url.netloc:
+        return False
+    return True
