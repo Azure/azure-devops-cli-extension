@@ -294,11 +294,11 @@ def get_base_url(organization):
 
 def _team_organization_arg_error():
     return CLIError('--organization must be specified. The value should be the URI of your Azure DevOps '
-                    'organization, for example: https://dev.azure.com/MyOrganization/ or your TFS organization. '
+                    'organization, for example: https://dev.azure.com/MyOrganization/ or your Azure DevOps Server organization. '
                     'You can set a default value by running: az devops configure --defaults '
                     'organization=https://dev.azure.com/MyOrganization/. For auto detection to work '
                     '(--detect true), you must be in a local Git directory that has a "remote" referencing a '
-                    'Azure DevOps or TFS repository.')
+                    'Azure DevOps or Azure DevOps Server repository.')
 
 
 def _raise_team_project_arg_error():

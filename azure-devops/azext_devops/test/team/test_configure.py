@@ -37,7 +37,7 @@ class TestConfigureMethods(AuthenticatedTests):
     def test_setting_invalid_org_url_throws_error(self):
         with self.assertRaises(Exception) as exc:
             configure(defaults=['organization=abc'])
-        self.assertEqual(str(exc.exception),r'Organization should be a valid Azure DevOps or TFS repository url. See command help for details.')
+        self.assertEqual(str(exc.exception),r'Organization should be a valid Azure DevOps or Azure DevOps Server repository url. See command help for details.')
         self.mock_set_config.assert_not_called()
 
     def test_setting_valid_org_url_should_work(self):

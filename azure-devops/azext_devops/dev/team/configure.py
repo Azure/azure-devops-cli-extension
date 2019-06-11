@@ -84,7 +84,7 @@ def _validate_configuration(key, value):
     if key == DEVOPS_ORGANIZATION_DEFAULT:
         # value can be '' or a valid url
         if not value == '' and not is_valid_url(value):
-            raise CLIError('Organization should be a valid Azure DevOps or TFS repository url. '
+            raise CLIError('Organization should be a valid Azure DevOps or Azure DevOps Server repository url. '
                            'See command help for details.')
 
 
