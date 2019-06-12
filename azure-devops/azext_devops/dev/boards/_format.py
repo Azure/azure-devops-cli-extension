@@ -165,7 +165,9 @@ def _transform_team_iteration_work_item_row(row):
 
 def transform_work_item_team_default_iteration_table_output(result):
     table_output = []
-    table_row = _transform_team_iteration_row(result['defaultIteration'])
+    table_row = OrderedDict()
+    if result['defaultIteration']:
+        table_row = _transform_team_iteration_row(result['defaultIteration'])
     table_row['Default Iteration Macro'] = result['defaultIterationMacro']
     table_output.append(table_row)
     return table_output

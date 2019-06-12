@@ -78,14 +78,14 @@ def load_boards_help():
 
     helps['boards area team add'] = """
     type: command
-    long-summary: Add area to a team. Every team needs to have an default area configured which can't be empty.
+    long-summary: Every team needs to have a default area configured which can't be empty.
                   Hence, you need to pass --set-as-default while adding first area to your team.
                   You can later configure any other area which already added to team as default
                   by using `az boards area team update -h` command.
     examples:
           - name: Add area to a team.
             text: |
-                az boards area team --team 'ContosoTeam' --path 'ContosoProject\AreaName1'
+                az boards area team --team 'ContosoTeam' --path 'ContosoProject\MyProjectAreaName'
     """
 
     helps['boards work-item relation'] = """

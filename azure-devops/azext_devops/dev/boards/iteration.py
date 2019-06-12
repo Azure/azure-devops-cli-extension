@@ -4,6 +4,8 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.util import CLIError
+from knack.log import get_logger
+from azext_devops.devops_sdk.exceptions import AzureDevOpsServiceError
 from azext_devops.devops_sdk.v5_0.work_item_tracking.models import WorkItemClassificationNode
 from azext_devops.devops_sdk.v5_0.work.models import (TeamContext,
                                                       TeamSettingsIteration,
@@ -12,7 +14,11 @@ from azext_devops.dev.common.arguments import convert_date_only_string_to_iso860
 from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
                                               get_work_client)
+from azext_devops.dev.common.uuid import EMPTY_UUID                                              
 from .boards_helper import resolve_classification_node_path
+
+logger = get_logger(__name__)
+
 _STRUCTURE_GROUP_ITERATION = 'iterations'
 
 
@@ -186,9 +192,12 @@ def post_team_iteration(id, team, organization=None, project=None, detect=None):
     client = get_work_client(organization)
     team_context = TeamContext(project=project, team=team)
     team_setting_iteration = TeamSettingsIteration(id=id)
-    team_iteration = client.post_team_iteration(iteration=team_setting_iteration, team_context=team_context)
-    return team_iteration
-
+    try:
+        team_iteration = client.post_team_iteration(iteration=team_setting_iteration, team_context=team_context)
+        return team_iteration
+    except AzureDevOpsServiceError as ex:
+        _handle_empty_backlog_iteration_id(ex=ex, client=client, team_context=team_context)     
+    
 
 def list_iteration_work_items(id, team, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """List work-items for an iteration.
@@ -277,3 +286,16 @@ def _fill_friendly_name_for_relations_in_iteration_work_items(relation_types_fro
             if relation_type_from_service.reference_name == relation.rel:
                 relation.rel = relation_type_from_service.name
     return iteration_work_items
+
+
+def _handle_empty_backlog_iteration_id(ex, client, team_context):
+    logger.debug(ex, exc_info=True)
+    exception_message_str = r'The guid specified for parameter rootIterationId must not be Guid.Empty.'
+    if exception_message_str in ex.message:
+        # Check if backlog iteration ID is empty
+        backlog_setting = client.get_team_settings(team_context=team_context)
+        if backlog_setting.backlog_iteration.id == EMPTY_UUID:
+            raise CLIError('No backlog iteration has been selected for your team. '
+                       'Before you can select iterations for your team to participate in, '
+                       'you must first specify a backlog iteration.')
+    raise CLIError(ex)
