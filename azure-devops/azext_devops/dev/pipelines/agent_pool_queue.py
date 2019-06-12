@@ -68,8 +68,10 @@ def list_agents(pool_id, agent_name=None, include_capabilities=None, include_ass
     task_agent_client = get_new_task_agent_client(organization=organization)
     if properties:
         properties = list(map(str, properties.split(',')))
+    if demands:
+        demands = list(map(str, demands.split(',')))
     return task_agent_client.get_agents(
-        pool_id, agent_name=agent_name, include_capabilities=include_capabilities,
+        pool_id=pool_id, agent_name=agent_name, include_capabilities=include_capabilities,
         include_last_completed_request=include_last_completed_request,
         include_assigned_request=include_assigned_request, property_filters=properties, demands=demands)
 
@@ -95,7 +97,7 @@ def show_agent(pool_id, agent_id, include_capabilities=None, include_assigned_re
     if properties:
         properties = list(map(str, properties.split(',')))
     return task_agent_client.get_agent(
-        pool_id, agent_id, include_capabilities=include_capabilities,
+        pool_id=pool_id, agent_id=agent_id, include_capabilities=include_capabilities,
         include_assigned_request=include_assigned_request,
         include_last_completed_request=include_last_completed_request, property_filters=properties)
 
