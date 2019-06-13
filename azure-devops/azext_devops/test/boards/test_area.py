@@ -26,7 +26,7 @@ from azext_devops.dev.boards.area import (get_project_areas,
                                           add_team_area,
                                           remove_team_area,
                                           update_team_area)
-from .boards_tests_helper import (get_root_nodes_response,
+from .test_boards_helper import (get_root_nodes_response,
                                 TEST_PROJECT_NAME,
                                 PATH_SEPARATOR,
                                 TEST_DEVOPS_ORGANIZATION,

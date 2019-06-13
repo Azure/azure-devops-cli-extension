@@ -28,7 +28,7 @@ from azext_devops.dev.boards.iteration import (get_project_iterations,
                                                set_backlog_iteration,
                                                set_default_iteration,
                                                list_iteration_work_items)
-from .boards_tests_helper import (get_root_nodes_response,
+from .test_boards_helper import (get_root_nodes_response,
                                 TEST_PROJECT_NAME,
                                 PATH_SEPARATOR,
                                 TEST_DEVOPS_ORGANIZATION,
