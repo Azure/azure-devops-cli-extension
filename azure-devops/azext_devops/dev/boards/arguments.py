@@ -36,7 +36,8 @@ def load_work_arguments(self, _):
                          Multiple values can be passed comma separated. Example: 1,2 ')
 
     with self.argument_context('boards iteration project') as context:
-        context.argument('path', help='Absolute path of an iteration. Example:'+r'\ProjectName\Iteration\IterationName')
+        context.argument('path', help='Absolute path of an iteration. Example:'
+                         + r'\ProjectName\Iteration\IterationName')
         context.argument('start_date',
                          help='Start date of the iteration. Example : "2019-06-03"')
         context.argument('finish_date',

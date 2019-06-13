@@ -14,7 +14,7 @@ from azext_devops.dev.common.arguments import convert_date_only_string_to_iso860
 from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
                                               get_work_client)
-from azext_devops.dev.common.uuid import EMPTY_UUID                                              
+from azext_devops.dev.common.uuid import EMPTY_UUID
 from .boards_helper import resolve_classification_node_path
 
 logger = get_logger(__name__)
@@ -29,7 +29,7 @@ def get_project_iterations(depth=1, path=None, organization=None, project=None, 
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
-                                                         project=project)                                                    
+                                                         project=project)
     client = get_work_item_tracking_client(organization)
     if path:
         path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_ITERATION)
@@ -196,8 +196,8 @@ def post_team_iteration(id, team, organization=None, project=None, detect=None):
         team_iteration = client.post_team_iteration(iteration=team_setting_iteration, team_context=team_context)
         return team_iteration
     except AzureDevOpsServiceError as ex:
-        _handle_empty_backlog_iteration_id(ex=ex, client=client, team_context=team_context)     
-    
+        _handle_empty_backlog_iteration_id(ex=ex, client=client, team_context=team_context)
+
 
 def list_iteration_work_items(id, team, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """List work-items for an iteration.
@@ -212,11 +212,12 @@ def list_iteration_work_items(id, team, organization=None, project=None, detect=
     work_items = client.get_iteration_work_items(iteration_id=id, team_context=team_context)
     wit_client = get_work_item_tracking_client(organization)
     relation_types = wit_client.get_relation_types()
-    work_items = _fill_friendly_name_for_relations_in_iteration_work_items(relation_types_from_service=relation_types,iteration_work_items=work_items)
+    work_items = _fill_friendly_name_for_relations_in_iteration_work_items(relation_types_from_service=relation_types,
+                                                                           iteration_work_items=work_items)
     return work_items
 
 
-def set_default_iteration(team, id=None, default_iteration_macro=None, organization=None, project=None, detect=None):
+def set_default_iteration(team, id=None, default_iteration_macro=None, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Set default iteration for a team.
     :param id: Identifier of the iteration which needs to be set as default.
     :type: str
@@ -239,7 +240,7 @@ def set_default_iteration(team, id=None, default_iteration_macro=None, organizat
     return team_iteration_setting
 
 
-def set_backlog_iteration(team, id, organization=None, project=None, detect=None):
+def set_backlog_iteration(team, id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Set backlog iteration for a team.
     :param id: Identifier of the iteration which needs to be set as backlog iteration.
     :type: str
@@ -296,6 +297,6 @@ def _handle_empty_backlog_iteration_id(ex, client, team_context):
         backlog_setting = client.get_team_settings(team_context=team_context)
         if backlog_setting.backlog_iteration.id == EMPTY_UUID:
             raise CLIError('No backlog iteration has been selected for your team. '
-                       'Before you can select iterations for your team to participate in, '
-                       'you must first specify a backlog iteration.')
+                           'Before you can select iterations for your team to participate in, '
+                           'you must first specify a backlog iteration.')
     raise CLIError(ex)

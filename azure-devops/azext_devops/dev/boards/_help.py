@@ -85,7 +85,7 @@ def load_boards_help():
     examples:
           - name: Add area to a team.
             text: |
-                az boards area team --team 'ContosoTeam' --path 'ContosoProject\MyProjectAreaName'
+                az boards area team --team 'ContosoTeam' --path '\\ContosoProject\\MyProjectAreaName'
     """
 
     helps['boards work-item relation'] = """
