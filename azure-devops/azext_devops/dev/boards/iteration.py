@@ -279,6 +279,7 @@ def show_backlog_iteration(team, organization=None, project=None, detect=None):
     team_iteration_setting = client.get_team_settings(team_context=team_context)
     return team_iteration_setting
 
+
 def _fill_friendly_name_for_relations_in_iteration_work_items(relation_types_from_service, iteration_work_items):
     if not iteration_work_items.work_item_relations:
         return iteration_work_items

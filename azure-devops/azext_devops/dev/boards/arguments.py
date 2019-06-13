@@ -36,8 +36,8 @@ def load_work_arguments(self, _):
                          Multiple values can be passed comma separated. Example: 1,2 ')
 
     with self.argument_context('boards iteration project') as context:
-        context.argument('path', help='Absolute path of an iteration. Example:'
-                         + r'\ProjectName\Iteration\IterationName')
+        context.argument('path', help='Absolute path of an iteration. '
+                         'Example:' + r'\ProjectName\Iteration\IterationName')
         context.argument('start_date',
                          help='Start date of the iteration. Example : "2019-06-03"')
         context.argument('finish_date',
@@ -52,7 +52,7 @@ def load_work_arguments(self, _):
                                       'Example:' + r'\ProjectName\Iteration\IterationName.')
 
     with self.argument_context('boards area') as context:
-        context.argument('path', help='Absolute path of an area. Example:'+r'\ProjectName\Area\AreaName')
+        context.argument('path', help='Absolute path of an area. Example:' + r'\ProjectName\Area\AreaName')
 
     with self.argument_context('boards area project create') as context:
         context.argument('path', help='Absolute path of an area. '
@@ -63,4 +63,4 @@ def load_work_arguments(self, _):
         context.argument('team', help='The name or id of the team.')
         context.argument('include_sub_areas', arg_type=get_three_state_flag(),
                          help='Include child nodes of this area.')
-        context.argument('path', help='Area path. Example:'+r'\ProjectName\AreaName')
+        context.argument('path', help='Area path. Example:' + r'\ProjectName\AreaName')

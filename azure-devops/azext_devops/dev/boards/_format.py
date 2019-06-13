@@ -147,11 +147,13 @@ def _transform_team_iteration_row(row):
     table_row['Path'] = row['path']
     return table_row
 
+
 def transform_work_item_team_iteration_work_items(result):
     table_output = []
     for item in result['workItemRelations']:
         table_output.append(_transform_team_iteration_work_item_row(item))
     return table_output
+
 
 def _transform_team_iteration_work_item_row(row):
     table_row = OrderedDict()
