@@ -43,6 +43,11 @@ def load_boards_help():
     long-summary:
     """
 
+    helps['boards iteration project update'] = """
+    type: command
+    long-summary: Move iteration or update iteration details like name AND/OR start-date and finish-date.
+    """
+
     helps['boards area'] = """
     type: group
     short-summary: Manage area paths.
@@ -55,10 +60,32 @@ def load_boards_help():
     long-summary:
     """
 
+    helps['boards area project update'] = """
+    type: command
+    long-summary: Move area or update area name.
+    """
+
     helps['boards area team'] = """
     type: group
     short-summary: Manage areas for a team.
     long-summary:
+    """
+
+    helps['boards area team update'] = """
+    type: command
+    long-summary: Update any area to include/exclude sub areas OR Set already added area as default.
+    """
+
+    helps['boards area team add'] = """
+    type: command
+    long-summary: Every team needs to have a default area configured which can't be empty.
+                  Hence, you need to pass --set-as-default while adding first area to your team.
+                  You can later configure any other area which already added to team as default
+                  by using `az boards area team update -h` command.
+    examples:
+          - name: Add area to a team.
+            text: |
+                az boards area team --team 'ContosoTeam' --path '\\ContosoProject\\MyProjectAreaName'
     """
 
     helps['boards work-item relation'] = """
