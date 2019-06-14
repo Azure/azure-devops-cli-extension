@@ -30,7 +30,7 @@ from .const import (DEFAULTS_SECTION,
 from ._credentials import get_credential
 from .git import get_remote_url
 from .vsts_git_url_info import VstsGitUrlInfo
-from .uri import uri_parse_instance_from_git_uri
+from .uri import uri_parse_instance_from_git_uri, is_valid_url
 from .uuid import is_uuid
 from .telemetry import vsts_tracking_data, init_telemetry
 
@@ -294,11 +294,11 @@ def get_base_url(organization):
 
 def _team_organization_arg_error():
     return CLIError('--organization must be specified. The value should be the URI of your Azure DevOps '
-                    'organization, for example: https://dev.azure.com/MyOrganization/ or your TFS organization. '
-                    'You can set a default value by running: az devops configure --defaults '
+                    'organization, for example: https://dev.azure.com/MyOrganization/ or your Azure DevOps Server '
+                    'organization. You can set a default value by running: az devops configure --defaults '
                     'organization=https://dev.azure.com/MyOrganization/. For auto detection to work '
                     '(--detect true), you must be in a local Git directory that has a "remote" referencing a '
-                    'Azure DevOps or TFS repository.')
+                    'Azure DevOps or Azure DevOps Server repository.')
 
 
 def _raise_team_project_arg_error():
@@ -344,6 +344,8 @@ def resolve_instance_project_and_repo(
         else:
             projectFromConfig = _resolve_project_from_config(project, False)
             vsts_tracking_data.properties[PROJECT_IGNORED_FROM_CONFIG] = projectFromConfig is not None
+    if not is_valid_url(organization):
+        raise _team_organization_arg_error()
     if project_required and project is None:
         _raise_team_project_arg_error()
     if repo_required and repo is None:
