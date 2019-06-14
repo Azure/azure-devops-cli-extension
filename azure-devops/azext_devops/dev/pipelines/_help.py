@@ -102,7 +102,7 @@ def load_pipelines_help():
       - name: Create an Azure Pipeline for a repository hosted in a Azure Repo in the same project
         text: |
           az pipelines create --name 'ContosoBuild' --description 'Pipeline for contoso project'
-          --repository SampleRepoName --branch master --type tfsgit
+          --repository SampleRepoName --branch master --repository-type tfsgit
 
       - name: Create an Azure Pipeline for a repository with the pipeline yaml already checked in into the repository
         text: |
