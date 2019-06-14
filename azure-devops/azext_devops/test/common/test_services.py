@@ -19,6 +19,7 @@ from azext_devops.dev.common.telemetry import (set_tracking_data,
 
 from azext_devops.dev.common.services import (get_connection,
                                               clear_connection_cache,
+                                              resolve_instance,
                                               resolve_instance_project_and_repo)
 
 
@@ -50,7 +51,7 @@ class TestServicesMethods(unittest.TestCase):
     def test_resolve_instance_project_and_repo(self):
         try:
             resolve_instance_project_and_repo(detect='false',
-                                              organization='',
+                                              organization='https://dev.azure.com/someorg',
                                               project='',
                                               project_required=False,
                                               repo=None,
@@ -59,6 +60,17 @@ class TestServicesMethods(unittest.TestCase):
         except CLIError as ex:
             self.assertEqual(str(ex), '--repository must be specified')
 
+    def test_resolve_instance_should_fail_for_invalid_org_url(self):
+        with self.assertRaises(Exception) as exc:
+            resolve_instance(organization='myorg', detect=False)
+        self.assertEqual(str(exc.exception), self.ORG_ERROR_STRING)
+    
+    ORG_ERROR_STRING = ('--organization must be specified. The value should be the URI of your Azure DevOps '
+                    'organization, for example: https://dev.azure.com/MyOrganization/ or your Azure DevOps Server organization. '
+                    'You can set a default value by running: az devops configure --defaults '
+                    'organization=https://dev.azure.com/MyOrganization/. For auto detection to work '
+                    '(--detect true), you must be in a local Git directory that has a "remote" referencing a '
+                    'Azure DevOps or Azure DevOps Server repository.')
 
 if __name__ == '__main__':
     unittest.main()
