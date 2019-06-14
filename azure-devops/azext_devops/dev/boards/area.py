@@ -11,19 +11,21 @@ from azext_devops.devops_sdk.v5_0.work.models import (TeamContext,
 from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
                                               get_work_client)
-
+from .boards_helper import resolve_classification_node_path
 _STRUCTURE_GROUP_AREA = 'areas'
 
 
 def get_project_areas(depth=1, path=None, organization=None, project=None, detect=None):
     """List areas for a project.
-    :param depth: Depth of child nodes to be fetched.
+    :param depth: Depth of child nodes to be fetched. Example: --depth 3
     :type depth: int
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
+    if path:
+        path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_AREA)
     list_of_areas = client.get_classification_node(project=project,
                                                    structure_group=_STRUCTURE_GROUP_AREA,
                                                    depth=depth, path=path)
@@ -37,6 +39,7 @@ def delete_project_area(path, organization=None, project=None, detect=None):
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
+    path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_AREA)
     response = client.delete_classification_node(project=project,
                                                  structure_group=_STRUCTURE_GROUP_AREA,
                                                  path=path)
@@ -52,6 +55,8 @@ def create_project_area(name, path=None, organization=None, project=None, detect
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
+    if path:
+        path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_AREA)
     classification_node_object = WorkItemClassificationNode()
     classification_node_object.name = name
     response = client.create_or_update_classification_node(project=project,
@@ -76,8 +81,8 @@ def get_project_area(id, organization=None, project=None, detect=None):  # pylin
     return response
 
 
-def update_project_area(path=None, name=None, child_id=None, organization=None, project=None, detect=None):
-    """Move area or update area name.
+def update_project_area(path, name=None, child_id=None, organization=None, project=None, detect=None):
+    """Update area.
     :param name: New name of the area.
     :type: str
     :param child_id: Move an existing area and add as child node for this area.
@@ -89,6 +94,7 @@ def update_project_area(path=None, name=None, child_id=None, organization=None, 
                                                          organization=organization,
                                                          project=project)
     client = get_work_item_tracking_client(organization)
+    path = resolve_classification_node_path(client, path, project, _STRUCTURE_GROUP_AREA)
     if child_id:
         move_classification_node_object = WorkItemClassificationNode()
         move_classification_node_object.id = child_id
@@ -123,14 +129,13 @@ def get_team_areas(team, organization=None, project=None, detect=None):
 def add_team_area(path, team, set_as_default=False, include_sub_areas=None,
                   organization=None, project=None, detect=None):
     """Add area to a team.
-    :param set_as_default: Set this area path as default area for this team.
+    :param set_as_default: Set this area path as default area for this team. Default: False
     :type set_as_default: bool
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)
     client = get_work_client(organization)
-
     team_context = TeamContext(project=project, team=team)
     get_response = client.get_team_field_values(team_context=team_context)
     patch_doc = TeamFieldValuesPatch()
@@ -159,9 +164,13 @@ def remove_team_area(path, team, organization=None, project=None, detect=None):
     if get_response.default_value == path:
         raise CLIError('You are trying to remove the default area for this team. '
                        'Please change the default area node and then try this command again.')
+    area_found = False
     for entry in get_response.values:
         if path == entry.value[:]:
+            area_found = True
             get_response.values.remove(entry)
+    if not area_found:
+        raise CLIError('Path is not added to team area list.')
     patch_doc = TeamFieldValuesPatch()
     patch_doc.values = get_response.values
     patch_doc.default_value = get_response.default_value
@@ -171,8 +180,8 @@ def remove_team_area(path, team, organization=None, project=None, detect=None):
 
 def update_team_area(path, team, include_sub_areas=None, set_as_default=False,
                      organization=None, project=None, detect=None):
-    """Update any area to include/exclude sub areas OR Set already added area as default.
-    :param default_area:set_as_default: Set as default team area path.
+    """Update team area.
+    :param set_as_default: Set as default team area path. Default: False
     :type set_as_default: bool
     """
     if include_sub_areas is None and set_as_default is False:

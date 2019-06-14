@@ -18,6 +18,7 @@ def get_client_mock_helper(_self_dummy, client_type):
     from azext_devops.devops_sdk.v5_0.operations.operations_client import OperationsClient
     from azext_devops.devops_sdk.v5_0.task_agent.task_agent_client import TaskAgentClient
     from azext_devops.devops_sdk.v5_0.work_item_tracking.work_item_tracking_client import WorkItemTrackingClient
+    from azext_devops.devops_sdk.v5_0.work.work_client import WorkClient
     from azext_devops.devops_sdk.v5_0.settings.settings_client import SettingsClient
     from azext_devops.devops_sdk.v5_0.identity.identity_client import IdentityClient
     from azext_devops.devops_sdk.v5_0.member_entitlement_management.member_entitlement_management_client import (
@@ -42,6 +43,8 @@ def get_client_mock_helper(_self_dummy, client_type):
         vsts+'v5_0.task_agent.task_agent_client.TaskAgentClient': TaskAgentClient(
             base_url=TEST_DEVOPS_ORG_URL),
         vsts+'v5_0.work_item_tracking.work_item_tracking_client.WorkItemTrackingClient': WorkItemTrackingClient(
+            base_url=TEST_DEVOPS_ORG_URL),
+        vsts+'v5_0.work.work_client.WorkClient': WorkClient(
             base_url=TEST_DEVOPS_ORG_URL),
         vsts+'v5_0.settings.settings_client.SettingsClient': SettingsClient(
             base_url=TEST_DEVOPS_ORG_URL),
