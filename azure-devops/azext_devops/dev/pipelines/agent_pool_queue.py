@@ -11,7 +11,7 @@ from azext_devops.dev.common.services import (get_new_task_agent_client,
 logger = get_logger(__name__)
 
 
-def list_pools(pool_name=None, pool_type=None, action=None, properties=None, organization=None, detect=None):
+def list_pools(pool_name=None, pool_type=None, action=None, organization=None, detect=None):
     """ (PREVIEW) List agent pools
     :param pool_name: Filter the list with matching pool name.
     :type pool_name: str
@@ -19,34 +19,26 @@ def list_pools(pool_name=None, pool_type=None, action=None, properties=None, org
     :type pool_type: str
     :param action: Filter the list with user action permitted.
     :type action: str
-    :param properties: Filter the list by agent pool properties. Comma separated list.
-    :type properties: str
     """
     organization = resolve_instance(organization=organization, detect=detect)
     task_agent_client = get_new_task_agent_client(organization=organization)
-    if properties:
-        properties = list(map(str, properties.split(',')))
     return task_agent_client.get_agent_pools(
-        pool_name=pool_name, properties=properties, pool_type=pool_type, action_filter=action)
+        pool_name=pool_name, properties=None, pool_type=pool_type, action_filter=action)
 
 
-def show_pool(pool_id, action=None, properties=None, organization=None, detect=None):
+def show_pool(pool_id, action=None, organization=None, detect=None):
     """ (PREVIEW) Show agent pool details
     :param pool_id: Id of the pool to list the details.
     :type pool_id: int
     :param action: Filter the list with user action permitted.
     :type action: str
-    :param properties: Filter the list by agent pool properties. Comma separated list.
-    :type properties: str
     """
     organization = resolve_instance(organization=organization, detect=detect)
     task_agent_client = get_new_task_agent_client(organization=organization)
-    if properties:
-        properties = list(map(str, properties.split(',')))
-    return task_agent_client.get_agent_pool(pool_id=pool_id, properties=properties, action_filter=action)
+    return task_agent_client.get_agent_pool(pool_id=pool_id, properties=None, action_filter=action)
 
 
-def list_agents(pool_id, agent_name=None, include_capabilities=None, include_assigned_request=None, properties=None,
+def list_agents(pool_id, agent_name=None, include_capabilities=None, include_assigned_request=None,
                 include_last_completed_request=None, demands=None, organization=None, detect=None):
     """ (PREVIEW) Get a list of agents in a pool
     :param pool_id: The agent pool containing the agents.
@@ -59,24 +51,20 @@ def list_agents(pool_id, agent_name=None, include_capabilities=None, include_ass
     :type include_assigned_request: bool
     :param include_last_completed_request: Whether to include details about the agents' most recent completed work.
     :type include_last_completed_request: bool
-    :param properties: Filter which custom properties will be returned. Comma separated list.
-    :type properties: str
     :param demands: Filter by demands the agents can satisfy. Comma separated list.
     :type demands: str
     """
     organization = resolve_instance(organization=organization, detect=detect)
     task_agent_client = get_new_task_agent_client(organization=organization)
-    if properties:
-        properties = list(map(str, properties.split(',')))
     if demands:
         demands = list(map(str, demands.split(',')))
     return task_agent_client.get_agents(
         pool_id=pool_id, agent_name=agent_name, include_capabilities=include_capabilities,
         include_last_completed_request=include_last_completed_request,
-        include_assigned_request=include_assigned_request, property_filters=properties, demands=demands)
+        include_assigned_request=include_assigned_request, property_filters=None, demands=demands)
 
 
-def show_agent(pool_id, agent_id, include_capabilities=None, include_assigned_request=None, properties=None,
+def show_agent(pool_id, agent_id, include_capabilities=None, include_assigned_request=None,
                include_last_completed_request=None, organization=None, detect=None):
     """ (PREVIEW) Show agent details
     :param pool_id: The agent pool containing the agent.
@@ -89,17 +77,13 @@ def show_agent(pool_id, agent_id, include_capabilities=None, include_assigned_re
     :type include_assigned_request: bool
     :param include_last_completed_request: Whether to include details about the agents' most recent completed work.
     :type include_last_completed_request: bool
-    :param properties: Filter which custom properties will be returned. Comma separated list.
-    :type properties: [str]
     """
     organization = resolve_instance(organization=organization, detect=detect)
     task_agent_client = get_new_task_agent_client(organization=organization)
-    if properties:
-        properties = list(map(str, properties.split(',')))
     return task_agent_client.get_agent(
         pool_id=pool_id, agent_id=agent_id, include_capabilities=include_capabilities,
         include_assigned_request=include_assigned_request,
-        include_last_completed_request=include_last_completed_request, property_filters=properties)
+        include_last_completed_request=include_last_completed_request, property_filters=None)
 
 
 def list_queues(queue_name=None, action=None, project=None, organization=None, detect=None):

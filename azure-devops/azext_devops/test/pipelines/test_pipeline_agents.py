@@ -40,35 +40,35 @@ class TestPipelinesAgentPoolQueueMethods(AuthenticatedTests):
     def test_pool_list_with_defaults(self):
         with patch('azext_devops.devops_sdk.v5_1.task_agent.task_agent_client.TaskAgentClient.get_agent_pools') as mock_get_pools:
             # pool listing
-            pools = list_pools(pool_name=None, pool_type=None, action=None, properties=None, organization=self._TEST_DEVOPS_ORGANIZATION)
+            pools = list_pools(pool_name=None, pool_type=None, action=None, organization=self._TEST_DEVOPS_ORGANIZATION)
             # assert
             mock_get_pools.assert_called_once_with(pool_name=None, properties=None, pool_type=None, action_filter=None)
 
     def test_pool_list_without_defaults(self):
         with patch('azext_devops.devops_sdk.v5_1.task_agent.task_agent_client.TaskAgentClient.get_agent_pools') as mock_get_pools:
             # pool listing
-            pools = list_pools(pool_name='PoolName', pool_type='PoolType', action='ActionUse', properties='prop1,prop2', organization=self._TEST_DEVOPS_ORGANIZATION)
+            pools = list_pools(pool_name='PoolName', pool_type='PoolType', action='ActionUse', organization=self._TEST_DEVOPS_ORGANIZATION)
             # assert
-            mock_get_pools.assert_called_once_with(pool_name='PoolName', properties=['prop1', 'prop2'], pool_type='PoolType', action_filter='ActionUse')
+            mock_get_pools.assert_called_once_with(pool_name='PoolName', properties=None, pool_type='PoolType', action_filter='ActionUse')
 
     def test_pool_show_with_defaults(self):
         with patch('azext_devops.devops_sdk.v5_1.task_agent.task_agent_client.TaskAgentClient.get_agent_pool') as mock_get_pool:
             # pool show
-            pool = show_pool(pool_id='123', action=None, properties=None, organization=self._TEST_DEVOPS_ORGANIZATION)
+            pool = show_pool(pool_id='123', action=None, organization=self._TEST_DEVOPS_ORGANIZATION)
             # assert
             mock_get_pool.assert_called_once_with(pool_id='123', properties=None, action_filter=None)
 
     def test_pool_show_without_defaults(self):
         with patch('azext_devops.devops_sdk.v5_1.task_agent.task_agent_client.TaskAgentClient.get_agent_pool') as mock_get_pool:
             # pool show
-            pool = show_pool(pool_id='123', action='ActionUse', properties='prop1,prop2', organization=self._TEST_DEVOPS_ORGANIZATION)
+            pool = show_pool(pool_id='123', action='ActionUse', organization=self._TEST_DEVOPS_ORGANIZATION)
             # assert
-            mock_get_pool.assert_called_once_with(pool_id='123', properties=['prop1', 'prop2'], action_filter='ActionUse')
+            mock_get_pool.assert_called_once_with(pool_id='123', properties=None, action_filter='ActionUse')
 
     def test_agent_list_with_defaults(self):
         with patch('azext_devops.devops_sdk.v5_1.task_agent.task_agent_client.TaskAgentClient.get_agents') as mock_get_agents:
             # agent listing
-            agents = list_agents(pool_id='123', agent_name=None, include_capabilities=None, include_assigned_request=None, properties=None,
+            agents = list_agents(pool_id='123', agent_name=None, include_capabilities=None, include_assigned_request=None,
                 include_last_completed_request=None, demands=None, organization=self._TEST_DEVOPS_ORGANIZATION)
             # assert
             mock_get_agents.assert_called_once_with(pool_id='123', agent_name=None, include_capabilities=None,
@@ -77,16 +77,16 @@ class TestPipelinesAgentPoolQueueMethods(AuthenticatedTests):
     def test_agent_list_without_defaults(self):
         with patch('azext_devops.devops_sdk.v5_1.task_agent.task_agent_client.TaskAgentClient.get_agents') as mock_get_agents:
             # agent listing
-            agents = list_agents(pool_id='123', agent_name='myagent', include_capabilities=True, include_assigned_request=True, properties='prop1,prop2',
+            agents = list_agents(pool_id='123', agent_name='myagent', include_capabilities=True, include_assigned_request=True,
                 include_last_completed_request=True, demands='demand1,demand2', organization=self._TEST_DEVOPS_ORGANIZATION)
             # assert
             mock_get_agents.assert_called_once_with(pool_id='123', agent_name='myagent', include_capabilities=True,
-        include_last_completed_request=True, include_assigned_request=True, property_filters=['prop1', 'prop2'], demands=['demand1', 'demand2'])
+        include_last_completed_request=True, include_assigned_request=True, property_filters=None, demands=['demand1', 'demand2'])
 
     def test_agent_show_with_defaults(self):
         with patch('azext_devops.devops_sdk.v5_1.task_agent.task_agent_client.TaskAgentClient.get_agent') as mock_get_agent:
             # agent Show
-            agents = show_agent(pool_id='123', agent_id='1234', include_capabilities=None, include_assigned_request=None, properties=None,
+            agents = show_agent(pool_id='123', agent_id='1234', include_capabilities=None, include_assigned_request=None,
                include_last_completed_request=None, organization=self._TEST_DEVOPS_ORGANIZATION)
             # assert
             mock_get_agent.assert_called_once_with(
@@ -96,12 +96,12 @@ class TestPipelinesAgentPoolQueueMethods(AuthenticatedTests):
     def test_agent_show_without_defaults(self):
         with patch('azext_devops.devops_sdk.v5_1.task_agent.task_agent_client.TaskAgentClient.get_agent') as mock_get_agent:
             # agent Show
-            agents = show_agent(pool_id='123', agent_id='1234', include_capabilities=True, include_assigned_request=True, properties='prop1,prop2',
+            agents = show_agent(pool_id='123', agent_id='1234', include_capabilities=True, include_assigned_request=True,
                include_last_completed_request=True, organization=self._TEST_DEVOPS_ORGANIZATION)
             # assert
             mock_get_agent.assert_called_once_with(
                 pool_id='123', agent_id='1234', include_capabilities=True,
-                include_assigned_request=True, include_last_completed_request=True, property_filters=['prop1', 'prop2'])
+                include_assigned_request=True, include_last_completed_request=True, property_filters=None)
 
     def test_queue_list_with_defaults(self):
         with patch('azext_devops.devops_sdk.v5_1.task_agent.task_agent_client.TaskAgentClient.get_agent_queues') as mock_get_queues:
