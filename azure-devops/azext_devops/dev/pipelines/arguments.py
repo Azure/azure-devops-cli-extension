@@ -89,3 +89,7 @@ def load_build_arguments(self, _):
     with self.argument_context('pipelines queue') as context:
         context.argument('queue_id', options_list=('--queue-id', '--id'))
         context.argument('action', **enum_choice_list(_AGENT_ACTION_FILTER_TYPES))
+
+    with self.argument_context('pipelines variable-group') as context:
+        context.argument('group-type', options_list=('--group-type', '--type'))
+        context.argument('variables', nargs='*')

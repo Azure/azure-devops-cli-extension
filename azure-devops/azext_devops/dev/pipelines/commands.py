@@ -76,6 +76,10 @@ pipelineAgentPoolQueueOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+pipelineVariableGroupOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.variable_group#{}',
+    exception_handler=azure_devops_exception_handler
+)
 
 def load_build_commands(self, _):
     with self.command_group('pipelines', command_type=pipelineCreateOps) as g:
@@ -141,3 +145,6 @@ def load_build_commands(self, _):
     with self.command_group('pipelines queue', command_type=pipelineAgentPoolQueueOps) as g:
         g.command('list', 'list_queues', table_transformer=transform_pipelines_queues_table_output)
         g.command('show', 'show_queue', table_transformer=transform_pipelines_queue_table_output)
+
+    with self.command_group('pipelines variable-group', command_type=pipelineVariableGroupOps) as g:
+        g.command('create', 'variable_group_create')
