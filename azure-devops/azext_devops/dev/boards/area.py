@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.util import CLIError
+from azext_devops.devops_sdk.exceptions import AzureDevOpsServiceError
 from azext_devops.devops_sdk.v5_0.work_item_tracking.models import WorkItemClassificationNode
 from azext_devops.devops_sdk.v5_0.work.models import (TeamContext,
                                                       TeamFieldValuesPatch,
@@ -11,12 +12,12 @@ from azext_devops.devops_sdk.v5_0.work.models import (TeamContext,
 from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
                                               get_work_client)
-from .boards_helper import resolve_classification_node_path
+from .boards_helper import resolve_classification_node_path, handle_common_boards_errors
 _STRUCTURE_GROUP_AREA = 'areas'
 
 
 def get_project_areas(depth=1, path=None, organization=None, project=None, detect=None):
-    """List areas for a project.
+    """(PREVIEW) List areas for a project.
     :param depth: Depth of child nodes to be fetched. Example: --depth 3
     :type depth: int
     """
@@ -33,7 +34,7 @@ def get_project_areas(depth=1, path=None, organization=None, project=None, detec
 
 
 def delete_project_area(path, organization=None, project=None, detect=None):
-    """Delete area.
+    """(PREVIEW) Delete area.
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -47,7 +48,7 @@ def delete_project_area(path, organization=None, project=None, detect=None):
 
 
 def create_project_area(name, path=None, organization=None, project=None, detect=None):
-    """Create area.
+    """(PREVIEW) Create area.
     :param name: Name of the area.
     :type: str
     """
@@ -67,7 +68,7 @@ def create_project_area(name, path=None, organization=None, project=None, detect
 
 
 def get_project_area(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """Show area details for a project.
+    """(PREVIEW) Show area details for a project.
     :param id: Area ID.
     :type id: int
     """
@@ -82,7 +83,7 @@ def get_project_area(id, organization=None, project=None, detect=None):  # pylin
 
 
 def update_project_area(path, name=None, child_id=None, organization=None, project=None, detect=None):
-    """Update area.
+    """(PREVIEW) Update area.
     :param name: New name of the area.
     :type: str
     :param child_id: Move an existing area and add as child node for this area.
@@ -115,7 +116,7 @@ def update_project_area(path, name=None, child_id=None, organization=None, proje
 
 
 def get_team_areas(team, organization=None, project=None, detect=None):
-    """List areas for a team.
+    """(PREVIEW) List areas for a team.
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -128,7 +129,7 @@ def get_team_areas(team, organization=None, project=None, detect=None):
 
 def add_team_area(path, team, set_as_default=False, include_sub_areas=None,
                   organization=None, project=None, detect=None):
-    """Add area to a team.
+    """(PREVIEW) Add area to a team.
     :param set_as_default: Set this area path as default area for this team. Default: False
     :type set_as_default: bool
     """
@@ -148,12 +149,15 @@ def add_team_area(path, team, set_as_default=False, include_sub_areas=None,
     else:
         patch_doc.default_value = get_response.default_value
     patch_doc.values.append(team_field_value)
-    update_response = client.update_team_field_values(patch=patch_doc, team_context=team_context)
-    return update_response
+    try:
+        update_response = client.update_team_field_values(patch=patch_doc, team_context=team_context)
+        return update_response
+    except AzureDevOpsServiceError as ex:
+        handle_common_boards_errors(ex)
 
 
 def remove_team_area(path, team, organization=None, project=None, detect=None):
-    """Remove area from a team.
+    """(PREVIEW) Remove area from a team.
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -174,13 +178,16 @@ def remove_team_area(path, team, organization=None, project=None, detect=None):
     patch_doc = TeamFieldValuesPatch()
     patch_doc.values = get_response.values
     patch_doc.default_value = get_response.default_value
-    update_response = client.update_team_field_values(patch=patch_doc, team_context=team_context)
-    return update_response
+    try:
+        update_response = client.update_team_field_values(patch=patch_doc, team_context=team_context)
+        return update_response
+    except AzureDevOpsServiceError as ex:
+        handle_common_boards_errors(ex)
 
 
 def update_team_area(path, team, include_sub_areas=None, set_as_default=False,
                      organization=None, project=None, detect=None):
-    """Update team area.
+    """(PREVIEW) Update team area.
     :param set_as_default: Set as default team area path. Default: False
     :type set_as_default: bool
     """
@@ -206,5 +213,8 @@ def update_team_area(path, team, include_sub_areas=None, set_as_default=False,
     if not area_found:
         raise CLIError('Path is not added to team area list.')
     patch_doc.values = get_response.values
-    update_response = client.update_team_field_values(patch=patch_doc, team_context=team_context)
-    return update_response
+    try:
+        update_response = client.update_team_field_values(patch=patch_doc, team_context=team_context)
+        return update_response
+    except AzureDevOpsServiceError as ex:
+        handle_common_boards_errors(ex)
