@@ -4,7 +4,9 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.util import CLIError
+from knack.log import get_logger
 
+logger = get_logger(__name__)
 
 def resolve_classification_node_path(client, path, project, structure_group):
     get_root_node = client.get_root_nodes(project=project, depth=0)
@@ -16,3 +18,8 @@ def resolve_classification_node_path(client, path, project, structure_group):
             updated_path = path[len(root_node_path):]
             return updated_path
     raise CLIError("--path parameter is expected to be absolute path.")
+
+def handle_common_boards_errors(ex):
+    logger.debug(ex, exc_info=True)
+    raise CLIError(str(ex.message) + " Please see https://aka.ms/azure-devops-cli-troubleshooting " +
+                   'for more information on troubleshooting common errors.')

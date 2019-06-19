@@ -15,7 +15,7 @@ from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
                                               get_work_client)
 from azext_devops.dev.common.uuid import EMPTY_UUID
-from .boards_helper import resolve_classification_node_path
+from .boards_helper import resolve_classification_node_path, handle_common_boards_errors
 
 logger = get_logger(__name__)
 
@@ -23,7 +23,7 @@ _STRUCTURE_GROUP_ITERATION = 'iterations'
 
 
 def get_project_iterations(depth=1, path=None, organization=None, project=None, detect=None):
-    """List iterations for a project.
+    """(PREVIEW) List iterations for a project.
     :param depth: Depth of child nodes to be fetched. Example: --depth 3.
     :type depth: int
     """
@@ -41,7 +41,7 @@ def get_project_iterations(depth=1, path=None, organization=None, project=None, 
 
 def update_project_iteration(path, child_id=None, name=None, start_date=None,
                              finish_date=None, organization=None, project=None, detect=None):
-    """Update project iteration.
+    """(PREVIEW) Update project iteration.
     :param name: New name of the iteration.
     :type: str
     :param child_id: Move an existing iteration and add as child node for this iteration.
@@ -86,7 +86,7 @@ def update_project_iteration(path, child_id=None, name=None, start_date=None,
 
 
 def delete_project_iteration(path, organization=None, project=None, detect=None):
-    """Delete iteration.
+    """(PREVIEW) Delete iteration.
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -100,7 +100,7 @@ def delete_project_iteration(path, organization=None, project=None, detect=None)
 
 
 def get_project_iteration(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """Show iteration details for a project.
+    """(PREVIEW) Show iteration details for a project.
     :param id: Iteration ID.
     :type id: int
     """
@@ -116,7 +116,7 @@ def get_project_iteration(id, organization=None, project=None, detect=None):  # 
 
 def create_project_iteration(name, path=None, start_date=None, finish_date=None,
                              organization=None, project=None, detect=None):
-    """Create iteration.
+    """(PREVIEW) Create iteration.
     :param name: Name of the iteration.
     :type: str
     """
@@ -150,7 +150,7 @@ def create_project_iteration(name, path=None, start_date=None, finish_date=None,
 
 
 def get_team_iterations(team, timeframe=None, organization=None, project=None, detect=None):
-    """List iterations for a team.
+    """(PREVIEW) List iterations for a team.
     :param team: The name or id of the team.
     :type team: str
     :param timeframe: A filter for which iterations are returned based on relative time.
@@ -168,7 +168,7 @@ def get_team_iterations(team, timeframe=None, organization=None, project=None, d
 
 
 def delete_team_iteration(id, team, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """ Remove iteration from a team.
+    """(PREVIEW) Remove iteration from a team.
     :param id: Identifier of the iteration.
     :type: str
     :param team: Name or ID of the team.
@@ -177,12 +177,15 @@ def delete_team_iteration(id, team, organization=None, project=None, detect=None
     organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project)
     client = get_work_client(organization)
     team_context = TeamContext(project=project, team=team)
-    team_iteration = client.delete_team_iteration(team_context=team_context, id=id)
-    return team_iteration
+    try:
+        team_iteration = client.delete_team_iteration(team_context=team_context, id=id)
+        return team_iteration
+    except AzureDevOpsServiceError as ex:
+        handle_common_boards_errors(ex)
 
 
 def post_team_iteration(id, team, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """Add iteration to a team.
+    """(PREVIEW) Add iteration to a team.
     :param id: Identifier of the iteration.
     :type: str
     :param team: Name or ID of the team.
@@ -200,7 +203,7 @@ def post_team_iteration(id, team, organization=None, project=None, detect=None):
 
 
 def list_iteration_work_items(id, team, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """List work-items for an iteration.
+    """(PREVIEW) List work-items for an iteration.
     :param id: Identifier of the iteration.
     :type: str
     :param team: Name or ID of the team.
@@ -218,7 +221,7 @@ def list_iteration_work_items(id, team, organization=None, project=None, detect=
 
 
 def set_default_iteration(team, id=None, default_iteration_macro=None, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """Set default iteration for a team.
+    """(PREVIEW) Set default iteration for a team.
     :param id: Identifier of the iteration which needs to be set as default.
     :type: str
     :param team: Name or ID of the team.
@@ -241,7 +244,7 @@ def set_default_iteration(team, id=None, default_iteration_macro=None, organizat
 
 
 def set_backlog_iteration(team, id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """Set backlog iteration for a team.
+    """(PREVIEW) Set backlog iteration for a team.
     :param id: Identifier of the iteration which needs to be set as backlog iteration.
     :type: str
     :param team: Name or ID of the team.
@@ -257,7 +260,7 @@ def set_backlog_iteration(team, id, organization=None, project=None, detect=None
 
 
 def show_default_iteration(team, organization=None, project=None, detect=None):
-    """Show default iteration for a team.
+    """(PREVIEW) Show default iteration for a team.
     :param team: Name or ID of the team.
     :type: str
     """
@@ -269,7 +272,7 @@ def show_default_iteration(team, organization=None, project=None, detect=None):
 
 
 def show_backlog_iteration(team, organization=None, project=None, detect=None):
-    """Show backlog iteration for a team.
+    """(PREVIEW) Show backlog iteration for a team.
     :param team: Name or ID of the team.
     :type: str
     """
@@ -299,5 +302,7 @@ def _handle_empty_backlog_iteration_id(ex, client, team_context):
         if backlog_setting.backlog_iteration.id == EMPTY_UUID:
             raise CLIError('No backlog iteration has been selected for your team. '
                            'Before you can select iterations for your team to participate in, '
-                           'you must first specify a backlog iteration.')
-    raise CLIError(ex)
+                           'you must first specify a backlog iteration.'
+                           '\nYou can set backlog iteration by running following command: '
+                           'az boards iteration team set-backlog-iteration --team <TeamID> --id <BaclogIterationID>')
+    handle_common_boards_errors(ex)
