@@ -12,7 +12,7 @@ from azext_devops.devops_sdk.v5_0.work.models import (TeamContext,
 from azext_devops.dev.common.services import (resolve_instance_and_project,
                                               get_work_item_tracking_client,
                                               get_work_client)
-from .boards_helper import resolve_classification_node_path,handle_common_boards_errors
+from .boards_helper import resolve_classification_node_path, handle_common_boards_errors
 _STRUCTURE_GROUP_AREA = 'areas'
 
 
