@@ -304,5 +304,5 @@ def _handle_empty_backlog_iteration_id(ex, client, team_context):
                            'Before you can select iterations for your team to participate in, '
                            'you must first specify a backlog iteration.'
                            '\nYou can set backlog iteration by running following command: '
-                           'az boards iteration team set-backlog-iteration --team <TeamID> --id <BaclogIterationID>')
+                           'az boards iteration team set-backlog-iteration --team <TeamID> --id <BacklogIterationID>')
     handle_common_boards_errors(ex)
