@@ -13,6 +13,7 @@ from azext_devops.dev.common.uri import uri_quote
 from azext_devops.dev.common.uuid import is_uuid
 from azext_devops.devops_sdk.v5_0.build.models import Build, DefinitionReference
 from .build_definition import get_definition_id_from_name
+from .pipeline_run import _open_pipeline_run
 
 logger = get_logger(__name__)
 
@@ -127,7 +128,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
                 raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
     queued_build = client.queue_build(build=build, project=project)
     if open:
-        _open_pipeline(queued_build, organization)
+        _open_pipeline_run(queued_build, organization)
     return queued_build
 
 
