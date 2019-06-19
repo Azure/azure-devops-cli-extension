@@ -156,9 +156,9 @@ def get_kubernetes_namespace(organization, project, cluster, subscription_id, su
 
 def poll_connection_ready(organization, project, connection_id):
     import colorama
+    colorama.init()
     import humanfriendly
     import time
-    colorama.init()
     with humanfriendly.Spinner(label="Checking resource readiness") as spinner:
         se_client = get_service_endpoint_client(organization)
         while True:
@@ -167,6 +167,7 @@ def poll_connection_ready(organization, project, connection_id):
             service_endpoint = se_client.get_service_endpoint_details(project, connection_id)
             if service_endpoint.is_ready:
                 break
+    colorama.deinit()
 
 
 def get_se_kubernetes_namespace_request_obj(subscription_id, subscription_name, cluster_id, cluster_name, fqdn,
