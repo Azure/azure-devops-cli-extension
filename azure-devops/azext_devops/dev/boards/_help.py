@@ -27,19 +27,19 @@ def load_boards_help():
 
     helps['boards iteration'] = """
     type: group
-    short-summary: Manage iterations.
+    short-summary: (PREVIEW) Manage iterations.
     long-summary:
     """
 
     helps['boards iteration team'] = """
     type: group
-    short-summary: Manage iterations for a team.
+    short-summary: (PREVIEW) Manage iterations for a team.
     long-summary:
     """
 
     helps['boards iteration project'] = """
     type: group
-    short-summary: Manage iterations for a project.
+    short-summary: (PREVIEW) Manage iterations for a project.
     long-summary:
     """
 
@@ -50,13 +50,13 @@ def load_boards_help():
 
     helps['boards area'] = """
     type: group
-    short-summary: Manage area paths.
+    short-summary: (PREVIEW) Manage area paths.
     long-summary:
     """
 
     helps['boards area project'] = """
     type: group
-    short-summary: Manage areas for a project.
+    short-summary: (PREVIEW) Manage areas for a project.
     long-summary:
     """
 
@@ -67,7 +67,7 @@ def load_boards_help():
 
     helps['boards area team'] = """
     type: group
-    short-summary: Manage areas for a team.
+    short-summary: (PREVIEW) Manage areas for a team.
     long-summary:
     """
 
