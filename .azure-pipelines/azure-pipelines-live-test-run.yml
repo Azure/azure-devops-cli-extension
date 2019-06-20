@@ -1,10 +1,18 @@
 # This pipeline
-# 1. Runs manually
+# 1. Scheduled to run UTC midnight everyday
 # 2. Makes sure master branch is in healthy state (run live tests)
 
 trigger: none
 
 pr: none
+
+schedules:
+- cron: "0 0 * * *"
+  displayName: Daily midnight build
+  branches:
+    include:
+    - master
+  always: true
 
 jobs:
 
