@@ -1,8 +1,17 @@
 # This is used to test if the released version is in healthy state or not
+# Runs everyday midnight UTC
 
 pr: none
 
 trigger: none
+
+schedules:
+- cron: "0 0 * * *"
+  displayName: Daily midnight build
+  branches:
+    include:
+    - release-0.11.0
+  always: true
 
 jobs:
 
