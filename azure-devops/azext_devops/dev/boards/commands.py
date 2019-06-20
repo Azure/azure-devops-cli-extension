@@ -62,7 +62,7 @@ def load_work_commands(self, _):
                   confirmation='Are you sure you want to remove this relation(s)?')
         g.command('relation show', 'show_work_item', table_transformer=transform_work_item_relations)
 
-    with self.command_group('boards iteration team', command_type=workProjectAndTeamIterationOps) as g:
+    with self.command_group('boards iteration team', command_type=workProjectAndTeamIterationOps, is_preview=True) as g:
         # team iteration commands
         g.command('list', 'get_team_iterations', table_transformer=transform_work_item_team_iterations_table_output)
         g.command('list-work-items', 'list_iteration_work_items',
@@ -78,7 +78,8 @@ def load_work_commands(self, _):
         g.command('remove', 'delete_team_iteration', table_transformer=transform_work_item_team_iteration_table_output)
         g.command('add', 'post_team_iteration', table_transformer=transform_work_item_team_iteration_table_output)
 
-    with self.command_group('boards iteration project', command_type=workProjectAndTeamIterationOps) as g:
+    with self.command_group('boards iteration project', command_type=workProjectAndTeamIterationOps,
+                            is_preview=True) as g:
         # team iteration commands
         g.command('list', 'get_project_iterations',
                   table_transformer=transform_work_item_project_classification_nodes_table_output)
@@ -91,7 +92,7 @@ def load_work_commands(self, _):
         g.command('create', 'create_project_iteration',
                   table_transformer=transform_work_item_project_classification_nodes_table_output)
 
-    with self.command_group('boards area project', command_type=workProjectAndTeamAreaOps) as g:
+    with self.command_group('boards area project', command_type=workProjectAndTeamAreaOps, is_preview=True) as g:
         # team iteration commands
         g.command('list', 'get_project_areas',
                   table_transformer=transform_work_item_project_classification_nodes_table_output)
@@ -104,7 +105,7 @@ def load_work_commands(self, _):
         g.command('show', 'get_project_area',
                   table_transformer=transform_work_item_project_classification_node_table_output)
 
-    with self.command_group('boards area team', command_type=workProjectAndTeamAreaOps) as g:
+    with self.command_group('boards area team', command_type=workProjectAndTeamAreaOps, is_preview=True) as g:
         # team iteration commands
         g.command('list', 'get_team_areas', table_transformer=transform_work_item_team_areas_table_output)
         g.command('add', 'add_team_area', table_transformer=transform_work_item_team_areas_table_output)

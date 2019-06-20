@@ -17,7 +17,7 @@ _STRUCTURE_GROUP_AREA = 'areas'
 
 
 def get_project_areas(depth=1, path=None, organization=None, project=None, detect=None):
-    """(PREVIEW) List areas for a project.
+    """List areas for a project.
     :param depth: Depth of child nodes to be fetched. Example: --depth 3
     :type depth: int
     """
@@ -34,7 +34,7 @@ def get_project_areas(depth=1, path=None, organization=None, project=None, detec
 
 
 def delete_project_area(path, organization=None, project=None, detect=None):
-    """(PREVIEW) Delete area.
+    """Delete area.
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -48,7 +48,7 @@ def delete_project_area(path, organization=None, project=None, detect=None):
 
 
 def create_project_area(name, path=None, organization=None, project=None, detect=None):
-    """(PREVIEW) Create area.
+    """Create area.
     :param name: Name of the area.
     :type: str
     """
@@ -68,7 +68,7 @@ def create_project_area(name, path=None, organization=None, project=None, detect
 
 
 def get_project_area(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """(PREVIEW) Show area details for a project.
+    """Show area details for a project.
     :param id: Area ID.
     :type id: int
     """
@@ -83,7 +83,7 @@ def get_project_area(id, organization=None, project=None, detect=None):  # pylin
 
 
 def update_project_area(path, name=None, child_id=None, organization=None, project=None, detect=None):
-    """(PREVIEW) Update area.
+    """Update area.
     :param name: New name of the area.
     :type: str
     :param child_id: Move an existing area and add as child node for this area.
@@ -116,7 +116,7 @@ def update_project_area(path, name=None, child_id=None, organization=None, proje
 
 
 def get_team_areas(team, organization=None, project=None, detect=None):
-    """(PREVIEW) List areas for a team.
+    """List areas for a team.
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -129,7 +129,7 @@ def get_team_areas(team, organization=None, project=None, detect=None):
 
 def add_team_area(path, team, set_as_default=False, include_sub_areas=None,
                   organization=None, project=None, detect=None):
-    """(PREVIEW) Add area to a team.
+    """Add area to a team.
     :param set_as_default: Set this area path as default area for this team. Default: False
     :type set_as_default: bool
     """
@@ -157,7 +157,7 @@ def add_team_area(path, team, set_as_default=False, include_sub_areas=None,
 
 
 def remove_team_area(path, team, organization=None, project=None, detect=None):
-    """(PREVIEW) Remove area from a team.
+    """Remove area from a team.
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -189,7 +189,7 @@ def remove_team_area(path, team, organization=None, project=None, detect=None):
 
 def update_team_area(path, team, include_sub_areas=None, set_as_default=False,
                      organization=None, project=None, detect=None):
-    """(PREVIEW) Update team area.
+    """Update team area.
     :param set_as_default: Set as default team area path. Default: False
     :type set_as_default: bool
     """
