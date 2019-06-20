@@ -11,14 +11,14 @@ from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/ishitamehta'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 class BoardsIterationsTest(ScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     @set_authentication
     def test_boards_iterations(self):
-        random_project_name = self.create_random_name(prefix='Iterate1_', length=15)
+        random_project_name = 'Iteration' + self.create_random_name(prefix='Proj_', length=15)
         self.cmd('az devops configure --defaults organization=' +  DEVOPS_CLI_TEST_ORGANIZATION + ' project=' + random_project_name)
 
         try:
