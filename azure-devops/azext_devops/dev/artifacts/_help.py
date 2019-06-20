@@ -15,6 +15,6 @@ def load_artifacts_help():
 
     helps['artifacts universal'] = """
         type: group
-        short-summary: (PREVIEW) Manage Universal Packages
+        short-summary: Manage Universal Packages
         long-summary:
     """
