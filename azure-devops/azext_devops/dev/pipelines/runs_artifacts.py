@@ -14,7 +14,7 @@ logger = get_logger(__name__)
 
 
 def run_artifact_download(run_id, artifact_name, path, organization=None, project=None, detect=None):
-    """ (PREVIEW) Download a pipeline artifact.
+    """ Download a pipeline artifact.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
     :param artifact_name: Name of the artifact to download.
@@ -29,7 +29,7 @@ def run_artifact_download(run_id, artifact_name, path, organization=None, projec
 
 
 def run_artifact_list(run_id, organization=None, project=None, detect=None):
-    """ (PREVIEW) List artifacts associated with a run.
+    """ List artifacts associated with a run.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
     """
@@ -40,7 +40,7 @@ def run_artifact_list(run_id, organization=None, project=None, detect=None):
 
 
 def run_artifact_upload(run_id, artifact_name, path, organization=None, project=None, detect=None):
-    """ (PREVIEW) Upload a pipeline artifact.
+    """ Upload a pipeline artifact.
     :param run_id: ID of the run that the artifact is associated to.
     :type run_id: int
     :param artifact_name: Name of the artifact to upload.

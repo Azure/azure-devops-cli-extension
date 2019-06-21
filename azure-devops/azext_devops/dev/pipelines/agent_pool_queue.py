@@ -12,7 +12,7 @@ logger = get_logger(__name__)
 
 
 def list_pools(pool_name=None, pool_type=None, action=None, organization=None, detect=None):
-    """ (PREVIEW) List agent pools
+    """ List agent pools
     :param pool_name: Filter the list with matching pool name.
     :type pool_name: str
     :param pool_type: Filter the list with type of pool.
@@ -27,7 +27,7 @@ def list_pools(pool_name=None, pool_type=None, action=None, organization=None, d
 
 
 def show_pool(pool_id, action=None, organization=None, detect=None):
-    """ (PREVIEW) Show agent pool details
+    """ Show agent pool details
     :param pool_id: Id of the pool to list the details.
     :type pool_id: int
     :param action: Filter the list with user action permitted.
@@ -40,7 +40,7 @@ def show_pool(pool_id, action=None, organization=None, detect=None):
 
 def list_agents(pool_id, agent_name=None, include_capabilities=None, include_assigned_request=None,
                 include_last_completed_request=None, demands=None, organization=None, detect=None):
-    """ (PREVIEW) Get a list of agents in a pool
+    """ Get a list of agents in a pool
     :param pool_id: The agent pool containing the agents.
     :type pool_id: int
     :param agent_name: Filter on agent name.
@@ -66,7 +66,7 @@ def list_agents(pool_id, agent_name=None, include_capabilities=None, include_ass
 
 def show_agent(pool_id, agent_id, include_capabilities=None, include_assigned_request=None,
                include_last_completed_request=None, organization=None, detect=None):
-    """ (PREVIEW) Show agent details
+    """ Show agent details
     :param pool_id: The agent pool containing the agent.
     :type pool_id: int
     :param agent_id: The agent ID to get information about.
@@ -87,7 +87,7 @@ def show_agent(pool_id, agent_id, include_capabilities=None, include_assigned_re
 
 
 def list_queues(queue_name=None, action=None, project=None, organization=None, detect=None):
-    """ (PREVIEW) List agent queues
+    """ List agent queues
     :param queue_name: Filter the list with matching queue name regex.
     e.g. *ubuntu* for queue with name 'Hosted Ubuntu 1604'
     :type queue_name: str
@@ -100,7 +100,7 @@ def list_queues(queue_name=None, action=None, project=None, organization=None, d
 
 
 def show_queue(queue_id, action=None, project=None, organization=None, detect=None):
-    """ (PREVIEW) Show details of agent queue
+    """ Show details of agent queue
     :param queue_id: Id of the agent queue to get information about.
     :type queue_id: str
     :param action: Filter by whether the calling user has use or manage permissions

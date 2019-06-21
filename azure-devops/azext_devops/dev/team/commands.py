@@ -110,7 +110,7 @@ def load_team_commands(self, _):
     with self.command_group('devops service-endpoint', command_type=service_endpointOps) as g:
         g.command('list', 'list_service_endpoints', table_transformer=transform_service_endpoints_table_output)
         g.command('show', 'show_service_endpoint')  # no table transform because type is not well defined
-        g.command('create', 'create_service_endpoint')
+        g.command('create', 'create_service_endpoint', is_preview=True)
         g.command('azurerm create', 'create_azurerm_service_endpoint')
         g.command('github create', 'create_github_service_endpoint')
         g.command('delete', 'delete_service_endpoint',
@@ -155,7 +155,7 @@ def load_team_commands(self, _):
         g.command('add', 'add_membership', table_transformer=transform_membership_table_output)
         g.command('remove', 'remove_membership', confirmation='Are you sure you want to delete this relationship?')
 
-    with self.command_group('devops security permission', command_type=security_permissionOps) as g:
+    with self.command_group('devops security permission', command_type=security_permissionOps, is_preview=true) as g:
         g.command('list', 'list_tokens', table_transformer=transform_acl_output)
         g.command('update', 'update_permissions', table_transformer=transform_resolve_permission_bits)
         g.command('reset-all', 'reset_all_permissions',

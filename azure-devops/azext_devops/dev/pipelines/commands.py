@@ -94,11 +94,11 @@ pipelineVariablesOps = CliCommandType(
 
 # pylint: disable=too-many-statements
 def load_build_commands(self, _):
-    with self.command_group('pipelines', command_type=pipelineCreateOps) as g:
+    with self.command_group('pipelines', command_type=pipelineCreateOps, is_preview=true) as g:
         g.command('create', 'pipeline_create', table_transformer=transform_pipeline_or_run_table_output)
         g.command('update', 'pipeline_update', table_transformer=transform_pipeline_table_output)
 
-    with self.command_group('pipelines', command_type=pipelinesOps) as g:
+    with self.command_group('pipelines', command_type=pipelinesOps, is_preview=true) as g:
         g.command('list', 'pipeline_list', table_transformer=transform_pipelines_table_output)
         g.command('show', 'pipeline_show', table_transformer=transform_pipeline_table_output)
         g.command('delete', 'pipeline_delete', confirmation='Are you sure you want to delete this pipeline?')
@@ -142,19 +142,19 @@ def load_build_commands(self, _):
         g.command('list', 'pipeline_run_get_tags', table_transformer=transform_build_tags_output)
         g.command('delete', 'pipeline_run_delete_tag', table_transformer=transform_build_tags_output)
 
-    with self.command_group('pipelines runs', command_type=pipelinesRunOps) as g:
+    with self.command_group('pipelines runs', command_type=pipelinesRunOps, is_preview=True) as g:
         g.command('list', 'pipeline_run_list', table_transformer=transform_pipeline_runs_table_output)
         g.command('show', 'pipeline_run_show', table_transformer=transform_pipeline_run_table_output)
 
-    with self.command_group('pipelines pool', command_type=pipelineAgentPoolQueueOps) as g:
+    with self.command_group('pipelines pool', command_type=pipelineAgentPoolQueueOps, is_preview=True) as g:
         g.command('list', 'list_pools', table_transformer=transform_pipelines_pools_table_output)
         g.command('show', 'show_pool', table_transformer=transform_pipelines_pool_table_output)
 
-    with self.command_group('pipelines agent', command_type=pipelineAgentPoolQueueOps) as g:
+    with self.command_group('pipelines agent', command_type=pipelineAgentPoolQueueOps, is_preview=True) as g:
         g.command('list', 'list_agents', table_transformer=transform_pipelines_agents_table_output)
         g.command('show', 'show_agent', table_transformer=transform_pipelines_agent_table_output)
 
-    with self.command_group('pipelines queue', command_type=pipelineAgentPoolQueueOps) as g:
+    with self.command_group('pipelines queue', command_type=pipelineAgentPoolQueueOps, is_preview=True) as g:
         g.command('list', 'list_queues', table_transformer=transform_pipelines_queues_table_output)
         g.command('show', 'show_queue', table_transformer=transform_pipelines_queue_table_output)
 
