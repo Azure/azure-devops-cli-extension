@@ -62,53 +62,49 @@ def load_work_commands(self, _):
                   confirmation='Are you sure you want to remove this relation(s)?')
         g.command('relation show', 'show_work_item', table_transformer=transform_work_item_relations)
 
-    with self.command_group('boards iteration team', command_type=workProjectAndTeamIterationOps, is_preview=True) as g:
+    with self.command_group('boards iteration', command_type=workProjectAndTeamIterationOps, is_preview=True) as g:
         # team iteration commands
-        g.command('list', 'get_team_iterations', table_transformer=transform_work_item_team_iterations_table_output)
-        g.command('list-work-items', 'list_iteration_work_items',
+        g.command('team list', 'get_team_iterations', table_transformer=transform_work_item_team_iterations_table_output)
+        g.command('team list-work-items', 'list_iteration_work_items',
                   table_transformer=transform_work_item_team_iteration_work_items)
-        g.command('set-default-iteration', 'set_default_iteration',
+        g.command('team set-default-iteration', 'set_default_iteration',
                   table_transformer=transform_work_item_team_default_iteration_table_output)
-        g.command('set-backlog-iteration', 'set_backlog_iteration',
+        g.command('team set-backlog-iteration', 'set_backlog_iteration',
                   table_transformer=transform_work_item_team_backlog_iteration_table_output)
-        g.command('show-default-iteration', 'show_default_iteration',
+        g.command('team show-default-iteration', 'show_default_iteration',
                   table_transformer=transform_work_item_team_default_iteration_table_output)
-        g.command('show-backlog-iteration', 'show_backlog_iteration',
+        g.command('team show-backlog-iteration', 'show_backlog_iteration',
                   table_transformer=transform_work_item_team_backlog_iteration_table_output)
-        g.command('remove', 'delete_team_iteration', table_transformer=transform_work_item_team_iteration_table_output)
-        g.command('add', 'post_team_iteration', table_transformer=transform_work_item_team_iteration_table_output)
-
-    with self.command_group('boards iteration project', command_type=workProjectAndTeamIterationOps,
-                            is_preview=True) as g:
+        g.command('team remove', 'delete_team_iteration',
+                  table_transformer=transform_work_item_team_iteration_table_output)
+        g.command('team add', 'post_team_iteration', table_transformer=transform_work_item_team_iteration_table_output)
         # team iteration commands
-        g.command('list', 'get_project_iterations',
+        g.command('project list', 'get_project_iterations',
                   table_transformer=transform_work_item_project_classification_nodes_table_output)
-        g.command('update', 'update_project_iteration',
+        g.command('project update', 'update_project_iteration',
                   table_transformer=transform_work_item_project_classification_nodes_table_output)
-        g.command('delete', 'delete_project_iteration',
+        g.command('project delete', 'delete_project_iteration',
                   confirmation='Are you sure you want to delete this iteration?')
-        g.command('show', 'get_project_iteration',
+        g.command('project show', 'get_project_iteration',
                   table_transformer=transform_work_item_project_classification_node_table_output)
-        g.command('create', 'create_project_iteration',
+        g.command('project create', 'create_project_iteration',
                   table_transformer=transform_work_item_project_classification_nodes_table_output)
 
-    with self.command_group('boards area project', command_type=workProjectAndTeamAreaOps, is_preview=True) as g:
+    with self.command_group('boards area', command_type=workProjectAndTeamAreaOps, is_preview=True) as g:
         # team iteration commands
-        g.command('list', 'get_project_areas',
+        g.command('project list', 'get_project_areas',
                   table_transformer=transform_work_item_project_classification_nodes_table_output)
-        g.command('delete', 'delete_project_area',
+        g.command('project delete', 'delete_project_area',
                   confirmation='Are you sure you want to delete this area?')
-        g.command('create', 'create_project_area',
+        g.command('project create', 'create_project_area',
+                  table_transformer=transform_work_item_project_classification_nodes_table_output),
+        g.command('project update', 'update_project_area',
                   table_transformer=transform_work_item_project_classification_nodes_table_output)
-        g.command('update', 'update_project_area',
-                  table_transformer=transform_work_item_project_classification_nodes_table_output)
-        g.command('show', 'get_project_area',
+        g.command('project show', 'get_project_area',
                   table_transformer=transform_work_item_project_classification_node_table_output)
-
-    with self.command_group('boards area team', command_type=workProjectAndTeamAreaOps, is_preview=True) as g:
         # team iteration commands
-        g.command('list', 'get_team_areas', table_transformer=transform_work_item_team_areas_table_output)
-        g.command('add', 'add_team_area', table_transformer=transform_work_item_team_areas_table_output)
-        g.command('remove', 'remove_team_area', table_transformer=transform_work_item_team_areas_table_output)
-        g.command('update', 'update_team_area',
+        g.command('team list', 'get_team_areas', table_transformer=transform_work_item_team_areas_table_output)
+        g.command('team add', 'add_team_area', table_transformer=transform_work_item_team_areas_table_output)
+        g.command('team remove', 'remove_team_area', table_transformer=transform_work_item_team_areas_table_output)
+        g.command('team update', 'update_team_area',
                   table_transformer=transform_work_item_team_areas_table_output)

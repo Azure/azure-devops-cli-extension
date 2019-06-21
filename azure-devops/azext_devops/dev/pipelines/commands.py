@@ -94,15 +94,17 @@ pipelineVariablesOps = CliCommandType(
 
 # pylint: disable=too-many-statements
 def load_build_commands(self, _):
-    with self.command_group('pipelines', command_type=pipelineCreateOps, is_preview=true) as g:
-        g.command('create', 'pipeline_create', table_transformer=transform_pipeline_or_run_table_output)
-        g.command('update', 'pipeline_update', table_transformer=transform_pipeline_table_output)
+    with self.command_group('pipelines', command_type=pipelineCreateOps) as g:
+        g.command('create', 'pipeline_create', table_transformer=transform_pipeline_or_run_table_output,
+                  is_preview=True)
+        g.command('update', 'pipeline_update', table_transformer=transform_pipeline_table_output, is_preview=True)
 
-    with self.command_group('pipelines', command_type=pipelinesOps, is_preview=true) as g:
-        g.command('list', 'pipeline_list', table_transformer=transform_pipelines_table_output)
-        g.command('show', 'pipeline_show', table_transformer=transform_pipeline_table_output)
-        g.command('delete', 'pipeline_delete', confirmation='Are you sure you want to delete this pipeline?')
-        g.command('run', 'pipeline_run', table_transformer=transform_pipeline_run_table_output)
+    with self.command_group('pipelines', command_type=pipelinesOps) as g:
+        g.command('list', 'pipeline_list', table_transformer=transform_pipelines_table_output, is_preview=True)
+        g.command('show', 'pipeline_show', table_transformer=transform_pipeline_table_output, is_preview=True)
+        g.command('delete', 'pipeline_delete', confirmation='Are you sure you want to delete this pipeline?',
+                  is_preview=True)
+        g.command('run', 'pipeline_run', table_transformer=transform_pipeline_run_table_output, is_preview=True)
 
     with self.command_group('pipelines build', command_type=buildOps) as g:
         # basic build commands
