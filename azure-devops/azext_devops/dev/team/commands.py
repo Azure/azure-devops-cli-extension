@@ -153,7 +153,7 @@ def load_team_commands(self, _):
         g.command('add', 'add_membership', table_transformer=transform_membership_table_output)
         g.command('remove', 'remove_membership', confirmation='Are you sure you want to delete this relationship?')
 
-    with self.command_group('devops security permission', command_type=security_permissionOps, is_preview=true) as g:
+    with self.command_group('devops security permission', command_type=security_permissionOps, is_preview=True) as g:
         g.command('list', 'list_tokens', table_transformer=transform_acl_output)
         g.command('update', 'update_permissions', table_transformer=transform_resolve_permission_bits)
         g.command('reset-all', 'reset_all_permissions',
