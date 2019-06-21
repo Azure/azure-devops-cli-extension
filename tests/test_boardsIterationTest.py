@@ -85,6 +85,13 @@ class BoardsIterationsTest(ScenarioTest):
             show_project_iteration = self.cmd(show_project_iteration_cmd).get_output_in_json()
             assert show_project_iteration[0]['path'] == child_iteration1_path
             assert show_project_iteration[0]['id'] == child_iteration1_id
+            
+            # update project iteration
+            update_project_iteration_name_cmd = 'az boards iteration project update --path "' + child_iteration1_path + '" --child-id ' + str(child_iteration2_id) + ' --project ' + random_project_name + ' --output json --detect false'
+            print(update_project_iteration_name_cmd)
+            update_project_iteration = self.cmd(update_project_iteration_name_cmd).get_output_in_json()
+            assert update_project_iteration['path'] == child_iteration1_path 
+            assert update_project_iteration['id'] == child_iteration1_id
 
             # TEAM LEVEL ITERATIONS
             list_team_iteration_cmd = 'az boards iteration team list --team ' + team_name + ' --project ' + random_project_name + ' --output json --detect false'

@@ -164,6 +164,8 @@ def remove_team_area(path, team, organization=None, project=None, detect=None):
                                                          project=project)
     client = get_work_client(organization)
     team_context = TeamContext(project=project, team=team)
+    if path[0] == '\\':
+        path = path[1:]
     get_response = client.get_team_field_values(team_context=team_context)
     if get_response.default_value == path:
         raise CLIError('You are trying to remove the default area for this team. '
