@@ -8,7 +8,7 @@ The Azure DevOps Extension for Azure CLI adds Pipelines, Boards, Repos, Artifact
 
 ## Quick start
 
-1. [Install the Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli). You must have at least `v2.0.49`, which you can verify with `az --version` command.
+1. [Install the Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli). You must have at least `v2.0.67`, which you can verify with `az --version` command.
 
 1. Add the Azure DevOps Extension `az extension add --name azure-devops`
 
