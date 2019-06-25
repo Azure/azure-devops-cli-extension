@@ -36,7 +36,13 @@ def load_pipelines_help():
     short-summary: (PREVIEW) Manage variable groups.
     long-summary:
     """
-    
+
+    helps['pipelines variable-group variable'] = """
+    type: group
+    short-summary: (PREVIEW) Manage variables in a variable group.
+    long-summary:
+    """
+
     helps['pipelines pool'] = """
     type: group
     short-summary: (PREVIEW) Manage agent pools.

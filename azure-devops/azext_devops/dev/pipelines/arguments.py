@@ -21,8 +21,11 @@ _PIPELINES_RUNS_QUERY_ORDER = ['FinishTimeAsc', 'FinishTimeDesc', 'StartTimeAsc'
 
 _AGENT_POOL_TYPES = ['automation', 'deployment']
 
-_AGENT_ACTION_FILTER_TYPES = ['use', 'manage', 'none']
+_ACTION_FILTER_TYPES = ['use', 'manage', 'none']
 
+_VARIABLE_GROUP_TYPES = ['Vsts', 'AzureKeyVault']
+
+_VAR_GROUPS_QUERY_ORDER = ['Asc', 'Desc']
 
 def load_build_arguments(self, _):
     with self.argument_context('pipelines build list') as context:
@@ -77,7 +80,7 @@ def load_build_arguments(self, _):
 
     with self.argument_context('pipelines pool') as context:
         context.argument('pool_id', options_list=('--pool-id', '--id'))
-        context.argument('action', **enum_choice_list(_AGENT_ACTION_FILTER_TYPES))
+        context.argument('action', **enum_choice_list(_ACTION_FILTER_TYPES))
         context.argument('pool_type', **enum_choice_list(_AGENT_POOL_TYPES))
 
     with self.argument_context('pipelines agent') as context:
@@ -88,8 +91,12 @@ def load_build_arguments(self, _):
 
     with self.argument_context('pipelines queue') as context:
         context.argument('queue_id', options_list=('--queue-id', '--id'))
-        context.argument('action', **enum_choice_list(_AGENT_ACTION_FILTER_TYPES))
+        context.argument('action', **enum_choice_list(_ACTION_FILTER_TYPES))
 
     with self.argument_context('pipelines variable-group') as context:
-        context.argument('group-type', options_list=('--group-type', '--type'))
+        context.argument('group-type', options_list=('--group-type', '--type'),
+                         **enum_choice_list(_VARIABLE_GROUP_TYPES))
         context.argument('variables', nargs='*')
+        context.argument('query-order', **enum_choice_list(_VAR_GROUPS_QUERY_ORDER))
+        context.argument('action-filter', options_list=('--action-filter', '--action'),
+                         **enum_choice_list(_ACTION_FILTER_TYPES))
