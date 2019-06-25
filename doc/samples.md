@@ -169,7 +169,7 @@ steps:
     az repos pr list
   env:
     AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
-  displayName: 'Show build list and PRs'    
+  displayName: 'Show build list and PRs'
 ```
 
 For Linux: azure-pipelines-steps-linux.yml
@@ -195,8 +195,8 @@ steps:
 
   - script: az extension add -n azure-devops
     displayName: 'Install Azure DevOps Extension'
-    
-  - script: |      
+
+  - script: |
       az pipelines build list
       az repos pr list
     env:
