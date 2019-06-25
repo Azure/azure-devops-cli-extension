@@ -17,8 +17,6 @@ def pipeline_run_show(id, open=False, organization=None, project=None, detect=No
     :type id: int
     :param open: Open the build results page in your web browser.
     :type open: bool
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
-    :type organization: str
     :param project: Name or ID of the team project.
     :type project: str
     :param detect: Automatically detect organization and project. Default is "on".

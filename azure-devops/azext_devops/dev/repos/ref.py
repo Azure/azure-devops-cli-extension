@@ -17,7 +17,6 @@ def list_refs(filter=None, repository=None, organization=None, project=None, det
     """List the references.
     :param str filter: A filter to apply to the refs (starts with). Example: head or heads/ for the branches.
     :param str repository: Name or ID of the repository.
-    :param str organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
@@ -37,7 +36,6 @@ def create_ref(name, object_id, repository=None, organization=None, project=None
     :param str name: Name of the reference to create (example: heads/my_branch or tags/my_tag).
     :param str object_id: Id of the object to create the reference from.
     :param str repository: Name or ID of the repository.
-    :param str organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
@@ -63,7 +61,6 @@ def delete_ref(name, object_id, repository=None, organization=None, project=None
     :param str name: Name of the reference to delete (example: heads/my_branch).
     :param str object_id: Id of the reference to delete.
     :param str repository: Name or ID of the repository.
-    :param str organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
@@ -85,7 +82,6 @@ def lock_ref(name, repository=None, organization=None, project=None, detect=None
     """Lock a reference.
     :param str name: Name of the reference to update (example: heads/my_branch).
     :param str repository: Name or ID of the repository.
-    :param str organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
@@ -96,7 +92,6 @@ def unlock_ref(name, repository=None, organization=None, project=None, detect=No
     """Unlock a reference.
     :param str name: Name of the reference to update (example: heads/my_branch).
     :param str repository: Name or ID of the repository.
-    :param str organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/
     :param str project: Name or ID of the project.
     :param str detect: Automatically detect organization and project. Default is "on".
     """
