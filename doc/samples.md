@@ -164,9 +164,9 @@ steps:
 - script: az extension add -n azure-devops
   displayName: 'Install Azure DevOps Extension'
 
-- script: echo ${AZURE_DEVOPS_CLI_PAT} | az devops login
+- script: echo ${AZURE_DEVOPS_EXT_PAT} | az devops login
   env:
-    AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
+    AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
   displayName: 'Login Azure DevOps Extension'
 
 - script: az devops configure --defaults organization=$(System.TeamFoundationCollectionUri) project=$(System.TeamProject) --use-git-aliases yes
@@ -202,9 +202,9 @@ steps:
   - script: az extension add -n azure-devops
     displayName: 'Install Azure DevOps Extension'
 
-  - script: echo ${AZURE_DEVOPS_CLI_PAT} | az devops login
+  - script: echo ${AZURE_DEVOPS_EXT_PAT} | az devops login
     env:
-      AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
+      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
     displayName: 'Login Azure DevOps Extension'
 
   - script: az devops configure --defaults organization=https://georgeverghese.visualstudio.com project="Movie Search Web App" --use-git-aliases yes
@@ -242,7 +242,7 @@ steps:
 
   - script: echo $(System.AccessToken) | az devops login
     env:
-      AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
+      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
     displayName: 'Login Azure DevOps Extension'
 
   - script: az devops configure --defaults organization=https://georgeverghese.visualstudio.com project="Movie Search Web App" --use-git-aliases yes
