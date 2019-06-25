@@ -14,7 +14,7 @@ logger = get_logger(__name__)
 
 
 def publish_package(feed, name, version, path, description=None, organization=None, detect=None):
-    """(PREVIEW) Publish a package to a feed.
+    """Publish a package to a feed.
     :param feed: Name or ID of the feed.
     :type feed: str
     :param name: Name of the package, e.g. 'foo-package'.
@@ -33,7 +33,7 @@ def publish_package(feed, name, version, path, description=None, organization=No
 
 
 def download_package(feed, name, version, path, file_filter=None, organization=None, detect=None):
-    """(PREVIEW) Download a package.
+    """Download a package.
     :param feed: Name or ID of the feed.
     :type feed: str
     :param name: Name of the package, e.g. 'foo-package'.
