@@ -164,18 +164,16 @@ steps:
 - script: az extension add -n azure-devops
   displayName: 'Install Azure DevOps Extension'
 
-- script: echo ${AZURE_DEVOPS_EXT_PAT} | az devops login
-  env:
-    AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
-  displayName: 'Login Azure DevOps Extension'
 
-- script: az devops configure --defaults organization=$(System.TeamFoundationCollectionUri) project=$(System.TeamProject) --use-git-aliases yes
+- script: az devops configure --defaults organization=$(System.TeamFoundationCollectionUri) project=$(System.TeamProject) --use-git-aliases
   displayName: 'Set default Azure DevOps organization and project'
 
 - script: |
     az pipelines build list
     git pr list
-  displayName: 'Show build list and PRs'
+  env:
+    AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
+  displayName: 'Show build list and PRs'   
 ```
 
 For Linux: azure-pipelines-steps-linux.yml
@@ -202,17 +200,14 @@ steps:
   - script: az extension add -n azure-devops
     displayName: 'Install Azure DevOps Extension'
 
-  - script: echo ${AZURE_DEVOPS_EXT_PAT} | az devops login
-    env:
-      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
-    displayName: 'Login Azure DevOps Extension'
-
-  - script: az devops configure --defaults organization=https://georgeverghese.visualstudio.com project="Movie Search Web App" --use-git-aliases yes
+  - script: az devops configure --defaults organization=$(System.TeamFoundationCollectionUri) project=$(System.TeamProject) --use-git-aliases
     displayName: 'Set default Azure DevOps organization and project'
 
   - script: |
       az pipelines build list
       git pr list
+    env:
+      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
     displayName: 'Show build list and PRs'
 ```
 
@@ -240,17 +235,14 @@ steps:
   - script: az extension add -n azure-devops
     displayName: 'Install Azure DevOps Extension'
 
-  - script: echo $(System.AccessToken) | az devops login
-    env:
-      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
-    displayName: 'Login Azure DevOps Extension'
-
-  - script: az devops configure --defaults organization=https://georgeverghese.visualstudio.com project="Movie Search Web App" --use-git-aliases yes
-    displayName: 'Set default Azure DevOps organization and project'
+  - script: az devops configure --defaults organization=$(System.TeamFoundationCollectionUri) project=$(System.TeamProject) --use-git-aliases
+    displayName: 'Set default Azure DevOps organization and project' 
 
   - script: |
       az pipelines build list
       git pr list
+    env:
+      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
     displayName: 'Show build list and PRs'
 ```
 
