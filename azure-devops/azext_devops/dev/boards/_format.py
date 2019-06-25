@@ -106,7 +106,7 @@ def transform_work_item_query_result_row_output(row):
                     if len(title) > _WORK_ITEM_TITLE_TRUNCATION_LENGTH:
                         title = title[0:_WORK_ITEM_TITLE_TRUNCATION_LENGTH - 3] + '...'
                     table_row[field_reference.name] = title
-                if field_reference.reference_name == 'System.AssignedTo':
+                elif field_reference.reference_name == 'System.AssignedTo':
                     table_row[field_reference.name] = row[field_reference.reference_name]['uniqueName']
                 else:
                     table_row[field_reference.name] = row[field_reference.reference_name]
