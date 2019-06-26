@@ -151,7 +151,7 @@ if ($devopsFound -eq $False){
 
 ### Use the Azure DevOps Extension with YAML
 
-If you prefer to use YAML to provide your release pipeline configuration, you can use the following example to understand how YAML can be used to install Azure CLI and add the Azure DevOps extension.
+If you prefer to use YAML, you can use the following example to understand how YAML can be used to install Azure CLI and add the Azure DevOps extension.
 
 In the example, you will learn how to add the Azure DevOps extension to Azure CLI and run the build and PR list commands on Linux, Mac OS and Windows hosted agents
 
@@ -164,17 +164,11 @@ steps:
 - script: az extension add -n azure-devops
   displayName: 'Install Azure DevOps Extension'
 
-- script: echo ${AZURE_DEVOPS_CLI_PAT} | az devops login
-  env:
-    AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
-  displayName: 'Login Azure DevOps Extension'
-
-- script: az devops configure --defaults organization=$(System.TeamFoundationCollectionUri) project=$(System.TeamProject) --use-git-aliases yes
-  displayName: 'Set default Azure DevOps organization and project'
-
 - script: |
     az pipelines build list
-    git pr list
+    az repos pr list
+  env:
+    AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
   displayName: 'Show build list and PRs'
 ```
 
@@ -202,17 +196,11 @@ steps:
   - script: az extension add -n azure-devops
     displayName: 'Install Azure DevOps Extension'
 
-  - script: echo ${AZURE_DEVOPS_CLI_PAT} | az devops login
-    env:
-      AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
-    displayName: 'Login Azure DevOps Extension'
-
-  - script: az devops configure --defaults organization=https://georgeverghese.visualstudio.com project="Movie Search Web App" --use-git-aliases yes
-    displayName: 'Set default Azure DevOps organization and project'
-
   - script: |
       az pipelines build list
-      git pr list
+      az repos pr list
+    env:
+      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
     displayName: 'Show build list and PRs'
 ```
 
@@ -240,17 +228,11 @@ steps:
   - script: az extension add -n azure-devops
     displayName: 'Install Azure DevOps Extension'
 
-  - script: echo $(System.AccessToken) | az devops login
-    env:
-      AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
-    displayName: 'Login Azure DevOps Extension'
-
-  - script: az devops configure --defaults organization=https://georgeverghese.visualstudio.com project="Movie Search Web App" --use-git-aliases yes
-    displayName: 'Set default Azure DevOps organization and project'
-
   - script: |
       az pipelines build list
-      git pr list
+      az repos pr list
+    env:
+      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
     displayName: 'Show build list and PRs'
 ```
 
