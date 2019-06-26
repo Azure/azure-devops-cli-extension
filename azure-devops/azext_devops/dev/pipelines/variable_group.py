@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.log import get_logger
+from knack.util import CLIError
 from azext_devops.dev.common.services import get_task_agent_client, resolve_instance_and_project
 
 logger = get_logger(__name__)
@@ -38,8 +39,8 @@ def variable_group_create(name, description=None, group_type=None, variables=Non
 
 def variable_group_show(group_id, organization=None, project=None, detect=None):
     """Show variable group details
-    :param group: ID of the variable group.
-    :type group: int
+    :param group_id: ID of the variable group.
+    :type group_id: int
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
@@ -64,6 +65,9 @@ def variable_group_list(group_name=None, action_filter=None, top=None, continuat
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
+    _QUERY_ORDER_ASCENDING = 'idAscending'
+    _QUERY_ORDER_DESCENDING = 'idDescending'
+    query_order = _QUERY_ORDER_DESCENDING if query_order.lower() == 'desc' else _QUERY_ORDER_ASCENDING
     client = get_task_agent_client(organization)
     return client.get_variable_groups(project=project, group_name=group_name, action_filter=action_filter, top=top,
                                       continuation_token=continuation_token, query_order=query_order)
@@ -80,8 +84,7 @@ def variable_group_delete(group_id, organization=None, project=None, detect=None
     return client.delete_variable_group(project=project, group_id=group_id)
 
 
-def variable_group_update(group_id, name=None, description=None, variables=None,
-                          organization=None, project=None, detect=None):
+def variable_group_update(group_id, name=None, description=None, organization=None, project=None, detect=None):
     """Update a variable group
     :param group_id: Id of the variable group.
     :type group_id: int
@@ -91,36 +94,64 @@ def variable_group_update(group_id, name=None, description=None, variables=None,
     :type description: str
     :param group_type: Type of the variable group.
     :type group_type: str
-    :param variables: Variables in format key=value. Variables will be appended/updated to the existing variables.
-    Secret variables should be managed using `az pipelines variable` commands.
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
     client = get_task_agent_client(organization)
-    from azext_devops.devops_sdk.v5_0.task_agent.models import VariableGroupParameters, VariableValue
-    variables_dict = {}
-    if variables:
-        for variable in variables:
-            key, value = variable.split('=', 1)
-            variables_dict[key] = VariableValue(is_secret=False, value=value)
-    var_group = VariableGroupParameters(name=name, description=description, variables=variables_dict)
+    from azext_devops.devops_sdk.v5_0.task_agent.models import VariableGroupParameters
+    var_group = VariableGroupParameters(name=name, description=description)
     return client.update_variable_group(group=var_group, project=project, group_id=group_id)
 
 
-def variable_group_variable_add(group=None, organization=None, project=None, detect=None):
+def variable_group_variable_add(group_id, name, value, is_secret=None, organization=None, project=None, detect=None):
     """Add a variable to a variable group
+    :param group_id: Id of the variable group.
+    :type group_id: int
+    :param name: Name of the variable.
+    :type name: str
+    :param value: Value of the variable.
+    :type value: str
+    :param is_secret: If the value of the variable is a secret.
+    :type is_secret: str
     """
-    pass
+    is_secret = False if not is_secret else is_secret
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_task_agent_client(organization)
+    var_group = client.get_variable_group(group_id=group_id, project=project)
+    # Check if the variable already exists
+    if var_group.variables.get(name):
+        raise CLIError(
+            'Variable already exists. Use `az pipelines variable-group variable update` command to update the value.')
+    # Add the variable to the variable group.
+    from azext_devops.devops_sdk.v5_0.task_agent.models import VariableValue
+    var_group.variables[name] = VariableValue(is_secret=is_secret, value=value)
+    return client.update_variable_group(group=var_group, project=project, group_id=group_id)
 
 
-def variable_group_variable_list(group=None, organization=None, project=None, detect=None):
+def variable_group_variable_list(group_id=None, organization=None, project=None, detect=None):
     """List the variables in a variable group
+    :param group_id: Id of the variable group.
+    :type group_id: int
     """
-    pass
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_task_agent_client(organization)
+    return client.get_variable_group(group_id=group_id, project=project)
 
 
-def variable_group_variable_delete(group=None, organization=None, project=None, detect=None):
+def variable_group_variable_delete(group_id, name, organization=None, project=None, detect=None):
     """Delete a variable from variable group
+    :param group_id: Id of the variable group.
+    :type group_id: int
+    :param name: Name of the variable.
+    :type name: str
     """
-    pass
-    
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_task_agent_client(organization)
+    var_group = client.get_variable_group(group_id=group_id, project=project)
+    # Check if the variable already exists
+    if not var_group.variables.pop(name):
+        raise CLIError('No matching variable found in group {}.'.format(var_group.name))
+    return client.update_variable_group(group=var_group, project=project, group_id=group_id)

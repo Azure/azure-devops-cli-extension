@@ -94,9 +94,10 @@ def load_build_arguments(self, _):
         context.argument('action', **enum_choice_list(_ACTION_FILTER_TYPES))
 
     with self.argument_context('pipelines variable-group') as context:
-        context.argument('group-type', options_list=('--group-type', '--type'),
+        context.argument('group_id', options_list=('--group-id', '--id'))
+        context.argument('group_type', options_list=('--group-type', '--type'),
                          **enum_choice_list(_VARIABLE_GROUP_TYPES))
         context.argument('variables', nargs='*')
-        context.argument('query-order', **enum_choice_list(_VAR_GROUPS_QUERY_ORDER))
-        context.argument('action-filter', options_list=('--action-filter', '--action'),
+        context.argument('query_order', **enum_choice_list(_VAR_GROUPS_QUERY_ORDER))
+        context.argument('action_filter', options_list=('--action-filter', '--action'),
                          **enum_choice_list(_ACTION_FILTER_TYPES))

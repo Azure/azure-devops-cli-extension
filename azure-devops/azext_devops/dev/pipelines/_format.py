@@ -320,5 +320,6 @@ def _transform_pipeline_variable_group_row(row):
     table_row['Name'] = row['name']
     table_row['Type'] = row['type']
     table_row['Description'] = row['description']
+    table_row['Is Shared'] = row['is_shared']
     table_row['Number of Variables'] = len(row['variables'])
     return table_row
