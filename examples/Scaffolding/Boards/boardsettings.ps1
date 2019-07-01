@@ -156,7 +156,7 @@ function setUpTeamIterations {
             $getProjectTeamIterationID = $child.identifier
             # add this child iteration to the given team
             $addTeamIteration = az boards iteration team add --team $teamID --id $getProjectTeamIterationID  --project $projectName -o json | ConvertFrom-Json
-            Write-Host "Team iteration added with ID : $($addTeamIteration.id) and name:$child.name"
+            Write-Host "Team iteration added with ID : $($addTeamIteration.id) and name:$($child.name)"
         }
     }
     
