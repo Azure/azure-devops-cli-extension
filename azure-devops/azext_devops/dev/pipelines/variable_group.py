@@ -218,14 +218,15 @@ def variable_group_variable_delete(group_id, name, organization=None, project=No
     var_group = client.get_variable_group(group_id=group_id, project=project)
     key_to_delete = None
     # Check if the variable already exists
+    key = None
     for key in var_group.variables.keys():
         if key.lower() == name.lower():
             key_to_delete = key
             break
     if not key_to_delete:
         raise CLIError('Variable \'{}\' does not exist. '.format(name))
-    _dummy_val = var_group.variables.pop(key)
-    _dummy = client.update_variable_group(group=var_group, project=project, group_id=group_id).variables
+    _ = var_group.variables.pop(key)
+    _ = client.update_variable_group(group=var_group, project=project, group_id=group_id).variables
     print('Deleted variable \'{}\' successfully.'.format(key_to_delete))
 
 
