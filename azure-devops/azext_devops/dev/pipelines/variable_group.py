@@ -179,9 +179,9 @@ def variable_group_variable_update(group_id, name, new_name=None, value=None, is
             value = _get_value_from_env_or_stdin(var_name=new_key)
         from azext_devops.devops_sdk.v5_0.task_agent.models import VariableValue
         if old_key != new_key:
-            dummy_key, _dummy_value = _case_insensitive_get(input_dict=var_group.variables, search_key=new_key)
-            if dummy_key:
-                raise CLIError('Variable \'{}\' already exists.'.format(dummy_key))
+            existing_key, _ = _case_insensitive_get(input_dict=var_group.variables, search_key=new_key)
+            if existing_key:
+                raise CLIError('Variable \'{}\' already exists.'.format(existing_key))
             var_group.variables.pop(old_key)
         var_group.variables[new_key] = VariableValue(
             is_secret=is_secret,
@@ -231,13 +231,13 @@ def variable_group_variable_delete(group_id, name, organization=None, project=No
 
 def _get_value_from_env_or_stdin(var_name):
     env_var_name = AZ_DEVOPS_PIPELINES_VARIABLES_KEY_PREFIX + var_name
-    logger.debug('Checking for variable %s in environment variable %s'.format(var_name, env_var_name))
+    logger.debug('Checking for variable %s in environment variable %s', var_name, env_var_name)
     import os
     value = os.getenv(env_var_name, None)
-    logger.debug('Value of Variable %s in environment variable is found %s'.format(var_name, value is not None))
+    logger.debug('Value of Variable %s in environment variable is found %s', var_name, value is not None)
     if not value:
         verify_is_a_tty_or_raise_error(
-            'For non-interactive consoles set environment variable %s, or pipe the value of variable into the command.'
+            'For non-interactive consoles set environment variable {}, or pipe the value of variable into the command.'
             .format(env_var_name))
         value = prompt_pass(msg=var_name + ': ')
     return value
