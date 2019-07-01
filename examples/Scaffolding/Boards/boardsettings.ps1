@@ -62,31 +62,8 @@ function configureDefaultArea {
         [String]$teamID,
         [String]$defaultAreaPath
     )
-    $listAreasForTeam = az devops invoke --org $org --area work --resource teamfieldvalues --api-version $apiVersion --http-method GET --route-parameters project=$projectID  team=$teamID -o json | ConvertFrom-Json
-    #$defaultTeamArea = $listAreasForTeam.defaultValue
-
-    $contentFileName = $invokeRequestsPath + 'updateDefaultAreaRequest.txt'
-    $contentToStoreInFile = [System.Text.StringBuilder]::new()
-    [void]$contentToStoreInFile.Append( "{`"defaultValue`" : " )
-    [void]$contentToStoreInFile.Append( ($defaultAreaPath.ToString() | ConvertTo-Json) )
-    $teamAreaValues = $listAreasForTeam.values
-    if ($teamAreaValues) {
-        $areaValues = $teamAreaValues | ConvertTo-Json
-        [void]$contentToStoreInFile.Append(  ",`"values`" : " )
-        [void]$contentToStoreInFile.Append( $areaValues.ToString())
-    }
-    else {
-        [void]$contentToStoreInFile.Append(  ",`"values`" : " )
-        [void]$contentToStoreInFile.Append( "[ {`"value`" : " )
-        [void]$contentToStoreInFile.Append( ($defaultAreaPath.ToString() | ConvertTo-Json) )
-        [void]$contentToStoreInFile.Append(  ",`"includeChildren`" : true" )
-        [void]$contentToStoreInFile.Append( " } ]" )
-    }
-    [void]$contentToStoreInFile.Append( "}" )
-    Set-Content -Path $contentFileName -Value $contentToStoreInFile.ToString()
-
-    $updateDefaultAreaForTeam = az devops invoke --org $org --area work --resource teamfieldvalues --api-version $apiVersion --http-method PATCH --route-parameters project=$projectID  team=$teamID --in-file $contentFileName -o json | ConvertFrom-Json
-    Write-Host "Default area is now: $($updateDefaultAreaForTeam.defaultValue)"
+    $listAreasForTeam = az boards area team add --path $defaultAreaPath --set-as-default --team $teamID --org $org --project $projectName -o json | ConvertFrom-Json
+    Write-Host "Default area changed to: $defaultAreaPath"
 }
 
 function createTeamArea {
@@ -96,16 +73,7 @@ function createTeamArea {
         [String]$areaName
     )
     
-    $contentFileName = $invokeRequestsPath + 'createTeamAreaRequest.txt'
-    $contentToStoreInFile = [System.Text.StringBuilder]::new()
-    [void]$contentToStoreInFile.Append( "{`"name`" : " )
-    [void]$contentToStoreInFile.Append( ($areaName.ToString() | ConvertTo-Json) )
-    [void]$contentToStoreInFile.Append( "}" )
-    Set-Content -Path $contentFileName -Value $contentToStoreInFile.ToString()
-
-    $createAreasForTeam = az devops invoke --org $org --area wit --resource classificationnodes --api-version $apiVersion --http-method POST --route-parameters project=$projectID  --query-parameters structureGroup=Areas --in-file $contentFileName  -o json | ConvertFrom-Json
-    #$defaultTeamArea = $createAreasForTeam.defaultValue
-    
+    $createAreasForTeam = az boards area project create --name $areaName --org $org --project $projectID -o json | ConvertFrom-Json
     Write-Host "`nNew area created : $($createAreasForTeam.name) with id : $($createAreasForTeam.id)"
 }
 
@@ -176,21 +144,19 @@ function setUpTeamIterations {
 
     # show backlog iteration command
     $backlogIterationDetails = az boards iteration team show-backlog-iteration --team $teamID --org $org --project $projectName -o json | ConvertFrom-Json
-    $getBacklogIterationIdentifier = $backlogIterationDetails.backlogIteration.id
-    Write-Host $getBacklogIterationIdentifier
-
+    
     $depthParam = '1'
     $backlogIterationPath = $backlogIterationDetails.backlogIteration.path
+    # Format iteration path to include project name and structure type
+    Write-Host "`nTeam Iterations Configuration"
     $backlogIterationPath = '\' + $projectName + '\Iteration\' + $backlogIterationPath 
     $rootIteration = az boards iteration project list --path $backlogIterationPath --project $projectName --org $org --depth $depthParam -o json | ConvertFrom-Json
-    
     if ($rootIteration.hasChildren -eq $True) {
-        Write-Host $rootIteration.children.count
         foreach ($child in $rootIteration.children) {
             $getProjectTeamIterationID = $child.identifier
-            Write-Host $getProjectTeamIterationID
             # add this child iteration to the given team
             $addTeamIteration = az boards iteration team add --team $teamID --id $getProjectTeamIterationID  --project $projectName -o json | ConvertFrom-Json
+            Write-Host "Team iteration added with ID : $($addTeamIteration.id)"
         }
     }
     
