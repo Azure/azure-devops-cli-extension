@@ -121,7 +121,7 @@ if ($teamName) {
                 {
                     #set backlog iteration ID
                     $setBacklogIteration = az boards iteration team set-backlog-iteration --id $rootIterationId --team $createTeam.id --org $org -p $project.id -o json | ConvertFrom-Json 
-                    Write-Host "Setting backlog iteration with : $($setBacklogIteration.backlogIteration.path)"
+                    Write-Host "`nSetting backlog iteration to : $($setBacklogIteration.backlogIteration.path)"
                     # Boards General settings
                     setUpGeneralBoardSettings -org $org -projectID $project.id -teamID $($createTeam.id) -epics $true -stories $true -features $true 
                     

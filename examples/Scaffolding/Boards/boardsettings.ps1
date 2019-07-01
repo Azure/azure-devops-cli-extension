@@ -147,8 +147,8 @@ function setUpTeamIterations {
     
     $depthParam = '1'
     $backlogIterationPath = $backlogIterationDetails.backlogIteration.path
-    # Format iteration path to include project name and structure type
     Write-Host "`nTeam Iterations Configuration"
+    # Format iteration path to include project name and structure type
     $backlogIterationPath = '\' + $projectName + '\Iteration\' + $backlogIterationPath 
     $rootIteration = az boards iteration project list --path $backlogIterationPath --project $projectName --org $org --depth $depthParam -o json | ConvertFrom-Json
     if ($rootIteration.hasChildren -eq $True) {
@@ -156,7 +156,7 @@ function setUpTeamIterations {
             $getProjectTeamIterationID = $child.identifier
             # add this child iteration to the given team
             $addTeamIteration = az boards iteration team add --team $teamID --id $getProjectTeamIterationID  --project $projectName -o json | ConvertFrom-Json
-            Write-Host "Team iteration added with ID : $($addTeamIteration.id)"
+            Write-Host "Team iteration added with ID : $($addTeamIteration.id) and name:$child.name"
         }
     }
     
