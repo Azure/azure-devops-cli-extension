@@ -5,7 +5,7 @@
 
 from knack.log import get_logger
 from knack.util import CLIError
-from knack.prompting import prompt_pass, NoTTYException
+from knack.prompting import prompt_pass
 from azext_devops.dev.common.services import get_task_agent_client, resolve_instance_and_project
 from azext_devops.dev.common.const import AZ_DEVOPS_PIPELINES_VARIABLES_KEY_PREFIX
 from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
@@ -106,7 +106,8 @@ def variable_group_update(group_id, name=None, description=None, organization=No
     return client.update_variable_group(group=var_group, project=project, group_id=group_id)
 
 
-def variable_group_variable_add(group_id, name, value=None, is_secret=None, organization=None, project=None, detect=None):
+def variable_group_variable_add(group_id, name, value=None, is_secret=None,
+                                organization=None, project=None, detect=None):
     """Add a variable to a variable group
     :param group_id: Id of the variable group.
     :type group_id: int
@@ -114,7 +115,7 @@ def variable_group_variable_add(group_id, name, value=None, is_secret=None, orga
     :type name: str
     :param value: Value of the variable. For secret variables, if --value parameter is not given,
     it will be picked from environment variable prefixed with AZURE_DEVOPS_EXT_PIPELINE_VAR_ or
-    user will be prompted to enter it via stdin. 
+    user will be prompted to enter it via stdin.
     e.g. PersonAccessToken can be input using environment variable AZURE_DEVOPS_EXT_PIPELINE_VAR_PersonAccessToken
     :type value: str
     :param is_secret: If the value of the variable is a secret.
@@ -178,7 +179,7 @@ def variable_group_variable_update(group_id, name, new_name=None, value=None, is
             value = _get_value_from_env_or_stdin(var_name=new_key)
         from azext_devops.devops_sdk.v5_0.task_agent.models import VariableValue
         if old_key != new_key:
-            dummy_key, dummy_value = _case_insensitive_get(input_dict=var_group.variables, search_key=new_key)
+            dummy_key, _dummy_value = _case_insensitive_get(input_dict=var_group.variables, search_key=new_key)
             if dummy_key:
                 raise CLIError('Variable \'{}\' already exists.'.format(dummy_key))
             var_group.variables.pop(old_key)
@@ -223,22 +224,20 @@ def variable_group_variable_delete(group_id, name, organization=None, project=No
             break
     if not key_to_delete:
         raise CLIError('Variable \'{}\' does not exist. '.format(name))
-    from azext_devops.devops_sdk.v5_0.task_agent.models import VariableValue
-    dummy_val = var_group.variables.pop(key)
-
-    client.update_variable_group(group=var_group, project=project, group_id=group_id).variables
+    _dummy_val = var_group.variables.pop(key)
+    _dummy = client.update_variable_group(group=var_group, project=project, group_id=group_id).variables
     print('Deleted variable \'{}\' successfully.'.format(key_to_delete))
 
 
 def _get_value_from_env_or_stdin(var_name):
     env_var_name = AZ_DEVOPS_PIPELINES_VARIABLES_KEY_PREFIX + var_name
-    logger.debug('Checking for variable {} in environment variable {}'.format(var_name, env_var_name))
+    logger.debug('Checking for variable %s in environment variable %s'.format(var_name, env_var_name))
     import os
     value = os.getenv(env_var_name, None)
-    logger.debug('Value of Variable {} in environment variable is found {}'.format(var_name, value is not None))
+    logger.debug('Value of Variable %s in environment variable is found %s'.format(var_name, value is not None))
     if not value:
         verify_is_a_tty_or_raise_error(
-            'For non-interactive consoles set environment variable {}, or pipe the value of variable into the command.'
+            'For non-interactive consoles set environment variable %s, or pipe the value of variable into the command.'
             .format(env_var_name))
         value = prompt_pass(msg=var_name + ': ')
     return value

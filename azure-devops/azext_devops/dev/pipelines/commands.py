@@ -84,6 +84,8 @@ pipelineVariableGroupOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+
+# pylint: disable=too-many-statements
 def load_build_commands(self, _):
     with self.command_group('pipelines', command_type=pipelineCreateOps) as g:
         g.command('create', 'pipeline_create', table_transformer=transform_pipeline_run_table_output)
@@ -160,6 +162,7 @@ def load_build_commands(self, _):
     with self.command_group('pipelines variable-group variable', command_type=pipelineVariableGroupOps) as g:
         g.command('create', 'variable_group_variable_add', table_transformer=transform_pipelines_variables_table_output)
         g.command('list', 'variable_group_variable_list', table_transformer=transform_pipelines_variables_table_output)
-        g.command('update', 'variable_group_variable_update', table_transformer=transform_pipelines_variables_table_output)
+        g.command('update', 'variable_group_variable_update',
+                  table_transformer=transform_pipelines_variables_table_output)
         g.command('delete', 'variable_group_variable_delete',
                   confirmation='Are you sure you want to delete this variable?')

@@ -27,6 +27,8 @@ _VARIABLE_GROUP_TYPES = ['Vsts', 'AzureKeyVault']
 
 _VAR_GROUPS_QUERY_ORDER = ['Asc', 'Desc']
 
+
+# pylint: disable=too-many-statements
 def load_build_arguments(self, _):
     with self.argument_context('pipelines build list') as context:
         context.argument('definition_ids', nargs='*', type=int)
