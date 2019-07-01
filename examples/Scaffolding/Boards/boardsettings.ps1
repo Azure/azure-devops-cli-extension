@@ -6,7 +6,6 @@ function setUpGeneralBoardSettings {
         [String]$org,
         [String]$projectID,
         [String]$teamID,
-        [String]$backlogIterationId,
         [Bool]$epics,
         [Bool]$stories,
         [Bool]$features
@@ -14,7 +13,6 @@ function setUpGeneralBoardSettings {
 
     # Team boards settings
     $currentBoardsTeamSettings = az devops invoke --org $org --area work --resource teamsettings --api-version $apiVersion --http-method GET --route-parameters project=$projectID team=$teamID  -o json | ConvertFrom-Json
-    
     Write-Host "`nCurrent general team configurations"
     "Current backlog navigation levels"
     printBacklogLevels -boardsTeamSettings $currentBoardsTeamSettings
@@ -23,11 +21,9 @@ function setUpGeneralBoardSettings {
     $contentFileName = $invokeRequestsPath + 'updateTeamConfig.txt'
     $contentToStoreInFile = [System.Text.StringBuilder]::new()
     [void]$contentToStoreInFile.Append( "{")
-    [void]$contentToStoreInFile.Append( "`"backlogIteration`" : " )
-    [void]$contentToStoreInFile.Append( ($backlogIterationId.ToString() | ConvertTo-Json) )
 
     if ($epics -or $stories -or $features) {
-        [void]$contentToStoreInFile.Append(  ",`"backlogVisibilities`" : { " )
+        [void]$contentToStoreInFile.Append(  "`"backlogVisibilities`" : { " )
         if ($epics -eq $True) {
             [void]$contentToStoreInFile.Append(  "`"Microsoft.EpicCategory`" : true " )
         }
@@ -149,31 +145,17 @@ function projectLevelIterationsSettings {
         [String[]]$childIterationNamesList
     )
     # Project level iterations
-    $apiVersion = '5.0'
-    $depthParam = "`$depth=1"
 
-    $projectRootIterationList = az devops invoke --org $org --api-version $apiVersion --area wit --resource classificationnodes --route-parameters project=$projectID structureGroup=iterations --query-parameters $depthParam -o json | ConvertFrom-Json
+    $projectRootIterationList = az boards iteration project list --org $org --project $projectID -o json | ConvertFrom-Json
     $iterationsNodeID = $projectRootIterationList.identifier
     
-    $contentFileName = $invokeRequestsPath + 'createIterationRequest.txt'
-    $contentToStoreInFile = [System.Text.StringBuilder]::new()
-    [void]$contentToStoreInFile.Append( "{`"name`" : " )
-    [void]$contentToStoreInFile.Append( ($rootIterationName.ToString() | ConvertTo-Json) )
-    [void]$contentToStoreInFile.Append( "}" )
-    Set-Content -Path $contentFileName -Value $contentToStoreInFile.ToString()
-
-    $projectRootIterationCreate = az devops invoke --org $org --api-version 5.0 --area wit --resource classificationnodes --route-parameters project=$projectID structureGroup=iterations --http-method POST --in-file $contentFileName -o json | ConvertFrom-Json
-
+    $projectRootIterationCreate = az boards iteration project create --name $rootIterationName --org $org --project $projectID -o json | ConvertFrom-Json
     if ($projectRootIterationCreate) {
         Write-Host "`nRoot Iteration created with name: $($projectRootIterationCreate.name)"
         foreach ($entry in $childIterationNamesList) {
             $childIterationName = $rootIterationName + ' ' + $entry.ToString()
-            $contentToStoreInFile = [System.Text.StringBuilder]::new()
-            [void]$contentToStoreInFile.Append( "{`"name`" : " )
-            [void]$contentToStoreInFile.Append( ($childIterationName | ConvertTo-Json) )
-            [void]$contentToStoreInFile.Append( "}" )
-            Set-Content -Path $contentFileName -Value $contentToStoreInFile.ToString()
-            $projectChildIterationCreate = az devops invoke --org $org --api-version 5.0 --area wit --resource classificationnodes --route-parameters project=$projectID structureGroup=iterations --query-parameters path=$rootIterationName  --http-method POST --in-file $contentFileName -o json | ConvertFrom-Json
+            #$projectRootIterationCreate
+            $projectChildIterationCreate = az boards iteration project create --name $childIterationName --path $projectRootIterationCreate.path --org $org --project $projectID -o json | ConvertFrom-Json
             Write-Host "Child Iteration created with name: $($projectChildIterationCreate.name)"
         }
 
@@ -181,41 +163,35 @@ function projectLevelIterationsSettings {
         $rootIterationToken = get_token -iterationsNodeID $iterationsNodeID -rootIterationID  $($projectRootIterationCreate.identifier)
         $updatePermissions = setPermissions -org $org -tokenStr $rootIterationToken -subject $subject -allowBit $allow -denyBit $deny
     }
-    $projectRootIterationCreate.identifier
+    return $projectRootIterationCreate.identifier
 }
 
 
 function setUpTeamIterations {
     param(
         [String]$org,
-        [String]$projectID,
-        [String]$teamID,
-        [String]$backlogIterationName
+        [String]$projectName,
+        [String]$teamID
     )
 
-    #get iteration id from name
-    $getBacklogIteration = az devops invoke --org $org --api-version $apiVersion --area wit --resource classificationnodes --route-parameters project=$projectID structureGroup=iterations --query-parameters  path=$backlogIterationName -o json | ConvertFrom-Json
-    $getBacklogIterationID = $getBacklogIteration.id
-    
-    $depthParam = "`$depth=1"
-    $listChildIterations = az devops invoke --org $org --api-version $apiVersion --area wit --resource classificationnodes --route-parameters project=$projectID  --query-parameters ids=$getBacklogIterationID $depthParam -o json | ConvertFrom-Json 
-    if ($listChildIterations.count -eq 1) {
-        $rootIteration = $listChildIterations.value[0]
-        if ($rootIteration.hasChildren -eq $True) {
-            foreach ($child in $rootIteration.children) {
-                $getProjectTeamIterationID = $child.identifier
-                
-                # add this child iteration to the given team
-                $contentFileName = $invokeRequestsPath + 'setUpTeamIterations.txt'
-                $contentToStoreInFile = [System.Text.StringBuilder]::new()
-                [void]$contentToStoreInFile.Append( "{")
-                [void]$contentToStoreInFile.Append( "`"id`" : " )
-                [void]$contentToStoreInFile.Append( ($getProjectTeamIterationID | ConvertTo-Json) )
-                [void]$contentToStoreInFile.Append( "}" )
-                Set-Content -Path $contentFileName -Value $contentToStoreInFile.ToString()
+    # show backlog iteration command
+    $backlogIterationDetails = az boards iteration team show-backlog-iteration --team $teamID --org $org --project $projectName -o json | ConvertFrom-Json
+    $getBacklogIterationIdentifier = $backlogIterationDetails.backlogIteration.id
+    Write-Host $getBacklogIterationIdentifier
 
-                $addTeamIteration = az devops invoke --org $org  --area work --resource iterations --api-version $apiVersion --http-method POST --route-parameters project=$projectID team=$teamID --in-file $contentFileName -o json | ConvertFrom-Json
-            }
+    $depthParam = '1'
+    $backlogIterationPath = $backlogIterationDetails.backlogIteration.path
+    $backlogIterationPath = '\' + $projectName + '\Iteration\' + $backlogIterationPath 
+    $rootIteration = az boards iteration project list --path $backlogIterationPath --project $projectName --org $org --depth $depthParam -o json | ConvertFrom-Json
+    
+    if ($rootIteration.hasChildren -eq $True) {
+        Write-Host $rootIteration.children.count
+        foreach ($child in $rootIteration.children) {
+            $getProjectTeamIterationID = $child.identifier
+            Write-Host $getProjectTeamIterationID
+            # add this child iteration to the given team
+            $addTeamIteration = az boards iteration team add --team $teamID --id $getProjectTeamIterationID  --project $projectName -o json | ConvertFrom-Json
         }
     }
+    
 }
