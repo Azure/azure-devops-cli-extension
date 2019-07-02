@@ -13,7 +13,7 @@ from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
 logger = get_logger(__name__)
 
 
-def variable_group_create(name, description=None, group_type=None, variables=None,
+def variable_group_create(name, description=None, group_type=None, variables=None, is_authorized=None,
                           organization=None, project=None, detect=None):
     """Create a variable group
     :param name: Name of the variable group.
@@ -22,6 +22,8 @@ def variable_group_create(name, description=None, group_type=None, variables=Non
     :type description: str
     :param group_type: Type of the variable group.
     :type group_type: str
+    :param is_authorized: Whether the variable group should be accessible by all pipelines.
+    :type is_authorized: boolean
     :param variables: Variables in format key=value. Secret variables should be managed using
     `az pipelines variable` commands.
     :type type: [str]
@@ -37,7 +39,14 @@ def variable_group_create(name, description=None, group_type=None, variables=Non
             variables_dict[key] = VariableValue(is_secret=False, value=value)
 
     var_group = VariableGroupParameters(name=name, description=description, type=group_type, variables=variables_dict)
-    return client.add_variable_group(group=var_group, project=project)
+    var_group = client.add_variable_group(group=var_group, project=project)
+    if is_authorized is not None:
+        from .pipeline_utils import set_authorize_resource
+        set_authorize_resource(authorized=is_authorized, id=var_group.id, name=var_group.name, res_type='variablegroup',
+                           organization=organization, project=project)
+    # Get authorized for all pipelines status
+    # var_group['isAuthorized'] = is_authorized
+    return var_group
 
 
 def variable_group_show(group_id, organization=None, project=None, detect=None):
@@ -48,7 +57,12 @@ def variable_group_show(group_id, organization=None, project=None, detect=None):
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
     client = get_task_agent_client(organization)
-    return client.get_variable_group(group_id=group_id, project=project)
+    var_group = client.get_variable_group(group_id=group_id, project=project)
+    from .pipeline_utils import get_authorize_resource
+    is_authorized = get_authorize_resource(id=var_group.id, res_type='variablegroup',
+                                            organization=organization, project=project)
+    # var_group.isAuthorized == is_authorized
+    return var_group
 
 
 def variable_group_list(group_name=None, action_filter=None, top=None, continuation_token=None, query_order='Desc',
@@ -87,12 +101,15 @@ def variable_group_delete(group_id, organization=None, project=None, detect=None
     return client.delete_variable_group(project=project, group_id=group_id)
 
 
-def variable_group_update(group_id, name=None, description=None, organization=None, project=None, detect=None):
+def variable_group_update(group_id, name=None, description=None, is_authorized=None,
+    organization=None, project=None, detect=None):
     """Update a variable group
     :param group_id: Id of the variable group.
     :type group_id: int
     :param name: Name of the variable group.
     :type name: str
+    :param is_authorized: Whether the variable group should be accessible by all pipelines.
+    :type is_authorized: boolean
     :param description: Description of the variable group.
     :type description: str
     :param group_type: Type of the variable group.
@@ -103,7 +120,17 @@ def variable_group_update(group_id, name=None, description=None, organization=No
     client = get_task_agent_client(organization)
     from azext_devops.devops_sdk.v5_0.task_agent.models import VariableGroupParameters
     var_group = VariableGroupParameters(name=name, description=description)
-    return client.update_variable_group(group=var_group, project=project, group_id=group_id)
+    var_group = client.update_variable_group(group=var_group, project=project, group_id=group_id)
+    if is_authorized is not None:
+        from .pipeline_utils import set_authorize_resource
+        set_authorize_resource(authorized=is_authorized, id=var_group.id, name=var_group.name, res_type='variablegroup',
+                           organization=organization, project=project)
+    else:
+        from .pipeline_utils import get_authorize_resource
+        is_authorized = get_authorize_resource(id=var_group.id, res_type='variablegroup',
+                                               organization=organization, project=project)
+    # var_group['isAuthorized'] == is_authorized
+    return var_group
 
 
 def variable_group_variable_add(group_id, name, value=None, is_secret=None,

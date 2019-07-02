@@ -104,5 +104,6 @@ def load_build_arguments(self, _):
         context.argument('action_filter', options_list=('--action-filter', '--action'),
                          **enum_choice_list(_ACTION_FILTER_TYPES))
 
-    with self.argument_context('pipelines variable-group variable') as context:
+    with self.argument_context('pipelines variable-group') as context:
         context.argument('is_secret', arg_type=get_three_state_flag())
+        context.argument('is_authorized', arg_type=get_three_state_flag())
