@@ -77,6 +77,10 @@ if ($repoName) {
             $policiesSet = set_policies -org $org -projectName $project.id -repoId $repo.id -branch 'master' -requiredApprovers $requiredReviewers -optionalApprovers $optionalReviewers
             Write-Host "`nBranch policies set for master"
         }
+
+        # Create a code wiki from master branch and root folder
+        $createCodeWiki = az devops wiki create --name 'new_code_wiki_from_root' --type codewiki --version 'master' --mapped-path '/' -r $repo.id  --org $org -p $project.id -o json | ConvertFrom-Json
+        Write-Host "New code wiki published with ID : $($createCodeWiki.id)"
     }
 }
 else {
