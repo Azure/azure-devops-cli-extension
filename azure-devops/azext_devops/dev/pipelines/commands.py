@@ -24,7 +24,8 @@ from ._format import (transform_build_table_output,
                       transform_pipelines_agents_table_output,
                       transform_pipelines_agent_table_output,
                       transform_pipelines_queues_table_output,
-                      transform_pipelines_queue_table_output)
+                      transform_pipelines_queue_table_output,
+                      transform_pipelines_variables_table_output)
 
 buildOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.build#{}',
@@ -76,6 +77,10 @@ pipelineAgentPoolQueueOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+pipelineVariablesOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.pipeline_variables#{}',
+    exception_handler=azure_devops_exception_handler
+)
 
 def load_build_commands(self, _):
     with self.command_group('pipelines', command_type=pipelineCreateOps) as g:
@@ -141,3 +146,10 @@ def load_build_commands(self, _):
     with self.command_group('pipelines queue', command_type=pipelineAgentPoolQueueOps) as g:
         g.command('list', 'list_queues', table_transformer=transform_pipelines_queues_table_output)
         g.command('show', 'show_queue', table_transformer=transform_pipelines_queue_table_output)
+
+    with self.command_group('pipelines variable', command_type=pipelineVariablesOps) as g:
+        g.command('create', 'pipeline_variable_add', table_transformer=transform_pipelines_variables_table_output)
+        g.command('update', 'pipeline_variable_update', table_transformer=transform_pipelines_variables_table_output)
+        g.command('list', 'pipeline_variable_list', table_transformer=transform_pipelines_variables_table_output)
+        g.command('delete', 'pipeline_variable_delete')
+    

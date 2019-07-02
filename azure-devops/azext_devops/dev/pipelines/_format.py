@@ -300,3 +300,19 @@ def _transform_pipeline_queue_row(row):
     table_row['Pool IsHosted'] = row['pool']['isHosted']
     table_row['Pool Type'] = row['pool']['poolType']
     return table_row
+
+
+def transform_pipelines_variables_table_output(result):
+    table_output = []
+    for key, value in result.items():
+        table_output.append(_transform_pipeline_variable_row(key, value))
+    return table_output
+
+
+def _transform_pipeline_variable_row(key, value):
+    table_row = OrderedDict()
+    table_row['Name'] = key
+    table_row['Allow Override'] = 'True' if value['allowOverride'] else 'False'
+    table_row['Is Secret'] = 'True' if value['isSecret'] else 'False'
+    table_row['Value'] = value['value']
+    return table_row

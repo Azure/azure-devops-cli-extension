@@ -93,3 +93,7 @@ def load_build_arguments(self, _):
     with self.argument_context('pipelines queue') as context:
         context.argument('queue_id', options_list=('--queue-id', '--id'))
         context.argument('action', **enum_choice_list(_AGENT_ACTION_FILTER_TYPES))
+
+    with self.argument_context('pipelines variable') as context:
+        context.argument('is_secret', arg_type=get_three_state_flag())
+        context.argument('allow_override', arg_type=get_three_state_flag())
