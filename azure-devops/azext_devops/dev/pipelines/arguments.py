@@ -74,6 +74,10 @@ def load_build_arguments(self, _):
 
     with self.argument_context('pipelines create') as context:
         context.argument('repository_type', choices=['tfsgit', 'github'], type=str.lower)
+        context.argument('yml_path', options_list=('--yml-path', '--yaml-path'))
+
+    with self.argument_context('pipelines update') as context:
+        context.argument('yml_path', options_list=('--yml-path', '--yaml-path'))
 
     with self.argument_context('pipelines pool') as context:
         context.argument('pool_id', options_list=('--pool-id', '--id'))
