@@ -11,12 +11,13 @@ from azext_devops.dev.common.services import get_build_client, resolve_instance_
 from azext_devops.dev.pipelines.build_definition import get_definition_id_from_name
 from azext_devops.dev.common.const import PIPELINES_VARIABLES_KEY_PREFIX
 from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
-from azext_devops.devops_sdk.v5_0.build.models import Build, DefinitionReference
+from azext_devops.devops_sdk.v5_0.build.models import DefinitionReference
 
 logger = get_logger(__name__)
 
-def pipeline_variable_add(name, pipeline_id=None, pipeline_name=None, value=None, allow_override=None,  is_secret=None,
-                                organization=None, project=None, detect=None):
+
+def pipeline_variable_add(name, pipeline_id=None, pipeline_name=None, value=None, allow_override=None, is_secret=None,
+                          organization=None, project=None, detect=None):
     """(Preview) Add a variable to a pipeline
     :param pipeline_id: Id of the pipeline.
     :type pipeline_id: int
@@ -31,7 +32,7 @@ def pipeline_variable_add(name, pipeline_id=None, pipeline_name=None, value=None
     :param value: Value of the variable. For secret variables, if --value parameter is not given,
     it will be picked from environment variable prefixed with AZURE_DEVOPS_EXT_PIPELINE_VAR_ or
     user will be prompted to enter it via standard input.
-    e.g. A variable nameed `MySecret` can be input using environment variable
+    e.g. A variable named `MySecret` can be input using environment variable
     AZURE_DEVOPS_EXT_PIPELINE_VAR_MySecret
     :type value: str
     """
@@ -68,7 +69,7 @@ def pipeline_variable_add(name, pipeline_id=None, pipeline_name=None, value=None
 def pipeline_variable_update(name, pipeline_id=None, pipeline_name=None, new_name=None, value=None,
                              allow_override=None, is_secret=None, prompt_value=None, organization=None,
                              project=None, detect=None):
-    """Update a variable in a pipeline
+    """(Preview) Update a variable in a pipeline
     :param pipeline_id: Id of the pipeline.
     :type pipeline_id: int
     :param pipeline_name: Name of the pipeline. Ignored if --pipeline-id parameter is supplied.
@@ -126,14 +127,13 @@ def pipeline_variable_update(name, pipeline_id=None, pipeline_name=None, new_nam
             is_secret=is_secret,
             value=old_value.value if value is None else value,
             allow_override=allow_override)
-        return pipeline_client.update_definition(project=project, definition_id=pipeline_id, definition=pipeline_definition).variables
-    raise CLIError(
-        'Variable \'{}\' does not exist. '
-        'Use `az pipelines variable-group variable update` command to update the key/value.'.format(name))
+        return pipeline_client.update_definition(
+            project=project, definition_id=pipeline_id, definition=pipeline_definition).variables
+    raise CLIError('Variable \'{}\' does not exist.'.format(name))
 
 
 def pipeline_variable_list(pipeline_id=None, pipeline_name=None, organization=None, project=None, detect=None):
-    """List the variables in a pipeline
+    """(Preview) List the variables in a pipeline
     :param pipeline_id: Id of the pipeline.
     :type pipeline_id: int
     :param pipeline_name: Name of the pipeline. Ignored if --pipeline-id parameter is supplied.
@@ -152,8 +152,8 @@ def pipeline_variable_list(pipeline_id=None, pipeline_name=None, organization=No
     return pipeline_definition.variables
 
 
-def pipeline_variable_delete( name, pipeline_id=None, pipeline_name=None,organization=None, project=None, detect=None):
-    """Delete a variable from pipeline
+def pipeline_variable_delete(name, pipeline_id=None, pipeline_name=None, organization=None, project=None, detect=None):
+    """(Preview) Delete a variable from pipeline
     :param pipeline_id: Id of the pipeline.
     :type pipeline_id: int
     :param pipeline_name: Name of the pipeline.

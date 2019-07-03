@@ -55,7 +55,6 @@ def load_pipelines_help():
     long-summary:
     """
 
-
     helps['pipelines build tag'] = """
     type: group
     short-summary: Manage build tags.

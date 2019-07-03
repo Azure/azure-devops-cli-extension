@@ -82,6 +82,8 @@ pipelineVariablesOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+
+# pylint: disable=too-many-statements
 def load_build_commands(self, _):
     with self.command_group('pipelines', command_type=pipelineCreateOps) as g:
         g.command('create', 'pipeline_create', table_transformer=transform_pipeline_run_table_output)
@@ -152,4 +154,3 @@ def load_build_commands(self, _):
         g.command('update', 'pipeline_variable_update', table_transformer=transform_pipelines_variables_table_output)
         g.command('list', 'pipeline_variable_list', table_transformer=transform_pipelines_variables_table_output)
         g.command('delete', 'pipeline_variable_delete')
-    
