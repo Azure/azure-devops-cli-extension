@@ -11,7 +11,6 @@ from azext_devops.dev.common.services import get_build_client, resolve_instance_
 from azext_devops.dev.pipelines.build_definition import get_definition_id_from_name
 from azext_devops.dev.common.const import PIPELINES_VARIABLES_KEY_PREFIX
 from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
-from azext_devops.devops_sdk.v5_0.build.models import DefinitionReference
 
 logger = get_logger(__name__)
 
