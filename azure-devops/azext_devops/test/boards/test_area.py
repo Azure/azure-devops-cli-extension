@@ -39,10 +39,12 @@ class TestBoardsAreaMethods(AuthenticatedTests):
     _ROOT_AREA_NAME = 'root_area'
     _ROOT_AREA_PATH = PATH_SEPARATOR + TEST_PROJECT_NAME + PATH_SEPARATOR + 'Area' + PATH_SEPARATOR + _ROOT_AREA_NAME 
     _CHILD_AREA_NAME = 'child_area'
-    _CHILD_AREA_PATH ='\\' + _ROOT_AREA_PATH + '\\' + _CHILD_AREA_NAME 
+    _CHILD_AREA_PATH = _ROOT_AREA_PATH + PATH_SEPARATOR + _CHILD_AREA_NAME 
     _NEW_AREA_NAME = 'root_area_renamed'
     _AREA_ID = 1
     _AREA_IDENTIFIER = 'some-guid'
+    _TEAM_ROOT_AREA_PATH = TEST_PROJECT_NAME + PATH_SEPARATOR +  _ROOT_AREA_NAME
+    _TEAM_CHILD_AREA_PATH = _TEAM_ROOT_AREA_PATH + PATH_SEPARATOR + _CHILD_AREA_NAME
 
     def setUp(self):
         self.authentication_setup()
@@ -172,9 +174,9 @@ class TestBoardsAreaMethods(AuthenticatedTests):
         self.assertEqual(TEST_PROJECT_NAME, list_team_areas_param['team_context'].project, str(list_team_areas_param))
 
     def test_update_team_area(self):
-        self.mock_get_team_field_values.return_value = self._prepare_team_field_values_patch_object(path=self._CHILD_AREA_PATH, include_children=False, is_default=False)
-        self.mock_update_team_field_values.return_value = self._prepare_team_field_values_patch_object(path=self._CHILD_AREA_PATH, include_children=True, is_default=True)
-        response = update_team_area(path=self._CHILD_AREA_PATH, set_as_default=True, include_sub_areas=True, team=TEST_TEAM_NAME,project=TEST_PROJECT_NAME,organization=TEST_DEVOPS_ORGANIZATION)
+        self.mock_get_team_field_values.return_value = self._prepare_team_field_values_patch_object(path=self._TEAM_CHILD_AREA_PATH, include_children=False, is_default=False)
+        self.mock_update_team_field_values.return_value = self._prepare_team_field_values_patch_object(path=self._TEAM_CHILD_AREA_PATH, include_children=True, is_default=True)
+        response = update_team_area(path=self._TEAM_CHILD_AREA_PATH, set_as_default=True, include_sub_areas=True, team=TEST_TEAM_NAME,project=TEST_PROJECT_NAME,organization=TEST_DEVOPS_ORGANIZATION)
         self.mock_get_team_field_values.assert_called_once()
         update_team_area_param = self.mock_update_team_field_values.call_args_list[0][1]
         self.assertEqual(TEST_TEAM_NAME, update_team_area_param['team_context'].team, str(update_team_area_param))
@@ -183,18 +185,18 @@ class TestBoardsAreaMethods(AuthenticatedTests):
         area_path_found = False
         area_path_is_default = False
         for entry in response.values:
-            if self._CHILD_AREA_PATH ==  entry.value:
+            if self._TEAM_CHILD_AREA_PATH ==  entry.value:
                 area_path_found = True
                 area_path_include_children = ( entry.include_children is True )
-        if response.default_value == self._CHILD_AREA_PATH:
+        if response.default_value == self._TEAM_CHILD_AREA_PATH:
             area_path_is_default = True
         self.assertEqual(area_path_found, True)
         self.assertEqual(area_path_is_default, True)
         self.assertEqual(area_path_include_children, True)
 
     def test_remove_team_area(self):
-        self.mock_get_team_field_values.return_value = self._prepare_team_field_values_patch_object(path=self._CHILD_AREA_PATH, include_children=False, is_default=False)
-        response = remove_team_area(path=self._CHILD_AREA_PATH,team=TEST_TEAM_NAME,project=TEST_PROJECT_NAME,organization=TEST_DEVOPS_ORGANIZATION)
+        self.mock_get_team_field_values.return_value = self._prepare_team_field_values_patch_object(path=self._TEAM_CHILD_AREA_PATH, include_children=False, is_default=False)
+        response = remove_team_area(path=self._TEAM_CHILD_AREA_PATH,team=TEST_TEAM_NAME,project=TEST_PROJECT_NAME,organization=TEST_DEVOPS_ORGANIZATION)
         self.mock_get_team_field_values.assert_called_once()
         self.mock_update_team_field_values.assert_called_once()
         remove_team_area_param = self.mock_update_team_field_values.call_args_list[0][1]
@@ -205,8 +207,8 @@ class TestBoardsAreaMethods(AuthenticatedTests):
             self.assertNotEqual(self._CHILD_AREA_PATH, entry.value , str(remove_team_area_param))
 
     def test_add_team_area(self):
-        self.mock_update_team_field_values.return_value = self._prepare_team_field_values_patch_object(path=self._CHILD_AREA_PATH, include_children=True, is_default=False)
-        response = add_team_area(path=self._CHILD_AREA_PATH,team=TEST_TEAM_NAME,project=TEST_PROJECT_NAME,organization=TEST_DEVOPS_ORGANIZATION)
+        self.mock_update_team_field_values.return_value = self._prepare_team_field_values_patch_object(path=self._TEAM_CHILD_AREA_PATH, include_children=True, is_default=False)
+        response = add_team_area(path=self._TEAM_CHILD_AREA_PATH,team=TEST_TEAM_NAME,project=TEST_PROJECT_NAME,organization=TEST_DEVOPS_ORGANIZATION)
         self.mock_get_team_field_values.assert_called_once()
         self.mock_update_team_field_values.assert_called_once()
         add_team_area_param = self.mock_update_team_field_values.call_args_list[0][1]
@@ -214,7 +216,7 @@ class TestBoardsAreaMethods(AuthenticatedTests):
         self.assertEqual(TEST_PROJECT_NAME, add_team_area_param['team_context'].project, str(add_team_area_param))
         area_path_found = False
         for entry in response.values:
-            if self._CHILD_AREA_PATH ==  entry.value:
+            if self._TEAM_CHILD_AREA_PATH ==  entry.value:
                 area_path_found = True
         self.assertEqual(area_path_found, True)
 
@@ -223,15 +225,15 @@ class TestBoardsAreaMethods(AuthenticatedTests):
         patch_obj = TeamFieldValuesPatch()
         patch_obj.values = []
         # add root node
-        team_field_value = TeamFieldValue(include_children=False, value=self._ROOT_AREA_PATH)
+        team_field_value = TeamFieldValue(include_children=False, value=self._TEAM_ROOT_AREA_PATH)
         patch_obj.values.append(team_field_value)
-        patch_obj.default_value = self._ROOT_AREA_PATH
+        patch_obj.default_value = self._TEAM_ROOT_AREA_PATH
         # add child node
         team_field_value = TeamFieldValue(include_children=include_children, value=path)
         if is_default:
             patch_obj.default_value = path
         patch_obj.values.append(team_field_value)
-        team_field_value = TeamFieldValue(include_children=False, value=self._ROOT_AREA_PATH)
+        team_field_value = TeamFieldValue(include_children=False, value=self._TEAM_ROOT_AREA_PATH)
         patch_obj.values.append(team_field_value)
         return patch_obj
 
