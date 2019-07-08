@@ -84,6 +84,11 @@ pipelineVariableGroupOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+pipelineVariablesOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.pipeline_variables#{}',
+    exception_handler=azure_devops_exception_handler
+)
+
 
 # pylint: disable=too-many-statements
 def load_build_commands(self, _):
@@ -166,3 +171,9 @@ def load_build_commands(self, _):
                   table_transformer=transform_pipelines_variables_table_output)
         g.command('delete', 'variable_group_variable_delete',
                   confirmation='Are you sure you want to delete this variable?')
+
+    with self.command_group('pipelines variable', command_type=pipelineVariablesOps) as g:
+        g.command('create', 'pipeline_variable_add', table_transformer=transform_pipelines_variables_table_output)
+        g.command('update', 'pipeline_variable_update', table_transformer=transform_pipelines_variables_table_output)
+        g.command('list', 'pipeline_variable_list', table_transformer=transform_pipelines_variables_table_output)
+        g.command('delete', 'pipeline_variable_delete')
