@@ -16,7 +16,7 @@ function set_policies(
         }
         
         $reviewersRequired = $reviewersRequired.Substring(0,$reviewersRequired.Length-1)
-        $reviewerPolicy = az repos policy required-reviewer create --org $org -p $projectName --branch $branch --repository-id $repoId --is-blocking true --is-enabled true --message 'Required reviewers policy added' --required-reviewer-ids $reviewersRequired -o json | ConvertFrom-Json
+        $reviewerPolicy = az repos policy required-reviewer create --org $org -p $projectName --branch $branch --repository-id $repoId --blocking true --enabled true --message 'Required reviewers policy added' --required-reviewer-ids $reviewersRequired -o json | ConvertFrom-Json
     }    
     # set optional reviewers
     if($optionalApprovers)
@@ -27,6 +27,6 @@ function set_policies(
             $reviewersOptional= $reviewersOptional + $reviewer +';'
         }
         $reviewersOptional = $reviewersOptional.Substring(0,$reviewersOptional.Length-1)
-        $reviewerPolicy = az repos policy required-reviewer create --org $org -p $projectName --branch $branch --repository-id $repoId --is-blocking false --is-enabled true --message 'Optional reviewers policy added' --required-reviewer-ids $reviewersOptional -o json | ConvertFrom-Json
+        $reviewerPolicy = az repos policy required-reviewer create --org $org -p $projectName --branch $branch --repository-id $repoId --blocking false --enabled true --message 'Optional reviewers policy added' --required-reviewer-ids $reviewersOptional -o json | ConvertFrom-Json
     }
 }
