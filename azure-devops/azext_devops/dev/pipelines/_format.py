@@ -300,3 +300,42 @@ def _transform_pipeline_queue_row(row):
     table_row['Pool IsHosted'] = row['pool']['isHosted']
     table_row['Pool Type'] = row['pool']['poolType']
     return table_row
+
+
+def transform_pipelines_variable_groups_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_pipeline_variable_group_row(item))
+    return table_output
+
+
+def transform_pipelines_variable_group_table_output(result):
+    table_output = [_transform_pipeline_variable_group_row(result)]
+    return table_output
+
+
+def _transform_pipeline_variable_group_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Name'] = row['name']
+    table_row['Type'] = row['type']
+    table_row['Description'] = row['description']
+    if row.get('isAuthorized', None) is not None:
+        table_row['Is Authorized'] = row['isAuthorized']
+    table_row['Number of Variables'] = len(row['variables'])
+    return table_row
+
+
+def transform_pipelines_variables_table_output(result):
+    table_output = []
+    for key, value in result.items():
+        table_output.append(_transform_pipeline_variable_row(key, value))
+    return table_output
+
+
+def _transform_pipeline_variable_row(key, value):
+    table_row = OrderedDict()
+    table_row['Name'] = key
+    table_row['Is Secret'] = 'True' if value['isSecret'] else 'False'
+    table_row['Value'] = value['value']
+    return table_row
