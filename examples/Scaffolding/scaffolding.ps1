@@ -117,11 +117,17 @@ if ($teamName) {
                 $projectIterationNameForThisTeam = $teamName + ' iteration' 
                 $rootIterationId = projectLevelIterationsSettings -org $org -projectID $project.id -rootIterationName $projectIterationNameForThisTeam -subject $createTeamAdminsGroup.descriptor -allow $iterationsPermissionsBit -childIterationNamesList $childIterationNamesList
             
-                # Boards General settings
-                setUpGeneralBoardSettings -org $org -projectID $project.id -teamID $($createTeam.id) -backlogIterationId $rootIterationId -epics $true -stories $true -features $true 
-                
-                # Add child iterations of backlog iteration to the given team
-                setUpTeamIterations -org $org -projectID $project.id -teamID $($createTeam.id) -backlogIterationName $projectIterationNameForThisTeam
+                if ($rootIterationId)
+                {
+                    #set backlog iteration ID
+                    $setBacklogIteration = az boards iteration team set-backlog-iteration --id $rootIterationId --team $createTeam.id --org $org -p $project.id -o json | ConvertFrom-Json 
+                    Write-Host "`nSetting backlog iteration to : $($setBacklogIteration.backlogIteration.path)"
+                    # Boards General settings
+                    setUpGeneralBoardSettings -org $org -projectID $project.id -teamID $($createTeam.id) -epics $true -stories $true -features $true 
+                    
+                    # Add child iterations of backlog iteration to the given team
+                    setUpTeamIterations -org $org -projectName $projectName -teamID $($createTeam.id)
+                }
             }
         }
     }
