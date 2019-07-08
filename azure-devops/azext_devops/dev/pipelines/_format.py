@@ -302,7 +302,6 @@ def _transform_pipeline_queue_row(row):
     return table_row
 
 
-<<<<<<< HEAD
 def transform_pipelines_variable_groups_table_output(result):
     table_output = []
     for item in result:
@@ -327,8 +326,6 @@ def _transform_pipeline_variable_group_row(row):
     return table_row
 
 
-=======
->>>>>>> a36616a... Pipeline Variable commands
 def transform_pipelines_variables_table_output(result):
     table_output = []
     for key, value in result.items():
@@ -339,10 +336,7 @@ def transform_pipelines_variables_table_output(result):
 def _transform_pipeline_variable_row(key, value):
     table_row = OrderedDict()
     table_row['Name'] = key
-<<<<<<< HEAD
-=======
     table_row['Allow Override'] = 'True' if value['allowOverride'] else 'False'
->>>>>>> a36616a... Pipeline Variable commands
     table_row['Is Secret'] = 'True' if value['isSecret'] else 'False'
     table_row['Value'] = value['value']
     return table_row
