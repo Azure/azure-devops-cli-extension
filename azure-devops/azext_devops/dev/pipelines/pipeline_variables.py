@@ -46,11 +46,14 @@ def pipeline_variable_add(name, pipeline_id=None, pipeline_name=None, value=None
     # get pipeline definition
     pipeline_definition = pipeline_client.get_definition(definition_id=pipeline_id, project=project)
     # Check if the variable already exists
-    for key in pipeline_definition.variables.keys():
-        if key.lower() == name.lower():
-            raise CLIError(
-                'Variable \'{}\' already exists. '
-                'Use `az pipelines variable update` command to update the key/value.'.format(key))
+    if pipeline_definition.variables:
+        for key in pipeline_definition.variables.keys():
+            if key.lower() == name.lower():
+                raise CLIError(
+                    'Variable \'{}\' already exists. '
+                    'Use `az pipelines variable update` command to update the key/value.'.format(key))
+    else:
+        pipeline_definition.variables = {}
     # Add the variable to the definition
     from azext_devops.devops_sdk.v5_0.build.models import BuildDefinitionVariable
     if not value:
