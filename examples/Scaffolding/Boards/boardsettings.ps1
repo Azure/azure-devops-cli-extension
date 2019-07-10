@@ -143,8 +143,7 @@ function setUpTeamIterations {
     )
 
     # show backlog iteration command
-    $backlogIterationDetails = az boards iteration team show-backlog-iteration --team $teamID --org $org --project $projectName -o json| ConvertFrom-Json
-    
+    $backlogIterationDetails = az boards iteration team show-backlog-iteration --team $teamID --org $org --project $projectName -o json | ConvertFrom-Json
     $depthParam = '1'
     $backlogIterationPath = $backlogIterationDetails.backlogIteration.path
     Write-Host "`nTeam Iterations Configuration"
