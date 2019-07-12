@@ -11,7 +11,8 @@ from azext_devops.dev.pipelines.pipeline_variables import _case_insensitive_get,
 logger = get_logger(__name__)
 
 
-class VariableGroupAuthorized():  # pylint : disable=too-few-public-methods
+# pylint: disable=too-few-public-methods
+class VariableGroupAuthorized():
     _attribute_map = {
         'variable_group_parameters': {'key': 'variable_group_parameters', 'type': 'VariableGroupParameters'},
         'authorized': {'key': 'authorized', 'type': 'bool'}
@@ -142,8 +143,9 @@ def variable_group_update(group_id, name=None, description=None, authorized=None
         var_group = client.update_variable_group(group=var_group, project=project, group_id=group_id)
     if authorized is not None:
         from .pipeline_utils import set_authorize_resource
-        set_authorize_resource(authorized=authorized, res_id=var_group.id, name=var_group.name, res_type='variablegroup',
-                               organization=organization, project=project)
+        set_authorize_resource(
+            authorized=authorized, res_id=var_group.id, name=var_group.name, res_type='variablegroup',
+            organization=organization, project=project)
     else:
         from .pipeline_utils import get_authorize_resource
         authorized = get_authorize_resource(res_id=var_group.id, res_type='variablegroup',
