@@ -84,8 +84,6 @@ class PipelinesTests(ScenarioTest):
             assert update_var_group_output["name"] == 'newGroup'
             assert update_var_group_output["description"] == "NewDescription"
 
-            import pdb
-            pdb.set_trace()
             # List variables in the group 
             list_variable_group_vars_command = 'az pipelines variable-group variable list --id {} \
                  --detect false --output json'.format(group_id2)
