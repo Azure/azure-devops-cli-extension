@@ -197,8 +197,8 @@ def variable_group_variable_update(group_id, name, new_name=None, value=None, se
     :type group_id: int
     :param name: Name of the variable.
     :type name: str
-    :param name: New name of the variable.
-    :type name: str
+    :param new_name: New name of the variable.
+    :type new_name: str
     :param value: New value of the variable. For secret variables, if --value parameter is not given,
     it will be picked from environment variable prefixed with AZURE_DEVOPS_EXT_PIPELINE_VAR_ or
     user will be prompted to enter it via standard input.
@@ -236,7 +236,6 @@ def variable_group_variable_update(group_id, name, new_name=None, value=None, se
         var_group.variables[new_key] = VariableValue(
             is_secret=secret,
             value=old_value.value if value is None else value)
-        print(old_value.value if value is None else value)
         return client.update_variable_group(group=var_group, project=project, group_id=group_id).variables
     raise CLIError('Variable \'{}\' does not exist. '.format(name))
 
