@@ -107,10 +107,10 @@ def load_build_arguments(self, _):
         context.argument('query_order', **enum_choice_list(_VAR_GROUPS_QUERY_ORDER))
         context.argument('action_filter', options_list=('--action-filter', '--action'),
                          **enum_choice_list(_ACTION_FILTER_TYPES))
-        context.argument('is_secret', arg_type=get_three_state_flag())
-        context.argument('is_authorized', arg_type=get_three_state_flag())
+        context.argument('secret', arg_type=get_three_state_flag())
+        context.argument('authorized', arg_type=get_three_state_flag())
 
     with self.argument_context('pipelines variable') as context:
-        context.argument('is_secret', arg_type=get_three_state_flag())
+        context.argument('secret', arg_type=get_three_state_flag())
         context.argument('prompt_value', arg_type=get_three_state_flag())
         context.argument('allow_override', arg_type=get_three_state_flag())

@@ -27,7 +27,8 @@ from ._format import (transform_build_table_output,
                       transform_pipelines_queue_table_output,
                       transform_pipelines_variable_groups_table_output,
                       transform_pipelines_variable_group_table_output,
-                      transform_pipelines_variables_table_output)
+                      transform_pipelines_variables_table_output,
+                      transform_pipelines_var_group_variables_table_output)
 
 buildOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.build#{}',
@@ -165,10 +166,12 @@ def load_build_commands(self, _):
                   confirmation='Are you sure you want to delete this variable group?')
 
     with self.command_group('pipelines variable-group variable', command_type=pipelineVariableGroupOps) as g:
-        g.command('create', 'variable_group_variable_add', table_transformer=transform_pipelines_variables_table_output)
-        g.command('list', 'variable_group_variable_list', table_transformer=transform_pipelines_variables_table_output)
+        g.command('create', 'variable_group_variable_add',
+                  table_transformer=transform_pipelines_var_group_variables_table_output)
+        g.command('list', 'variable_group_variable_list',
+                  table_transformer=transform_pipelines_var_group_variables_table_output)
         g.command('update', 'variable_group_variable_update',
-                  table_transformer=transform_pipelines_variables_table_output)
+                  table_transformer=transform_pipelines_var_group_variables_table_output)
         g.command('delete', 'variable_group_variable_delete',
                   confirmation='Are you sure you want to delete this variable?')
 
@@ -176,4 +179,5 @@ def load_build_commands(self, _):
         g.command('create', 'pipeline_variable_add', table_transformer=transform_pipelines_variables_table_output)
         g.command('update', 'pipeline_variable_update', table_transformer=transform_pipelines_variables_table_output)
         g.command('list', 'pipeline_variable_list', table_transformer=transform_pipelines_variables_table_output)
-        g.command('delete', 'pipeline_variable_delete')
+        g.command('delete', 'pipeline_variable_delete',
+                  confirmation='Are you sure you want to delete this variable?')

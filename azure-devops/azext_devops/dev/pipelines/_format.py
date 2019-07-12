@@ -320,8 +320,8 @@ def _transform_pipeline_variable_group_row(row):
     table_row['Name'] = row['name']
     table_row['Type'] = row['type']
     table_row['Description'] = row['description']
-    if row.get('isAuthorized', None) is not None:
-        table_row['Is Authorized'] = row['isAuthorized']
+    if row.get('authorized', None) is not None:
+        table_row['Is Authorized'] = row['authorized']
     table_row['Number of Variables'] = len(row['variables'])
     return table_row
 
@@ -338,5 +338,20 @@ def _transform_pipeline_variable_row(key, value):
     table_row['Name'] = key
     table_row['Allow Override'] = 'True' if value['allowOverride'] else 'False'
     table_row['Is Secret'] = 'True' if value['isSecret'] else 'False'
-    table_row['Value'] = value['value']
+    table_row['Value'] = value['value'] if value['value'] is not None else ''
+    return table_row
+
+
+def transform_pipelines_var_group_variables_table_output(result):
+    table_output = []
+    for key, value in result.items():
+        table_output.append(_transform_pipeline_var_group_variable_row(key, value))
+    return table_output
+
+
+def _transform_pipeline_var_group_variable_row(key, value):
+    table_row = OrderedDict()
+    table_row['Name'] = key
+    table_row['Is Secret'] = 'True' if value['isSecret'] else 'False'
+    table_row['Value'] = value['value'] if value['value'] is not None else ''
     return table_row
