@@ -9,7 +9,7 @@ from knack.util import CLIError
 from knack.prompting import prompt_pass
 from azext_devops.dev.common.services import get_build_client, resolve_instance_and_project
 from azext_devops.dev.pipelines.build_definition import get_definition_id_from_name
-from azext_devops.dev.common.const import PIPELINES_VARIABLES_KEY_PREFIX
+from azext_devops.dev.common.const import AZ_DEVOPS_PIPELINES_VARIABLES_KEY_PREFIX
 from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
 
 logger = get_logger(__name__)
@@ -190,7 +190,7 @@ def pipeline_variable_delete(name, pipeline_id=None, pipeline_name=None, organiz
 
 
 def _get_value_from_env_or_stdin(var_name):
-    env_var_name = PIPELINES_VARIABLES_KEY_PREFIX + var_name
+    env_var_name = AZ_DEVOPS_PIPELINES_VARIABLES_KEY_PREFIX + var_name
     logger.debug('Checking for variable %s in environment variable %s', var_name, env_var_name)
     import os
     value = os.getenv(env_var_name, None)

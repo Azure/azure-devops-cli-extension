@@ -23,8 +23,6 @@ _AGENT_POOL_TYPES = ['automation', 'deployment']
 
 _ACTION_FILTER_TYPES = ['use', 'manage', 'none']
 
-_VARIABLE_GROUP_TYPES = ['Vsts', 'AzureKeyVault']
-
 _VAR_GROUPS_QUERY_ORDER = ['Asc', 'Desc']
 
 
@@ -101,14 +99,13 @@ def load_build_arguments(self, _):
 
     with self.argument_context('pipelines variable-group') as context:
         context.argument('group_id', options_list=('--group-id', '--id'))
-        context.argument('group_type', options_list=('--group-type', '--type'),
-                         **enum_choice_list(_VARIABLE_GROUP_TYPES))
         context.argument('variables', nargs='*')
         context.argument('query_order', **enum_choice_list(_VAR_GROUPS_QUERY_ORDER))
         context.argument('action_filter', options_list=('--action-filter', '--action'),
                          **enum_choice_list(_ACTION_FILTER_TYPES))
         context.argument('secret', arg_type=get_three_state_flag())
         context.argument('authorized', arg_type=get_three_state_flag())
+        context.argument('prompt_value', arg_type=get_three_state_flag())
 
     with self.argument_context('pipelines variable') as context:
         context.argument('secret', arg_type=get_three_state_flag())

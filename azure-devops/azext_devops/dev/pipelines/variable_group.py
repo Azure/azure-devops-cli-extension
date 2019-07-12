@@ -5,16 +5,13 @@
 
 from knack.log import get_logger
 from knack.util import CLIError
-from knack.prompting import prompt_pass
 from azext_devops.dev.common.services import get_task_agent_client, resolve_instance_and_project
-from azext_devops.dev.common.const import AZ_DEVOPS_PIPELINES_VARIABLES_KEY_PREFIX
-from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
 from azext_devops.dev.pipelines.pipeline_variables import _case_insensitive_get, _get_value_from_env_or_stdin
 
 logger = get_logger(__name__)
 
 
-class VariableGroupAuthorized():
+class VariableGroupAuthorized():  # pylint : disable=too-few-public-methods
     _attribute_map = {
         'variable_group_parameters': {'key': 'variable_group_parameters', 'type': 'VariableGroupParameters'},
         'authorized': {'key': 'authorized', 'type': 'bool'}
@@ -57,9 +54,10 @@ def variable_group_create(name, variables, description=None, authorized=None,
     var_group = client.add_variable_group(group=var_group, project=project)
     if authorized is not None:
         from .pipeline_utils import set_authorize_resource
-        set_authorize_resource(authorized=authorized, id=var_group.id, name=var_group.name, res_type='variablegroup',
-                               organization=organization, project=project)
-    return VariableGroupAuthorized(var_group, authorized) 
+        set_authorize_resource(
+            authorized=authorized, res_id=var_group.id, name=var_group.name, res_type='variablegroup',
+            organization=organization, project=project)
+    return VariableGroupAuthorized(var_group, authorized)
 
 
 def variable_group_show(group_id, organization=None, project=None, detect=None):
@@ -72,8 +70,8 @@ def variable_group_show(group_id, organization=None, project=None, detect=None):
     client = get_task_agent_client(organization)
     var_group = client.get_variable_group(group_id=group_id, project=project)
     from .pipeline_utils import get_authorize_resource
-    authorized = get_authorize_resource(id=var_group.id, res_type='variablegroup',
-                                            organization=organization, project=project)
+    authorized = get_authorize_resource(
+        res_id=var_group.id, res_type='variablegroup', organization=organization, project=project)
     return VariableGroupAuthorized(var_group, authorized)
 
 
@@ -132,7 +130,6 @@ def variable_group_update(group_id, name=None, description=None, authorized=None
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
     client = get_task_agent_client(organization)
-    from azext_devops.devops_sdk.v5_0.task_agent.models import VariableGroupParameters
     var_group = client.get_variable_group(group_id=group_id, project=project)
     update = False
     if name:
@@ -145,11 +142,11 @@ def variable_group_update(group_id, name=None, description=None, authorized=None
         var_group = client.update_variable_group(group=var_group, project=project, group_id=group_id)
     if authorized is not None:
         from .pipeline_utils import set_authorize_resource
-        set_authorize_resource(authorized=authorized, id=var_group.id, name=var_group.name, res_type='variablegroup',
+        set_authorize_resource(authorized=authorized, res_id=var_group.id, name=var_group.name, res_type='variablegroup',
                                organization=organization, project=project)
     else:
         from .pipeline_utils import get_authorize_resource
-        authorized = get_authorize_resource(id=var_group.id, res_type='variablegroup',
+        authorized = get_authorize_resource(res_id=var_group.id, res_type='variablegroup',
                                             organization=organization, project=project)
     return VariableGroupAuthorized(var_group, authorized)
 
