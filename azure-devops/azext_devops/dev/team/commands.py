@@ -110,7 +110,7 @@ def load_team_commands(self, _):
     with self.command_group('devops service-endpoint', command_type=service_endpointOps) as g:
         g.command('list', 'list_service_endpoints', table_transformer=transform_service_endpoints_table_output)
         g.command('show', 'show_service_endpoint')  # no table transform because type is not well defined
-        g.command('create', 'create_service_endpoint', deprecate_info=g.deprecate())
+        g.command('create', 'create_service_endpoint')
         g.command('azurerm create', 'create_azurerm_service_endpoint')
         g.command('github create','create_github_service_endpoint')
         g.command('delete', 'delete_service_endpoint',
