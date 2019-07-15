@@ -112,7 +112,7 @@ def load_team_commands(self, _):
         g.command('show', 'show_service_endpoint')  # no table transform because type is not well defined
         g.command('create', 'create_service_endpoint')
         g.command('azurerm create', 'create_azurerm_service_endpoint')
-        g.command('github create','create_github_service_endpoint')
+        g.command('github create', 'create_github_service_endpoint')
         g.command('delete', 'delete_service_endpoint',
                   confirmation='Are you sure you want to delete this service-endpoint?')
 

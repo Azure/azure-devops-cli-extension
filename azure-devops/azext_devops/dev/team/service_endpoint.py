@@ -8,7 +8,6 @@ from __future__ import print_function
 import os
 from knack.log import get_logger
 from knack.prompting import prompt_pass
-from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
 from azext_devops.dev.common.services import get_service_endpoint_client, resolve_instance_and_project
 from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX, AZ_DEVOPS_GITHUB_PAT_ENVKEY
