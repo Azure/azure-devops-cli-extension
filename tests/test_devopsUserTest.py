@@ -61,11 +61,7 @@ class TestUser(ScenarioTest):
             user_update_response = self.cmd('az devops user update -o json --detect false --user ' + _TEST_EMAIL_ID + ' --license-type express').get_output_in_json()
             assert user_update_response['user']['mailAddress'] == _TEST_EMAIL_ID
 
-            # Error message check in case of invalid license type.            
-            with self.assertRaises(CLIError) as user_update_except:
-                user_update = self.cmd('az devops user update -o json --detect false --user ' + _TEST_EMAIL_ID + ' --license-type none').get_output_in_json()
-            self.assertEqual(str(user_update_except.exception), 'VSS012024: Organization user cannot be assigned a None license.')
-        
+     
         finally:
             if user_id is not None:
                 user_remove_response = self.cmd('az devops user remove --user ' + _TEST_EMAIL_ID + ' -o json --detect false -y')

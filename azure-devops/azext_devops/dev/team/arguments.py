@@ -26,7 +26,7 @@ _SERVICE_ENDPOINT_AUTHORIZATION_SCHEME = [SERVICE_ENDPOINT_AUTHORIZATION_PERSONA
 
 _HTTP_METHOD_VALUES = ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS', 'PUT', 'HEAD']
 
-_LICENSE_TYPES = ['advanced', 'earlyAdopter', 'express', 'none', 'professional', 'stakeholder']
+_LICENSE_TYPES = ['advanced', 'earlyAdopter', 'express', 'professional', 'stakeholder']
 _RELATIONSHIP_TYPES = ['members', 'memberof']
 _FILE_ENCODING_TYPE_VALUES = FILE_ENCODING_TYPES
 
