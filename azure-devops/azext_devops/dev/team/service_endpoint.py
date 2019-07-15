@@ -59,6 +59,7 @@ def delete_service_endpoint(id, deep=False, organization=None, project=None, det
     client = get_service_endpoint_client(organization)
     return client.delete_service_endpoint(project, id, deep)
 
+
 def create_azurerm_service_endpoint(name, azure_rm_tenant_id, azure_rm_service_principal_id,
                                     azure_rm_subscription_id, azure_rm_subscription_name,
                                     azure_rm_service_principal_certificate_path=None,
@@ -147,7 +148,6 @@ def create_github_service_endpoint(name, github_url,
         authorization=service_endpoint_authorization,
         name=name, type=SERVICE_ENDPOINT_TYPE_GITHUB, url=github_url)
     return client.create_service_endpoint(service_endpoint_to_create, project)
-
 
 
 def create_service_endpoint(service_endpoint_configuration, organization=None,
