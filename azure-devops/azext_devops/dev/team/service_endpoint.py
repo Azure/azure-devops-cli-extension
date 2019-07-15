@@ -60,10 +60,10 @@ def delete_service_endpoint(id, deep=False, organization=None, project=None, det
     client = get_service_endpoint_client(organization)
     return client.delete_service_endpoint(project, id, deep)
 
-def create_azurerm_service_endpoint(name, azure_rm_tenant_id=None, azure_rm_service_principal_id=None,
-                                    azure_rm_subscription_id=None,
-                                    azure_rm_subscription_name=None, organization=None,
-                                    project=None, detect=None):
+def create_azurerm_service_endpoint(name, azure_rm_tenant_id, azure_rm_service_principal_id,
+                                    azure_rm_subscription_id, azure_rm_subscription_name,
+                                    azure_rm_service_principal_certificate_path=None,
+                                    organization=None, project=None, detect=None):
     """ Create an Azure RM type service endpoint.
     :param name: Name of service endpoint to create
     :type name: str
@@ -73,6 +73,9 @@ def create_azurerm_service_endpoint(name, azure_rm_tenant_id=None, azure_rm_serv
     :type azure_rm_service_principal_id: str
     :param azure_rm_subscription_id: subscription id for azure rm service endpoint
     :type azure_rm_subscription_id: str
+    :param azure_rm_service_principal_certificate_path: Path to (.pem) which is certificate.
+     Create using command "openssl pkcs12 -in file.pfx -out file.pem -nodes -password pass:<password_here>"
+    :type azure_rm_service_principal_certificate_path: str
     :param azure_rm_subscription_name: name of azure subscription for azure rm service endpoint
     :type azure_rm_subscription_name: str
     :rtype: :class:`ServiceEndpoint <service_endpoint.v4_1.models.ServiceEndpoint>`
@@ -81,21 +84,30 @@ def create_azurerm_service_endpoint(name, azure_rm_tenant_id=None, azure_rm_serv
                                                          organization=organization,
                                                          project=project)
     client = get_service_endpoint_client(organization)
-    AZURE_RM_SP_KEY_END_VARIABLE_NAME = CLI_ENV_VARIABLE_PREFIX + 'AZURE_RM_SERVICE_PRINCIPAL_KEY'
-    if AZURE_RM_SP_KEY_END_VARIABLE_NAME not in os.environ:
-        error_message = 'Please specify azure service principal key in ' + AZURE_RM_SP_KEY_END_VARIABLE_NAME +\
-                        ' environment variable in non-interactive mode.'
-        verify_is_a_tty_or_raise_error(error_message)
-        azure_rm_service_principal_key = prompt_pass('Azure RM service principal key:', confirm=True)
-    else:
-        azure_rm_service_principal_key = os.environ[AZURE_RM_SP_KEY_END_VARIABLE_NAME]
 
     service_endpoint_authorization = EndpointAuthorization(
         parameters={'tenantid': azure_rm_tenant_id,
-                    'serviceprincipalid': azure_rm_service_principal_id,
-                    'authenticationType': 'spnKey',
-                    'serviceprincipalkey': azure_rm_service_principal_key},
+                    'serviceprincipalid': azure_rm_service_principal_id},
         scheme=SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL)
+
+    if azure_rm_service_principal_certificate_path is None:
+        AZURE_RM_SP_KEY_END_VARIABLE_NAME = CLI_ENV_VARIABLE_PREFIX + 'AZURE_RM_SERVICE_PRINCIPAL_KEY'
+        if AZURE_RM_SP_KEY_END_VARIABLE_NAME not in os.environ:
+            error_message = 'Please specify azure service principal key in ' + AZURE_RM_SP_KEY_END_VARIABLE_NAME +\
+                            ' environment variable in non-interactive mode or use ' +\
+                            '--azure-rm-service-principal-certificate-path'
+            verify_is_a_tty_or_raise_error(error_message)
+            azure_rm_service_principal_key = prompt_pass('Azure RM service principal key:', confirm=True)
+        else:
+            azure_rm_service_principal_key = os.environ[AZURE_RM_SP_KEY_END_VARIABLE_NAME]
+
+        service_endpoint_authorization.parameters['authenticationType'] = 'spnKey'
+        service_endpoint_authorization.parameters['serviceprincipalkey'] = azure_rm_service_principal_key
+    else:
+        with open(azure_rm_service_principal_certificate_path, "r") as f:
+            service_endpoint_authorization.parameters['authenticationType'] = 'spnCertificate'
+            service_endpoint_authorization.parameters['servicePrincipalCertificate'] = f.read()
+
     service_endpoint_data = {
         'subscriptionId': azure_rm_subscription_id,
         'subscriptionName': azure_rm_subscription_name,
@@ -108,8 +120,8 @@ def create_azurerm_service_endpoint(name, azure_rm_tenant_id=None, azure_rm_serv
     return client.create_service_endpoint(service_endpoint_to_create, project)
 
 
-def create_github_service_endpoint(name, github_url=None, organization=None,
-                                   project=None, detect=None):
+def create_github_service_endpoint(name, github_url,
+                                   organization=None, project=None, detect=None):
     """ Create a GitHub service endpoint.
     :param name: Name of service endpoint to create
     :type name: str
