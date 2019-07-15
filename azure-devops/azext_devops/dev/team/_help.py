@@ -28,6 +28,16 @@ def load_team_help():
     short-summary: Manage service endpoints/service connections
     """
 
+    helps['devops service-endpoint azurerm'] = """
+    type: group
+    short-summary: Manage Azure RM service endpoints/service connections
+    """
+
+    helps['devops service-endpoint github'] = """
+    type: group
+    short-summary: Manage GitHub service endpoints/ service connections
+    """
+
     helps['devops security'] = """
     type: group
     short-summary: Manage security related operations
