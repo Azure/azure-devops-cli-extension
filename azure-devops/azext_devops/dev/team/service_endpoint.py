@@ -152,21 +152,22 @@ def create_github_service_endpoint(name, github_url,
     return client.create_service_endpoint(service_endpoint_to_create, project)
 
 
-def create_service_endpoint(service_endpoint_configuration, organization=None,
+def create_service_endpoint(service_endpoint_configuration,
+                            encoding='utf-8', organization=None,
                             project=None, detect=None):
     """ (PREVIEW) Create a service endpoint using configuration file.
     :param name: Name of service endpoint to create
     :type name: str
     :param service_endpoint_configuration: Configuration file with service endpoint request.
-    (only utf-8 format)
-    :type authorization_scheme: str
+    :type service_endpoint_configuration: str
     :rtype: :class:`ServiceEndpoint <service_endpoint.v4_1.models.ServiceEndpoint>`
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)
     client = get_service_endpoint_client(organization)
-    with open(service_endpoint_configuration) as f:
-        import json
-        service_endpoint_to_create = json.load(f)
-        return client.create_service_endpoint(service_endpoint_to_create, project)
+    from azext_devops.dev.common.utils import read_file_content
+    in_file_content = read_file_content(file_path=service_endpoint_configuration, encoding=encoding)
+    import json
+    service_endpoint_to_create = json.loads(in_file_content)
+    return client.create_service_endpoint(service_endpoint_to_create, project)
