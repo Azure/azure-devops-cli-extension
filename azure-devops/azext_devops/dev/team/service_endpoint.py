@@ -99,6 +99,7 @@ def create_azurerm_service_endpoint(name, azure_rm_tenant_id, azure_rm_service_p
             verify_is_a_tty_or_raise_error(error_message)
             azure_rm_service_principal_key = prompt_pass('Azure RM service principal key:', confirm=True)
         else:
+            logger.debug('Picking Azure RM principal key from environment variable')
             azure_rm_service_principal_key = os.environ[AZURE_RM_SP_KEY_END_VARIABLE_NAME]
 
         service_endpoint_authorization.parameters['authenticationType'] = 'spnKey'
@@ -139,6 +140,7 @@ def create_github_service_endpoint(name, github_url,
         verify_is_a_tty_or_raise_error(error_message)
         github_access_token = prompt_pass('GitHub access token:', confirm=True)
     else:
+        logger.debug('Picking GitHub PAT from environment variable')
         github_access_token = os.environ[AZ_DEVOPS_GITHUB_PAT_ENVKEY]
 
     service_endpoint_authorization = EndpointAuthorization(
@@ -156,6 +158,7 @@ def create_service_endpoint(service_endpoint_configuration, organization=None,
     :param name: Name of service endpoint to create
     :type name: str
     :param service_endpoint_configuration: Configuration file with service endpoint request.
+    (only utf-8 format)
     :type authorization_scheme: str
     :rtype: :class:`ServiceEndpoint <service_endpoint.v4_1.models.ServiceEndpoint>`
     """

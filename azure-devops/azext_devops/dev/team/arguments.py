@@ -71,9 +71,6 @@ def load_team_arguments(self, _):
         context.argument('state', **enum_choice_list(_STATE_VALUES))
         context.argument('visibility', **enum_choice_list(_PROJECT_VISIBILITY_VALUES))
 
-    with self.argument_context('devops service-endpoint create') as context:
-        context.argument('service_endpoint_type', **enum_choice_list(_SERVICE_ENDPOINT_TYPE))
-        context.argument('authorization_scheme', **enum_choice_list(_SERVICE_ENDPOINT_AUTHORIZATION_SCHEME))
     with self.argument_context('devops project delete') as context:
         context.argument('yes', options_list=['--yes', '-y'], action='store_true',
                          help='Do not prompt for confirmation.')
