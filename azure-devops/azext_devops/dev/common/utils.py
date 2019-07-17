@@ -10,18 +10,6 @@ logger = get_logger(__name__)
 FILE_ENCODING_TYPES = ['ascii', 'utf-16be', 'utf-16le', 'utf-8']
 
 
-def read_file_content_ver3(file_path, encoding):
-    logger.debug('inside read_file_content_ver3')
-    with open(file_path, 'r', encoding=encoding) as f:
-        return f.read()
-
-
-def read_file_content_ver2(file_path, encoding):
-    logger.debug('inside read_file_content_ver2')
-    with open(file_path) as f:
-        return f.read().decode(encoding)
-
-
 def read_file_content(file_path, encoding):
     if not file_path or not encoding:
         raise CLIError("File path {} or encoding {} is missing.".format(file_path, encoding))
@@ -32,9 +20,9 @@ def read_file_content(file_path, encoding):
     try:
         import sys
         if sys.version_info[0] < 3:
-            return read_file_content_ver2(file_path, encoding)
+            return _read_file_content_ver2(file_path, encoding)
 
-        return read_file_content_ver3(file_path, encoding)
+        return _read_file_content_ver3(file_path, encoding)
     except UnicodeDecodeError as ex:
         logger.debug(msg=ex)
         raise CLIError("Unable to decode file '{}' with '{}' encoding.".format(
@@ -84,3 +72,15 @@ def singleton(myclass):
             instance[0] = myclass(*args, **kwargs)
         return instance[0]
     return wrapper
+
+
+def _read_file_content_ver3(file_path, encoding):
+    logger.debug('inside read_file_content_ver3')
+    with open(file_path, 'r', encoding=encoding) as f:
+        return f.read()
+
+
+def _read_file_content_ver2(file_path, encoding):
+    logger.debug('inside read_file_content_ver2')
+    with open(file_path) as f:
+        return f.read().decode(encoding)
