@@ -95,7 +95,7 @@ def create_azurerm_service_endpoint(name, azure_rm_tenant_id, azure_rm_service_p
         if AZURE_RM_SP_KEY_END_VARIABLE_NAME not in os.environ:
             error_message = 'Please specify azure service principal key in ' + AZURE_RM_SP_KEY_END_VARIABLE_NAME +\
                             ' environment variable in non-interactive mode or use ' +\
-                            '--azure-rm-service-principal-certificate-path'
+                            '--azure-rm-service-principal-certificate-path.'
             verify_is_a_tty_or_raise_error(error_message)
             azure_rm_service_principal_key = prompt_pass('Azure RM service principal key:', confirm=True)
         else:
