@@ -13,11 +13,6 @@ from azext_devops.dev.common.services import get_service_endpoint_client, resolv
 from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX, AZ_DEVOPS_GITHUB_PAT_ENVKEY
 from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
 
-from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
-                    SERVICE_ENDPOINT_TYPE_GITHUB,
-                    SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL,
-                    SERVICE_ENDPOINT_TYPE_AZURE_RM)
-
 logger = get_logger(__name__)
 
 

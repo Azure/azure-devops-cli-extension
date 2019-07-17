@@ -33,8 +33,8 @@ def read_file_content(file_path, encoding):
         import sys
         if sys.version_info[0] < 3:
             return read_file_content_ver2(file_path, encoding)
-        else:
-            return read_file_content_ver3(file_path, encoding)
+
+        return read_file_content_ver3(file_path, encoding)
     except UnicodeDecodeError as ex:
         logger.debug(msg=ex)
         raise CLIError("Unable to decode file '{}' with '{}' encoding.".format(
