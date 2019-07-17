@@ -64,7 +64,8 @@ def load_work_commands(self, _):
 
     with self.command_group('boards iteration', command_type=workProjectAndTeamIterationOps, is_preview=True) as g:
         # team iteration commands
-        g.command('team list', 'get_team_iterations', table_transformer=transform_work_item_team_iterations_table_output)
+        g.command('team list', 'get_team_iterations',
+                  table_transformer=transform_work_item_team_iterations_table_output)
         g.command('team list-work-items', 'list_iteration_work_items',
                   table_transformer=transform_work_item_team_iteration_work_items)
         g.command('team set-default-iteration', 'set_default_iteration',
@@ -97,7 +98,7 @@ def load_work_commands(self, _):
         g.command('project delete', 'delete_project_area',
                   confirmation='Are you sure you want to delete this area?')
         g.command('project create', 'create_project_area',
-                  table_transformer=transform_work_item_project_classification_nodes_table_output),
+                  table_transformer=transform_work_item_project_classification_nodes_table_output)
         g.command('project update', 'update_project_area',
                   table_transformer=transform_work_item_project_classification_nodes_table_output)
         g.command('project show', 'get_project_area',
