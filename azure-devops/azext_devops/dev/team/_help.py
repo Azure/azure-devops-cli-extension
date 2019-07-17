@@ -25,17 +25,17 @@ def load_team_help():
 
     helps['devops service-endpoint'] = """
     type: group
-    short-summary: Manage service endpoints/service connections
+    short-summary: Manage service endpoints/connections
     """
 
     helps['devops service-endpoint azurerm'] = """
     type: group
-    short-summary: Manage Azure RM service endpoints/service connections
+    short-summary: Manage Azure RM service endpoints/connections
     """
 
     helps['devops service-endpoint github'] = """
     type: group
-    short-summary: Manage GitHub service endpoints/ service connections
+    short-summary: Manage GitHub service endpoints/connections
     """
 
     helps['devops security'] = """
