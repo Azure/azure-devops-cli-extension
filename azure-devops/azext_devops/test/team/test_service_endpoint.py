@@ -120,7 +120,7 @@ class TestServiceEndpointMethods(AuthenticatedTests):
                                                        project = self._TEST_PROJECT_NAME)
             self.fail('exception was expected')
         except NoTTYException as ex:
-            self.assertEqual(str(ex), 'Please specify azure service principal key in AZURE_DEVOPS_EXT_AZURE_RM_SERVICE_PRINCIPAL_KEY environment variable in non-interactive mode.')
+            self.assertEqual(str(ex), 'Please specify azure service principal key in AZURE_DEVOPS_EXT_AZURE_RM_SERVICE_PRINCIPAL_KEY environment variable in non-interactive mode or use --azure-rm-service-principal-certificate-path.')
 
 if __name__ == '__main__':
     unittest.main()
