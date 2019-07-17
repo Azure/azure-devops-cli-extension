@@ -20,10 +20,6 @@ from azext_devops.dev.team.service_endpoint import (list_service_endpoints,
                                                     create_github_service_endpoint,
                                                     create_azurerm_service_endpoint,
                                                     delete_service_endpoint)
-from azext_devops.dev.team.const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
-                                        SERVICE_ENDPOINT_TYPE_GITHUB,
-                                        SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL,
-                                        SERVICE_ENDPOINT_TYPE_AZURE_RM)
 
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.test.utils.authentication import AuthenticatedTests
