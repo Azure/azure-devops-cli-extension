@@ -28,15 +28,15 @@ class VariableGroupAuthorized():
         self.variables = variable_group_parameters.variables
 
 
-def variable_group_create(name, variables, description=None, authorized=None,
+def variable_group_create(name, variables, description=None, authorize=None,
                           organization=None, project=None, detect=None):
     """(Preview) Create a variable group
     :param name: Name of the variable group.
     :type name: str
     :param description: Description of the variable group.
     :type description: str
-    :param authorized: Whether the variable group should be accessible by all pipelines.
-    :type authorized: boolean
+    :param authorize: Whether the variable group should be accessible by all pipelines.
+    :type authorize: boolean
     :param variables: Variables in format key=value space separated pairs. Secret variables should be managed using
     `az pipelines variable-group variable` commands.
     :type type: [str]
@@ -53,12 +53,12 @@ def variable_group_create(name, variables, description=None, authorized=None,
             variables_dict[key] = VariableValue(is_secret=False, value=value)
     var_group = VariableGroupParameters(name=name, description=description, type=group_type, variables=variables_dict)
     var_group = client.add_variable_group(group=var_group, project=project)
-    if authorized is not None:
+    if authorize is not None:
         from .pipeline_utils import set_authorize_resource
         set_authorize_resource(
-            authorized=authorized, res_id=var_group.id, name=var_group.name, res_type='variablegroup',
+            authorized=authorize, res_id=var_group.id, name=var_group.name, res_type='variablegroup',
             organization=organization, project=project)
-    return VariableGroupAuthorized(var_group, authorized)
+    return VariableGroupAuthorized(var_group, authorize)
 
 
 def variable_group_show(group_id, organization=None, project=None, detect=None):
@@ -70,6 +70,8 @@ def variable_group_show(group_id, organization=None, project=None, detect=None):
         detect=detect, organization=organization, project=project)
     client = get_task_agent_client(organization)
     var_group = client.get_variable_group(group_id=group_id, project=project)
+    if not var_group:
+        raise CLIError('Variable group with Id {} could not be found.'.format(group_id))
     from .pipeline_utils import get_authorize_resource
     authorized = get_authorize_resource(
         res_id=var_group.id, res_type='variablegroup', organization=organization, project=project)
@@ -114,24 +116,26 @@ def variable_group_delete(group_id, organization=None, project=None, detect=None
     return delete_response
 
 
-def variable_group_update(group_id, name=None, description=None, authorized=None,
+def variable_group_update(group_id, name=None, description=None, authorize=None,
                           organization=None, project=None, detect=None):
     """(Preview) Update a variable group
     :param group_id: Id of the variable group.
     :type group_id: int
     :param name: New name of the variable group.
     :type name: str
-    :param authorized: Whether the variable group should be accessible by all pipelines.
-    :type authorized: boolean
+    :param authorize: Whether the variable group should be accessible by all pipelines.
+    :type authorize: boolean
     :param description: New description of the variable group.
     :type description: str
     """
-    if not name and not description and authorized is None:
-        raise CLIError("Either --name, --description or --authorized must be specified for update.")
+    if not name and not description and authorize is None:
+        raise CLIError("Either --name, --description or --authorize must be specified for update.")
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
     client = get_task_agent_client(organization)
     var_group = client.get_variable_group(group_id=group_id, project=project)
+    if not var_group:
+        raise CLIError('Variable group with Id {} could not be found.'.format(group_id))
     update = False
     if name:
         var_group.name = name
@@ -141,16 +145,16 @@ def variable_group_update(group_id, name=None, description=None, authorized=None
         update = True
     if update:
         var_group = client.update_variable_group(group=var_group, project=project, group_id=group_id)
-    if authorized is not None:
+    if authorize is not None:
         from .pipeline_utils import set_authorize_resource
         set_authorize_resource(
-            authorized=authorized, res_id=var_group.id, name=var_group.name, res_type='variablegroup',
+            authorized=authorize, res_id=var_group.id, name=var_group.name, res_type='variablegroup',
             organization=organization, project=project)
     else:
         from .pipeline_utils import get_authorize_resource
-        authorized = get_authorize_resource(res_id=var_group.id, res_type='variablegroup',
+        authorize = get_authorize_resource(res_id=var_group.id, res_type='variablegroup',
                                             organization=organization, project=project)
-    return VariableGroupAuthorized(var_group, authorized)
+    return VariableGroupAuthorized(var_group, authorize)
 
 
 def variable_group_variable_add(group_id, name, value=None, secret=None,
@@ -172,6 +176,8 @@ def variable_group_variable_add(group_id, name, value=None, secret=None,
         detect=detect, organization=organization, project=project)
     client = get_task_agent_client(organization)
     var_group = client.get_variable_group(group_id=group_id, project=project)
+    if not var_group:
+        raise CLIError('Variable group with Id {} could not be found.'.format(group_id))
     # Check if the variable already exists
     for key in var_group.variables.keys():
         if key.lower() == name.lower():
@@ -187,7 +193,9 @@ def variable_group_variable_add(group_id, name, value=None, secret=None,
             raise CLIError('--value is required as parameter for non secret variable.')
 
     var_group.variables[name] = VariableValue(is_secret=secret, value=value)
-    return client.update_variable_group(group=var_group, project=project, group_id=group_id).variables
+    updated_variables = client.update_variable_group(group=var_group, project=project, group_id=group_id).variables
+    var_name, var_value = _case_insensitive_get(input_dict=updated_variables, search_key=name)
+    return {var_name:var_value}
 
 
 def variable_group_variable_update(group_id, name, new_name=None, value=None, secret=None, prompt_value=False,
@@ -217,6 +225,8 @@ def variable_group_variable_update(group_id, name, new_name=None, value=None, se
         detect=detect, organization=organization, project=project)
     client = get_task_agent_client(organization)
     var_group = client.get_variable_group(group_id=group_id, project=project)
+    if not var_group:
+        raise CLIError('Variable group with Id {} could not be found.'.format(group_id))
     old_key = None
     old_value = None
     new_key = None
@@ -236,7 +246,10 @@ def variable_group_variable_update(group_id, name, new_name=None, value=None, se
         var_group.variables[new_key] = VariableValue(
             is_secret=secret,
             value=old_value.value if value is None else value)
-        return client.update_variable_group(group=var_group, project=project, group_id=group_id).variables
+        updated_variables = client.update_variable_group(
+            group=var_group, project=project, group_id=group_id).variables
+        var_name, var_value = _case_insensitive_get(input_dict=updated_variables, search_key=new_key)
+        return {var_name:var_value}
     raise CLIError('Variable \'{}\' does not exist. '.format(name))
 
 
@@ -249,6 +262,8 @@ def variable_group_variable_list(group_id, organization=None, project=None, dete
         detect=detect, organization=organization, project=project)
     client = get_task_agent_client(organization)
     var_group = client.get_variable_group(group_id=group_id, project=project)
+    if not var_group:
+        raise CLIError('Variable group with Id {} could not be found.'.format(group_id))
     return var_group.variables
 
 
@@ -263,6 +278,8 @@ def variable_group_variable_delete(group_id, name, organization=None, project=No
         detect=detect, organization=organization, project=project)
     client = get_task_agent_client(organization)
     var_group = client.get_variable_group(group_id=group_id, project=project)
+    if not var_group:
+        raise CLIError('Variable group with Id {} could not be found.'.format(group_id))
     key_to_delete = None
     # Check if the variable already exists
     key = None
