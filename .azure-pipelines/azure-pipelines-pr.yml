@@ -108,6 +108,7 @@ jobs:
   - template: templates/download-install-local-azure-devops-cli-extension.yml
 
   - script: python setup.py sdist bdist_wheel
+    workingDirectory: 'azure-devops\'
 
   - script: pytest --junitxml "TEST-results.xml" --cov=azext_devops/dev --cov-report=xml --cov-report=html
     displayName: 'run unit tests for code coverage'
