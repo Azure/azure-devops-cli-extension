@@ -188,7 +188,7 @@ jobs:
   # Delete test files which are broken by design
   - task: DeleteFiles@1
     inputs:
-      contents: '*test_devops_user_command_addUpdateListShowRemove*'
+      contents: '*test_devopsUserTest*'
 
   - template: templates/run-tests.yml
     parameters:
