@@ -106,7 +106,7 @@ class PipelinesTests(ScenarioTest):
             add_variable_group_vars_command = 'az pipelines variable-group variable create --id {} --name NewVar2 --value NewVal2 \
                  --secret --detect false --output json'.format(group_id2)
             add_var_group_vars_output = self.cmd(add_variable_group_vars_command).get_output_in_json()
-            assert len(add_var_group_vars_output) == 4
+            assert len(add_var_group_vars_output) == 1
             assert add_var_group_vars_output.get('var1') == None
             assert add_var_group_vars_output.get('var2') == None
             assert add_var_group_vars_output.get('NewVar1') == None
@@ -117,10 +117,10 @@ class PipelinesTests(ScenarioTest):
             update_variable_group_vars_command = 'az pipelines variable-group variable update --id {} --name NewVar1 \
                  --new-name NewVar1Updated --secret true --value 1234 --detect false --output json'.format(group_id2)
             update_var_group_vars_output = self.cmd(update_variable_group_vars_command).get_output_in_json()
-            assert len(update_var_group_vars_output) == 4
-            assert add_var_group_vars_output.get('var1') == None
-            assert add_var_group_vars_output.get('var2') == None
-            assert add_var_group_vars_output.get('NewVar2') == None
+            assert len(update_var_group_vars_output) == 1
+            assert update_var_group_vars_output.get('var1') == None
+            assert update_var_group_vars_output.get('var2') == None
+            assert update_var_group_vars_output.get('NewVar2') == None
             assert update_var_group_vars_output['NewVar1Updated']['value'] == None
             assert update_var_group_vars_output['NewVar1Updated']['isSecret'] == True
 
