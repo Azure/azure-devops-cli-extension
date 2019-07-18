@@ -88,9 +88,9 @@ class PipelinesTests(ScenarioTest):
             list_variable_command = 'az pipelines variable list --pipeline-id {} --detect false --output json'.format(created_pipeline_id)
             list_var_output = self.cmd(list_variable_command).get_output_in_json()
             assert len(list_var_output) == 1
-            assert var_create_output['var1']['value'] == None
-            assert var_create_output['var1']['allowOverride'] == True
-            assert var_create_output['var1']['isSecret'] == True
+            assert list_var_output['var1']['value'] == None
+            assert list_var_output['var1']['allowOverride'] == True
+            assert list_var_output['var1']['isSecret'] == True
 
             # update variable 
             update_variable_command = 'az pipelines variable update --name var1  --new-name var1Updated --secret false --value 123\

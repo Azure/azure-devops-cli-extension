@@ -96,9 +96,9 @@ class PipelinesTests(ScenarioTest):
             add_variable_group_vars_command = 'az pipelines variable-group variable create --id {} --name NewVar1 --value NewVal1 \
                  --detect false --output json'.format(group_id2)
             add_var_group_vars_output = self.cmd(add_variable_group_vars_command).get_output_in_json()
-            assert len(add_var_group_vars_output) == 3
-            assert add_var_group_vars_output['var1']['value'] == 'value1'
-            assert add_var_group_vars_output['var2']['value'] == 'value2'
+            assert len(add_var_group_vars_output) == 1
+            assert add_var_group_vars_output.get('var1') == None
+            assert add_var_group_vars_output.get('var2') == None
             assert add_var_group_vars_output['NewVar1']['value'] == 'NewVal1'
             assert add_var_group_vars_output['NewVar1']['isSecret'] == None
 
@@ -107,10 +107,9 @@ class PipelinesTests(ScenarioTest):
                  --secret --detect false --output json'.format(group_id2)
             add_var_group_vars_output = self.cmd(add_variable_group_vars_command).get_output_in_json()
             assert len(add_var_group_vars_output) == 4
-            assert add_var_group_vars_output['var1']['value'] == 'value1'
-            assert add_var_group_vars_output['var2']['value'] == 'value2'
-            assert add_var_group_vars_output['NewVar1']['value'] == 'NewVal1'
-            assert add_var_group_vars_output['NewVar1']['isSecret'] == None
+            assert add_var_group_vars_output.get('var1') == None
+            assert add_var_group_vars_output.get('var2') == None
+            assert add_var_group_vars_output.get('NewVar1') == None
             assert add_var_group_vars_output['NewVar2']['value'] == None
             assert add_var_group_vars_output['NewVar2']['isSecret'] == True
 
@@ -119,12 +118,11 @@ class PipelinesTests(ScenarioTest):
                  --new-name NewVar1Updated --secret true --value 1234 --detect false --output json'.format(group_id2)
             update_var_group_vars_output = self.cmd(update_variable_group_vars_command).get_output_in_json()
             assert len(update_var_group_vars_output) == 4
-            assert update_var_group_vars_output['var1']['value'] == 'value1'
-            assert update_var_group_vars_output['var2']['value'] == 'value2'
+            assert add_var_group_vars_output.get('var1') == None
+            assert add_var_group_vars_output.get('var2') == None
+            assert add_var_group_vars_output.get('NewVar2') == None
             assert update_var_group_vars_output['NewVar1Updated']['value'] == None
             assert update_var_group_vars_output['NewVar1Updated']['isSecret'] == True
-            assert update_var_group_vars_output['NewVar2']['value'] == None
-            assert update_var_group_vars_output['NewVar2']['isSecret'] == True
 
             # delete the variable from the group
             delete_variable_group_vars_command = 'az pipelines variable-group variable delete --id {} \
