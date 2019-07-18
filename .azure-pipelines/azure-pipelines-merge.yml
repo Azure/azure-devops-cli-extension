@@ -202,7 +202,7 @@ jobs:
   # Delete test files which are broken by design
   - task: DeleteFiles@1
     inputs:
-      contents: '*test_devopsUserTest*'
+      contents: '\test_devopsUserTest*\'
 
   - template: templates/run-tests.yml
     parameters:
