@@ -199,6 +199,11 @@ jobs:
   steps:
   - script: git checkout release-0.11.0
 
+  # Delete test files which are broken by design
+  - task: DeleteFiles@1
+    inputs:
+      contents: '*test_devops_user_command_addUpdateListShowRemove*'
+
   - template: templates/run-tests.yml
     parameters:
       pythonVersion: '3.x'
