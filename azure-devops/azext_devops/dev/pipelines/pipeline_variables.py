@@ -67,8 +67,7 @@ def pipeline_variable_add(name, pipeline_id=None, pipeline_name=None, value=None
     updated_variables = pipeline_client.update_definition(
         project=project, definition_id=pipeline_id, definition=pipeline_definition).variables
     var_name, var_value = _case_insensitive_get(input_dict=updated_variables, search_key=name)
-    return { var_name:var_value }
-
+    return {var_name: var_value}
 
 
 def pipeline_variable_update(name, pipeline_id=None, pipeline_name=None, new_name=None, value=None,
@@ -135,7 +134,7 @@ def pipeline_variable_update(name, pipeline_id=None, pipeline_name=None, new_nam
         updated_variables = pipeline_client.update_definition(
             project=project, definition_id=pipeline_id, definition=pipeline_definition).variables
         var_name, var_value = _case_insensitive_get(input_dict=updated_variables, search_key=new_key)
-        return { var_name:var_value }
+        return {var_name: var_value}
     raise CLIError('Variable \'{}\' does not exist.'.format(name))
 
 

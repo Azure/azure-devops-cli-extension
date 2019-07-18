@@ -153,7 +153,7 @@ def variable_group_update(group_id, name=None, description=None, authorize=None,
     else:
         from .pipeline_utils import get_authorize_resource
         authorize = get_authorize_resource(res_id=var_group.id, res_type='variablegroup',
-                                            organization=organization, project=project)
+                                           organization=organization, project=project)
     return VariableGroupAuthorized(var_group, authorize)
 
 
@@ -195,7 +195,7 @@ def variable_group_variable_add(group_id, name, value=None, secret=None,
     var_group.variables[name] = VariableValue(is_secret=secret, value=value)
     updated_variables = client.update_variable_group(group=var_group, project=project, group_id=group_id).variables
     var_name, var_value = _case_insensitive_get(input_dict=updated_variables, search_key=name)
-    return {var_name:var_value}
+    return {var_name: var_value}
 
 
 def variable_group_variable_update(group_id, name, new_name=None, value=None, secret=None, prompt_value=False,
@@ -249,7 +249,7 @@ def variable_group_variable_update(group_id, name, new_name=None, value=None, se
         updated_variables = client.update_variable_group(
             group=var_group, project=project, group_id=group_id).variables
         var_name, var_value = _case_insensitive_get(input_dict=updated_variables, search_key=new_key)
-        return {var_name:var_value}
+        return {var_name: var_value}
     raise CLIError('Variable \'{}\' does not exist. '.format(name))
 
 
