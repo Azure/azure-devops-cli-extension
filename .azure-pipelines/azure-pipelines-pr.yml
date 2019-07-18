@@ -112,6 +112,8 @@ jobs:
   - script: pip install python-dateutil==2.7.3
 
   - script: pip install msrest==0.6.1
+  
+  - script: pip install keyring==17.1.1
 
   - script: python setup.py sdist bdist_wheel
     workingDirectory: 'azure-devops/'
