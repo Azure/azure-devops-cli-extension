@@ -107,7 +107,11 @@ jobs:
 
   - template: templates/download-install-local-azure-devops-cli-extension.yml
 
-  - script: pip install distro
+  - script: pip install distro==1.3.0
+
+  - script: pip install python-dateutil==2.7.3
+
+  - script: pip install msrest>=0.6.0,<0.7.0
 
   - script: python setup.py sdist bdist_wheel
     workingDirectory: 'azure-devops/'
