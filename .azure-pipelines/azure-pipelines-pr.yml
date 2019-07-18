@@ -107,9 +107,13 @@ jobs:
 
   - template: templates/download-install-local-azure-devops-cli-extension.yml
 
-  - script: pytest --junitxml "TEST-UT-results.xml" --cov=azext_devops/dev --cov-report=xml --cov-report=html
+  - script: python setup.py sdist bdist_wheel
+
+  - script: pytest --junitxml "TEST-results.xml" --cov=azext_devops/dev --cov-report=xml --cov-report=html
     displayName: 'run unit tests for code coverage'
-    workingDirectory: 'azure-devops'
+    workingDirectory: '${Agent.BuildDirectory}'
+    env:
+      AZURE_EXTENSION_DIR: '${Agent.BuildDirectory}\azure-devops\'
  
   - script: pip install beautifulsoup4
     displayName: 'install beautifulsoup4'
