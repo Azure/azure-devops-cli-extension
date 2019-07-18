@@ -112,7 +112,7 @@ jobs:
 
   - script: pytest --junitxml "TEST-results.xml" --cov=azext_devops/dev --cov-report=xml --cov-report=html
     displayName: 'run unit tests for code coverage'
-    workingDirectory: '${Agent.BuildDirectory}'
+    workingDirectory: 'azure-devops/'
     env:
       AZURE_EXTENSION_DIR: '${Agent.BuildDirectory}\azure-devops\'
  
