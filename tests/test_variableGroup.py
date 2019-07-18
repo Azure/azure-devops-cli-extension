@@ -29,7 +29,7 @@ class PipelinesTests(ScenarioTest):
             # Create variable group
             create_variable_group_command = 'az pipelines variable-group create --name group1 \
                 --variables var1=value1 var2=value2 \
-                --authorized --description "Sample group description" --detect false --output json'
+                --authorize --description "Sample group description" --detect false --output json'
             var_group_output = self.cmd(create_variable_group_command).get_output_in_json()
             assert var_group_output["id"] > 0
             assert var_group_output["name"] == 'group1'
@@ -42,7 +42,7 @@ class PipelinesTests(ScenarioTest):
             
             create_variable_group_command = 'az pipelines variable-group create --name group2 \
                 --variables var1=value1 var2=value2 \
-                --authorized --description "Sample group description" --detect false --output json'
+                --authorize --description "Sample group description" --detect false --output json'
             var_group_output = self.cmd(create_variable_group_command).get_output_in_json()
             assert var_group_output["id"] > 0
             assert var_group_output["name"] == 'group2'
@@ -78,7 +78,7 @@ class PipelinesTests(ScenarioTest):
 
             # update variable group
             update_variable_group_command = 'az pipelines variable-group update --name newGroup \
-                --description NewDescription --authorized false --id {} --detect false --output json'.format(group_id2)
+                --description NewDescription --authorize false --id {} --detect false --output json'.format(group_id2)
             update_var_group_output = self.cmd(update_variable_group_command).get_output_in_json()
             assert update_var_group_output["id"] == group_id2
             assert update_var_group_output["name"] == 'newGroup'

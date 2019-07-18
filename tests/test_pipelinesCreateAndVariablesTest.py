@@ -67,17 +67,18 @@ class PipelinesTests(ScenarioTest):
             assert var_create_output['var2']['value'] == 'value2'
             assert var_create_output['var2']['allowOverride'] == None
             assert var_create_output['var2']['isSecret'] == None
+            assert var_create_output.get('var1') == None
             
             # List variables 
             list_variable_command = 'az pipelines variable list --pipeline-id {} --detect false --output json'.format(created_pipeline_id)
             list_var_output = self.cmd(list_variable_command).get_output_in_json()
             assert len(list_var_output) == 2
-            assert var_create_output['var1']['value'] == None
-            assert var_create_output['var1']['allowOverride'] == True
-            assert var_create_output['var1']['isSecret'] == True
-            assert var_create_output['var2']['value'] == 'value2'
-            assert var_create_output['var2']['allowOverride'] == None
-            assert var_create_output['var2']['isSecret'] == None
+            assert list_var_output['var1']['value'] == None
+            assert list_var_output['var1']['allowOverride'] == True
+            assert list_var_output['var1']['isSecret'] == True
+            assert list_var_output['var2']['value'] == 'value2'
+            assert list_var_output['var2']['allowOverride'] == None
+            assert list_var_output['var2']['isSecret'] == None
 
             # delete variable 
             delete_variable_command = 'az pipelines variable delete --pipeline-id {} --name var2 --detect false \
