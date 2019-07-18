@@ -111,7 +111,7 @@ class PipelinesTests(ScenarioTest):
             assert add_var_group_vars_output.get('var2') == None
             assert add_var_group_vars_output.get('NewVar1') == None
             assert add_var_group_vars_output['NewVar2']['value'] == None
-            assert add_var_group_vars_output['NewVar2']['isSecret'] == False
+            assert add_var_group_vars_output['NewVar2']['isSecret'] == True
 
             # update variable in the group 
             update_variable_group_vars_command = 'az pipelines variable-group variable update --id {} --name NewVar1 \
