@@ -32,7 +32,7 @@ def extractArgumentsFromCommand(command):
     help_text = subprocess.run(commandExtended.split(' '), shell=True, stdout=subprocess.PIPE)
     print('help text for ' + command)
     print(help_text)
-    if "PREVIEW" in help_text:
+    if "PREVIEW" in str(help_text):
         return argumentList
     regexReesult = re.search('Arguments(.*)Global Arguments',str(help_text))
     result = regexReesult.group(1)
