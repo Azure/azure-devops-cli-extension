@@ -16,6 +16,8 @@ class ExtensionSearchTest(ScenarioTest):
     @disable_telemetry
     def test_extension_search(self):
         code_search_result = self.cmd('az devops extension search --search-query search -o json').get_output_in_json()
+        # fake table output just to make sure format.py is working
+        self.cmd('az devops extension search --search-query search -o table')
         code_search_extension_found = False
         assert len(code_search_result) > 0
 
