@@ -186,9 +186,8 @@ jobs:
   - script: git checkout release-0.11.0
 
   # Delete test files which are broken by design
-  - task: DeleteFiles@1
-    inputs:
-      contents: '\test_devopsUserTest*\'
+  - script: rm tests/test_devopsUserTest.py
+    displayName : 'Delete Tests which are known to fail'
 
   - template: templates/run-tests.yml
     parameters:
