@@ -177,42 +177,46 @@ jobs:
       scriptSource: 'filePath'
       scriptPath: 'scripts/findEmptyHelpTexts.py' 
 
-# - job: 'Run_Test_From_Old_Release'
-#   dependsOn : Build_Publish_Azure_CLI_Test_SDK
-#   pool:
-#     vmImage: 'macOS-10.13'
+- job: 'Run_Test_From_Old_Release'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'macOS-10.13'
 
-#   steps:
-#   - script: git checkout release-0.5.0
+  steps:
+  - script: git checkout release-0.11.0
 
-#   - template: templates/run-tests.yml
-#     parameters:
-#       pythonVersion: '3.x'
-#       runOnlyRecordedTests: 'true'
+  # Delete test files which are broken by design
+  - script: rm tests/test_devopsUserTest.py
+    displayName : 'Delete Tests which are known to fail'
 
-# - job: 'Check_Back_Compat_Arguments'
-#   pool:
-#     vmImage: 'vs2017-win2016'
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.x'
+      runOnlyRecordedTests: 'true'
 
-#   steps:
-#   - task: UsePythonVersion@0
-#     inputs:
-#       versionSpec: '3.x'
-#       architecture: 'x64'
+- job: 'Check_Back_Compat_Arguments'
+  pool:
+    vmImage: 'vs2017-win2016'
 
-#   - template: templates/setup-ci-machine.yml
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      architecture: 'x64'
 
-#   - template: templates/install-azure-cli-edge.yml
+  - template: templates/setup-ci-machine.yml
 
-#   - script: 'python setup.py sdist bdist_wheel'
-#     displayName: 'Build wheel for Azure DevOps CLI extension'
-#     workingDirectory: 'azure-devops/'
+  - template: templates/install-azure-cli-edge.yml
 
-#   - task: PythonScript@0
-#     displayName: 'Run Back Compat Argument Check'
-#     inputs:
-#       scriptSource: 'filePath'
-#       scriptPath: 'scripts/backCompatChecker.py' 
+  - script: 'python setup.py sdist bdist_wheel'
+    displayName: 'Build wheel for Azure DevOps CLI extension'
+    workingDirectory: 'azure-devops/'
+
+  - task: PythonScript@0
+    displayName: 'Run Back Compat Argument Check'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: 'scripts/backCompatChecker.py' 
 
 - job: 'Run_Markdown_Lint_Check'
   pool:
