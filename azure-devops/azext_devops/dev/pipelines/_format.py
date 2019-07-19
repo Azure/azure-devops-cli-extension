@@ -6,6 +6,8 @@
 from collections import OrderedDict
 import dateutil
 
+_VALUE_TRUNCATION_LENGTH = 80
+
 
 def transform_builds_table_output(result):
     table_output = []
@@ -338,7 +340,10 @@ def _transform_pipeline_variable_row(key, value):
     table_row['Name'] = key
     table_row['Allow Override'] = 'True' if value['allowOverride'] else 'False'
     table_row['Is Secret'] = 'True' if value['isSecret'] else 'False'
-    table_row['Value'] = value['value'] if value['value'] is not None else ''
+    val = value['value'] if value['value'] is not None else ''
+    if len(val) > _VALUE_TRUNCATION_LENGTH:
+        val = val[0:_VALUE_TRUNCATION_LENGTH] + '...'
+    table_row['Value'] = val
     return table_row
 
 
@@ -353,5 +358,8 @@ def _transform_pipeline_var_group_variable_row(key, value):
     table_row = OrderedDict()
     table_row['Name'] = key
     table_row['Is Secret'] = 'True' if value['isSecret'] else 'False'
-    table_row['Value'] = value['value'] if value['value'] is not None else ''
+    val = value['value'] if value['value'] is not None else ''
+    if len(val) > _VALUE_TRUNCATION_LENGTH:
+        val = val[0:_VALUE_TRUNCATION_LENGTH] + '...'
+    table_row['Value'] = val
     return table_row
