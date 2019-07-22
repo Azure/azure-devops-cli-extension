@@ -42,6 +42,7 @@ class DevopsTeamTests(ScenarioTest):
             assert create_team_output2["name"] == team_name2
             assert create_team_output2["description"] == team_description
 
+            time.sleep(5)
             #list team command
             list_teams_command = 'az devops team list --output json --detect false'
             list_teams_output = self.cmd(list_teams_command).get_output_in_json()

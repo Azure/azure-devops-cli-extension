@@ -109,6 +109,7 @@ class GroupTests(ScenarioTest):
             # remove membership
             remove_membership = self.cmd('az devops security group membership remove --group-id '+ project_group_descriptor +' --member-id '+ project_group_descriptor3 +' -y -o json --detect false')
             
+            time.sleep(5)
             list_group_name3_memberof = self.cmd('az devops security group membership list --id '+ project_group_descriptor3 +' --relationship memberof -o json --detect false').get_output_in_json()
             assert len(list_group_name3_memberof) == 3
 
