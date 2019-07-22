@@ -4,7 +4,7 @@ param(
 )
 . (Join-Path $PSScriptRoot .\Boards\boardsettings.ps1)
 . (Join-Path $PSScriptRoot .\Repos\setPolicies.ps1)
-. (Join-Path $PSScriptRoot .\DevOps\helperMethods.ps1)
+. (Join-Path $PSScriptRoot .\DevOps\projectSetUp.ps1)
 . (Join-Path $PSScriptRoot .\DevOps\configureTeam.ps1)
 
 
@@ -60,7 +60,7 @@ If (!(test-path $invokeRequestsPath)) {
 }
 
 # scaffolding
-$projectID = createProject -org $org -projectName $projectName -process 'Agile'
+$projectID = createProject -org $org -projectName $projectName -process 'Agile' -sourceControl 'git' -visibility 'private'
 
 if ($repoName) {
 

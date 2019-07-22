@@ -2,12 +2,14 @@ function createProject{
     param(
         [String]$org,
         [String]$projectName,
-        [String]$process
+        [String]$process,
+        [String]$sourceControl,
+        [String]$visibility
     )
 
-    
+
     Write-Host "`nCreating project with name $($projectName) . . . " 
-    $project = az devops project create --org $org --name $projectName --process $process -o json | ConvertFrom-Json
+    $project = az devops project create --org $org --name $projectName --process $process --source-control $sourceControl --visibility $visibility -o json | ConvertFrom-Json
     Write-Host "Created project with name $($project.name) and Id $($project.id)"
     return $project.id
 }
@@ -39,7 +41,7 @@ function importRepo{
         Write-Host "Repo imported with Status $($importRepo.status)"
     }
     else {
-        Write-Host "Private repo import wiki command goes here!"
+        Write-Host "Private repo import failed!"
     }
 }
 
@@ -58,7 +60,7 @@ function publishCodeWiki{
         Write-Host "New code wiki published with ID : $($createCodeWiki.id)"
     }
     else {
-        Write-Host "Project wiki creation command goes here!"
+        $createProjectWiki = az devops wiki create --name $wikiName --type projectwiki -org $org -p $projectID -o json | ConvertFrom-Json
+        Write-Host "New project wiki created with ID : $($createProjectWiki.id)"
     }
-    
 }
