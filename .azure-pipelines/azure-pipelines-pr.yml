@@ -47,7 +47,7 @@ jobs:
       Python27:
         python.version: '2.x'
       Python36:
-        python.version: '3.6.8'
+        python.version: '3.6.x'
       Python37:
         python.version: '3.x'
     maxParallel: 3
