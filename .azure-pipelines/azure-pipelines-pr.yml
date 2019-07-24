@@ -89,7 +89,7 @@ jobs:
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
-      script : '[Environment]::SetEnvironmentVariable("AZURE_EXTENSION_DIR",$null,[System.EnvironmentVariableTarget]::Machine)'
+      script : 'ren "C:\Program Files\Common Files\AzureCliExtensionDirectory" "C:\Program Files\Common Files\AzureCliExtensionDirectory1"'
 
   - template: templates/run-tests.yml
     parameters:
