@@ -7,8 +7,6 @@ steps:
       artifactName: 'azure-devops-cli-extension'
       downloadPath: '$(System.ArtifactsDirectory)/extension'
 
-  - bash: sudo rm -R /usr/local/lib/azureExtensionDir
-
   - task: PowerShell@2
     displayName: 'Install Downloaded Extension'
     inputs:

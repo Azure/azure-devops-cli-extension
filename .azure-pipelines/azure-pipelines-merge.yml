@@ -77,6 +77,8 @@ jobs:
     maxParallel: 3
 
   steps:
+  - bash: sudo rm -R -f /usr/local/lib/azureExtensionDir
+
   - template: templates/run-tests.yml
     parameters:
       pythonVersion: '$(python.version)'
