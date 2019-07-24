@@ -125,6 +125,7 @@ jobs:
       additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/azure-devops/htmlcov/**/*.*'
 
 - job: 'Run_Style_Check'
+  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
     vmImage: 'Ubuntu-16.04'
 
