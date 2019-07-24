@@ -9,12 +9,6 @@ steps:
       versionSpec: ${{ parameters.pythonVersion }}
       architecture: 'x64'
 
-  - ${{ if eq(parameters.runWithAzureCliReleased, 'false') }}:
-    - template: install-azure-cli-edge.yml
-
-  - ${{ if eq(parameters.runWithAzureCliReleased, 'true') }}:
-    - template: install-azure-cli-released.yml
-
   - template: download-install-local-azure-test-sdk.yml
 
   - template: setup-ci-machine.yml

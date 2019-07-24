@@ -99,8 +99,6 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  - template: templates/install-azure-cli-edge.yml
-
   - template: templates/download-install-local-azure-test-sdk.yml
 
   - template: templates/setup-ci-machine.yml
@@ -136,8 +134,6 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
-  - template: templates/install-azure-cli-edge.yml
-
   - template: templates/download-install-local-azure-test-sdk.yml
 
   - template: templates/setup-ci-machine.yml
@@ -160,8 +156,6 @@ jobs:
     inputs:
       versionSpec: '3.x'
       architecture: 'x64'
-
-  - template: templates/install-azure-cli-edge.yml
 
   - template: templates/download-install-local-azure-test-sdk.yml
 
