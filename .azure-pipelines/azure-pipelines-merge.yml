@@ -62,26 +62,26 @@ jobs:
       storage: 'azuredevopscli'
       containerName: 'azuredevopscli'
 
-- job: 'Run_Test_Ubuntu'
-  dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
-  pool:
-    vmImage: 'Ubuntu-16.04'
-  strategy:
-    matrix:
-      Python27:
-        python.version: '2.x'
-      Python36:
-        python.version: '3.6.x'
-      Python37:
-        python.version: '3.x'
-    maxParallel: 3
+# - job: 'Run_Test_Ubuntu'
+#   dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
+#   pool:
+#     vmImage: 'Ubuntu-16.04'
+#   strategy:
+#     matrix:
+#       Python27:
+#         python.version: '2.x'
+#       Python36:
+#         python.version: '3.6.x'
+#       Python37:
+#         python.version: '3.x'
+#     maxParallel: 3
 
-  steps:
-  - bash: sudo rm -R -f /usr/local/lib/azureExtensionDir
+#   steps:
+#   - bash: sudo rm -R -f /usr/local/lib/azureExtensionDir
 
-  - template: templates/run-tests.yml
-    parameters:
-      pythonVersion: '$(python.version)'
+#   - template: templates/run-tests.yml
+#     parameters:
+#       pythonVersion: '$(python.version)'
 
 - job: 'Run_Test_Mac'
   dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
@@ -144,7 +144,7 @@ jobs:
 
 - job: 'Run_Style_Check'
   pool:
-    vmImage: 'Ubuntu-16.04'
+    vmImage: 'macOS-10.13'
 
   steps:
   - task: UsePythonVersion@0
@@ -169,7 +169,7 @@ jobs:
 - job: 'Run_HelpText_Check'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
-    vmImage: 'Ubuntu-16.04'
+    vmImage: 'macOS-10.13'
 
   steps:
   - task: UsePythonVersion@0
