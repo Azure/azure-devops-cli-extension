@@ -86,7 +86,10 @@ jobs:
     vmImage: 'vs2017-win2016'
 
   steps:
-  - powershell: [Environment]::SetEnvironmentVariable("AZURE_EXTENSION_DIR",$null,[System.EnvironmentVariableTarget]::Machine)
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script : '[Environment]::SetEnvironmentVariable("AZURE_EXTENSION_DIR",$null,[System.EnvironmentVariableTarget]::Machine)'
 
   - template: templates/run-tests.yml
     parameters:
