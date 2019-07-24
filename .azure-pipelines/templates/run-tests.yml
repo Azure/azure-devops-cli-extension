@@ -4,10 +4,10 @@ parameters:
   runWithAzureCliReleased: 'false'
 
 steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: ${{ parameters.pythonVersion }}
-      architecture: 'x64'
+  # - task: UsePythonVersion@0
+  #   inputs:
+  #     versionSpec: ${{ parameters.pythonVersion }}
+  #     architecture: 'x64'
 
   - ${{ if eq(parameters.runWithAzureCliReleased, 'false') }}:
     - template: install-azure-cli-edge.yml
