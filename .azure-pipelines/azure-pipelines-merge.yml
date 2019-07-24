@@ -44,6 +44,11 @@ jobs:
     vmImage: 'vs2017-win2016'
 
   steps:
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script : 'ren "C:\Program Files\Common Files\AzureCliExtensionDirectory" "C:\Program Files\Common Files\AzureCliExtensionDirectory1"'
+  
   - template: templates/run-tests.yml
     parameters:
       pythonVersion: '3.x'
