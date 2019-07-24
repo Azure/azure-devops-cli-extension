@@ -53,10 +53,6 @@ jobs:
     maxParallel: 3
 
   steps:
-  - bash: sudo apt update
-
-  - bash: sudo apt install git zip unzip python3 python3-pip
- 
   - bash: sudo rm -R -f /usr/local/lib/azureExtensionDir
 
   - template: templates/run-tests.yml

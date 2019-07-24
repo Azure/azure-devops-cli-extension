@@ -4,10 +4,14 @@ parameters:
   runWithAzureCliReleased: 'false'
 
 steps:
-  # - task: UsePythonVersion@0
-  #   inputs:
-  #     versionSpec: ${{ parameters.pythonVersion }}
-  #     architecture: 'x64'
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: ${{ parameters.pythonVersion }}
+      architecture: 'x64'
+
+  - bash: sudo apt update
+
+  - bash: sudo apt install git zip unzip python3 python3-pip
 
   - ${{ if eq(parameters.runWithAzureCliReleased, 'false') }}:
     - template: install-azure-cli-edge.yml
