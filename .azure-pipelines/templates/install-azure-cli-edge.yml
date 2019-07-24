@@ -1,3 +1,3 @@
 steps:
-  - script: 'pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge'
+  - script: pip install azure-cli
     displayName: 'Install Azure CLI Edge'
