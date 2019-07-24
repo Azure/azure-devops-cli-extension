@@ -64,6 +64,8 @@ jobs:
 
 - job: 'Run_Test_Ubuntu'
   dependsOn: ['Build_Publish_Azure_CLI_Test_SDK','Build_Publish_Azure_DevOps_CLI_Extension']
+  variables:
+    AZURE_EXTENSION_DIR : ''
   pool:
     vmImage: 'Ubuntu-16.04'
   strategy:
