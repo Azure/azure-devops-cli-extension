@@ -37,8 +37,12 @@ def open_file(filepath):
     if platform.system() == 'Darwin':       # macOS
         subprocess.call(('open', filepath))
     elif platform.system() == 'Windows':    # Windows
-        # disable pylint warning since we run pylint on linux agent and startfile is a windows only function
-        os.startfile(filepath)  # pylint: disable=no-member
+        try:
+            # disable pylint warning since we run pylint on linux agent and startfile is a windows only function
+            os.startfile(filepath)  # pylint: disable=no-member
+        except WindowsError:
+            # Open with Notepad when no application is associated with yaml files
+            subprocess.call(('notepad.exe', filepath))
     else:                                   # linux variants
         subprocess.call(('xdg-open', filepath))
 
