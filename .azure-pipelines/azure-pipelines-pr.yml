@@ -53,7 +53,7 @@ jobs:
     maxParallel: 3
 
   steps:
-  - bash: sudo chmod a+rwx /usr/local/lib/azureExtensionDir/
+  - bash: sudo chmod g+s a+rwx /usr/local/lib/azureExtensionDir
 
   - bash: az extension add -n application-insights --debug
 
