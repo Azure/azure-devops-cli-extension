@@ -55,6 +55,8 @@ jobs:
   steps:
   - bash: sudo rm -R -f /usr/local/lib/azureExtensionDir
 
+  - bash: sudo apt install gcc
+
   - template: templates/run-tests.yml
     parameters:
       pythonVersion: '$(python.version)'
