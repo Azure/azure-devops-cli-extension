@@ -53,9 +53,9 @@ jobs:
     maxParallel: 3
 
   steps:
-  - bash: sudo rm -R -f /usr/local/lib/azureExtensionDir
+  - bash: sudo chmod a+rwx usr/local/lib/azureExtensionDir
 
-  - bash: sudo apt install gcc
+  - bash: az extension add -n application-insights
 
   - template: templates/run-tests.yml
     parameters:
