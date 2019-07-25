@@ -55,7 +55,7 @@ jobs:
   steps:
   # - bash: sudo chmod a+rwx usr/local/lib/azureExtensionDir
 
-  - bash: az extension add -n application-insights
+  - bash: az extension add -n application-insights --debug
 
   - template: templates/run-tests.yml
     parameters:
