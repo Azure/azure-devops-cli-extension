@@ -5,6 +5,7 @@
 
 import time
 import unittest
+import polling
 from knack.util import CLIError
 from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
@@ -99,9 +100,9 @@ class GroupTests(ScenarioTest):
             # add user
             add_membership = self.cmd('az devops security group membership add --group-id '+ project_group_descriptor +' --member-id '+ _TEST_EMAIL_ID  +' -o json --detect false').get_output_in_json()
 
-            time.sleep(5)
-            list_group_name3_memberof = self.cmd('az devops security group membership list --id '+ project_group_descriptor3 +' --relationship memberof -o json --detect false').get_output_in_json()
-            assert len(list_group_name3_memberof) == 4
+            list_grp_str = 'az devops security group membership list --id '+ project_group_descriptor3 +' --relationship memberof -o json --detect false'
+            polling.poll(lambda:len(self.cmd(list_grp_str).get_output_in_json()) == 4, timeout=10,step=0.2 )
+            list_group_name3_memberof = self.cmd(list_grp_str).get_output_in_json()
 
             list_project_group_name_members = self.cmd('az devops security group membership list --id '+ project_group_descriptor +' -o json --detect false').get_output_in_json()
             assert len(list_project_group_name_members) == 2
@@ -109,8 +110,9 @@ class GroupTests(ScenarioTest):
             # remove membership
             remove_membership = self.cmd('az devops security group membership remove --group-id '+ project_group_descriptor +' --member-id '+ project_group_descriptor3 +' -y -o json --detect false')
             
-            time.sleep(5)
-            list_group_name3_memberof = self.cmd('az devops security group membership list --id '+ project_group_descriptor3 +' --relationship memberof -o json --detect false').get_output_in_json()
+            list_grp_str = 'az devops security group membership list --id '+ project_group_descriptor3 +' --relationship memberof -o json --detect false'
+            polling.poll(lambda:len(self.cmd(list_grp_str).get_output_in_json()) == 3, timeout=5,step=2 )
+            list_group_name3_memberof = self.cmd(list_grp_str).get_output_in_json()
             assert len(list_group_name3_memberof) == 3
 
             #update
