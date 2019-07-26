@@ -144,7 +144,6 @@ function setUpTeamIterations {
 
     # show backlog iteration command
     $backlogIterationDetails = az boards iteration team show-backlog-iteration --team $teamID --org $org --project $projectName -o json | ConvertFrom-Json
-    
     $depthParam = '1'
     $backlogIterationPath = $backlogIterationDetails.backlogIteration.path
     Write-Host "`nTeam Iterations Configuration"
@@ -155,7 +154,7 @@ function setUpTeamIterations {
         foreach ($child in $rootIteration.children) {
             $getProjectTeamIterationID = $child.identifier
             # add this child iteration to the given team
-            $addTeamIteration = az boards iteration team add --team $teamID --id $getProjectTeamIterationID  --project $projectName -o json | ConvertFrom-Json
+            $addTeamIteration = az boards iteration team add --team $teamID --id $getProjectTeamIterationID  --project $projectName --org $org -o json | ConvertFrom-Json
             Write-Host "Team iteration added with ID : $($addTeamIteration.id) and name:$($child.name)"
         }
     }
