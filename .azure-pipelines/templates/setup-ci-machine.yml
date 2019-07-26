@@ -9,3 +9,5 @@ steps:
   displayName: 'Install coverage'
 - script: pip install pytest-cov
   displayName: 'Install pytest-cov'
+- script: pip install polling
+  displayName: 'Install polling'
