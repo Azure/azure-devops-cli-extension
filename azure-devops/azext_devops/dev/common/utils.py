@@ -37,8 +37,7 @@ def open_file(filepath):
     if platform.system() == 'Darwin':       # macOS
         subprocess.call(('open', filepath))
     elif platform.system() == 'Windows':    # Windows
-        # disable pylint warning since we run pylint on linux agent and startfile is a windows only function
-        os.system(filepath)  # pylint: disable=no-member
+        os.system(filepath)
     else:                                   # linux variants
         subprocess.call(('xdg-open', filepath))
 
