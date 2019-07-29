@@ -291,7 +291,7 @@ def get_kubernetes_connection_create_object(subscription_id, subscription_name, 
                     "azureSubscriptionName": subscription_name,
                     "clusterId": cluster_id,
                     "namespace": namespace,
-                    "operation.createNamespace": create_namespace
+                    "operation.createOrReuseNamespace": create_namespace
                 },
                 "name": cluster_name + "-" + namespace,
                 "type": "kubernetes",

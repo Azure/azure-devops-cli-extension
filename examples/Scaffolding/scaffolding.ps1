@@ -4,7 +4,8 @@ param(
 )
 . (Join-Path $PSScriptRoot .\Boards\boardsettings.ps1)
 . (Join-Path $PSScriptRoot .\Repos\setPolicies.ps1)
-. (Join-Path $PSScriptRoot .\configureTeam.ps1)
+. (Join-Path $PSScriptRoot .\DevOps\projectSetUp.ps1)
+. (Join-Path $PSScriptRoot .\DevOps\configureTeam.ps1)
 
 
 #get input params
@@ -43,11 +44,11 @@ else {
     $repoName = $values.repoName
     $repoToImport = $values.repoToImport
     $teamName = $values.teamName
-    $requiredReviewers = $values.requiredReviewers.split(",")
-    $optionalReviewers = $values.optionalReviewers.split(",")
-    $teamMembers = $values.teamMembers.split(",")
-    $teamAdminMembers = $values.teamAdminMembers.split(",")
-    $childIterationNamesList = $values.childIterationNamesList.split(",")
+    $requiredReviewers = if ($values.requiredReviewers) { $values.requiredReviewers.split(",") }
+    $optionalReviewers = if ($values.optionalReviewers) { $values.optionalReviewers.split(",") }
+    $teamMembers = if ($values.teamMembers) { $values.teamMembers.split(",") }
+    $teamAdminMembers = if ($values.teamAdminMembers) { $values.teamAdminMembers.split(",") }
+    $childIterationNamesList = if ($values.childIterationNamesList) { $values.childIterationNamesList.split(",") }
     $iterationsPermissionsBit = $values.iterationsPermissionsBit
 
     Write-Host("`nAll the required parameters are read from file at $($filePath)  Now just sit back and relax, script is in action now . . . ")
@@ -59,22 +60,15 @@ If (!(test-path $invokeRequestsPath)) {
 }
 
 # scaffolding
-Write-Host "`nCreating project with name $($projectName) . . . " 
-$project = az devops project create --org $org --name $projectName --process Agile -o json | ConvertFrom-Json
-Write-Host "Created project with name $($project.name) and Id $($project.id)" 
+$projectID = createProject -org $org -projectName $projectName -process 'Agile' -sourceControl 'git' -visibility 'private'
 
+if ($repoName) {
 
-if ($repoName) { 
-    Write-Host "`nCreating repository with name $($repoName) . . . " 
-    $repo = az repos create --org $org -p $projectName --name $repoName -o json | ConvertFrom-Json
-    Write-Host "Created repository with name $($repo.name) and Id $($repo.id)"
-
+    $repoID = createRepo  -repoName $repoName -org $org -projectID $projectID
     if ($repoToImport) {
-        Write-Host "`nImporting repository from url $($repoToImport)" 
-        $importRepo = az repos import create --org $org -p $project.id -r $repo.id --git-url $repoToImport -o json | ConvertFrom-Json
-        Write-Host "Repo imported with Status $($importRepo.status)"
+        importRepo -repoID $repoID -repoToImport $repoToImport -repoType 'Public' -org $org -projectID $projectID
         if ($requiredReviewers -or $optionalReviewers) {
-            $policiesSet = set_policies -org $org -projectName $project.id -repoId $repo.id -branch 'master' -requiredApprovers $requiredReviewers -optionalApprovers $optionalReviewers
+            $policiesSet = set_policies -org $org -projectName $projectID -repoId $repoID -branch 'master' -requiredApprovers $requiredReviewers -optionalApprovers $optionalReviewers
             Write-Host "`nBranch policies set for master"
         }
     }
@@ -84,49 +78,46 @@ else {
 }
 
 # team set up
-$apiVersion = '5.0'
 if ($teamName) {
-    Write-Host "`nCreating team with name $($teamName) . . . " 
-    $createTeam = az devops team create --name $teamName  --org $org -p $project.id -o json | ConvertFrom-Json
-    Write-Host "Created team with name $($createTeam.name) and Id $($createTeam.id)"
+    $teamID = createTeam -org $org -teamName $teamName -projectID $projectID
     if ($teamMembers) {
-        $listGroups = az devops security group list --org $org -p $project.id -o json | ConvertFrom-Json
+        $listGroups = az devops security group list --org $org -p $projectID -o json | ConvertFrom-Json
         foreach ($grp in $listGroups.graphGroups) {
             if ($grp.displayName -eq $teamName) {
                 # Add team members
                 addTeamMembers -org $org -teamMembersList $teamMembers -teamDescriptor $grp.descriptor
                 # create a team admin group and add it to this team
                 $teamAdminGroupName = $teamName + ' Admins'
-                $createTeamAdminsGroup = az devops security group create --org $org -p $project.id --name $teamAdminGroupName --groups $grp.descriptor -o json | ConvertFrom-Json 
-                Write-Host "`nCreated new admin group with name $($teamAdminGroupName) and added to the newly created team $($createTeam.name)."
+                $createTeamAdminsGroup = az devops security group create --org $org -p $projectID --name $teamAdminGroupName --groups $grp.descriptor -o json | ConvertFrom-Json 
+                Write-Host "`nCreated new admin group with name $($teamAdminGroupName) and added to the newly created team $teamName."
 
                 if ($teamAdminMembers) {
                     addTeamMembers -org $org -teamMembersList $teamAdminMembers -teamDescriptor $createTeamAdminsGroup.descriptor
                 }
                 # add this newly created Admin group as Team Administrators
-                addTeamAdmins -org $org -projectID $project.id -teamID $($createTeam.id) -adminGrpDescriptor $createTeamAdminsGroup.descriptor
+                addTeamAdmins -org $org -projectID $projectID -teamID $teamID -adminGrpDescriptor $createTeamAdminsGroup.descriptor
 
                 #create Area for this team
-                createTeamArea -org $org -projectID $project.id -areaName $teamName
+                createTeamArea -org $org -projectID $projectID -areaName $teamName
 
                 # area path
                 $areaPath = $projectName + '\' + $teamName
-                configureDefaultArea -org $org -projectID $project.id -teamID $($createTeam.id) -defaultAreaPath $areaPath
+                configureDefaultArea -org $org -projectID $projectID -teamID $teamID -defaultAreaPath $areaPath
                 
                 # Configure project level iterations with this group/team and grant permissions for admins group
                 $projectIterationNameForThisTeam = $teamName + ' iteration' 
-                $rootIterationId = projectLevelIterationsSettings -org $org -projectID $project.id -rootIterationName $projectIterationNameForThisTeam -subject $createTeamAdminsGroup.descriptor -allow $iterationsPermissionsBit -childIterationNamesList $childIterationNamesList
+                $rootIterationId = projectLevelIterationsSettings -org $org -projectID $projectID -rootIterationName $projectIterationNameForThisTeam -subject $createTeamAdminsGroup.descriptor -allow $iterationsPermissionsBit -childIterationNamesList $childIterationNamesList
             
                 if ($rootIterationId)
                 {
                     #set backlog iteration ID
-                    $setBacklogIteration = az boards iteration team set-backlog-iteration --id $rootIterationId --team $createTeam.id --org $org -p $project.id -o json | ConvertFrom-Json 
+                    $setBacklogIteration = az boards iteration team set-backlog-iteration --id $rootIterationId --team $teamID --org $org -p $projectID -o json | ConvertFrom-Json 
                     Write-Host "`nSetting backlog iteration to : $($setBacklogIteration.backlogIteration.path)"
                     # Boards General settings
-                    setUpGeneralBoardSettings -org $org -projectID $project.id -teamID $($createTeam.id) -epics $true -stories $true -features $true 
+                    setUpGeneralBoardSettings -org $org -projectID $projectID -teamID $teamID -epics $true -stories $true -features $true 
                     
                     # Add child iterations of backlog iteration to the given team
-                    setUpTeamIterations -org $org -projectName $projectName -teamID $($createTeam.id)
+                    setUpTeamIterations -org $org -projectName $projectName -teamID $teamID
                 }
             }
         }

@@ -1,5 +1,8 @@
 # Table of Contents
 
+> IMPORTANT
+> We have moved all the samples documentation from here to <https://aka.ms/azure-devops-cli#how-to-guides>. We will not be maintaing this page going forward.
+
 1. [Log in via Azure DevOps Personal Access Token (PAT)](samples.md#log-in-via-azure-devops-personal-access-token-pat)
 1. [Auto detect and git aliases](samples.md#auto-detect-and-git-aliases)
 1. [Configure output formats](samples.md#configure-output-formats)
