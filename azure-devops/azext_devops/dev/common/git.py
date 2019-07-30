@@ -145,7 +145,7 @@ def resolve_git_ref_heads(ref):
     :type ref: str
     :rtype: str
     """
-    if ref is not None and not ref.startswith(REF_HEADS_PREFIX):
+    if ref is not None and not ref.startswith(REF_HEADS_PREFIX) and not ref.startswith(REF_PULL_PREFIX):
         ref = REF_HEADS_PREFIX + ref
     return ref
 
@@ -198,5 +198,6 @@ _git_remotes = {}
 _ORIGIN_PUSH_KEY = 'origin(push)'
 REFS_PREFIX = 'refs/'
 REF_HEADS_PREFIX = 'refs/heads/'
+REF_PULL_PREFIX = 'refs/pull/'
 GIT_CREDENTIALS_USERNAME_KEY = 'username'
 GIT_CREDENTIALS_PASSWORD_KEY = 'password'

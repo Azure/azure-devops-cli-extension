@@ -11,6 +11,7 @@ from azext_devops.dev.common.services import (get_build_client,
                                               resolve_instance_and_project)
 from azext_devops.dev.common.uri import uri_quote
 from azext_devops.dev.common.uuid import is_uuid
+from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.devops_sdk.v5_0.build.models import Build, DefinitionReference
 from .build_definition import get_definition_id_from_name
 from .pipeline_run import _open_pipeline_run
@@ -97,7 +98,8 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     :type id: int
     :param name: Name of the pipeline to queue. Ignored if --id is supplied.
     :type name: str
-    :param branch: Name of the branch on which the pipeline run is to be queued.
+    :param branch: Name of the branch on which the pipeline run is to be queued. Example: refs/heads/master or master
+    or refs/pull/1/merge
     :type branch: str
     :param variables: Space separated "name=value" pairs for the variables you would like to set.
     :type variables: [str]
@@ -117,6 +119,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     if id is None:
         id = get_definition_id_from_name(name, client, project)
     definition_reference = DefinitionReference(id=id)
+    branch = resolve_git_ref_heads(branch)
     build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)
     if variables is not None and variables:
         build.parameters = {}

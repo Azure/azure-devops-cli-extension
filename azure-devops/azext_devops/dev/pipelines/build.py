@@ -24,7 +24,8 @@ def build_queue(definition_id=None, definition_name=None, branch=None, variables
     :type definition_id: int
     :param definition_name: Name of the definition to queue. Ignored if --id is supplied.
     :type definition_name: str
-    :param branch: Branch to build. Required if there is not a default branch set up on the definition. Example: "dev".
+    :param branch: Branch to build. Required if there is not a default branch set up on the definition. Example:
+    refs/heads/master or master or refs/pull/1/merge
     :type branch: str
     :param variables: Space separated "name=value" pairs for the variables you would like to set.
     :type variables: [str]
