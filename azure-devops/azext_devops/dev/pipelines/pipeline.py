@@ -98,7 +98,8 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     :type id: int
     :param name: Name of the pipeline to queue. Ignored if --id is supplied.
     :type name: str
-    :param branch: Name of the branch on which the pipeline run is to be queued.
+    :param branch: Name of the branch on which the pipeline run is to be queued. Example: refs/heads/master or master
+    or refs/pull/1/merge
     :type branch: str
     :param variables: Space separated "name=value" pairs for the variables you would like to set.
     :type variables: [str]
