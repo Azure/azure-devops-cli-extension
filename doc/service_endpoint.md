@@ -82,4 +82,4 @@ and body will look like
 
 This request body should be saved in a file and that file can act as a template for creation of service endpoints of type "Docker Registry Service Connection"
 
-This file (after updating appropriate values like Name, ID or password) can be passed to `--azure-rm-service-principal-certificate-path` environment variable.
+This file (after updating appropriate values like Name, ID or password) can be passed to `--service-endpoint-configuration` parameter.
