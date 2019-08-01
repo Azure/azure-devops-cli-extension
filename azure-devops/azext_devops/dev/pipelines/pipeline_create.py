@@ -45,6 +45,7 @@ _GITHUB_REPO_TYPE = 'github'
 _AZURE_GIT_REPO_TYPE = 'tfsgit'
 
 
+# pylint: disable=too-many-statements
 def pipeline_create(name, description=None, repository=None, branch=None, yml_path=None, repository_type=None,
                     service_connection=None, organization=None, project=None, detect=None, queue_id=None,
                     skip_first_run=None):
@@ -147,7 +148,7 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
     if skip_first_run:
         return created_definition
     return client.queue_build(build=Build(definition=created_definition, source_branch=queue_branch),
-                                          project=project)
+                              project=project)
 
 
 def pipeline_update(name=None, id=None, description=None, new_name=None,  # pylint: disable=redefined-builtin
