@@ -214,7 +214,7 @@ def transform_pipeline_or_run_table_output(result):
 
 
 def _transform_pipeline_or_run_row(row):
-    if row.get("buildNumber", None):
+    if row.get("buildNumber", None):  # Hack to detect the json object is definition or run
         return _transform_pipeline_run_row(row)
     return _transform_pipeline_row(row)
 
