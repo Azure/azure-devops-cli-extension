@@ -8,7 +8,6 @@ from __future__ import print_function
 import os
 from knack.log import get_logger
 from knack.prompting import prompt_pass
-from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
 from azext_devops.dev.common.services import get_service_endpoint_client, resolve_instance_and_project
 from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX, AZ_DEVOPS_GITHUB_PAT_ENVKEY
@@ -61,29 +60,23 @@ def delete_service_endpoint(id, deep=False, organization=None, project=None, det
     return client.delete_service_endpoint(project, id, deep)
 
 
-def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
-                            github_url=None,
-                            azure_rm_tenant_id=None, azure_rm_service_principal_id=None,
-                            azure_rm_subscription_id=None,
-                            azure_rm_subscription_name=None, organization=None,
-                            project=None, detect=None):
-    """ (PREVIEW) Create a service endpoint
-    :param service_endpoint_type: Type of service endpoint
-    :type service_endpoint_type: str
+def create_azurerm_service_endpoint(name, azure_rm_tenant_id, azure_rm_service_principal_id,
+                                    azure_rm_subscription_id, azure_rm_subscription_name,
+                                    azure_rm_service_principal_certificate_path=None,
+                                    organization=None, project=None, detect=None):
+    """ Create an Azure RM type service endpoint.
     :param name: Name of service endpoint to create
     :type name: str
-    :param authorization_scheme: Authorization to be used in service endpoint creation
-     Github service endpoint supports PersonalAccessToken
-     AzureRm service endpoint supports ServicePrincipal
-    :type authorization_scheme: str
-    :param github_url: Url for github for creating service endpoint
-    :type github_url: str
     :param azure_rm_tenant_id: tenant id for creating azure rm service endpoint
     :type azure_rm_tenant_id: str
     :param azure_rm_service_principal_id: service principal id for creating azure rm service endpoint
     :type azure_rm_service_principal_id: str
     :param azure_rm_subscription_id: subscription id for azure rm service endpoint
     :type azure_rm_subscription_id: str
+    :param azure_rm_service_principal_certificate_path: Path to (.pem) which is certificate.
+     Create using command "openssl pkcs12 -in file.pfx -out file.pem -nodes -password pass:<password_here>".
+     More details : https://aka.ms/azure-devops-cli-service-endpoint
+    :type azure_rm_service_principal_certificate_path: str
     :param azure_rm_subscription_name: name of azure subscription for azure rm service endpoint
     :type azure_rm_subscription_name: str
     :rtype: :class:`ServiceEndpoint <service_endpoint.v4_1.models.ServiceEndpoint>`
@@ -92,52 +85,90 @@ def create_service_endpoint(service_endpoint_type, authorization_scheme, name,
                                                          organization=organization,
                                                          project=project)
     client = get_service_endpoint_client(organization)
-    if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_GITHUB and
-            authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN):
 
-        if AZ_DEVOPS_GITHUB_PAT_ENVKEY not in os.environ:
-            error_message = 'Please pass GitHub access token in ' + AZ_DEVOPS_GITHUB_PAT_ENVKEY +\
-                            ' environment variable in non-interactive mode.'
-            verify_is_a_tty_or_raise_error(error_message)
-            github_access_token = prompt_pass('GitHub access token:', confirm=True)
-        else:
-            github_access_token = os.environ[AZ_DEVOPS_GITHUB_PAT_ENVKEY]
+    service_endpoint_authorization = EndpointAuthorization(
+        parameters={'tenantid': azure_rm_tenant_id,
+                    'serviceprincipalid': azure_rm_service_principal_id},
+        scheme=SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL)
 
-        service_endpoint_authorization = EndpointAuthorization(
-            parameters={'accessToken': github_access_token},
-            scheme=SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN)
-        service_endpoint_to_create = ServiceEndpoint(
-            authorization=service_endpoint_authorization,
-            name=name, type=SERVICE_ENDPOINT_TYPE_GITHUB, url=github_url)
-        return client.create_service_endpoint(service_endpoint_to_create, project)
-
-    if (service_endpoint_type == SERVICE_ENDPOINT_TYPE_AZURE_RM and
-            authorization_scheme == SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL):
-
+    if azure_rm_service_principal_certificate_path is None:
         AZURE_RM_SP_KEY_END_VARIABLE_NAME = CLI_ENV_VARIABLE_PREFIX + 'AZURE_RM_SERVICE_PRINCIPAL_KEY'
         if AZURE_RM_SP_KEY_END_VARIABLE_NAME not in os.environ:
             error_message = 'Please specify azure service principal key in ' + AZURE_RM_SP_KEY_END_VARIABLE_NAME +\
-                            ' environment variable in non-interactive mode.'
+                            ' environment variable in non-interactive mode or use ' +\
+                            '--azure-rm-service-principal-certificate-path.'
             verify_is_a_tty_or_raise_error(error_message)
             azure_rm_service_principal_key = prompt_pass('Azure RM service principal key:', confirm=True)
         else:
+            logger.debug('Picking Azure RM principal key from environment variable')
             azure_rm_service_principal_key = os.environ[AZURE_RM_SP_KEY_END_VARIABLE_NAME]
 
-        service_endpoint_authorization = EndpointAuthorization(
-            parameters={'tenantid': azure_rm_tenant_id,
-                        'serviceprincipalid': azure_rm_service_principal_id,
-                        'authenticationType': 'spnKey',
-                        'serviceprincipalkey': azure_rm_service_principal_key},
-            scheme=SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL)
-        service_endpoint_data = {
-            'subscriptionId': azure_rm_subscription_id,
-            'subscriptionName': azure_rm_subscription_name,
-            'environment': 'AzureCloud',
-            'creationMode': 'Manual'
-        }
-        service_endpoint_to_create = ServiceEndpoint(
-            authorization=service_endpoint_authorization, data=service_endpoint_data,
-            name=name, type=SERVICE_ENDPOINT_TYPE_AZURE_RM, url='https://management.azure.com/')
-        return client.create_service_endpoint(service_endpoint_to_create, project)
+        service_endpoint_authorization.parameters['authenticationType'] = 'spnKey'
+        service_endpoint_authorization.parameters['serviceprincipalkey'] = azure_rm_service_principal_key
+    else:
+        with open(azure_rm_service_principal_certificate_path, "r") as f:
+            service_endpoint_authorization.parameters['authenticationType'] = 'spnCertificate'
+            service_endpoint_authorization.parameters['servicePrincipalCertificate'] = f.read()
 
-    raise CLIError('This combination of endpoint type is not supported with this authorization scheme.')
+    service_endpoint_data = {
+        'subscriptionId': azure_rm_subscription_id,
+        'subscriptionName': azure_rm_subscription_name,
+        'environment': 'AzureCloud',
+        'creationMode': 'Manual'
+    }
+    service_endpoint_to_create = ServiceEndpoint(
+        authorization=service_endpoint_authorization, data=service_endpoint_data,
+        name=name, type=SERVICE_ENDPOINT_TYPE_AZURE_RM, url='https://management.azure.com/')
+    return client.create_service_endpoint(service_endpoint_to_create, project)
+
+
+def create_github_service_endpoint(name, github_url,
+                                   organization=None, project=None, detect=None):
+    """ Create a GitHub service endpoint.
+    :param name: Name of service endpoint to create
+    :type name: str
+    :param github_url: Url for github for creating service endpoint
+    :type github_url: str
+    :rtype: :class:`ServiceEndpoint <service_endpoint.v4_1.models.ServiceEndpoint>`
+    """
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    client = get_service_endpoint_client(organization)
+    if AZ_DEVOPS_GITHUB_PAT_ENVKEY not in os.environ:
+        error_message = 'Please pass GitHub access token in ' + AZ_DEVOPS_GITHUB_PAT_ENVKEY +\
+                        ' environment variable in non-interactive mode.'
+        verify_is_a_tty_or_raise_error(error_message)
+        github_access_token = prompt_pass('GitHub access token:', confirm=True)
+    else:
+        logger.debug('Picking GitHub PAT from environment variable')
+        github_access_token = os.environ[AZ_DEVOPS_GITHUB_PAT_ENVKEY]
+
+    service_endpoint_authorization = EndpointAuthorization(
+        parameters={'accessToken': github_access_token},
+        scheme=SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN)
+    service_endpoint_to_create = ServiceEndpoint(
+        authorization=service_endpoint_authorization,
+        name=name, type=SERVICE_ENDPOINT_TYPE_GITHUB, url=github_url)
+    return client.create_service_endpoint(service_endpoint_to_create, project)
+
+
+def create_service_endpoint(service_endpoint_configuration,
+                            encoding='utf-8', organization=None,
+                            project=None, detect=None):
+    """ (PREVIEW) Create a service endpoint using configuration file.
+    :param name: Name of service endpoint to create
+    :type name: str
+    :param service_endpoint_configuration: Configuration file with service endpoint request.
+    :type service_endpoint_configuration: str
+    :rtype: :class:`ServiceEndpoint <service_endpoint.v4_1.models.ServiceEndpoint>`
+    """
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    client = get_service_endpoint_client(organization)
+    from azext_devops.dev.common.utils import read_file_content
+    in_file_content = read_file_content(file_path=service_endpoint_configuration, encoding=encoding)
+    import json
+    service_endpoint_to_create = json.loads(in_file_content)
+    return client.create_service_endpoint(service_endpoint_to_create, project)
