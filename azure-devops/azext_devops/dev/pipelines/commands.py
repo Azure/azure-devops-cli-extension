@@ -8,6 +8,7 @@ from azext_devops.dev.common.exception_handler import azure_devops_exception_han
 from ._format import (transform_build_table_output,
                       transform_builds_table_output,
                       transform_pipeline_run_table_output,
+                      transform_pipeline_or_run_table_output,
                       transform_pipeline_runs_table_output,
                       transform_pipeline_table_output,
                       transform_pipelines_table_output,
@@ -94,7 +95,7 @@ pipelineVariablesOps = CliCommandType(
 # pylint: disable=too-many-statements
 def load_build_commands(self, _):
     with self.command_group('pipelines', command_type=pipelineCreateOps) as g:
-        g.command('create', 'pipeline_create', table_transformer=transform_pipeline_run_table_output)
+        g.command('create', 'pipeline_create', table_transformer=transform_pipeline_or_run_table_output)
         g.command('update', 'pipeline_update', table_transformer=transform_pipeline_table_output)
 
     with self.command_group('pipelines', command_type=pipelinesOps) as g:

@@ -208,6 +208,17 @@ def transform_pipeline_runs_table_output(result):
     return table_output
 
 
+def transform_pipeline_or_run_table_output(result):
+    table_output = [_transform_pipeline_or_run_row(result)]
+    return table_output
+
+
+def _transform_pipeline_or_run_row(row):
+    if row.get("buildNumber", None):  # Hack to detect the json object is definition or run
+        return _transform_pipeline_run_row(row)
+    return _transform_pipeline_row(row)
+
+
 def transform_pipeline_run_table_output(result):
     table_output = [_transform_pipeline_run_row(result)]
     return table_output

@@ -45,8 +45,10 @@ _GITHUB_REPO_TYPE = 'github'
 _AZURE_GIT_REPO_TYPE = 'tfsgit'
 
 
+# pylint: disable=too-many-statements
 def pipeline_create(name, description=None, repository=None, branch=None, yml_path=None, repository_type=None,
-                    service_connection=None, organization=None, project=None, detect=None, queue_id=None):
+                    service_connection=None, organization=None, project=None, detect=None, queue_id=None,
+                    skip_first_run=None):
     """ (PREVIEW) Create a new Azure Pipeline (YAML based)
     :param name: Name of the new pipeline
     :type name: str
@@ -71,6 +73,9 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
     :type service_connection: str
     :param queue_id: Id of the queue in the available agent pools. Will be auto detected if not specified.
     :type queue_id: str
+    :param skip_first_run: Specify this flag to prevent the first run being triggered by the command.
+    Command will return a pipeline if run is skipped else it will output a pipeline run.
+    :type skip_first_run: bool
     """
     repository_name = None
     if repository:
@@ -140,8 +145,10 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
     created_definition = client.create_definition(definition=definition, project=project)
     logger.warning('Successfully created a pipeline with Name: %s, Id: %s.',
                    created_definition.name, created_definition.id)
-    return client.queue_build(
-        build=Build(definition=created_definition, source_branch=queue_branch), project=project)
+    if skip_first_run:
+        return created_definition
+    return client.queue_build(build=Build(definition=created_definition, source_branch=queue_branch),
+                              project=project)
 
 
 def pipeline_update(name=None, id=None, description=None, new_name=None,  # pylint: disable=redefined-builtin

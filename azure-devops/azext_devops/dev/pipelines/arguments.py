@@ -78,6 +78,8 @@ def load_build_arguments(self, _):
     with self.argument_context('pipelines create') as context:
         context.argument('repository_type', choices=['tfsgit', 'github'], type=str.lower)
         context.argument('yml_path', options_list=('--yml-path', '--yaml-path'))
+        context.argument('skip_first_run', options_list=['--skip-first-run', '--skip-run'],
+                         arg_type=get_three_state_flag())
 
     with self.argument_context('pipelines update') as context:
         context.argument('yml_path', options_list=('--yml-path', '--yaml-path'))
