@@ -1,4 +1,4 @@
-. (Join-Path $PSScriptRoot .\Utils\permissionsHelper.ps1)
+. (Join-Path $PSScriptRoot ..\Utils\permissionsHelper.ps1)
 function addTeamAdmins{
     param (
         [String]$adminGrpDescriptor,
@@ -35,4 +35,16 @@ function addTeamMembers {
         $addMember = az devops security group membership add --group-id $teamDescriptor --member-id $member --org $org -o json | ConvertFrom-Json 
         Write-Host "Team member $($member) added"
     }
+}
+
+function createTeam {
+    param (
+        [string]$teamName,
+        [string]$org,
+        [string]$projectID
+    )
+    Write-Host "`nCreating team with name $($teamName) . . . " 
+    $createTeam = az devops team create --name $teamName  --org $org -p $projectID -o json | ConvertFrom-Json
+    Write-Host "Created team with name $($createTeam.name) and Id $($createTeam.id)"
+    return $createTeam.id
 }

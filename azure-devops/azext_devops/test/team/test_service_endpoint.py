@@ -17,11 +17,9 @@ from knack.prompting import NoTTYException
 from azext_devops.dev.team.service_endpoint import (list_service_endpoints,
                                                     show_service_endpoint,
                                                     create_service_endpoint,
+                                                    create_github_service_endpoint,
+                                                    create_azurerm_service_endpoint,
                                                     delete_service_endpoint)
-from azext_devops.dev.team.const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
-                                        SERVICE_ENDPOINT_TYPE_GITHUB,
-                                        SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL,
-                                        SERVICE_ENDPOINT_TYPE_AZURE_RM)
 
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.test.utils.authentication import AuthenticatedTests
@@ -74,21 +72,12 @@ class TestServiceEndpointMethods(AuthenticatedTests):
         #assert 
         self.mock_delete_SE(self._TEST_PROJECT_NAME, randomId, 'false')
 
-    def test_create_service_endpoint_unsupported(self):
-        try:
-            create_service_endpoint(service_endpoint_type = SERVICE_ENDPOINT_TYPE_GITHUB, authorization_scheme = SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL, name = '')
-            self.fail()
-        except CLIError as ex:
-            pass
-
     def test_create_service_endpoint_github(self):
         import os
         os.environ['AZURE_DEVOPS_EXT_GITHUB_PAT'] = 'fakeToken'
-        response = create_service_endpoint(service_endpoint_type = SERVICE_ENDPOINT_TYPE_GITHUB, 
-                                           authorization_scheme = SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN, 
-                                           name = '',
-                                           organization = self._TEST_DEVOPS_ORGANIZATION,
-                                           project = self._TEST_PROJECT_NAME)
+        response = create_github_service_endpoint(name = '', github_url='',
+                                                  organization = self._TEST_DEVOPS_ORGANIZATION, 
+                                                  project = self._TEST_PROJECT_NAME)
         del os.environ['AZURE_DEVOPS_EXT_GITHUB_PAT']
 
         #assert
@@ -98,11 +87,13 @@ class TestServiceEndpointMethods(AuthenticatedTests):
     def test_create_service_endpoint_azure_rm(self):
         import os
         os.environ['AZURE_DEVOPS_EXT_AZURE_RM_SERVICE_PRINCIPAL_KEY'] = 'fakeKey'
-        response = create_service_endpoint(service_endpoint_type = SERVICE_ENDPOINT_TYPE_AZURE_RM, 
-                                           authorization_scheme = SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL, 
-                                           name = '',
-                                           organization = self._TEST_DEVOPS_ORGANIZATION,
-                                           project = self._TEST_PROJECT_NAME)
+        response = create_azurerm_service_endpoint(name = '',
+                                                   azure_rm_tenant_id='',
+                                                   azure_rm_service_principal_id='', 
+                                                   azure_rm_subscription_id='',
+                                                   azure_rm_subscription_name='',
+                                                   organization = self._TEST_DEVOPS_ORGANIZATION,
+                                                   project = self._TEST_PROJECT_NAME)
         del os.environ['AZURE_DEVOPS_EXT_AZURE_RM_SERVICE_PRINCIPAL_KEY']
 
         #assert
@@ -111,25 +102,25 @@ class TestServiceEndpointMethods(AuthenticatedTests):
 
     def test_create_service_endpoint_ttyi_exception_github(self):
         try:
-            response = create_service_endpoint(service_endpoint_type = SERVICE_ENDPOINT_TYPE_GITHUB,
-                                               authorization_scheme = SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
-                                               name = '',
-                                               organization = self._TEST_DEVOPS_ORGANIZATION,
-                                               project = self._TEST_PROJECT_NAME)
+            response = create_github_service_endpoint(name = '', github_url='',
+                                                      organization = self._TEST_DEVOPS_ORGANIZATION,
+                                                      project = self._TEST_PROJECT_NAME)
             self.fail('exception was expected')
         except NoTTYException as ex:
             self.assertEqual(str(ex), 'Please pass GitHub access token in AZURE_DEVOPS_EXT_GITHUB_PAT environment variable in non-interactive mode.')
 
     def test_create_service_endpoint_ttyi_exception_azure_se(self):
         try:
-            response = create_service_endpoint(service_endpoint_type = SERVICE_ENDPOINT_TYPE_AZURE_RM, 
-                                            authorization_scheme = SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL, 
-                                            name = '',
-                                            organization = self._TEST_DEVOPS_ORGANIZATION,
-                                            project = self._TEST_PROJECT_NAME)
+            response = create_azurerm_service_endpoint(name = '',
+                                                       azure_rm_tenant_id='',
+                                                       azure_rm_service_principal_id='', 
+                                                       azure_rm_subscription_id='',
+                                                       azure_rm_subscription_name='',
+                                                       organization = self._TEST_DEVOPS_ORGANIZATION,
+                                                       project = self._TEST_PROJECT_NAME)
             self.fail('exception was expected')
         except NoTTYException as ex:
-            self.assertEqual(str(ex), 'Please specify azure service principal key in AZURE_DEVOPS_EXT_AZURE_RM_SERVICE_PRINCIPAL_KEY environment variable in non-interactive mode.')
+            self.assertEqual(str(ex), 'Please specify azure service principal key in AZURE_DEVOPS_EXT_AZURE_RM_SERVICE_PRINCIPAL_KEY environment variable in non-interactive mode or use --azure-rm-service-principal-certificate-path.')
 
 if __name__ == '__main__':
     unittest.main()

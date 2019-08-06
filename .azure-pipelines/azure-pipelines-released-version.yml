@@ -10,7 +10,7 @@ schedules:
   displayName: Daily midnight build
   branches:
     include:
-    - release-0.11.0
+    - release-0.12.0
   always: true
 
 jobs:

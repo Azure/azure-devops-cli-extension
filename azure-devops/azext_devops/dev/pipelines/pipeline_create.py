@@ -31,7 +31,7 @@ logger = get_logger(__name__)
 
 # pylint: disable=too-few-public-methods
 class YmlOptions:
-    def __init__(self, name, id, content, description='Custom yml', params=None, path=None, assets=None):  # pylint: disable=redefined-builtin
+    def __init__(self, name, id, content, description='Custom yaml', params=None, path=None, assets=None):  # pylint: disable=redefined-builtin
         self.name = name
         self.id = id
         self.description = description
@@ -45,8 +45,10 @@ _GITHUB_REPO_TYPE = 'github'
 _AZURE_GIT_REPO_TYPE = 'tfsgit'
 
 
+# pylint: disable=too-many-statements
 def pipeline_create(name, description=None, repository=None, branch=None, yml_path=None, repository_type=None,
-                    service_connection=None, organization=None, project=None, detect=None, queue_id=None):
+                    service_connection=None, organization=None, project=None, detect=None, queue_id=None,
+                    skip_first_run=None):
     """ Create a new Azure Pipeline (YAML based)
     :param name: Name of the new pipeline
     :type name: str
@@ -61,7 +63,7 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
     :param branch: Branch name for which the pipeline will be configured. If omitted, it will be auto-detected
     from local repository
     :type branch: str
-    :param yml_path: Path of the pipelines yml file in the repo (if yml is already present in the repo).
+    :param yml_path: Path of the pipelines yaml file in the repo (if yaml is already present in the repo).
     :type yml_path: str
     :param repository_type: Type of repository. If omitted, it will be auto-detected from remote url
     of local repository. 'tfsgit' for Azure Repos, 'github' for GitHub repository.
@@ -71,6 +73,9 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
     :type service_connection: str
     :param queue_id: Id of the queue in the available agent pools. Will be auto detected if not specified.
     :type queue_id: str
+    :param skip_first_run: Specify this flag to prevent the first run being triggered by the command.
+    Command will return a pipeline if run is skipped else it will output a pipeline run.
+    :type skip_first_run: bool
     """
     repository_name = None
     if repository:
@@ -140,8 +145,10 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
     created_definition = client.create_definition(definition=definition, project=project)
     logger.warning('Successfully created a pipeline with Name: %s, Id: %s.',
                    created_definition.name, created_definition.id)
-    return client.queue_build(
-        build=Build(definition=created_definition, source_branch=queue_branch), project=project)
+    if skip_first_run:
+        return created_definition
+    return client.queue_build(build=Build(definition=created_definition, source_branch=queue_branch),
+                              project=project)
 
 
 def pipeline_update(name=None, id=None, description=None, new_name=None,  # pylint: disable=redefined-builtin
@@ -157,7 +164,7 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
     :type description: str
     :param branch: Branch name for which the pipeline will be configured.
     :type branch: str
-    :param yml_path: Path of the pipelines yml file in the repo.
+    :param yml_path: Path of the pipelines yaml file in the repo.
     :type yml_path: str
     :param queue_id: Queue id of the agent pool where the pipeline needs to run.
     :type queue_id: int
@@ -266,7 +273,7 @@ def try_get_repository_type(url):
 
 def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, branch,  # pylint: disable=too-many-locals, too-many-statements
                              service_endpoint, project, organization):
-    logger.debug('No yml file was given. Trying to find the yml file in the repo.')
+    logger.debug('No yaml file was given. Trying to find the yaml file in the repo.')
     queue_branch = branch
     default_yml_exists = False
     yml_names = []
@@ -277,8 +284,8 @@ def _create_and_get_yml_path(cix_client, repository_type, repo_id, repo_name, br
     for configuration in configurations:
         if configuration.path.strip('/') == 'azure-pipelines.yml':
             default_yml_exists = True
-        logger.debug('The repo has a yml pipeline definition. Path: %s', configuration.path)
-        custom_name = 'Existing yml (path={})'.format(configuration.path)
+        logger.debug('The repo has a yaml pipeline definition. Path: %s', configuration.path)
+        custom_name = 'Existing yaml (path={})'.format(configuration.path)
         yml_names.append(custom_name)
         yml_options.append(YmlOptions(name=custom_name, content=configuration.content, id='customid',
                                       path=configuration.path))

@@ -7,10 +7,6 @@
 from knack.arguments import enum_choice_list
 from azure.cli.core.commands.parameters import get_enum_type, get_three_state_flag
 from azext_devops.dev.common.utils import FILE_ENCODING_TYPES
-from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
-                    SERVICE_ENDPOINT_TYPE_GITHUB,
-                    SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL,
-                    SERVICE_ENDPOINT_TYPE_AZURE_RM)
 
 
 # CUSTOM CHOICE LISTS
@@ -20,9 +16,6 @@ _WIKI_TYPE_VALUES = ['projectwiki', 'codewiki']
 _SCOPE_VALUES = ['project', 'organization']
 _PROJECT_VISIBILITY_VALUES = ['private', 'public']
 _STATE_VALUES = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting', 'createpending']
-_SERVICE_ENDPOINT_TYPE = [SERVICE_ENDPOINT_TYPE_GITHUB, SERVICE_ENDPOINT_TYPE_AZURE_RM]
-_SERVICE_ENDPOINT_AUTHORIZATION_SCHEME = [SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
-                                          SERVICE_ENDPOINT_AUTHORIZATION_SERVICE_PRINCIPAL]
 
 _HTTP_METHOD_VALUES = ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS', 'PUT', 'HEAD']
 
@@ -71,12 +64,14 @@ def load_team_arguments(self, _):
         context.argument('state', **enum_choice_list(_STATE_VALUES))
         context.argument('visibility', **enum_choice_list(_PROJECT_VISIBILITY_VALUES))
 
-    with self.argument_context('devops service-endpoint create') as context:
-        context.argument('service_endpoint_type', **enum_choice_list(_SERVICE_ENDPOINT_TYPE))
-        context.argument('authorization_scheme', **enum_choice_list(_SERVICE_ENDPOINT_AUTHORIZATION_SCHEME))
     with self.argument_context('devops project delete') as context:
         context.argument('yes', options_list=['--yes', '-y'], action='store_true',
                          help='Do not prompt for confirmation.')
+
+    with self.argument_context('devops service-endpoint create') as context:
+        context.argument('encoding',
+                         help='Encoding of the input file.',
+                         **enum_choice_list(_FILE_ENCODING_TYPE_VALUES))
 
     with self.argument_context('devops invoke') as context:
         context.argument('route_parameters', nargs='*',

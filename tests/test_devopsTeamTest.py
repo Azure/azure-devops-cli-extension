@@ -17,7 +17,8 @@ class DevopsTeamTests(ScenarioTest):
     @disable_telemetry
     @set_authentication
     def test_devops_team_createUpdateShowListDeleteListMember(self):
-        self.cmd('az devops configure --defaults organization=' +  DEVOPS_CLI_TEST_ORGANIZATION + ' project=DevopsTeamTests')
+        random_project_name = self.create_random_name(prefix='TeamOps', length=15)
+        self.cmd('az devops configure --defaults organization=' +  DEVOPS_CLI_TEST_ORGANIZATION + ' project=' + random_project_name)
     
         team_name = self.create_random_name(prefix='team_name', length=15)
         team_name2 = self.create_random_name(prefix='team_name2', length=15)
@@ -26,6 +27,11 @@ class DevopsTeamTests(ScenarioTest):
         updated_team_description = 'Sample updated description'
     
         try:
+            #create project
+            create_project_command = 'az devops project create --name ' + random_project_name + ' --output json --detect false'
+            project_create_output = self.cmd(create_project_command).get_output_in_json()
+            created_project_id = project_create_output["id"]
+
             # create a team
             create_team_command = ('az devops team create --name "' + team_name + '" --description "' + team_description + '" --output json --detect false')
             create_team_output = self.cmd(create_team_command).get_output_in_json()
@@ -42,6 +48,7 @@ class DevopsTeamTests(ScenarioTest):
             assert create_team_output2["name"] == team_name2
             assert create_team_output2["description"] == team_description
 
+            time.sleep(5)
             #list team command
             list_teams_command = 'az devops team list --output json --detect false'
             list_teams_output = self.cmd(list_teams_command).get_output_in_json()
@@ -70,11 +77,11 @@ class DevopsTeamTests(ScenarioTest):
             assert update_team_output["id"] == created_team_id
 
             # Testing 'list-member' command for default team in this project
-            list_team_members_command = 'az devops team list-member --team "' + "DevopsTeamTests Team" + '" --output json --detect false'
+            default_project_team_name = random_project_name + " Team"
+            list_team_members_command = 'az devops team list-member --team "' + default_project_team_name + '" --output json --detect false'
             list_team_members_output = self.cmd(list_team_members_command).get_output_in_json()
-            assert len(list_team_members_output) == 3
+            assert len(list_team_members_output) == 1
 
-        finally:
             # TestCleanup - delete team
             delete_team_command = 'az devops team delete --id "' + created_team_id + '" --output json --detect false --yes'
             self.cmd(delete_team_command)
@@ -88,4 +95,10 @@ class DevopsTeamTests(ScenarioTest):
             for team in list_teams_output_after_delete:
                 if (team["id"] == created_team_id or team["id"] == created_team_id2):
                     assert 0
+
+        finally:
+            if created_project_id is not None:
+                delete_project_command = 'az devops project delete --id ' + created_project_id + ' --output json --detect false -y'
+                self.cmd(delete_project_command)
+            
 

@@ -21,9 +21,12 @@ _PIPELINES_RUNS_QUERY_ORDER = ['FinishTimeAsc', 'FinishTimeDesc', 'StartTimeAsc'
 
 _AGENT_POOL_TYPES = ['automation', 'deployment']
 
-_AGENT_ACTION_FILTER_TYPES = ['use', 'manage', 'none']
+_ACTION_FILTER_TYPES = ['use', 'manage', 'none']
+
+_VAR_GROUPS_QUERY_ORDER = ['Asc', 'Desc']
 
 
+# pylint: disable=too-many-statements
 def load_build_arguments(self, _):
     with self.argument_context('pipelines build list') as context:
         context.argument('definition_ids', nargs='*', type=int)
@@ -74,10 +77,16 @@ def load_build_arguments(self, _):
 
     with self.argument_context('pipelines create') as context:
         context.argument('repository_type', choices=['tfsgit', 'github'], type=str.lower)
+        context.argument('yml_path', options_list=('--yml-path', '--yaml-path'))
+        context.argument('skip_first_run', options_list=['--skip-first-run', '--skip-run'],
+                         arg_type=get_three_state_flag())
+
+    with self.argument_context('pipelines update') as context:
+        context.argument('yml_path', options_list=('--yml-path', '--yaml-path'))
 
     with self.argument_context('pipelines pool') as context:
         context.argument('pool_id', options_list=('--pool-id', '--id'))
-        context.argument('action', **enum_choice_list(_AGENT_ACTION_FILTER_TYPES))
+        context.argument('action', **enum_choice_list(_ACTION_FILTER_TYPES))
         context.argument('pool_type', **enum_choice_list(_AGENT_POOL_TYPES))
 
     with self.argument_context('pipelines agent') as context:
@@ -88,4 +97,19 @@ def load_build_arguments(self, _):
 
     with self.argument_context('pipelines queue') as context:
         context.argument('queue_id', options_list=('--queue-id', '--id'))
-        context.argument('action', **enum_choice_list(_AGENT_ACTION_FILTER_TYPES))
+        context.argument('action', **enum_choice_list(_ACTION_FILTER_TYPES))
+
+    with self.argument_context('pipelines variable-group') as context:
+        context.argument('group_id', options_list=('--group-id', '--id'))
+        context.argument('variables', nargs='*')
+        context.argument('query_order', **enum_choice_list(_VAR_GROUPS_QUERY_ORDER))
+        context.argument('action_filter', options_list=('--action-filter', '--action'),
+                         **enum_choice_list(_ACTION_FILTER_TYPES))
+        context.argument('secret', arg_type=get_three_state_flag())
+        context.argument('authorize', arg_type=get_three_state_flag())
+        context.argument('prompt_value', arg_type=get_three_state_flag())
+
+    with self.argument_context('pipelines variable') as context:
+        context.argument('secret', arg_type=get_three_state_flag())
+        context.argument('prompt_value', arg_type=get_three_state_flag())
+        context.argument('allow_override', arg_type=get_three_state_flag())
