@@ -190,7 +190,7 @@ jobs:
     vmImage: 'macOS-10.13'
 
   steps:
-  - script: git checkout release-0.11.0
+  - script: git checkout release-0.12.0
 
   # Delete test files which are broken by design
   - script: rm tests/test_devopsUserTest.py
