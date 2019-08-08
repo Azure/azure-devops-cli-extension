@@ -295,8 +295,11 @@ def _fill_friendly_name_for_relations_in_iteration_work_items(relation_types_fro
 
 def _handle_empty_backlog_iteration_id(ex, client, team_context):
     logger.debug(ex, exc_info=True)
-    exception_message_str = r'The guid specified for parameter rootIterationId must not be Guid.Empty.'
-    if exception_message_str in ex.message:
+    # Error string - "TF400497: The backlog iteration path that you specified is no longer valid."
+    exception_message_str = r'TF400497'
+    # Old message string check is for compat purpose and should be removed after 0.13.0 release.
+    exception_message_str_old = r'The guid specified for parameter rootIterationId must not be Guid.Empty.'
+    if exception_message_str in ex.message or exception_message_str_old in ex.message:
         # Check if backlog iteration ID is empty
         backlog_setting = client.get_team_settings(team_context=team_context)
         if backlog_setting.backlog_iteration.id == EMPTY_UUID:
