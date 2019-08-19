@@ -17,7 +17,7 @@ logger = get_logger(__name__)
 
 def pipeline_variable_add(name, pipeline_id=None, pipeline_name=None, value=None, allow_override=None, secret=None,
                           organization=None, project=None, detect=None):
-    """(Preview) Add a variable to a pipeline
+    """Add a variable to a pipeline
     :param pipeline_id: Id of the pipeline.
     :type pipeline_id: int
     :param pipeline_name: Name of the pipeline. Ignored if --pipeline-id parameter is supplied.
@@ -73,7 +73,7 @@ def pipeline_variable_add(name, pipeline_id=None, pipeline_name=None, value=None
 def pipeline_variable_update(name, pipeline_id=None, pipeline_name=None, new_name=None, value=None,
                              allow_override=None, secret=None, prompt_value=None, organization=None,
                              project=None, detect=None):
-    """(Preview) Update a variable in a pipeline
+    """Update a variable in a pipeline
     :param pipeline_id: Id of the pipeline.
     :type pipeline_id: int
     :param pipeline_name: Name of the pipeline. Ignored if --pipeline-id parameter is supplied.
@@ -139,7 +139,7 @@ def pipeline_variable_update(name, pipeline_id=None, pipeline_name=None, new_nam
 
 
 def pipeline_variable_list(pipeline_id=None, pipeline_name=None, organization=None, project=None, detect=None):
-    """(Preview) List the variables in a pipeline
+    """List the variables in a pipeline
     :param pipeline_id: Id of the pipeline.
     :type pipeline_id: int
     :param pipeline_name: Name of the pipeline. Ignored if --pipeline-id parameter is supplied.
@@ -159,7 +159,7 @@ def pipeline_variable_list(pipeline_id=None, pipeline_name=None, organization=No
 
 
 def pipeline_variable_delete(name, pipeline_id=None, pipeline_name=None, organization=None, project=None, detect=None):
-    """(Preview) Delete a variable from pipeline
+    """Delete a variable from pipeline
     :param pipeline_id: Id of the pipeline.
     :type pipeline_id: int
     :param pipeline_name: Name of the pipeline.

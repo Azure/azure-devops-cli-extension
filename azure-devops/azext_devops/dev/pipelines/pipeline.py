@@ -21,7 +21,7 @@ logger = get_logger(__name__)
 
 def pipeline_list(name=None, top=None, organization=None, project=None, repository=None, query_order=None,
                   repository_type=None, detect=None):
-    """ (PREVIEW) List pipelines.
+    """ List pipelines.
     :param name: Limit results to pipelines with this name or starting with this name. Examples: "FabCI" or "Fab*"
     :type name: str
     :param top: Maximum number of pipelines to list.
@@ -67,7 +67,7 @@ def _resolve_query_order(query_order):
 
 def pipeline_show(id=None, name=None, open=False, organization=None, project=None,  # pylint: disable=redefined-builtin
                   detect=None):
-    """ (PREVIEW) Get the details of a pipeline.
+    """ Get the details of a pipeline.
     :param id: ID of the pipeline.
     :type id: int
     :param name: Name of the pipeline. Ignored if --id is supplied.
@@ -93,7 +93,7 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
 
 def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, variables=None,  # pylint: disable=redefined-builtin
                  organization=None, project=None, detect=None):
-    """ (PREVIEW) Queue (run) a pipeline.
+    """ Queue (run) a pipeline.
     :param id: ID of the pipeline to queue. Required if --name is not supplied.
     :type id: int
     :param name: Name of the pipeline to queue. Ignored if --id is supplied.
@@ -136,7 +136,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
 
 
 def pipeline_delete(id, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """ (PREVIEW) Delete a pipeline.
+    """ Delete a pipeline.
     :param id: ID of the pipeline.
     :type id: int
     :param detect: Automatically detect instance and project. Default is "on".

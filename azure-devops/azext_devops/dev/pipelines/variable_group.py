@@ -30,7 +30,7 @@ class VariableGroupAuthorized():
 
 def variable_group_create(name, variables, description=None, authorize=None,
                           organization=None, project=None, detect=None):
-    """(Preview) Create a variable group
+    """Create a variable group
     :param name: Name of the variable group.
     :type name: str
     :param description: Description of the variable group.
@@ -62,7 +62,7 @@ def variable_group_create(name, variables, description=None, authorize=None,
 
 
 def variable_group_show(group_id, organization=None, project=None, detect=None):
-    """(Preview) Show variable group details.
+    """Show variable group details.
     :param group_id: ID of the variable group.
     :type group_id: int
     """
@@ -80,7 +80,7 @@ def variable_group_show(group_id, organization=None, project=None, detect=None):
 
 def variable_group_list(group_name=None, action_filter=None, top=None, continuation_token=None, query_order='Desc',
                         organization=None, project=None, detect=None):
-    """(Preview) List variable groups
+    """List variable groups
     :param group_name: Name of the variable group. Wildcards are accepted. e.g. var_group*
     :type group_name: str
     :param action_filter: Action filter for the variable group.
@@ -104,7 +104,7 @@ def variable_group_list(group_name=None, action_filter=None, top=None, continuat
 
 
 def variable_group_delete(group_id, organization=None, project=None, detect=None):
-    """(Preview) Delete a variable group
+    """Delete a variable group
     :param group_id: Id of the variable group.
     :type group_id: int
     """
@@ -118,7 +118,7 @@ def variable_group_delete(group_id, organization=None, project=None, detect=None
 
 def variable_group_update(group_id, name=None, description=None, authorize=None,
                           organization=None, project=None, detect=None):
-    """(Preview) Update a variable group
+    """Update a variable group
     :param group_id: Id of the variable group.
     :type group_id: int
     :param name: New name of the variable group.
@@ -159,7 +159,7 @@ def variable_group_update(group_id, name=None, description=None, authorize=None,
 
 def variable_group_variable_add(group_id, name, value=None, secret=None,
                                 organization=None, project=None, detect=None):
-    """(Preview) Add a variable to a variable group
+    """Add a variable to a variable group
     :param group_id: Id of the variable group.
     :type group_id: int
     :param name: Name of the variable.
@@ -200,7 +200,7 @@ def variable_group_variable_add(group_id, name, value=None, secret=None,
 
 def variable_group_variable_update(group_id, name, new_name=None, value=None, secret=None, prompt_value=False,
                                    organization=None, project=None, detect=None):
-    """(Preview) Update a variable in a variable group
+    """Update a variable in a variable group
     :param group_id: Id of the variable group.
     :type group_id: int
     :param name: Name of the variable.
@@ -254,7 +254,7 @@ def variable_group_variable_update(group_id, name, new_name=None, value=None, se
 
 
 def variable_group_variable_list(group_id, organization=None, project=None, detect=None):
-    """(Preview) List the variables in a variable group
+    """List the variables in a variable group
     :param group_id: Id of the variable group.
     :type group_id: int
     """
@@ -268,7 +268,7 @@ def variable_group_variable_list(group_id, organization=None, project=None, dete
 
 
 def variable_group_variable_delete(group_id, name, organization=None, project=None, detect=None):
-    """(Preview) Delete a variable from variable group
+    """Delete a variable from variable group
     :param group_id: Id of the variable group.
     :type group_id: int
     :param name: Name of the variable.

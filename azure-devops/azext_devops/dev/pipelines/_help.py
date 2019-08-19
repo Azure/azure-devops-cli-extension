@@ -15,13 +15,13 @@ def load_pipelines_help():
 
     helps['pipelines runs'] = """
     type: group
-    short-summary: (PREVIEW) Manage pipeline runs.
+    short-summary: Manage pipeline runs.
     long-summary:
     """
 
     helps['pipelines runs tag'] = """
     type: group
-    short-summary: (PREVIEW) Manage pipeline run tags.
+    short-summary: Manage pipeline run tags.
     long-summary:
     """
 
@@ -33,37 +33,37 @@ def load_pipelines_help():
 
     helps['pipelines variable-group'] = """
     type: group
-    short-summary: (PREVIEW) Manage variable groups.
+    short-summary: Manage variable groups.
     long-summary:
     """
 
     helps['pipelines variable-group variable'] = """
     type: group
-    short-summary: (PREVIEW) Manage variables in a variable group.
+    short-summary: Manage variables in a variable group.
     long-summary:
     """
 
     helps['pipelines pool'] = """
     type: group
-    short-summary: (PREVIEW) Manage agent pools.
+    short-summary: Manage agent pools.
     long-summary:
     """
 
     helps['pipelines agent'] = """
     type: group
-    short-summary: (PREVIEW) Manage agents.
+    short-summary: Manage agents.
     long-summary:
     """
 
     helps['pipelines queue'] = """
     type: group
-    short-summary: (PREVIEW) Manage agent queues.
+    short-summary: Manage agent queues.
     long-summary:
     """
 
     helps['pipelines variable'] = """
     type: group
-    short-summary: (PREVIEW) Manage pipeline variables.
+    short-summary: Manage pipeline variables.
     long-summary:
     """
 
@@ -93,13 +93,13 @@ def load_pipelines_help():
 
     helps['pipelines runs artifact'] = """
     type: group
-    short-summary: (PREVIEW) Manage pipeline run artifacts.
+    short-summary: Manage pipeline run artifacts.
     long-summary:
     """
 
     helps['pipelines create'] = """
     type: command
-    short-summary: (PREVIEW) Create a new Azure Pipeline (YAML based).
+    short-summary: Create a new Azure Pipeline (YAML based).
     long-summary:
     examples:
       - name: Create an Azure Pipeline from local checkout repository context

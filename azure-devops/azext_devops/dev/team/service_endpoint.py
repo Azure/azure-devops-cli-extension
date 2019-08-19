@@ -156,7 +156,7 @@ def create_github_service_endpoint(name, github_url,
 def create_service_endpoint(service_endpoint_configuration,
                             encoding='utf-8', organization=None,
                             project=None, detect=None):
-    """ (PREVIEW) Create a service endpoint using configuration file.
+    """Create a service endpoint using configuration file.
     :param name: Name of service endpoint to create
     :type name: str
     :param service_endpoint_configuration: Configuration file with service endpoint request.
