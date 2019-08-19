@@ -134,12 +134,12 @@ def load_build_commands(self, _):
         g.command('list', 'release_definition_list', table_transformer=transform_release_definitions_table_output)
         g.command('show', 'release_definition_show', table_transformer=transform_release_definition_table_output)
 
-    with self.command_group('pipelines runs artifact', command_type=pipelineRunArtifactsOps) as g:
+    with self.command_group('pipelines runs artifact', command_type=pipelineRunArtifactsOps, is_preview=True) as g:
         g.command('download', 'run_artifact_download')
         g.command('list', 'run_artifact_list', table_transformer=transform_runs_artifact_table_output)
         g.command('upload', 'run_artifact_upload')
 
-    with self.command_group('pipelines runs tag', command_type=pipelinesRunOps) as g:
+    with self.command_group('pipelines runs tag', command_type=pipelinesRunOps, is_preview=True) as g:
         g.command('add', 'pipeline_run_add_tag', table_transformer=transform_build_tags_output)
         g.command('list', 'pipeline_run_get_tags', table_transformer=transform_build_tags_output)
         g.command('delete', 'pipeline_run_delete_tag', table_transformer=transform_build_tags_output)
