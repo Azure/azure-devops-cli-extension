@@ -160,7 +160,7 @@ def load_build_commands(self, _):
         g.command('list', 'list_queues', table_transformer=transform_pipelines_queues_table_output)
         g.command('show', 'show_queue', table_transformer=transform_pipelines_queue_table_output)
 
-    with self.command_group('pipelines variable-group', command_type=pipelineVariableGroupOps) as g:
+    with self.command_group('pipelines variable-group', command_type=pipelineVariableGroupOps, is_preview=True) as g:
         g.command('create', 'variable_group_create', table_transformer=transform_pipelines_variable_group_table_output)
         g.command('show', 'variable_group_show', table_transformer=transform_pipelines_variable_group_table_output)
         g.command('list', 'variable_group_list', table_transformer=transform_pipelines_variable_groups_table_output)
@@ -178,7 +178,7 @@ def load_build_commands(self, _):
         g.command('delete', 'variable_group_variable_delete',
                   confirmation='Are you sure you want to delete this variable?')
 
-    with self.command_group('pipelines variable', command_type=pipelineVariablesOps) as g:
+    with self.command_group('pipelines variable', command_type=pipelineVariablesOps, is_preview=True) as g:
         g.command('create', 'pipeline_variable_add', table_transformer=transform_pipelines_variables_table_output)
         g.command('update', 'pipeline_variable_update', table_transformer=transform_pipelines_variables_table_output)
         g.command('list', 'pipeline_variable_list', table_transformer=transform_pipelines_variables_table_output)
