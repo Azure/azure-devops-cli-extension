@@ -192,10 +192,6 @@ jobs:
   steps:
   - script: git checkout release-0.12.0
 
-  # Delete test files which are broken by design
-  - script: rm tests/test_devopsUserTest.py
-    displayName : 'Delete Tests which are known to fail'
-
   - template: templates/run-tests.yml
     parameters:
       pythonVersion: '3.x'
