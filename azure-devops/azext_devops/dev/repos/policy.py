@@ -265,11 +265,14 @@ def update_policy_merge_strategy(policy_id,
                                                                                             None)
     ]
     
+    # We cannot send setting as None in the API
     for i, value in enumerate(param_value_array):
         if value is None:
             param_value_array[i] = False
 
-    if len([i for i, value in enumerate(param_value_array) if value == False]) == len(param_value_array):
+    # API does not fail but the update is rejected if the last setting is being set to false.
+    # So this check prevents it from client side.
+    if not [i for i, value in enumerate(param_value_array) if value == True]:
         raise CLIError("At least one merge type must be enabled.")
 
     updated_configuration = create_configuration_object(
