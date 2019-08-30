@@ -190,7 +190,8 @@ def variable_group_variable_add(group_id, name, value=None, secret=None,
         if secret:
             value = _get_value_from_env_or_stdin(var_name=name)
         else:
-            raise CLIError('--value is required as parameter for non secret variable.')
+            value = ''
+            logger.debug('--value is being set to \'\', since --value was not speficied.')
 
     var_group.variables[name] = VariableValue(is_secret=secret, value=value)
     updated_variables = client.update_variable_group(group=var_group, project=project, group_id=group_id).variables
