@@ -60,7 +60,8 @@ def pipeline_variable_add(name, pipeline_id=None, pipeline_name=None, value=None
         if secret:
             value = _get_value_from_env_or_stdin(var_name=name)
         else:
-            raise CLIError('--value is required as parameter for non secret variable.')
+            value = ''
+            logger.debug('--value is being set to \'\', since --value was not speficied.')
 
     pipeline_definition.variables[name] = BuildDefinitionVariable(allow_override=allow_override, is_secret=secret,
                                                                   value=value)
