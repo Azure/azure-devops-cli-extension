@@ -263,31 +263,60 @@ def update_policy_merge_strategy(policy_id,
     current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
     current_setting = current_policy.settings
     current_scope = current_policy.settings['scope'][0]
-    use_squash_merge = use_squash_merge if use_squash_merge is not None \
-        else current_setting.get('useSquashMerge', None)
-    if use_squash_merge is None:
-        param_name_array = ['allowSquash', 'allowRebase', 'allowRebaseMerge', 'allowNoFastForward']
-        param_value_array = [
-            allow_squash if allow_squash is not None else current_setting.get(
-                'allowSquash', current_setting.get('useSquashMerge', None)),
-            allow_rebase if allow_rebase is not None else current_setting.get('allowRebase', None),
-            allow_rebase_merge if allow_rebase_merge is not None else current_setting.get('allowRebaseMerge', None),
-            allow_no_fast_forward if allow_no_fast_forward is not None else current_setting.get('allowNoFastForward',
-                                                                                                None)
-        ]
+    current_setting_new_merge_values_array = [
+        current_setting.get('allowSquash', None),
+        current_setting.get('allowRebase', None),
+        current_setting.get('allowRebaseMerge', None),
+        current_setting.get('allowNoFastForward', None)]
+    is_new_merge_type_update = (allow_squash is not None or
+        allow_no_fast_forward is not None or
+        allow_rebase is not None or
+        allow_rebase_merge is not None)
 
-        # We cannot send setting as None in the API
-        for i, value in enumerate(param_value_array):
-            if value is None:
-                param_value_array[i] = False
+    if is_new_merge_type_update:
+        if use_squash_merge is not None:
+            raise CLIError("Cannot use new options with the deprecated param --use-squash-merge")
+        else:
+            # Update is trying to set some new merge type (this should consider useSquashMerge as deprecated)
+            param_name_array = ['allowSquash', 'allowRebase', 'allowRebaseMerge', 'allowNoFastForward']
+            param_value_array = [
+                allow_squash if allow_squash is not None else current_setting.get(
+                    'allowSquash', current_setting.get('useSquashMerge', None)),
+                allow_rebase if allow_rebase is not None else current_setting.get('allowRebase', None),
+                allow_rebase_merge if allow_rebase_merge is not None else current_setting.get('allowRebaseMerge', None),
+                allow_no_fast_forward if allow_no_fast_forward is not None \
+                    else current_setting.get('allowNoFastForward', None)
+            ]
+            
+            # We cannot send setting as None in the API
+            for i, value in enumerate(param_value_array):
+                if value is None:
+                    param_value_array[i] = False
 
-        # API does not fail but the update is rejected if the last setting is being set to false.
-        # So this check prevents it from client side.
-        if not [i for i, value in enumerate(param_value_array) if value]:
-            raise CLIError("Atleast one merge type must be enabled.")
+            # API does not fail but the update is rejected if the last setting is being set to false.
+            # So this check prevents it from client side.
+            if not [i for i, value in enumerate(param_value_array) if value]:
+                raise CLIError("Atleast one merge type must be enabled.")
+   
+    elif use_squash_merge is not None:
+        # Update is trying to set legacy option
+        if not [i for i, value in enumerate(current_setting_new_merge_values_array) if value is not None]:
+            # Moving from non legacy to legacy - NOT ALLOWED
+            raise CLIError("--use-squash-merge is deprecated. Please use --allow-squash instead.")
+        else:
+            # Changing from legacy to legacy
+            param_name_array = ['useSquashMerge']
+            param_value_array = [use_squash_merge]
     else:
-        param_name_array = ['useSquashMerge']
-        param_value_array = [use_squash_merge]
+        # No update to merge types only other options are getting updated
+        if not [i for i, value in enumerate(current_setting_new_merge_values_array) if value is not None]:
+            # Current setting is new values type
+            param_name_array = ['allowSquash', 'allowRebase', 'allowRebaseMerge', 'allowNoFastForward']
+            param_value_array = current_setting_new_merge_values_array
+        else:
+            # Current setting is legacy option
+            param_name_array = ['useSquashMerge']
+            param_value_array = [current_setting.get('useSquashMerge', False)]
 
     updated_configuration = create_configuration_object(
         repository_id or current_scope['repositoryId'],
