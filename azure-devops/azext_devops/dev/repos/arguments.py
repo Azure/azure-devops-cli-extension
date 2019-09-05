@@ -65,16 +65,16 @@ def load_code_arguments(self, _):
     with self.argument_context('repos policy merge-strategy') as context:
         context.argument('allow_squash', options_list=('--allow-squash', '--use-squash-merge'),
                          arg_type=get_three_state_flag(),
-                         help='Squash merge - Creates a linear history by condensing the source branch commits '\
+                         help='Squash merge - Creates a linear history by condensing the source branch commits '
                          'into a single new commit on the target branch.')
         context.argument('allow_rebase', arg_type=get_three_state_flag(),
-                         help='Rebase and fast-forward - Creates a linear history by replaying the source branch '\
+                         help='Rebase and fast-forward - Creates a linear history by replaying the source branch '
                          'commits onto the target without a merge commit.')
         context.argument('allow_no_fast_forward', arg_type=get_three_state_flag(),
-                         help='Basic merge (no fast-forward) - Preserves nonlinear history exactly as it happened '\
+                         help='Basic merge (no fast-forward) - Preserves nonlinear history exactly as it happened '
                          'during development.')
         context.argument('allow_rebase_merge', arg_type=get_three_state_flag(),
-                         help='Rebase with merge commit - Creates a semi-linear history by replaying the source '\
+                         help='Rebase with merge commit - Creates a semi-linear history by replaying the source '
                          'branch commits onto the target and then creating a merge commit.')
 
     with self.argument_context('repos policy build') as context:

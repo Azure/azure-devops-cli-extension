@@ -264,7 +264,7 @@ def update_policy_merge_strategy(policy_id,
         allow_no_fast_forward if allow_no_fast_forward is not None else current_setting.get('allowNoFastForward',
                                                                                             None)
     ]
-    
+
     # We cannot send setting as None in the API
     for i, value in enumerate(param_value_array):
         if value is None:
@@ -272,7 +272,7 @@ def update_policy_merge_strategy(policy_id,
 
     # API does not fail but the update is rejected if the last setting is being set to false.
     # So this check prevents it from client side.
-    if not [i for i, value in enumerate(param_value_array) if value == True]:
+    if not [i for i, value in enumerate(param_value_array) if value]:
         raise CLIError("At least one merge type must be enabled.")
 
     updated_configuration = create_configuration_object(
