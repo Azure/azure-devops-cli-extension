@@ -28,7 +28,7 @@ while($continueFetching)
     {
         $prClosedDateInString = $pr | Select-Object -ExpandProperty closedDate
         Write-Host -NoNewline "."
-        $prClosedData = [datetime]::ParseExact($prClosedDateInString.SubString(0,10),'yyyy-mm-dd', $null)
+        $prClosedData = [datetime]::ParseExact($prClosedDateInString.SubString(0,10),'yyyy-MM-dd', $null)
         $prId = $pr | Select-Object -ExpandProperty pullRequestId        
 
         $prDetails = az repos pr show --org $org --id $prId -o json | ConvertFrom-Json
