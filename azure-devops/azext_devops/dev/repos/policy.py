@@ -225,7 +225,7 @@ def create_policy_merge_strategy(repository_id, branch, blocking, enabled,
     """Create merge strategy policy
     """
     if (use_squash_merge is None and not allow_squash and not allow_rebase_merge and
-        not allow_rebase and not allow_no_fast_forward):
+            not allow_rebase and not allow_no_fast_forward):
         raise CLIError("Atleast one merge type must be enabled.")
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
@@ -263,11 +263,13 @@ def update_policy_merge_strategy(policy_id,
     current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
     current_setting = current_policy.settings
     current_scope = current_policy.settings['scope'][0]
+    use_squash_merge = use_squash_merge if use_squash_merge is not None \
+        else current_setting.get('useSquashMerge', None)
     if use_squash_merge is None:
         param_name_array = ['allowSquash', 'allowRebase', 'allowRebaseMerge', 'allowNoFastForward']
         param_value_array = [
-            allow_squash if allow_squash is not None else current_setting.get('allowSquash',
-                                                                            current_setting.get('useSquashMerge', None)),
+            allow_squash if allow_squash is not None else current_setting.get(
+                'allowSquash', current_setting.get('useSquashMerge', None)),
             allow_rebase if allow_rebase is not None else current_setting.get('allowRebase', None),
             allow_rebase_merge if allow_rebase_merge is not None else current_setting.get('allowRebaseMerge', None),
             allow_no_fast_forward if allow_no_fast_forward is not None else current_setting.get('allowNoFastForward',
@@ -278,6 +280,7 @@ def update_policy_merge_strategy(policy_id,
         for i, value in enumerate(param_value_array):
             if value is None:
                 param_value_array[i] = False
+
         # API does not fail but the update is rejected if the last setting is being set to false.
         # So this check prevents it from client side.
         if not [i for i, value in enumerate(param_value_array) if value]:
