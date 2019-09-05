@@ -300,7 +300,7 @@ def update_policy_merge_strategy(policy_id,
    
     elif use_squash_merge is not None:
         # Update is trying to set legacy option
-        if not [i for i, value in enumerate(current_setting_new_merge_values_array) if value is not None]:
+        if [i for i, value in enumerate(current_setting_new_merge_values_array) if value is not None]:
             # Moving from non legacy to legacy - NOT ALLOWED
             raise CLIError("--use-squash-merge is deprecated. Please use --allow-squash instead.")
         else:
@@ -309,7 +309,7 @@ def update_policy_merge_strategy(policy_id,
             param_value_array = [use_squash_merge]
     else:
         # No update to merge types only other options are getting updated
-        if not [i for i, value in enumerate(current_setting_new_merge_values_array) if value is not None]:
+        if [i for i, value in enumerate(current_setting_new_merge_values_array) if value is not None]:
             # Current setting is new values type
             param_name_array = ['allowSquash', 'allowRebase', 'allowRebaseMerge', 'allowNoFastForward']
             param_value_array = current_setting_new_merge_values_array
