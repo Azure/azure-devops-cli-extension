@@ -215,6 +215,7 @@ def update_policy_required_reviewer(policy_id,
 
 
 def create_policy_merge_strategy(repository_id, branch, blocking, enabled,
+                                 use_squash_merge=None,
                                  allow_squash=None,
                                  allow_rebase=None,
                                  allow_rebase_merge=None,
@@ -223,16 +224,22 @@ def create_policy_merge_strategy(repository_id, branch, blocking, enabled,
                                  organization=None, project=None, detect=None):
     """Create merge strategy policy
     """
-    if not allow_squash and not allow_rebase_merge and not allow_rebase and not allow_no_fast_forward:
-        raise CLIError("At least one merge type must be enabled.")
+    if (use_squash_merge is None and not allow_squash and not allow_rebase_merge and
+        not allow_rebase and not allow_no_fast_forward):
+        raise CLIError("Atleast one merge type must be enabled.")
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
     policy_client = get_policy_client(organization)
-    param_name_array = ['allowSquash', 'allowRebase', 'allowRebaseMerge', 'allowNoFastForward']
-    param_value_array = [allow_squash, allow_rebase, allow_rebase_merge, allow_no_fast_forward]
-    for i, value in enumerate(param_value_array):
-        if value is None:
-            param_value_array[i] = False
+    if use_squash_merge is None:
+        param_name_array = ['allowSquash', 'allowRebase', 'allowRebaseMerge', 'allowNoFastForward']
+        param_value_array = [allow_squash, allow_rebase, allow_rebase_merge, allow_no_fast_forward]
+        for i, value in enumerate(param_value_array):
+            if value is None:
+                param_value_array[i] = False
+    else:
+        param_name_array = ['useSquashMerge']
+        param_value_array = [use_squash_merge]
+
     configuration = create_configuration_object(repository_id, branch, blocking, enabled,
                                                 'fa4e907d-c16b-4a4c-9dfa-4916e5d171ab',
                                                 param_name_array, param_value_array, branch_match_type)
@@ -242,6 +249,7 @@ def create_policy_merge_strategy(repository_id, branch, blocking, enabled,
 def update_policy_merge_strategy(policy_id,
                                  repository_id=None, branch=None, branch_match_type=None,
                                  blocking=None, enabled=None,
+                                 use_squash_merge=None,
                                  allow_squash=None,
                                  allow_rebase=None,
                                  allow_rebase_merge=None,
@@ -253,27 +261,30 @@ def update_policy_merge_strategy(policy_id,
         detect=detect, organization=organization, project=project)
     policy_client = get_policy_client(organization)
     current_policy = policy_client.get_policy_configuration(project=project, configuration_id=policy_id)
-    param_name_array = ['allowSquash', 'allowRebase', 'allowRebaseMerge', 'allowNoFastForward']
     current_setting = current_policy.settings
     current_scope = current_policy.settings['scope'][0]
-    param_value_array = [
-        allow_squash if allow_squash is not None else current_setting.get('allowSquash',
-                                                                          current_setting.get('useSquashMerge', None)),
-        allow_rebase if allow_rebase is not None else current_setting.get('allowRebase', None),
-        allow_rebase_merge if allow_rebase_merge is not None else current_setting.get('allowRebaseMerge', None),
-        allow_no_fast_forward if allow_no_fast_forward is not None else current_setting.get('allowNoFastForward',
-                                                                                            None)
-    ]
+    if use_squash_merge is None:
+        param_name_array = ['allowSquash', 'allowRebase', 'allowRebaseMerge', 'allowNoFastForward']
+        param_value_array = [
+            allow_squash if allow_squash is not None else current_setting.get('allowSquash',
+                                                                            current_setting.get('useSquashMerge', None)),
+            allow_rebase if allow_rebase is not None else current_setting.get('allowRebase', None),
+            allow_rebase_merge if allow_rebase_merge is not None else current_setting.get('allowRebaseMerge', None),
+            allow_no_fast_forward if allow_no_fast_forward is not None else current_setting.get('allowNoFastForward',
+                                                                                                None)
+        ]
 
-    # We cannot send setting as None in the API
-    for i, value in enumerate(param_value_array):
-        if value is None:
-            param_value_array[i] = False
-
-    # API does not fail but the update is rejected if the last setting is being set to false.
-    # So this check prevents it from client side.
-    if not [i for i, value in enumerate(param_value_array) if value]:
-        raise CLIError("At least one merge type must be enabled.")
+        # We cannot send setting as None in the API
+        for i, value in enumerate(param_value_array):
+            if value is None:
+                param_value_array[i] = False
+        # API does not fail but the update is rejected if the last setting is being set to false.
+        # So this check prevents it from client side.
+        if not [i for i, value in enumerate(param_value_array) if value]:
+            raise CLIError("Atleast one merge type must be enabled.")
+    else:
+        param_name_array = ['useSquashMerge']
+        param_value_array = [use_squash_merge]
 
     updated_configuration = create_configuration_object(
         repository_id or current_scope['repositoryId'],

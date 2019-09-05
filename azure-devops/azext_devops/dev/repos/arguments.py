@@ -63,8 +63,11 @@ def load_code_arguments(self, _):
                          help='Whether to reset source on push.')
 
     with self.argument_context('repos policy merge-strategy') as context:
-        context.argument('allow_squash', options_list=('--allow-squash', '--use-squash-merge'),
-                         arg_type=get_three_state_flag(),
+        context.argument('use_squash_merge', arg_type=get_three_state_flag(),
+                         help='Whether to squash merge always. '
+                         'This option does not work for allowing other merge types.',
+                         deprecate_info=context.deprecate(redirect="--allow-squash"))
+        context.argument('allow_squash', arg_type=get_three_state_flag(),
                          help='Squash merge - Creates a linear history by condensing the source branch commits '
                          'into a single new commit on the target branch.')
         context.argument('allow_rebase', arg_type=get_three_state_flag(),
