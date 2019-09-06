@@ -17,8 +17,6 @@ class DevopsScenarioTest(ScenarioTest):
         if self.in_recording or self.is_live:
             import time
             time.sleep(time_to_sleep)
-            print("this is printed in Live Run")
-
 
 
 def get_random_name(length):
