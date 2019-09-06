@@ -61,11 +61,24 @@ class DevopsReposPoliciesTests(ScenarioTest):
             update_policy_output = self.cmd(update_policy_command).get_output_in_json()
             assert update_policy_output["id"] == policy_id
 
-            #Test was failing without adding a sleep here. Though the create was successful 
+            #Test was failing without adding a sleep here. Though the update was successful 
             time.sleep(5)
 
             show_policy_output = self.cmd(show_policy_command).get_output_in_json()
             assert show_policy_output["settings"]["useSquashMerge"] == True
+
+            # Test New merge policy can be applied over legacy setting
+            update_policy_command = 'az repos policy merge-strategy update --id ' + str(policy_id) + ' --allow-squash False --allow-rebase True --output json --detect false'
+            update_policy_output = self.cmd(update_policy_command).get_output_in_json()
+            assert update_policy_output["id"] == policy_id
+
+            #Test was failing without adding a sleep here. Though the update was successful 
+            time.sleep(5)
+
+            show_policy_output = self.cmd(show_policy_command).get_output_in_json()
+            self.failUnlessRaises(KeyError, lambda: show_policy_output["settings"]["useSquashMerge"])
+            self.failUnlessRaises(KeyError, lambda: show_policy_output["settings"]["allowSquash"])
+            assert show_policy_output["settings"]["allowRebase"] == True
 
             delete_policy_command = 'az repos policy delete --id ' + str(policy_id) + ' -p ' + created_project_id + ' --output json --detect false -y'
             self.cmd(delete_policy_command)
@@ -73,6 +86,29 @@ class DevopsReposPoliciesTests(ScenarioTest):
             list_policy_output = self.cmd(list_policy_command).get_output_in_json()
             #their was only one policy and we deleted it so now their should be 0
             assert len(list_policy_output) == 0
+
+            # Create policy with new options and not the deprecated one
+            create_policy_command = 'az repos policy merge-strategy create --allow-squash True --branch master' + ' -p ' + created_project_id + ' --repository-id ' + create_repo_id + ' --blocking true --enabled true --output json --detect false'
+            create_policy_output = self.cmd(create_policy_command).get_output_in_json()
+            policy_id = create_policy_output["id"]
+            
+            update_policy_command = 'az repos policy merge-strategy update --id ' + str(policy_id) + ' --allow-rebase-merge True --output json --detect false'
+            update_policy_output = self.cmd(update_policy_command).get_output_in_json()
+            assert update_policy_output["id"] == policy_id
+
+            #Test was failing without adding a sleep here. Though the create was successful 
+            time.sleep(5)
+
+            list_policy_output = self.cmd(list_policy_command).get_output_in_json()
+            # now we have one policy so we should get it
+            assert len(list_policy_output) == 1
+
+            show_policy_command = 'az repos policy show --id ' + str(policy_id) + ' -p ' + created_project_id + ' --output json --detect false'
+            show_policy_output = self.cmd(show_policy_command).get_output_in_json()
+            self.failUnlessRaises(KeyError, lambda: show_policy_output["settings"]["useSquashMerge"])
+            self.failUnlessRaises(KeyError, lambda: show_policy_output["settings"]["allowRebase"])
+            assert show_policy_output["settings"]["allowSquash"] == True
+            assert show_policy_output["settings"]["allowRebaseMerge"] == True
 
         finally:
             if created_project_id is not None:
