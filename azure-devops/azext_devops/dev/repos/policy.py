@@ -284,8 +284,8 @@ def update_policy_merge_strategy(policy_id,
                 'allowSquash', current_setting.get('useSquashMerge', None)),
             allow_rebase if allow_rebase is not None else current_setting.get('allowRebase', None),
             allow_rebase_merge if allow_rebase_merge is not None else current_setting.get('allowRebaseMerge', None),
-            allow_no_fast_forward if allow_no_fast_forward is not None \
-                else current_setting.get('allowNoFastForward', None)
+            allow_no_fast_forward if allow_no_fast_forward is not None else current_setting.get(
+                'allowNoFastForward', None)
         ]
         # We cannot send setting as None in the API
         for i, value in enumerate(param_value_array):
