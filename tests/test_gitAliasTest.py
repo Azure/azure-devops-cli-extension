@@ -3,9 +3,9 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 import subprocess
-from azure.cli.testsdk import ScenarioTest
+from .utilities.helper import DevopsScenarioTest
 
-class TestGitAliasing(ScenarioTest):
+class TestGitAliasing(DevopsScenarioTest):
     def test_git_aliases_pr_repo(self):
         self.cmd('az devops configure --use-git-aliases')
         repo_help = subprocess.check_output('git repo -h', shell=True)

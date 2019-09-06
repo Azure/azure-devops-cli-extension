@@ -3,16 +3,14 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 import os
-import time
 import unittest
 
-from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
+from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
 DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
-class DevopsTeamTests(ScenarioTest):
+class DevopsTeamTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     @set_authentication
@@ -48,7 +46,7 @@ class DevopsTeamTests(ScenarioTest):
             assert create_team_output2["name"] == team_name2
             assert create_team_output2["description"] == team_description
 
-            time.sleep(5)
+            self.sleep_in_live_run(5)
             #list team command
             list_teams_command = 'az devops team list --output json --detect false'
             list_teams_output = self.cmd(list_teams_command).get_output_in_json()

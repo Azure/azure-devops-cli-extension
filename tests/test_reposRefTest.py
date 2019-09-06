@@ -5,9 +5,9 @@
 
 import os
 
-from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import (disable_telemetry,
+from .utilities.helper import (DevopsScenarioTest,
+                               disable_telemetry,
                                get_random_name,
                                set_authentication,
                                get_test_org_from_env_variable)
@@ -16,7 +16,7 @@ from .utilities.helper import (disable_telemetry,
 DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 
-class ReposRefTests(ScenarioTest):
+class ReposRefTests(DevopsScenarioTest):
 
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry

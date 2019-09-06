@@ -4,16 +4,14 @@
 # --------------------------------------------------------------------------------------------
 
 import os
-import time
 import unittest
 
-from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
+from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
 DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
-class AdminBannerTests(ScenarioTest):
+class AdminBannerTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     @set_authentication
@@ -36,7 +34,7 @@ class AdminBannerTests(ScenarioTest):
             assert add_admin_banner_output[admin_banner_id]["message"] == admin_banner_message
 
             #Test was failing without adding a sleep here. Though the create was successful when queried after few seconds. 
-            time.sleep(5)
+            self.sleep_in_live_run(5)
             
             #update banner 
             update_admin_banner_command = ('az devops admin banner update --id ' + admin_banner_id + ' --message "' + admin_banner_updated_message + 
@@ -47,7 +45,7 @@ class AdminBannerTests(ScenarioTest):
             assert update_admin_banner_output[admin_banner_id]["message"] == admin_banner_updated_message
 
             #Test was failing without adding a sleep here. Though the update was successful when queried after few seconds. 
-            time.sleep(5)
+            self.sleep_in_live_run(5)
             
             #list banner command
             list_admin_banner_command = 'az devops admin banner list --output json --detect false'
@@ -71,7 +69,7 @@ class AdminBannerTests(ScenarioTest):
             
             #Verify remove
             #Test was failing without adding a sleep here. Though the remove was successful. 
-            time.sleep(5) 
+            self.sleep_in_live_run(5)
             list_admin_banner_command = 'az devops admin banner list --output json --detect false'
             list_admin_banner_output = self.cmd(list_admin_banner_command).get_output_in_json()
             assert admin_banner_id not in list(list_admin_banner_output.keys())

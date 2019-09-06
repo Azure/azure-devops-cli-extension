@@ -3,18 +3,16 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import time
 import unittest
 from knack.util import CLIError
-from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
+from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
 DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'https://dev.azure.com/azuredevopsclitest'
 _TEST_EMAIL_ID = 'new_user_test@outlook.com'
 
 
-class TestUser(ScenarioTest):
+class TestUser(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     @set_authentication

@@ -4,14 +4,12 @@
 # --------------------------------------------------------------------------------------------
 
 import os
-import time
 import unittest
 
-from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import disable_telemetry
+from .utilities.helper import DevopsScenarioTest, disable_telemetry
 
-class ExtensionSearchTest(ScenarioTest):
+class ExtensionSearchTest(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     def test_extension_search(self):
