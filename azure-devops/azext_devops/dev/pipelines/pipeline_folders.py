@@ -72,7 +72,7 @@ def pipeline_folder_list(path=None, query_order=None, organization=None, project
 
 
 def pipeline_folder_update(path, new_path=None, new_description=None,
-                           query_order=None, organization=None, project=None, detect=None):
+                           organization=None, project=None, detect=None):
     """ Update a folder name or description.
     :param path: Full path of the folder.
     :type path: str
@@ -88,12 +88,12 @@ def pipeline_folder_update(path, new_path=None, new_description=None,
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
     client = get_build_client(organization)
-    folder = client.get_folders(path=path, project=project)
-    if len(folder) > 1:
+    folders = client.get_folders(path=path, project=project)
+    if len(folders) > 1:
         raise CLIError('Multiple folders found. Update operation failed.')
-    if len(folder) == 0:
+    if not folders:
         raise CLIError('Cannot find folder with path {}. Update operation failed.'.format(path))
-    folder = folder[0]
+    folder = folders[0]
     if new_description:
         folder.description = new_description
     if new_path:
