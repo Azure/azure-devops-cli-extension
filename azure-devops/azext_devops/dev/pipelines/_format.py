@@ -374,3 +374,25 @@ def _transform_pipeline_var_group_variable_row(key, value):
         val = val[0:_VALUE_TRUNCATION_LENGTH] + '...'
     table_row['Value'] = val
     return table_row
+
+
+def transform_pipelines_folders_table_output(result):
+    table_output = []
+    for item in result:
+        table_output.append(_transform_pipeline_folder_row(item))
+    return table_output
+
+
+def transform_pipelines_folder_table_output(result):
+    table_output = [_transform_pipeline_folder_row(result)]
+    return table_output
+
+
+def _transform_pipeline_folder_row(row):
+    table_row = OrderedDict()
+    table_row['Path'] = row['path']
+    val = row['description'] if row['description'] is not None else ''
+    if len(val) > _VALUE_TRUNCATION_LENGTH:
+        val = val[0:_VALUE_TRUNCATION_LENGTH] + '...'
+    table_row['Description'] = val
+    return table_row

@@ -49,6 +49,12 @@ def load_pipelines_help():
     long-summary:
     """
 
+    helps['pipelines folder'] = """
+    type: group
+    short-summary: Manage folders for organizing pipelines.
+    long-summary:
+    """
+
     helps['pipelines agent'] = """
     type: group
     short-summary: Manage agents.
