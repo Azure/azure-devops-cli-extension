@@ -20,11 +20,11 @@ The following table provides the mapping of commands from VSTS CLI to Azure DevO
 |`vsts build definition show`|`az pipelines build definition show`|
 |`vsts build task list`|`az pipelines build task list`|
 |`vsts build task show`|`az pipelines build task show`|
-|`vsts code pr abandon`|`az repos pr abandon`|
-|`vsts code pr complete`|`az repos pr complete`|
+|`vsts code pr abandon`|`az repos pr update --status abandon`|
+|`vsts code pr complete`|`az repos pr update --status complete`|
 |`vsts code pr create`|`az repos pr create`|
 |`vsts code pr list`|`az repos pr list`|
-|`vsts code pr reactivate`|`az repos pr reactivate`|
+|`vsts code pr reactivate`|`az repos pr update --status active`|
 |`vsts code pr set-vote`|`az repos pr set-vote`|
 |`vsts code pr show`|`az repos pr show`|
 |`vsts code pr update`|`az repos pr update`|
