@@ -24,7 +24,7 @@ from azext_devops.dev.pipelines.pipeline_create_helpers.pipelines_resource_provi
     get_kubernetes_environment_resource, get_container_registry_service_connection, get_webapp_from_list_selection)
 from azext_devops.dev.pipelines.pipeline_create_helpers.azure_repos_helper import push_files_to_azure_repo
 from azext_devops.devops_sdk.v5_1.build.models import Build, BuildDefinition, BuildRepository, AgentPoolQueue
-from .build_definition import get_definition_id_from_name
+from .build_definition import get_definition_id_from_name, fix_path_for_api
 
 logger = get_logger(__name__)
 
@@ -76,7 +76,7 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
     :param skip_first_run: Specify this flag to prevent the first run being triggered by the command.
     Command will return a pipeline if run is skipped else it will output a pipeline run.
     :type skip_first_run: bool
-    :param folder_path: Path of the folder where the pipeline needs to be created. Default is root path.
+    :param folder_path: Path of the folder where the pipeline needs to be created. Default is root folder.
     e.g. "user1/test_pipelines"
     :type folder_path: str
     """
@@ -112,7 +112,7 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
         repository_name = repository
 
     # Validate name availability so user does not face name conflicts after going through the whole process
-    if not validate_name_is_available(name, organization, project):
+    if not validate_name_is_available(name, folder_path, organization, project):
         raise CLIError('Pipeline with name {name} already exists.'.format(name=name))
 
     # Parse repository information according to repository type
@@ -173,7 +173,7 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
     :type yml_path: str
     :param queue_id: Queue id of the agent pool where the pipeline needs to run.
     :type queue_id: int
-    :param folder_path: Path of the folder where the pipeline needs to be created. Default is root path.
+    :param folder_path: Path of the folder where the pipeline exists. Default is root folder.
     e.g. "user1/test_pipelines"
     :type folder_path: str
     """
@@ -204,9 +204,10 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
     return pipeline_client.update_definition(project=project, definition_id=id, definition=definition)
 
 
-def validate_name_is_available(name, organization, project):
+def validate_name_is_available(name, path, organization, project):
     client = get_new_pipeline_client(organization=organization)
-    definition_references = client.get_definitions(project=project, name=name)
+    path = fix_path_for_api(path)
+    definition_references = client.get_definitions(project=project, name=name, path=path)
     if not definition_references:
         return True
     return False
