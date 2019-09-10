@@ -91,6 +91,7 @@ def _open_definition(definition, organization):
 
 
 def fix_path_for_api(path):
+    # Path with no preceeding '\' is not correctly interpreted so hack to add it.
     if path:
         if path.startswith('/'):
             path = path[1:]
@@ -100,7 +101,6 @@ def fix_path_for_api(path):
 
 
 def get_definition_id_from_name(name, client, project, path=None):
-    # Path with no preceeding '\' is not correctly interpreted so hack to add it.
     path = fix_path_for_api(path)
     definition_references = client.get_definitions(project=project, name=name, path=path)
     if len(definition_references) == 1:
