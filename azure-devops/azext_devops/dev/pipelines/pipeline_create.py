@@ -480,7 +480,7 @@ def _create_pipeline_build_object(name, description, repo_id, repo_name, reposit
         definition.repository.default_branch = branch
     if service_endpoint:
         definition.repository.properties = _create_repo_properties_object(service_endpoint, branch, api_url)
-    if path is not None:
+    if path:
         definition.path = path
     # Hack to avoid the case sensitive GitHub type for service hooks.
     if repository_type.lower() == _GITHUB_REPO_TYPE:
