@@ -48,7 +48,7 @@ _AZURE_GIT_REPO_TYPE = 'tfsgit'
 # pylint: disable=too-many-statements
 def pipeline_create(name, description=None, repository=None, branch=None, yml_path=None, repository_type=None,
                     service_connection=None, organization=None, project=None, detect=None, queue_id=None,
-                    skip_first_run=None):
+                    skip_first_run=None, folder_path=None):
     """Create a new Azure Pipeline (YAML based)
     :param name: Name of the new pipeline
     :type name: str
@@ -76,6 +76,9 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
     :param skip_first_run: Specify this flag to prevent the first run being triggered by the command.
     Command will return a pipeline if run is skipped else it will output a pipeline run.
     :type skip_first_run: bool
+    :param folder_path: Path of the folder where the pipeline needs to be created. Default is root path.
+    e.g. "user1/test_pipelines"
+    :type folder_path: str
     """
     repository_name = None
     if repository:
@@ -140,7 +143,8 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
 
     # Create build definition
     definition = _create_pipeline_build_object(name, description, repo_id, repository_name, repository_url, api_url,
-                                               branch, service_connection, repository_type, yml_path, queue_id)
+                                               branch, service_connection, repository_type, yml_path, queue_id,
+                                               folder_path)
     client = get_new_pipeline_client(organization)
     created_definition = client.create_definition(definition=definition, project=project)
     logger.warning('Successfully created a pipeline with Name: %s, Id: %s.',
@@ -152,7 +156,8 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
 
 
 def pipeline_update(name=None, id=None, description=None, new_name=None,  # pylint: disable=redefined-builtin
-                    branch=None, yml_path=None, queue_id=None, organization=None, project=None, detect=None):
+                    branch=None, yml_path=None, queue_id=None, organization=None, project=None, detect=None,
+                    folder_path=None):
     """ Update a pipeline
     :param name: Name of the pipeline to update.
     :type name: str
@@ -168,6 +173,9 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
     :type yml_path: str
     :param queue_id: Queue id of the agent pool where the pipeline needs to run.
     :type queue_id: int
+    :param folder_path: Path of the folder where the pipeline needs to be created. Default is root path.
+    e.g. "user1/test_pipelines"
+    :type folder_path: str
     """
     # pylint: disable=too-many-branches
     organization, project = resolve_instance_and_project(
@@ -190,6 +198,8 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
         definition.queue.id = queue_id
     if yml_path:
         definition.process = _create_process_object(yml_path)
+    if folder_path:
+        definition.path = folder_path
 
     return pipeline_client.update_definition(project=project, definition_id=id, definition=definition)
 
@@ -453,7 +463,7 @@ def _prompt_for_prop_input(prop_name, prop_type):
 
 
 def _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, api_url, branch,
-                                  service_endpoint, repository_type, yml_path, queue_id):
+                                  service_endpoint, repository_type, yml_path, queue_id, path):
     definition = BuildDefinition()
     definition.name = name
     if description:
@@ -470,6 +480,8 @@ def _create_pipeline_build_object(name, description, repo_id, repo_name, reposit
         definition.repository.default_branch = branch
     if service_endpoint:
         definition.repository.properties = _create_repo_properties_object(service_endpoint, branch, api_url)
+    if path is not None:
+        definition.path = path
     # Hack to avoid the case sensitive GitHub type for service hooks.
     if repository_type.lower() == _GITHUB_REPO_TYPE:
         definition.repository.type = 'GitHub'
