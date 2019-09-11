@@ -5,7 +5,7 @@
 
 import colorama
 from knack.log import get_logger
-from azext_devops.dev.common.services import resolve_instance
+from azext_devops.dev.common.services import resolve_instance_and_project
 from azext_devops.dev.common.artifacttool import ArtifactToolInvoker
 from azext_devops.dev.common.artifacttool_updater import ArtifactToolUpdater
 from azext_devops.dev.common.external_tool import ProgressReportingExternalToolInvoker
@@ -13,7 +13,7 @@ from azext_devops.dev.common.external_tool import ProgressReportingExternalToolI
 logger = get_logger(__name__)
 
 
-def publish_package(feed, name, version, path, description=None, organization=None, detect=None):
+def publish_package(feed, name, version, path, description=None, organization=None, project=None, detect=None):
     """Publish a package to a feed.
     :param feed: Name or ID of the feed.
     :type feed: str
@@ -27,12 +27,18 @@ def publish_package(feed, name, version, path, description=None, organization=No
     :type path: str
     """
     colorama.init()   # Needed for humanfriendly spinner to display correctly
-    organization = resolve_instance(detect=detect, organization=organization)
+
+    organization, project = resolve_instance_and_project(
+        detect=detect,
+        organization=organization,
+        project=project,
+        project_required=False)
+
     artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-    return artifact_tool.publish_universal(organization, feed, name, version, description, path)
+    return artifact_tool.publish_universal(organization, project, feed, name, version, description, path)
 
 
-def download_package(feed, name, version, path, file_filter=None, organization=None, detect=None):
+def download_package(feed, name, version, path, file_filter=None, organization=None, project=None, detect=None):
     """Download a package.
     :param feed: Name or ID of the feed.
     :type feed: str
@@ -46,6 +52,12 @@ def download_package(feed, name, version, path, file_filter=None, organization=N
     :type file_filter: str
     """
     colorama.init()  # Needed for humanfriendly spinner to display correctly
-    organization = resolve_instance(detect=detect, organization=organization)
+
+    organization, project = resolve_instance_and_project(
+        detect=detect,
+        organization=organization,
+        project=project,
+        project_required=False)
+
     artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
-    return artifact_tool.download_universal(organization, feed, name, version, path, file_filter)
+    return artifact_tool.download_universal(organization, project, feed, name, version, path, file_filter)
