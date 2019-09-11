@@ -2466,8 +2466,8 @@ class TaskAgentReference(Model):
     :type id: int
     :param name: Gets the name of the agent.
     :type name: str
-    :param oSDescription: Gets the OS of the agent.
-    :type oSDescription: str
+    :param osDescription: Gets the OS of the agent.
+    :type osDescription: str
     :param provisioning_state: Gets or sets the current provisioning state of this agent
     :type provisioning_state: str
     :param status: Gets the current connectivity status of the agent.
@@ -2482,20 +2482,20 @@ class TaskAgentReference(Model):
         'enabled': {'key': 'enabled', 'type': 'bool'},
         'id': {'key': 'id', 'type': 'int'},
         'name': {'key': 'name', 'type': 'str'},
-        'oSDescription': {'key': 'oSDescription', 'type': 'str'},
+        'osDescription': {'key': 'osDescription', 'type': 'str'},
         'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
         'status': {'key': 'status', 'type': 'object'},
         'version': {'key': 'version', 'type': 'str'}
     }
 
-    def __init__(self, _links=None, access_point=None, enabled=None, id=None, name=None, oSDescription=None, provisioning_state=None, status=None, version=None):
+    def __init__(self, _links=None, access_point=None, enabled=None, id=None, name=None, osDescription=None, provisioning_state=None, status=None, version=None):
         super(TaskAgentReference, self).__init__()
         self._links = _links
         self.access_point = access_point
         self.enabled = enabled
         self.id = id
         self.name = name
-        self.oSDescription = oSDescription
+        self.osDescription = osDescription
         self.provisioning_state = provisioning_state
         self.status = status
         self.version = version
@@ -3897,8 +3897,8 @@ class TaskAgent(TaskAgentReference):
     :type id: int
     :param name: Gets the name of the agent.
     :type name: str
-    :param oSDescription: Gets the OS of the agent.
-    :type oSDescription: str
+    :param osDescription: Gets the OS of the agent.
+    :type osDescription: str
     :param provisioning_state: Gets or sets the current provisioning state of this agent
     :type provisioning_state: str
     :param status: Gets the current connectivity status of the agent.
@@ -3935,7 +3935,7 @@ class TaskAgent(TaskAgentReference):
         'enabled': {'key': 'enabled', 'type': 'bool'},
         'id': {'key': 'id', 'type': 'int'},
         'name': {'key': 'name', 'type': 'str'},
-        'oSDescription': {'key': 'oSDescription', 'type': 'str'},
+        'osDescription': {'key': 'osDescription', 'type': 'str'},
         'provisioning_state': {'key': 'provisioningState', 'type': 'str'},
         'status': {'key': 'status', 'type': 'object'},
         'version': {'key': 'version', 'type': 'str'},
@@ -3952,8 +3952,8 @@ class TaskAgent(TaskAgentReference):
         'user_capabilities': {'key': 'userCapabilities', 'type': '{str}'}
     }
 
-    def __init__(self, _links=None, access_point=None, enabled=None, id=None, name=None, oSDescription=None, provisioning_state=None, status=None, version=None, assigned_agent_cloud_request=None, assigned_request=None, authorization=None, created_on=None, last_completed_request=None, max_parallelism=None, pending_update=None, properties=None, status_changed_on=None, system_capabilities=None, user_capabilities=None):
-        super(TaskAgent, self).__init__(_links=_links, access_point=access_point, enabled=enabled, id=id, name=name, oSDescription=oSDescription, provisioning_state=provisioning_state, status=status, version=version)
+    def __init__(self, _links=None, access_point=None, enabled=None, id=None, name=None, osDescription=None, provisioning_state=None, status=None, version=None, assigned_agent_cloud_request=None, assigned_request=None, authorization=None, created_on=None, last_completed_request=None, max_parallelism=None, pending_update=None, properties=None, status_changed_on=None, system_capabilities=None, user_capabilities=None):
+        super(TaskAgent, self).__init__(_links=_links, access_point=access_point, enabled=enabled, id=id, name=name, osDescription=osDescription, provisioning_state=provisioning_state, status=status, version=version)
         self.assigned_agent_cloud_request = assigned_agent_cloud_request
         self.assigned_request = assigned_request
         self.authorization = authorization
