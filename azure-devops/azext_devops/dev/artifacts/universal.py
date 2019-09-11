@@ -27,7 +27,13 @@ def publish_package(feed, name, version, path, description=None, organization=No
     :type path: str
     """
     colorama.init()   # Needed for humanfriendly spinner to display correctly
-    organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project, project_required=False)
+
+    organization, project = resolve_instance_and_project(
+        detect=detect,
+        organization=organization,
+        project=project,
+        project_required=False)
+
     artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
     return artifact_tool.publish_universal(organization, project, feed, name, version, description, path)
 
@@ -46,6 +52,12 @@ def download_package(feed, name, version, path, file_filter=None, organization=N
     :type file_filter: str
     """
     colorama.init()  # Needed for humanfriendly spinner to display correctly
-    organization, project = resolve_instance_and_project(detect=detect, organization=organization, project=project, project_required=False)
+
+    organization, project = resolve_instance_and_project(
+        detect=detect,
+        organization=organization,
+        project=project,
+        project_required=False)
+
     artifact_tool = ArtifactToolInvoker(ProgressReportingExternalToolInvoker(), ArtifactToolUpdater())
     return artifact_tool.download_universal(organization, project, feed, name, version, path, file_filter)
