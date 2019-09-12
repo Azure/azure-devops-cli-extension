@@ -25,7 +25,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - ed7323c6-f495-4338-a9f7-cac1f4b84674
+      - 9909b726-bf7f-48ce-9d34-492af551d31c
       cache-control:
       - no-cache
       content-length:
@@ -33,32 +33,44 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Tue, 10 Sep 2019 13:26:22 GMT
+      - Thu, 12 Sep 2019 06:15:23 GMT
       expires:
       - '-1'
       p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
       pragma:
       - no-cache
       request-context:
       - appId=cid-v1:f88d1338-e7ba-4d7b-83e0-e573c40a2f62
+      set-cookie:
+      - X-VSS-UseRequestRouting=True; domain=.dev.azure.com; expires=Thu, 12-Sep-2019
+        07:15:21 GMT; path=/; secure; HttpOnly
       strict-transport-security:
+      - max-age=31536000; includeSubDomains
       - max-age=31536000; includeSubDomains
       vary:
       - Accept-Encoding
       x-content-type-options:
       - nosniff
+      - nosniff
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: D4B1645C340546B0B09597DF7B7D2A51 Ref B: MAA01EDGE0108 Ref C: 2019-09-10T13:26:21Z'
+      - 'Ref A: 1AB4AEB846B24A4D8E7ABF7B20F99FE3 Ref B: BOM02EDGE0308 Ref C: 2019-09-12T06:15:20Z'
+      x-powered-by:
+      - ARR/3.0
       x-tfs-processid:
-      - 613acbec-6f9e-4720-a7b3-a6dbab59ad23
+      - 07b22566-71d8-4dd8-812a-aa54d517214f
+      - 86c0ec95-c0b9-40aa-9a92-5d43ec998c7c
       x-tfs-session:
-      - ed7323c6-f495-4338-a9f7-cac1f4b84674
+      - 71ec5490-bcd5-4efc-8fec-5fac6762affc
       x-vss-e2eid:
-      - ed7323c6-f495-4338-a9f7-cac1f4b84674
+      - 71ec5490-bcd5-4efc-8fec-5fac6762affc
+      x-vss-requestrouted:
+      - tfsprodcus3.centralus.cloudapp.azure.com
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -75,12 +87,14 @@ interactions:
       - keep-alive
       Content-Type:
       - application/json; charset=utf-8
+      Cookie:
+      - X-VSS-UseRequestRouting=True
       User-Agent:
       - python/3.6.5 (Windows-10-10.0.18362-SP0) msrest/0.6.2 azure-devops/5.0.0b7
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
@@ -125,7 +139,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - ed7323bd-f495-4338-a9f7-cac1f4b84674
+      - b867cca8-5161-422c-a2c8-bf7b6192f9c0
       cache-control:
       - no-cache
       content-length:
@@ -133,7 +147,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0-preview.1
       date:
-      - Tue, 10 Sep 2019 13:26:22 GMT
+      - Thu, 12 Sep 2019 06:15:24 GMT
       expires:
       - '-1'
       p3p:
@@ -152,13 +166,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 0487CCC31E4D4009942938A4358E21E4 Ref B: MAA01EDGE0108 Ref C: 2019-09-10T13:26:22Z'
+      - 'Ref A: 8264EA34FC9741A1BD4F0E0BE64EE357 Ref B: BOM02EDGE0308 Ref C: 2019-09-12T06:15:23Z'
       x-tfs-processid:
-      - 613acbec-6f9e-4720-a7b3-a6dbab59ad23
+      - dbf5c552-c8ac-46c3-adf1-9c602981ed8a
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - ed7323bd-f495-4338-a9f7-cac1f4b84674
+      - b867cca8-5161-422c-a2c8-bf7b6192f9c0
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -181,27 +195,27 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects?stateFilter=all&$top=1&$skip=0
   response:
     body:
-      string: '{"count":1,"value":[{"id":"0eb7195c-dd4f-4662-868f-ba3ebf943b16","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/0eb7195c-dd4f-4662-868f-ba3ebf943b16","state":"wellFormed","revision":23841,"visibility":"organization","lastUpdateTime":"2019-09-10T00:20:33.25Z"}]}'
+      string: '{"count":1,"value":[{"id":"0eb7195c-dd4f-4662-868f-ba3ebf943b16","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/0eb7195c-dd4f-4662-868f-ba3ebf943b16","state":"wellFormed","revision":24370,"visibility":"organization","lastUpdateTime":"2019-09-12T00:19:53.4Z"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 8c4d0aba-06ea-415d-998e-88e863b54be0
+      - 9909b508-bf7f-48ce-9d34-492af551d31c
       cache-control:
       - no-cache
       content-length:
-      - '316'
+      - '315'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:22 GMT
+      - Thu, 12 Sep 2019 06:15:25 GMT
       expires:
       - '-1'
       p3p:
@@ -222,13 +236,13 @@ interactions:
       x-ms-continuationtoken:
       - '1'
       x-msedge-ref:
-      - 'Ref A: 673895864F4242EF8DA3A1219AC67FFC Ref B: MAA01EDGE0219 Ref C: 2019-09-10T13:26:22Z'
+      - 'Ref A: 7073BE25F31A41EB95C9848376B2BADC Ref B: BOM02EDGE0319 Ref C: 2019-09-12T06:15:24Z'
       x-tfs-processid:
-      - 5356544d-cfe8-462d-91dd-a5590d91425e
+      - 86c0ec95-c0b9-40aa-9a92-5d43ec998c7c
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - 8c4d0aba-06ea-415d-998e-88e863b54be0
+      - 9909b508-bf7f-48ce-9d34-492af551d31c
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -251,7 +265,7 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
@@ -270,7 +284,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890a5dd-2cdb-4ef1-892a-37459ad45978
+      - d1511d7a-ad4d-4e28-a32b-e7e2f223d65d
       cache-control:
       - no-cache
       content-length:
@@ -278,7 +292,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:23 GMT
+      - Thu, 12 Sep 2019 06:15:25 GMT
       expires:
       - '-1'
       p3p:
@@ -297,13 +311,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 09498222F6D34B2FBF4FBD0229392409 Ref B: MAA01EDGE0111 Ref C: 2019-09-10T13:26:23Z'
+      - 'Ref A: 49ABDDB3585D44C9BB640B3566783BC6 Ref B: BOM02EDGE0321 Ref C: 2019-09-12T06:15:25Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - 61701bbe-07b3-416d-ac64-61443ae86676
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890a5dd-2cdb-4ef1-892a-37459ad45978
+      - d1511d7a-ad4d-4e28-a32b-e7e2f223d65d
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -330,19 +344,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects
   response:
     body:
-      string: '{"id":"89f46284-f079-4d93-8cfe-ddffb385f67d","status":"notSet","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d"}'
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"notSet","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890a5bb-2cdb-4ef1-892a-37459ad45978
+      - d1511ccc-ad4d-4e28-a32b-e7e2f223d65d
       cache-control:
       - no-cache
       content-length:
@@ -350,7 +364,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:23 GMT
+      - Thu, 12 Sep 2019 06:15:25 GMT
       expires:
       - '-1'
       p3p:
@@ -367,13 +381,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: BE6B3C5981444CB18EF1BE54CC379A5A Ref B: MAA01EDGE0111 Ref C: 2019-09-10T13:26:24Z'
+      - 'Ref A: DD5473114A0C42DABF6AFA3BB630E8C6 Ref B: BOM02EDGE0321 Ref C: 2019-09-12T06:15:26Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - 61701bbe-07b3-416d-ac64-61443ae86676
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890a5bb-2cdb-4ef1-892a-37459ad45978
+      - d1511ccc-ad4d-4e28-a32b-e7e2f223d65d
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -396,19 +410,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
   response:
     body:
-      string: '{"id":"89f46284-f079-4d93-8cfe-ddffb385f67d","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d"}}}'
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890a518-2cdb-4ef1-892a-37459ad45978
+      - f8ff8d59-de3b-42a7-abec-d0338454bdcd
       cache-control:
       - no-cache
       content-length:
@@ -416,7 +430,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:24 GMT
+      - Thu, 12 Sep 2019 06:15:26 GMT
       expires:
       - '-1'
       p3p:
@@ -435,13 +449,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: B612BC8922D846F09FA0D55415ED31B3 Ref B: MAA01EDGE0120 Ref C: 2019-09-10T13:26:24Z'
+      - 'Ref A: 6BBFC6E80E014E3A8B2EE22AC20B9123 Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:26Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890a518-2cdb-4ef1-892a-37459ad45978
+      - f8ff8d59-de3b-42a7-abec-d0338454bdcd
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -464,19 +478,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
   response:
     body:
-      string: '{"id":"89f46284-f079-4d93-8cfe-ddffb385f67d","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d"}}}'
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890da37-2cdb-4ef1-892a-37459ad45978
+      - f8ff8c53-de3b-42a7-abec-d0338454bdcd
       cache-control:
       - no-cache
       content-length:
@@ -484,7 +498,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:25 GMT
+      - Thu, 12 Sep 2019 06:15:28 GMT
       expires:
       - '-1'
       p3p:
@@ -503,13 +517,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 54215F067C0947A8AD9CF5106B3F03DD Ref B: MAA01EDGE0120 Ref C: 2019-09-10T13:26:26Z'
+      - 'Ref A: 0E57B406A0814809A0AD3B6534D9492E Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:28Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890da37-2cdb-4ef1-892a-37459ad45978
+      - f8ff8c53-de3b-42a7-abec-d0338454bdcd
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -532,19 +546,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
   response:
     body:
-      string: '{"id":"89f46284-f079-4d93-8cfe-ddffb385f67d","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d"}}}'
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d8dd-2cdb-4ef1-892a-37459ad45978
+      - f8ff8f27-de3b-42a7-abec-d0338454bdcd
       cache-control:
       - no-cache
       content-length:
@@ -552,7 +566,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:26 GMT
+      - Thu, 12 Sep 2019 06:15:29 GMT
       expires:
       - '-1'
       p3p:
@@ -571,13 +585,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 30D908C5EACB47C297E90BD552C9BE40 Ref B: MAA01EDGE0120 Ref C: 2019-09-10T13:26:27Z'
+      - 'Ref A: C5D18F21D34F457D9135C896BE070626 Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:29Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d8dd-2cdb-4ef1-892a-37459ad45978
+      - f8ff8f27-de3b-42a7-abec-d0338454bdcd
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -600,19 +614,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
   response:
     body:
-      string: '{"id":"89f46284-f079-4d93-8cfe-ddffb385f67d","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d"}}}'
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d9cf-2cdb-4ef1-892a-37459ad45978
+      - f8ff8e23-de3b-42a7-abec-d0338454bdcd
       cache-control:
       - no-cache
       content-length:
@@ -620,7 +634,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:28 GMT
+      - Thu, 12 Sep 2019 06:15:30 GMT
       expires:
       - '-1'
       p3p:
@@ -639,13 +653,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: CDD6EFED4A6145E1A7EAFB4179C83D87 Ref B: MAA01EDGE0120 Ref C: 2019-09-10T13:26:28Z'
+      - 'Ref A: 5E25489D0B454797AB19D7013AFDD583 Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:30Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d9cf-2cdb-4ef1-892a-37459ad45978
+      - f8ff8e23-de3b-42a7-abec-d0338454bdcd
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -668,19 +682,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
   response:
     body:
-      string: '{"id":"89f46284-f079-4d93-8cfe-ddffb385f67d","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d"}}}'
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890dee5-2cdb-4ef1-892a-37459ad45978
+      - f8ff895f-de3b-42a7-abec-d0338454bdcd
       cache-control:
       - no-cache
       content-length:
@@ -688,7 +702,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:29 GMT
+      - Thu, 12 Sep 2019 06:15:32 GMT
       expires:
       - '-1'
       p3p:
@@ -707,13 +721,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: FDD567E71D1B43ABAD3F21713D8BFBF7 Ref B: MAA01EDGE0120 Ref C: 2019-09-10T13:26:29Z'
+      - 'Ref A: 552717341E3B4A27AFB8A932C7514868 Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:32Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890dee5-2cdb-4ef1-892a-37459ad45978
+      - f8ff895f-de3b-42a7-abec-d0338454bdcd
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -736,19 +750,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
   response:
     body:
-      string: '{"id":"89f46284-f079-4d93-8cfe-ddffb385f67d","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d"}}}'
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890dfb4-2cdb-4ef1-892a-37459ad45978
+      - f8ff883e-de3b-42a7-abec-d0338454bdcd
       cache-control:
       - no-cache
       content-length:
@@ -756,7 +770,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:30 GMT
+      - Thu, 12 Sep 2019 06:15:33 GMT
       expires:
       - '-1'
       p3p:
@@ -775,13 +789,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 4284DA1EC5EB4FA48BD99F5C15D524ED Ref B: MAA01EDGE0120 Ref C: 2019-09-10T13:26:31Z'
+      - 'Ref A: 3BE577F831C9431A8D252BB33E0F9E9E Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:33Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890dfb4-2cdb-4ef1-892a-37459ad45978
+      - f8ff883e-de3b-42a7-abec-d0338454bdcd
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -804,19 +818,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
   response:
     body:
-      string: '{"id":"89f46284-f079-4d93-8cfe-ddffb385f67d","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d"}}}'
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890dc15-2cdb-4ef1-892a-37459ad45978
+      - f8ff8b1d-de3b-42a7-abec-d0338454bdcd
       cache-control:
       - no-cache
       content-length:
@@ -824,7 +838,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:32 GMT
+      - Thu, 12 Sep 2019 06:15:34 GMT
       expires:
       - '-1'
       p3p:
@@ -843,13 +857,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 9E26871FB6AE48D9B330C8A037B368E5 Ref B: MAA01EDGE0120 Ref C: 2019-09-10T13:26:32Z'
+      - 'Ref A: DE8EF1489AA64A6083628EF29569BC47 Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:34Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890dc15-2cdb-4ef1-892a-37459ad45978
+      - f8ff8b1d-de3b-42a7-abec-d0338454bdcd
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -872,19 +886,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
   response:
     body:
-      string: '{"id":"89f46284-f079-4d93-8cfe-ddffb385f67d","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d"}}}'
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d2e1-2cdb-4ef1-892a-37459ad45978
+      - f8ff8a15-de3b-42a7-abec-d0338454bdcd
       cache-control:
       - no-cache
       content-length:
@@ -892,7 +906,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:33 GMT
+      - Thu, 12 Sep 2019 06:15:36 GMT
       expires:
       - '-1'
       p3p:
@@ -911,13 +925,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 0E2349A685504AEAAE62342029554CED Ref B: MAA01EDGE0120 Ref C: 2019-09-10T13:26:33Z'
+      - 'Ref A: 0F3369A390F94DE680426144691D2ADA Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:36Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d2e1-2cdb-4ef1-892a-37459ad45978
+      - f8ff8a15-de3b-42a7-abec-d0338454bdcd
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -940,19 +954,291 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
   response:
     body:
-      string: '{"id":"89f46284-f079-4d93-8cfe-ddffb385f67d","status":"succeeded","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/89f46284-f079-4d93-8cfe-ddffb385f67d"}}}'
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d34c-2cdb-4ef1-892a-37459ad45978
+      - f8ff8ae1-de3b-42a7-abec-d0338454bdcd
+      cache-control:
+      - no-cache
+      content-length:
+      - '294'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Thu, 12 Sep 2019 06:15:37 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:f88d1338-e7ba-4d7b-83e0-e573c40a2f62
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: CF35B33C22254FC4A06B09454F7B5D6E Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:37Z'
+      x-tfs-processid:
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
+      x-tfs-session:
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
+      x-vss-e2eid:
+      - f8ff8ae1-de3b-42a7-abec-d0338454bdcd
+      x-vss-userdata:
+      - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.6.5 (Windows-10-10.0.18362-SP0) msrest/0.6.2 azure-devops/5.0.0b7
+        devOpsCli/0.13.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
+  response:
+    body:
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - f8f875fb-de3b-42a7-abec-d0338454bdcd
+      cache-control:
+      - no-cache
+      content-length:
+      - '294'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Thu, 12 Sep 2019 06:15:38 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:f88d1338-e7ba-4d7b-83e0-e573c40a2f62
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 259479A6C908423BB180AB898D83609C Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:38Z'
+      x-tfs-processid:
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
+      x-tfs-session:
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
+      x-vss-e2eid:
+      - f8f875fb-de3b-42a7-abec-d0338454bdcd
+      x-vss-userdata:
+      - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.6.5 (Windows-10-10.0.18362-SP0) msrest/0.6.2 azure-devops/5.0.0b7
+        devOpsCli/0.13.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
+  response:
+    body:
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - f8f874c7-de3b-42a7-abec-d0338454bdcd
+      cache-control:
+      - no-cache
+      content-length:
+      - '294'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Thu, 12 Sep 2019 06:15:39 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:f88d1338-e7ba-4d7b-83e0-e573c40a2f62
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 3E2F7DF2333146628BAE6103B19AB73A Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:39Z'
+      x-tfs-processid:
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
+      x-tfs-session:
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
+      x-vss-e2eid:
+      - f8f874c7-de3b-42a7-abec-d0338454bdcd
+      x-vss-userdata:
+      - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.6.5 (Windows-10-10.0.18362-SP0) msrest/0.6.2 azure-devops/5.0.0b7
+        devOpsCli/0.13.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
+  response:
+    body:
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - f8f8778f-de3b-42a7-abec-d0338454bdcd
+      cache-control:
+      - no-cache
+      content-length:
+      - '294'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Thu, 12 Sep 2019 06:15:41 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:f88d1338-e7ba-4d7b-83e0-e573c40a2f62
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 30247556D420411E927479DCAB1DD23D Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:41Z'
+      x-tfs-processid:
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
+      x-tfs-session:
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
+      x-vss-e2eid:
+      - f8f8778f-de3b-42a7-abec-d0338454bdcd
+      x-vss-userdata:
+      - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.6.5 (Windows-10-10.0.18362-SP0) msrest/0.6.2 azure-devops/5.0.0b7
+        devOpsCli/0.13.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0
+  response:
+    body:
+      string: '{"id":"8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","status":"succeeded","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/8f0f962b-e308-4ab4-b6e7-f9ff1e9a42c0"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - f8f8766c-de3b-42a7-abec-d0338454bdcd
       cache-control:
       - no-cache
       content-length:
@@ -960,7 +1246,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:34 GMT
+      - Thu, 12 Sep 2019 06:15:42 GMT
       expires:
       - '-1'
       p3p:
@@ -979,13 +1265,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 62730DF1869F482D9E718A4F029A159A Ref B: MAA01EDGE0120 Ref C: 2019-09-10T13:26:34Z'
+      - 'Ref A: 357765ACD31F471B9652E76D75F07E57 Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:42Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d34c-2cdb-4ef1-892a-37459ad45978
+      - f8f8766c-de3b-42a7-abec-d0338454bdcd
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -1008,20 +1294,20 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/pipelinesFolderTest000001?includeCapabilities=true
   response:
     body:
-      string: '{"id":"ab2d20a3-be9e-4e3b-9853-a58131956c43","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43","state":"wellFormed","capabilities":{"processTemplate":{"templateName":"Agile","templateTypeId":"adcc42ab-9882-485e-a3ed-7678f01f66bc"},"versioncontrol":{"sourceControlType":"Git","gitEnabled":"True","tfvcEnabled":"False"}},"revision":24022,"_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43"},"collection":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projectCollections/c7dbc2ae-8e6f-4d56-a594-8298af308cc0"},"web":{"href":"https://dev.azure.com/AzureDevOpsCliTest/pipelinesFolderTest000001"}},"visibility":"private","defaultTeam":{"id":"129b99f0-b298-4a7e-8e7b-477996c69cb1","name":"pipelinesFolderTest000001
-        Team","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43/teams/129b99f0-b298-4a7e-8e7b-477996c69cb1"},"lastUpdateTime":"0001-01-01T00:00:00"}'
+      string: '{"id":"03157ae4-4572-4c36-adf8-e0a534aedc5f","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f","state":"wellFormed","capabilities":{"processTemplate":{"templateName":"Agile","templateTypeId":"adcc42ab-9882-485e-a3ed-7678f01f66bc"},"versioncontrol":{"sourceControlType":"Git","gitEnabled":"True","tfvcEnabled":"False"}},"revision":24405,"_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f"},"collection":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projectCollections/c7dbc2ae-8e6f-4d56-a594-8298af308cc0"},"web":{"href":"https://dev.azure.com/AzureDevOpsCliTest/pipelinesFolderTest000001"}},"visibility":"private","defaultTeam":{"id":"fea5e673-7b24-4e73-a533-0d64e2493b11","name":"pipelinesFolderTest000001
+        Team","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f/teams/fea5e673-7b24-4e73-a533-0d64e2493b11"},"lastUpdateTime":"0001-01-01T00:00:00"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d331-2cdb-4ef1-892a-37459ad45978
+      - d1510849-ad4d-4e28-a32b-e7e2f223d65d
       cache-control:
       - no-cache
       content-length:
@@ -1029,7 +1315,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:34 GMT
+      - Thu, 12 Sep 2019 06:15:42 GMT
       expires:
       - '-1'
       p3p:
@@ -1048,13 +1334,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 6D070B904314416B876E0993CF139997 Ref B: MAA01EDGE0111 Ref C: 2019-09-10T13:26:35Z'
+      - 'Ref A: 62E39675252D4819B992779F34911B20 Ref B: BOM02EDGE0321 Ref C: 2019-09-12T06:15:42Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - 61701bbe-07b3-416d-ac64-61443ae86676
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d331-2cdb-4ef1-892a-37459ad45978
+      - d1510849-ad4d-4e28-a32b-e7e2f223d65d
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -1079,20 +1365,20 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PUT
     uri: https://dev.azure.com/AzureDevOpsCliTest/pipelinesFolderTest000001/_apis/build/folders/TestFolder
   response:
     body:
-      string: '{"path":"\\TestFolder","description":"Test folder","createdOn":"2019-09-10T13:26:35.873Z","createdBy":{"displayName":"Atul
-        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"project":{"id":"ab2d20a3-be9e-4e3b-9853-a58131956c43","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43","state":"wellFormed","revision":24022,"visibility":"private","lastUpdateTime":"2019-09-10T13:26:34.023Z"}}'
+      string: '{"path":"\\TestFolder","description":"Test folder","createdOn":"2019-09-12T06:15:44.173Z","createdBy":{"displayName":"Atul
+        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"project":{"id":"03157ae4-4572-4c36-adf8-e0a534aedc5f","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f","state":"wellFormed","revision":24405,"visibility":"private","lastUpdateTime":"2019-09-12T06:15:41.843Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d0ad-2cdb-4ef1-892a-37459ad45978
+      - d1510bb0-ad4d-4e28-a32b-e7e2f223d65d
       cache-control:
       - no-cache
       content-length:
@@ -1100,7 +1386,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0-preview.2
       date:
-      - Tue, 10 Sep 2019 13:26:35 GMT
+      - Thu, 12 Sep 2019 06:15:43 GMT
       expires:
       - '-1'
       p3p:
@@ -1119,13 +1405,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: C951952FCAC9491FAFEBC802CD1D61FF Ref B: MAA01EDGE0215 Ref C: 2019-09-10T13:26:35Z'
+      - 'Ref A: B8245EEF37AC4EBC808AA5143924FE9D Ref B: BOM02EDGE0309 Ref C: 2019-09-12T06:15:44Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - 61701bbe-07b3-416d-ac64-61443ae86676
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d0ad-2cdb-4ef1-892a-37459ad45978
+      - d1510bb0-ad4d-4e28-a32b-e7e2f223d65d
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -1148,20 +1434,20 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/AzureDevOpsCliTest/pipelinesFolderTest000001/_apis/build/folders/TestFolder
+    uri: https://dev.azure.com/AzureDevOpsCliTest/pipelinesFolderTest000001/_apis/build/folders/TestFolder?queryOrder=folderAscending
   response:
     body:
-      string: '{"count":1,"value":[{"path":"\\TestFolder","description":"Test folder","createdOn":"2019-09-10T13:26:35.873Z","createdBy":{"displayName":"Atul
-        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"project":{"id":"ab2d20a3-be9e-4e3b-9853-a58131956c43","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43","state":"wellFormed","revision":24022,"visibility":"private","lastUpdateTime":"2019-09-10T13:26:34.023Z"}}]}'
+      string: '{"count":1,"value":[{"path":"\\TestFolder","description":"Test folder","createdOn":"2019-09-12T06:15:44.173Z","createdBy":{"displayName":"Atul
+        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"project":{"id":"03157ae4-4572-4c36-adf8-e0a534aedc5f","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f","state":"wellFormed","revision":24405,"visibility":"private","lastUpdateTime":"2019-09-12T06:15:41.843Z"}}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d012-2cdb-4ef1-892a-37459ad45978
+      - d1510b18-ad4d-4e28-a32b-e7e2f223d65d
       cache-control:
       - no-cache
       content-length:
@@ -1169,7 +1455,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0-preview.2
       date:
-      - Tue, 10 Sep 2019 13:26:36 GMT
+      - Thu, 12 Sep 2019 06:15:43 GMT
       expires:
       - '-1'
       p3p:
@@ -1188,13 +1474,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: AA4883C46C9F4CE49A55BA3222890251 Ref B: MAA01EDGE0215 Ref C: 2019-09-10T13:26:36Z'
+      - 'Ref A: 475A566D42574A5C8BD0A93C769821C0 Ref B: BOM02EDGE0309 Ref C: 2019-09-12T06:15:44Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - 61701bbe-07b3-416d-ac64-61443ae86676
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d012-2cdb-4ef1-892a-37459ad45978
+      - d1510b18-ad4d-4e28-a32b-e7e2f223d65d
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -1204,10 +1490,10 @@ interactions:
     body: 'b''{"createdBy": {"_links": {}, "descriptor": "aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy",
       "displayName": "Atul Bagga", "url": "https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc",
       "id": "86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc", "imageUrl": "https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy",
-      "uniqueName": "atbagga@microsoft.com"}, "createdOn": "2019-09-10T13:26:35.873Z",
+      "uniqueName": "atbagga@microsoft.com"}, "createdOn": "2019-09-12T06:15:44.173Z",
       "description": "New test folder", "path": "\\\\Testing\\\\TestFolder", "project":
-      {"id": "ab2d20a3-be9e-4e3b-9853-a58131956c43", "name": "pipelinesFolderTest000001",
-      "revision": 24022, "state": "wellFormed", "url": "https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43",
+      {"id": "03157ae4-4572-4c36-adf8-e0a534aedc5f", "name": "pipelinesFolderTest000001",
+      "revision": 24405, "state": "wellFormed", "url": "https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f",
       "visibility": "private"}}'''
     headers:
       Accept:
@@ -1226,29 +1512,29 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/AzureDevOpsCliTest/pipelinesFolderTest000001/_apis/build/folders/TestFolder
   response:
     body:
-      string: '{"path":"\\Testing\\TestFolder","description":"New test folder","createdOn":"2019-09-10T13:26:35.873Z","createdBy":{"displayName":"Atul
-        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"lastChangedDate":"2019-09-10T13:26:36.623Z","lastChangedBy":{"displayName":"Atul
-        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"project":{"id":"ab2d20a3-be9e-4e3b-9853-a58131956c43","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43","state":"wellFormed","revision":24022,"visibility":"private","lastUpdateTime":"2019-09-10T13:26:34.023Z"}}'
+      string: '{"path":"\\Testing\\TestFolder","description":"New test folder","createdOn":"2019-09-12T06:15:44.173Z","createdBy":{"displayName":"Atul
+        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"lastChangedDate":"2019-09-12T06:15:44.9Z","lastChangedBy":{"displayName":"Atul
+        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"project":{"id":"03157ae4-4572-4c36-adf8-e0a534aedc5f","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f","state":"wellFormed","revision":24405,"visibility":"private","lastUpdateTime":"2019-09-12T06:15:41.843Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d1f7-2cdb-4ef1-892a-37459ad45978
+      - d1510add-ad4d-4e28-a32b-e7e2f223d65d
       cache-control:
       - no-cache
       content-length:
-      - '1629'
+      - '1627'
       content-type:
       - application/json; charset=utf-8; api-version=5.0-preview.2
       date:
-      - Tue, 10 Sep 2019 13:26:36 GMT
+      - Thu, 12 Sep 2019 06:15:44 GMT
       expires:
       - '-1'
       p3p:
@@ -1267,13 +1553,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 954E4B6E718F4E36B56404B8198A5256 Ref B: MAA01EDGE0215 Ref C: 2019-09-10T13:26:36Z'
+      - 'Ref A: 2A5DCAFB140447A3BED565E196A81748 Ref B: BOM02EDGE0309 Ref C: 2019-09-12T06:15:44Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - 61701bbe-07b3-416d-ac64-61443ae86676
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d1f7-2cdb-4ef1-892a-37459ad45978
+      - d1510add-ad4d-4e28-a32b-e7e2f223d65d
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -1296,31 +1582,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/AzureDevOpsCliTest/pipelinesFolderTest000001/_apis/build/folders?queryOrder=folderAscending
   response:
     body:
-      string: '{"count":3,"value":[{"path":"\\","createdOn":"2019-09-10T13:26:31.96Z","project":{"id":"ab2d20a3-be9e-4e3b-9853-a58131956c43","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43","state":"wellFormed","revision":24022,"visibility":"private","lastUpdateTime":"2019-09-10T13:26:34.023Z"}},{"path":"\\Testing","createdOn":"2019-09-10T13:26:36.633Z","createdBy":{"displayName":"Atul
-        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"project":{"id":"ab2d20a3-be9e-4e3b-9853-a58131956c43","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43","state":"wellFormed","revision":24022,"visibility":"private","lastUpdateTime":"2019-09-10T13:26:34.023Z"}},{"path":"\\Testing\\TestFolder","description":"New
-        test folder","createdOn":"2019-09-10T13:26:35.873Z","createdBy":{"displayName":"Atul
-        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"lastChangedDate":"2019-09-10T13:26:36.623Z","lastChangedBy":{"displayName":"Atul
-        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"project":{"id":"ab2d20a3-be9e-4e3b-9853-a58131956c43","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43","state":"wellFormed","revision":24022,"visibility":"private","lastUpdateTime":"2019-09-10T13:26:34.023Z"}}]}'
+      string: '{"count":3,"value":[{"path":"\\","createdOn":"2019-09-12T06:15:37.233Z","project":{"id":"03157ae4-4572-4c36-adf8-e0a534aedc5f","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f","state":"wellFormed","revision":24405,"visibility":"private","lastUpdateTime":"2019-09-12T06:15:41.843Z"}},{"path":"\\Testing","createdOn":"2019-09-12T06:15:44.917Z","createdBy":{"displayName":"Atul
+        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"project":{"id":"03157ae4-4572-4c36-adf8-e0a534aedc5f","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f","state":"wellFormed","revision":24405,"visibility":"private","lastUpdateTime":"2019-09-12T06:15:41.843Z"}},{"path":"\\Testing\\TestFolder","description":"New
+        test folder","createdOn":"2019-09-12T06:15:44.173Z","createdBy":{"displayName":"Atul
+        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"lastChangedDate":"2019-09-12T06:15:44.9Z","lastChangedBy":{"displayName":"Atul
+        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"project":{"id":"03157ae4-4572-4c36-adf8-e0a534aedc5f","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f","state":"wellFormed","revision":24405,"visibility":"private","lastUpdateTime":"2019-09-12T06:15:41.843Z"}}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d10e-2cdb-4ef1-892a-37459ad45978
+      - d1510a5d-ad4d-4e28-a32b-e7e2f223d65d
       cache-control:
       - no-cache
       content-length:
-      - '2947'
+      - '2946'
       content-type:
       - application/json; charset=utf-8; api-version=5.0-preview.2
       date:
-      - Tue, 10 Sep 2019 13:26:37 GMT
+      - Thu, 12 Sep 2019 06:15:44 GMT
       expires:
       - '-1'
       p3p:
@@ -1339,13 +1625,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 283BA93484B54DAD8CAAB65B1D695F4B Ref B: MAA01EDGE0215 Ref C: 2019-09-10T13:26:37Z'
+      - 'Ref A: 5CAAC29D15ED4962A5D30CA4F9DA4CE5 Ref B: BOM02EDGE0309 Ref C: 2019-09-12T06:15:45Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - 61701bbe-07b3-416d-ac64-61443ae86676
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d10e-2cdb-4ef1-892a-37459ad45978
+      - d1510a5d-ad4d-4e28-a32b-e7e2f223d65d
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -1370,7 +1656,7 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
@@ -1382,11 +1668,11 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d6b6-2cdb-4ef1-892a-37459ad45978
+      - d1510a3e-ad4d-4e28-a32b-e7e2f223d65d
       cache-control:
       - no-cache
       date:
-      - Tue, 10 Sep 2019 13:26:37 GMT
+      - Thu, 12 Sep 2019 06:15:45 GMT
       expires:
       - '-1'
       p3p:
@@ -1403,13 +1689,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: C61D9CC2A36143A5B239336CFBC1FECC Ref B: MAA01EDGE0215 Ref C: 2019-09-10T13:26:37Z'
+      - 'Ref A: E0BAEF53A1CF42A98EE645CDD155C40E Ref B: BOM02EDGE0309 Ref C: 2019-09-12T06:15:45Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - 61701bbe-07b3-416d-ac64-61443ae86676
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d6b6-2cdb-4ef1-892a-37459ad45978
+      - d1510a3e-ad4d-4e28-a32b-e7e2f223d65d
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -1432,28 +1718,28 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/AzureDevOpsCliTest/pipelinesFolderTest000001/_apis/build/folders?queryOrder=folderAscending
   response:
     body:
-      string: '{"count":2,"value":[{"path":"\\","createdOn":"2019-09-10T13:26:31.96Z","project":{"id":"ab2d20a3-be9e-4e3b-9853-a58131956c43","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43","state":"wellFormed","revision":24022,"visibility":"private","lastUpdateTime":"2019-09-10T13:26:34.023Z"}},{"path":"\\Testing","createdOn":"2019-09-10T13:26:36.633Z","createdBy":{"displayName":"Atul
-        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"project":{"id":"ab2d20a3-be9e-4e3b-9853-a58131956c43","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43","state":"wellFormed","revision":24022,"visibility":"private","lastUpdateTime":"2019-09-10T13:26:34.023Z"}}]}'
+      string: '{"count":2,"value":[{"path":"\\","createdOn":"2019-09-12T06:15:37.233Z","project":{"id":"03157ae4-4572-4c36-adf8-e0a534aedc5f","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f","state":"wellFormed","revision":24405,"visibility":"private","lastUpdateTime":"2019-09-12T06:15:41.843Z"}},{"path":"\\Testing","createdOn":"2019-09-12T06:15:44.917Z","createdBy":{"displayName":"Atul
+        Bagga","url":"https://vssps.dev.azure.com/e/Microsoft/_apis/Identities/86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","_links":{"avatar":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"}},"id":"86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc","uniqueName":"atbagga@microsoft.com","imageUrl":"https://dev.azure.com/AzureDevOpsCliTest/_apis/GraphProfile/MemberAvatars/aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy","descriptor":"aad.MGVjZTQ5OTktNmIyMy03OTYxLTk2ZTctOWRhMjU0OTMxM2Yy"},"project":{"id":"03157ae4-4572-4c36-adf8-e0a534aedc5f","name":"pipelinesFolderTest000001","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f","state":"wellFormed","revision":24405,"visibility":"private","lastUpdateTime":"2019-09-12T06:15:41.843Z"}}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 7fb4849b-6197-4270-a557-2788c97718c4
+      - f8f8732f-de3b-42a7-abec-d0338454bdcd
       cache-control:
       - no-cache
       content-length:
-      - '1317'
+      - '1318'
       content-type:
       - application/json; charset=utf-8; api-version=5.0-preview.2
       date:
-      - Tue, 10 Sep 2019 13:26:37 GMT
+      - Thu, 12 Sep 2019 06:15:47 GMT
       expires:
       - '-1'
       p3p:
@@ -1472,13 +1758,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 00516F086333434BB138FDF4C5D0EB23 Ref B: MAA01EDGE0207 Ref C: 2019-09-10T13:26:38Z'
+      - 'Ref A: 6F088FD085FE4F4CB285838AD0F5927B Ref B: BOM02EDGE0322 Ref C: 2019-09-12T06:15:46Z'
       x-tfs-processid:
-      - 39bc44a1-05f9-4e93-9ae3-7bea2e564117
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - 7fb4849b-6197-4270-a557-2788c97718c4
+      - f8f8732f-de3b-42a7-abec-d0338454bdcd
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -1503,19 +1789,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/ab2d20a3-be9e-4e3b-9853-a58131956c43
+    uri: https://dev.azure.com/AzureDevOpsCliTest/_apis/projects/03157ae4-4572-4c36-adf8-e0a534aedc5f
   response:
     body:
-      string: '{"id":"abede83e-b13b-466d-9b61-88bcb9d4fea0","status":"notSet","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/abede83e-b13b-466d-9b61-88bcb9d4fea0"}'
+      string: '{"id":"edb1a837-0fe3-41b9-ab88-3a875b88b7be","status":"notSet","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/edb1a837-0fe3-41b9-ab88-3a875b88b7be"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d755-2cdb-4ef1-892a-37459ad45978
+      - d1510cfc-ad4d-4e28-a32b-e7e2f223d65d
       cache-control:
       - no-cache
       content-length:
@@ -1523,7 +1809,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:38 GMT
+      - Thu, 12 Sep 2019 06:15:46 GMT
       expires:
       - '-1'
       p3p:
@@ -1540,13 +1826,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 4709B26AC1FB411EB4EB2C588E4FD43C Ref B: MAA01EDGE0111 Ref C: 2019-09-10T13:26:38Z'
+      - 'Ref A: DA5552151B8743AB86C6D3530813CA5E Ref B: BOM02EDGE0321 Ref C: 2019-09-12T06:15:47Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - 61701bbe-07b3-416d-ac64-61443ae86676
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d755-2cdb-4ef1-892a-37459ad45978
+      - d1510cfc-ad4d-4e28-a32b-e7e2f223d65d
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -1569,19 +1855,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/abede83e-b13b-466d-9b61-88bcb9d4fea0
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/edb1a837-0fe3-41b9-ab88-3a875b88b7be
   response:
     body:
-      string: '{"id":"abede83e-b13b-466d-9b61-88bcb9d4fea0","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/abede83e-b13b-466d-9b61-88bcb9d4fea0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/abede83e-b13b-466d-9b61-88bcb9d4fea0"}}}'
+      string: '{"id":"edb1a837-0fe3-41b9-ab88-3a875b88b7be","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/edb1a837-0fe3-41b9-ab88-3a875b88b7be","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/edb1a837-0fe3-41b9-ab88-3a875b88b7be"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d73d-2cdb-4ef1-892a-37459ad45978
+      - f8f87206-de3b-42a7-abec-d0338454bdcd
       cache-control:
       - no-cache
       content-length:
@@ -1589,7 +1875,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:38 GMT
+      - Thu, 12 Sep 2019 06:15:47 GMT
       expires:
       - '-1'
       p3p:
@@ -1608,13 +1894,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 168CA96E2E9944709469E99BDFE74E2A Ref B: MAA01EDGE0120 Ref C: 2019-09-10T13:26:39Z'
+      - 'Ref A: 77CC7B9AB38743FDB47D3EA99BAFC18C Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:47Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d73d-2cdb-4ef1-892a-37459ad45978
+      - f8f87206-de3b-42a7-abec-d0338454bdcd
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
@@ -1637,27 +1923,27 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/abede83e-b13b-466d-9b61-88bcb9d4fea0
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/edb1a837-0fe3-41b9-ab88-3a875b88b7be
   response:
     body:
-      string: '{"id":"abede83e-b13b-466d-9b61-88bcb9d4fea0","status":"succeeded","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/abede83e-b13b-466d-9b61-88bcb9d4fea0","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/abede83e-b13b-466d-9b61-88bcb9d4fea0"}}}'
+      string: '{"id":"edb1a837-0fe3-41b9-ab88-3a875b88b7be","status":"inProgress","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/edb1a837-0fe3-41b9-ab88-3a875b88b7be","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/edb1a837-0fe3-41b9-ab88-3a875b88b7be"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f890d5e8-2cdb-4ef1-892a-37459ad45978
+      - f8f872fe-de3b-42a7-abec-d0338454bdcd
       cache-control:
       - no-cache
       content-length:
-      - '293'
+      - '294'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 10 Sep 2019 13:26:40 GMT
+      - Thu, 12 Sep 2019 06:15:49 GMT
       expires:
       - '-1'
       p3p:
@@ -1676,13 +1962,81 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 2DAE5FFB6DFD41C5BDEA1D17A81531D8 Ref B: MAA01EDGE0120 Ref C: 2019-09-10T13:26:40Z'
+      - 'Ref A: F37D931E3B7F455B93F781BE922CF2FF Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:49Z'
       x-tfs-processid:
-      - 0280c4cb-1bfc-400a-8c5d-f89eced4dd40
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
       x-tfs-session:
-      - b13b9a4f-bf98-4630-8277-94265111de01
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
       x-vss-e2eid:
-      - f890d5e8-2cdb-4ef1-892a-37459ad45978
+      - f8f872fe-de3b-42a7-abec-d0338454bdcd
+      x-vss-userdata:
+      - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.6.5 (Windows-10-10.0.18362-SP0) msrest/0.6.2 azure-devops/5.0.0b7
+        devOpsCli/0.13.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/azuredevopsclitest/_apis/operations/edb1a837-0fe3-41b9-ab88-3a875b88b7be
+  response:
+    body:
+      string: '{"id":"edb1a837-0fe3-41b9-ab88-3a875b88b7be","status":"succeeded","url":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/edb1a837-0fe3-41b9-ab88-3a875b88b7be","_links":{"self":{"href":"https://dev.azure.com/AzureDevOpsCliTest/_apis/operations/edb1a837-0fe3-41b9-ab88-3a875b88b7be"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - f8f87ddb-de3b-42a7-abec-d0338454bdcd
+      cache-control:
+      - no-cache
+      content-length:
+      - '293'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Thu, 12 Sep 2019 06:15:50 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:f88d1338-e7ba-4d7b-83e0-e573c40a2f62
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 063EE8F4170C4C70829FD9563017F36D Ref B: BOM02EDGE0310 Ref C: 2019-09-12T06:15:50Z'
+      x-tfs-processid:
+      - aba39e7c-9421-4bf3-8fca-be46861976b0
+      x-tfs-session:
+      - 2edda90e-cf05-4447-b5ea-62443e4e1f94
+      x-vss-e2eid:
+      - f8f87ddb-de3b-42a7-abec-d0338454bdcd
       x-vss-userdata:
       - 86bd48b9-6d39-40d3-b2e0-bf0e2f7f9adc:atbagga@microsoft.com
     status:
