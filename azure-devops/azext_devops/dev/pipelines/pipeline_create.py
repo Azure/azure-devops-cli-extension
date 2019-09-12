@@ -24,7 +24,7 @@ from azext_devops.dev.pipelines.pipeline_create_helpers.pipelines_resource_provi
     get_kubernetes_environment_resource, get_container_registry_service_connection, get_webapp_from_list_selection)
 from azext_devops.dev.pipelines.pipeline_create_helpers.azure_repos_helper import push_files_to_azure_repo
 from azext_devops.devops_sdk.v5_1.build.models import Build, BuildDefinition, BuildRepository, AgentPoolQueue
-from .build_definition import get_definition_id_from_name
+from .build_definition import get_definition_id_from_name, fix_path_for_api
 
 logger = get_logger(__name__)
 
@@ -48,7 +48,7 @@ _AZURE_GIT_REPO_TYPE = 'tfsgit'
 # pylint: disable=too-many-statements
 def pipeline_create(name, description=None, repository=None, branch=None, yml_path=None, repository_type=None,
                     service_connection=None, organization=None, project=None, detect=None, queue_id=None,
-                    skip_first_run=None):
+                    skip_first_run=None, folder_path=None):
     """Create a new Azure Pipeline (YAML based)
     :param name: Name of the new pipeline
     :type name: str
@@ -76,6 +76,9 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
     :param skip_first_run: Specify this flag to prevent the first run being triggered by the command.
     Command will return a pipeline if run is skipped else it will output a pipeline run.
     :type skip_first_run: bool
+    :param folder_path: Path of the folder where the pipeline needs to be created. Default is root folder.
+    e.g. "user1/test_pipelines"
+    :type folder_path: str
     """
     repository_name = None
     if repository:
@@ -109,7 +112,7 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
         repository_name = repository
 
     # Validate name availability so user does not face name conflicts after going through the whole process
-    if not validate_name_is_available(name, organization, project):
+    if not validate_name_is_available(name, folder_path, organization, project):
         raise CLIError('Pipeline with name {name} already exists.'.format(name=name))
 
     # Parse repository information according to repository type
@@ -140,7 +143,8 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
 
     # Create build definition
     definition = _create_pipeline_build_object(name, description, repo_id, repository_name, repository_url, api_url,
-                                               branch, service_connection, repository_type, yml_path, queue_id)
+                                               branch, service_connection, repository_type, yml_path, queue_id,
+                                               folder_path)
     client = get_new_pipeline_client(organization)
     created_definition = client.create_definition(definition=definition, project=project)
     logger.warning('Successfully created a pipeline with Name: %s, Id: %s.',
@@ -152,7 +156,8 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
 
 
 def pipeline_update(name=None, id=None, description=None, new_name=None,  # pylint: disable=redefined-builtin
-                    branch=None, yml_path=None, queue_id=None, organization=None, project=None, detect=None):
+                    branch=None, yml_path=None, queue_id=None, organization=None, project=None, detect=None,
+                    folder_path=None, new_folder_path=None):
     """ Update a pipeline
     :param name: Name of the pipeline to update.
     :type name: str
@@ -160,7 +165,7 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
     :type id: str
     :param new_name: New updated name of the pipeline.
     :type new_name: str
-    :param description: Description to be updated for the pipeline.
+    :param description: New description for the pipeline.
     :type description: str
     :param branch: Branch name for which the pipeline will be configured.
     :type branch: str
@@ -168,6 +173,13 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
     :type yml_path: str
     :param queue_id: Queue id of the agent pool where the pipeline needs to run.
     :type queue_id: int
+    :param folder_path: Path of the folder where the pipeline exists. Required with --name parameter and
+    not when --id is specified. Default is root folder.
+    e.g. "user1/test_pipelines"
+    :type folder_path: str
+    :param new_folder_path: New full path of the folder to move the pipeline to.
+    e.g. "user1/production_pipelines"
+    :type new_folder_path: str
     """
     # pylint: disable=too-many-branches
     organization, project = resolve_instance_and_project(
@@ -175,7 +187,7 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
     pipeline_client = get_new_pipeline_client(organization=organization)
     if id is None:
         if name is not None:
-            id = get_definition_id_from_name(name, pipeline_client, project)
+            id = get_definition_id_from_name(name, pipeline_client, project, folder_path)
         else:
             raise CLIError("Either --id or --name argument must be supplied for this command.")
     definition = pipeline_client.get_definition(definition_id=id, project=project)
@@ -190,13 +202,15 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
         definition.queue.id = queue_id
     if yml_path:
         definition.process = _create_process_object(yml_path)
-
+    if new_folder_path:
+        definition.path = new_folder_path
     return pipeline_client.update_definition(project=project, definition_id=id, definition=definition)
 
 
-def validate_name_is_available(name, organization, project):
+def validate_name_is_available(name, path, organization, project):
     client = get_new_pipeline_client(organization=organization)
-    definition_references = client.get_definitions(project=project, name=name)
+    path = fix_path_for_api(path)
+    definition_references = client.get_definitions(project=project, name=name, path=path)
     if not definition_references:
         return True
     return False
@@ -453,7 +467,7 @@ def _prompt_for_prop_input(prop_name, prop_type):
 
 
 def _create_pipeline_build_object(name, description, repo_id, repo_name, repository_url, api_url, branch,
-                                  service_endpoint, repository_type, yml_path, queue_id):
+                                  service_endpoint, repository_type, yml_path, queue_id, path):
     definition = BuildDefinition()
     definition.name = name
     if description:
@@ -470,6 +484,8 @@ def _create_pipeline_build_object(name, description, repo_id, repo_name, reposit
         definition.repository.default_branch = branch
     if service_endpoint:
         definition.repository.properties = _create_repo_properties_object(service_endpoint, branch, api_url)
+    if path:
+        definition.path = path
     # Hack to avoid the case sensitive GitHub type for service hooks.
     if repository_type.lower() == _GITHUB_REPO_TYPE:
         definition.repository.type = 'GitHub'

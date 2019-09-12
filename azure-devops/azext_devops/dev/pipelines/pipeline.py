@@ -13,14 +13,14 @@ from azext_devops.dev.common.uri import uri_quote
 from azext_devops.dev.common.uuid import is_uuid
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.devops_sdk.v5_0.build.models import Build, DefinitionReference
-from .build_definition import get_definition_id_from_name
+from .build_definition import get_definition_id_from_name, fix_path_for_api
 from .pipeline_run import _open_pipeline_run
 
 logger = get_logger(__name__)
 
 
 def pipeline_list(name=None, top=None, organization=None, project=None, repository=None, query_order=None,
-                  repository_type=None, detect=None):
+                  folder_path=None, repository_type=None, detect=None):
     """ List pipelines.
     :param name: Limit results to pipelines with this name or starting with this name. Examples: "FabCI" or "Fab*"
     :type name: str
@@ -32,6 +32,8 @@ def pipeline_list(name=None, top=None, organization=None, project=None, reposito
     :type repository: str
     :param detect: Automatically detect values for organization and project. Default is "on".
     :type detect: str
+    :param folder_path: If specified, filters to definitions under this folder.
+    :type folder_path: str
     :param repository_type: Limit results to pipelines associated with this repository type.
     It is mandatory to pass 'repository' argument along with this argument.
     :type repository_type: str
@@ -48,8 +50,9 @@ def pipeline_list(name=None, top=None, organization=None, project=None, reposito
         if repository is None:
             raise ValueError("Could not find a repository with name '{}', in project '{}'."
                              .format(repository, project))
+    folder_path = fix_path_for_api(folder_path)
     definition_references = client.get_definitions(project=project, name=name, repository_id=repository,
-                                                   repository_type=repository_type, top=top,
+                                                   repository_type=repository_type, top=top, path=folder_path,
                                                    query_order=query_order)
     return definition_references
 
@@ -66,12 +69,14 @@ def _resolve_query_order(query_order):
 
 
 def pipeline_show(id=None, name=None, open=False, organization=None, project=None,  # pylint: disable=redefined-builtin
-                  detect=None):
+                  folder_path=None, detect=None):
     """ Get the details of a pipeline.
     :param id: ID of the pipeline.
     :type id: int
     :param name: Name of the pipeline. Ignored if --id is supplied.
     :type name: str
+    :param folder_path: Folder path of pipeline. Default is root level folder.
+    :type folder_path: str
     :param open: Open the pipeline summary page in your web browser.
     :type open: bool
     :param detect: Automatically detect values for instance and project. Default is "on".
@@ -82,7 +87,7 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
     client = get_build_client(organization)
     if id is None:
         if name is not None:
-            id = get_definition_id_from_name(name, client, project)
+            id = get_definition_id_from_name(name, client, project, path=folder_path)
         else:
             raise CLIError("Either the --id argument or the --name argument must be supplied for this command.")
     build_definition = client.get_definition(definition_id=id, project=project)
@@ -92,7 +97,7 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
 
 
 def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, variables=None,  # pylint: disable=redefined-builtin
-                 organization=None, project=None, detect=None):
+                 folder_path=None, organization=None, project=None, detect=None):
     """ Queue (run) a pipeline.
     :param id: ID of the pipeline to queue. Required if --name is not supplied.
     :type id: int
@@ -101,6 +106,8 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     :param branch: Name of the branch on which the pipeline run is to be queued. Example: refs/heads/master or master
     or refs/pull/1/merge
     :type branch: str
+    :param folder_path: Folder path of pipeline. Default is root level folder.
+    :type folder_path: str
     :param variables: Space separated "name=value" pairs for the variables you would like to set.
     :type variables: [str]
     :param commit_id: Commit-id on which the pipeline run is to be queued.
@@ -117,7 +124,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
                          'must be supplied for this command.')
     client = get_build_client(organization)
     if id is None:
-        id = get_definition_id_from_name(name, client, project)
+        id = get_definition_id_from_name(name, client, project, folder_path)
     definition_reference = DefinitionReference(id=id)
     branch = resolve_git_ref_heads(branch)
     build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)

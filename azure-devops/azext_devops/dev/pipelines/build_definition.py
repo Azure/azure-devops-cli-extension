@@ -90,8 +90,19 @@ def _open_definition(definition, organization):
     open_new(url=url)
 
 
-def get_definition_id_from_name(name, client, project):
-    definition_references = client.get_definitions(project=project, name=name)
+def fix_path_for_api(path):
+    # Path with no preceeding '\' is not correctly interpreted so hack to add it.
+    if path:
+        if path.startswith('/'):
+            path = path[1:]
+        if not path.startswith('\\'):
+            path = '\\' + path
+    return path
+
+
+def get_definition_id_from_name(name, client, project, path=None):
+    path = fix_path_for_api(path)
+    definition_references = client.get_definitions(project=project, name=name, path=path)
     if len(definition_references) == 1:
         return definition_references[0].id
     if len(definition_references) > 1:
