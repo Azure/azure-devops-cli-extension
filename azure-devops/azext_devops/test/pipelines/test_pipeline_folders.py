@@ -77,15 +77,28 @@ class TestPipelinesFoldersMethods(AuthenticatedTests):
             with patch('azext_devops.devops_sdk.v5_0.build.build_client.BuildClient.get_folders') as mock_list_folders:
                 folder = Folder()
                 folder.description ='hello world'
-                folder.path = 'test123'
+                folder.path = 'test'
                 mock_list_folders.return_value = [folder]
+
+                update_folder = Folder()
+                update_folder.description ='hello world updated'
+                update_folder.path = 'test123'
+
                 updated_folder = pipeline_folder_update(
-                    path='test', new_path='test123', new_description='hello world',
+                    path='test', new_path='test123', new_description='hello world updated',
                     project=self._TEST_DEVOPS_PROJECT, organization=self._TEST_DEVOPS_ORGANIZATION)
 
                 # assert
                 mock_list_folders.assert_called_once_with(
-                    path='test', project=self._TEST_DEVOPS_PROJECT)
+                    path='test', project=self._TEST_DEVOPS_PROJECT, query_order='folderAscending')
                 mock_update_folders.assert_called_once_with(
                     folder=mock_list_folders.return_value[0], path='test', project=self._TEST_DEVOPS_PROJECT)
+                self.assertEqual(mock_list_folders.return_value[0].path, 'test123')
+                self.assertEqual(mock_list_folders.return_value[0].description, 'hello world updated')
+                
     
+    def test_folder_update_with_invalid_input(self):
+        with self.assertRaises(Exception) as exc:
+            response = pipeline_folder_update(
+                    path='test', project=self._TEST_DEVOPS_PROJECT, organization=self._TEST_DEVOPS_ORGANIZATION)
+        self.assertEqual(str(exc.exception),r'Either --new-path or --new-description should be specified.')                
