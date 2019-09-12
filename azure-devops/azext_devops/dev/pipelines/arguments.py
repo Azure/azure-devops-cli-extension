@@ -25,6 +25,8 @@ _ACTION_FILTER_TYPES = ['use', 'manage', 'none']
 
 _VAR_GROUPS_QUERY_ORDER = ['Asc', 'Desc']
 
+_FOLDERS_QUERY_ORDER = ['Asc', 'Desc', 'None']
+
 
 # pylint: disable=too-many-statements
 def load_build_arguments(self, _):
@@ -113,3 +115,6 @@ def load_build_arguments(self, _):
         context.argument('secret', arg_type=get_three_state_flag())
         context.argument('prompt_value', arg_type=get_three_state_flag())
         context.argument('allow_override', arg_type=get_three_state_flag())
+
+    with self.argument_context('pipelines folder') as context:
+        context.argument('query_order', **enum_choice_list(_FOLDERS_QUERY_ORDER))

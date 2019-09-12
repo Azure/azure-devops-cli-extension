@@ -29,7 +29,9 @@ from ._format import (transform_build_table_output,
                       transform_pipelines_variable_groups_table_output,
                       transform_pipelines_variable_group_table_output,
                       transform_pipelines_variables_table_output,
-                      transform_pipelines_var_group_variables_table_output)
+                      transform_pipelines_var_group_variables_table_output,
+                      transform_pipelines_folders_table_output,
+                      transform_pipelines_folder_table_output)
 
 buildOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.build#{}',
@@ -88,6 +90,11 @@ pipelineVariableGroupOps = CliCommandType(
 
 pipelineVariablesOps = CliCommandType(
     operations_tmpl='azext_devops.dev.pipelines.pipeline_variables#{}',
+    exception_handler=azure_devops_exception_handler
+)
+
+pipelineFoldersOps = CliCommandType(
+    operations_tmpl='azext_devops.dev.pipelines.pipeline_folders#{}',
     exception_handler=azure_devops_exception_handler
 )
 
@@ -184,3 +191,10 @@ def load_build_commands(self, _):
         g.command('list', 'pipeline_variable_list', table_transformer=transform_pipelines_variables_table_output)
         g.command('delete', 'pipeline_variable_delete',
                   confirmation='Are you sure you want to delete this variable?')
+
+    with self.command_group('pipelines folder', command_type=pipelineFoldersOps, is_preview=True) as g:
+        g.command('create', 'pipeline_folder_create', table_transformer=transform_pipelines_folder_table_output)
+        g.command('delete', 'pipeline_folder_delete', table_transformer=transform_pipelines_folder_table_output,
+                  confirmation='Are you sure you want to delete this folder?')
+        g.command('list', 'pipeline_folder_list', table_transformer=transform_pipelines_folders_table_output)
+        g.command('update', 'pipeline_folder_update', table_transformer=transform_pipelines_folder_table_output)
