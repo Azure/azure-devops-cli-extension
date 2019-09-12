@@ -6,10 +6,18 @@
 import os
 import random
 import string
+from azure.cli.testsdk import ScenarioTest
 
 DEVOPS_CLI_TEST_PAT_TOKEN = 'ThisShouldBeAnInvalidPatTokenWhenCheckedIn'
 PAT_ENV_VARIABLE_NAME = 'AZURE_DEVOPS_EXT_PAT'
 _TEST_ORG_ENV_VARIABLE_NAME = 'AZURE_DEVOPS_EXT_TEST_ORG'
+
+class DevopsScenarioTest(ScenarioTest):
+    def sleep_in_live_run(self, time_to_sleep):
+        if self.in_recording or self.is_live:
+            import time
+            time.sleep(time_to_sleep)
+
 
 def get_random_name(length):
     return ''.join(random.choice(string.ascii_letters) for m in range(length))

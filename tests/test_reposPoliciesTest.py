@@ -3,16 +3,14 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 import os
-import time
 import unittest
 
-from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
+from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
 DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
-class DevopsReposPoliciesTests(ScenarioTest):
+class DevopsReposPoliciesTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     @set_authentication
@@ -45,7 +43,7 @@ class DevopsReposPoliciesTests(ScenarioTest):
             policy_id = create_policy_output["id"]
 
             #Test was failing without adding a sleep here. Though the create was successful 
-            time.sleep(5)
+            self.sleep_in_live_run(5)
 
             list_policy_output = self.cmd(list_policy_command).get_output_in_json()
             # now we have one policy so we should get it
@@ -62,7 +60,7 @@ class DevopsReposPoliciesTests(ScenarioTest):
             assert update_policy_output["id"] == policy_id
 
             #Test was failing without adding a sleep here. Though the update was successful 
-            time.sleep(5)
+            self.sleep_in_live_run(5)
 
             show_policy_output = self.cmd(show_policy_command).get_output_in_json()
             assert show_policy_output["settings"]["useSquashMerge"] == True
@@ -73,7 +71,7 @@ class DevopsReposPoliciesTests(ScenarioTest):
             assert update_policy_output["id"] == policy_id
 
             #Test was failing without adding a sleep here. Though the update was successful 
-            time.sleep(5)
+            self.sleep_in_live_run(5)
 
             show_policy_output = self.cmd(show_policy_command).get_output_in_json()
             self.failUnlessRaises(KeyError, lambda: show_policy_output["settings"]["useSquashMerge"])
@@ -97,7 +95,7 @@ class DevopsReposPoliciesTests(ScenarioTest):
             assert update_policy_output["id"] == policy_id
 
             #Test was failing without adding a sleep here. Though the create was successful 
-            time.sleep(5)
+            self.sleep_in_live_run(5)
 
             list_policy_output = self.cmd(list_policy_command).get_output_in_json()
             # now we have one policy so we should get it

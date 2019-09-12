@@ -3,19 +3,17 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import time
 import unittest
 from knack.util import CLIError
-from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
-from .utilities.helper import disable_telemetry, set_authentication, get_test_org_from_env_variable
+from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
 DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'https://dev.azure.com/azuredevopsclitest'
 _TEST_EMAIL_ID = 'new_user_test@outlook.com'
 _GROUP_DESCRIPTION = 'some description'
 
 
-class GroupTests(ScenarioTest):
+class GroupTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     @set_authentication
@@ -51,7 +49,7 @@ class GroupTests(ScenarioTest):
             assert create_project_group['displayName'] == project_group_name
             project_group_descriptor = create_project_group['descriptor']
 
-            time.sleep(5)
+            self.sleep_in_live_run(5)
 
             show_project_group = self.cmd('az devops security group show --id "'+ project_group_descriptor +'" -o json --detect false').get_output_in_json()
             assert show_project_group['displayName'] == project_group_name
@@ -72,14 +70,14 @@ class GroupTests(ScenarioTest):
             assert create_project_group['displayName'] == project_group_name2
             project_group_descriptor2 = create_project_group['descriptor']
 
-            time.sleep(1)
+            self.sleep_in_live_run(1)
             #create 3rd group and add it to multiple existing groups
             project_group_name3 = 'project security ' + self.create_random_name(prefix='GroupName_',length=15)
             create_project_group = self.cmd('az devops security group create --name "'+ project_group_name3 +'" --groups "'+ list_response[0]['descriptor'] + ',' + project_group_descriptor2 +'" -o json --detect false').get_output_in_json()
             assert create_project_group['displayName'] == project_group_name3
             project_group_descriptor3 = create_project_group['descriptor']
 
-            time.sleep(5)
+            self.sleep_in_live_run(5)
             # validate list membership
             list_valid_users_members = self.cmd('az devops security group membership list --id '+ valid_users_group_descriptor +' -o json --detect false').get_output_in_json()
             new_valid_users_members_len = len(list_valid_users_members)
@@ -99,7 +97,7 @@ class GroupTests(ScenarioTest):
             # add user
             add_membership = self.cmd('az devops security group membership add --group-id '+ project_group_descriptor +' --member-id '+ _TEST_EMAIL_ID  +' -o json --detect false').get_output_in_json()
 
-            time.sleep(5)
+            self.sleep_in_live_run(5)
             list_group_name3_memberof = self.cmd('az devops security group membership list --id '+ project_group_descriptor3 +' --relationship memberof -o json --detect false').get_output_in_json()
             assert len(list_group_name3_memberof) == 4
 
@@ -109,7 +107,7 @@ class GroupTests(ScenarioTest):
             # remove membership
             remove_membership = self.cmd('az devops security group membership remove --group-id '+ project_group_descriptor +' --member-id '+ project_group_descriptor3 +' -y -o json --detect false')
             
-            time.sleep(5)
+            self.sleep_in_live_run(5)
             list_group_name3_memberof = self.cmd('az devops security group membership list --id '+ project_group_descriptor3 +' --relationship memberof -o json --detect false').get_output_in_json()
             assert len(list_group_name3_memberof) == 3
 
@@ -120,10 +118,10 @@ class GroupTests(ScenarioTest):
             assert project_group_descriptor3 == update_project_group['descriptor']
 
             #delete
-            time.sleep(1)
+            self.sleep_in_live_run(1)
             delete_project_group = self.cmd('az devops security group delete --id "'+ project_group_descriptor3 +'" -y -o json --detect false')
 
-            time.sleep(1)
+            self.sleep_in_live_run(1)
             # validate list
             list_valid_users_members = list_project_groups = self.cmd('az devops security group membership list --id '+ valid_users_group_descriptor +' -o json --detect false').get_output_in_json()
             new_valid_users_members_len = len(list_valid_users_members)

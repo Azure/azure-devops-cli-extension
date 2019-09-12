@@ -6,14 +6,14 @@
 import os
 import unittest
 
-from azure.cli.testsdk import ScenarioTest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from dateutil import parser
-from .utilities.helper import get_random_name, disable_telemetry, set_authentication, get_test_org_from_env_variable
+from .utilities.helper import (
+    DevopsScenarioTest, get_random_name, disable_telemetry, set_authentication, get_test_org_from_env_variable)
 
 DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
-class AzReposPrTests(ScenarioTest):
+class AzReposPrTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     @set_authentication
