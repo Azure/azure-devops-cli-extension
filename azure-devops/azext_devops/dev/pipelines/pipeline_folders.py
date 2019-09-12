@@ -27,8 +27,7 @@ def pipeline_folder_create(path, description=None, organization=None,
     client = get_build_client(organization)
     from azext_devops.devops_sdk.v5_0.build.models import Folder
     folder = Folder()
-    if description:
-        folder.description = description
+    folder.description = description
     folder.path = path
     new_folder = client.create_folder(folder=folder, path=path, project=project)
     return new_folder
@@ -85,17 +84,22 @@ def pipeline_folder_update(path, new_path=None, new_description=None,
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
     """
+    if not new_path and not new_description:
+        raise CLIError('Either --new-path or --new-description should be specified.')
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
     client = get_build_client(organization)
-    folders = client.get_folders(path=path, project=project)
-    if len(folders) > 1:
-        raise CLIError('Multiple folders found. Update operation failed.')
-    if not folders:
+    folders = client.get_folders(path=path, project=project, query_order='folderAscending')
+    folder_to_update = None
+    # find matching folder if present
+    for folder in folders:
+        if folder.path.strip('\\') == path.strip('\\'):
+            folder_to_update = folder
+            break
+    if not folder_to_update:
         raise CLIError('Cannot find folder with path {}. Update operation failed.'.format(path))
-    folder = folders[0]
     if new_description:
-        folder.description = new_description
+        folder_to_update.description = new_description
     if new_path:
-        folder.path = new_path
-    return client.update_folder(path=path, folder=folder, project=project)
+        folder_to_update.path = new_path
+    return client.update_folder(path=path, folder=folder_to_update, project=project)
