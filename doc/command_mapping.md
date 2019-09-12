@@ -1,5 +1,7 @@
 # Command Mapping
 
+> Updated till azure-devops extension version 0.13.0. This file is no longer maintained. Please check latest azure-devops [command reference](https://docs.microsoft.com/en-us/cli/azure/ext/azure-devops/?view=azure-cli-latest) for command availability.
+
 The following table provides the mapping of commands from VSTS CLI to Azure DevOps Extension.
 
 |VSTS CLI|Azure DevOps Extension|
@@ -20,11 +22,11 @@ The following table provides the mapping of commands from VSTS CLI to Azure DevO
 |`vsts build definition show`|`az pipelines build definition show`|
 |`vsts build task list`|`az pipelines build task list`|
 |`vsts build task show`|`az pipelines build task show`|
-|`vsts code pr abandon`|`az repos pr abandon`|
-|`vsts code pr complete`|`az repos pr complete`|
+|`vsts code pr abandon`|`az repos pr update --status abandoned`|
+|`vsts code pr complete`|`az repos pr update --status completed`|
 |`vsts code pr create`|`az repos pr create`|
 |`vsts code pr list`|`az repos pr list`|
-|`vsts code pr reactivate`|`az repos pr reactivate`|
+|`vsts code pr reactivate`|`az repos pr update --status active`|
 |`vsts code pr set-vote`|`az repos pr set-vote`|
 |`vsts code pr show`|`az repos pr show`|
 |`vsts code pr update`|`az repos pr update`|
