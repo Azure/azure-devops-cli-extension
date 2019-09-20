@@ -881,9 +881,9 @@ class BuildClient(Client):
         route_values = {}
         if project is not None:
             route_values['project'] = self._serialize.url('project', project, 'str')
-        if path is not None:
-            route_values['path'] = self._serialize.url('path', path, 'str')
         query_parameters = {}
+        if path is not None:
+            query_parameters['path'] = self._serialize.query('path', path, 'str')
         if query_order is not None:
             query_parameters['queryOrder'] = self._serialize.query('query_order', query_order, 'str')
         response = self._send(http_method='GET',
