@@ -75,8 +75,8 @@ def get_git_credentials(organization):
     host = parse_result.netloc
     standard_in = bytes('protocol={protocol}\nhost={host}'.format(protocol=protocol, host=host), 'utf-8')
     try:
-        output = subprocess.check_output(
-            [_GIT_EXE, 'credential-manager', 'get'], input=standard_in)  # pylint: disable=unexpected-keyword-arg
+        # pylint: disable=unexpected-keyword-arg
+        output = subprocess.check_output([_GIT_EXE, 'credential-manager', 'get'], input=standard_in)
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect git credentials for current working directory.')
         logger.debug(ex, exc_info=True)
