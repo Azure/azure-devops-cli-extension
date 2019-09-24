@@ -35,7 +35,7 @@ def pipeline_run_show(id, open=False, organization=None, project=None, detect=No
 def pipeline_run_list(pipeline_ids=None, branch=None, organization=None, project=None, detect=None, top=None,
                       query_order=None, result=None, status=None, reason=None, tags=None, requested_for=None):
     """ List the pipeline runs in a project.
-    :param pipeline_ids: ID of definition to list builds for.
+    :param pipeline_ids: IDs (space separated) of definitions to list builds for.
     :type pipeline_ids: int
     :param branch: Filter by builds for this branch.
     :type branch: str
