@@ -55,6 +55,12 @@ def load_pipelines_help():
     long-summary:
     """
 
+    helps['pipelines folder delete'] = """
+    type: command
+    short-summary: Delete a folder.
+    long-summary: This will delete all pipelines in the folder.
+    """
+
     helps['pipelines agent'] = """
     type: group
     short-summary: Manage agents.

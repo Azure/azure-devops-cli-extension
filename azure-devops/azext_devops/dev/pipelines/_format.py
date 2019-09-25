@@ -183,6 +183,8 @@ def transform_pipeline_table_output(result):
 def _transform_pipeline_row(row, include_draft_column=False):
     table_row = OrderedDict()
     table_row['ID'] = row['id']
+    path = row['path']
+    table_row['Path'] = path[:50] + '..' if len(path) > 50 else path
     name = row['name']
     table_row['Name'] = name[:50] + '..' if len(name) > 50 else name
     if include_draft_column:
