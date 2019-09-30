@@ -10,6 +10,9 @@ import subprocess
 oldArguments = []
 newArguments = []
 allowedMissingArguments = {}
+allowedMissingArguments['repos policy merge-strategy update'] = ['--use-squash-merge']
+allowedMissingArguments['repos policy merge-strategy create'] = ['--use-squash-merge']
+allowedMissingArguments['pipelines update'] = ['--name']
 
 
 allowedNewMandatoryArguments = {}
