@@ -108,7 +108,7 @@ def get_definition_id_from_name(name, client, project, path=None):
     if len(definition_references) > 1:
         if is_uuid(project):
             project = definition_references[0].project.name
-        message = 'Multiple definitions were found matching name "{name}" in project "{project}".  Try '\
+        message = 'Multiple definitions were found matching name "{name}" in project "{project}". Try '\
                   + 'supplying the definition ID or folder path to differentiate.'
         raise ValueError(message.format(name=name, project=project))
 
