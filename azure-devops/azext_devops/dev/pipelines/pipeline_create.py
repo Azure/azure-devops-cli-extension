@@ -157,7 +157,7 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
 
 def pipeline_update(name=None, id=None, description=None, new_name=None,  # pylint: disable=redefined-builtin
                     branch=None, yml_path=None, queue_id=None, organization=None, project=None, detect=None,
-                    folder_path=None, new_folder_path=None):
+                    new_folder_path=None):
     """ Update a pipeline
     :param name: Name of the pipeline to update.
     :type name: str
@@ -173,10 +173,6 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
     :type yml_path: str
     :param queue_id: Queue id of the agent pool where the pipeline needs to run.
     :type queue_id: int
-    :param folder_path: Path of the folder where the pipeline exists. Required with --name parameter and
-    not when --id is specified. Default is root folder.
-    e.g. "user1/test_pipelines"
-    :type folder_path: str
     :param new_folder_path: New full path of the folder to move the pipeline to.
     e.g. "user1/production_pipelines"
     :type new_folder_path: str
@@ -187,7 +183,7 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
     pipeline_client = get_new_pipeline_client(organization=organization)
     if id is None:
         if name is not None:
-            id = get_definition_id_from_name(name, pipeline_client, project, folder_path)
+            id = get_definition_id_from_name(name, pipeline_client, project)
         else:
             raise CLIError("Either --id or --name argument must be supplied for this command.")
     definition = pipeline_client.get_definition(definition_id=id, project=project)
