@@ -214,6 +214,10 @@ def update_policy_required_reviewer(policy_id,
     )
 
 
+_MERGE_POLICY_DEPRECATED_OPTION_ERROR = '--use-squash-merge has been deprecated to align with the new merge '\
+                                        'strategies in Azure Repos. Use --allow-squash instead. Refer aka.ms/merge-types '\
+                                        'for more information.'
+
 def create_policy_merge_strategy(repository_id, branch, blocking, enabled,
                                  use_squash_merge=None,
                                  allow_squash=None,
@@ -237,6 +241,8 @@ def create_policy_merge_strategy(repository_id, branch, blocking, enabled,
             if value is None:
                 param_value_array[i] = False
     else:
+        if allow_rebase or allow_no_fast_forward or allow_rebase_merge or allow_squash:
+            raise CLIError(_MERGE_POLICY_DEPRECATED_OPTION_ERROR)
         param_name_array = ['useSquashMerge']
         param_value_array = [use_squash_merge]
 
@@ -276,7 +282,7 @@ def update_policy_merge_strategy(policy_id,
 
     if is_new_merge_type_update:
         if use_squash_merge is not None:
-            raise CLIError("Cannot use new options with the deprecated param --use-squash-merge")
+            raise CLIError(_MERGE_POLICY_DEPRECATED_OPTION_ERROR)
         # Update is trying to set some new merge type (this should consider useSquashMerge as deprecated)
         param_name_array = ['allowSquash', 'allowRebase', 'allowRebaseMerge', 'allowNoFastForward']
         param_value_array = [
@@ -299,7 +305,7 @@ def update_policy_merge_strategy(policy_id,
     elif use_squash_merge is not None:
         # Moving from non legacy to legacy - NOT ALLOWED
         if [i for i, value in enumerate(current_setting_new_merge_values_array) if value is not None]:
-            raise CLIError("--use-squash-merge is deprecated. Please use --allow-squash instead.")
+            raise CLIError(_MERGE_POLICY_DEPRECATED_OPTION_ERROR)
         # Changing from legacy to legacy
         param_name_array = ['useSquashMerge']
         param_value_array = [use_squash_merge]
