@@ -218,6 +218,7 @@ _MERGE_POLICY_DEPRECATED_OPTION_ERROR = '--use-squash-merge has been deprecated 
                                         'strategies in Azure Repos. Use --allow-squash instead. Refer '\
                                         'https://aka.ms/merge-types for more information.'
 
+
 def create_policy_merge_strategy(repository_id, branch, blocking, enabled,
                                  use_squash_merge=None,
                                  allow_squash=None,
