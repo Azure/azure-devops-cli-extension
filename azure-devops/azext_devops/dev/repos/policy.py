@@ -215,8 +215,8 @@ def update_policy_required_reviewer(policy_id,
 
 
 _MERGE_POLICY_DEPRECATED_OPTION_ERROR = '--use-squash-merge has been deprecated to align with the new merge '\
-                                        'strategies in Azure Repos. Use --allow-squash instead. Refer aka.ms/merge-types '\
-                                        'for more information.'
+                                        'strategies in Azure Repos. Use --allow-squash instead. Refer '\
+                                        'https://aka.ms/merge-types for more information.'
 
 def create_policy_merge_strategy(repository_id, branch, blocking, enabled,
                                  use_squash_merge=None,
