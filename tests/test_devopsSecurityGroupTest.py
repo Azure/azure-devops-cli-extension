@@ -87,6 +87,7 @@ class GroupTests(DevopsScenarioTest):
             list_group_name3_members = self.cmd('az devops security group membership list --id '+ project_group_descriptor3 +' -o json --detect false').get_output_in_json()
             assert len(list_group_name3_members) == 0
 
+            self.sleep_in_live_run(5) # Test is still flaky without this sleep only two memberships are reflected in time for the call.
             # member of 
             list_group_name3_memberof = self.cmd('az devops security group membership list --id '+ project_group_descriptor3 +' --relationship memberof -o json --detect false').get_output_in_json()
             assert len(list_group_name3_memberof) == 3
