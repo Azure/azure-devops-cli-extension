@@ -10,7 +10,7 @@ def load_artifacts_help():
     helps['artifacts'] = """
         type: group
         short-summary: Manage Azure Artifacts.
-        long-summary:
+        long-summary: This command group is a part of the azure-devops extension.
     """
 
     helps['artifacts universal'] = """

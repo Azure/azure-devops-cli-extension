@@ -10,7 +10,7 @@ def load_boards_help():
     helps['boards'] = """
     type: group
     short-summary: Manage Azure Boards.
-    long-summary:
+    long-summary: This command group is a part of the azure-devops extension.
     """
 
     helps['boards work-item'] = """
