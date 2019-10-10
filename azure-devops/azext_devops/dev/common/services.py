@@ -207,6 +207,7 @@ def get_core_client(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_0.core.core_client.CoreClient')
 
+
 def get_core_client_v51(organization=None):
     connection = get_connection(organization)
     return connection.get_client(VSTS_MODULE + 'v5_1.core.core_client.CoreClient')
