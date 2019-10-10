@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class Account(Model):
-    """Account.
-
+    """
     :param account_id: Identifier for an Account
     :type account_id: str
     :param account_name: Name for an account
@@ -86,8 +85,7 @@ class Account(Model):
 
 
 class AccountCreateInfoInternal(Model):
-    """AccountCreateInfoInternal.
-
+    """
     :param account_name:
     :type account_name: str
     :param creator:
@@ -122,8 +120,7 @@ class AccountCreateInfoInternal(Model):
 
 
 class AccountPreferencesInternal(Model):
-    """AccountPreferencesInternal.
-
+    """
     :param culture:
     :type culture: object
     :param language:

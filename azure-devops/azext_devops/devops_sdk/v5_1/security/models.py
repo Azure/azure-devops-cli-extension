@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class AccessControlEntry(Model):
-    """AccessControlEntry.
+    """
+    Class for encapsulating the allowed and denied permissions for a given IdentityDescriptor.
 
     :param allow: The set of permission bits that represent the actions that the associated descriptor is allowed to perform.
     :type allow: int
@@ -38,7 +39,8 @@ class AccessControlEntry(Model):
 
 
 class AccessControlList(Model):
-    """AccessControlList.
+    """
+    The AccessControlList class is meant to associate a set of AccessControlEntries with a security token and its inheritance settings.
 
     :param aces_dictionary: Storage of permissions keyed on the identity the permission is for.
     :type aces_dictionary: dict
@@ -66,7 +68,8 @@ class AccessControlList(Model):
 
 
 class AccessControlListsCollection(Model):
-    """AccessControlListsCollection.
+    """
+    A list of AccessControlList. An AccessControlList is meant to associate a set of AccessControlEntries with a security token and its inheritance settings.
 
     """
 
@@ -78,7 +81,8 @@ class AccessControlListsCollection(Model):
 
 
 class AceExtendedInformation(Model):
-    """AceExtendedInformation.
+    """
+    Holds the inherited and effective permission information for a given AccessControlEntry.
 
     :param effective_allow: This is the combination of all of the explicit and inherited permissions for this identity on this token.  These are the permissions used when determining if a given user has permission to perform an action.
     :type effective_allow: int
@@ -106,8 +110,7 @@ class AceExtendedInformation(Model):
 
 
 class ActionDefinition(Model):
-    """ActionDefinition.
-
+    """
     :param bit: The bit mask integer for this action. Must be a power of 2.
     :type bit: int
     :param display_name: The localized display name for this action.
@@ -134,7 +137,8 @@ class ActionDefinition(Model):
 
 
 class PermissionEvaluation(Model):
-    """PermissionEvaluation.
+    """
+    Represents an evaluated permission.
 
     :param permissions: Permission bit for this evaluated permission.
     :type permissions: int
@@ -162,7 +166,8 @@ class PermissionEvaluation(Model):
 
 
 class PermissionEvaluationBatch(Model):
-    """PermissionEvaluationBatch.
+    """
+    Represents a set of evaluated permissions.
 
     :param always_allow_administrators: True if members of the Administrators group should always pass the security check.
     :type always_allow_administrators: bool
@@ -182,7 +187,8 @@ class PermissionEvaluationBatch(Model):
 
 
 class SecurityNamespaceDescription(Model):
-    """SecurityNamespaceDescription.
+    """
+    Class for describing the details of a TeamFoundationSecurityNamespace.
 
     :param actions: The list of actions that this Security Namespace is responsible for securing.
     :type actions: list of :class:`ActionDefinition <azure.devops.v5_1.security.models.ActionDefinition>`

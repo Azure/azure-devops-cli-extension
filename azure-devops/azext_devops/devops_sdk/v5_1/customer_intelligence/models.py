@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class CustomerIntelligenceEvent(Model):
-    """CustomerIntelligenceEvent.
-
+    """
     :param area:
     :type area: str
     :param feature:

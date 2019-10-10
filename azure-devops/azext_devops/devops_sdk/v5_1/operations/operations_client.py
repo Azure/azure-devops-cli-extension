@@ -27,7 +27,7 @@ class OperationsClient(Client):
 
     def get_operation(self, operation_id, plugin_id=None):
         """GetOperation.
-        [Preview API] Gets an operation from the the operationId using the given pluginId.
+        Gets an operation from the the operationId using the given pluginId.
         :param str operation_id: The ID for the operation.
         :param str plugin_id: The ID for the plugin.
         :rtype: :class:`<Operation> <azure.devops.v5_1.operations.models.Operation>`
@@ -40,7 +40,7 @@ class OperationsClient(Client):
             query_parameters['pluginId'] = self._serialize.query('plugin_id', plugin_id, 'str')
         response = self._send(http_method='GET',
                               location_id='9a1b74b4-2ca8-4a9f-8470-c2f2e6fdc949',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('Operation', response)

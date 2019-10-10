@@ -8,7 +8,7 @@
 
 from msrest import Serializer, Deserializer
 from ...client import Client
-from ...v5_0.accounts import models
+from ...v5_1.accounts import models
 
 
 class AccountsClient(Client):
@@ -42,7 +42,7 @@ class AccountsClient(Client):
             query_parameters['properties'] = self._serialize.query('properties', properties, 'str')
         response = self._send(http_method='GET',
                               location_id='229a6a53-b428-4ffb-a835-e8f36b5b4b1e',
-                              version='5.0',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[Account]', self._unwrap_collection(response))
 

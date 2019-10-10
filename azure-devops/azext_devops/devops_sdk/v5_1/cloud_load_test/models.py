@@ -10,21 +10,20 @@ from msrest.serialization import Model
 
 
 class AgentGroup(Model):
-    """AgentGroup.
-
-    :param created_by:
-    :type created_by: IdentityRef
-    :param creation_time:
+    """
+    :param created_by: User that created the agent group
+    :type created_by: :class:`IdentityRef <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.IdentityRef>`
+    :param creation_time: Time agent group was created
     :type creation_time: datetime
-    :param group_id:
+    :param group_id: Id of the agent group
     :type group_id: str
-    :param group_name:
+    :param group_name: The name of the agent group
     :type group_name: str
     :param machine_access_data:
     :type machine_access_data: list of :class:`AgentGroupAccessData <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.AgentGroupAccessData>`
-    :param machine_configuration:
+    :param machine_configuration: Machine configuration
     :type machine_configuration: :class:`WebApiUserLoadTestMachineInput <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.WebApiUserLoadTestMachineInput>`
-    :param tenant_id:
+    :param tenant_id: Tenant Id
     :type tenant_id: str
     """
 
@@ -50,17 +49,16 @@ class AgentGroup(Model):
 
 
 class AgentGroupAccessData(Model):
-    """AgentGroupAccessData.
-
-    :param details:
+    """
+    :param details: Type Specific details
     :type details: str
-    :param storage_connection_string:
+    :param storage_connection_string: Access string
     :type storage_connection_string: str
-    :param storage_end_point:
+    :param storage_end_point: Endpoint for the service
     :type storage_end_point: str
-    :param storage_name:
+    :param storage_name: Identifier for the storage (eg. table name)
     :type storage_name: str
-    :param storage_type:
+    :param storage_type: Type of the store (table, queue, blob)
     :type storage_type: str
     """
 
@@ -82,21 +80,20 @@ class AgentGroupAccessData(Model):
 
 
 class Application(Model):
-    """Application.
-
-    :param application_id:
+    """
+    :param application_id: Unique Id of the Application Component
     :type application_id: str
-    :param description:
+    :param description: Description of the Application component
     :type description: str
-    :param name:
+    :param name: The Name of the Application component
     :type name: str
-    :param path:
+    :param path: Path identifier of the Application component
     :type path: str
-    :param path_seperator:
+    :param path_seperator: Character used to separate paths for counters
     :type path_seperator: str
-    :param type:
+    :param type: Type identifier of the Application component under test
     :type type: str
-    :param version:
+    :param version: Version of the Application Component
     :type version: str
     """
 
@@ -122,19 +119,18 @@ class Application(Model):
 
 
 class ApplicationCounters(Model):
-    """ApplicationCounters.
-
-    :param application_id:
+    """
+    :param application_id: The unique Id of the Application that the counter belongs
     :type application_id: str
-    :param description:
+    :param description: Description of autCounter
     :type description: str
-    :param id:
+    :param id: The unique Id for the AutCounter
     :type id: str
-    :param is_default:
+    :param is_default: Whether the autCounter is a default counter or not
     :type is_default: bool
-    :param name:
+    :param name: Name of the AutCounter
     :type name: str
-    :param path:
+    :param path: The Path of the the autcounter wrt to hierarchy
     :type path: str
     """
 
@@ -158,19 +154,18 @@ class ApplicationCounters(Model):
 
 
 class ApplicationType(Model):
-    """ApplicationType.
-
-    :param action_uri_link:
+    """
+    :param action_uri_link: Helper link url
     :type action_uri_link: str
-    :param aut_portal_link:
+    :param aut_portal_link: The link that points to aut results site
     :type aut_portal_link: str
-    :param is_enabled:
+    :param is_enabled: true if application results collection is enabled for this tenant
     :type is_enabled: bool
-    :param max_components_allowed_for_collection:
+    :param max_components_allowed_for_collection: the max no. of application components allowed for collection per run
     :type max_components_allowed_for_collection: int
-    :param max_counters_allowed:
+    :param max_counters_allowed: The max no. of counters that can be collected per aut
     :type max_counters_allowed: int
-    :param type:
+    :param type: Application Type
     :type type: str
     """
 
@@ -194,8 +189,7 @@ class ApplicationType(Model):
 
 
 class BrowserMix(Model):
-    """BrowserMix.
-
+    """
     :param browser_name:
     :type browser_name: str
     :param browser_percentage:
@@ -214,8 +208,7 @@ class BrowserMix(Model):
 
 
 class CltCustomerIntelligenceData(Model):
-    """CltCustomerIntelligenceData.
-
+    """
     :param area:
     :type area: str
     :param feature:
@@ -238,8 +231,7 @@ class CltCustomerIntelligenceData(Model):
 
 
 class CounterGroup(Model):
-    """CounterGroup.
-
+    """
     :param group_name:
     :type group_name: str
     :param url:
@@ -258,13 +250,12 @@ class CounterGroup(Model):
 
 
 class CounterInstanceSamples(Model):
-    """CounterInstanceSamples.
-
+    """
     :param count:
     :type count: int
     :param counter_instance_id:
     :type counter_instance_id: str
-    :param next_refresh_time:
+    :param next_refresh_time: The time of next refresh
     :type next_refresh_time: datetime
     :param values:
     :type values: list of :class:`CounterSample <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.CounterSample>`
@@ -286,8 +277,7 @@ class CounterInstanceSamples(Model):
 
 
 class CounterSample(Model):
-    """CounterSample.
-
+    """
     :param base_value:
     :type base_value: long
     :param computed_value:
@@ -338,9 +328,8 @@ class CounterSample(Model):
 
 
 class CounterSampleQueryDetails(Model):
-    """CounterSampleQueryDetails.
-
-    :param counter_instance_id:
+    """
+    :param counter_instance_id: The instanceId for which samples are required
     :type counter_instance_id: str
     :param from_interval:
     :type from_interval: int
@@ -362,15 +351,14 @@ class CounterSampleQueryDetails(Model):
 
 
 class CounterSamplesResult(Model):
-    """CounterSamplesResult.
-
-    :param count:
+    """
+    :param count: Count of the samples
     :type count: int
-    :param max_batch_size:
+    :param max_batch_size: Maximum number of samples returned in this object
     :type max_batch_size: int
-    :param total_samples_count:
+    :param total_samples_count: Count of the samples
     :type total_samples_count: int
-    :param values:
+    :param values: The result samples
     :type values: list of :class:`CounterInstanceSamples <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.CounterInstanceSamples>`
     """
 
@@ -390,8 +378,7 @@ class CounterSamplesResult(Model):
 
 
 class Diagnostics(Model):
-    """Diagnostics.
-
+    """
     :param diagnostic_store_connection_string:
     :type diagnostic_store_connection_string: str
     :param last_modified_time:
@@ -414,11 +401,10 @@ class Diagnostics(Model):
 
 
 class DropAccessData(Model):
-    """DropAccessData.
-
+    """
     :param drop_container_url:
     :type drop_container_url: str
-    :param sas_key:
+    :param sas_key: The SaSkey to use for the drop.
     :type sas_key: str
     """
 
@@ -434,8 +420,7 @@ class DropAccessData(Model):
 
 
 class ErrorDetails(Model):
-    """ErrorDetails.
-
+    """
     :param last_error_date:
     :type last_error_date: datetime
     :param message_text:
@@ -473,9 +458,94 @@ class ErrorDetails(Model):
         self.test_case_name = test_case_name
 
 
-class LoadGenerationGeoLocation(Model):
-    """LoadGenerationGeoLocation.
+class GraphSubjectBase(Model):
+    """
+    :param _links:
+    :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.ReferenceLinks>`
+    :param descriptor:
+    :type descriptor: str
+    :param display_name:
+    :type display_name: str
+    :param url:
+    :type url: str
+    """
 
+    _attribute_map = {
+        '_links': {'key': '_links', 'type': 'ReferenceLinks'},
+        'descriptor': {'key': 'descriptor', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'url': {'key': 'url', 'type': 'str'}
+    }
+
+    def __init__(self, _links=None, descriptor=None, display_name=None, url=None):
+        super(GraphSubjectBase, self).__init__()
+        self._links = _links
+        self.descriptor = descriptor
+        self.display_name = display_name
+        self.url = url
+
+
+class IdentityRef(GraphSubjectBase):
+    """
+    :param _links:
+    :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.ReferenceLinks>`
+    :param descriptor:
+    :type descriptor: str
+    :param display_name:
+    :type display_name: str
+    :param url:
+    :type url: str
+    :param directory_alias:
+    :type directory_alias: str
+    :param id:
+    :type id: str
+    :param image_url:
+    :type image_url: str
+    :param inactive:
+    :type inactive: bool
+    :param is_aad_identity:
+    :type is_aad_identity: bool
+    :param is_container:
+    :type is_container: bool
+    :param is_deleted_in_origin:
+    :type is_deleted_in_origin: bool
+    :param profile_url:
+    :type profile_url: str
+    :param unique_name:
+    :type unique_name: str
+    """
+
+    _attribute_map = {
+        '_links': {'key': '_links', 'type': 'ReferenceLinks'},
+        'descriptor': {'key': 'descriptor', 'type': 'str'},
+        'display_name': {'key': 'displayName', 'type': 'str'},
+        'url': {'key': 'url', 'type': 'str'},
+        'directory_alias': {'key': 'directoryAlias', 'type': 'str'},
+        'id': {'key': 'id', 'type': 'str'},
+        'image_url': {'key': 'imageUrl', 'type': 'str'},
+        'inactive': {'key': 'inactive', 'type': 'bool'},
+        'is_aad_identity': {'key': 'isAadIdentity', 'type': 'bool'},
+        'is_container': {'key': 'isContainer', 'type': 'bool'},
+        'is_deleted_in_origin': {'key': 'isDeletedInOrigin', 'type': 'bool'},
+        'profile_url': {'key': 'profileUrl', 'type': 'str'},
+        'unique_name': {'key': 'uniqueName', 'type': 'str'}
+    }
+
+    def __init__(self, _links=None, descriptor=None, display_name=None, url=None, directory_alias=None, id=None, image_url=None, inactive=None, is_aad_identity=None, is_container=None, is_deleted_in_origin=None, profile_url=None, unique_name=None):
+        super(IdentityRef, self).__init__(_links=_links, descriptor=descriptor, display_name=display_name, url=url)
+        self.directory_alias = directory_alias
+        self.id = id
+        self.image_url = image_url
+        self.inactive = inactive
+        self.is_aad_identity = is_aad_identity
+        self.is_container = is_container
+        self.is_deleted_in_origin = is_deleted_in_origin
+        self.profile_url = profile_url
+        self.unique_name = unique_name
+
+
+class LoadGenerationGeoLocation(Model):
+    """
     :param location:
     :type location: str
     :param percentage:
@@ -494,8 +564,7 @@ class LoadGenerationGeoLocation(Model):
 
 
 class LoadTest(Model):
-    """LoadTest.
-
+    """
     """
 
     _attribute_map = {
@@ -506,8 +575,7 @@ class LoadTest(Model):
 
 
 class LoadTestDefinition(Model):
-    """LoadTestDefinition.
-
+    """
     :param agent_count:
     :type agent_count: int
     :param browser_mixs:
@@ -566,8 +634,7 @@ class LoadTestDefinition(Model):
 
 
 class LoadTestErrors(Model):
-    """LoadTestErrors.
-
+    """
     :param count:
     :type count: int
     :param occurrences:
@@ -594,8 +661,7 @@ class LoadTestErrors(Model):
 
 
 class LoadTestRunSettings(Model):
-    """LoadTestRunSettings.
-
+    """
     :param agent_count:
     :type agent_count: int
     :param core_count:
@@ -634,8 +700,7 @@ class LoadTestRunSettings(Model):
 
 
 class OverridableRunSettings(Model):
-    """OverridableRunSettings.
-
+    """
     :param load_generator_machines_type:
     :type load_generator_machines_type: object
     :param static_agent_run_settings:
@@ -654,8 +719,7 @@ class OverridableRunSettings(Model):
 
 
 class PageSummary(Model):
-    """PageSummary.
-
+    """
     :param average_page_time:
     :type average_page_time: float
     :param page_url:
@@ -693,9 +757,23 @@ class PageSummary(Model):
         self.total_pages = total_pages
 
 
-class RequestSummary(Model):
-    """RequestSummary.
+class ReferenceLinks(Model):
+    """
+    :param links:
+    :type links: dict
+    """
 
+    _attribute_map = {
+        'links': {'key': 'links', 'type': '{object}'}
+    }
+
+    def __init__(self, links=None):
+        super(ReferenceLinks, self).__init__()
+        self.links = links
+
+
+class RequestSummary(Model):
+    """
     :param average_response_time:
     :type average_response_time: float
     :param failed_requests:
@@ -742,8 +820,7 @@ class RequestSummary(Model):
 
 
 class ScenarioSummary(Model):
-    """ScenarioSummary.
-
+    """
     :param max_user_load:
     :type max_user_load: int
     :param min_user_load:
@@ -766,8 +843,7 @@ class ScenarioSummary(Model):
 
 
 class StaticAgentRunSetting(Model):
-    """StaticAgentRunSetting.
-
+    """
     :param load_generator_machines_type:
     :type load_generator_machines_type: object
     :param static_agent_group_name:
@@ -786,8 +862,7 @@ class StaticAgentRunSetting(Model):
 
 
 class SubType(Model):
-    """SubType.
-
+    """
     :param count:
     :type count: int
     :param error_detail_list:
@@ -818,8 +893,7 @@ class SubType(Model):
 
 
 class SummaryPercentileData(Model):
-    """SummaryPercentileData.
-
+    """
     :param percentile:
     :type percentile: int
     :param percentile_value:
@@ -838,19 +912,18 @@ class SummaryPercentileData(Model):
 
 
 class TenantDetails(Model):
-    """TenantDetails.
-
-    :param access_details:
+    """
+    :param access_details: Access details
     :type access_details: list of :class:`AgentGroupAccessData <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.AgentGroupAccessData>`
-    :param id:
+    :param id: Tenant Id
     :type id: str
-    :param static_machines:
+    :param static_machines: Static machines configured for local runs
     :type static_machines: list of :class:`WebApiTestMachine <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.WebApiTestMachine>`
     :param user_load_agent_input:
     :type user_load_agent_input: :class:`WebApiUserLoadTestMachineInput <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.WebApiUserLoadTestMachineInput>`
     :param user_load_agent_resources_uri:
     :type user_load_agent_resources_uri: str
-    :param valid_geo_locations:
+    :param valid_geo_locations: The list of valid geo-lcations for tenant
     :type valid_geo_locations: list of str
     """
 
@@ -874,18 +947,17 @@ class TenantDetails(Model):
 
 
 class TestDefinitionBasic(Model):
-    """TestDefinitionBasic.
-
-    :param access_data:
+    """
+    :param access_data: Data for accessing the drop and not persisted in storage
     :type access_data: :class:`DropAccessData <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.DropAccessData>`
     :param created_by:
-    :type created_by: IdentityRef
+    :type created_by: :class:`IdentityRef <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.IdentityRef>`
     :param created_date:
     :type created_date: datetime
     :param id:
     :type id: str
     :param last_modified_by:
-    :type last_modified_by: IdentityRef
+    :type last_modified_by: :class:`IdentityRef <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.IdentityRef>`
     :param last_modified_date:
     :type last_modified_date: datetime
     :param load_test_type:
@@ -918,19 +990,18 @@ class TestDefinitionBasic(Model):
 
 
 class TestDrop(Model):
-    """TestDrop.
-
-    :param access_data:
+    """
+    :param access_data: Data for accessing the drop and not persisted in storage
     :type access_data: :class:`DropAccessData <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.DropAccessData>`
-    :param created_date:
+    :param created_date: Time at which the drop is created
     :type created_date: datetime
-    :param drop_type:
+    :param drop_type: Identifies the type of drop
     :type drop_type: str
-    :param id:
+    :param id: Drop Id
     :type id: str
-    :param load_test_definition:
+    :param load_test_definition: LoadTest definition of the run for which testdrop is created
     :type load_test_definition: :class:`LoadTestDefinition <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.LoadTestDefinition>`
-    :param test_run_id:
+    :param test_run_id: Test Run Id
     :type test_run_id: str
     """
 
@@ -954,11 +1025,12 @@ class TestDrop(Model):
 
 
 class TestDropRef(Model):
-    """TestDropRef.
+    """
+    An abstracted reference to some other resource. This class is used to provide the load test data contracts with a uniform way to reference other resources in a way that provides easy traversal through links.
 
-    :param id:
+    :param id: Id of the resource
     :type id: str
-    :param url:
+    :param url: Full http link to the resource
     :type url: str
     """
 
@@ -974,15 +1046,14 @@ class TestDropRef(Model):
 
 
 class TestResults(Model):
-    """TestResults.
-
-    :param cloud_load_test_solution_url:
+    """
+    :param cloud_load_test_solution_url: The uri to the test run results file.
     :type cloud_load_test_solution_url: str
     :param counter_groups:
     :type counter_groups: list of :class:`CounterGroup <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.CounterGroup>`
-    :param diagnostics:
+    :param diagnostics: The object contains diagnostic details
     :type diagnostics: :class:`Diagnostics <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.Diagnostics>`
-    :param results_url:
+    :param results_url: The uri to the test run results file.
     :type results_url: str
     """
 
@@ -1002,8 +1073,7 @@ class TestResults(Model):
 
 
 class TestResultsSummary(Model):
-    """TestResultsSummary.
-
+    """
     :param overall_page_summary:
     :type overall_page_summary: :class:`PageSummary <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.PageSummary>`
     :param overall_request_summary:
@@ -1050,8 +1120,7 @@ class TestResultsSummary(Model):
 
 
 class TestRunAbortMessage(Model):
-    """TestRunAbortMessage.
-
+    """
     :param action:
     :type action: str
     :param cause:
@@ -1082,35 +1151,34 @@ class TestRunAbortMessage(Model):
 
 
 class TestRunBasic(Model):
-    """TestRunBasic.
-
-    :param created_by:
-    :type created_by: IdentityRef
-    :param created_date:
+    """
+    :param created_by: Vss User identity who created the test run.
+    :type created_by: :class:`IdentityRef <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.IdentityRef>`
+    :param created_date: Gets the creation time of the test run
     :type created_date: datetime
-    :param deleted_by:
-    :type deleted_by: IdentityRef
-    :param deleted_date:
+    :param deleted_by: Vss User identity who deleted the test run.
+    :type deleted_by: :class:`IdentityRef <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.IdentityRef>`
+    :param deleted_date: Gets the deleted time of the test run
     :type deleted_date: datetime
-    :param finished_date:
+    :param finished_date: Gets the finish time of the test run
     :type finished_date: datetime
-    :param id:
+    :param id: Gets the unique identifier for the test run definition.
     :type id: str
     :param load_generation_geo_locations:
     :type load_generation_geo_locations: list of :class:`LoadGenerationGeoLocation <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.LoadGenerationGeoLocation>`
-    :param load_test_file_name:
+    :param load_test_file_name: Gets the load test file of the test run definition.
     :type load_test_file_name: str
-    :param name:
+    :param name: Gets the name of the test run definition.
     :type name: str
-    :param run_number:
+    :param run_number: Gets the number of the test run (unique within a tenant)
     :type run_number: int
-    :param run_source:
+    :param run_source: Test run source like Ibiza,VSO,BuildVNext, etc.
     :type run_source: str
-    :param run_specific_details:
+    :param run_specific_details: Run specific details.
     :type run_specific_details: :class:`LoadTestRunDetails <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.LoadTestRunDetails>`
-    :param run_type:
+    :param run_type: Run type like VisualStudioLoadTest or JMeterLoadTest
     :type run_type: object
-    :param state:
+    :param state: State of the test run.
     :type state: object
     :param url:
     :type url: str
@@ -1154,27 +1222,26 @@ class TestRunBasic(Model):
 
 
 class TestRunCounterInstance(Model):
-    """TestRunCounterInstance.
-
-    :param category_name:
+    """
+    :param category_name: CategoryName for this counter
     :type category_name: str
-    :param counter_instance_id:
+    :param counter_instance_id: Combination of source and SourceInstanceId
     :type counter_instance_id: str
-    :param counter_name:
+    :param counter_name: Name of the counter Eg: Errors/Sec
     :type counter_name: str
-    :param counter_units:
+    :param counter_units: Units for this counter. Empty string for mere numbers
     :type counter_units: str
-    :param instance_name:
+    :param instance_name: Instance Name Eg: _Avg,_Total etc
     :type instance_name: str
-    :param is_preselected_counter:
+    :param is_preselected_counter: true if this counter instance is a default counter
     :type is_preselected_counter: bool
-    :param machine_name:
+    :param machine_name: Machine from where this counter was collected Used in case of machine specific counters like - Agent CPU and memory etc.
     :type machine_name: str
-    :param part_of_counter_groups:
+    :param part_of_counter_groups: Counter Groups to which this counter instance is part of
     :type part_of_counter_groups: list of str
-    :param summary_data:
+    :param summary_data: Summary result for this counter instance
     :type summary_data: :class:`WebInstanceSummaryData <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.WebInstanceSummaryData>`
-    :param unique_name:
+    :param unique_name: A unique name for this counter instance
     :type unique_name: str
     """
 
@@ -1206,9 +1273,8 @@ class TestRunCounterInstance(Model):
 
 
 class TestRunMessage(Model):
-    """TestRunMessage.
-
-    :param agent_id:
+    """
+    :param agent_id: Agent Id
     :type agent_id: str
     :param error_code:
     :type error_code: str
@@ -1216,13 +1282,13 @@ class TestRunMessage(Model):
     :type logged_date: datetime
     :param message:
     :type message: str
-    :param message_id:
+    :param message_id: Message Id
     :type message_id: str
     :param message_source:
     :type message_source: object
     :param message_type:
     :type message_type: object
-    :param test_run_id:
+    :param test_run_id: Id of the test run
     :type test_run_id: str
     :param url:
     :type url: str
@@ -1254,13 +1320,12 @@ class TestRunMessage(Model):
 
 
 class TestSettings(Model):
-    """TestSettings.
-
-    :param cleanup_command:
+    """
+    :param cleanup_command: Cleanup command
     :type cleanup_command: str
-    :param host_process_platform:
+    :param host_process_platform: Processor Architecture chosen
     :type host_process_platform: object
-    :param setup_command:
+    :param setup_command: Setup command
     :type setup_command: str
     """
 
@@ -1278,8 +1343,7 @@ class TestSettings(Model):
 
 
 class TestSummary(Model):
-    """TestSummary.
-
+    """
     :param average_test_time:
     :type average_test_time: float
     :param failed_tests:
@@ -1318,8 +1382,7 @@ class TestSummary(Model):
 
 
 class TransactionSummary(Model):
-    """TransactionSummary.
-
+    """
     :param average_response_time:
     :type average_response_time: float
     :param average_transaction_time:
@@ -1358,8 +1421,7 @@ class TransactionSummary(Model):
 
 
 class WebApiLoadTestMachineInput(Model):
-    """WebApiLoadTestMachineInput.
-
+    """
     :param machine_group_id:
     :type machine_group_id: str
     :param machine_type:
@@ -1386,8 +1448,7 @@ class WebApiLoadTestMachineInput(Model):
 
 
 class WebApiSetupParamaters(Model):
-    """WebApiSetupParamaters.
-
+    """
     :param configurations:
     :type configurations: dict
     """
@@ -1402,8 +1463,7 @@ class WebApiSetupParamaters(Model):
 
 
 class WebApiTestMachine(Model):
-    """WebApiTestMachine.
-
+    """
     :param last_heart_beat:
     :type last_heart_beat: datetime
     :param machine_name:
@@ -1426,7 +1486,8 @@ class WebApiTestMachine(Model):
 
 
 class WebApiUserLoadTestMachineInput(WebApiLoadTestMachineInput):
-    """WebApiUserLoadTestMachineInput.
+    """
+    This can eventually evolve as the ultimate JSON file that user can use to configure their machine(s) against CLT
 
     :param machine_group_id:
     :type machine_group_id: str
@@ -1442,8 +1503,8 @@ class WebApiUserLoadTestMachineInput(WebApiLoadTestMachineInput):
     :type tenant_id: str
     :param user_load_agent_resources_uri:
     :type user_load_agent_resources_uri: str
-    :param vSTSAccount_uri:
-    :type vSTSAccount_uri: str
+    :param vsts_account_uri:
+    :type vsts_account_uri: str
     """
 
     _attribute_map = {
@@ -1454,20 +1515,19 @@ class WebApiUserLoadTestMachineInput(WebApiLoadTestMachineInput):
         'agent_group_name': {'key': 'agentGroupName', 'type': 'str'},
         'tenant_id': {'key': 'tenantId', 'type': 'str'},
         'user_load_agent_resources_uri': {'key': 'userLoadAgentResourcesUri', 'type': 'str'},
-        'vSTSAccount_uri': {'key': 'vSTSAccountUri', 'type': 'str'}
+        'vsts_account_uri': {'key': 'vstsAccountUri', 'type': 'str'}
     }
 
-    def __init__(self, machine_group_id=None, machine_type=None, setup_configuration=None, supported_run_types=None, agent_group_name=None, tenant_id=None, user_load_agent_resources_uri=None, vSTSAccount_uri=None):
+    def __init__(self, machine_group_id=None, machine_type=None, setup_configuration=None, supported_run_types=None, agent_group_name=None, tenant_id=None, user_load_agent_resources_uri=None, vsts_account_uri=None):
         super(WebApiUserLoadTestMachineInput, self).__init__(machine_group_id=machine_group_id, machine_type=machine_type, setup_configuration=setup_configuration, supported_run_types=supported_run_types)
         self.agent_group_name = agent_group_name
         self.tenant_id = tenant_id
         self.user_load_agent_resources_uri = user_load_agent_resources_uri
-        self.vSTSAccount_uri = vSTSAccount_uri
+        self.vsts_account_uri = vsts_account_uri
 
 
 class WebInstanceSummaryData(Model):
-    """WebInstanceSummaryData.
-
+    """
     :param average:
     :type average: float
     :param max:
@@ -1490,8 +1550,7 @@ class WebInstanceSummaryData(Model):
 
 
 class LoadTestRunDetails(LoadTestRunSettings):
-    """LoadTestRunDetails.
-
+    """
     :param agent_count:
     :type agent_count: int
     :param core_count:
@@ -1527,18 +1586,17 @@ class LoadTestRunDetails(LoadTestRunSettings):
 
 
 class TestDefinition(TestDefinitionBasic):
-    """TestDefinition.
-
-    :param access_data:
+    """
+    :param access_data: Data for accessing the drop and not persisted in storage
     :type access_data: :class:`DropAccessData <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.DropAccessData>`
     :param created_by:
-    :type created_by: IdentityRef
+    :type created_by: :class:`IdentityRef <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.IdentityRef>`
     :param created_date:
     :type created_date: datetime
     :param id:
     :type id: str
     :param last_modified_by:
-    :type last_modified_by: IdentityRef
+    :type last_modified_by: :class:`IdentityRef <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.IdentityRef>`
     :param last_modified_date:
     :type last_modified_date: datetime
     :param load_test_type:
@@ -1547,7 +1605,7 @@ class TestDefinition(TestDefinitionBasic):
     :type name: str
     :param description:
     :type description: str
-    :param load_generation_geo_locations:
+    :param load_generation_geo_locations: Geo location from where load is generated
     :type load_generation_geo_locations: list of :class:`LoadGenerationGeoLocation <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.LoadGenerationGeoLocation>`
     :param load_test_definition_source:
     :type load_test_definition_source: str
@@ -1587,77 +1645,76 @@ class TestDefinition(TestDefinitionBasic):
 
 
 class TestRun(TestRunBasic):
-    """TestRun.
-
-    :param created_by:
-    :type created_by: IdentityRef
-    :param created_date:
+    """
+    :param created_by: Vss User identity who created the test run.
+    :type created_by: :class:`IdentityRef <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.IdentityRef>`
+    :param created_date: Gets the creation time of the test run
     :type created_date: datetime
-    :param deleted_by:
-    :type deleted_by: IdentityRef
-    :param deleted_date:
+    :param deleted_by: Vss User identity who deleted the test run.
+    :type deleted_by: :class:`IdentityRef <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.IdentityRef>`
+    :param deleted_date: Gets the deleted time of the test run
     :type deleted_date: datetime
-    :param finished_date:
+    :param finished_date: Gets the finish time of the test run
     :type finished_date: datetime
-    :param id:
+    :param id: Gets the unique identifier for the test run definition.
     :type id: str
     :param load_generation_geo_locations:
     :type load_generation_geo_locations: list of :class:`LoadGenerationGeoLocation <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.LoadGenerationGeoLocation>`
-    :param load_test_file_name:
+    :param load_test_file_name: Gets the load test file of the test run definition.
     :type load_test_file_name: str
-    :param name:
+    :param name: Gets the name of the test run definition.
     :type name: str
-    :param run_number:
+    :param run_number: Gets the number of the test run (unique within a tenant)
     :type run_number: int
-    :param run_source:
+    :param run_source: Test run source like Ibiza,VSO,BuildVNext, etc.
     :type run_source: str
-    :param run_specific_details:
+    :param run_specific_details: Run specific details.
     :type run_specific_details: :class:`LoadTestRunDetails <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.LoadTestRunDetails>`
-    :param run_type:
+    :param run_type: Run type like VisualStudioLoadTest or JMeterLoadTest
     :type run_type: object
-    :param state:
+    :param state: State of the test run.
     :type state: object
     :param url:
     :type url: str
-    :param abort_message:
+    :param abort_message: Message associated to state change, contains details of infrastructure error.
     :type abort_message: :class:`TestRunAbortMessage <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.TestRunAbortMessage>`
-    :param aut_initialization_error:
+    :param aut_initialization_error: true if aut counter collection could not start due to some critical error for this run.
     :type aut_initialization_error: bool
-    :param chargeable:
+    :param chargeable: Whether run is chargeable or not Its chargeable once we configured agent and sent start signal
     :type chargeable: bool
-    :param charged_vUserminutes:
+    :param charged_vUserminutes: Whether run is chargeable or not The Charged VUser Minutes for the RUN
     :type charged_vUserminutes: int
-    :param description:
+    :param description: Test run description.
     :type description: str
-    :param execution_finished_date:
+    :param execution_finished_date: Gets the time when the test run execution finished
     :type execution_finished_date: datetime
-    :param execution_started_date:
+    :param execution_started_date: Gets the time when the test run warmup finished(if warmup was specified) and load test started
     :type execution_started_date: datetime
-    :param queued_date:
+    :param queued_date: Gets the time when the test run was queued
     :type queued_date: datetime
-    :param retention_state:
+    :param retention_state: Retention state of the run
     :type retention_state: object
     :param run_source_identifier:
     :type run_source_identifier: str
-    :param run_source_url:
+    :param run_source_url: The uri to the run source.
     :type run_source_url: str
-    :param started_by:
-    :type started_by: IdentityRef
-    :param started_date:
+    :param started_by: Vss User identity who created the test run.
+    :type started_by: :class:`IdentityRef <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.IdentityRef>`
+    :param started_date: When the test run started execution.
     :type started_date: datetime
-    :param stopped_by:
-    :type stopped_by: IdentityRef
-    :param sub_state:
+    :param stopped_by: Vss User identity who created the test run.
+    :type stopped_by: :class:`IdentityRef <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.IdentityRef>`
+    :param sub_state: SubState is more granular description of the state
     :type sub_state: object
     :param supersede_run_settings:
     :type supersede_run_settings: :class:`OverridableRunSettings <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.OverridableRunSettings>`
-    :param test_drop:
+    :param test_drop: Drop associated with this test run
     :type test_drop: :class:`TestDropRef <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.TestDropRef>`
-    :param test_settings:
+    :param test_settings: The Test settings for the test run
     :type test_settings: :class:`TestSettings <azure.devops.v5_1.microsoft._visual_studio._test_service._web_api_model.models.TestSettings>`
-    :param warm_up_started_date:
+    :param warm_up_started_date: Gets the time when the test run warmup started
     :type warm_up_started_date: datetime
-    :param web_result_url:
+    :param web_result_url: The uri to the vso detailed result.
     :type web_result_url: str
     """
 
@@ -1739,6 +1796,8 @@ __all__ = [
     'Diagnostics',
     'DropAccessData',
     'ErrorDetails',
+    'GraphSubjectBase',
+    'IdentityRef',
     'LoadGenerationGeoLocation',
     'LoadTest',
     'LoadTestDefinition',
@@ -1746,6 +1805,7 @@ __all__ = [
     'LoadTestRunSettings',
     'OverridableRunSettings',
     'PageSummary',
+    'ReferenceLinks',
     'RequestSummary',
     'ScenarioSummary',
     'StaticAgentRunSetting',

@@ -9,7 +9,7 @@
 
 class ClientFactoryV5_1(object):
     """ClientFactoryV5_1.
-    A factory class to get the 5.1 preview clients.
+    A factory class to get the 5.1 clients.
     """
 
     def __init__(self, connection):
@@ -21,6 +21,13 @@ class ClientFactoryV5_1(object):
         :rtype: :class:`<AccountsClient> <azure.devops.v5_1.accounts.accounts_client.AccountsClient>`
         """
         return self._connection.get_client('azure.devops.v5_1.accounts.accounts_client.AccountsClient')
+
+    def get_audit_client(self):
+        """get_audit_client.
+        Gets the 5.1 version of the AuditClient
+        :rtype: :class:`<AuditClient> <azure.devops.v5_1.audit.audit_client.AuditClient>`
+        """
+        return self._connection.get_client('azure.devops.v5_1.audit.audit_client.AuditClient')
 
     def get_build_client(self):
         """get_build_client.
@@ -253,6 +260,13 @@ class ClientFactoryV5_1(object):
         """
         return self._connection.get_client('azure.devops.v5_1.release.release_client.ReleaseClient')
 
+    def get_search_client(self):
+        """get_search_client.
+        Gets the 5.1 version of the SearchClient
+        :rtype: :class:`<SearchClient> <azure.devops.v5_1.search.search_client.SearchClient>`
+        """
+        return self._connection.get_client('azure.devops.v5_1.search.search_client.SearchClient')
+
     def get_security_client(self):
         """get_security_client.
         Gets the 5.1 version of the SecurityClient
@@ -316,12 +330,33 @@ class ClientFactoryV5_1(object):
         """
         return self._connection.get_client('azure.devops.v5_1.test_plan.test_plan_client.TestPlanClient')
 
+    def get_test_results_client(self):
+        """get_test_results_client.
+        Gets the 5.1 version of the TestResultsClient
+        :rtype: :class:`<TestResultsClient> <azure.devops.v5_1.test_results.test_results_client.TestResultsClient>`
+        """
+        return self._connection.get_client('azure.devops.v5_1.test_results.test_results_client.TestResultsClient')
+
     def get_tfvc_client(self):
         """get_tfvc_client.
         Gets the 5.1 version of the TfvcClient
         :rtype: :class:`<TfvcClient> <azure.devops.v5_1.tfvc.tfvc_client.TfvcClient>`
         """
         return self._connection.get_client('azure.devops.v5_1.tfvc.tfvc_client.TfvcClient')
+
+    def get_token_admin_client(self):
+        """get_token_admin_client.
+        Gets the 5.1 version of the TokenAdminClient
+        :rtype: :class:`<TokenAdminClient> <azure.devops.v5_1.token_admin.token_admin_client.TokenAdminClient>`
+        """
+        return self._connection.get_client('azure.devops.v5_1.token_admin.token_admin_client.TokenAdminClient')
+
+    def get_token_administration_client(self):
+        """get_token_administration_client.
+        Gets the 5.1 version of the TokenAdministrationClient
+        :rtype: :class:`<TokenAdministrationClient> <azure.devops.v5_1.token_administration.token_administration_client.TokenAdministrationClient>`
+        """
+        return self._connection.get_client('azure.devops.v5_1.token_administration.token_administration_client.TokenAdministrationClient')
 
     def get_upack_api_client(self):
         """get_upack_api_client.

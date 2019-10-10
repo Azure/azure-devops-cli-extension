@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class Attachment(Model):
-    """Attachment.
+    """
+    Meta data for a file attached to an artifact.
 
     :param _links: Links to other related objects.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -58,8 +59,7 @@ class Attachment(Model):
 
 
 class Change(Model):
-    """Change.
-
+    """
     :param change_type: The type of change that was made to the item.
     :type change_type: object
     :param item: Current version.
@@ -90,7 +90,8 @@ class Change(Model):
 
 
 class Comment(Model):
-    """Comment.
+    """
+    Represents a comment which is one of potentially many in a comment thread.
 
     :param _links: Links to other related objects.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -146,7 +147,8 @@ class Comment(Model):
 
 
 class CommentIterationContext(Model):
-    """CommentIterationContext.
+    """
+    Comment iteration context is used to identify which diff was being viewed when the thread was created.
 
     :param first_comparing_iteration: The iteration of the file on the left side of the diff when the thread was created. If this value is equal to SecondComparingIteration, then this version is the common commit between the source and target branches of the pull request.
     :type first_comparing_iteration: int
@@ -166,8 +168,7 @@ class CommentIterationContext(Model):
 
 
 class CommentPosition(Model):
-    """CommentPosition.
-
+    """
     :param line: The line number of a thread's position. Starts at 1.
     :type line: int
     :param offset: The character offset of a thread's position inside of a line. Starts at 0.
@@ -186,7 +187,8 @@ class CommentPosition(Model):
 
 
 class CommentThread(Model):
-    """CommentThread.
+    """
+    Represents a comment thread of a pull request. A thread contains meta data about the file it was left on along with one or more comments (an initial comment and the subsequent replies).
 
     :param _links: Links to other related objects.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -238,8 +240,7 @@ class CommentThread(Model):
 
 
 class CommentThreadContext(Model):
-    """CommentThreadContext.
-
+    """
     :param file_path: File path relative to the root of the repository. It's up to the client to use any path format.
     :type file_path: str
     :param left_file_end: Position of last character of the thread's span in left file.
@@ -270,7 +271,8 @@ class CommentThreadContext(Model):
 
 
 class CommentTrackingCriteria(Model):
-    """CommentTrackingCriteria.
+    """
+    Comment tracking criteria is used to identify which iteration context the thread has been tracked to (if any) along with some detail about the original position and filename.
 
     :param first_comparing_iteration: The iteration of the file on the left side of the diff that the thread will be tracked to. Threads were tracked if this is greater than 0.
     :type first_comparing_iteration: int
@@ -310,8 +312,7 @@ class CommentTrackingCriteria(Model):
 
 
 class FileContentMetadata(Model):
-    """FileContentMetadata.
-
+    """
     :param content_type:
     :type content_type: str
     :param encoding:
@@ -350,7 +351,8 @@ class FileContentMetadata(Model):
 
 
 class FileDiff(Model):
-    """FileDiff.
+    """
+    Provides properties that describe file differences
 
     :param line_diff_blocks: The collection of line diff blocks
     :type line_diff_blocks: list of :class:`LineDiffBlock <azure.devops.v5_1.git.models.LineDiffBlock>`
@@ -374,7 +376,8 @@ class FileDiff(Model):
 
 
 class FileDiffParams(Model):
-    """FileDiffParams.
+    """
+    Provides parameters that describe inputs for the file diff
 
     :param original_path: Original path of the file
     :type original_path: str
@@ -394,7 +397,8 @@ class FileDiffParams(Model):
 
 
 class FileDiffsCriteria(Model):
-    """FileDiffsCriteria.
+    """
+    Provides properties that describe inputs for the file diffs
 
     :param base_version_commit: Commit ID of the base version
     :type base_version_commit: str
@@ -418,7 +422,8 @@ class FileDiffsCriteria(Model):
 
 
 class GitAnnotatedTag(Model):
-    """GitAnnotatedTag.
+    """
+    A Git annotated tag.
 
     :param message: The tagging Message
     :type message: str
@@ -454,8 +459,7 @@ class GitAnnotatedTag(Model):
 
 
 class GitAsyncRefOperation(Model):
-    """GitAsyncRefOperation.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param detailed_status:
@@ -486,7 +490,8 @@ class GitAsyncRefOperation(Model):
 
 
 class GitAsyncRefOperationDetail(Model):
-    """GitAsyncRefOperationDetail.
+    """
+    Information about the progress of a cherry pick or revert operation.
 
     :param conflict: Indicates if there was a conflict generated when trying to cherry pick or revert the changes.
     :type conflict: bool
@@ -522,7 +527,8 @@ class GitAsyncRefOperationDetail(Model):
 
 
 class GitAsyncRefOperationParameters(Model):
-    """GitAsyncRefOperationParameters.
+    """
+    Parameters that are provided in the request body when requesting to cherry pick or revert.
 
     :param generated_ref_name: Proposed target branch name for the cherry pick or revert operation.
     :type generated_ref_name: str
@@ -550,7 +556,8 @@ class GitAsyncRefOperationParameters(Model):
 
 
 class GitAsyncRefOperationSource(Model):
-    """GitAsyncRefOperationSource.
+    """
+    GitAsyncRefOperationSource specifies the pull request or list of commits to use when making a cherry pick and revert operation request. Only one should be provided.
 
     :param commit_list: A list of commits to cherry pick or revert
     :type commit_list: list of :class:`GitCommitRef <azure.devops.v5_1.git.models.GitCommitRef>`
@@ -570,8 +577,7 @@ class GitAsyncRefOperationSource(Model):
 
 
 class GitBlobRef(Model):
-    """GitBlobRef.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param object_id: SHA1 hash of git object
@@ -598,7 +604,8 @@ class GitBlobRef(Model):
 
 
 class GitBranchStats(Model):
-    """GitBranchStats.
+    """
+    Ahead and behind counts for a particular ref.
 
     :param ahead_count: Number of commits ahead.
     :type ahead_count: int
@@ -630,7 +637,8 @@ class GitBranchStats(Model):
 
 
 class GitCherryPick(GitAsyncRefOperation):
-    """GitCherryPick.
+    """
+    This object is returned from Cherry Pick operations and provides the id and status of the operation
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -661,8 +669,7 @@ class GitCherryPick(GitAsyncRefOperation):
 
 
 class GitCommitChanges(Model):
-    """GitCommitChanges.
-
+    """
     :param change_counts:
     :type change_counts: dict
     :param changes:
@@ -681,8 +688,7 @@ class GitCommitChanges(Model):
 
 
 class GitCommitDiffs(Model):
-    """GitCommitDiffs.
-
+    """
     :param ahead_count:
     :type ahead_count: int
     :param all_changes_included:
@@ -725,7 +731,8 @@ class GitCommitDiffs(Model):
 
 
 class GitCommitRef(Model):
-    """GitCommitRef.
+    """
+    Provides properties that describe a Git commit and associated metadata.
 
     :param _links: A collection of related REST reference links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -793,8 +800,7 @@ class GitCommitRef(Model):
 
 
 class GitConflict(Model):
-    """GitConflict.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param conflict_id:
@@ -857,8 +863,7 @@ class GitConflict(Model):
 
 
 class GitConflictUpdateResult(Model):
-    """GitConflictUpdateResult.
-
+    """
     :param conflict_id: Conflict ID that was provided by input
     :type conflict_id: int
     :param custom_message: Reason for failing
@@ -885,8 +890,7 @@ class GitConflictUpdateResult(Model):
 
 
 class GitDeletedRepository(Model):
-    """GitDeletedRepository.
-
+    """
     :param created_date:
     :type created_date: datetime
     :param deleted_by:
@@ -921,8 +925,7 @@ class GitDeletedRepository(Model):
 
 
 class GitFilePathsCollection(Model):
-    """GitFilePathsCollection.
-
+    """
     :param commit_id:
     :type commit_id: str
     :param paths:
@@ -945,7 +948,8 @@ class GitFilePathsCollection(Model):
 
 
 class GitForkOperationStatusDetail(Model):
-    """GitForkOperationStatusDetail.
+    """
+    Status information about a requested fork operation.
 
     :param all_steps: All valid steps for the forking process
     :type all_steps: list of str
@@ -969,7 +973,8 @@ class GitForkOperationStatusDetail(Model):
 
 
 class GitForkSyncRequest(Model):
-    """GitForkSyncRequest.
+    """
+    Request to sync data between two forks.
 
     :param _links: Collection of related links
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -1005,7 +1010,8 @@ class GitForkSyncRequest(Model):
 
 
 class GitForkSyncRequestParameters(Model):
-    """GitForkSyncRequestParameters.
+    """
+    Parameters for creating a fork request
 
     :param source: Fully-qualified identifier for the source repository.
     :type source: :class:`GlobalGitRepositoryKey <azure.devops.v5_1.git.models.GlobalGitRepositoryKey>`
@@ -1025,7 +1031,8 @@ class GitForkSyncRequestParameters(Model):
 
 
 class GitImportGitSource(Model):
-    """GitImportGitSource.
+    """
+    Parameter for creating a git import request when source is Git version control
 
     :param overwrite: Tells if this is a sync request or not
     :type overwrite: bool
@@ -1045,7 +1052,8 @@ class GitImportGitSource(Model):
 
 
 class GitImportRequest(Model):
-    """GitImportRequest.
+    """
+    A request to import data from a remote source control system.
 
     :param _links: Links to related resources.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -1085,7 +1093,8 @@ class GitImportRequest(Model):
 
 
 class GitImportRequestParameters(Model):
-    """GitImportRequestParameters.
+    """
+    Parameters for creating an import request
 
     :param delete_service_endpoint_after_import_is_done: Option to delete service endpoint when import is done
     :type delete_service_endpoint_after_import_is_done: bool
@@ -1113,7 +1122,8 @@ class GitImportRequestParameters(Model):
 
 
 class GitImportStatusDetail(Model):
-    """GitImportStatusDetail.
+    """
+    Additional status information about an import request.
 
     :param all_steps: All valid steps for the import process
     :type all_steps: list of str
@@ -1137,7 +1147,8 @@ class GitImportStatusDetail(Model):
 
 
 class GitImportTfvcSource(Model):
-    """GitImportTfvcSource.
+    """
+    Parameter for creating a git import request when source is tfvc version control
 
     :param import_history: Set true to import History, false otherwise
     :type import_history: bool
@@ -1161,8 +1172,7 @@ class GitImportTfvcSource(Model):
 
 
 class GitItemDescriptor(Model):
-    """GitItemDescriptor.
-
+    """
     :param path: Path to item
     :type path: str
     :param recursion_level: Specifies whether to include children (OneLevel), all descendants (Full), or None
@@ -1193,8 +1203,7 @@ class GitItemDescriptor(Model):
 
 
 class GitItemRequestData(Model):
-    """GitItemRequestData.
-
+    """
     :param include_content_metadata: Whether to include metadata for all items
     :type include_content_metadata: bool
     :param include_links: Whether to include the _links field on the shallow references
@@ -1221,7 +1230,8 @@ class GitItemRequestData(Model):
 
 
 class GitMergeOperationStatusDetail(Model):
-    """GitMergeOperationStatusDetail.
+    """
+    Status information about a requested merge operation.
 
     :param failure_message: Error message if the operation failed.
     :type failure_message: str
@@ -1241,8 +1251,7 @@ class GitMergeOperationStatusDetail(Model):
 
 
 class GitMergeOriginRef(Model):
-    """GitMergeOriginRef.
-
+    """
     :param pull_request_id:
     :type pull_request_id: int
     """
@@ -1257,7 +1266,8 @@ class GitMergeOriginRef(Model):
 
 
 class GitMergeParameters(Model):
-    """GitMergeParameters.
+    """
+    Parameters required for performing git merge.
 
     :param comment: Comment or message of the commit.
     :type comment: str
@@ -1277,7 +1287,8 @@ class GitMergeParameters(Model):
 
 
 class GitObject(Model):
-    """GitObject.
+    """
+    Git object identifier and type information.
 
     :param object_id: Object Id (Sha1Id).
     :type object_id: str
@@ -1297,8 +1308,7 @@ class GitObject(Model):
 
 
 class GitPolicyConfigurationResponse(Model):
-    """GitPolicyConfigurationResponse.
-
+    """
     :param continuation_token: The HTTP client methods find the continuation token header in the response and populate this field.
     :type continuation_token: str
     :param policy_configurations:
@@ -1317,7 +1327,8 @@ class GitPolicyConfigurationResponse(Model):
 
 
 class GitPullRequest(Model):
-    """GitPullRequest.
+    """
+    Represents all the data associated with a pull request.
 
     :param _links: Links to other related objects.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -1465,7 +1476,8 @@ class GitPullRequest(Model):
 
 
 class GitPullRequestChange(Model):
-    """GitPullRequestChange.
+    """
+    Change made in a pull request.
 
     :param change_tracking_id: ID used to track files through multiple changes.
     :type change_tracking_id: int
@@ -1481,7 +1493,8 @@ class GitPullRequestChange(Model):
 
 
 class GitPullRequestCommentThread(CommentThread):
-    """GitPullRequestCommentThread.
+    """
+    Represents a comment thread of a pull request. A thread contains meta data about the file it was left on (if any) along with one or more comments (an initial comment and the subsequent replies).
 
     :param _links: Links to other related objects.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -1527,7 +1540,8 @@ class GitPullRequestCommentThread(CommentThread):
 
 
 class GitPullRequestCommentThreadContext(Model):
-    """GitPullRequestCommentThreadContext.
+    """
+    Comment thread context contains details about what diffs were being viewed at the time of thread creation and whether or not the thread has been tracked from that original diff.
 
     :param change_tracking_id: Used to track a comment across iterations. This value can be found by looking at the iteration's changes list. Must be set for pull requests with iteration support. Otherwise, it's not required for 'legacy' pull requests.
     :type change_tracking_id: int
@@ -1551,7 +1565,8 @@ class GitPullRequestCommentThreadContext(Model):
 
 
 class GitPullRequestCompletionOptions(Model):
-    """GitPullRequestCompletionOptions.
+    """
+    Preferences about how the pull request should be completed.
 
     :param bypass_policy: If true, policies will be explicitly bypassed while the pull request is completed.
     :type bypass_policy: bool
@@ -1595,7 +1610,8 @@ class GitPullRequestCompletionOptions(Model):
 
 
 class GitPullRequestIteration(Model):
-    """GitPullRequestIteration.
+    """
+    Provides properties that describe a Git pull request iteration. Iterations are created as a result of creating and pushing updates to a pull request.
 
     :param _links: A collection of related REST reference links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -1671,7 +1687,8 @@ class GitPullRequestIteration(Model):
 
 
 class GitPullRequestIterationChanges(Model):
-    """GitPullRequestIterationChanges.
+    """
+    Collection of changes made in a pull request.
 
     :param change_entries: Changes made in the iteration.
     :type change_entries: list of :class:`GitPullRequestChange <azure.devops.v5_1.git.models.GitPullRequestChange>`
@@ -1695,7 +1712,8 @@ class GitPullRequestIterationChanges(Model):
 
 
 class GitPullRequestMergeOptions(Model):
-    """GitPullRequestMergeOptions.
+    """
+    The options which are used when a pull request merge is created.
 
     :param detect_rename_false_positives:
     :type detect_rename_false_positives: bool
@@ -1715,7 +1733,8 @@ class GitPullRequestMergeOptions(Model):
 
 
 class GitPullRequestQuery(Model):
-    """GitPullRequestQuery.
+    """
+    A set of pull request queries and their results.
 
     :param queries: The queries to perform.
     :type queries: list of :class:`GitPullRequestQueryInput <azure.devops.v5_1.git.models.GitPullRequestQueryInput>`
@@ -1735,7 +1754,8 @@ class GitPullRequestQuery(Model):
 
 
 class GitPullRequestQueryInput(Model):
-    """GitPullRequestQueryInput.
+    """
+    Pull request query input parameters.
 
     :param items: The list of commit IDs to search for.
     :type items: list of str
@@ -1755,7 +1775,8 @@ class GitPullRequestQueryInput(Model):
 
 
 class GitPullRequestSearchCriteria(Model):
-    """GitPullRequestSearchCriteria.
+    """
+    Pull requests can be searched for matching this criteria.
 
     :param creator_id: If set, search for pull requests that were created by this identity.
     :type creator_id: str
@@ -1799,8 +1820,7 @@ class GitPullRequestSearchCriteria(Model):
 
 
 class GitPushRef(Model):
-    """GitPushRef.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param date:
@@ -1835,8 +1855,7 @@ class GitPushRef(Model):
 
 
 class GitPushSearchCriteria(Model):
-    """GitPushSearchCriteria.
-
+    """
     :param from_date:
     :type from_date: datetime
     :param include_links: Whether to include the _links field on the shallow references
@@ -1871,8 +1890,7 @@ class GitPushSearchCriteria(Model):
 
 
 class GitQueryBranchStatsCriteria(Model):
-    """GitQueryBranchStatsCriteria.
-
+    """
     :param base_commit:
     :type base_commit: :class:`GitVersionDescriptor <azure.devops.v5_1.git.models.GitVersionDescriptor>`
     :param target_commits:
@@ -1891,8 +1909,7 @@ class GitQueryBranchStatsCriteria(Model):
 
 
 class GitQueryCommitsCriteria(Model):
-    """GitQueryCommitsCriteria.
-
+    """
     :param skip: Number of entries to skip
     :type skip: int
     :param top: Maximum number of entries to retrieve
@@ -1975,8 +1992,7 @@ class GitQueryCommitsCriteria(Model):
 
 
 class GitRecycleBinRepositoryDetails(Model):
-    """GitRecycleBinRepositoryDetails.
-
+    """
     :param deleted: Setting to false will undo earlier deletion and restore the repository.
     :type deleted: bool
     """
@@ -1991,8 +2007,7 @@ class GitRecycleBinRepositoryDetails(Model):
 
 
 class GitRef(Model):
-    """GitRef.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param creator:
@@ -2039,8 +2054,7 @@ class GitRef(Model):
 
 
 class GitRefFavorite(Model):
-    """GitRefFavorite.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param id:
@@ -2079,8 +2093,7 @@ class GitRefFavorite(Model):
 
 
 class GitRefUpdate(Model):
-    """GitRefUpdate.
-
+    """
     :param is_locked:
     :type is_locked: bool
     :param name:
@@ -2111,8 +2124,7 @@ class GitRefUpdate(Model):
 
 
 class GitRefUpdateResult(Model):
-    """GitRefUpdateResult.
-
+    """
     :param custom_message: Custom message for the result object For instance, Reason for failing.
     :type custom_message: str
     :param is_locked: Whether the ref is locked or not
@@ -2159,8 +2171,7 @@ class GitRefUpdateResult(Model):
 
 
 class GitRepository(Model):
-    """GitRepository.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param default_branch:
@@ -2223,8 +2234,7 @@ class GitRepository(Model):
 
 
 class GitRepositoryCreateOptions(Model):
-    """GitRepositoryCreateOptions.
-
+    """
     :param name:
     :type name: str
     :param parent_repository:
@@ -2247,8 +2257,7 @@ class GitRepositoryCreateOptions(Model):
 
 
 class GitRepositoryRef(Model):
-    """GitRepositoryRef.
-
+    """
     :param collection: Team Project Collection where this Fork resides
     :type collection: :class:`TeamProjectCollectionReference <azure.devops.v5_1.git.models.TeamProjectCollectionReference>`
     :param id:
@@ -2291,8 +2300,7 @@ class GitRepositoryRef(Model):
 
 
 class GitRepositoryStats(Model):
-    """GitRepositoryStats.
-
+    """
     :param active_pull_requests_count:
     :type active_pull_requests_count: int
     :param branches_count:
@@ -2319,8 +2327,7 @@ class GitRepositoryStats(Model):
 
 
 class GitRevert(GitAsyncRefOperation):
-    """GitRevert.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param detailed_status:
@@ -2350,7 +2357,8 @@ class GitRevert(GitAsyncRefOperation):
 
 
 class GitStatus(Model):
-    """GitStatus.
+    """
+    This class contains the metadata of a service/extension posting a status.
 
     :param _links: Reference links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -2398,7 +2406,8 @@ class GitStatus(Model):
 
 
 class GitStatusContext(Model):
-    """GitStatusContext.
+    """
+    Status context that uniquely identifies the status.
 
     :param genre: Genre of the status. Typically name of the service/tool generating the status, can be empty.
     :type genre: str
@@ -2418,7 +2427,8 @@ class GitStatusContext(Model):
 
 
 class GitSuggestion(Model):
-    """GitSuggestion.
+    """
+    An object describing the git suggestion.  Git suggestions are currently limited to suggested pull requests.
 
     :param properties: Specific properties describing the suggestion.
     :type properties: dict
@@ -2438,8 +2448,7 @@ class GitSuggestion(Model):
 
 
 class GitTemplate(Model):
-    """GitTemplate.
-
+    """
     :param name: Name of the Template
     :type name: str
     :param type: Type of the Template
@@ -2458,8 +2467,7 @@ class GitTemplate(Model):
 
 
 class GitTreeDiff(Model):
-    """GitTreeDiff.
-
+    """
     :param base_tree_id: ObjectId of the base tree of this diff.
     :type base_tree_id: str
     :param diff_entries: List of tree entries that differ between the base and target tree.  Renames and object type changes are returned as a delete for the old object and add for the new object.  If a continuation token is returned in the response header, some tree entries are yet to be processed and may yeild more diff entries. If the continuation token is not returned all the diff entries have been included in this response.
@@ -2486,8 +2494,7 @@ class GitTreeDiff(Model):
 
 
 class GitTreeDiffEntry(Model):
-    """GitTreeDiffEntry.
-
+    """
     :param base_object_id: SHA1 hash of the object in the base tree, if it exists. Will be null in case of adds.
     :type base_object_id: str
     :param change_type: Type of change that affected this entry.
@@ -2518,8 +2525,7 @@ class GitTreeDiffEntry(Model):
 
 
 class GitTreeDiffResponse(Model):
-    """GitTreeDiffResponse.
-
+    """
     :param continuation_token: The HTTP client methods find the continuation token header in the response and populate this field.
     :type continuation_token: list of str
     :param tree_diff:
@@ -2538,8 +2544,7 @@ class GitTreeDiffResponse(Model):
 
 
 class GitTreeEntryRef(Model):
-    """GitTreeEntryRef.
-
+    """
     :param git_object_type: Blob or tree
     :type git_object_type: object
     :param mode: Mode represented as octal string
@@ -2574,8 +2579,7 @@ class GitTreeEntryRef(Model):
 
 
 class GitTreeRef(Model):
-    """GitTreeRef.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param object_id: SHA1 hash of git object
@@ -2606,7 +2610,8 @@ class GitTreeRef(Model):
 
 
 class GitUserDate(Model):
-    """GitUserDate.
+    """
+    User info and date for Git operations.
 
     :param date: Date of the Git operation.
     :type date: datetime
@@ -2634,8 +2639,7 @@ class GitUserDate(Model):
 
 
 class GitVersionDescriptor(Model):
-    """GitVersionDescriptor.
-
+    """
     :param version: Version string identifier (name of tag/branch, SHA1 of commit)
     :type version: str
     :param version_options: Version options - Specify additional modifiers to version (e.g Previous)
@@ -2658,7 +2662,8 @@ class GitVersionDescriptor(Model):
 
 
 class GlobalGitRepositoryKey(Model):
-    """GlobalGitRepositoryKey.
+    """
+    Globally unique key for a repository.
 
     :param collection_id: Team Project Collection ID of the collection for the repository.
     :type collection_id: str
@@ -2682,8 +2687,7 @@ class GlobalGitRepositoryKey(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -2710,8 +2714,7 @@ class GraphSubjectBase(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -2770,7 +2773,8 @@ class IdentityRef(GraphSubjectBase):
 
 
 class IdentityRefWithVote(IdentityRef):
-    """IdentityRefWithVote.
+    """
+    Identity information including a vote on a pull request.
 
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -2837,8 +2841,7 @@ class IdentityRefWithVote(IdentityRef):
 
 
 class ImportRepositoryValidation(Model):
-    """ImportRepositoryValidation.
-
+    """
     :param git_source:
     :type git_source: :class:`GitImportGitSource <azure.devops.v5_1.git.models.GitImportGitSource>`
     :param password:
@@ -2865,8 +2868,7 @@ class ImportRepositoryValidation(Model):
 
 
 class ItemContent(Model):
-    """ItemContent.
-
+    """
     :param content:
     :type content: str
     :param content_type:
@@ -2885,8 +2887,7 @@ class ItemContent(Model):
 
 
 class ItemModel(Model):
-    """ItemModel.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param content:
@@ -2925,7 +2926,8 @@ class ItemModel(Model):
 
 
 class JsonPatchOperation(Model):
-    """JsonPatchOperation.
+    """
+    The JSON model for a JSON Patch operation
 
     :param from_: The path to copy from for the Move/Copy operation.
     :type from_: str
@@ -2953,7 +2955,8 @@ class JsonPatchOperation(Model):
 
 
 class LineDiffBlock(Model):
-    """LineDiffBlock.
+    """
+    The class to represent the line diff block
 
     :param change_type: Type of change that was made to the block.
     :type change_type: object
@@ -2985,7 +2988,8 @@ class LineDiffBlock(Model):
 
 
 class PolicyConfigurationRef(Model):
-    """PolicyConfigurationRef.
+    """
+    Policy configuration reference.
 
     :param id: The policy configuration ID.
     :type id: int
@@ -3009,7 +3013,8 @@ class PolicyConfigurationRef(Model):
 
 
 class PolicyTypeRef(Model):
-    """PolicyTypeRef.
+    """
+    Policy type reference.
 
     :param display_name: Display name of the policy type.
     :type display_name: str
@@ -3033,7 +3038,8 @@ class PolicyTypeRef(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -3049,8 +3055,7 @@ class ReferenceLinks(Model):
 
 
 class ResourceRef(Model):
-    """ResourceRef.
-
+    """
     :param id:
     :type id: str
     :param url:
@@ -3069,7 +3074,8 @@ class ResourceRef(Model):
 
 
 class ShareNotificationContext(Model):
-    """ShareNotificationContext.
+    """
+    Context used while sharing a pull request.
 
     :param message: Optional user note or message.
     :type message: str
@@ -3089,8 +3095,7 @@ class ShareNotificationContext(Model):
 
 
 class SourceToTargetRef(Model):
-    """SourceToTargetRef.
-
+    """
     :param source_ref: The source ref to copy. For example, refs/heads/master.
     :type source_ref: str
     :param target_ref: The target ref to update. For example, refs/heads/master.
@@ -3109,7 +3114,8 @@ class SourceToTargetRef(Model):
 
 
 class TeamProjectCollectionReference(Model):
-    """TeamProjectCollectionReference.
+    """
+    Reference object for a TeamProjectCollection.
 
     :param id: Collection Id.
     :type id: str
@@ -3133,7 +3139,8 @@ class TeamProjectCollectionReference(Model):
 
 
 class TeamProjectReference(Model):
-    """TeamProjectReference.
+    """
+    Represents a shallow reference to a TeamProject.
 
     :param abbreviation: Project abbreviation.
     :type abbreviation: str
@@ -3185,7 +3192,8 @@ class TeamProjectReference(Model):
 
 
 class VersionedPolicyConfigurationRef(PolicyConfigurationRef):
-    """VersionedPolicyConfigurationRef.
+    """
+    A particular revision for a policy configuration.
 
     :param id: The policy configuration ID.
     :type id: int
@@ -3210,8 +3218,7 @@ class VersionedPolicyConfigurationRef(PolicyConfigurationRef):
 
 
 class VstsInfo(Model):
-    """VstsInfo.
-
+    """
     :param collection:
     :type collection: :class:`TeamProjectCollectionReference <azure.devops.v5_1.git.models.TeamProjectCollectionReference>`
     :param repository:
@@ -3234,7 +3241,8 @@ class VstsInfo(Model):
 
 
 class WebApiCreateTagRequestData(Model):
-    """WebApiCreateTagRequestData.
+    """
+    The representation of data needed to create a tag definition which is sent across the wire.
 
     :param name: Name of the tag definition that will be created.
     :type name: str
@@ -3250,7 +3258,8 @@ class WebApiCreateTagRequestData(Model):
 
 
 class WebApiTagDefinition(Model):
-    """WebApiTagDefinition.
+    """
+    The representation of a tag definition which is sent across the wire.
 
     :param active: Whether or not the tag definition is active.
     :type active: bool
@@ -3278,8 +3287,7 @@ class WebApiTagDefinition(Model):
 
 
 class GitBaseVersionDescriptor(GitVersionDescriptor):
-    """GitBaseVersionDescriptor.
-
+    """
     :param version: Version string identifier (name of tag/branch, SHA1 of commit)
     :type version: str
     :param version_options: Version options - Specify additional modifiers to version (e.g Previous)
@@ -3311,8 +3319,7 @@ class GitBaseVersionDescriptor(GitVersionDescriptor):
 
 
 class GitCommit(GitCommitRef):
-    """GitCommit.
-
+    """
     :param _links: A collection of related REST reference links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param author: Author of the commit.
@@ -3369,7 +3376,8 @@ class GitCommit(GitCommitRef):
 
 
 class GitForkRef(GitRef):
-    """GitForkRef.
+    """
+    Information about a fork ref.
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -3412,8 +3420,7 @@ class GitForkRef(GitRef):
 
 
 class GitItem(ItemModel):
-    """GitItem.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param content:
@@ -3465,8 +3472,7 @@ class GitItem(ItemModel):
 
 
 class GitMerge(GitMergeParameters):
-    """GitMerge.
-
+    """
     :param comment: Comment or message of the commit.
     :type comment: str
     :param parents: An enumeration of the parent commit IDs for the merge  commit.
@@ -3499,7 +3505,8 @@ class GitMerge(GitMergeParameters):
 
 
 class GitPullRequestStatus(GitStatus):
-    """GitPullRequestStatus.
+    """
+    This class contains the metadata of a service/extension posting pull request status. Status can be associated with a pull request or an iteration.
 
     :param _links: Reference links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
@@ -3546,8 +3553,7 @@ class GitPullRequestStatus(GitStatus):
 
 
 class GitPush(GitPushRef):
-    """GitPush.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.git.models.ReferenceLinks>`
     :param date:
@@ -3588,8 +3594,7 @@ class GitPush(GitPushRef):
 
 
 class GitTargetVersionDescriptor(GitVersionDescriptor):
-    """GitTargetVersionDescriptor.
-
+    """
     :param version: Version string identifier (name of tag/branch, SHA1 of commit)
     :type version: str
     :param version_options: Version options - Specify additional modifiers to version (e.g Previous)
@@ -3621,7 +3626,8 @@ class GitTargetVersionDescriptor(GitVersionDescriptor):
 
 
 class PolicyConfiguration(VersionedPolicyConfigurationRef):
-    """PolicyConfiguration.
+    """
+    The full policy configuration with settings.
 
     :param id: The policy configuration ID.
     :type id: int

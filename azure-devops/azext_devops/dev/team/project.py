@@ -11,6 +11,7 @@ from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.core.models import TeamProject
 from azext_devops.dev.common.operations import wait_for_long_running_operation
 from azext_devops.dev.common.services import (get_core_client,
+                                              get_core_client_v51,
                                               resolve_instance)
 from azext_devops.dev.common.uri import uri_quote
 
@@ -119,7 +120,7 @@ def show_project(project, organization=None, detect=None, open=False):  # pylint
     return team_project
 
 
-def list_projects(organization=None, top=None, skip=None, detect=None):
+def list_projects(organization=None, top=None, skip=None, state_filter=None, continuation_token=None, get_default_team_image_url=None, detect=None):
     """List team projects
     :param top: Maximum number of results to list.
     :type top: int
@@ -127,9 +128,16 @@ def list_projects(organization=None, top=None, skip=None, detect=None):
     :type skip: int
     :rtype: list of :class:`<TeamProject> <v5_0.core.models.TeamProject>`
     """
+    if state_filter is None:
+        state_filter = 'all'   # this is being done to maintain back compat
+
     organization = resolve_instance(detect=detect, organization=organization)
-    core_client = get_core_client(organization)
-    team_projects = core_client.get_projects(state_filter='all', top=top, skip=skip)
+    core_client = get_core_client_v51(organization)
+    team_projects = core_client.get_projects(state_filter=state_filter,
+                                             top=top,
+                                             skip=skip,
+                                             continuation_token=continuation_token,
+                                             get_default_team_image_url=get_default_team_image_url)
     return team_projects
 
 

@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class DebugEntryCreateBatch(Model):
-    """DebugEntryCreateBatch.
+    """
+    A batch of debug entry to create.
 
     :param create_behavior: Defines what to do when a debug entry in the batch already exists.
     :type create_behavior: object
@@ -30,7 +31,8 @@ class DebugEntryCreateBatch(Model):
 
 
 class JsonBlobBlockHash(Model):
-    """JsonBlobBlockHash.
+    """
+    BlobBlock hash formatted to be deserialized for symbol service.
 
     :param hash_bytes: Array of hash bytes.
     :type hash_bytes: str
@@ -46,8 +48,7 @@ class JsonBlobBlockHash(Model):
 
 
 class JsonBlobIdentifier(Model):
-    """JsonBlobIdentifier.
-
+    """
     :param identifier_value:
     :type identifier_value: str
     """
@@ -62,7 +63,8 @@ class JsonBlobIdentifier(Model):
 
 
 class JsonBlobIdentifierWithBlocks(Model):
-    """JsonBlobIdentifierWithBlocks.
+    """
+    BlobIdentifier with block hashes formatted to be deserialzied for symbol service.
 
     :param block_hashes: List of blob block hashes.
     :type block_hashes: list of :class:`JsonBlobBlockHash <azure.devops.v5_1.symbol.models.JsonBlobBlockHash>`
@@ -82,8 +84,7 @@ class JsonBlobIdentifierWithBlocks(Model):
 
 
 class ResourceBase(Model):
-    """ResourceBase.
-
+    """
     :param created_by: The ID of user who created this item. Optional.
     :type created_by: str
     :param created_date: The date time when this item is created. Optional.
@@ -114,7 +115,8 @@ class ResourceBase(Model):
 
 
 class DebugEntry(ResourceBase):
-    """DebugEntry.
+    """
+    A dual-purpose data object, the debug entry is used by the client to publish the symbol file (with file's blob identifier, which can be calculated from VSTS hashing algorithm) or query the file (with a client key). Since the symbol server tries to return a matched symbol file with the richest information level, it may not always point to the same symbol file for different queries with same client key.
 
     :param created_by: The ID of user who created this item. Optional.
     :type created_by: str
@@ -169,7 +171,8 @@ class DebugEntry(ResourceBase):
 
 
 class Request(ResourceBase):
-    """Request.
+    """
+    Symbol request.
 
     :param created_by: The ID of user who created this item. Optional.
     :type created_by: str

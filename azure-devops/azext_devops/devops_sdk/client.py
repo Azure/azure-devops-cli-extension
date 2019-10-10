@@ -222,7 +222,7 @@ class Client(object):
         else:
             # We can send at the requested api version. Make sure the resource version
             # is not bigger than what the server supports
-            negotiated_version = str(requested_api_version)
+            negotiated_version = match.group(1)
             is_preview = match.group(3) is not None
             if is_preview:
                 negotiated_version += '-preview'
@@ -267,15 +267,22 @@ class Client(object):
             raise AzureDevOpsAuthenticationError(full_message_format.format(error_message=error_message,
                                                                             url=request.url))
         else:
-            full_message_format = '{error_message}Operation returned an invalid status code of {status_code}.'
+            full_message_format = '{error_message}Operation returned a {status_code} status code.'
             raise AzureDevOpsClientRequestError(full_message_format.format(error_message=error_message,
                                                                            status_code=response.status_code))
+
+    def _get_continuation_token(self, response):
+        if self._continuation_token_header_key in response.headers:
+            return response.headers[self._continuation_token_header_key]
+        else:
+            return None
 
     @staticmethod
     def _normalize_url(url):
         return url.rstrip('/').lower()
 
     _locations_cache = {}
+    _continuation_token_header_key = 'X-MS-ContinuationToken'
     _session_header_key = 'X-TFS-Session'
     _session_data = {_session_header_key: str(uuid.uuid4())}
 

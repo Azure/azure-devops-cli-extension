@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class BuildDefinitionReference(Model):
-    """BuildDefinitionReference.
+    """
+    The build definition reference resource
 
     :param id: ID of the build definition
     :type id: int
@@ -30,7 +31,8 @@ class BuildDefinitionReference(Model):
 
 
 class CloneOperationCommonResponse(Model):
-    """CloneOperationCommonResponse.
+    """
+    Common Response for clone operation
 
     :param clone_statistics: Various statistics related to the clone operation
     :type clone_statistics: :class:`CloneStatistics <azure.devops.v5_1.test_plan.models.CloneStatistics>`
@@ -70,13 +72,14 @@ class CloneOperationCommonResponse(Model):
 
 
 class CloneOptions(Model):
-    """CloneOptions.
+    """
+    Clone options for cloning the test suite.
 
     :param clone_requirements: If set to true requirements will be cloned
     :type clone_requirements: bool
     :param copy_all_suites: copy all suites from a source plan
     :type copy_all_suites: bool
-    :param copy_ancestor_hierarchy: copy ancestor hieracrchy
+    :param copy_ancestor_hierarchy: copy ancestor hierarchy
     :type copy_ancestor_hierarchy: bool
     :param destination_work_item_type: Name of the workitem type of the clone
     :type destination_work_item_type: str
@@ -106,9 +109,10 @@ class CloneOptions(Model):
 
 
 class CloneStatistics(Model):
-    """CloneStatistics.
+    """
+    Clone Statistics Details.
 
-    :param cloned_requirements_count: Number of Requirments cloned so far.
+    :param cloned_requirements_count: Number of requirements cloned so far.
     :type cloned_requirements_count: int
     :param cloned_shared_steps_count: Number of shared steps cloned so far.
     :type cloned_shared_steps_count: int
@@ -138,7 +142,8 @@ class CloneStatistics(Model):
 
 
 class CloneTestPlanOperationInformation(Model):
-    """CloneTestPlanOperationInformation.
+    """
+    Response for Test Plan clone operation
 
     :param clone_operation_response: Various information related to the clone
     :type clone_operation_response: :class:`CloneOperationCommonResponse <azure.devops.v5_1.test_plan.models.CloneOperationCommonResponse>`
@@ -166,7 +171,8 @@ class CloneTestPlanOperationInformation(Model):
 
 
 class CloneTestPlanParams(Model):
-    """CloneTestPlanParams.
+    """
+    Parameters for Test Plan clone operation
 
     :param clone_options: Test Plan Clone create parameters
     :type clone_options: :class:`CloneOptions <azure.devops.v5_1.test_plan.models.CloneOptions>`
@@ -190,7 +196,8 @@ class CloneTestPlanParams(Model):
 
 
 class CloneTestSuiteOperationInformation(Model):
-    """CloneTestSuiteOperationInformation.
+    """
+    Response for Test Suite clone operation
 
     :param cloned_test_suite: Information of newly cloned Test Suite
     :type cloned_test_suite: :class:`TestSuiteReferenceWithProject <azure.devops.v5_1.test_plan.models.TestSuiteReferenceWithProject>`
@@ -222,7 +229,8 @@ class CloneTestSuiteOperationInformation(Model):
 
 
 class CloneTestSuiteParams(Model):
-    """CloneTestSuiteParams.
+    """
+    Parameters for Test Suite clone operation
 
     :param clone_options: Test Plan Clone create parameters
     :type clone_options: :class:`CloneOptions <azure.devops.v5_1.test_plan.models.CloneOptions>`
@@ -246,7 +254,8 @@ class CloneTestSuiteParams(Model):
 
 
 class Configuration(Model):
-    """Configuration.
+    """
+    Configuration of the Test Point
 
     :param configuration_id: Id of the Configuration Assigned to the Test Point
     :type configuration_id: int
@@ -262,7 +271,8 @@ class Configuration(Model):
 
 
 class DestinationTestSuiteInfo(Model):
-    """DestinationTestSuiteInfo.
+    """
+    Destination Test Suite information for Test Suite clone operation
 
     :param id: Destination Suite Id
     :type id: int
@@ -282,8 +292,7 @@ class DestinationTestSuiteInfo(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -310,8 +319,7 @@ class GraphSubjectBase(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -370,7 +378,8 @@ class IdentityRef(GraphSubjectBase):
 
 
 class LastResultDetails(Model):
-    """LastResultDetails.
+    """
+    Last result details of test point.
 
     :param date_completed: CompletedDate of LastResult.
     :type date_completed: datetime
@@ -394,7 +403,8 @@ class LastResultDetails(Model):
 
 
 class NameValuePair(Model):
-    """NameValuePair.
+    """
+    Name value pair
 
     :param name: Name
     :type name: str
@@ -414,7 +424,8 @@ class NameValuePair(Model):
 
 
 class PointAssignment(Configuration):
-    """PointAssignment.
+    """
+    Assignments for the Test Point
 
     :param configuration_id: Id of the Configuration Assigned to the Test Point
     :type configuration_id: int
@@ -441,7 +452,8 @@ class PointAssignment(Configuration):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -457,7 +469,8 @@ class ReferenceLinks(Model):
 
 
 class ReleaseEnvironmentDefinitionReference(Model):
-    """ReleaseEnvironmentDefinitionReference.
+    """
+    Reference to release environment resource.
 
     :param definition_id: ID of the release definition that contains the release environment definition.
     :type definition_id: int
@@ -477,7 +490,8 @@ class ReleaseEnvironmentDefinitionReference(Model):
 
 
 class Results(Model):
-    """Results.
+    """
+    Results class for Test Point
 
     :param outcome: Outcome of the Test Point
     :type outcome: object
@@ -493,7 +507,8 @@ class Results(Model):
 
 
 class SourceTestPlanInfo(Model):
-    """SourceTestPlanInfo.
+    """
+    Source Test Plan information for Test Plan clone operation
 
     :param id: ID of the source Test Plan
     :type id: int
@@ -513,7 +528,8 @@ class SourceTestPlanInfo(Model):
 
 
 class SourceTestSuiteInfo(Model):
-    """SourceTestSuiteInfo.
+    """
+    Source Test Suite information for Test Suite clone operation
 
     :param id: Id of the Source Test Suite
     :type id: int
@@ -529,13 +545,14 @@ class SourceTestSuiteInfo(Model):
 
 
 class SuiteEntryUpdateParams(Model):
-    """SuiteEntryUpdateParams.
+    """
+    A suite entry defines properties for a test suite.
 
     :param id: Id of the suite entry in the test suite: either a test case id or child suite id.
     :type id: int
     :param sequence_number: Sequence number for the suite entry object in the test suite.
     :type sequence_number: int
-    :param suite_entry_type: Defines whther the entry is of type test case or suite.
+    :param suite_entry_type: Defines whether the entry is of type test case or suite.
     :type suite_entry_type: object
     """
 
@@ -553,7 +570,8 @@ class SuiteEntryUpdateParams(Model):
 
 
 class SuiteTestCaseCreateUpdateParameters(Model):
-    """SuiteTestCaseCreateUpdateParameters.
+    """
+    Create and Update Suite Test Case Parameters
 
     :param point_assignments: Configurations Ids
     :type point_assignments: list of :class:`Configuration <azure.devops.v5_1.test_plan.models.Configuration>`
@@ -573,7 +591,8 @@ class SuiteTestCaseCreateUpdateParameters(Model):
 
 
 class TeamProjectReference(Model):
-    """TeamProjectReference.
+    """
+    Represents a shallow reference to a TeamProject.
 
     :param abbreviation: Project abbreviation.
     :type abbreviation: str
@@ -625,7 +644,8 @@ class TeamProjectReference(Model):
 
 
 class TestCase(Model):
-    """TestCase.
+    """
+    Test Case Class
 
     :param links: Reference links
     :type links: :class:`ReferenceLinks <azure.devops.v5_1.test_plan.models.ReferenceLinks>`
@@ -665,27 +685,37 @@ class TestCase(Model):
 
 
 class TestCaseReference(Model):
-    """TestCaseReference.
+    """
+    Test Case Reference
 
+    :param assigned_to: Identity to whom the test case is assigned
+    :type assigned_to: :class:`IdentityRef <azure.devops.v5_1.test_plan.models.IdentityRef>`
     :param id: Test Case Id
     :type id: int
     :param name: Test Case Name
     :type name: str
+    :param state: State of the test case work item
+    :type state: str
     """
 
     _attribute_map = {
+        'assigned_to': {'key': 'assignedTo', 'type': 'IdentityRef'},
         'id': {'key': 'id', 'type': 'int'},
-        'name': {'key': 'name', 'type': 'str'}
+        'name': {'key': 'name', 'type': 'str'},
+        'state': {'key': 'state', 'type': 'str'}
     }
 
-    def __init__(self, id=None, name=None):
+    def __init__(self, assigned_to=None, id=None, name=None, state=None):
         super(TestCaseReference, self).__init__()
+        self.assigned_to = assigned_to
         self.id = id
         self.name = name
+        self.state = state
 
 
 class TestConfigurationCreateUpdateParameters(Model):
-    """TestConfigurationCreateUpdateParameters.
+    """
+    Test Configuration Create or Update Parameters
 
     :param description: Description of the configuration
     :type description: str
@@ -717,7 +747,8 @@ class TestConfigurationCreateUpdateParameters(Model):
 
 
 class TestConfigurationReference(Model):
-    """TestConfigurationReference.
+    """
+    Test Configuration Reference
 
     :param id: Id of the configuration
     :type id: int
@@ -737,7 +768,8 @@ class TestConfigurationReference(Model):
 
 
 class TestEnvironment(Model):
-    """TestEnvironment.
+    """
+    Test environment Detail.
 
     :param environment_id: Test Environment Id.
     :type environment_id: str
@@ -757,7 +789,8 @@ class TestEnvironment(Model):
 
 
 class TestOutcomeSettings(Model):
-    """TestOutcomeSettings.
+    """
+    Test outcome settings
 
     :param sync_outcome_across_suites: Value to configure how test outcomes for the same tests across suites are shown
     :type sync_outcome_across_suites: bool
@@ -773,7 +806,8 @@ class TestOutcomeSettings(Model):
 
 
 class TestPlanCreateParams(Model):
-    """TestPlanCreateParams.
+    """
+    The test plan create parameters.
 
     :param area_path: Area of the test plan.
     :type area_path: str
@@ -849,7 +883,8 @@ class TestPlanCreateParams(Model):
 
 
 class TestPlanReference(Model):
-    """TestPlanReference.
+    """
+    The test plan reference resource.
 
     :param id: ID of the test plan.
     :type id: int
@@ -869,7 +904,8 @@ class TestPlanReference(Model):
 
 
 class TestPlansHubRefreshData(Model):
-    """TestPlansHubRefreshData.
+    """
+    This data model is used in TestPlansHubRefreshDataProvider and populates the data required for initial page load
 
     :param is_advanced_extension_enabled:
     :type is_advanced_extension_enabled: bool
@@ -877,12 +913,16 @@ class TestPlansHubRefreshData(Model):
     :type selected_suite_id: int
     :param selected_suite_name:
     :type selected_suite_name: str
+    :param test_case_page_size:
+    :type test_case_page_size: int
     :param test_cases:
     :type test_cases: list of :class:`TestCase <azure.devops.v5_1.test_plan.models.TestCase>`
     :param test_cases_continuation_token:
     :type test_cases_continuation_token: str
     :param test_plan:
     :type test_plan: :class:`TestPlanDetailedReference <azure.devops.v5_1.test_plan.models.TestPlanDetailedReference>`
+    :param test_point_page_size:
+    :type test_point_page_size: int
     :param test_points:
     :type test_points: list of :class:`TestPoint <azure.devops.v5_1.test_plan.models.TestPoint>`
     :param test_points_continuation_token:
@@ -897,23 +937,27 @@ class TestPlansHubRefreshData(Model):
         'is_advanced_extension_enabled': {'key': 'isAdvancedExtensionEnabled', 'type': 'bool'},
         'selected_suite_id': {'key': 'selectedSuiteId', 'type': 'int'},
         'selected_suite_name': {'key': 'selectedSuiteName', 'type': 'str'},
+        'test_case_page_size': {'key': 'testCasePageSize', 'type': 'int'},
         'test_cases': {'key': 'testCases', 'type': '[TestCase]'},
         'test_cases_continuation_token': {'key': 'testCasesContinuationToken', 'type': 'str'},
         'test_plan': {'key': 'testPlan', 'type': 'TestPlanDetailedReference'},
+        'test_point_page_size': {'key': 'testPointPageSize', 'type': 'int'},
         'test_points': {'key': 'testPoints', 'type': '[TestPoint]'},
         'test_points_continuation_token': {'key': 'testPointsContinuationToken', 'type': 'str'},
         'test_suites': {'key': 'testSuites', 'type': '[TestSuite]'},
         'test_suites_continuation_token': {'key': 'testSuitesContinuationToken', 'type': 'str'}
     }
 
-    def __init__(self, is_advanced_extension_enabled=None, selected_suite_id=None, selected_suite_name=None, test_cases=None, test_cases_continuation_token=None, test_plan=None, test_points=None, test_points_continuation_token=None, test_suites=None, test_suites_continuation_token=None):
+    def __init__(self, is_advanced_extension_enabled=None, selected_suite_id=None, selected_suite_name=None, test_case_page_size=None, test_cases=None, test_cases_continuation_token=None, test_plan=None, test_point_page_size=None, test_points=None, test_points_continuation_token=None, test_suites=None, test_suites_continuation_token=None):
         super(TestPlansHubRefreshData, self).__init__()
         self.is_advanced_extension_enabled = is_advanced_extension_enabled
         self.selected_suite_id = selected_suite_id
         self.selected_suite_name = selected_suite_name
+        self.test_case_page_size = test_case_page_size
         self.test_cases = test_cases
         self.test_cases_continuation_token = test_cases_continuation_token
         self.test_plan = test_plan
+        self.test_point_page_size = test_point_page_size
         self.test_points = test_points
         self.test_points_continuation_token = test_points_continuation_token
         self.test_suites = test_suites
@@ -921,7 +965,8 @@ class TestPlansHubRefreshData(Model):
 
 
 class TestPlanUpdateParams(TestPlanCreateParams):
-    """TestPlanUpdateParams.
+    """
+    The test plan update parameters.
 
     :param area_path: Area of the test plan.
     :type area_path: str
@@ -985,7 +1030,8 @@ class TestPlanUpdateParams(TestPlanCreateParams):
 
 
 class TestPoint(Model):
-    """TestPoint.
+    """
+    Test Point Class
 
     :param comment: Comment associated to the Test Point
     :type comment: str
@@ -1056,8 +1102,34 @@ class TestPoint(Model):
         self.test_suite = test_suite
 
 
+class TestPointCount(Model):
+    """
+    Test Point Count
+
+    :param count: Test Point Count
+    :type count: int
+    :param test_plan_id: Test Plan under which the Test Points are
+    :type test_plan_id: int
+    :param test_suite_id: Test Suite under which the Test Points are
+    :type test_suite_id: int
+    """
+
+    _attribute_map = {
+        'count': {'key': 'count', 'type': 'int'},
+        'test_plan_id': {'key': 'testPlanId', 'type': 'int'},
+        'test_suite_id': {'key': 'testSuiteId', 'type': 'int'}
+    }
+
+    def __init__(self, count=None, test_plan_id=None, test_suite_id=None):
+        super(TestPointCount, self).__init__()
+        self.count = count
+        self.test_plan_id = test_plan_id
+        self.test_suite_id = test_suite_id
+
+
 class TestPointResults(Model):
-    """TestPointResults.
+    """
+    Test Point Results
 
     :param failure_type: Failure Type for the Test Point
     :type failure_type: object
@@ -1105,7 +1177,8 @@ class TestPointResults(Model):
 
 
 class TestPointUpdateParams(Model):
-    """TestPointUpdateParams.
+    """
+    Test Point Update Parameters
 
     :param id: Id of Test Point to be updated
     :type id: int
@@ -1133,7 +1206,8 @@ class TestPointUpdateParams(Model):
 
 
 class TestSettings(Model):
-    """TestSettings.
+    """
+    Represents the test settings of the run. Used to create test settings and fetch test settings
 
     :param area_path: Area path required to create test settings
     :type area_path: str
@@ -1173,7 +1247,8 @@ class TestSettings(Model):
 
 
 class TestSuiteCreateUpdateCommonParams(Model):
-    """TestSuiteCreateUpdateCommonParams.
+    """
+    Test Suite Create/Update Common Parameters
 
     :param default_configurations: Test suite default configurations.
     :type default_configurations: list of :class:`TestConfigurationReference <azure.devops.v5_1.test_plan.models.TestConfigurationReference>`
@@ -1209,7 +1284,8 @@ class TestSuiteCreateUpdateCommonParams(Model):
 
 
 class TestSuiteReference(Model):
-    """TestSuiteReference.
+    """
+    The test suite reference resource.
 
     :param id: ID of the test suite.
     :type id: int
@@ -1229,13 +1305,14 @@ class TestSuiteReference(Model):
 
 
 class TestSuiteReferenceWithProject(TestSuiteReference):
-    """TestSuiteReferenceWithProject.
+    """
+    Test Suite Reference with Project
 
     :param id: ID of the test suite.
     :type id: int
     :param name: Name of the test suite.
     :type name: str
-    :param project: Refernce of destination Project
+    :param project: Reference of destination Project
     :type project: :class:`TeamProjectReference <azure.devops.v5_1.test_plan.models.TeamProjectReference>`
     """
 
@@ -1251,7 +1328,8 @@ class TestSuiteReferenceWithProject(TestSuiteReference):
 
 
 class TestSuiteUpdateParams(TestSuiteCreateUpdateCommonParams):
-    """TestSuiteUpdateParams.
+    """
+    Test Suite Update Parameters
 
     :param default_configurations: Test suite default configurations.
     :type default_configurations: list of :class:`TestConfigurationReference <azure.devops.v5_1.test_plan.models.TestConfigurationReference>`
@@ -1285,7 +1363,8 @@ class TestSuiteUpdateParams(TestSuiteCreateUpdateCommonParams):
 
 
 class TestVariableCreateUpdateParameters(Model):
-    """TestVariableCreateUpdateParameters.
+    """
+    Test Variable Create or Update Parameters
 
     :param description: Description of the test variable
     :type description: str
@@ -1309,7 +1388,8 @@ class TestVariableCreateUpdateParameters(Model):
 
 
 class WorkItem(Model):
-    """WorkItem.
+    """
+    Work Item
 
     :param id: Id of the Work Item
     :type id: int
@@ -1325,7 +1405,8 @@ class WorkItem(Model):
 
 
 class WorkItemDetails(Model):
-    """WorkItemDetails.
+    """
+    Work Item Class
 
     :param id: Work Item Id
     :type id: int
@@ -1349,7 +1430,8 @@ class WorkItemDetails(Model):
 
 
 class DestinationTestPlanCloneParams(TestPlanCreateParams):
-    """DestinationTestPlanCloneParams.
+    """
+    Destination Test Plan create parameters
 
     :param area_path: Area of the test plan.
     :type area_path: str
@@ -1413,7 +1495,8 @@ class DestinationTestPlanCloneParams(TestPlanCreateParams):
 
 
 class SourceTestplanResponse(TestPlanReference):
-    """SourceTestplanResponse.
+    """
+    Source Test Plan Response for Test Plan clone operation
 
     :param id: ID of the test plan.
     :type id: int
@@ -1439,13 +1522,14 @@ class SourceTestplanResponse(TestPlanReference):
 
 
 class SuiteEntry(SuiteEntryUpdateParams):
-    """SuiteEntry.
+    """
+    A suite entry defines properties for a test suite.
 
     :param id: Id of the suite entry in the test suite: either a test case id or child suite id.
     :type id: int
     :param sequence_number: Sequence number for the suite entry object in the test suite.
     :type sequence_number: int
-    :param suite_entry_type: Defines whther the entry is of type test case or suite.
+    :param suite_entry_type: Defines whether the entry is of type test case or suite.
     :type suite_entry_type: object
     :param suite_id: Id for the test suite.
     :type suite_id: int
@@ -1464,7 +1548,8 @@ class SuiteEntry(SuiteEntryUpdateParams):
 
 
 class TestConfiguration(TestConfigurationCreateUpdateParameters):
-    """TestConfiguration.
+    """
+    Test configuration
 
     :param description: Description of the configuration
     :type description: str
@@ -1499,7 +1584,8 @@ class TestConfiguration(TestConfigurationCreateUpdateParameters):
 
 
 class TestPlan(TestPlanUpdateParams):
-    """TestPlan.
+    """
+    The test plan resource.
 
     :param area_path: Area of the test plan.
     :type area_path: str
@@ -1539,7 +1625,7 @@ class TestPlan(TestPlanUpdateParams):
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.test_plan.models.ReferenceLinks>`
     :param id: ID of the test plan.
     :type id: int
-    :param previous_build_id: Previous build Id assocaited with the test plan
+    :param previous_build_id: Previous build Id associated with the test plan
     :type previous_build_id: int
     :param project: Project which contains the test plan.
     :type project: :class:`TeamProjectReference <azure.devops.v5_1.test_plan.models.TeamProjectReference>`
@@ -1590,7 +1676,8 @@ class TestPlan(TestPlanUpdateParams):
 
 
 class TestPlanDetailedReference(TestPlanReference):
-    """TestPlanDetailedReference.
+    """
+    The test plan detailed reference resource. Contains additional workitem realted information
 
     :param id: ID of the test plan.
     :type id: int
@@ -1628,7 +1715,8 @@ class TestPlanDetailedReference(TestPlanReference):
 
 
 class TestSuiteCreateParams(TestSuiteCreateUpdateCommonParams):
-    """TestSuiteCreateParams.
+    """
+    Test suite Create Parameters
 
     :param default_configurations: Test suite default configurations.
     :type default_configurations: list of :class:`TestConfigurationReference <azure.devops.v5_1.test_plan.models.TestConfigurationReference>`
@@ -1666,7 +1754,8 @@ class TestSuiteCreateParams(TestSuiteCreateUpdateCommonParams):
 
 
 class TestVariable(TestVariableCreateUpdateParameters):
-    """TestVariable.
+    """
+    Test Variable
 
     :param description: Description of the test variable
     :type description: str
@@ -1695,7 +1784,8 @@ class TestVariable(TestVariableCreateUpdateParameters):
 
 
 class TestSuite(TestSuiteCreateParams):
-    """TestSuite.
+    """
+    Test suite
 
     :param default_configurations: Test suite default configurations.
     :type default_configurations: list of :class:`TestConfigurationReference <azure.devops.v5_1.test_plan.models.TestConfigurationReference>`
@@ -1809,6 +1899,7 @@ __all__ = [
     'TestPlansHubRefreshData',
     'TestPlanUpdateParams',
     'TestPoint',
+    'TestPointCount',
     'TestPointResults',
     'TestPointUpdateParams',
     'TestSettings',

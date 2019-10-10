@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class Consumer(Model):
-    """Consumer.
+    """
+    Defines the data contract of a consumer.
 
     :param _links: Reference Links
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.service_hooks.models.ReferenceLinks>`
@@ -66,7 +67,8 @@ class Consumer(Model):
 
 
 class ConsumerAction(Model):
-    """ConsumerAction.
+    """
+    Defines the data contract of a consumer action.
 
     :param _links: Reference Links
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.service_hooks.models.ReferenceLinks>`
@@ -118,7 +120,8 @@ class ConsumerAction(Model):
 
 
 class Event(Model):
-    """Event.
+    """
+    Encapsulates the properties of an event.
 
     :param created_date: Gets or sets the UTC-based date and time that this event was created.
     :type created_date: datetime
@@ -170,7 +173,8 @@ class Event(Model):
 
 
 class EventTypeDescriptor(Model):
-    """EventTypeDescriptor.
+    """
+    Describes a type of event
 
     :param description: A localized description of the event type
     :type description: str
@@ -210,7 +214,8 @@ class EventTypeDescriptor(Model):
 
 
 class ExternalConfigurationDescriptor(Model):
-    """ExternalConfigurationDescriptor.
+    """
+    Describes how to configure a subscription that is managed externally.
 
     :param create_subscription_url: Url of the site to create this type of subscription.
     :type create_subscription_url: str
@@ -234,7 +239,8 @@ class ExternalConfigurationDescriptor(Model):
 
 
 class FormattedEventMessage(Model):
-    """FormattedEventMessage.
+    """
+    Provides different formats of an event message
 
     :param html: Gets or sets the html format of the message
     :type html: str
@@ -258,8 +264,7 @@ class FormattedEventMessage(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -286,8 +291,7 @@ class GraphSubjectBase(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -346,7 +350,8 @@ class IdentityRef(GraphSubjectBase):
 
 
 class InputDescriptor(Model):
-    """InputDescriptor.
+    """
+    Describes an input for subscriptions.
 
     :param dependency_input_ids: The ids of all inputs that the value of this input is dependent on.
     :type dependency_input_ids: list of str
@@ -414,7 +419,8 @@ class InputDescriptor(Model):
 
 
 class InputFilter(Model):
-    """InputFilter.
+    """
+    Defines a filter for subscription inputs. The filter matches a set of inputs if any (one or more) of the groups evaluates to true.
 
     :param conditions: Groups of input filter expressions. This filter matches a set of inputs if any (one or more) of the groups evaluates to true.
     :type conditions: list of :class:`InputFilterCondition <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.InputFilterCondition>`
@@ -430,7 +436,8 @@ class InputFilter(Model):
 
 
 class InputFilterCondition(Model):
-    """InputFilterCondition.
+    """
+    An expression which can be applied to filter a list of subscription inputs
 
     :param case_sensitive: Whether or not to do a case sensitive match
     :type case_sensitive: bool
@@ -458,7 +465,8 @@ class InputFilterCondition(Model):
 
 
 class InputValidation(Model):
-    """InputValidation.
+    """
+    Describes what values are valid for a subscription input
 
     :param data_type: Gets or sets the data data type to validate.
     :type data_type: object
@@ -502,7 +510,8 @@ class InputValidation(Model):
 
 
 class InputValue(Model):
-    """InputValue.
+    """
+    Information about a single value for an input
 
     :param data: Any other data about this input
     :type data: dict
@@ -526,7 +535,8 @@ class InputValue(Model):
 
 
 class InputValues(Model):
-    """InputValues.
+    """
+    Information about the possible/allowed values for a given subscription input
 
     :param default_value: The default value to use for this input
     :type default_value: str
@@ -566,7 +576,8 @@ class InputValues(Model):
 
 
 class InputValuesError(Model):
-    """InputValuesError.
+    """
+    Error information related to a subscription input value.
 
     :param message: The error message.
     :type message: str
@@ -582,8 +593,7 @@ class InputValuesError(Model):
 
 
 class InputValuesQuery(Model):
-    """InputValuesQuery.
-
+    """
     :param current_values:
     :type current_values: dict
     :param input_values: The input values to return on input, and the result from the consumer on output.
@@ -606,7 +616,8 @@ class InputValuesQuery(Model):
 
 
 class Notification(Model):
-    """Notification.
+    """
+    Defines the data contract of the result of processing an event for a subscription.
 
     :param created_date: Gets or sets date and time that this result was created.
     :type created_date: datetime
@@ -654,7 +665,8 @@ class Notification(Model):
 
 
 class NotificationDetails(Model):
-    """NotificationDetails.
+    """
+    Defines the data contract of notification details.
 
     :param completed_date: Gets or sets the time that this notification was completed (response received from the consumer)
     :type completed_date: datetime
@@ -688,7 +700,7 @@ class NotificationDetails(Model):
     :type request_attempts: int
     :param request_duration: Duration of the request to the consumer in seconds
     :type request_duration: float
-    :param response: Gets or sets this notification detail's reponse.
+    :param response: Gets or sets this notification detail's response.
     :type response: str
     """
 
@@ -734,7 +746,8 @@ class NotificationDetails(Model):
 
 
 class NotificationResultsSummaryDetail(Model):
-    """NotificationResultsSummaryDetail.
+    """
+    Summary of a particular result and count.
 
     :param notification_count: Count of notification sent out with a matching result.
     :type notification_count: int
@@ -754,7 +767,8 @@ class NotificationResultsSummaryDetail(Model):
 
 
 class NotificationsQuery(Model):
-    """NotificationsQuery.
+    """
+    Defines a query for service hook notifications.
 
     :param associated_subscriptions: The subscriptions associated with the notifications returned from the query
     :type associated_subscriptions: list of :class:`Subscription <azure.devops.v5_1.service_hooks.models.Subscription>`
@@ -814,7 +828,8 @@ class NotificationsQuery(Model):
 
 
 class NotificationSummary(Model):
-    """NotificationSummary.
+    """
+    Summary of the notifications for a subscription.
 
     :param results: The notification results for this particular subscription.
     :type results: list of :class:`NotificationResultsSummaryDetail <azure.devops.v5_1.service_hooks.models.NotificationResultsSummaryDetail>`
@@ -834,7 +849,8 @@ class NotificationSummary(Model):
 
 
 class Publisher(Model):
-    """Publisher.
+    """
+    Defines the data contract of an event publisher.
 
     :param _links: Reference Links
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.service_hooks.models.ReferenceLinks>`
@@ -878,7 +894,8 @@ class Publisher(Model):
 
 
 class PublisherEvent(Model):
-    """PublisherEvent.
+    """
+    Wrapper around an event which is being published
 
     :param diagnostics: Add key/value pairs which will be stored with a published notification in the SH service DB.  This key/value pairs are for diagnostic purposes only and will have not effect on the delivery of a notificaton.
     :type diagnostics: dict
@@ -892,7 +909,7 @@ class PublisherEvent(Model):
     :type other_resource_versions: list of :class:`VersionedResource <azure.devops.v5_1.service_hooks.models.VersionedResource>`
     :param publisher_input_filters: Optional publisher-input filters which restricts the set of subscriptions which are triggered by the event
     :type publisher_input_filters: list of :class:`InputFilter <azure.devops.v5_1.service_hooks.models.InputFilter>`
-    :param subscription: Gets or sets matchd hooks subscription which caused this event.
+    :param subscription: Gets or sets matched hooks subscription which caused this event.
     :type subscription: :class:`Subscription <azure.devops.v5_1.service_hooks.models.Subscription>`
     """
 
@@ -918,7 +935,8 @@ class PublisherEvent(Model):
 
 
 class PublishersQuery(Model):
-    """PublishersQuery.
+    """
+    Defines a query for service hook publishers.
 
     :param publisher_ids: Optional list of publisher ids to restrict the results to
     :type publisher_ids: list of str
@@ -942,7 +960,8 @@ class PublishersQuery(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -958,9 +977,10 @@ class ReferenceLinks(Model):
 
 
 class ResourceContainer(Model):
-    """ResourceContainer.
+    """
+    The base class for all resource containers, i.e. Account, Collection, Project
 
-    :param base_url: Gets or sets the container's base URL, i.e. the URL of the host (collection, application, or deploument) containing the container resource.
+    :param base_url: Gets or sets the container's base URL, i.e. the URL of the host (collection, application, or deployment) containing the container resource.
     :type base_url: str
     :param id: Gets or sets the container's specific Id.
     :type id: str
@@ -986,7 +1006,8 @@ class ResourceContainer(Model):
 
 
 class SessionToken(Model):
-    """SessionToken.
+    """
+    Represents a session token to be attached in Events for Consumer actions that need it.
 
     :param error: The error message in case of error
     :type error: str
@@ -1010,7 +1031,8 @@ class SessionToken(Model):
 
 
 class Subscription(Model):
-    """Subscription.
+    """
+    Encapsulates an event subscription.
 
     :param _links: Reference Links
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.service_hooks.models.ReferenceLinks>`
@@ -1098,13 +1120,14 @@ class Subscription(Model):
 
 
 class SubscriptionDiagnostics(Model):
-    """SubscriptionDiagnostics.
+    """
+    Contains all the diagonstics settings for a subscription.
 
-    :param delivery_results:
+    :param delivery_results: Diagnostics settings for retaining delivery results.  Used for Service Hooks subscriptions.
     :type delivery_results: :class:`SubscriptionTracing <azure.devops.v5_1.microsoft._visual_studio._services._notifications._web_api.models.SubscriptionTracing>`
-    :param delivery_tracing:
+    :param delivery_tracing: Diagnostics settings for troubleshooting notification delivery.
     :type delivery_tracing: :class:`SubscriptionTracing <azure.devops.v5_1.microsoft._visual_studio._services._notifications._web_api.models.SubscriptionTracing>`
-    :param evaluation_tracing:
+    :param evaluation_tracing: Diagnostics settings for troubleshooting event matching.
     :type evaluation_tracing: :class:`SubscriptionTracing <azure.devops.v5_1.microsoft._visual_studio._services._notifications._web_api.models.SubscriptionTracing>`
     """
 
@@ -1121,8 +1144,34 @@ class SubscriptionDiagnostics(Model):
         self.evaluation_tracing = evaluation_tracing
 
 
+class SubscriptionInputValuesQuery(Model):
+    """
+    Query for obtaining information about the possible/allowed values for one or more subscription inputs
+
+    :param input_values: The input values to return on input, and the result from the consumer on output.
+    :type input_values: list of :class:`InputValues <azure.devops.v5_1.service_hooks.models.InputValues>`
+    :param scope: The scope at which the properties to query belong
+    :type scope: object
+    :param subscription: Subscription containing information about the publisher/consumer and the current input values
+    :type subscription: :class:`Subscription <azure.devops.v5_1.service_hooks.models.Subscription>`
+    """
+
+    _attribute_map = {
+        'input_values': {'key': 'inputValues', 'type': '[InputValues]'},
+        'scope': {'key': 'scope', 'type': 'object'},
+        'subscription': {'key': 'subscription', 'type': 'Subscription'}
+    }
+
+    def __init__(self, input_values=None, scope=None, subscription=None):
+        super(SubscriptionInputValuesQuery, self).__init__()
+        self.input_values = input_values
+        self.scope = scope
+        self.subscription = subscription
+
+
 class SubscriptionsQuery(Model):
-    """SubscriptionsQuery.
+    """
+    Defines a query for service hook subscriptions.
 
     :param consumer_action_id: Optional consumer action id to restrict the results to (null for any)
     :type consumer_action_id: str
@@ -1166,9 +1215,10 @@ class SubscriptionsQuery(Model):
 
 
 class SubscriptionTracing(Model):
-    """SubscriptionTracing.
+    """
+    Data controlling a single diagnostic setting for a subscription.
 
-    :param enabled:
+    :param enabled: Indicates whether the diagnostic tracing is enabled or not.
     :type enabled: bool
     :param end_date: Trace until the specified end date.
     :type end_date: datetime
@@ -1198,13 +1248,14 @@ class SubscriptionTracing(Model):
 
 
 class UpdateSubscripitonDiagnosticsParameters(Model):
-    """UpdateSubscripitonDiagnosticsParameters.
+    """
+    Parameters to update diagnostics settings for a subscription.
 
-    :param delivery_results:
+    :param delivery_results: Diagnostics settings for retaining delivery results.  Used for Service Hooks subscriptions.
     :type delivery_results: :class:`UpdateSubscripitonTracingParameters <azure.devops.v5_1.microsoft._visual_studio._services._notifications._web_api.models.UpdateSubscripitonTracingParameters>`
-    :param delivery_tracing:
+    :param delivery_tracing: Diagnostics settings for troubleshooting notification delivery.
     :type delivery_tracing: :class:`UpdateSubscripitonTracingParameters <azure.devops.v5_1.microsoft._visual_studio._services._notifications._web_api.models.UpdateSubscripitonTracingParameters>`
-    :param evaluation_tracing:
+    :param evaluation_tracing: Diagnostics settings for troubleshooting event matching.
     :type evaluation_tracing: :class:`UpdateSubscripitonTracingParameters <azure.devops.v5_1.microsoft._visual_studio._services._notifications._web_api.models.UpdateSubscripitonTracingParameters>`
     """
 
@@ -1222,9 +1273,10 @@ class UpdateSubscripitonDiagnosticsParameters(Model):
 
 
 class UpdateSubscripitonTracingParameters(Model):
-    """UpdateSubscripitonTracingParameters.
+    """
+    Parameters to update a specific diagnostic setting.
 
-    :param enabled:
+    :param enabled: Indicates whether to enable to disable the diagnostic tracing.
     :type enabled: bool
     """
 
@@ -1238,7 +1290,8 @@ class UpdateSubscripitonTracingParameters(Model):
 
 
 class VersionedResource(Model):
-    """VersionedResource.
+    """
+    Encapsulates the resource version and its data or reference to the compatible version. Only one of the two last fields should be not null.
 
     :param compatible_with: Gets or sets the reference to the compatible version.
     :type compatible_with: str
@@ -1291,6 +1344,7 @@ __all__ = [
     'SessionToken',
     'Subscription',
     'SubscriptionDiagnostics',
+    'SubscriptionInputValuesQuery',
     'SubscriptionsQuery',
     'SubscriptionTracing',
     'UpdateSubscripitonDiagnosticsParameters',

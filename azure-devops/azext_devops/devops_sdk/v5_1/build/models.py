@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class AgentPoolQueue(Model):
-    """AgentPoolQueue.
+    """
+    Represents a queue for running builds.
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.build.models.ReferenceLinks>`
@@ -42,7 +43,8 @@ class AgentPoolQueue(Model):
 
 
 class AgentSpecification(Model):
-    """AgentSpecification.
+    """
+    Specification of the agent defined by the pool provider.
 
     :param identifier: Agent specification unique identifier.
     :type identifier: str
@@ -58,8 +60,7 @@ class AgentSpecification(Model):
 
 
 class AggregatedResultsAnalysis(Model):
-    """AggregatedResultsAnalysis.
-
+    """
     :param duration:
     :type duration: object
     :param not_reported_results_by_outcome:
@@ -102,8 +103,7 @@ class AggregatedResultsAnalysis(Model):
 
 
 class AggregatedResultsByOutcome(Model):
-    """AggregatedResultsByOutcome.
-
+    """
     :param count:
     :type count: int
     :param duration:
@@ -138,8 +138,7 @@ class AggregatedResultsByOutcome(Model):
 
 
 class AggregatedResultsDifference(Model):
-    """AggregatedResultsDifference.
-
+    """
     :param increase_in_duration:
     :type increase_in_duration: object
     :param increase_in_failures:
@@ -170,8 +169,7 @@ class AggregatedResultsDifference(Model):
 
 
 class AggregatedRunsByOutcome(Model):
-    """AggregatedRunsByOutcome.
-
+    """
     :param outcome:
     :type outcome: object
     :param runs_count:
@@ -190,8 +188,7 @@ class AggregatedRunsByOutcome(Model):
 
 
 class AggregatedRunsByState(Model):
-    """AggregatedRunsByState.
-
+    """
     :param results_by_outcome:
     :type results_by_outcome: dict
     :param runs_count:
@@ -214,8 +211,7 @@ class AggregatedRunsByState(Model):
 
 
 class ArtifactResource(Model):
-    """ArtifactResource.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.build.models.ReferenceLinks>`
     :param data: Type-specific data about the artifact.
@@ -250,8 +246,7 @@ class ArtifactResource(Model):
 
 
 class AssociatedWorkItem(Model):
-    """AssociatedWorkItem.
-
+    """
     :param assigned_to:
     :type assigned_to: str
     :param id: Id of associated the work item.
@@ -290,7 +285,8 @@ class AssociatedWorkItem(Model):
 
 
 class Attachment(Model):
-    """Attachment.
+    """
+    Represents an attachment to a build.
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.build.models.ReferenceLinks>`
@@ -310,8 +306,7 @@ class Attachment(Model):
 
 
 class AuthorizationHeader(Model):
-    """AuthorizationHeader.
-
+    """
     :param name:
     :type name: str
     :param value:
@@ -330,7 +325,8 @@ class AuthorizationHeader(Model):
 
 
 class Build(Model):
-    """Build.
+    """
+    Data representation of a build.
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.build.models.ReferenceLinks>`
@@ -518,7 +514,8 @@ class Build(Model):
 
 
 class BuildArtifact(Model):
-    """BuildArtifact.
+    """
+    Represents an artifact produced by a build.
 
     :param id: The artifact ID.
     :type id: int
@@ -526,23 +523,28 @@ class BuildArtifact(Model):
     :type name: str
     :param resource: The actual resource.
     :type resource: :class:`ArtifactResource <azure.devops.v5_1.build.models.ArtifactResource>`
+    :param source: The artifact source, which will be the ID of the job that produced this artifact.
+    :type source: str
     """
 
     _attribute_map = {
         'id': {'key': 'id', 'type': 'int'},
         'name': {'key': 'name', 'type': 'str'},
-        'resource': {'key': 'resource', 'type': 'ArtifactResource'}
+        'resource': {'key': 'resource', 'type': 'ArtifactResource'},
+        'source': {'key': 'source', 'type': 'str'}
     }
 
-    def __init__(self, id=None, name=None, resource=None):
+    def __init__(self, id=None, name=None, resource=None, source=None):
         super(BuildArtifact, self).__init__()
         self.id = id
         self.name = name
         self.resource = resource
+        self.source = source
 
 
 class BuildBadge(Model):
-    """BuildBadge.
+    """
+    Represents a build badge.
 
     :param build_id: The ID of the build represented by this badge.
     :type build_id: int
@@ -562,7 +564,8 @@ class BuildBadge(Model):
 
 
 class BuildDefinitionRevision(Model):
-    """BuildDefinitionRevision.
+    """
+    Represents a revision of a build definition.
 
     :param changed_by: The identity of the person or process that changed the definition.
     :type changed_by: :class:`IdentityRef <azure.devops.v5_1.build.models.IdentityRef>`
@@ -602,7 +605,8 @@ class BuildDefinitionRevision(Model):
 
 
 class BuildDefinitionStep(Model):
-    """BuildDefinitionStep.
+    """
+    Represents a step in a build phase.
 
     :param always_run: Indicates whether this step should run even if a previous step fails.
     :type always_run: bool
@@ -654,7 +658,8 @@ class BuildDefinitionStep(Model):
 
 
 class BuildDefinitionTemplate(Model):
-    """BuildDefinitionTemplate.
+    """
+    Represents a template from which new build definitions can be created.
 
     :param can_delete: Indicates whether the template can be deleted.
     :type can_delete: bool
@@ -702,7 +707,8 @@ class BuildDefinitionTemplate(Model):
 
 
 class BuildDefinitionTemplate3_2(Model):
-    """BuildDefinitionTemplate3_2.
+    """
+    For back-compat with extensions that use the old Steps format instead of Process and Phases
 
     :param can_delete:
     :type can_delete: bool
@@ -750,7 +756,8 @@ class BuildDefinitionTemplate3_2(Model):
 
 
 class BuildDefinitionVariable(Model):
-    """BuildDefinitionVariable.
+    """
+    Represents a variable used by a build definition.
 
     :param allow_override: Indicates whether the value can be set at queue time.
     :type allow_override: bool
@@ -774,7 +781,8 @@ class BuildDefinitionVariable(Model):
 
 
 class BuildLogReference(Model):
-    """BuildLogReference.
+    """
+    Represents a reference to a build log.
 
     :param id: The ID of the log.
     :type id: int
@@ -798,7 +806,8 @@ class BuildLogReference(Model):
 
 
 class BuildMetric(Model):
-    """BuildMetric.
+    """
+    Represents metadata about builds in the system.
 
     :param date: The date for the scope.
     :type date: datetime
@@ -826,7 +835,8 @@ class BuildMetric(Model):
 
 
 class BuildOption(Model):
-    """BuildOption.
+    """
+    Represents the application of an optional behavior to a build definition.
 
     :param definition: A reference to the build option.
     :type definition: :class:`BuildOptionDefinitionReference <azure.devops.v5_1.build.models.BuildOptionDefinitionReference>`
@@ -850,7 +860,8 @@ class BuildOption(Model):
 
 
 class BuildOptionDefinitionReference(Model):
-    """BuildOptionDefinitionReference.
+    """
+    Represents a reference to a build option definition.
 
     :param id: The ID of the referenced build option.
     :type id: str
@@ -866,7 +877,8 @@ class BuildOptionDefinitionReference(Model):
 
 
 class BuildOptionGroupDefinition(Model):
-    """BuildOptionGroupDefinition.
+    """
+    Represents a group of inputs for a build option.
 
     :param display_name: The name of the group to display in the UI.
     :type display_name: str
@@ -890,7 +902,8 @@ class BuildOptionGroupDefinition(Model):
 
 
 class BuildOptionInputDefinition(Model):
-    """BuildOptionInputDefinition.
+    """
+    Represents an input for a build option.
 
     :param default_value: The default value.
     :type default_value: str
@@ -938,7 +951,8 @@ class BuildOptionInputDefinition(Model):
 
 
 class BuildReportMetadata(Model):
-    """BuildReportMetadata.
+    """
+    Represents information about a build report.
 
     :param build_id: The Id of the build.
     :type build_id: int
@@ -962,7 +976,8 @@ class BuildReportMetadata(Model):
 
 
 class BuildRepository(Model):
-    """BuildRepository.
+    """
+    Represents a repository used by a build definition.
 
     :param checkout_submodules: Indicates whether to checkout submodules.
     :type checkout_submodules: bool
@@ -1010,7 +1025,8 @@ class BuildRepository(Model):
 
 
 class BuildRequestValidationResult(Model):
-    """BuildRequestValidationResult.
+    """
+    Represents the result of validating a build request.
 
     :param message: The message associated with the result.
     :type message: str
@@ -1030,7 +1046,8 @@ class BuildRequestValidationResult(Model):
 
 
 class BuildResourceUsage(Model):
-    """BuildResourceUsage.
+    """
+    Represents information about resources used by builds in the system.
 
     :param distributed_task_agents: The number of build agents.
     :type distributed_task_agents: int
@@ -1058,7 +1075,8 @@ class BuildResourceUsage(Model):
 
 
 class BuildSettings(Model):
-    """BuildSettings.
+    """
+    Represents system-wide build settings.
 
     :param days_to_keep_deleted_builds_before_destroy: The number of days to keep records of deleted builds.
     :type days_to_keep_deleted_builds_before_destroy: int
@@ -1082,7 +1100,8 @@ class BuildSettings(Model):
 
 
 class Change(Model):
-    """Change.
+    """
+    Represents a change associated with a build.
 
     :param author: The author of the change.
     :type author: :class:`IdentityRef <azure.devops.v5_1.build.models.IdentityRef>`
@@ -1130,7 +1149,8 @@ class Change(Model):
 
 
 class DataSourceBindingBase(Model):
-    """DataSourceBindingBase.
+    """
+    Represents binding of data source for the service endpoint request.
 
     :param callback_context_template: Pagination format supported by this data source(ContinuationToken/SkipTop).
     :type callback_context_template: str
@@ -1194,7 +1214,8 @@ class DataSourceBindingBase(Model):
 
 
 class DefinitionReference(Model):
-    """DefinitionReference.
+    """
+    Represents a reference to a definition.
 
     :param created_date: The date this version of the definition was created.
     :type created_date: datetime
@@ -1246,8 +1267,7 @@ class DefinitionReference(Model):
 
 
 class DefinitionResourceReference(Model):
-    """DefinitionResourceReference.
-
+    """
     :param authorized: Indicates whether the resource is authorized for use.
     :type authorized: bool
     :param id: The id of the resource.
@@ -1274,7 +1294,8 @@ class DefinitionResourceReference(Model):
 
 
 class Deployment(Model):
-    """Deployment.
+    """
+    Represents the data from the build information nodes for type "DeploymentInformation" for xaml builds
 
     :param type:
     :type type: str
@@ -1290,7 +1311,8 @@ class Deployment(Model):
 
 
 class Folder(Model):
-    """Folder.
+    """
+    Represents a folder that contains build definitions.
 
     :param created_by: The process or person who created the folder.
     :type created_by: :class:`IdentityRef <azure.devops.v5_1.build.models.IdentityRef>`
@@ -1330,8 +1352,7 @@ class Folder(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -1358,8 +1379,7 @@ class GraphSubjectBase(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -1418,7 +1438,8 @@ class IdentityRef(GraphSubjectBase):
 
 
 class Issue(Model):
-    """Issue.
+    """
+    Represents an issue (error, warning) associated with a build.
 
     :param category: The category.
     :type category: str
@@ -1446,7 +1467,8 @@ class Issue(Model):
 
 
 class JsonPatchOperation(Model):
-    """JsonPatchOperation.
+    """
+    The JSON model for a JSON Patch operation
 
     :param from_: The path to copy from for the Move/Copy operation.
     :type from_: str
@@ -1474,8 +1496,7 @@ class JsonPatchOperation(Model):
 
 
 class ProcessParameters(Model):
-    """ProcessParameters.
-
+    """
     :param data_source_bindings:
     :type data_source_bindings: list of :class:`DataSourceBindingBase <azure.devops.v5_1.microsoft._team_foundation._distributed_task._common._contracts.models.DataSourceBindingBase>`
     :param inputs:
@@ -1498,7 +1519,8 @@ class ProcessParameters(Model):
 
 
 class PullRequest(Model):
-    """PullRequest.
+    """
+    Represents a pull request object.  These are retrieved from Source Providers.
 
     :param _links: The links to other objects related to this object.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.build.models.ReferenceLinks>`
@@ -1554,7 +1576,8 @@ class PullRequest(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -1570,7 +1593,8 @@ class ReferenceLinks(Model):
 
 
 class ReleaseReference(Model):
-    """ReleaseReference.
+    """
+    Reference to a release.
 
     :param attempt: Number of Release Attempt.
     :type attempt: int
@@ -1622,7 +1646,8 @@ class ReleaseReference(Model):
 
 
 class RepositoryWebhook(Model):
-    """RepositoryWebhook.
+    """
+    Represents a repository's webhook returned from a source provider.
 
     :param name: The friendly name of the repository.
     :type name: str
@@ -1646,8 +1671,7 @@ class RepositoryWebhook(Model):
 
 
 class ResourceRef(Model):
-    """ResourceRef.
-
+    """
     :param id:
     :type id: str
     :param url:
@@ -1666,7 +1690,8 @@ class ResourceRef(Model):
 
 
 class RetentionPolicy(Model):
-    """RetentionPolicy.
+    """
+    Represents a retention policy for a build definition.
 
     :param artifacts:
     :type artifacts: list of str
@@ -1706,8 +1731,7 @@ class RetentionPolicy(Model):
 
 
 class SourceProviderAttributes(Model):
-    """SourceProviderAttributes.
-
+    """
     :param name: The name of the source provider.
     :type name: str
     :param supported_capabilities: The capabilities supported by this source provider.
@@ -1730,7 +1754,8 @@ class SourceProviderAttributes(Model):
 
 
 class SourceRepositories(Model):
-    """SourceRepositories.
+    """
+    A set of repositories returned from the source provider.
 
     :param continuation_token: A token used to continue this paged request; 'null' if the request is complete
     :type continuation_token: str
@@ -1758,7 +1783,8 @@ class SourceRepositories(Model):
 
 
 class SourceRepository(Model):
-    """SourceRepository.
+    """
+    Represents a repository returned from a source provider.
 
     :param default_branch: The name of the default branch.
     :type default_branch: str
@@ -1798,7 +1824,8 @@ class SourceRepository(Model):
 
 
 class SourceRepositoryItem(Model):
-    """SourceRepositoryItem.
+    """
+    Represents an item in a repository from a source provider.
 
     :param is_container: Whether the item is able to have sub-items (e.g., is a folder).
     :type is_container: bool
@@ -1826,8 +1853,7 @@ class SourceRepositoryItem(Model):
 
 
 class SupportedTrigger(Model):
-    """SupportedTrigger.
-
+    """
     :param default_polling_interval: The default interval to wait between polls (only relevant when NotificationType is Polling).
     :type default_polling_interval: int
     :param notification_type: How the trigger is notified of changes.
@@ -1854,7 +1880,8 @@ class SupportedTrigger(Model):
 
 
 class TaskAgentPoolReference(Model):
-    """TaskAgentPoolReference.
+    """
+    Represents a reference to an agent pool.
 
     :param id: The pool ID.
     :type id: int
@@ -1878,7 +1905,8 @@ class TaskAgentPoolReference(Model):
 
 
 class TaskDefinitionReference(Model):
-    """TaskDefinitionReference.
+    """
+    A reference to a task definition.
 
     :param definition_type: The type of task (task or task group).
     :type definition_type: str
@@ -1902,8 +1930,7 @@ class TaskDefinitionReference(Model):
 
 
 class TaskInputDefinitionBase(Model):
-    """TaskInputDefinitionBase.
-
+    """
     :param aliases:
     :type aliases: list of str
     :param default_value:
@@ -1962,8 +1989,7 @@ class TaskInputDefinitionBase(Model):
 
 
 class TaskInputValidation(Model):
-    """TaskInputValidation.
-
+    """
     :param expression: Conditional expression
     :type expression: str
     :param message: Message explaining how user can correct if validation fails
@@ -1982,7 +2008,8 @@ class TaskInputValidation(Model):
 
 
 class TaskOrchestrationPlanReference(Model):
-    """TaskOrchestrationPlanReference.
+    """
+    Represents a reference to an orchestration plan.
 
     :param orchestration_type: The type of the plan.
     :type orchestration_type: int
@@ -2002,7 +2029,8 @@ class TaskOrchestrationPlanReference(Model):
 
 
 class TaskReference(Model):
-    """TaskReference.
+    """
+    Represents a reference to a task.
 
     :param id: The ID of the task definition.
     :type id: str
@@ -2026,8 +2054,7 @@ class TaskReference(Model):
 
 
 class TaskSourceDefinitionBase(Model):
-    """TaskSourceDefinitionBase.
-
+    """
     :param auth_key:
     :type auth_key: str
     :param endpoint:
@@ -2058,7 +2085,8 @@ class TaskSourceDefinitionBase(Model):
 
 
 class TeamProjectReference(Model):
-    """TeamProjectReference.
+    """
+    Represents a shallow reference to a TeamProject.
 
     :param abbreviation: Project abbreviation.
     :type abbreviation: str
@@ -2110,8 +2138,7 @@ class TeamProjectReference(Model):
 
 
 class TestResultsContext(Model):
-    """TestResultsContext.
-
+    """
     :param build:
     :type build: :class:`BuildReference <azure.devops.v5_1.microsoft._team_foundation._test_management._web_api.models.BuildReference>`
     :param context_type:
@@ -2134,8 +2161,7 @@ class TestResultsContext(Model):
 
 
 class TimelineAttempt(Model):
-    """TimelineAttempt.
-
+    """
     :param attempt: Gets or sets the attempt of the record.
     :type attempt: int
     :param record_id: Gets or sets the record identifier located within the specified timeline.
@@ -2158,7 +2184,8 @@ class TimelineAttempt(Model):
 
 
 class TimelineRecord(Model):
-    """TimelineRecord.
+    """
+    Represents an entry in a build's timeline.
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.build.models.ReferenceLinks>`
@@ -2274,7 +2301,8 @@ class TimelineRecord(Model):
 
 
 class TimelineReference(Model):
-    """TimelineReference.
+    """
+    Represents a reference to a timeline.
 
     :param change_id: The change ID.
     :type change_id: int
@@ -2298,7 +2326,8 @@ class TimelineReference(Model):
 
 
 class VariableGroupReference(Model):
-    """VariableGroupReference.
+    """
+    Represents a reference to a variable group.
 
     :param alias: The Name of the variable group.
     :type alias: str
@@ -2318,8 +2347,7 @@ class VariableGroupReference(Model):
 
 
 class WebApiConnectedServiceRef(Model):
-    """WebApiConnectedServiceRef.
-
+    """
     :param id:
     :type id: str
     :param url:
@@ -2338,8 +2366,7 @@ class WebApiConnectedServiceRef(Model):
 
 
 class XamlBuildControllerReference(Model):
-    """XamlBuildControllerReference.
-
+    """
     :param id: Id of the resource
     :type id: int
     :param name: Name of the linked resource (definition name, controller name, etc.)
@@ -2362,8 +2389,7 @@ class XamlBuildControllerReference(Model):
 
 
 class BuildController(XamlBuildControllerReference):
-    """BuildController.
-
+    """
     :param id: Id of the resource
     :type id: int
     :param name: Name of the linked resource (definition name, controller name, etc.)
@@ -2411,7 +2437,8 @@ class BuildController(XamlBuildControllerReference):
 
 
 class BuildDefinitionReference(DefinitionReference):
-    """BuildDefinitionReference.
+    """
+    Represents a reference to a build definition.
 
     :param created_date: The date this version of the definition was created.
     :type created_date: datetime
@@ -2489,7 +2516,8 @@ class BuildDefinitionReference(DefinitionReference):
 
 
 class BuildDefinitionReference3_2(DefinitionReference):
-    """BuildDefinitionReference3_2.
+    """
+    For back-compat with extensions that use the old Steps format instead of Process and Phases
 
     :param created_date: The date this version of the definition was created.
     :type created_date: datetime
@@ -2559,7 +2587,8 @@ class BuildDefinitionReference3_2(DefinitionReference):
 
 
 class BuildLog(BuildLogReference):
-    """BuildLog.
+    """
+    Represents a build log.
 
     :param id: The ID of the log.
     :type id: int
@@ -2592,7 +2621,8 @@ class BuildLog(BuildLogReference):
 
 
 class BuildOptionDefinition(BuildOptionDefinitionReference):
-    """BuildOptionDefinition.
+    """
+    Represents an optional behavior that can be applied to a build definition.
 
     :param id: The ID of the referenced build option.
     :type id: str
@@ -2627,7 +2657,8 @@ class BuildOptionDefinition(BuildOptionDefinitionReference):
 
 
 class Timeline(TimelineReference):
-    """Timeline.
+    """
+    Represents the timeline of a build.
 
     :param change_id: The change ID.
     :type change_id: int
@@ -2660,7 +2691,8 @@ class Timeline(TimelineReference):
 
 
 class VariableGroup(VariableGroupReference):
-    """VariableGroup.
+    """
+    Represents a variable group.
 
     :param alias: The Name of the variable group.
     :type alias: str
@@ -2694,7 +2726,8 @@ class VariableGroup(VariableGroupReference):
 
 
 class BuildDefinition(BuildDefinitionReference):
-    """BuildDefinition.
+    """
+    Represents a build definition.
 
     :param created_date: The date this version of the definition was created.
     :type created_date: datetime
@@ -2839,7 +2872,8 @@ class BuildDefinition(BuildDefinitionReference):
 
 
 class BuildDefinition3_2(BuildDefinitionReference3_2):
-    """BuildDefinition3_2.
+    """
+    For back-compat with extensions that use the old Steps format instead of Process and Phases
 
     :param created_date: The date this version of the definition was created.
     :type created_date: datetime

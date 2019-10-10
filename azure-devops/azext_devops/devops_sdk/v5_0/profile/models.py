@@ -84,8 +84,8 @@ class Avatar(Model):
 class CreateProfileContext(Model):
     """CreateProfileContext.
 
-    :param cIData:
-    :type cIData: dict
+    :param ci_data:
+    :type ci_data: dict
     :param contact_with_offers:
     :type contact_with_offers: bool
     :param country_name:
@@ -105,7 +105,7 @@ class CreateProfileContext(Model):
     """
 
     _attribute_map = {
-        'cIData': {'key': 'cIData', 'type': '{object}'},
+        'ci_data': {'key': 'ciData', 'type': '{object}'},
         'contact_with_offers': {'key': 'contactWithOffers', 'type': 'bool'},
         'country_name': {'key': 'countryName', 'type': 'str'},
         'display_name': {'key': 'displayName', 'type': 'str'},
@@ -116,9 +116,9 @@ class CreateProfileContext(Model):
         'profile_state': {'key': 'profileState', 'type': 'object'}
     }
 
-    def __init__(self, cIData=None, contact_with_offers=None, country_name=None, display_name=None, email_address=None, has_account=None, language=None, phone_number=None, profile_state=None):
+    def __init__(self, ci_data=None, contact_with_offers=None, country_name=None, display_name=None, email_address=None, has_account=None, language=None, phone_number=None, profile_state=None):
         super(CreateProfileContext, self).__init__()
-        self.cIData = cIData
+        self.ci_data = ci_data
         self.contact_with_offers = contact_with_offers
         self.country_name = country_name
         self.display_name = display_name

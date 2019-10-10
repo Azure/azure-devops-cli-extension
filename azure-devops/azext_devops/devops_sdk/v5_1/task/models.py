@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class Issue(Model):
-    """Issue.
-
+    """
     :param category:
     :type category: str
     :param data:
@@ -38,7 +37,8 @@ class Issue(Model):
 
 
 class JobOption(Model):
-    """JobOption.
+    """
+    Represents an option that may affect the way an agent runs the job.
 
     :param data:
     :type data: dict
@@ -58,8 +58,7 @@ class JobOption(Model):
 
 
 class MaskHint(Model):
-    """MaskHint.
-
+    """
     :param type:
     :type type: object
     :param value:
@@ -78,8 +77,7 @@ class MaskHint(Model):
 
 
 class PlanEnvironment(Model):
-    """PlanEnvironment.
-
+    """
     :param mask:
     :type mask: list of :class:`MaskHint <azure.devops.v5_1.task.models.MaskHint>`
     :param options:
@@ -102,8 +100,7 @@ class PlanEnvironment(Model):
 
 
 class ProjectReference(Model):
-    """ProjectReference.
-
+    """
     :param id:
     :type id: str
     :param name:
@@ -122,7 +119,8 @@ class ProjectReference(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -137,9 +135,140 @@ class ReferenceLinks(Model):
         self.links = links
 
 
-class TaskAttachment(Model):
-    """TaskAttachment.
+class TaskAgentJob(Model):
+    """
+    :param container:
+    :type container: str
+    :param id:
+    :type id: str
+    :param name:
+    :type name: str
+    :param sidecar_containers:
+    :type sidecar_containers: dict
+    :param steps:
+    :type steps: list of :class:`TaskAgentJobStep <azure.devops.v5_1.task.models.TaskAgentJobStep>`
+    :param variables:
+    :type variables: list of :class:`TaskAgentJobVariable <azure.devops.v5_1.task.models.TaskAgentJobVariable>`
+    """
 
+    _attribute_map = {
+        'container': {'key': 'container', 'type': 'str'},
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'sidecar_containers': {'key': 'sidecarContainers', 'type': '{str}'},
+        'steps': {'key': 'steps', 'type': '[TaskAgentJobStep]'},
+        'variables': {'key': 'variables', 'type': '[TaskAgentJobVariable]'}
+    }
+
+    def __init__(self, container=None, id=None, name=None, sidecar_containers=None, steps=None, variables=None):
+        super(TaskAgentJob, self).__init__()
+        self.container = container
+        self.id = id
+        self.name = name
+        self.sidecar_containers = sidecar_containers
+        self.steps = steps
+        self.variables = variables
+
+
+class TaskAgentJobStep(Model):
+    """
+    :param condition:
+    :type condition: str
+    :param continue_on_error:
+    :type continue_on_error: bool
+    :param enabled:
+    :type enabled: bool
+    :param env:
+    :type env: dict
+    :param id:
+    :type id: str
+    :param inputs:
+    :type inputs: dict
+    :param name:
+    :type name: str
+    :param task:
+    :type task: :class:`TaskAgentJobTask <azure.devops.v5_1.task.models.TaskAgentJobTask>`
+    :param timeout_in_minutes:
+    :type timeout_in_minutes: int
+    :param type:
+    :type type: object
+    """
+
+    _attribute_map = {
+        'condition': {'key': 'condition', 'type': 'str'},
+        'continue_on_error': {'key': 'continueOnError', 'type': 'bool'},
+        'enabled': {'key': 'enabled', 'type': 'bool'},
+        'env': {'key': 'env', 'type': '{str}'},
+        'id': {'key': 'id', 'type': 'str'},
+        'inputs': {'key': 'inputs', 'type': '{str}'},
+        'name': {'key': 'name', 'type': 'str'},
+        'task': {'key': 'task', 'type': 'TaskAgentJobTask'},
+        'timeout_in_minutes': {'key': 'timeoutInMinutes', 'type': 'int'},
+        'type': {'key': 'type', 'type': 'object'}
+    }
+
+    def __init__(self, condition=None, continue_on_error=None, enabled=None, env=None, id=None, inputs=None, name=None, task=None, timeout_in_minutes=None, type=None):
+        super(TaskAgentJobStep, self).__init__()
+        self.condition = condition
+        self.continue_on_error = continue_on_error
+        self.enabled = enabled
+        self.env = env
+        self.id = id
+        self.inputs = inputs
+        self.name = name
+        self.task = task
+        self.timeout_in_minutes = timeout_in_minutes
+        self.type = type
+
+
+class TaskAgentJobTask(Model):
+    """
+    :param id:
+    :type id: str
+    :param name:
+    :type name: str
+    :param version:
+    :type version: str
+    """
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'version': {'key': 'version', 'type': 'str'}
+    }
+
+    def __init__(self, id=None, name=None, version=None):
+        super(TaskAgentJobTask, self).__init__()
+        self.id = id
+        self.name = name
+        self.version = version
+
+
+class TaskAgentJobVariable(Model):
+    """
+    :param name:
+    :type name: str
+    :param secret:
+    :type secret: bool
+    :param value:
+    :type value: str
+    """
+
+    _attribute_map = {
+        'name': {'key': 'name', 'type': 'str'},
+        'secret': {'key': 'secret', 'type': 'bool'},
+        'value': {'key': 'value', 'type': 'str'}
+    }
+
+    def __init__(self, name=None, secret=None, value=None):
+        super(TaskAgentJobVariable, self).__init__()
+        self.name = name
+        self.secret = secret
+        self.value = value
+
+
+class TaskAttachment(Model):
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.task.models.ReferenceLinks>`
     :param created_on:
@@ -182,8 +311,7 @@ class TaskAttachment(Model):
 
 
 class TaskLogReference(Model):
-    """TaskLogReference.
-
+    """
     :param id:
     :type id: int
     :param location:
@@ -202,8 +330,7 @@ class TaskLogReference(Model):
 
 
 class TaskOrchestrationItem(Model):
-    """TaskOrchestrationItem.
-
+    """
     :param item_type:
     :type item_type: object
     """
@@ -218,8 +345,7 @@ class TaskOrchestrationItem(Model):
 
 
 class TaskOrchestrationOwner(Model):
-    """TaskOrchestrationOwner.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.task.models.ReferenceLinks>`
     :param id:
@@ -242,8 +368,7 @@ class TaskOrchestrationOwner(Model):
 
 
 class TaskOrchestrationPlanGroupsQueueMetrics(Model):
-    """TaskOrchestrationPlanGroupsQueueMetrics.
-
+    """
     :param count:
     :type count: int
     :param status:
@@ -262,8 +387,7 @@ class TaskOrchestrationPlanGroupsQueueMetrics(Model):
 
 
 class TaskOrchestrationPlanReference(Model):
-    """TaskOrchestrationPlanReference.
-
+    """
     :param artifact_location:
     :type artifact_location: str
     :param artifact_uri:
@@ -310,8 +434,7 @@ class TaskOrchestrationPlanReference(Model):
 
 
 class TaskOrchestrationQueuedPlan(Model):
-    """TaskOrchestrationQueuedPlan.
-
+    """
     :param assign_time:
     :type assign_time: datetime
     :param definition:
@@ -358,8 +481,7 @@ class TaskOrchestrationQueuedPlan(Model):
 
 
 class TaskOrchestrationQueuedPlanGroup(Model):
-    """TaskOrchestrationQueuedPlanGroup.
-
+    """
     :param definition:
     :type definition: :class:`TaskOrchestrationOwner <azure.devops.v5_1.task.models.TaskOrchestrationOwner>`
     :param owner:
@@ -394,8 +516,7 @@ class TaskOrchestrationQueuedPlanGroup(Model):
 
 
 class TaskReference(Model):
-    """TaskReference.
-
+    """
     :param id:
     :type id: str
     :param inputs:
@@ -422,8 +543,7 @@ class TaskReference(Model):
 
 
 class TimelineAttempt(Model):
-    """TimelineAttempt.
-
+    """
     :param attempt: Gets or sets the attempt of the record.
     :type attempt: int
     :param identifier: Gets or sets the unique identifier for the record.
@@ -450,8 +570,7 @@ class TimelineAttempt(Model):
 
 
 class TimelineRecord(Model):
-    """TimelineRecord.
-
+    """
     :param attempt:
     :type attempt: int
     :param change_id:
@@ -570,8 +689,7 @@ class TimelineRecord(Model):
 
 
 class TimelineRecordFeedLinesWrapper(Model):
-    """TimelineRecordFeedLinesWrapper.
-
+    """
     :param count:
     :type count: int
     :param step_id:
@@ -594,8 +712,7 @@ class TimelineRecordFeedLinesWrapper(Model):
 
 
 class TimelineReference(Model):
-    """TimelineReference.
-
+    """
     :param change_id:
     :type change_id: int
     :param id:
@@ -618,8 +735,7 @@ class TimelineReference(Model):
 
 
 class VariableValue(Model):
-    """VariableValue.
-
+    """
     :param is_secret:
     :type is_secret: bool
     :param value:
@@ -638,8 +754,7 @@ class VariableValue(Model):
 
 
 class TaskLog(TaskLogReference):
-    """TaskLog.
-
+    """
     :param id:
     :type id: int
     :param location:
@@ -676,8 +791,7 @@ class TaskLog(TaskLogReference):
 
 
 class TaskOrchestrationContainer(TaskOrchestrationItem):
-    """TaskOrchestrationContainer.
-
+    """
     :param item_type:
     :type item_type: object
     :param children:
@@ -715,8 +829,7 @@ class TaskOrchestrationContainer(TaskOrchestrationItem):
 
 
 class TaskOrchestrationPlan(TaskOrchestrationPlanReference):
-    """TaskOrchestrationPlan.
-
+    """
     :param artifact_location:
     :type artifact_location: str
     :param artifact_uri:
@@ -798,8 +911,7 @@ class TaskOrchestrationPlan(TaskOrchestrationPlanReference):
 
 
 class Timeline(TimelineReference):
-    """Timeline.
-
+    """
     :param change_id:
     :type change_id: int
     :param id:
@@ -837,6 +949,10 @@ __all__ = [
     'PlanEnvironment',
     'ProjectReference',
     'ReferenceLinks',
+    'TaskAgentJob',
+    'TaskAgentJobStep',
+    'TaskAgentJobTask',
+    'TaskAgentJobVariable',
     'TaskAttachment',
     'TaskLogReference',
     'TaskOrchestrationItem',

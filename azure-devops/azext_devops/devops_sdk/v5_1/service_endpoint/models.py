@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class AadOauthTokenRequest(Model):
-    """AadOauthTokenRequest.
-
+    """
     :param refresh:
     :type refresh: bool
     :param resource:
@@ -38,8 +37,7 @@ class AadOauthTokenRequest(Model):
 
 
 class AadOauthTokenResult(Model):
-    """AadOauthTokenResult.
-
+    """
     :param access_token:
     :type access_token: str
     :param refresh_token_cache:
@@ -58,7 +56,8 @@ class AadOauthTokenResult(Model):
 
 
 class AuthenticationSchemeReference(Model):
-    """AuthenticationSchemeReference.
+    """
+    Specifies the authentication scheme to be used for authentication.
 
     :param inputs: Gets or sets the key and value of the fields used for authentication.
     :type inputs: dict
@@ -78,7 +77,8 @@ class AuthenticationSchemeReference(Model):
 
 
 class AuthorizationHeader(Model):
-    """AuthorizationHeader.
+    """
+    Represents the header of the REST request.
 
     :param name: Gets or sets the name of authorization header.
     :type name: str
@@ -98,7 +98,8 @@ class AuthorizationHeader(Model):
 
 
 class AzureManagementGroup(Model):
-    """AzureManagementGroup.
+    """
+    Azure Management Group
 
     :param display_name: Display name of azure management group
     :type display_name: str
@@ -126,7 +127,8 @@ class AzureManagementGroup(Model):
 
 
 class AzureManagementGroupQueryResult(Model):
-    """AzureManagementGroupQueryResult.
+    """
+    Azure management group query result
 
     :param error_message: Error message in case of an exception
     :type error_message: str
@@ -146,8 +148,7 @@ class AzureManagementGroupQueryResult(Model):
 
 
 class AzureSubscription(Model):
-    """AzureSubscription.
-
+    """
     :param display_name:
     :type display_name: str
     :param subscription_id:
@@ -174,8 +175,7 @@ class AzureSubscription(Model):
 
 
 class AzureSubscriptionQueryResult(Model):
-    """AzureSubscriptionQueryResult.
-
+    """
     :param error_message:
     :type error_message: str
     :param value:
@@ -194,7 +194,8 @@ class AzureSubscriptionQueryResult(Model):
 
 
 class ClientCertificate(Model):
-    """ClientCertificate.
+    """
+    Specifies the client certificate to be used for the endpoint request.
 
     :param value: Gets or sets the value of client certificate.
     :type value: str
@@ -210,7 +211,8 @@ class ClientCertificate(Model):
 
 
 class DataSource(Model):
-    """DataSource.
+    """
+    Specifies the data sources for this endpoint.
 
     :param authentication_scheme: Gets or sets the authentication scheme for the endpoint request.
     :type authentication_scheme: :class:`AuthenticationSchemeReference <azure.devops.v5_1.service_endpoint.models.AuthenticationSchemeReference>`
@@ -266,7 +268,8 @@ class DataSource(Model):
 
 
 class DataSourceBindingBase(Model):
-    """DataSourceBindingBase.
+    """
+    Represents binding of data source for the service endpoint request.
 
     :param callback_context_template: Pagination format supported by this data source(ContinuationToken/SkipTop).
     :type callback_context_template: str
@@ -330,7 +333,8 @@ class DataSourceBindingBase(Model):
 
 
 class DataSourceDetails(Model):
-    """DataSourceDetails.
+    """
+    Represents details of the service endpoint data source.
 
     :param data_source_name: Gets or sets the data source name.
     :type data_source_name: str
@@ -378,7 +382,8 @@ class DataSourceDetails(Model):
 
 
 class DependencyBinding(Model):
-    """DependencyBinding.
+    """
+    Represents the details of the input on which a given input is dependent.
 
     :param key: Gets or sets the value of the field on which url is dependent.
     :type key: str
@@ -398,7 +403,8 @@ class DependencyBinding(Model):
 
 
 class DependencyData(Model):
-    """DependencyData.
+    """
+    Represents the dependency data for the endpoint inputs.
 
     :param input: Gets or sets the category of dependency data.
     :type input: str
@@ -418,7 +424,8 @@ class DependencyData(Model):
 
 
 class DependsOn(Model):
-    """DependsOn.
+    """
+    Represents the inputs on which any given input is dependent.
 
     :param input: Gets or sets the ID of the field on which URL's value is dependent.
     :type input: str
@@ -438,7 +445,8 @@ class DependsOn(Model):
 
 
 class EndpointAuthorization(Model):
-    """EndpointAuthorization.
+    """
+    Represents the authorization used for service endpoint.
 
     :param parameters: Gets or sets the parameters for the selected authorization scheme.
     :type parameters: dict
@@ -458,7 +466,8 @@ class EndpointAuthorization(Model):
 
 
 class EndpointUrl(Model):
-    """EndpointUrl.
+    """
+    Represents url of the service endpoint.
 
     :param depends_on: Gets or sets the dependency bindings.
     :type depends_on: :class:`DependsOn <azure.devops.v5_1.service_endpoint.models.DependsOn>`
@@ -490,8 +499,7 @@ class EndpointUrl(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -518,7 +526,8 @@ class GraphSubjectBase(Model):
 
 
 class HelpLink(Model):
-    """HelpLink.
+    """
+    Specifies the public url of the help documentation.
 
     :param text: Gets or sets the help text.
     :type text: str
@@ -538,8 +547,7 @@ class HelpLink(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -598,7 +606,8 @@ class IdentityRef(GraphSubjectBase):
 
 
 class InputDescriptor(Model):
-    """InputDescriptor.
+    """
+    Describes an input for subscriptions.
 
     :param dependency_input_ids: The ids of all inputs that the value of this input is dependent on.
     :type dependency_input_ids: list of str
@@ -666,7 +675,8 @@ class InputDescriptor(Model):
 
 
 class InputValidation(Model):
-    """InputValidation.
+    """
+    Describes what values are valid for a subscription input
 
     :param data_type: Gets or sets the data data type to validate.
     :type data_type: object
@@ -710,7 +720,8 @@ class InputValidation(Model):
 
 
 class InputValue(Model):
-    """InputValue.
+    """
+    Information about a single value for an input
 
     :param data: Any other data about this input
     :type data: dict
@@ -734,7 +745,8 @@ class InputValue(Model):
 
 
 class InputValues(Model):
-    """InputValues.
+    """
+    Information about the possible/allowed values for a given subscription input
 
     :param default_value: The default value to use for this input
     :type default_value: str
@@ -774,7 +786,8 @@ class InputValues(Model):
 
 
 class InputValuesError(Model):
-    """InputValuesError.
+    """
+    Error information related to a subscription input value.
 
     :param message: The error message.
     :type message: str
@@ -790,8 +803,7 @@ class InputValuesError(Model):
 
 
 class OAuthConfiguration(Model):
-    """OAuthConfiguration.
-
+    """
     :param client_id: Gets or sets the ClientId
     :type client_id: str
     :param client_secret: Gets or sets the ClientSecret
@@ -842,8 +854,7 @@ class OAuthConfiguration(Model):
 
 
 class OAuthConfigurationParams(Model):
-    """OAuthConfigurationParams.
-
+    """
     :param client_id: Gets or sets the ClientId
     :type client_id: str
     :param client_secret: Gets or sets the ClientSecret
@@ -874,8 +885,7 @@ class OAuthConfigurationParams(Model):
 
 
 class ProjectReference(Model):
-    """ProjectReference.
-
+    """
     :param id:
     :type id: str
     :param name:
@@ -894,7 +904,8 @@ class ProjectReference(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -910,7 +921,8 @@ class ReferenceLinks(Model):
 
 
 class ResultTransformationDetails(Model):
-    """ResultTransformationDetails.
+    """
+    Represents template to transform the result data.
 
     :param callback_context_template: Gets or sets the template for callback parameters
     :type callback_context_template: str
@@ -934,7 +946,8 @@ class ResultTransformationDetails(Model):
 
 
 class ServiceEndpoint(Model):
-    """ServiceEndpoint.
+    """
+    Represents an endpoint which may be used by an orchestration job.
 
     :param administrators_group: Gets or sets the identity reference for the administrators group of the service endpoint.
     :type administrators_group: :class:`IdentityRef <azure.devops.v5_1.service_endpoint.models.IdentityRef>`
@@ -950,7 +963,7 @@ class ServiceEndpoint(Model):
     :type group_scope_id: str
     :param id: Gets or sets the identifier of this endpoint.
     :type id: str
-    :param is_ready: EndPoint state indictor
+    :param is_ready: EndPoint state indicator
     :type is_ready: bool
     :param is_shared: Indicates whether service endpoint is shared with other projects or not.
     :type is_shared: bool
@@ -1006,7 +1019,8 @@ class ServiceEndpoint(Model):
 
 
 class ServiceEndpointAuthenticationScheme(Model):
-    """ServiceEndpointAuthenticationScheme.
+    """
+    Represents the authentication scheme used to authenticate the endpoint.
 
     :param authorization_headers: Gets or sets the authorization headers of service endpoint authentication scheme.
     :type authorization_headers: list of :class:`AuthorizationHeader <azure.devops.v5_1.service_endpoint.models.AuthorizationHeader>`
@@ -1046,7 +1060,8 @@ class ServiceEndpointAuthenticationScheme(Model):
 
 
 class ServiceEndpointDetails(Model):
-    """ServiceEndpointDetails.
+    """
+    Represents details of the service endpoint.
 
     :param authorization: Gets or sets the authorization of service endpoint.
     :type authorization: :class:`EndpointAuthorization <azure.devops.v5_1.service_endpoint.models.EndpointAuthorization>`
@@ -1074,7 +1089,8 @@ class ServiceEndpointDetails(Model):
 
 
 class ServiceEndpointExecutionData(Model):
-    """ServiceEndpointExecutionData.
+    """
+    Represents service endpoint execution data.
 
     :param definition: Gets the definition of service endpoint execution owner.
     :type definition: :class:`ServiceEndpointExecutionOwner <azure.devops.v5_1.service_endpoint.models.ServiceEndpointExecutionOwner>`
@@ -1114,7 +1130,8 @@ class ServiceEndpointExecutionData(Model):
 
 
 class ServiceEndpointExecutionOwner(Model):
-    """ServiceEndpointExecutionOwner.
+    """
+    Represents execution owner of the service endpoint.
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.service_endpoint.models.ReferenceLinks>`
@@ -1138,7 +1155,8 @@ class ServiceEndpointExecutionOwner(Model):
 
 
 class ServiceEndpointExecutionRecord(Model):
-    """ServiceEndpointExecutionRecord.
+    """
+    Represents the details of service endpoint execution.
 
     :param data: Gets the execution data of service endpoint execution.
     :type data: :class:`ServiceEndpointExecutionData <azure.devops.v5_1.service_endpoint.models.ServiceEndpointExecutionData>`
@@ -1158,8 +1176,7 @@ class ServiceEndpointExecutionRecord(Model):
 
 
 class ServiceEndpointExecutionRecordsInput(Model):
-    """ServiceEndpointExecutionRecordsInput.
-
+    """
     :param data:
     :type data: :class:`ServiceEndpointExecutionData <azure.devops.v5_1.service_endpoint.models.ServiceEndpointExecutionData>`
     :param endpoint_ids:
@@ -1178,8 +1195,7 @@ class ServiceEndpointExecutionRecordsInput(Model):
 
 
 class ServiceEndpointRequest(Model):
-    """ServiceEndpointRequest.
-
+    """
     :param data_source_details: Gets or sets the data source details for the service endpoint request.
     :type data_source_details: :class:`DataSourceDetails <azure.devops.v5_1.service_endpoint.models.DataSourceDetails>`
     :param result_transformation_details: Gets or sets the result transformation details for the service endpoint request.
@@ -1202,7 +1218,8 @@ class ServiceEndpointRequest(Model):
 
 
 class ServiceEndpointRequestResult(Model):
-    """ServiceEndpointRequestResult.
+    """
+    Represents result of the service endpoint request.
 
     :param callback_context_parameters: Gets or sets the parameters used to make subsequent calls to the data source
     :type callback_context_parameters: dict
@@ -1234,7 +1251,8 @@ class ServiceEndpointRequestResult(Model):
 
 
 class ServiceEndpointType(Model):
-    """ServiceEndpointType.
+    """
+    Represents type of the service endpoint.
 
     :param authentication_schemes: Authentication scheme of service endpoint type.
     :type authentication_schemes: list of :class:`ServiceEndpointAuthenticationScheme <azure.devops.v5_1.service_endpoint.models.ServiceEndpointAuthenticationScheme>`
@@ -1298,7 +1316,8 @@ class ServiceEndpointType(Model):
 
 
 class DataSourceBinding(DataSourceBindingBase):
-    """DataSourceBinding.
+    """
+    Represents the data source binding of the endpoint.
 
     :param callback_context_template: Pagination format supported by this data source(ContinuationToken/SkipTop).
     :type callback_context_template: str

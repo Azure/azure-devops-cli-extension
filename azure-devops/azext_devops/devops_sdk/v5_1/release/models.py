@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class AgentArtifactDefinition(Model):
-    """AgentArtifactDefinition.
-
+    """
     :param alias: Gets or sets the artifact definition alias.
     :type alias: str
     :param artifact_type: Gets or sets the artifact type.
@@ -42,8 +41,7 @@ class AgentArtifactDefinition(Model):
 
 
 class ApprovalOptions(Model):
-    """ApprovalOptions.
-
+    """
     :param auto_triggered_and_previous_environment_approved_can_be_skipped: Specify whether the approval can be skipped if the same approver approved the previous stage.
     :type auto_triggered_and_previous_environment_approved_can_be_skipped: bool
     :param enforce_identity_revalidation: Specify whether revalidate identity of approver before completing the approval.
@@ -78,8 +76,7 @@ class ApprovalOptions(Model):
 
 
 class Artifact(Model):
-    """Artifact.
-
+    """
     :param alias: Gets or sets alias.
     :type alias: str
     :param definition_reference: Gets or sets definition reference. e.g. {"project":{"id":"fed755ea-49c5-4399-acea-fd5b5aa90a6c","name":"myProject"},"definition":{"id":"1","name":"mybuildDefinition"},"connection":{"id":"1","name":"myConnection"}}.
@@ -114,8 +111,7 @@ class Artifact(Model):
 
 
 class ArtifactMetadata(Model):
-    """ArtifactMetadata.
-
+    """
     :param alias: Sets alias of artifact.
     :type alias: str
     :param instance_reference: Sets instance reference of artifact. e.g. for build artifact it is build number.
@@ -134,8 +130,7 @@ class ArtifactMetadata(Model):
 
 
 class ArtifactSourceReference(Model):
-    """ArtifactSourceReference.
-
+    """
     :param id: ID of the artifact source.
     :type id: str
     :param name: Name of the artifact source.
@@ -154,8 +149,7 @@ class ArtifactSourceReference(Model):
 
 
 class ArtifactTriggerConfiguration(Model):
-    """ArtifactTriggerConfiguration.
-
+    """
     :param is_trigger_supported: Gets or sets the whether trigger is supported or not.
     :type is_trigger_supported: bool
     :param is_trigger_supported_only_in_hosted: Gets or sets the whether trigger is supported only on hosted environment.
@@ -190,21 +184,20 @@ class ArtifactTriggerConfiguration(Model):
 
 
 class ArtifactTypeDefinition(Model):
-    """ArtifactTypeDefinition.
-
-    :param artifact_trigger_configuration: Gets or sets the artifact trigger configuration of artifact type defintion.
+    """
+    :param artifact_trigger_configuration: Gets or sets the artifact trigger configuration of artifact type definition.
     :type artifact_trigger_configuration: :class:`ArtifactTriggerConfiguration <azure.devops.v5_1.release.models.ArtifactTriggerConfiguration>`
-    :param artifact_type: Gets or sets the artifact type of artifact type defintion. Valid values are 'Build', 'Package', 'Source' or 'ContainerImage'.
+    :param artifact_type: Gets or sets the artifact type of artifact type definition. Valid values are 'Build', 'Package', 'Source' or 'ContainerImage'.
     :type artifact_type: str
-    :param display_name: Gets or sets the display name of artifact type defintion.
+    :param display_name: Gets or sets the display name of artifact type definition.
     :type display_name: str
-    :param endpoint_type_id: Gets or sets the endpoint type id of artifact type defintion.
+    :param endpoint_type_id: Gets or sets the endpoint type id of artifact type definition.
     :type endpoint_type_id: str
-    :param input_descriptors: Gets or sets the input descriptors of artifact type defintion.
+    :param input_descriptors: Gets or sets the input descriptors of artifact type definition.
     :type input_descriptors: list of :class:`InputDescriptor <azure.devops.v5_1.release.models.InputDescriptor>`
-    :param name: Gets or sets the name of artifact type defintion.
+    :param name: Gets or sets the name of artifact type definition.
     :type name: str
-    :param unique_source_identifier: Gets or sets the unique source identifier of artifact type defintion.
+    :param unique_source_identifier: Gets or sets the unique source identifier of artifact type definition.
     :type unique_source_identifier: str
     """
 
@@ -230,13 +223,12 @@ class ArtifactTypeDefinition(Model):
 
 
 class ArtifactVersion(Model):
-    """ArtifactVersion.
-
+    """
     :param alias: Gets or sets the alias of artifact.
     :type alias: str
     :param default_version: Gets or sets the default version of artifact.
     :type default_version: :class:`BuildVersion <azure.devops.v5_1.release.models.BuildVersion>`
-    :param error_message: Gets or sets the error message encountered during quering of versions for artifact.
+    :param error_message: Gets or sets the error message encountered during querying of versions for artifact.
     :type error_message: str
     :param source_id:
     :type source_id: str
@@ -262,8 +254,7 @@ class ArtifactVersion(Model):
 
 
 class ArtifactVersionQueryResult(Model):
-    """ArtifactVersionQueryResult.
-
+    """
     :param artifact_versions: Gets or sets the list for artifact versions of artifact version query result.
     :type artifact_versions: list of :class:`ArtifactVersion <azure.devops.v5_1.release.models.ArtifactVersion>`
     """
@@ -278,8 +269,7 @@ class ArtifactVersionQueryResult(Model):
 
 
 class AuthorizationHeader(Model):
-    """AuthorizationHeader.
-
+    """
     :param name:
     :type name: str
     :param value:
@@ -298,8 +288,7 @@ class AuthorizationHeader(Model):
 
 
 class AutoTriggerIssue(Model):
-    """AutoTriggerIssue.
-
+    """
     :param issue:
     :type issue: :class:`Issue <azure.devops.v5_1.release.models.Issue>`
     :param issue_source:
@@ -330,8 +319,7 @@ class AutoTriggerIssue(Model):
 
 
 class BuildVersion(Model):
-    """BuildVersion.
-
+    """
     :param commit_message: Gets or sets the commit message for the artifact.
     :type commit_message: str
     :param definition_id: Gets or sets the definition id.
@@ -386,7 +374,8 @@ class BuildVersion(Model):
 
 
 class Change(Model):
-    """Change.
+    """
+    Represents a change associated with a build.
 
     :param author: The author of the change.
     :type author: :class:`IdentityRef <azure.devops.v5_1.release.models.IdentityRef>`
@@ -434,24 +423,22 @@ class Change(Model):
 
 
 class ComplianceSettings(Model):
-    """ComplianceSettings.
-
-    :param block_release_definition_save_if_secret_present: Block Release Definition save if any secrets is saved in Release Definition.
-    :type block_release_definition_save_if_secret_present: bool
+    """
+    :param check_for_credentials_and_other_secrets: Scan the release definition for secrets
+    :type check_for_credentials_and_other_secrets: bool
     """
 
     _attribute_map = {
-        'block_release_definition_save_if_secret_present': {'key': 'blockReleaseDefinitionSaveIfSecretPresent', 'type': 'bool'}
+        'check_for_credentials_and_other_secrets': {'key': 'checkForCredentialsAndOtherSecrets', 'type': 'bool'}
     }
 
-    def __init__(self, block_release_definition_save_if_secret_present=None):
+    def __init__(self, check_for_credentials_and_other_secrets=None):
         super(ComplianceSettings, self).__init__()
-        self.block_release_definition_save_if_secret_present = block_release_definition_save_if_secret_present
+        self.check_for_credentials_and_other_secrets = check_for_credentials_and_other_secrets
 
 
 class Condition(Model):
-    """Condition.
-
+    """
     :param condition_type: Gets or sets the condition type.
     :type condition_type: object
     :param name: Gets or sets the name of the condition. e.g. 'ReleaseStarted'.
@@ -474,8 +461,7 @@ class Condition(Model):
 
 
 class ConfigurationVariableValue(Model):
-    """ConfigurationVariableValue.
-
+    """
     :param allow_override: Gets and sets if a variable can be overridden at deployment time or not.
     :type allow_override: bool
     :param is_secret: Gets or sets as variable is secret or not.
@@ -498,7 +484,8 @@ class ConfigurationVariableValue(Model):
 
 
 class DataSourceBindingBase(Model):
-    """DataSourceBindingBase.
+    """
+    Represents binding of data source for the service endpoint request.
 
     :param callback_context_template: Pagination format supported by this data source(ContinuationToken/SkipTop).
     :type callback_context_template: str
@@ -562,8 +549,7 @@ class DataSourceBindingBase(Model):
 
 
 class DefinitionEnvironmentReference(Model):
-    """DefinitionEnvironmentReference.
-
+    """
     :param definition_environment_id: Definition environment ID.
     :type definition_environment_id: int
     :param definition_environment_name: Definition environment name.
@@ -590,8 +576,7 @@ class DefinitionEnvironmentReference(Model):
 
 
 class Deployment(Model):
-    """Deployment.
-
+    """
     :param _links: Gets links to access the deployment.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.release.models.ReferenceLinks>`
     :param attempt: Gets attempt number.
@@ -690,8 +675,7 @@ class Deployment(Model):
 
 
 class DeploymentAttempt(Model):
-    """DeploymentAttempt.
-
+    """
     :param attempt: Deployment attempt.
     :type attempt: int
     :param deployment_id: ID of the deployment.
@@ -710,7 +694,7 @@ class DeploymentAttempt(Model):
     :type last_modified_by: :class:`IdentityRef <azure.devops.v5_1.release.models.IdentityRef>`
     :param last_modified_on: Time when this deployment last modified.
     :type last_modified_on: datetime
-    :param operation_status: Deployment opeartion status.
+    :param operation_status: Deployment operation status.
     :type operation_status: object
     :param post_deployment_gates: Post deployment gates that executed in this deployment.
     :type post_deployment_gates: :class:`ReleaseGates <azure.devops.v5_1.release.models.ReleaseGates>`
@@ -782,8 +766,7 @@ class DeploymentAttempt(Model):
 
 
 class DeploymentJob(Model):
-    """DeploymentJob.
-
+    """
     :param job: Parent task of all executed tasks.
     :type job: :class:`ReleaseTask <azure.devops.v5_1.release.models.ReleaseTask>`
     :param tasks: List of  executed tasks with in job.
@@ -802,8 +785,7 @@ class DeploymentJob(Model):
 
 
 class DeploymentQueryParameters(Model):
-    """DeploymentQueryParameters.
-
+    """
     :param artifact_source_id: Query deployments based specified artifact source id.
     :type artifact_source_id: str
     :param artifact_type_id: Query deployments based specified artifact type id.
@@ -878,8 +860,7 @@ class DeploymentQueryParameters(Model):
 
 
 class EmailRecipients(Model):
-    """EmailRecipients.
-
+    """
     :param email_addresses: List of email addresses.
     :type email_addresses: list of str
     :param tfs_ids: List of TFS IDs guids.
@@ -898,7 +879,8 @@ class EmailRecipients(Model):
 
 
 class EnvironmentExecutionPolicy(Model):
-    """EnvironmentExecutionPolicy.
+    """
+    Defines policy on environment queuing at Release Management side queue. We will send to Environment Runner [creating pre-deploy and other steps] only when the policies mentioned are satisfied.
 
     :param concurrency_count: This policy decides, how many environments would be with Environment Runner.
     :type concurrency_count: int
@@ -918,8 +900,7 @@ class EnvironmentExecutionPolicy(Model):
 
 
 class EnvironmentOptions(Model):
-    """EnvironmentOptions.
-
+    """
     :param auto_link_work_items: Gets and sets as the auto link workitems or not.
     :type auto_link_work_items: bool
     :param badge_enabled: Gets and sets as the badge enabled or not.
@@ -966,8 +947,7 @@ class EnvironmentOptions(Model):
 
 
 class EnvironmentRetentionPolicy(Model):
-    """EnvironmentRetentionPolicy.
-
+    """
     :param days_to_keep: Gets and sets the number of days to keep environment.
     :type days_to_keep: int
     :param releases_to_keep: Gets and sets the number of releases to keep.
@@ -990,8 +970,7 @@ class EnvironmentRetentionPolicy(Model):
 
 
 class EnvironmentTrigger(Model):
-    """EnvironmentTrigger.
-
+    """
     :param definition_environment_id: Definition environment ID on which this trigger applicable.
     :type definition_environment_id: int
     :param release_definition_id: ReleaseDefinition ID on which this trigger applicable.
@@ -1018,7 +997,8 @@ class EnvironmentTrigger(Model):
 
 
 class FavoriteItem(Model):
-    """FavoriteItem.
+    """
+    Class to represent favorite entry.
 
     :param data: Application specific data for the entry.
     :type data: str
@@ -1046,8 +1026,7 @@ class FavoriteItem(Model):
 
 
 class Folder(Model):
-    """Folder.
-
+    """
     :param created_by: Identity who created this folder.
     :type created_by: :class:`IdentityRef <azure.devops.v5_1.release.models.IdentityRef>`
     :param created_on: Time when this folder created.
@@ -1082,8 +1061,7 @@ class Folder(Model):
 
 
 class GateUpdateMetadata(Model):
-    """GateUpdateMetadata.
-
+    """
     :param comment: Comment.
     :type comment: str
     :param gates_to_ignore: Name of gate to be ignored.
@@ -1102,8 +1080,7 @@ class GateUpdateMetadata(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -1130,8 +1107,7 @@ class GraphSubjectBase(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -1190,8 +1166,7 @@ class IdentityRef(GraphSubjectBase):
 
 
 class IgnoredGate(Model):
-    """IgnoredGate.
-
+    """
     :param last_modified_on: Gets the date on which gate is last ignored.
     :type last_modified_on: datetime
     :param name: Name of gate ignored.
@@ -1210,7 +1185,8 @@ class IgnoredGate(Model):
 
 
 class InputDescriptor(Model):
-    """InputDescriptor.
+    """
+    Describes an input for subscriptions.
 
     :param dependency_input_ids: The ids of all inputs that the value of this input is dependent on.
     :type dependency_input_ids: list of str
@@ -1278,7 +1254,8 @@ class InputDescriptor(Model):
 
 
 class InputValidation(Model):
-    """InputValidation.
+    """
+    Describes what values are valid for a subscription input
 
     :param data_type: Gets or sets the data data type to validate.
     :type data_type: object
@@ -1322,7 +1299,8 @@ class InputValidation(Model):
 
 
 class InputValue(Model):
-    """InputValue.
+    """
+    Information about a single value for an input
 
     :param data: Any other data about this input
     :type data: dict
@@ -1346,7 +1324,8 @@ class InputValue(Model):
 
 
 class InputValues(Model):
-    """InputValues.
+    """
+    Information about the possible/allowed values for a given subscription input
 
     :param default_value: The default value to use for this input
     :type default_value: str
@@ -1386,7 +1365,8 @@ class InputValues(Model):
 
 
 class InputValuesError(Model):
-    """InputValuesError.
+    """
+    Error information related to a subscription input value.
 
     :param message: The error message.
     :type message: str
@@ -1402,8 +1382,7 @@ class InputValuesError(Model):
 
 
 class InputValuesQuery(Model):
-    """InputValuesQuery.
-
+    """
     :param current_values:
     :type current_values: dict
     :param input_values: The input values to return on input, and the result from the consumer on output.
@@ -1426,8 +1405,7 @@ class InputValuesQuery(Model):
 
 
 class Issue(Model):
-    """Issue.
-
+    """
     :param data: Issue data.
     :type data: dict
     :param issue_type: Issue type, for example error, warning or info.
@@ -1450,12 +1428,11 @@ class Issue(Model):
 
 
 class MailMessage(Model):
-    """MailMessage.
-
+    """
     :param body: Body of mail.
     :type body: str
-    :param cC: Mail CC recipients.
-    :type cC: :class:`EmailRecipients <azure.devops.v5_1.release.models.EmailRecipients>`
+    :param cc: Mail CC recipients.
+    :type cc: :class:`EmailRecipients <azure.devops.v5_1.release.models.EmailRecipients>`
     :param in_reply_to: Reply to.
     :type in_reply_to: str
     :param message_id: Message ID of the mail.
@@ -1476,7 +1453,7 @@ class MailMessage(Model):
 
     _attribute_map = {
         'body': {'key': 'body', 'type': 'str'},
-        'cC': {'key': 'cC', 'type': 'EmailRecipients'},
+        'cc': {'key': 'cc', 'type': 'EmailRecipients'},
         'in_reply_to': {'key': 'inReplyTo', 'type': 'str'},
         'message_id': {'key': 'messageId', 'type': 'str'},
         'reply_by': {'key': 'replyBy', 'type': 'iso-8601'},
@@ -1487,10 +1464,10 @@ class MailMessage(Model):
         'to': {'key': 'to', 'type': 'EmailRecipients'}
     }
 
-    def __init__(self, body=None, cC=None, in_reply_to=None, message_id=None, reply_by=None, reply_to=None, sections=None, sender_type=None, subject=None, to=None):
+    def __init__(self, body=None, cc=None, in_reply_to=None, message_id=None, reply_by=None, reply_to=None, sections=None, sender_type=None, subject=None, to=None):
         super(MailMessage, self).__init__()
         self.body = body
-        self.cC = cC
+        self.cc = cc
         self.in_reply_to = in_reply_to
         self.message_id = message_id
         self.reply_by = reply_by
@@ -1502,8 +1479,7 @@ class MailMessage(Model):
 
 
 class ManualIntervention(Model):
-    """ManualIntervention.
-
+    """
     :param approver: Gets or sets the identity who should approve.
     :type approver: :class:`IdentityRef <azure.devops.v5_1.release.models.IdentityRef>`
     :param comments: Gets or sets comments for approval.
@@ -1566,8 +1542,7 @@ class ManualIntervention(Model):
 
 
 class ManualInterventionUpdateMetadata(Model):
-    """ManualInterventionUpdateMetadata.
-
+    """
     :param comment: Sets the comment for manual intervention update.
     :type comment: str
     :param status: Sets the status of the manual intervention.
@@ -1586,8 +1561,7 @@ class ManualInterventionUpdateMetadata(Model):
 
 
 class Metric(Model):
-    """Metric.
-
+    """
     :param name: Name of the Metric.
     :type name: str
     :param value: Value of the Metric.
@@ -1606,8 +1580,7 @@ class Metric(Model):
 
 
 class PipelineProcess(Model):
-    """PipelineProcess.
-
+    """
     :param type: Pipeline process type.
     :type type: object
     """
@@ -1622,8 +1595,7 @@ class PipelineProcess(Model):
 
 
 class ProcessParameters(Model):
-    """ProcessParameters.
-
+    """
     :param data_source_bindings:
     :type data_source_bindings: list of :class:`DataSourceBindingBase <azure.devops.v5_1.microsoft._team_foundation._distributed_task._common._contracts.models.DataSourceBindingBase>`
     :param inputs:
@@ -1646,8 +1618,7 @@ class ProcessParameters(Model):
 
 
 class ProjectReference(Model):
-    """ProjectReference.
-
+    """
     :param id: Gets the unique identifier of this field.
     :type id: str
     :param name: Gets name of project.
@@ -1666,8 +1637,7 @@ class ProjectReference(Model):
 
 
 class QueuedReleaseData(Model):
-    """QueuedReleaseData.
-
+    """
     :param project_id: Project ID of the release.
     :type project_id: str
     :param queue_position: Release queue position.
@@ -1690,7 +1660,8 @@ class QueuedReleaseData(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -1706,8 +1677,7 @@ class ReferenceLinks(Model):
 
 
 class Release(Model):
-    """Release.
-
+    """
     :param _links: Gets links to access the release.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.release.models.ReferenceLinks>`
     :param artifacts: Gets or sets the list of artifacts.
@@ -1826,8 +1796,7 @@ class Release(Model):
 
 
 class ReleaseApproval(Model):
-    """ReleaseApproval.
-
+    """
     :param approval_type: Gets or sets the type of approval.
     :type approval_type: object
     :param approved_by: Gets the identity who approved.
@@ -1914,19 +1883,18 @@ class ReleaseApproval(Model):
 
 
 class ReleaseApprovalHistory(Model):
-    """ReleaseApprovalHistory.
-
+    """
     :param approver: Identity of the approver.
     :type approver: :class:`IdentityRef <azure.devops.v5_1.release.models.IdentityRef>`
     :param changed_by: Identity of the object who changed approval.
     :type changed_by: :class:`IdentityRef <azure.devops.v5_1.release.models.IdentityRef>`
-    :param comments: Approval histroy comments.
+    :param comments: Approval history comments.
     :type comments: str
     :param created_on: Time when this approval created.
     :type created_on: datetime
     :param modified_on: Time when this approval modified.
     :type modified_on: datetime
-    :param revision: Approval histroy revision.
+    :param revision: Approval history revision.
     :type revision: int
     """
 
@@ -1950,8 +1918,7 @@ class ReleaseApprovalHistory(Model):
 
 
 class ReleaseCondition(Condition):
-    """ReleaseCondition.
-
+    """
     :param condition_type: Gets or sets the condition type.
     :type condition_type: object
     :param name: Gets or sets the name of the condition. e.g. 'ReleaseStarted'.
@@ -1975,8 +1942,7 @@ class ReleaseCondition(Condition):
 
 
 class ReleaseDefinitionApprovals(Model):
-    """ReleaseDefinitionApprovals.
-
+    """
     :param approval_options: Gets or sets the approval options.
     :type approval_options: :class:`ApprovalOptions <azure.devops.v5_1.release.models.ApprovalOptions>`
     :param approvals: Gets or sets the approvals.
@@ -1995,8 +1961,7 @@ class ReleaseDefinitionApprovals(Model):
 
 
 class ReleaseDefinitionEnvironment(Model):
-    """ReleaseDefinitionEnvironment.
-
+    """
     :param badge_url: Gets or sets the BadgeUrl. BadgeUrl will be used when Badge will be enabled in Release Definition Environment.
     :type badge_url: str
     :param conditions: Gets or sets the environment conditions.
@@ -2107,8 +2072,7 @@ class ReleaseDefinitionEnvironment(Model):
 
 
 class ReleaseDefinitionEnvironmentStep(Model):
-    """ReleaseDefinitionEnvironmentStep.
-
+    """
     :param id: ID of the approval or deploy step.
     :type id: int
     """
@@ -2123,8 +2087,7 @@ class ReleaseDefinitionEnvironmentStep(Model):
 
 
 class ReleaseDefinitionEnvironmentSummary(Model):
-    """ReleaseDefinitionEnvironmentSummary.
-
+    """
     :param id: ID of ReleaseDefinition environment summary.
     :type id: int
     :param last_releases: List of release shallow reference deployed using this ReleaseDefinition.
@@ -2147,8 +2110,7 @@ class ReleaseDefinitionEnvironmentSummary(Model):
 
 
 class ReleaseDefinitionEnvironmentTemplate(Model):
-    """ReleaseDefinitionEnvironmentTemplate.
-
+    """
     :param can_delete: Indicates whether template can be deleted or not.
     :type can_delete: bool
     :param category: Category of the ReleaseDefinition environment template.
@@ -2195,8 +2157,7 @@ class ReleaseDefinitionEnvironmentTemplate(Model):
 
 
 class ReleaseDefinitionGate(Model):
-    """ReleaseDefinitionGate.
-
+    """
     :param tasks: Gets or sets the gates workflow.
     :type tasks: list of :class:`WorkflowTask <azure.devops.v5_1.release.models.WorkflowTask>`
     """
@@ -2211,8 +2172,7 @@ class ReleaseDefinitionGate(Model):
 
 
 class ReleaseDefinitionGatesOptions(Model):
-    """ReleaseDefinitionGatesOptions.
-
+    """
     :param is_enabled: Gets or sets as the gates enabled or not.
     :type is_enabled: bool
     :param minimum_success_duration: Gets or sets the minimum duration for steady results after a successful gates evaluation.
@@ -2243,8 +2203,7 @@ class ReleaseDefinitionGatesOptions(Model):
 
 
 class ReleaseDefinitionGatesStep(Model):
-    """ReleaseDefinitionGatesStep.
-
+    """
     :param gates: Gets or sets the gates.
     :type gates: list of :class:`ReleaseDefinitionGate <azure.devops.v5_1.release.models.ReleaseDefinitionGate>`
     :param gates_options: Gets or sets the gate options.
@@ -2267,8 +2226,7 @@ class ReleaseDefinitionGatesStep(Model):
 
 
 class ReleaseDefinitionRevision(Model):
-    """ReleaseDefinitionRevision.
-
+    """
     :param api_version: Gets api-version for revision object.
     :type api_version: str
     :param changed_by: Gets the identity who did change.
@@ -2311,8 +2269,7 @@ class ReleaseDefinitionRevision(Model):
 
 
 class ReleaseDefinitionShallowReference(Model):
-    """ReleaseDefinitionShallowReference.
-
+    """
     :param _links: Gets the links to related resources, APIs, and views for the release definition.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.release.models.ReferenceLinks>`
     :param id: Gets the unique identifier of release definition.
@@ -2347,13 +2304,12 @@ class ReleaseDefinitionShallowReference(Model):
 
 
 class ReleaseDefinitionSummary(Model):
-    """ReleaseDefinitionSummary.
-
+    """
     :param environments: List of Release Definition environment summary.
     :type environments: list of :class:`ReleaseDefinitionEnvironmentSummary <azure.devops.v5_1.release.models.ReleaseDefinitionEnvironmentSummary>`
     :param release_definition: Release Definition reference.
     :type release_definition: :class:`ReleaseDefinitionShallowReference <azure.devops.v5_1.release.models.ReleaseDefinitionShallowReference>`
-    :param releases: List of releases deployed using this Release Defintion.
+    :param releases: List of releases deployed using this Release Definition.
     :type releases: list of :class:`Release <azure.devops.v5_1.release.models.Release>`
     """
 
@@ -2371,8 +2327,7 @@ class ReleaseDefinitionSummary(Model):
 
 
 class ReleaseDefinitionUndeleteParameter(Model):
-    """ReleaseDefinitionUndeleteParameter.
-
+    """
     :param comment: Gets or sets comment.
     :type comment: str
     """
@@ -2387,8 +2342,7 @@ class ReleaseDefinitionUndeleteParameter(Model):
 
 
 class ReleaseDeployPhase(Model):
-    """ReleaseDeployPhase.
-
+    """
     :param deployment_jobs: Deployment jobs of the phase.
     :type deployment_jobs: list of :class:`DeploymentJob <azure.devops.v5_1.release.models.DeploymentJob>`
     :param error_log: Phase execution error logs.
@@ -2443,8 +2397,7 @@ class ReleaseDeployPhase(Model):
 
 
 class ReleaseEnvironment(Model):
-    """ReleaseEnvironment.
-
+    """
     :param conditions: Gets list of conditions.
     :type conditions: list of :class:`ReleaseCondition <azure.devops.v5_1.release.models.ReleaseCondition>`
     :param created_on: Gets date on which it got created.
@@ -2591,8 +2544,7 @@ class ReleaseEnvironment(Model):
 
 
 class ReleaseEnvironmentShallowReference(Model):
-    """ReleaseEnvironmentShallowReference.
-
+    """
     :param _links: Gets the links to related resources, APIs, and views for the release environment.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.release.models.ReferenceLinks>`
     :param id: Gets the unique identifier of release environment.
@@ -2619,8 +2571,7 @@ class ReleaseEnvironmentShallowReference(Model):
 
 
 class ReleaseEnvironmentUpdateMetadata(Model):
-    """ReleaseEnvironmentUpdateMetadata.
-
+    """
     :param comment: Gets or sets comment.
     :type comment: str
     :param scheduled_deployment_time: Gets or sets scheduled deployment time.
@@ -2647,8 +2598,7 @@ class ReleaseEnvironmentUpdateMetadata(Model):
 
 
 class ReleaseGates(Model):
-    """ReleaseGates.
-
+    """
     :param deployment_jobs: Contains the gates job details of each evaluation.
     :type deployment_jobs: list of :class:`DeploymentJob <azure.devops.v5_1.release.models.DeploymentJob>`
     :param id: ID of release gates.
@@ -2695,8 +2645,7 @@ class ReleaseGates(Model):
 
 
 class ReleaseReference(Model):
-    """ReleaseReference.
-
+    """
     :param _links: Gets links to access the release.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.release.models.ReferenceLinks>`
     :param artifacts: Gets list of artifacts.
@@ -2755,8 +2704,7 @@ class ReleaseReference(Model):
 
 
 class ReleaseRevision(Model):
-    """ReleaseRevision.
-
+    """
     :param changed_by: Gets or sets the identity who changed.
     :type changed_by: :class:`IdentityRef <azure.devops.v5_1.release.models.IdentityRef>`
     :param changed_date: Change date of the revision.
@@ -2795,8 +2743,7 @@ class ReleaseRevision(Model):
 
 
 class ReleaseSchedule(Model):
-    """ReleaseSchedule.
-
+    """
     :param days_to_release: Days of the week to release.
     :type days_to_release: object
     :param job_id: Team Foundation Job Definition Job Id.
@@ -2831,8 +2778,7 @@ class ReleaseSchedule(Model):
 
 
 class ReleaseSettings(Model):
-    """ReleaseSettings.
-
+    """
     :param compliance_settings: Release Compliance settings.
     :type compliance_settings: :class:`ComplianceSettings <azure.devops.v5_1.release.models.ComplianceSettings>`
     :param retention_settings: Release retention settings.
@@ -2851,8 +2797,7 @@ class ReleaseSettings(Model):
 
 
 class ReleaseShallowReference(Model):
-    """ReleaseShallowReference.
-
+    """
     :param _links: Gets the links to related resources, APIs, and views for the release.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.release.models.ReferenceLinks>`
     :param id: Gets the unique identifier of release.
@@ -2879,8 +2824,7 @@ class ReleaseShallowReference(Model):
 
 
 class ReleaseStartEnvironmentMetadata(Model):
-    """ReleaseStartEnvironmentMetadata.
-
+    """
     :param definition_environment_id: Sets release definition environment id.
     :type definition_environment_id: int
     :param variables: Sets list of environments variables to be overridden at deployment time.
@@ -2899,8 +2843,7 @@ class ReleaseStartEnvironmentMetadata(Model):
 
 
 class ReleaseStartMetadata(Model):
-    """ReleaseStartMetadata.
-
+    """
     :param artifacts: Sets list of artifact to create a release.
     :type artifacts: list of :class:`ArtifactMetadata <azure.devops.v5_1.release.models.ArtifactMetadata>`
     :param definition_id: Sets definition Id to create a release.
@@ -2947,8 +2890,7 @@ class ReleaseStartMetadata(Model):
 
 
 class ReleaseTask(Model):
-    """ReleaseTask.
-
+    """
     :param agent_name: Agent name on which task executed.
     :type agent_name: str
     :param date_ended:
@@ -3023,8 +2965,7 @@ class ReleaseTask(Model):
 
 
 class ReleaseTaskAttachment(Model):
-    """ReleaseTaskAttachment.
-
+    """
     :param _links: Reference links of task.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.release.models.ReferenceLinks>`
     :param created_on: Data and time when it created.
@@ -3067,8 +3008,7 @@ class ReleaseTaskAttachment(Model):
 
 
 class ReleaseUpdateMetadata(Model):
-    """ReleaseUpdateMetadata.
-
+    """
     :param comment: Sets comment for release.
     :type comment: str
     :param keep_forever: Set 'true' to exclude the release from retention policies.
@@ -3099,8 +3039,7 @@ class ReleaseUpdateMetadata(Model):
 
 
 class ReleaseWorkItemRef(Model):
-    """ReleaseWorkItemRef.
-
+    """
     :param assignee:
     :type assignee: str
     :param id: Gets or sets the ID.
@@ -3135,8 +3074,7 @@ class ReleaseWorkItemRef(Model):
 
 
 class RetentionPolicy(Model):
-    """RetentionPolicy.
-
+    """
     :param days_to_keep: Indicates the number of days to keep deployment.
     :type days_to_keep: int
     """
@@ -3151,8 +3089,7 @@ class RetentionPolicy(Model):
 
 
 class RetentionSettings(Model):
-    """RetentionSettings.
-
+    """
     :param days_to_keep_deleted_releases: Number of days to keep deleted releases.
     :type days_to_keep_deleted_releases: int
     :param default_environment_retention_policy: Specifies the default environment retention policy.
@@ -3175,8 +3112,7 @@ class RetentionSettings(Model):
 
 
 class SourcePullRequestVersion(Model):
-    """SourcePullRequestVersion.
-
+    """
     :param iteration_id: Pull Request Iteration Id for which the release will publish status.
     :type iteration_id: str
     :param pull_request_id: Pull Request Id for which the release will publish status.
@@ -3211,8 +3147,7 @@ class SourcePullRequestVersion(Model):
 
 
 class SummaryMailSection(Model):
-    """SummaryMailSection.
-
+    """
     :param html_content: Html content of summary mail.
     :type html_content: str
     :param rank: Rank of the summary mail.
@@ -3239,8 +3174,7 @@ class SummaryMailSection(Model):
 
 
 class TaskInputDefinitionBase(Model):
-    """TaskInputDefinitionBase.
-
+    """
     :param aliases:
     :type aliases: list of str
     :param default_value:
@@ -3299,8 +3233,7 @@ class TaskInputDefinitionBase(Model):
 
 
 class TaskInputValidation(Model):
-    """TaskInputValidation.
-
+    """
     :param expression: Conditional expression
     :type expression: str
     :param message: Message explaining how user can correct if validation fails
@@ -3319,8 +3252,7 @@ class TaskInputValidation(Model):
 
 
 class TaskSourceDefinitionBase(Model):
-    """TaskSourceDefinitionBase.
-
+    """
     :param auth_key:
     :type auth_key: str
     :param endpoint:
@@ -3351,8 +3283,7 @@ class TaskSourceDefinitionBase(Model):
 
 
 class VariableGroup(Model):
-    """VariableGroup.
-
+    """
     :param created_by: Gets or sets the identity who created.
     :type created_by: :class:`IdentityRef <azure.devops.v5_1.release.models.IdentityRef>`
     :param created_on: Gets date on which it got created.
@@ -3407,8 +3338,7 @@ class VariableGroup(Model):
 
 
 class VariableGroupProviderData(Model):
-    """VariableGroupProviderData.
-
+    """
     """
 
     _attribute_map = {
@@ -3419,8 +3349,7 @@ class VariableGroupProviderData(Model):
 
 
 class VariableValue(Model):
-    """VariableValue.
-
+    """
     :param is_secret: Gets or sets as the variable is secret or not.
     :type is_secret: bool
     :param value: Gets or sets the value.
@@ -3439,8 +3368,7 @@ class VariableValue(Model):
 
 
 class WorkflowTask(Model):
-    """WorkflowTask.
-
+    """
     :param always_run: Gets or sets as the task always run or not.
     :type always_run: bool
     :param condition: Gets or sets the task condition.
@@ -3503,8 +3431,7 @@ class WorkflowTask(Model):
 
 
 class WorkflowTaskReference(Model):
-    """WorkflowTaskReference.
-
+    """
     :param id: Task identifier.
     :type id: str
     :param name: Name of the task.
@@ -3527,8 +3454,7 @@ class WorkflowTaskReference(Model):
 
 
 class ReleaseDefinition(ReleaseDefinitionShallowReference):
-    """ReleaseDefinition.
-
+    """
     :param _links: Gets the links to related resources, APIs, and views for the release definition.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.release.models.ReferenceLinks>`
     :param id: Gets the unique identifier of release definition.
@@ -3637,8 +3563,7 @@ class ReleaseDefinition(ReleaseDefinitionShallowReference):
 
 
 class ReleaseDefinitionApprovalStep(ReleaseDefinitionEnvironmentStep):
-    """ReleaseDefinitionApprovalStep.
-
+    """
     :param id: ID of the approval or deploy step.
     :type id: int
     :param approver: Gets and sets the approver.
@@ -3668,8 +3593,7 @@ class ReleaseDefinitionApprovalStep(ReleaseDefinitionEnvironmentStep):
 
 
 class ReleaseDefinitionDeployStep(ReleaseDefinitionEnvironmentStep):
-    """ReleaseDefinitionDeployStep.
-
+    """
     :param id: ID of the approval or deploy step.
     :type id: int
     :param tasks: The list of steps for this definition.

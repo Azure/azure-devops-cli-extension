@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class GeoRegion(Model):
-    """GeoRegion.
-
+    """
     :param region_code:
     :type region_code: str
     """
@@ -26,7 +25,8 @@ class GeoRegion(Model):
 
 
 class ProfileRegion(Model):
-    """ProfileRegion.
+    """
+    Country/region information
 
     :param code: The two-letter code defined in ISO 3166 for the country/region.
     :type code: str
@@ -46,7 +46,8 @@ class ProfileRegion(Model):
 
 
 class ProfileRegions(Model):
-    """ProfileRegions.
+    """
+    Container of country/region information
 
     :param notice_contact_consent_requirement_regions: List of country/region code with contact consent requirement type of notice
     :type notice_contact_consent_requirement_regions: list of str

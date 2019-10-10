@@ -27,7 +27,7 @@ class ProfileClient(Client):
 
     def get_profile(self, id, details=None, with_attributes=None, partition=None, core_attributes=None, force_refresh=None):
         """GetProfile.
-        [Preview API] Gets a user profile.
+        Gets a user profile.
         :param str id: The ID of the target user profile within the same organization, or 'me' to get the profile of the current authenticated user.
         :param bool details: Return public profile information such as display name, email address, country, etc. If false, the withAttributes parameter is ignored.
         :param bool with_attributes: If true, gets the attributes (named key-value pairs of arbitrary data) associated with the profile. The partition parameter must also have a value.
@@ -52,7 +52,7 @@ class ProfileClient(Client):
             query_parameters['forceRefresh'] = self._serialize.query('force_refresh', force_refresh, 'bool')
         response = self._send(http_method='GET',
                               location_id='f83735dc-483f-4238-a291-d45f6080a9af',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('Profile', response)

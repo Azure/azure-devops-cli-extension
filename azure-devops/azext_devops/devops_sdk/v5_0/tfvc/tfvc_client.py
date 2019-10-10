@@ -276,7 +276,7 @@ class TfvcClient(Client):
     def get_changeset_work_items(self, id=None):
         """GetChangesetWorkItems.
         Retrieves the work items associated with a particular changeset.
-        :param int id: ID of the changeset. Default: null
+        :param int id: ID of the changeset.
         :rtype: [AssociatedWorkItem]
         """
         route_values = {}

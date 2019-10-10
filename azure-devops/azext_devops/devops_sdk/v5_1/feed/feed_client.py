@@ -191,14 +191,19 @@ class FeedClient(Client):
                               content=content)
         return self._deserialize('Feed', response)
 
-    def get_global_permissions(self):
+    def get_global_permissions(self, include_ids=None):
         """GetGlobalPermissions.
         [Preview API] Get all service-wide feed creation and administration permissions.
+        :param bool include_ids: Set to true to add IdentityIds to the permission objects.
         :rtype: [GlobalPermission]
         """
+        query_parameters = {}
+        if include_ids is not None:
+            query_parameters['includeIds'] = self._serialize.query('include_ids', include_ids, 'bool')
         response = self._send(http_method='GET',
                               location_id='a74419ef-b477-43df-8758-3cd1cd5f56c6',
-                              version='5.1-preview.1')
+                              version='5.1-preview.1',
+                              query_parameters=query_parameters)
         return self._deserialize('[GlobalPermission]', self._unwrap_collection(response))
 
     def set_global_permissions(self, global_permissions):

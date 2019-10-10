@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class AccessMapping(Model):
-    """AccessMapping.
-
+    """
     :param access_point:
     :type access_point: str
     :param display_name:
@@ -42,7 +41,8 @@ class AccessMapping(Model):
 
 
 class ConnectionData(Model):
-    """ConnectionData.
+    """
+    Data transfer class that holds information needed to set up a connection with a VSS server.
 
     :param authenticated_user: The Id of the authenticated user who made this request. More information about the user can be obtained by passing this Id to the Identity service
     :type authenticated_user: :class:`Identity <azure.devops.v5_1.locations.models.Identity>`
@@ -86,7 +86,8 @@ class ConnectionData(Model):
 
 
 class IdentityBase(Model):
-    """IdentityBase.
+    """
+    Base Identity class to allow "trimmed" identity class in the GetConnectionData API Makes sure that on-the-wire representations of the derived classes are compatible with each other (e.g. Server responds with PublicIdentity object while client deserializes it as Identity object) Derived classes should not have additional [DataMember] properties
 
     :param custom_display_name: The custom display name for the identity (if any). Setting this property to an empty string will clear the existing custom display name. Setting this property to null will not affect the existing persisted value (since null values do not get sent over the wire or to the database)
     :type custom_display_name: str
@@ -162,8 +163,7 @@ class IdentityBase(Model):
 
 
 class LocationMapping(Model):
-    """LocationMapping.
-
+    """
     :param access_mapping_moniker:
     :type access_mapping_moniker: str
     :param location:
@@ -182,7 +182,8 @@ class LocationMapping(Model):
 
 
 class LocationServiceData(Model):
-    """LocationServiceData.
+    """
+    Data transfer class used to transfer data about the location service data over the web service.
 
     :param access_mappings: Data about the access mappings contained by this location service.
     :type access_mappings: list of :class:`AccessMapping <azure.devops.v5_1.locations.models.AccessMapping>`
@@ -226,8 +227,7 @@ class LocationServiceData(Model):
 
 
 class ResourceAreaInfo(Model):
-    """ResourceAreaInfo.
-
+    """
     :param id:
     :type id: str
     :param location_url:
@@ -250,8 +250,7 @@ class ResourceAreaInfo(Model):
 
 
 class ServiceDefinition(Model):
-    """ServiceDefinition.
-
+    """
     :param description:
     :type description: str
     :param display_name:
@@ -334,8 +333,7 @@ class ServiceDefinition(Model):
 
 
 class Identity(IdentityBase):
-    """Identity.
-
+    """
     :param custom_display_name: The custom display name for the identity (if any). Setting this property to an empty string will clear the existing custom display name. Setting this property to null will not affect the existing persisted value (since null values do not get sent over the wire or to the database)
     :type custom_display_name: str
     :param descriptor:

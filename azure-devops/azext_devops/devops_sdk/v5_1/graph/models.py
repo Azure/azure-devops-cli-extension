@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class Avatar(Model):
-    """Avatar.
-
+    """
     :param is_auto_generated:
     :type is_auto_generated: bool
     :param size:
@@ -38,8 +37,7 @@ class Avatar(Model):
 
 
 class GraphCachePolicies(Model):
-    """GraphCachePolicies.
-
+    """
     :param cache_size: Size of the cache
     :type cache_size: int
     """
@@ -54,7 +52,8 @@ class GraphCachePolicies(Model):
 
 
 class GraphDescriptorResult(Model):
-    """GraphDescriptorResult.
+    """
+    Subject descriptor of a Graph entity
 
     :param _links: This field contains zero or more interesting links about the graph descriptor. These links may be invoked to obtain additional relationships or more detailed information about this graph descriptor.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.graph.models.ReferenceLinks>`
@@ -74,7 +73,8 @@ class GraphDescriptorResult(Model):
 
 
 class GraphFederatedProviderData(Model):
-    """GraphFederatedProviderData.
+    """
+    Represents a set of data used to communicate with a federated provider on behalf of a particular user.
 
     :param access_token: The access token that can be used to communicated with the federated provider on behalf on the target identity, if we were able to successfully acquire one, otherwise <code>null</code>, if we were not.
     :type access_token: str
@@ -102,7 +102,8 @@ class GraphFederatedProviderData(Model):
 
 
 class GraphGroupCreationContext(Model):
-    """GraphGroupCreationContext.
+    """
+    Do not attempt to use this type to create a new group. This type does not contain sufficient fields to create a new group.
 
     :param storage_key: Optional: If provided, we will use this identifier for the storage key of the created group
     :type storage_key: str
@@ -118,7 +119,8 @@ class GraphGroupCreationContext(Model):
 
 
 class GraphMembership(Model):
-    """GraphMembership.
+    """
+    Relationship between a container and a member
 
     :param _links: This field contains zero or more interesting links about the graph membership. These links may be invoked to obtain additional relationships or more detailed information about this graph membership.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.graph.models.ReferenceLinks>`
@@ -142,7 +144,8 @@ class GraphMembership(Model):
 
 
 class GraphMembershipState(Model):
-    """GraphMembershipState.
+    """
+    Status of a Graph membership (active/inactive)
 
     :param _links: This field contains zero or more interesting links about the graph membership state. These links may be invoked to obtain additional relationships or more detailed information about this graph membership state.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.graph.models.ReferenceLinks>`
@@ -162,8 +165,7 @@ class GraphMembershipState(Model):
 
 
 class GraphMembershipTraversal(Model):
-    """GraphMembershipTraversal.
-
+    """
     :param incompleteness_reason: Reason why the subject could not be traversed completely
     :type incompleteness_reason: str
     :param is_complete: When true, the subject is traversed completely
@@ -194,7 +196,8 @@ class GraphMembershipTraversal(Model):
 
 
 class GraphProviderInfo(Model):
-    """GraphProviderInfo.
+    """
+    Who is the provider for this user and what is the identifier and domain that is used to uniquely identify the user.
 
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
     :type descriptor: str
@@ -222,7 +225,8 @@ class GraphProviderInfo(Model):
 
 
 class GraphScopeCreationContext(Model):
-    """GraphScopeCreationContext.
+    """
+    This type is the subset of fields that can be provided by the user to create a Vsts scope. Scope creation is currently limited to internal back-compat scenarios. End users that attempt to create a scope with this API will fail.
 
     :param admin_group_description: Set this field to override the default description of this scope's admin group.
     :type admin_group_description: str
@@ -258,7 +262,8 @@ class GraphScopeCreationContext(Model):
 
 
 class GraphStorageKeyResult(Model):
-    """GraphStorageKeyResult.
+    """
+    Storage key of a Graph entity
 
     :param _links: This field contains zero or more interesting links about the graph storage key. These links may be invoked to obtain additional relationships or more detailed information about this graph storage key.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.graph.models.ReferenceLinks>`
@@ -278,8 +283,7 @@ class GraphStorageKeyResult(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.graph.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -306,7 +310,8 @@ class GraphSubjectBase(Model):
 
 
 class GraphSubjectLookup(Model):
-    """GraphSubjectLookup.
+    """
+    Batching of subjects to lookup using the Graph API
 
     :param lookup_keys:
     :type lookup_keys: list of :class:`GraphSubjectLookupKey <azure.devops.v5_1.graph.models.GraphSubjectLookupKey>`
@@ -322,8 +327,7 @@ class GraphSubjectLookup(Model):
 
 
 class GraphSubjectLookupKey(Model):
-    """GraphSubjectLookupKey.
-
+    """
     :param descriptor:
     :type descriptor: :class:`str <azure.devops.v5_1.graph.models.str>`
     """
@@ -338,7 +342,8 @@ class GraphSubjectLookupKey(Model):
 
 
 class GraphUserCreationContext(Model):
-    """GraphUserCreationContext.
+    """
+    Do not attempt to use this type to create a new user. Use one of the subclasses instead. This type does not contain sufficient fields to create a new user.
 
     :param storage_key: Optional: If provided, we will use this identifier for the storage key of the created user
     :type storage_key: str
@@ -354,7 +359,8 @@ class GraphUserCreationContext(Model):
 
 
 class GraphUserUpdateContext(Model):
-    """GraphUserUpdateContext.
+    """
+    Do not attempt to use this type to update user. Use one of the subclasses instead. This type does not contain sufficient fields to create a new user.
 
     :param storage_key: Storage key should not be specified in case of updating user
     :type storage_key: str
@@ -370,7 +376,8 @@ class GraphUserUpdateContext(Model):
 
 
 class JsonPatchOperation(Model):
-    """JsonPatchOperation.
+    """
+    The JSON model for a JSON Patch operation
 
     :param from_: The path to copy from for the Move/Copy operation.
     :type from_: str
@@ -398,8 +405,7 @@ class JsonPatchOperation(Model):
 
 
 class PagedGraphGroups(Model):
-    """PagedGraphGroups.
-
+    """
     :param continuation_token: This will be non-null if there is another page of data. There will never be more than one continuation token returned by a request.
     :type continuation_token: list of str
     :param graph_groups: The enumerable list of groups found within a page.
@@ -418,8 +424,7 @@ class PagedGraphGroups(Model):
 
 
 class PagedGraphUsers(Model):
-    """PagedGraphUsers.
-
+    """
     :param continuation_token: This will be non-null if there is another page of data. There will never be more than one continuation token returned by a request.
     :type continuation_token: list of str
     :param graph_users: The enumerable set of users found within a page.
@@ -438,7 +443,8 @@ class PagedGraphUsers(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -454,7 +460,8 @@ class ReferenceLinks(Model):
 
 
 class GraphSubject(GraphSubjectBase):
-    """GraphSubject.
+    """
+    Top-level graph entity
 
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.graph.models.ReferenceLinks>`
@@ -494,8 +501,7 @@ class GraphSubject(GraphSubjectBase):
 
 
 class GraphMember(GraphSubject):
-    """GraphMember.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.graph.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -542,7 +548,8 @@ class GraphMember(GraphSubject):
 
 
 class GraphScope(GraphSubject):
-    """GraphScope.
+    """
+    Container where a graph entity is defined (organization, project, team)
 
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.graph.models.ReferenceLinks>`
@@ -598,7 +605,8 @@ class GraphScope(GraphSubject):
 
 
 class GraphUser(GraphMember):
-    """GraphUser.
+    """
+    Graph user entity
 
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.graph.models.ReferenceLinks>`
@@ -659,7 +667,8 @@ class GraphUser(GraphMember):
 
 
 class GraphGroup(GraphMember):
-    """GraphGroup.
+    """
+    Graph group entity
 
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.graph.models.ReferenceLinks>`

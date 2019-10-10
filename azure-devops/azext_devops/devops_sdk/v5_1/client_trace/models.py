@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class ClientTraceEvent(Model):
-    """ClientTraceEvent.
-
+    """
     :param area:
     :type area: str
     :param component:

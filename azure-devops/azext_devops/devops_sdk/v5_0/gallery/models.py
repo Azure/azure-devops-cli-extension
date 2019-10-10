@@ -64,21 +64,21 @@ class AcquisitionOptions(Model):
 class Answers(Model):
     """Answers.
 
-    :param vSMarketplace_extension_name: Gets or sets the vs marketplace extension name
-    :type vSMarketplace_extension_name: str
-    :param vSMarketplace_publisher_name: Gets or sets the vs marketplace publsiher name
-    :type vSMarketplace_publisher_name: str
+    :param vs_marketplace_extension_name: Gets or sets the vs marketplace extension name
+    :type vs_marketplace_extension_name: str
+    :param vs_marketplace_publisher_name: Gets or sets the vs marketplace publsiher name
+    :type vs_marketplace_publisher_name: str
     """
 
     _attribute_map = {
-        'vSMarketplace_extension_name': {'key': 'vSMarketplaceExtensionName', 'type': 'str'},
-        'vSMarketplace_publisher_name': {'key': 'vSMarketplacePublisherName', 'type': 'str'}
+        'vs_marketplace_extension_name': {'key': 'vsMarketplaceExtensionName', 'type': 'str'},
+        'vs_marketplace_publisher_name': {'key': 'vsMarketplacePublisherName', 'type': 'str'}
     }
 
-    def __init__(self, vSMarketplace_extension_name=None, vSMarketplace_publisher_name=None):
+    def __init__(self, vs_marketplace_extension_name=None, vs_marketplace_publisher_name=None):
         super(Answers, self).__init__()
-        self.vSMarketplace_extension_name = vSMarketplace_extension_name
-        self.vSMarketplace_publisher_name = vSMarketplace_publisher_name
+        self.vs_marketplace_extension_name = vs_marketplace_extension_name
+        self.vs_marketplace_publisher_name = vs_marketplace_publisher_name
 
 
 class AssetDetails(Model):

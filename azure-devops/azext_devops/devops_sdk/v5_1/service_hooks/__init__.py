@@ -39,6 +39,7 @@ __all__ = [
     'SessionToken',
     'Subscription',
     'SubscriptionDiagnostics',
+    'SubscriptionInputValuesQuery',
     'SubscriptionsQuery',
     'SubscriptionTracing',
     'UpdateSubscripitonDiagnosticsParameters',

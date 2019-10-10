@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class OperationReference(Model):
-    """OperationReference.
+    """
+    Reference for an async operation.
 
     :param id: Unique identifier for the operation.
     :type id: str
@@ -38,8 +39,7 @@ class OperationReference(Model):
 
 
 class OperationResultReference(Model):
-    """OperationResultReference.
-
+    """
     :param result_url: URL to the operation result.
     :type result_url: str
     """
@@ -54,7 +54,8 @@ class OperationResultReference(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -70,7 +71,8 @@ class ReferenceLinks(Model):
 
 
 class Operation(OperationReference):
-    """Operation.
+    """
+    Contains information about the progress or result of an async operation.
 
     :param id: Unique identifier for the operation.
     :type id: str

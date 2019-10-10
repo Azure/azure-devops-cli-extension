@@ -6,17 +6,26 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.work_item_tracking.models import *
+from ...v5_1.work_item_tracking.models import *
 from .work_item_tracking_client import WorkItemTrackingClient
 
 __all__ = [
     'AccountMyWorkResult',
     'AccountRecentActivityWorkItemModel',
+    'AccountRecentActivityWorkItemModel2',
+    'AccountRecentActivityWorkItemModelBase',
     'AccountRecentMentionWorkItemModel',
     'AccountWorkWorkItemModel',
     'ArtifactUriQuery',
     'ArtifactUriQueryResult',
     'AttachmentReference',
+    'Comment',
+    'CommentCreate',
+    'CommentList',
+    'CommentMention',
+    'CommentReaction',
+    'CommentUpdate',
+    'CommentVersion',
     'FieldDependentRule',
     'FieldsToEvaluate',
     'GraphSubjectBase',
@@ -42,6 +51,7 @@ __all__ = [
     'WorkItemClassificationNode',
     'WorkItemComment',
     'WorkItemComments',
+    'WorkItemCommentVersionRef',
     'WorkItemDelete',
     'WorkItemDeleteReference',
     'WorkItemDeleteShallowReference',

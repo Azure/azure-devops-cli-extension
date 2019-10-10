@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class UPackLimitedPackageMetadata(Model):
-    """UPackLimitedPackageMetadata.
-
+    """
     :param version:
     :type version: str
     """
@@ -26,8 +25,7 @@ class UPackLimitedPackageMetadata(Model):
 
 
 class UPackLimitedPackageMetadataListResponse(Model):
-    """UPackLimitedPackageMetadataListResponse.
-
+    """
     :param count:
     :type count: int
     :param value:
@@ -46,8 +44,7 @@ class UPackLimitedPackageMetadataListResponse(Model):
 
 
 class UPackPackageMetadata(Model):
-    """UPackPackageMetadata.
-
+    """
     :param description:
     :type description: str
     :param manifest_id:
@@ -74,8 +71,7 @@ class UPackPackageMetadata(Model):
 
 
 class UPackPackagePushMetadata(UPackPackageMetadata):
-    """UPackPackagePushMetadata.
-
+    """
     :param description:
     :type description: str
     :param manifest_id:
@@ -102,7 +98,8 @@ class UPackPackagePushMetadata(UPackPackageMetadata):
 
 
 class UPackPackageVersionDeletionState(Model):
-    """UPackPackageVersionDeletionState.
+    """
+    Deletion state of a Universal package.
 
     :param deleted_date: UTC date the package was deleted.
     :type deleted_date: datetime

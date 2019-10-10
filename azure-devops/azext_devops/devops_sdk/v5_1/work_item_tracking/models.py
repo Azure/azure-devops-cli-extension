@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class AccountMyWorkResult(Model):
-    """AccountMyWorkResult.
-
+    """
     :param query_size_limit_exceeded: True, when length of WorkItemDetails is same as the limit
     :type query_size_limit_exceeded: bool
     :param work_item_details: WorkItem Details
@@ -30,7 +29,8 @@ class AccountMyWorkResult(Model):
 
 
 class AccountRecentActivityWorkItemModelBase(Model):
-    """AccountRecentActivityWorkItemModelBase.
+    """
+    Represents Work Item Recent Activity
 
     :param activity_date: Date of the last Activity by the user
     :type activity_date: datetime
@@ -78,13 +78,14 @@ class AccountRecentActivityWorkItemModelBase(Model):
 
 
 class AccountRecentMentionWorkItemModel(Model):
-    """AccountRecentMentionWorkItemModel.
+    """
+    Represents Recent Mention Work Item
 
     :param assigned_to: Assigned To
     :type assigned_to: str
     :param id: Work Item Id
     :type id: int
-    :param mentioned_date_field: Lastest date that the user were mentioned
+    :param mentioned_date_field: Latest date that the user were mentioned
     :type mentioned_date_field: datetime
     :param state: State of the work item
     :type state: str
@@ -118,8 +119,7 @@ class AccountRecentMentionWorkItemModel(Model):
 
 
 class AccountWorkWorkItemModel(Model):
-    """AccountWorkWorkItemModel.
-
+    """
     :param assigned_to:
     :type assigned_to: str
     :param changed_date:
@@ -158,7 +158,8 @@ class AccountWorkWorkItemModel(Model):
 
 
 class ArtifactUriQuery(Model):
-    """ArtifactUriQuery.
+    """
+    Contains criteria for querying work items based on artifact URI.
 
     :param artifact_uris: List of artifact URIs to use for querying work items.
     :type artifact_uris: list of str
@@ -174,7 +175,8 @@ class ArtifactUriQuery(Model):
 
 
 class ArtifactUriQueryResult(Model):
-    """ArtifactUriQueryResult.
+    """
+    Defines result of artifact URI query on work items. Contains mapping of work item IDs to artifact URI.
 
     :param artifact_uris_query_result: A Dictionary that maps a list of work item references to the given list of artifact URI.
     :type artifact_uris_query_result: dict
@@ -190,8 +192,7 @@ class ArtifactUriQueryResult(Model):
 
 
 class AttachmentReference(Model):
-    """AttachmentReference.
-
+    """
     :param id:
     :type id: str
     :param url:
@@ -210,7 +211,8 @@ class AttachmentReference(Model):
 
 
 class CommentCreate(Model):
-    """CommentCreate.
+    """
+    Represents a request to create a work item comment.
 
     :param text: The text of the comment.
     :type text: str
@@ -226,7 +228,8 @@ class CommentCreate(Model):
 
 
 class CommentUpdate(Model):
-    """CommentUpdate.
+    """
+    Represents a request to update a work item comment.
 
     :param text: The updated text of the comment.
     :type text: str
@@ -242,7 +245,8 @@ class CommentUpdate(Model):
 
 
 class FieldsToEvaluate(Model):
-    """FieldsToEvaluate.
+    """
+    Describes a set fields for rule evaluation.
 
     :param fields: List of fields to evaluate.
     :type fields: list of str
@@ -270,8 +274,7 @@ class FieldsToEvaluate(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -298,8 +301,7 @@ class GraphSubjectBase(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -358,7 +360,8 @@ class IdentityRef(GraphSubjectBase):
 
 
 class IdentityReference(IdentityRef):
-    """IdentityReference.
+    """
+    Describes a reference to an identity.
 
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work_item_tracking.models.ReferenceLinks>`
@@ -414,7 +417,8 @@ class IdentityReference(IdentityRef):
 
 
 class JsonPatchOperation(Model):
-    """JsonPatchOperation.
+    """
+    The JSON model for a JSON Patch operation
 
     :param from_: The path to copy from for the Move/Copy operation.
     :type from_: str
@@ -442,7 +446,8 @@ class JsonPatchOperation(Model):
 
 
 class Link(Model):
-    """Link.
+    """
+    Link description.
 
     :param attributes: Collection of link attributes.
     :type attributes: dict
@@ -466,7 +471,8 @@ class Link(Model):
 
 
 class ProjectWorkItemStateColors(Model):
-    """ProjectWorkItemStateColors.
+    """
+    Project work item type state colors
 
     :param project_name: Project name
     :type project_name: str
@@ -486,7 +492,8 @@ class ProjectWorkItemStateColors(Model):
 
 
 class ProvisioningResult(Model):
-    """ProvisioningResult.
+    """
+    Result of an update work item type XML update operation.
 
     :param provisioning_import_events: Details about of the provisioning import events.
     :type provisioning_import_events: list of str
@@ -502,7 +509,8 @@ class ProvisioningResult(Model):
 
 
 class QueryBatchGetRequest(Model):
-    """QueryBatchGetRequest.
+    """
+    Describes a request to get a list of queries
 
     :param expand: The expand parameters for queries. Possible options are { None, Wiql, Clauses, All, Minimal }
     :type expand: object
@@ -526,8 +534,7 @@ class QueryBatchGetRequest(Model):
 
 
 class QueryHierarchyItemsResult(Model):
-    """QueryHierarchyItemsResult.
-
+    """
     :param count: The count of items.
     :type count: int
     :param has_more: Indicates if the max return limit was hit but there are still more items
@@ -550,7 +557,8 @@ class QueryHierarchyItemsResult(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -566,7 +574,8 @@ class ReferenceLinks(Model):
 
 
 class ReportingWorkItemRevisionsFilter(Model):
-    """ReportingWorkItemRevisionsFilter.
+    """
+    The class represents the reporting work item revision filer.
 
     :param fields: A list of fields to return in work item revisions. Omit this parameter to get all reportable fields.
     :type fields: list of str
@@ -602,9 +611,10 @@ class ReportingWorkItemRevisionsFilter(Model):
 
 
 class StreamedBatch(Model):
-    """StreamedBatch.
+    """
+    The class describes reporting work item revision batch.
 
-    :param continuation_token: ContinuationToken acts as a waterMark. Used while quering large results.
+    :param continuation_token: ContinuationToken acts as a waterMark. Used while querying large results.
     :type continuation_token: str
     :param is_last_batch: Returns 'true' if it's last batch, 'false' otherwise.
     :type is_last_batch: bool
@@ -630,7 +640,8 @@ class StreamedBatch(Model):
 
 
 class TeamContext(Model):
-    """TeamContext.
+    """
+    The Team Context for an operation.
 
     :param project: The team project Id or name.  Ignored if ProjectId is set.
     :type project: str
@@ -658,7 +669,8 @@ class TeamContext(Model):
 
 
 class Wiql(Model):
-    """Wiql.
+    """
+    A WIQL query
 
     :param query: The text of the WIQL query
     :type query: str
@@ -674,7 +686,8 @@ class Wiql(Model):
 
 
 class WorkArtifactLink(Model):
-    """WorkArtifactLink.
+    """
+    A work artifact link describes an outbound artifact link type.
 
     :param artifact_type: Target artifact type.
     :type artifact_type: str
@@ -698,7 +711,8 @@ class WorkArtifactLink(Model):
 
 
 class WorkItemBatchGetRequest(Model):
-    """WorkItemBatchGetRequest.
+    """
+    Describes a request to get a set of work items
 
     :param expand: The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }
     :type expand: object
@@ -730,7 +744,8 @@ class WorkItemBatchGetRequest(Model):
 
 
 class WorkItemDeleteReference(Model):
-    """WorkItemDeleteReference.
+    """
+    Reference to a deleted work item.
 
     :param code: The HTTP status code for work item operation in a batch request.
     :type code: int
@@ -778,7 +793,8 @@ class WorkItemDeleteReference(Model):
 
 
 class WorkItemDeleteShallowReference(Model):
-    """WorkItemDeleteShallowReference.
+    """
+    Shallow Reference to a deleted work item.
 
     :param id: Work item ID.
     :type id: int
@@ -798,7 +814,8 @@ class WorkItemDeleteShallowReference(Model):
 
 
 class WorkItemDeleteUpdate(Model):
-    """WorkItemDeleteUpdate.
+    """
+    Describes an update request for a deleted work item.
 
     :param is_deleted: Sets a value indicating whether this work item is deleted.
     :type is_deleted: bool
@@ -814,7 +831,8 @@ class WorkItemDeleteUpdate(Model):
 
 
 class WorkItemFieldOperation(Model):
-    """WorkItemFieldOperation.
+    """
+    Describes a work item field operation.
 
     :param name: Friendly name of the operation.
     :type name: str
@@ -834,7 +852,8 @@ class WorkItemFieldOperation(Model):
 
 
 class WorkItemFieldReference(Model):
-    """WorkItemFieldReference.
+    """
+    Reference to a field in a work item
 
     :param name: The friendly name of the field.
     :type name: str
@@ -858,7 +877,8 @@ class WorkItemFieldReference(Model):
 
 
 class WorkItemFieldUpdate(Model):
-    """WorkItemFieldUpdate.
+    """
+    Describes an update to a work item field.
 
     :param new_value: The new value of the field.
     :type new_value: object
@@ -878,7 +898,8 @@ class WorkItemFieldUpdate(Model):
 
 
 class WorkItemIcon(Model):
-    """WorkItemIcon.
+    """
+    Reference to a work item icon.
 
     :param id: The identifier of the icon.
     :type id: str
@@ -898,7 +919,8 @@ class WorkItemIcon(Model):
 
 
 class WorkItemLink(Model):
-    """WorkItemLink.
+    """
+    A link between two work items.
 
     :param rel: The type of link.
     :type rel: str
@@ -922,7 +944,8 @@ class WorkItemLink(Model):
 
 
 class WorkItemNextStateOnTransition(Model):
-    """WorkItemNextStateOnTransition.
+    """
+    Describes the next state for a work item.
 
     :param error_code: Error code if there is no next state transition possible.
     :type error_code: str
@@ -950,7 +973,8 @@ class WorkItemNextStateOnTransition(Model):
 
 
 class WorkItemQueryClause(Model):
-    """WorkItemQueryClause.
+    """
+    Represents a clause in a work item query. This shows the structure of a work item query.
 
     :param clauses: Child clauses if the current clause is a logical operator
     :type clauses: list of :class:`WorkItemQueryClause <azure.devops.v5_1.work_item_tracking.models.WorkItemQueryClause>`
@@ -990,7 +1014,8 @@ class WorkItemQueryClause(Model):
 
 
 class WorkItemQueryResult(Model):
-    """WorkItemQueryResult.
+    """
+    The result of a work item query.
 
     :param as_of: The date the query was run in the context of.
     :type as_of: datetime
@@ -1030,7 +1055,8 @@ class WorkItemQueryResult(Model):
 
 
 class WorkItemQuerySortColumn(Model):
-    """WorkItemQuerySortColumn.
+    """
+    A sort column.
 
     :param descending: The direction to sort by.
     :type descending: bool
@@ -1050,7 +1076,8 @@ class WorkItemQuerySortColumn(Model):
 
 
 class WorkItemReference(Model):
-    """WorkItemReference.
+    """
+    Contains reference to a work item.
 
     :param id: Work item ID.
     :type id: int
@@ -1070,8 +1097,7 @@ class WorkItemReference(Model):
 
 
 class WorkItemRelation(Link):
-    """WorkItemRelation.
-
+    """
     :param attributes: Collection of link attributes.
     :type attributes: dict
     :param rel: Relation type.
@@ -1091,7 +1117,8 @@ class WorkItemRelation(Link):
 
 
 class WorkItemRelationUpdates(Model):
-    """WorkItemRelationUpdates.
+    """
+    Describes updates to a work item's relations.
 
     :param added: List of newly added relations.
     :type added: list of :class:`WorkItemRelation <azure.devops.v5_1.work_item_tracking.models.WorkItemRelation>`
@@ -1115,7 +1142,8 @@ class WorkItemRelationUpdates(Model):
 
 
 class WorkItemStateColor(Model):
-    """WorkItemStateColor.
+    """
+    Work item type state name, color and state category
 
     :param category: Category of state
     :type category: str
@@ -1139,7 +1167,8 @@ class WorkItemStateColor(Model):
 
 
 class WorkItemStateTransition(Model):
-    """WorkItemStateTransition.
+    """
+    Describes a state transition in a work item.
 
     :param actions: Gets a list of actions needed to transition to that state.
     :type actions: list of str
@@ -1159,7 +1188,8 @@ class WorkItemStateTransition(Model):
 
 
 class WorkItemTrackingResourceReference(Model):
-    """WorkItemTrackingResourceReference.
+    """
+    Base class for work item tracking resource references.
 
     :param url:
     :type url: str
@@ -1175,7 +1205,8 @@ class WorkItemTrackingResourceReference(Model):
 
 
 class WorkItemTypeColor(Model):
-    """WorkItemTypeColor.
+    """
+    Describes a work item type's colors.
 
     :param primary_color: Gets or sets the color of the primary.
     :type primary_color: str
@@ -1199,11 +1230,12 @@ class WorkItemTypeColor(Model):
 
 
 class WorkItemTypeColorAndIcon(Model):
-    """WorkItemTypeColorAndIcon.
+    """
+    Describes work item type nam, its icon and color.
 
     :param color: The color of the work item type in hex format.
     :type color: str
-    :param icon: Tthe work item type icon.
+    :param icon: The work item type icon.
     :type icon: str
     :param work_item_type_name: The name of the work item type.
     :type work_item_type_name: str
@@ -1223,7 +1255,8 @@ class WorkItemTypeColorAndIcon(Model):
 
 
 class WorkItemTypeFieldInstanceBase(WorkItemFieldReference):
-    """WorkItemTypeFieldInstanceBase.
+    """
+    Base field instance for workItemType fields.
 
     :param name: The friendly name of the field.
     :type name: str
@@ -1256,7 +1289,8 @@ class WorkItemTypeFieldInstanceBase(WorkItemFieldReference):
 
 
 class WorkItemTypeFieldWithReferences(WorkItemTypeFieldInstanceBase):
-    """WorkItemTypeFieldWithReferences.
+    """
+    Field Instance of a workItemype with detailed references.
 
     :param name: The friendly name of the field.
     :type name: str
@@ -1294,7 +1328,8 @@ class WorkItemTypeFieldWithReferences(WorkItemTypeFieldInstanceBase):
 
 
 class WorkItemTypeReference(WorkItemTrackingResourceReference):
-    """WorkItemTypeReference.
+    """
+    Reference to a work item type.
 
     :param url:
     :type url: str
@@ -1313,7 +1348,8 @@ class WorkItemTypeReference(WorkItemTrackingResourceReference):
 
 
 class WorkItemTypeStateColors(Model):
-    """WorkItemTypeStateColors.
+    """
+    State colors for a work item type
 
     :param state_colors: Work item type state colors
     :type state_colors: list of :class:`WorkItemStateColor <azure.devops.v5_1.work_item_tracking.models.WorkItemStateColor>`
@@ -1333,7 +1369,8 @@ class WorkItemTypeStateColors(Model):
 
 
 class WorkItemTypeTemplate(Model):
-    """WorkItemTypeTemplate.
+    """
+    Describes a work item type template.
 
     :param template: XML template in string format.
     :type template: str
@@ -1349,7 +1386,8 @@ class WorkItemTypeTemplate(Model):
 
 
 class WorkItemTypeTemplateUpdateModel(Model):
-    """WorkItemTypeTemplateUpdateModel.
+    """
+    Describes a update work item type template request body.
 
     :param action_type: Describes the type of the action for the update request.
     :type action_type: object
@@ -1377,7 +1415,8 @@ class WorkItemTypeTemplateUpdateModel(Model):
 
 
 class AccountRecentActivityWorkItemModel(AccountRecentActivityWorkItemModelBase):
-    """AccountRecentActivityWorkItemModel.
+    """
+    Represents Work Item Recent Activity
 
     :param activity_date: Date of the last Activity by the user
     :type activity_date: datetime
@@ -1420,7 +1459,8 @@ class AccountRecentActivityWorkItemModel(AccountRecentActivityWorkItemModelBase)
 
 
 class AccountRecentActivityWorkItemModel2(AccountRecentActivityWorkItemModelBase):
-    """AccountRecentActivityWorkItemModel2.
+    """
+    Represents Work Item Recent Activity
 
     :param activity_date: Date of the last Activity by the user
     :type activity_date: datetime
@@ -1463,8 +1503,7 @@ class AccountRecentActivityWorkItemModel2(AccountRecentActivityWorkItemModelBase
 
 
 class ReportingWorkItemLinksBatch(StreamedBatch):
-    """ReportingWorkItemLinksBatch.
-
+    """
     """
 
     _attribute_map = {
@@ -1475,8 +1514,7 @@ class ReportingWorkItemLinksBatch(StreamedBatch):
 
 
 class ReportingWorkItemRevisionsBatch(StreamedBatch):
-    """ReportingWorkItemRevisionsBatch.
-
+    """
     """
 
     _attribute_map = {
@@ -1487,7 +1525,8 @@ class ReportingWorkItemRevisionsBatch(StreamedBatch):
 
 
 class WorkItemCommentVersionRef(WorkItemTrackingResourceReference):
-    """WorkItemCommentVersionRef.
+    """
+    Represents the reference to a specific version of a comment on a Work Item.
 
     :param url:
     :type url: str
@@ -1522,7 +1561,8 @@ class WorkItemCommentVersionRef(WorkItemTrackingResourceReference):
 
 
 class WorkItemDelete(WorkItemDeleteReference):
-    """WorkItemDelete.
+    """
+    Full deleted work item object. Includes the work item itself.
 
     :param code: The HTTP status code for work item operation in a batch request.
     :type code: int
@@ -1565,7 +1605,8 @@ class WorkItemDelete(WorkItemDeleteReference):
 
 
 class WorkItemTrackingResource(WorkItemTrackingResourceReference):
-    """WorkItemTrackingResource.
+    """
+    Base class for WIT REST resources.
 
     :param url:
     :type url: str
@@ -1584,7 +1625,8 @@ class WorkItemTrackingResource(WorkItemTrackingResourceReference):
 
 
 class WorkItemType(WorkItemTrackingResource):
-    """WorkItemType.
+    """
+    Describes a work item type.
 
     :param url:
     :type url: str
@@ -1646,7 +1688,8 @@ class WorkItemType(WorkItemTrackingResource):
 
 
 class WorkItemTypeCategory(WorkItemTrackingResource):
-    """WorkItemTypeCategory.
+    """
+    Describes a work item type category.
 
     :param url:
     :type url: str
@@ -1658,7 +1701,7 @@ class WorkItemTypeCategory(WorkItemTrackingResource):
     :type name: str
     :param reference_name: The reference name of the category.
     :type reference_name: str
-    :param work_item_types: The work item types that belond to the category.
+    :param work_item_types: The work item types that belong to the category.
     :type work_item_types: list of :class:`WorkItemTypeReference <azure.devops.v5_1.work_item_tracking.models.WorkItemTypeReference>`
     """
 
@@ -1680,7 +1723,8 @@ class WorkItemTypeCategory(WorkItemTrackingResource):
 
 
 class WorkItemTypeFieldInstance(WorkItemTypeFieldInstanceBase):
-    """WorkItemTypeFieldInstance.
+    """
+    Field instance of a work item type.
 
     :param name: The friendly name of the field.
     :type name: str
@@ -1718,7 +1762,8 @@ class WorkItemTypeFieldInstance(WorkItemTypeFieldInstanceBase):
 
 
 class WorkItemUpdate(WorkItemTrackingResource):
-    """WorkItemUpdate.
+    """
+    Describes an update to a work item.
 
     :param url:
     :type url: str
@@ -1764,7 +1809,8 @@ class WorkItemUpdate(WorkItemTrackingResource):
 
 
 class Comment(WorkItemTrackingResource):
-    """Comment.
+    """
+    Comment on a Work Item.
 
     :param url:
     :type url: str
@@ -1834,7 +1880,8 @@ class Comment(WorkItemTrackingResource):
 
 
 class CommentList(WorkItemTrackingResource):
-    """CommentList.
+    """
+    Represents a list of work item comments.
 
     :param url:
     :type url: str
@@ -1872,8 +1919,7 @@ class CommentList(WorkItemTrackingResource):
 
 
 class CommentMention(WorkItemTrackingResource):
-    """CommentMention.
-
+    """
     :param url:
     :type url: str
     :param _links: Link references to related REST resources.
@@ -1906,7 +1952,8 @@ class CommentMention(WorkItemTrackingResource):
 
 
 class CommentReaction(WorkItemTrackingResource):
-    """CommentReaction.
+    """
+    Contains information about work item comment reaction for a particular reaction type.
 
     :param url:
     :type url: str
@@ -1940,7 +1987,8 @@ class CommentReaction(WorkItemTrackingResource):
 
 
 class CommentVersion(WorkItemTrackingResource):
-    """CommentVersion.
+    """
+    Represents a specific version of a comment on a work item.
 
     :param url:
     :type url: str
@@ -2002,7 +2050,8 @@ class CommentVersion(WorkItemTrackingResource):
 
 
 class FieldDependentRule(WorkItemTrackingResource):
-    """FieldDependentRule.
+    """
+    Describes a list of dependent fields for a rule.
 
     :param url:
     :type url: str
@@ -2024,7 +2073,8 @@ class FieldDependentRule(WorkItemTrackingResource):
 
 
 class QueryHierarchyItem(WorkItemTrackingResource):
-    """QueryHierarchyItem.
+    """
+    Represents an item in the work item query hierarchy. This can be either a query or a folder.
 
     :param url:
     :type url: str
@@ -2142,7 +2192,8 @@ class QueryHierarchyItem(WorkItemTrackingResource):
 
 
 class WorkItem(WorkItemTrackingResource):
-    """WorkItem.
+    """
+    Describes a work item.
 
     :param url:
     :type url: str
@@ -2180,7 +2231,8 @@ class WorkItem(WorkItemTrackingResource):
 
 
 class WorkItemClassificationNode(WorkItemTrackingResource):
-    """WorkItemClassificationNode.
+    """
+    Defines a classification node for work item tracking.
 
     :param url:
     :type url: str
@@ -2230,7 +2282,8 @@ class WorkItemClassificationNode(WorkItemTrackingResource):
 
 
 class WorkItemComment(WorkItemTrackingResource):
-    """WorkItemComment.
+    """
+    Comment on Work Item
 
     :param url:
     :type url: str
@@ -2264,7 +2317,8 @@ class WorkItemComment(WorkItemTrackingResource):
 
 
 class WorkItemComments(WorkItemTrackingResource):
-    """WorkItemComments.
+    """
+    Collection of comments.
 
     :param url:
     :type url: str
@@ -2298,7 +2352,8 @@ class WorkItemComments(WorkItemTrackingResource):
 
 
 class WorkItemField(WorkItemTrackingResource):
-    """WorkItemField.
+    """
+    Describes a field on a work item and it's properties specific to that work item type.
 
     :param url:
     :type url: str
@@ -2368,8 +2423,7 @@ class WorkItemField(WorkItemTrackingResource):
 
 
 class WorkItemHistory(WorkItemTrackingResource):
-    """WorkItemHistory.
-
+    """
     :param url:
     :type url: str
     :param _links: Link references to related REST resources.
@@ -2402,7 +2456,8 @@ class WorkItemHistory(WorkItemTrackingResource):
 
 
 class WorkItemTemplateReference(WorkItemTrackingResource):
-    """WorkItemTemplateReference.
+    """
+    Describes a shallow reference to a work item template.
 
     :param url:
     :type url: str
@@ -2436,8 +2491,7 @@ class WorkItemTemplateReference(WorkItemTrackingResource):
 
 
 class WorkItemTrackingReference(WorkItemTrackingResource):
-    """WorkItemTrackingReference.
-
+    """
     :param url:
     :type url: str
     :param _links: Link references to related REST resources.
@@ -2462,7 +2516,8 @@ class WorkItemTrackingReference(WorkItemTrackingResource):
 
 
 class WorkItemRelationType(WorkItemTrackingReference):
-    """WorkItemRelationType.
+    """
+    Represents the work item type relation type.
 
     :param url:
     :type url: str
@@ -2490,7 +2545,8 @@ class WorkItemRelationType(WorkItemTrackingReference):
 
 
 class WorkItemTemplate(WorkItemTemplateReference):
-    """WorkItemTemplate.
+    """
+    Describes a work item template.
 
     :param url:
     :type url: str

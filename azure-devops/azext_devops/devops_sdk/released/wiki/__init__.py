@@ -6,13 +6,16 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.wiki.models import *
+from ...v5_1.wiki.models import *
 from .wiki_client import WikiClient
 
 __all__ = [
     'GitRepository',
     'GitRepositoryRef',
     'GitVersionDescriptor',
+    'ReferenceLinks',
+    'TeamProjectCollectionReference',
+    'TeamProjectReference',
     'WikiAttachment',
     'WikiAttachmentResponse',
     'WikiCreateBaseParameters',

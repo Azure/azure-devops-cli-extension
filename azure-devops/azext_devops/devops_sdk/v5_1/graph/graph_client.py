@@ -94,7 +94,7 @@ class GraphClient(Client):
 
     def create_group(self, creation_context, scope_descriptor=None, group_descriptors=None):
         """CreateGroup.
-        [Preview API] Create a new VSTS group or materialize an existing AAD group.
+        [Preview API] Create a new Azure DevOps group or materialize an existing AAD group.
         :param :class:`<GraphGroupCreationContext> <azure.devops.v5_1.graph.models.GraphGroupCreationContext>` creation_context: The subset of the full graph group used to uniquely find the graph subject in an external provider.
         :param str scope_descriptor: A descriptor referencing the scope (collection, project) in which the group should be created. If omitted, will be created in the scope of the enclosing account or organization. Valid only for VSTS groups.
         :param [str] group_descriptors: A comma separated list of descriptors referencing groups you want the graph group to join
@@ -116,7 +116,7 @@ class GraphClient(Client):
 
     def delete_group(self, group_descriptor):
         """DeleteGroup.
-        [Preview API] Removes a VSTS group from all of its parent groups.
+        [Preview API] Removes an Azure DevOps group from all of its parent groups.
         :param str group_descriptor: The descriptor of the group to delete.
         """
         route_values = {}
@@ -169,7 +169,7 @@ class GraphClient(Client):
 
     def update_group(self, group_descriptor, patch_document):
         """UpdateGroup.
-        [Preview API] Update the properties of a VSTS group.
+        [Preview API] Update the properties of an Azure DevOps group.
         :param str group_descriptor: The descriptor of the group to modify.
         :param :class:`<[JsonPatchOperation]> <azure.devops.v5_1.graph.models.[JsonPatchOperation]>` patch_document: The JSON+Patch document containing the fields to alter.
         :rtype: :class:`<GraphGroup> <azure.devops.v5_1.graph.models.GraphGroup>`
@@ -306,6 +306,17 @@ class GraphClient(Client):
                               version='5.1-preview.1',
                               route_values=route_values)
         return self._deserialize('GraphProviderInfo', response)
+
+    def request_access(self, message):
+        """RequestAccess.
+        [Preview API]
+        :param str message:
+        """
+        content = self._serialize.body(message, 'str')
+        self._send(http_method='POST',
+                   location_id='8d54bf92-8c99-47f2-9972-b21341f1722e',
+                   version='5.1-preview.1',
+                   content=content)
 
     def get_storage_key(self, subject_descriptor):
         """GetStorageKey.

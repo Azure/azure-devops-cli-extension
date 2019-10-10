@@ -223,13 +223,14 @@ class ServiceEndpointClient(Client):
                               content=content)
         return self._deserialize('[ServiceEndpoint]', self._unwrap_collection(response))
 
-    def get_service_endpoint_execution_records(self, project, endpoint_id, top=None):
+    def get_service_endpoint_execution_records(self, project, endpoint_id, top=None, continuation_token=None):
         """GetServiceEndpointExecutionRecords.
         [Preview API] Get service endpoint execution records.
         :param str project: Project ID or project name
         :param str endpoint_id: Id of the service endpoint.
         :param int top: Number of service endpoint execution records to get.
-        :rtype: [ServiceEndpointExecutionRecord]
+        :param long continuation_token: A continuation token, returned by a previous call to this method, that can be used to return the next set of records
+        :rtype: :class:`<GetServiceEndpointExecutionRecordsResponseValue>`
         """
         route_values = {}
         if project is not None:
@@ -239,12 +240,29 @@ class ServiceEndpointClient(Client):
         query_parameters = {}
         if top is not None:
             query_parameters['top'] = self._serialize.query('top', top, 'int')
+        if continuation_token is not None:
+            query_parameters['continuationToken'] = self._serialize.query('continuation_token', continuation_token, 'long')
         response = self._send(http_method='GET',
                               location_id='10a16738-9299-4cd1-9a81-fd23ad6200d0',
                               version='5.1-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
-        return self._deserialize('[ServiceEndpointExecutionRecord]', self._unwrap_collection(response))
+        response_value = self._deserialize('[ServiceEndpointExecutionRecord]', self._unwrap_collection(response))
+        continuation_token = self._get_continuation_token(response)
+        return self.GetServiceEndpointExecutionRecordsResponseValue(response_value, continuation_token)
+
+    class GetServiceEndpointExecutionRecordsResponseValue(object):
+        def __init__(self, value, continuation_token):
+            """
+            Response for the get_service_endpoint_execution_records method
+
+            :param value:
+            :type value: :class:`<[ServiceEndpointExecutionRecord]> <azure.devops.v5_1.service_endpoint.models.[ServiceEndpointExecutionRecord]>`
+            :param continuation_token: The continuation token to be used to get the next page of results.
+            :type continuation_token: str
+            """
+            self.value = value
+            self.continuation_token = continuation_token
 
     def get_service_endpoint_types(self, type=None, scheme=None):
         """GetServiceEndpointTypes.

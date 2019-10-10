@@ -530,11 +530,11 @@ class TfvcChangesetRef(Model):
 
     :param _links: A collection of REST reference links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_0.tfvc.models.ReferenceLinks>`
-    :param author: Alias or display name of user
+    :param author: Alias or display name of user.
     :type author: :class:`IdentityRef <azure.devops.v5_0.tfvc.models.IdentityRef>`
-    :param changeset_id: Id of the changeset.
+    :param changeset_id: Changeset Id.
     :type changeset_id: int
-    :param checked_in_by: Alias or display name of user
+    :param checked_in_by: Alias or display name of user.
     :type checked_in_by: :class:`IdentityRef <azure.devops.v5_0.tfvc.models.IdentityRef>`
     :param comment: Comment for the changeset.
     :type comment: str
@@ -572,23 +572,23 @@ class TfvcChangesetRef(Model):
 class TfvcChangesetSearchCriteria(Model):
     """TfvcChangesetSearchCriteria.
 
-    :param author: Alias or display name of user who made the changes
+    :param author: Alias or display name of user who made the changes.
     :type author: str
-    :param follow_renames: Whether or not to follow renames for the given item being queried
+    :param follow_renames: Whether or not to follow renames for the given item being queried.
     :type follow_renames: bool
-    :param from_date: If provided, only include changesets created after this date (string) Think of a better name for this.
+    :param from_date: If provided, only include changesets created after this date (string).
     :type from_date: str
-    :param from_id: If provided, only include changesets after this changesetID
+    :param from_id: If provided, only include changesets after this changesetID.
     :type from_id: int
-    :param include_links: Whether to include the _links field on the shallow references
+    :param include_links: Whether to include the _links field on the shallow references.
     :type include_links: bool
-    :param item_path: Path of item to search under
+    :param item_path: Path of item to search under.
     :type item_path: str
     :param mappings:
     :type mappings: list of :class:`TfvcMappingFilter <azure.devops.v5_0.tfvc.models.TfvcMappingFilter>`
-    :param to_date: If provided, only include changesets created before this date (string) Think of a better name for this.
+    :param to_date: If provided, only include changesets created before this date (string).
     :type to_date: str
-    :param to_id: If provided, a version descriptor for the latest change list to include
+    :param to_id: If provided, a version descriptor for the latest change list to include.
     :type to_id: int
     """
 
@@ -622,7 +622,7 @@ class TfvcChangesetsRequestData(Model):
 
     :param changeset_ids: List of changeset Ids.
     :type changeset_ids: list of int
-    :param comment_length: Length of the comment.
+    :param comment_length: Max length of the comment.
     :type comment_length: int
     :param include_links: Whether to include the _links field on the shallow references
     :type include_links: bool
@@ -658,21 +658,21 @@ class TfvcItem(ItemModel):
     :type path: str
     :param url:
     :type url: str
-    :param change_date:
+    :param change_date: Item changed datetime.
     :type change_date: datetime
-    :param deletion_id:
+    :param deletion_id: Greater than 0 if item is deleted.
     :type deletion_id: int
     :param encoding: File encoding from database, -1 represents binary.
     :type encoding: int
     :param hash_value: MD5 hash as a base 64 string, applies to files only.
     :type hash_value: str
-    :param is_branch:
+    :param is_branch: True if item is a branch.
     :type is_branch: bool
-    :param is_pending_change:
+    :param is_pending_change: True if there is a change pending.
     :type is_pending_change: bool
     :param size: The size of the file, if applicable.
     :type size: long
-    :param version:
+    :param version: Changeset version Id.
     :type version: int
     """
 
@@ -709,15 +709,15 @@ class TfvcItem(ItemModel):
 class TfvcItemDescriptor(Model):
     """TfvcItemDescriptor.
 
-    :param path:
+    :param path: Item path.
     :type path: str
-    :param recursion_level:
+    :param recursion_level: Defaults to OneLevel.
     :type recursion_level: object
-    :param version:
+    :param version: Specify the desired version, can be null or empty string only if VersionType is latest or tip.
     :type version: str
-    :param version_option:
+    :param version_option: Defaults to None.
     :type version_option: object
-    :param version_type:
+    :param version_type: Defaults to Latest.
     :type version_type: object
     """
 
@@ -765,21 +765,21 @@ class TfvcItemRequestData(Model):
 class TfvcLabelRef(Model):
     """TfvcLabelRef.
 
-    :param _links:
+    :param _links: Collection of reference links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_0.tfvc.models.ReferenceLinks>`
-    :param description:
+    :param description: Label description.
     :type description: str
-    :param id:
+    :param id: Label Id.
     :type id: int
-    :param label_scope:
+    :param label_scope: Label scope.
     :type label_scope: str
-    :param modified_date:
+    :param modified_date: Last modified datetime for the label.
     :type modified_date: datetime
-    :param name:
+    :param name: Label name.
     :type name: str
-    :param owner:
+    :param owner: Label owner.
     :type owner: :class:`IdentityRef <azure.devops.v5_0.tfvc.models.IdentityRef>`
-    :param url:
+    :param url: Label Url.
     :type url: str
     """
 
@@ -845,9 +845,9 @@ class TfvcLabelRequestData(Model):
 class TfvcMappingFilter(Model):
     """TfvcMappingFilter.
 
-    :param exclude:
+    :param exclude: True if ServerPath should be excluded.
     :type exclude: bool
-    :param server_path:
+    :param server_path: Path to be included or excluded.
     :type server_path: str
     """
 
@@ -867,11 +867,11 @@ class TfvcMergeSource(Model):
 
     :param is_rename: Indicates if this a rename source. If false, it is a merge source.
     :type is_rename: bool
-    :param server_item: The server item of the merge source
+    :param server_item: The server item of the merge source.
     :type server_item: str
-    :param version_from: Start of the version range
+    :param version_from: Start of the version range.
     :type version_from: int
-    :param version_to: End of the version range
+    :param version_to: End of the version range.
     :type version_to: int
     """
 
@@ -893,9 +893,9 @@ class TfvcMergeSource(Model):
 class TfvcPolicyFailureInfo(Model):
     """TfvcPolicyFailureInfo.
 
-    :param message:
+    :param message: Policy failure message.
     :type message: str
-    :param policy_name:
+    :param policy_name: Name of the policy that failed.
     :type policy_name: str
     """
 
@@ -913,9 +913,9 @@ class TfvcPolicyFailureInfo(Model):
 class TfvcPolicyOverrideInfo(Model):
     """TfvcPolicyOverrideInfo.
 
-    :param comment:
+    :param comment: Overidden policy comment.
     :type comment: str
-    :param policy_failures:
+    :param policy_failures: Information on the failed policy that was overridden.
     :type policy_failures: list of :class:`TfvcPolicyFailureInfo <azure.devops.v5_0.tfvc.models.TfvcPolicyFailureInfo>`
     """
 
@@ -949,21 +949,21 @@ class TfvcShallowBranchRef(Model):
 class TfvcShelvesetRef(Model):
     """TfvcShelvesetRef.
 
-    :param _links:
+    :param _links: List of reference links for the shelveset.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_0.tfvc.models.ReferenceLinks>`
-    :param comment:
+    :param comment: Shelveset comment.
     :type comment: str
-    :param comment_truncated:
+    :param comment_truncated: Shelveset comment truncated as applicable.
     :type comment_truncated: bool
-    :param created_date:
+    :param created_date: Shelveset create date.
     :type created_date: datetime
-    :param id:
+    :param id: Shelveset Id.
     :type id: str
-    :param name:
+    :param name: Shelveset name.
     :type name: str
-    :param owner:
+    :param owner: Shelveset Owner.
     :type owner: :class:`IdentityRef <azure.devops.v5_0.tfvc.models.IdentityRef>`
-    :param url:
+    :param url: Shelveset Url.
     :type url: str
     """
 
@@ -1003,7 +1003,7 @@ class TfvcShelvesetRequestData(Model):
     :type max_change_count: int
     :param max_comment_length: Max length of comment
     :type max_comment_length: int
-    :param name: Shelveset's name
+    :param name: Shelveset name
     :type name: str
     :param owner: Owner's ID. Could be a name or a guid.
     :type owner: str
@@ -1053,7 +1053,7 @@ class TfvcStatistics(Model):
 class TfvcVersionDescriptor(Model):
     """TfvcVersionDescriptor.
 
-    :param version:
+    :param version: Version object.
     :type version: str
     :param version_option:
     :type version_option: object
@@ -1135,7 +1135,7 @@ class TfvcBranchRef(TfvcShallowBranchRef):
     :type _links: :class:`ReferenceLinks <azure.devops.v5_0.tfvc.models.ReferenceLinks>`
     :param created_date: Creation date of the branch.
     :type created_date: datetime
-    :param description: Description of the branch.
+    :param description: Branch description.
     :type description: str
     :param is_deleted: Is the branch deleted?
     :type is_deleted: bool
@@ -1170,11 +1170,11 @@ class TfvcChangeset(TfvcChangesetRef):
 
     :param _links: A collection of REST reference links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_0.tfvc.models.ReferenceLinks>`
-    :param author: Alias or display name of user
+    :param author: Alias or display name of user.
     :type author: :class:`IdentityRef <azure.devops.v5_0.tfvc.models.IdentityRef>`
-    :param changeset_id: Id of the changeset.
+    :param changeset_id: Changeset Id.
     :type changeset_id: int
-    :param checked_in_by: Alias or display name of user
+    :param checked_in_by: Alias or display name of user.
     :type checked_in_by: :class:`IdentityRef <azure.devops.v5_0.tfvc.models.IdentityRef>`
     :param comment: Comment for the changeset.
     :type comment: str
@@ -1184,15 +1184,15 @@ class TfvcChangeset(TfvcChangesetRef):
     :type created_date: datetime
     :param url: URL to retrieve the item.
     :type url: str
-    :param account_id: Account Id of the changeset.
+    :param account_id: Changeset Account Id also known as Organization Id.
     :type account_id: str
     :param changes: List of associated changes.
     :type changes: list of :class:`TfvcChange <azure.devops.v5_0.tfvc.models.TfvcChange>`
-    :param checkin_notes: Checkin Notes for the changeset.
+    :param checkin_notes: List of Checkin Notes for the changeset.
     :type checkin_notes: list of :class:`CheckinNote <azure.devops.v5_0.tfvc.models.CheckinNote>`
-    :param collection_id: Collection Id of the changeset.
+    :param collection_id: Changeset collection Id.
     :type collection_id: str
-    :param has_more_changes: Are more changes available.
+    :param has_more_changes: True if more changes are available.
     :type has_more_changes: bool
     :param policy_override: Policy Override for the changeset.
     :type policy_override: :class:`TfvcPolicyOverrideInfo <azure.devops.v5_0.tfvc.models.TfvcPolicyOverrideInfo>`
@@ -1236,23 +1236,23 @@ class TfvcChangeset(TfvcChangesetRef):
 class TfvcLabel(TfvcLabelRef):
     """TfvcLabel.
 
-    :param _links:
+    :param _links: Collection of reference links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_0.tfvc.models.ReferenceLinks>`
-    :param description:
+    :param description: Label description.
     :type description: str
-    :param id:
+    :param id: Label Id.
     :type id: int
-    :param label_scope:
+    :param label_scope: Label scope.
     :type label_scope: str
-    :param modified_date:
+    :param modified_date: Last modified datetime for the label.
     :type modified_date: datetime
-    :param name:
+    :param name: Label name.
     :type name: str
-    :param owner:
+    :param owner: Label owner.
     :type owner: :class:`IdentityRef <azure.devops.v5_0.tfvc.models.IdentityRef>`
-    :param url:
+    :param url: Label Url.
     :type url: str
-    :param items:
+    :param items: List of items.
     :type items: list of :class:`TfvcItem <azure.devops.v5_0.tfvc.models.TfvcItem>`
     """
 
@@ -1276,29 +1276,29 @@ class TfvcLabel(TfvcLabelRef):
 class TfvcShelveset(TfvcShelvesetRef):
     """TfvcShelveset.
 
-    :param _links:
+    :param _links: List of reference links for the shelveset.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_0.tfvc.models.ReferenceLinks>`
-    :param comment:
+    :param comment: Shelveset comment.
     :type comment: str
-    :param comment_truncated:
+    :param comment_truncated: Shelveset comment truncated as applicable.
     :type comment_truncated: bool
-    :param created_date:
+    :param created_date: Shelveset create date.
     :type created_date: datetime
-    :param id:
+    :param id: Shelveset Id.
     :type id: str
-    :param name:
+    :param name: Shelveset name.
     :type name: str
-    :param owner:
+    :param owner: Shelveset Owner.
     :type owner: :class:`IdentityRef <azure.devops.v5_0.tfvc.models.IdentityRef>`
-    :param url:
+    :param url: Shelveset Url.
     :type url: str
-    :param changes:
+    :param changes: List of changes.
     :type changes: list of :class:`TfvcChange <azure.devops.v5_0.tfvc.models.TfvcChange>`
-    :param notes:
+    :param notes: List of checkin notes.
     :type notes: list of :class:`CheckinNote <azure.devops.v5_0.tfvc.models.CheckinNote>`
-    :param policy_override:
+    :param policy_override: Policy override information if applicable.
     :type policy_override: :class:`TfvcPolicyOverrideInfo <azure.devops.v5_0.tfvc.models.TfvcPolicyOverrideInfo>`
-    :param work_items:
+    :param work_items: List of associated workitems.
     :type work_items: list of :class:`AssociatedWorkItem <azure.devops.v5_0.tfvc.models.AssociatedWorkItem>`
     """
 
@@ -1334,7 +1334,7 @@ class TfvcBranch(TfvcBranchRef):
     :type _links: :class:`ReferenceLinks <azure.devops.v5_0.tfvc.models.ReferenceLinks>`
     :param created_date: Creation date of the branch.
     :type created_date: datetime
-    :param description: Description of the branch.
+    :param description: Branch description.
     :type description: str
     :param is_deleted: Is the branch deleted?
     :type is_deleted: bool

@@ -8,7 +8,7 @@
 
 from msrest import Serializer, Deserializer
 from ...client import Client
-from ...v5_0.security import models
+from ...v5_1.security import models
 
 
 class SecurityClient(Client):
@@ -43,7 +43,7 @@ class SecurityClient(Client):
             query_parameters['descriptors'] = self._serialize.query('descriptors', descriptors, 'str')
         response = self._send(http_method='DELETE',
                               location_id='ac08c8ff-4323-4b08-af90-bcd018d380ce',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('bool', response)
@@ -51,7 +51,7 @@ class SecurityClient(Client):
     def set_access_control_entries(self, container, security_namespace_id):
         """SetAccessControlEntries.
         Add or update ACEs in the ACL for the provided token. The request body contains the target token, a list of [ACEs](https://docs.microsoft.com/en-us/rest/api/azure/devops/security/access%20control%20entries/set%20access%20control%20entries?#accesscontrolentry) and a optional merge parameter. In the case of a collision (by identity descriptor) with an existing ACE in the ACL, the "merge" parameter determines the behavior. If set, the existing ACE has its allow and deny merged with the incoming ACE's allow and deny. If unset, the existing ACE is displaced.
-        :param :class:`<object> <azure.devops.v5_0.security.models.object>` container:
+        :param :class:`<object> <azure.devops.v5_1.security.models.object>` container:
         :param str security_namespace_id: Security namespace identifier.
         :rtype: [AccessControlEntry]
         """
@@ -61,7 +61,7 @@ class SecurityClient(Client):
         content = self._serialize.body(container, 'object')
         response = self._send(http_method='POST',
                               location_id='ac08c8ff-4323-4b08-af90-bcd018d380ce',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('[AccessControlEntry]', self._unwrap_collection(response))
@@ -90,7 +90,7 @@ class SecurityClient(Client):
             query_parameters['recurse'] = self._serialize.query('recurse', recurse, 'bool')
         response = self._send(http_method='GET',
                               location_id='18a2ad18-7571-46ae-bec7-0c7da1495885',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[AccessControlList]', self._unwrap_collection(response))
@@ -113,7 +113,7 @@ class SecurityClient(Client):
             query_parameters['recurse'] = self._serialize.query('recurse', recurse, 'bool')
         response = self._send(http_method='DELETE',
                               location_id='18a2ad18-7571-46ae-bec7-0c7da1495885',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('bool', response)
@@ -121,7 +121,7 @@ class SecurityClient(Client):
     def set_access_control_lists(self, access_control_lists, security_namespace_id):
         """SetAccessControlLists.
         Create or update one or more access control lists. All data that currently exists for the ACLs supplied will be overwritten.
-        :param :class:`<VssJsonCollectionWrapper> <azure.devops.v5_0.security.models.VssJsonCollectionWrapper>` access_control_lists: A list of ACLs to create or update.
+        :param :class:`<VssJsonCollectionWrapper> <azure.devops.v5_1.security.models.VssJsonCollectionWrapper>` access_control_lists: A list of ACLs to create or update.
         :param str security_namespace_id: Security namespace identifier.
         """
         route_values = {}
@@ -130,20 +130,20 @@ class SecurityClient(Client):
         content = self._serialize.body(access_control_lists, 'VssJsonCollectionWrapper')
         self._send(http_method='POST',
                    location_id='18a2ad18-7571-46ae-bec7-0c7da1495885',
-                   version='5.0',
+                   version='5.1',
                    route_values=route_values,
                    content=content)
 
     def has_permissions_batch(self, eval_batch):
         """HasPermissionsBatch.
         Evaluates multiple permissions for the calling user.  Note: This method does not aggregate the results, nor does it short-circuit if one of the permissions evaluates to false.
-        :param :class:`<PermissionEvaluationBatch> <azure.devops.v5_0.security.models.PermissionEvaluationBatch>` eval_batch: The set of evaluation requests.
-        :rtype: :class:`<PermissionEvaluationBatch> <azure.devops.v5_0.security.models.PermissionEvaluationBatch>`
+        :param :class:`<PermissionEvaluationBatch> <azure.devops.v5_1.security.models.PermissionEvaluationBatch>` eval_batch: The set of evaluation requests.
+        :rtype: :class:`<PermissionEvaluationBatch> <azure.devops.v5_1.security.models.PermissionEvaluationBatch>`
         """
         content = self._serialize.body(eval_batch, 'PermissionEvaluationBatch')
         response = self._send(http_method='POST',
                               location_id='cf1faa59-1b63-4448-bf04-13d981a46f5d',
-                              version='5.0',
+                              version='5.1',
                               content=content)
         return self._deserialize('PermissionEvaluationBatch', response)
 
@@ -171,7 +171,7 @@ class SecurityClient(Client):
             query_parameters['delimiter'] = self._serialize.query('delimiter', delimiter, 'str')
         response = self._send(http_method='GET',
                               location_id='dd3b8bd6-c7fc-4cbd-929a-933d9c011c9d',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[bool]', self._unwrap_collection(response))
@@ -183,7 +183,7 @@ class SecurityClient(Client):
         :param str descriptor: Identity descriptor of the user to remove permissions for.
         :param int permissions: Permissions to remove.
         :param str token: Security token to remove permissions for.
-        :rtype: :class:`<AccessControlEntry> <azure.devops.v5_0.security.models.AccessControlEntry>`
+        :rtype: :class:`<AccessControlEntry> <azure.devops.v5_1.security.models.AccessControlEntry>`
         """
         route_values = {}
         if security_namespace_id is not None:
@@ -197,7 +197,7 @@ class SecurityClient(Client):
             query_parameters['token'] = self._serialize.query('token', token, 'str')
         response = self._send(http_method='DELETE',
                               location_id='dd3b8bd6-c7fc-4cbd-929a-933d9c011c9d',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('AccessControlEntry', response)
@@ -217,7 +217,7 @@ class SecurityClient(Client):
             query_parameters['localOnly'] = self._serialize.query('local_only', local_only, 'bool')
         response = self._send(http_method='GET',
                               location_id='ce7b9f95-fde9-4be8-a86d-83b366f0b87a',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[SecurityNamespaceDescription]', self._unwrap_collection(response))

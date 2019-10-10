@@ -6,18 +6,22 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.core.models import *
+from ...v5_1.core.models import *
 from .core_client import CoreClient
 
 __all__ = [
     'GraphSubjectBase',
+    'Identity',
+    'IdentityBase',
     'IdentityData',
     'IdentityRef',
     'JsonPatchOperation',
     'OperationReference',
     'Process',
     'ProcessReference',
+    'ProjectAvatar',
     'ProjectInfo',
+    'ProjectProperties',
     'ProjectProperty',
     'Proxy',
     'ProxyAuthorization',

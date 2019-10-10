@@ -6,7 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.release.models import *
+from ...v5_1.release.models import *
 from .release_client import ReleaseClient
 
 __all__ = [
@@ -23,6 +23,7 @@ __all__ = [
     'AutoTriggerIssue',
     'BuildVersion',
     'Change',
+    'ComplianceSettings',
     'Condition',
     'ConfigurationVariableValue',
     'DataSourceBindingBase',

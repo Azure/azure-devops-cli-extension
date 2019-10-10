@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class SessionRequest(Model):
-    """SessionRequest.
-
+    """
     :param data: Generic property bag to store data about the session
     :type data: dict
     :param feed: The feed name or id for the session
@@ -34,8 +33,7 @@ class SessionRequest(Model):
 
 
 class SessionResponse(Model):
-    """SessionResponse.
-
+    """
     :param session_id: The unique identifier for the session
     :type session_id: str
     :param session_name: The name for the session

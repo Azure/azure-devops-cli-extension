@@ -6,11 +6,12 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.build.models import *
+from ...v5_1.build.models import *
 from .build_client import BuildClient
 
 __all__ = [
     'AgentPoolQueue',
+    'AgentSpecification',
     'AggregatedResultsAnalysis',
     'AggregatedResultsByOutcome',
     'AggregatedResultsDifference',

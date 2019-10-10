@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class ConfigurationFile(Model):
-    """ConfigurationFile.
-
+    """
     :param content: The content of the file.
     :type content: str
     :param is_base64_encoded: Indicates if the content is base64 encoded.
@@ -34,8 +33,7 @@ class ConfigurationFile(Model):
 
 
 class CreatedResources(Model):
-    """CreatedResources.
-
+    """
     :param resources:
     :type resources: dict
     """
@@ -50,7 +48,8 @@ class CreatedResources(Model):
 
 
 class CreatePipelineConnectionInputs(Model):
-    """CreatePipelineConnectionInputs.
+    """
+    This class is used to create a pipeline connection within the team project provided. If the team project does not exist, it will be created.
 
     :param project: The team project settings for an existing team project or for a new team project.
     :type project: :class:`TeamProject <azure.devops.v5_1.pipelines.models.TeamProject>`
@@ -82,8 +81,7 @@ class CreatePipelineConnectionInputs(Model):
 
 
 class DetectedBuildFramework(Model):
-    """DetectedBuildFramework.
-
+    """
     :param build_targets: List of build targets discovered for the framework to act upon.
     :type build_targets: list of :class:`DetectedBuildTarget <azure.devops.v5_1.pipelines.models.DetectedBuildTarget>`
     :param id: The unique identifier of the build framework.
@@ -110,8 +108,7 @@ class DetectedBuildFramework(Model):
 
 
 class DetectedBuildTarget(Model):
-    """DetectedBuildTarget.
-
+    """
     :param path:
     :type path: str
     :param settings:
@@ -134,7 +131,8 @@ class DetectedBuildTarget(Model):
 
 
 class OperationReference(Model):
-    """OperationReference.
+    """
+    Reference for an async operation.
 
     :param id: Unique identifier for the operation.
     :type id: str
@@ -162,8 +160,7 @@ class OperationReference(Model):
 
 
 class OperationResultReference(Model):
-    """OperationResultReference.
-
+    """
     :param result_url: URL to the operation result.
     :type result_url: str
     """
@@ -178,8 +175,7 @@ class OperationResultReference(Model):
 
 
 class PipelineConnection(Model):
-    """PipelineConnection.
-
+    """
     :param account_id: The account id that contains the team project for the connection.
     :type account_id: str
     :param definition_id: The definition id that was created for the connection.
@@ -210,7 +206,8 @@ class PipelineConnection(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -226,8 +223,7 @@ class ReferenceLinks(Model):
 
 
 class ResourceCreationParameter(Model):
-    """ResourceCreationParameter.
-
+    """
     :param resource_to_create:
     :type resource_to_create: :class:`object <azure.devops.v5_1.pipelines.models.object>`
     :param type:
@@ -246,7 +242,8 @@ class ResourceCreationParameter(Model):
 
 
 class TeamProjectReference(Model):
-    """TeamProjectReference.
+    """
+    Represents a shallow reference to a TeamProject.
 
     :param abbreviation: Project abbreviation.
     :type abbreviation: str
@@ -298,12 +295,13 @@ class TeamProjectReference(Model):
 
 
 class Template(Model):
-    """Template.
-
+    """
     :param assets:
     :type assets: list of :class:`TemplateAsset <azure.devops.v5_1.pipelines.models.TemplateAsset>`
     :param content:
     :type content: str
+    :param data_source_bindings:
+    :type data_source_bindings: list of :class:`TemplateDataSourceBinding <azure.devops.v5_1.pipelines.models.TemplateDataSourceBinding>`
     :param description:
     :type description: str
     :param icon_url:
@@ -321,6 +319,7 @@ class Template(Model):
     _attribute_map = {
         'assets': {'key': 'assets', 'type': '[TemplateAsset]'},
         'content': {'key': 'content', 'type': 'str'},
+        'data_source_bindings': {'key': 'dataSourceBindings', 'type': '[TemplateDataSourceBinding]'},
         'description': {'key': 'description', 'type': 'str'},
         'icon_url': {'key': 'iconUrl', 'type': 'str'},
         'id': {'key': 'id', 'type': 'str'},
@@ -329,10 +328,11 @@ class Template(Model):
         'recommended_weight': {'key': 'recommendedWeight', 'type': 'int'}
     }
 
-    def __init__(self, assets=None, content=None, description=None, icon_url=None, id=None, name=None, parameters=None, recommended_weight=None):
+    def __init__(self, assets=None, content=None, data_source_bindings=None, description=None, icon_url=None, id=None, name=None, parameters=None, recommended_weight=None):
         super(Template, self).__init__()
         self.assets = assets
         self.content = content
+        self.data_source_bindings = data_source_bindings
         self.description = description
         self.icon_url = icon_url
         self.id = id
@@ -342,8 +342,7 @@ class Template(Model):
 
 
 class TemplateAsset(Model):
-    """TemplateAsset.
-
+    """
     :param content:
     :type content: str
     :param description:
@@ -373,15 +372,47 @@ class TemplateAsset(Model):
         self.type = type
 
 
-class TemplateParameterDefinition(Model):
-    """TemplateParameterDefinition.
+class TemplateDataSourceBinding(Model):
+    """
+    :param data_source_name:
+    :type data_source_name: str
+    :param endpoint_parameter_name:
+    :type endpoint_parameter_name: str
+    :param parameters:
+    :type parameters: dict
+    :param result_template:
+    :type result_template: str
+    :param target:
+    :type target: str
+    """
 
+    _attribute_map = {
+        'data_source_name': {'key': 'dataSourceName', 'type': 'str'},
+        'endpoint_parameter_name': {'key': 'endpointParameterName', 'type': 'str'},
+        'parameters': {'key': 'parameters', 'type': '{str}'},
+        'result_template': {'key': 'resultTemplate', 'type': 'str'},
+        'target': {'key': 'target', 'type': 'str'}
+    }
+
+    def __init__(self, data_source_name=None, endpoint_parameter_name=None, parameters=None, result_template=None, target=None):
+        super(TemplateDataSourceBinding, self).__init__()
+        self.data_source_name = data_source_name
+        self.endpoint_parameter_name = endpoint_parameter_name
+        self.parameters = parameters
+        self.result_template = result_template
+        self.target = target
+
+
+class TemplateParameterDefinition(Model):
+    """
     :param default_value:
     :type default_value: str
     :param display_name:
     :type display_name: str
     :param name:
     :type name: str
+    :param possible_values:
+    :type possible_values: list of str
     :param required:
     :type required: bool
     :param type:
@@ -392,22 +423,23 @@ class TemplateParameterDefinition(Model):
         'default_value': {'key': 'defaultValue', 'type': 'str'},
         'display_name': {'key': 'displayName', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
+        'possible_values': {'key': 'possibleValues', 'type': '[str]'},
         'required': {'key': 'required', 'type': 'bool'},
         'type': {'key': 'type', 'type': 'str'}
     }
 
-    def __init__(self, default_value=None, display_name=None, name=None, required=None, type=None):
+    def __init__(self, default_value=None, display_name=None, name=None, possible_values=None, required=None, type=None):
         super(TemplateParameterDefinition, self).__init__()
         self.default_value = default_value
         self.display_name = display_name
         self.name = name
+        self.possible_values = possible_values
         self.required = required
         self.type = type
 
 
 class TemplateParameters(Model):
-    """TemplateParameters.
-
+    """
     :param tokens:
     :type tokens: dict
     """
@@ -422,8 +454,7 @@ class TemplateParameters(Model):
 
 
 class WebApiTeamRef(Model):
-    """WebApiTeamRef.
-
+    """
     :param id: Team (Identity) Guid. A Team Foundation ID.
     :type id: str
     :param name: Team name
@@ -446,7 +477,8 @@ class WebApiTeamRef(Model):
 
 
 class Operation(OperationReference):
-    """Operation.
+    """
+    Contains information about the progress or result of an async operation.
 
     :param id: Unique identifier for the operation.
     :type id: str
@@ -486,7 +518,8 @@ class Operation(OperationReference):
 
 
 class TeamProject(TeamProjectReference):
-    """TeamProject.
+    """
+    Represents a Team Project object.
 
     :param abbreviation: Project abbreviation.
     :type abbreviation: str
@@ -553,6 +586,7 @@ __all__ = [
     'TeamProjectReference',
     'Template',
     'TemplateAsset',
+    'TemplateDataSourceBinding',
     'TemplateParameterDefinition',
     'TemplateParameters',
     'WebApiTeamRef',

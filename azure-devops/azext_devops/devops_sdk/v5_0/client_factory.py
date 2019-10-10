@@ -246,6 +246,13 @@ class ClientFactoryV5_0(object):
         """
         return self._connection.get_client('azure.devops.v5_0.release.release_client.ReleaseClient')
 
+    def get_search_client(self):
+        """get_search_client.
+        Gets the 5.0 version of the SearchClient
+        :rtype: :class:`<SearchClient> <azure.devops.v5_0.search.search_client.SearchClient>`
+        """
+        return self._connection.get_client('azure.devops.v5_0.search.search_client.SearchClient')
+
     def get_security_client(self):
         """get_security_client.
         Gets the 5.0 version of the SecurityClient
@@ -308,6 +315,20 @@ class ClientFactoryV5_0(object):
         :rtype: :class:`<TfvcClient> <azure.devops.v5_0.tfvc.tfvc_client.TfvcClient>`
         """
         return self._connection.get_client('azure.devops.v5_0.tfvc.tfvc_client.TfvcClient')
+
+    def get_token_admin_client(self):
+        """get_token_admin_client.
+        Gets the 5.0 version of the TokenAdminClient
+        :rtype: :class:`<TokenAdminClient> <azure.devops.v5_0.token_admin.token_admin_client.TokenAdminClient>`
+        """
+        return self._connection.get_client('azure.devops.v5_0.token_admin.token_admin_client.TokenAdminClient')
+
+    def get_token_administration_client(self):
+        """get_token_administration_client.
+        Gets the 5.0 version of the TokenAdministrationClient
+        :rtype: :class:`<TokenAdministrationClient> <azure.devops.v5_0.token_administration.token_administration_client.TokenAdministrationClient>`
+        """
+        return self._connection.get_client('azure.devops.v5_0.token_administration.token_administration_client.TokenAdministrationClient')
 
     def get_upack_api_client(self):
         """get_upack_api_client.

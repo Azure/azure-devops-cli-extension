@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class Dashboard(Model):
-    """Dashboard.
+    """
+    Model of a Dashboard.
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.dashboard.models.ReferenceLinks>`
@@ -62,7 +63,8 @@ class Dashboard(Model):
 
 
 class DashboardGroup(Model):
-    """DashboardGroup.
+    """
+    Describes a list of dashboards associated to an owner. Currently, teams own dashboard groups.
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.dashboard.models.ReferenceLinks>`
@@ -94,7 +96,8 @@ class DashboardGroup(Model):
 
 
 class DashboardGroupEntry(Dashboard):
-    """DashboardGroupEntry.
+    """
+    Dashboard group entry, wrapping around Dashboard (needed?)
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.dashboard.models.ReferenceLinks>`
@@ -136,7 +139,8 @@ class DashboardGroupEntry(Dashboard):
 
 
 class DashboardGroupEntryResponse(DashboardGroupEntry):
-    """DashboardGroupEntryResponse.
+    """
+    Response from RestAPI when saving and editing DashboardGroupEntry
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.dashboard.models.ReferenceLinks>`
@@ -178,8 +182,7 @@ class DashboardGroupEntryResponse(DashboardGroupEntry):
 
 
 class DashboardResponse(DashboardGroupEntry):
-    """DashboardResponse.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.dashboard.models.ReferenceLinks>`
     :param description: Description of the dashboard.
@@ -220,7 +223,8 @@ class DashboardResponse(DashboardGroupEntry):
 
 
 class LightboxOptions(Model):
-    """LightboxOptions.
+    """
+    Lightbox configuration
 
     :param height: Height of desired lightbox, in pixels
     :type height: int
@@ -244,7 +248,8 @@ class LightboxOptions(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -260,7 +265,8 @@ class ReferenceLinks(Model):
 
 
 class SemanticVersion(Model):
-    """SemanticVersion.
+    """
+    versioning for an artifact as described at: http://semver.org/, of the form major.minor.patch.
 
     :param major: Major version when you make incompatible API changes
     :type major: int
@@ -284,7 +290,8 @@ class SemanticVersion(Model):
 
 
 class TeamContext(Model):
-    """TeamContext.
+    """
+    The Team Context for an operation.
 
     :param project: The team project Id or name.  Ignored if ProjectId is set.
     :type project: str
@@ -312,7 +319,8 @@ class TeamContext(Model):
 
 
 class Widget(Model):
-    """Widget.
+    """
+    Widget data
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.dashboard.models.ReferenceLinks>`
@@ -412,7 +420,8 @@ class Widget(Model):
 
 
 class WidgetMetadata(Model):
-    """WidgetMetadata.
+    """
+    Contribution based information describing Dashboard Widgets.
 
     :param allowed_sizes: Sizes supported by the Widget.
     :type allowed_sizes: list of :class:`WidgetSize <azure.devops.v5_1.dashboard.models.WidgetSize>`
@@ -508,8 +517,7 @@ class WidgetMetadata(Model):
 
 
 class WidgetMetadataResponse(Model):
-    """WidgetMetadataResponse.
-
+    """
     :param uri:
     :type uri: str
     :param widget_metadata:
@@ -528,8 +536,7 @@ class WidgetMetadataResponse(Model):
 
 
 class WidgetPosition(Model):
-    """WidgetPosition.
-
+    """
     :param column:
     :type column: int
     :param row:
@@ -548,7 +555,8 @@ class WidgetPosition(Model):
 
 
 class WidgetResponse(Widget):
-    """WidgetResponse.
+    """
+    Response from RestAPI when saving and editing Widget
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.dashboard.models.ReferenceLinks>`
@@ -626,8 +634,7 @@ class WidgetResponse(Widget):
 
 
 class WidgetSize(Model):
-    """WidgetSize.
-
+    """
     :param column_span: The Width of the widget, expressed in dashboard grid columns.
     :type column_span: int
     :param row_span: The height of the widget, expressed in dashboard grid rows.
@@ -646,7 +653,8 @@ class WidgetSize(Model):
 
 
 class WidgetsVersionedList(Model):
-    """WidgetsVersionedList.
+    """
+    Wrapper class to support HTTP header generation using CreateResponse, ClientHeaderParameter and ClientResponseType in WidgetV2Controller
 
     :param eTag:
     :type eTag: list of str
@@ -666,8 +674,7 @@ class WidgetsVersionedList(Model):
 
 
 class WidgetTypesResponse(Model):
-    """WidgetTypesResponse.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.dashboard.models.ReferenceLinks>`
     :param uri:

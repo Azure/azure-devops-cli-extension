@@ -9,9 +9,15 @@
             "program": "${workspaceRoot}/scripts/run_az.py",
             "cwd": "${workspaceRoot}/azure-devops/",
             "args": [
-                "repos",
+                "devops",
+                "project",
                 "list",
-                "--debug"
+                "--org",
+                "https://dev.azure.com/mseng/",
+                "--state-filter",
+                "all",
+                "-o",
+                "json"
             ],
             "console": "integratedTerminal",
             "debugOptions": [

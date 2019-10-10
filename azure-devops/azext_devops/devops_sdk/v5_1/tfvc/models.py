@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class AssociatedWorkItem(Model):
-    """AssociatedWorkItem.
-
+    """
     :param assigned_to:
     :type assigned_to: str
     :param id: Id of associated the work item.
@@ -50,8 +49,7 @@ class AssociatedWorkItem(Model):
 
 
 class Change(Model):
-    """Change.
-
+    """
     :param change_type: The type of change that was made to the item.
     :type change_type: object
     :param item: Current version.
@@ -82,8 +80,7 @@ class Change(Model):
 
 
 class CheckinNote(Model):
-    """CheckinNote.
-
+    """
     :param name:
     :type name: str
     :param value:
@@ -102,8 +99,7 @@ class CheckinNote(Model):
 
 
 class FileContentMetadata(Model):
-    """FileContentMetadata.
-
+    """
     :param content_type:
     :type content_type: str
     :param encoding:
@@ -142,8 +138,7 @@ class FileContentMetadata(Model):
 
 
 class GitRepository(Model):
-    """GitRepository.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.tfvc.models.ReferenceLinks>`
     :param default_branch:
@@ -206,8 +201,7 @@ class GitRepository(Model):
 
 
 class GitRepositoryRef(Model):
-    """GitRepositoryRef.
-
+    """
     :param collection: Team Project Collection where this Fork resides
     :type collection: :class:`TeamProjectCollectionReference <azure.devops.v5_1.tfvc.models.TeamProjectCollectionReference>`
     :param id:
@@ -250,8 +244,7 @@ class GitRepositoryRef(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -278,8 +271,7 @@ class GraphSubjectBase(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -338,8 +330,7 @@ class IdentityRef(GraphSubjectBase):
 
 
 class ItemContent(Model):
-    """ItemContent.
-
+    """
     :param content:
     :type content: str
     :param content_type:
@@ -358,8 +349,7 @@ class ItemContent(Model):
 
 
 class ItemModel(Model):
-    """ItemModel.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.tfvc.models.ReferenceLinks>`
     :param content:
@@ -398,7 +388,8 @@ class ItemModel(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -414,7 +405,8 @@ class ReferenceLinks(Model):
 
 
 class TeamProjectCollectionReference(Model):
-    """TeamProjectCollectionReference.
+    """
+    Reference object for a TeamProjectCollection.
 
     :param id: Collection Id.
     :type id: str
@@ -438,7 +430,8 @@ class TeamProjectCollectionReference(Model):
 
 
 class TeamProjectReference(Model):
-    """TeamProjectReference.
+    """
+    Represents a shallow reference to a TeamProject.
 
     :param abbreviation: Project abbreviation.
     :type abbreviation: str
@@ -490,8 +483,7 @@ class TeamProjectReference(Model):
 
 
 class TfvcBranchMapping(Model):
-    """TfvcBranchMapping.
-
+    """
     :param depth: Depth of the branch.
     :type depth: str
     :param server_item: Server item for the branch.
@@ -514,8 +506,7 @@ class TfvcBranchMapping(Model):
 
 
 class TfvcChange(Change):
-    """TfvcChange.
-
+    """
     :param merge_sources: List of merge sources in case of rename or branch creation.
     :type merge_sources: list of :class:`TfvcMergeSource <azure.devops.v5_1.tfvc.models.TfvcMergeSource>`
     :param pending_version: Version at which a (shelved) change was pended against
@@ -534,8 +525,7 @@ class TfvcChange(Change):
 
 
 class TfvcChangesetRef(Model):
-    """TfvcChangesetRef.
-
+    """
     :param _links: A collection of REST reference links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.tfvc.models.ReferenceLinks>`
     :param author: Alias or display name of user
@@ -578,7 +568,8 @@ class TfvcChangesetRef(Model):
 
 
 class TfvcChangesetSearchCriteria(Model):
-    """TfvcChangesetSearchCriteria.
+    """
+    Criteria used in a search for change lists
 
     :param author: Alias or display name of user who made the changes
     :type author: str
@@ -626,8 +617,7 @@ class TfvcChangesetSearchCriteria(Model):
 
 
 class TfvcChangesetsRequestData(Model):
-    """TfvcChangesetsRequestData.
-
+    """
     :param changeset_ids: List of changeset Ids.
     :type changeset_ids: list of int
     :param comment_length: Length of the comment.
@@ -650,8 +640,7 @@ class TfvcChangesetsRequestData(Model):
 
 
 class TfvcItem(ItemModel):
-    """TfvcItem.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.tfvc.models.ReferenceLinks>`
     :param content:
@@ -715,7 +704,8 @@ class TfvcItem(ItemModel):
 
 
 class TfvcItemDescriptor(Model):
-    """TfvcItemDescriptor.
+    """
+    Item path and Version descriptor properties
 
     :param path:
     :type path: str
@@ -747,8 +737,7 @@ class TfvcItemDescriptor(Model):
 
 
 class TfvcItemRequestData(Model):
-    """TfvcItemRequestData.
-
+    """
     :param include_content_metadata: If true, include metadata about the file type
     :type include_content_metadata: bool
     :param include_links: Whether to include the _links field on the shallow references
@@ -771,8 +760,7 @@ class TfvcItemRequestData(Model):
 
 
 class TfvcLabelRef(Model):
-    """TfvcLabelRef.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.tfvc.models.ReferenceLinks>`
     :param description:
@@ -815,8 +803,7 @@ class TfvcLabelRef(Model):
 
 
 class TfvcLabelRequestData(Model):
-    """TfvcLabelRequestData.
-
+    """
     :param include_links: Whether to include the _links field on the shallow references
     :type include_links: bool
     :param item_label_filter:
@@ -851,8 +838,7 @@ class TfvcLabelRequestData(Model):
 
 
 class TfvcMappingFilter(Model):
-    """TfvcMappingFilter.
-
+    """
     :param exclude:
     :type exclude: bool
     :param server_path:
@@ -871,8 +857,7 @@ class TfvcMappingFilter(Model):
 
 
 class TfvcMergeSource(Model):
-    """TfvcMergeSource.
-
+    """
     :param is_rename: Indicates if this a rename source. If false, it is a merge source.
     :type is_rename: bool
     :param server_item: The server item of the merge source
@@ -899,8 +884,7 @@ class TfvcMergeSource(Model):
 
 
 class TfvcPolicyFailureInfo(Model):
-    """TfvcPolicyFailureInfo.
-
+    """
     :param message:
     :type message: str
     :param policy_name:
@@ -919,8 +903,7 @@ class TfvcPolicyFailureInfo(Model):
 
 
 class TfvcPolicyOverrideInfo(Model):
-    """TfvcPolicyOverrideInfo.
-
+    """
     :param comment:
     :type comment: str
     :param policy_failures:
@@ -939,8 +922,7 @@ class TfvcPolicyOverrideInfo(Model):
 
 
 class TfvcShallowBranchRef(Model):
-    """TfvcShallowBranchRef.
-
+    """
     :param path: Path for the branch.
     :type path: str
     """
@@ -955,7 +937,8 @@ class TfvcShallowBranchRef(Model):
 
 
 class TfvcShelvesetRef(Model):
-    """TfvcShelvesetRef.
+    """
+    This is the shallow shelveset class
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.tfvc.models.ReferenceLinks>`
@@ -999,8 +982,7 @@ class TfvcShelvesetRef(Model):
 
 
 class TfvcShelvesetRequestData(Model):
-    """TfvcShelvesetRequestData.
-
+    """
     :param include_details: Whether to include policyOverride and notes Only applies when requesting a single deep shelveset
     :type include_details: bool
     :param include_links: Whether to include the _links field on the shallow references. Does not apply when requesting a single deep shelveset object. Links will always be included in the deep shelveset.
@@ -1039,8 +1021,7 @@ class TfvcShelvesetRequestData(Model):
 
 
 class TfvcStatistics(Model):
-    """TfvcStatistics.
-
+    """
     :param changeset_id: Id of the last changeset the stats are based on.
     :type changeset_id: int
     :param file_count_total: Count of files at the requested scope.
@@ -1059,8 +1040,7 @@ class TfvcStatistics(Model):
 
 
 class TfvcVersionDescriptor(Model):
-    """TfvcVersionDescriptor.
-
+    """
     :param version:
     :type version: str
     :param version_option:
@@ -1083,8 +1063,7 @@ class TfvcVersionDescriptor(Model):
 
 
 class VersionControlProjectInfo(Model):
-    """VersionControlProjectInfo.
-
+    """
     :param default_source_control_type:
     :type default_source_control_type: object
     :param project:
@@ -1111,8 +1090,7 @@ class VersionControlProjectInfo(Model):
 
 
 class VstsInfo(Model):
-    """VstsInfo.
-
+    """
     :param collection:
     :type collection: :class:`TeamProjectCollectionReference <azure.devops.v5_1.tfvc.models.TeamProjectCollectionReference>`
     :param repository:
@@ -1135,8 +1113,7 @@ class VstsInfo(Model):
 
 
 class TfvcBranchRef(TfvcShallowBranchRef):
-    """TfvcBranchRef.
-
+    """
     :param path: Path for the branch.
     :type path: str
     :param _links: A collection of REST reference links.
@@ -1174,8 +1151,7 @@ class TfvcBranchRef(TfvcShallowBranchRef):
 
 
 class TfvcChangeset(TfvcChangesetRef):
-    """TfvcChangeset.
-
+    """
     :param _links: A collection of REST reference links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.tfvc.models.ReferenceLinks>`
     :param author: Alias or display name of user
@@ -1242,8 +1218,7 @@ class TfvcChangeset(TfvcChangesetRef):
 
 
 class TfvcLabel(TfvcLabelRef):
-    """TfvcLabel.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.tfvc.models.ReferenceLinks>`
     :param description:
@@ -1282,7 +1257,8 @@ class TfvcLabel(TfvcLabelRef):
 
 
 class TfvcShelveset(TfvcShelvesetRef):
-    """TfvcShelveset.
+    """
+    This is the deep shelveset class
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.tfvc.models.ReferenceLinks>`
@@ -1334,8 +1310,7 @@ class TfvcShelveset(TfvcShelvesetRef):
 
 
 class TfvcBranch(TfvcBranchRef):
-    """TfvcBranch.
-
+    """
     :param path: Path for the branch.
     :type path: str
     :param _links: A collection of REST reference links.
