@@ -5,6 +5,7 @@
 
 import os
 import unittest
+import json
 
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
@@ -38,6 +39,8 @@ class DevopsProjectTests(DevopsScenarioTest):
             verified_project_list = False
             assert len(list_project_output) > 1
             for project in list_project_output:
+                print("Printing object")
+                print(json.dumps(project))
                 if (project["id"] == created_project_id):
                     verified_project_list = True
             assert verified_project_list == True
