@@ -38,7 +38,7 @@ class DevopsProjectTests(DevopsScenarioTest):
             verified_project_list = False
             assert len(list_project_output) > 1
             for project in list_project_output:
-                if (project["id"] == created_project_id):
+                if (project.id == created_project_id):
                     verified_project_list = True
             assert verified_project_list == True
             
@@ -56,6 +56,6 @@ class DevopsProjectTests(DevopsScenarioTest):
             list_project_command = 'az devops project list --output json'
             list_project_output_after_delete = self.cmd(list_project_command).get_output_in_json()
             for project in list_project_output_after_delete:
-                if (project["id"] == created_project_id):
+                if (project.id == created_project_id):
                     assert 0
             
