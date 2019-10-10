@@ -120,7 +120,13 @@ def show_project(project, organization=None, detect=None, open=False):  # pylint
     return team_project
 
 
-def list_projects(organization=None, top=None, skip=None, state_filter=None, continuation_token=None, get_default_team_image_url=None, detect=None):
+def list_projects(organization=None,
+                  top=None, 
+                  skip=None, 
+                  state_filter=None, 
+                  continuation_token=None, 
+                  get_default_team_image_url=None, 
+                  detect=None):
     """List team projects
     :param top: Maximum number of results to list.
     :type top: int
