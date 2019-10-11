@@ -43,7 +43,7 @@ class DevopsProjectTests(DevopsScenarioTest):
             print(list_project_output['value'])
             verified_project_list = False
             assert len(list_project_output['value']) > 1
-            for project in list_project_output.value:
+            for project in list_project_output['value']:
                 if (project["id"] == created_project_id):
                     verified_project_list = True
             assert verified_project_list == True
