@@ -37,10 +37,10 @@ class DevopsProjectTests(DevopsScenarioTest):
             list_project_command = 'az devops project list --output json'
             list_project_output = self.cmd(list_project_command).get_output_in_json()
             print("Printing list_project_output")
-            print(json.dumps(list_project_output))
+            print(json.dumps(list_project_output.value))
             verified_project_list = False
-            assert len(list_project_output) > 1
-            for project in list_project_output:
+            assert len(list_project_output.value) > 1
+            for project in list_project_output.value:
                 print("Printing object")
                 print(json.dumps(project))
                 if (project["id"] == created_project_id):
