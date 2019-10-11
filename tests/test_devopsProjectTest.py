@@ -36,11 +36,6 @@ class DevopsProjectTests(DevopsScenarioTest):
             
             list_project_command = 'az devops project list --output json'
             list_project_output = self.cmd(list_project_command).get_output_in_json()
-            print("PRINT LIST PROJECT OUTPUT")
-            print(list_project_output)
-            print(json.dumps(list_project_output))
-            print("PRINT LIST PROJECT OUTPUT VALUE")
-            print(list_project_output['value'])
             verified_project_list = False
             assert len(list_project_output['value']) > 1
             for project in list_project_output['value']:
@@ -61,11 +56,6 @@ class DevopsProjectTests(DevopsScenarioTest):
             #Verify Deletion
             list_project_command = 'az devops project list --output json'
             list_project_output_after_delete = self.cmd(list_project_command).get_output_in_json()
-            print("PRINT LIST PROJECT OUTPUT AFTER DELETE")
-            print(list_project_output_after_delete)
-            print(json.dumps(list_project_output_after_delete))
-            print("PRINT LIST PROJECT OUTPUT VALUE")
-            print(list_project_output_after_delete['value'])
             for project in list_project_output_after_delete['value']:
                 if (project["id"] == created_project_id):
                     assert 0
