@@ -19,4 +19,4 @@ class TestInvoke(DevopsScenarioTest):
 
         projects_classic = self.cmd('az devops project list -o json').get_output_in_json()
         projects = self.cmd('az devops invoke --area core --resource projects -o json').get_output_in_json()['value']
-        assert len(projects['value']) == len(projects_classic)
+        assert len(projects) == len(projects_classic['value'])
