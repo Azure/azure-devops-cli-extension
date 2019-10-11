@@ -39,6 +39,8 @@ class DevopsProjectTests(DevopsScenarioTest):
             print("PRINT LIST PROJECT OUTPUT")
             print(list_project_output)
             print(json.dumps(list_project_output))
+            print("PRINT LIST PROJECT OUTPUT VALUE")
+            print(list_project_output['value'])
             verified_project_list = False
             assert len(list_project_output.value) > 1
             for project in list_project_output.value:
@@ -62,6 +64,8 @@ class DevopsProjectTests(DevopsScenarioTest):
             print("PRINT LIST PROJECT OUTPUT AFTER DELETE")
             print(list_project_output)
             print(json.dumps(list_project_output))
+            print("PRINT LIST PROJECT OUTPUT VALUE")
+            print(list_project_output['value'])
             for project in list_project_output_after_delete.value:
                 if (project["id"] == created_project_id):
                     assert 0
