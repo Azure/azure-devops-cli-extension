@@ -123,7 +123,7 @@ def show_project(project, organization=None, detect=None, open=False):  # pylint
 def list_projects(organization=None,
                   top=None,
                   skip=None,
-                  state_filter=None,
+                  state_filter='all',
                   continuation_token=None,
                   get_default_team_image_url=None,
                   detect=None):
@@ -134,9 +134,6 @@ def list_projects(organization=None,
     :type skip: int
     :rtype: list of :class:`<TeamProject> <v5_0.core.models.TeamProject>`
     """
-    if state_filter is None:
-        state_filter = 'all'   # this is being done to maintain back compat
-
     organization = resolve_instance(detect=detect, organization=organization)
     core_client = get_core_client_v51(organization)
     team_projects = core_client.get_projects(state_filter=state_filter,
