@@ -207,7 +207,7 @@ def validate_name_is_available(name, path, organization, project):
     client = get_new_pipeline_client(organization=organization)
     path = fix_path_for_api(path)
     definition_references = client.get_definitions(project=project, name=name, path=path)
-    if not definition_references:
+    if len(definition_references.value) == 0:
         return True
     return False
 
