@@ -193,11 +193,11 @@ jobs:
   - script: git checkout release-0.13.0
 
   # Delete test files which are broken by design
-  - script: rm tests/tests/test_devopsProjectTest.py
+  - script: rm tests/test_devopsProjectTest.py
     displayName : 'Delete Project CRUD Tests which are known to fail because response type changed'
 
   # Delete test files which are broken by design
-  - script: rm tests/tests/test_invoke.py
+  - script: rm tests/test_invoke.py
     displayName : 'Delete Invoke Tests which are known to fail because response type changed'
 
   - template: templates/run-tests.yml
