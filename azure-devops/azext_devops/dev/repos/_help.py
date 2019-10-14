@@ -10,7 +10,7 @@ def load_repos_help():
     helps['repos'] = """
     type: group
     short-summary: Manage Azure Repos.
-    long-summary:
+    long-summary: This command group is a part of the azure-devops extension.
     """
 
     helps['repos pr'] = """

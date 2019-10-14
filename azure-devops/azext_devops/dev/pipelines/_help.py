@@ -10,7 +10,7 @@ def load_pipelines_help():
     helps['pipelines'] = """
     type: group
     short-summary: Manage Azure Pipelines.
-    long-summary:
+    long-summary: This command group is a part of the azure-devops extension.
     """
 
     helps['pipelines runs'] = """
