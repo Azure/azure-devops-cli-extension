@@ -27,21 +27,19 @@ class CloudLoadTestClient(Client):
 
     def create_agent_group(self, group):
         """CreateAgentGroup.
-        [Preview API]
         :param :class:`<AgentGroup> <azure.devops.v5_1.cloud_load_test.models.AgentGroup>` group: Agent group to be created
         :rtype: :class:`<AgentGroup> <azure.devops.v5_1.cloud_load_test.models.AgentGroup>`
         """
         content = self._serialize.body(group, 'AgentGroup')
         response = self._send(http_method='POST',
                               location_id='ab8d91c1-12d9-4ec5-874d-1ddb23e17720',
-                              version='5.1-preview.1',
+                              version='5.1',
                               content=content)
         return self._deserialize('AgentGroup', response)
 
     def get_agent_groups(self, agent_group_id=None, machine_setup_input=None, machine_access_data=None, outgoing_request_urls=None, agent_group_name=None):
         """GetAgentGroups.
-        [Preview API]
-        :param str agent_group_id: The agent group indentifier
+        :param str agent_group_id: The agent group identifier
         :param bool machine_setup_input:
         :param bool machine_access_data:
         :param bool outgoing_request_urls:
@@ -62,14 +60,13 @@ class CloudLoadTestClient(Client):
             query_parameters['agentGroupName'] = self._serialize.query('agent_group_name', agent_group_name, 'str')
         response = self._send(http_method='GET',
                               location_id='ab8d91c1-12d9-4ec5-874d-1ddb23e17720',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('object', response)
 
     def delete_static_agent(self, agent_group_id, agent_name):
         """DeleteStaticAgent.
-        [Preview API]
         :param str agent_group_id: The agent group identifier
         :param str agent_name: Name of the static agent
         :rtype: str
@@ -82,14 +79,13 @@ class CloudLoadTestClient(Client):
             query_parameters['agentName'] = self._serialize.query('agent_name', agent_name, 'str')
         response = self._send(http_method='DELETE',
                               location_id='87e4b63d-7142-4b50-801e-72ba9ff8ee9b',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('str', response)
 
     def get_static_agents(self, agent_group_id, agent_name=None):
         """GetStaticAgents.
-        [Preview API]
         :param str agent_group_id: The agent group identifier
         :param str agent_name: Name of the static agent
         :rtype: object
@@ -102,14 +98,13 @@ class CloudLoadTestClient(Client):
             query_parameters['agentName'] = self._serialize.query('agent_name', agent_name, 'str')
         response = self._send(http_method='GET',
                               location_id='87e4b63d-7142-4b50-801e-72ba9ff8ee9b',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('object', response)
 
     def get_application(self, application_id):
         """GetApplication.
-        [Preview API]
         :param str application_id: Filter by APM application identifier.
         :rtype: :class:`<Application> <azure.devops.v5_1.cloud_load_test.models.Application>`
         """
@@ -118,13 +113,12 @@ class CloudLoadTestClient(Client):
             route_values['applicationId'] = self._serialize.url('application_id', application_id, 'str')
         response = self._send(http_method='GET',
                               location_id='2c986dce-8e8d-4142-b541-d016d5aff764',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('Application', response)
 
     def get_applications(self, type=None):
         """GetApplications.
-        [Preview API]
         :param str type: Filters the results based on the plugin type.
         :rtype: [Application]
         """
@@ -133,13 +127,12 @@ class CloudLoadTestClient(Client):
             query_parameters['type'] = self._serialize.query('type', type, 'str')
         response = self._send(http_method='GET',
                               location_id='2c986dce-8e8d-4142-b541-d016d5aff764',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[Application]', self._unwrap_collection(response))
 
     def get_counters(self, test_run_id, group_names, include_summary=None):
         """GetCounters.
-        [Preview API]
         :param str test_run_id: The test run identifier
         :param str group_names: Comma separated names of counter groups, such as 'Application', 'Performance' and 'Throughput'
         :param bool include_summary:
@@ -155,14 +148,13 @@ class CloudLoadTestClient(Client):
             query_parameters['includeSummary'] = self._serialize.query('include_summary', include_summary, 'bool')
         response = self._send(http_method='GET',
                               location_id='29265ea4-b5a5-4b2e-b054-47f5f6f00183',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TestRunCounterInstance]', self._unwrap_collection(response))
 
     def get_application_counters(self, application_id=None, plugintype=None):
         """GetApplicationCounters.
-        [Preview API]
         :param str application_id: Filter by APM application identifier.
         :param str plugintype: Currently ApplicationInsights is the only available plugin type.
         :rtype: [ApplicationCounters]
@@ -174,13 +166,12 @@ class CloudLoadTestClient(Client):
             query_parameters['plugintype'] = self._serialize.query('plugintype', plugintype, 'str')
         response = self._send(http_method='GET',
                               location_id='c1275ce9-6d26-4bc6-926b-b846502e812d',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[ApplicationCounters]', self._unwrap_collection(response))
 
     def get_counter_samples(self, counter_sample_query_details, test_run_id):
         """GetCounterSamples.
-        [Preview API]
         :param :class:`<VssJsonCollectionWrapper> <azure.devops.v5_1.cloud_load_test.models.VssJsonCollectionWrapper>` counter_sample_query_details:
         :param str test_run_id: The test run identifier
         :rtype: :class:`<CounterSamplesResult> <azure.devops.v5_1.cloud_load_test.models.CounterSamplesResult>`
@@ -191,14 +182,13 @@ class CloudLoadTestClient(Client):
         content = self._serialize.body(counter_sample_query_details, 'VssJsonCollectionWrapper')
         response = self._send(http_method='POST',
                               location_id='bad18480-7193-4518-992a-37289c5bb92d',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('CounterSamplesResult', response)
 
     def get_load_test_run_errors(self, test_run_id, type=None, sub_type=None, detailed=None):
         """GetLoadTestRunErrors.
-        [Preview API]
         :param str test_run_id: The test run identifier
         :param str type: Filter for the particular type of errors.
         :param str sub_type: Filter for a particular subtype of errors. You should not provide error subtype without error type.
@@ -217,14 +207,13 @@ class CloudLoadTestClient(Client):
             query_parameters['detailed'] = self._serialize.query('detailed', detailed, 'bool')
         response = self._send(http_method='GET',
                               location_id='b52025a7-3fb4-4283-8825-7079e75bd402',
-                              version='5.1-preview.2',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('LoadTestErrors', response)
 
     def get_test_run_messages(self, test_run_id):
         """GetTestRunMessages.
-        [Preview API]
         :param str test_run_id: Id of the test run
         :rtype: [TestRunMessage]
         """
@@ -233,13 +222,12 @@ class CloudLoadTestClient(Client):
             route_values['testRunId'] = self._serialize.url('test_run_id', test_run_id, 'str')
         response = self._send(http_method='GET',
                               location_id='2e7ba122-f522-4205-845b-2d270e59850a',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('[TestRunMessage]', self._unwrap_collection(response))
 
     def get_plugin(self, type):
         """GetPlugin.
-        [Preview API]
         :param str type: Currently ApplicationInsights is the only available plugin type.
         :rtype: :class:`<ApplicationType> <azure.devops.v5_1.cloud_load_test.models.ApplicationType>`
         """
@@ -248,23 +236,21 @@ class CloudLoadTestClient(Client):
             route_values['type'] = self._serialize.url('type', type, 'str')
         response = self._send(http_method='GET',
                               location_id='7dcb0bb2-42d5-4729-9958-c0401d5e7693',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('ApplicationType', response)
 
     def get_plugins(self):
         """GetPlugins.
-        [Preview API]
         :rtype: [ApplicationType]
         """
         response = self._send(http_method='GET',
                               location_id='7dcb0bb2-42d5-4729-9958-c0401d5e7693',
-                              version='5.1-preview.1')
+                              version='5.1')
         return self._deserialize('[ApplicationType]', self._unwrap_collection(response))
 
     def get_load_test_result(self, test_run_id):
         """GetLoadTestResult.
-        [Preview API]
         :param str test_run_id: The test run identifier
         :rtype: :class:`<TestResults> <azure.devops.v5_1.cloud_load_test.models.TestResults>`
         """
@@ -273,26 +259,24 @@ class CloudLoadTestClient(Client):
             route_values['testRunId'] = self._serialize.url('test_run_id', test_run_id, 'str')
         response = self._send(http_method='GET',
                               location_id='5ed69bd8-4557-4cec-9b75-1ad67d0c257b',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('TestResults', response)
 
     def create_test_definition(self, test_definition):
         """CreateTestDefinition.
-        [Preview API]
         :param :class:`<TestDefinition> <azure.devops.v5_1.cloud_load_test.models.TestDefinition>` test_definition: Test definition to be created
         :rtype: :class:`<TestDefinition> <azure.devops.v5_1.cloud_load_test.models.TestDefinition>`
         """
         content = self._serialize.body(test_definition, 'TestDefinition')
         response = self._send(http_method='POST',
                               location_id='a8f9b135-f604-41ea-9d74-d9a5fd32fcd8',
-                              version='5.1-preview.1',
+                              version='5.1',
                               content=content)
         return self._deserialize('TestDefinition', response)
 
     def get_test_definition(self, test_definition_id):
         """GetTestDefinition.
-        [Preview API]
         :param str test_definition_id: The test definition identifier
         :rtype: :class:`<TestDefinition> <azure.devops.v5_1.cloud_load_test.models.TestDefinition>`
         """
@@ -301,13 +285,12 @@ class CloudLoadTestClient(Client):
             route_values['testDefinitionId'] = self._serialize.url('test_definition_id', test_definition_id, 'str')
         response = self._send(http_method='GET',
                               location_id='a8f9b135-f604-41ea-9d74-d9a5fd32fcd8',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('TestDefinition', response)
 
     def get_test_definitions(self, from_date=None, to_date=None, top=None):
         """GetTestDefinitions.
-        [Preview API]
         :param str from_date: Date after which test definitions were created
         :param str to_date: Date before which test definitions were crated
         :param int top:
@@ -322,39 +305,36 @@ class CloudLoadTestClient(Client):
             query_parameters['top'] = self._serialize.query('top', top, 'int')
         response = self._send(http_method='GET',
                               location_id='a8f9b135-f604-41ea-9d74-d9a5fd32fcd8',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[TestDefinitionBasic]', self._unwrap_collection(response))
 
     def update_test_definition(self, test_definition):
         """UpdateTestDefinition.
-        [Preview API]
         :param :class:`<TestDefinition> <azure.devops.v5_1.cloud_load_test.models.TestDefinition>` test_definition:
         :rtype: :class:`<TestDefinition> <azure.devops.v5_1.cloud_load_test.models.TestDefinition>`
         """
         content = self._serialize.body(test_definition, 'TestDefinition')
         response = self._send(http_method='PUT',
                               location_id='a8f9b135-f604-41ea-9d74-d9a5fd32fcd8',
-                              version='5.1-preview.1',
+                              version='5.1',
                               content=content)
         return self._deserialize('TestDefinition', response)
 
     def create_test_drop(self, web_test_drop):
         """CreateTestDrop.
-        [Preview API]
         :param :class:`<TestDrop> <azure.devops.v5_1.cloud_load_test.models.TestDrop>` web_test_drop: Test drop to be created
         :rtype: :class:`<TestDrop> <azure.devops.v5_1.cloud_load_test.models.TestDrop>`
         """
         content = self._serialize.body(web_test_drop, 'TestDrop')
         response = self._send(http_method='POST',
                               location_id='d89d0e08-505c-4357-96f6-9729311ce8ad',
-                              version='5.1-preview.1',
+                              version='5.1',
                               content=content)
         return self._deserialize('TestDrop', response)
 
     def get_test_drop(self, test_drop_id):
         """GetTestDrop.
-        [Preview API]
         :param str test_drop_id: The test drop identifier
         :rtype: :class:`<TestDrop> <azure.devops.v5_1.cloud_load_test.models.TestDrop>`
         """
@@ -363,26 +343,24 @@ class CloudLoadTestClient(Client):
             route_values['testDropId'] = self._serialize.url('test_drop_id', test_drop_id, 'str')
         response = self._send(http_method='GET',
                               location_id='d89d0e08-505c-4357-96f6-9729311ce8ad',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('TestDrop', response)
 
     def create_test_run(self, web_test_run):
         """CreateTestRun.
-        [Preview API]
         :param :class:`<TestRun> <azure.devops.v5_1.cloud_load_test.models.TestRun>` web_test_run:
         :rtype: :class:`<TestRun> <azure.devops.v5_1.cloud_load_test.models.TestRun>`
         """
         content = self._serialize.body(web_test_run, 'TestRun')
         response = self._send(http_method='POST',
                               location_id='b41a84ff-ff03-4ac1-b76e-e7ea25c92aba',
-                              version='5.1-preview.1',
+                              version='5.1',
                               content=content)
         return self._deserialize('TestRun', response)
 
     def get_test_run(self, test_run_id):
         """GetTestRun.
-        [Preview API]
         :param str test_run_id: Unique ID of the test run
         :rtype: :class:`<TestRun> <azure.devops.v5_1.cloud_load_test.models.TestRun>`
         """
@@ -391,13 +369,13 @@ class CloudLoadTestClient(Client):
             route_values['testRunId'] = self._serialize.url('test_run_id', test_run_id, 'str')
         response = self._send(http_method='GET',
                               location_id='b41a84ff-ff03-4ac1-b76e-e7ea25c92aba',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('TestRun', response)
 
     def get_test_runs(self, name=None, requested_by=None, status=None, run_type=None, from_date=None, to_date=None, detailed=None, top=None, runsourceidentifier=None, retention_state=None):
         """GetTestRuns.
-        [Preview API] Returns test runs based on the filter specified. Returns all runs of the tenant if there is no filter.
+        Returns test runs based on the filter specified. Returns all runs of the tenant if there is no filter.
         :param str name: Name for the test run. Names are not unique. Test runs with same name are assigned sequential rolling numbers.
         :param str requested_by: Filter by the user who requested the test run. Here requestedBy should be the display name of the user.
         :param str status: Filter by the test run status.
@@ -433,13 +411,12 @@ class CloudLoadTestClient(Client):
             query_parameters['retentionState'] = self._serialize.query('retention_state', retention_state, 'str')
         response = self._send(http_method='GET',
                               location_id='b41a84ff-ff03-4ac1-b76e-e7ea25c92aba',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('object', response)
 
     def update_test_run(self, web_test_run, test_run_id):
         """UpdateTestRun.
-        [Preview API]
         :param :class:`<TestRun> <azure.devops.v5_1.cloud_load_test.models.TestRun>` web_test_run:
         :param str test_run_id:
         """
@@ -449,7 +426,7 @@ class CloudLoadTestClient(Client):
         content = self._serialize.body(web_test_run, 'TestRun')
         self._send(http_method='PATCH',
                    location_id='b41a84ff-ff03-4ac1-b76e-e7ea25c92aba',
-                   version='5.1-preview.1',
+                   version='5.1',
                    route_values=route_values,
                    content=content)
 

@@ -6,7 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.identity.models import *
+from ...v5_1.identity.models import *
 from .identity_client import IdentityClient
 
 __all__ = [

@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class FeedBatchData(Model):
-    """FeedBatchData.
-
+    """
     :param data:
     :type data: :class:`FeedBatchOperationData <azure.devops.v5_1.packaging.models.FeedBatchOperationData>`
     :param operation:
@@ -30,8 +29,7 @@ class FeedBatchData(Model):
 
 
 class FeedBatchOperationData(Model):
-    """FeedBatchOperationData.
-
+    """
     """
 
     _attribute_map = {
@@ -42,7 +40,8 @@ class FeedBatchOperationData(Model):
 
 
 class FeedChange(Model):
-    """FeedChange.
+    """
+    A container that encapsulates the state of the feed after a create, update, or delete.
 
     :param change_type: The type of operation.
     :type change_type: object
@@ -70,7 +69,8 @@ class FeedChange(Model):
 
 
 class FeedChangesResponse(Model):
-    """FeedChangesResponse.
+    """
+    A result set containing the feed changes for the range that was requested.
 
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.packaging.models.ReferenceLinks>`
@@ -98,7 +98,8 @@ class FeedChangesResponse(Model):
 
 
 class FeedCore(Model):
-    """FeedCore.
+    """
+    An object that contains all of the settings for a specific feed.
 
     :param allow_upstream_name_conflict: OBSOLETE: If set, the feed will allow upload of packages that exist on the upstream
     :type allow_upstream_name_conflict: bool
@@ -162,7 +163,8 @@ class FeedCore(Model):
 
 
 class FeedPermission(Model):
-    """FeedPermission.
+    """
+    Permissions for a feed.
 
     :param display_name: Display name for the identity.
     :type display_name: str
@@ -190,7 +192,8 @@ class FeedPermission(Model):
 
 
 class FeedRetentionPolicy(Model):
-    """FeedRetentionPolicy.
+    """
+    Retention policy settings.
 
     :param age_limit_in_days: This attribute is deprecated and is not honoured by retention
     :type age_limit_in_days: int
@@ -214,7 +217,8 @@ class FeedRetentionPolicy(Model):
 
 
 class FeedUpdate(Model):
-    """FeedUpdate.
+    """
+    Update a feed definition with these new values.
 
     :param allow_upstream_name_conflict: If set, the feed will allow upload of packages that exist on the upstream
     :type allow_upstream_name_conflict: bool
@@ -262,7 +266,8 @@ class FeedUpdate(Model):
 
 
 class FeedView(Model):
-    """FeedView.
+    """
+    A view on top of a feed.
 
     :param _links: Related REST links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.packaging.models.ReferenceLinks>`
@@ -298,27 +303,33 @@ class FeedView(Model):
 
 
 class GlobalPermission(Model):
-    """GlobalPermission.
+    """
+    Permissions for feed service-wide operations such as the creation of new feeds.
 
     :param identity_descriptor: Identity of the user with the provided Role.
     :type identity_descriptor: :class:`str <azure.devops.v5_1.packaging.models.str>`
+    :param identity_id: IdentityId corresponding to the IdentityDescriptor
+    :type identity_id: str
     :param role: Role associated with the Identity.
     :type role: object
     """
 
     _attribute_map = {
         'identity_descriptor': {'key': 'identityDescriptor', 'type': 'str'},
+        'identity_id': {'key': 'identityId', 'type': 'str'},
         'role': {'key': 'role', 'type': 'object'}
     }
 
-    def __init__(self, identity_descriptor=None, role=None):
+    def __init__(self, identity_descriptor=None, identity_id=None, role=None):
         super(GlobalPermission, self).__init__()
         self.identity_descriptor = identity_descriptor
+        self.identity_id = identity_id
         self.role = role
 
 
 class JsonPatchOperation(Model):
-    """JsonPatchOperation.
+    """
+    The JSON model for a JSON Patch operation
 
     :param from_: The path to copy from for the Move/Copy operation.
     :type from_: str
@@ -346,7 +357,8 @@ class JsonPatchOperation(Model):
 
 
 class MinimalPackageVersion(Model):
-    """MinimalPackageVersion.
+    """
+    Core data about any package, including its id and version information and basic state.
 
     :param direct_upstream_source_id: Upstream source this package was ingested from.
     :type direct_upstream_source_id: str
@@ -406,7 +418,8 @@ class MinimalPackageVersion(Model):
 
 
 class Package(Model):
-    """Package.
+    """
+    A package, which is a container for one or more package versions.
 
     :param _links: Related REST links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.packaging.models.ReferenceLinks>`
@@ -454,7 +467,8 @@ class Package(Model):
 
 
 class PackageChange(Model):
-    """PackageChange.
+    """
+    A single change to a feed's packages.
 
     :param package: Package that was changed.
     :type package: :class:`Package <azure.devops.v5_1.packaging.models.Package>`
@@ -474,7 +488,8 @@ class PackageChange(Model):
 
 
 class PackageChangesResponse(Model):
-    """PackageChangesResponse.
+    """
+    A set of change operations to a feed's packages.
 
     :param _links: Related REST links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.packaging.models.ReferenceLinks>`
@@ -502,7 +517,8 @@ class PackageChangesResponse(Model):
 
 
 class PackageDependency(Model):
-    """PackageDependency.
+    """
+    A dependency on another package version.
 
     :param group: Dependency package group (an optional classification within some package types).
     :type group: str
@@ -526,7 +542,8 @@ class PackageDependency(Model):
 
 
 class PackageFile(Model):
-    """PackageFile.
+    """
+    A package file for a specific package version, only relevant to package types that contain multiple files per version.
 
     :param children: Hierarchical representation of files.
     :type children: list of :class:`PackageFile <azure.devops.v5_1.packaging.models.PackageFile>`
@@ -550,7 +567,8 @@ class PackageFile(Model):
 
 
 class PackageMetrics(Model):
-    """PackageMetrics.
+    """
+    All metrics for a certain package id
 
     :param download_count: Total count of downloads per package id.
     :type download_count: float
@@ -578,7 +596,8 @@ class PackageMetrics(Model):
 
 
 class PackageMetricsQuery(Model):
-    """PackageMetricsQuery.
+    """
+    Query to get package metrics
 
     :param package_ids: List of package ids
     :type package_ids: list of str
@@ -594,7 +613,8 @@ class PackageMetricsQuery(Model):
 
 
 class PackageVersion(MinimalPackageVersion):
-    """PackageVersion.
+    """
+    A specific version of a package.
 
     :param direct_upstream_source_id: Upstream source this package was ingested from.
     :type direct_upstream_source_id: str
@@ -690,7 +710,8 @@ class PackageVersion(MinimalPackageVersion):
 
 
 class PackageVersionChange(Model):
-    """PackageVersionChange.
+    """
+    A change to a single package version.
 
     :param change_type: The type of change that was performed.
     :type change_type: object
@@ -714,7 +735,8 @@ class PackageVersionChange(Model):
 
 
 class PackageVersionMetrics(Model):
-    """PackageVersionMetrics.
+    """
+    All metrics for a certain package version id
 
     :param download_count: Total count of downloads per package version id.
     :type download_count: float
@@ -746,7 +768,8 @@ class PackageVersionMetrics(Model):
 
 
 class PackageVersionMetricsQuery(Model):
-    """PackageVersionMetricsQuery.
+    """
+    Query to get package version metrics
 
     :param package_version_ids: List of package version ids
     :type package_version_ids: list of str
@@ -762,7 +785,8 @@ class PackageVersionMetricsQuery(Model):
 
 
 class PackageVersionProvenance(Model):
-    """PackageVersionProvenance.
+    """
+    Provenance for a published package version
 
     :param feed_id: Name or Id of the feed.
     :type feed_id: str
@@ -790,8 +814,7 @@ class PackageVersionProvenance(Model):
 
 
 class ProjectReference(Model):
-    """ProjectReference.
-
+    """
     :param id: Gets or sets id of the project.
     :type id: str
     :param name: Gets or sets name of the project.
@@ -814,7 +837,8 @@ class ProjectReference(Model):
 
 
 class ProtocolMetadata(Model):
-    """ProtocolMetadata.
+    """
+    Extended metadata for a specific package type.
 
     :param data: Extended metadata for a specific package type, formatted to the associated schema version definition.
     :type data: object
@@ -834,7 +858,8 @@ class ProtocolMetadata(Model):
 
 
 class Provenance(Model):
-    """Provenance.
+    """
+    Data about the origin of a published package
 
     :param data: Other provenance data.
     :type data: dict
@@ -862,7 +887,8 @@ class Provenance(Model):
 
 
 class RecycleBinPackageVersion(PackageVersion):
-    """RecycleBinPackageVersion.
+    """
+    A single package version within the recycle bin.
 
     :param direct_upstream_source_id: Upstream source this package was ingested from.
     :type direct_upstream_source_id: str
@@ -950,7 +976,8 @@ class RecycleBinPackageVersion(PackageVersion):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -966,7 +993,8 @@ class ReferenceLinks(Model):
 
 
 class UpstreamSource(Model):
-    """UpstreamSource.
+    """
+    Upstream source definition, including its Identity, package type, and other associated information.
 
     :param deleted_date: UTC date that this upstream was deleted.
     :type deleted_date: datetime
@@ -1018,7 +1046,8 @@ class UpstreamSource(Model):
 
 
 class Feed(FeedCore):
-    """Feed.
+    """
+    A container for artifacts.
 
     :param allow_upstream_name_conflict: OBSOLETE: If set, the feed will allow upload of packages that exist on the upstream
     :type allow_upstream_name_conflict: bool

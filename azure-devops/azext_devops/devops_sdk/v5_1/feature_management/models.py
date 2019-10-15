@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class ContributedFeature(Model):
-    """ContributedFeature.
+    """
+    A feature that can be enabled or disabled
 
     :param _links: Named links describing the feature
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.feature_management.models.ReferenceLinks>`
@@ -22,7 +23,7 @@ class ContributedFeature(Model):
     :type description: str
     :param feature_properties: Extra properties for the feature
     :type feature_properties: dict
-    :param feature_state_changed_listeners: Handler for listening to setter calls on feature value. These listeners are only invoked after a successful set has occured
+    :param feature_state_changed_listeners: Handler for listening to setter calls on feature value. These listeners are only invoked after a successful set has occurred
     :type feature_state_changed_listeners: list of :class:`ContributedFeatureListener <azure.devops.v5_1.feature_management.models.ContributedFeatureListener>`
     :param id: The full contribution id of the feature
     :type id: str
@@ -78,8 +79,7 @@ class ContributedFeature(Model):
 
 
 class ContributedFeatureHandlerSettings(Model):
-    """ContributedFeatureHandlerSettings.
-
+    """
     :param name: Name of the handler to run
     :type name: str
     :param properties: Properties to feed to the handler
@@ -98,7 +98,8 @@ class ContributedFeatureHandlerSettings(Model):
 
 
 class ContributedFeatureListener(ContributedFeatureHandlerSettings):
-    """ContributedFeatureListener.
+    """
+    An identifier and properties used to pass into a handler for a listener or plugin
 
     :param name: Name of the handler to run
     :type name: str
@@ -116,7 +117,8 @@ class ContributedFeatureListener(ContributedFeatureHandlerSettings):
 
 
 class ContributedFeatureSettingScope(Model):
-    """ContributedFeatureSettingScope.
+    """
+    The scope to which a feature setting applies
 
     :param setting_scope: The name of the settings scope to use when reading/writing the setting
     :type setting_scope: str
@@ -136,7 +138,8 @@ class ContributedFeatureSettingScope(Model):
 
 
 class ContributedFeatureState(Model):
-    """ContributedFeatureState.
+    """
+    A contributed feature/state pair
 
     :param feature_id: The full contribution id of the feature
     :type feature_id: str
@@ -168,7 +171,8 @@ class ContributedFeatureState(Model):
 
 
 class ContributedFeatureStateQuery(Model):
-    """ContributedFeatureStateQuery.
+    """
+    A query for the effective contributed feature states for a list of feature ids
 
     :param feature_ids: The list of feature ids to query
     :type feature_ids: list of str
@@ -192,7 +196,8 @@ class ContributedFeatureStateQuery(Model):
 
 
 class ContributedFeatureValueRule(ContributedFeatureHandlerSettings):
-    """ContributedFeatureValueRule.
+    """
+    A rule for dynamically getting the enabled/disabled state of a feature
 
     :param name: Name of the handler to run
     :type name: str
@@ -210,7 +215,8 @@ class ContributedFeatureValueRule(ContributedFeatureHandlerSettings):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict

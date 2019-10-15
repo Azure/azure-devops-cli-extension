@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class ClientContribution(Model):
-    """ClientContribution.
+    """
+    Representation of a ContributionNode that can be used for serialized to clients.
 
     :param description: Description of the contribution/type
     :type description: str
@@ -46,7 +47,8 @@ class ClientContribution(Model):
 
 
 class ClientContributionNode(Model):
-    """ClientContributionNode.
+    """
+    Representation of a ContributionNode that can be used for serialized to clients.
 
     :param children: List of ids for contributions which are children to the current contribution.
     :type children: list of str
@@ -70,15 +72,14 @@ class ClientContributionNode(Model):
 
 
 class ClientContributionProviderDetails(Model):
-    """ClientContributionProviderDetails.
-
+    """
     :param display_name: Friendly name for the provider.
     :type display_name: str
     :param name: Unique identifier for this provider. The provider name can be used to cache the contribution data and refer back to it when looking for changes
     :type name: str
     :param properties: Properties associated with the provider
     :type properties: dict
-    :param version: Version of contributions assoicated with this contribution provider.
+    :param version: Version of contributions associated with this contribution provider.
     :type version: str
     """
 
@@ -98,7 +99,8 @@ class ClientContributionProviderDetails(Model):
 
 
 class ContributionBase(Model):
-    """ContributionBase.
+    """
+    Base class shared by contributions and contribution types
 
     :param description: Description of the contribution/type
     :type description: str
@@ -122,7 +124,8 @@ class ContributionBase(Model):
 
 
 class ContributionConstraint(Model):
-    """ContributionConstraint.
+    """
+    Specifies a constraint that can be used to dynamically include/exclude a given contribution
 
     :param group: An optional property that can be specified to group constraints together. All constraints within a group are AND'd together (all must be evaluate to True in order for the contribution to be included). Different groups of constraints are OR'd (only one group needs to evaluate to True for the contribution to be included).
     :type group: int
@@ -158,7 +161,8 @@ class ContributionConstraint(Model):
 
 
 class ContributionNodeQuery(Model):
-    """ContributionNodeQuery.
+    """
+    A query that can be issued for contribution nodes
 
     :param contribution_ids: The contribution ids of the nodes to find.
     :type contribution_ids: list of str
@@ -186,11 +190,12 @@ class ContributionNodeQuery(Model):
 
 
 class ContributionNodeQueryResult(Model):
-    """ContributionNodeQueryResult.
+    """
+    Result of a contribution node query.  Wraps the resulting contribution nodes and provider details.
 
     :param nodes: Map of contribution ids to corresponding node.
     :type nodes: dict
-    :param provider_details: Map of provder ids to the corresponding provider details object.
+    :param provider_details: Map of provider ids to the corresponding provider details object.
     :type provider_details: dict
     """
 
@@ -206,7 +211,8 @@ class ContributionNodeQueryResult(Model):
 
 
 class ContributionPropertyDescription(Model):
-    """ContributionPropertyDescription.
+    """
+    Description about a property of a contribution type
 
     :param description: Description of the property
     :type description: str
@@ -234,7 +240,8 @@ class ContributionPropertyDescription(Model):
 
 
 class ContributionType(ContributionBase):
-    """ContributionType.
+    """
+    A contribution type, given by a json schema
 
     :param description: Description of the contribution/type
     :type description: str
@@ -267,7 +274,8 @@ class ContributionType(ContributionBase):
 
 
 class DataProviderContext(Model):
-    """DataProviderContext.
+    """
+    Contextual information that data providers can examine when populating their data
 
     :param properties: Generic property bag that contains context-specific properties that data providers can use when populating their data dictionary
     :type properties: dict
@@ -283,8 +291,7 @@ class DataProviderContext(Model):
 
 
 class DataProviderExceptionDetails(Model):
-    """DataProviderExceptionDetails.
-
+    """
     :param exception_type: The type of the exception that was thrown.
     :type exception_type: str
     :param message: Message that is associated with the exception.
@@ -307,7 +314,8 @@ class DataProviderExceptionDetails(Model):
 
 
 class DataProviderQuery(Model):
-    """DataProviderQuery.
+    """
+    A query that can be issued for data provider data
 
     :param context: Contextual information to pass to the data providers
     :type context: :class:`DataProviderContext <azure.devops.v5_1.contributions.models.DataProviderContext>`
@@ -327,7 +335,8 @@ class DataProviderQuery(Model):
 
 
 class DataProviderResult(Model):
-    """DataProviderResult.
+    """
+    Result structure from calls to GetDataProviderData
 
     :param client_providers: This is the set of data providers that were requested, but either they were defined as client providers, or as remote providers that failed and may be retried by the client.
     :type client_providers: dict
@@ -367,7 +376,8 @@ class DataProviderResult(Model):
 
 
 class ExtensionEventCallback(Model):
-    """ExtensionEventCallback.
+    """
+    Base class for an event callback for an extension
 
     :param uri: The uri of the endpoint that is hit when an event occurs
     :type uri: str
@@ -383,19 +393,20 @@ class ExtensionEventCallback(Model):
 
 
 class ExtensionEventCallbackCollection(Model):
-    """ExtensionEventCallbackCollection.
+    """
+    Collection of event callbacks - endpoints called when particular extension events occur.
 
-    :param post_disable: Optional.  Defines an endpoint that gets called via a POST reqeust to notify that an extension disable has occurred.
+    :param post_disable: Optional.  Defines an endpoint that gets called via a POST request to notify that an extension disable has occurred.
     :type post_disable: :class:`ExtensionEventCallback <azure.devops.v5_1.contributions.models.ExtensionEventCallback>`
-    :param post_enable: Optional.  Defines an endpoint that gets called via a POST reqeust to notify that an extension enable has occurred.
+    :param post_enable: Optional.  Defines an endpoint that gets called via a POST request to notify that an extension enable has occurred.
     :type post_enable: :class:`ExtensionEventCallback <azure.devops.v5_1.contributions.models.ExtensionEventCallback>`
-    :param post_install: Optional.  Defines an endpoint that gets called via a POST reqeust to notify that an extension install has completed.
+    :param post_install: Optional.  Defines an endpoint that gets called via a POST request to notify that an extension install has completed.
     :type post_install: :class:`ExtensionEventCallback <azure.devops.v5_1.contributions.models.ExtensionEventCallback>`
-    :param post_uninstall: Optional.  Defines an endpoint that gets called via a POST reqeust to notify that an extension uninstall has occurred.
+    :param post_uninstall: Optional.  Defines an endpoint that gets called via a POST request to notify that an extension uninstall has occurred.
     :type post_uninstall: :class:`ExtensionEventCallback <azure.devops.v5_1.contributions.models.ExtensionEventCallback>`
-    :param post_update: Optional.  Defines an endpoint that gets called via a POST reqeust to notify that an extension update has occurred.
+    :param post_update: Optional.  Defines an endpoint that gets called via a POST request to notify that an extension update has occurred.
     :type post_update: :class:`ExtensionEventCallback <azure.devops.v5_1.contributions.models.ExtensionEventCallback>`
-    :param pre_install: Optional.  Defines an endpoint that gets called via a POST reqeust to notify that an extension install is about to occur.  Response indicates whether to proceed or abort.
+    :param pre_install: Optional.  Defines an endpoint that gets called via a POST request to notify that an extension install is about to occur.  Response indicates whether to proceed or abort.
     :type pre_install: :class:`ExtensionEventCallback <azure.devops.v5_1.contributions.models.ExtensionEventCallback>`
     :param version_check: For multi-version extensions, defines an endpoint that gets called via an OPTIONS request to determine the particular version of the extension to be used
     :type version_check: :class:`ExtensionEventCallback <azure.devops.v5_1.contributions.models.ExtensionEventCallback>`
@@ -423,8 +434,7 @@ class ExtensionEventCallbackCollection(Model):
 
 
 class ExtensionFile(Model):
-    """ExtensionFile.
-
+    """
     :param asset_type:
     :type asset_type: str
     :param language:
@@ -447,7 +457,8 @@ class ExtensionFile(Model):
 
 
 class ExtensionLicensing(Model):
-    """ExtensionLicensing.
+    """
+    How an extension should handle including contributions based on licensing
 
     :param overrides: A list of contributions which deviate from the default licensing behavior
     :type overrides: list of :class:`LicensingOverride <azure.devops.v5_1.contributions.models.LicensingOverride>`
@@ -463,7 +474,8 @@ class ExtensionLicensing(Model):
 
 
 class ExtensionManifest(Model):
-    """ExtensionManifest.
+    """
+    Base class for extension properties which are shared by the extension manifest and the extension model
 
     :param base_uri: Uri used as base for other relative uri's defined in extension
     :type base_uri: str
@@ -485,7 +497,7 @@ class ExtensionManifest(Model):
     :type licensing: :class:`ExtensionLicensing <azure.devops.v5_1.contributions.models.ExtensionLicensing>`
     :param manifest_version: Version of the extension manifest format/content
     :type manifest_version: float
-    :param restricted_to: Default user claims applied to all contributions (except the ones which have been speficied restrictedTo explicitly) to control the visibility of a contribution.
+    :param restricted_to: Default user claims applied to all contributions (except the ones which have been specified restrictedTo explicitly) to control the visibility of a contribution.
     :type restricted_to: list of str
     :param scopes: List of all oauth scopes required by this extension
     :type scopes: list of str
@@ -527,7 +539,8 @@ class ExtensionManifest(Model):
 
 
 class InstalledExtension(ExtensionManifest):
-    """InstalledExtension.
+    """
+    Represents a VSTS extension along with its installation state
 
     :param base_uri: Uri used as base for other relative uri's defined in extension
     :type base_uri: str
@@ -549,7 +562,7 @@ class InstalledExtension(ExtensionManifest):
     :type licensing: :class:`ExtensionLicensing <azure.devops.v5_1.contributions.models.ExtensionLicensing>`
     :param manifest_version: Version of the extension manifest format/content
     :type manifest_version: float
-    :param restricted_to: Default user claims applied to all contributions (except the ones which have been speficied restrictedTo explicitly) to control the visibility of a contribution.
+    :param restricted_to: Default user claims applied to all contributions (except the ones which have been specified restrictedTo explicitly) to control the visibility of a contribution.
     :type restricted_to: list of str
     :param scopes: List of all oauth scopes required by this extension
     :type scopes: list of str
@@ -618,7 +631,8 @@ class InstalledExtension(ExtensionManifest):
 
 
 class InstalledExtensionState(Model):
-    """InstalledExtensionState.
+    """
+    The state of an installed extension
 
     :param flags: States of an installed extension
     :type flags: object
@@ -642,7 +656,8 @@ class InstalledExtensionState(Model):
 
 
 class InstalledExtensionStateIssue(Model):
-    """InstalledExtensionStateIssue.
+    """
+    Represents an installation issue
 
     :param message: The error message
     :type message: str
@@ -666,7 +681,8 @@ class InstalledExtensionStateIssue(Model):
 
 
 class LicensingOverride(Model):
-    """LicensingOverride.
+    """
+    Maps a contribution to a licensing behavior
 
     :param behavior: How the inclusion of this contribution should change based on licensing
     :type behavior: object
@@ -686,7 +702,8 @@ class LicensingOverride(Model):
 
 
 class ResolvedDataProvider(Model):
-    """ResolvedDataProvider.
+    """
+    Entry for a specific data provider's resulting data
 
     :param duration: The total time the data provider took to resolve its data (in milliseconds)
     :type duration: int
@@ -710,7 +727,8 @@ class ResolvedDataProvider(Model):
 
 
 class ClientDataProviderQuery(DataProviderQuery):
-    """ClientDataProviderQuery.
+    """
+    A client data provider are the details needed to make the data provider request from the client.
 
     :param context: Contextual information to pass to the data providers
     :type context: :class:`DataProviderContext <azure.devops.v5_1.contributions.models.DataProviderContext>`
@@ -732,7 +750,8 @@ class ClientDataProviderQuery(DataProviderQuery):
 
 
 class Contribution(ContributionBase):
-    """Contribution.
+    """
+    An individual contribution made by an extension
 
     :param description: Description of the contribution/type
     :type description: str

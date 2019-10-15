@@ -27,7 +27,7 @@ class TfvcClient(Client):
 
     def get_branch(self, path, project=None, include_parent=None, include_children=None):
         """GetBranch.
-        [Preview API] Get a single branch hierarchy at the given path with parents or children as specified.
+        Get a single branch hierarchy at the given path with parents or children as specified.
         :param str path: Full path to the branch.  Default: $/ Examples: $/, $/MyProject, $/MyProject/SomeFolder.
         :param str project: Project ID or project name
         :param bool include_parent: Return the parent branch, if there is one. Default: False
@@ -46,14 +46,14 @@ class TfvcClient(Client):
             query_parameters['includeChildren'] = self._serialize.query('include_children', include_children, 'bool')
         response = self._send(http_method='GET',
                               location_id='bc1f417e-239d-42e7-85e1-76e80cb2d6eb',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('TfvcBranch', response)
 
     def get_branches(self, project=None, include_parent=None, include_children=None, include_deleted=None, include_links=None):
         """GetBranches.
-        [Preview API] Get a collection of branch roots -- first-level children, branches with no parents.
+        Get a collection of branch roots -- first-level children, branches with no parents.
         :param str project: Project ID or project name
         :param bool include_parent: Return the parent branch, if there is one. Default: False
         :param bool include_children: Return the child branches for each root branch. Default: False
@@ -75,14 +75,14 @@ class TfvcClient(Client):
             query_parameters['includeLinks'] = self._serialize.query('include_links', include_links, 'bool')
         response = self._send(http_method='GET',
                               location_id='bc1f417e-239d-42e7-85e1-76e80cb2d6eb',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TfvcBranch]', self._unwrap_collection(response))
 
     def get_branch_refs(self, scope_path, project=None, include_deleted=None, include_links=None):
         """GetBranchRefs.
-        [Preview API] Get branch hierarchies below the specified scopePath
+        Get branch hierarchies below the specified scopePath
         :param str scope_path: Full path to the branch.  Default: $/ Examples: $/, $/MyProject, $/MyProject/SomeFolder.
         :param str project: Project ID or project name
         :param bool include_deleted: Return deleted branches. Default: False
@@ -101,18 +101,19 @@ class TfvcClient(Client):
             query_parameters['includeLinks'] = self._serialize.query('include_links', include_links, 'bool')
         response = self._send(http_method='GET',
                               location_id='bc1f417e-239d-42e7-85e1-76e80cb2d6eb',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TfvcBranchRef]', self._unwrap_collection(response))
 
-    def get_changeset_changes(self, id=None, skip=None, top=None):
+    def get_changeset_changes(self, id=None, skip=None, top=None, continuation_token=None):
         """GetChangesetChanges.
-        [Preview API] Retrieve Tfvc changes for a given changeset.
+        Retrieve Tfvc changes for a given changeset.
         :param int id: ID of the changeset. Default: null
         :param int skip: Number of results to skip. Default: null
         :param int top: The maximum number of results to return. Default: null
-        :rtype: [TfvcChange]
+        :param str continuation_token: Return the next page of results. Default: null
+        :rtype: :class:`<GetChangesetChangesResponseValue>`
         """
         route_values = {}
         if id is not None:
@@ -122,16 +123,33 @@ class TfvcClient(Client):
             query_parameters['$skip'] = self._serialize.query('skip', skip, 'int')
         if top is not None:
             query_parameters['$top'] = self._serialize.query('top', top, 'int')
+        if continuation_token is not None:
+            query_parameters['continuationToken'] = self._serialize.query('continuation_token', continuation_token, 'str')
         response = self._send(http_method='GET',
                               location_id='f32b86f2-15b9-4fe6-81b1-6f8938617ee5',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
-        return self._deserialize('[TfvcChange]', self._unwrap_collection(response))
+        response_value = self._deserialize('[TfvcChange]', self._unwrap_collection(response))
+        continuation_token = self._get_continuation_token(response)
+        return self.GetChangesetChangesResponseValue(response_value, continuation_token)
+
+    class GetChangesetChangesResponseValue(object):
+        def __init__(self, value, continuation_token):
+            """
+            Response for the get_changeset_changes method
+
+            :param value:
+            :type value: :class:`<[TfvcChange]> <azure.devops.v5_1.tfvc.models.[TfvcChange]>`
+            :param continuation_token: The continuation token to be used to get the next page of results.
+            :type continuation_token: str
+            """
+            self.value = value
+            self.continuation_token = continuation_token
 
     def create_changeset(self, changeset, project=None):
         """CreateChangeset.
-        [Preview API] Create a new changeset.
+        Create a new changeset.
         :param :class:`<TfvcChangeset> <azure.devops.v5_1.tfvc.models.TfvcChangeset>` changeset:
         :param str project: Project ID or project name
         :rtype: :class:`<TfvcChangesetRef> <azure.devops.v5_1.tfvc.models.TfvcChangesetRef>`
@@ -142,14 +160,14 @@ class TfvcClient(Client):
         content = self._serialize.body(changeset, 'TfvcChangeset')
         response = self._send(http_method='POST',
                               location_id='0bc8f0a4-6bfb-42a9-ba84-139da7b99c49',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('TfvcChangesetRef', response)
 
     def get_changeset(self, id, project=None, max_change_count=None, include_details=None, include_work_items=None, max_comment_length=None, include_source_rename=None, skip=None, top=None, orderby=None, search_criteria=None):
         """GetChangeset.
-        [Preview API] Retrieve a Tfvc Changeset
+        Retrieve a Tfvc Changeset
         :param int id: Changeset Id to retrieve.
         :param str project: Project ID or project name
         :param int max_change_count: Number of changes to return (maximum 100 changes) Default: 0
@@ -206,14 +224,14 @@ class TfvcClient(Client):
                 query_parameters['searchCriteria.mappings'] = search_criteria.mappings
         response = self._send(http_method='GET',
                               location_id='0bc8f0a4-6bfb-42a9-ba84-139da7b99c49',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('TfvcChangeset', response)
 
     def get_changesets(self, project=None, max_comment_length=None, skip=None, top=None, orderby=None, search_criteria=None):
         """GetChangesets.
-        [Preview API] Retrieve Tfvc Changesets
+        Retrieve Tfvc Changesets
         :param str project: Project ID or project name
         :param int max_comment_length: Include details about associated work items in the response. Default: null
         :param int skip: Number of results to skip. Default: null
@@ -255,27 +273,27 @@ class TfvcClient(Client):
                 query_parameters['searchCriteria.mappings'] = search_criteria.mappings
         response = self._send(http_method='GET',
                               location_id='0bc8f0a4-6bfb-42a9-ba84-139da7b99c49',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TfvcChangesetRef]', self._unwrap_collection(response))
 
     def get_batched_changesets(self, changesets_request_data):
         """GetBatchedChangesets.
-        [Preview API] Returns changesets for a given list of changeset Ids.
+        Returns changesets for a given list of changeset Ids.
         :param :class:`<TfvcChangesetsRequestData> <azure.devops.v5_1.tfvc.models.TfvcChangesetsRequestData>` changesets_request_data: List of changeset IDs.
         :rtype: [TfvcChangesetRef]
         """
         content = self._serialize.body(changesets_request_data, 'TfvcChangesetsRequestData')
         response = self._send(http_method='POST',
                               location_id='b7e7c173-803c-4fea-9ec8-31ee35c5502a',
-                              version='5.1-preview.1',
+                              version='5.1',
                               content=content)
         return self._deserialize('[TfvcChangesetRef]', self._unwrap_collection(response))
 
     def get_changeset_work_items(self, id=None):
         """GetChangesetWorkItems.
-        [Preview API] Retrieves the work items associated with a particular changeset.
+        Retrieves the work items associated with a particular changeset.
         :param int id: ID of the changeset. Default: null
         :rtype: [AssociatedWorkItem]
         """
@@ -284,13 +302,13 @@ class TfvcClient(Client):
             route_values['id'] = self._serialize.url('id', id, 'int')
         response = self._send(http_method='GET',
                               location_id='64ae0bea-1d71-47c9-a9e5-fe73f5ea0ff4',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('[AssociatedWorkItem]', self._unwrap_collection(response))
 
     def get_items_batch(self, item_request_data, project=None):
         """GetItemsBatch.
-        [Preview API] Post for retrieving a set of items given a list of paths or a long path. Allows for specifying the recursionLevel and version descriptors for each path.
+        Post for retrieving a set of items given a list of paths or a long path. Allows for specifying the recursionLevel and version descriptors for each path.
         :param :class:`<TfvcItemRequestData> <azure.devops.v5_1.tfvc.models.TfvcItemRequestData>` item_request_data:
         :param str project: Project ID or project name
         :rtype: [[TfvcItem]]
@@ -301,14 +319,14 @@ class TfvcClient(Client):
         content = self._serialize.body(item_request_data, 'TfvcItemRequestData')
         response = self._send(http_method='POST',
                               location_id='fe6f827b-5f64-480f-b8af-1eca3b80e833',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('[[TfvcItem]]', self._unwrap_collection(response))
 
     def get_items_batch_zip(self, item_request_data, project=None, **kwargs):
         """GetItemsBatchZip.
-        [Preview API] Post for retrieving a set of items given a list of paths or a long path. Allows for specifying the recursionLevel and version descriptors for each path.
+        Post for retrieving a set of items given a list of paths or a long path. Allows for specifying the recursionLevel and version descriptors for each path.
         :param :class:`<TfvcItemRequestData> <azure.devops.v5_1.tfvc.models.TfvcItemRequestData>` item_request_data:
         :param str project: Project ID or project name
         :rtype: object
@@ -319,7 +337,7 @@ class TfvcClient(Client):
         content = self._serialize.body(item_request_data, 'TfvcItemRequestData')
         response = self._send(http_method='POST',
                               location_id='fe6f827b-5f64-480f-b8af-1eca3b80e833',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               content=content,
                               accept_media_type='application/zip')
@@ -331,7 +349,7 @@ class TfvcClient(Client):
 
     def get_item(self, path, project=None, file_name=None, download=None, scope_path=None, recursion_level=None, version_descriptor=None, include_content=None):
         """GetItem.
-        [Preview API] Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content which is always returned as a download.
+        Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content which is always returned as a download.
         :param str path: Version control path of an individual item to return.
         :param str project: Project ID or project name
         :param str file_name: file name of item returned.
@@ -367,14 +385,14 @@ class TfvcClient(Client):
             query_parameters['includeContent'] = self._serialize.query('include_content', include_content, 'bool')
         response = self._send(http_method='GET',
                               location_id='ba9fc436-9a38-4578-89d6-e4f3241f5040',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('TfvcItem', response)
 
     def get_item_content(self, path, project=None, file_name=None, download=None, scope_path=None, recursion_level=None, version_descriptor=None, include_content=None, **kwargs):
         """GetItemContent.
-        [Preview API] Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content which is always returned as a download.
+        Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content which is always returned as a download.
         :param str path: Version control path of an individual item to return.
         :param str project: Project ID or project name
         :param str file_name: file name of item returned.
@@ -410,7 +428,7 @@ class TfvcClient(Client):
             query_parameters['includeContent'] = self._serialize.query('include_content', include_content, 'bool')
         response = self._send(http_method='GET',
                               location_id='ba9fc436-9a38-4578-89d6-e4f3241f5040',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters,
                               accept_media_type='application/octet-stream')
@@ -422,7 +440,7 @@ class TfvcClient(Client):
 
     def get_items(self, project=None, scope_path=None, recursion_level=None, include_links=None, version_descriptor=None):
         """GetItems.
-        [Preview API] Get a list of Tfvc items
+        Get a list of Tfvc items
         :param str project: Project ID or project name
         :param str scope_path: Version control path of a folder to return multiple items.
         :param str recursion_level: None (just the item), or OneLevel (contents of a folder).
@@ -449,14 +467,14 @@ class TfvcClient(Client):
                 query_parameters['versionDescriptor.version'] = version_descriptor.version
         response = self._send(http_method='GET',
                               location_id='ba9fc436-9a38-4578-89d6-e4f3241f5040',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TfvcItem]', self._unwrap_collection(response))
 
     def get_item_text(self, path, project=None, file_name=None, download=None, scope_path=None, recursion_level=None, version_descriptor=None, include_content=None, **kwargs):
         """GetItemText.
-        [Preview API] Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content which is always returned as a download.
+        Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content which is always returned as a download.
         :param str path: Version control path of an individual item to return.
         :param str project: Project ID or project name
         :param str file_name: file name of item returned.
@@ -492,7 +510,7 @@ class TfvcClient(Client):
             query_parameters['includeContent'] = self._serialize.query('include_content', include_content, 'bool')
         response = self._send(http_method='GET',
                               location_id='ba9fc436-9a38-4578-89d6-e4f3241f5040',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters,
                               accept_media_type='text/plain')
@@ -504,7 +522,7 @@ class TfvcClient(Client):
 
     def get_item_zip(self, path, project=None, file_name=None, download=None, scope_path=None, recursion_level=None, version_descriptor=None, include_content=None, **kwargs):
         """GetItemZip.
-        [Preview API] Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content which is always returned as a download.
+        Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content which is always returned as a download.
         :param str path: Version control path of an individual item to return.
         :param str project: Project ID or project name
         :param str file_name: file name of item returned.
@@ -540,7 +558,7 @@ class TfvcClient(Client):
             query_parameters['includeContent'] = self._serialize.query('include_content', include_content, 'bool')
         response = self._send(http_method='GET',
                               location_id='ba9fc436-9a38-4578-89d6-e4f3241f5040',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters,
                               accept_media_type='application/zip')
@@ -552,7 +570,7 @@ class TfvcClient(Client):
 
     def get_label_items(self, label_id, top=None, skip=None):
         """GetLabelItems.
-        [Preview API] Get items under a label.
+        Get items under a label.
         :param str label_id: Unique identifier of label
         :param int top: Max number of items to return
         :param int skip: Number of items to skip
@@ -568,14 +586,14 @@ class TfvcClient(Client):
             query_parameters['$skip'] = self._serialize.query('skip', skip, 'int')
         response = self._send(http_method='GET',
                               location_id='06166e34-de17-4b60-8cd1-23182a346fda',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TfvcItem]', self._unwrap_collection(response))
 
     def get_label(self, label_id, request_data, project=None):
         """GetLabel.
-        [Preview API] Get a single deep label.
+        Get a single deep label.
         :param str label_id: Unique identifier of label
         :param :class:`<TfvcLabelRequestData> <azure.devops.v5_1.tfvc.models.TfvcLabelRequestData>` request_data: maxItemCount
         :param str project: Project ID or project name
@@ -602,14 +620,14 @@ class TfvcClient(Client):
                 query_parameters['requestData.includeLinks'] = request_data.include_links
         response = self._send(http_method='GET',
                               location_id='a5d9bd7f-b661-4d0e-b9be-d9c16affae54',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('TfvcLabel', response)
 
     def get_labels(self, request_data, project=None, top=None, skip=None):
         """GetLabels.
-        [Preview API] Get a collection of shallow label references.
+        Get a collection of shallow label references.
         :param :class:`<TfvcLabelRequestData> <azure.devops.v5_1.tfvc.models.TfvcLabelRequestData>` request_data: labelScope, name, owner, and itemLabelFilter
         :param str project: Project ID or project name
         :param int top: Max number of labels to return
@@ -639,14 +657,14 @@ class TfvcClient(Client):
             query_parameters['$skip'] = self._serialize.query('skip', skip, 'int')
         response = self._send(http_method='GET',
                               location_id='a5d9bd7f-b661-4d0e-b9be-d9c16affae54',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TfvcLabelRef]', self._unwrap_collection(response))
 
     def get_shelveset_changes(self, shelveset_id, top=None, skip=None):
         """GetShelvesetChanges.
-        [Preview API] Get changes included in a shelveset.
+        Get changes included in a shelveset.
         :param str shelveset_id: Shelveset's unique ID
         :param int top: Max number of changes to return
         :param int skip: Number of changes to skip
@@ -661,13 +679,13 @@ class TfvcClient(Client):
             query_parameters['$skip'] = self._serialize.query('skip', skip, 'int')
         response = self._send(http_method='GET',
                               location_id='dbaf075b-0445-4c34-9e5b-82292f856522',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[TfvcChange]', self._unwrap_collection(response))
 
     def get_shelveset(self, shelveset_id, request_data=None):
         """GetShelveset.
-        [Preview API] Get a single deep shelveset.
+        Get a single deep shelveset.
         :param str shelveset_id: Shelveset's unique ID
         :param :class:`<TfvcShelvesetRequestData> <azure.devops.v5_1.tfvc.models.TfvcShelvesetRequestData>` request_data: includeDetails, includeWorkItems, maxChangeCount, and maxCommentLength
         :rtype: :class:`<TfvcShelveset> <azure.devops.v5_1.tfvc.models.TfvcShelveset>`
@@ -692,13 +710,13 @@ class TfvcClient(Client):
                 query_parameters['requestData.includeLinks'] = request_data.include_links
         response = self._send(http_method='GET',
                               location_id='e36d44fb-e907-4b0a-b194-f83f1ed32ad3',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('TfvcShelveset', response)
 
     def get_shelvesets(self, request_data=None, top=None, skip=None):
         """GetShelvesets.
-        [Preview API] Return a collection of shallow shelveset references.
+        Return a collection of shallow shelveset references.
         :param :class:`<TfvcShelvesetRequestData> <azure.devops.v5_1.tfvc.models.TfvcShelvesetRequestData>` request_data: name, owner, and maxCommentLength
         :param int top: Max number of shelvesets to return
         :param int skip: Number of shelvesets to skip
@@ -726,13 +744,13 @@ class TfvcClient(Client):
             query_parameters['$skip'] = self._serialize.query('skip', skip, 'int')
         response = self._send(http_method='GET',
                               location_id='e36d44fb-e907-4b0a-b194-f83f1ed32ad3',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[TfvcShelvesetRef]', self._unwrap_collection(response))
 
     def get_shelveset_work_items(self, shelveset_id):
         """GetShelvesetWorkItems.
-        [Preview API] Get work items associated with a shelveset.
+        Get work items associated with a shelveset.
         :param str shelveset_id: Shelveset's unique ID
         :rtype: [AssociatedWorkItem]
         """
@@ -741,7 +759,7 @@ class TfvcClient(Client):
             query_parameters['shelvesetId'] = self._serialize.query('shelveset_id', shelveset_id, 'str')
         response = self._send(http_method='GET',
                               location_id='a7a0c1c1-373e-425a-b031-a519474d743d',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[AssociatedWorkItem]', self._unwrap_collection(response))
 

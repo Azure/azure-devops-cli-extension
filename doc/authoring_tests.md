@@ -29,7 +29,7 @@
 
 ## Clear cache while recording a new test
 
-Make sure your machine python SDK cache is clear. It is located at `%userprofile%\.vsts\python-sdk\cache\`
+Make sure your machine python SDK cache is clear. It is located at `%userprofile%\.azure-devops\python-sdk\cache\`
 While running the test localy for first time make sure that the cassest (in the recording folder) gets the resource call as well
 
 ## Configure PAT for running live tests

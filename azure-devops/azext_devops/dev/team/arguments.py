@@ -10,12 +10,12 @@ from azext_devops.dev.common.utils import FILE_ENCODING_TYPES
 
 
 # CUSTOM CHOICE LISTS
-_YES_NO_SWITCH_VALUES = ['yes', 'no']
 _SOURCE_CONTROL_VALUES = ['git', 'tfvc']
 _WIKI_TYPE_VALUES = ['projectwiki', 'codewiki']
 _SCOPE_VALUES = ['project', 'organization']
 _PROJECT_VISIBILITY_VALUES = ['private', 'public']
 _STATE_VALUES = ['invalid', 'unchanged', 'all', 'new', 'wellformed', 'deleting', 'createpending']
+_PROJECT_GET_STATE_VALUE_FILTER = ['all', 'createPending', 'deleted', 'deleting', 'new', 'unchanged', 'wellFormed']
 
 _HTTP_METHOD_VALUES = ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS', 'PUT', 'HEAD']
 
@@ -67,6 +67,15 @@ def load_team_arguments(self, _):
     with self.argument_context('devops project delete') as context:
         context.argument('yes', options_list=['--yes', '-y'], action='store_true',
                          help='Do not prompt for confirmation.')
+
+    with self.argument_context('devops project list') as context:
+        context.argument('state_filter', arg_type=get_enum_type(_PROJECT_GET_STATE_VALUE_FILTER),
+                         help='State filter.')
+        context.argument('continuation_token',
+                         help='Continuation token. '
+                         'This can be retrived from previous run of this command if more results are present.')
+        context.argument('get_default_team_image_url', arg_type=get_three_state_flag(),
+                         help='Whether to get default team image url or not.')
 
     with self.argument_context('devops service-endpoint create') as context:
         context.argument('encoding',

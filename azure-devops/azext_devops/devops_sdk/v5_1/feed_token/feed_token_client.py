@@ -8,6 +8,7 @@
 
 from msrest import Serializer, Deserializer
 from ...client import Client
+from . import models
 
 
 class FeedTokenClient(Client):
@@ -18,28 +19,24 @@ class FeedTokenClient(Client):
 
     def __init__(self, base_url=None, creds=None):
         super(FeedTokenClient, self).__init__(base_url, creds)
-        self._serialize = Serializer()
-        self._deserialize = Deserializer()
+        client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
+        self._serialize = Serializer(client_models)
+        self._deserialize = Deserializer(client_models)
 
     resource_area_identifier = 'cdeb6c7d-6b25-4d6f-b664-c2e3ede202e8'
 
-    def get_personal_access_token(self, feed_name=None, token_type=None):
+    def get_personal_access_token(self, feed_name=None):
         """GetPersonalAccessToken.
         [Preview API] Get a time-limited session token representing the current user, with permissions scoped to the read/write of Artifacts.
         :param str feed_name:
-        :param str token_type: Type of token to retrieve (e.g. 'SelfDescribing', 'Compact').
-        :rtype: object
+        :rtype: :class:`<FeedSessionToken> <azure.devops.v5_1.feed_token.models.FeedSessionToken>`
         """
         route_values = {}
         if feed_name is not None:
             route_values['feedName'] = self._serialize.url('feed_name', feed_name, 'str')
-        query_parameters = {}
-        if token_type is not None:
-            query_parameters['tokenType'] = self._serialize.query('token_type', token_type, 'str')
         response = self._send(http_method='GET',
                               location_id='dfdb7ad7-3d8e-4907-911e-19b4a8330550',
                               version='5.1-preview.1',
-                              route_values=route_values,
-                              query_parameters=query_parameters)
-        return self._deserialize('object', response)
+                              route_values=route_values)
+        return self._deserialize('FeedSessionToken', response)
 

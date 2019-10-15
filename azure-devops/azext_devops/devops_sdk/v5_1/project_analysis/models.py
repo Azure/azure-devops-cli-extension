@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class CodeChangeTrendItem(Model):
-    """CodeChangeTrendItem.
-
+    """
     :param time:
     :type time: datetime
     :param value:
@@ -30,8 +29,7 @@ class CodeChangeTrendItem(Model):
 
 
 class LanguageMetricsSecuredObject(Model):
-    """LanguageMetricsSecuredObject.
-
+    """
     :param namespace_id:
     :type namespace_id: str
     :param project_id:
@@ -54,8 +52,7 @@ class LanguageMetricsSecuredObject(Model):
 
 
 class LanguageStatistics(LanguageMetricsSecuredObject):
-    """LanguageStatistics.
-
+    """
     :param namespace_id:
     :type namespace_id: str
     :param project_id:
@@ -95,8 +92,7 @@ class LanguageStatistics(LanguageMetricsSecuredObject):
 
 
 class ProjectActivityMetrics(Model):
-    """ProjectActivityMetrics.
-
+    """
     :param authors_count:
     :type authors_count: int
     :param code_changes_count:
@@ -131,8 +127,7 @@ class ProjectActivityMetrics(Model):
 
 
 class ProjectLanguageAnalytics(LanguageMetricsSecuredObject):
-    """ProjectLanguageAnalytics.
-
+    """
     :param namespace_id:
     :type namespace_id: str
     :param project_id:
@@ -172,8 +167,7 @@ class ProjectLanguageAnalytics(LanguageMetricsSecuredObject):
 
 
 class RepositoryActivityMetrics(Model):
-    """RepositoryActivityMetrics.
-
+    """
     :param code_changes_count:
     :type code_changes_count: int
     :param code_changes_trend:
@@ -196,8 +190,7 @@ class RepositoryActivityMetrics(Model):
 
 
 class RepositoryLanguageAnalytics(LanguageMetricsSecuredObject):
-    """RepositoryLanguageAnalytics.
-
+    """
     :param namespace_id:
     :type namespace_id: str
     :param project_id:

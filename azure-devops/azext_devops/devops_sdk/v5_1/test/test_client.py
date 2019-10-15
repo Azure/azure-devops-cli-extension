@@ -27,7 +27,7 @@ class TestClient(Client):
 
     def get_action_results(self, project, run_id, test_case_result_id, iteration_id, action_path=None):
         """GetActionResults.
-        [Preview API] Gets the action results for an iteration in a test result.
+        Gets the action results for an iteration in a test result.
         :param str project: Project ID or project name
         :param int run_id: ID of the test run that contains the result.
         :param int test_case_result_id: ID of the test result that contains the iterations.
@@ -48,7 +48,7 @@ class TestClient(Client):
             route_values['actionPath'] = self._serialize.url('action_path', action_path, 'str')
         response = self._send(http_method='GET',
                               location_id='eaf40c31-ff84-4062-aafd-d5664be11a37',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('[TestActionResultModel]', self._unwrap_collection(response))
 
@@ -417,7 +417,7 @@ class TestClient(Client):
 
     def get_test_iteration(self, project, run_id, test_case_result_id, iteration_id, include_action_results=None):
         """GetTestIteration.
-        [Preview API] Get iteration for a result
+        Get iteration for a result
         :param str project: Project ID or project name
         :param int run_id: ID of the test run that contains the result.
         :param int test_case_result_id: ID of the test result that contains the iterations.
@@ -439,14 +439,14 @@ class TestClient(Client):
             query_parameters['includeActionResults'] = self._serialize.query('include_action_results', include_action_results, 'bool')
         response = self._send(http_method='GET',
                               location_id='73eb9074-3446-4c44-8296-2f811950ff8d',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('TestIterationDetailsModel', response)
 
     def get_test_iterations(self, project, run_id, test_case_result_id, include_action_results=None):
         """GetTestIterations.
-        [Preview API] Get iterations for a result
+        Get iterations for a result
         :param str project: Project ID or project name
         :param int run_id: ID of the test run that contains the result.
         :param int test_case_result_id: ID of the test result that contains the iterations.
@@ -465,14 +465,14 @@ class TestClient(Client):
             query_parameters['includeActionResults'] = self._serialize.query('include_action_results', include_action_results, 'bool')
         response = self._send(http_method='GET',
                               location_id='73eb9074-3446-4c44-8296-2f811950ff8d',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TestIterationDetailsModel]', self._unwrap_collection(response))
 
     def get_result_parameters(self, project, run_id, test_case_result_id, iteration_id, param_name=None):
         """GetResultParameters.
-        [Preview API] Get a list of parameterized results
+        Get a list of parameterized results
         :param str project: Project ID or project name
         :param int run_id: ID of the test run that contains the result.
         :param int test_case_result_id: ID of the test result that contains the iterations.
@@ -494,14 +494,14 @@ class TestClient(Client):
             query_parameters['paramName'] = self._serialize.query('param_name', param_name, 'str')
         response = self._send(http_method='GET',
                               location_id='7c69810d-3354-4af3-844a-180bd25db08a',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TestResultParameterModel]', self._unwrap_collection(response))
 
     def get_point(self, project, plan_id, suite_id, point_ids, wit_fields=None):
         """GetPoint.
-        [Preview API] Get a test point.
+        Get a test point.
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan.
         :param int suite_id: ID of the suite that contains the point.
@@ -523,14 +523,14 @@ class TestClient(Client):
             query_parameters['witFields'] = self._serialize.query('wit_fields', wit_fields, 'str')
         response = self._send(http_method='GET',
                               location_id='3bcfd5c8-be62-488e-b1da-b8289ce9299c',
-                              version='5.1-preview.2',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('TestPoint', response)
 
     def get_points(self, project, plan_id, suite_id, wit_fields=None, configuration_id=None, test_case_id=None, test_point_ids=None, include_point_details=None, skip=None, top=None):
         """GetPoints.
-        [Preview API] Get a list of test points.
+        Get a list of test points.
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan.
         :param int suite_id: ID of the suite that contains the points.
@@ -567,14 +567,14 @@ class TestClient(Client):
             query_parameters['$top'] = self._serialize.query('top', top, 'int')
         response = self._send(http_method='GET',
                               location_id='3bcfd5c8-be62-488e-b1da-b8289ce9299c',
-                              version='5.1-preview.2',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TestPoint]', self._unwrap_collection(response))
 
     def update_test_points(self, point_update_model, project, plan_id, suite_id, point_ids):
         """UpdateTestPoints.
-        [Preview API] Update test points.
+        Update test points.
         :param :class:`<PointUpdateModel> <azure.devops.v5_1.test.models.PointUpdateModel>` point_update_model: Data to update.
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan.
@@ -594,7 +594,7 @@ class TestClient(Client):
         content = self._serialize.body(point_update_model, 'PointUpdateModel')
         response = self._send(http_method='PATCH',
                               location_id='3bcfd5c8-be62-488e-b1da-b8289ce9299c',
-                              version='5.1-preview.2',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('[TestPoint]', self._unwrap_collection(response))
@@ -660,7 +660,7 @@ class TestClient(Client):
 
     def add_test_results_to_test_run(self, results, project, run_id):
         """AddTestResultsToTestRun.
-        [Preview API] Add test results to a test run.
+        Add test results to a test run.
         :param [TestCaseResult] results: List of test results to add.
         :param str project: Project ID or project name
         :param int run_id: Test run ID into which test results to add.
@@ -674,14 +674,14 @@ class TestClient(Client):
         content = self._serialize.body(results, '[TestCaseResult]')
         response = self._send(http_method='POST',
                               location_id='4637d869-3a76-4468-8057-0bb02aa385cf',
-                              version='5.1-preview.6',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('[TestCaseResult]', self._unwrap_collection(response))
 
     def get_test_result_by_id(self, project, run_id, test_case_result_id, details_to_include=None):
         """GetTestResultById.
-        [Preview API] Get a test result for a test run.
+        Get a test result for a test run.
         :param str project: Project ID or project name
         :param int run_id: Test run ID of a test result to fetch.
         :param int test_case_result_id: Test result ID.
@@ -700,14 +700,14 @@ class TestClient(Client):
             query_parameters['detailsToInclude'] = self._serialize.query('details_to_include', details_to_include, 'str')
         response = self._send(http_method='GET',
                               location_id='4637d869-3a76-4468-8057-0bb02aa385cf',
-                              version='5.1-preview.6',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('TestCaseResult', response)
 
     def get_test_results(self, project, run_id, details_to_include=None, skip=None, top=None, outcomes=None):
         """GetTestResults.
-        [Preview API] Get test results for a test run.
+        Get test results for a test run.
         :param str project: Project ID or project name
         :param int run_id: Test run ID of test results to fetch.
         :param str details_to_include: Details to include with test results. Default is None. Other values are Iterations and WorkItems.
@@ -733,14 +733,14 @@ class TestClient(Client):
             query_parameters['outcomes'] = self._serialize.query('outcomes', outcomes, 'str')
         response = self._send(http_method='GET',
                               location_id='4637d869-3a76-4468-8057-0bb02aa385cf',
-                              version='5.1-preview.6',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TestCaseResult]', self._unwrap_collection(response))
 
     def update_test_results(self, results, project, run_id):
         """UpdateTestResults.
-        [Preview API] Update test results in a test run.
+        Update test results in a test run.
         :param [TestCaseResult] results: List of test results to update.
         :param str project: Project ID or project name
         :param int run_id: Test run ID whose test results to update.
@@ -754,14 +754,14 @@ class TestClient(Client):
         content = self._serialize.body(results, '[TestCaseResult]')
         response = self._send(http_method='PATCH',
                               location_id='4637d869-3a76-4468-8057-0bb02aa385cf',
-                              version='5.1-preview.6',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('[TestCaseResult]', self._unwrap_collection(response))
 
     def get_test_run_statistics(self, project, run_id):
         """GetTestRunStatistics.
-        [Preview API] Get test run statistics , used when we want to get summary of a run by outcome.
+        Get test run statistics , used when we want to get summary of a run by outcome.
         :param str project: Project ID or project name
         :param int run_id: ID of the run to get.
         :rtype: :class:`<TestRunStatistic> <azure.devops.v5_1.test.models.TestRunStatistic>`
@@ -773,13 +773,13 @@ class TestClient(Client):
             route_values['runId'] = self._serialize.url('run_id', run_id, 'int')
         response = self._send(http_method='GET',
                               location_id='0a42c424-d764-4a16-a2d5-5c85f87d0ae8',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('TestRunStatistic', response)
 
     def create_test_run(self, test_run, project):
         """CreateTestRun.
-        [Preview API] Create new test run.
+        Create new test run.
         :param :class:`<RunCreateModel> <azure.devops.v5_1.test.models.RunCreateModel>` test_run: Run details RunCreateModel
         :param str project: Project ID or project name
         :rtype: :class:`<TestRun> <azure.devops.v5_1.test.models.TestRun>`
@@ -790,14 +790,14 @@ class TestClient(Client):
         content = self._serialize.body(test_run, 'RunCreateModel')
         response = self._send(http_method='POST',
                               location_id='cadb3810-d47d-4a3c-a234-fe5f3be50138',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('TestRun', response)
 
     def delete_test_run(self, project, run_id):
         """DeleteTestRun.
-        [Preview API] Delete a test run by its ID.
+        Delete a test run by its ID.
         :param str project: Project ID or project name
         :param int run_id: ID of the run to delete.
         """
@@ -808,12 +808,12 @@ class TestClient(Client):
             route_values['runId'] = self._serialize.url('run_id', run_id, 'int')
         self._send(http_method='DELETE',
                    location_id='cadb3810-d47d-4a3c-a234-fe5f3be50138',
-                   version='5.1-preview.3',
+                   version='5.1',
                    route_values=route_values)
 
     def get_test_run_by_id(self, project, run_id, include_details=None):
         """GetTestRunById.
-        [Preview API] Get a test run by its ID.
+        Get a test run by its ID.
         :param str project: Project ID or project name
         :param int run_id: ID of the run to get.
         :param bool include_details: Defualt value is true. It includes details like run statistics,release,build,Test enviornment,Post process state and more
@@ -829,14 +829,14 @@ class TestClient(Client):
             query_parameters['includeDetails'] = self._serialize.query('include_details', include_details, 'bool')
         response = self._send(http_method='GET',
                               location_id='cadb3810-d47d-4a3c-a234-fe5f3be50138',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('TestRun', response)
 
     def get_test_runs(self, project, build_uri=None, owner=None, tmi_run_id=None, plan_id=None, include_run_details=None, automated=None, skip=None, top=None):
         """GetTestRuns.
-        [Preview API] Get a list of test runs.
+        Get a list of test runs.
         :param str project: Project ID or project name
         :param str build_uri: URI of the build that the runs used.
         :param str owner: Team foundation ID of the owner of the runs.
@@ -870,14 +870,14 @@ class TestClient(Client):
             query_parameters['$top'] = self._serialize.query('top', top, 'int')
         response = self._send(http_method='GET',
                               location_id='cadb3810-d47d-4a3c-a234-fe5f3be50138',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TestRun]', self._unwrap_collection(response))
 
     def query_test_runs(self, project, min_last_updated_date, max_last_updated_date, state=None, plan_ids=None, is_automated=None, publish_context=None, build_ids=None, build_def_ids=None, branch_name=None, release_ids=None, release_def_ids=None, release_env_ids=None, release_env_def_ids=None, run_title=None, top=None, continuation_token=None):
         """QueryTestRuns.
-        [Preview API] Query Test Runs based on filters. Mandatory fields are minLastUpdatedDate and maxLastUpdatedDate.
+        Query Test Runs based on filters. Mandatory fields are minLastUpdatedDate and maxLastUpdatedDate.
         :param str project: Project ID or project name
         :param datetime min_last_updated_date: Minimum Last Modified Date of run to be queried (Mandatory).
         :param datetime max_last_updated_date: Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days).
@@ -895,7 +895,7 @@ class TestClient(Client):
         :param str run_title: Run Title of the Runs to be queried.
         :param int top: Number of runs to be queried. Limit is 100
         :param str continuation_token: continuationToken received from previous batch or null for first batch. It is not supposed to be created (or altered, if received from last batch) by user.
-        :rtype: [TestRun]
+        :rtype: :class:`<QueryTestRunsResponseValue>`
         """
         route_values = {}
         if project is not None:
@@ -942,14 +942,29 @@ class TestClient(Client):
             query_parameters['continuationToken'] = self._serialize.query('continuation_token', continuation_token, 'str')
         response = self._send(http_method='GET',
                               location_id='cadb3810-d47d-4a3c-a234-fe5f3be50138',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
-        return self._deserialize('[TestRun]', self._unwrap_collection(response))
+        response_value = self._deserialize('[TestRun]', self._unwrap_collection(response))
+        continuation_token = self._get_continuation_token(response)
+        return self.QueryTestRunsResponseValue(response_value, continuation_token)
+
+    class QueryTestRunsResponseValue(object):
+        def __init__(self, value, continuation_token):
+            """
+            Response for the query_test_runs method
+
+            :param value:
+            :type value: :class:`<[TestRun]> <azure.devops.v5_1.test.models.[TestRun]>`
+            :param continuation_token: The continuation token to be used to get the next page of results.
+            :type continuation_token: str
+            """
+            self.value = value
+            self.continuation_token = continuation_token
 
     def update_test_run(self, run_update_model, project, run_id):
         """UpdateTestRun.
-        [Preview API] Update test run by its ID.
+        Update test run by its ID.
         :param :class:`<RunUpdateModel> <azure.devops.v5_1.test.models.RunUpdateModel>` run_update_model: Run details RunUpdateModel
         :param str project: Project ID or project name
         :param int run_id: ID of the run to update.
@@ -963,7 +978,7 @@ class TestClient(Client):
         content = self._serialize.body(run_update_model, 'RunUpdateModel')
         response = self._send(http_method='PATCH',
                               location_id='cadb3810-d47d-4a3c-a234-fe5f3be50138',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('TestRun', response)
@@ -1080,7 +1095,7 @@ class TestClient(Client):
 
     def add_test_cases_to_suite(self, project, plan_id, suite_id, test_case_ids):
         """AddTestCasesToSuite.
-        [Preview API] Add test cases to suite.
+        Add test cases to suite.
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan that contains the suite.
         :param int suite_id: ID of the test suite to which the test cases must be added.
@@ -1099,13 +1114,13 @@ class TestClient(Client):
         route_values['action'] = 'TestCases'
         response = self._send(http_method='POST',
                               location_id='a4a1ec1c-b03f-41ca-8857-704594ecf58e',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('[SuiteTestCase]', self._unwrap_collection(response))
 
     def get_test_case_by_id(self, project, plan_id, suite_id, test_case_ids):
         """GetTestCaseById.
-        [Preview API] Get a specific test case in a test suite with test case id.
+        Get a specific test case in a test suite with test case id.
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan that contains the suites.
         :param int suite_id: ID of the suite that contains the test case.
@@ -1124,13 +1139,13 @@ class TestClient(Client):
         route_values['action'] = 'TestCases'
         response = self._send(http_method='GET',
                               location_id='a4a1ec1c-b03f-41ca-8857-704594ecf58e',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('SuiteTestCase', response)
 
     def get_test_cases(self, project, plan_id, suite_id):
         """GetTestCases.
-        [Preview API] Get all test cases in a suite.
+        Get all test cases in a suite.
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan that contains the suites.
         :param int suite_id: ID of the suite to get.
@@ -1146,13 +1161,13 @@ class TestClient(Client):
         route_values['action'] = 'TestCases'
         response = self._send(http_method='GET',
                               location_id='a4a1ec1c-b03f-41ca-8857-704594ecf58e',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('[SuiteTestCase]', self._unwrap_collection(response))
 
     def remove_test_cases_from_suite_url(self, project, plan_id, suite_id, test_case_ids):
         """RemoveTestCasesFromSuiteUrl.
-        [Preview API] The test points associated with the test cases are removed from the test suite. The test case work item is not deleted from the system. See test cases resource to delete a test case permanently.
+        The test points associated with the test cases are removed from the test suite. The test case work item is not deleted from the system. See test cases resource to delete a test case permanently.
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan that contains the suite.
         :param int suite_id: ID of the suite to get.
@@ -1170,12 +1185,12 @@ class TestClient(Client):
         route_values['action'] = 'TestCases'
         self._send(http_method='DELETE',
                    location_id='a4a1ec1c-b03f-41ca-8857-704594ecf58e',
-                   version='5.1-preview.3',
+                   version='5.1',
                    route_values=route_values)
 
     def update_suite_test_cases(self, suite_test_case_update_model, project, plan_id, suite_id, test_case_ids):
         """UpdateSuiteTestCases.
-        [Preview API] Updates the properties of the test case association in a suite.
+        Updates the properties of the test case association in a suite.
         :param :class:`<SuiteTestCaseUpdateModel> <azure.devops.v5_1.test.models.SuiteTestCaseUpdateModel>` suite_test_case_update_model: Model for updation of the properties of test case suite association.
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan that contains the suite.
@@ -1196,7 +1211,7 @@ class TestClient(Client):
         content = self._serialize.body(suite_test_case_update_model, 'SuiteTestCaseUpdateModel')
         response = self._send(http_method='PATCH',
                               location_id='a4a1ec1c-b03f-41ca-8857-704594ecf58e',
-                              version='5.1-preview.3',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('[SuiteTestCase]', self._unwrap_collection(response))

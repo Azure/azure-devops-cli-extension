@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class AccessLevel(Model):
-    """AccessLevel.
+    """
+    License assigned to a user
 
     :param account_license_type: Type of Account License (e.g. Express, Stakeholder etc.)
     :type account_license_type: object
@@ -50,8 +51,7 @@ class AccessLevel(Model):
 
 
 class BaseOperationResult(Model):
-    """BaseOperationResult.
-
+    """
     :param errors: List of error codes paired with their corresponding error messages
     :type errors: list of { key: int; value: str }
     :param is_success: Success status of the operation
@@ -70,7 +70,8 @@ class BaseOperationResult(Model):
 
 
 class Extension(Model):
-    """Extension.
+    """
+    An extension assigned to a user
 
     :param assignment_source: Assignment source for this extension. I.e. explicitly assigned or from a group rule.
     :type assignment_source: object
@@ -98,8 +99,7 @@ class Extension(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -126,7 +126,8 @@ class GraphSubjectBase(Model):
 
 
 class Group(Model):
-    """Group.
+    """
+    Project Group (e.g. Contributor, Reader etc.)
 
     :param display_name: Display Name of the Group
     :type display_name: str
@@ -146,7 +147,8 @@ class Group(Model):
 
 
 class GroupEntitlement(Model):
-    """GroupEntitlement.
+    """
+    A group entity with additional properties including its license, extensions, and project membership
 
     :param extension_rules: Extension Rules.
     :type extension_rules: list of :class:`Extension <azure.devops.v5_1.member_entitlement_management.models.Extension>`
@@ -190,8 +192,7 @@ class GroupEntitlement(Model):
 
 
 class GroupOperationResult(BaseOperationResult):
-    """GroupOperationResult.
-
+    """
     :param errors: List of error codes paired with their corresponding error messages
     :type errors: list of { key: int; value: str }
     :param is_success: Success status of the operation
@@ -216,7 +217,8 @@ class GroupOperationResult(BaseOperationResult):
 
 
 class GroupOption(Model):
-    """GroupOption.
+    """
+    Group option to add a user to
 
     :param access_level: Access Level
     :type access_level: :class:`AccessLevel <azure.devops.v5_1.member_entitlement_management.models.AccessLevel>`
@@ -236,7 +238,8 @@ class GroupOption(Model):
 
 
 class JsonPatchOperation(Model):
-    """JsonPatchOperation.
+    """
+    The JSON model for a JSON Patch operation
 
     :param from_: The path to copy from for the Move/Copy operation.
     :type from_: str
@@ -264,8 +267,7 @@ class JsonPatchOperation(Model):
 
 
 class MemberEntitlementsResponseBase(Model):
-    """MemberEntitlementsResponseBase.
-
+    """
     :param is_success: True if all operations were successful.
     :type is_success: bool
     :param member_entitlement: Result of the member entitlement after the operations. have been applied
@@ -284,7 +286,8 @@ class MemberEntitlementsResponseBase(Model):
 
 
 class OperationReference(Model):
-    """OperationReference.
+    """
+    Reference for an async operation.
 
     :param id: Unique identifier for the operation.
     :type id: str
@@ -312,8 +315,7 @@ class OperationReference(Model):
 
 
 class OperationResult(Model):
-    """OperationResult.
-
+    """
     :param errors: List of error codes paired with their corresponding error messages.
     :type errors: list of { key: int; value: str }
     :param is_success: Success status of the operation.
@@ -340,8 +342,7 @@ class OperationResult(Model):
 
 
 class PagedList(Model):
-    """PagedList.
-
+    """
     :param continuation_token:
     :type continuation_token: str
     :param items:
@@ -364,7 +365,8 @@ class PagedList(Model):
 
 
 class ProjectEntitlement(Model):
-    """ProjectEntitlement.
+    """
+    Relation between a project and the user's effective permissions in that project.
 
     :param assignment_source: Assignment Source (e.g. Group or Unknown).
     :type assignment_source: object
@@ -400,7 +402,8 @@ class ProjectEntitlement(Model):
 
 
 class ProjectRef(Model):
-    """ProjectRef.
+    """
+    A reference to a project
 
     :param id: Project ID.
     :type id: str
@@ -420,7 +423,8 @@ class ProjectRef(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -436,8 +440,7 @@ class ReferenceLinks(Model):
 
 
 class SummaryData(Model):
-    """SummaryData.
-
+    """
     :param assigned: Count of Licenses already assigned.
     :type assigned: int
     :param available: Available Count.
@@ -464,7 +467,8 @@ class SummaryData(Model):
 
 
 class TeamRef(Model):
-    """TeamRef.
+    """
+    A reference to a team
 
     :param id: Team ID
     :type id: str
@@ -484,7 +488,8 @@ class TeamRef(Model):
 
 
 class UserEntitlement(Model):
-    """UserEntitlement.
+    """
+    A user entity with additional properties including thier license, extensions, and project membership
 
     :param access_level: User's access level denoted by a license.
     :type access_level: :class:`AccessLevel <azure.devops.v5_1.member_entitlement_management.models.AccessLevel>`
@@ -528,8 +533,7 @@ class UserEntitlement(Model):
 
 
 class UserEntitlementOperationReference(OperationReference):
-    """UserEntitlementOperationReference.
-
+    """
     :param id: Unique identifier for the operation.
     :type id: str
     :param plugin_id: Unique identifier for the plugin.
@@ -564,8 +568,7 @@ class UserEntitlementOperationReference(OperationReference):
 
 
 class UserEntitlementOperationResult(Model):
-    """UserEntitlementOperationResult.
-
+    """
     :param errors: List of error codes paired with their corresponding error messages.
     :type errors: list of { key: int; value: str }
     :param is_success: Success status of the operation.
@@ -592,8 +595,7 @@ class UserEntitlementOperationResult(Model):
 
 
 class UserEntitlementsResponseBase(Model):
-    """UserEntitlementsResponseBase.
-
+    """
     :param is_success: True if all operations were successful.
     :type is_success: bool
     :param user_entitlement: Result of the user entitlement after the operations have been applied.
@@ -612,7 +614,8 @@ class UserEntitlementsResponseBase(Model):
 
 
 class UsersSummary(Model):
-    """UsersSummary.
+    """
+    Summary of licenses and extensions assigned to users in the organization
 
     :param available_access_levels: Available Access Levels
     :type available_access_levels: list of :class:`AccessLevel <azure.devops.v5_1.member_entitlement_management.models.AccessLevel>`
@@ -644,7 +647,8 @@ class UsersSummary(Model):
 
 
 class ExtensionSummaryData(SummaryData):
-    """ExtensionSummaryData.
+    """
+    Summary of Extensions in the organization.
 
     :param assigned: Count of Licenses already assigned.
     :type assigned: int
@@ -696,7 +700,8 @@ class ExtensionSummaryData(SummaryData):
 
 
 class GraphSubject(GraphSubjectBase):
-    """GraphSubject.
+    """
+    Top-level graph entity
 
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
@@ -736,8 +741,7 @@ class GraphSubject(GraphSubjectBase):
 
 
 class GroupEntitlementOperationReference(OperationReference):
-    """GroupEntitlementOperationReference.
-
+    """
     :param id: Unique identifier for the operation.
     :type id: str
     :param plugin_id: Unique identifier for the plugin.
@@ -772,7 +776,8 @@ class GroupEntitlementOperationReference(OperationReference):
 
 
 class LicenseSummaryData(SummaryData):
-    """LicenseSummaryData.
+    """
+    Summary of Licenses in the organization.
 
     :param assigned: Count of Licenses already assigned.
     :type assigned: int
@@ -828,7 +833,8 @@ class LicenseSummaryData(SummaryData):
 
 
 class MemberEntitlement(UserEntitlement):
-    """MemberEntitlement.
+    """
+    Deprecated: Use UserEntitlement instead
 
     :param access_level: User's access level denoted by a license.
     :type access_level: :class:`AccessLevel <azure.devops.v5_1.member_entitlement_management.models.AccessLevel>`
@@ -868,8 +874,7 @@ class MemberEntitlement(UserEntitlement):
 
 
 class MemberEntitlementOperationReference(OperationReference):
-    """MemberEntitlementOperationReference.
-
+    """
     :param id: Unique identifier for the operation.
     :type id: str
     :param plugin_id: Unique identifier for the plugin.
@@ -904,8 +909,7 @@ class MemberEntitlementOperationReference(OperationReference):
 
 
 class MemberEntitlementsPatchResponse(MemberEntitlementsResponseBase):
-    """MemberEntitlementsPatchResponse.
-
+    """
     :param is_success: True if all operations were successful.
     :type is_success: bool
     :param member_entitlement: Result of the member entitlement after the operations. have been applied
@@ -926,8 +930,7 @@ class MemberEntitlementsPatchResponse(MemberEntitlementsResponseBase):
 
 
 class MemberEntitlementsPostResponse(MemberEntitlementsResponseBase):
-    """MemberEntitlementsPostResponse.
-
+    """
     :param is_success: True if all operations were successful.
     :type is_success: bool
     :param member_entitlement: Result of the member entitlement after the operations. have been applied
@@ -948,7 +951,8 @@ class MemberEntitlementsPostResponse(MemberEntitlementsResponseBase):
 
 
 class PagedGraphMemberList(PagedList):
-    """PagedGraphMemberList.
+    """
+    A page of users
 
     :param members:
     :type members: list of :class:`UserEntitlement <azure.devops.v5_1.member_entitlement_management.models.UserEntitlement>`
@@ -964,8 +968,7 @@ class PagedGraphMemberList(PagedList):
 
 
 class UserEntitlementsPatchResponse(UserEntitlementsResponseBase):
-    """UserEntitlementsPatchResponse.
-
+    """
     :param is_success: True if all operations were successful.
     :type is_success: bool
     :param user_entitlement: Result of the user entitlement after the operations have been applied.
@@ -986,8 +989,7 @@ class UserEntitlementsPatchResponse(UserEntitlementsResponseBase):
 
 
 class UserEntitlementsPostResponse(UserEntitlementsResponseBase):
-    """UserEntitlementsPostResponse.
-
+    """
     :param is_success: True if all operations were successful.
     :type is_success: bool
     :param user_entitlement: Result of the user entitlement after the operations have been applied.
@@ -1008,8 +1010,7 @@ class UserEntitlementsPostResponse(UserEntitlementsResponseBase):
 
 
 class GraphMember(GraphSubject):
-    """GraphMember.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -1056,7 +1057,8 @@ class GraphMember(GraphSubject):
 
 
 class GraphUser(GraphMember):
-    """GraphUser.
+    """
+    Graph user entity
 
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
@@ -1117,7 +1119,8 @@ class GraphUser(GraphMember):
 
 
 class GraphGroup(GraphMember):
-    """GraphGroup.
+    """
+    Graph group entity
 
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`

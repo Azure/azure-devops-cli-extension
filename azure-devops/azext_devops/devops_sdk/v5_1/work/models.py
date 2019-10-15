@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class Activity(Model):
-    """Activity.
-
+    """
     :param capacity_per_day:
     :type capacity_per_day: int
     :param name:
@@ -30,8 +29,7 @@ class Activity(Model):
 
 
 class BacklogColumn(Model):
-    """BacklogColumn.
-
+    """
     :param column_field_reference:
     :type column_field_reference: :class:`WorkItemFieldReference <azure.devops.v5_1.work.models.WorkItemFieldReference>`
     :param width:
@@ -50,8 +48,7 @@ class BacklogColumn(Model):
 
 
 class BacklogConfiguration(Model):
-    """BacklogConfiguration.
-
+    """
     :param backlog_fields: Behavior/type field mapping
     :type backlog_fields: :class:`BacklogFields <azure.devops.v5_1.work.models.BacklogFields>`
     :param bugs_behavior: Bugs behavior
@@ -98,8 +95,7 @@ class BacklogConfiguration(Model):
 
 
 class BacklogFields(Model):
-    """BacklogFields.
-
+    """
     :param type_fields: Field Type (e.g. Order, Activity) to Field Reference Name map
     :type type_fields: dict
     """
@@ -114,7 +110,8 @@ class BacklogFields(Model):
 
 
 class BacklogLevel(Model):
-    """BacklogLevel.
+    """
+    Contract representing a backlog level
 
     :param category_reference_name: Reference name of the corresponding WIT category
     :type category_reference_name: str
@@ -142,15 +139,14 @@ class BacklogLevel(Model):
 
 
 class BacklogLevelConfiguration(Model):
-    """BacklogLevelConfiguration.
-
+    """
     :param add_panel_fields: List of fields to include in Add Panel
     :type add_panel_fields: list of :class:`WorkItemFieldReference <azure.devops.v5_1.work.models.WorkItemFieldReference>`
     :param color: Color for the backlog level
     :type color: str
     :param column_fields: Default list of columns for the backlog
     :type column_fields: list of :class:`BacklogColumn <azure.devops.v5_1.work.models.BacklogColumn>`
-    :param default_work_item_type: Defaulst Work Item Type for the backlog
+    :param default_work_item_type: Default Work Item Type for the backlog
     :type default_work_item_type: :class:`WorkItemTypeReference <azure.devops.v5_1.work.models.WorkItemTypeReference>`
     :param id: Backlog Id (for Legacy Backlog Level from process config it can be categoryref name)
     :type id: str
@@ -198,7 +194,8 @@ class BacklogLevelConfiguration(Model):
 
 
 class BacklogLevelWorkItems(Model):
-    """BacklogLevelWorkItems.
+    """
+    Represents work items in a backlog level
 
     :param work_items: A list of work items within a backlog level
     :type work_items: list of :class:`WorkItemLink <azure.devops.v5_1.work.models.WorkItemLink>`
@@ -214,7 +211,8 @@ class BacklogLevelWorkItems(Model):
 
 
 class BoardBadge(Model):
-    """BoardBadge.
+    """
+    Represents a board badge.
 
     :param board_id: The ID of the board represented by this badge.
     :type board_id: str
@@ -234,8 +232,7 @@ class BoardBadge(Model):
 
 
 class BoardCardRuleSettings(Model):
-    """BoardCardRuleSettings.
-
+    """
     :param _links:
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
     :param rules:
@@ -258,8 +255,7 @@ class BoardCardRuleSettings(Model):
 
 
 class BoardCardSettings(Model):
-    """BoardCardSettings.
-
+    """
     :param cards:
     :type cards: dict
     """
@@ -274,8 +270,7 @@ class BoardCardSettings(Model):
 
 
 class BoardChartReference(Model):
-    """BoardChartReference.
-
+    """
     :param name: Name of the resource
     :type name: str
     :param url: Full http link to the resource
@@ -294,8 +289,7 @@ class BoardChartReference(Model):
 
 
 class BoardColumn(Model):
-    """BoardColumn.
-
+    """
     :param column_type:
     :type column_type: object
     :param description:
@@ -334,8 +328,7 @@ class BoardColumn(Model):
 
 
 class BoardFields(Model):
-    """BoardFields.
-
+    """
     :param column_field:
     :type column_field: :class:`FieldReference <azure.devops.v5_1.work.models.FieldReference>`
     :param done_field:
@@ -358,8 +351,7 @@ class BoardFields(Model):
 
 
 class BoardReference(Model):
-    """BoardReference.
-
+    """
     :param id: Id of the resource
     :type id: str
     :param name: Name of the resource
@@ -382,8 +374,7 @@ class BoardReference(Model):
 
 
 class BoardRow(Model):
-    """BoardRow.
-
+    """
     :param id:
     :type id: str
     :param name:
@@ -402,8 +393,7 @@ class BoardRow(Model):
 
 
 class BoardSuggestedValue(Model):
-    """BoardSuggestedValue.
-
+    """
     :param name:
     :type name: str
     """
@@ -418,8 +408,7 @@ class BoardSuggestedValue(Model):
 
 
 class BoardUserSettings(Model):
-    """BoardUserSettings.
-
+    """
     :param auto_refresh_state:
     :type auto_refresh_state: bool
     """
@@ -434,7 +423,8 @@ class BoardUserSettings(Model):
 
 
 class CapacityPatch(Model):
-    """CapacityPatch.
+    """
+    Expected data from PATCH
 
     :param activities:
     :type activities: list of :class:`Activity <azure.devops.v5_1.work.models.Activity>`
@@ -454,7 +444,8 @@ class CapacityPatch(Model):
 
 
 class CategoryConfiguration(Model):
-    """CategoryConfiguration.
+    """
+    Details about a given backlog category
 
     :param name: Name
     :type name: str
@@ -478,8 +469,7 @@ class CategoryConfiguration(Model):
 
 
 class CreatePlan(Model):
-    """CreatePlan.
-
+    """
     :param description: Description of the plan
     :type description: str
     :param name: Name of the plan to create.
@@ -506,8 +496,7 @@ class CreatePlan(Model):
 
 
 class DateRange(Model):
-    """DateRange.
-
+    """
     :param end: End of the date range.
     :type end: datetime
     :param start: Start of the date range.
@@ -526,7 +515,8 @@ class DateRange(Model):
 
 
 class FieldReference(Model):
-    """FieldReference.
+    """
+    An abstracted reference to a field
 
     :param reference_name: fieldRefName for the field
     :type reference_name: str
@@ -546,8 +536,7 @@ class FieldReference(Model):
 
 
 class FilterClause(Model):
-    """FilterClause.
-
+    """
     :param field_name:
     :type field_name: str
     :param index:
@@ -578,8 +567,7 @@ class FilterClause(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -606,8 +594,7 @@ class GraphSubjectBase(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -666,7 +653,8 @@ class IdentityRef(GraphSubjectBase):
 
 
 class Link(Model):
-    """Link.
+    """
+    Link description.
 
     :param attributes: Collection of link attributes.
     :type attributes: dict
@@ -690,8 +678,7 @@ class Link(Model):
 
 
 class Member(Model):
-    """Member.
-
+    """
     :param display_name:
     :type display_name: str
     :param id:
@@ -722,8 +709,7 @@ class Member(Model):
 
 
 class ParentChildWIMap(Model):
-    """ParentChildWIMap.
-
+    """
     :param child_work_item_ids:
     :type child_work_item_ids: list of int
     :param id:
@@ -746,7 +732,8 @@ class ParentChildWIMap(Model):
 
 
 class Plan(Model):
-    """Plan.
+    """
+    Data contract for the plan definition
 
     :param created_by_identity: Identity that created this plan. Defaults to null for records before upgrading to ScaledAgileViewComponent4.
     :type created_by_identity: :class:`IdentityRef <azure.devops.v5_1.work.models.IdentityRef>`
@@ -806,7 +793,8 @@ class Plan(Model):
 
 
 class PlanViewData(Model):
-    """PlanViewData.
+    """
+    Base class for plan view data contracts. Anything common goes here.
 
     :param id:
     :type id: str
@@ -826,7 +814,8 @@ class PlanViewData(Model):
 
 
 class PredefinedQuery(Model):
-    """PredefinedQuery.
+    """
+    Represents a single pre-defined query.
 
     :param has_more: Whether or not the query returned the complete set of data or if the data was truncated.
     :type has_more: bool
@@ -862,7 +851,8 @@ class PredefinedQuery(Model):
 
 
 class ProcessConfiguration(Model):
-    """ProcessConfiguration.
+    """
+    Process Configurations for the project
 
     :param bug_work_items: Details about bug work items
     :type bug_work_items: :class:`CategoryConfiguration <azure.devops.v5_1.work.models.CategoryConfiguration>`
@@ -898,7 +888,8 @@ class ProcessConfiguration(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -913,9 +904,62 @@ class ReferenceLinks(Model):
         self.links = links
 
 
-class Rule(Model):
-    """Rule.
+class ReorderOperation(Model):
+    """
+    Represents a reorder request for one or more work items.
 
+    :param ids: IDs of the work items to be reordered.  Must be valid WorkItem Ids.
+    :type ids: list of int
+    :param iteration_path: IterationPath for reorder operation. This is only used when we reorder from the Iteration Backlog
+    :type iteration_path: str
+    :param next_id: ID of the work item that should be after the reordered items. Can use 0 to specify the end of the list.
+    :type next_id: int
+    :param parent_id: Parent ID for all of the work items involved in this operation. Can use 0 to indicate the items don't have a parent.
+    :type parent_id: int
+    :param previous_id: ID of the work item that should be before the reordered items. Can use 0 to specify the beginning of the list.
+    :type previous_id: int
+    """
+
+    _attribute_map = {
+        'ids': {'key': 'ids', 'type': '[int]'},
+        'iteration_path': {'key': 'iterationPath', 'type': 'str'},
+        'next_id': {'key': 'nextId', 'type': 'int'},
+        'parent_id': {'key': 'parentId', 'type': 'int'},
+        'previous_id': {'key': 'previousId', 'type': 'int'}
+    }
+
+    def __init__(self, ids=None, iteration_path=None, next_id=None, parent_id=None, previous_id=None):
+        super(ReorderOperation, self).__init__()
+        self.ids = ids
+        self.iteration_path = iteration_path
+        self.next_id = next_id
+        self.parent_id = parent_id
+        self.previous_id = previous_id
+
+
+class ReorderResult(Model):
+    """
+    Represents a reorder result for a work item.
+
+    :param id: The ID of the work item that was reordered.
+    :type id: int
+    :param order: The updated order value of the work item that was reordered.
+    :type order: float
+    """
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'int'},
+        'order': {'key': 'order', 'type': 'float'}
+    }
+
+    def __init__(self, id=None, order=None):
+        super(ReorderResult, self).__init__()
+        self.id = id
+        self.order = order
+
+
+class Rule(Model):
+    """
     :param clauses:
     :type clauses: list of :class:`FilterClause <azure.devops.v5_1.work.models.FilterClause>`
     :param filter:
@@ -946,7 +990,8 @@ class Rule(Model):
 
 
 class TeamContext(Model):
-    """TeamContext.
+    """
+    The Team Context for an operation.
 
     :param project: The team project Id or name.  Ignored if ProjectId is set.
     :type project: str
@@ -974,7 +1019,8 @@ class TeamContext(Model):
 
 
 class TeamFieldValue(Model):
-    """TeamFieldValue.
+    """
+    Represents a single TeamFieldValue
 
     :param include_children:
     :type include_children: bool
@@ -994,7 +1040,8 @@ class TeamFieldValue(Model):
 
 
 class TeamFieldValuesPatch(Model):
-    """TeamFieldValuesPatch.
+    """
+    Expected data from PATCH
 
     :param default_value:
     :type default_value: str
@@ -1014,8 +1061,7 @@ class TeamFieldValuesPatch(Model):
 
 
 class TeamIterationAttributes(Model):
-    """TeamIterationAttributes.
-
+    """
     :param finish_date: Finish date of the iteration. Date-only, correct unadjusted at midnight in UTC.
     :type finish_date: datetime
     :param start_date: Start date of the iteration. Date-only, correct unadjusted at midnight in UTC.
@@ -1038,7 +1084,8 @@ class TeamIterationAttributes(Model):
 
 
 class TeamSettingsDataContractBase(Model):
-    """TeamSettingsDataContractBase.
+    """
+    Base class for TeamSettings data contracts. Anything common goes here.
 
     :param _links: Collection of links relevant to resource
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
@@ -1058,8 +1105,7 @@ class TeamSettingsDataContractBase(Model):
 
 
 class TeamSettingsDaysOff(TeamSettingsDataContractBase):
-    """TeamSettingsDaysOff.
-
+    """
     :param _links: Collection of links relevant to resource
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
     :param url: Full http link to the resource
@@ -1080,8 +1126,7 @@ class TeamSettingsDaysOff(TeamSettingsDataContractBase):
 
 
 class TeamSettingsDaysOffPatch(Model):
-    """TeamSettingsDaysOffPatch.
-
+    """
     :param days_off:
     :type days_off: list of :class:`DateRange <azure.devops.v5_1.work.models.DateRange>`
     """
@@ -1096,7 +1141,8 @@ class TeamSettingsDaysOffPatch(Model):
 
 
 class TeamSettingsIteration(TeamSettingsDataContractBase):
-    """TeamSettingsIteration.
+    """
+    Represents a shallow ref for a single iteration.
 
     :param _links: Collection of links relevant to resource
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
@@ -1130,7 +1176,8 @@ class TeamSettingsIteration(TeamSettingsDataContractBase):
 
 
 class TeamSettingsPatch(Model):
-    """TeamSettingsPatch.
+    """
+    Data contract for what we expect to receive when PATCH
 
     :param backlog_iteration:
     :type backlog_iteration: str
@@ -1166,8 +1213,7 @@ class TeamSettingsPatch(Model):
 
 
 class TimelineCriteriaStatus(Model):
-    """TimelineCriteriaStatus.
-
+    """
     :param message:
     :type message: str
     :param type:
@@ -1186,8 +1232,7 @@ class TimelineCriteriaStatus(Model):
 
 
 class TimelineIterationStatus(Model):
-    """TimelineIterationStatus.
-
+    """
     :param message:
     :type message: str
     :param type:
@@ -1206,8 +1251,7 @@ class TimelineIterationStatus(Model):
 
 
 class TimelineTeamData(Model):
-    """TimelineTeamData.
-
+    """
     :param backlog: Backlog matching the mapped backlog associated with this team.
     :type backlog: :class:`BacklogLevel <azure.devops.v5_1.work.models.BacklogLevel>`
     :param field_reference_names: The field reference names of the work item data
@@ -1274,8 +1318,9 @@ class TimelineTeamData(Model):
 
 
 class TimelineTeamIteration(Model):
-    """TimelineTeamIteration.
-
+    """
+    :param css_node_id: The iteration CSS Node Id
+    :type css_node_id: str
     :param finish_date: The end date of the iteration
     :type finish_date: datetime
     :param name: The iteration name
@@ -1293,6 +1338,7 @@ class TimelineTeamIteration(Model):
     """
 
     _attribute_map = {
+        'css_node_id': {'key': 'cssNodeId', 'type': 'str'},
         'finish_date': {'key': 'finishDate', 'type': 'iso-8601'},
         'name': {'key': 'name', 'type': 'str'},
         'partially_paged_work_items': {'key': 'partiallyPagedWorkItems', 'type': '[[object]]'},
@@ -1302,8 +1348,9 @@ class TimelineTeamIteration(Model):
         'work_items': {'key': 'workItems', 'type': '[[object]]'}
     }
 
-    def __init__(self, finish_date=None, name=None, partially_paged_work_items=None, path=None, start_date=None, status=None, work_items=None):
+    def __init__(self, css_node_id=None, finish_date=None, name=None, partially_paged_work_items=None, path=None, start_date=None, status=None, work_items=None):
         super(TimelineTeamIteration, self).__init__()
+        self.css_node_id = css_node_id
         self.finish_date = finish_date
         self.name = name
         self.partially_paged_work_items = partially_paged_work_items
@@ -1314,8 +1361,7 @@ class TimelineTeamIteration(Model):
 
 
 class TimelineTeamStatus(Model):
-    """TimelineTeamStatus.
-
+    """
     :param message:
     :type message: str
     :param type:
@@ -1334,8 +1380,7 @@ class TimelineTeamStatus(Model):
 
 
 class UpdatePlan(Model):
-    """UpdatePlan.
-
+    """
     :param description: Description of the plan
     :type description: str
     :param name: Name of the plan to create.
@@ -1366,7 +1411,8 @@ class UpdatePlan(Model):
 
 
 class WorkItemColor(Model):
-    """WorkItemColor.
+    """
+    Work item color and icon.
 
     :param icon:
     :type icon: str
@@ -1390,7 +1436,8 @@ class WorkItemColor(Model):
 
 
 class WorkItemFieldReference(Model):
-    """WorkItemFieldReference.
+    """
+    Reference to a field in a work item
 
     :param name: The friendly name of the field.
     :type name: str
@@ -1414,7 +1461,8 @@ class WorkItemFieldReference(Model):
 
 
 class WorkItemLink(Model):
-    """WorkItemLink.
+    """
+    A link between two work items.
 
     :param rel: The type of link.
     :type rel: str
@@ -1438,7 +1486,8 @@ class WorkItemLink(Model):
 
 
 class WorkItemReference(Model):
-    """WorkItemReference.
+    """
+    Contains reference to a work item.
 
     :param id: Work item ID.
     :type id: int
@@ -1458,8 +1507,7 @@ class WorkItemReference(Model):
 
 
 class WorkItemRelation(Link):
-    """WorkItemRelation.
-
+    """
     :param attributes: Collection of link attributes.
     :type attributes: dict
     :param rel: Relation type.
@@ -1479,7 +1527,8 @@ class WorkItemRelation(Link):
 
 
 class WorkItemTrackingResourceReference(Model):
-    """WorkItemTrackingResourceReference.
+    """
+    Base class for work item tracking resource references.
 
     :param url:
     :type url: str
@@ -1495,7 +1544,8 @@ class WorkItemTrackingResourceReference(Model):
 
 
 class WorkItemTypeReference(WorkItemTrackingResourceReference):
-    """WorkItemTypeReference.
+    """
+    Reference to a work item type.
 
     :param url:
     :type url: str
@@ -1514,8 +1564,7 @@ class WorkItemTypeReference(WorkItemTrackingResourceReference):
 
 
 class WorkItemTypeStateInfo(Model):
-    """WorkItemTypeStateInfo.
-
+    """
     :param states: State name to state category map
     :type states: dict
     :param work_item_type_name: Work Item type name
@@ -1534,8 +1583,7 @@ class WorkItemTypeStateInfo(Model):
 
 
 class Board(BoardReference):
-    """Board.
-
+    """
     :param id: Id of the resource
     :type id: str
     :param name: Name of the resource
@@ -1587,8 +1635,7 @@ class Board(BoardReference):
 
 
 class BoardChart(BoardChartReference):
-    """BoardChart.
-
+    """
     :param name: Name of the resource
     :type name: str
     :param url: Full http link to the resource
@@ -1613,8 +1660,7 @@ class BoardChart(BoardChartReference):
 
 
 class CapacityContractBase(TeamSettingsDataContractBase):
-    """CapacityContractBase.
-
+    """
     :param _links: Collection of links relevant to resource
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
     :param url: Full http link to the resource
@@ -1639,13 +1685,14 @@ class CapacityContractBase(TeamSettingsDataContractBase):
 
 
 class DeliveryViewData(PlanViewData):
-    """DeliveryViewData.
+    """
+    Data contract for Data of Delivery View
 
     :param id:
     :type id: str
     :param revision:
     :type revision: int
-    :param child_id_to_parent_id_map: Work item child id to parenet id map
+    :param child_id_to_parent_id_map: Work item child id to parent id map
     :type child_id_to_parent_id_map: dict
     :param criteria_status: Filter criteria status of the timeline
     :type criteria_status: :class:`TimelineCriteriaStatus <azure.devops.v5_1.work.models.TimelineCriteriaStatus>`
@@ -1681,7 +1728,8 @@ class DeliveryViewData(PlanViewData):
 
 
 class IterationWorkItems(TeamSettingsDataContractBase):
-    """IterationWorkItems.
+    """
+    Represents work items in an iteration backlog
 
     :param _links: Collection of links relevant to resource
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
@@ -1703,7 +1751,8 @@ class IterationWorkItems(TeamSettingsDataContractBase):
 
 
 class TeamFieldValues(TeamSettingsDataContractBase):
-    """TeamFieldValues.
+    """
+    Essentially a collection of team field values
 
     :param _links: Collection of links relevant to resource
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
@@ -1733,7 +1782,8 @@ class TeamFieldValues(TeamSettingsDataContractBase):
 
 
 class TeamMemberCapacity(CapacityContractBase):
-    """TeamMemberCapacity.
+    """
+    Represents capacity for a specific team member
 
     :param _links: Collection of links relevant to resource
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
@@ -1761,7 +1811,8 @@ class TeamMemberCapacity(CapacityContractBase):
 
 
 class TeamMemberCapacityIdentityRef(CapacityContractBase):
-    """TeamMemberCapacityIdentityRef.
+    """
+    Represents capacity for a specific team member
 
     :param _links: Collection of links relevant to resource
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
@@ -1789,7 +1840,8 @@ class TeamMemberCapacityIdentityRef(CapacityContractBase):
 
 
 class TeamSetting(TeamSettingsDataContractBase):
-    """TeamSetting.
+    """
+    Data contract for TeamSettings
 
     :param _links: Collection of links relevant to resource
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.work.models.ReferenceLinks>`
@@ -1831,7 +1883,8 @@ class TeamSetting(TeamSettingsDataContractBase):
 
 
 class WorkItemCommentVersionRef(WorkItemTrackingResourceReference):
-    """WorkItemCommentVersionRef.
+    """
+    Represents the reference to a specific version of a comment on a Work Item.
 
     :param url:
     :type url: str
@@ -1866,7 +1919,8 @@ class WorkItemCommentVersionRef(WorkItemTrackingResourceReference):
 
 
 class WorkItemTrackingResource(WorkItemTrackingResourceReference):
-    """WorkItemTrackingResource.
+    """
+    Base class for WIT REST resources.
 
     :param url:
     :type url: str
@@ -1885,7 +1939,8 @@ class WorkItemTrackingResource(WorkItemTrackingResourceReference):
 
 
 class WorkItem(WorkItemTrackingResource):
-    """WorkItem.
+    """
+    Describes a work item.
 
     :param url:
     :type url: str
@@ -1956,6 +2011,8 @@ __all__ = [
     'PredefinedQuery',
     'ProcessConfiguration',
     'ReferenceLinks',
+    'ReorderOperation',
+    'ReorderResult',
     'Rule',
     'TeamContext',
     'TeamFieldValue',

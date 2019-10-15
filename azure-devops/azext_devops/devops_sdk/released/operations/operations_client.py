@@ -8,7 +8,7 @@
 
 from msrest import Serializer, Deserializer
 from ...client import Client
-from ...v5_0.operations import models
+from ...v5_1.operations import models
 
 
 class OperationsClient(Client):
@@ -30,7 +30,7 @@ class OperationsClient(Client):
         Gets an operation from the the operationId using the given pluginId.
         :param str operation_id: The ID for the operation.
         :param str plugin_id: The ID for the plugin.
-        :rtype: :class:`<Operation> <azure.devops.v5_0.operations.models.Operation>`
+        :rtype: :class:`<Operation> <azure.devops.v5_1.operations.models.Operation>`
         """
         route_values = {}
         if operation_id is not None:
@@ -40,7 +40,7 @@ class OperationsClient(Client):
             query_parameters['pluginId'] = self._serialize.query('plugin_id', plugin_id, 'str')
         response = self._send(http_method='GET',
                               location_id='9a1b74b4-2ca8-4a9f-8470-c2f2e6fdc949',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('Operation', response)

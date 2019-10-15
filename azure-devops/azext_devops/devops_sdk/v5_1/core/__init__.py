@@ -21,6 +21,7 @@ __all__ = [
     'ProcessReference',
     'ProjectAvatar',
     'ProjectInfo',
+    'ProjectProperties',
     'ProjectProperty',
     'Proxy',
     'ProxyAuthorization',

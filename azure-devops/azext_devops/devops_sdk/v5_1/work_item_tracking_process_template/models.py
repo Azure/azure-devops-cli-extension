@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class AdminBehavior(Model):
-    """AdminBehavior.
+    """
+    Describes an admin behavior for a process.
 
     :param abstract: Is the behavior abstract (i.e. can not be associated with any work item type).
     :type abstract: bool
@@ -62,7 +63,8 @@ class AdminBehavior(Model):
 
 
 class AdminBehaviorField(Model):
-    """AdminBehaviorField.
+    """
+    Describes an admin behavior field.
 
     :param behavior_field_id: The behavior field identifier.
     :type behavior_field_id: str
@@ -86,7 +88,8 @@ class AdminBehaviorField(Model):
 
 
 class CheckTemplateExistenceResult(Model):
-    """CheckTemplateExistenceResult.
+    """
+    Describes result of a check template existence request.
 
     :param does_template_exist: Indicates whether a template exists.
     :type does_template_exist: bool
@@ -114,7 +117,8 @@ class CheckTemplateExistenceResult(Model):
 
 
 class ProcessImportResult(Model):
-    """ProcessImportResult.
+    """
+    Describes the result of a Process Import request.
 
     :param check_existence_result: Check template existence result.
     :type check_existence_result: :class:`CheckTemplateExistenceResult <azure.devops.v5_1.work_item_tracking_process_template.models.CheckTemplateExistenceResult>`
@@ -150,19 +154,20 @@ class ProcessImportResult(Model):
 
 
 class ProcessPromoteStatus(Model):
-    """ProcessPromoteStatus.
+    """
+    Describes result of process operation promote.
 
     :param complete: Number of projects for which promote is complete.
     :type complete: int
     :param id: ID of the promote operation.
     :type id: str
-    :param message: The error message assoicated with the promote operation. The string will be empty if there are no errors.
+    :param message: The error message associated with the promote operation. The string will be empty if there are no errors.
     :type message: str
     :param pending: Number of projects for which promote is pending.
     :type pending: int
     :param remaining_retries: The remaining retries.
     :type remaining_retries: int
-    :param successful: True if promote finished all the projects successfully. False if still inprogress or any project promote failed.
+    :param successful: True if promote finished all the projects successfully. False if still in progress or any project promote failed.
     :type successful: bool
     """
 
@@ -186,8 +191,7 @@ class ProcessPromoteStatus(Model):
 
 
 class ValidationIssue(Model):
-    """ValidationIssue.
-
+    """
     :param description:
     :type description: str
     :param file:

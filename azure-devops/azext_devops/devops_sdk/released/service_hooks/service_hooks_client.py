@@ -8,7 +8,7 @@
 
 from msrest import Serializer, Deserializer
 from ...client import Client
-from ...v5_0.service_hooks import models
+from ...v5_1.service_hooks import models
 
 
 class ServiceHooksClient(Client):
@@ -31,7 +31,7 @@ class ServiceHooksClient(Client):
         :param str consumer_id: ID for a consumer.
         :param str consumer_action_id: ID for a consumerActionId.
         :param str publisher_id:
-        :rtype: :class:`<ConsumerAction> <azure.devops.v5_0.service_hooks.models.ConsumerAction>`
+        :rtype: :class:`<ConsumerAction> <azure.devops.v5_1.service_hooks.models.ConsumerAction>`
         """
         route_values = {}
         if consumer_id is not None:
@@ -43,7 +43,7 @@ class ServiceHooksClient(Client):
             query_parameters['publisherId'] = self._serialize.query('publisher_id', publisher_id, 'str')
         response = self._send(http_method='GET',
                               location_id='c3428e90-7a69-4194-8ed8-0f153185ee0d',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('ConsumerAction', response)
@@ -63,7 +63,7 @@ class ServiceHooksClient(Client):
             query_parameters['publisherId'] = self._serialize.query('publisher_id', publisher_id, 'str')
         response = self._send(http_method='GET',
                               location_id='c3428e90-7a69-4194-8ed8-0f153185ee0d',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[ConsumerAction]', self._unwrap_collection(response))
@@ -73,7 +73,7 @@ class ServiceHooksClient(Client):
         Get a specific consumer service. Optionally filter out consumer actions that do not support any event types for the specified publisher.
         :param str consumer_id: ID for a consumer.
         :param str publisher_id:
-        :rtype: :class:`<Consumer> <azure.devops.v5_0.service_hooks.models.Consumer>`
+        :rtype: :class:`<Consumer> <azure.devops.v5_1.service_hooks.models.Consumer>`
         """
         route_values = {}
         if consumer_id is not None:
@@ -83,7 +83,7 @@ class ServiceHooksClient(Client):
             query_parameters['publisherId'] = self._serialize.query('publisher_id', publisher_id, 'str')
         response = self._send(http_method='GET',
                               location_id='4301c514-5f34-4f5d-a145-f0ea7b5b7d19',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('Consumer', response)
@@ -99,7 +99,7 @@ class ServiceHooksClient(Client):
             query_parameters['publisherId'] = self._serialize.query('publisher_id', publisher_id, 'str')
         response = self._send(http_method='GET',
                               location_id='4301c514-5f34-4f5d-a145-f0ea7b5b7d19',
-                              version='5.0',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[Consumer]', self._unwrap_collection(response))
 
@@ -108,7 +108,7 @@ class ServiceHooksClient(Client):
         Get a specific event type.
         :param str publisher_id: ID for a publisher.
         :param str event_type_id:
-        :rtype: :class:`<EventTypeDescriptor> <azure.devops.v5_0.service_hooks.models.EventTypeDescriptor>`
+        :rtype: :class:`<EventTypeDescriptor> <azure.devops.v5_1.service_hooks.models.EventTypeDescriptor>`
         """
         route_values = {}
         if publisher_id is not None:
@@ -117,7 +117,7 @@ class ServiceHooksClient(Client):
             route_values['eventTypeId'] = self._serialize.url('event_type_id', event_type_id, 'str')
         response = self._send(http_method='GET',
                               location_id='db4777cd-8e08-4a84-8ba3-c974ea033718',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('EventTypeDescriptor', response)
 
@@ -132,7 +132,7 @@ class ServiceHooksClient(Client):
             route_values['publisherId'] = self._serialize.url('publisher_id', publisher_id, 'str')
         response = self._send(http_method='GET',
                               location_id='db4777cd-8e08-4a84-8ba3-c974ea033718',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('[EventTypeDescriptor]', self._unwrap_collection(response))
 
@@ -141,7 +141,7 @@ class ServiceHooksClient(Client):
         Get a specific notification for a subscription.
         :param str subscription_id: ID for a subscription.
         :param int notification_id:
-        :rtype: :class:`<Notification> <azure.devops.v5_0.service_hooks.models.Notification>`
+        :rtype: :class:`<Notification> <azure.devops.v5_1.service_hooks.models.Notification>`
         """
         route_values = {}
         if subscription_id is not None:
@@ -150,7 +150,7 @@ class ServiceHooksClient(Client):
             route_values['notificationId'] = self._serialize.url('notification_id', notification_id, 'int')
         response = self._send(http_method='GET',
                               location_id='0c62d343-21b0-4732-997b-017fde84dc28',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('Notification', response)
 
@@ -175,7 +175,7 @@ class ServiceHooksClient(Client):
             query_parameters['result'] = self._serialize.query('result', result, 'str')
         response = self._send(http_method='GET',
                               location_id='0c62d343-21b0-4732-997b-017fde84dc28',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[Notification]', self._unwrap_collection(response))
@@ -183,21 +183,21 @@ class ServiceHooksClient(Client):
     def query_notifications(self, query):
         """QueryNotifications.
         Query for notifications. A notification includes details about the event, the request to and the response from the consumer service.
-        :param :class:`<NotificationsQuery> <azure.devops.v5_0.service_hooks.models.NotificationsQuery>` query:
-        :rtype: :class:`<NotificationsQuery> <azure.devops.v5_0.service_hooks.models.NotificationsQuery>`
+        :param :class:`<NotificationsQuery> <azure.devops.v5_1.service_hooks.models.NotificationsQuery>` query:
+        :rtype: :class:`<NotificationsQuery> <azure.devops.v5_1.service_hooks.models.NotificationsQuery>`
         """
         content = self._serialize.body(query, 'NotificationsQuery')
         response = self._send(http_method='POST',
                               location_id='1a57562f-160a-4b5c-9185-905e95b39d36',
-                              version='5.0',
+                              version='5.1',
                               content=content)
         return self._deserialize('NotificationsQuery', response)
 
     def query_input_values(self, input_values_query, publisher_id):
         """QueryInputValues.
-        :param :class:`<InputValuesQuery> <azure.devops.v5_0.service_hooks.models.InputValuesQuery>` input_values_query:
+        :param :class:`<InputValuesQuery> <azure.devops.v5_1.service_hooks.models.InputValuesQuery>` input_values_query:
         :param str publisher_id:
-        :rtype: :class:`<InputValuesQuery> <azure.devops.v5_0.service_hooks.models.InputValuesQuery>`
+        :rtype: :class:`<InputValuesQuery> <azure.devops.v5_1.service_hooks.models.InputValuesQuery>`
         """
         route_values = {}
         if publisher_id is not None:
@@ -205,7 +205,7 @@ class ServiceHooksClient(Client):
         content = self._serialize.body(input_values_query, 'InputValuesQuery')
         response = self._send(http_method='POST',
                               location_id='d815d352-a566-4dc1-a3e3-fd245acf688c',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('InputValuesQuery', response)
@@ -214,14 +214,14 @@ class ServiceHooksClient(Client):
         """GetPublisher.
         Get a specific service hooks publisher.
         :param str publisher_id: ID for a publisher.
-        :rtype: :class:`<Publisher> <azure.devops.v5_0.service_hooks.models.Publisher>`
+        :rtype: :class:`<Publisher> <azure.devops.v5_1.service_hooks.models.Publisher>`
         """
         route_values = {}
         if publisher_id is not None:
             route_values['publisherId'] = self._serialize.url('publisher_id', publisher_id, 'str')
         response = self._send(http_method='GET',
                               location_id='1e83a210-5b53-43bc-90f0-d476a4e5d731',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('Publisher', response)
 
@@ -232,32 +232,32 @@ class ServiceHooksClient(Client):
         """
         response = self._send(http_method='GET',
                               location_id='1e83a210-5b53-43bc-90f0-d476a4e5d731',
-                              version='5.0')
+                              version='5.1')
         return self._deserialize('[Publisher]', self._unwrap_collection(response))
 
     def query_publishers(self, query):
         """QueryPublishers.
         Query for service hook publishers.
-        :param :class:`<PublishersQuery> <azure.devops.v5_0.service_hooks.models.PublishersQuery>` query:
-        :rtype: :class:`<PublishersQuery> <azure.devops.v5_0.service_hooks.models.PublishersQuery>`
+        :param :class:`<PublishersQuery> <azure.devops.v5_1.service_hooks.models.PublishersQuery>` query:
+        :rtype: :class:`<PublishersQuery> <azure.devops.v5_1.service_hooks.models.PublishersQuery>`
         """
         content = self._serialize.body(query, 'PublishersQuery')
         response = self._send(http_method='POST',
                               location_id='99b44a8a-65a8-4670-8f3e-e7f7842cce64',
-                              version='5.0',
+                              version='5.1',
                               content=content)
         return self._deserialize('PublishersQuery', response)
 
     def create_subscription(self, subscription):
         """CreateSubscription.
         Create a subscription.
-        :param :class:`<Subscription> <azure.devops.v5_0.service_hooks.models.Subscription>` subscription: Subscription to be created.
-        :rtype: :class:`<Subscription> <azure.devops.v5_0.service_hooks.models.Subscription>`
+        :param :class:`<Subscription> <azure.devops.v5_1.service_hooks.models.Subscription>` subscription: Subscription to be created.
+        :rtype: :class:`<Subscription> <azure.devops.v5_1.service_hooks.models.Subscription>`
         """
         content = self._serialize.body(subscription, 'Subscription')
         response = self._send(http_method='POST',
                               location_id='fc50d02a-849f-41fb-8af1-0a5216103269',
-                              version='5.0',
+                              version='5.1',
                               content=content)
         return self._deserialize('Subscription', response)
 
@@ -271,21 +271,21 @@ class ServiceHooksClient(Client):
             route_values['subscriptionId'] = self._serialize.url('subscription_id', subscription_id, 'str')
         self._send(http_method='DELETE',
                    location_id='fc50d02a-849f-41fb-8af1-0a5216103269',
-                   version='5.0',
+                   version='5.1',
                    route_values=route_values)
 
     def get_subscription(self, subscription_id):
         """GetSubscription.
         Get a specific service hooks subscription.
         :param str subscription_id: ID for a subscription.
-        :rtype: :class:`<Subscription> <azure.devops.v5_0.service_hooks.models.Subscription>`
+        :rtype: :class:`<Subscription> <azure.devops.v5_1.service_hooks.models.Subscription>`
         """
         route_values = {}
         if subscription_id is not None:
             route_values['subscriptionId'] = self._serialize.url('subscription_id', subscription_id, 'str')
         response = self._send(http_method='GET',
                               location_id='fc50d02a-849f-41fb-8af1-0a5216103269',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('Subscription', response)
 
@@ -293,7 +293,7 @@ class ServiceHooksClient(Client):
         """ListSubscriptions.
         Get a list of subscriptions.
         :param str publisher_id: ID for a subscription.
-        :param str event_type: Maximum number of notifications to return. Default is 100.
+        :param str event_type: The event type to filter on (if any).
         :param str consumer_id: ID for a consumer.
         :param str consumer_action_id: ID for a consumerActionId.
         :rtype: [Subscription]
@@ -309,16 +309,16 @@ class ServiceHooksClient(Client):
             query_parameters['consumerActionId'] = self._serialize.query('consumer_action_id', consumer_action_id, 'str')
         response = self._send(http_method='GET',
                               location_id='fc50d02a-849f-41fb-8af1-0a5216103269',
-                              version='5.0',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[Subscription]', self._unwrap_collection(response))
 
     def replace_subscription(self, subscription, subscription_id=None):
         """ReplaceSubscription.
         Update a subscription. <param name="subscriptionId">ID for a subscription that you wish to update.</param>
-        :param :class:`<Subscription> <azure.devops.v5_0.service_hooks.models.Subscription>` subscription:
+        :param :class:`<Subscription> <azure.devops.v5_1.service_hooks.models.Subscription>` subscription:
         :param str subscription_id:
-        :rtype: :class:`<Subscription> <azure.devops.v5_0.service_hooks.models.Subscription>`
+        :rtype: :class:`<Subscription> <azure.devops.v5_1.service_hooks.models.Subscription>`
         """
         route_values = {}
         if subscription_id is not None:
@@ -326,7 +326,7 @@ class ServiceHooksClient(Client):
         content = self._serialize.body(subscription, 'Subscription')
         response = self._send(http_method='PUT',
                               location_id='fc50d02a-849f-41fb-8af1-0a5216103269',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('Subscription', response)
@@ -334,22 +334,22 @@ class ServiceHooksClient(Client):
     def create_subscriptions_query(self, query):
         """CreateSubscriptionsQuery.
         Query for service hook subscriptions.
-        :param :class:`<SubscriptionsQuery> <azure.devops.v5_0.service_hooks.models.SubscriptionsQuery>` query:
-        :rtype: :class:`<SubscriptionsQuery> <azure.devops.v5_0.service_hooks.models.SubscriptionsQuery>`
+        :param :class:`<SubscriptionsQuery> <azure.devops.v5_1.service_hooks.models.SubscriptionsQuery>` query:
+        :rtype: :class:`<SubscriptionsQuery> <azure.devops.v5_1.service_hooks.models.SubscriptionsQuery>`
         """
         content = self._serialize.body(query, 'SubscriptionsQuery')
         response = self._send(http_method='POST',
                               location_id='c7c3c1cf-9e05-4c0d-a425-a0f922c2c6ed',
-                              version='5.0',
+                              version='5.1',
                               content=content)
         return self._deserialize('SubscriptionsQuery', response)
 
     def create_test_notification(self, test_notification, use_real_data=None):
         """CreateTestNotification.
         Sends a test notification. This is useful for verifying the configuration of an updated or new service hooks subscription.
-        :param :class:`<Notification> <azure.devops.v5_0.service_hooks.models.Notification>` test_notification:
+        :param :class:`<Notification> <azure.devops.v5_1.service_hooks.models.Notification>` test_notification:
         :param bool use_real_data: Only allow testing with real data in existing subscriptions.
-        :rtype: :class:`<Notification> <azure.devops.v5_0.service_hooks.models.Notification>`
+        :rtype: :class:`<Notification> <azure.devops.v5_1.service_hooks.models.Notification>`
         """
         query_parameters = {}
         if use_real_data is not None:
@@ -357,7 +357,7 @@ class ServiceHooksClient(Client):
         content = self._serialize.body(test_notification, 'Notification')
         response = self._send(http_method='POST',
                               location_id='1139462c-7e27-4524-a997-31b9b73551fe',
-                              version='5.0',
+                              version='5.1',
                               query_parameters=query_parameters,
                               content=content)
         return self._deserialize('Notification', response)

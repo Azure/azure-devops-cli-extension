@@ -84,7 +84,7 @@ class TestPlanClient(Client):
         [Preview API] Get a list of test configurations.
         :param str project: Project ID or project name
         :param str continuation_token: If the list of configurations returned is not complete, a continuation token to query next batch of configurations is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test configurations.
-        :rtype: [TestConfiguration]
+        :rtype: :class:`<GetTestConfigurationsResponseValue>`
         """
         route_values = {}
         if project is not None:
@@ -97,7 +97,22 @@ class TestPlanClient(Client):
                               version='5.1-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
-        return self._deserialize('[TestConfiguration]', self._unwrap_collection(response))
+        response_value = self._deserialize('[TestConfiguration]', self._unwrap_collection(response))
+        continuation_token = self._get_continuation_token(response)
+        return self.GetTestConfigurationsResponseValue(response_value, continuation_token)
+
+    class GetTestConfigurationsResponseValue(object):
+        def __init__(self, value, continuation_token):
+            """
+            Response for the get_test_configurations method
+
+            :param value:
+            :type value: :class:`<[TestConfiguration]> <azure.devops.v5_1.test_plan.models.[TestConfiguration]>`
+            :param continuation_token: The continuation token to be used to get the next page of results.
+            :type continuation_token: str
+            """
+            self.value = value
+            self.continuation_token = continuation_token
 
     def update_test_configuration(self, test_configuration_create_update_parameters, project, test_configuartion_id):
         """UpdateTestConfiguration.
@@ -182,7 +197,7 @@ class TestPlanClient(Client):
         :param str continuation_token: If the list of plans returned is not complete, a continuation token to query next batch of plans is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test plans.
         :param bool include_plan_details: Get all properties of the test plan
         :param bool filter_active_plans: Get just the active plans
-        :rtype: [TestPlan]
+        :rtype: :class:`<GetTestPlansResponseValue>`
         """
         route_values = {}
         if project is not None:
@@ -201,7 +216,22 @@ class TestPlanClient(Client):
                               version='5.1-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
-        return self._deserialize('[TestPlan]', self._unwrap_collection(response))
+        response_value = self._deserialize('[TestPlan]', self._unwrap_collection(response))
+        continuation_token = self._get_continuation_token(response)
+        return self.GetTestPlansResponseValue(response_value, continuation_token)
+
+    class GetTestPlansResponseValue(object):
+        def __init__(self, value, continuation_token):
+            """
+            Response for the get_test_plans method
+
+            :param value:
+            :type value: :class:`<[TestPlan]> <azure.devops.v5_1.test_plan.models.[TestPlan]>`
+            :param continuation_token: The continuation token to be used to get the next page of results.
+            :type continuation_token: str
+            """
+            self.value = value
+            self.continuation_token = continuation_token
 
     def update_test_plan(self, test_plan_update_params, project, plan_id):
         """UpdateTestPlan.
@@ -342,7 +372,7 @@ class TestPlanClient(Client):
         :param str expand: Include the children suites and testers details.
         :param str continuation_token: If the list of suites returned is not complete, a continuation token to query next batch of suites is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test suites.
         :param bool as_tree_view: If the suites returned should be in a tree structure.
-        :rtype: [TestSuite]
+        :rtype: :class:`<GetTestSuitesForPlanResponseValue>`
         """
         route_values = {}
         if project is not None:
@@ -361,7 +391,22 @@ class TestPlanClient(Client):
                               version='5.1-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
-        return self._deserialize('[TestSuite]', self._unwrap_collection(response))
+        response_value = self._deserialize('[TestSuite]', self._unwrap_collection(response))
+        continuation_token = self._get_continuation_token(response)
+        return self.GetTestSuitesForPlanResponseValue(response_value, continuation_token)
+
+    class GetTestSuitesForPlanResponseValue(object):
+        def __init__(self, value, continuation_token):
+            """
+            Response for the get_test_suites_for_plan method
+
+            :param value:
+            :type value: :class:`<[TestSuite]> <azure.devops.v5_1.test_plan.models.[TestSuite]>`
+            :param continuation_token: The continuation token to be used to get the next page of results.
+            :type continuation_token: str
+            """
+            self.value = value
+            self.continuation_token = continuation_token
 
     def update_test_suite(self, test_suite_update_params, project, plan_id, suite_id):
         """UpdateTestSuite.
@@ -389,7 +434,7 @@ class TestPlanClient(Client):
 
     def get_suites_by_test_case_id(self, test_case_id):
         """GetSuitesByTestCaseId.
-        [Preview API] Find the list of all test suites in which a given test case is present. This is helpful if you need to find out which test suites are using a test case, when you need to make changes to a test case.
+        Find the list of all test suites in which a given test case is present. This is helpful if you need to find out which test suites are using a test case, when you need to make changes to a test case.
         :param int test_case_id: ID of the test case for which suites need to be fetched.
         :rtype: [TestSuite]
         """
@@ -398,7 +443,7 @@ class TestPlanClient(Client):
             query_parameters['testCaseId'] = self._serialize.query('test_case_id', test_case_id, 'int')
         response = self._send(http_method='GET',
                               location_id='a4080e84-f17b-4fad-84f1-7960b6525bf2',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[TestSuite]', self._unwrap_collection(response))
 
@@ -426,7 +471,7 @@ class TestPlanClient(Client):
                               content=content)
         return self._deserialize('[TestCase]', self._unwrap_collection(response))
 
-    def get_test_case(self, project, plan_id, suite_id, test_case_ids, wit_fields=None):
+    def get_test_case(self, project, plan_id, suite_id, test_case_ids, wit_fields=None, return_identity_ref=None):
         """GetTestCase.
         [Preview API] Get Test Cases For a Suite.
         :param str project: Project ID or project name
@@ -434,6 +479,7 @@ class TestPlanClient(Client):
         :param int suite_id: ID of the test suite for which test cases are requested.
         :param str test_case_ids: Test Case Ids to be fetched.
         :param str wit_fields: Get the list of witFields.
+        :param bool return_identity_ref: If set to true, returns all identity fields, like AssignedTo, ActivatedBy etc., as IdentityRef objects. If set to false, these fields are returned as unique names in string format. This is false by default.
         :rtype: [TestCase]
         """
         route_values = {}
@@ -448,6 +494,8 @@ class TestPlanClient(Client):
         query_parameters = {}
         if wit_fields is not None:
             query_parameters['witFields'] = self._serialize.query('wit_fields', wit_fields, 'str')
+        if return_identity_ref is not None:
+            query_parameters['returnIdentityRef'] = self._serialize.query('return_identity_ref', return_identity_ref, 'bool')
         response = self._send(http_method='GET',
                               location_id='a9bd61ac-45cf-4d13-9441-43dcd01edf8d',
                               version='5.1-preview.2',
@@ -455,7 +503,7 @@ class TestPlanClient(Client):
                               query_parameters=query_parameters)
         return self._deserialize('[TestCase]', self._unwrap_collection(response))
 
-    def get_test_case_list(self, project, plan_id, suite_id, test_ids=None, configuration_ids=None, wit_fields=None, continuation_token=None):
+    def get_test_case_list(self, project, plan_id, suite_id, test_ids=None, configuration_ids=None, wit_fields=None, continuation_token=None, return_identity_ref=None, expand=None):
         """GetTestCaseList.
         [Preview API] Get Test Case List return those test cases which have all the configuration Ids as mentioned in the optional paramter. If configuration Ids is null, it return all the test cases
         :param str project: Project ID or project name
@@ -465,7 +513,9 @@ class TestPlanClient(Client):
         :param str configuration_ids: Fetch Test Cases which contains all the configuration Ids specified.
         :param str wit_fields: Get the list of witFields.
         :param str continuation_token: If the list of test cases returned is not complete, a continuation token to query next batch of test cases is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test cases.
-        :rtype: [TestCase]
+        :param bool return_identity_ref: If set to true, returns all identity fields, like AssignedTo, ActivatedBy etc., as IdentityRef objects. If set to false, these fields are returned as unique names in string format. This is false by default.
+        :param bool expand: If set to false, will get a smaller payload containing only basic details about the suite test case object
+        :rtype: :class:`<GetTestCaseListResponseValue>`
         """
         route_values = {}
         if project is not None:
@@ -483,12 +533,31 @@ class TestPlanClient(Client):
             query_parameters['witFields'] = self._serialize.query('wit_fields', wit_fields, 'str')
         if continuation_token is not None:
             query_parameters['continuationToken'] = self._serialize.query('continuation_token', continuation_token, 'str')
+        if return_identity_ref is not None:
+            query_parameters['returnIdentityRef'] = self._serialize.query('return_identity_ref', return_identity_ref, 'bool')
+        if expand is not None:
+            query_parameters['expand'] = self._serialize.query('expand', expand, 'bool')
         response = self._send(http_method='GET',
                               location_id='a9bd61ac-45cf-4d13-9441-43dcd01edf8d',
                               version='5.1-preview.2',
                               route_values=route_values,
                               query_parameters=query_parameters)
-        return self._deserialize('[TestCase]', self._unwrap_collection(response))
+        response_value = self._deserialize('[TestCase]', self._unwrap_collection(response))
+        continuation_token = self._get_continuation_token(response)
+        return self.GetTestCaseListResponseValue(response_value, continuation_token)
+
+    class GetTestCaseListResponseValue(object):
+        def __init__(self, value, continuation_token):
+            """
+            Response for the get_test_case_list method
+
+            :param value:
+            :type value: :class:`<[TestCase]> <azure.devops.v5_1.test_plan.models.[TestCase]>`
+            :param continuation_token: The continuation token to be used to get the next page of results.
+            :type continuation_token: str
+            """
+            self.value = value
+            self.continuation_token = continuation_token
 
     def remove_test_cases_from_suite(self, project, plan_id, suite_id, test_case_ids):
         """RemoveTestCasesFromSuite.
@@ -593,13 +662,14 @@ class TestPlanClient(Client):
                               route_values=route_values)
         return self._deserialize('CloneTestPlanOperationInformation', response)
 
-    def get_points(self, project, plan_id, suite_id, point_ids):
+    def get_points(self, project, plan_id, suite_id, point_ids, return_identity_ref=None):
         """GetPoints.
         [Preview API] Get a list of points based on point Ids provided.
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan for which test points are requested.
         :param int suite_id: ID of the test suite for which test points are requested.
         :param str point_ids: ID of test points to be fetched.
+        :param bool return_identity_ref: If set to true, returns the AssignedTo field in TestCaseReference as IdentityRef object.
         :rtype: [TestPoint]
         """
         route_values = {}
@@ -611,13 +681,17 @@ class TestPlanClient(Client):
             route_values['suiteId'] = self._serialize.url('suite_id', suite_id, 'int')
         if point_ids is not None:
             route_values['pointIds'] = self._serialize.url('point_ids', point_ids, 'str')
+        query_parameters = {}
+        if return_identity_ref is not None:
+            query_parameters['returnIdentityRef'] = self._serialize.query('return_identity_ref', return_identity_ref, 'bool')
         response = self._send(http_method='GET',
                               location_id='52df686e-bae4-4334-b0ee-b6cf4e6f6b73',
                               version='5.1-preview.2',
-                              route_values=route_values)
+                              route_values=route_values,
+                              query_parameters=query_parameters)
         return self._deserialize('[TestPoint]', self._unwrap_collection(response))
 
-    def get_points_list(self, project, plan_id, suite_id, test_point_ids=None, test_case_id=None, continuation_token=None):
+    def get_points_list(self, project, plan_id, suite_id, test_point_ids=None, test_case_id=None, continuation_token=None, return_identity_ref=None, include_point_details=None):
         """GetPointsList.
         [Preview API] Get all the points inside a suite based on some filters
         :param str project: Project ID or project name
@@ -626,7 +700,9 @@ class TestPlanClient(Client):
         :param str test_point_ids: ID of test points to fetch.
         :param str test_case_id: Get Test Points for specific test case Ids.
         :param str continuation_token: If the list of test point returned is not complete, a continuation token to query next batch of test points is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test points.
-        :rtype: [TestPoint]
+        :param bool return_identity_ref: If set to true, returns the AssignedTo field in TestCaseReference as IdentityRef object.
+        :param bool include_point_details: If set to false, returns only necessary information
+        :rtype: :class:`<GetPointsListResponseValue>`
         """
         route_values = {}
         if project is not None:
@@ -642,12 +718,31 @@ class TestPlanClient(Client):
             query_parameters['testCaseId'] = self._serialize.query('test_case_id', test_case_id, 'str')
         if continuation_token is not None:
             query_parameters['continuationToken'] = self._serialize.query('continuation_token', continuation_token, 'str')
+        if return_identity_ref is not None:
+            query_parameters['returnIdentityRef'] = self._serialize.query('return_identity_ref', return_identity_ref, 'bool')
+        if include_point_details is not None:
+            query_parameters['includePointDetails'] = self._serialize.query('include_point_details', include_point_details, 'bool')
         response = self._send(http_method='GET',
                               location_id='52df686e-bae4-4334-b0ee-b6cf4e6f6b73',
                               version='5.1-preview.2',
                               route_values=route_values,
                               query_parameters=query_parameters)
-        return self._deserialize('[TestPoint]', self._unwrap_collection(response))
+        response_value = self._deserialize('[TestPoint]', self._unwrap_collection(response))
+        continuation_token = self._get_continuation_token(response)
+        return self.GetPointsListResponseValue(response_value, continuation_token)
+
+    class GetPointsListResponseValue(object):
+        def __init__(self, value, continuation_token):
+            """
+            Response for the get_points_list method
+
+            :param value:
+            :type value: :class:`<[TestPoint]> <azure.devops.v5_1.test_plan.models.[TestPoint]>`
+            :param continuation_token: The continuation token to be used to get the next page of results.
+            :type continuation_token: str
+            """
+            self.value = value
+            self.continuation_token = continuation_token
 
     def update_test_points(self, test_point_update_params, project, plan_id, suite_id):
         """UpdateTestPoints.
@@ -771,7 +866,7 @@ class TestPlanClient(Client):
         [Preview API] Get a list of test variables.
         :param str project: Project ID or project name
         :param str continuation_token: If the list of variables returned is not complete, a continuation token to query next batch of variables is included in the response header as "x-ms-continuationtoken". Omit this parameter to get the first batch of test variables.
-        :rtype: [TestVariable]
+        :rtype: :class:`<GetTestVariablesResponseValue>`
         """
         route_values = {}
         if project is not None:
@@ -784,7 +879,22 @@ class TestPlanClient(Client):
                               version='5.1-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
-        return self._deserialize('[TestVariable]', self._unwrap_collection(response))
+        response_value = self._deserialize('[TestVariable]', self._unwrap_collection(response))
+        continuation_token = self._get_continuation_token(response)
+        return self.GetTestVariablesResponseValue(response_value, continuation_token)
+
+    class GetTestVariablesResponseValue(object):
+        def __init__(self, value, continuation_token):
+            """
+            Response for the get_test_variables method
+
+            :param value:
+            :type value: :class:`<[TestVariable]> <azure.devops.v5_1.test_plan.models.[TestVariable]>`
+            :param continuation_token: The continuation token to be used to get the next page of results.
+            :type continuation_token: str
+            """
+            self.value = value
+            self.continuation_token = continuation_token
 
     def update_test_variable(self, test_variable_create_update_parameters, project, test_variable_id):
         """UpdateTestVariable.

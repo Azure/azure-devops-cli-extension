@@ -6,7 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.test.models import *
+from ...v5_1.test.models import *
 from .test_client import TestClient
 
 __all__ = [
@@ -34,11 +34,14 @@ __all__ = [
     'FunctionCoverage',
     'GraphSubjectBase',
     'IdentityRef',
+    'JobReference',
     'LastResultDetails',
     'LinkedWorkItemsQuery',
     'LinkedWorkItemsQueryResult',
     'ModuleCoverage',
     'NameValuePair',
+    'PhaseReference',
+    'PipelineReference',
     'PlanUpdateModel',
     'PointAssignment',
     'PointsFilter',
@@ -53,10 +56,12 @@ __all__ = [
     'RunCreateModel',
     'RunFilter',
     'RunStatistic',
+    'RunSummaryModel',
     'RunUpdateModel',
     'ShallowReference',
     'ShallowTestCaseResult',
     'SharedStepModel',
+    'StageReference',
     'SuiteCreateModel',
     'SuiteEntry',
     'SuiteEntryUpdateModel',
@@ -77,6 +82,7 @@ __all__ = [
     'TestEnvironment',
     'TestFailureDetails',
     'TestFailuresAnalysis',
+    'TestFlakyIdentifier',
     'TestHistoryQuery',
     'TestIterationDetailsModel',
     'TestMessageLogDetails',
@@ -114,6 +120,7 @@ __all__ = [
     'TestSuite',
     'TestSuiteCloneRequest',
     'TestSummaryForWorkItem',
+    'TestTag',
     'TestToWorkItemLinks',
     'TestVariable',
     'WorkItemReference',

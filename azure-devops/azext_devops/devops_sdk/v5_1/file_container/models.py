@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class FileContainer(Model):
-    """FileContainer.
+    """
+    Represents a container that encapsulates a hierarchical file system.
 
     :param artifact_uri: Uri of the artifact associated with the container.
     :type artifact_uri: str
@@ -78,7 +79,8 @@ class FileContainer(Model):
 
 
 class FileContainerItem(Model):
-    """FileContainerItem.
+    """
+    Represents an item in a container.
 
     :param container_id: Container Id.
     :type container_id: long

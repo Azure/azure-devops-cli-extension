@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -38,8 +37,7 @@ class GraphSubjectBase(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -98,7 +96,8 @@ class IdentityRef(GraphSubjectBase):
 
 
 class PolicyConfigurationRef(Model):
-    """PolicyConfigurationRef.
+    """
+    Policy configuration reference.
 
     :param id: The policy configuration ID.
     :type id: int
@@ -122,7 +121,8 @@ class PolicyConfigurationRef(Model):
 
 
 class PolicyEvaluationRecord(Model):
-    """PolicyEvaluationRecord.
+    """
+    This record encapsulates the current state of a policy as it applies to one specific pull request. Each pull request has a unique PolicyEvaluationRecord for each pull request which the policy applies to.
 
     :param _links: Links to other related objects
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.policy.models.ReferenceLinks>`
@@ -166,7 +166,8 @@ class PolicyEvaluationRecord(Model):
 
 
 class PolicyTypeRef(Model):
-    """PolicyTypeRef.
+    """
+    Policy type reference.
 
     :param display_name: Display name of the policy type.
     :type display_name: str
@@ -190,7 +191,8 @@ class PolicyTypeRef(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -206,7 +208,8 @@ class ReferenceLinks(Model):
 
 
 class VersionedPolicyConfigurationRef(PolicyConfigurationRef):
-    """VersionedPolicyConfigurationRef.
+    """
+    A particular revision for a policy configuration.
 
     :param id: The policy configuration ID.
     :type id: int
@@ -231,7 +234,8 @@ class VersionedPolicyConfigurationRef(PolicyConfigurationRef):
 
 
 class PolicyConfiguration(VersionedPolicyConfigurationRef):
-    """PolicyConfiguration.
+    """
+    The full policy configuration with settings.
 
     :param id: The policy configuration ID.
     :type id: int
@@ -283,7 +287,8 @@ class PolicyConfiguration(VersionedPolicyConfigurationRef):
 
 
 class PolicyType(PolicyTypeRef):
-    """PolicyType.
+    """
+    User-friendly policy type with description (used for querying policy types).
 
     :param display_name: Display name of the policy type.
     :type display_name: str

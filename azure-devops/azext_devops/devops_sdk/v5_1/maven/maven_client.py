@@ -25,17 +25,20 @@ class MavenClient(Client):
 
     resource_area_identifier = '6f7f8c07-ff36-473c-bcf3-bd6cc9b6c066'
 
-    def download_package(self, feed_id, group_id, artifact_id, version, file_name):
+    def download_package(self, feed_id, group_id, artifact_id, version, file_name, project=None):
         """DownloadPackage.
-        [Preview API] Fulfills maven package file download requests by returning the url of the package file requested.
+        [Preview API] Fulfills Maven package file download requests by either returning the URL of the requested package file or, in the case of Azure DevOps Server (OnPrem), returning the content as a stream.
         :param str feed_id: Name or ID of the feed.
         :param str group_id: GroupId of the maven package
         :param str artifact_id: ArtifactId of the maven package
         :param str version: Version of the package
         :param str file_name: File name to download
+        :param str project: Project ID or project name
         :rtype: object
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed_id is not None:
             route_values['feedId'] = self._serialize.url('feed_id', feed_id, 'str')
         if group_id is not None:
@@ -52,15 +55,18 @@ class MavenClient(Client):
                               route_values=route_values)
         return self._deserialize('object', response)
 
-    def delete_package_version_from_recycle_bin(self, feed, group_id, artifact_id, version):
+    def delete_package_version_from_recycle_bin(self, feed, group_id, artifact_id, version, project=None):
         """DeletePackageVersionFromRecycleBin.
         [Preview API] Permanently delete a package from a feed's recycle bin.
         :param str feed: Name or ID of the feed.
         :param str group_id: Group ID of the package.
         :param str artifact_id: Artifact ID of the package.
         :param str version: Version of the package.
+        :param str project: Project ID or project name
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed is not None:
             route_values['feed'] = self._serialize.url('feed', feed, 'str')
         if group_id is not None:
@@ -74,16 +80,19 @@ class MavenClient(Client):
                    version='5.1-preview.1',
                    route_values=route_values)
 
-    def get_package_version_metadata_from_recycle_bin(self, feed, group_id, artifact_id, version):
+    def get_package_version_metadata_from_recycle_bin(self, feed, group_id, artifact_id, version, project=None):
         """GetPackageVersionMetadataFromRecycleBin.
         [Preview API] Get information about a package version in the recycle bin.
         :param str feed: Name or ID of the feed.
         :param str group_id: Group ID of the package.
         :param str artifact_id: Artifact ID of the package.
         :param str version: Version of the package.
+        :param str project: Project ID or project name
         :rtype: :class:`<MavenPackageVersionDeletionState> <azure.devops.v5_1.maven.models.MavenPackageVersionDeletionState>`
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed is not None:
             route_values['feed'] = self._serialize.url('feed', feed, 'str')
         if group_id is not None:
@@ -98,7 +107,7 @@ class MavenClient(Client):
                               route_values=route_values)
         return self._deserialize('MavenPackageVersionDeletionState', response)
 
-    def restore_package_version_from_recycle_bin(self, package_version_details, feed, group_id, artifact_id, version):
+    def restore_package_version_from_recycle_bin(self, package_version_details, feed, group_id, artifact_id, version, project=None):
         """RestorePackageVersionFromRecycleBin.
         [Preview API] Restore a package version from the recycle bin to its associated feed.
         :param :class:`<MavenRecycleBinPackageVersionDetails> <azure.devops.v5_1.maven.models.MavenRecycleBinPackageVersionDetails>` package_version_details: Set the 'Deleted' property to false to restore the package.
@@ -106,8 +115,11 @@ class MavenClient(Client):
         :param str group_id: Group ID of the package.
         :param str artifact_id: Artifact ID of the package.
         :param str version: Version of the package.
+        :param str project: Project ID or project name
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed is not None:
             route_values['feed'] = self._serialize.url('feed', feed, 'str')
         if group_id is not None:
@@ -123,17 +135,20 @@ class MavenClient(Client):
                    route_values=route_values,
                    content=content)
 
-    def get_package_version(self, feed, group_id, artifact_id, version, show_deleted=None):
+    def get_package_version(self, feed, group_id, artifact_id, version, project=None, show_deleted=None):
         """GetPackageVersion.
         [Preview API] Get information about a package version.
         :param str feed: Name or ID of the feed.
         :param str group_id: Group ID of the package.
         :param str artifact_id: Artifact ID of the package.
         :param str version: Version of the package.
+        :param str project: Project ID or project name
         :param bool show_deleted: True to show information for deleted packages.
         :rtype: :class:`<Package> <azure.devops.v5_1.maven.models.Package>`
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed is not None:
             route_values['feed'] = self._serialize.url('feed', feed, 'str')
         if group_id is not None:
@@ -152,15 +167,18 @@ class MavenClient(Client):
                               query_parameters=query_parameters)
         return self._deserialize('Package', response)
 
-    def package_delete(self, feed, group_id, artifact_id, version):
+    def package_delete(self, feed, group_id, artifact_id, version, project=None):
         """PackageDelete.
         [Preview API] Delete a package version from the feed and move it to the feed's recycle bin.
         :param str feed: Name or ID of the feed.
         :param str group_id: Group ID of the package.
         :param str artifact_id: Artifact ID of the package.
         :param str version: Version of the package.
+        :param str project: Project ID or project name
         """
         route_values = {}
+        if project is not None:
+            route_values['project'] = self._serialize.url('project', project, 'str')
         if feed is not None:
             route_values['feed'] = self._serialize.url('feed', feed, 'str')
         if group_id is not None:

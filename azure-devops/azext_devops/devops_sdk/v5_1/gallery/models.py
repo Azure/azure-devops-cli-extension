@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class AcquisitionOperation(Model):
-    """AcquisitionOperation.
-
+    """
     :param operation_state: State of the the AcquisitionOperation for the current user
     :type operation_state: object
     :param operation_type: AcquisitionOperationType: install, request, buy, etc...
@@ -34,7 +33,8 @@ class AcquisitionOperation(Model):
 
 
 class AcquisitionOptions(Model):
-    """AcquisitionOptions.
+    """
+    Market item acquisition options (install, buy, etc) for an installation target.
 
     :param default_operation: Default Operation for the ItemId in this target
     :type default_operation: :class:`AcquisitionOperation <azure.devops.v5_1.gallery.models.AcquisitionOperation>`
@@ -62,28 +62,26 @@ class AcquisitionOptions(Model):
 
 
 class Answers(Model):
-    """Answers.
-
-    :param vSMarketplace_extension_name: Gets or sets the vs marketplace extension name
-    :type vSMarketplace_extension_name: str
-    :param vSMarketplace_publisher_name: Gets or sets the vs marketplace publsiher name
-    :type vSMarketplace_publisher_name: str
+    """
+    :param vs_marketplace_extension_name: Gets or sets the vs marketplace extension name
+    :type vs_marketplace_extension_name: str
+    :param vs_marketplace_publisher_name: Gets or sets the vs marketplace publisher name
+    :type vs_marketplace_publisher_name: str
     """
 
     _attribute_map = {
-        'vSMarketplace_extension_name': {'key': 'vSMarketplaceExtensionName', 'type': 'str'},
-        'vSMarketplace_publisher_name': {'key': 'vSMarketplacePublisherName', 'type': 'str'}
+        'vs_marketplace_extension_name': {'key': 'vsMarketplaceExtensionName', 'type': 'str'},
+        'vs_marketplace_publisher_name': {'key': 'vsMarketplacePublisherName', 'type': 'str'}
     }
 
-    def __init__(self, vSMarketplace_extension_name=None, vSMarketplace_publisher_name=None):
+    def __init__(self, vs_marketplace_extension_name=None, vs_marketplace_publisher_name=None):
         super(Answers, self).__init__()
-        self.vSMarketplace_extension_name = vSMarketplace_extension_name
-        self.vSMarketplace_publisher_name = vSMarketplace_publisher_name
+        self.vs_marketplace_extension_name = vs_marketplace_extension_name
+        self.vs_marketplace_publisher_name = vs_marketplace_publisher_name
 
 
 class AssetDetails(Model):
-    """AssetDetails.
-
+    """
     :param answers: Gets or sets the Answers, which contains vs marketplace extension name and publisher name
     :type answers: :class:`Answers <azure.devops.v5_1.gallery.models.Answers>`
     :param publisher_natural_identifier: Gets or sets the VS publisher Id
@@ -102,8 +100,7 @@ class AssetDetails(Model):
 
 
 class AzurePublisher(Model):
-    """AzurePublisher.
-
+    """
     :param azure_publisher_id:
     :type azure_publisher_id: str
     :param publisher_name:
@@ -122,8 +119,7 @@ class AzurePublisher(Model):
 
 
 class AzureRestApiRequestModel(Model):
-    """AzureRestApiRequestModel.
-
+    """
     :param asset_details: Gets or sets the Asset details
     :type asset_details: :class:`AssetDetails <azure.devops.v5_1.gallery.models.AssetDetails>`
     :param asset_id: Gets or sets the asset id
@@ -170,7 +166,8 @@ class AzureRestApiRequestModel(Model):
 
 
 class CategoriesResult(Model):
-    """CategoriesResult.
+    """
+    This is the set of categories in response to the get category query
 
     :param categories:
     :type categories: list of :class:`ExtensionCategory <azure.devops.v5_1.gallery.models.ExtensionCategory>`
@@ -186,7 +183,8 @@ class CategoriesResult(Model):
 
 
 class CategoryLanguageTitle(Model):
-    """CategoryLanguageTitle.
+    """
+    Definition of one title of a category
 
     :param lang: The language for which the title is applicable
     :type lang: str
@@ -210,8 +208,7 @@ class CategoryLanguageTitle(Model):
 
 
 class EventCounts(Model):
-    """EventCounts.
-
+    """
     :param average_rating: Average rating on the day for extension
     :type average_rating: int
     :param buy_count: Number of times the extension was bought in hosted scenario (applies only to VSTS extensions)
@@ -258,7 +255,8 @@ class EventCounts(Model):
 
 
 class ExtensionAcquisitionRequest(Model):
-    """ExtensionAcquisitionRequest.
+    """
+    Contract for handling the extension acquisition process
 
     :param assignment_type: How the item is being assigned
     :type assignment_type: object
@@ -298,8 +296,7 @@ class ExtensionAcquisitionRequest(Model):
 
 
 class ExtensionBadge(Model):
-    """ExtensionBadge.
-
+    """
     :param description:
     :type description: str
     :param img_uri:
@@ -322,8 +319,7 @@ class ExtensionBadge(Model):
 
 
 class ExtensionCategory(Model):
-    """ExtensionCategory.
-
+    """
     :param associated_products: The name of the products with which this category is associated to.
     :type associated_products: list of str
     :param category_id:
@@ -358,8 +354,7 @@ class ExtensionCategory(Model):
 
 
 class ExtensionDailyStat(Model):
-    """ExtensionDailyStat.
-
+    """
     :param counts: Stores the event counts
     :type counts: :class:`EventCounts <azure.devops.v5_1.gallery.models.EventCounts>`
     :param extended_stats: Generic key/value pair to store extended statistics. Used for sending paid extension stats like Upgrade, Downgrade, Cancel trend etc.
@@ -386,8 +381,7 @@ class ExtensionDailyStat(Model):
 
 
 class ExtensionDailyStats(Model):
-    """ExtensionDailyStats.
-
+    """
     :param daily_stats: List of extension statistics data points
     :type daily_stats: list of :class:`ExtensionDailyStat <azure.devops.v5_1.gallery.models.ExtensionDailyStat>`
     :param extension_id: Id of the extension, this will never be sent back to the client. For internal use only.
@@ -418,8 +412,7 @@ class ExtensionDailyStats(Model):
 
 
 class ExtensionDraft(Model):
-    """ExtensionDraft.
-
+    """
     :param assets:
     :type assets: list of :class:`ExtensionDraftAsset <azure.devops.v5_1.gallery.models.ExtensionDraftAsset>`
     :param created_date:
@@ -474,8 +467,7 @@ class ExtensionDraft(Model):
 
 
 class ExtensionDraftPatch(Model):
-    """ExtensionDraftPatch.
-
+    """
     :param extension_data:
     :type extension_data: :class:`UnpackagedExtensionData <azure.devops.v5_1.gallery.models.UnpackagedExtensionData>`
     :param operation:
@@ -494,7 +486,8 @@ class ExtensionDraftPatch(Model):
 
 
 class ExtensionEvent(Model):
-    """ExtensionEvent.
+    """
+    Stores details of each event
 
     :param id: Id which identifies each data point uniquely
     :type id: long
@@ -522,7 +515,8 @@ class ExtensionEvent(Model):
 
 
 class ExtensionEvents(Model):
-    """ExtensionEvents.
+    """
+    Container object for all extension events. Stores all install and uninstall events related to an extension. The events container is generic so can store data of any type of event. New event types can be added without altering the contract.
 
     :param events: Generic container for events data. The dictionary key denotes the type of event and the list contains properties related to that event
     :type events: dict
@@ -550,8 +544,7 @@ class ExtensionEvents(Model):
 
 
 class ExtensionFile(Model):
-    """ExtensionFile.
-
+    """
     :param asset_type:
     :type asset_type: str
     :param language:
@@ -574,9 +567,10 @@ class ExtensionFile(Model):
 
 
 class ExtensionFilterResult(Model):
-    """ExtensionFilterResult.
+    """
+    The FilterResult is the set of extensions that matched a particular query filter.
 
-    :param extensions: This is the set of appplications that matched the query filter supplied.
+    :param extensions: This is the set of applications that matched the query filter supplied.
     :type extensions: list of :class:`PublishedExtension <azure.devops.v5_1.gallery.models.PublishedExtension>`
     :param paging_token: The PagingToken is returned from a request when more records exist that match the result than were requested or could be returned. A follow-up query with this paging token can be used to retrieve more results.
     :type paging_token: str
@@ -598,7 +592,8 @@ class ExtensionFilterResult(Model):
 
 
 class ExtensionFilterResultMetadata(Model):
-    """ExtensionFilterResultMetadata.
+    """
+    ExtensionFilterResultMetadata is one set of metadata for the result e.g. Total count. There can be multiple metadata items for one metadata.
 
     :param metadata_items: The metadata items for the category
     :type metadata_items: list of :class:`MetadataItem <azure.devops.v5_1.gallery.models.MetadataItem>`
@@ -618,7 +613,8 @@ class ExtensionFilterResultMetadata(Model):
 
 
 class ExtensionPackage(Model):
-    """ExtensionPackage.
+    """
+    Package that will be used to create or update a published extension
 
     :param extension_manifest: Base 64 encoded extension package
     :type extension_manifest: str
@@ -634,8 +630,7 @@ class ExtensionPackage(Model):
 
 
 class ExtensionPayload(Model):
-    """ExtensionPayload.
-
+    """
     :param description:
     :type description: str
     :param display_name:
@@ -682,13 +677,14 @@ class ExtensionPayload(Model):
 
 
 class ExtensionQuery(Model):
-    """ExtensionQuery.
+    """
+    An ExtensionQuery is used to search the gallery for a set of extensions that match one of many filter values.
 
     :param asset_types: When retrieving extensions with a query; frequently the caller only needs a small subset of the assets. The caller may specify a list of asset types that should be returned if the extension contains it. All other assets will not be returned.
     :type asset_types: list of str
     :param filters: Each filter is a unique query and will have matching set of extensions returned from the request. Each result will have the same index in the resulting array that the filter had in the incoming query.
     :type filters: list of :class:`QueryFilter <azure.devops.v5_1.gallery.models.QueryFilter>`
-    :param flags: The Flags are used to deterine which set of information the caller would like returned for the matched extensions.
+    :param flags: The Flags are used to determine which set of information the caller would like returned for the matched extensions.
     :type flags: object
     """
 
@@ -706,7 +702,8 @@ class ExtensionQuery(Model):
 
 
 class ExtensionQueryResult(Model):
-    """ExtensionQueryResult.
+    """
+    This is the set of extensions that matched a supplied query through the filters given.
 
     :param results: For each filter supplied in the query, a filter result will be returned in the query result.
     :type results: list of :class:`ExtensionFilterResult <azure.devops.v5_1.gallery.models.ExtensionFilterResult>`
@@ -722,8 +719,7 @@ class ExtensionQueryResult(Model):
 
 
 class ExtensionShare(Model):
-    """ExtensionShare.
-
+    """
     :param id:
     :type id: str
     :param is_org:
@@ -750,8 +746,7 @@ class ExtensionShare(Model):
 
 
 class ExtensionStatistic(Model):
-    """ExtensionStatistic.
-
+    """
     :param statistic_name:
     :type statistic_name: str
     :param value:
@@ -770,8 +765,7 @@ class ExtensionStatistic(Model):
 
 
 class ExtensionStatisticUpdate(Model):
-    """ExtensionStatisticUpdate.
-
+    """
     :param extension_name:
     :type extension_name: str
     :param operation:
@@ -798,8 +792,7 @@ class ExtensionStatisticUpdate(Model):
 
 
 class ExtensionVersion(Model):
-    """ExtensionVersion.
-
+    """
     :param asset_uri:
     :type asset_uri: str
     :param badges:
@@ -850,7 +843,8 @@ class ExtensionVersion(Model):
 
 
 class FilterCriteria(Model):
-    """FilterCriteria.
+    """
+    One condition in a QueryFilter.
 
     :param filter_type:
     :type filter_type: int
@@ -870,8 +864,7 @@ class FilterCriteria(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -898,8 +891,7 @@ class GraphSubjectBase(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -958,8 +950,7 @@ class IdentityRef(GraphSubjectBase):
 
 
 class InstallationTarget(Model):
-    """InstallationTarget.
-
+    """
     :param target:
     :type target: str
     :param target_version:
@@ -978,7 +969,8 @@ class InstallationTarget(Model):
 
 
 class MetadataItem(Model):
-    """MetadataItem.
+    """
+    MetadataItem is one value of metadata under a given category of metadata
 
     :param count: The count of the metadata item
     :type count: int
@@ -998,7 +990,8 @@ class MetadataItem(Model):
 
 
 class NotificationsData(Model):
-    """NotificationsData.
+    """
+    Information needed for sending mail notification
 
     :param data: Notification data needed
     :type data: dict
@@ -1022,7 +1015,8 @@ class NotificationsData(Model):
 
 
 class ProductCategoriesResult(Model):
-    """ProductCategoriesResult.
+    """
+    This is the set of categories in response to the get category query
 
     :param categories:
     :type categories: list of :class:`ProductCategory <azure.devops.v5_1.gallery.models.ProductCategory>`
@@ -1038,7 +1032,8 @@ class ProductCategoriesResult(Model):
 
 
 class ProductCategory(Model):
-    """ProductCategory.
+    """
+    This is the interface object to be used by Root Categories and Category Tree APIs for Visual Studio Ide.
 
     :param children:
     :type children: list of :class:`ProductCategory <azure.devops.v5_1.gallery.models.ProductCategory>`
@@ -1066,8 +1061,7 @@ class ProductCategory(Model):
 
 
 class PublishedExtension(Model):
-    """PublishedExtension.
-
+    """
     :param categories:
     :type categories: list of str
     :param deployment_type:
@@ -1146,7 +1140,8 @@ class PublishedExtension(Model):
 
 
 class PublisherBase(Model):
-    """PublisherBase.
+    """
+    Keeping base class separate since publisher DB model class and publisher contract class share these common properties
 
     :param display_name:
     :type display_name: str
@@ -1198,7 +1193,8 @@ class PublisherBase(Model):
 
 
 class PublisherFacts(Model):
-    """PublisherFacts.
+    """
+    High-level information about the publisher, like id's and names
 
     :param display_name:
     :type display_name: str
@@ -1226,9 +1222,10 @@ class PublisherFacts(Model):
 
 
 class PublisherFilterResult(Model):
-    """PublisherFilterResult.
+    """
+    The FilterResult is the set of publishers that matched a particular query filter.
 
-    :param publishers: This is the set of appplications that matched the query filter supplied.
+    :param publishers: This is the set of applications that matched the query filter supplied.
     :type publishers: list of :class:`Publisher <azure.devops.v5_1.gallery.models.Publisher>`
     """
 
@@ -1242,11 +1239,12 @@ class PublisherFilterResult(Model):
 
 
 class PublisherQuery(Model):
-    """PublisherQuery.
+    """
+    An PublisherQuery is used to search the gallery for a set of publishers that match one of many filter values.
 
     :param filters: Each filter is a unique query and will have matching set of publishers returned from the request. Each result will have the same index in the resulting array that the filter had in the incoming query.
     :type filters: list of :class:`QueryFilter <azure.devops.v5_1.gallery.models.QueryFilter>`
-    :param flags: The Flags are used to deterine which set of information the caller would like returned for the matched publishers.
+    :param flags: The Flags are used to determine which set of information the caller would like returned for the matched publishers.
     :type flags: object
     """
 
@@ -1262,7 +1260,8 @@ class PublisherQuery(Model):
 
 
 class PublisherQueryResult(Model):
-    """PublisherQueryResult.
+    """
+    This is the set of publishers that matched a supplied query through the filters given.
 
     :param results: For each filter supplied in the query, a filter result will be returned in the query result.
     :type results: list of :class:`PublisherFilterResult <azure.devops.v5_1.gallery.models.PublisherFilterResult>`
@@ -1278,8 +1277,7 @@ class PublisherQueryResult(Model):
 
 
 class PublisherRoleAssignment(Model):
-    """PublisherRoleAssignment.
-
+    """
     :param access: Designates the role as explicitly assigned or inherited.
     :type access: object
     :param access_display_name: User friendly description of access assignment.
@@ -1306,8 +1304,7 @@ class PublisherRoleAssignment(Model):
 
 
 class PublisherSecurityRole(Model):
-    """PublisherSecurityRole.
-
+    """
     :param allow_permissions: Permissions the role is allowed.
     :type allow_permissions: int
     :param deny_permissions: Permissions the role is denied.
@@ -1346,8 +1343,7 @@ class PublisherSecurityRole(Model):
 
 
 class PublisherUserRoleAssignmentRef(Model):
-    """PublisherUserRoleAssignmentRef.
-
+    """
     :param role_name: The name of the role assigned.
     :type role_name: str
     :param unique_name: Identifier of the user given the role assignment.
@@ -1370,7 +1366,8 @@ class PublisherUserRoleAssignmentRef(Model):
 
 
 class QnAItem(Model):
-    """QnAItem.
+    """
+    The core structure of a QnA item
 
     :param created_date: Time when the review was first created
     :type created_date: datetime
@@ -1406,7 +1403,8 @@ class QnAItem(Model):
 
 
 class QueryFilter(Model):
-    """QueryFilter.
+    """
+    A filter used to define a set of extensions to return during a query.
 
     :param criteria: The filter values define the set of values in this query. They are applied based on the QueryFilterType.
     :type criteria: list of :class:`FilterCriteria <azure.devops.v5_1.gallery.models.FilterCriteria>`
@@ -1446,7 +1444,8 @@ class QueryFilter(Model):
 
 
 class Question(QnAItem):
-    """Question.
+    """
+    The structure of the question / thread
 
     :param created_date: Time when the review was first created
     :type created_date: datetime
@@ -1480,8 +1479,7 @@ class Question(QnAItem):
 
 
 class QuestionsResult(Model):
-    """QuestionsResult.
-
+    """
     :param has_more_questions: Flag indicating if there are more QnA threads to be shown (for paging)
     :type has_more_questions: bool
     :param questions: List of the QnA threads
@@ -1500,8 +1498,7 @@ class QuestionsResult(Model):
 
 
 class RatingCountPerRating(Model):
-    """RatingCountPerRating.
-
+    """
     :param rating: Rating value
     :type rating: str
     :param rating_count: Count of total ratings
@@ -1520,7 +1517,8 @@ class RatingCountPerRating(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -1536,7 +1534,8 @@ class ReferenceLinks(Model):
 
 
 class Response(QnAItem):
-    """Response.
+    """
+    The structure of a response
 
     :param created_date: Time when the review was first created
     :type created_date: datetime
@@ -1566,8 +1565,7 @@ class Response(QnAItem):
 
 
 class Review(Model):
-    """Review.
-
+    """
     :param admin_reply: Admin Reply, if any, for this review
     :type admin_reply: :class:`ReviewReply <azure.devops.v5_1.gallery.models.ReviewReply>`
     :param id: Unique identifier of a review item
@@ -1578,7 +1576,7 @@ class Review(Model):
     :type is_ignored: bool
     :param product_version: Version of the product for which review was submitted
     :type product_version: str
-    :param rating: Rating procided by the user
+    :param rating: Rating provided by the user
     :type rating: str
     :param reply: Reply, if any, for this review
     :type reply: :class:`ReviewReply <azure.devops.v5_1.gallery.models.ReviewReply>`
@@ -1626,8 +1624,7 @@ class Review(Model):
 
 
 class ReviewPatch(Model):
-    """ReviewPatch.
-
+    """
     :param operation: Denotes the patch operation type
     :type operation: object
     :param reported_concern: Use when patch operation is FlagReview
@@ -1650,8 +1647,7 @@ class ReviewPatch(Model):
 
 
 class ReviewReply(Model):
-    """ReviewReply.
-
+    """
     :param id: Id of the reply
     :type id: long
     :param is_deleted: Flag for soft deletion
@@ -1694,8 +1690,7 @@ class ReviewReply(Model):
 
 
 class ReviewsResult(Model):
-    """ReviewsResult.
-
+    """
     :param has_more_reviews: Flag indicating if there are more reviews to be shown (for paging)
     :type has_more_reviews: bool
     :param reviews: List of reviews
@@ -1718,13 +1713,12 @@ class ReviewsResult(Model):
 
 
 class ReviewSummary(Model):
-    """ReviewSummary.
-
+    """
     :param average_rating: Average Rating
     :type average_rating: int
     :param rating_count: Count of total ratings
     :type rating_count: long
-    :param rating_split: Split of count accross rating
+    :param rating_split: Split of count across rating
     :type rating_split: list of :class:`RatingCountPerRating <azure.devops.v5_1.gallery.models.RatingCountPerRating>`
     """
 
@@ -1742,8 +1736,7 @@ class ReviewSummary(Model):
 
 
 class UnpackagedExtensionData(Model):
-    """UnpackagedExtensionData.
-
+    """
     :param categories:
     :type categories: list of str
     :param description:
@@ -1822,7 +1815,8 @@ class UnpackagedExtensionData(Model):
 
 
 class UserIdentityRef(Model):
-    """UserIdentityRef.
+    """
+    Identity reference with name and guid
 
     :param display_name: User display name
     :type display_name: str
@@ -1842,8 +1836,7 @@ class UserIdentityRef(Model):
 
 
 class UserReportedConcern(Model):
-    """UserReportedConcern.
-
+    """
     :param category: Category of the concern
     :type category: object
     :param concern_text: User comment associated with the report
@@ -1874,7 +1867,8 @@ class UserReportedConcern(Model):
 
 
 class Concern(QnAItem):
-    """Concern.
+    """
+    The structure of a Concern Rather than defining a separate data structure having same fields as QnAItem, we are inheriting from the QnAItem.
 
     :param created_date: Time when the review was first created
     :type created_date: datetime
@@ -1908,8 +1902,7 @@ class Concern(QnAItem):
 
 
 class ExtensionDraftAsset(ExtensionFile):
-    """ExtensionDraftAsset.
-
+    """
     :param asset_type:
     :type asset_type: str
     :param language:
@@ -1929,8 +1922,7 @@ class ExtensionDraftAsset(ExtensionFile):
 
 
 class Publisher(PublisherBase):
-    """Publisher.
-
+    """
     :param display_name:
     :type display_name: str
     :param email_address:

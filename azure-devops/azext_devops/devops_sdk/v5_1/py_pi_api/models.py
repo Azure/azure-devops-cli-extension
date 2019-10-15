@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class BatchOperationData(Model):
-    """BatchOperationData.
+    """
+    Do not attempt to use this type to create a new BatchOperationData. This type does not contain sufficient fields to create a new batch operation data.
 
     """
 
@@ -22,7 +23,8 @@ class BatchOperationData(Model):
 
 
 class JsonPatchOperation(Model):
-    """JsonPatchOperation.
+    """
+    The JSON model for a JSON Patch operation
 
     :param from_: The path to copy from for the Move/Copy operation.
     :type from_: str
@@ -50,7 +52,8 @@ class JsonPatchOperation(Model):
 
 
 class MinimalPackageDetails(Model):
-    """MinimalPackageDetails.
+    """
+    Minimal package details required to identify a package within a protocol.
 
     :param id: Package name.
     :type id: str
@@ -70,7 +73,8 @@ class MinimalPackageDetails(Model):
 
 
 class Package(Model):
-    """Package.
+    """
+    Package version metadata for a Python package
 
     :param _links: Related REST links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.py_pi.models.ReferenceLinks>`
@@ -110,8 +114,7 @@ class Package(Model):
 
 
 class PackageVersionDetails(Model):
-    """PackageVersionDetails.
-
+    """
     :param views: The view to which the package version will be added
     :type views: :class:`JsonPatchOperation <azure.devops.v5_1.py_pi.models.JsonPatchOperation>`
     """
@@ -126,7 +129,8 @@ class PackageVersionDetails(Model):
 
 
 class PyPiPackagesBatchRequest(Model):
-    """PyPiPackagesBatchRequest.
+    """
+    A batch of operations to apply to package versions.
 
     :param data: Data required to perform the operation. This is optional based on the type of the operation. Use BatchPromoteData if performing a promote operation.
     :type data: :class:`BatchOperationData <azure.devops.v5_1.py_pi.models.BatchOperationData>`
@@ -150,7 +154,8 @@ class PyPiPackagesBatchRequest(Model):
 
 
 class PyPiPackageVersionDeletionState(Model):
-    """PyPiPackageVersionDeletionState.
+    """
+    Deletion state of a Python package.
 
     :param deleted_date: UTC date the package was deleted.
     :type deleted_date: datetime
@@ -174,8 +179,7 @@ class PyPiPackageVersionDeletionState(Model):
 
 
 class PyPiRecycleBinPackageVersionDetails(Model):
-    """PyPiRecycleBinPackageVersionDetails.
-
+    """
     :param deleted: Setting to false will undo earlier deletion and restore the package to feed.
     :type deleted: bool
     """
@@ -190,7 +194,8 @@ class PyPiRecycleBinPackageVersionDetails(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -206,7 +211,8 @@ class ReferenceLinks(Model):
 
 
 class UpstreamSourceInfo(Model):
-    """UpstreamSourceInfo.
+    """
+    Upstream source definition, including its Identity, package type, and other associated information.
 
     :param display_location: Locator for connecting to the upstream source in a user friendly format, that may potentially change over time
     :type display_location: str

@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class FeatureFlag(Model):
-    """FeatureFlag.
-
+    """
     :param description:
     :type description: str
     :param effective_state:
@@ -42,7 +41,8 @@ class FeatureFlag(Model):
 
 
 class FeatureFlagPatch(Model):
-    """FeatureFlagPatch.
+    """
+    This is passed to the FeatureFlagController to edit the status of a feature flag
 
     :param state:
     :type state: str

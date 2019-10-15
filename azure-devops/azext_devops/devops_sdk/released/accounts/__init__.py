@@ -6,7 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.accounts.models import *
+from ...v5_1.accounts.models import *
 from .accounts_client import AccountsClient
 
 __all__ = [

@@ -6,7 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.cloud_load_test.models import *
+from ...v5_1.cloud_load_test.models import *
 from .cloud_load_test_client import CloudLoadTestClient
 
 __all__ = [
@@ -25,6 +25,8 @@ __all__ = [
     'Diagnostics',
     'DropAccessData',
     'ErrorDetails',
+    'GraphSubjectBase',
+    'IdentityRef',
     'LoadGenerationGeoLocation',
     'LoadTest',
     'LoadTestDefinition',
@@ -33,6 +35,7 @@ __all__ = [
     'LoadTestRunSettings',
     'OverridableRunSettings',
     'PageSummary',
+    'ReferenceLinks',
     'RequestSummary',
     'ScenarioSummary',
     'StaticAgentRunSetting',

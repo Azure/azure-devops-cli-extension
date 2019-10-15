@@ -6,7 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.git.models import *
+from ...v5_1.git.models import *
 from .git_client import GitClient
 
 __all__ = [
@@ -56,6 +56,7 @@ __all__ = [
     'GitMergeOriginRef',
     'GitMergeParameters',
     'GitObject',
+    'GitPolicyConfigurationResponse',
     'GitPullRequest',
     'GitPullRequestChange',
     'GitPullRequestCommentThread',

@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class AccessTokenResult(Model):
-    """AccessTokenResult.
-
+    """
     :param access_token:
     :type access_token: :class:`JsonWebToken <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.JsonWebToken>`
     :param access_token_error:
@@ -54,8 +53,7 @@ class AccessTokenResult(Model):
 
 
 class AuthorizationGrant(Model):
-    """AuthorizationGrant.
-
+    """
     :param grant_type:
     :type grant_type: object
     """
@@ -70,7 +68,8 @@ class AuthorizationGrant(Model):
 
 
 class ChangedIdentities(Model):
-    """ChangedIdentities.
+    """
+    Container class for changed identities
 
     :param identities: Changed Identities
     :type identities: list of :class:`Identity <azure.devops.v5_1.identities.models.Identity>`
@@ -94,7 +93,8 @@ class ChangedIdentities(Model):
 
 
 class ChangedIdentitiesContext(Model):
-    """ChangedIdentitiesContext.
+    """
+    Context class for changed identities
 
     :param group_sequence_id: Last Group SequenceId
     :type group_sequence_id: int
@@ -122,8 +122,7 @@ class ChangedIdentitiesContext(Model):
 
 
 class CreateScopeInfo(Model):
-    """CreateScopeInfo.
-
+    """
     :param admin_group_description:
     :type admin_group_description: str
     :param admin_group_name:
@@ -158,8 +157,7 @@ class CreateScopeInfo(Model):
 
 
 class FrameworkIdentityInfo(Model):
-    """FrameworkIdentityInfo.
-
+    """
     :param display_name:
     :type display_name: str
     :param identifier:
@@ -186,8 +184,7 @@ class FrameworkIdentityInfo(Model):
 
 
 class GroupMembership(Model):
-    """GroupMembership.
-
+    """
     :param active:
     :type active: bool
     :param descriptor:
@@ -214,7 +211,8 @@ class GroupMembership(Model):
 
 
 class IdentityBase(Model):
-    """IdentityBase.
+    """
+    Base Identity class to allow "trimmed" identity class in the GetConnectionData API Makes sure that on-the-wire representations of the derived classes are compatible with each other (e.g. Server responds with PublicIdentity object while client deserializes it as Identity object) Derived classes should not have additional [DataMember] properties
 
     :param custom_display_name: The custom display name for the identity (if any). Setting this property to an empty string will clear the existing custom display name. Setting this property to null will not affect the existing persisted value (since null values do not get sent over the wire or to the database)
     :type custom_display_name: str
@@ -290,8 +288,7 @@ class IdentityBase(Model):
 
 
 class IdentityBatchInfo(Model):
-    """IdentityBatchInfo.
-
+    """
     :param descriptors:
     :type descriptors: list of :class:`str <azure.devops.v5_1.identities.models.str>`
     :param identity_ids:
@@ -302,6 +299,8 @@ class IdentityBatchInfo(Model):
     :type property_names: list of str
     :param query_membership:
     :type query_membership: object
+    :param social_descriptors:
+    :type social_descriptors: list of :class:`str <azure.devops.v5_1.identities.models.str>`
     :param subject_descriptors:
     :type subject_descriptors: list of :class:`str <azure.devops.v5_1.identities.models.str>`
     """
@@ -312,22 +311,23 @@ class IdentityBatchInfo(Model):
         'include_restricted_visibility': {'key': 'includeRestrictedVisibility', 'type': 'bool'},
         'property_names': {'key': 'propertyNames', 'type': '[str]'},
         'query_membership': {'key': 'queryMembership', 'type': 'object'},
+        'social_descriptors': {'key': 'socialDescriptors', 'type': '[str]'},
         'subject_descriptors': {'key': 'subjectDescriptors', 'type': '[str]'}
     }
 
-    def __init__(self, descriptors=None, identity_ids=None, include_restricted_visibility=None, property_names=None, query_membership=None, subject_descriptors=None):
+    def __init__(self, descriptors=None, identity_ids=None, include_restricted_visibility=None, property_names=None, query_membership=None, social_descriptors=None, subject_descriptors=None):
         super(IdentityBatchInfo, self).__init__()
         self.descriptors = descriptors
         self.identity_ids = identity_ids
         self.include_restricted_visibility = include_restricted_visibility
         self.property_names = property_names
         self.query_membership = query_membership
+        self.social_descriptors = social_descriptors
         self.subject_descriptors = subject_descriptors
 
 
 class IdentityScope(Model):
-    """IdentityScope.
-
+    """
     :param administrators:
     :type administrators: :class:`str <azure.devops.v5_1.identities.models.str>`
     :param id:
@@ -378,7 +378,8 @@ class IdentityScope(Model):
 
 
 class IdentitySelf(Model):
-    """IdentitySelf.
+    """
+    Identity information.
 
     :param account_name: The UserPrincipalName (UPN) of the account. This value comes from the source provider.
     :type account_name: str
@@ -418,8 +419,7 @@ class IdentitySelf(Model):
 
 
 class IdentitySnapshot(Model):
-    """IdentitySnapshot.
-
+    """
     :param groups:
     :type groups: list of :class:`Identity <azure.devops.v5_1.identities.models.Identity>`
     :param identity_ids:
@@ -450,8 +450,7 @@ class IdentitySnapshot(Model):
 
 
 class IdentityUpdateData(Model):
-    """IdentityUpdateData.
-
+    """
     :param id:
     :type id: str
     :param index:
@@ -474,7 +473,8 @@ class IdentityUpdateData(Model):
 
 
 class JsonPatchOperation(Model):
-    """JsonPatchOperation.
+    """
+    The JSON model for a JSON Patch operation
 
     :param from_: The path to copy from for the Move/Copy operation.
     :type from_: str
@@ -502,8 +502,7 @@ class JsonPatchOperation(Model):
 
 
 class JsonWebToken(Model):
-    """JsonWebToken.
-
+    """
     """
 
     _attribute_map = {
@@ -514,8 +513,7 @@ class JsonWebToken(Model):
 
 
 class RefreshTokenGrant(AuthorizationGrant):
-    """RefreshTokenGrant.
-
+    """
     :param grant_type:
     :type grant_type: object
     :param jwt:
@@ -533,8 +531,7 @@ class RefreshTokenGrant(AuthorizationGrant):
 
 
 class SwapIdentityInfo(Model):
-    """SwapIdentityInfo.
-
+    """
     :param id1:
     :type id1: str
     :param id2:
@@ -553,8 +550,7 @@ class SwapIdentityInfo(Model):
 
 
 class TenantInfo(Model):
-    """TenantInfo.
-
+    """
     :param home_tenant:
     :type home_tenant: bool
     :param tenant_id:
@@ -581,8 +577,7 @@ class TenantInfo(Model):
 
 
 class Identity(IdentityBase):
-    """Identity.
-
+    """
     :param custom_display_name: The custom display name for the identity (if any). Setting this property to an empty string will clear the existing custom display name. Setting this property to null will not affect the existing persisted value (since null values do not get sent over the wire or to the database)
     :type custom_display_name: str
     :param descriptor:

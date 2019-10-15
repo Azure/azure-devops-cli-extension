@@ -8,7 +8,7 @@
 
 from msrest import Serializer, Deserializer
 from ...client import Client
-from ...v5_0.task import models
+from ...v5_1.task import models
 
 
 class TaskClient(Client):
@@ -32,7 +32,7 @@ class TaskClient(Client):
         :param str hub_name: The name of the server hub: "build" for the Build server or "rm" for the Release Management server
         :param str plan_id:
         :param int log_id:
-        :rtype: :class:`<TaskLog> <azure.devops.v5_0.task.models.TaskLog>`
+        :rtype: :class:`<TaskLog> <azure.devops.v5_1.task.models.TaskLog>`
         """
         route_values = {}
         if scope_identifier is not None:
@@ -50,7 +50,7 @@ class TaskClient(Client):
         content = self._client.stream_upload(upload_stream, callback=callback)
         response = self._send(http_method='POST',
                               location_id='46f5667d-263a-4684-91b1-dff7fdcf64e2',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               content=content,
                               media_type='application/octet-stream')
@@ -58,11 +58,11 @@ class TaskClient(Client):
 
     def create_log(self, log, scope_identifier, hub_name, plan_id):
         """CreateLog.
-        :param :class:`<TaskLog> <azure.devops.v5_0.task.models.TaskLog>` log:
+        :param :class:`<TaskLog> <azure.devops.v5_1.task.models.TaskLog>` log:
         :param str scope_identifier: The project GUID to scope the request
         :param str hub_name: The name of the server hub: "build" for the Build server or "rm" for the Release Management server
         :param str plan_id:
-        :rtype: :class:`<TaskLog> <azure.devops.v5_0.task.models.TaskLog>`
+        :rtype: :class:`<TaskLog> <azure.devops.v5_1.task.models.TaskLog>`
         """
         route_values = {}
         if scope_identifier is not None:
@@ -74,7 +74,7 @@ class TaskClient(Client):
         content = self._serialize.body(log, 'TaskLog')
         response = self._send(http_method='POST',
                               location_id='46f5667d-263a-4684-91b1-dff7fdcf64e2',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('TaskLog', response)
@@ -105,7 +105,7 @@ class TaskClient(Client):
             query_parameters['endLine'] = self._serialize.query('end_line', end_line, 'long')
         response = self._send(http_method='GET',
                               location_id='46f5667d-263a-4684-91b1-dff7fdcf64e2',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[str]', self._unwrap_collection(response))
@@ -126,7 +126,7 @@ class TaskClient(Client):
             route_values['planId'] = self._serialize.url('plan_id', plan_id, 'str')
         response = self._send(http_method='GET',
                               location_id='46f5667d-263a-4684-91b1-dff7fdcf64e2',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('[TaskLog]', self._unwrap_collection(response))
 
@@ -153,14 +153,14 @@ class TaskClient(Client):
             query_parameters['changeId'] = self._serialize.query('change_id', change_id, 'int')
         response = self._send(http_method='GET',
                               location_id='8893bc5b-35b2-4be7-83cb-99e683551db4',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('[TimelineRecord]', self._unwrap_collection(response))
 
     def update_records(self, records, scope_identifier, hub_name, plan_id, timeline_id):
         """UpdateRecords.
-        :param :class:`<VssJsonCollectionWrapper> <azure.devops.v5_0.task.models.VssJsonCollectionWrapper>` records:
+        :param :class:`<VssJsonCollectionWrapper> <azure.devops.v5_1.task.models.VssJsonCollectionWrapper>` records:
         :param str scope_identifier: The project GUID to scope the request
         :param str hub_name: The name of the server hub: "build" for the Build server or "rm" for the Release Management server
         :param str plan_id:
@@ -179,18 +179,18 @@ class TaskClient(Client):
         content = self._serialize.body(records, 'VssJsonCollectionWrapper')
         response = self._send(http_method='PATCH',
                               location_id='8893bc5b-35b2-4be7-83cb-99e683551db4',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('[TimelineRecord]', self._unwrap_collection(response))
 
     def create_timeline(self, timeline, scope_identifier, hub_name, plan_id):
         """CreateTimeline.
-        :param :class:`<Timeline> <azure.devops.v5_0.task.models.Timeline>` timeline:
+        :param :class:`<Timeline> <azure.devops.v5_1.task.models.Timeline>` timeline:
         :param str scope_identifier: The project GUID to scope the request
         :param str hub_name: The name of the server hub: "build" for the Build server or "rm" for the Release Management server
         :param str plan_id:
-        :rtype: :class:`<Timeline> <azure.devops.v5_0.task.models.Timeline>`
+        :rtype: :class:`<Timeline> <azure.devops.v5_1.task.models.Timeline>`
         """
         route_values = {}
         if scope_identifier is not None:
@@ -202,7 +202,7 @@ class TaskClient(Client):
         content = self._serialize.body(timeline, 'Timeline')
         response = self._send(http_method='POST',
                               location_id='83597576-cc2c-453c-bea6-2882ae6a1653',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               content=content)
         return self._deserialize('Timeline', response)
@@ -225,7 +225,7 @@ class TaskClient(Client):
             route_values['timelineId'] = self._serialize.url('timeline_id', timeline_id, 'str')
         self._send(http_method='DELETE',
                    location_id='83597576-cc2c-453c-bea6-2882ae6a1653',
-                   version='5.0',
+                   version='5.1',
                    route_values=route_values)
 
     def get_timeline(self, scope_identifier, hub_name, plan_id, timeline_id, change_id=None, include_records=None):
@@ -236,7 +236,7 @@ class TaskClient(Client):
         :param str timeline_id:
         :param int change_id:
         :param bool include_records:
-        :rtype: :class:`<Timeline> <azure.devops.v5_0.task.models.Timeline>`
+        :rtype: :class:`<Timeline> <azure.devops.v5_1.task.models.Timeline>`
         """
         route_values = {}
         if scope_identifier is not None:
@@ -254,7 +254,7 @@ class TaskClient(Client):
             query_parameters['includeRecords'] = self._serialize.query('include_records', include_records, 'bool')
         response = self._send(http_method='GET',
                               location_id='83597576-cc2c-453c-bea6-2882ae6a1653',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('Timeline', response)
@@ -275,7 +275,7 @@ class TaskClient(Client):
             route_values['planId'] = self._serialize.url('plan_id', plan_id, 'str')
         response = self._send(http_method='GET',
                               location_id='83597576-cc2c-453c-bea6-2882ae6a1653',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values)
         return self._deserialize('[Timeline]', self._unwrap_collection(response))
 

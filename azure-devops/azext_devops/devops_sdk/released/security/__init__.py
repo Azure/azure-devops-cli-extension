@@ -6,7 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.security.models import *
+from ...v5_1.security.models import *
 from .security_client import SecurityClient
 
 __all__ = [

@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class AcquisitionOperation(Model):
-    """AcquisitionOperation.
-
+    """
     :param operation_state: State of the the AcquisitionOperation for the current user
     :type operation_state: object
     :param operation_type: AcquisitionOperationType: install, request, buy, etc...
@@ -38,8 +37,7 @@ class AcquisitionOperation(Model):
 
 
 class AcquisitionOperationDisallowReason(Model):
-    """AcquisitionOperationDisallowReason.
-
+    """
     :param message: User-friendly message clarifying the reason for disallowance
     :type message: str
     :param type: Type of reason for disallowance - AlreadyInstalled, UnresolvedDemand, etc.
@@ -58,7 +56,8 @@ class AcquisitionOperationDisallowReason(Model):
 
 
 class AcquisitionOptions(Model):
-    """AcquisitionOptions.
+    """
+    Market item acquisition options (install, buy, etc) for an installation target.
 
     :param default_operation: Default Operation for the ItemId in this target
     :type default_operation: :class:`AcquisitionOperation <azure.devops.v5_1.extension_management.models.AcquisitionOperation>`
@@ -90,7 +89,8 @@ class AcquisitionOptions(Model):
 
 
 class ContributionBase(Model):
-    """ContributionBase.
+    """
+    Base class shared by contributions and contribution types
 
     :param description: Description of the contribution/type
     :type description: str
@@ -114,7 +114,8 @@ class ContributionBase(Model):
 
 
 class ContributionConstraint(Model):
-    """ContributionConstraint.
+    """
+    Specifies a constraint that can be used to dynamically include/exclude a given contribution
 
     :param group: An optional property that can be specified to group constraints together. All constraints within a group are AND'd together (all must be evaluate to True in order for the contribution to be included). Different groups of constraints are OR'd (only one group needs to evaluate to True for the contribution to be included).
     :type group: int
@@ -150,7 +151,8 @@ class ContributionConstraint(Model):
 
 
 class ContributionPropertyDescription(Model):
-    """ContributionPropertyDescription.
+    """
+    Description about a property of a contribution type
 
     :param description: Description of the property
     :type description: str
@@ -178,7 +180,8 @@ class ContributionPropertyDescription(Model):
 
 
 class ContributionType(ContributionBase):
-    """ContributionType.
+    """
+    A contribution type, given by a json schema
 
     :param description: Description of the contribution/type
     :type description: str
@@ -211,7 +214,8 @@ class ContributionType(ContributionBase):
 
 
 class ExtensionAcquisitionRequest(Model):
-    """ExtensionAcquisitionRequest.
+    """
+    Contract for handling the extension acquisition process
 
     :param assignment_type: How the item is being assigned
     :type assignment_type: object
@@ -247,7 +251,8 @@ class ExtensionAcquisitionRequest(Model):
 
 
 class ExtensionAuditLog(Model):
-    """ExtensionAuditLog.
+    """
+    Audit log for an extension
 
     :param entries: Collection of audit log entries
     :type entries: list of :class:`ExtensionAuditLogEntry <azure.devops.v5_1.extension_management.models.ExtensionAuditLogEntry>`
@@ -271,7 +276,8 @@ class ExtensionAuditLog(Model):
 
 
 class ExtensionAuditLogEntry(Model):
-    """ExtensionAuditLogEntry.
+    """
+    An audit log entry for an extension
 
     :param audit_action: Change that was made to extension
     :type audit_action: str
@@ -299,8 +305,7 @@ class ExtensionAuditLogEntry(Model):
 
 
 class ExtensionAuthorization(Model):
-    """ExtensionAuthorization.
-
+    """
     :param id:
     :type id: str
     :param scopes:
@@ -319,8 +324,7 @@ class ExtensionAuthorization(Model):
 
 
 class ExtensionBadge(Model):
-    """ExtensionBadge.
-
+    """
     :param description:
     :type description: str
     :param img_uri:
@@ -343,7 +347,8 @@ class ExtensionBadge(Model):
 
 
 class ExtensionDataCollection(Model):
-    """ExtensionDataCollection.
+    """
+    Represents a single collection for extension data documents
 
     :param collection_name: The name of the collection
     :type collection_name: str
@@ -371,7 +376,8 @@ class ExtensionDataCollection(Model):
 
 
 class ExtensionDataCollectionQuery(Model):
-    """ExtensionDataCollectionQuery.
+    """
+    Represents a query to receive a set of extension data collections
 
     :param collections: A list of collections to query
     :type collections: list of :class:`ExtensionDataCollection <azure.devops.v5_1.extension_management.models.ExtensionDataCollection>`
@@ -387,7 +393,8 @@ class ExtensionDataCollectionQuery(Model):
 
 
 class ExtensionEventCallback(Model):
-    """ExtensionEventCallback.
+    """
+    Base class for an event callback for an extension
 
     :param uri: The uri of the endpoint that is hit when an event occurs
     :type uri: str
@@ -403,19 +410,20 @@ class ExtensionEventCallback(Model):
 
 
 class ExtensionEventCallbackCollection(Model):
-    """ExtensionEventCallbackCollection.
+    """
+    Collection of event callbacks - endpoints called when particular extension events occur.
 
-    :param post_disable: Optional.  Defines an endpoint that gets called via a POST reqeust to notify that an extension disable has occurred.
+    :param post_disable: Optional.  Defines an endpoint that gets called via a POST request to notify that an extension disable has occurred.
     :type post_disable: :class:`ExtensionEventCallback <azure.devops.v5_1.extension_management.models.ExtensionEventCallback>`
-    :param post_enable: Optional.  Defines an endpoint that gets called via a POST reqeust to notify that an extension enable has occurred.
+    :param post_enable: Optional.  Defines an endpoint that gets called via a POST request to notify that an extension enable has occurred.
     :type post_enable: :class:`ExtensionEventCallback <azure.devops.v5_1.extension_management.models.ExtensionEventCallback>`
-    :param post_install: Optional.  Defines an endpoint that gets called via a POST reqeust to notify that an extension install has completed.
+    :param post_install: Optional.  Defines an endpoint that gets called via a POST request to notify that an extension install has completed.
     :type post_install: :class:`ExtensionEventCallback <azure.devops.v5_1.extension_management.models.ExtensionEventCallback>`
-    :param post_uninstall: Optional.  Defines an endpoint that gets called via a POST reqeust to notify that an extension uninstall has occurred.
+    :param post_uninstall: Optional.  Defines an endpoint that gets called via a POST request to notify that an extension uninstall has occurred.
     :type post_uninstall: :class:`ExtensionEventCallback <azure.devops.v5_1.extension_management.models.ExtensionEventCallback>`
-    :param post_update: Optional.  Defines an endpoint that gets called via a POST reqeust to notify that an extension update has occurred.
+    :param post_update: Optional.  Defines an endpoint that gets called via a POST request to notify that an extension update has occurred.
     :type post_update: :class:`ExtensionEventCallback <azure.devops.v5_1.extension_management.models.ExtensionEventCallback>`
-    :param pre_install: Optional.  Defines an endpoint that gets called via a POST reqeust to notify that an extension install is about to occur.  Response indicates whether to proceed or abort.
+    :param pre_install: Optional.  Defines an endpoint that gets called via a POST request to notify that an extension install is about to occur.  Response indicates whether to proceed or abort.
     :type pre_install: :class:`ExtensionEventCallback <azure.devops.v5_1.extension_management.models.ExtensionEventCallback>`
     :param version_check: For multi-version extensions, defines an endpoint that gets called via an OPTIONS request to determine the particular version of the extension to be used
     :type version_check: :class:`ExtensionEventCallback <azure.devops.v5_1.extension_management.models.ExtensionEventCallback>`
@@ -443,8 +451,7 @@ class ExtensionEventCallbackCollection(Model):
 
 
 class ExtensionFile(Model):
-    """ExtensionFile.
-
+    """
     :param asset_type:
     :type asset_type: str
     :param language:
@@ -467,7 +474,8 @@ class ExtensionFile(Model):
 
 
 class ExtensionIdentifier(Model):
-    """ExtensionIdentifier.
+    """
+    Represents the component pieces of an extensions fully qualified name, along with the fully qualified name.
 
     :param extension_name: The ExtensionName component part of the fully qualified ExtensionIdentifier
     :type extension_name: str
@@ -487,7 +495,8 @@ class ExtensionIdentifier(Model):
 
 
 class ExtensionLicensing(Model):
-    """ExtensionLicensing.
+    """
+    How an extension should handle including contributions based on licensing
 
     :param overrides: A list of contributions which deviate from the default licensing behavior
     :type overrides: list of :class:`LicensingOverride <azure.devops.v5_1.extension_management.models.LicensingOverride>`
@@ -503,7 +512,8 @@ class ExtensionLicensing(Model):
 
 
 class ExtensionManifest(Model):
-    """ExtensionManifest.
+    """
+    Base class for extension properties which are shared by the extension manifest and the extension model
 
     :param base_uri: Uri used as base for other relative uri's defined in extension
     :type base_uri: str
@@ -525,7 +535,7 @@ class ExtensionManifest(Model):
     :type licensing: :class:`ExtensionLicensing <azure.devops.v5_1.extension_management.models.ExtensionLicensing>`
     :param manifest_version: Version of the extension manifest format/content
     :type manifest_version: float
-    :param restricted_to: Default user claims applied to all contributions (except the ones which have been speficied restrictedTo explicitly) to control the visibility of a contribution.
+    :param restricted_to: Default user claims applied to all contributions (except the ones which have been specified restrictedTo explicitly) to control the visibility of a contribution.
     :type restricted_to: list of str
     :param scopes: List of all oauth scopes required by this extension
     :type scopes: list of str
@@ -567,7 +577,8 @@ class ExtensionManifest(Model):
 
 
 class ExtensionPolicy(Model):
-    """ExtensionPolicy.
+    """
+    Policy with a set of permissions on extension operations
 
     :param install: Permissions on 'Install' operation
     :type install: object
@@ -587,7 +598,8 @@ class ExtensionPolicy(Model):
 
 
 class ExtensionRequest(Model):
-    """ExtensionRequest.
+    """
+    A request for an extension (to be installed or have a license assigned)
 
     :param reject_message: Required message supplied if the request is rejected
     :type reject_message: str
@@ -627,8 +639,7 @@ class ExtensionRequest(Model):
 
 
 class ExtensionShare(Model):
-    """ExtensionShare.
-
+    """
     :param id:
     :type id: str
     :param is_org:
@@ -655,8 +666,7 @@ class ExtensionShare(Model):
 
 
 class ExtensionStatistic(Model):
-    """ExtensionStatistic.
-
+    """
     :param statistic_name:
     :type statistic_name: str
     :param value:
@@ -675,8 +685,7 @@ class ExtensionStatistic(Model):
 
 
 class ExtensionVersion(Model):
-    """ExtensionVersion.
-
+    """
     :param asset_uri:
     :type asset_uri: str
     :param badges:
@@ -727,8 +736,7 @@ class ExtensionVersion(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -755,8 +763,7 @@ class GraphSubjectBase(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -815,8 +822,7 @@ class IdentityRef(GraphSubjectBase):
 
 
 class InstallationTarget(Model):
-    """InstallationTarget.
-
+    """
     :param target:
     :type target: str
     :param target_version:
@@ -835,7 +841,8 @@ class InstallationTarget(Model):
 
 
 class InstalledExtension(ExtensionManifest):
-    """InstalledExtension.
+    """
+    Represents a VSTS extension along with its installation state
 
     :param base_uri: Uri used as base for other relative uri's defined in extension
     :type base_uri: str
@@ -857,7 +864,7 @@ class InstalledExtension(ExtensionManifest):
     :type licensing: :class:`ExtensionLicensing <azure.devops.v5_1.extension_management.models.ExtensionLicensing>`
     :param manifest_version: Version of the extension manifest format/content
     :type manifest_version: float
-    :param restricted_to: Default user claims applied to all contributions (except the ones which have been speficied restrictedTo explicitly) to control the visibility of a contribution.
+    :param restricted_to: Default user claims applied to all contributions (except the ones which have been specified restrictedTo explicitly) to control the visibility of a contribution.
     :type restricted_to: list of str
     :param scopes: List of all oauth scopes required by this extension
     :type scopes: list of str
@@ -926,8 +933,7 @@ class InstalledExtension(ExtensionManifest):
 
 
 class InstalledExtensionQuery(Model):
-    """InstalledExtensionQuery.
-
+    """
     :param asset_types:
     :type asset_types: list of str
     :param monikers:
@@ -946,7 +952,8 @@ class InstalledExtensionQuery(Model):
 
 
 class InstalledExtensionState(Model):
-    """InstalledExtensionState.
+    """
+    The state of an installed extension
 
     :param flags: States of an installed extension
     :type flags: object
@@ -970,7 +977,8 @@ class InstalledExtensionState(Model):
 
 
 class InstalledExtensionStateIssue(Model):
-    """InstalledExtensionStateIssue.
+    """
+    Represents an installation issue
 
     :param message: The error message
     :type message: str
@@ -994,7 +1002,8 @@ class InstalledExtensionStateIssue(Model):
 
 
 class LicensingOverride(Model):
-    """LicensingOverride.
+    """
+    Maps a contribution to a licensing behavior
 
     :param behavior: How the inclusion of this contribution should change based on licensing
     :type behavior: object
@@ -1014,8 +1023,7 @@ class LicensingOverride(Model):
 
 
 class PublishedExtension(Model):
-    """PublishedExtension.
-
+    """
     :param categories:
     :type categories: list of str
     :param deployment_type:
@@ -1094,7 +1102,8 @@ class PublishedExtension(Model):
 
 
 class PublisherFacts(Model):
-    """PublisherFacts.
+    """
+    High-level information about the publisher, like id's and names
 
     :param display_name:
     :type display_name: str
@@ -1122,7 +1131,8 @@ class PublisherFacts(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -1138,7 +1148,8 @@ class ReferenceLinks(Model):
 
 
 class RequestedExtension(Model):
-    """RequestedExtension.
+    """
+    A request for an extension (to be installed or have a license assigned)
 
     :param extension_name: The unique name of the extension
     :type extension_name: str
@@ -1170,7 +1181,8 @@ class RequestedExtension(Model):
 
 
 class UserExtensionPolicy(Model):
-    """UserExtensionPolicy.
+    """
+    Represents the extension policy applied to a given user
 
     :param display_name: User display name that this policy refers to
     :type display_name: str
@@ -1194,7 +1206,8 @@ class UserExtensionPolicy(Model):
 
 
 class Contribution(ContributionBase):
-    """Contribution.
+    """
+    An individual contribution made by an extension
 
     :param description: Description of the contribution/type
     :type description: str
@@ -1239,7 +1252,8 @@ class Contribution(ContributionBase):
 
 
 class ExtensionState(InstalledExtensionState):
-    """ExtensionState.
+    """
+    The state of an extension
 
     :param flags: States of an installed extension
     :type flags: object

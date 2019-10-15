@@ -50,6 +50,7 @@ __all__ = [
     'TestPlansHubRefreshData',
     'TestPlanUpdateParams',
     'TestPoint',
+    'TestPointCount',
     'TestPointResults',
     'TestPointUpdateParams',
     'TestSettings',

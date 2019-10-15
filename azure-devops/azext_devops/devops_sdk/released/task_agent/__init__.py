@@ -6,7 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.task_agent.models import *
+from ...v5_1.task_agent.models import *
 from .task_agent_client import TaskAgentClient
 
 __all__ = [
@@ -39,9 +39,12 @@ __all__ = [
     'DeploymentTargetUpdateParameter',
     'EndpointAuthorization',
     'EndpointUrl',
-    'Environment',
     'EnvironmentCreateParameter',
+    'EnvironmentDeploymentExecutionRecord',
+    'EnvironmentInstance',
     'EnvironmentReference',
+    'EnvironmentResource',
+    'EnvironmentResourceReference',
     'EnvironmentUpdateParameter',
     'GraphSubjectBase',
     'HelpLink',
@@ -52,8 +55,8 @@ __all__ = [
     'InputValue',
     'InputValues',
     'InputValuesError',
-    'KubernetesServiceGroup',
-    'KubernetesServiceGroupCreateParameters',
+    'KubernetesResource',
+    'KubernetesResourceCreateParameters',
     'MarketplacePurchasedLicense',
     'MetricsColumnMetaData',
     'MetricsColumnsHeader',
@@ -76,8 +79,6 @@ __all__ = [
     'ServiceEndpointRequest',
     'ServiceEndpointRequestResult',
     'ServiceEndpointType',
-    'ServiceGroup',
-    'ServiceGroupReference',
     'TaskAgent',
     'TaskAgentAuthorization',
     'TaskAgentCloud',
@@ -127,5 +128,8 @@ __all__ = [
     'VariableGroupParameters',
     'VariableGroupProviderData',
     'VariableValue',
+    'VirtualMachine',
+    'VirtualMachineGroup',
+    'VirtualMachineGroupCreateParameters',
     'TaskAgentClient'
 ]

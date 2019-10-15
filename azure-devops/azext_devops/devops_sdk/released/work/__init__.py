@@ -6,7 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.work.models import *
+from ...v5_1.work.models import *
 from .work_client import WorkClient
 
 __all__ = [
@@ -18,6 +18,7 @@ __all__ = [
     'BacklogLevelConfiguration',
     'BacklogLevelWorkItems',
     'Board',
+    'BoardBadge',
     'BoardCardRuleSettings',
     'BoardCardSettings',
     'BoardChart',
@@ -28,6 +29,7 @@ __all__ = [
     'BoardRow',
     'BoardSuggestedValue',
     'BoardUserSettings',
+    'CapacityContractBase',
     'CapacityPatch',
     'CategoryConfiguration',
     'CreatePlan',
@@ -46,6 +48,8 @@ __all__ = [
     'PredefinedQuery',
     'ProcessConfiguration',
     'ReferenceLinks',
+    'ReorderOperation',
+    'ReorderResult',
     'Rule',
     'TeamContext',
     'TeamFieldValue',
@@ -53,6 +57,7 @@ __all__ = [
     'TeamFieldValuesPatch',
     'TeamIterationAttributes',
     'TeamMemberCapacity',
+    'TeamMemberCapacityIdentityRef',
     'TeamSetting',
     'TeamSettingsDataContractBase',
     'TeamSettingsDaysOff',
@@ -67,6 +72,7 @@ __all__ = [
     'UpdatePlan',
     'WorkItem',
     'WorkItemColor',
+    'WorkItemCommentVersionRef',
     'WorkItemFieldReference',
     'WorkItemLink',
     'WorkItemReference',

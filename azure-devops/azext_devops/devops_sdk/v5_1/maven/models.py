@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class BatchOperationData(Model):
-    """BatchOperationData.
+    """
+    Do not attempt to use this type to create a new BatchOperationData. This type does not contain sufficient fields to create a new batch operation data.
 
     """
 
@@ -22,8 +23,7 @@ class BatchOperationData(Model):
 
 
 class MavenDistributionManagement(Model):
-    """MavenDistributionManagement.
-
+    """
     :param repository:
     :type repository: :class:`MavenRepository <azure.devops.v5_1.maven.models.MavenRepository>`
     :param snapshot_repository:
@@ -42,7 +42,8 @@ class MavenDistributionManagement(Model):
 
 
 class MavenMinimalPackageDetails(Model):
-    """MavenMinimalPackageDetails.
+    """
+    Identifies a particular Maven package version
 
     :param artifact: Package artifact ID
     :type artifact: str
@@ -66,8 +67,7 @@ class MavenMinimalPackageDetails(Model):
 
 
 class MavenPackage(Model):
-    """MavenPackage.
-
+    """
     :param artifact_id:
     :type artifact_id: str
     :param artifact_index:
@@ -126,7 +126,8 @@ class MavenPackage(Model):
 
 
 class MavenPackagesBatchRequest(Model):
-    """MavenPackagesBatchRequest.
+    """
+    A batch of operations to apply to package versions.
 
     :param data: Data required to perform the operation. This is optional based on type of operation. Use BatchPromoteData if performing a promote operation.
     :type data: :class:`BatchOperationData <azure.devops.v5_1.maven.models.BatchOperationData>`
@@ -150,7 +151,8 @@ class MavenPackagesBatchRequest(Model):
 
 
 class MavenPackageVersionDeletionState(Model):
-    """MavenPackageVersionDeletionState.
+    """
+    Deletion state of a maven package.
 
     :param artifact_id: Artifact Id of the package.
     :type artifact_id: str
@@ -178,8 +180,7 @@ class MavenPackageVersionDeletionState(Model):
 
 
 class MavenPomBuild(Model):
-    """MavenPomBuild.
-
+    """
     :param plugins:
     :type plugins: list of :class:`Plugin <azure.devops.v5_1.maven.models.Plugin>`
     """
@@ -194,8 +195,7 @@ class MavenPomBuild(Model):
 
 
 class MavenPomCi(Model):
-    """MavenPomCi.
-
+    """
     :param notifiers:
     :type notifiers: list of :class:`MavenPomCiNotifier <azure.devops.v5_1.maven.models.MavenPomCiNotifier>`
     :param system:
@@ -218,8 +218,7 @@ class MavenPomCi(Model):
 
 
 class MavenPomCiNotifier(Model):
-    """MavenPomCiNotifier.
-
+    """
     :param configuration:
     :type configuration: list of str
     :param send_on_error:
@@ -254,8 +253,7 @@ class MavenPomCiNotifier(Model):
 
 
 class MavenPomDependencyManagement(Model):
-    """MavenPomDependencyManagement.
-
+    """
     :param dependencies:
     :type dependencies: list of :class:`MavenPomDependency <azure.devops.v5_1.maven.models.MavenPomDependency>`
     """
@@ -270,8 +268,7 @@ class MavenPomDependencyManagement(Model):
 
 
 class MavenPomGav(Model):
-    """MavenPomGav.
-
+    """
     :param artifact_id:
     :type artifact_id: str
     :param group_id:
@@ -294,8 +291,7 @@ class MavenPomGav(Model):
 
 
 class MavenPomIssueManagement(Model):
-    """MavenPomIssueManagement.
-
+    """
     :param system:
     :type system: str
     :param url:
@@ -314,8 +310,7 @@ class MavenPomIssueManagement(Model):
 
 
 class MavenPomMailingList(Model):
-    """MavenPomMailingList.
-
+    """
     :param archive:
     :type archive: str
     :param name:
@@ -350,8 +345,7 @@ class MavenPomMailingList(Model):
 
 
 class MavenPomMetadata(MavenPomGav):
-    """MavenPomMetadata.
-
+    """
     :param artifact_id:
     :type artifact_id: str
     :param group_id:
@@ -459,8 +453,7 @@ class MavenPomMetadata(MavenPomGav):
 
 
 class MavenPomOrganization(Model):
-    """MavenPomOrganization.
-
+    """
     :param name:
     :type name: str
     :param url:
@@ -479,8 +472,7 @@ class MavenPomOrganization(Model):
 
 
 class MavenPomParent(MavenPomGav):
-    """MavenPomParent.
-
+    """
     :param artifact_id:
     :type artifact_id: str
     :param group_id:
@@ -504,8 +496,7 @@ class MavenPomParent(MavenPomGav):
 
 
 class MavenPomPerson(Model):
-    """MavenPomPerson.
-
+    """
     :param email:
     :type email: str
     :param id:
@@ -548,8 +539,7 @@ class MavenPomPerson(Model):
 
 
 class MavenPomScm(Model):
-    """MavenPomScm.
-
+    """
     :param connection:
     :type connection: str
     :param developer_connection:
@@ -576,8 +566,7 @@ class MavenPomScm(Model):
 
 
 class MavenRecycleBinPackageVersionDetails(Model):
-    """MavenRecycleBinPackageVersionDetails.
-
+    """
     :param deleted: Setting to false will undo earlier deletion and restore the package to feed.
     :type deleted: bool
     """
@@ -592,8 +581,7 @@ class MavenRecycleBinPackageVersionDetails(Model):
 
 
 class MavenRepository(Model):
-    """MavenRepository.
-
+    """
     :param unique_version:
     :type unique_version: bool
     """
@@ -608,8 +596,7 @@ class MavenRepository(Model):
 
 
 class MavenSnapshotRepository(MavenRepository):
-    """MavenSnapshotRepository.
-
+    """
     :param unique_version:
     :type unique_version: bool
     """
@@ -623,7 +610,8 @@ class MavenSnapshotRepository(MavenRepository):
 
 
 class Package(Model):
-    """Package.
+    """
+    Package version metadata for a Maven package
 
     :param _links: Related REST links.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.maven.models.ReferenceLinks>`
@@ -663,8 +651,7 @@ class Package(Model):
 
 
 class Plugin(MavenPomGav):
-    """Plugin.
-
+    """
     :param artifact_id:
     :type artifact_id: str
     :param group_id:
@@ -688,8 +675,7 @@ class Plugin(MavenPomGav):
 
 
 class PluginConfiguration(Model):
-    """PluginConfiguration.
-
+    """
     :param goal_prefix:
     :type goal_prefix: str
     """
@@ -704,7 +690,8 @@ class PluginConfiguration(Model):
 
 
 class ReferenceLink(Model):
-    """ReferenceLink.
+    """
+    The class to represent a REST reference link.  RFC: http://tools.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them.
 
     :param href:
     :type href: str
@@ -720,7 +707,8 @@ class ReferenceLink(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -736,7 +724,8 @@ class ReferenceLinks(Model):
 
 
 class UpstreamSourceInfo(Model):
-    """UpstreamSourceInfo.
+    """
+    Upstream source definition, including its Identity, package type, and other associated information.
 
     :param display_location: Locator for connecting to the upstream source in a user friendly format, that may potentially change over time
     :type display_location: str
@@ -768,8 +757,7 @@ class UpstreamSourceInfo(Model):
 
 
 class MavenPomDependency(MavenPomGav):
-    """MavenPomDependency.
-
+    """
     :param artifact_id:
     :type artifact_id: str
     :param group_id:
@@ -801,8 +789,7 @@ class MavenPomDependency(MavenPomGav):
 
 
 class MavenPomLicense(MavenPomOrganization):
-    """MavenPomLicense.
-
+    """
     :param name:
     :type name: str
     :param url:

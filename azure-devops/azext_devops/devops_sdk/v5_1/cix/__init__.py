@@ -25,6 +25,7 @@ __all__ = [
     'TeamProjectReference',
     'Template',
     'TemplateAsset',
+    'TemplateDataSourceBinding',
     'TemplateParameterDefinition',
     'TemplateParameters',
     'WebApiTeamRef',

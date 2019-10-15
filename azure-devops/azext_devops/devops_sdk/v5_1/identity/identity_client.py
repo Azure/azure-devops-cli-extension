@@ -60,20 +60,18 @@ class IdentityClient(Client):
 
     def create_groups(self, container):
         """CreateGroups.
-        [Preview API]
         :param :class:`<object> <azure.devops.v5_1.identity.models.object>` container:
         :rtype: [Identity]
         """
         content = self._serialize.body(container, 'object')
         response = self._send(http_method='POST',
                               location_id='5966283b-4196-4d57-9211-1b68f41ec1c2',
-                              version='5.1-preview.1',
+                              version='5.1',
                               content=content)
         return self._deserialize('[Identity]', self._unwrap_collection(response))
 
     def delete_group(self, group_id):
         """DeleteGroup.
-        [Preview API]
         :param str group_id:
         """
         route_values = {}
@@ -81,12 +79,11 @@ class IdentityClient(Client):
             route_values['groupId'] = self._serialize.url('group_id', group_id, 'str')
         self._send(http_method='DELETE',
                    location_id='5966283b-4196-4d57-9211-1b68f41ec1c2',
-                   version='5.1-preview.1',
+                   version='5.1',
                    route_values=route_values)
 
     def list_groups(self, scope_ids=None, recurse=None, deleted=None, properties=None):
         """ListGroups.
-        [Preview API]
         :param str scope_ids:
         :param bool recurse:
         :param bool deleted:
@@ -104,13 +101,12 @@ class IdentityClient(Client):
             query_parameters['properties'] = self._serialize.query('properties', properties, 'str')
         response = self._send(http_method='GET',
                               location_id='5966283b-4196-4d57-9211-1b68f41ec1c2',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[Identity]', self._unwrap_collection(response))
 
     def get_identity_changes(self, identity_sequence_id, group_sequence_id, organization_identity_sequence_id=None, page_size=None, scope_id=None):
         """GetIdentityChanges.
-        [Preview API]
         :param int identity_sequence_id:
         :param int group_sequence_id:
         :param int organization_identity_sequence_id:
@@ -131,13 +127,12 @@ class IdentityClient(Client):
             query_parameters['scopeId'] = self._serialize.query('scope_id', scope_id, 'str')
         response = self._send(http_method='GET',
                               location_id='28010c54-d0c0-4c89-a5b0-1c9e188b9fb7',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('ChangedIdentities', response)
 
     def get_user_identity_ids_by_domain_id(self, domain_id):
         """GetUserIdentityIdsByDomainId.
-        [Preview API]
         :param str domain_id:
         :rtype: [str]
         """
@@ -146,16 +141,16 @@ class IdentityClient(Client):
             query_parameters['domainId'] = self._serialize.query('domain_id', domain_id, 'str')
         response = self._send(http_method='GET',
                               location_id='28010c54-d0c0-4c89-a5b0-1c9e188b9fb7',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[str]', self._unwrap_collection(response))
 
-    def read_identities(self, descriptors=None, identity_ids=None, subject_descriptors=None, search_filter=None, filter_value=None, query_membership=None, properties=None, include_restricted_visibility=None, options=None):
+    def read_identities(self, descriptors=None, identity_ids=None, subject_descriptors=None, social_descriptors=None, search_filter=None, filter_value=None, query_membership=None, properties=None, include_restricted_visibility=None, options=None):
         """ReadIdentities.
-        [Preview API]
         :param str descriptors:
         :param str identity_ids:
         :param str subject_descriptors:
+        :param str social_descriptors:
         :param str search_filter:
         :param str filter_value:
         :param str query_membership:
@@ -171,6 +166,8 @@ class IdentityClient(Client):
             query_parameters['identityIds'] = self._serialize.query('identity_ids', identity_ids, 'str')
         if subject_descriptors is not None:
             query_parameters['subjectDescriptors'] = self._serialize.query('subject_descriptors', subject_descriptors, 'str')
+        if social_descriptors is not None:
+            query_parameters['socialDescriptors'] = self._serialize.query('social_descriptors', social_descriptors, 'str')
         if search_filter is not None:
             query_parameters['searchFilter'] = self._serialize.query('search_filter', search_filter, 'str')
         if filter_value is not None:
@@ -185,13 +182,12 @@ class IdentityClient(Client):
             query_parameters['options'] = self._serialize.query('options', options, 'str')
         response = self._send(http_method='GET',
                               location_id='28010c54-d0c0-4c89-a5b0-1c9e188b9fb7',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[Identity]', self._unwrap_collection(response))
 
     def read_identities_by_scope(self, scope_id, query_membership=None, properties=None):
         """ReadIdentitiesByScope.
-        [Preview API]
         :param str scope_id:
         :param str query_membership:
         :param str properties:
@@ -206,13 +202,12 @@ class IdentityClient(Client):
             query_parameters['properties'] = self._serialize.query('properties', properties, 'str')
         response = self._send(http_method='GET',
                               location_id='28010c54-d0c0-4c89-a5b0-1c9e188b9fb7',
-                              version='5.1-preview.1',
+                              version='5.1',
                               query_parameters=query_parameters)
         return self._deserialize('[Identity]', self._unwrap_collection(response))
 
     def read_identity(self, identity_id, query_membership=None, properties=None):
         """ReadIdentity.
-        [Preview API]
         :param str identity_id:
         :param str query_membership:
         :param str properties:
@@ -228,27 +223,25 @@ class IdentityClient(Client):
             query_parameters['properties'] = self._serialize.query('properties', properties, 'str')
         response = self._send(http_method='GET',
                               location_id='28010c54-d0c0-4c89-a5b0-1c9e188b9fb7',
-                              version='5.1-preview.1',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('Identity', response)
 
     def update_identities(self, identities):
         """UpdateIdentities.
-        [Preview API]
         :param :class:`<VssJsonCollectionWrapper> <azure.devops.v5_1.identity.models.VssJsonCollectionWrapper>` identities:
         :rtype: [IdentityUpdateData]
         """
         content = self._serialize.body(identities, 'VssJsonCollectionWrapper')
         response = self._send(http_method='PUT',
                               location_id='28010c54-d0c0-4c89-a5b0-1c9e188b9fb7',
-                              version='5.1-preview.1',
+                              version='5.1',
                               content=content)
         return self._deserialize('[IdentityUpdateData]', self._unwrap_collection(response))
 
     def update_identity(self, identity, identity_id):
         """UpdateIdentity.
-        [Preview API]
         :param :class:`<Identity> <azure.devops.v5_1.identity.models.Identity>` identity:
         :param str identity_id:
         """
@@ -258,20 +251,19 @@ class IdentityClient(Client):
         content = self._serialize.body(identity, 'Identity')
         self._send(http_method='PUT',
                    location_id='28010c54-d0c0-4c89-a5b0-1c9e188b9fb7',
-                   version='5.1-preview.1',
+                   version='5.1',
                    route_values=route_values,
                    content=content)
 
     def create_identity(self, framework_identity_info):
         """CreateIdentity.
-        [Preview API]
         :param :class:`<FrameworkIdentityInfo> <azure.devops.v5_1.identity.models.FrameworkIdentityInfo>` framework_identity_info:
         :rtype: :class:`<Identity> <azure.devops.v5_1.identity.models.Identity>`
         """
         content = self._serialize.body(framework_identity_info, 'FrameworkIdentityInfo')
         response = self._send(http_method='PUT',
                               location_id='dd55f0eb-6ea2-4fe4-9ebe-919e7dd1dfb4',
-                              version='5.1-preview.1',
+                              version='5.1',
                               content=content)
         return self._deserialize('Identity', response)
 
@@ -305,22 +297,22 @@ class IdentityClient(Client):
 
     def get_max_sequence_id(self):
         """GetMaxSequenceId.
-        [Preview API] Read the max sequence id of all the identities.
+        Read the max sequence id of all the identities.
         :rtype: long
         """
         response = self._send(http_method='GET',
                               location_id='e4a70778-cb2c-4e85-b7cc-3f3c7ae2d408',
-                              version='5.1-preview.1')
+                              version='5.1')
         return self._deserialize('long', response)
 
     def get_self(self):
         """GetSelf.
-        [Preview API] Read identity of the home tenant request user.
+        Read identity of the home tenant request user.
         :rtype: :class:`<IdentitySelf> <azure.devops.v5_1.identity.models.IdentitySelf>`
         """
         response = self._send(http_method='GET',
                               location_id='4bb02b5b-c120-4be2-b68e-21f7c50a4b82',
-                              version='5.1-preview.1')
+                              version='5.1')
         return self._deserialize('IdentitySelf', response)
 
     def add_member(self, container_id, member_id):

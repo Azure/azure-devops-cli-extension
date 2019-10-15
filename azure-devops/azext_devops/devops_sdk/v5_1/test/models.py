@@ -10,8 +10,7 @@ from msrest.serialization import Model
 
 
 class AggregatedDataForResultTrend(Model):
-    """AggregatedDataForResultTrend.
-
+    """
     :param duration: This is tests execution duration.
     :type duration: object
     :param results_by_outcome:
@@ -42,8 +41,7 @@ class AggregatedDataForResultTrend(Model):
 
 
 class AggregatedResultsAnalysis(Model):
-    """AggregatedResultsAnalysis.
-
+    """
     :param duration:
     :type duration: object
     :param not_reported_results_by_outcome:
@@ -86,8 +84,7 @@ class AggregatedResultsAnalysis(Model):
 
 
 class AggregatedResultsByOutcome(Model):
-    """AggregatedResultsByOutcome.
-
+    """
     :param count:
     :type count: int
     :param duration:
@@ -122,8 +119,7 @@ class AggregatedResultsByOutcome(Model):
 
 
 class AggregatedResultsDifference(Model):
-    """AggregatedResultsDifference.
-
+    """
     :param increase_in_duration:
     :type increase_in_duration: object
     :param increase_in_failures:
@@ -154,8 +150,7 @@ class AggregatedResultsDifference(Model):
 
 
 class AggregatedRunsByOutcome(Model):
-    """AggregatedRunsByOutcome.
-
+    """
     :param outcome:
     :type outcome: object
     :param runs_count:
@@ -174,8 +169,7 @@ class AggregatedRunsByOutcome(Model):
 
 
 class AggregatedRunsByState(Model):
-    """AggregatedRunsByState.
-
+    """
     :param results_by_outcome:
     :type results_by_outcome: dict
     :param runs_count:
@@ -198,11 +192,12 @@ class AggregatedRunsByState(Model):
 
 
 class BuildConfiguration(Model):
-    """BuildConfiguration.
+    """
+    BuildConfiguration Details.
 
     :param branch_name: Branch name for which build is generated.
     :type branch_name: str
-    :param build_definition_id: BuildDefnitionId for build.
+    :param build_definition_id: BuildDefinitionId for build.
     :type build_definition_id: int
     :param build_system: Build system.
     :type build_system: str
@@ -218,7 +213,7 @@ class BuildConfiguration(Model):
     :type platform: str
     :param project: Project associated with this BuildConfiguration.
     :type project: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
-    :param repository_guid: ResposotoryGuid for the Build.
+    :param repository_guid: Repository Guid for the Build.
     :type repository_guid: str
     :param repository_id: Repository Id.
     :type repository_id: int
@@ -270,7 +265,8 @@ class BuildConfiguration(Model):
 
 
 class BuildCoverage(Model):
-    """BuildCoverage.
+    """
+    Build Coverage Detail
 
     :param code_coverage_file_url: Code Coverage File Url
     :type code_coverage_file_url: str
@@ -302,7 +298,8 @@ class BuildCoverage(Model):
 
 
 class BuildReference(Model):
-    """BuildReference.
+    """
+    Reference to a build.
 
     :param branch_name: Branch name.
     :type branch_name: str
@@ -342,7 +339,8 @@ class BuildReference(Model):
 
 
 class CloneOperationInformation(Model):
-    """CloneOperationInformation.
+    """
+    Detail About Clone Operation.
 
     :param clone_statistics: Clone Statistics
     :type clone_statistics: :class:`CloneStatistics <azure.devops.v5_1.test.models.CloneStatistics>`
@@ -370,7 +368,7 @@ class CloneOperationInformation(Model):
     :type source_project: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
     :param state: Current state of the operation. When State reaches Suceeded or Failed, the operation is complete
     :type state: object
-    :param url: Url for geting the clone information
+    :param url: Url for getting the clone information
     :type url: str
     """
 
@@ -410,13 +408,14 @@ class CloneOperationInformation(Model):
 
 
 class CloneOptions(Model):
-    """CloneOptions.
+    """
+    Clone options for cloning the test suite.
 
     :param clone_requirements: If set to true requirements will be cloned
     :type clone_requirements: bool
     :param copy_all_suites: copy all suites from a source plan
     :type copy_all_suites: bool
-    :param copy_ancestor_hierarchy: copy ancestor hieracrchy
+    :param copy_ancestor_hierarchy: copy ancestor hierarchy
     :type copy_ancestor_hierarchy: bool
     :param destination_work_item_type: Name of the workitem type of the clone
     :type destination_work_item_type: str
@@ -446,9 +445,10 @@ class CloneOptions(Model):
 
 
 class CloneStatistics(Model):
-    """CloneStatistics.
+    """
+    Clone Statistics Details.
 
-    :param cloned_requirements_count: Number of Requirments cloned so far.
+    :param cloned_requirements_count: Number of requirements cloned so far.
     :type cloned_requirements_count: int
     :param cloned_shared_steps_count: Number of shared steps cloned so far.
     :type cloned_shared_steps_count: int
@@ -478,7 +478,8 @@ class CloneStatistics(Model):
 
 
 class CodeCoverageData(Model):
-    """CodeCoverageData.
+    """
+    Represents the build configuration (platform, flavor) and coverage data for the build
 
     :param build_flavor: Flavor of build for which data is retrieved/published
     :type build_flavor: str
@@ -502,7 +503,8 @@ class CodeCoverageData(Model):
 
 
 class CodeCoverageStatistics(Model):
-    """CodeCoverageStatistics.
+    """
+    Represents the code coverage statistics for a particular coverage label (modules, statements, blocks, etc.)
 
     :param covered: Covered units
     :type covered: int
@@ -538,7 +540,8 @@ class CodeCoverageStatistics(Model):
 
 
 class CodeCoverageSummary(Model):
-    """CodeCoverageSummary.
+    """
+    Represents the code coverage summary results Used to publish or retrieve code coverage summary against a build
 
     :param build: Uri of build for which data is retrieved/published
     :type build: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -566,8 +569,7 @@ class CodeCoverageSummary(Model):
 
 
 class CoverageStatistics(Model):
-    """CoverageStatistics.
-
+    """
     :param blocks_covered:
     :type blocks_covered: int
     :param blocks_not_covered:
@@ -598,7 +600,8 @@ class CoverageStatistics(Model):
 
 
 class CustomTestField(Model):
-    """CustomTestField.
+    """
+    A custom field information. Allowed Key : Value pairs - ( AttemptId: int value, IsTestResultFlaky: bool)
 
     :param field_name: Field Name.
     :type field_name: str
@@ -618,8 +621,7 @@ class CustomTestField(Model):
 
 
 class CustomTestFieldDefinition(Model):
-    """CustomTestFieldDefinition.
-
+    """
     :param field_id:
     :type field_id: int
     :param field_name:
@@ -646,7 +648,8 @@ class CustomTestFieldDefinition(Model):
 
 
 class DtlEnvironmentDetails(Model):
-    """DtlEnvironmentDetails.
+    """
+    This is a temporary class to provide the details for the test run environment.
 
     :param csm_content:
     :type csm_content: str
@@ -670,7 +673,8 @@ class DtlEnvironmentDetails(Model):
 
 
 class FailingSince(Model):
-    """FailingSince.
+    """
+    Failing since information of a test result.
 
     :param build: Build reference since failing.
     :type build: :class:`BuildReference <azure.devops.v5_1.test.models.BuildReference>`
@@ -694,8 +698,7 @@ class FailingSince(Model):
 
 
 class FieldDetailsForTestResults(Model):
-    """FieldDetailsForTestResults.
-
+    """
     :param field_name: Group by field name
     :type field_name: str
     :param groups_for_field: Group by field values
@@ -714,8 +717,7 @@ class FieldDetailsForTestResults(Model):
 
 
 class FunctionCoverage(Model):
-    """FunctionCoverage.
-
+    """
     :param class_:
     :type class_: str
     :param name:
@@ -746,8 +748,7 @@ class FunctionCoverage(Model):
 
 
 class GraphSubjectBase(Model):
-    """GraphSubjectBase.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -774,8 +775,7 @@ class GraphSubjectBase(Model):
 
 
 class IdentityRef(GraphSubjectBase):
-    """IdentityRef.
-
+    """
     :param _links: This field contains zero or more interesting links about the graph subject. These links may be invoked to obtain additional relationships or more detailed information about this graph subject.
     :type _links: :class:`ReferenceLinks <azure.devops.v5_1.microsoft._visual_studio._services._web_api.models.ReferenceLinks>`
     :param descriptor: The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations.
@@ -834,11 +834,12 @@ class IdentityRef(GraphSubjectBase):
 
 
 class JobReference(Model):
-    """JobReference.
+    """
+    Job in pipeline. This is related to matrixing in YAML.
 
     :param attempt: Attempt number of the job
     :type attempt: int
-    :param job_name: Matrixing in YAML generates copies of a job with different inputs in matrix. JobName is the name of those input.
+    :param job_name: Matrixing in YAML generates copies of a job with different inputs in matrix. JobName is the name of those input. Maximum supported length for name is 256 character.
     :type job_name: str
     """
 
@@ -854,7 +855,8 @@ class JobReference(Model):
 
 
 class LastResultDetails(Model):
-    """LastResultDetails.
+    """
+    Last result details of test point.
 
     :param date_completed: CompletedDate of LastResult.
     :type date_completed: datetime
@@ -878,8 +880,7 @@ class LastResultDetails(Model):
 
 
 class LinkedWorkItemsQuery(Model):
-    """LinkedWorkItemsQuery.
-
+    """
     :param automated_test_names:
     :type automated_test_names: list of str
     :param plan_id:
@@ -914,8 +915,7 @@ class LinkedWorkItemsQuery(Model):
 
 
 class LinkedWorkItemsQueryResult(Model):
-    """LinkedWorkItemsQueryResult.
-
+    """
     :param automated_test_name:
     :type automated_test_name: str
     :param plan_id:
@@ -950,8 +950,7 @@ class LinkedWorkItemsQueryResult(Model):
 
 
 class ModuleCoverage(Model):
-    """ModuleCoverage.
-
+    """
     :param block_count:
     :type block_count: int
     :param block_data:
@@ -994,7 +993,8 @@ class ModuleCoverage(Model):
 
 
 class NameValuePair(Model):
-    """NameValuePair.
+    """
+    Name value pair
 
     :param name: Name
     :type name: str
@@ -1014,11 +1014,12 @@ class NameValuePair(Model):
 
 
 class PhaseReference(Model):
-    """PhaseReference.
+    """
+    Phase in pipeline
 
-    :param attempt: Attempt number of the pahse
+    :param attempt: Attempt number of the phase
     :type attempt: int
-    :param phase_name: Name of the phase
+    :param phase_name: Name of the phase. Maximum supported length for name is 256 character.
     :type phase_name: str
     """
 
@@ -1034,13 +1035,14 @@ class PhaseReference(Model):
 
 
 class PipelineReference(Model):
-    """PipelineReference.
+    """
+    Pipeline reference
 
     :param job_reference: Reference of the job
     :type job_reference: :class:`JobReference <azure.devops.v5_1.test.models.JobReference>`
     :param phase_reference: Reference of the phase.
     :type phase_reference: :class:`PhaseReference <azure.devops.v5_1.test.models.PhaseReference>`
-    :param pipeline_id: Reference of the pipeline with which this pipeline intance is related.
+    :param pipeline_id: Reference of the pipeline with which this pipeline instance is related.
     :type pipeline_id: int
     :param stage_reference: Reference of the stage.
     :type stage_reference: :class:`StageReference <azure.devops.v5_1.test.models.StageReference>`
@@ -1062,7 +1064,8 @@ class PipelineReference(Model):
 
 
 class PlanUpdateModel(Model):
-    """PlanUpdateModel.
+    """
+    A model class used for creating and updating test plans.
 
     :param area: Area path to which the test plan belongs. This should be set to area path of the team that works on this test plan.
     :type area: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -1146,7 +1149,8 @@ class PlanUpdateModel(Model):
 
 
 class PointAssignment(Model):
-    """PointAssignment.
+    """
+    Adding test cases to a suite creates one of more test points based on the default configurations and testers assigned to the test suite. PointAssignment is the list of test points that were created for each of the test cases that were added to the test suite.
 
     :param configuration: Configuration that was assigned to the test case.
     :type configuration: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -1166,7 +1170,8 @@ class PointAssignment(Model):
 
 
 class PointsFilter(Model):
-    """PointsFilter.
+    """
+    Filter class for test point.
 
     :param configuration_names: List of Configurations for filtering.
     :type configuration_names: list of str
@@ -1190,7 +1195,8 @@ class PointsFilter(Model):
 
 
 class PointUpdateModel(Model):
-    """PointUpdateModel.
+    """
+    Model to update test point.
 
     :param outcome: Outcome to update.
     :type outcome: str
@@ -1214,7 +1220,8 @@ class PointUpdateModel(Model):
 
 
 class PropertyBag(Model):
-    """PropertyBag.
+    """
+    The class to represent a Generic store for test session data.
 
     :param bag: Generic store for test session data
     :type bag: dict
@@ -1230,8 +1237,7 @@ class PropertyBag(Model):
 
 
 class QueryModel(Model):
-    """QueryModel.
-
+    """
     :param query:
     :type query: str
     """
@@ -1246,7 +1252,8 @@ class QueryModel(Model):
 
 
 class ReferenceLinks(Model):
-    """ReferenceLinks.
+    """
+    The class to represent a collection of REST reference links.
 
     :param links: The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only.
     :type links: dict
@@ -1262,7 +1269,8 @@ class ReferenceLinks(Model):
 
 
 class ReleaseEnvironmentDefinitionReference(Model):
-    """ReleaseEnvironmentDefinitionReference.
+    """
+    Reference to release environment resource.
 
     :param definition_id: ID of the release definition that contains the release environment definition.
     :type definition_id: int
@@ -1282,7 +1290,8 @@ class ReleaseEnvironmentDefinitionReference(Model):
 
 
 class ReleaseReference(Model):
-    """ReleaseReference.
+    """
+    Reference to a release.
 
     :param attempt: Number of Release Attempt.
     :type attempt: int
@@ -1334,7 +1343,8 @@ class ReleaseReference(Model):
 
 
 class ResultRetentionSettings(Model):
-    """ResultRetentionSettings.
+    """
+    Test result retention settings
 
     :param automated_results_retention_duration: Automated test result retention duration in days
     :type automated_results_retention_duration: int
@@ -1362,8 +1372,7 @@ class ResultRetentionSettings(Model):
 
 
 class ResultsFilter(Model):
-    """ResultsFilter.
-
+    """
     :param automated_test_name:
     :type automated_test_name: str
     :param branch:
@@ -1422,7 +1431,8 @@ class ResultsFilter(Model):
 
 
 class RunCreateModel(Model):
-    """RunCreateModel.
+    """
+    Test run create details.
 
     :param automated: true if test run is automated, false otherwise. By default it will be false.
     :type automated: bool
@@ -1478,7 +1488,7 @@ class RunCreateModel(Model):
     :type release_uri: str
     :param run_summary: Run summary for run Type = NoConfigRun.
     :type run_summary: list of :class:`RunSummaryModel <azure.devops.v5_1.test.models.RunSummaryModel>`
-    :param run_timeout: Timespan till the Run RunTimesout.
+    :param run_timeout: Timespan till the run times out.
     :type run_timeout: object
     :param source_workflow: SourceWorkFlow(CI/CD) of the test run.
     :type source_workflow: str
@@ -1488,7 +1498,7 @@ class RunCreateModel(Model):
     :type state: str
     :param tags: Tags to attach with the test run, maximum of 5 tags can be added to run.
     :type tags: list of :class:`TestTag <azure.devops.v5_1.test.models.TestTag>`
-    :param test_configurations_mapping: TestConfgurationMapping of the test run.
+    :param test_configurations_mapping: TestConfigurationMapping of the test run.
     :type test_configurations_mapping: str
     :param test_environment_id: ID of the test environment associated with the run.
     :type test_environment_id: str
@@ -1578,7 +1588,8 @@ class RunCreateModel(Model):
 
 
 class RunFilter(Model):
-    """RunFilter.
+    """
+    This class is used to provide the filters used for discovery
 
     :param source_filter: filter for the test case sources (test containers)
     :type source_filter: str
@@ -1598,7 +1609,8 @@ class RunFilter(Model):
 
 
 class RunStatistic(Model):
-    """RunStatistic.
+    """
+    Test run statistics per outcome.
 
     :param count: Test result count fo the given outcome.
     :type count: int
@@ -1626,7 +1638,8 @@ class RunStatistic(Model):
 
 
 class RunSummaryModel(Model):
-    """RunSummaryModel.
+    """
+    Run summary for each output type of test.
 
     :param duration: Total time taken in milliseconds.
     :type duration: long
@@ -1650,8 +1663,7 @@ class RunSummaryModel(Model):
 
 
 class RunUpdateModel(Model):
-    """RunUpdateModel.
-
+    """
     :param build: An abstracted reference to the build that it belongs.
     :type build: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
     :param build_drop_location: Drop location of the build used for test run.
@@ -1766,7 +1778,8 @@ class RunUpdateModel(Model):
 
 
 class ShallowReference(Model):
-    """ShallowReference.
+    """
+    An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links.
 
     :param id: ID of the resource
     :type id: str
@@ -1790,8 +1803,7 @@ class ShallowReference(Model):
 
 
 class ShallowTestCaseResult(Model):
-    """ShallowTestCaseResult.
-
+    """
     :param automated_test_name:
     :type automated_test_name: str
     :param automated_test_storage:
@@ -1850,7 +1862,8 @@ class ShallowTestCaseResult(Model):
 
 
 class SharedStepModel(Model):
-    """SharedStepModel.
+    """
+    Reference to shared step workitem.
 
     :param id: WorkItem shared step ID.
     :type id: int
@@ -1870,11 +1883,12 @@ class SharedStepModel(Model):
 
 
 class StageReference(Model):
-    """StageReference.
+    """
+    Stage in pipeline
 
     :param attempt: Attempt number of stage
     :type attempt: int
-    :param stage_name: Name of the stage.
+    :param stage_name: Name of the stage. Maximum supported length for name is 256 character.
     :type stage_name: str
     """
 
@@ -1890,7 +1904,8 @@ class StageReference(Model):
 
 
 class SuiteCreateModel(Model):
-    """SuiteCreateModel.
+    """
+    Suite create model
 
     :param name: Name of test suite.
     :type name: str
@@ -1918,7 +1933,8 @@ class SuiteCreateModel(Model):
 
 
 class SuiteEntry(Model):
-    """SuiteEntry.
+    """
+    A suite entry defines properties for a test suite.
 
     :param child_suite_id: Id of child suite in the test suite.
     :type child_suite_id: int
@@ -1946,7 +1962,8 @@ class SuiteEntry(Model):
 
 
 class SuiteEntryUpdateModel(Model):
-    """SuiteEntryUpdateModel.
+    """
+    A model to define sequence of test suite entries in a test suite.
 
     :param child_suite_id: Id of the child suite in the test suite.
     :type child_suite_id: int
@@ -1970,7 +1987,8 @@ class SuiteEntryUpdateModel(Model):
 
 
 class SuiteTestCase(Model):
-    """SuiteTestCase.
+    """
+    Test case for the suite.
 
     :param point_assignments: Point Assignment for test suite's test case.
     :type point_assignments: list of :class:`PointAssignment <azure.devops.v5_1.test.models.PointAssignment>`
@@ -1990,7 +2008,8 @@ class SuiteTestCase(Model):
 
 
 class SuiteTestCaseUpdateModel(Model):
-    """SuiteTestCaseUpdateModel.
+    """
+    Test suite update model.
 
     :param configurations: Shallow reference of configurations for the test cases in the suite.
     :type configurations: list of :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -2006,7 +2025,8 @@ class SuiteTestCaseUpdateModel(Model):
 
 
 class SuiteUpdateModel(Model):
-    """SuiteUpdateModel.
+    """
+    Test suite update model.
 
     :param default_configurations: Shallow reference of default configurations for the suite.
     :type default_configurations: list of :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -2042,7 +2062,8 @@ class SuiteUpdateModel(Model):
 
 
 class TeamContext(Model):
-    """TeamContext.
+    """
+    The Team Context for an operation.
 
     :param project: The team project Id or name.  Ignored if ProjectId is set.
     :type project: str
@@ -2070,7 +2091,8 @@ class TeamContext(Model):
 
 
 class TeamProjectReference(Model):
-    """TeamProjectReference.
+    """
+    Represents a shallow reference to a TeamProject.
 
     :param abbreviation: Project abbreviation.
     :type abbreviation: str
@@ -2122,8 +2144,7 @@ class TeamProjectReference(Model):
 
 
 class TestAttachment(Model):
-    """TestAttachment.
-
+    """
     :param attachment_type: Attachment type.
     :type attachment_type: object
     :param comment: Comment associated with attachment.
@@ -2162,7 +2183,8 @@ class TestAttachment(Model):
 
 
 class TestAttachmentReference(Model):
-    """TestAttachmentReference.
+    """
+    Reference to test attachment.
 
     :param id: ID of the attachment.
     :type id: int
@@ -2182,7 +2204,8 @@ class TestAttachmentReference(Model):
 
 
 class TestAttachmentRequestModel(Model):
-    """TestAttachmentRequestModel.
+    """
+    Test attachment request model
 
     :param attachment_type: Attachment type By Default it will be GeneralAttachment. It can be one of the following type. { GeneralAttachment, AfnStrip, BugFilingData, CodeCoverage, IntermediateCollectorData, RunConfig, TestImpactDetails, TmiTestRunDeploymentFiles, TmiTestRunReverseDeploymentFiles, TmiTestResultDetail, TmiTestRunSummary }
     :type attachment_type: str
@@ -2210,7 +2233,8 @@ class TestAttachmentRequestModel(Model):
 
 
 class TestCaseResult(Model):
-    """TestCaseResult.
+    """
+    Represents a test result.
 
     :param afn_strip_id: Test attachment ID of action recording.
     :type afn_strip_id: int
@@ -2418,7 +2442,8 @@ class TestCaseResult(Model):
 
 
 class TestCaseResultAttachmentModel(Model):
-    """TestCaseResultAttachmentModel.
+    """
+    Test attachment information in a test iteration.
 
     :param action_path: Path identifier test step in test case workitem.
     :type action_path: str
@@ -2454,7 +2479,8 @@ class TestCaseResultAttachmentModel(Model):
 
 
 class TestCaseResultIdentifier(Model):
-    """TestCaseResultIdentifier.
+    """
+    Reference to a test result.
 
     :param test_result_id: Test result ID.
     :type test_result_id: int
@@ -2474,8 +2500,7 @@ class TestCaseResultIdentifier(Model):
 
 
 class TestCaseResultUpdateModel(Model):
-    """TestCaseResultUpdateModel.
-
+    """
     :param associated_work_items:
     :type associated_work_items: list of int
     :param automated_test_type_id:
@@ -2558,7 +2583,8 @@ class TestCaseResultUpdateModel(Model):
 
 
 class TestConfiguration(Model):
-    """TestConfiguration.
+    """
+    Test configuration
 
     :param area: Area of the configuration
     :type area: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -2618,7 +2644,8 @@ class TestConfiguration(Model):
 
 
 class TestEnvironment(Model):
-    """TestEnvironment.
+    """
+    Test environment Detail.
 
     :param environment_id: Test Environment Id.
     :type environment_id: str
@@ -2638,8 +2665,7 @@ class TestEnvironment(Model):
 
 
 class TestFailureDetails(Model):
-    """TestFailureDetails.
-
+    """
     :param count:
     :type count: int
     :param test_results:
@@ -2658,8 +2684,7 @@ class TestFailureDetails(Model):
 
 
 class TestFailuresAnalysis(Model):
-    """TestFailuresAnalysis.
-
+    """
     :param existing_failures:
     :type existing_failures: :class:`TestFailureDetails <azure.devops.v5_1.test.models.TestFailureDetails>`
     :param fixed_tests:
@@ -2686,7 +2711,8 @@ class TestFailuresAnalysis(Model):
 
 
 class TestFlakyIdentifier(Model):
-    """TestFlakyIdentifier.
+    """
+    Test Flaky Identifier
 
     :param branch_name: Branch Name where Flakiness has to be Marked/Unmarked
     :type branch_name: str
@@ -2706,13 +2732,14 @@ class TestFlakyIdentifier(Model):
 
 
 class TestHistoryQuery(Model):
-    """TestHistoryQuery.
+    """
+    Filter to get TestCase result history.
 
     :param automated_test_name: Automated test name of the TestCase.
     :type automated_test_name: str
     :param branch: Results to be get for a particular branches.
     :type branch: str
-    :param build_definition_id: Get the results history only for this BuildDefinationId. This to get used in query GroupBy should be Branch. If this is provided, Branch will have no use.
+    :param build_definition_id: Get the results history only for this BuildDefinitionId. This to get used in query GroupBy should be Branch. If this is provided, Branch will have no use.
     :type build_definition_id: int
     :param continuation_token: It will be filled by server. If not null means there are some results still to be get, and we need to call this REST API with this ContinuousToken. It is not supposed to be created (or altered, if received from server in last batch) by user.
     :type continuation_token: str
@@ -2758,11 +2785,12 @@ class TestHistoryQuery(Model):
 
 
 class TestIterationDetailsModel(Model):
-    """TestIterationDetailsModel.
+    """
+    Represents a test iteration result.
 
     :param action_results: Test step results in an iteration.
     :type action_results: list of :class:`TestActionResultModel <azure.devops.v5_1.test.models.TestActionResultModel>`
-    :param attachments: Refence to attachments in test iteration result.
+    :param attachments: Reference to attachments in test iteration result.
     :type attachments: list of :class:`TestCaseResultAttachmentModel <azure.devops.v5_1.test.models.TestCaseResultAttachmentModel>`
     :param comment: Comment in test iteration result.
     :type comment: str
@@ -2814,7 +2842,8 @@ class TestIterationDetailsModel(Model):
 
 
 class TestMessageLogDetails(Model):
-    """TestMessageLogDetails.
+    """
+    An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links.
 
     :param date_created: Date when the resource is created
     :type date_created: datetime
@@ -2838,8 +2867,7 @@ class TestMessageLogDetails(Model):
 
 
 class TestMethod(Model):
-    """TestMethod.
-
+    """
     :param container:
     :type container: str
     :param name:
@@ -2858,7 +2886,8 @@ class TestMethod(Model):
 
 
 class TestOperationReference(Model):
-    """TestOperationReference.
+    """
+    Class representing a reference to an operation.
 
     :param id:
     :type id: str
@@ -2882,7 +2911,8 @@ class TestOperationReference(Model):
 
 
 class TestOutcomeSettings(Model):
-    """TestOutcomeSettings.
+    """
+    Test outcome settings
 
     :param sync_outcome_across_suites: Value to configure how test outcomes for the same tests across suites are shown
     :type sync_outcome_across_suites: bool
@@ -2898,7 +2928,8 @@ class TestOutcomeSettings(Model):
 
 
 class TestPlan(Model):
-    """TestPlan.
+    """
+    The test plan resource.
 
     :param area: Area of the test plan.
     :type area: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -3010,8 +3041,7 @@ class TestPlan(Model):
 
 
 class TestPlanCloneRequest(Model):
-    """TestPlanCloneRequest.
-
+    """
     :param destination_test_plan:
     :type destination_test_plan: :class:`TestPlan <azure.devops.v5_1.test.models.TestPlan>`
     :param options:
@@ -3034,7 +3064,8 @@ class TestPlanCloneRequest(Model):
 
 
 class TestPoint(Model):
-    """TestPoint.
+    """
+    Test point.
 
     :param assigned_to: AssignedTo. Type IdentityRef.
     :type assigned_to: :class:`IdentityRef <azure.devops.v5_1.test.models.IdentityRef>`
@@ -3138,7 +3169,8 @@ class TestPoint(Model):
 
 
 class TestPointsQuery(Model):
-    """TestPointsQuery.
+    """
+    Test point query class.
 
     :param order_by: Order by results.
     :type order_by: str
@@ -3166,7 +3198,8 @@ class TestPointsQuery(Model):
 
 
 class TestResolutionState(Model):
-    """TestResolutionState.
+    """
+    Test Resolution State Details.
 
     :param id: Test Resolution state Id.
     :type id: int
@@ -3190,8 +3223,7 @@ class TestResolutionState(Model):
 
 
 class TestResultCreateModel(Model):
-    """TestResultCreateModel.
-
+    """
     :param area:
     :type area: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
     :param associated_work_items:
@@ -3306,8 +3338,7 @@ class TestResultCreateModel(Model):
 
 
 class TestResultDocument(Model):
-    """TestResultDocument.
-
+    """
     :param operation_reference:
     :type operation_reference: :class:`TestOperationReference <azure.devops.v5_1.test.models.TestOperationReference>`
     :param payload:
@@ -3326,8 +3357,7 @@ class TestResultDocument(Model):
 
 
 class TestResultHistory(Model):
-    """TestResultHistory.
-
+    """
     :param group_by_field:
     :type group_by_field: str
     :param results_for_group:
@@ -3346,8 +3376,7 @@ class TestResultHistory(Model):
 
 
 class TestResultHistoryDetailsForGroup(Model):
-    """TestResultHistoryDetailsForGroup.
-
+    """
     :param group_by_value:
     :type group_by_value: object
     :param latest_result:
@@ -3366,7 +3395,8 @@ class TestResultHistoryDetailsForGroup(Model):
 
 
 class TestResultHistoryForGroup(Model):
-    """TestResultHistoryForGroup.
+    """
+    List of test results filtered on the basis of GroupByValue
 
     :param display_name: Display name of the group.
     :type display_name: str
@@ -3390,7 +3420,8 @@ class TestResultHistoryForGroup(Model):
 
 
 class TestResultMetaData(Model):
-    """TestResultMetaData.
+    """
+    Represents a Meta Data of a test result.
 
     :param automated_test_name: AutomatedTestName of test result.
     :type automated_test_name: str
@@ -3430,8 +3461,7 @@ class TestResultMetaData(Model):
 
 
 class TestResultModelBase(Model):
-    """TestResultModelBase.
-
+    """
     :param comment: Comment in result.
     :type comment: str
     :param completed_date: Time when execution completed.
@@ -3466,7 +3496,8 @@ class TestResultModelBase(Model):
 
 
 class TestResultParameterModel(Model):
-    """TestResultParameterModel.
+    """
+    Test parameter information in a test iteration.
 
     :param action_path: Test step path where parameter is referenced.
     :type action_path: str
@@ -3502,8 +3533,7 @@ class TestResultParameterModel(Model):
 
 
 class TestResultPayload(Model):
-    """TestResultPayload.
-
+    """
     :param comment:
     :type comment: str
     :param name:
@@ -3526,8 +3556,7 @@ class TestResultPayload(Model):
 
 
 class TestResultsContext(Model):
-    """TestResultsContext.
-
+    """
     :param build:
     :type build: :class:`BuildReference <azure.devops.v5_1.test.models.BuildReference>`
     :param context_type:
@@ -3550,8 +3579,7 @@ class TestResultsContext(Model):
 
 
 class TestResultsDetails(Model):
-    """TestResultsDetails.
-
+    """
     :param group_by_field:
     :type group_by_field: str
     :param results_for_group:
@@ -3570,8 +3598,7 @@ class TestResultsDetails(Model):
 
 
 class TestResultsDetailsForGroup(Model):
-    """TestResultsDetailsForGroup.
-
+    """
     :param group_by_value:
     :type group_by_value: object
     :param results:
@@ -3598,8 +3625,7 @@ class TestResultsDetailsForGroup(Model):
 
 
 class TestResultsGroupsForBuild(Model):
-    """TestResultsGroupsForBuild.
-
+    """
     :param build_id: BuildId for which groupby result is fetched.
     :type build_id: int
     :param fields: The group by results
@@ -3618,8 +3644,7 @@ class TestResultsGroupsForBuild(Model):
 
 
 class TestResultsGroupsForRelease(Model):
-    """TestResultsGroupsForRelease.
-
+    """
     :param fields: The group by results
     :type fields: list of :class:`FieldDetailsForTestResults <azure.devops.v5_1.test.models.FieldDetailsForTestResults>`
     :param release_env_id: Release Environment Id for which groupby result is fetched.
@@ -3642,8 +3667,7 @@ class TestResultsGroupsForRelease(Model):
 
 
 class TestResultsQuery(Model):
-    """TestResultsQuery.
-
+    """
     :param fields:
     :type fields: list of str
     :param results:
@@ -3666,8 +3690,7 @@ class TestResultsQuery(Model):
 
 
 class TestResultSummary(Model):
-    """TestResultSummary.
-
+    """
     :param aggregated_results_analysis:
     :type aggregated_results_analysis: :class:`AggregatedResultsAnalysis <azure.devops.v5_1.test.models.AggregatedResultsAnalysis>`
     :param no_config_runs_count:
@@ -3702,8 +3725,7 @@ class TestResultSummary(Model):
 
 
 class TestResultTrendFilter(Model):
-    """TestResultTrendFilter.
-
+    """
     :param branch_names:
     :type branch_names: list of str
     :param build_count:
@@ -3746,7 +3768,8 @@ class TestResultTrendFilter(Model):
 
 
 class TestRun(Model):
-    """TestRun.
+    """
+    Test run details.
 
     :param build: Build associated with this test run.
     :type build: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -3798,6 +3821,8 @@ class TestRun(Model):
     :type passed_tests: int
     :param phase: Phase/State for the testRun.
     :type phase: str
+    :param pipeline_reference: Reference of the pipeline to which this test run belongs.
+    :type pipeline_reference: :class:`PipelineReference <azure.devops.v5_1.test.models.PipelineReference>`
     :param plan: Test plan associated with this test run.
     :type plan: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
     :param post_process_state: Post Process State.
@@ -3864,6 +3889,7 @@ class TestRun(Model):
         'owner': {'key': 'owner', 'type': 'IdentityRef'},
         'passed_tests': {'key': 'passedTests', 'type': 'int'},
         'phase': {'key': 'phase', 'type': 'str'},
+        'pipeline_reference': {'key': 'pipelineReference', 'type': 'PipelineReference'},
         'plan': {'key': 'plan', 'type': 'ShallowReference'},
         'post_process_state': {'key': 'postProcessState', 'type': 'str'},
         'project': {'key': 'project', 'type': 'ShallowReference'},
@@ -3885,7 +3911,7 @@ class TestRun(Model):
         'web_access_url': {'key': 'webAccessUrl', 'type': 'str'}
     }
 
-    def __init__(self, build=None, build_configuration=None, comment=None, completed_date=None, controller=None, created_date=None, custom_fields=None, drop_location=None, dtl_aut_environment=None, dtl_environment=None, dtl_environment_creation_details=None, due_date=None, error_message=None, filter=None, id=None, incomplete_tests=None, is_automated=None, iteration=None, last_updated_by=None, last_updated_date=None, name=None, not_applicable_tests=None, owner=None, passed_tests=None, phase=None, plan=None, post_process_state=None, project=None, release=None, release_environment_uri=None, release_uri=None, revision=None, run_statistics=None, started_date=None, state=None, substate=None, tags=None, test_environment=None, test_message_log_id=None, test_settings=None, total_tests=None, unanalyzed_tests=None, url=None, web_access_url=None):
+    def __init__(self, build=None, build_configuration=None, comment=None, completed_date=None, controller=None, created_date=None, custom_fields=None, drop_location=None, dtl_aut_environment=None, dtl_environment=None, dtl_environment_creation_details=None, due_date=None, error_message=None, filter=None, id=None, incomplete_tests=None, is_automated=None, iteration=None, last_updated_by=None, last_updated_date=None, name=None, not_applicable_tests=None, owner=None, passed_tests=None, phase=None, pipeline_reference=None, plan=None, post_process_state=None, project=None, release=None, release_environment_uri=None, release_uri=None, revision=None, run_statistics=None, started_date=None, state=None, substate=None, tags=None, test_environment=None, test_message_log_id=None, test_settings=None, total_tests=None, unanalyzed_tests=None, url=None, web_access_url=None):
         super(TestRun, self).__init__()
         self.build = build
         self.build_configuration = build_configuration
@@ -3912,6 +3938,7 @@ class TestRun(Model):
         self.owner = owner
         self.passed_tests = passed_tests
         self.phase = phase
+        self.pipeline_reference = pipeline_reference
         self.plan = plan
         self.post_process_state = post_process_state
         self.project = project
@@ -3934,7 +3961,8 @@ class TestRun(Model):
 
 
 class TestRunCoverage(Model):
-    """TestRunCoverage.
+    """
+    Test Run Code Coverage Details
 
     :param last_error: Last Error
     :type last_error: str
@@ -3962,7 +3990,8 @@ class TestRunCoverage(Model):
 
 
 class TestRunStatistic(Model):
-    """TestRunStatistic.
+    """
+    Test run statistics.
 
     :param run:
     :type run: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -3982,7 +4011,8 @@ class TestRunStatistic(Model):
 
 
 class TestSession(Model):
-    """TestSession.
+    """
+    Test Session
 
     :param area: Area path of the test session
     :type area: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
@@ -4054,7 +4084,8 @@ class TestSession(Model):
 
 
 class TestSettings(Model):
-    """TestSettings.
+    """
+    Represents the test settings of the run. Used to create test settings and fetch test settings
 
     :param area_path: Area path required to create test settings
     :type area_path: str
@@ -4094,7 +4125,8 @@ class TestSettings(Model):
 
 
 class TestSubResult(Model):
-    """TestSubResult.
+    """
+    Represents a sub result of a test result.
 
     :param comment: Comment in sub result.
     :type comment: str
@@ -4182,7 +4214,8 @@ class TestSubResult(Model):
 
 
 class TestSuite(Model):
-    """TestSuite.
+    """
+    Test suite
 
     :param area_uri: Area uri of the test suite.
     :type area_uri: str
@@ -4290,7 +4323,8 @@ class TestSuite(Model):
 
 
 class TestSuiteCloneRequest(Model):
-    """TestSuiteCloneRequest.
+    """
+    Test suite clone request
 
     :param clone_options: Clone options for cloning the test suite.
     :type clone_options: :class:`CloneOptions <azure.devops.v5_1.test.models.CloneOptions>`
@@ -4314,8 +4348,7 @@ class TestSuiteCloneRequest(Model):
 
 
 class TestSummaryForWorkItem(Model):
-    """TestSummaryForWorkItem.
-
+    """
     :param summary:
     :type summary: :class:`AggregatedDataForResultTrend <azure.devops.v5_1.test.models.AggregatedDataForResultTrend>`
     :param work_item:
@@ -4334,7 +4367,8 @@ class TestSummaryForWorkItem(Model):
 
 
 class TestTag(Model):
-    """TestTag.
+    """
+    Tag attached to a run or result.
 
     :param name: Name of the tag, alphanumeric value less than 30 chars
     :type name: str
@@ -4350,8 +4384,7 @@ class TestTag(Model):
 
 
 class TestToWorkItemLinks(Model):
-    """TestToWorkItemLinks.
-
+    """
     :param test:
     :type test: :class:`TestMethod <azure.devops.v5_1.test.models.TestMethod>`
     :param work_items:
@@ -4370,8 +4403,7 @@ class TestToWorkItemLinks(Model):
 
 
 class TestVariable(Model):
-    """TestVariable.
-
+    """
     :param description: Description of the test variable
     :type description: str
     :param id: Id of the test variable
@@ -4410,7 +4442,8 @@ class TestVariable(Model):
 
 
 class WorkItemReference(Model):
-    """WorkItemReference.
+    """
+    WorkItem reference Details.
 
     :param id: WorkItem Id.
     :type id: str
@@ -4442,8 +4475,7 @@ class WorkItemReference(Model):
 
 
 class WorkItemToTestLinks(Model):
-    """WorkItemToTestLinks.
-
+    """
     :param executed_in:
     :type executed_in: object
     :param tests:
@@ -4466,7 +4498,8 @@ class WorkItemToTestLinks(Model):
 
 
 class TestActionResultModel(TestResultModelBase):
-    """TestActionResultModel.
+    """
+    Represents a test step result.
 
     :param comment: Comment in result.
     :type comment: str

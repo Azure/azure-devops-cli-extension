@@ -1442,8 +1442,8 @@ class WebApiUserLoadTestMachineInput(WebApiLoadTestMachineInput):
     :type tenant_id: str
     :param user_load_agent_resources_uri:
     :type user_load_agent_resources_uri: str
-    :param vSTSAccount_uri:
-    :type vSTSAccount_uri: str
+    :param vsts_account_uri:
+    :type vsts_account_uri: str
     """
 
     _attribute_map = {
@@ -1454,15 +1454,15 @@ class WebApiUserLoadTestMachineInput(WebApiLoadTestMachineInput):
         'agent_group_name': {'key': 'agentGroupName', 'type': 'str'},
         'tenant_id': {'key': 'tenantId', 'type': 'str'},
         'user_load_agent_resources_uri': {'key': 'userLoadAgentResourcesUri', 'type': 'str'},
-        'vSTSAccount_uri': {'key': 'vSTSAccountUri', 'type': 'str'}
+        'vsts_account_uri': {'key': 'vstsAccountUri', 'type': 'str'}
     }
 
-    def __init__(self, machine_group_id=None, machine_type=None, setup_configuration=None, supported_run_types=None, agent_group_name=None, tenant_id=None, user_load_agent_resources_uri=None, vSTSAccount_uri=None):
+    def __init__(self, machine_group_id=None, machine_type=None, setup_configuration=None, supported_run_types=None, agent_group_name=None, tenant_id=None, user_load_agent_resources_uri=None, vsts_account_uri=None):
         super(WebApiUserLoadTestMachineInput, self).__init__(machine_group_id=machine_group_id, machine_type=machine_type, setup_configuration=setup_configuration, supported_run_types=supported_run_types)
         self.agent_group_name = agent_group_name
         self.tenant_id = tenant_id
         self.user_load_agent_resources_uri = user_load_agent_resources_uri
-        self.vSTSAccount_uri = vSTSAccount_uri
+        self.vsts_account_uri = vsts_account_uri
 
 
 class WebInstanceSummaryData(Model):

@@ -6,7 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.profile.models import *
+from ...v5_1.profile.models import *
 from .profile_client import ProfileClient
 
 __all__ = [
@@ -21,6 +21,5 @@ __all__ = [
     'ProfileAttributeBase',
     'ProfileRegion',
     'ProfileRegions',
-    'RemoteProfile',
     'ProfileClient'
 ]

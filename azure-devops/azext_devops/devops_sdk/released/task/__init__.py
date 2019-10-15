@@ -6,7 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.task.models import *
+from ...v5_1.task.models import *
 from .task_client import TaskClient
 
 __all__ = [
@@ -16,6 +16,10 @@ __all__ = [
     'PlanEnvironment',
     'ProjectReference',
     'ReferenceLinks',
+    'TaskAgentJob',
+    'TaskAgentJobStep',
+    'TaskAgentJobTask',
+    'TaskAgentJobVariable',
     'TaskAttachment',
     'TaskLog',
     'TaskLogReference',

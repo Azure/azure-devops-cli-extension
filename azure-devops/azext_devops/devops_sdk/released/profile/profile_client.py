@@ -8,7 +8,7 @@
 
 from msrest import Serializer, Deserializer
 from ...client import Client
-from ...v5_0.profile import models
+from ...v5_1.profile import models
 
 
 class ProfileClient(Client):
@@ -27,14 +27,14 @@ class ProfileClient(Client):
 
     def get_profile(self, id, details=None, with_attributes=None, partition=None, core_attributes=None, force_refresh=None):
         """GetProfile.
-        Get my profile.
-        :param str id:
-        :param bool details:
-        :param bool with_attributes:
-        :param str partition:
-        :param str core_attributes:
-        :param bool force_refresh:
-        :rtype: :class:`<Profile> <azure.devops.v5_0.profile.models.Profile>`
+        Gets a user profile.
+        :param str id: The ID of the target user profile within the same organization, or 'me' to get the profile of the current authenticated user.
+        :param bool details: Return public profile information such as display name, email address, country, etc. If false, the withAttributes parameter is ignored.
+        :param bool with_attributes: If true, gets the attributes (named key-value pairs of arbitrary data) associated with the profile. The partition parameter must also have a value.
+        :param str partition: The partition (named group) of attributes to return.
+        :param str core_attributes: A comma-delimited list of core profile attributes to return. Valid values are Email, Avatar, DisplayName, and ContactWithOffers.
+        :param bool force_refresh: Not used in this version of the API.
+        :rtype: :class:`<Profile> <azure.devops.v5_1.profile.models.Profile>`
         """
         route_values = {}
         if id is not None:
@@ -52,7 +52,7 @@ class ProfileClient(Client):
             query_parameters['forceRefresh'] = self._serialize.query('force_refresh', force_refresh, 'bool')
         response = self._send(http_method='GET',
                               location_id='f83735dc-483f-4238-a291-d45f6080a9af',
-                              version='5.0',
+                              version='5.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
         return self._deserialize('Profile', response)

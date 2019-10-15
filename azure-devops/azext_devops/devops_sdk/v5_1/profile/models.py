@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class AttributeDescriptor(Model):
-    """AttributeDescriptor.
+    """
+    Identifies an attribute with a name and a container.
 
     :param attribute_name: The name of the attribute.
     :type attribute_name: str
@@ -30,7 +31,8 @@ class AttributeDescriptor(Model):
 
 
 class AttributesContainer(Model):
-    """AttributesContainer.
+    """
+    Stores a set of named profile attributes.
 
     :param attributes: The attributes stored by the container.
     :type attributes: dict
@@ -54,8 +56,7 @@ class AttributesContainer(Model):
 
 
 class Avatar(Model):
-    """Avatar.
-
+    """
     :param is_auto_generated:
     :type is_auto_generated: bool
     :param size:
@@ -82,10 +83,9 @@ class Avatar(Model):
 
 
 class CreateProfileContext(Model):
-    """CreateProfileContext.
-
-    :param cIData:
-    :type cIData: dict
+    """
+    :param ci_data:
+    :type ci_data: dict
     :param contact_with_offers:
     :type contact_with_offers: bool
     :param country_name:
@@ -105,7 +105,7 @@ class CreateProfileContext(Model):
     """
 
     _attribute_map = {
-        'cIData': {'key': 'cIData', 'type': '{object}'},
+        'ci_data': {'key': 'ciData', 'type': '{object}'},
         'contact_with_offers': {'key': 'contactWithOffers', 'type': 'bool'},
         'country_name': {'key': 'countryName', 'type': 'str'},
         'display_name': {'key': 'displayName', 'type': 'str'},
@@ -116,9 +116,9 @@ class CreateProfileContext(Model):
         'profile_state': {'key': 'profileState', 'type': 'object'}
     }
 
-    def __init__(self, cIData=None, contact_with_offers=None, country_name=None, display_name=None, email_address=None, has_account=None, language=None, phone_number=None, profile_state=None):
+    def __init__(self, ci_data=None, contact_with_offers=None, country_name=None, display_name=None, email_address=None, has_account=None, language=None, phone_number=None, profile_state=None):
         super(CreateProfileContext, self).__init__()
-        self.cIData = cIData
+        self.ci_data = ci_data
         self.contact_with_offers = contact_with_offers
         self.country_name = country_name
         self.display_name = display_name
@@ -130,8 +130,7 @@ class CreateProfileContext(Model):
 
 
 class GeoRegion(Model):
-    """GeoRegion.
-
+    """
     :param region_code:
     :type region_code: str
     """
@@ -146,7 +145,8 @@ class GeoRegion(Model):
 
 
 class Profile(Model):
-    """Profile.
+    """
+    A user profile.
 
     :param application_container: The attributes of this profile.
     :type application_container: :class:`AttributesContainer <azure.devops.v5_1.profile.models.AttributesContainer>`
@@ -186,8 +186,7 @@ class Profile(Model):
 
 
 class ProfileAttributeBase(Model):
-    """ProfileAttributeBase.
-
+    """
     :param descriptor: The descriptor of the attribute.
     :type descriptor: :class:`AttributeDescriptor <azure.devops.v5_1.profile.models.AttributeDescriptor>`
     :param revision: The revision number of the attribute.
@@ -214,7 +213,8 @@ class ProfileAttributeBase(Model):
 
 
 class ProfileRegion(Model):
-    """ProfileRegion.
+    """
+    Country/region information
 
     :param code: The two-letter code defined in ISO 3166 for the country/region.
     :type code: str
@@ -234,7 +234,8 @@ class ProfileRegion(Model):
 
 
 class ProfileRegions(Model):
-    """ProfileRegions.
+    """
+    Container of country/region information
 
     :param notice_contact_consent_requirement_regions: List of country/region code with contact consent requirement type of notice
     :type notice_contact_consent_requirement_regions: list of str
@@ -258,7 +259,8 @@ class ProfileRegions(Model):
 
 
 class CoreProfileAttribute(ProfileAttributeBase):
-    """CoreProfileAttribute.
+    """
+    A profile attribute which always has a value for each profile.
 
     """
 
@@ -270,7 +272,8 @@ class CoreProfileAttribute(ProfileAttributeBase):
 
 
 class ProfileAttribute(ProfileAttributeBase):
-    """ProfileAttribute.
+    """
+    A named object associated with a profile.
 
     """
 

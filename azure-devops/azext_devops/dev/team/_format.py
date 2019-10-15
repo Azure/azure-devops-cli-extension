@@ -52,7 +52,7 @@ def _transform_extension_row(row):
 
 def transform_projects_table_output(result):
     table_output = []
-    for item in sorted(result, key=_get_project_key):
+    for item in sorted(result['value'], key=_get_project_key):
         table_output.append(_transform_project_row(item))
     return table_output
 

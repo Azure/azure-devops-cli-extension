@@ -10,7 +10,8 @@ from msrest.serialization import Model
 
 
 class AddProcessWorkItemTypeFieldRequest(Model):
-    """AddProcessWorkItemTypeFieldRequest.
+    """
+    Class that describes a request to add a field in a work item type.
 
     :param allow_groups: Allow setting field value to a group identity. Only applies to identity fields.
     :type allow_groups: bool
@@ -42,7 +43,8 @@ class AddProcessWorkItemTypeFieldRequest(Model):
 
 
 class Control(Model):
-    """Control.
+    """
+    Represent a control in the form.
 
     :param contribution: Contribution for the control.
     :type contribution: :class:`WitContribution <azure.devops.v5_1.work_item_tracking.models.WitContribution>`
@@ -106,7 +108,8 @@ class Control(Model):
 
 
 class CreateProcessModel(Model):
-    """CreateProcessModel.
+    """
+    Describes a process being created.
 
     :param description: Description of the process
     :type description: str
@@ -134,7 +137,8 @@ class CreateProcessModel(Model):
 
 
 class CreateProcessRuleRequest(Model):
-    """CreateProcessRuleRequest.
+    """
+    Request object/class for creating a rule on a work item type.
 
     :param actions: List of actions to take when the rule is triggered.
     :type actions: list of :class:`RuleAction <azure.devops.v5_1.work_item_tracking.models.RuleAction>`
@@ -162,7 +166,8 @@ class CreateProcessRuleRequest(Model):
 
 
 class CreateProcessWorkItemTypeRequest(Model):
-    """CreateProcessWorkItemTypeRequest.
+    """
+    Class for create work item type request
 
     :param color: Color hexadecimal code to represent the work item type
     :type color: str
@@ -198,7 +203,8 @@ class CreateProcessWorkItemTypeRequest(Model):
 
 
 class Extension(Model):
-    """Extension.
+    """
+    Represents the extensions part of the layout
 
     :param id: Id of the extension
     :type id: str
@@ -214,8 +220,7 @@ class Extension(Model):
 
 
 class FieldModel(Model):
-    """FieldModel.
-
+    """
     :param description:
     :type description: str
     :param id:
@@ -250,8 +255,7 @@ class FieldModel(Model):
 
 
 class FieldRuleModel(Model):
-    """FieldRuleModel.
-
+    """
     :param actions:
     :type actions: list of :class:`RuleActionModel <azure.devops.v5_1.work_item_tracking.models.RuleActionModel>`
     :param conditions:
@@ -286,7 +290,8 @@ class FieldRuleModel(Model):
 
 
 class FormLayout(Model):
-    """FormLayout.
+    """
+    Describes the layout of a work item type
 
     :param extensions: Gets and sets extensions list.
     :type extensions: list of :class:`Extension <azure.devops.v5_1.work_item_tracking.models.Extension>`
@@ -310,7 +315,8 @@ class FormLayout(Model):
 
 
 class Group(Model):
-    """Group.
+    """
+    Represent a group in the form that holds controls in it.
 
     :param contribution: Contribution for the group.
     :type contribution: :class:`WitContribution <azure.devops.v5_1.work_item_tracking.models.WitContribution>`
@@ -362,7 +368,8 @@ class Group(Model):
 
 
 class HideStateModel(Model):
-    """HideStateModel.
+    """
+    Class that describes the work item state is hidden.
 
     :param hidden: Returns 'true', if workitem state is hidden, 'false' otherwise.
     :type hidden: bool
@@ -378,7 +385,8 @@ class HideStateModel(Model):
 
 
 class Page(Model):
-    """Page.
+    """
+    Describes a page in the work item form layout
 
     :param contribution: Contribution for the page.
     :type contribution: :class:`WitContribution <azure.devops.v5_1.work_item_tracking.models.WitContribution>`
@@ -434,7 +442,8 @@ class Page(Model):
 
 
 class PickListMetadata(Model):
-    """PickListMetadata.
+    """
+    Metadata for picklist.
 
     :param id: ID of the picklist
     :type id: str
@@ -466,7 +475,8 @@ class PickListMetadata(Model):
 
 
 class ProcessBehavior(Model):
-    """ProcessBehavior.
+    """
+    Process Behavior Model.
 
     :param color: Color.
     :type color: str
@@ -514,7 +524,8 @@ class ProcessBehavior(Model):
 
 
 class ProcessBehaviorCreateRequest(Model):
-    """ProcessBehaviorCreateRequest.
+    """
+    Process Behavior Create Payload.
 
     :param color: Color.
     :type color: str
@@ -542,7 +553,8 @@ class ProcessBehaviorCreateRequest(Model):
 
 
 class ProcessBehaviorField(Model):
-    """ProcessBehaviorField.
+    """
+    Process Behavior Field.
 
     :param name: Name of the field.
     :type name: str
@@ -566,7 +578,8 @@ class ProcessBehaviorField(Model):
 
 
 class ProcessBehaviorReference(Model):
-    """ProcessBehaviorReference.
+    """
+    Process behavior Reference.
 
     :param behavior_ref_name: Id of a Behavior.
     :type behavior_ref_name: str
@@ -586,7 +599,8 @@ class ProcessBehaviorReference(Model):
 
 
 class ProcessBehaviorUpdateRequest(Model):
-    """ProcessBehaviorUpdateRequest.
+    """
+    Process Behavior Replace Payload.
 
     :param color: Color.
     :type color: str
@@ -606,7 +620,8 @@ class ProcessBehaviorUpdateRequest(Model):
 
 
 class ProcessInfo(Model):
-    """ProcessInfo.
+    """
+    Process.
 
     :param customization_type: Indicates the type of customization on this process. System Process is default process. Inherited Process is modified process that was System process before.
     :type customization_type: object
@@ -654,8 +669,7 @@ class ProcessInfo(Model):
 
 
 class ProcessModel(Model):
-    """ProcessModel.
-
+    """
     :param description: Description of the process
     :type description: str
     :param name: Name of the process
@@ -690,7 +704,8 @@ class ProcessModel(Model):
 
 
 class ProcessProperties(Model):
-    """ProcessProperties.
+    """
+    Properties of the process.
 
     :param class_: Class of the process.
     :type class_: object
@@ -722,7 +737,8 @@ class ProcessProperties(Model):
 
 
 class ProcessRule(CreateProcessRuleRequest):
-    """ProcessRule.
+    """
+    Process Rule Response.
 
     :param actions: List of actions to take when the rule is triggered.
     :type actions: list of :class:`RuleAction <azure.devops.v5_1.work_item_tracking.models.RuleAction>`
@@ -758,7 +774,8 @@ class ProcessRule(CreateProcessRuleRequest):
 
 
 class ProcessWorkItemType(Model):
-    """ProcessWorkItemType.
+    """
+    Class that describes a work item type object
 
     :param behaviors:
     :type behaviors: list of :class:`WorkItemTypeBehavior <azure.devops.v5_1.work_item_tracking.models.WorkItemTypeBehavior>`
@@ -818,7 +835,8 @@ class ProcessWorkItemType(Model):
 
 
 class ProcessWorkItemTypeField(Model):
-    """ProcessWorkItemTypeField.
+    """
+    Class that describes a field in a work item type and its properties.
 
     :param allow_groups: Allow setting field value to a group identity. Only applies to identity fields.
     :type allow_groups: bool
@@ -870,7 +888,8 @@ class ProcessWorkItemTypeField(Model):
 
 
 class ProjectReference(Model):
-    """ProjectReference.
+    """
+    Defines the project reference class.
 
     :param description: Description of the project
     :type description: str
@@ -898,7 +917,8 @@ class ProjectReference(Model):
 
 
 class RuleAction(Model):
-    """RuleAction.
+    """
+    Action to take when the rule is triggered.
 
     :param action_type: Type of action to take when the rule is triggered.
     :type action_type: object
@@ -922,7 +942,8 @@ class RuleAction(Model):
 
 
 class RuleActionModel(Model):
-    """RuleActionModel.
+    """
+    Action to take when the rule is triggered.
 
     :param action_type:
     :type action_type: str
@@ -946,7 +967,8 @@ class RuleActionModel(Model):
 
 
 class RuleCondition(Model):
-    """RuleCondition.
+    """
+    Defines a condition on a field when the rule should be triggered.
 
     :param condition_type: Type of condition. $When. This condition limits the execution of its children to cases when another field has a particular value, i.e. when the Is value of the referenced field is equal to the given literal value. $WhenNot.This condition limits the execution of its children to cases when another field does not have a particular value, i.e.when the Is value of the referenced field is not equal to the given literal value. $WhenChanged.This condition limits the execution of its children to cases when another field has changed, i.e.when the Is value of the referenced field is not equal to the Was value of that field. $WhenNotChanged.This condition limits the execution of its children to cases when another field has not changed, i.e.when the Is value of the referenced field is equal to the Was value of that field.
     :type condition_type: object
@@ -970,8 +992,7 @@ class RuleCondition(Model):
 
 
 class RuleConditionModel(Model):
-    """RuleConditionModel.
-
+    """
     :param condition_type:
     :type condition_type: str
     :param field:
@@ -994,7 +1015,8 @@ class RuleConditionModel(Model):
 
 
 class Section(Model):
-    """Section.
+    """
+    Defines a section of the work item form layout
 
     :param groups: List of child groups in this section
     :type groups: list of :class:`Group <azure.devops.v5_1.work_item_tracking.models.Group>`
@@ -1018,7 +1040,8 @@ class Section(Model):
 
 
 class UpdateProcessModel(Model):
-    """UpdateProcessModel.
+    """
+    Describes a request to update a process
 
     :param description: New description of the process
     :type description: str
@@ -1046,7 +1069,8 @@ class UpdateProcessModel(Model):
 
 
 class UpdateProcessRuleRequest(CreateProcessRuleRequest):
-    """UpdateProcessRuleRequest.
+    """
+    Request class/object to update the rule.
 
     :param actions: List of actions to take when the rule is triggered.
     :type actions: list of :class:`RuleAction <azure.devops.v5_1.work_item_tracking.models.RuleAction>`
@@ -1074,7 +1098,8 @@ class UpdateProcessRuleRequest(CreateProcessRuleRequest):
 
 
 class UpdateProcessWorkItemTypeFieldRequest(Model):
-    """UpdateProcessWorkItemTypeFieldRequest.
+    """
+    Class to describe a request that updates a field's properties in a work item type.
 
     :param allow_groups: Allow setting field value to a group identity. Only applies to identity fields.
     :type allow_groups: bool
@@ -1102,7 +1127,8 @@ class UpdateProcessWorkItemTypeFieldRequest(Model):
 
 
 class UpdateProcessWorkItemTypeRequest(Model):
-    """UpdateProcessWorkItemTypeRequest.
+    """
+    Class for update request on a work item type
 
     :param color: Color of the work item type
     :type color: str
@@ -1130,7 +1156,8 @@ class UpdateProcessWorkItemTypeRequest(Model):
 
 
 class WitContribution(Model):
-    """WitContribution.
+    """
+    Properties of a work item form contribution
 
     :param contribution_id: The id for the contribution.
     :type contribution_id: str
@@ -1158,8 +1185,7 @@ class WitContribution(Model):
 
 
 class WorkItemBehavior(Model):
-    """WorkItemBehavior.
-
+    """
     :param abstract:
     :type abstract: bool
     :param color:
@@ -1210,8 +1236,7 @@ class WorkItemBehavior(Model):
 
 
 class WorkItemBehaviorField(Model):
-    """WorkItemBehaviorField.
-
+    """
     :param behavior_field_id:
     :type behavior_field_id: str
     :param id:
@@ -1234,7 +1259,8 @@ class WorkItemBehaviorField(Model):
 
 
 class WorkItemBehaviorReference(Model):
-    """WorkItemBehaviorReference.
+    """
+    Reference to the behavior of a work item type.
 
     :param id: The ID of the reference behavior.
     :type id: str
@@ -1254,7 +1280,8 @@ class WorkItemBehaviorReference(Model):
 
 
 class WorkItemStateInputModel(Model):
-    """WorkItemStateInputModel.
+    """
+    Class That represents a work item state input.
 
     :param color: Color of the state
     :type color: str
@@ -1282,7 +1309,8 @@ class WorkItemStateInputModel(Model):
 
 
 class WorkItemStateResultModel(Model):
-    """WorkItemStateResultModel.
+    """
+    Class that represents a work item state result.
 
     :param color: Work item state color.
     :type color: str
@@ -1326,7 +1354,8 @@ class WorkItemStateResultModel(Model):
 
 
 class WorkItemTypeBehavior(Model):
-    """WorkItemTypeBehavior.
+    """
+    Association between a work item type and it's behavior
 
     :param behavior: Reference to the behavior of a work item type
     :type behavior: :class:`WorkItemBehaviorReference <azure.devops.v5_1.work_item_tracking.models.WorkItemBehaviorReference>`
@@ -1350,8 +1379,7 @@ class WorkItemTypeBehavior(Model):
 
 
 class WorkItemTypeModel(Model):
-    """WorkItemTypeModel.
-
+    """
     :param behaviors:
     :type behaviors: list of :class:`WorkItemTypeBehavior <azure.devops.v5_1.work_item_tracking.models.WorkItemTypeBehavior>`
     :param class_:
@@ -1410,7 +1438,8 @@ class WorkItemTypeModel(Model):
 
 
 class PickList(PickListMetadata):
-    """PickList.
+    """
+    Picklist.
 
     :param id: ID of the picklist
     :type id: str

@@ -6,7 +6,7 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------------------------
 
-from ...v5_0.service_hooks.models import *
+from ...v5_1.service_hooks.models import *
 from .service_hooks_client import ServiceHooksClient
 
 __all__ = [
@@ -39,6 +39,7 @@ __all__ = [
     'SessionToken',
     'Subscription',
     'SubscriptionDiagnostics',
+    'SubscriptionInputValuesQuery',
     'SubscriptionsQuery',
     'SubscriptionTracing',
     'UpdateSubscripitonDiagnosticsParameters',

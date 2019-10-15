@@ -244,9 +244,9 @@ class NotificationClient(Client):
 
     def list_subscriptions(self, target_id=None, ids=None, query_flags=None):
         """ListSubscriptions.
-        [Preview API]
-        :param str target_id:
-        :param [str] ids:
+        [Preview API] Get a list of notification subscriptions, either by subscription IDs or by all subscriptions for a given user or group.
+        :param str target_id: User or Group ID
+        :param [str] ids: List of subscription IDs
         :param str query_flags:
         :rtype: [NotificationSubscription]
         """

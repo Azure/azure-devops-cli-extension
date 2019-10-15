@@ -48,6 +48,8 @@ __all__ = [
     'PredefinedQuery',
     'ProcessConfiguration',
     'ReferenceLinks',
+    'ReorderOperation',
+    'ReorderResult',
     'Rule',
     'TeamContext',
     'TeamFieldValue',
