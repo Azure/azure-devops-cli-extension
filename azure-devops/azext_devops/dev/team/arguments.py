@@ -72,7 +72,8 @@ def load_team_arguments(self, _):
         context.argument('state_filter', arg_type=get_enum_type(_PROJECT_GET_STATE_VALUE_FILTER),
                          help='State filter.')
         context.argument('continuation_token',
-                         help='Continuation token. This can be retrived from previous run of this command if more results are present.')
+                         help='Continuation token. '
+                         'This can be retrived from previous run of this command if more results are present.')
         context.argument('get_default_team_image_url', arg_type=get_three_state_flag(),
                          help='Whether to get default team image url or not.')
 
