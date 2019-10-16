@@ -95,10 +95,10 @@ def load_team_help():
     examples:
         - name: Assign view, edit and delete permission for team projects.
           text: |
-            az devops security permission update  --allow-bit 7 --namespace-id 
-            52d39943-cb85-4d7f-8fa8-c6baac873819 --subject user@fabrikam.com 
+            az devops security permission update  --allow-bit 7 --namespace-id
+            52d39943-cb85-4d7f-8fa8-c6baac873819 --subject user@fabrikam.com
             --token "$PROJECT:vstfs:///Classification/TeamProject/e479xxxx-2be8-xxxx-bb0b-3a0209cxxxx"
-      
+
             You would need to add the bit value of the various permission bits to
             simultaneously allow/deny multiple permissions.
 
