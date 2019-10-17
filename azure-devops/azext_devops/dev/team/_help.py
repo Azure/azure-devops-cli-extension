@@ -87,6 +87,22 @@ def load_team_help():
     short-summary: Manage security namespaces
     """
 
+    helps['devops security permission update'] = """
+    type: group
+    short-summary: Assign allow or deny permission to given user/group.
+    long-summary: Learn more at https://aka.ms/azure-devops-cli-security-permission
+    examples:
+        - name: Assign view, edit and delete permission for team projects.
+          text: |
+            az devops security permission update  --allow-bit 7 --namespace-id
+            52d39943-cb85-4d7f-8fa8-c6baac873819 --subject user@fabrikam.com
+            --token "$PROJECT:vstfs:///Classification/TeamProject/e479xxxx-2be8-xxxx-bb0b-3a0209cxxxx"
+
+            You would need to add the bit value of the various permission bits to
+            simultaneously allow/deny multiple permissions.
+
+    """
+
     helps['devops team'] = """
     type: group
     short-summary: Manage teams
