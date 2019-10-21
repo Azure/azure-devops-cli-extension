@@ -55,16 +55,17 @@ def extractArgumentsFromCommand(command):
 
     return argumentList
 
-#Check the installed extensions
-subprocess.run(['az', 'extension', 'list'], shell=True, stdout=subprocess.PIPE)
+# Check the installed extensions
+subprocess.run(['az', 'extension', 'list'], shell=True)
 
 # remove azure-devops extension from index (if installed)
-subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True, stdout=subprocess.PIPE)
+subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True)
 
 # install extension from index
-subprocess.run(['az', 'extension', 'add', '-n', 'azure-devops'], shell=True, stdout=subprocess.PIPE)
+subprocess.run(['az', 'extension', 'add', '-n', 'azure-devops'], shell=True)
 
-subprocess.run(['az', 'extension', 'list'], shell=True, stdout=subprocess.PIPE)
+# Check the installed extensions
+subprocess.run(['az', 'extension', 'list'], shell=True)
 
 # add extension path to sys.path so that we can get all the commands
 import sys
