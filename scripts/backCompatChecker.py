@@ -64,6 +64,9 @@ subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True)
 # install extension from index
 subprocess.run(['az', 'extension', 'add', '-n', 'azure-devops'], shell=True)
 
+subprocess.run(['az', 'devops', 'security', 'permission', '-h'], shell=True)
+subprocess.run(['az', 'devops', 'security', 'permission', 'reset', '-h'], shell=True)
+
 # Check the installed extensions
 subprocess.run(['az', 'extension', 'list'], shell=True)
 
@@ -103,6 +106,9 @@ subprocess.run(['az', 'extension', 'add', '--source', newExtensionLocation, '-y'
 
 # Check the installed extensions
 subprocess.run(['az', 'extension', 'list'], shell=True)
+
+subprocess.run(['az', 'devops', 'security', 'permission', '-h'], shell=True)
+subprocess.run(['az', 'devops', 'security', 'permission', 'reset', '-h'], shell=True)
 
 # get a set of old commands, we are not reusing the set from ext because we want to keep this clean
 oldCommands = []
