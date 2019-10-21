@@ -101,6 +101,9 @@ print('Install extension (loaded from current code).')
 newExtensionLocation = findExtension()
 subprocess.run(['az', 'extension', 'add', '--source', newExtensionLocation, '-y'], shell=True, stdout=subprocess.PIPE)
 
+# Check the installed extensions
+subprocess.run(['az', 'extension', 'list'], shell=True)
+
 # get a set of old commands, we are not reusing the set from ext because we want to keep this clean
 oldCommands = []
 for oldArgument in oldArguments:
