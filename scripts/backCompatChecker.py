@@ -75,6 +75,8 @@ loader.load_command_table(None)
 for command in loader.command_table:
     oldArguments.extend(extractArgumentsFromCommand(command))
 
+print('Unload extension (loaded from index).')
+
 # uninstall extension loaded from index
 subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True, stdout=subprocess.PIPE)
 
@@ -116,7 +118,7 @@ for newArgument in newArguments:
         if isNewMandatory is True:
             allowedNewMandatoryArgumentsForCommand = allowedNewMandatoryArguments.get(newArgument.command, [])
             if not newArgument.name in allowedNewMandatoryArgumentsForCommand:
-                errorList.append('New Mandatory argument found for command ' + newArgument.command + ' argument ' +  newArgument.name)
+                errorList.append('\n' + 'New Mandatory argument found for command ' + newArgument.command + ' argument ' +  newArgument.name)
 
 # make sure no argument is removed
 for oldArgument in oldArguments:
@@ -130,8 +132,9 @@ for oldArgument in oldArguments:
         if isArgumentMissing is True:
             allowedMissingArgumetsForCommand = allowedMissingArguments.get(oldArgument.command, [])
             if not oldArgument.name in allowedMissingArgumetsForCommand:
-                errorList.append('Argument missing for command ' + oldArgument.command + ' argument ' +  oldArgument.name)
+                errorList.append('\n' + 'Argument missing for command ' + oldArgument.command + ' argument ' +  oldArgument.name)
 
 if len(errorList) > 0:
-    print(' '.join(errorList))
+    import sys
+    sys.stderr.write(' '.join(errorList))
     raise Exception('Something is not correct')
