@@ -55,8 +55,16 @@ def extractArgumentsFromCommand(command):
 
     return argumentList
 
+#Check the installed extensions
+subprocess.run(['az', 'extension', 'list'], shell=True, stdout=subprocess.PIPE)
+
+# remove azure-devops extension from index (if installed)
+subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True, stdout=subprocess.PIPE)
+
 # install extension from index
 subprocess.run(['az', 'extension', 'add', '-n', 'azure-devops'], shell=True, stdout=subprocess.PIPE)
+
+subprocess.run(['az', 'extension', 'list'], shell=True, stdout=subprocess.PIPE)
 
 # add extension path to sys.path so that we can get all the commands
 import sys
@@ -86,6 +94,8 @@ def findExtension():
         for file in f:
             if file.endswith('.whl'):
                 return os.path.join(p, file)
+
+print('Install extension (loaded from current code).')
 
 newExtensionLocation = findExtension()
 subprocess.run(['az', 'extension', 'add', '--source', newExtensionLocation, '-y'], shell=True, stdout=subprocess.PIPE)
