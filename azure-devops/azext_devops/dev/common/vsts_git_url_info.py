@@ -96,7 +96,7 @@ class VstsGitUrlInfo():
         except Exception as ex:
             exceptionTypeName = type(ex).__name__
             if exceptionTypeName == 'AzureDevOpsAuthenticationError':
-                logger.warning('Auto-detect from git url failed because of insufficient permissions.')
+                logger.debug('Auto-detect from git url failed because of insufficient permissions.')
                 return
             import sys
             from six import reraise
