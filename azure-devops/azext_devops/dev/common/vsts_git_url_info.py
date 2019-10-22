@@ -5,7 +5,6 @@
 
 from msrest.serialization import Model
 from knack.log import get_logger
-from knack.util import CLIError
 
 from .file_cache import get_cli_cache
 from .uri import uri_parse
