@@ -55,17 +55,11 @@ def extractArgumentsFromCommand(command):
 
     return argumentList
 
-# Check the installed extensions
-subprocess.run(['az', 'extension', 'list'], shell=True)
-
 # remove azure-devops extension from index (if installed)
 subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True)
 
 # install extension from index
 subprocess.run(['az', 'extension', 'add', '-n', 'azure-devops'], shell=True)
-
-subprocess.run(['az', 'devops', 'security', 'permission', '-h'], shell=True)
-subprocess.run(['az', 'devops', 'security', 'permission', 'reset', '-h'], shell=True)
 
 # Check the installed extensions
 subprocess.run(['az', 'extension', 'list'], shell=True)
@@ -99,22 +93,19 @@ def findExtension():
             if file.endswith('.whl'):
                 return os.path.join(p, file)
 
-print('Install extension (loaded from current code).')
 
 newExtensionLocation = findExtension()
+print('Install extension (loaded from current code). Wheel path - {}'.format(newExtensionLocation))
 subprocess.run(['az', 'extension', 'add', '--source', newExtensionLocation, '-y'], shell=True, stdout=subprocess.PIPE)
 
 # Check the installed extensions
 subprocess.run(['az', 'extension', 'list'], shell=True)
 
-subprocess.run(['az', 'devops', 'security', 'permission', '-h'], shell=True)
-subprocess.run(['az', 'devops', 'security', 'permission', 'reset', '-h'], shell=True)
-
 # get a set of old commands, we are not reusing the set from ext because we want to keep this clean
 oldCommands = []
 for oldArgument in oldArguments:
     if oldArgument.command not in ignoreCommands:
-        if not any(oldArgument.command in s for s in oldCommands):
+        if not (oldArgument.command in oldCommands):
             oldCommands.append(oldArgument.command)
     else:
         print('Ignoring command.. ' + oldArgument.command)
@@ -122,6 +113,7 @@ for oldArgument in oldArguments:
 
 # prepare argument set from new extension
 for oldCommand in oldCommands:
+    print("Running extract for command: {}".format(oldCommand))
     newArguments.extend(extractArgumentsFromCommand(oldCommand))
 
 errorList = []
