@@ -93,11 +93,11 @@ class VstsGitUrlInfo():
         credentials = _get_credentials(uri)
         try:
             return GitClient.get_vsts_info_by_remote_url(uri, credentials=credentials)
-        except Exception as ex:
+        except Exception as ex:  # pylint: disable=too-broad-except
             exceptionTypeName = type(ex).__name__
             if exceptionTypeName == 'AzureDevOpsAuthenticationError':
                 logger.debug('Auto-detect from git url failed because of insufficient permissions.')
-                return
+                return None
             import sys
             from six import reraise
             reraise(*sys.exc_info())
