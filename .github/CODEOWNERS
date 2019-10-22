@@ -4,6 +4,5 @@
 # the repo. Unless a later match takes precedence,
 *       @atbagga @gauravsaralMs @ishitam8
 
-# In this example, @doctocat owns any file in the `/docs`
-# directory in the root of your repository.
+# Owner for /doc directory in the root of your repository
 /doc/  @geverghe
