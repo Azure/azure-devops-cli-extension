@@ -35,7 +35,7 @@ def extractArgumentsFromCommand(command):
     help_text = subprocess.run(commandExtended.split(' '), shell=True, stdout=subprocess.PIPE)
     print('help text for ' + command)
     print(help_text)
-    if "PREVIEW" in str(help_text):
+    if " is in preview" in str(help_text):
         return argumentList
     regexReesult = re.search('Arguments(.*)Global Arguments',str(help_text))
     result = regexReesult.group(1)
@@ -55,8 +55,14 @@ def extractArgumentsFromCommand(command):
 
     return argumentList
 
+# remove azure-devops extension from index (if installed)
+subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True)
+
 # install extension from index
-subprocess.run(['az', 'extension', 'add', '-n', 'azure-devops'], shell=True, stdout=subprocess.PIPE)
+subprocess.run(['az', 'extension', 'add', '-n', 'azure-devops'], shell=True)
+
+# Check the installed extensions
+subprocess.run(['az', 'extension', 'list'], shell=True)
 
 # add extension path to sys.path so that we can get all the commands
 import sys
@@ -75,6 +81,8 @@ loader.load_command_table(None)
 for command in loader.command_table:
     oldArguments.extend(extractArgumentsFromCommand(command))
 
+print('Unload extension (loaded from index).')
+
 # uninstall extension loaded from index
 subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True, stdout=subprocess.PIPE)
 
@@ -85,14 +93,19 @@ def findExtension():
             if file.endswith('.whl'):
                 return os.path.join(p, file)
 
+
 newExtensionLocation = findExtension()
+print('Install extension (loaded from current code). Wheel path - {}'.format(newExtensionLocation))
 subprocess.run(['az', 'extension', 'add', '--source', newExtensionLocation, '-y'], shell=True, stdout=subprocess.PIPE)
+
+# Check the installed extensions
+subprocess.run(['az', 'extension', 'list'], shell=True)
 
 # get a set of old commands, we are not reusing the set from ext because we want to keep this clean
 oldCommands = []
 for oldArgument in oldArguments:
     if oldArgument.command not in ignoreCommands:
-        if not any(oldArgument.command in s for s in oldCommands):
+        if not (oldArgument.command in oldCommands):
             oldCommands.append(oldArgument.command)
     else:
         print('Ignoring command.. ' + oldArgument.command)
@@ -100,6 +113,7 @@ for oldArgument in oldArguments:
 
 # prepare argument set from new extension
 for oldCommand in oldCommands:
+    print("Running extract for command: {}".format(oldCommand))
     newArguments.extend(extractArgumentsFromCommand(oldCommand))
 
 errorList = []
@@ -116,7 +130,7 @@ for newArgument in newArguments:
         if isNewMandatory is True:
             allowedNewMandatoryArgumentsForCommand = allowedNewMandatoryArguments.get(newArgument.command, [])
             if not newArgument.name in allowedNewMandatoryArgumentsForCommand:
-                errorList.append('New Mandatory argument found for command ' + newArgument.command + ' argument ' +  newArgument.name)
+                errorList.append('\n' + 'New Mandatory argument found for command ' + newArgument.command + ' argument ' +  newArgument.name)
 
 # make sure no argument is removed
 for oldArgument in oldArguments:
@@ -130,8 +144,9 @@ for oldArgument in oldArguments:
         if isArgumentMissing is True:
             allowedMissingArgumetsForCommand = allowedMissingArguments.get(oldArgument.command, [])
             if not oldArgument.name in allowedMissingArgumetsForCommand:
-                errorList.append('Argument missing for command ' + oldArgument.command + ' argument ' +  oldArgument.name)
+                errorList.append('\n' + 'Argument missing for command ' + oldArgument.command + ' argument ' +  oldArgument.name)
 
 if len(errorList) > 0:
-    print(' '.join(errorList))
+    import sys
+    sys.stderr.write(' '.join(errorList))
     raise Exception('Something is not correct')
