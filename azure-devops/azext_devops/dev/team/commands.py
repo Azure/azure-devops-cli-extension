@@ -96,7 +96,7 @@ def load_team_commands(self, _):
         g.command('logout', 'credential_clear')
 
     with self.command_group('devops', command_type=feedbackOps) as g:
-        g.command('feedback', 'feedback', deprecate_info=g.deprecate(redirect='az feedback', target='feedback', hide=True))
+        g.command('feedback', 'feedback', deprecate_info=g.deprecate(redirect='az feedback', hide=True))
 
     with self.command_group('devops', command_type=configureOps) as g:
         g.command('configure', 'configure')
