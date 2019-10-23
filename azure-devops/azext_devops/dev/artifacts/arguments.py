@@ -3,9 +3,12 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+
 from knack.arguments import enum_choice_list
 
+
 _SCOPE_VALUES = ['project', 'organization']
+
 
 def load_package_arguments(self, _):
     with self.argument_context('artifacts universal') as context:
