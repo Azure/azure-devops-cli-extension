@@ -57,6 +57,8 @@ def extractArgumentsFromCommand(command):
 
 # remove azure-devops extension from index (if installed)
 subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True)
+print ('try remove again')
+subprocess.run(['az', 'extension', 'remove', '-n', 'azure-devops'], shell=True)
 
 # install extension from index
 subprocess.run(['az', 'extension', 'add', '-n', 'azure-devops'], shell=True)
