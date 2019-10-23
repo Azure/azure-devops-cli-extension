@@ -46,7 +46,7 @@ def publish_package(feed,
             project=project)
     else:
         if project is not None:
-            raise CLIError('--scope \'project\' is required when specifying a project in --project')
+            raise CLIError('--scope \'project\' is required when specifying a value in --project')
 
         organization = resolve_instance(
             detect=detect,
@@ -88,7 +88,7 @@ def download_package(feed,
             project=project)
     else:
         if project is not None:
-            raise CLIError('--scope \'project\' is required when specifying a project in --project')
+            raise CLIError('--scope \'project\' is required when specifying a value in --project')
 
         organization = resolve_instance(
             detect=detect,

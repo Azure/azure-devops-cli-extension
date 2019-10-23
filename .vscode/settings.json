@@ -1,4 +1,3 @@
 {
     "python.testing.pytestEnabled": true,
-    "python.pythonPath": "env\\Scripts\\python.exe",
 }
