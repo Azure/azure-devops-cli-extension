@@ -38,11 +38,6 @@ configureOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
-feedbackOps = CliCommandType(
-    operations_tmpl='azext_devops.dev.team.feedback#{}',
-    exception_handler=azure_devops_exception_handler
-)
-
 credentialsOps = CliCommandType(
     operations_tmpl='azext_devops.dev.team.credentials#{}',
     exception_handler=azure_devops_exception_handler
@@ -94,9 +89,6 @@ def load_team_commands(self, _):
     with self.command_group('devops', command_type=credentialsOps) as g:
         g.command('login', 'credential_set')
         g.command('logout', 'credential_clear')
-
-    with self.command_group('devops', command_type=feedbackOps) as g:
-        g.command('feedback', 'feedback')
 
     with self.command_group('devops', command_type=configureOps) as g:
         g.command('configure', 'configure')
