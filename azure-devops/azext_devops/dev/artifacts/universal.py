@@ -14,7 +14,15 @@ from azext_devops.dev.common.external_tool import ProgressReportingExternalToolI
 logger = get_logger(__name__)
 
 
-def publish_package(feed, name, version, path, description=None, scope='organization', organization=None, project=None, detect=None):
+def publish_package(feed,
+                    name,
+                    version,
+                    path,
+                    description=None,
+                    scope='organization',
+                    organization=None,
+                    project=None,
+                    detect=None):
     """Publish a package to a feed.
     :param scope: Scope of the feed: 'project' if the feed was created in a project, and 'organization' otherwise.
     :type scope: str
@@ -48,7 +56,15 @@ def publish_package(feed, name, version, path, description=None, scope='organiza
     return artifact_tool.publish_universal(organization, project, feed, name, version, description, path)
 
 
-def download_package(feed, name, version, path, file_filter=None, scope='organization', organization=None, project=None, detect=None):
+def download_package(feed,
+                     name,
+                     version,
+                     path,
+                     file_filter=None,
+                     scope='organization',
+                     organization=None,
+                     project=None,
+                     detect=None):
     """Download a package.
     :param scope: Scope of the feed: 'project' if the feed was created in a project, and 'organization' otherwise.
     :type scope: str
