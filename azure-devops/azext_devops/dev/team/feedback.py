@@ -5,7 +5,6 @@
 # --------------------------------------------------------------------------------------------
 
 from __future__ import print_function
-from azext_devops.dev.common.utils import open_url
 
 
 def feedback():
@@ -14,4 +13,3 @@ def feedback():
     url = 'https://aka.ms/azure-devops-cli-feedback'
     print('Thank you for taking the time to share your feedback. Please submit your feedback on the following web ' +
           'page: {url}'.format(url=url))
-    open_url(url=url)
