@@ -28,14 +28,35 @@ def load_team_help():
     short-summary: Manage service endpoints/connections
     """
 
+    helps['devops service-endpoint create'] = """
+    type: command
+    short-summary: Create a service endpoint using configuration file.
+    long-summary: You can learn more about this at https://aka.ms/azure-devops-cli-service-endpoint
+    """
+
     helps['devops service-endpoint azurerm'] = """
     type: group
     short-summary: Manage Azure RM service endpoints/connections
     """
 
+    helps['devops service-endpoint azurerm create'] = """
+    type: command
+    short-summary: Create an Azure RM type service endpoint.
+    long-summary: For automation, set service principal password/secret in
+      AZURE_DEVOPS_EXT_AZURE_RM_SERVICE_PRINCIPAL_KEY environment variable. You can learn
+      more about this at https://aka.ms/azure-devops-cli-service-endpoint
+    """
+
     helps['devops service-endpoint github'] = """
     type: group
     short-summary: Manage GitHub service endpoints/connections
+    """
+
+    helps['devops service-endpoint github create'] = """
+    type: command
+    short-summary: Create a GitHub service endpoint.
+    long-summary: For automation, set GitHub PAT token in AZURE_DEVOPS_EXT_GITHUB_PAT
+      environment variable. You can learn more about this at https://aka.ms/azure-devops-cli-service-endpoint
     """
 
     helps['devops security'] = """
