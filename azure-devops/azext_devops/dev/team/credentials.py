@@ -18,9 +18,11 @@ from azext_devops.dev.common.services import _get_connection, get_base_url
 logger = get_logger(__name__)
 
 
-def credential_set(organization=None):
+def credential_set(organization=None, store_in_config_directory=False):
     """Set the credential (PAT) to use for a particular organization.
     Refer https://aka.ms/azure-devops-cli-auth for more information on providing PAT as input.
+    :param store_in_config_directory: use this when keyring has issues and user wants to store PAT in config directory.
+    :type store_in_config_directory: bool
     """
     token = _get_pat_token()
     if organization is not None:
@@ -39,7 +41,13 @@ def credential_set(organization=None):
         # Hence, handle anonymous user case here.
         if connection_data.authenticated_user.id == _ANONYMOUS_USER_ID:
             raise CLIError("Failed to authenticate using the supplied token.")
-    set_credential(organization=organization, token=token)
+    try:
+        set_credential(organization=organization, token=token, use_config_store=store_in_config_directory)
+    except Exception as ex:  # pylint: disable=broad-except
+        logger.warning("Unable to use secure credential store in this environment.")
+        logger.warning("Please refer to alternate methods at https://aka.ms/azure-devops-cli-auth")
+        logger.warning("using Environment variable")
+        logger.warning("or use --store-in-config-directory to store PAT in config directory")
     _check_and_set_default_organization(organization)
 
 

@@ -5,11 +5,12 @@
 
 import os
 import sys
-from knack.util import CLIError, ensure_dir
+from knack.util import CLIError
 from knack.log import get_logger
 from six.moves import configparser
 from .config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
 from .pip_helper import install_keyring
+from .config_directory_credential_store import ConfigDirectoryCredentialStore
 
 logger = get_logger(__name__)
 
@@ -36,13 +37,7 @@ class CredentialStore:
         except RuntimeError as ex:
             # store credentials in azuredevops config directory if keyring is missing
             if sys.platform.startswith(self._LINUX_PLATFORM):
-                logger.debug('Keyring package not found. Hence, storing credentials in the file: %s', self._PAT_FILE)
-                creds_list = self._get_credentials_list()
-                if key not in creds_list.sections():
-                    creds_list.add_section(key)
-                    logger.debug('Added new entry to PAT file : %s ', key)
-                creds_list.set(key, self._USERNAME, token)
-                self._commit_change(creds_list)
+                ConfigDirectoryCredentialStore.set_password(key, token)
             else:
                 raise CLIError(ex)
 
@@ -54,17 +49,10 @@ class CredentialStore:
 
         try:
             return keyring.get_password(key, self._USERNAME)
-        except RuntimeError as ex:
-            # fetch credentials from file if keyring is missing
-            if sys.platform.startswith(self._LINUX_PLATFORM):
-                ensure_dir(AZ_DEVOPS_GLOBAL_CONFIG_DIR)
-                logger.debug('Keyring package not found. Fetching credentials from the file: %s', self._PAT_FILE)
-                creds_list = self._get_credentials_list()
-                try:
-                    return creds_list.get(key, self._USERNAME)
-                except (configparser.NoOptionError, configparser.NoSectionError):
-                    return None
-            else:
+        except Exception as ex:  # pylint: disable=broad-except
+            # fetch credentials from file if keyring has issues
+            cred = ConfigDirectoryCredentialStore.get_password(key)
+            if cred is None:
                 raise CLIError(ex)
 
     def clear_password(self, key):
@@ -81,12 +69,7 @@ class CredentialStore:
             raise CLIError('The credential was not found')
         except RuntimeError as ex:
             if sys.platform.startswith(self._LINUX_PLATFORM):
-                logger.debug('Keyring package not found. Checking file for credentials: %s', self._PAT_FILE)
-                creds_list = self._get_credentials_list()
-                if key not in creds_list.sections():
-                    raise CLIError('The credential was not found')
-                creds_list.remove_section(key)
-                self._commit_change(creds_list)
+                ConfigDirectoryCredentialStore.clear_password(key)
             else:
                 raise CLIError(ex)
 

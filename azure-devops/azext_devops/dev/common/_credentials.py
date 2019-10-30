@@ -9,6 +9,7 @@ from knack.util import CLIError
 from .uri import uri_parse
 from .credential_store import CredentialStore
 from .config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
+from .config_directory_credential_store import ConfigDirectoryCredentialStore
 
 logger = get_logger(__name__)
 
@@ -23,14 +24,26 @@ def get_credential(organization, fall_back_to_default=True):
 def _get_credential(organization):
     key = _get_service_name(organization)
     logger.debug('Getting credential: %s', key)
-    cred_store = CredentialStore()
-    return cred_store.get_password(key)
+    try:
+        cred_store = CredentialStore()
+        return cred_store.get_password(key)
+    except Exception as ex:  # pylint: disable=bare-except
+        cred = ConfigDirectoryCredentialStore.get_password(organization)
+        if cred is not None:
+            return cred
+        raise CLIError(ex)
 
 
-def set_credential(organization, token):
+def set_credential(organization, token, use_config_store=False):
     key = _get_service_name(organization)
-    cred_store = CredentialStore()
-    cred_store.set_password(key, token)
+    try:
+        cred_store = CredentialStore()
+        cred_store.set_password(key, token)
+    except Exception as ex:  # pylint: disable=broad-except
+        if use_config_store is True:
+            ConfigDirectoryCredentialStore.set_password(key, token)
+        else:
+            raise CLIError(ex)
 
     if os.path.isfile(ORGANIZATION_LIST_FILE):
         # No need to add organization if it's already present.
@@ -47,16 +60,26 @@ def clear_credential(organization):
     logger.debug('Clearing credential: %s', key)
     cred_store = CredentialStore()
 
+    issue = []
+
     if key == _DEFAULT_CREDENTIAL_KEY:
         # remove all organizations and delete the file
         if os.path.isfile(ORGANIZATION_LIST_FILE):
             with open(ORGANIZATION_LIST_FILE) as org_list_file:
                 for org in org_list_file:
-                    cred_store.clear_password(org.rstrip())
+                    try:
+                        cred_store.clear_password(org.rstrip())
+                    except Exception as ex:  # pylint: disable=broad-except
+                        issue.append(ex)
+                        ConfigDirectoryCredentialStore.clear_password(org.rstrip())
             os.remove(ORGANIZATION_LIST_FILE)
         # this is to clear default credential before upgrade
         elif cred_store.get_password(key) is not None:
-            cred_store.clear_password(key)
+            try:
+                cred_store.clear_password(key)
+            except Exception as ex:  # pylint: disable=broad-except
+                issue.append(ex)
+                ConfigDirectoryCredentialStore.clear_password(key)
         else:
             raise CLIError('No credentials were found.')
     else:
@@ -68,7 +91,16 @@ def clear_credential(organization):
                 for line in orgs:
                     if line.rstrip() != key:
                         output_file.write(line)
-        cred_store.clear_password(key)
+        try:
+            cred_store.clear_password(key)
+        except Exception as ex:  # pylint: disable=broad-except
+            issue.append(ex)
+            ConfigDirectoryCredentialStore.clear_password(key)
+
+    # do not raise exception if password is stored in config directory because we know 
+    # keyring is not working as per expectation on this environment
+    if len(issue) > 0 and not os.path.exists(ConfigDirectoryCredentialStore.get_pat_file()):
+        raise CLIError(issue)
 
 
 def _get_service_name(organization):
