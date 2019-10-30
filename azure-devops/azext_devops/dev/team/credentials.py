@@ -48,6 +48,7 @@ def credential_set(organization=None, store_in_config_directory=False):
         logger.warning("Please refer to alternate methods at https://aka.ms/azure-devops-cli-auth")
         logger.warning("using Environment variable")
         logger.warning("or use --store-in-config-directory to store PAT in config directory")
+        raise
     _check_and_set_default_organization(organization)
 
 

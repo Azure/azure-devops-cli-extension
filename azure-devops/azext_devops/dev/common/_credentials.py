@@ -60,26 +60,23 @@ def clear_credential(organization):
     logger.debug('Clearing credential: %s', key)
     cred_store = CredentialStore()
 
-    issue = []
-
     if key == _DEFAULT_CREDENTIAL_KEY:
         # remove all organizations and delete the file
         if os.path.isfile(ORGANIZATION_LIST_FILE):
             with open(ORGANIZATION_LIST_FILE) as org_list_file:
                 for org in org_list_file:
-                    try:
-                        cred_store.clear_password(org.rstrip())
-                    except Exception as ex:  # pylint: disable=broad-except
-                        issue.append(ex)
+                    if os.path.exists(ConfigDirectoryCredentialStore.get_pat_file()):
                         ConfigDirectoryCredentialStore.clear_password(org.rstrip())
+                    else:
+                        cred_store.clear_password(org.rstrip())
             os.remove(ORGANIZATION_LIST_FILE)
+        elif (os.path.exists(ConfigDirectoryCredentialStore.get_pat_file())
+              and ConfigDirectoryCredentialStore.get_password(key) is not None):
+            ConfigDirectoryCredentialStore.clear_password(key)
         # this is to clear default credential before upgrade
-        elif cred_store.get_password(key) is not None:
-            try:
-                cred_store.clear_password(key)
-            except Exception as ex:  # pylint: disable=broad-except
-                issue.append(ex)
-                ConfigDirectoryCredentialStore.clear_password(key)
+        elif (not os.path.exists(ConfigDirectoryCredentialStore.get_pat_file())
+              and cred_store.get_password(key) is not None):
+            cred_store.clear_password(key)
         else:
             raise CLIError('No credentials were found.')
     else:
@@ -91,16 +88,11 @@ def clear_credential(organization):
                 for line in orgs:
                     if line.rstrip() != key:
                         output_file.write(line)
-        try:
-            cred_store.clear_password(key)
-        except Exception as ex:  # pylint: disable=broad-except
-            issue.append(ex)
-            ConfigDirectoryCredentialStore.clear_password(key)
 
-    # do not raise exception if password is stored in config directory because we know 
-    # keyring is not working as per expectation on this environment
-    if len(issue) > 0 and not os.path.exists(ConfigDirectoryCredentialStore.get_pat_file()):
-        raise CLIError(issue)
+        if os.path.exists(ConfigDirectoryCredentialStore.get_pat_file()):
+            ConfigDirectoryCredentialStore.clear_password(key)
+        else:
+            cred_store.clear_password(key)
 
 
 def _get_service_name(organization):
