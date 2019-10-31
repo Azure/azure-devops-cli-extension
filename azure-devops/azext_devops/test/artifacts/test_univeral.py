@@ -17,6 +17,7 @@ from azext_devops.dev.artifacts.universal import (publish_package,
 from azext_devops.dev.common.artifacttool import ArtifactToolInvoker
 from azext_devops.dev.common.const import ARTIFACTTOOL_PAT_ENVKEY
 from azext_devops.dev.common.services import clear_connection_cache
+from knack.util import CLIError
 
 
 
@@ -95,6 +96,17 @@ class TestUniversalPackages(unittest.TestCase):
                  '--description', self._TEST_PACKAGE_DESCRIPTION,
             ],
             'Publishing')
+
+    def test_publish_package_when_project_without_scope_then_exception(self):
+        with self.assertRaises(CLIError) as exc:
+            response = publish_package(feed = self._TEST_FEED_NAME,
+                name = self._TEST_PACKAGE_NAME,
+                version = self._TEST_PACKAGE_VERSION,
+                description = self._TEST_PACKAGE_DESCRIPTION,
+                path = self._TEST_PATH,
+                organization = self._TEST_DEVOPS_ORGANIZATION,
+                project = self._TEST_DEVOPS_PROJECT)
+        self.assertIn('--scope \'project\' is required when specifying a value in --project', str(exc.exception))
         
     def test_download_package(self):
         response = download_package(feed = self._TEST_FEED_NAME,
@@ -142,4 +154,15 @@ class TestUniversalPackages(unittest.TestCase):
                     '--filter', self._TEST_FILTER,
             ],
             'Downloading')
+
+    def test_download_package_when_project_without_scope_then_exception(self):
+        with self.assertRaises(CLIError) as exc:
+            response = download_package(feed = self._TEST_FEED_NAME,
+                name = self._TEST_PACKAGE_NAME,
+                version = self._TEST_PACKAGE_VERSION,
+                path = self._TEST_PATH,
+                file_filter= self._TEST_FILTER,
+                organization = self._TEST_DEVOPS_ORGANIZATION,
+                project = self._TEST_DEVOPS_PROJECT)
+        self.assertIn('--scope \'project\' is required when specifying a value in --project', str(exc.exception))
                 
