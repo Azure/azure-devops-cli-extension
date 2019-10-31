@@ -13,7 +13,7 @@ logger = get_logger(__name__)
 
 
 def install_keyring():
-    _install_package('keyring~=17.1.1')
+    _install_package('keyring~=19.2.0')
 
 
 def _install_package(package_name):
