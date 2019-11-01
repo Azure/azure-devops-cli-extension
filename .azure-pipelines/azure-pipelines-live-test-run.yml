@@ -23,7 +23,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.x'
+      versionSpec: '3.7'
       architecture: 'x64'
 
   - template: templates/setup-ci-machine.yml
@@ -37,7 +37,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.x'
+      versionSpec: '3.7'
       architecture: 'x64'
 
   - template: templates/setup-ci-machine.yml
