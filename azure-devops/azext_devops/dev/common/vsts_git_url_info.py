@@ -91,7 +91,16 @@ class VstsGitUrlInfo():
         else:
             uri = remote_url
         credentials = _get_credentials(uri)
-        return GitClient.get_vsts_info_by_remote_url(uri, credentials=credentials)
+        try:
+            return GitClient.get_vsts_info_by_remote_url(uri, credentials=credentials)
+        except Exception as ex:  # pylint: disable=broad-except
+            exceptionTypeName = type(ex).__name__
+            if exceptionTypeName == 'AzureDevOpsAuthenticationError':
+                logger.warning('Auto-detect from git remote url failed because of insufficient permissions.')
+                return None
+            import sys
+            from six import reraise
+            reraise(*sys.exc_info())
 
     @staticmethod
     def convert_ssh_netloc_to_https_netloc(netloc):
