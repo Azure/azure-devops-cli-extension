@@ -39,8 +39,15 @@ def credential_set(organization=None):
         # Hence, handle anonymous user case here.
         if connection_data.authenticated_user.id == _ANONYMOUS_USER_ID:
             raise CLIError("Failed to authenticate using the supplied token.")
-    set_credential(organization=organization, token=token)
-    _check_and_set_default_organization(organization)
+        try:
+            set_credential(organization=organization, token=token)
+        except Exception as ex:  # pylint: disable=bare-except
+            logger.warning("Unable to use secure credential store in this environment.")
+            logger.warning("Please refer to alternate methods at https://aka.ms/azure-devops-cli-auth")
+            logger.warning("using Environment variable")
+            logger.warning("or use 'az login'")
+            raise CLIError(ex)
+        _check_and_set_default_organization(organization)
 
 
 def credential_clear(organization=None):
