@@ -31,7 +31,7 @@ def load_team_help():
     helps['devops service-endpoint create'] = """
     type: command
     short-summary: Create a service endpoint using configuration file.
-    long-summary: You can learn more about this at https://aka.ms/azure-devops-cli-service-endpoint
+    long-summary: You can learn more about this at https://aka.ms/azure-devops-service-endpoint-config
     """
 
     helps['devops service-endpoint azurerm'] = """
@@ -44,7 +44,7 @@ def load_team_help():
     short-summary: Create an Azure RM type service endpoint.
     long-summary: For automation, set service principal password/secret in
       AZURE_DEVOPS_EXT_AZURE_RM_SERVICE_PRINCIPAL_KEY environment variable. You can learn
-      more about this at https://aka.ms/azure-devops-cli-service-endpoint
+      more about this at https://aka.ms/azure-devops-cli-azurerm-service-endpoint
     """
 
     helps['devops service-endpoint github'] = """
