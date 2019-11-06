@@ -64,7 +64,7 @@ def banner_add(message, banner_type=None, id=None, expiration=None, organization
     return {id: entries[setting_key]}
 
 
-def banner_update(message=None, banner_type=None, id=None, expiration=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def banner_update(id, message=None, banner_type=None, expiration=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Update the message, level, or expiration date for a banner.
     :param message: Message (string) to show in the banner.
     :type message: str
