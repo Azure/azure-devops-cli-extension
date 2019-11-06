@@ -64,7 +64,7 @@ def banner_add(message, banner_type=None, id=None, expiration=None, organization
     return {id: entries[setting_key]}
 
 
-def banner_update(message=None, banner_type=None, id=None, expiration=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def banner_update(id, message=None, banner_type=None, expiration=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Update the message, level, or expiration date for a banner.
     :param message: Message (string) to show in the banner.
     :type message: str
@@ -81,10 +81,10 @@ def banner_update(message=None, banner_type=None, id=None, expiration=None, orga
     if message is None and banner_type is None and expiration is None:
         raise ValueError('At least one of the following arguments need to be supplied: --message, --type, '
                          '--expiration.')
-    if expiration is not None:
+    if expiration is not None and expiration != '':
         expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
     else:
-        expiration_iso8601 = None
+        expiration_iso8601 = expiration
     existing_entries = setting_list(user_scope='host',
                                     key=GLOBAL_MESSAGE_BANNERS_KEY,
                                     organization=organization,

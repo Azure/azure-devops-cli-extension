@@ -16,6 +16,7 @@ allowedMissingArguments['pipelines update'] = ['--name']
 
 
 allowedNewMandatoryArguments = {}
+allowedNewMandatoryArguments['devops admin banner update'] = ['--id']
 
 
 # Do not compare these commands
