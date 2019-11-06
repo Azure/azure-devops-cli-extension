@@ -81,13 +81,10 @@ def banner_update(id, message=None, banner_type=None, expiration=None, organizat
     if message is None and banner_type is None and expiration is None:
         raise ValueError('At least one of the following arguments need to be supplied: --message, --type, '
                          '--expiration.')
-    if expiration is not None:
-        if expiration != '':
-            expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
-        else:
-            expiration_iso8601 = ''
+    if expiration is not None and expiration != '':
+        expiration_iso8601 = convert_date_string_to_iso8601(value=expiration, argument='expiration')
     else:
-        expiration_iso8601 = None
+        expiration_iso8601 = expiration
     existing_entries = setting_list(user_scope='host',
                                     key=GLOBAL_MESSAGE_BANNERS_KEY,
                                     organization=organization,
