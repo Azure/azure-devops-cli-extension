@@ -1,3 +1,9 @@
 steps:
+  - script: 'az --version'
+    displayName: 'Display az version before update'
+
   - script: 'pip install azure-cli'
     displayName: 'Install Azure CLI Released'
+
+  - script: 'az --version'
+    displayName: 'Display az version after update'
