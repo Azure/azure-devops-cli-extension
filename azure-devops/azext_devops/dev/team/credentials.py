@@ -105,7 +105,7 @@ def _check_and_clear_default_organization(organization):
         if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT):
             current_org_default = azdevops_config.get(DEFAULTS_SECTION, DEVOPS_ORGANIZATION_DEFAULT)
         if current_org_default == organization:
-            configure(defaults=["organization=''"])
+            configure(defaults=["organization="])
             logger.debug("Resetting default organization.")
         else:
             logger.debug("Default org not reset. Different organization is set as default.")
