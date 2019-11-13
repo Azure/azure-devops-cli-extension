@@ -206,14 +206,6 @@ jobs:
   steps:
   - script: git checkout release-0.14.0
 
-  # Delete test files which are broken by design
-  - script: rm tests/test_devopsProjectTest.py
-    displayName : 'Delete Project CRUD Tests which are known to fail because response type changed'
-
-  # Delete test files which are broken by design
-  - script: rm tests/test_invoke.py
-    displayName : 'Delete Invoke Tests which are known to fail because response type changed'
-
   - template: templates/run-tests.yml
     parameters:
       pythonVersion: '3.7'
