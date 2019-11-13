@@ -26,28 +26,16 @@ def credential_set(organization=None):
     if organization is not None:
         organization = get_base_url(organization)
         logger.info("Creating connection with personal access token.")
-        credentials = BasicAuthentication('', token)
-        connection = _get_connection(organization, credentials)
-        vstsDir = 'azext_devops.devops_sdk.'
-        location_client = connection.get_client(vstsDir + 'v5_0.location.location_client.LocationClient')
-        try:
-            connection_data = location_client.get_connection_data()
-        except Exception as ex2:
-            logger.debug(ex2, exc_info=True)
-            raise CLIError("Failed to authenticate using the supplied token.")
-        # An organization with public project enabled will not throw any exception for invalid token.
-        # Hence, handle anonymous user case here.
-        if connection_data.authenticated_user.id == _ANONYMOUS_USER_ID:
-            raise CLIError("Failed to authenticate using the supplied token.")
-        try:
-            set_credential(organization=organization, token=token)
-        except Exception as ex:  # pylint: disable=bare-except
-            logger.warning("Unable to use secure credential store in this environment.")
-            logger.warning("Please refer to alternate methods at https://aka.ms/azure-devops-cli-auth")
-            logger.warning("using Environment variable")
-            logger.warning("or use 'az login'")
-            raise CLIError(ex)
-        _check_and_set_default_organization(organization)
+        _verify_token(organization=organization, token=token)
+    try:
+        set_credential(organization=organization, token=token)
+    except Exception as ex:  # pylint: disable=bare-except
+        logger.warning("Unable to use secure credential store in this environment.")
+        logger.warning("Please refer to alternate methods at https://aka.ms/azure-devops-cli-auth")
+        logger.warning("using Environment variable")
+        logger.warning("or use 'az login'")
+        raise CLIError(ex)
+    _check_and_set_default_organization(organization)
 
 
 def credential_clear(organization=None):
@@ -64,6 +52,22 @@ def credential_clear(organization=None):
     else:
         print('Logged out of all Azure DevOps organizations.')
     _check_and_clear_default_organization(organization)
+
+
+def _verify_token(organization, token):
+    credentials = BasicAuthentication('', token)
+    connection = _get_connection(organization, credentials)
+    vstsDir = 'azext_devops.devops_sdk.'
+    connection.get_client(vstsDir + 'v5_0.location.location_client.LocationClient')
+    try:
+        connection_data = location_client.get_connection_data()
+    except Exception as ex2:
+        logger.debug(ex2, exc_info=True)
+        raise CLIError("Failed to authenticate using the supplied token.")
+    # An organization with public project enabled will not throw any exception for invalid token.
+    # Hence, handle anonymous user case here.
+    if connection_data.authenticated_user.id == _ANONYMOUS_USER_ID:
+        raise CLIError("Failed to authenticate using the supplied token.")
 
 
 def _get_pat_token():
