@@ -58,7 +58,7 @@ def _verify_token(organization, token):
     credentials = BasicAuthentication('', token)
     connection = _get_connection(organization, credentials)
     vstsDir = 'azext_devops.devops_sdk.'
-    connection.get_client(vstsDir + 'v5_0.location.location_client.LocationClient')
+    location_client = connection.get_client(vstsDir + 'v5_0.location.location_client.LocationClient')
     try:
         connection_data = location_client.get_connection_data()
     except Exception as ex2:
