@@ -18,6 +18,7 @@ class CredentialStore:
     def __init__(self):
         self._initialize_keyring()
 
+
     def set_password(self, key, token):
         try:
             import keyring
@@ -36,9 +37,11 @@ class CredentialStore:
         except Exception as ex:  # pylint: disable=broad-except
             # store credentials in azuredevops config directory if keyring is missing or malfunctioning
             if sys.platform.startswith(self._LINUX_PLATFORM):
-                logger.warning('Failed to store PAT using keyring, falling back to file storage\n ERROR : %s', ex)
-                logger.debug('Keyring not configured properly or package not found.\
-                              Hence, storing credentials in the file: %s', self._PAT_FILE)
+                logger.warning('Failed to store PAT using keyring; falling back to file storage.\
+                    You can clear the stored credential by running az devops logout.\
+                    Refer https://aka.ms/azure-devops-cli-auth to know more on sign in with PAT.')
+                logger.debug('Keyring failed. ERROR :%s', ex)
+                logger.debug('Storing credentials in the file: %s', self._PAT_FILE)
                 creds_list = self._get_credentials_list()
                 if key not in creds_list.sections():
                     creds_list.add_section(key)
@@ -48,27 +51,24 @@ class CredentialStore:
             else:
                 raise CLIError(ex)
 
+
     def get_password(self, key):
         try:
             import keyring
         except ImportError:
             return None
-
         try:
-            return keyring.get_password(key, self._USERNAME)
+            token = keyring.get_password(key, self._USERNAME)
         except Exception as ex:  # pylint: disable=broad-except
             # fetch credentials from file if keyring is missing or malfunctioning
             if sys.platform.startswith(self._LINUX_PLATFORM):
-                ensure_dir(AZ_DEVOPS_GLOBAL_CONFIG_DIR)
-                logger.debug('Keyring not configured properly or package not found.\
-                              Looking for credentials in the file: %s', self._PAT_FILE)
-                creds_list = self._get_credentials_list()
-                try:
-                    return creds_list.get(key, self._USERNAME)
-                except (configparser.NoOptionError, configparser.NoSectionError):
-                    return None
+                token = None
             else:
                 raise CLIError(ex)
+        if token is None:
+            token = self.get_PAT_from_file(key)
+        return token
+
 
     def clear_password(self, key):
         try:
@@ -77,23 +77,45 @@ class CredentialStore:
             install_keyring()
             self._initialize_keyring()
             import keyring
-
-        try:
-            keyring.delete_password(key, self._USERNAME)
-        except keyring.errors.PasswordDeleteError:
-            raise CLIError('The credential was not found')
-        except Exception as ex:  # pylint: disable=broad-except
-            # clear credentials from file if keyring is missing or malfunctioning
-            if sys.platform.startswith(self._LINUX_PLATFORM):
-                logger.debug('Keyring not configured properly or package not found.\
-                              Looking for credentials in the file: %s', self._PAT_FILE)
-                creds_list = self._get_credentials_list()
-                if key not in creds_list.sections():
-                    raise CLIError('The credential was not found')
-                creds_list.remove_section(key)
-                self._commit_change(creds_list)
-            else:
+        if sys.platform.startswith(self._LINUX_PLATFORM):
+            try:
+                keyring_token = keyring.get_password(key, self._USERNAME)
+                if keyring_token:
+                    keyring.delete_password(key, self._USERNAME)
+            except Exception as ex:  # pylint: disable=broad-except
+                logger.debug("%s", ex)
+                file_token = self.get_PAT_from_file(key)
+                if file_token:
+                    self.delete_PAT_from_file(key)
+            if(keyring_token is None and file_token is None):
+                raise CLIError('The credential was not found')
+        else:
+            try:
+                keyring.delete_password(key, self._USERNAME)
+            except keyring.errors.PasswordDeleteError:
+                raise CLIError('The credential was not found')
+            except RuntimeError as ex:  # pylint: disable=broad-except
                 raise CLIError(ex)
+
+
+    def get_PAT_from_file(self, key):
+        ensure_dir(AZ_DEVOPS_GLOBAL_CONFIG_DIR)
+        logger.debug('Keyring not configured properly or package not found.\
+                        Looking for credentials in the file: %s', self._PAT_FILE)
+        creds_list = self._get_credentials_list()
+        try:
+            return creds_list.get(key, self._USERNAME)
+        except (configparser.NoOptionError, configparser.NoSectionError):
+            return None
+
+    def delete_PAT_from_file(self, key):
+        logger.debug('Keyring not configured properly or package not found.\
+                      Looking for credentials in the file: %s', self._PAT_FILE)
+        creds_list = self._get_credentials_list()
+        if key not in creds_list.sections():
+            raise CLIError('The credential was not found')
+        creds_list.remove_section(key)
+        self._commit_change(creds_list)
 
     @staticmethod
     def _get_config_parser():
