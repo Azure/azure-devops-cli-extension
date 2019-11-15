@@ -18,7 +18,6 @@ class CredentialStore:
     def __init__(self):
         self._initialize_keyring()
 
-
     def set_password(self, key, token):
         try:
             import keyring
@@ -101,7 +100,7 @@ class CredentialStore:
     def get_PAT_from_file(self, key):
         ensure_dir(AZ_DEVOPS_GLOBAL_CONFIG_DIR)
         logger.debug('Keyring not configured properly or package not found.'
-                'Looking for credentials with key:%s in the file: %s', key, self._PAT_FILE)
+                     'Looking for credentials with key:%s in the file: %s', key, self._PAT_FILE)
         creds_list = self._get_credentials_list()
         try:
             return creds_list.get(key, self._USERNAME)
