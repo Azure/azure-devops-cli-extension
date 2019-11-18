@@ -55,6 +55,7 @@ class CredentialStore:
             import keyring
         except ImportError:
             return None
+        token = None
         try:
             token = keyring.get_password(key, self._USERNAME)
         except Exception as ex:  # pylint: disable=broad-except
