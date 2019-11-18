@@ -26,7 +26,8 @@ Index file is present [here](https://github.com/Azure/azure-cli-extensions/blob/
 Find 'DevOps' to see where is the entry for 'DevOps' extension
 Create a PR for updating, fiels in index json are self explanatory
 
-## Create a new release branch and push to the repo 
+## Create a new release branch and push to the repo
+
 Create a new branch (release-0.x.0) from  master with the changes which have been released and push this new branch to the repo.
 
 ## Updating Azure DevOps CLI extension version in repository and releases
