@@ -26,6 +26,9 @@ Index file is present [here](https://github.com/Azure/azure-cli-extensions/blob/
 Find 'DevOps' to see where is the entry for 'DevOps' extension
 Create a PR for updating, fiels in index json are self explanatory
 
+## Create a new release branch and push to the repo 
+Create a new branch (release-0.x.0) from  master with the changes which have been released and push this new branch to the repo.
+
 ## Updating Azure DevOps CLI extension version in repository and releases
 
 Once relase is done make sure to update the version for Azure-DevOps CLI in [version.py](https://github.com/Microsoft/azure-devops-cli-extension/blob/master/azure-devops/azext_devops/version.py)
@@ -33,12 +36,9 @@ Also update build pipelines YAMLS
 [Release Pipeline](./../.azure-pipelines/azure-pipelines-create-release.yml)
 [Merge Pipeline](./../.azure-pipelines/azure-pipelines-merge.yml)
 
-### Update AzureDevOpsCli-Released-Version-Check
-
-Update [AzureDevOpsCli-Released-Version-Check](https://dev.azure.com/ms/azure-devops-cli-extension/_build?definitionId=36) to run from the branch which was used to do the release.
-This release runs periodically and makes sure the released build works. Main validation here is dependency validation.
-Update Job 'Run_Test_From_Old_Release' in YAML to pick up the new released branch to run tests.
-
 ### Update Azure DevOps CLI-Released Version pipeline definition
 
 Update the [definition](https://dev.azure.com/ms/azure-devops-cli-extension/_build?definitionId=36&_a=summary) to run from the latest release branch as pushed above.
+
+This release runs periodically and makes sure the released build works. Main validation here is dependency validation.
+Update Job 'Run_Test_From_Old_Release' in YAML to pick up the new released branch to run tests.
