@@ -113,62 +113,62 @@ def list_extensions(include_built_in=None, include_disabled=None, organization=N
     return extensions
 
 
-def get_extension(publisher_name, extension_name, organization=None, detect=None):
+def get_extension(publisher_id, extension_name, organization=None, detect=None):
     """ Get detail of single extension
     """
     organization = resolve_instance(detect=detect, organization=organization)
     extension_client = get_extension_client(organization)
-    return extension_client.get_installed_extension_by_name(publisher_name=publisher_name,
+    return extension_client.get_installed_extension_by_name(publisher_name=publisher_id,
                                                             extension_name=extension_name)
 
 
-def install_extension(publisher_name, extension_name, organization=None, detect=None):
+def install_extension(publisher_id, extension_name, organization=None, detect=None):
     """ Install an extension
     """
     organization = resolve_instance(detect=detect, organization=organization)
     extension_client = get_extension_client(organization)
-    return extension_client.install_extension_by_name(publisher_name=publisher_name,
+    return extension_client.install_extension_by_name(publisher_name=publisher_id,
                                                       extension_name=extension_name)
 
 
-def uninstall_extension(publisher_name, extension_name, organization=None, detect=None):
+def uninstall_extension(publisher_id, extension_name, organization=None, detect=None):
     """ Uninstall an extension
     """
     organization = resolve_instance(detect=detect, organization=organization)
     extension_client = get_extension_client(organization)
-    return extension_client.uninstall_extension_by_name(publisher_name=publisher_name,
+    return extension_client.uninstall_extension_by_name(publisher_name=publisher_id,
                                                         extension_name=extension_name)
 
 
-def enable_extension(publisher_name, extension_name, organization=None, detect=None):
+def enable_extension(publisher_id, extension_name, organization=None, detect=None):
     """ Enable an extension
     """
     return _update_extension_state(disable=False,
                                    enable=True,
-                                   publisher_name=publisher_name,
+                                   publisher_id=publisher_id,
                                    extension_name=extension_name,
                                    organization=organization,
                                    detect=detect)
 
 
-def disable_extension(publisher_name, extension_name, organization=None, detect=None):
+def disable_extension(publisher_id, extension_name, organization=None, detect=None):
     """ Disable an extension
     """
     return _update_extension_state(disable=True,
                                    enable=False,
-                                   publisher_name=publisher_name,
+                                   publisher_id=publisher_id,
                                    extension_name=extension_name,
                                    organization=organization,
                                    detect=detect)
 
 
 def _update_extension_state(disable, enable,
-                            publisher_name, extension_name,
+                            publisher_id, extension_name,
                             organization=None, detect=None):
     organization = resolve_instance(detect=detect, organization=organization)
     extension_client = get_extension_client(organization)
     current_extension = extension_client.get_installed_extension_by_name(
-        publisher_name=publisher_name,
+        publisher_name=publisher_id,
         extension_name=extension_name)
 
     state_from_service = str(current_extension.install_state.flags)
