@@ -154,8 +154,10 @@ def load_team_arguments(self, _):
                          help='Include built in extensions.')
         context.argument('include_disabled', arg_type=get_three_state_flag(),
                          help='Include disabled extensions.')
-        context.argument('publisher_name', help='Publisher Name')
-        context.argument('extension_name', help='Extension Name')
+        context.argument('publisher_id', help='Publisher Id. This will map to publisher-name \
+                          in the az devops extension search output. ')
+        context.argument('extension_id', help='Extension Id. This will map to extension-name \
+                          in the az devops extension search output.')
         context.argument('search_query', options_list=('--search-query', '-q'), help='Search term')
 
     with self.argument_context('devops') as context:
