@@ -10,11 +10,11 @@ import subprocess
 oldArguments = []
 newArguments = []
 allowedMissingArguments = {}
-allowedMissingArguments['devops extension uninstall'] = ['--extension-id', '--publisher-id']
-allowedMissingArguments['devops extension install'] = ['--extension-id', '--publisher-id']
-allowedMissingArguments['devops extension enable'] = ['--extension-id', '--publisher-id']
-allowedMissingArguments['devops extension disable'] = ['--extension-id', '--publisher-id']
-allowedMissingArguments['devops extension show'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension uninstall'] = ['--extension-name', '--publisher-name']
+allowedMissingArguments['devops extension install'] = ['--extension-name', '--publisher-name']
+allowedMissingArguments['devops extension enable'] = ['--extension-name', '--publisher-name']
+allowedMissingArguments['devops extension disable'] = ['--extension-name', '--publisher-name']
+allowedMissingArguments['devops extension show'] = ['--extension-name', '--publisher-name']
 
 allowedNewMandatoryArguments = {}
 allowedNewMandatoryArguments['devops extension uninstall'] = ['--extension-id', '--publisher-id']
