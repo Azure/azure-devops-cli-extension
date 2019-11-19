@@ -10,13 +10,18 @@ import subprocess
 oldArguments = []
 newArguments = []
 allowedMissingArguments = {}
-allowedMissingArguments['repos policy merge-strategy update'] = ['--use-squash-merge']
-allowedMissingArguments['repos policy merge-strategy create'] = ['--use-squash-merge']
-allowedMissingArguments['pipelines update'] = ['--name']
-
+allowedMissingArguments['devops extension uninstall'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension install'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension enable'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension disable'] = ['--extension-id', '--publisher-id']
+allowedMissingArguments['devops extension show'] = ['--extension-id', '--publisher-id']
 
 allowedNewMandatoryArguments = {}
-allowedNewMandatoryArguments['devops admin banner update'] = ['--id']
+allowedNewMandatoryArguments['devops extension uninstall'] = ['--extension-id', '--publisher-id']
+allowedNewMandatoryArguments['devops extension install'] = ['--extension-id', '--publisher-id']
+allowedNewMandatoryArguments['devops extension enable'] = ['--extension-id', '--publisher-id']
+allowedNewMandatoryArguments['devops extension disable'] = ['--extension-id', '--publisher-id']
+allowedNewMandatoryArguments['devops extension show'] = ['--extension-id', '--publisher-id']
 
 
 # Do not compare these commands
