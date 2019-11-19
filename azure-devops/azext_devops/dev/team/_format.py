@@ -18,8 +18,8 @@ def transform_extension_search_results_table_output(result):
 
 def _transform_extension_search_result_row(row):
     table_row = OrderedDict()
-    table_row['Publisher Id'] = row['publisher']['publisherName']
-    table_row['Extension Id'] = row['extensionName']
+    table_row['Publisher Name'] = row['publisher']['publisherName']
+    table_row['Extension Name'] = row['extensionName']
     table_row['Name'] = row['displayName']
 
     return table_row
