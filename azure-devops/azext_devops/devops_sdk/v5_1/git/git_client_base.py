@@ -2937,7 +2937,7 @@ class GitClientBase(Client):
     def create_repository(self, git_repository_to_create, project=None, source_ref=None):
         """CreateRepository.
         Create a git repository in a team project.
-        :param :class:`<GitRepositoryCreateOptions> <azure.devops.v5_1.git.models.GitRepositoryCreateOptions>` git_repository_to_create: Specify the repo name, team project and/or parent repository. Team project information can be ommitted from gitRepositoryToCreate if the request is project-scoped (i.e., includes project Id).
+        :param :class:`<GitRepositoryCreateOptions> <azure.devops.v5_1.git.models.GitRepositoryCreateOptions>` git_repository_to_create: Specify the repo name, team project and/or parent repository. Team project information can be omitted from gitRepositoryToCreate if the request is project-scoped (i.e., includes project Id).
         :param str project: Project ID or project name
         :param str source_ref: [optional] Specify the source refs to use while creating a fork repo
         :rtype: :class:`<GitRepository> <azure.devops.v5_1.git.models.GitRepository>`

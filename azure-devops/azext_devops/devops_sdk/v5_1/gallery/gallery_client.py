@@ -1619,7 +1619,7 @@ class GalleryClient(Client):
     def delete_review(self, pub_name, ext_name, review_id):
         """DeleteReview.
         [Preview API] Deletes a review
-        :param str pub_name: Name of the pubilsher who published the extension
+        :param str pub_name: Name of the publisher who published the extension
         :param str ext_name: Name of the extension
         :param long review_id: Id of the review which needs to be updated
         """
@@ -1639,7 +1639,7 @@ class GalleryClient(Client):
         """UpdateReview.
         [Preview API] Updates or Flags a review
         :param :class:`<ReviewPatch> <azure.devops.v5_1.gallery.models.ReviewPatch>` review_patch: ReviewPatch object which contains the changes to be applied to the review
-        :param str pub_name: Name of the pubilsher who published the extension
+        :param str pub_name: Name of the publisher who published the extension
         :param str ext_name: Name of the extension
         :param long review_id: Id of the review which needs to be updated
         :rtype: :class:`<ReviewPatch> <azure.devops.v5_1.gallery.models.ReviewPatch>`

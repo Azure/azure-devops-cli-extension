@@ -127,7 +127,7 @@ class ContributionConstraint(Model):
     :type name: str
     :param properties: Properties that are fed to the contribution filter class
     :type properties: :class:`object <azure.devops.v5_1.extension_management.models.object>`
-    :param relationships: Constraints can be optionally be applied to one or more of the relationships defined in the contribution. If no relationships are defined then all relationships are associated with the constraint. This means the default behaviour will elimiate the contribution from the tree completely if the constraint is applied.
+    :param relationships: Constraints can be optionally be applied to one or more of the relationships defined in the contribution. If no relationships are defined then all relationships are associated with the constraint. This means the default behaviour will eliminate the contribution from the tree completely if the constraint is applied.
     :type relationships: list of str
     """
 

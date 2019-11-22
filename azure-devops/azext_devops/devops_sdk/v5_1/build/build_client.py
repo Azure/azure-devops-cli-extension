@@ -818,7 +818,7 @@ class BuildClient(Client):
     def update_definition(self, definition, project, definition_id, secrets_source_definition_id=None, secrets_source_definition_revision=None):
         """UpdateDefinition.
         Updates an existing definition.
-        :param :class:`<BuildDefinition> <azure.devops.v5_1.build.models.BuildDefinition>` definition: The new version of the defintion.
+        :param :class:`<BuildDefinition> <azure.devops.v5_1.build.models.BuildDefinition>` definition: The new version of the definition.
         :param str project: Project ID or project name
         :param int definition_id: The ID of the definition.
         :param int secrets_source_definition_id:

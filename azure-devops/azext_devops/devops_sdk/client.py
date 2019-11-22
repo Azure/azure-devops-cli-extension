@@ -36,8 +36,8 @@ class Client(object):
         _base_client_models = {k: v for k, v in _models.__dict__.items() if isinstance(v, type)}
         self._base_deserialize = Deserializer(_base_client_models)
         self._base_serialize = Serializer(_base_client_models)
-        self._all_host_types_locations = None
-        self._locations = None
+        self._all_host_types_locations = {}
+        self._locations = {}
         self._suppress_fedauth_redirect = True
         self._force_msa_pass_through = True
         self.normalized_url = Client._normalize_url(base_url)
@@ -76,7 +76,7 @@ class Client(object):
                                                route_values=route_values,
                                                query_parameters=query_parameters)
         negotiated_version = self._negotiate_request_version(
-            self._get_resource_location(location_id),
+            self._get_resource_location(self.normalized_url, location_id),
             version)
 
         if version != negotiated_version:
@@ -116,10 +116,19 @@ class Client(object):
 
     def _create_request_message(self, http_method, location_id, route_values=None,
                                 query_parameters=None):
-        location = self._get_resource_location(location_id)
+        location = self._get_organization_resource_location(location_id)
+        deployment_level = False
+        deployment_url = None
         if location is None:
-            raise ValueError('API resource location ' + location_id + ' is not registered on '
-                             + self.config.base_url + '.')
+            logger.debug('API resource location ' + location_id + ' is not registered on ' + self.config.base_url + '.')
+            deployment_url = self._get_deployment_url()
+            if deployment_url is not None:
+                logger.debug('Checking for location at deployment level: ' + deployment_url)
+                location = self._get_resource_location(deployment_url, location_id)
+                deployment_level = True
+            if location is None:
+                raise ValueError('API resource location ' + location_id + ' is not registered on '
+                                 + self.config.base_url + '.')
         if route_values is None:
             route_values = {}
         route_values['area'] = location.area
@@ -127,8 +136,11 @@ class Client(object):
         route_template = self._remove_optional_route_parameters(location.route_template,
                                                                 route_values)
         logger.debug('Route template: %s', location.route_template)
-        url = self._client.format_url(route_template, **route_values)
-        request = ClientRequest(method=http_method, url=self._client.format_url(url))
+        if not deployment_level:
+            url = self._client.format_url(route_template, **route_values)
+        else:
+            url = self._client.format_url(deployment_url + route_template, **route_values)
+        request = ClientRequest(method=http_method, url=url)
         if query_parameters:
             request.format_parameters(query_parameters)
         return request
@@ -144,35 +156,46 @@ class Client(object):
                 new_template = new_template + '/' + path_segment
         return new_template
 
-    def _get_resource_location(self, location_id):
-        if self.config.base_url not in Client._locations_cache:
-            Client._locations_cache[self.config.base_url] = self._get_resource_locations(all_host_types=False)
-        for location in Client._locations_cache[self.config.base_url]:
+    def _get_organization_resource_location(self, location_id):
+        return self._get_resource_location(self.normalized_url, location_id)
+
+    def _get_deployment_url(self):
+        pos = self.normalized_url.rfind('/')
+        if pos > 0:
+            deployment_url = self.normalized_url[:pos]
+            if deployment_url.find('://') > 0:
+                return deployment_url
+        return None
+
+    def _get_resource_location(self, url, location_id):
+        if url not in Client._locations_cache:
+            Client._locations_cache[url] = self._get_resource_locations(url, all_host_types=False)
+        for location in Client._locations_cache[url]:
             if location.id == location_id:
                 return location
 
-    def _get_resource_locations(self, all_host_types):
+    def _get_resource_locations(self, url, all_host_types):
         # Check local client's cached Options first
         if all_host_types:
-            if self._all_host_types_locations is not None:
-                return self._all_host_types_locations
-        elif self._locations is not None:
-            return self._locations
+            if url in self._all_host_types_locations:
+                return self._all_host_types_locations[url]
+        elif url in self._locations:
+            return self._locations[url]
 
         # Next check for options cached on disk
-        if not all_host_types and OPTIONS_FILE_CACHE[self.normalized_url]:
+        if not all_host_types and OPTIONS_FILE_CACHE[url]:
             try:
-                logger.debug('File cache hit for options on: %s', self.normalized_url)
-                self._locations = self._base_deserialize.deserialize_data(OPTIONS_FILE_CACHE[self.normalized_url],
+                logger.debug('File cache hit for options on: %s', url)
+                self._locations[url] = self._base_deserialize.deserialize_data(OPTIONS_FILE_CACHE[url],
                                                                           '[ApiResourceLocation]')
-                return self._locations
+                return self._locations[url]
             except DeserializationError as ex:
                 logger.debug(ex, exc_info=True)
         else:
-            logger.debug('File cache miss for options on: %s', self.normalized_url)
+            logger.debug('File cache miss for options on: %s', url)
 
         # Last resort, make the call to the server
-        options_uri = self._combine_url(self.config.base_url, '_apis')
+        options_uri = self._combine_url(url, '_apis')
         request = ClientRequest(method='OPTIONS', url=self._client.format_url(options_uri))
         if all_host_types:
             query_parameters = {'allHostTypes': True}
@@ -190,11 +213,11 @@ class Client(object):
         returned_locations = self._base_deserialize('[ApiResourceLocation]',
                                                     collection)
         if all_host_types:
-            self._all_host_types_locations = returned_locations
+            self._all_host_types_locations[url] = returned_locations
         else:
-            self._locations = returned_locations
+            self._locations[url] = returned_locations
             try:
-                OPTIONS_FILE_CACHE[self.normalized_url] = wrapper.value
+                OPTIONS_FILE_CACHE[url] = wrapper.value
             except SerializationError as ex:
                 logger.debug(ex, exc_info=True)
         return returned_locations

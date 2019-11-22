@@ -630,7 +630,7 @@ class TfvcClient(Client):
         Get a collection of shallow label references.
         :param :class:`<TfvcLabelRequestData> <azure.devops.v5_1.tfvc.models.TfvcLabelRequestData>` request_data: labelScope, name, owner, and itemLabelFilter
         :param str project: Project ID or project name
-        :param int top: Max number of labels to return
+        :param int top: Max number of labels to return, defaults to 100 when undefined
         :param int skip: Number of labels to skip
         :rtype: [TfvcLabelRef]
         """

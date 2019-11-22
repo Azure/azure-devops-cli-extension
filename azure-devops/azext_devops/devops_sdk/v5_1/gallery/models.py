@@ -326,7 +326,7 @@ class ExtensionCategory(Model):
     :type category_id: int
     :param category_name: This is the internal name for a category
     :type category_name: str
-    :param language: This parameter is obsolete. Refer to LanguageTitles for langauge specific titles
+    :param language: This parameter is obsolete. Refer to LanguageTitles for language specific titles
     :type language: str
     :param language_titles: The list of all the titles of this category in various languages
     :type language_titles: list of :class:`CategoryLanguageTitle <azure.devops.v5_1.gallery.models.CategoryLanguageTitle>`
@@ -1414,7 +1414,7 @@ class QueryFilter(Model):
     :type page_number: int
     :param page_size: The page size defines the number of results the caller wants for this filter. The count can't exceed the overall query size limits.
     :type page_size: int
-    :param paging_token: The paging token is a distinct type of filter and the other filter fields are ignored. The paging token represents the continuation of a previously executed query. The information about where in the result and what fields are being filtered are embeded in the token.
+    :param paging_token: The paging token is a distinct type of filter and the other filter fields are ignored. The paging token represents the continuation of a previously executed query. The information about where in the result and what fields are being filtered are embedded in the token.
     :type paging_token: str
     :param sort_by: Defines the type of sorting to be applied on the results. The page slice is cut of the sorted results only.
     :type sort_by: int

@@ -489,7 +489,7 @@ class TeamRef(Model):
 
 class UserEntitlement(Model):
     """
-    A user entity with additional properties including thier license, extensions, and project membership
+    A user entity with additional properties including their license, extensions, and project membership
 
     :param access_level: User's access level denoted by a license.
     :type access_level: :class:`AccessLevel <azure.devops.v5_1.member_entitlement_management.models.AccessLevel>`

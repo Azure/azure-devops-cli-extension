@@ -1578,7 +1578,7 @@ class GitPullRequestCompletionOptions(Model):
     :type merge_commit_message: str
     :param merge_strategy: Specify the strategy used to merge the pull request during completion. If MergeStrategy is not set to any value, a no-FF merge will be created if SquashMerge == false. If MergeStrategy is not set to any value, the pull request commits will be squash if SquashMerge == true. The SquashMerge member is deprecated. It is recommended that you explicitly set MergeStrategy in all cases. If an explicit value is provided for MergeStrategy, the SquashMerge member will be ignored.
     :type merge_strategy: object
-    :param squash_merge: SquashMerge is deprecated. You should explicity set the value of MergeStrategy. If MergeStrategy is set to any value, the SquashMerge value will be ignored. If MergeStrategy is not set, the merge strategy will be no-fast-forward if this flag is false, or squash if true.
+    :param squash_merge: SquashMerge is deprecated. You should explicitly set the value of MergeStrategy. If MergeStrategy is set to any value, the SquashMerge value will be ignored. If MergeStrategy is not set, the merge strategy will be no-fast-forward if this flag is false, or squash if true.
     :type squash_merge: bool
     :param transition_work_items: If true, we will attempt to transition any work items linked to the pull request into the next logical state (i.e. Active -> Resolved)
     :type transition_work_items: bool
@@ -2470,7 +2470,7 @@ class GitTreeDiff(Model):
     """
     :param base_tree_id: ObjectId of the base tree of this diff.
     :type base_tree_id: str
-    :param diff_entries: List of tree entries that differ between the base and target tree.  Renames and object type changes are returned as a delete for the old object and add for the new object.  If a continuation token is returned in the response header, some tree entries are yet to be processed and may yeild more diff entries. If the continuation token is not returned all the diff entries have been included in this response.
+    :param diff_entries: List of tree entries that differ between the base and target tree.  Renames and object type changes are returned as a delete for the old object and add for the new object.  If a continuation token is returned in the response header, some tree entries are yet to be processed and may yield more diff entries. If the continuation token is not returned all the diff entries have been included in this response.
     :type diff_entries: list of :class:`GitTreeDiffEntry <azure.devops.v5_1.git.models.GitTreeDiffEntry>`
     :param target_tree_id: ObjectId of the target tree of this diff.
     :type target_tree_id: str

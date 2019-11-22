@@ -1246,7 +1246,7 @@ class WorkClient(Client):
     def update_team_days_off(self, days_off_patch, team_context, iteration_id):
         """UpdateTeamDaysOff.
         Set a team's days off for an iteration
-        :param :class:`<TeamSettingsDaysOffPatch> <azure.devops.v5_1.work.models.TeamSettingsDaysOffPatch>` days_off_patch: Team's days off patch containting a list of start and end dates
+        :param :class:`<TeamSettingsDaysOffPatch> <azure.devops.v5_1.work.models.TeamSettingsDaysOffPatch>` days_off_patch: Team's days off patch containing a list of start and end dates
         :param :class:`<TeamContext> <azure.devops.v5_1.work.models.TeamContext>` team_context: The team context for the operation
         :param str iteration_id: ID of the iteration
         :rtype: :class:`<TeamSettingsDaysOff> <azure.devops.v5_1.work.models.TeamSettingsDaysOff>`

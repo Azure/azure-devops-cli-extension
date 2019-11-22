@@ -1260,7 +1260,7 @@ class SubscriptionChannelWithAddress(Model):
 
 class SubscriptionDiagnostics(Model):
     """
-    Contains all the diagonstics settings for a subscription.
+    Contains all the diagnostics settings for a subscription.
 
     :param delivery_results: Diagnostics settings for retaining delivery results.  Used for Service Hooks subscriptions.
     :type delivery_results: :class:`SubscriptionTracing <azure.devops.v5_1.notification.models.SubscriptionTracing>`

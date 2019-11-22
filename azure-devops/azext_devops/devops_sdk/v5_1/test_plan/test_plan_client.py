@@ -505,7 +505,7 @@ class TestPlanClient(Client):
 
     def get_test_case_list(self, project, plan_id, suite_id, test_ids=None, configuration_ids=None, wit_fields=None, continuation_token=None, return_identity_ref=None, expand=None):
         """GetTestCaseList.
-        [Preview API] Get Test Case List return those test cases which have all the configuration Ids as mentioned in the optional paramter. If configuration Ids is null, it return all the test cases
+        [Preview API] Get Test Case List return those test cases which have all the configuration Ids as mentioned in the optional parameter. If configuration Ids is null, it return all the test cases
         :param str project: Project ID or project name
         :param int plan_id: ID of the test plan for which test cases are requested.
         :param int suite_id: ID of the test suite for which test cases are requested.

@@ -569,7 +569,7 @@ class UserEntitlementOperationResult(Model):
     """
 
     _attribute_map = {
-        'errors': {'key': 'errors', 'type': 'object'},
+        'errors': {'key': 'errors', 'type': '[{ key: int; value: str }]'},
         'is_success': {'key': 'isSuccess', 'type': 'bool'},
         'result': {'key': 'result', 'type': 'UserEntitlement'},
         'user_id': {'key': 'userId', 'type': 'str'}

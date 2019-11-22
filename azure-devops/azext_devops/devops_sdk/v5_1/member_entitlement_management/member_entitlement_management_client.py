@@ -136,7 +136,7 @@ class MemberEntitlementManagementClient(Client):
         [Preview API] Get direct members of a Group.
         :param str group_id: Id of the Group.
         :param int max_results: Maximum number of results to retrieve.
-        :param str paging_token: Paging Token from the previous page fetched. If the 'pagingToken' is null, the results would be fetched from the begining of the Members List.
+        :param str paging_token: Paging Token from the previous page fetched. If the 'pagingToken' is null, the results would be fetched from the beginning of the Members List.
         :rtype: :class:`<PagedGraphMemberList> <azure.devops.v5_1.member_entitlement_management.models.PagedGraphMemberList>`
         """
         route_values = {}

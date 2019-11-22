@@ -897,7 +897,7 @@ class PublisherEvent(Model):
     """
     Wrapper around an event which is being published
 
-    :param diagnostics: Add key/value pairs which will be stored with a published notification in the SH service DB.  This key/value pairs are for diagnostic purposes only and will have not effect on the delivery of a notificaton.
+    :param diagnostics: Add key/value pairs which will be stored with a published notification in the SH service DB.  This key/value pairs are for diagnostic purposes only and will have not effect on the delivery of a notification.
     :type diagnostics: dict
     :param event: The event being published
     :type event: :class:`Event <azure.devops.v5_1.service_hooks.models.Event>`
@@ -1121,7 +1121,7 @@ class Subscription(Model):
 
 class SubscriptionDiagnostics(Model):
     """
-    Contains all the diagonstics settings for a subscription.
+    Contains all the diagnostics settings for a subscription.
 
     :param delivery_results: Diagnostics settings for retaining delivery results.  Used for Service Hooks subscriptions.
     :type delivery_results: :class:`SubscriptionTracing <azure.devops.v5_1.microsoft._visual_studio._services._notifications._web_api.models.SubscriptionTracing>`

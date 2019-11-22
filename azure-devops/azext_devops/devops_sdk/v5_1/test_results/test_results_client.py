@@ -1053,16 +1053,16 @@ class TestResultsClient(Client):
         :param datetime min_last_updated_date: Minimum Last Modified Date of run to be queried (Mandatory).
         :param datetime max_last_updated_date: Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days).
         :param str state: Current state of the Runs to be queried.
-        :param [int] plan_ids: Plan Ids of the Runs to be queried, comma seperated list of valid ids.
+        :param [int] plan_ids: Plan Ids of the Runs to be queried, comma separated list of valid ids.
         :param bool is_automated: Automation type of the Runs to be queried.
         :param str publish_context: PublishContext of the Runs to be queried.
-        :param [int] build_ids: Build Ids of the Runs to be queried, comma seperated list of valid ids.
-        :param [int] build_def_ids: Build Definition Ids of the Runs to be queried, comma seperated list of valid ids.
+        :param [int] build_ids: Build Ids of the Runs to be queried, comma separated list of valid ids.
+        :param [int] build_def_ids: Build Definition Ids of the Runs to be queried, comma separated list of valid ids.
         :param str branch_name: Source Branch name of the Runs to be queried.
-        :param [int] release_ids: Release Ids of the Runs to be queried, comma seperated list of valid ids.
-        :param [int] release_def_ids: Release Definition Ids of the Runs to be queried, comma seperated list of valid ids.
-        :param [int] release_env_ids: Release Environment Ids of the Runs to be queried, comma seperated list of valid ids.
-        :param [int] release_env_def_ids: Release Environment Definition Ids of the Runs to be queried, comma seperated list of valid ids.
+        :param [int] release_ids: Release Ids of the Runs to be queried, comma separated list of valid ids.
+        :param [int] release_def_ids: Release Definition Ids of the Runs to be queried, comma separated list of valid ids.
+        :param [int] release_env_ids: Release Environment Ids of the Runs to be queried, comma separated list of valid ids.
+        :param [int] release_env_def_ids: Release Environment Definition Ids of the Runs to be queried, comma separated list of valid ids.
         :param str run_title: Run Title of the Runs to be queried.
         :param int top: Number of runs to be queried. Limit is 100
         :param str continuation_token: continuationToken received from previous batch or null for first batch. It is not supposed to be created (or altered, if received from last batch) by user.

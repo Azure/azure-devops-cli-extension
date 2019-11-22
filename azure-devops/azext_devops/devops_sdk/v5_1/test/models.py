@@ -366,7 +366,7 @@ class CloneOperationInformation(Model):
     :type source_plan: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
     :param source_project: Shallow reference of the source
     :type source_project: :class:`ShallowReference <azure.devops.v5_1.test.models.ShallowReference>`
-    :param state: Current state of the operation. When State reaches Suceeded or Failed, the operation is complete
+    :param state: Current state of the operation. When State reaches Succeeded or Failed, the operation is complete
     :type state: object
     :param url: Url for getting the clone information
     :type url: str
