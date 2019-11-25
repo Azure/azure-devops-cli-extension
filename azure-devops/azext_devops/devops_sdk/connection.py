@@ -109,8 +109,9 @@ class Connection(object):
             if not force and RESOURCE_FILE_CACHE[location_client.normalized_url]:
                 try:
                     logger.debug('File cache hit for resources on: %s', location_client.normalized_url)
-                    self._resource_areas = location_client._base_deserialize.deserialize_data(RESOURCE_FILE_CACHE[location_client.normalized_url],
-                                                                                              '[ResourceAreaInfo]')
+                    self._resource_areas = location_client._base_deserialize.deserialize_data(
+                        RESOURCE_FILE_CACHE[location_client.normalized_url],
+                        '[ResourceAreaInfo]')
                     return self._resource_areas
                 except Exception as ex:
                     logger.debug(ex, exc_info=True)

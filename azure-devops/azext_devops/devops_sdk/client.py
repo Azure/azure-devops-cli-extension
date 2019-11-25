@@ -187,7 +187,7 @@ class Client(object):
             try:
                 logger.debug('File cache hit for options on: %s', url)
                 self._locations[url] = self._base_deserialize.deserialize_data(OPTIONS_FILE_CACHE[url],
-                                                                          '[ApiResourceLocation]')
+                                                                               '[ApiResourceLocation]')
                 return self._locations[url]
             except DeserializationError as ex:
                 logger.debug(ex, exc_info=True)
