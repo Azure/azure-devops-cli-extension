@@ -59,7 +59,7 @@ def invoke(area=None, resource=None,
             try:
                 logger.info('trying to get locations from %s', x)
                 clientMock = Client(x, connection._creds)
-                resource_location_on_this_service = clientMock._get_resource_locations(all_host_types=True)
+                resource_location_on_this_service = clientMock._get_resource_locations(url=clientMock.normalized_url, all_host_types=True)
                 resource_locations.extend(resource_location_on_this_service)
             except:  # pylint: disable=bare-except
                 logger.info('Failed to get location for %s', x)
@@ -83,7 +83,7 @@ def invoke(area=None, resource=None,
     # there can be multiple resource/ area with different version so this version comparision is needed
     location_id = ''
     current_version = 0.0
-    resource_locations = client._get_resource_locations(all_host_types=True)
+    resource_locations = client._get_resource_locations(url=client.normalized_url, all_host_types=True)
     for resource_location in resource_locations:
         if (resource.lower() == resource_location.resource_name.lower() and
                 area.lower() == resource_location.area.lower()):

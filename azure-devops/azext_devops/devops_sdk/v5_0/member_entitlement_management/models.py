@@ -569,7 +569,9 @@ class UserEntitlementOperationResult(Model):
     """
 
     _attribute_map = {
-        'errors': {'key': 'errors', 'type': '[{ key: int; value: str }]'},
+        # Errors type is hardcoded as object in the client for handling errors 
+        # See https://github.com/Azure/azure-devops-cli-extension/pull/554 for more info
+        'errors': {'key': 'errors', 'type': 'object'},
         'is_success': {'key': 'isSuccess', 'type': 'bool'},
         'result': {'key': 'result', 'type': 'UserEntitlement'},
         'user_id': {'key': 'userId', 'type': 'str'}
