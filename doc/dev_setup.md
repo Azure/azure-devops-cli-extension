@@ -24,12 +24,6 @@
    git checkout master
    ```
 
-1. Optionally, clone the Azure Devops Python SDK repository:
-
-   ```bash
-   git clone https://github.com/Microsoft/azure-devops-python-api
-   ```
-
 ## Create a virtual environment
 
 1. From the `azure-devops-cli-extension` directory, create a new virtual environment:
