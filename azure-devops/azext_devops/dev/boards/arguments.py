@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from azure.cli.core.commands.parameters import get_enum_type, get_three_state_flag
-_EXPAND_TYPES = ['none', 'relations', 'fields', 'links', 'all']
+_EXPAND_TYPES = ['relations', 'fields', 'links', 'all']
 
 
 def load_work_arguments(self, _):
