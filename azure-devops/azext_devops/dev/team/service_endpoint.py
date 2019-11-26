@@ -22,7 +22,7 @@ from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
 logger = get_logger(__name__)
 
 
-# pylint: disable=too-few-public-methods
+# pylint: disable=too-few-public-methods, too-many-instance-attributes
 class ServiceEndpointAuthorized():
     _attribute_map = {
         'service_endpoint_parameters': {'key': 'service_endpoint_parameters', 'type': 'ServiceEndpoint'},
@@ -201,7 +201,7 @@ def create_service_endpoint(service_endpoint_configuration,
     return client.create_service_endpoint(service_endpoint_to_create, project)
 
 
-def update_service_endpoint(id, enable_for_all=None, organization=None,
+def update_service_endpoint(id, enable_for_all=None, organization=None,  # pylint: disable=redefined-builtin
                             project=None, detect=None):
     """Update a service endpoint
     :param id: ID of the service endpoint.
@@ -220,6 +220,6 @@ def update_service_endpoint(id, enable_for_all=None, organization=None,
     set_authorize_resource(
         authorized=enable_for_all, res_id=se.id, name=se.name, res_type='endpoint',
         organization=organization, project=project)
-    
+
     authorized = get_authorize_resource(res_id=se.id, res_type='endpoint', organization=organization, project=project)
     return ServiceEndpointAuthorized(service_endpoint_parameters=se, authorized=authorized)
