@@ -316,6 +316,10 @@ def update_policy_merge_strategy(policy_id,
         if [i for i, value in enumerate(current_setting_new_merge_values_array) if value is not None]:
             param_name_array = ['allowSquash', 'allowRebase', 'allowRebaseMerge', 'allowNoFastForward']
             param_value_array = current_setting_new_merge_values_array
+            # We cannot send setting as None in the API
+            for i, value in enumerate(param_value_array):
+                if value is None:
+                    param_value_array[i] = False
         # Current setting is legacy option
         else:
             param_name_array = ['useSquashMerge']
