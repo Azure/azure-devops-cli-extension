@@ -7,6 +7,7 @@ from azext_devops.dev.common.exception_handler import azure_devops_exception_han
 from ._format import (transform_project_table_output,
                       transform_projects_table_output,
                       transform_service_endpoints_table_output,
+                      transform_authorized_service_endpoint_table_output,
                       transform_groups_table_output,
                       transform_group_table_output,
                       transform_memberships_table_output,
@@ -111,6 +112,8 @@ def load_team_commands(self, _):
         g.command('list', 'list_service_endpoints', table_transformer=transform_service_endpoints_table_output)
         g.command('show', 'show_service_endpoint')  # no table transform because type is not well defined
         g.command('create', 'create_service_endpoint', is_preview=True)
+        g.command('update', 'update_service_endpoint', is_preview=True,
+                  table_transformer=transform_authorized_service_endpoint_table_output)
         g.command('azurerm create', 'create_azurerm_service_endpoint')
         g.command('github create', 'create_github_service_endpoint')
         g.command('delete', 'delete_service_endpoint',

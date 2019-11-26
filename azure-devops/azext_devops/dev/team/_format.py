@@ -103,6 +103,24 @@ def _transform_service_endpoint_row(row):
     return table_row
 
 
+def transform_authorized_service_endpoint_table_output(result):
+    table_output = []
+    table_output.append(_transform_authorized_service_endpoint_row(result))
+    return table_output
+
+
+def _transform_authorized_service_endpoint_row(row):
+    table_row = OrderedDict()
+    table_row['ID'] = row['id']
+    table_row['Allow Pipelines'] = row['authorized']
+    table_row['Name'] = row['name']
+    table_row['Type'] = row['type']
+    table_row['Is Ready'] = row['isReady']
+    table_row['Created By'] = row['createdBy']['displayName']
+
+    return table_row
+
+
 def transform_groups_table_output(result):
     table_output = []
     if result['continuationToken'] is not None:
