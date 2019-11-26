@@ -10,6 +10,7 @@ from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.devops_sdk.exceptions import AzureDevOpsServiceError
 from azext_devops.devops_sdk.v5_0.work_item_tracking.models import JsonPatchOperation, Wiql
+from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
 from azext_devops.dev.common.identities import (ME, get_current_identity,
                                                 resolve_identity,
                                                 get_account_from_identity)
@@ -199,10 +200,16 @@ def _handle_vsts_service_error(ex):
     raise CLIError(ex)
 
 
-def show_work_item(id, open=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def show_work_item(id, as_of=None, expand=None, fields=None, open=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details for a work item.
     :param id: The ID of the work item
     :type id: int
+    :param as_of: AsOf date time string Example: '2019-01-20 00:20:00'
+    :type as_of:string
+    :param expand: The expand parameters for work item attributes.
+    :type expand:str
+    :param fields: Comma-separated list of requested fields. Example:System.Id,System.AreaPath
+    :type fields: str
     :param open: Open the work item in the default web browser.
     :type open: bool
     :rtype: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItem>`
@@ -210,7 +217,12 @@ def show_work_item(id, open=False, organization=None, detect=None):  # pylint: d
     organization = resolve_instance(detect=detect, organization=organization)
     try:
         client = get_work_item_tracking_client(organization)
-        work_item = client.get_work_item(id, expand='All')
+        as_of_iso = None
+        if as_of:
+            as_of_iso = convert_date_string_to_iso8601(value=as_of, argument='as_of')
+        if fields:
+            fields = fields.split(',')
+        work_item = client.get_work_item(id, as_of=as_of_iso, fields=fields, expand=expand)
     except AzureDevOpsServiceError as ex:
         _handle_vsts_service_error(ex)
 

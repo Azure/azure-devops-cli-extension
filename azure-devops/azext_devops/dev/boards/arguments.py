@@ -2,7 +2,9 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
-from azure.cli.core.commands.parameters import get_three_state_flag
+
+from azure.cli.core.commands.parameters import get_enum_type, get_three_state_flag
+_EXPAND_TYPES = ['none', 'relations', 'fields', 'links', 'all']
 
 
 def load_work_arguments(self, _):
@@ -21,6 +23,9 @@ def load_work_arguments(self, _):
     with self.argument_context('boards work-item delete') as context:
         context.argument('yes', options_list=['--yes', '-y'], action='store_true',
                          help='Do not prompt for confirmation.')
+
+    with self.argument_context('boards work-item show') as context:
+        context.argument('expand', arg_type=get_enum_type(_EXPAND_TYPES))
 
     with self.argument_context('boards work-item relation') as context:
         context.argument('id', help='The ID of the work item')
