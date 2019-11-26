@@ -65,6 +65,50 @@ class TestWorkItemMethods(AuthenticatedTests):
         assert response.id == test_work_item_id
 
 
+    def test_show_work_item_correct_id_fields(self):
+
+        test_work_item_id = 1
+
+        # set return values
+        self.mock_get_WI.return_value.id = test_work_item_id
+
+        response = show_work_item(id=test_work_item_id, fields='System.Id', organization=self._TEST_DEVOPS_ORGANIZATION)
+
+        # assert
+        self.mock_validate_token.assert_not_called()
+        self.mock_get_WI.assert_called_once_with(test_work_item_id, fields=['System.Id'] ,expand='none')
+        assert response.id == test_work_item_id
+
+    def test_show_work_item_correct_id_expand(self):
+
+        test_work_item_id = 1
+
+        # set return values
+        self.mock_get_WI.return_value.id = test_work_item_id
+
+        response = show_work_item(id=test_work_item_id, expand='relations', organization=self._TEST_DEVOPS_ORGANIZATION)
+
+        # assert
+        self.mock_validate_token.assert_not_called()
+        self.mock_get_WI.assert_called_once_with(test_work_item_id,expand='relations')
+        assert response.id == test_work_item_id
+
+    def test_show_work_item_correct_id_as_of(self):
+
+        test_work_item_id = 1
+
+        # set return values
+        self.mock_get_WI.return_value.id = test_work_item_id
+        as_of_date = '2019-20-10'
+        response = show_work_item(id=test_work_item_id, as_of=as_of_date, organization=self._TEST_DEVOPS_ORGANIZATION)
+
+        # assert
+        self.mock_validate_token.assert_not_called()
+        from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
+        iso_date = convert_date_string_to_iso8601(as_of_date)
+        self.mock_get_WI.assert_called_once_with(test_work_item_id,as_of=iso_date)
+        assert response.id == test_work_item_id
+
     def test_show_work_item_correct_id_open_browser(self):
 
         test_work_item_id = 1
