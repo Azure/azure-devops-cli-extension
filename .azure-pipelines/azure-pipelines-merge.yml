@@ -17,7 +17,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   - template: templates/setup-ci-machine.yml
@@ -31,7 +31,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   - template: templates/setup-ci-machine.yml
@@ -51,7 +51,7 @@ jobs:
   
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.7'
+      pythonVersion: '3.x'
 
   - script: 'python setup.py sdist bdist_wheel'
     displayName: 'Build wheel for Azure DevOps CLI extension'
@@ -78,7 +78,7 @@ jobs:
       Python36:
         python.version: '3.6.x'
       Python37:
-        python.version: '3.7'
+        python.version: '3.x'
     maxParallel: 3
 
   steps:
@@ -96,7 +96,7 @@ jobs:
   steps:
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.7'
+      pythonVersion: '3.x'
 
 - job: 'Run_Test_Mac_Azure_CLI_Released_Version'
   dependsOn : Build_Publish_Azure_CLI_Test_SDK
@@ -106,7 +106,7 @@ jobs:
   steps:
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.7'
+      pythonVersion: '3.x'
       runWithAzureCliReleased: 'true'
 
 - job: 'Code_Coverage'
@@ -117,7 +117,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   - template: templates/install-azure-cli-edge.yml
@@ -154,7 +154,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   - template: templates/install-azure-cli-edge.yml
@@ -179,7 +179,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   - template: templates/install-azure-cli-edge.yml
@@ -208,7 +208,7 @@ jobs:
 
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.7'
+      pythonVersion: '3.x'
       runOnlyRecordedTests: 'true'
 
 - job: 'Check_Back_Compat_Arguments'
@@ -218,7 +218,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.7'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   - template: templates/setup-ci-machine.yml
