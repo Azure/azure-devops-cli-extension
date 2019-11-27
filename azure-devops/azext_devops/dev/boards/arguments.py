@@ -26,6 +26,7 @@ def load_work_arguments(self, _):
 
     with self.argument_context('boards work-item show') as context:
         context.argument('expand', arg_type=get_enum_type(_EXPAND_TYPES))
+        context.argument('fields', nargs='*', options_list=('--fields', '-f'))
 
     with self.argument_context('boards work-item relation') as context:
         context.argument('id', help='The ID of the work item')

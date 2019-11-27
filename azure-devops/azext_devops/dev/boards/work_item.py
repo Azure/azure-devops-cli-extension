@@ -208,7 +208,9 @@ def show_work_item(id, as_of=None, expand=None, fields=None, open=False, organiz
     :type as_of:string
     :param expand: The expand parameters for work item attributes.
     :type expand:str
-    :param fields: Comma-separated list of requested fields. Example:System.Id,System.AreaPath
+    :param fields: Comma-separated list of requested fields. Example:System.Id,System.AreaPath.
+    Refer https://docs.microsoft.com/en-us/rest/api/azure/devops/wit/fields/list?view=azure-devops-rest-5.0
+    for more details on fields.
     :type fields: str
     :param open: Open the work item in the default web browser.
     :type open: bool
