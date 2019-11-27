@@ -61,7 +61,7 @@ class TestWorkItemMethods(AuthenticatedTests):
 
         # assert
         self.mock_validate_token.assert_not_called()
-        self.mock_get_WI.assert_called_once_with(test_work_item_id, expand='All')
+        self.mock_get_WI.assert_called_once_with(test_work_item_id,as_of=None, expand=None, fields=None)
         assert response.id == test_work_item_id
 
 
@@ -76,7 +76,7 @@ class TestWorkItemMethods(AuthenticatedTests):
 
         # assert
         self.mock_validate_token.assert_not_called()
-        self.mock_get_WI.assert_called_once_with(test_work_item_id, fields=['System.Id'] ,expand='none')
+        self.mock_get_WI.assert_called_once_with(test_work_item_id, as_of=None, fields=['System.Id'] ,expand=None)
         assert response.id == test_work_item_id
 
     def test_show_work_item_correct_id_expand(self):
@@ -90,7 +90,7 @@ class TestWorkItemMethods(AuthenticatedTests):
 
         # assert
         self.mock_validate_token.assert_not_called()
-        self.mock_get_WI.assert_called_once_with(test_work_item_id,expand='relations')
+        self.mock_get_WI.assert_called_once_with(test_work_item_id,as_of=None, fields=None, expand='relations')
         assert response.id == test_work_item_id
 
     def test_show_work_item_correct_id_as_of(self):
@@ -99,14 +99,14 @@ class TestWorkItemMethods(AuthenticatedTests):
 
         # set return values
         self.mock_get_WI.return_value.id = test_work_item_id
-        as_of_date = '2019-20-10'
+        as_of_date = '2019-01-01'
         response = show_work_item(id=test_work_item_id, as_of=as_of_date, organization=self._TEST_DEVOPS_ORGANIZATION)
 
         # assert
         self.mock_validate_token.assert_not_called()
         from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
         iso_date = convert_date_string_to_iso8601(as_of_date)
-        self.mock_get_WI.assert_called_once_with(test_work_item_id,as_of=iso_date)
+        self.mock_get_WI.assert_called_once_with(test_work_item_id,as_of=iso_date, expand=None, fields=None)
         assert response.id == test_work_item_id
 
     def test_show_work_item_correct_id_open_browser(self):
@@ -121,7 +121,7 @@ class TestWorkItemMethods(AuthenticatedTests):
         # assert
         self.mock_open_browser.assert_called_with(response,self._TEST_DEVOPS_ORGANIZATION)
         self.mock_validate_token.assert_not_called()
-        self.mock_get_WI.assert_called_once_with(test_work_item_id, expand='All')
+        self.mock_get_WI.assert_called_once_with(test_work_item_id, as_of=None, expand=None, fields=None)
 
 
     def test_show_work_item_raises_exception_invalid_id(self):
@@ -135,7 +135,7 @@ class TestWorkItemMethods(AuthenticatedTests):
         self.assertEqual(str(exc.exception),r'TF401232: Work item 1000 does not exist, or you do not have permissions to read it.')
 
         #assert
-        self.mock_get_WI.assert_called_once_with(test_work_item_id, expand='All')
+        self.mock_get_WI.assert_called_once_with(test_work_item_id, as_of=None, expand=None, fields=None)
         self.mock_validate_token.assert_not_called()
 
 
