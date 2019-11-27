@@ -43,6 +43,8 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
     :param discussion: Comment to add to a discussion in a work item.
     :type discussion: str
     :param fields: Space separated "field=value" pairs for custom fields you would like to set.
+    Refer https://docs.microsoft.com/en-us/rest/api/azure/devops/wit/fields/list?view=azure-devops-rest-5.0
+    for more details on fields.
     :type fields: [str]
     :param open: Open the work item in the default web browser.
     :type open: bool
@@ -115,6 +117,8 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
     :param discussion: Comment to add to a discussion in a work item.
     :type discussion: str
     :param fields: Space separated "field=value" pairs for custom fields you would like to set.
+    Refer https://docs.microsoft.com/en-us/rest/api/azure/devops/wit/fields/list?view=azure-devops-rest-5.0
+    for more details on fields.
     :type fields: [str]
     :param open: Open the work item in the default web browser.
     :type open: bool
