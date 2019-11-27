@@ -8,13 +8,13 @@ import unittest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/gsaralprivate'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 class BoardsRelationsTest(DevopsScenarioTest):
     def validate_relation_count_on_work_item(self, work_item_set, relation_count_set):
         index = 0
         for work_item in work_item_set:
-            show_work_item_command = "az boards work-item show --id {0} --detect false --output json".format(work_item['id'])
+            show_work_item_command = "az boards work-item show --id {0} --detect false --output json --expand relations".format(work_item['id'])
             work_item = self.cmd(show_work_item_command).get_output_in_json()
             if work_item['relations'] == None:
                 assert relation_count_set[index] == 0
