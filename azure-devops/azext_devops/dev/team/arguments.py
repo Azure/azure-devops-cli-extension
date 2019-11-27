@@ -82,6 +82,11 @@ def load_team_arguments(self, _):
                          help='Encoding of the input file.',
                          **enum_choice_list(_FILE_ENCODING_TYPE_VALUES))
 
+    with self.argument_context('devops service-endpoint update') as context:
+        context.argument('enable_for_all',
+                         help='Allow all pipelines to access this service endpoint.',
+                         arg_type=get_three_state_flag())
+
     with self.argument_context('devops invoke') as context:
         context.argument('route_parameters', nargs='*',
                          help='Specifies the list of route parameters')

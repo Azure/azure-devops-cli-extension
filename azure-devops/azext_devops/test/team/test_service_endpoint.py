@@ -19,7 +19,8 @@ from azext_devops.dev.team.service_endpoint import (list_service_endpoints,
                                                     create_service_endpoint,
                                                     create_github_service_endpoint,
                                                     create_azurerm_service_endpoint,
-                                                    delete_service_endpoint)
+                                                    delete_service_endpoint,
+                                                    update_service_endpoint)
 
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.test.utils.authentication import AuthenticatedTests
@@ -39,12 +40,16 @@ class TestServiceEndpointMethods(AuthenticatedTests):
         self.get_SE_details_patcher = patch('azext_devops.devops_sdk.v5_0.service_endpoint.service_endpoint_client.ServiceEndpointClient.get_service_endpoint_details')
         self.create_SE_patcher = patch('azext_devops.devops_sdk.v5_0.service_endpoint.service_endpoint_client.ServiceEndpointClient.create_service_endpoint')
         self.delete_SE_patcher = patch('azext_devops.devops_sdk.v5_0.service_endpoint.service_endpoint_client.ServiceEndpointClient.delete_service_endpoint')
+        self.set_authorize_endpoint = patch('azext_devops.dev.pipelines.pipeline_utils.set_authorize_resource')
+        self.get_authorize_endpoint = patch('azext_devops.dev.pipelines.pipeline_utils.get_authorize_resource')
 
         self.mock_get_client = self.get_client.start()
         self.mock_get_SEs = self.get_SEs_patcher.start()
         self.mock_get_SE_detail = self.get_SE_details_patcher.start()
         self.mock_create_SE = self.create_SE_patcher.start()
         self.mock_delete_SE = self.delete_SE_patcher.start()
+        self.mock_set_authorize = self.set_authorize_endpoint.start()
+        self.mock_get_authorize = self.get_authorize_endpoint.start()
 
         #clear connection cache before running each test
         clear_connection_cache()
@@ -70,7 +75,29 @@ class TestServiceEndpointMethods(AuthenticatedTests):
         delete_service_endpoint(randomId, 'false', self._TEST_DEVOPS_ORGANIZATION, self._TEST_PROJECT_NAME)
 
         #assert 
-        self.mock_delete_SE(self._TEST_PROJECT_NAME, randomId, 'false')
+        self.mock_delete_SE.assert_called_once_with(self._TEST_PROJECT_NAME, randomId, 'false')
+
+    def test_update_service_endpoint(self):
+        randomId = 'abcdfe34343'
+        update_service_endpoint(id=randomId, enable_for_all=True, organization=self._TEST_DEVOPS_ORGANIZATION,
+                                project=self._TEST_PROJECT_NAME)
+
+        #assert 
+        self.mock_get_SE_detail.assert_called_once_with(self._TEST_PROJECT_NAME, randomId)
+        self.mock_set_authorize.assert_called_once()
+        self.mock_get_authorize.assert_called_once()
+
+
+    def test_update_without_params_service_endpoint(self):
+        randomId = 'abcdfe34343'
+        try:
+            update_service_endpoint(id=randomId, enable_for_all=None, organization=self._TEST_DEVOPS_ORGANIZATION,
+                                    project=self._TEST_PROJECT_NAME)
+        except CLIError as ex:
+            self.assertEqual(str(ex), 'Atleast one property to be updated must be specified.')
+            self.mock_get_SE_detail.assert_not_called()
+            self.mock_set_authorize.assert_not_called()
+            self.mock_get_authorize.assert_not_called()
 
     def test_create_service_endpoint_github(self):
         import os

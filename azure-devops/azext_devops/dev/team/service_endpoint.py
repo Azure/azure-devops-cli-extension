@@ -8,6 +8,7 @@ from __future__ import print_function
 import os
 from knack.log import get_logger
 from knack.prompting import prompt_pass
+from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
 from azext_devops.dev.common.services import get_service_endpoint_client, resolve_instance_and_project
 from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX, AZ_DEVOPS_GITHUB_PAT_ENVKEY
@@ -19,6 +20,32 @@ from .const import (SERVICE_ENDPOINT_AUTHORIZATION_PERSONAL_ACCESS_TOKEN,
                     SERVICE_ENDPOINT_TYPE_AZURE_RM)
 
 logger = get_logger(__name__)
+
+
+# pylint: disable=too-few-public-methods, too-many-instance-attributes
+class ServiceEndpointAuthorized():
+    _attribute_map = {
+        'service_endpoint_parameters': {'key': 'service_endpoint_parameters', 'type': 'ServiceEndpoint'},
+        'authorized': {'key': 'authorized', 'type': 'bool'}
+    }
+
+    def __init__(self, service_endpoint_parameters, authorized):
+        self.authorized = authorized if authorized is not None else False
+        self.administratorsGroup = service_endpoint_parameters.administrators_group
+        self.authorization = service_endpoint_parameters.authorization
+        self.createdBy = service_endpoint_parameters.created_by
+        self.data = service_endpoint_parameters.data
+        self.description = service_endpoint_parameters.description
+        self.groupScopeId = service_endpoint_parameters.group_scope_id
+        self.id = service_endpoint_parameters.id
+        self.isReady = service_endpoint_parameters.is_ready
+        self.isShared = service_endpoint_parameters.is_shared
+        self.name = service_endpoint_parameters.name
+        self.operationStatus = service_endpoint_parameters.operation_status
+        self.owner = service_endpoint_parameters.owner
+        self.readersGroup = service_endpoint_parameters.readers_group
+        self.type = service_endpoint_parameters.type
+        self.url = service_endpoint_parameters.url
 
 
 def list_service_endpoints(organization=None, project=None, detect=None):
@@ -172,3 +199,27 @@ def create_service_endpoint(service_endpoint_configuration,
     import json
     service_endpoint_to_create = json.loads(in_file_content)
     return client.create_service_endpoint(service_endpoint_to_create, project)
+
+
+def update_service_endpoint(id, enable_for_all=None, organization=None,  # pylint: disable=redefined-builtin
+                            project=None, detect=None):
+    """Update a service endpoint
+    :param id: ID of the service endpoint.
+    :type id: str
+    """
+    if enable_for_all is None:
+        raise CLIError('Atleast one property to be updated must be specified.')
+    organization, project = resolve_instance_and_project(detect=detect,
+                                                         organization=organization,
+                                                         project=project)
+    client = get_service_endpoint_client(organization)
+    se = client.get_service_endpoint_details(project, id)
+
+    # set authorization if get service endpoint succeeded
+    from azext_devops.dev.pipelines.pipeline_utils import set_authorize_resource, get_authorize_resource
+    set_authorize_resource(
+        authorized=enable_for_all, res_id=se.id, name=se.name, res_type='endpoint',
+        organization=organization, project=project)
+
+    authorized = get_authorize_resource(res_id=se.id, res_type='endpoint', organization=organization, project=project)
+    return ServiceEndpointAuthorized(service_endpoint_parameters=se, authorized=authorized)
