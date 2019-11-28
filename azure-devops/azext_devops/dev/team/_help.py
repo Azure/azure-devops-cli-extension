@@ -109,7 +109,7 @@ def load_team_help():
     """
 
     helps['devops security permission update'] = """
-    type: group
+    type: command
     short-summary: Assign allow or deny permission to given user/group.
     long-summary: Learn more at https://aka.ms/azure-devops-cli-security-permission
     examples:
