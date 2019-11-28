@@ -202,11 +202,13 @@ def _handle_vsts_service_error(ex):
     raise CLIError(ex)
 
 
-def show_work_item(id, as_of=None, expand=None, fields=None, open=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def show_work_item(id, as_of=None, expand='all', fields=None, open=False, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """Show details for a work item.
     :param id: The ID of the work item
     :type id: int
-    :param as_of: AsOf date time string Example: '2019-01-20 00:20:00'
+    :param as_of: Work item details as of a particular date and time. Provide a date or date time string.
+    Assumes local time zone. Example: '2019-01-20', '2019-01-20 00:20:00'.
+    For UTC, append 'UTC' to the date time string, '2019-01-20 00:20:00 UTC'.
     :type as_of:string
     :param expand: The expand parameters for work item attributes.
     :type expand:str
@@ -222,7 +224,7 @@ def show_work_item(id, as_of=None, expand=None, fields=None, open=False, organiz
         client = get_work_item_tracking_client(organization)
         as_of_iso = None
         if as_of:
-            as_of_iso = convert_date_string_to_iso8601(value=as_of, argument='as_of')
+            as_of_iso = convert_date_string_to_iso8601(value=as_of, argument='as-of')
         if fields:
             fields = fields.split(',')
         work_item = client.get_work_item(id, as_of=as_of_iso, fields=fields, expand=expand)

@@ -4,7 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from azure.cli.core.commands.parameters import get_enum_type, get_three_state_flag
-_EXPAND_TYPES = ['relations', 'fields', 'links', 'all']
+_EXPAND_TYPES = ['none', 'relations', 'fields', 'links', 'all']
 
 
 def load_work_arguments(self, _):
@@ -26,7 +26,7 @@ def load_work_arguments(self, _):
 
     with self.argument_context('boards work-item show') as context:
         context.argument('expand', arg_type=get_enum_type(_EXPAND_TYPES))
-        context.argument('fields', nargs='*', options_list=('--fields', '-f'))
+        context.argument('fields', options_list=('--fields', '-f'))
 
     with self.argument_context('boards work-item relation') as context:
         context.argument('id', help='The ID of the work item')

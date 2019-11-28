@@ -85,6 +85,7 @@ class CredentialStore:
                     keyring.delete_password(key, self._USERNAME)
             except Exception as ex:  # pylint: disable=broad-except
                 logger.debug("%s", ex)
+            finally:
                 file_token = self.get_PAT_from_file(key)
                 if file_token:
                     self.delete_PAT_from_file(key)
