@@ -175,6 +175,7 @@ def list_memberships(id, relationship='members', organization=None, detect=None)
 def add_membership(member_id, group_id, organization=None, detect=None):
     """Add membership.
     :param member_id: Descriptor of the group or Email Id of the user to be added.
+    User should already be a part of the organization. Use `az devops user add` command to add an user to organization.
     :type member_id: str
     :param group_id: Descriptor of the group to which member needs to be added.
     :type group_id: str
