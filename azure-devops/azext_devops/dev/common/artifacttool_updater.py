@@ -127,7 +127,7 @@ def _update_artifacttool(uri, release_id):
             release_dir = _compute_release_dir(release_id)
             if os.path.exists(release_dir):
                 logger.info(
-                    "The Universal Packages tool already exists at the location %s. Skipping download.", 
+                    "The Universal Packages tool already exists at the location %s. Skipping download.",
                     release_dir)
             else:
                 logger.debug("Moving downloaded ArtifactTool from %s to %s", release_temp_dir, release_dir)
