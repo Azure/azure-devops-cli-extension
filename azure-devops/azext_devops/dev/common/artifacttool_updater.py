@@ -9,6 +9,7 @@ import platform
 import shutil
 import stat
 import sys
+import time
 import uuid
 import zipfile
 
@@ -124,9 +125,22 @@ def _update_artifacttool(uri, release_id):
 
             # Move the release into the real releases location
             release_dir = _compute_release_dir(release_id)
-            logger.debug("Moving downloaded ArtifactTool from %s to %s", release_temp_dir, release_dir)
-            os.rename(release_temp_dir, release_dir)
-            logger.info("Downloaded Universal Packages tooling successfully")
+            if os.path.exists(release_dir):
+                logger.info("The Universal Packages tool already exists at the location %s. Skipping download.", release_dir)
+            else:
+                logger.debug("Moving downloaded ArtifactTool from %s to %s", release_temp_dir, release_dir)
+                # number of times to retry
+                retries = 10
+                for _ in range(retries - 1):
+                    try:
+                        os.rename(release_temp_dir, release_dir)
+                        break
+                    except BaseException as ex:
+                        logger.debug("An error occurred while renaming the Universal Packages tooling: %s. Retrying...", ex)
+                        time.sleep(1)
+                else:
+                    os.rename(release_temp_dir, release_dir)
+                logger.info("Downloaded Universal Packages tooling successfully")
         except BaseException as ex:  # pylint: disable=broad-except
             logger.error("An error occurred while extracting the Universal Packages tooling: %s", ex)
             logger.debug("Removing temporary directory %s", release_temp_dir)
