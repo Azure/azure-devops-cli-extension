@@ -126,7 +126,9 @@ def _update_artifacttool(uri, release_id):
             # Move the release into the real releases location
             release_dir = _compute_release_dir(release_id)
             if os.path.exists(release_dir):
-                logger.info("The Universal Packages tool already exists at the location %s. Skipping download.", release_dir)
+                logger.info(
+                    "The Universal Packages tool already exists at the location %s. Skipping download.", 
+                    release_dir)
             else:
                 logger.debug("Moving downloaded ArtifactTool from %s to %s", release_temp_dir, release_dir)
                 # number of times to retry
@@ -136,7 +138,8 @@ def _update_artifacttool(uri, release_id):
                         os.rename(release_temp_dir, release_dir)
                         break
                     except BaseException as ex:
-                        logger.debug("An error occurred while renaming the Universal Packages tooling: %s. Retrying...", ex)
+                        logger.debug(
+                            "An error occurred while renaming the Universal Packages tooling: %s. Retrying...", ex)
                         time.sleep(1)
                 else:
                     os.rename(release_temp_dir, release_dir)
