@@ -126,7 +126,7 @@ def _update_artifacttool(uri, release_id):
             # Move the release into the real releases location
             release_dir = _compute_release_dir(release_id)
             if os.path.exists(release_dir):
-                logger.info(
+                logger.warning(
                     "The Universal Packages tool already exists at the location %s. Skipping download.",
                     release_dir)
             else:
