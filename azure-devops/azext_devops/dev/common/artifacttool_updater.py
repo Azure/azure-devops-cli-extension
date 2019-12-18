@@ -137,7 +137,7 @@ def _update_artifacttool(uri, release_id):
                     try:
                         os.rename(release_temp_dir, release_dir)
                         break
-                    except BaseException as ex:
+                    except BaseException as ex: # pylint: disable=broad-except
                         logger.debug(
                             "An error occurred while renaming the Universal Packages tooling: %s. Retrying...", ex)
                         time.sleep(1)
