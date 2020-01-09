@@ -75,7 +75,8 @@ def _get_pat_token():
         token = prompt_pass('Token: ', confirm=False, help_string="The token (PAT) to authenticate with.")
         while not token:
             logger.warning('Please provide a PAT token.')
-            logger.warning('If you are using CTRL + V to paste the token, it won\'t work on windows command prompt or powershell - https://github.com/microsoft/knack/issues/160.')
+            logger.warning('If you are using CTRL + V to paste the token, it won\'t work on windows command prompt or powershell - '
+                           'https://github.com/microsoft/knack/issues/160.')
             logger.warning('Use right click or console menu to paste the token.')
             token = prompt_pass('Token: ', confirm=False, help_string="The token (PAT) to authenticate with.")
     except NoTTYException:
