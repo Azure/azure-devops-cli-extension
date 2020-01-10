@@ -73,7 +73,7 @@ def _verify_token(organization, token):
 def _get_pat_token():
     try:
         token = prompt_pass('Token: ', confirm=False, help_string="The token (PAT) to authenticate with.")
-        while not token:
+        while len(token) <= 1:
             logger.warning('Please provide a PAT token.')
             logger.warning('If you are using CTRL + V to paste the token, it won\'t work '
                            'on windows command prompt or powershell - '
