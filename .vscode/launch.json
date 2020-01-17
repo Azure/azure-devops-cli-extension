@@ -25,7 +25,7 @@
                 "WaitOnNormalExit",
                 "RedirectOutput"
             ],
-            "debugStdLib": true,
+            "justMyCode": false,
             "preLaunchTask": "BuildWheel",
             "env": {
                 "AZURE_EXTENSION_DIR": "${workspaceRoot}"

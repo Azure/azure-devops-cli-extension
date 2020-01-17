@@ -190,7 +190,7 @@ jobs:
 #    vmImage: 'macOS-10.13'
 #
 #  steps:
-#  - script: git checkout release-0.16.0
+#  - script: git checkout release-0.17.0
 #
 #  - template: templates/run-tests.yml
 #    parameters:
