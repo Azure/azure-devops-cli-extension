@@ -199,17 +199,17 @@ jobs:
       scriptPath: 'scripts/findEmptyHelpTexts.py' 
 
 - job: 'Run_Test_From_Old_Release'
- dependsOn : Build_Publish_Azure_CLI_Test_SDK
- pool:
-   vmImage: 'macOS-10.13'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'macOS-10.13'
 
- steps:
- - script: git checkout release-0.17.0
+  steps:
+  - script: git checkout release-0.17.0
 
- - template: templates/run-tests.yml
-   parameters:
-     pythonVersion: '3.x'
-     runOnlyRecordedTests: 'true'
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.x'
+      runOnlyRecordedTests: 'true'
 
 - job: 'Check_Back_Compat_Arguments'
   pool:
