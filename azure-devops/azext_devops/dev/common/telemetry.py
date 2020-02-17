@@ -67,7 +67,9 @@ def _is_telemetry_enabled():
     az_config = az_cli_ctx.config
     if az_config.has_option('core', 'collect_telemetry'):
         collect_telemetry = az_config.get('core', 'collect_telemetry')
-    return bool(collect_telemetry is None or collect_telemetry != 'no')
+    elif az_config.has_option('defaults', 'collect_telemetry'):
+        collect_telemetry = az_config.get('defaults', 'collect_telemetry')
+    return bool(collect_telemetry is None or collect_telemetry not in ('no', 'false', 'off', '0'))
 
 
 def _try_send_tracking_ci_event_async(organization=None):
