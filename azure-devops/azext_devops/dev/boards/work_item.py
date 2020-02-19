@@ -238,7 +238,7 @@ def show_work_item(id, as_of=None, expand='all', fields=None, open=False, organi
 
 # pylint: disable=too-many-statements
 def query_work_items(wiql=None, id=None, path=None, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
-    """Query for a list of work items.
+    """Query for a list of work items. Only supports flat queries.
     :param wiql: The query in Work Item Query Language format.  Ignored if --id or --path is specified.
     :type wiql: str
     :param id: The ID of an existing query.  Required unless --path or --wiql are specified.

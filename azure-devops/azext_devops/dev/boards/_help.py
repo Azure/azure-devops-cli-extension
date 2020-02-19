@@ -19,12 +19,6 @@ def load_boards_help():
     long-summary:
     """
 
-    helps['boards query'] = """
-    type: command
-    short-summary: Manage queries.
-    long-summary:
-    """
-
     helps['boards iteration'] = """
     type: group
     short-summary: Manage iterations.
