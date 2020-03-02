@@ -12,6 +12,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
+        $extensionUninstall = az extension remove -n azure-devops
         $extensions = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
         Foreach ($extension in $extensions)
         {
