@@ -94,6 +94,11 @@ jobs:
   - template: templates/run-tests.yml
     parameters:
       pythonVersion: '3.x'
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script : 'az extension list'
+
 
 - job: 'Code_Coverage'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
