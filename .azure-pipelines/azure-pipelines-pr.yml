@@ -94,10 +94,11 @@ jobs:
   - template: templates/run-tests.yml
     parameters:
       pythonVersion: '3.x'
+
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
-      script : 'az extension list'
+      script : 'az repos -h'
 
 
 - job: 'Code_Coverage'
