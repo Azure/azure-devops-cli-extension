@@ -2,7 +2,7 @@
 
 ## Install pre-reqs
 
-1. Install Python 2.7 or 3.5 or later from python.org, apt-get, or some other installer.
+1. Install Python 3.5 or later from python.org, apt-get, or some other installer.
 
 1. Install Virtual Python Environment (virtualenv):
 

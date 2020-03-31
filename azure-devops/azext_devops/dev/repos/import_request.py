@@ -22,7 +22,7 @@ def create_import_request(git_source_url, project=None, repository=None,
                           user_name=None,
                           git_service_endpoint_id=None,
                           organization=None, detect=None):
-    """Create a git import request (currently only supports import from public git source)
+    """Create a git import request
     :param repository: Name or ID of the repository to create the import request in.
     :type repository: str
     :param git_source_url: Url of the source git repository.

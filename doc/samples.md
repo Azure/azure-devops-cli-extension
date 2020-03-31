@@ -247,7 +247,7 @@ jobs:
 - job:
   displayName: 'macOS'
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'macOS-10.15'
   steps:
   - template: azure-pipelines-steps-mac.yml
 
