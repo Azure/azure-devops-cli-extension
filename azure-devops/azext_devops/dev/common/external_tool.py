@@ -65,7 +65,8 @@ class ProgressReportingExternalToolInvoker(ExternalToolInvoker):
     _spinner = None
 
     def run(self, command_args, env, initial_progress_text, stderr_handler):
-        with humanfriendly.Spinner(label=initial_progress_text, total=100, stream=sys.stderr) as self._spinner:
+        with humanfriendly.Spinner(  # pylint: disable=no-member
+            label=initial_progress_text, total=100, stream=sys.stderr) as self._spinner:
             self._spinner.step()
             # Start the process, process stderr for progress reporting, check the process result
             self.start(command_args, env)

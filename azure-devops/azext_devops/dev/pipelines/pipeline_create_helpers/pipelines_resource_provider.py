@@ -159,7 +159,7 @@ def poll_connection_ready(organization, project, connection_id):
     colorama.init()
     import humanfriendly
     import time
-    with humanfriendly.Spinner(label="Checking resource readiness") as spinner:
+    with humanfriendly.Spinner(label="Checking resource readiness") as spinner:  # pylint: disable=no-member
         se_client = get_service_endpoint_client(organization)
         while True:
             spinner.step()
