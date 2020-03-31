@@ -88,8 +88,9 @@ def _update_artifacttool(uri, release_id):
                 logger.debug("Trying to remove old release %s", item)
                 shutil.rmtree(path, ignore_errors=True)   # Failing cleanup is not fatal
 
-    with humanfriendly.Spinner(label="Downloading Universal Packages tooling ({})"
-                               .format(release_id), total=100, stream=sys.stderr) as spinner:
+    with humanfriendly.Spinner(  # pylint: disable=no-member
+            label="Downloading Universal Packages tooling ({})"
+            .format(release_id), total=100, stream=sys.stderr) as spinner:
         spinner.step()
         logger.debug("Downloading ArtifactTool from %s", uri)
 
