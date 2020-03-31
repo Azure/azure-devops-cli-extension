@@ -60,14 +60,8 @@ def set_tracking_data(**kwargs):
 
 
 def _is_telemetry_enabled():
-    from azure.cli.core import get_default_cli
-    collect_telemetry = None
-    # Read the telemetry flag from az cli config file not the az devops extension config file
-    az_cli_ctx = get_default_cli()
-    az_config = az_cli_ctx.config
-    if az_config.has_option('core', 'collect_telemetry'):
-        collect_telemetry = az_config.get('core', 'collect_telemetry')
-    return bool(collect_telemetry is None or collect_telemetry != 'no')
+    from azure.cli.core.telemetry import is_telemetry_enabled
+    return is_telemetry_enabled()
 
 
 def _try_send_tracking_ci_event_async(organization=None):
