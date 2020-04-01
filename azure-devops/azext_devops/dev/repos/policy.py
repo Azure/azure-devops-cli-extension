@@ -602,7 +602,7 @@ def update_policy_case_enforcement(policy_id,
         None,
         blocking if blocking is not None else current_policy.is_blocking,
         enabled if enabled is not None else current_policy.is_enabled,
-        '40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e',
+        '7ed39669-655c-494e-b4a0-a08b4da0fcce',
         ['enforceConsistentCase'],
         ['true']
     )
