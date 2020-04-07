@@ -146,7 +146,8 @@ def resolve_git_ref_heads(ref):
     :type ref: str
     :rtype: str
     """
-    if ref is not None and not ref.startswith(REF_HEADS_PREFIX) and not ref.startswith(REF_PULL_PREFIX) and not ref.startswith(REF_TAGS_PREFIX):
+    if (ref is not None and not ref.startswith(REF_HEADS_PREFIX) and
+            not ref.startswith(REF_PULL_PREFIX) and not ref.startswith(REF_TAGS_PREFIX)):
         ref = REF_HEADS_PREFIX + ref
     return ref
 
