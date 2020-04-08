@@ -104,7 +104,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     :param name: Name of the pipeline to queue. Ignored if --id is supplied.
     :type name: str
     :param branch: Name of the branch on which the pipeline run is to be queued. Example: refs/heads/master or master
-    or refs/pull/1/merge
+    or refs/pull/1/merge or refs/tags/tag
     :type branch: str
     :param folder_path: Folder path of pipeline. Default is root level folder.
     :type folder_path: str
