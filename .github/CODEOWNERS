@@ -2,7 +2,5 @@
 
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence,
-*       @ishitam8 @mitsha-microsoft
+*       @narula0781 @ashishonce @romil07
 
-# Owner for /doc directory in the root of your repository
-/doc/  @geverghe
