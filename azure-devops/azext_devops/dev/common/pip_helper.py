@@ -17,6 +17,7 @@ logger = get_logger(__name__)
 def install_keyring():
     _install_package('keyring~=17.1.1')
 
+
 def _run_pip(pip_exec_args):
     cmd = [sys.executable, '-m', 'pip'] + pip_exec_args + ['-vv', '--disable-pip-version-check', '--no-cache-dir']
     logger.debug('Running: %s', cmd)
@@ -29,6 +30,7 @@ def _run_pip(pip_exec_args):
         logger.debug(e)
         returncode = e.returncode
     return returncode
+
 
 def _install_package(package_name):
     logger.debug('installing %s', package_name)
