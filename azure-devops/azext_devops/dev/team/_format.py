@@ -67,9 +67,13 @@ def _transform_project_row(row):
                           VERSION_CONTROL_CAPABILITY_NAME,
                           VERSION_CONTROL_CAPABILITY_ATTRIBUTE_NAME)
     table_row = OrderedDict()
-    table_row['ID'] = row['id']
-    table_row['Name'] = row['name']
-    table_row['Visibility'] = row['visibility'].capitalize()
+    for key in row.keys():
+        outputKey = key
+        if (key == 'Description'):
+            continue
+        if (outputKey == 'id'):
+            outputKey = outputKey.capitalize();
+        table_row[outputKey] = row[key]
 
     if 'capabilities' in row:
         capabilities = row['capabilities']
