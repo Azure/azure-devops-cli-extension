@@ -7,6 +7,7 @@ import os
 import signal
 import subprocess
 import sys
+import traceback
 
 import humanfriendly
 from knack.log import get_logger
@@ -48,8 +49,12 @@ class ExternalToolInvoker:
             stderr = self._proc.stderr.read().decode('utf-8', 'ignore').strip()
             if stderr != "":
                 stderr = "\n{}".format(stderr)
-            raise CLIError("Process {proc} with PID {pid} exited with return code {code}{err}"
-                           .format(proc=self._args, pid=self._proc.pid, code=self._proc.returncode, err=stderr))
+            try:
+                raise CLIError("Process {proc} with PID {pid} exited with return code {code}{err}"
+                            .format(proc=self._args, pid=self._proc.pid, code=self._proc.returncode, err=stderr))
+            except:
+                traceback.print_exc()
+                sys.exit(self._proc.returncode)
         return self._proc
 
     def _sigint_handler(self):
