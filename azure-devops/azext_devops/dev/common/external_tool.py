@@ -50,8 +50,10 @@ class ExternalToolInvoker:
             if stderr != "":
                 stderr = "\n{}".format(stderr)
             try:
-                raise CLIError("Process {proc} with PID {pid} exited with return code {code}{err}"
-                    .format(proc=self._args, pid=self._proc.pid, code=self._proc.returncode, err=stderr))
+                raise CLIError(
+                    "Process {proc} with PID {pid} exited with return code {code}{err}"
+                    .format(proc=self._args, pid=self._proc.pid, code=self._proc.returncode, err=stderr)
+                )
             except:
                 traceback.print_exc()
                 sys.exit(self._proc.returncode)
