@@ -7,7 +7,6 @@ import json
 import os
 
 from knack.log import get_logger
-from knack.util import CLIError
 
 from azext_devops.dev.common.services import _get_credentials
 from azext_devops.dev.common.const import ARTIFACTTOOL_PAT_ENVKEY
@@ -100,7 +99,7 @@ def _log_message(json_line):
             ex = json_line['@x'] if '@x' in json_line else None
             if ex:
                 message = "{}\n{}".format(message, ex)
-            raise CLIError(message)
+                logger.error(message)
         if log_level == "Warning":
             logger.warning(message)
         elif log_level == "Information":
