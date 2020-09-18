@@ -7,6 +7,7 @@ import os
 import signal
 import subprocess
 import sys
+import traceback
 
 import humanfriendly
 from knack.log import get_logger
