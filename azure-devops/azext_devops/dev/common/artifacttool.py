@@ -99,7 +99,7 @@ def _log_message(json_line):
             ex = json_line['@x'] if '@x' in json_line else None
             if ex:
                 message = "{}\n{}".format(message, ex)
-                logger.error(message)
+            logger.error(message)
         if log_level == "Warning":
             logger.warning(message)
         elif log_level == "Information":
