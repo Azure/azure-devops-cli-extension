@@ -24,7 +24,7 @@ logger = get_logger(__name__)
 
 def create_work_item(work_item_type, title, description=None, assigned_to=None, area=None,
                      iteration=None, reason=None, discussion=None, fields=None, open=False,  # pylint: disable=redefined-builtin
-                     organization=None, project=None, detect=None):
+                     organization=None, project=None, detect=None, bypass_rules=False):
     r"""Create a work item.
     :param work_item_type: Name of the work item type (e.g. Bug).
     :type work_item_type: str
@@ -45,6 +45,8 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
     :param fields: Space separated "field=value" pairs for custom fields you would like to set.
     Refer https://aka.ms/azure-devops-cli-field-api for more details on fields.
     :type fields: [str]
+    :param bypass_rules: Do not enforce the work item type rules on this update.
+    :type bypass_rules: bool
     :param open: Open the work item in the default web browser.
     :type open: bool
     :rtype: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItem>`
@@ -85,7 +87,8 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
                 else:
                     raise ValueError('The --fields argument should consist of space separated "field=value" pairs.')
         client = get_work_item_tracking_client(organization)
-        work_item = client.create_work_item(document=patch_document, project=project, type=work_item_type)
+        work_item = client.create_work_item(document=patch_document, project=project, type=work_item_type
+                                            bypass_rules=bypass_rules)
         if open:
             _open_work_item(work_item, organization)
         return work_item
@@ -95,7 +98,7 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
 
 def update_work_item(id, title=None, description=None, assigned_to=None, state=None, area=None,  # pylint: disable=redefined-builtin
                      iteration=None, reason=None, discussion=None, fields=None, open=False,  # pylint: disable=redefined-builtin
-                     organization=None, detect=None):
+                     organization=None, detect=None, bypass_rules=False):
     r"""Update work items.
     :param id: The id of the work item to update.
     :type id: int
@@ -118,6 +121,8 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
     :param fields: Space separated "field=value" pairs for custom fields you would like to set.
     Refer https://aka.ms/azure-devops-cli-field-api for more details on fields.
     :type fields: [str]
+    :param bypass_rules: Do not enforce the work item type rules on this update.
+    :type bypass_rules: bool
     :param open: Open the work item in the default web browser.
     :type open: bool
     :rtype: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItem>`
@@ -156,7 +161,7 @@ def update_work_item(id, title=None, description=None, assigned_to=None, state=N
             else:
                 raise ValueError('The --fields argument should consist of space separated "field=value" pairs.')
     client = get_work_item_tracking_client(organization)
-    work_item = client.update_work_item(document=patch_document, id=id)
+    work_item = client.update_work_item(document=patch_document, id=id, bypass_rules=bypass_rules)
     if open:
         _open_work_item(work_item, organization)
     return work_item

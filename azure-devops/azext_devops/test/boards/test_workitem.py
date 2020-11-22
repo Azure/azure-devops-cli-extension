@@ -13,7 +13,7 @@ except ImportError:
     from mock import patch
 
 from azext_devops.dev.boards.work_item import (delete_work_item,
-                                            show_work_item)
+                                            show_work_item, create_work_item)
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
 from azext_devops.test.utils.authentication import AuthenticatedTests
@@ -38,7 +38,7 @@ class TestWorkItemMethods(AuthenticatedTests):
 
         #start the patchers
         self.mock_get_WI = self.get_WI_patcher.start()
-        self.mock_create_WI = self. create_WI_patcher.start()
+        self.mock_create_WI = self.create_WI_patcher.start()
         self.mock_delete_WI = self.delete_WI_patcher.start()
         self.mock_open_browser = self.open_in_browser_patcher.start()
 
@@ -62,6 +62,32 @@ class TestWorkItemMethods(AuthenticatedTests):
         # assert
         self.mock_validate_token.assert_not_called()
         self.mock_get_WI.assert_called_once_with(test_work_item_id,as_of=None, expand='all', fields=None)
+        assert response.id == test_work_item_id
+
+    def test_create_work_item_correct(self):
+
+        test_work_item_id = 1
+
+        # set return values
+        self.mock_create_WI.return_value.id = test_work_item_id
+
+        response = create_work_item(title="testtitle", work_item_type="Bug", project='testproject', organization=self._TEST_DEVOPS_ORGANIZATION)
+        # assert
+        self.mock_validate_token.assert_not_called()
+        self.mock_create_WI.assert_called_once_with(document=unittest.mock.ANY, type="Bug", project='testproject', bypass_rules=False)
+        assert response.id == test_work_item_id
+
+    def test_create_work_item_correct_bypass_rules(self):
+
+        test_work_item_id = 1
+
+        # set return values
+        self.mock_create_WI.return_value.id = test_work_item_id
+
+        response = create_work_item(title="testtitle", work_item_type="Bug", project='testproject', bypass_rules=True, organization=self._TEST_DEVOPS_ORGANIZATION)
+        # assert
+        self.mock_validate_token.assert_not_called()
+        self.mock_create_WI.assert_called_once_with(document=unittest.mock.ANY, type="Bug", project='testproject', bypass_rules=True)
         assert response.id == test_work_item_id
 
 
