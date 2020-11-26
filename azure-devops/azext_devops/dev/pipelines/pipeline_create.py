@@ -42,7 +42,7 @@ class YmlOptions:
 
 
 _GITHUB_REPO_TYPE = 'github'
-_AZURE_GIT_REPO_TYPE = 'tfsgit'
+_AZURE_GIT_REPO_TYPE = 'TfsGit'
 
 
 # pylint: disable=too-many-statements
@@ -123,7 +123,7 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
         repo_id = repository_name
         repository_url = 'https://github.com/' + repository_name
         api_url = get_github_repos_api_url(repository_name)
-    if repository_type.lower() == _AZURE_GIT_REPO_TYPE:
+    if repository_type.lower() == _AZURE_GIT_REPO_TYPE.lower():
         repo_id = _get_repository_id_from_name(organization, project, repository_name)
 
     if not service_connection and repository_type != _AZURE_GIT_REPO_TYPE:
