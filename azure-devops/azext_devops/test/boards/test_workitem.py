@@ -13,7 +13,8 @@ except ImportError:
     from mock import patch
 
 from azext_devops.dev.boards.work_item import (delete_work_item,
-                                            show_work_item, create_work_item)
+                                            show_work_item, 
+                                            create_work_item)
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
 from azext_devops.test.utils.authentication import AuthenticatedTests
