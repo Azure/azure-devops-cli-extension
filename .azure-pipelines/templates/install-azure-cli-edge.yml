@@ -11,15 +11,6 @@ steps:
   - script: 'pip uninstall azure-cli -y'
     displayName: 'Remove Azure CLI'
 
-  - script: 'set LIB=C:\OpenSSL-Win32\lib;%LIB%'
-    displayName: 'Including OpenSSL in lib path'
-
-  - script: 'set INCLUDE=C:\OpenSSL-Win32\include;%INCLUDE%'
-    displayName: 'Including OpenSSL in include path'
-
-  - script: 'pip install cryptography'
-    displayName: 'Install Cryptography'
-
   - script: 'pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge --upgrade-strategy eager'
     displayName: 'Install Azure CLI Edge'
 
