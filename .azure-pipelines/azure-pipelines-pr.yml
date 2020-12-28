@@ -224,6 +224,9 @@ jobs:
     vmImage: 'vs2017-win2016'
   
   steps:
+  - script: gem install chef-utils -v 16.6.14
+    displayName: 'Install chef utils'
+
   - script: gem install mdl
     displayName: 'Install markdown lint'
 
