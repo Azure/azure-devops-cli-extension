@@ -11,10 +11,10 @@ steps:
   - script: 'pip uninstall azure-cli -y'
     displayName: 'Remove Azure CLI'
 
-  - script: 'set LIB=C:\Program Files (x86)\OpenSSL-Win32\lib;%LIB%'
+  - script: 'set LIB=C:\OpenSSL-win64\lib;%LIB%'
     displayName: 'Including OpenSSL in lib path'
 
-  - script: 'set INCLUDE=C:\Program Files (x86)\OpenSSL-Win32\include;%INCLUDE%'
+  - script: 'set INCLUDE=C:\OpenSSL-win64\include;%INCLUDE%'
     displayName: 'Including OpenSSL in include path'
 
   - script: 'pip install cryptography'
