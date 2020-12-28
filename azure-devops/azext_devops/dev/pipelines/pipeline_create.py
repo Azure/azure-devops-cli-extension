@@ -126,7 +126,7 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
     if repository_type.lower() == _AZURE_GIT_REPO_TYPE.lower():
         repo_id = _get_repository_id_from_name(organization, project, repository_name)
 
-    if not service_connection and repository_type != _AZURE_GIT_REPO_TYPE:
+    if not service_connection and repository_type.lower() != _AZURE_GIT_REPO_TYPE.lower():
         service_connection = get_github_service_endpoint(organization, project)
 
     new_cix_client = get_new_cix_client(organization=organization)
@@ -378,7 +378,7 @@ def push_files_to_repository(organization, project, repo_name, branch, files, re
     commit_direct_to_branch = commit_choice == 0
     if repository_type == _GITHUB_REPO_TYPE:
         return push_files_github(files, repo_name, branch, commit_direct_to_branch)
-    if repository_type == _AZURE_GIT_REPO_TYPE:
+    if repository_type.lower() == _AZURE_GIT_REPO_TYPE.lower():
         return push_files_to_azure_repo(files, repo_name, branch, commit_direct_to_branch, organization, project)
     raise CLIError('File push failed: Repository type not supported.')
 
