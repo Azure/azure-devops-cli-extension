@@ -11,6 +11,9 @@ steps:
   - script: 'pip uninstall azure-cli -y'
     displayName: 'Remove Azure CLI'
 
+  - script: 'pip install -U pip'
+    displayName: 'Upgrade pip'
+
   - script: 'pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge --upgrade-strategy eager'
     displayName: 'Install Azure CLI Edge'
 
