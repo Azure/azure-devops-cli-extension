@@ -11,10 +11,7 @@ steps:
   - script: 'pip uninstall azure-cli -y'
     displayName: 'Remove Azure CLI'
 
-  - script: 'pip install pyOpenSSL'
-    displayName: 'Install pyopenssl'
-
-  - script: 'pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge --upgrade-strategy eager'
+  - script: 'pip install --pre azure-cli==2.14.2 --extra-index-url https://azurecliprod.blob.core.windows.net/edge --upgrade-strategy eager'
     displayName: 'Install Azure CLI Edge'
 
   - script: 'python --version'
