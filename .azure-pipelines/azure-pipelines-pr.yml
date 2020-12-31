@@ -163,7 +163,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.x'
+      versionSpec: '3.8'
       architecture: 'x64'
 
   - template: templates/install-azure-cli-edge.yml
