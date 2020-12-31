@@ -91,7 +91,7 @@ jobs:
 
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.x'
+      pythonVersion: '3.8'
 
 - job: 'Code_Coverage'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
@@ -163,7 +163,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.8'
+      versionSpec: '3.x'
       architecture: 'x64'
 
   - template: templates/install-azure-cli-edge.yml
@@ -202,7 +202,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.x'
+      versionSpec: '3.8'
       architecture: 'x64'
 
   - template: templates/setup-ci-machine.yml
