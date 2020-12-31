@@ -236,7 +236,11 @@ jobs:
 - job: 'Run_Markdown_Lint_Check'
   pool:
     vmImage: 'vs2017-win2016'
-  
+
+  steps:
+  - script: gem install chef-utils -v 16.6.14
+    displayName: 'Install chef utils'
+
   steps:
   - script: gem install mdl
     displayName: 'Install markdown lint'
