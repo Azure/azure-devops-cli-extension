@@ -241,7 +241,6 @@ jobs:
   - script: gem install chef-utils -v 16.6.14
     displayName: 'Install chef utils'
 
-  steps:
   - script: gem install mdl
     displayName: 'Install markdown lint'
 
