@@ -60,7 +60,7 @@ jobs:
   - task: AzureFileCopy@2
     displayName: 'Publish wheel to azure storage'
     inputs:
-      sourcePath: 'azure-devops/dist/azure_devops-0.19.0-py2.py3-none-any.whl'
+      sourcePath: 'azure-devops/dist/azure_devops-0.20.0-py2.py3-none-any.whl'
       azureConnectionType: 'ConnectedServiceNameARM'
       azureSubscription: 'CodeLens_Test (6bd70c51-ff44-4c89-9212-8d3f10e2a90a)'
       destination: 'azureBlob'
@@ -202,7 +202,7 @@ jobs:
     vmImage: 'macOS-10.15'
 
   steps:
-  - script: git checkout release-0.18.0
+  - script: git checkout release-0.19.0
 
   - template: templates/run-tests.yml
     parameters:
