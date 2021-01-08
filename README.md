@@ -17,7 +17,7 @@ The Azure DevOps Extension for Azure CLI adds Pipelines, Boards, Repos, Artifact
     If the CLI can open your default browser, it will do so and load a sign-in page. Otherwise, you need to open a
     browser page and follow the instructions on the command line to enter an authorization code after navigating to
     [https://aka.ms/devicelogin](https://aka.ms/devicelogin) in your browser. For more information, see the
-    [Azure CLI login page](https://docs.microsoft.com/cli/azure/authenticate-azure-cli?view=azure-cli-latest).
+    [Azure CLI login page](https://docs.microsoft.com/cli/azure/authenticate-azure-cli).
 
 See the [Get started guide](https://docs.microsoft.com/azure/devops/cli/get-started?view=azure-devops) for detailed setup instructions.
 
@@ -63,7 +63,7 @@ Commands:
 
 - Checkout the CLI docs at [docs.microsoft.com - Azure DevOps CLI](https://docs.microsoft.com/azure/devops/cli/).
 - Check out other examples in the [How-to guides](https://docs.microsoft.com/azure/devops/cli/?view=azure-devops#how-to-guides) section.
-- You can view the various commands and its usage here - [docs.microsoft.com - Azure DevOps Extension Reference](https://docs.microsoft.com/cli/azure/ext/azure-devops/?view=azure-cli-latest)
+- You can view the various commands and its usage here - [docs.microsoft.com - Azure DevOps Extension Reference](https://docs.microsoft.com/cli/azure/ext/azure-devops)
 
 ## Contribute
 

@@ -77,7 +77,7 @@ git pr create --target-branch {branch\_name}
 
 ## Configure output formats
 
-The output formats are inherited from Azure CLI. The Azure CLI uses JSON as its default output option, but offers various ways for you to format the output of any command.  Refer [Set the default output format](https://docs.microsoft.com/cli/azure/format-output-azure-cli?view=azure-cli-latest#set-the-default-output-format) guide to update default output format.
+The output formats are inherited from Azure CLI. The Azure CLI uses JSON as its default output option, but offers various ways for you to format the output of any command.  Refer [Set the default output format](https://docs.microsoft.com/cli/azure/format-output-azure-cli#set-the-default-output-format) guide to update default output format.
 
 ## Query output
 
@@ -326,7 +326,7 @@ You can create and manage YAML based multi stage Azure Pipelines using the `az p
 
 - An Azure Devops organization. If you don't have one, you can [create one for free](https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/pipelines-sign-up?view=azure-devops). If your team already has one, then make sure you're an administrator of the Azure DevOps project that you want to use.
 
-- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) along with the [azure-devops extension](../getting_started.md) added.
+- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) along with the [azure-devops extension](../getting_started.md) added.
 
 - You can use Azure Pipelines to build an app written in any language. For this quickstart, we will use Java. To get started, fork the following repository into your GitHub account.
 
