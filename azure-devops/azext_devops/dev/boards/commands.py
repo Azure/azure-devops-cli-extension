@@ -58,6 +58,7 @@ def load_work_commands(self, _):
         g.command('relation list-type', 'get_relation_types_show',
                   table_transformer=transform_work_item_relation_type_table_output)
         g.command('relation add', 'add_relation', table_transformer=transform_work_item_relations)
+        g.command('relation add-url', 'add_relation_url', table_transformer=transform_work_item_relations)
         g.command('relation remove', 'remove_relation', table_transformer=transform_work_item_relations,
                   confirmation='Are you sure you want to remove this relation(s)?')
         g.command('relation show', 'show_work_item', table_transformer=transform_work_item_relations)

@@ -58,6 +58,28 @@ def add_relation(id, relation_type, target_id, organization=None, detect=None): 
 
     return work_item
 
+def add_relation_url(id, relation_type, url, organization=None, detect=None):  # pylint: disable=redefined-builtin
+    """ Add relation URL directly to item without looking up target work item id.
+    """
+    organization = resolve_instance(detect=detect, organization=organization)
+    patch_document = []
+    client = get_work_item_tracking_client(organization)
+
+    relation_types_from_service = client.get_relation_types()
+    relation_type_system_name = get_system_relation_name(relation_types_from_service, relation_type)
+
+    remote_urls = url.split(',')
+    patch_document = []
+
+    for remote_url in remote_urls:
+        op = _create_patch_operation('add', '/relations/-', relation_type_system_name, remote_url)
+        patch_document.append(op)
+
+    client.update_work_item(document=patch_document, id=id)
+    work_item = client.get_work_item(id, expand='All')
+    work_item = fill_friendly_name_for_relations_in_work_item(relation_types_from_service, work_item)
+
+    return work_item
 
 def remove_relation(id, relation_type, target_id, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """ Remove relation(s) from work item.
