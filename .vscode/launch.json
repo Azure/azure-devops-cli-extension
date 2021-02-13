@@ -5,7 +5,7 @@
             "name": "Azure DevOps CLI Debug (Integrated Console)",
             "type": "python",
             "request": "launch",
-            "pythonPath": "${command:python.interpreterPath}",
+            "pythonPath": "${config:python.pythonPath}",
             "program": "${workspaceRoot}/scripts/run_az.py",
             "cwd": "${workspaceRoot}/azure-devops/",
             "args": [
