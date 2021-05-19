@@ -1,0 +1,46 @@
+{
+    "manifestVersion": 1,
+    "id": "devopsAutomation",
+    "name": "DevOps Automation Tools",
+    "version": "0.0.6",
+    "publisher": "devopsCli",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "public": true,
+    "description": "Tools for running automation tasks against azure devops.",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "icons": {
+        "default": "icons/extension-icon.png"
+    },
+    "content": {
+        "details": {
+            "path": "overview.md"
+        }
+    },
+    "files": [
+        {
+            "path": "markWorkItemAsStale"
+        },
+        {
+            "path": "images",
+            "addressable": true
+        }
+    ],
+    "contributions": [
+        {
+            "id": "custom-build-release-task",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "markWorkItemAsStale"
+            }
+        }
+    ]
+}
