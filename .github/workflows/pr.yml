@@ -1,0 +1,234 @@
+# This pipeline
+# 1. Runs when a PR is raised against working branch
+# 2. Makes sure working branch is in healthy state (run tests across platforms)
+# 3. Run style check and code coverage
+
+pr:
+- master
+
+trigger: none
+
+jobs:
+
+- job: 'Build_Publish_Azure_DevOps_CLI_Extension'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      architecture: 'x64'
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/build-publish-azure-devops-cli-extension.yml
+
+- job: 'Build_Publish_Azure_CLI_Test_SDK'
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      architecture: 'x64'
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/build-publish-azure-cli-test-sdk.yml
+
+- job: 'Run_Test_Ubuntu'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'Ubuntu-16.04'
+  strategy:
+    matrix:
+      Python36:
+        python.version: '3.6.x'
+      Python37:
+        python.version: '3.x'
+    maxParallel: 3
+
+  steps:
+  - bash: sudo rm -R -f /usr/local/lib/azureExtensionDir
+
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '$(python.version)'
+
+- job: 'Run_Test_Mac'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'macOS-10.15'
+
+  steps:
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.x'
+
+- job: 'Run_Test_Mac_Azure_CLI_Released_Version'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'macOS-10.15'
+
+  steps:
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.x'
+      runWithAzureCliReleased: 'true'
+
+- job: 'Run_Test_Windows'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  steps:
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script : 'ren "C:\Program Files\Common Files\AzureCliExtensionDirectory" "C:\Program Files\Common Files\AzureCliExtensionDirectory1"'
+
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.8'
+
+- job: 'Code_Coverage'
+  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
+  pool:
+    vmImage: 'macOS-10.15'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      architecture: 'x64'
+
+  - template: templates/install-azure-cli-edge.yml
+
+  - template: templates/download-install-local-azure-test-sdk.yml
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/download-install-local-azure-devops-cli-extension.yml
+
+  - script: pytest --junitxml "TEST-UT-results.xml" --cov=azext_devops/dev --cov-report=xml --cov-report=html
+    displayName: 'run unit tests for code coverage'
+    workingDirectory: 'azure-devops'
+ 
+  - script: pip install beautifulsoup4
+    displayName: 'install beautifulsoup4'
+
+  - task: PythonScript@0
+    inputs:
+      scriptSource: 'filePath' # Options: filePath, inline
+      scriptPath: 'scripts/fixCodeCoverageStyle.py'
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'cobertura'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/azure-devops/coverage.xml'
+      reportDirectory: '$(System.DefaultWorkingDirectory)/azure-devops/htmlcov'
+      additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/azure-devops/htmlcov/**/*.*'
+
+- job: 'Run_Style_Check'
+  pool:
+    vmImage: 'macOS-10.15'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      architecture: 'x64'
+
+  - template: templates/install-azure-cli-edge.yml
+
+  - template: templates/download-install-local-azure-test-sdk.yml
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/download-install-local-azure-devops-cli-extension-with-pip.yml
+
+  - task: PowerShell@2
+    displayName: 'Run Style Check'
+    inputs:
+      targetType: 'filePath'
+      filePath: 'scripts/runStyleCheck.ps1'
+
+- job: 'Run_HelpText_Check'
+  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
+  pool:
+    vmImage: 'macOS-10.15'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      architecture: 'x64'
+
+  - template: templates/install-azure-cli-edge.yml
+
+  - template: templates/download-install-local-azure-test-sdk.yml
+
+  - template: templates/setup-ci-machine.yml
+
+  - script: 'pip install --upgrade .'
+    displayName: 'Install Azure DevOps CLI extension'
+    workingDirectory: 'azure-devops/'
+
+  - task: PythonScript@0
+    displayName: 'Run HelpText Check'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: 'scripts/findEmptyHelpTexts.py' 
+
+- job: 'Run_Test_From_Old_Release'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'macOS-10.15'
+
+  steps:
+  - script: git checkout release-0.19.0
+
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.x'
+      runOnlyRecordedTests: 'true'
+
+- job: 'Check_Back_Compat_Arguments'
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.8'
+      architecture: 'x64'
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/install-azure-cli-edge.yml
+
+  - script: 'python setup.py sdist bdist_wheel'
+    displayName: 'Build wheel for Azure DevOps CLI extension'
+    workingDirectory: 'azure-devops/'
+
+  - task: PythonScript@0
+    displayName: 'Run Back Compat Argument Check'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: 'scripts/backCompatChecker.py' 
+
+- job: 'Run_Markdown_Lint_Check'
+  pool:
+    vmImage: 'vs2017-win2016'
+  
+  steps:
+  - script: gem install chef-utils -v 16.6.14
+    displayName: 'Install chef utils'
+
+  - script: gem install mdl
+    displayName: 'Install markdown lint'
+
+  - script: mdl . -c .mdlrc
+    displayName: 'Run markdown lint'
