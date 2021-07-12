@@ -69,6 +69,12 @@ Commands:
 
 See our [contribution guidelines](CONTRIBUTING.md) to learn how you can contribute to this project.
 
+TLDR of [contribution guidelines](CONTRIBUTING.md) <br/>
+
+Questions : [Stack Overflow](https://stackoverflow.com/questions/tagged/azure-devops) <br/>
+Bug reports : [Developer Community](https://developercommunity.visualstudio.com/spaces/21/index.html) <br/>
+New Feature request : [Azure DevOps repo](https://github.com/Microsoft/azure-devops-cli-extension/issues/new/choose) <br/>
+
 ## License
 
 [MIT License](LICENSE)

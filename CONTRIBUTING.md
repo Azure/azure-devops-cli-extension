@@ -6,21 +6,11 @@ There are many ways in which you can contribute, beyond writing code. The goal o
 
 ## Have a question
 
-Search existing github [issues](https://github.com/Microsoft/azure-devops-cli-extension/issues?q=is%3Aopen+is%3Aissue+label%3Aquestion) for similar questions first, and feel free to file an issue with a "question" tag to get our attention.
+Search existing [questions](https://stackoverflow.com/questions/tagged/azure-devops) for similar questions first, and feel free to create a new question with "azure-devops" tag to get azure devops community attention.
 
 ## Found a bug
 
-### Where to find known issues
-
-Check open [issues](https://github.com/Microsoft/azure-devops-cli-extension/issues?q=is%3Aopen+is%3Aissue+label%3Abug) before you file a new bug report.
-
-If you find your issue already exists, make relevant comments and add your reaction. Use a reaction in place of a "+1" comment:
-👍 - upvote
-👎 - downvote
-
-### Report new issue
-
-The best way to get your bug fixed is to provide good repro steps. Use our [Bug template](https://github.com/Microsoft/azure-devops-cli-extension/issues/new/choose) to report any issues.
+Search existing [issues](https://developercommunity.visualstudio.com/spaces/21/index.html) for similar questions first, and feel free to open a new issue.
 
 ## Feature requests
 
@@ -39,6 +29,8 @@ Use our Feature Request [template](https://github.com/Microsoft/azure-devops-cli
 ## Get started
 
 Unsure where to begin contributing? You can start by looking through these beginner and help-wanted issues:
+
+These are bugs/ feature requests where it has been determined that a change is required and this repo is open to any contribution from open source community.
 
 - [Beginner issues](https://github.com/Microsoft/azure-devops-cli-extension/issues?q=is%3Aissue+is%3Aopen+label%3ABeginner) - issues which should only require a few lines of code, and a test or two.
 
