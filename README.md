@@ -75,7 +75,6 @@ Questions : [Stack Overflow](https://stackoverflow.com/questions/tagged/azure-de
 Bug reports : [Developer Community](https://developercommunity.visualstudio.com/spaces/21/index.html) <br/>
 New Feature request : [Azure DevOps repo](https://github.com/Microsoft/azure-devops-cli-extension/issues/new/choose) <br/>
 
-
 ## License
 
 [MIT License](LICENSE)
