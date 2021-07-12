@@ -6,7 +6,7 @@ There are many ways in which you can contribute, beyond writing code. The goal o
 
 ## Have a question
 
-Search existing [question](https://stackoverflow.com/questions/tagged/azure-devops) for similar questions first, and feel free to create a new question with "azure-devops" tag to get azure devops community attention.
+Search existing [questions](https://stackoverflow.com/questions/tagged/azure-devops) for similar questions first, and feel free to create a new question with "azure-devops" tag to get azure devops community attention.
 
 ## Found a bug
 
