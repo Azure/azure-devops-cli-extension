@@ -27,6 +27,7 @@ def get_project_iterations(depth=1, path=None, organization=None, project=None, 
     :param depth: Depth of child nodes to be fetched. Example: --depth 3.
     :type depth: int
     """
+    logger.debug("check ****************")
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
                                                          project=project)
