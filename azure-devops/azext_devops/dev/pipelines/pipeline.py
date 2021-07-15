@@ -18,8 +18,6 @@ from azext_devops.devops_sdk.v5_0.build.models import Build, DefinitionReference
 from .build_definition import get_definition_id_from_name, fix_path_for_api
 from .pipeline_run import _open_pipeline_run
 
-
-
 logger = get_logger(__name__)
 
 
