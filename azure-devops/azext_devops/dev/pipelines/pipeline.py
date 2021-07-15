@@ -16,6 +16,8 @@ from azext_devops.devops_sdk.v5_0.build.models import Build, DefinitionReference
 from .build_definition import get_definition_id_from_name, fix_path_for_api
 from .pipeline_run import _open_pipeline_run
 
+import ast
+
 logger = get_logger(__name__)
 
 
@@ -46,7 +48,8 @@ def pipeline_list(name=None, top=None, organization=None, project=None, reposito
         if repository_type is None:
             repository_type = 'TfsGit'
         if repository_type.lower() == 'tfsgit':
-            repository = _resolve_repository_as_id(repository, organization, project)
+            repository = _resolve_repository_as_id(
+                repository, organization, project)
         if repository is None:
             raise ValueError("Could not find a repository with name '{}', in project '{}'."
                              .format(repository, project))
@@ -87,9 +90,11 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
     client = get_build_client(organization)
     if id is None:
         if name is not None:
-            id = get_definition_id_from_name(name, client, project, path=folder_path)
+            id = get_definition_id_from_name(
+                name, client, project, path=folder_path)
         else:
-            raise CLIError("Either the --id argument or the --name argument must be supplied for this command.")
+            raise CLIError(
+                "Either the --id argument or the --name argument must be supplied for this command.")
     build_definition = client.get_definition(definition_id=id, project=project)
     if open:
         _open_pipeline(build_definition, organization)
@@ -97,7 +102,7 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
 
 
 def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, variables=None,  # pylint: disable=redefined-builtin
-                 folder_path=None, organization=None, project=None, detect=None):
+                 folder_path=None, organization=None, project=None, detect=None, parameters=None):
     """ Queue (run) a pipeline.
     :param id: ID of the pipeline to queue. Required if --name is not supplied.
     :type id: int
@@ -116,6 +121,8 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     :type open: bool
     :param detect: Automatically detect organization and project. Default is "on".
     :type detect: str
+    :param parameters: json string for the variables you would like to set. Example: "{'name': 'value'}"
+    :type detect: str
     """
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
@@ -123,19 +130,29 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
         raise ValueError('Either the --id argument or the --name argument ' +
                          'must be supplied for this command.')
     client = get_build_client(organization)
+
     if id is None:
         id = get_definition_id_from_name(name, client, project, folder_path)
     definition_reference = DefinitionReference(id=id)
     branch = resolve_git_ref_heads(branch)
-    build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)
+    build = Build(definition=definition_reference,
+                  source_branch=branch, source_version=commit_id)
     if variables is not None and variables:
         build.parameters = {}
         for variable in variables:
             separator_pos = variable.find('=')
             if separator_pos >= 0:
-                build.parameters[variable[:separator_pos]] = variable[separator_pos + 1:]
+                build.parameters[variable[:separator_pos]
+                                 ] = variable[separator_pos + 1:]
             else:
-                raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
+                raise ValueError(
+                    'The --variables argument should consist of space separated "name=value" pairs.')
+    if parameters is not None and parameters:
+        parms = ast.literal_eval(parameters)
+        if build.parameters is None:
+            build.parameters = {}
+            for key, value in parms.items():
+                build.parameters[key] = value
     queued_build = client.queue_build(build=build, project=project)
     if open:
         _open_pipeline_run(queued_build, organization)
@@ -172,7 +189,8 @@ def _resolve_repository_as_id(repository, organization, project):
     if is_uuid(repository):
         return repository
     git_client = get_git_client(organization)
-    repositories = git_client.get_repositories(project=project, include_links=False, include_all_urls=False)
+    repositories = git_client.get_repositories(
+        project=project, include_links=False, include_all_urls=False)
     for found_repository in repositories:
         if found_repository.name.lower() == repository.lower():
             return found_repository.id
