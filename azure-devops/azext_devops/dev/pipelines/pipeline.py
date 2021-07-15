@@ -3,6 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import ast
+
 from webbrowser import open_new
 from knack.log import get_logger
 from knack.util import CLIError
@@ -16,7 +18,7 @@ from azext_devops.devops_sdk.v5_0.build.models import Build, DefinitionReference
 from .build_definition import get_definition_id_from_name, fix_path_for_api
 from .pipeline_run import _open_pipeline_run
 
-import ast
+
 
 logger = get_logger(__name__)
 
