@@ -36,7 +36,8 @@ def pipeline_run_list(pipeline_ids=None, branch=None, organization=None, project
                       query_order=None, result=None, status=None, reason=None, tags=None, requested_for=None):
     """ List the pipeline runs in a project.
     :param pipeline_ids: IDs (space separated) of definitions to list builds for.
-    :type pipeline_ids: int
+    For multiple pipeline ids:  --pipeline-ids 1 2
+    :type pipeline_ids: list of int
     :param branch: Filter by builds for this branch.
     :type branch: str
     :param top: Maximum number of builds to list.
@@ -100,9 +101,11 @@ def pipeline_run_add_tag(run_id, tags, organization=None, project=None, detect=N
     client = get_build_client(organization)
     tags = list(map(str, tags.split(',')))
     if len(tags) == 1:
-        tags = client.add_build_tag(project=project, build_id=run_id, tag=tags[0])
+        tags = client.add_build_tag(
+            project=project, build_id=run_id, tag=tags[0])
     else:
-        tags = client.add_build_tags(tags=tags, project=project, build_id=run_id)
+        tags = client.add_build_tags(
+            tags=tags, project=project, build_id=run_id)
     return tags
 
 
