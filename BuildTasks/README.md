@@ -1,7 +1,7 @@
 # DevOps Automation Tools
 
 These build steps will help you to automate Azure DevOps work which you need to do repeatedly.
-Published at : https://marketplace.visualstudio.com/items?itemName=devopsCli.devopsAutomation
+Published at : <https://marketplace.visualstudio.com/items?itemName=devopsCli.devopsAutomation>
 
 ## Stale Work Item Build Task
 
