@@ -356,8 +356,7 @@ def resolve_instance_project_and_repo(
     if repo_required and repo is None:
         _raise_repo_requird_arg_error()
  
-    if not (organization.startswith("https://dev.azure.com/") 
-        or organization.rstrip("/").endswith(".visualstudio.com")):
+    if not (organization.startswith("https://dev.azure.com/") or organization.rstrip("/").endswith(".visualstudio.com")):
         logger.warning("Support for Azure DevOps Server, is in preview and under development")
 
     return organization, project, repo
