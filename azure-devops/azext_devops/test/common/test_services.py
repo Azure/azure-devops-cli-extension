@@ -20,12 +20,16 @@ from azext_devops.dev.common.telemetry import (set_tracking_data,
 from azext_devops.dev.common.services import (get_connection,
                                               clear_connection_cache,
                                               resolve_instance,
-                                              resolve_instance_project_and_repo)
+                                              resolve_instance_project_and_repo,
+                                              check_organization)
 
 
 class TestServicesMethods(unittest.TestCase):    
     _TEST_DEVOPS_ORGANIZATION = 'https://dev.azure.com/AzureDevOpsCliTest'
     _TEST_DEVOPS_ORGANIZATION2 = 'https://dev.azure.com/MyOrganization'
+    
+    _TEST_VISUAL_STUDIO_ORGANIZATION = 'https://mseng.visualstudio.com/'
+    _TEST_ADO_SERVER_ORGANIZATION = 'http://desktop-mf32o61/DefaultCollection/'
 
     def setUp(self):
         clear_connection_cache()
@@ -65,6 +69,18 @@ class TestServicesMethods(unittest.TestCase):
             resolve_instance(organization='myorg', detect=False)
         self.assertEqual(str(exc.exception), self.ORG_ERROR_STRING)
     
+    def test_check_organization_with_dev_url(self):
+        showWarning = check_organization(self._TEST_DEVOPS_ORGANIZATION)
+        self.assertEqual(False, showWarning)
+
+    def test_check_organization_with_visual_studio_url(self):
+        showWarning = check_organization(self._TEST_VISUAL_STUDIO_ORGANIZATION)
+        self.assertEqual(False, showWarning)
+
+    def test_check_organization_with_ado_server_url(self):
+        showWarning = check_organization(self._TEST_ADO_SERVER_ORGANIZATION)
+        self.assertEqual(True, showWarning)
+
     ORG_ERROR_STRING = ('--organization must be specified. The value should be the URI of your Azure DevOps '
                     'organization, for example: https://dev.azure.com/MyOrganization/ or your Azure DevOps Server organization. '
                     'You can set a default value by running: az devops configure --defaults '
