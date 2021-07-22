@@ -71,15 +71,15 @@ class TestServicesMethods(unittest.TestCase):
     
     def test_check_organization_in_azure_with_dev_url(self):
         showWarning = check_organization_in_azure(self._TEST_DEVOPS_ORGANIZATION)
-        self.assertEqual(False, showWarning)
+        self.assertEqual(True, showWarning)
 
     def test_check_organization_in_azure_with_visual_studio_url(self):
         showWarning = check_organization_in_azure(self._TEST_VISUAL_STUDIO_ORGANIZATION)
-        self.assertEqual(False, showWarning)
+        self.assertEqual(True, showWarning)
 
     def test_check_organization_in_azure_with_ado_server_url(self):
         showWarning = check_organization_in_azure(self._TEST_ADO_SERVER_ORGANIZATION)
-        self.assertEqual(True, showWarning)
+        self.assertEqual(False, showWarning)
 
     ORG_ERROR_STRING = ('--organization must be specified. The value should be the URI of your Azure DevOps '
                     'organization, for example: https://dev.azure.com/MyOrganization/ or your Azure DevOps Server organization. '
