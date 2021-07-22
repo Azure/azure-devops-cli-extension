@@ -356,7 +356,7 @@ def resolve_instance_project_and_repo(
     if repo_required and repo is None:
         _raise_repo_requird_arg_error()
 
-    if check_organization(organization):
+    if check_organization_in_azure(organization):
         logger.warning("Support for Azure DevOps Server, is under development")
 
     return organization, project, repo
@@ -428,7 +428,7 @@ def get_project_id_from_name(organization, project):
     return project
 
 
-def check_organization(organization):
+def check_organization_in_azure(organization):
     startsWith = organization.startswith("https://dev.azure.com/")
     endsWith = organization.rstrip("/").endswith(".visualstudio.com")
     return not (startsWith or endsWith)
