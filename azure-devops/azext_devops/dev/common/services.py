@@ -361,6 +361,7 @@ def resolve_instance_project_and_repo(
 
     return organization, project, repo
 
+
 def resolve_instance_and_project(detect, organization, project=None, project_required=True):
     organization, project, _ = resolve_instance_project_and_repo(
         detect=detect, organization=organization, project=project, project_required=project_required)
@@ -426,10 +427,12 @@ def get_project_id_from_name(organization, project):
         return team_project.id
     return project
 
+
 def check_organization(organization):
     startsWith = organization.startswith("https://dev.azure.com/")
     endsWith = organization.rstrip("/").endswith(".visualstudio.com")
     return not (startsWith or endsWith)
+
 
 _connection_data = {}
 _connection = OrderedDict()
