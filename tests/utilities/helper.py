@@ -8,7 +8,7 @@ import random
 import string
 from azure.cli.testsdk import ScenarioTest
 
-DEVOPS_CLI_TEST_PAT_TOKEN = 'ThisShouldBeAnInvalidPatTokenWhenCheckedIn'
+DEVOPS_CLI_TEST_PAT_TOKEN = 'merr4tyy6hrhtfv6vjan2isyeidov634pvm5dotpbouv3zp6kmsq'
 PAT_ENV_VARIABLE_NAME = 'AZURE_DEVOPS_EXT_PAT'
 _TEST_ORG_ENV_VARIABLE_NAME = 'AZURE_DEVOPS_EXT_TEST_ORG'
 

@@ -1,0 +1,1429 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/_apis/projects?stateFilter=all&$top=1&$skip=0
+  response:
+    body:
+      string: '{"count":1,"value":[{"id":"d42a7d78-530b-43c0-bc11-38454ff16ca3","name":"DemoProject","url":"https://dev.azure.com/syrentechnologies/_apis/projects/d42a7d78-530b-43c0-bc11-38454ff16ca3","state":"wellFormed","revision":20,"visibility":"private","lastUpdateTime":"2021-07-01T06:49:12.717Z"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 846be782-8d17-486a-b510-344d4615d362
+      cache-control:
+      - no-cache
+      content-length:
+      - '290'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:16:55 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-ms-continuationtoken:
+      - '1'
+      x-msedge-ref:
+      - 'Ref A: 5F8A398A3BE5402B81D97536C005CAA6 Ref B: BOM02EDGE0615 Ref C: 2021-08-02T04:16:56Z'
+      x-tfs-processid:
+      - 24c00fa1-1da0-4eb1-961e-afc1cc53eab7
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 846be782-8d17-486a-b510-344d4615d362
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/_apis/process/processes
+  response:
+    body:
+      string: '{"count":4,"value":[{"id":"6b724908-ef14-45cf-84f8-768b5384da45","description":"This
+        template is for teams who follow the Scrum framework.","isDefault":false,"type":"system","url":"https://dev.azure.com/syrentechnologies/_apis/process/processes/6b724908-ef14-45cf-84f8-768b5384da45","name":"Scrum"},{"id":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2","description":"This
+        template is flexible for any process and great for teams getting started with
+        Azure DevOps.","isDefault":true,"type":"system","url":"https://dev.azure.com/syrentechnologies/_apis/process/processes/b8a3a935-7e91-48b8-a94c-606d37c3e9f2","name":"Basic"},{"id":"adcc42ab-9882-485e-a3ed-7678f01f66bc","description":"This
+        template is flexible and will work great for most teams using Agile planning
+        methods, including those practicing Scrum.","isDefault":false,"type":"system","url":"https://dev.azure.com/syrentechnologies/_apis/process/processes/adcc42ab-9882-485e-a3ed-7678f01f66bc","name":"Agile"},{"id":"27450541-8e31-4150-9947-dc59f998fc01","description":"This
+        template is for more formal projects requiring a framework for process improvement
+        and an auditable record of decisions.","isDefault":false,"type":"system","url":"https://dev.azure.com/syrentechnologies/_apis/process/processes/27450541-8e31-4150-9947-dc59f998fc01","name":"CMMI"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 0874da5f-9fb7-429c-8f1c-a44f73af472e
+      cache-control:
+      - no-cache
+      content-length:
+      - '1306'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:16:56 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 269B76913D654C4AB4FD10E74D15FD78 Ref B: BOM02EDGE0419 Ref C: 2021-08-02T04:16:56Z'
+      x-tfs-processid:
+      - 7c132e4a-d303-4446-b398-82ab4b4b380e
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 0874da5f-9fb7-429c-8f1c-a44f73af472e
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"name": "refsTests000001", "visibility": "private", "capabilities": {"versioncontrol":
+      {"sourceControlType": "git"}, "processTemplate": {"templateTypeId": "b8a3a935-7e91-48b8-a94c-606d37c3e9f2"}}}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '197'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/syrentechnologies/_apis/projects
+  response:
+    body:
+      string: '{"id":"8a8c3243-e07b-4125-ab50-258937b334cc","status":"notSet","url":"https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - c6f01d31-34dd-4ed8-97e3-bf7144df8554
+      cache-control:
+      - no-cache
+      content-length:
+      - '165'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:16:56 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 0E0BEB8FE9C1488785AF908A288852AE Ref B: BOM02EDGE0419 Ref C: 2021-08-02T04:16:56Z'
+      x-tfs-processid:
+      - c5869852-bd25-4863-a91d-649438d4bc6e
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - c6f01d31-34dd-4ed8-97e3-bf7144df8554
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 202
+      message: Accepted
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc
+  response:
+    body:
+      string: '{"id":"8a8c3243-e07b-4125-ab50-258937b334cc","status":"inProgress","url":"https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc","_links":{"self":{"href":"https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 846be03e-8d17-486a-b510-344d4615d362
+      cache-control:
+      - no-cache
+      content-length:
+      - '292'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:16:56 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: D0779F84144B42DC9DD70B7609E3405C Ref B: BOM02EDGE0408 Ref C: 2021-08-02T04:16:56Z'
+      x-tfs-processid:
+      - 24c00fa1-1da0-4eb1-961e-afc1cc53eab7
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 846be03e-8d17-486a-b510-344d4615d362
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc
+  response:
+    body:
+      string: '{"id":"8a8c3243-e07b-4125-ab50-258937b334cc","status":"inProgress","url":"https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc","_links":{"self":{"href":"https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - abea9f14-75a4-4e73-9c86-182295cbcef7
+      cache-control:
+      - no-cache
+      content-length:
+      - '292'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:16:57 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 9C21AE40FBC44585873C16C475827988 Ref B: BOM02EDGE0408 Ref C: 2021-08-02T04:16:57Z'
+      x-tfs-processid:
+      - 08da787a-67f2-4932-97f2-365a5edd7af6
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - abea9f14-75a4-4e73-9c86-182295cbcef7
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc
+  response:
+    body:
+      string: '{"id":"8a8c3243-e07b-4125-ab50-258937b334cc","status":"inProgress","url":"https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc","_links":{"self":{"href":"https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 0874dbe4-9fb7-429c-8f1c-a44f73af472e
+      cache-control:
+      - no-cache
+      content-length:
+      - '292'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:16:58 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 162A5945F78D4388BB7EC6C9006DDE34 Ref B: BOM02EDGE0408 Ref C: 2021-08-02T04:16:58Z'
+      x-tfs-processid:
+      - 7c132e4a-d303-4446-b398-82ab4b4b380e
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 0874dbe4-9fb7-429c-8f1c-a44f73af472e
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc
+  response:
+    body:
+      string: '{"id":"8a8c3243-e07b-4125-ab50-258937b334cc","status":"inProgress","url":"https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc","_links":{"self":{"href":"https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - abea9dba-75a4-4e73-9c86-182295cbcef7
+      cache-control:
+      - no-cache
+      content-length:
+      - '292'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:16:59 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: EAD4810F0CCE45B68EE163D49837DF97 Ref B: BOM02EDGE0408 Ref C: 2021-08-02T04:16:59Z'
+      x-tfs-processid:
+      - 08da787a-67f2-4932-97f2-365a5edd7af6
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - abea9dba-75a4-4e73-9c86-182295cbcef7
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc
+  response:
+    body:
+      string: '{"id":"8a8c3243-e07b-4125-ab50-258937b334cc","status":"succeeded","url":"https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc","_links":{"self":{"href":"https://dev.azure.com/syrentechnologies/_apis/operations/8a8c3243-e07b-4125-ab50-258937b334cc"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 935e66bd-2f54-4f49-9451-b591cd5f0a4d
+      cache-control:
+      - no-cache
+      content-length:
+      - '291'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:17:00 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: F93B4FAEA1074FD58E20AC95004158AE Ref B: BOM02EDGE0408 Ref C: 2021-08-02T04:17:00Z'
+      x-tfs-processid:
+      - 7f456b8f-a426-4f99-b92e-d6748741721a
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 935e66bd-2f54-4f49-9451-b591cd5f0a4d
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/_apis/projects/refsTests000001?includeCapabilities=true
+  response:
+    body:
+      string: '{"id":"aeecee08-fafa-4943-bfcc-50e7a5f6e554","name":"refsTests000001","url":"https://dev.azure.com/syrentechnologies/_apis/projects/aeecee08-fafa-4943-bfcc-50e7a5f6e554","state":"wellFormed","capabilities":{"processTemplate":{"templateName":"Basic","templateTypeId":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2"},"versioncontrol":{"sourceControlType":"Git","gitEnabled":"True","tfvcEnabled":"False"}},"revision":58,"_links":{"self":{"href":"https://dev.azure.com/syrentechnologies/_apis/projects/aeecee08-fafa-4943-bfcc-50e7a5f6e554"},"collection":{"href":"https://dev.azure.com/syrentechnologies/_apis/projectCollections/4e8f71b7-528c-43ce-8bc1-3c28e180ed01"},"web":{"href":"https://dev.azure.com/syrentechnologies/refsTests000001"}},"visibility":"private","defaultTeam":{"id":"8462836d-6c04-427b-a910-6b40d6796f96","name":"refsTests000001
+        Team","url":"https://dev.azure.com/syrentechnologies/_apis/projects/aeecee08-fafa-4943-bfcc-50e7a5f6e554/teams/8462836d-6c04-427b-a910-6b40d6796f96"},"lastUpdateTime":"2021-08-02T04:17:00.027Z"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - a045edcd-eb49-4b2f-864c-0f49c5a98522
+      cache-control:
+      - no-cache
+      content-length:
+      - '1028'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:17:00 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 99256040F82C4F0A84514946D578CFAB Ref B: BOM02EDGE0419 Ref C: 2021-08-02T04:17:00Z'
+      x-tfs-processid:
+      - ac6509fd-4597-4feb-8a2c-58ff5f529175
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - a045edcd-eb49-4b2f-864c-0f49c5a98522
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"name": "refsTests000002"}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '27'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories
+  response:
+    body:
+      string: '{"id":"0d636de8-cbc5-4b89-a9a4-375693cb58f2","name":"refsTests000002","url":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2","project":{"id":"aeecee08-fafa-4943-bfcc-50e7a5f6e554","name":"refsTests000001","url":"https://dev.azure.com/syrentechnologies/_apis/projects/aeecee08-fafa-4943-bfcc-50e7a5f6e554","state":"wellFormed","revision":58,"visibility":"private","lastUpdateTime":"2021-08-02T04:17:00.027Z"},"size":0,"remoteUrl":"https://syrentechnologies@dev.azure.com/syrentechnologies/refsTests000001/_git/refsTests000002","sshUrl":"git@ssh.dev.azure.com:v3/syrentechnologies/refsTests000001/refsTests000002","webUrl":"https://dev.azure.com/syrentechnologies/refsTests000001/_git/refsTests000002","isDisabled":false}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 0874c56b-9fb7-429c-8f1c-a44f73af472e
+      cache-control:
+      - no-cache
+      content-length:
+      - '809'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:17:00 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 1008D6889FFB4B19AE93BB2564043083 Ref B: BOM02EDGE0706 Ref C: 2021-08-02T04:17:01Z'
+      x-tfs-processid:
+      - 7c132e4a-d303-4446-b398-82ab4b4b380e
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 0874c56b-9fb7-429c-8f1c-a44f73af472e
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 201
+      message: Created
+- request:
+    body: '{"parameters": {"deleteServiceEndpointAfterImportIsDone": false, "gitSource":
+      {"overwrite": false, "url": "https://github.com/hkasera/snakes-and-ladders.git"}}}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.1
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '160'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2/importRequests
+  response:
+    body:
+      string: '{"importRequestId":5,"repository":{"id":"0d636de8-cbc5-4b89-a9a4-375693cb58f2","name":"refsTests000002","url":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2","project":{"id":"aeecee08-fafa-4943-bfcc-50e7a5f6e554","name":"refsTests000001","url":"https://dev.azure.com/syrentechnologies/_apis/projects/aeecee08-fafa-4943-bfcc-50e7a5f6e554","state":"wellFormed","revision":58,"visibility":"private","lastUpdateTime":"2021-08-02T04:17:00.027Z"},"size":0,"remoteUrl":"https://syrentechnologies@dev.azure.com/syrentechnologies/refsTests000001/_git/refsTests000002","sshUrl":"git@ssh.dev.azure.com:v3/syrentechnologies/refsTests000001/refsTests000002","webUrl":"https://dev.azure.com/syrentechnologies/refsTests000001/_git/refsTests000002","isDisabled":false},"parameters":{"tfvcSource":null,"gitSource":{"url":"https://github.com/hkasera/snakes-and-ladders.git","overwrite":false}},"status":"queued","detailedStatus":{"currentStep":1,"allSteps":["Processing
+        request","Analyzing repository objects","Storing objects","Storing index file","Updating
+        references","Import completed successfully"]},"_links":{"self":{"href":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2/importRequests/5"},"repository":{"href":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2"}},"url":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2/importRequests/5"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 935e66e8-2f54-4f49-9451-b591cd5f0a4d
+      cache-control:
+      - no-cache
+      content-length:
+      - '1684'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0-preview.1
+      date:
+      - Mon, 02 Aug 2021 04:17:01 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 77E8D685EBC4461E9D6937CBF123B757 Ref B: BOM02EDGE0706 Ref C: 2021-08-02T04:17:01Z'
+      x-tfs-processid:
+      - 7f456b8f-a426-4f99-b92e-d6748741721a
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 935e66e8-2f54-4f49-9451-b591cd5f0a4d
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.1
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2/importRequests/5
+  response:
+    body:
+      string: '{"importRequestId":5,"repository":{"id":"0d636de8-cbc5-4b89-a9a4-375693cb58f2","name":"refsTests000002","url":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2","project":{"id":"aeecee08-fafa-4943-bfcc-50e7a5f6e554","name":"refsTests000001","url":"https://dev.azure.com/syrentechnologies/_apis/projects/aeecee08-fafa-4943-bfcc-50e7a5f6e554","state":"wellFormed","revision":58,"visibility":"private","lastUpdateTime":"2021-08-02T04:17:00.027Z"},"size":0,"remoteUrl":"https://syrentechnologies@dev.azure.com/syrentechnologies/refsTests000001/_git/refsTests000002","sshUrl":"git@ssh.dev.azure.com:v3/syrentechnologies/refsTests000001/refsTests000002","webUrl":"https://dev.azure.com/syrentechnologies/refsTests000001/_git/refsTests000002","isDisabled":false},"parameters":{"tfvcSource":null,"gitSource":{"url":"https://github.com/hkasera/snakes-and-ladders.git","overwrite":false}},"status":"queued","detailedStatus":{"currentStep":1,"allSteps":["Processing
+        request","Analyzing repository objects","Storing objects","Storing index file","Updating
+        references","Import completed successfully"]},"_links":{"self":{"href":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2/importRequests/5"},"repository":{"href":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2"}},"url":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2/importRequests/5"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 846bec7a-8d17-486a-b510-344d4615d362
+      cache-control:
+      - no-cache
+      content-length:
+      - '1684'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0-preview.1
+      date:
+      - Mon, 02 Aug 2021 04:17:01 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: A4A46C5AD45443D7BD359ADD410B9DD5 Ref B: BOM02EDGE0706 Ref C: 2021-08-02T04:17:02Z'
+      x-tfs-processid:
+      - 24c00fa1-1da0-4eb1-961e-afc1cc53eab7
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 846bec7a-8d17-486a-b510-344d4615d362
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.1
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2/importRequests/5
+  response:
+    body:
+      string: '{"importRequestId":5,"repository":{"id":"0d636de8-cbc5-4b89-a9a4-375693cb58f2","name":"refsTests000002","url":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2","project":{"id":"aeecee08-fafa-4943-bfcc-50e7a5f6e554","name":"refsTests000001","url":"https://dev.azure.com/syrentechnologies/_apis/projects/aeecee08-fafa-4943-bfcc-50e7a5f6e554","state":"wellFormed","revision":58,"visibility":"private","lastUpdateTime":"2021-08-02T04:17:00.027Z"},"size":365172,"remoteUrl":"https://syrentechnologies@dev.azure.com/syrentechnologies/refsTests000001/_git/refsTests000002","sshUrl":"git@ssh.dev.azure.com:v3/syrentechnologies/refsTests000001/refsTests000002","webUrl":"https://dev.azure.com/syrentechnologies/refsTests000001/_git/refsTests000002","isDisabled":false},"parameters":{"tfvcSource":null,"gitSource":{"url":"https://github.com/hkasera/snakes-and-ladders.git","overwrite":false}},"status":"completed","detailedStatus":{"currentStep":6,"allSteps":["Processing
+        request","Analyzing repository objects","Storing objects","Storing index file","Updating
+        references","Import completed successfully"]},"_links":{"self":{"href":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2/importRequests/5"},"repository":{"href":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2"}},"url":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2/importRequests/5"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - a045ea50-eb49-4b2f-864c-0f49c5a98522
+      cache-control:
+      - no-cache
+      content-length:
+      - '1692'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0-preview.1
+      date:
+      - Mon, 02 Aug 2021 04:17:06 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 80EC9B1447654430A3B8AE1649C8A58A Ref B: BOM02EDGE0706 Ref C: 2021-08-02T04:17:07Z'
+      x-tfs-processid:
+      - ac6509fd-4597-4feb-8a2c-58ff5f529175
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - a045ea50-eb49-4b2f-864c-0f49c5a98522
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/refsTests000001/_apis/git/repositories/refsTests000002/refs
+  response:
+    body:
+      string: '{"value":[{"name":"refs/heads/gh-pages","objectId":"e0d501db4f5a08fe212e8ed7a8e8035fbef62416","creator":{"displayName":"Roshan
+        Soni","url":"https://spsprodsin1.vssps.visualstudio.com/Aa930cb46-db28-4c73-a0c1-0ffc71fec3f9/_apis/Identities/54329c46-e8c8-6561-af35-67e5d1ddd573","_links":{"avatar":{"href":"https://dev.azure.com/syrentechnologies/_apis/GraphProfile/MemberAvatars/aad.NTQzMjljNDYtZThjOC03NTYxLWFmMzUtNjdlNWQxZGRkNTcz"}},"id":"54329c46-e8c8-6561-af35-67e5d1ddd573","uniqueName":"roshan.s@syrencloud.com","imageUrl":"https://dev.azure.com/syrentechnologies/_api/_common/identityImage?id=54329c46-e8c8-6561-af35-67e5d1ddd573","descriptor":"aad.NTQzMjljNDYtZThjOC03NTYxLWFmMzUtNjdlNWQxZGRkNTcz"},"url":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2/refs?filter=heads%2Fgh-pages"},{"name":"refs/heads/master","objectId":"c06ae011e801fea6e915d5a779f3322e6f5301a1","creator":{"displayName":"Roshan
+        Soni","url":"https://spsprodsin1.vssps.visualstudio.com/Aa930cb46-db28-4c73-a0c1-0ffc71fec3f9/_apis/Identities/54329c46-e8c8-6561-af35-67e5d1ddd573","_links":{"avatar":{"href":"https://dev.azure.com/syrentechnologies/_apis/GraphProfile/MemberAvatars/aad.NTQzMjljNDYtZThjOC03NTYxLWFmMzUtNjdlNWQxZGRkNTcz"}},"id":"54329c46-e8c8-6561-af35-67e5d1ddd573","uniqueName":"roshan.s@syrencloud.com","imageUrl":"https://dev.azure.com/syrentechnologies/_api/_common/identityImage?id=54329c46-e8c8-6561-af35-67e5d1ddd573","descriptor":"aad.NTQzMjljNDYtZThjOC03NTYxLWFmMzUtNjdlNWQxZGRkNTcz"},"url":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2/refs?filter=heads%2Fmaster"}],"count":2}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - a045ea60-eb49-4b2f-864c-0f49c5a98522
+      cache-control:
+      - no-cache
+      content-length:
+      - '1757'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:17:07 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      transfer-encoding:
+      - chunked
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 11A991AAD42F4355970857F163D51702 Ref B: BOM02EDGE0706 Ref C: 2021-08-02T04:17:07Z'
+      x-tfs-processid:
+      - ac6509fd-4597-4feb-8a2c-58ff5f529175
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - a045ea60-eb49-4b2f-864c-0f49c5a98522
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"isLocked": false, "name": "refs/heads/branchnametocreate", "newObjectId":
+      "e0d501db4f5a08fe212e8ed7a8e8035fbef62416", "oldObjectId": "0000000000000000000000000000000000000000"}]'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '180'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/syrentechnologies/refsTests000001/_apis/git/repositories/refsTests000002/refs
+  response:
+    body:
+      string: '{"value":[{"repositoryId":"0d636de8-cbc5-4b89-a9a4-375693cb58f2","name":"refs/heads/branchnametocreate","oldObjectId":"0000000000000000000000000000000000000000","newObjectId":"e0d501db4f5a08fe212e8ed7a8e8035fbef62416","isLocked":false,"updateStatus":"succeeded","success":true}],"count":1}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 846bef3e-8d17-486a-b510-344d4615d362
+      cache-control:
+      - no-cache
+      content-length:
+      - '289'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:17:07 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      transfer-encoding:
+      - chunked
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: A53C9EDA5D5A41938DDA017CD0984B18 Ref B: BOM02EDGE0706 Ref C: 2021-08-02T04:17:07Z'
+      x-tfs-processid:
+      - 24c00fa1-1da0-4eb1-961e-afc1cc53eab7
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 846bef3e-8d17-486a-b510-344d4615d362
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/refsTests000001/_apis/git/repositories/refsTests000002/refs?filter=heads%2Fbranchnametocreate
+  response:
+    body:
+      string: '{"value":[{"name":"refs/heads/branchnametocreate","objectId":"e0d501db4f5a08fe212e8ed7a8e8035fbef62416","creator":{"displayName":"Roshan
+        Soni","url":"https://spsprodsin1.vssps.visualstudio.com/Aa930cb46-db28-4c73-a0c1-0ffc71fec3f9/_apis/Identities/54329c46-e8c8-6561-af35-67e5d1ddd573","_links":{"avatar":{"href":"https://dev.azure.com/syrentechnologies/_apis/GraphProfile/MemberAvatars/aad.NTQzMjljNDYtZThjOC03NTYxLWFmMzUtNjdlNWQxZGRkNTcz"}},"id":"54329c46-e8c8-6561-af35-67e5d1ddd573","uniqueName":"roshan.s@syrencloud.com","imageUrl":"https://dev.azure.com/syrentechnologies/_api/_common/identityImage?id=54329c46-e8c8-6561-af35-67e5d1ddd573","descriptor":"aad.NTQzMjljNDYtZThjOC03NTYxLWFmMzUtNjdlNWQxZGRkNTcz"},"url":"https://dev.azure.com/syrentechnologies/aeecee08-fafa-4943-bfcc-50e7a5f6e554/_apis/git/repositories/0d636de8-cbc5-4b89-a9a4-375693cb58f2/refs?filter=heads%2Fbranchnametocreate"}],"count":1}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - a045e9b6-eb49-4b2f-864c-0f49c5a98522
+      cache-control:
+      - no-cache
+      content-length:
+      - '911'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:17:07 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      transfer-encoding:
+      - chunked
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: E9917E18D1C948A49C32180174605D5A Ref B: BOM02EDGE0706 Ref C: 2021-08-02T04:17:07Z'
+      x-tfs-processid:
+      - ac6509fd-4597-4feb-8a2c-58ff5f529175
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - a045e9b6-eb49-4b2f-864c-0f49c5a98522
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"name": "refs/heads/branchnametocreate", "newObjectId": "0000000000000000000000000000000000000000",
+      "oldObjectId": "e0d501db4f5a08fe212e8ed7a8e8035fbef62416"}]'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '161'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/syrentechnologies/refsTests000001/_apis/git/repositories/refsTests000002/refs
+  response:
+    body:
+      string: '{"value":[{"repositoryId":"0d636de8-cbc5-4b89-a9a4-375693cb58f2","name":"refs/heads/branchnametocreate","oldObjectId":"e0d501db4f5a08fe212e8ed7a8e8035fbef62416","newObjectId":"0000000000000000000000000000000000000000","isLocked":false,"updateStatus":"succeeded","success":true}],"count":1}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 846beffa-8d17-486a-b510-344d4615d362
+      cache-control:
+      - no-cache
+      content-length:
+      - '289'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:17:07 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      transfer-encoding:
+      - chunked
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 147D94C149214F52B258C9DB585C1F2F Ref B: BOM02EDGE0706 Ref C: 2021-08-02T04:17:07Z'
+      x-tfs-processid:
+      - 24c00fa1-1da0-4eb1-961e-afc1cc53eab7
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 846beffa-8d17-486a-b510-344d4615d362
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: DELETE
+    uri: https://dev.azure.com/syrentechnologies/_apis/projects/aeecee08-fafa-4943-bfcc-50e7a5f6e554
+  response:
+    body:
+      string: '{"id":"7f4ad929-a614-4dbc-92b2-4eb883bfec52","status":"notSet","url":"https://dev.azure.com/syrentechnologies/_apis/operations/7f4ad929-a614-4dbc-92b2-4eb883bfec52"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 935e624b-2f54-4f49-9451-b591cd5f0a4d
+      cache-control:
+      - no-cache
+      content-length:
+      - '165'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:17:07 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 7788D8E1C28C45F793F636239C211E7A Ref B: BOM02EDGE0419 Ref C: 2021-08-02T04:17:08Z'
+      x-tfs-processid:
+      - 7f456b8f-a426-4f99-b92e-d6748741721a
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 935e624b-2f54-4f49-9451-b591cd5f0a4d
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 202
+      message: Accepted
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/_apis/operations/7f4ad929-a614-4dbc-92b2-4eb883bfec52
+  response:
+    body:
+      string: '{"id":"7f4ad929-a614-4dbc-92b2-4eb883bfec52","status":"inProgress","url":"https://dev.azure.com/syrentechnologies/_apis/operations/7f4ad929-a614-4dbc-92b2-4eb883bfec52","_links":{"self":{"href":"https://dev.azure.com/syrentechnologies/_apis/operations/7f4ad929-a614-4dbc-92b2-4eb883bfec52"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 846befb8-8d17-486a-b510-344d4615d362
+      cache-control:
+      - no-cache
+      content-length:
+      - '292'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:17:07 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 21D31E5AC7E54FC2A9D841A85DC6D390 Ref B: BOM02EDGE0408 Ref C: 2021-08-02T04:17:08Z'
+      x-tfs-processid:
+      - 24c00fa1-1da0-4eb1-961e-afc1cc53eab7
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 846befb8-8d17-486a-b510-344d4615d362
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.20.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/syrentechnologies/_apis/operations/7f4ad929-a614-4dbc-92b2-4eb883bfec52
+  response:
+    body:
+      string: '{"id":"7f4ad929-a614-4dbc-92b2-4eb883bfec52","status":"succeeded","url":"https://dev.azure.com/syrentechnologies/_apis/operations/7f4ad929-a614-4dbc-92b2-4eb883bfec52","_links":{"self":{"href":"https://dev.azure.com/syrentechnologies/_apis/operations/7f4ad929-a614-4dbc-92b2-4eb883bfec52"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 846be804-8d17-486a-b510-344d4615d362
+      cache-control:
+      - no-cache
+      content-length:
+      - '291'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Mon, 02 Aug 2021 04:17:08 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: E56628BAE3B540C196BF0455B858F4E1 Ref B: BOM02EDGE0408 Ref C: 2021-08-02T04:17:09Z'
+      x-tfs-processid:
+      - 24c00fa1-1da0-4eb1-961e-afc1cc53eab7
+      x-tfs-session:
+      - bd0630b3-9a66-44ca-ad0d-cdabfb14cd2b
+      x-vss-e2eid:
+      - 846be804-8d17-486a-b510-344d4615d362
+      x-vss-userdata:
+      - 54329c46-e8c8-6561-af35-67e5d1ddd573:roshan.s@syrencloud.com
+    status:
+      code: 200
+      message: OK
+version: 1
