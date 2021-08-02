@@ -355,6 +355,10 @@ def resolve_instance_project_and_repo(
         _raise_team_project_arg_error()
     if repo_required and repo is None:
         _raise_repo_requird_arg_error()
+
+    if not check_organization_in_azure(organization):
+        logger.warning("The Azure DevOps Extension for the Azure CLI does not support Azure DevOps Server.")
+
     return organization, project, repo
 
 
@@ -422,6 +426,12 @@ def get_project_id_from_name(organization, project):
         team_project = core_client.get_project(project_id=project)
         return team_project.id
     return project
+
+
+def check_organization_in_azure(organization):
+    startsWith = organization.startswith("https://dev.azure.com/")
+    endsWith = organization.rstrip("/").endswith(".visualstudio.com")
+    return startsWith or endsWith
 
 
 _connection_data = {}
