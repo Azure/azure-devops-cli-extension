@@ -357,7 +357,7 @@ def resolve_instance_project_and_repo(
         _raise_repo_requird_arg_error()
 
     if not check_organization_in_azure(organization):
-        logger.warning("Support for Azure DevOps Server, is under development")
+        logger.warning("The Azure DevOps Extension for the Azure CLI does not support Azure DevOps Server.")
 
     return organization, project, repo
 
