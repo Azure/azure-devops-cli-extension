@@ -356,6 +356,11 @@ def resolve_instance_project_and_repo(
     if repo_required and repo is None:
         _raise_repo_requird_arg_error()
 
+    if not check_organization_in_azure(organization):
+        logger.warning("The Azure DevOps Extension for the Azure CLI does not support Azure DevOps Server.")
+
+    return organization, project, repo
+
     if check_organization(organization):
         logger.warning("Support for Azure DevOps Server, is under development")
 
@@ -430,6 +435,12 @@ def check_organization(organization):
     startsWith = organization.startswith("https://dev.azure.com/")
     endsWith = organization.rstrip("/").endswith(".visualstudio.com")
     return not (startsWith or endsWith)
+
+def check_organization_in_azure(organization):
+    startsWith = organization.startswith("https://dev.azure.com/")
+    endsWith = organization.rstrip("/").endswith(".visualstudio.com")
+    return startsWith or endsWith
+
 
 _connection_data = {}
 _connection = OrderedDict()

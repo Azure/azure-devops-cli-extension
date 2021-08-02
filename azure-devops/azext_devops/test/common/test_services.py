@@ -21,7 +21,7 @@ from azext_devops.dev.common.services import (get_connection,
                                               clear_connection_cache,
                                               resolve_instance,
                                               resolve_instance_project_and_repo,
-                                              check_organization)
+                                              check_organization_in_azure)
 
 
 class TestServicesMethods(unittest.TestCase):    
@@ -69,17 +69,17 @@ class TestServicesMethods(unittest.TestCase):
             resolve_instance(organization='myorg', detect=False)
         self.assertEqual(str(exc.exception), self.ORG_ERROR_STRING)
     
-    def test_check_organization_with_dev_url(self):
-        showWarning = check_organization(self._TEST_DEVOPS_ORGANIZATION)
-        self.assertEqual(False, showWarning)
-
-    def test_check_organization_with_visual_studio_url(self):
-        showWarning = check_organization(self._TEST_VISUAL_STUDIO_ORGANIZATION)
-        self.assertEqual(False, showWarning)
-
-    def test_check_organization_with_ado_server_url(self):
-        showWarning = check_organization(self._TEST_ADO_SERVER_ORGANIZATION)
+    def test_check_organization_in_azure_with_dev_url(self):
+        showWarning = check_organization_in_azure(self._TEST_DEVOPS_ORGANIZATION)
         self.assertEqual(True, showWarning)
+
+    def test_check_organization_in_azure_with_visual_studio_url(self):
+        showWarning = check_organization_in_azure(self._TEST_VISUAL_STUDIO_ORGANIZATION)
+        self.assertEqual(True, showWarning)
+
+    def test_check_organization_in_azure_with_ado_server_url(self):
+        showWarning = check_organization_in_azure(self._TEST_ADO_SERVER_ORGANIZATION)
+        self.assertEqual(False, showWarning)
 
     ORG_ERROR_STRING = ('--organization must be specified. The value should be the URI of your Azure DevOps '
                     'organization, for example: https://dev.azure.com/MyOrganization/ or your Azure DevOps Server organization. '
