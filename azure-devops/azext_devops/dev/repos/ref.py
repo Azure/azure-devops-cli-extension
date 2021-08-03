@@ -72,12 +72,11 @@ def delete_ref(name, object_id=None, repository=None, organization=None, project
     client = get_git_client(organization)
 
     if object_id is None:
-        ref = client.get_refs(repository_id=repository,
-                            project=project,
-                            filter=name)
-        if not ref:
+        ref = client.get_refs(repository_id=repository,project=project,filter=name)
+        if not ref or len(ref) > 1:
             logger.error('ref not found')
-            return
+            raise CLIError("Failed to find object_id for ref " + name + ". Please provide object_id.")
+        
         object_id = ref[0].object_id
 
     ref_update = GitRefUpdate(name=resolve_git_refs(name),
