@@ -13,7 +13,7 @@ from .utilities.helper import (DevopsScenarioTest,
                                get_test_org_from_env_variable)
 
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'https://dev.azure.com/syrentechnologies'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
 
 
 class ReposRefDeleteFlowTests(DevopsScenarioTest):
