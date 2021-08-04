@@ -42,6 +42,7 @@ class ReposRefDeleteFlowTests(DevopsScenarioTest):
 
             REPO_NAME = '--repository {random_repo_name} --output json --detect false'.format(random_repo_name=random_repo_name)
             REF_NAME = 'heads/branchnametocreate'
+            UNKNOWN_REF_NAME = 'heads/unknownbranchname'
 
             list_command = 'az repos ref list {}'.format(REPO_NAME)
             list_refs = self.cmd(list_command).get_output_in_json()
@@ -66,6 +67,12 @@ class ReposRefDeleteFlowTests(DevopsScenarioTest):
             assert created_ref['updateStatus'] == 'succeeded'
             assert created_ref['success'] is True
 
+            # delete an unknown reference
+            with self.assertRaises(Exception) as exc:
+                delete_command = 'az repos ref delete --name {} {}'.format(UNKNOWN_REF_NAME, REPO_NAME)
+                delete_response = self.cmd(delete_command).get_output_in_json()
+            self.assertIn(f'Failed to find object_id for ref {UNKNOWN_REF_NAME}. Please provide object_id.' , str(exc.exception))
+            
         finally:
             if created_project_id is not None:
                 delete_project_command = 'az devops project delete --id ' + created_project_id + ' --output json --detect false -y'
