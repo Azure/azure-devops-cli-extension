@@ -74,7 +74,7 @@ def delete_ref(name, object_id=None, repository=None, organization=None, project
 
     if object_id is None:
         ref = client.get_refs(repository_id=repository, project=project, filter=name)
-        if not ref or len(ref) > 1:
+        if not ref or len(ref) != 1:
             logger.error('ref not found')
             raise CLIError("Failed to find object_id for ref " + name + ". Please provide object_id.")
 
