@@ -53,13 +53,13 @@ def load_code_commands(self, _):  # pylint: disable=too-many-statements
         g.command('create', 'create_repo', table_transformer=transform_repo_table_output)
         g.command('delete', 'delete_repo', confirmation='Are you sure you want to delete this repository?')
         g.command('list', 'list_repos', table_transformer=transform_repos_table_output)
-        g.command('show', 'show_repo', table_transformer=transform_repo_table_output)
+        g.show_command('show', 'show_repo', table_transformer=transform_repo_table_output)
         g.command('update', 'update_repo', table_transformer=transform_repo_table_output)
 
     with self.command_group('repos policy', command_type=policyOps) as g:
         # repository/ branch policies
         g.command('list', 'list_policy', table_transformer=transform_repo_policies_table_output)
-        g.command('show', 'get_policy', table_transformer=transform_repo_policy_table_output)
+        g.show_command('show', 'get_policy', table_transformer=transform_repo_policy_table_output)
         g.command('delete', 'delete_policy', confirmation='Are you sure you want to delete this policy?')
         g.command('create', 'create_policy_configuration_file', table_transformer=transform_repo_policy_table_output)
         g.command('update', 'update_policy_configuration_file', table_transformer=transform_repo_policy_table_output)
@@ -100,7 +100,7 @@ def load_code_commands(self, _):  # pylint: disable=too-many-statements
         # basic pr commands
         g.command('create', 'create_pull_request', table_transformer=transform_pull_request_table_output)
         g.command('update', 'update_pull_request', table_transformer=transform_pull_request_table_output)
-        g.command('show', 'show_pull_request', table_transformer=transform_pull_request_table_output)
+        g.show_command('show', 'show_pull_request', table_transformer=transform_pull_request_table_output)
         g.command('list', 'list_pull_requests', table_transformer=transform_pull_requests_table_output)
         g.command('checkout', 'checkout')
 
