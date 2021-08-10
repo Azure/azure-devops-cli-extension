@@ -18,7 +18,7 @@ jobs:
 
 - job: 'Build_Publish_Azure_DevOps_CLI_Extension'
   pool:
-    vmImage: 'Ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
 
   steps:
   - task: UsePythonVersion@0
@@ -32,7 +32,7 @@ jobs:
 
 - job: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
-    vmImage: 'Ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
 
   steps:
   - task: UsePythonVersion@0
@@ -47,7 +47,7 @@ jobs:
 - job: 'Run_Test_Ubuntu'
   dependsOn : [ 'Build_Publish_Azure_CLI_Test_SDK', 'Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
-    vmImage: 'Ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
   
   steps:
   - task: UsePythonVersion@0
