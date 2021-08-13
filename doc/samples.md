@@ -255,7 +255,7 @@ jobs:
 - job:
   displayName: 'Linux'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
   steps:
   - template: azure-pipelines-steps-linux.yml
 
