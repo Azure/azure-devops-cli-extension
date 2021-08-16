@@ -52,9 +52,12 @@ def create_ref(name, object_id, repository=None, organization=None, project=None
                               name=resolve_git_refs(name),
                               new_object_id=object_id,
                               old_object_id='0000000000000000000000000000000000000000')
-    return client.update_refs(ref_updates=[ref_update],
+    response = client.update_refs(ref_updates=[ref_update],
                               repository_id=repository,
                               project=project)[0]
+    if response.success is False:
+        raise CLIError(response.custom_message)
+    return response
 
 
 def delete_ref(name, object_id=None, repository=None, organization=None, project=None, detect=None):
