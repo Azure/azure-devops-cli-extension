@@ -53,8 +53,8 @@ def create_ref(name, object_id, repository=None, organization=None, project=None
                               new_object_id=object_id,
                               old_object_id='0000000000000000000000000000000000000000')
     response = client.update_refs(ref_updates=[ref_update],
-                              repository_id=repository,
-                              project=project)[0]
+                                  repository_id=repository,
+                                  project=project)[0]
     if response.success is False:
         raise CLIError(response.custom_message)
     return response
