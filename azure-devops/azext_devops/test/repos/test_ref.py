@@ -13,7 +13,7 @@ except ImportError:
     from mock import patch, ANY
 
 from knack.util import CLIError
-
+from msrest.serialization import Model
 from azext_devops.devops_sdk.v5_0.git.git_client import GitClient
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.dev.repos.ref import (list_refs, create_ref, delete_ref, lock_ref, unlock_ref)
@@ -23,6 +23,11 @@ from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_O
 class MockRef(object):
     def __init__(self, object_id):
         self.object_id = object_id
+        
+class MockRefResponse(Model):
+    def __init__(self, success, custom_message):
+        self.success = success
+        self.custom_message = custom_message
 
 class TestRefMethods(AuthenticatedTests):
 
@@ -66,6 +71,23 @@ class TestRefMethods(AuthenticatedTests):
         self.mock_update_refs.assert_called_once_with(project='sample_project',
                                                       ref_updates=ANY,
                                                       repository_id=None)
+
+    def test_create_ref2(self):
+
+        custom_exception = "Mock exception message"
+        mockResponse = []
+        mockResponse.append(MockRefResponse(False,custom_exception))
+
+        self.mock_update_refs.return_value = mockResponse
+
+        try:           
+            response = create_ref(name='sample_ref',
+                                object_id='1234567890',
+                                organization=TEST_DEVOPS_ORG_URL,
+                                project='sample_project')
+            self.fail('we should have received an error')
+        except CLIError as ex:
+            self.assertEqual(str(ex), custom_exception)
 
     def test_lock_ref(self):
 
