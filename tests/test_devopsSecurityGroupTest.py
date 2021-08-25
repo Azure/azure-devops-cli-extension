@@ -8,7 +8,7 @@ from knack.util import CLIError
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'https://dev.azure.com/azuredevopsclitest'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'https://dev.azure.com/devops-cli-test-org'
 _TEST_EMAIL_ID = 'new_user_test@outlook.com'
 _GROUP_DESCRIPTION = 'some description'
 
@@ -87,7 +87,7 @@ class GroupTests(DevopsScenarioTest):
             list_group_name3_members = self.cmd('az devops security group membership list --id '+ project_group_descriptor3 +' -o json --detect false').get_output_in_json()
             assert len(list_group_name3_members) == 0
 
-            self.sleep_in_live_run(5) # Test is still flaky without this sleep only two memberships are reflected in time for the call.
+            self.sleep_in_live_run(60) # Test is still flaky without this sleep only two memberships are reflected in time for the call.
             # member of 
             list_group_name3_memberof = self.cmd('az devops security group membership list --id '+ project_group_descriptor3 +' --relationship memberof -o json --detect false').get_output_in_json()
             assert len(list_group_name3_memberof) == 3
