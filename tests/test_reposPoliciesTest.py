@@ -43,7 +43,7 @@ class DevopsReposPoliciesTests(DevopsScenarioTest):
             policy_id = create_policy_output["id"]
 
             #Test was failing without adding a sleep here. Though the create was successful 
-            self.sleep_in_live_run(5)
+            self.sleep_in_live_run(30)
 
             list_policy_output = self.cmd(list_policy_command).get_output_in_json()
             # now we have one policy so we should get it
@@ -60,7 +60,7 @@ class DevopsReposPoliciesTests(DevopsScenarioTest):
             assert update_policy_output["id"] == policy_id
 
             #Test was failing without adding a sleep here. Though the update was successful 
-            self.sleep_in_live_run(5)
+            self.sleep_in_live_run(30)
 
             show_policy_output = self.cmd(show_policy_command).get_output_in_json()
             assert show_policy_output["settings"]["useSquashMerge"] == True
@@ -71,7 +71,7 @@ class DevopsReposPoliciesTests(DevopsScenarioTest):
             assert update_policy_output["id"] == policy_id
 
             #Test was failing without adding a sleep here. Though the update was successful 
-            self.sleep_in_live_run(5)
+            self.sleep_in_live_run(30)
 
             show_policy_output = self.cmd(show_policy_command).get_output_in_json()
             self.failUnlessRaises(KeyError, lambda: show_policy_output["settings"]["useSquashMerge"])
@@ -95,7 +95,7 @@ class DevopsReposPoliciesTests(DevopsScenarioTest):
             assert update_policy_output["id"] == policy_id
 
             #Test was failing without adding a sleep here. Though the create was successful 
-            self.sleep_in_live_run(5)
+            self.sleep_in_live_run(30)
 
             list_policy_output = self.cmd(list_policy_command).get_output_in_json()
             # now we have one policy so we should get it
