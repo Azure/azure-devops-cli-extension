@@ -34,7 +34,7 @@ class PipelinesTests(DevopsScenarioTest):
             created_repo_name = list_repo_output[0]["name"]
             
             # Import repo with yaml file
-            import_repo_command = 'az repos import create --git-source-url https://dev.azure.com/AzureDevOpsCliTest/ImportRepoTest/_git/snakes-and-ladders --repository ' + created_repo_id + ' --detect false --output json'
+            import_repo_command = 'az repos import create --git-source-url https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders --repository ' + created_repo_id + ' --detect false --output json'
             import_repo_output = self.cmd(import_repo_command).get_output_in_json()
             import_repo_status = import_repo_output["status"]
             assert import_repo_status == 'completed'
@@ -43,7 +43,7 @@ class PipelinesTests(DevopsScenarioTest):
             PIPELINE_NAME = 'ContosoBuild'
             PIPELINE_DESCRIPTION = 'Pipeline for contoso project'
             pipeline_create_command = 'az pipelines create --name {} --description "{}" --repository {} \
-                --repository-type tfsgit --branch master --yml-path azure-pipelines.yml --detect false \
+                --repository-type tfsgit --branch main --yml-path azure-pipelines.yml --detect false \
                 --output json'.format(PIPELINE_NAME, PIPELINE_DESCRIPTION, created_repo_name)
             pipeline_create_output = self.cmd(pipeline_create_command).get_output_in_json()
             created_pipeline_id = pipeline_create_output['definition']['id']
