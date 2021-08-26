@@ -16,7 +16,7 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
@@ -35,7 +35,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b8884af8-ead9-42d8-ad63-f37280d5165f
+      - c741c967-fa2f-4b08-a685-f4881452dd25
       cache-control:
       - no-cache
       content-length:
@@ -43,7 +43,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:47:54 GMT
+      - Thu, 26 Aug 2021 10:10:34 GMT
       expires:
       - '-1'
       p3p:
@@ -64,13 +64,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: D0763F26ABF844B3932284C17B5520A5 Ref B: BOM02EDGE0410 Ref C: 2021-08-26T08:47:55Z'
+      - 'Ref A: FE5BEFB8D3B6400DBABB892861707B74 Ref B: BOM02EDGE0409 Ref C: 2021-08-26T10:10:34Z'
       x-tfs-processid:
-      - 8419ff6d-d7eb-40bf-8c53-ed436733aeb7
+      - 72271af7-9537-42b5-9849-5aeab2dd1b8b
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - b8884af8-ead9-42d8-ad63-f37280d5165f
+      - c741c967-fa2f-4b08-a685-f4881452dd25
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -99,19 +99,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/_apis/projects
   response:
     body:
-      string: '{"id":"8bd0183e-c5c2-48b7-8acd-14f555003497","status":"notSet","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497"}'
+      string: '{"id":"8e141111-6cf1-4516-ad89-6b41950505f2","status":"notSet","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 4b125ac1-fc47-4cdf-8f1b-cf3dbc773239
+      - 4494bbeb-2875-4fba-b7a9-ad927750636f
       cache-control:
       - no-cache
       content-length:
@@ -119,7 +119,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:47:54 GMT
+      - Thu, 26 Aug 2021 10:10:34 GMT
       expires:
       - '-1'
       p3p:
@@ -138,13 +138,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 882576E777EA480BA3E71F98079EA496 Ref B: BOM02EDGE0410 Ref C: 2021-08-26T08:47:55Z'
+      - 'Ref A: 17BF89B0445D40B99FBF9562A10A8521 Ref B: BOM02EDGE0409 Ref C: 2021-08-26T10:10:34Z'
       x-tfs-processid:
-      - e3da7ae7-c8f4-45a9-8ae6-df6f77406f77
+      - 4ae24f69-a787-4b52-800e-6cd7b04406e0
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 4b125ac1-fc47-4cdf-8f1b-cf3dbc773239
+      - 4494bbeb-2875-4fba-b7a9-ad927750636f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -169,19 +169,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2
   response:
     body:
-      string: '{"id":"8bd0183e-c5c2-48b7-8acd-14f555003497","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497"}}}'
+      string: '{"id":"8e141111-6cf1-4516-ad89-6b41950505f2","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f97ddda0-ac62-47e0-ad3b-2b0be37bd77d
+      - d964b4de-7d89-49d9-a808-a25b7dcb068b
       cache-control:
       - no-cache
       content-length:
@@ -189,7 +189,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:47:55 GMT
+      - Thu, 26 Aug 2021 10:10:34 GMT
       expires:
       - '-1'
       p3p:
@@ -210,85 +210,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: BC170E6270AE495BBE9EF7D13A63AA47 Ref B: BOM02EDGE0714 Ref C: 2021-08-26T08:47:55Z'
-      x-tfs-processid:
-      - 01a716e2-87fe-4994-80f5-5c4e22aad4c2
-      x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
-      x-vss-e2eid:
-      - f97ddda0-ac62-47e0-ad3b-2b0be37bd77d
-      x-vss-senderdeploymentid:
-      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
-      x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json;api-version=5.0
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      User-Agent:
-      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
-      X-TFS-FedAuthRedirect:
-      - Suppress
-      X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
-      X-VSS-ForceMsaPassThrough:
-      - 'true'
-    method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497
-  response:
-    body:
-      string: '{"id":"8bd0183e-c5c2-48b7-8acd-14f555003497","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497"}}}'
-    headers:
-      access-control-expose-headers:
-      - Request-Context
-      activityid:
-      - d97ce374-7d89-49d9-a808-a25b7dcb068b
-      cache-control:
-      - no-cache
-      content-length:
-      - '296'
-      content-type:
-      - application/json; charset=utf-8; api-version=5.0
-      date:
-      - Thu, 26 Aug 2021 08:47:56 GMT
-      expires:
-      - '-1'
-      p3p:
-      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
-        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
-      request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
-      strict-transport-security:
-      - max-age=31536000; includeSubDomains
-      vary:
-      - Accept-Encoding
-      x-cache:
-      - CONFIG_NOCACHE
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - SAMEORIGIN
-      x-msedge-ref:
-      - 'Ref A: C06FF56FE8D248FFBDC19472320E2F77 Ref B: BOM02EDGE0714 Ref C: 2021-08-26T08:47:57Z'
+      - 'Ref A: 2D9E01CB5F7740DEB3CC843181AABF43 Ref B: BOM02EDGE0517 Ref C: 2021-08-26T10:10:34Z'
       x-tfs-processid:
       - 67fab4bd-c5fe-43ff-a0f8-1dc43bf9f440
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - d97ce374-7d89-49d9-a808-a25b7dcb068b
+      - d964b4de-7d89-49d9-a808-a25b7dcb068b
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -313,19 +241,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2
   response:
     body:
-      string: '{"id":"8bd0183e-c5c2-48b7-8acd-14f555003497","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497"}}}'
+      string: '{"id":"8e141111-6cf1-4516-ad89-6b41950505f2","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 97275987-2b2f-4a72-a1bc-89d534091ea7
+      - 2e02b621-eb57-41e6-ad84-fa9159407671
       cache-control:
       - no-cache
       content-length:
@@ -333,7 +261,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:47:57 GMT
+      - Thu, 26 Aug 2021 10:10:35 GMT
       expires:
       - '-1'
       p3p:
@@ -354,13 +282,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: DC47DD7C2D174042AA445BADBAB3F3E4 Ref B: BOM02EDGE0714 Ref C: 2021-08-26T08:47:58Z'
+      - 'Ref A: 9364FAF68A164C67841749915681376A Ref B: BOM02EDGE0517 Ref C: 2021-08-26T10:10:36Z'
       x-tfs-processid:
-      - 8d071c67-4fa7-46bd-9a70-1c1b9ccc5af3
+      - f3f890dc-b5ef-404e-8c21-f21d0da22170
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 97275987-2b2f-4a72-a1bc-89d534091ea7
+      - 2e02b621-eb57-41e6-ad84-fa9159407671
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -385,19 +313,163 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2
   response:
     body:
-      string: '{"id":"8bd0183e-c5c2-48b7-8acd-14f555003497","status":"succeeded","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8bd0183e-c5c2-48b7-8acd-14f555003497"}}}'
+      string: '{"id":"8e141111-6cf1-4516-ad89-6b41950505f2","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - d97ce02c-7d89-49d9-a808-a25b7dcb068b
+      - d964b588-7d89-49d9-a808-a25b7dcb068b
+      cache-control:
+      - no-cache
+      content-length:
+      - '296'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Thu, 26 Aug 2021 10:10:36 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 452DCEAEBFAF4D15A3CAF6AEB80C03A1 Ref B: BOM02EDGE0517 Ref C: 2021-08-26T10:10:37Z'
+      x-tfs-processid:
+      - 67fab4bd-c5fe-43ff-a0f8-1dc43bf9f440
+      x-tfs-session:
+      - 8802231f-2aef-4c88-b896-50cf44347e85
+      x-vss-e2eid:
+      - d964b588-7d89-49d9-a808-a25b7dcb068b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.21.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 8802231f-2aef-4c88-b896-50cf44347e85
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2
+  response:
+    body:
+      string: '{"id":"8e141111-6cf1-4516-ad89-6b41950505f2","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - c741c81a-fa2f-4b08-a685-f4881452dd25
+      cache-control:
+      - no-cache
+      content-length:
+      - '296'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Thu, 26 Aug 2021 10:10:37 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: A4FE1C3838B644A39BD955F0B12C14C5 Ref B: BOM02EDGE0517 Ref C: 2021-08-26T10:10:38Z'
+      x-tfs-processid:
+      - 72271af7-9537-42b5-9849-5aeab2dd1b8b
+      x-tfs-session:
+      - 8802231f-2aef-4c88-b896-50cf44347e85
+      x-vss-e2eid:
+      - c741c81a-fa2f-4b08-a685-f4881452dd25
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.6 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.21.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 8802231f-2aef-4c88-b896-50cf44347e85
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2
+  response:
+    body:
+      string: '{"id":"8e141111-6cf1-4516-ad89-6b41950505f2","status":"succeeded","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/8e141111-6cf1-4516-ad89-6b41950505f2"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 82a86f77-235d-4e7e-92b8-17c213c59978
       cache-control:
       - no-cache
       content-length:
@@ -405,7 +477,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:47:58 GMT
+      - Thu, 26 Aug 2021 10:10:39 GMT
       expires:
       - '-1'
       p3p:
@@ -426,13 +498,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 5D6FAE8BF9A94E45AE436A0F1BFF8526 Ref B: BOM02EDGE0714 Ref C: 2021-08-26T08:47:59Z'
+      - 'Ref A: 07B099E3A56B44E99F35777BC2E8116C Ref B: BOM02EDGE0517 Ref C: 2021-08-26T10:10:39Z'
       x-tfs-processid:
-      - 67fab4bd-c5fe-43ff-a0f8-1dc43bf9f440
+      - 11ae6830-83ba-43fb-ad30-90f3660fcdb2
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - d97ce02c-7d89-49d9-a808-a25b7dcb068b
+      - 82a86f77-235d-4e7e-92b8-17c213c59978
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -457,20 +529,20 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/_apis/projects/pipelinesTest000001?includeCapabilities=true
   response:
     body:
-      string: '{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","capabilities":{"processTemplate":{"templateName":"Basic","templateTypeId":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2"},"versioncontrol":{"sourceControlType":"Git","gitEnabled":"True","tfvcEnabled":"False"}},"revision":1156,"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588"},"collection":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projectCollections/8d69f19e-8a61-4566-b826-5482115ce057"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001"}},"visibility":"private","defaultTeam":{"id":"4a240503-f852-42d0-8ec8-0ae198a7e09d","name":"pipelinesTest000001
-        Team","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588/teams/4a240503-f852-42d0-8ec8-0ae198a7e09d"},"lastUpdateTime":"2021-08-26T08:47:58.613Z"}'
+      string: '{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","capabilities":{"processTemplate":{"templateName":"Basic","templateTypeId":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2"},"versioncontrol":{"sourceControlType":"Git","gitEnabled":"True","tfvcEnabled":"False"}},"revision":1206,"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97"},"collection":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projectCollections/8d69f19e-8a61-4566-b826-5482115ce057"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001"}},"visibility":"private","defaultTeam":{"id":"aee6162b-1e81-46b9-b399-a54295ab5c64","name":"pipelinesTest000001
+        Team","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97/teams/aee6162b-1e81-46b9-b399-a54295ab5c64"},"lastUpdateTime":"2021-08-26T10:10:38.053Z"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 4b125b19-fc47-4cdf-8f1b-cf3dbc773239
+      - 4b2bef42-fc47-4cdf-8f1b-cf3dbc773239
       cache-control:
       - no-cache
       content-length:
@@ -478,7 +550,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:47:58 GMT
+      - Thu, 26 Aug 2021 10:10:39 GMT
       expires:
       - '-1'
       p3p:
@@ -499,13 +571,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 8E991ED7AC89436E94FA96A2085F7275 Ref B: BOM02EDGE0410 Ref C: 2021-08-26T08:47:59Z'
+      - 'Ref A: 0BDDB990DFAB4482A63BDCD4C34573ED Ref B: BOM02EDGE0409 Ref C: 2021-08-26T10:10:39Z'
       x-tfs-processid:
       - e3da7ae7-c8f4-45a9-8ae6-df6f77406f77
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 4b125b19-fc47-4cdf-8f1b-cf3dbc773239
+      - 4b2bef42-fc47-4cdf-8f1b-cf3dbc773239
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -530,19 +602,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories
+    uri: https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories
   response:
     body:
-      string: '{"value":[{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","isDisabled":false}],"count":1}'
+      string: '{"value":[{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","isDisabled":false}],"count":1}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - d97ce070-7d89-49d9-a808-a25b7dcb068b
+      - f9758117-ac62-47e0-ad3b-2b0be37bd77d
       cache-control:
       - no-cache
       content-length:
@@ -550,7 +622,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:47:58 GMT
+      - Thu, 26 Aug 2021 10:10:39 GMT
       expires:
       - '-1'
       p3p:
@@ -571,13 +643,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: D93A3C6065ED4F148ED4C1937BAD1737 Ref B: BOM02EDGE0411 Ref C: 2021-08-26T08:47:59Z'
+      - 'Ref A: 9D6C6512053C44949FC34AE10A461FBB Ref B: BOM02EDGE0612 Ref C: 2021-08-26T10:10:40Z'
       x-tfs-processid:
-      - 67fab4bd-c5fe-43ff-a0f8-1dc43bf9f440
+      - 01a716e2-87fe-4994-80f5-5c4e22aad4c2
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - d97ce070-7d89-49d9-a808-a25b7dcb068b
+      - f9758117-ac62-47e0-ad3b-2b0be37bd77d
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -605,21 +677,21 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/importRequests
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/importRequests
   response:
     body:
-      string: '{"importRequestId":37,"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","isDisabled":false},"parameters":{"tfvcSource":null,"gitSource":{"url":"https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders","overwrite":false}},"status":"queued","detailedStatus":{"currentStep":1,"allSteps":["Processing
+      string: '{"importRequestId":39,"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","isDisabled":false},"parameters":{"tfvcSource":null,"gitSource":{"url":"https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders","overwrite":false}},"status":"queued","detailedStatus":{"currentStep":1,"allSteps":["Processing
         request","Analyzing repository objects","Storing objects","Storing index file","Updating
-        references","Import completed successfully"]},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/importRequests/37"},"repository":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d"}},"url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/importRequests/37"}'
+        references","Import completed successfully"]},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/importRequests/39"},"repository":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3"}},"url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/importRequests/39"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f97ddc2d-ac62-47e0-ad3b-2b0be37bd77d
+      - 4494a524-2875-4fba-b7a9-ad927750636f
       cache-control:
       - no-cache
       content-length:
@@ -627,7 +699,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0-preview.1
       date:
-      - Thu, 26 Aug 2021 08:47:59 GMT
+      - Thu, 26 Aug 2021 10:10:40 GMT
       expires:
       - '-1'
       p3p:
@@ -646,13 +718,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 8C475DAC5C0445088ED4DD2271C72A8C Ref B: BOM02EDGE0411 Ref C: 2021-08-26T08:47:59Z'
+      - 'Ref A: B3D3D7FB2CED422484696ADA0DDD2FAC Ref B: BOM02EDGE0612 Ref C: 2021-08-26T10:10:40Z'
       x-tfs-processid:
-      - 01a716e2-87fe-4994-80f5-5c4e22aad4c2
+      - 4ae24f69-a787-4b52-800e-6cd7b04406e0
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - f97ddc2d-ac62-47e0-ad3b-2b0be37bd77d
+      - 4494a524-2875-4fba-b7a9-ad927750636f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -677,21 +749,21 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/importRequests/37
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/importRequests/39
   response:
     body:
-      string: '{"importRequestId":37,"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","isDisabled":false},"parameters":{"tfvcSource":null,"gitSource":{"url":"https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders","overwrite":false}},"status":"inProgress","detailedStatus":{"currentStep":1,"allSteps":["Processing
+      string: '{"importRequestId":39,"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","isDisabled":false},"parameters":{"tfvcSource":null,"gitSource":{"url":"https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders","overwrite":false}},"status":"inProgress","detailedStatus":{"currentStep":1,"allSteps":["Processing
         request","Analyzing repository objects","Storing objects","Storing index file","Updating
-        references","Import completed successfully"]},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/importRequests/37"},"repository":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d"}},"url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/importRequests/37"}'
+        references","Import completed successfully"]},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/importRequests/39"},"repository":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3"}},"url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/importRequests/39"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 39973bdd-e5cc-4672-b1b4-7443b35f2232
+      - 47748ffd-b358-4222-9438-e1769ccf042f
       cache-control:
       - no-cache
       content-length:
@@ -699,7 +771,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0-preview.1
       date:
-      - Thu, 26 Aug 2021 08:47:59 GMT
+      - Thu, 26 Aug 2021 10:10:40 GMT
       expires:
       - '-1'
       p3p:
@@ -720,13 +792,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: D1CB3045E83D4F1BB36E9F1B812566F0 Ref B: BOM02EDGE0411 Ref C: 2021-08-26T08:48:00Z'
+      - 'Ref A: 68DFFA1286EB43C0811B1E7F34D56068 Ref B: BOM02EDGE0612 Ref C: 2021-08-26T10:10:40Z'
       x-tfs-processid:
-      - 18dce8fc-c6bf-4dd0-9971-b1cb32b46aaf
+      - 80572133-c8a7-42c6-954f-c5960f32b318
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 39973bdd-e5cc-4672-b1b4-7443b35f2232
+      - 47748ffd-b358-4222-9438-e1769ccf042f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -751,21 +823,21 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/importRequests/37
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/importRequests/39
   response:
     body:
-      string: '{"importRequestId":37,"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"},"size":1263,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","isDisabled":false},"parameters":{"tfvcSource":null,"gitSource":{"url":"https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders","overwrite":false}},"status":"completed","detailedStatus":{"currentStep":6,"allSteps":["Processing
+      string: '{"importRequestId":39,"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"},"size":1263,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","isDisabled":false},"parameters":{"tfvcSource":null,"gitSource":{"url":"https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders","overwrite":false}},"status":"completed","detailedStatus":{"currentStep":6,"allSteps":["Processing
         request","Analyzing repository objects","Storing objects","Storing index file","Updating
-        references","Import completed successfully"]},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/importRequests/37"},"repository":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d"}},"url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/importRequests/37"}'
+        references","Import completed successfully"]},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/importRequests/39"},"repository":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3"}},"url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/importRequests/39"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 2e0a3a15-eb57-41e6-ad84-fa9159407671
+      - 47748e4b-b358-4222-9438-e1769ccf042f
       cache-control:
       - no-cache
       content-length:
@@ -773,7 +845,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0-preview.1
       date:
-      - Thu, 26 Aug 2021 08:48:04 GMT
+      - Thu, 26 Aug 2021 10:10:45 GMT
       expires:
       - '-1'
       p3p:
@@ -794,13 +866,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: A5429017D0B74973B33C0BAF2951C53B Ref B: BOM02EDGE0411 Ref C: 2021-08-26T08:48:05Z'
+      - 'Ref A: 068958F950974896821C51629FAFDFAF Ref B: BOM02EDGE0612 Ref C: 2021-08-26T10:10:46Z'
       x-tfs-processid:
-      - f3f890dc-b5ef-404e-8c21-f21d0da22170
+      - 80572133-c8a7-42c6-954f-c5960f32b318
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 2e0a3a15-eb57-41e6-ad84-fa9159407671
+      - 47748e4b-b358-4222-9438-e1769ccf042f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -825,7 +897,7 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
@@ -837,7 +909,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 4b1256a3-fc47-4cdf-8f1b-cf3dbc773239
+      - 2e02ba5f-eb57-41e6-ad84-fa9159407671
       cache-control:
       - no-cache
       content-length:
@@ -845,7 +917,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.1
       date:
-      - Thu, 26 Aug 2021 08:48:05 GMT
+      - Thu, 26 Aug 2021 10:10:46 GMT
       expires:
       - '-1'
       p3p:
@@ -866,13 +938,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: A272FE7A45D64B7AB5A30134DF643818 Ref B: BOM02EDGE0507 Ref C: 2021-08-26T08:48:05Z'
+      - 'Ref A: 3B6C0A2923934C5F8F5C0D4BDC97F3BC Ref B: BOM02EDGE0613 Ref C: 2021-08-26T10:10:46Z'
       x-tfs-processid:
-      - e3da7ae7-c8f4-45a9-8ae6-df6f77406f77
+      - f3f890dc-b5ef-404e-8c21-f21d0da22170
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 4b1256a3-fc47-4cdf-8f1b-cf3dbc773239
+      - 2e02ba5f-eb57-41e6-ad84-fa9159407671
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -897,19 +969,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/git/repositories/pipelinesTest000001
   response:
     body:
-      string: '{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"},"defaultBranch":"refs/heads/main","size":1263,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d"},"project":{"href":"vstfs:///Classification/TeamProject/87ba9a55-e559-4378-80a2-90b521927588"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001"},"ssh":{"href":"git@ssh.dev.azure.com:v3/devops-cli-test-org/pipelinesTest000001/pipelinesTest000001"},"commits":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/commits"},"refs":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/refs"},"pullRequests":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/pullRequests"},"items":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/items"},"pushes":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/git/repositories/151f6694-532a-4f78-b1ad-e6415ba9b51d/pushes"}},"isDisabled":false}'
+      string: '{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"},"defaultBranch":"refs/heads/main","size":1263,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3"},"project":{"href":"vstfs:///Classification/TeamProject/899ba30d-b2df-4642-afe5-886e41117a97"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001"},"ssh":{"href":"git@ssh.dev.azure.com:v3/devops-cli-test-org/pipelinesTest000001/pipelinesTest000001"},"commits":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/commits"},"refs":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/refs"},"pullRequests":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/pullRequests"},"items":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/items"},"pushes":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/git/repositories/92fede6b-6d5c-407e-98ac-8944789412d3/pushes"}},"isDisabled":false}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - a2819c0d-c5ec-48cb-97cf-461c6541f9c4
+      - 82a8684e-235d-4e7e-92b8-17c213c59978
       cache-control:
       - no-cache
       content-length:
@@ -917,7 +989,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:04 GMT
+      - Thu, 26 Aug 2021 10:10:46 GMT
       expires:
       - '-1'
       p3p:
@@ -938,13 +1010,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: CBAB0985416342E8B551C4991A93E3ED Ref B: BOM02EDGE0411 Ref C: 2021-08-26T08:48:05Z'
+      - 'Ref A: D9CEF35C3CE64D72A396966A43CAE2D4 Ref B: BOM02EDGE0612 Ref C: 2021-08-26T10:10:46Z'
       x-tfs-processid:
-      - ac1b8abc-8ac6-46c7-ab14-618d3e53ba39
+      - 11ae6830-83ba-43fb-ad30-90f3660fcdb2
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - a2819c0d-c5ec-48cb-97cf-461c6541f9c4
+      - 82a8684e-235d-4e7e-92b8-17c213c59978
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -969,33 +1041,33 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/distributedtask/queues
   response:
     body:
-      string: '{"count":9,"value":[{"id":1000,"projectId":"87ba9a55-e559-4378-80a2-90b521927588","name":"Default","pool":{"id":1,"scope":"8d69f19e-8a61-4566-b826-5482115ce057","name":"Default","isHosted":false,"poolType":"automation","size":0,"isLegacy":false,"options":"none"}},{"id":1001,"projectId":"87ba9a55-e559-4378-80a2-90b521927588","name":"Hosted","pool":{"id":2,"scope":"8d69f19e-8a61-4566-b826-5482115ce057","name":"Hosted","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1002,"projectId":"87ba9a55-e559-4378-80a2-90b521927588","name":"Hosted
+      string: '{"count":9,"value":[{"id":1045,"projectId":"899ba30d-b2df-4642-afe5-886e41117a97","name":"Default","pool":{"id":1,"scope":"8d69f19e-8a61-4566-b826-5482115ce057","name":"Default","isHosted":false,"poolType":"automation","size":0,"isLegacy":false,"options":"none"}},{"id":1046,"projectId":"899ba30d-b2df-4642-afe5-886e41117a97","name":"Hosted","pool":{"id":2,"scope":"8d69f19e-8a61-4566-b826-5482115ce057","name":"Hosted","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1047,"projectId":"899ba30d-b2df-4642-afe5-886e41117a97","name":"Hosted
         VS2017","pool":{"id":3,"scope":"8d69f19e-8a61-4566-b826-5482115ce057","name":"Hosted
-        VS2017","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1003,"projectId":"87ba9a55-e559-4378-80a2-90b521927588","name":"Hosted
+        VS2017","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1048,"projectId":"899ba30d-b2df-4642-afe5-886e41117a97","name":"Hosted
         Windows 2019 with VS2019","pool":{"id":4,"scope":"8d69f19e-8a61-4566-b826-5482115ce057","name":"Hosted
-        Windows 2019 with VS2019","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1004,"projectId":"87ba9a55-e559-4378-80a2-90b521927588","name":"Hosted
+        Windows 2019 with VS2019","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1049,"projectId":"899ba30d-b2df-4642-afe5-886e41117a97","name":"Hosted
         Windows Container","pool":{"id":5,"scope":"8d69f19e-8a61-4566-b826-5482115ce057","name":"Hosted
-        Windows Container","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1005,"projectId":"87ba9a55-e559-4378-80a2-90b521927588","name":"Hosted
+        Windows Container","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1050,"projectId":"899ba30d-b2df-4642-afe5-886e41117a97","name":"Hosted
         macOS","pool":{"id":6,"scope":"8d69f19e-8a61-4566-b826-5482115ce057","name":"Hosted
-        macOS","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1006,"projectId":"87ba9a55-e559-4378-80a2-90b521927588","name":"Hosted
+        macOS","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1051,"projectId":"899ba30d-b2df-4642-afe5-886e41117a97","name":"Hosted
         macOS High Sierra","pool":{"id":7,"scope":"8d69f19e-8a61-4566-b826-5482115ce057","name":"Hosted
-        macOS High Sierra","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1007,"projectId":"87ba9a55-e559-4378-80a2-90b521927588","name":"Hosted
+        macOS High Sierra","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1052,"projectId":"899ba30d-b2df-4642-afe5-886e41117a97","name":"Hosted
         Ubuntu 1604","pool":{"id":8,"scope":"8d69f19e-8a61-4566-b826-5482115ce057","name":"Hosted
-        Ubuntu 1604","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1008,"projectId":"87ba9a55-e559-4378-80a2-90b521927588","name":"Azure
+        Ubuntu 1604","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":1053,"projectId":"899ba30d-b2df-4642-afe5-886e41117a97","name":"Azure
         Pipelines","pool":{"id":9,"scope":"8d69f19e-8a61-4566-b826-5482115ce057","name":"Azure
         Pipelines","isHosted":true,"poolType":"automation","size":1,"isLegacy":false,"options":"none"}}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - c74966c2-fa2f-4b08-a685-f4881452dd25
+      - 4494a080-2875-4fba-b7a9-ad927750636f
       cache-control:
       - no-cache
       content-length:
@@ -1003,7 +1075,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.1-preview.1
       date:
-      - Thu, 26 Aug 2021 08:48:05 GMT
+      - Thu, 26 Aug 2021 10:10:47 GMT
       expires:
       - '-1'
       p3p:
@@ -1024,13 +1096,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 6E35DCD460AA49DA9A7E46B39CE4F721 Ref B: BOM02EDGE0420 Ref C: 2021-08-26T08:48:06Z'
+      - 'Ref A: 5557F7FC0F124485A8C69FC6AD216639 Ref B: BOM02EDGE0620 Ref C: 2021-08-26T10:10:47Z'
       x-tfs-processid:
-      - 72271af7-9537-42b5-9849-5aeab2dd1b8b
+      - 4ae24f69-a787-4b52-800e-6cd7b04406e0
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - c74966c2-fa2f-4b08-a685-f4881452dd25
+      - 4494a080-2875-4fba-b7a9-ad927750636f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1039,9 +1111,9 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"name": "ContosoBuild", "queue": {"id": 1007}, "description": "Pipeline
+    body: '{"name": "ContosoBuild", "queue": {"id": 1052}, "description": "Pipeline
       for contoso project", "process": {"yamlFilename": "azure-pipelines.yml", "type":
-      2}, "repository": {"defaultBranch": "main", "id": "151f6694-532a-4f78-b1ad-e6415ba9b51d",
+      2}, "repository": {"defaultBranch": "main", "id": "92fede6b-6d5c-407e-98ac-8944789412d3",
       "name": "pipelinesTest000001", "type": "tfsgit"}, "triggers": [{"settingsSourceType":
       2, "triggerType": 2}]}'
     headers:
@@ -1061,31 +1133,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions
   response:
     body:
-      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=1"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/definition?definitionId=20"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/designer?id=20&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"description":"Pipeline
-        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"}},"id":1007,"name":"Hosted
-        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007","pool":{"id":8,"name":"Hosted
-        Ubuntu 1604","isHosted":true}},"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=1","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":1,"createdDate":"2021-08-26T08:48:06.477Z","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}}'
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=1"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/definition?definitionId=22"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/designer?id=22&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"}},"id":1052,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=1","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":1,"createdDate":"2021-08-26T10:10:47.96Z","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - a2819c4c-c5ec-48cb-97cf-461c6541f9c4
+      - 4494a08e-2875-4fba-b7a9-ad927750636f
       cache-control:
       - no-cache
       content-length:
-      - '2683'
+      - '2682'
       content-type:
       - application/json; charset=utf-8; api-version=5.1
       date:
-      - Thu, 26 Aug 2021 08:48:06 GMT
+      - Thu, 26 Aug 2021 10:10:47 GMT
       expires:
       - '-1'
       p3p:
@@ -1106,13 +1178,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 2FE4CB08D87647EDAF8DA9E471DAB47A Ref B: BOM02EDGE0507 Ref C: 2021-08-26T08:48:06Z'
+      - 'Ref A: 6C1B8D05F4484C5888FDB146B8C274FD Ref B: BOM02EDGE0613 Ref C: 2021-08-26T10:10:47Z'
       x-tfs-processid:
-      - ac1b8abc-8ac6-46c7-ab14-618d3e53ba39
+      - 4ae24f69-a787-4b52-800e-6cd7b04406e0
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - a2819c4c-c5ec-48cb-97cf-461c6541f9c4
+      - 4494a08e-2875-4fba-b7a9-ad927750636f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1121,22 +1193,22 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"definition": {"createdDate": "2021-08-26T08:48:06.477Z", "id": 20, "name":
-      "ContosoBuild", "path": "\\", "project": {"id": "87ba9a55-e559-4378-80a2-90b521927588",
-      "lastUpdateTime": "2021-08-26T08:47:58.613Z", "name": "pipelinesTest000001",
-      "revision": 1156, "state": "wellFormed", "url": "https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588",
+    body: '{"definition": {"createdDate": "2021-08-26T10:10:47.960Z", "id": 22, "name":
+      "ContosoBuild", "path": "\\", "project": {"id": "899ba30d-b2df-4642-afe5-886e41117a97",
+      "lastUpdateTime": "2021-08-26T10:10:38.053Z", "name": "pipelinesTest000001",
+      "revision": 1206, "state": "wellFormed", "url": "https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97",
       "visibility": "private"}, "queueStatus": "enabled", "revision": 1, "type": "build",
-      "uri": "vstfs:///Build/Definition/20", "url": "https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=1",
+      "uri": "vstfs:///Build/Definition/22", "url": "https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=1",
       "_links": {}, "authoredBy": {"_links": {}, "descriptor": "msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0",
       "displayName": "Devops Cli", "url": "https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954",
       "id": "60a59117-a1ed-6677-ab04-b3de5aa38954", "imageUrl": "https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0",
       "uniqueName": "devops-cli@outlook.com"}, "drafts": [], "quality": "definition",
-      "queue": {"_links": {}, "id": 1007, "name": "Hosted Ubuntu 1604", "pool": {"id":
-      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"},
+      "queue": {"_links": {}, "id": 1052, "name": "Hosted Ubuntu 1604", "pool": {"id":
+      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"},
       "description": "Pipeline for contoso project", "jobAuthorizationScope": "projectCollection",
       "process": {"yamlFilename": "azure-pipelines.yml", "type": 2}, "properties":
       {}, "repository": {"checkoutSubmodules": false, "defaultBranch": "main", "id":
-      "151f6694-532a-4f78-b1ad-e6415ba9b51d", "name": "pipelinesTest000001", "type":
+      "92fede6b-6d5c-407e-98ac-8944789412d3", "name": "pipelinesTest000001", "type":
       "TfsGit", "url": "https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001"},
       "tags": [], "triggers": [{"branchFilters": [], "pathFilters": [], "settingsSourceType":
       2, "batchChanges": false, "maxConcurrentBuildsPerBranch": 1, "triggerType":
@@ -1158,31 +1230,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Builds
   response:
     body:
-      string: '{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Builds/6"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/results?buildId=6"},"sourceVersionDisplayUri":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/builds/6/sources"},"timeline":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/builds/6/Timeline"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"properties":{},"tags":[],"validationResults":[],"plans":[{"planId":"368700d6-c67f-4756-96cf-8d8de2edab68"}],"triggerInfo":{},"id":6,"buildNumber":"20210826.1","status":"notStarted","queueTime":"2021-08-26T08:48:06.96658Z","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Builds/6","definition":{"drafts":[],"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=1","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":1,"project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}},"buildNumberRevision":1,"project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"},"uri":"vstfs:///Build/Build/6","sourceBranch":"refs/heads/main","sourceVersion":"6c396801caff9a262bdd7e16127365d827811a0f","queue":{"id":1007,"name":"Hosted
+      string: '{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Builds/8"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/results?buildId=8"},"sourceVersionDisplayUri":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/builds/8/sources"},"timeline":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/builds/8/Timeline"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"properties":{},"tags":[],"validationResults":[],"plans":[{"planId":"b7f4b523-95c8-4d84-a39a-1efacac06b6d"}],"triggerInfo":{},"id":8,"buildNumber":"20210826.1","status":"notStarted","queueTime":"2021-08-26T10:10:48.3035025Z","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Builds/8","definition":{"drafts":[],"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=1","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":1,"project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}},"buildNumberRevision":1,"project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"},"uri":"vstfs:///Build/Build/8","sourceBranch":"refs/heads/main","sourceVersion":"6c396801caff9a262bdd7e16127365d827811a0f","queue":{"id":1052,"name":"Hosted
         Ubuntu 1604","pool":{"id":8,"name":"Hosted Ubuntu 1604","isHosted":true}},"priority":"normal","reason":"manual","requestedFor":{"displayName":"Devops
         Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"requestedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"lastChangedDate":"2021-08-26T08:48:07.07Z","lastChangedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"orchestrationPlan":{"planId":"368700d6-c67f-4756-96cf-8d8de2edab68"},"logs":{"id":0,"type":"Container","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/builds/6/logs"},"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","clean":null,"checkoutSubmodules":false},"keepForever":false,"retainedByRelease":false,"triggeredByBuild":null}'
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"lastChangedDate":"2021-08-26T10:10:48.683Z","lastChangedBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"orchestrationPlan":{"planId":"b7f4b523-95c8-4d84-a39a-1efacac06b6d"},"logs":{"id":0,"type":"Container","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/builds/8/logs"},"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","clean":null,"checkoutSubmodules":false},"keepForever":false,"retainedByRelease":false,"triggeredByBuild":null}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 4b1256c1-fc47-4cdf-8f1b-cf3dbc773239
+      - c741c45b-fa2f-4b08-a685-f4881452dd25
       cache-control:
       - no-cache
       content-length:
-      - '4623'
+      - '4626'
       content-type:
       - application/json; charset=utf-8; api-version=5.1
       date:
-      - Thu, 26 Aug 2021 08:48:06 GMT
+      - Thu, 26 Aug 2021 10:10:48 GMT
       expires:
       - '-1'
       p3p:
@@ -1203,13 +1275,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 09A37DF9C007499B92A14D913B936B4C Ref B: BOM02EDGE0507 Ref C: 2021-08-26T08:48:06Z'
+      - 'Ref A: 0C27D23E672A4F918E50F8B7A836C443 Ref B: BOM02EDGE0613 Ref C: 2021-08-26T10:10:48Z'
       x-tfs-processid:
-      - e3da7ae7-c8f4-45a9-8ae6-df6f77406f77
+      - 72271af7-9537-42b5-9849-5aeab2dd1b8b
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 4b1256c1-fc47-4cdf-8f1b-cf3dbc773239
+      - c741c45b-fa2f-4b08-a685-f4881452dd25
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1234,31 +1306,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/20
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/22
   response:
     body:
-      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=1"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/definition?definitionId=20"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/designer?id=20&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"description":"Pipeline
-        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"}},"id":1007,"name":"Hosted
-        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007","pool":{"id":8,"name":"Hosted
-        Ubuntu 1604","isHosted":true}},"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=1","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":1,"createdDate":"2021-08-26T08:48:06.477Z","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}}'
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=1"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/definition?definitionId=22"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/designer?id=22&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"}},"id":1052,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=1","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":1,"createdDate":"2021-08-26T10:10:47.96Z","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 4b12560b-fc47-4cdf-8f1b-cf3dbc773239
+      - 4b2beb4d-fc47-4cdf-8f1b-cf3dbc773239
       cache-control:
       - no-cache
       content-length:
-      - '2683'
+      - '2682'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:07 GMT
+      - Thu, 26 Aug 2021 10:10:49 GMT
       expires:
       - '-1'
       p3p:
@@ -1279,13 +1351,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 4BFB8ABA31D546BB8DC0B15BC8A76F22 Ref B: BOM02EDGE0413 Ref C: 2021-08-26T08:48:07Z'
+      - 'Ref A: 975CEB66EEF049DAB2F7F926E0FE1EF3 Ref B: BOM02EDGE0616 Ref C: 2021-08-26T10:10:50Z'
       x-tfs-processid:
       - e3da7ae7-c8f4-45a9-8ae6-df6f77406f77
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 4b12560b-fc47-4cdf-8f1b-cf3dbc773239
+      - 4b2beb4d-fc47-4cdf-8f1b-cf3dbc773239
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1294,21 +1366,21 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"createdDate": "2021-08-26T08:48:06.477Z", "id": 20, "name": "ContosoBuild",
-      "path": "\\", "project": {"id": "87ba9a55-e559-4378-80a2-90b521927588", "name":
-      "pipelinesTest000001", "revision": 1156, "state": "wellFormed", "url": "https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588",
+    body: '{"createdDate": "2021-08-26T10:10:47.960Z", "id": 22, "name": "ContosoBuild",
+      "path": "\\", "project": {"id": "899ba30d-b2df-4642-afe5-886e41117a97", "name":
+      "pipelinesTest000001", "revision": 1206, "state": "wellFormed", "url": "https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97",
       "visibility": "private"}, "queueStatus": "enabled", "revision": 1, "type": "build",
-      "uri": "vstfs:///Build/Definition/20", "url": "https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=1",
+      "uri": "vstfs:///Build/Definition/22", "url": "https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=1",
       "_links": {}, "authoredBy": {"_links": {}, "descriptor": "msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0",
       "displayName": "Devops Cli", "url": "https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954",
       "id": "60a59117-a1ed-6677-ab04-b3de5aa38954", "imageUrl": "https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0",
       "uniqueName": "devops-cli@outlook.com"}, "drafts": [], "quality": "definition",
-      "queue": {"_links": {}, "id": 1007, "name": "Hosted Ubuntu 1604", "pool": {"id":
-      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"},
+      "queue": {"_links": {}, "id": 1052, "name": "Hosted Ubuntu 1604", "pool": {"id":
+      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"},
       "description": "Pipeline for contoso project", "jobAuthorizationScope": "projectCollection",
       "process": {"yamlFilename": "azure-pipelines.yml", "type": 2}, "properties":
       {}, "repository": {"checkoutSubmodules": false, "defaultBranch": "main", "id":
-      "151f6694-532a-4f78-b1ad-e6415ba9b51d", "name": "pipelinesTest000001", "type":
+      "92fede6b-6d5c-407e-98ac-8944789412d3", "name": "pipelinesTest000001", "type":
       "TfsGit", "url": "https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001"},
       "tags": [], "triggers": [{"branchFilters": [], "pathFilters": [], "settingsSourceType":
       2, "batchChanges": false, "maxConcurrentBuildsPerBranch": 1, "triggerType":
@@ -1331,31 +1403,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PUT
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/20
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/22
   response:
     body:
-      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=2"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/definition?definitionId=20"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/designer?id=20&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"description":"Pipeline
-        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"}},"id":1007,"name":"Hosted
-        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007","pool":{"id":8,"name":"Hosted
-        Ubuntu 1604","isHosted":true}},"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=2","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":2,"createdDate":"2021-08-26T08:48:08.213Z","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}}'
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=2"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/definition?definitionId=22"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/designer?id=22&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"}},"id":1052,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=2","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":2,"createdDate":"2021-08-26T10:10:51Z","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - d97b1c9c-7d89-49d9-a808-a25b7dcb068b
+      - 26eac691-898f-41f6-ade0-9873500205ca
       cache-control:
       - no-cache
       content-length:
-      - '2756'
+      - '2752'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:07 GMT
+      - Thu, 26 Aug 2021 10:10:50 GMT
       expires:
       - '-1'
       p3p:
@@ -1376,13 +1448,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 50B78132D3824DA1A8A05B7C0F631436 Ref B: BOM02EDGE0413 Ref C: 2021-08-26T08:48:07Z'
+      - 'Ref A: 76DAFE8CD1DF419BA2A0E17DCB6E3440 Ref B: BOM02EDGE0616 Ref C: 2021-08-26T10:10:50Z'
       x-tfs-processid:
-      - 67fab4bd-c5fe-43ff-a0f8-1dc43bf9f440
+      - efc294a9-479c-4ab9-8c7c-590a625509cd
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - d97b1c9c-7d89-49d9-a808-a25b7dcb068b
+      - 26eac691-898f-41f6-ade0-9873500205ca
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1407,31 +1479,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/20
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/22
   response:
     body:
-      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=2"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/definition?definitionId=20"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/designer?id=20&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"description":"Pipeline
-        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"}},"id":1007,"name":"Hosted
-        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007","pool":{"id":8,"name":"Hosted
-        Ubuntu 1604","isHosted":true}},"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=2","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":2,"createdDate":"2021-08-26T08:48:08.213Z","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}}'
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=2"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/definition?definitionId=22"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/designer?id=22&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"}},"id":1052,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=2","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":2,"createdDate":"2021-08-26T10:10:51Z","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 4b12564e-fc47-4cdf-8f1b-cf3dbc773239
+      - c741c700-fa2f-4b08-a685-f4881452dd25
       cache-control:
       - no-cache
       content-length:
-      - '2756'
+      - '2752'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:07 GMT
+      - Thu, 26 Aug 2021 10:10:50 GMT
       expires:
       - '-1'
       p3p:
@@ -1452,13 +1524,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: FDE6C1F85FA44F738D7458D97664AD56 Ref B: BOM02EDGE0413 Ref C: 2021-08-26T08:48:08Z'
+      - 'Ref A: AFB50BADC94A412587882810DD0E6AE4 Ref B: BOM02EDGE0616 Ref C: 2021-08-26T10:10:51Z'
       x-tfs-processid:
-      - e3da7ae7-c8f4-45a9-8ae6-df6f77406f77
+      - 72271af7-9537-42b5-9849-5aeab2dd1b8b
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 4b12564e-fc47-4cdf-8f1b-cf3dbc773239
+      - c741c700-fa2f-4b08-a685-f4881452dd25
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1467,21 +1539,21 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"createdDate": "2021-08-26T08:48:08.213Z", "id": 20, "name": "ContosoBuild",
-      "path": "\\", "project": {"id": "87ba9a55-e559-4378-80a2-90b521927588", "name":
-      "pipelinesTest000001", "revision": 1156, "state": "wellFormed", "url": "https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588",
+    body: '{"createdDate": "2021-08-26T10:10:51.000Z", "id": 22, "name": "ContosoBuild",
+      "path": "\\", "project": {"id": "899ba30d-b2df-4642-afe5-886e41117a97", "name":
+      "pipelinesTest000001", "revision": 1206, "state": "wellFormed", "url": "https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97",
       "visibility": "private"}, "queueStatus": "enabled", "revision": 2, "type": "build",
-      "uri": "vstfs:///Build/Definition/20", "url": "https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=2",
+      "uri": "vstfs:///Build/Definition/22", "url": "https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=2",
       "_links": {}, "authoredBy": {"_links": {}, "descriptor": "msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0",
       "displayName": "Devops Cli", "url": "https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954",
       "id": "60a59117-a1ed-6677-ab04-b3de5aa38954", "imageUrl": "https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0",
       "uniqueName": "devops-cli@outlook.com"}, "drafts": [], "quality": "definition",
-      "queue": {"_links": {}, "id": 1007, "name": "Hosted Ubuntu 1604", "pool": {"id":
-      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"},
+      "queue": {"_links": {}, "id": 1052, "name": "Hosted Ubuntu 1604", "pool": {"id":
+      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"},
       "description": "Pipeline for contoso project", "jobAuthorizationScope": "projectCollection",
       "process": {"yamlFilename": "azure-pipelines.yml", "type": 2}, "properties":
       {}, "repository": {"checkoutSubmodules": false, "defaultBranch": "main", "id":
-      "151f6694-532a-4f78-b1ad-e6415ba9b51d", "name": "pipelinesTest000001", "type":
+      "92fede6b-6d5c-407e-98ac-8944789412d3", "name": "pipelinesTest000001", "type":
       "TfsGit", "url": "https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001"},
       "tags": [], "triggers": [{"branchFilters": [], "pathFilters": [], "settingsSourceType":
       2, "batchChanges": false, "maxConcurrentBuildsPerBranch": 1, "triggerType":
@@ -1504,31 +1576,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PUT
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/20
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/22
   response:
     body:
-      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true},"var2":{"value":"value2"}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=3"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/definition?definitionId=20"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/designer?id=20&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"description":"Pipeline
-        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"}},"id":1007,"name":"Hosted
-        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007","pool":{"id":8,"name":"Hosted
-        Ubuntu 1604","isHosted":true}},"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=3","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":3,"createdDate":"2021-08-26T08:48:09.103Z","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}}'
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true},"var2":{"value":"value2"}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=3"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/definition?definitionId=22"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/designer?id=22&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"}},"id":1052,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=3","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":3,"createdDate":"2021-08-26T10:10:51.81Z","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - c74961f2-fa2f-4b08-a685-f4881452dd25
+      - f97585ee-ac62-47e0-ad3b-2b0be37bd77d
       cache-control:
       - no-cache
       content-length:
-      - '2782'
+      - '2781'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:08 GMT
+      - Thu, 26 Aug 2021 10:10:51 GMT
       expires:
       - '-1'
       p3p:
@@ -1549,13 +1621,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: EAF5CC518C7E4F8F8499066C2DA43EE9 Ref B: BOM02EDGE0413 Ref C: 2021-08-26T08:48:08Z'
+      - 'Ref A: C049DBAF4B3E405E88A44EEBD74472D8 Ref B: BOM02EDGE0616 Ref C: 2021-08-26T10:10:51Z'
       x-tfs-processid:
-      - 72271af7-9537-42b5-9849-5aeab2dd1b8b
+      - 01a716e2-87fe-4994-80f5-5c4e22aad4c2
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - c74961f2-fa2f-4b08-a685-f4881452dd25
+      - f97585ee-ac62-47e0-ad3b-2b0be37bd77d
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1580,31 +1652,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/20
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/22
   response:
     body:
-      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true},"var2":{"value":"value2"}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=3"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/definition?definitionId=20"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/designer?id=20&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"description":"Pipeline
-        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"}},"id":1007,"name":"Hosted
-        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007","pool":{"id":8,"name":"Hosted
-        Ubuntu 1604","isHosted":true}},"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=3","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":3,"createdDate":"2021-08-26T08:48:09.103Z","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}}'
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true},"var2":{"value":"value2"}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=3"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/definition?definitionId=22"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/designer?id=22&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"}},"id":1052,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=3","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":3,"createdDate":"2021-08-26T10:10:51.81Z","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 4b1257e6-fc47-4cdf-8f1b-cf3dbc773239
+      - 4b2be42b-fc47-4cdf-8f1b-cf3dbc773239
       cache-control:
       - no-cache
       content-length:
-      - '2782'
+      - '2781'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:08 GMT
+      - Thu, 26 Aug 2021 10:10:51 GMT
       expires:
       - '-1'
       p3p:
@@ -1625,13 +1697,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 3F7DA5B31E4245E5A90DFD032C2FA4B9 Ref B: BOM02EDGE0413 Ref C: 2021-08-26T08:48:09Z'
+      - 'Ref A: 09B79029C0F2455FA3B1E69DBDA4CB5D Ref B: BOM02EDGE0616 Ref C: 2021-08-26T10:10:52Z'
       x-tfs-processid:
       - e3da7ae7-c8f4-45a9-8ae6-df6f77406f77
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 4b1257e6-fc47-4cdf-8f1b-cf3dbc773239
+      - 4b2be42b-fc47-4cdf-8f1b-cf3dbc773239
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1656,31 +1728,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/20
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/22
   response:
     body:
-      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true},"var2":{"value":"value2"}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=3"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/definition?definitionId=20"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/designer?id=20&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"description":"Pipeline
-        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"}},"id":1007,"name":"Hosted
-        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007","pool":{"id":8,"name":"Hosted
-        Ubuntu 1604","isHosted":true}},"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=3","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":3,"createdDate":"2021-08-26T08:48:09.103Z","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}}'
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true},"var2":{"value":"value2"}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=3"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/definition?definitionId=22"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/designer?id=22&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"}},"id":1052,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=3","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":3,"createdDate":"2021-08-26T10:10:51.81Z","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 82afc074-235d-4e7e-92b8-17c213c59978
+      - 398ec7c0-e5cc-4672-b1b4-7443b35f2232
       cache-control:
       - no-cache
       content-length:
-      - '2782'
+      - '2781'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:09 GMT
+      - Thu, 26 Aug 2021 10:10:51 GMT
       expires:
       - '-1'
       p3p:
@@ -1701,13 +1773,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 48F2BC37000548DC8AA77DAEC706A9DC Ref B: BOM02EDGE0413 Ref C: 2021-08-26T08:48:09Z'
+      - 'Ref A: 336B6E217B674F519C2BC147A670EE60 Ref B: BOM02EDGE0616 Ref C: 2021-08-26T10:10:52Z'
       x-tfs-processid:
-      - 11ae6830-83ba-43fb-ad30-90f3660fcdb2
+      - 18dce8fc-c6bf-4dd0-9971-b1cb32b46aaf
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 82afc074-235d-4e7e-92b8-17c213c59978
+      - 398ec7c0-e5cc-4672-b1b4-7443b35f2232
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1716,21 +1788,21 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"createdDate": "2021-08-26T08:48:09.103Z", "id": 20, "name": "ContosoBuild",
-      "path": "\\", "project": {"id": "87ba9a55-e559-4378-80a2-90b521927588", "name":
-      "pipelinesTest000001", "revision": 1156, "state": "wellFormed", "url": "https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588",
+    body: '{"createdDate": "2021-08-26T10:10:51.810Z", "id": 22, "name": "ContosoBuild",
+      "path": "\\", "project": {"id": "899ba30d-b2df-4642-afe5-886e41117a97", "name":
+      "pipelinesTest000001", "revision": 1206, "state": "wellFormed", "url": "https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97",
       "visibility": "private"}, "queueStatus": "enabled", "revision": 3, "type": "build",
-      "uri": "vstfs:///Build/Definition/20", "url": "https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=3",
+      "uri": "vstfs:///Build/Definition/22", "url": "https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=3",
       "_links": {}, "authoredBy": {"_links": {}, "descriptor": "msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0",
       "displayName": "Devops Cli", "url": "https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954",
       "id": "60a59117-a1ed-6677-ab04-b3de5aa38954", "imageUrl": "https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0",
       "uniqueName": "devops-cli@outlook.com"}, "drafts": [], "quality": "definition",
-      "queue": {"_links": {}, "id": 1007, "name": "Hosted Ubuntu 1604", "pool": {"id":
-      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"},
+      "queue": {"_links": {}, "id": 1052, "name": "Hosted Ubuntu 1604", "pool": {"id":
+      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"},
       "description": "Pipeline for contoso project", "jobAuthorizationScope": "projectCollection",
       "process": {"yamlFilename": "azure-pipelines.yml", "type": 2}, "properties":
       {}, "repository": {"checkoutSubmodules": false, "defaultBranch": "main", "id":
-      "151f6694-532a-4f78-b1ad-e6415ba9b51d", "name": "pipelinesTest000001", "type":
+      "92fede6b-6d5c-407e-98ac-8944789412d3", "name": "pipelinesTest000001", "type":
       "TfsGit", "url": "https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001"},
       "tags": [], "triggers": [{"branchFilters": [], "pathFilters": [], "settingsSourceType":
       2, "batchChanges": false, "maxConcurrentBuildsPerBranch": 1, "triggerType":
@@ -1753,31 +1825,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PUT
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/20
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/22
   response:
     body:
-      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=4"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/definition?definitionId=20"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/designer?id=20&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"description":"Pipeline
-        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"}},"id":1007,"name":"Hosted
-        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007","pool":{"id":8,"name":"Hosted
-        Ubuntu 1604","isHosted":true}},"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=4","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":4,"createdDate":"2021-08-26T08:48:10.74Z","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}}'
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=4"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/definition?definitionId=22"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/designer?id=22&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"}},"id":1052,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=4","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":4,"createdDate":"2021-08-26T10:10:52.987Z","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 44ac5393-2875-4fba-b7a9-ad927750636f
+      - 7c32981e-df2f-4230-a40c-c197095ff8b0
       cache-control:
       - no-cache
       content-length:
-      - '2755'
+      - '2756'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:09 GMT
+      - Thu, 26 Aug 2021 10:10:52 GMT
       expires:
       - '-1'
       p3p:
@@ -1798,13 +1870,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 753DBD713FE44C26B2C46C10ED388C76 Ref B: BOM02EDGE0413 Ref C: 2021-08-26T08:48:10Z'
+      - 'Ref A: 86E47A96A9544805944E73BE40639B4B Ref B: BOM02EDGE0616 Ref C: 2021-08-26T10:10:52Z'
       x-tfs-processid:
-      - 4ae24f69-a787-4b52-800e-6cd7b04406e0
+      - 9dad7142-ca4c-4255-9925-08060ffe1a9f
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 44ac5393-2875-4fba-b7a9-ad927750636f
+      - 7c32981e-df2f-4230-a40c-c197095ff8b0
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1829,31 +1901,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/20
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/22
   response:
     body:
-      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=4"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/definition?definitionId=20"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/designer?id=20&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"description":"Pipeline
-        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"}},"id":1007,"name":"Hosted
-        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007","pool":{"id":8,"name":"Hosted
-        Ubuntu 1604","isHosted":true}},"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=4","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":4,"createdDate":"2021-08-26T08:48:10.74Z","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}}'
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=4"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/definition?definitionId=22"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/designer?id=22&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"}},"id":1052,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=4","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":4,"createdDate":"2021-08-26T10:10:52.987Z","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f97dd042-ac62-47e0-ad3b-2b0be37bd77d
+      - 26eac791-898f-41f6-ade0-9873500205ca
       cache-control:
       - no-cache
       content-length:
-      - '2755'
+      - '2756'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:10 GMT
+      - Thu, 26 Aug 2021 10:10:52 GMT
       expires:
       - '-1'
       p3p:
@@ -1874,13 +1946,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: CAB51F293DD94787ADCEFDE2C6141B00 Ref B: BOM02EDGE0413 Ref C: 2021-08-26T08:48:10Z'
+      - 'Ref A: E478D6EC329845E5B5164ECA5749B10D Ref B: BOM02EDGE0616 Ref C: 2021-08-26T10:10:53Z'
       x-tfs-processid:
-      - 01a716e2-87fe-4994-80f5-5c4e22aad4c2
+      - efc294a9-479c-4ab9-8c7c-590a625509cd
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - f97dd042-ac62-47e0-ad3b-2b0be37bd77d
+      - 26eac791-898f-41f6-ade0-9873500205ca
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1905,31 +1977,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/20
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/22
   response:
     body:
-      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=4"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/definition?definitionId=20"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/designer?id=20&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"description":"Pipeline
-        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"}},"id":1007,"name":"Hosted
-        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007","pool":{"id":8,"name":"Hosted
-        Ubuntu 1604","isHosted":true}},"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=4","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":4,"createdDate":"2021-08-26T08:48:10.74Z","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}}'
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=4"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/definition?definitionId=22"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/designer?id=22&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"}},"id":1052,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=4","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":4,"createdDate":"2021-08-26T10:10:52.987Z","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - c7496032-fa2f-4b08-a685-f4881452dd25
+      - a289ba2b-c5ec-48cb-97cf-461c6541f9c4
       cache-control:
       - no-cache
       content-length:
-      - '2755'
+      - '2756'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:10 GMT
+      - Thu, 26 Aug 2021 10:10:52 GMT
       expires:
       - '-1'
       p3p:
@@ -1950,13 +2022,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 8EBD2EB540E946A4BE8CE34B88E538D8 Ref B: BOM02EDGE0413 Ref C: 2021-08-26T08:48:11Z'
+      - 'Ref A: B17438A34EBC499498E5730C3AC1C191 Ref B: BOM02EDGE0616 Ref C: 2021-08-26T10:10:53Z'
       x-tfs-processid:
-      - 72271af7-9537-42b5-9849-5aeab2dd1b8b
+      - ac1b8abc-8ac6-46c7-ab14-618d3e53ba39
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - c7496032-fa2f-4b08-a685-f4881452dd25
+      - a289ba2b-c5ec-48cb-97cf-461c6541f9c4
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1965,21 +2037,21 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"createdDate": "2021-08-26T08:48:10.740Z", "id": 20, "name": "ContosoBuild",
-      "path": "\\", "project": {"id": "87ba9a55-e559-4378-80a2-90b521927588", "name":
-      "pipelinesTest000001", "revision": 1156, "state": "wellFormed", "url": "https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588",
+    body: '{"createdDate": "2021-08-26T10:10:52.987Z", "id": 22, "name": "ContosoBuild",
+      "path": "\\", "project": {"id": "899ba30d-b2df-4642-afe5-886e41117a97", "name":
+      "pipelinesTest000001", "revision": 1206, "state": "wellFormed", "url": "https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97",
       "visibility": "private"}, "queueStatus": "enabled", "revision": 4, "type": "build",
-      "uri": "vstfs:///Build/Definition/20", "url": "https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=4",
+      "uri": "vstfs:///Build/Definition/22", "url": "https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=4",
       "_links": {}, "authoredBy": {"_links": {}, "descriptor": "msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0",
       "displayName": "Devops Cli", "url": "https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954",
       "id": "60a59117-a1ed-6677-ab04-b3de5aa38954", "imageUrl": "https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0",
       "uniqueName": "devops-cli@outlook.com"}, "drafts": [], "quality": "definition",
-      "queue": {"_links": {}, "id": 1007, "name": "Hosted Ubuntu 1604", "pool": {"id":
-      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"},
+      "queue": {"_links": {}, "id": 1052, "name": "Hosted Ubuntu 1604", "pool": {"id":
+      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"},
       "description": "Pipeline for contoso project", "jobAuthorizationScope": "projectCollection",
       "process": {"yamlFilename": "azure-pipelines.yml", "type": 2}, "properties":
       {}, "repository": {"checkoutSubmodules": false, "defaultBranch": "main", "id":
-      "151f6694-532a-4f78-b1ad-e6415ba9b51d", "name": "pipelinesTest000001", "type":
+      "92fede6b-6d5c-407e-98ac-8944789412d3", "name": "pipelinesTest000001", "type":
       "TfsGit", "url": "https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001"},
       "tags": [], "triggers": [{"branchFilters": [], "pathFilters": [], "settingsSourceType":
       2, "batchChanges": false, "maxConcurrentBuildsPerBranch": 1, "triggerType":
@@ -2002,23 +2074,23 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PUT
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/20
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/22
   response:
     body:
-      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1Updated":{"value":"123"}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=5"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/definition?definitionId=20"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/designer?id=20&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"description":"Pipeline
-        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"151f6694-532a-4f78-b1ad-e6415ba9b51d","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"}},"id":1007,"name":"Hosted
-        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007","pool":{"id":8,"name":"Hosted
-        Ubuntu 1604","isHosted":true}},"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=5","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":5,"createdDate":"2021-08-26T08:48:11.587Z","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}}'
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1Updated":{"value":"123"}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=5"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/definition?definitionId=22"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/designer?id=22&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"92fede6b-6d5c-407e-98ac-8944789412d3","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"}},"id":1052,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=5","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":5,"createdDate":"2021-08-26T10:10:53.923Z","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 4b125749-fc47-4cdf-8f1b-cf3dbc773239
+      - f975849c-ac62-47e0-ad3b-2b0be37bd77d
       cache-control:
       - no-cache
       content-length:
@@ -2026,7 +2098,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:10 GMT
+      - Thu, 26 Aug 2021 10:10:53 GMT
       expires:
       - '-1'
       p3p:
@@ -2047,13 +2119,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: F7D7C9F485DA41DD839650DBA222D337 Ref B: BOM02EDGE0413 Ref C: 2021-08-26T08:48:11Z'
+      - 'Ref A: 79F6997D636A448FB3B23206CB7694C8 Ref B: BOM02EDGE0616 Ref C: 2021-08-26T10:10:53Z'
       x-tfs-processid:
-      - e3da7ae7-c8f4-45a9-8ae6-df6f77406f77
+      - 01a716e2-87fe-4994-80f5-5c4e22aad4c2
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 4b125749-fc47-4cdf-8f1b-cf3dbc773239
+      - f975849c-ac62-47e0-ad3b-2b0be37bd77d
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2078,22 +2150,22 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions?queryOrder=none
   response:
     body:
-      string: '{"count":1,"value":[{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=5"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/definition?definitionId=20"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_build/designer?id=20&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/status/20"}},"quality":"definition","authoredBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007"}},"id":1007,"name":"Hosted
-        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1007","pool":{"id":8,"name":"Hosted
-        Ubuntu 1604","isHosted":true}},"id":20,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/87ba9a55-e559-4378-80a2-90b521927588/_apis/build/Definitions/20?revision=5","uri":"vstfs:///Build/Definition/20","path":"\\","type":"build","queueStatus":"enabled","revision":5,"createdDate":"2021-08-26T08:48:11.587Z","project":{"id":"87ba9a55-e559-4378-80a2-90b521927588","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588","state":"wellFormed","revision":1156,"visibility":"private","lastUpdateTime":"2021-08-26T08:47:58.613Z"}}]}'
+      string: '{"count":1,"value":[{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=5"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/definition?definitionId=22"},"editor":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_build/designer?id=22&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/status/22"}},"quality":"definition","authoredBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052"}},"id":1052,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/devops-cli-test-org/_apis/build/Queues/1052","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":22,"name":"ContosoBuild","url":"https://dev.azure.com/devops-cli-test-org/899ba30d-b2df-4642-afe5-886e41117a97/_apis/build/Definitions/22?revision=5","uri":"vstfs:///Build/Definition/22","path":"\\","type":"build","queueStatus":"enabled","revision":5,"createdDate":"2021-08-26T10:10:53.923Z","project":{"id":"899ba30d-b2df-4642-afe5-886e41117a97","name":"pipelinesTest000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97","state":"wellFormed","revision":1206,"visibility":"private","lastUpdateTime":"2021-08-26T10:10:38.053Z"}}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 44ac533d-2875-4fba-b7a9-ad927750636f
+      - 4b2be59b-fc47-4cdf-8f1b-cf3dbc773239
       cache-control:
       - no-cache
       content-length:
@@ -2101,7 +2173,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:11 GMT
+      - Thu, 26 Aug 2021 10:10:53 GMT
       expires:
       - '-1'
       p3p:
@@ -2122,13 +2194,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: A06DB1FB07024E1CBD35365624C5271C Ref B: BOM02EDGE0413 Ref C: 2021-08-26T08:48:11Z'
+      - 'Ref A: 91EED7C119794DB08BCF3E4B01D168B2 Ref B: BOM02EDGE0616 Ref C: 2021-08-26T10:10:54Z'
       x-tfs-processid:
-      - 4ae24f69-a787-4b52-800e-6cd7b04406e0
+      - e3da7ae7-c8f4-45a9-8ae6-df6f77406f77
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 44ac533d-2875-4fba-b7a9-ad927750636f
+      - 4b2be59b-fc47-4cdf-8f1b-cf3dbc773239
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2155,11 +2227,11 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/20
+    uri: https://dev.azure.com/devops-cli-test-org/pipelinesTest000001/_apis/build/Definitions/22
   response:
     body:
       string: ''
@@ -2167,11 +2239,11 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 44ac5367-2875-4fba-b7a9-ad927750636f
+      - 398ec6fd-e5cc-4672-b1b4-7443b35f2232
       cache-control:
       - no-cache
       date:
-      - Thu, 26 Aug 2021 08:48:11 GMT
+      - Thu, 26 Aug 2021 10:10:53 GMT
       expires:
       - '-1'
       p3p:
@@ -2190,13 +2262,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 16795E7EDE844A9FB0A80BC8040E3DC6 Ref B: BOM02EDGE0413 Ref C: 2021-08-26T08:48:12Z'
+      - 'Ref A: A0A5A09A51AB470FAC777D2216973FB5 Ref B: BOM02EDGE0616 Ref C: 2021-08-26T10:10:54Z'
       x-tfs-processid:
-      - 4ae24f69-a787-4b52-800e-6cd7b04406e0
+      - 18dce8fc-c6bf-4dd0-9971-b1cb32b46aaf
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 44ac5367-2875-4fba-b7a9-ad927750636f
+      - 398ec6fd-e5cc-4672-b1b4-7443b35f2232
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2221,7 +2293,7 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
@@ -2233,7 +2305,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 44ac5c94-2875-4fba-b7a9-ad927750636f
+      - 7c329913-df2f-4230-a40c-c197095ff8b0
       cache-control:
       - no-cache
       content-length:
@@ -2241,7 +2313,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:12 GMT
+      - Thu, 26 Aug 2021 10:10:54 GMT
       expires:
       - '-1'
       p3p:
@@ -2262,13 +2334,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: E73B85FB77484F2D9BD2B5A522FA75AD Ref B: BOM02EDGE0619 Ref C: 2021-08-26T08:48:12Z'
+      - 'Ref A: 716BB2A288ED4C129349F62F1B5FA8E3 Ref B: BOM02EDGE0416 Ref C: 2021-08-26T10:10:54Z'
       x-tfs-processid:
-      - 4ae24f69-a787-4b52-800e-6cd7b04406e0
+      - 9dad7142-ca4c-4255-9925-08060ffe1a9f
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - 44ac5c94-2875-4fba-b7a9-ad927750636f
+      - 7c329913-df2f-4230-a40c-c197095ff8b0
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2295,19 +2367,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/projects/87ba9a55-e559-4378-80a2-90b521927588
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/projects/899ba30d-b2df-4642-afe5-886e41117a97
   response:
     body:
-      string: '{"id":"71fbd416-1525-4da7-b827-75dc759911c1","status":"notSet","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/71fbd416-1525-4da7-b827-75dc759911c1"}'
+      string: '{"id":"68f0f9fc-c2b9-460c-b943-51d86a517d82","status":"notSet","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/68f0f9fc-c2b9-460c-b943-51d86a517d82"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - a2819e98-c5ec-48cb-97cf-461c6541f9c4
+      - 4494a218-2875-4fba-b7a9-ad927750636f
       cache-control:
       - no-cache
       content-length:
@@ -2315,7 +2387,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:12 GMT
+      - Thu, 26 Aug 2021 10:10:55 GMT
       expires:
       - '-1'
       p3p:
@@ -2334,13 +2406,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: DC29F5C370F4452D8BCF9DFFF9F16F72 Ref B: BOM02EDGE0410 Ref C: 2021-08-26T08:48:12Z'
+      - 'Ref A: 3C6D0398D53A442A901826A9E9CA99E0 Ref B: BOM02EDGE0409 Ref C: 2021-08-26T10:10:55Z'
       x-tfs-processid:
-      - ac1b8abc-8ac6-46c7-ab14-618d3e53ba39
+      - 4ae24f69-a787-4b52-800e-6cd7b04406e0
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - a2819e98-c5ec-48cb-97cf-461c6541f9c4
+      - 4494a218-2875-4fba-b7a9-ad927750636f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2365,19 +2437,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/71fbd416-1525-4da7-b827-75dc759911c1
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/68f0f9fc-c2b9-460c-b943-51d86a517d82
   response:
     body:
-      string: '{"id":"71fbd416-1525-4da7-b827-75dc759911c1","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/71fbd416-1525-4da7-b827-75dc759911c1","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/71fbd416-1525-4da7-b827-75dc759911c1"}}}'
+      string: '{"id":"68f0f9fc-c2b9-460c-b943-51d86a517d82","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/68f0f9fc-c2b9-460c-b943-51d86a517d82","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/68f0f9fc-c2b9-460c-b943-51d86a517d82"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - d97b1d7c-7d89-49d9-a808-a25b7dcb068b
+      - 82a814dc-235d-4e7e-92b8-17c213c59978
       cache-control:
       - no-cache
       content-length:
@@ -2385,7 +2457,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:12 GMT
+      - Thu, 26 Aug 2021 10:10:55 GMT
       expires:
       - '-1'
       p3p:
@@ -2406,13 +2478,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: E299963FBADD43D8A29CD96BC69E70C1 Ref B: BOM02EDGE0714 Ref C: 2021-08-26T08:48:13Z'
+      - 'Ref A: 1140B95153E94B618F84D2E0562BE5E5 Ref B: BOM02EDGE0517 Ref C: 2021-08-26T10:10:55Z'
       x-tfs-processid:
-      - 67fab4bd-c5fe-43ff-a0f8-1dc43bf9f440
+      - 11ae6830-83ba-43fb-ad30-90f3660fcdb2
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - d97b1d7c-7d89-49d9-a808-a25b7dcb068b
+      - 82a814dc-235d-4e7e-92b8-17c213c59978
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2437,19 +2509,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/71fbd416-1525-4da7-b827-75dc759911c1
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/68f0f9fc-c2b9-460c-b943-51d86a517d82
   response:
     body:
-      string: '{"id":"71fbd416-1525-4da7-b827-75dc759911c1","status":"succeeded","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/71fbd416-1525-4da7-b827-75dc759911c1","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/71fbd416-1525-4da7-b827-75dc759911c1"}}}'
+      string: '{"id":"68f0f9fc-c2b9-460c-b943-51d86a517d82","status":"succeeded","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/68f0f9fc-c2b9-460c-b943-51d86a517d82","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/68f0f9fc-c2b9-460c-b943-51d86a517d82"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - d97b1ac0-7d89-49d9-a808-a25b7dcb068b
+      - b881e88c-ead9-42d8-ad63-f37280d5165f
       cache-control:
       - no-cache
       content-length:
@@ -2457,7 +2529,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 26 Aug 2021 08:48:13 GMT
+      - Thu, 26 Aug 2021 10:10:56 GMT
       expires:
       - '-1'
       p3p:
@@ -2478,13 +2550,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 39B3607271EF4E21A1B499BF1E0E7018 Ref B: BOM02EDGE0714 Ref C: 2021-08-26T08:48:14Z'
+      - 'Ref A: 29972DB4917A4E5B9C8962B2ABEFC72C Ref B: BOM02EDGE0517 Ref C: 2021-08-26T10:10:56Z'
       x-tfs-processid:
-      - 67fab4bd-c5fe-43ff-a0f8-1dc43bf9f440
+      - 8419ff6d-d7eb-40bf-8c53-ed436733aeb7
       x-tfs-session:
-      - 6c73d79b-60d1-4d5d-a4f8-7cd0448c4e02
+      - 8802231f-2aef-4c88-b896-50cf44347e85
       x-vss-e2eid:
-      - d97b1ac0-7d89-49d9-a808-a25b7dcb068b
+      - b881e88c-ead9-42d8-ad63-f37280d5165f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
