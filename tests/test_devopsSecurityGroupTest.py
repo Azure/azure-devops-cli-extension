@@ -24,6 +24,7 @@ class GroupTests(DevopsScenarioTest):
         self.cmd('az devops configure --defaults organization=' +  DEVOPS_CLI_TEST_ORGANIZATION + ' project=' + random_project_name)
 
         try:
+            print(DEVOPS_CLI_TEST_ORGANIZATION)
             create_project_command = 'az devops project create --name ' + random_project_name + ' --output json --detect false'
             project_create_output = self.cmd(create_project_command).get_output_in_json()
             created_project_id = project_create_output["id"]
