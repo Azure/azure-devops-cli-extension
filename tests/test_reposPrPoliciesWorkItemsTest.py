@@ -11,7 +11,7 @@ from datetime import datetime
 from .utilities.helper import (
     DevopsScenarioTest, get_random_name, disable_telemetry, set_authentication, get_test_org_from_env_variable)
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/devops-cli-test-org'
 
 class AzReposPrPolicyTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -22,12 +22,12 @@ class AzReposPrPolicyTests(DevopsScenarioTest):
         
         #List PR
         pr_list = self.cmd('az repos pr list --project PullRequestLiveTest --repository PullRequestLiveTest --detect false --output json', checks=[
-            self.check("[0].description", 'Updated README.md'),
+            self.check("[2].description", 'Updated README.md'),
             self.check("[1].description", 'Updated EXAMPLE'),
         ]).get_output_in_json()
         assert len(pr_list) > 0
 
-        pr_id_to_query = pr_list[0]["pullRequestId"]
+        pr_id_to_query = pr_list[1]["pullRequestId"]
         
         #PR Policies list command
         list_pr_policies_command = 'az repos pr policy list --id ' + str(pr_id_to_query) + ' --detect false --output json'
@@ -44,8 +44,9 @@ class AzReposPrPolicyTests(DevopsScenarioTest):
         assert queue_pr_policy_output["status"] == 'queued'
 
         #PR work-item add command
-        work_item_ids_to_add = '20 21'
-        work_item_id_to_remove = '20'
+        work_item_ids_to_add = '1 2'
+        work_item_id_to_remove = '2'
+
         add_wit_pr_command = ('az repos pr work-item add --id ' + str(pr_id_to_query) + ' --work-items ' + work_item_ids_to_add + 
             ' --detect false --output json')
         add_wit_pr_output = self.cmd(add_wit_pr_command).get_output_in_json()
@@ -62,7 +63,7 @@ class AzReposPrPolicyTests(DevopsScenarioTest):
         self.cmd(remove_wit_pr_command)
         #verify removed
         list_wit_pr_output = self.cmd(list_wit_pr_command, checks=[
-            self.check("[0].id", "21")
+            self.check("[0].id", "1")
         ]).get_output_in_json()
         assert len(list_wit_pr_output) == 1
         
