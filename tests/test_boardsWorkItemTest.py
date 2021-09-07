@@ -11,7 +11,7 @@ from knack.util import CLIError
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/devops-cli-test-org'
 
 class BoardsWorkItemTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -20,6 +20,7 @@ class BoardsWorkItemTests(DevopsScenarioTest):
     def test_workItemCreateShowUpdateDelete(self):
         wi_name = 'samplebug'
         wi_test_project_name = 'WorkItemCreateShowUpdateDeleteTests'
+        wi_id =0
         self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
 
         try:
