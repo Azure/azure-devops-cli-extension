@@ -9,7 +9,7 @@ import unittest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/devops-cli-test-org'
 
 class BoardsQueryTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -19,7 +19,7 @@ class BoardsQueryTests(DevopsScenarioTest):
         wi_test_project_name = 'WorkItemCreateShowUpdateDeleteTests'
         self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
 
-        show_query_command_with_id = 'az boards query --org '+ DEVOPS_CLI_TEST_ORGANIZATION +' --detect false -p ' + wi_test_project_name + ' --id 51a3e288-2372-4af7-b722-79806154084b --output json'
+        show_query_command_with_id = 'az boards query --org '+ DEVOPS_CLI_TEST_ORGANIZATION +' --detect false -p ' + wi_test_project_name + ' --id 8c8ccd20-ce9a-4d83-9692-be5f20802d44 --output json'
         query_result = self.cmd(show_query_command_with_id).get_output_in_json()
         assert len(query_result) > 0
 
