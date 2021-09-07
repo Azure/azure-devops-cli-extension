@@ -3,266 +3,6 @@ interactions:
     body: null
     headers:
       Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.25.1
-    method: HEAD
-    uri: https://azure.microsoft.com/
-  response:
-    body:
-      string: ''
-    headers:
-      access-control-allow-methods:
-      - GET,HEAD
-      access-control-expose-headers:
-      - Request-Context
-      arr-disable-session-affinity:
-      - 'true'
-      azure-instanceid:
-      - 7af73990d8c71bc2771b421e489b49b46347d66c21cd7ad1e741334df7cd91e4
-      azure-regionname:
-      - Southeast Asia
-      azure-sitename:
-      - acom-prod-southeastasia-02
-      azure-slotname:
-      - production
-      azure-version:
-      - 20210902-1500-267842
-      cache-control:
-      - no-cache
-      content-length:
-      - '124'
-      content-type:
-      - text/html; charset=utf-8
-      date:
-      - Tue, 07 Sep 2021 06:15:30 GMT
-      expires:
-      - '-1'
-      keep-alive:
-      - timeout=10, max=100
-      location:
-      - /en-us/
-      nel:
-      - '{"report_to":"network-errors","max_age":604800,"success_fraction":0.01,"failure_fraction":1.0}'
-      pragma:
-      - no-cache
-      report-to:
-      - '{"group":"network-errors","max_age":604800,"endpoints":[{"url":"https://mdec.nelreports.net/api/report?cat=acom"}]}'
-      request-context:
-      - appId=cid-v1:271db03b-0de6-4bf7-8ebf-f90dccf4de6b
-      set-cookie:
-      - MC1=GUID=b4a4961abd5d4d43a981c038ac977a70&HASH=b4a4&LV=202109&V=4&LU=1630995330885;
-        domain=microsoft.com; expires=Wed, 07-Sep-2022 06:15:30 GMT; path=/; secure;
-        SameSite=None
-      - userInfo=%7b%22guid%22%3a%22b4a4961abd5d4d43a981c038ac977a70%22%2c%22signupDate%22%3a0%2c%22wishlistDate%22%3a0%2c%22checkoutDate%22%3a0%7d;
-        expires=Wed, 07-Sep-2022 06:15:30 GMT; path=/; secure
-      strict-transport-security:
-      - max-age=31536000
-      x-cache:
-      - CONFIG_NOCACHE
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - sameorigin
-      x-msedge-ref:
-      - 'Ref A: D587F7C857CC420D9FFC66902A5620CA Ref B: BOM02EDGE0706 Ref C: 2021-09-07T06:15:30Z'
-    status:
-      code: 302
-      message: Found
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.25.1
-    method: GET
-    uri: https://raw.githubusercontent.com/Azure/azure-cli/master/src/azure-cli-core/setup.py
-  response:
-    body:
-      string: "#!/usr/bin/env python\n\n# --------------------------------------------------------------------------------------------\n#
-        Copyright (c) Microsoft Corporation. All rights reserved.\n# Licensed under
-        the MIT License. See License.txt in the project root for license information.\n#
-        --------------------------------------------------------------------------------------------\n\nfrom
-        codecs import open\nfrom setuptools import setup, find_packages\n\nVERSION
-        = \"2.27.1\"\n\n# If we have source, validate that our version numbers match\n#
-        This should prevent uploading releases with mismatched versions.\ntry:\n    with
-        open('azure/cli/core/__init__.py', 'r', encoding='utf-8') as f:\n        content
-        = f.read()\nexcept OSError:\n    pass\nelse:\n    import re\n    import sys\n\n
-        \   m = re.search(r'__version__\\s*=\\s*[\\'\"](.+?)[\\'\"]', content)\n    if
-        not m:\n        print('Could not find __version__ in azure/cli/core/__init__.py')\n
-        \       sys.exit(1)\n    if m.group(1) != VERSION:\n        print('Expected
-        __version__ = \"{}\"; found \"{}\"'.format(VERSION, m.group(1)))\n        sys.exit(1)\n\nCLASSIFIERS
-        = [\n    'Development Status :: 5 - Production/Stable',\n    'Intended Audience
-        :: Developers',\n    'Intended Audience :: System Administrators',\n    'Programming
-        Language :: Python',\n    'Programming Language :: Python :: 3',\n    'Programming
-        Language :: Python :: 3.6',\n    'Programming Language :: Python :: 3.7',\n
-        \   'Programming Language :: Python :: 3.8',\n    'Programming Language ::
-        Python :: 3.9',\n    'License :: OSI Approved :: MIT License',\n]\n\nDEPENDENCIES
-        = [\n    'adal~=1.2.7',\n    'argcomplete~=1.8',\n    'azure-cli-telemetry==1.0.6.*',\n
-        \   'azure-common~=1.1',\n    'azure-mgmt-core>=1.2.0,<1.3.0',     # the preview
-        version of azure-mgmt-core is 1.3.0b1, it cannot fit azure-core >=1.14.0\n
-        \   'cryptography>=3.2,<3.4',\n    'humanfriendly>=4.7,<10.0',\n    'jmespath',\n
-        \   'knack~=0.8.2',\n    'msal>=1.10.0,<2.0.0',\n    'paramiko>=2.0.8,<3.0.0',\n
-        \   'pkginfo>=1.5.0.1',\n    'PyJWT>=2.1.0',\n    'pyopenssl>=17.1.0',  #
-        https://github.com/pyca/pyopenssl/pull/612\n    'requests[socks]~=2.25.1',\n
-        \   'six~=1.12',\n    'urllib3[secure]>=1.26.5',\n]\n\n# dependencies for
-        specific OSes\nif not sys.platform.startswith('cygwin'):\n    DEPENDENCIES.append('psutil~=5.8')\n\n\nwith
-        open('README.rst', 'r', encoding='utf-8') as f:\n    README = f.read()\n\nsetup(\n
-        \   name='azure-cli-core',\n    version=VERSION,\n    description='Microsoft
-        Azure Command-Line Tools Core Module',\n    long_description=README,\n    license='MIT',\n
-        \   author='Microsoft Corporation',\n    author_email='azpycli@microsoft.com',\n
-        \   url='https://github.com/Azure/azure-cli',\n    zip_safe=False,\n    classifiers=CLASSIFIERS,\n
-        \   packages=find_packages(exclude=[\"*.tests\", \"*.tests.*\", \"tests.*\",
-        \"tests\", \"azure\", \"azure.cli\"]),\n    install_requires=DEPENDENCIES,\n
-        \   python_requires='>=3.6.0',\n    package_data={'azure.cli.core': ['auth_landing_pages/*.html']}\n)\n"
-    headers:
-      accept-ranges:
-      - bytes
-      access-control-allow-origin:
-      - '*'
-      cache-control:
-      - max-age=300
-      connection:
-      - keep-alive
-      content-length:
-      - '2901'
-      content-security-policy:
-      - default-src 'none'; style-src 'unsafe-inline'; sandbox
-      content-type:
-      - text/plain; charset=utf-8
-      date:
-      - Tue, 07 Sep 2021 06:15:31 GMT
-      etag:
-      - W/"d41a08b7c042bc0b1fc4ed6f1729657cf5f84f05c0361aeeda05454f6209eaaa"
-      expires:
-      - Tue, 07 Sep 2021 06:20:31 GMT
-      source-age:
-      - '192'
-      strict-transport-security:
-      - max-age=31536000
-      vary:
-      - Authorization,Accept-Encoding
-      via:
-      - 1.1 varnish
-      x-cache:
-      - HIT
-      x-cache-hits:
-      - '1'
-      x-content-type-options:
-      - nosniff
-      x-fastly-request-id:
-      - c2064de80d6ea84897050c9080f0715420a18c9f
-      x-frame-options:
-      - deny
-      x-github-request-id:
-      - 2A90:0388:565031:6F5434:6136E9E0
-      x-served-by:
-      - cache-maa10227-MAA
-      x-timer:
-      - S1630995331.169125,VS0,VE0
-      x-xss-protection:
-      - 1; mode=block
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.25.1
-    method: GET
-    uri: https://raw.githubusercontent.com/Azure/azure-cli/master/src/azure-cli-telemetry/setup.py
-  response:
-    body:
-      string: "#!/usr/bin/env python\n\n# --------------------------------------------------------------------------------------------\n#
-        Copyright (c) Microsoft Corporation. All rights reserved.\n# Licensed under
-        the MIT License. See License.txt in the project root for license information.\n#
-        --------------------------------------------------------------------------------------------\n\nfrom
-        codecs import open\nfrom setuptools import setup\n\nVERSION = \"1.0.6\"\n\nCLASSIFIERS
-        = [\n    'Development Status :: 5 - Production/Stable',\n    'Intended Audience
-        :: Developers',\n    'Intended Audience :: System Administrators',\n    'Programming
-        Language :: Python',\n    'Programming Language :: Python :: 3',\n    'Programming
-        Language :: Python :: 3.6',\n    'Programming Language :: Python :: 3.7',\n
-        \   'Programming Language :: Python :: 3.8',\n    'Programming Language ::
-        Python :: 3.9',\n    'License :: OSI Approved :: MIT License',\n]\n\nwith
-        open('README.rst', 'r', encoding='utf-8') as f:\n    README = f.read()\nwith
-        open('HISTORY.rst', 'r', encoding='utf-8') as f:\n    HISTORY = f.read()\n\nsetup(\n
-        \   name='azure-cli-telemetry',\n    version=VERSION,\n    description='Microsoft
-        Azure CLI Telemetry Package',\n    long_description=README + '\\n\\n' + HISTORY,\n
-        \   license='MIT',\n    author='Microsoft Corporation',\n    author_email='azpycli@microsoft.com',\n
-        \   url='https://github.com/Azure/azure-cli',\n    zip_safe=False,\n    classifiers=CLASSIFIERS,\n
-        \   install_requires=[\n        'applicationinsights>=0.11.1,<0.12',\n        'portalocker~=1.6',\n
-        \   ],\n    packages=[\n        'azure.cli.telemetry',\n        'azure.cli.telemetry.components'\n
-        \   ]\n)\n"
-    headers:
-      accept-ranges:
-      - bytes
-      access-control-allow-origin:
-      - '*'
-      cache-control:
-      - max-age=300
-      connection:
-      - keep-alive
-      content-length:
-      - '1616'
-      content-security-policy:
-      - default-src 'none'; style-src 'unsafe-inline'; sandbox
-      content-type:
-      - text/plain; charset=utf-8
-      date:
-      - Tue, 07 Sep 2021 06:15:31 GMT
-      etag:
-      - W/"e3f249876bb1b6fd49bac5b1484f31fc8b13c0bf0fad8b17e7e2e4a403e775dc"
-      expires:
-      - Tue, 07 Sep 2021 06:20:31 GMT
-      source-age:
-      - '191'
-      strict-transport-security:
-      - max-age=31536000
-      vary:
-      - Authorization,Accept-Encoding
-      via:
-      - 1.1 varnish
-      x-cache:
-      - HIT
-      x-cache-hits:
-      - '1'
-      x-content-type-options:
-      - nosniff
-      x-fastly-request-id:
-      - 0176ed31398ff10b4e10ae23ae85b128389ae811
-      x-frame-options:
-      - deny
-      x-github-request-id:
-      - 9AA8:5A2B:1AA308:22921A:6136EBD1
-      x-served-by:
-      - cache-maa10232-MAA
-      x-timer:
-      - S1630995331.420400,VS0,VE0
-      x-xss-protection:
-      - 1; mode=block
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
       - application/json;api-version=5.0
       Accept-Encoding:
       - gzip, deflate
@@ -276,29 +16,29 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 5d2528c2-baee-4ee5-a50d-3543fe312575
+      - 89ce91c2-cb67-45b2-92fd-06f2a1e8b48b
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/wiql/8c8ccd20-ce9a-4d83-9692-be5f20802d44
   response:
     body:
-      string: '{"queryType":"flat","queryResultType":"workItem","asOf":"2021-09-07T06:15:31.95Z","columns":[{"referenceName":"System.Id","name":"ID","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.Id"},{"referenceName":"System.WorkItemType","name":"Work
+      string: '{"queryType":"flat","queryResultType":"workItem","asOf":"2021-09-07T07:09:37.097Z","columns":[{"referenceName":"System.Id","name":"ID","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.Id"},{"referenceName":"System.WorkItemType","name":"Work
         Item Type","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.WorkItemType"},{"referenceName":"System.Title","name":"Title","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.Title"},{"referenceName":"System.AssignedTo","name":"Assigned
         To","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.AssignedTo"},{"referenceName":"System.State","name":"State","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.State"},{"referenceName":"System.Tags","name":"Tags","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.Tags"}],"workItems":[{"id":4,"url":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/4"},{"id":5,"url":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/5"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 017a5d6c-0a59-428c-aa78-f2ef13cab2fd
+      - eab8905c-721f-4031-bcd4-c1489dac9079
       cache-control:
       - no-cache
       content-length:
-      - '1139'
+      - '1140'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 06:15:31 GMT
+      - Tue, 07 Sep 2021 07:09:37 GMT
       expires:
       - '-1'
       p3p:
@@ -319,15 +59,15 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 0B4242CD461F42C8B072EC2065BF7352 Ref B: BOM02EDGE0707 Ref C: 2021-09-07T06:15:31Z'
+      - 'Ref A: F0E316A28BDF40FDA68FF5C96F094ECE Ref B: BOM02EDGE0717 Ref C: 2021-09-07T07:09:36Z'
       x-tfs-processid:
-      - 21993ba6-29d3-4a50-a05d-802948c9225e
+      - 8a3c0467-d5fc-478b-93be-e49a05f57113
       x-tfs-session:
-      - 5d2528c2-baee-4ee5-a50d-3543fe312575
+      - 89ce91c2-cb67-45b2-92fd-06f2a1e8b48b
       x-total-count:
       - '2'
       x-vss-e2eid:
-      - 017a5d6c-0a59-428c-aa78-f2ef13cab2fd
+      - eab8905c-721f-4031-bcd4-c1489dac9079
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -352,11 +92,11 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 5d2528c2-baee-4ee5-a50d-3543fe312575
+      - 89ce91c2-cb67-45b2-92fd-06f2a1e8b48b
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems?ids=4%2C5&fields=System.Id%2CSystem.WorkItemType%2CSystem.Title%2CSystem.AssignedTo%2CSystem.State%2CSystem.Tags&asOf=2021-09-07T06%3A15%3A31.950Z
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems?ids=4%2C5&fields=System.Id%2CSystem.WorkItemType%2CSystem.Title%2CSystem.AssignedTo%2CSystem.State%2CSystem.Tags&asOf=2021-09-07T07%3A09%3A37.097Z
   response:
     body:
       string: '{"count":2,"value":[{"id":4,"rev":1,"fields":{"System.Id":4,"System.WorkItemType":"Task","System.State":"New","System.AssignedTo":{"displayName":"Devops
@@ -367,7 +107,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 5ff97fad-2035-484a-ae52-009a40d1450e
+      - 6a16b9da-dbeb-4244-9aab-6f6306445144
       cache-control:
       - no-cache
       content-length:
@@ -375,7 +115,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 06:15:31 GMT
+      - Tue, 07 Sep 2021 07:09:37 GMT
       expires:
       - '-1'
       p3p:
@@ -396,13 +136,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 392F13219A3349AB8FDDFD5D57164F05 Ref B: BOM02EDGE0707 Ref C: 2021-09-07T06:15:32Z'
+      - 'Ref A: 633484A335ED43429BEAC1F9639872D6 Ref B: BOM02EDGE0717 Ref C: 2021-09-07T07:09:37Z'
       x-tfs-processid:
-      - 8c9b195f-2027-447c-b479-fab19b626e96
+      - 029bd02a-2f25-4065-b2f9-3c2a0e59e02b
       x-tfs-session:
-      - 5d2528c2-baee-4ee5-a50d-3543fe312575
+      - 89ce91c2-cb67-45b2-92fd-06f2a1e8b48b
       x-vss-e2eid:
-      - 5ff97fad-2035-484a-ae52-009a40d1450e
+      - 6a16b9da-dbeb-4244-9aab-6f6306445144
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -431,21 +171,21 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 5d2528c2-baee-4ee5-a50d-3543fe312575
+      - 89ce91c2-cb67-45b2-92fd-06f2a1e8b48b
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/wiql
   response:
     body:
-      string: '{"queryType":"flat","queryResultType":"workItem","asOf":"2021-09-07T06:15:32.283Z","columns":[{"referenceName":"System.Id","name":"ID","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.Id"},{"referenceName":"System.WorkItemType","name":"Work
+      string: '{"queryType":"flat","queryResultType":"workItem","asOf":"2021-09-07T07:09:37.937Z","columns":[{"referenceName":"System.Id","name":"ID","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.Id"},{"referenceName":"System.WorkItemType","name":"Work
         Item Type","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.WorkItemType"},{"referenceName":"System.Title","name":"Title","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.Title"},{"referenceName":"System.AssignedTo","name":"Assigned
         To","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.AssignedTo"},{"referenceName":"System.State","name":"State","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.State"},{"referenceName":"System.Tags","name":"Tags","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/fields/System.Tags"}],"workItems":[{"id":5,"url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/5"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 3d2cc685-bd59-40e0-9763-5ee2f7c5e960
+      - 3d2ae3d8-bd59-40e0-9763-5ee2f7c5e960
       cache-control:
       - no-cache
       content-length:
@@ -453,7 +193,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 06:15:31 GMT
+      - Tue, 07 Sep 2021 07:09:37 GMT
       expires:
       - '-1'
       p3p:
@@ -474,13 +214,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 761B9FCC6A4647528FE352675362F026 Ref B: BOM02EDGE0707 Ref C: 2021-09-07T06:15:32Z'
+      - 'Ref A: 0CB17EBCAD884605BD5491E752D1DAFA Ref B: BOM02EDGE0717 Ref C: 2021-09-07T07:09:37Z'
       x-tfs-processid:
       - f7afd371-b23f-4a8f-a619-d7d6e89e611a
       x-tfs-session:
-      - 5d2528c2-baee-4ee5-a50d-3543fe312575
+      - 89ce91c2-cb67-45b2-92fd-06f2a1e8b48b
       x-vss-e2eid:
-      - 3d2cc685-bd59-40e0-9763-5ee2f7c5e960
+      - 3d2ae3d8-bd59-40e0-9763-5ee2f7c5e960
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -505,11 +245,11 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 5d2528c2-baee-4ee5-a50d-3543fe312575
+      - 89ce91c2-cb67-45b2-92fd-06f2a1e8b48b
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems?ids=5&fields=System.Id%2CSystem.WorkItemType%2CSystem.Title%2CSystem.AssignedTo%2CSystem.State%2CSystem.Tags&asOf=2021-09-07T06%3A15%3A32.283Z
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems?ids=5&fields=System.Id%2CSystem.WorkItemType%2CSystem.Title%2CSystem.AssignedTo%2CSystem.State%2CSystem.Tags&asOf=2021-09-07T07%3A09%3A37.937Z
   response:
     body:
       string: '{"count":1,"value":[{"id":5,"rev":2,"fields":{"System.Id":5,"System.WorkItemType":"Bug","System.State":"Active","System.Title":"Sample
@@ -518,7 +258,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - eab2865f-721f-4031-bcd4-c1489dac9079
+      - 6f34f6f5-f87a-48b2-bf7f-5f3234d3cdbd
       cache-control:
       - no-cache
       content-length:
@@ -526,7 +266,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 06:15:31 GMT
+      - Tue, 07 Sep 2021 07:09:38 GMT
       expires:
       - '-1'
       p3p:
@@ -547,13 +287,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: A52FF7F51EFF4CC3B1218B0DD9CE6A30 Ref B: BOM02EDGE0707 Ref C: 2021-09-07T06:15:32Z'
+      - 'Ref A: 984F2A75E0FD4629A7AE1F66262E1665 Ref B: BOM02EDGE0717 Ref C: 2021-09-07T07:09:38Z'
       x-tfs-processid:
-      - 8a3c0467-d5fc-478b-93be-e49a05f57113
+      - 870c9a5b-502a-41a6-af59-90f8cd3b8723
       x-tfs-session:
-      - 5d2528c2-baee-4ee5-a50d-3543fe312575
+      - 89ce91c2-cb67-45b2-92fd-06f2a1e8b48b
       x-vss-e2eid:
-      - eab2865f-721f-4031-bcd4-c1489dac9079
+      - 6f34f6f5-f87a-48b2-bf7f-5f3234d3cdbd
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
