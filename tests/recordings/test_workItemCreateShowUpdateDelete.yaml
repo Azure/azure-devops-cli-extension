@@ -1,265 +1,5 @@
 interactions:
 - request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.25.1
-    method: HEAD
-    uri: https://azure.microsoft.com/
-  response:
-    body:
-      string: ''
-    headers:
-      access-control-allow-methods:
-      - GET,HEAD
-      access-control-expose-headers:
-      - Request-Context
-      arr-disable-session-affinity:
-      - 'true'
-      azure-instanceid:
-      - 0ff7775b5d8b94955780610e663a8adaf1ae7294ec5f23b42eb7576e3a180527
-      azure-regionname:
-      - Southeast Asia
-      azure-sitename:
-      - acom-prod-southeastasia-02
-      azure-slotname:
-      - production
-      azure-version:
-      - 20210902-1500-267842
-      cache-control:
-      - no-cache
-      content-length:
-      - '124'
-      content-type:
-      - text/html; charset=utf-8
-      date:
-      - Tue, 07 Sep 2021 06:01:26 GMT
-      expires:
-      - '-1'
-      keep-alive:
-      - timeout=10, max=100
-      location:
-      - /en-us/
-      nel:
-      - '{"report_to":"network-errors","max_age":604800,"success_fraction":0.01,"failure_fraction":1.0}'
-      pragma:
-      - no-cache
-      report-to:
-      - '{"group":"network-errors","max_age":604800,"endpoints":[{"url":"https://mdec.nelreports.net/api/report?cat=acom"}]}'
-      request-context:
-      - appId=cid-v1:271db03b-0de6-4bf7-8ebf-f90dccf4de6b
-      set-cookie:
-      - MC1=GUID=6d329c96f81746c8b3780b480ea1ea5c&HASH=6d32&LV=202109&V=4&LU=1630994487014;
-        domain=microsoft.com; expires=Wed, 07-Sep-2022 06:01:27 GMT; path=/; secure;
-        SameSite=None
-      - userInfo=%7b%22guid%22%3a%226d329c96f81746c8b3780b480ea1ea5c%22%2c%22signupDate%22%3a0%2c%22wishlistDate%22%3a0%2c%22checkoutDate%22%3a0%7d;
-        expires=Wed, 07-Sep-2022 06:01:27 GMT; path=/; secure
-      strict-transport-security:
-      - max-age=31536000
-      x-cache:
-      - CONFIG_NOCACHE
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - sameorigin
-      x-msedge-ref:
-      - 'Ref A: 888A08AFFE4441C2A4ECD864CE282F05 Ref B: BOM01EDGE0719 Ref C: 2021-09-07T06:01:26Z'
-    status:
-      code: 302
-      message: Found
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.25.1
-    method: GET
-    uri: https://raw.githubusercontent.com/Azure/azure-cli/master/src/azure-cli-core/setup.py
-  response:
-    body:
-      string: "#!/usr/bin/env python\n\n# --------------------------------------------------------------------------------------------\n#
-        Copyright (c) Microsoft Corporation. All rights reserved.\n# Licensed under
-        the MIT License. See License.txt in the project root for license information.\n#
-        --------------------------------------------------------------------------------------------\n\nfrom
-        codecs import open\nfrom setuptools import setup, find_packages\n\nVERSION
-        = \"2.27.1\"\n\n# If we have source, validate that our version numbers match\n#
-        This should prevent uploading releases with mismatched versions.\ntry:\n    with
-        open('azure/cli/core/__init__.py', 'r', encoding='utf-8') as f:\n        content
-        = f.read()\nexcept OSError:\n    pass\nelse:\n    import re\n    import sys\n\n
-        \   m = re.search(r'__version__\\s*=\\s*[\\'\"](.+?)[\\'\"]', content)\n    if
-        not m:\n        print('Could not find __version__ in azure/cli/core/__init__.py')\n
-        \       sys.exit(1)\n    if m.group(1) != VERSION:\n        print('Expected
-        __version__ = \"{}\"; found \"{}\"'.format(VERSION, m.group(1)))\n        sys.exit(1)\n\nCLASSIFIERS
-        = [\n    'Development Status :: 5 - Production/Stable',\n    'Intended Audience
-        :: Developers',\n    'Intended Audience :: System Administrators',\n    'Programming
-        Language :: Python',\n    'Programming Language :: Python :: 3',\n    'Programming
-        Language :: Python :: 3.6',\n    'Programming Language :: Python :: 3.7',\n
-        \   'Programming Language :: Python :: 3.8',\n    'Programming Language ::
-        Python :: 3.9',\n    'License :: OSI Approved :: MIT License',\n]\n\nDEPENDENCIES
-        = [\n    'adal~=1.2.7',\n    'argcomplete~=1.8',\n    'azure-cli-telemetry==1.0.6.*',\n
-        \   'azure-common~=1.1',\n    'azure-mgmt-core>=1.2.0,<1.3.0',     # the preview
-        version of azure-mgmt-core is 1.3.0b1, it cannot fit azure-core >=1.14.0\n
-        \   'cryptography>=3.2,<3.4',\n    'humanfriendly>=4.7,<10.0',\n    'jmespath',\n
-        \   'knack~=0.8.2',\n    'msal>=1.10.0,<2.0.0',\n    'paramiko>=2.0.8,<3.0.0',\n
-        \   'pkginfo>=1.5.0.1',\n    'PyJWT>=2.1.0',\n    'pyopenssl>=17.1.0',  #
-        https://github.com/pyca/pyopenssl/pull/612\n    'requests[socks]~=2.25.1',\n
-        \   'six~=1.12',\n    'urllib3[secure]>=1.26.5',\n]\n\n# dependencies for
-        specific OSes\nif not sys.platform.startswith('cygwin'):\n    DEPENDENCIES.append('psutil~=5.8')\n\n\nwith
-        open('README.rst', 'r', encoding='utf-8') as f:\n    README = f.read()\n\nsetup(\n
-        \   name='azure-cli-core',\n    version=VERSION,\n    description='Microsoft
-        Azure Command-Line Tools Core Module',\n    long_description=README,\n    license='MIT',\n
-        \   author='Microsoft Corporation',\n    author_email='azpycli@microsoft.com',\n
-        \   url='https://github.com/Azure/azure-cli',\n    zip_safe=False,\n    classifiers=CLASSIFIERS,\n
-        \   packages=find_packages(exclude=[\"*.tests\", \"*.tests.*\", \"tests.*\",
-        \"tests\", \"azure\", \"azure.cli\"]),\n    install_requires=DEPENDENCIES,\n
-        \   python_requires='>=3.6.0',\n    package_data={'azure.cli.core': ['auth_landing_pages/*.html']}\n)\n"
-    headers:
-      accept-ranges:
-      - bytes
-      access-control-allow-origin:
-      - '*'
-      cache-control:
-      - max-age=300
-      connection:
-      - keep-alive
-      content-length:
-      - '2901'
-      content-security-policy:
-      - default-src 'none'; style-src 'unsafe-inline'; sandbox
-      content-type:
-      - text/plain; charset=utf-8
-      date:
-      - Tue, 07 Sep 2021 06:01:27 GMT
-      etag:
-      - W/"d41a08b7c042bc0b1fc4ed6f1729657cf5f84f05c0361aeeda05454f6209eaaa"
-      expires:
-      - Tue, 07 Sep 2021 06:06:27 GMT
-      source-age:
-      - '79'
-      strict-transport-security:
-      - max-age=31536000
-      vary:
-      - Authorization,Accept-Encoding
-      via:
-      - 1.1 varnish
-      x-cache:
-      - HIT
-      x-cache-hits:
-      - '1'
-      x-content-type-options:
-      - nosniff
-      x-fastly-request-id:
-      - 9ea18fcdbc8d7420d9437bdab8d8096bd4936b95
-      x-frame-options:
-      - deny
-      x-github-request-id:
-      - 2A90:0388:565031:6F5434:6136E9E0
-      x-served-by:
-      - cache-maa10222-MAA
-      x-timer:
-      - S1630994488.548277,VS0,VE0
-      x-xss-protection:
-      - 1; mode=block
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.25.1
-    method: GET
-    uri: https://raw.githubusercontent.com/Azure/azure-cli/master/src/azure-cli-telemetry/setup.py
-  response:
-    body:
-      string: "#!/usr/bin/env python\n\n# --------------------------------------------------------------------------------------------\n#
-        Copyright (c) Microsoft Corporation. All rights reserved.\n# Licensed under
-        the MIT License. See License.txt in the project root for license information.\n#
-        --------------------------------------------------------------------------------------------\n\nfrom
-        codecs import open\nfrom setuptools import setup\n\nVERSION = \"1.0.6\"\n\nCLASSIFIERS
-        = [\n    'Development Status :: 5 - Production/Stable',\n    'Intended Audience
-        :: Developers',\n    'Intended Audience :: System Administrators',\n    'Programming
-        Language :: Python',\n    'Programming Language :: Python :: 3',\n    'Programming
-        Language :: Python :: 3.6',\n    'Programming Language :: Python :: 3.7',\n
-        \   'Programming Language :: Python :: 3.8',\n    'Programming Language ::
-        Python :: 3.9',\n    'License :: OSI Approved :: MIT License',\n]\n\nwith
-        open('README.rst', 'r', encoding='utf-8') as f:\n    README = f.read()\nwith
-        open('HISTORY.rst', 'r', encoding='utf-8') as f:\n    HISTORY = f.read()\n\nsetup(\n
-        \   name='azure-cli-telemetry',\n    version=VERSION,\n    description='Microsoft
-        Azure CLI Telemetry Package',\n    long_description=README + '\\n\\n' + HISTORY,\n
-        \   license='MIT',\n    author='Microsoft Corporation',\n    author_email='azpycli@microsoft.com',\n
-        \   url='https://github.com/Azure/azure-cli',\n    zip_safe=False,\n    classifiers=CLASSIFIERS,\n
-        \   install_requires=[\n        'applicationinsights>=0.11.1,<0.12',\n        'portalocker~=1.6',\n
-        \   ],\n    packages=[\n        'azure.cli.telemetry',\n        'azure.cli.telemetry.components'\n
-        \   ]\n)\n"
-    headers:
-      accept-ranges:
-      - bytes
-      access-control-allow-origin:
-      - '*'
-      cache-control:
-      - max-age=300
-      connection:
-      - keep-alive
-      content-length:
-      - '1616'
-      content-security-policy:
-      - default-src 'none'; style-src 'unsafe-inline'; sandbox
-      content-type:
-      - text/plain; charset=utf-8
-      date:
-      - Tue, 07 Sep 2021 06:01:28 GMT
-      etag:
-      - W/"e3f249876bb1b6fd49bac5b1484f31fc8b13c0bf0fad8b17e7e2e4a403e775dc"
-      expires:
-      - Tue, 07 Sep 2021 06:06:28 GMT
-      source-age:
-      - '79'
-      strict-transport-security:
-      - max-age=31536000
-      vary:
-      - Authorization,Accept-Encoding
-      via:
-      - 1.1 varnish
-      x-cache:
-      - HIT
-      x-cache-hits:
-      - '1'
-      x-content-type-options:
-      - nosniff
-      x-fastly-request-id:
-      - 9cd2a28e03087198ee81c9cb9416504466ec8652
-      x-frame-options:
-      - deny
-      x-github-request-id:
-      - 9AA8:5A2B:1AA308:22921A:6136EBD1
-      x-served-by:
-      - cache-maa10232-MAA
-      x-timer:
-      - S1630994488.010802,VS0,VE1
-      x-xss-protection:
-      - 1; mode=block
-    status:
-      code: 200
-      message: OK
-- request:
     body: '[{"op": "add", "path": "/fields/System.Title", "value": "samplebug"}]'
     headers:
       Accept:
@@ -278,30 +18,30 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - cdbe336f-a607-4493-8568-5d6cf1512d88
+      - f6f6553f-1cea-471b-b8f8-d556bd7237cf
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/WorkItemCreateShowUpdateDeleteTests/_apis/wit/workItems/$Bug
   response:
     body:
-      string: '{"id":3,"rev":1,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Bug","System.State":"New","System.Reason":"New","System.CreatedDate":"2021-09-07T06:01:29.193Z","System.CreatedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-07T06:01:29.193Z","System.ChangedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.StateChangeDate":"2021-09-07T06:01:29.193Z","Microsoft.VSTS.Common.Priority":2,"Microsoft.VSTS.Common.Severity":"3
-        - Medium","Microsoft.VSTS.Common.ValueArea":"Business"},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3"},"workItemUpdates":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3/updates"},"workItemRevisions":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3/revisions"},"workItemComments":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3/comments"},"html":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_workitems/edit/3"},"workItemType":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/fields"}},"url":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3"}'
+      string: '{"id":6,"rev":1,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Bug","System.State":"New","System.Reason":"New","System.CreatedDate":"2021-09-07T06:37:30.03Z","System.CreatedBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-07T06:37:30.03Z","System.ChangedBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.StateChangeDate":"2021-09-07T06:37:30.03Z","Microsoft.VSTS.Common.Priority":2,"Microsoft.VSTS.Common.Severity":"3
+        - Medium","Microsoft.VSTS.Common.ValueArea":"Business"},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6"},"workItemUpdates":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6/updates"},"workItemRevisions":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6/revisions"},"workItemComments":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6/comments"},"html":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_workitems/edit/6"},"workItemType":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/fields"}},"url":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 45a30ff6-15a2-44b2-8dad-05614b013e45
+      - 0179ced7-0a59-428c-aa78-f2ef13cab2fd
       cache-control:
       - no-cache
       content-length:
-      - '2919'
+      - '2916'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 06:01:28 GMT
+      - Tue, 07 Sep 2021 06:37:29 GMT
       expires:
       - '-1'
       p3p:
@@ -313,6 +53,8 @@ interactions:
       - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
@@ -320,13 +62,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 936573C0522443D485DCA7C27DF6F770 Ref B: BOM01EDGE1114 Ref C: 2021-09-07T06:01:28Z'
+      - 'Ref A: 5454C946A90E475DAD9FFE7824AA3B1C Ref B: BOM02EDGE0421 Ref C: 2021-09-07T06:37:29Z'
       x-tfs-processid:
-      - f4ba79a6-4d43-4761-86e8-5d13ee0c6926
+      - 21993ba6-29d3-4a50-a05d-802948c9225e
       x-tfs-session:
-      - cdbe336f-a607-4493-8568-5d6cf1512d88
+      - f6f6553f-1cea-471b-b8f8-d556bd7237cf
       x-vss-e2eid:
-      - 45a30ff6-15a2-44b2-8dad-05614b013e45
+      - 0179ced7-0a59-428c-aa78-f2ef13cab2fd
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -351,31 +93,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - cdbe336f-a607-4493-8568-5d6cf1512d88
+      - f6f6553f-1cea-471b-b8f8-d556bd7237cf
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/3?$expand=all
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/6?$expand=all
   response:
     body:
-      string: '{"id":3,"rev":1,"fields":{"System.Id":3,"System.AreaId":1300,"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.NodeName":"WorkItemCreateShowUpdateDeleteTests","System.AreaLevel1":"WorkItemCreateShowUpdateDeleteTests","System.Rev":1,"System.AuthorizedDate":"2021-09-07T06:01:29.193Z","System.RevisedDate":"9999-01-01T00:00:00Z","System.IterationId":1295,"System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.IterationLevel1":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Bug","System.State":"New","System.Reason":"New","System.CreatedDate":"2021-09-07T06:01:29.193Z","System.CreatedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-07T06:01:29.193Z","System.ChangedBy":{"displayName":"Devops
+      string: '{"id":6,"rev":1,"fields":{"System.Id":6,"System.AreaId":1300,"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.NodeName":"WorkItemCreateShowUpdateDeleteTests","System.AreaLevel1":"WorkItemCreateShowUpdateDeleteTests","System.Rev":1,"System.AuthorizedDate":"2021-09-07T06:37:30.03Z","System.RevisedDate":"9999-01-01T00:00:00Z","System.IterationId":1295,"System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.IterationLevel1":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Bug","System.State":"New","System.Reason":"New","System.CreatedDate":"2021-09-07T06:37:30.03Z","System.CreatedBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-07T06:37:30.03Z","System.ChangedBy":{"displayName":"Devops
         Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.AuthorizedAs":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.PersonId":243378920,"System.Watermark":12,"System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.StateChangeDate":"2021-09-07T06:01:29.193Z","Microsoft.VSTS.Common.Priority":2,"Microsoft.VSTS.Common.Severity":"3
-        - Medium","Microsoft.VSTS.Common.ValueArea":"Business"},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3"},"workItemUpdates":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3/updates"},"workItemRevisions":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3/revisions"},"workItemComments":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3/comments"},"html":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_workitems/edit/3"},"workItemType":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/fields"}},"url":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3"}'
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.PersonId":243378920,"System.Watermark":18,"System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.StateChangeDate":"2021-09-07T06:37:30.03Z","Microsoft.VSTS.Common.Priority":2,"Microsoft.VSTS.Common.Severity":"3
+        - Medium","Microsoft.VSTS.Common.ValueArea":"Business"},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6"},"workItemUpdates":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6/updates"},"workItemRevisions":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6/revisions"},"workItemComments":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6/comments"},"html":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_workitems/edit/6"},"workItemType":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/fields"}},"url":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 6a0f78e9-dbeb-4244-9aab-6f6306445144
+      - 6a0b267a-dbeb-4244-9aab-6f6306445144
       cache-control:
       - no-cache
       content-length:
-      - '3961'
+      - '3957'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 06:01:29 GMT
+      - Tue, 07 Sep 2021 06:37:30 GMT
       expires:
       - '-1'
       p3p:
@@ -396,13 +138,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 76BFFA4C4954400FA3C47D03C66715E4 Ref B: BOM01EDGE1114 Ref C: 2021-09-07T06:01:29Z'
+      - 'Ref A: 8DCD5431F882489E8C6F59E23B3D8AA2 Ref B: BOM02EDGE0421 Ref C: 2021-09-07T06:37:30Z'
       x-tfs-processid:
       - 029bd02a-2f25-4065-b2f9-3c2a0e59e02b
       x-tfs-session:
-      - cdbe336f-a607-4493-8568-5d6cf1512d88
+      - f6f6553f-1cea-471b-b8f8-d556bd7237cf
       x-vss-e2eid:
-      - 6a0f78e9-dbeb-4244-9aab-6f6306445144
+      - 6a0b267a-dbeb-4244-9aab-6f6306445144
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -429,32 +171,32 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - cdbe336f-a607-4493-8568-5d6cf1512d88
+      - f6f6553f-1cea-471b-b8f8-d556bd7237cf
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/3
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/6
   response:
     body:
-      string: '{"id":3,"rev":2,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Bug","System.State":"Resolved","System.Reason":"Fixed","System.CreatedDate":"2021-09-07T06:01:29.193Z","System.CreatedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-07T06:01:30.443Z","System.ChangedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.StateChangeDate":"2021-09-07T06:01:30.443Z","Microsoft.VSTS.Common.ActivatedDate":"2021-09-07T06:01:30.443Z","Microsoft.VSTS.Common.ActivatedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"Microsoft.VSTS.Common.ResolvedDate":"2021-09-07T06:01:30.443Z","Microsoft.VSTS.Common.ResolvedBy":{"displayName":"Devops
+      string: '{"id":6,"rev":2,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Bug","System.State":"Resolved","System.Reason":"Fixed","System.CreatedDate":"2021-09-07T06:37:30.03Z","System.CreatedBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-07T06:37:31.433Z","System.ChangedBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.StateChangeDate":"2021-09-07T06:37:31.433Z","Microsoft.VSTS.Common.ActivatedDate":"2021-09-07T06:37:31.433Z","Microsoft.VSTS.Common.ActivatedBy":{"displayName":"Devops
+        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"Microsoft.VSTS.Common.ResolvedDate":"2021-09-07T06:37:31.433Z","Microsoft.VSTS.Common.ResolvedBy":{"displayName":"Devops
         Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"Microsoft.VSTS.Common.ResolvedReason":"Fixed","Microsoft.VSTS.Common.Priority":2,"Microsoft.VSTS.Common.Severity":"3
-        - Medium","Microsoft.VSTS.Common.ValueArea":"Business"},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3"},"workItemUpdates":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3/updates"},"workItemRevisions":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3/revisions"},"workItemComments":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3/comments"},"html":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_workitems/edit/3"},"workItemType":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/fields"}},"url":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/3"}'
+        - Medium","Microsoft.VSTS.Common.ValueArea":"Business"},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6"},"workItemUpdates":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6/updates"},"workItemRevisions":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6/revisions"},"workItemComments":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6/comments"},"html":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_workitems/edit/6"},"workItemType":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/fields"}},"url":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItems/6"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 017d9226-0a59-428c-aa78-f2ef13cab2fd
+      - 504a141c-107c-4202-9127-9f55ddf406a0
       cache-control:
       - no-cache
       content-length:
-      - '4417'
+      - '4416'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 06:01:30 GMT
+      - Tue, 07 Sep 2021 06:37:31 GMT
       expires:
       - '-1'
       p3p:
@@ -475,13 +217,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: E4C3A0FABC384AD0A3CD71C3E4988EC0 Ref B: BOM01EDGE1114 Ref C: 2021-09-07T06:01:30Z'
+      - 'Ref A: B9AB4316A60E49698C83ECAA98BDC24D Ref B: BOM02EDGE0421 Ref C: 2021-09-07T06:37:30Z'
       x-tfs-processid:
-      - 21993ba6-29d3-4a50-a05d-802948c9225e
+      - e71618ac-61af-497a-9f1e-d6fefe1964fc
       x-tfs-session:
-      - cdbe336f-a607-4493-8568-5d6cf1512d88
+      - f6f6553f-1cea-471b-b8f8-d556bd7237cf
       x-vss-e2eid:
-      - 017d9226-0a59-428c-aa78-f2ef13cab2fd
+      - 504a141c-107c-4202-9127-9f55ddf406a0
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -508,33 +250,33 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - cdbe336f-a607-4493-8568-5d6cf1512d88
+      - f6f6553f-1cea-471b-b8f8-d556bd7237cf
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/devops-cli-test-org/WorkItemCreateShowUpdateDeleteTests/_apis/wit/workItems/3?destroy=false
+    uri: https://dev.azure.com/devops-cli-test-org/WorkItemCreateShowUpdateDeleteTests/_apis/wit/workItems/6?destroy=false
   response:
     body:
-      string: '{"id":3,"type":"Bug","name":"samplebug","project":"WorkItemCreateShowUpdateDeleteTests","deletedDate":"9/7/2021
-        6:01:31 AM","deletedBy":"Devops Cli <devops-cli@outlook.com>","code":200,"url":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/recyclebin/3","resource":{"id":3,"rev":3,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Bug","System.State":"Resolved","System.Reason":"Fixed","System.CreatedDate":"2021-09-07T06:01:29.193Z","System.CreatedBy":"Devops
-        Cli <devops-cli@outlook.com>","System.ChangedDate":"2021-09-07T06:01:31.583Z","System.ChangedBy":"Devops
-        Cli <devops-cli@outlook.com>","System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.StateChangeDate":"2021-09-07T06:01:30.443Z","Microsoft.VSTS.Common.ActivatedDate":"2021-09-07T06:01:30.443Z","Microsoft.VSTS.Common.ActivatedBy":"Devops
-        Cli <devops-cli@outlook.com>","Microsoft.VSTS.Common.ResolvedDate":"2021-09-07T06:01:30.443Z","Microsoft.VSTS.Common.ResolvedBy":"Devops
+      string: '{"id":6,"type":"Bug","name":"samplebug","project":"WorkItemCreateShowUpdateDeleteTests","deletedDate":"9/7/2021
+        6:37:32 AM","deletedBy":"Devops Cli <devops-cli@outlook.com>","code":200,"url":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/recyclebin/6","resource":{"id":6,"rev":3,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Bug","System.State":"Resolved","System.Reason":"Fixed","System.CreatedDate":"2021-09-07T06:37:30.03Z","System.CreatedBy":"Devops
+        Cli <devops-cli@outlook.com>","System.ChangedDate":"2021-09-07T06:37:32.98Z","System.ChangedBy":"Devops
+        Cli <devops-cli@outlook.com>","System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.StateChangeDate":"2021-09-07T06:37:31.433Z","Microsoft.VSTS.Common.ActivatedDate":"2021-09-07T06:37:31.433Z","Microsoft.VSTS.Common.ActivatedBy":"Devops
+        Cli <devops-cli@outlook.com>","Microsoft.VSTS.Common.ResolvedDate":"2021-09-07T06:37:31.433Z","Microsoft.VSTS.Common.ResolvedBy":"Devops
         Cli <devops-cli@outlook.com>","Microsoft.VSTS.Common.ResolvedReason":"Fixed","Microsoft.VSTS.Common.Priority":2,"Microsoft.VSTS.Common.Severity":"3
-        - Medium","Microsoft.VSTS.Common.ValueArea":"Business"},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/recyclebin/3"},"workItemType":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/fields"}},"url":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/recyclebin/3"}}'
+        - Medium","Microsoft.VSTS.Common.ValueArea":"Business"},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/recyclebin/6"},"workItemType":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/fields"}},"url":"https://dev.azure.com/devops-cli-test-org/4702cb2f-7c32-4972-9ba9-17d62db9f39c/_apis/wit/recyclebin/6"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 3d22ef31-bd59-40e0-9763-5ee2f7c5e960
+      - 5a24cd63-a1db-4700-ac31-2c02e94a192a
       cache-control:
       - no-cache
       content-length:
-      - '1855'
+      - '1853'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 06:01:31 GMT
+      - Tue, 07 Sep 2021 06:37:32 GMT
       expires:
       - '-1'
       p3p:
@@ -546,8 +288,6 @@ interactions:
       - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
       strict-transport-security:
       - max-age=31536000; includeSubDomains
-      vary:
-      - Accept-Encoding
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
@@ -555,13 +295,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: B904E15A33FF42BF9F71855D9B481D90 Ref B: BOM01EDGE1114 Ref C: 2021-09-07T06:01:30Z'
+      - 'Ref A: 318F414ED5B94B4CBEC3C6F2F8EAA0FF Ref B: BOM02EDGE0421 Ref C: 2021-09-07T06:37:31Z'
       x-tfs-processid:
-      - f7afd371-b23f-4a8f-a619-d7d6e89e611a
+      - ecab2ef8-a67f-407c-8c0b-38d8d7cfa1de
       x-tfs-session:
-      - cdbe336f-a607-4493-8568-5d6cf1512d88
+      - f6f6553f-1cea-471b-b8f8-d556bd7237cf
       x-vss-e2eid:
-      - 3d22ef31-bd59-40e0-9763-5ee2f7c5e960
+      - 5a24cd63-a1db-4700-ac31-2c02e94a192a
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -586,21 +326,21 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - cdbe336f-a607-4493-8568-5d6cf1512d88
+      - f6f6553f-1cea-471b-b8f8-d556bd7237cf
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/3?$expand=all
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/6?$expand=all
   response:
     body:
-      string: '{"$id":"1","innerException":null,"message":"TF401232: Work item 3 does
+      string: '{"$id":"1","innerException":null,"message":"TF401232: Work item 6 does
         not exist, or you do not have permissions to read it.","typeName":"Microsoft.TeamFoundation.WorkItemTracking.Server.WorkItemUnauthorizedAccessException,
         Microsoft.TeamFoundation.WorkItemTracking.Server","typeKey":"WorkItemUnauthorizedAccessException","errorCode":0,"eventId":3200}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 3d22effa-bd59-40e0-9763-5ee2f7c5e960
+      - 6a0b24fa-dbeb-4244-9aab-6f6306445144
       cache-control:
       - no-cache
       content-length:
@@ -608,7 +348,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Tue, 07 Sep 2021 06:01:31 GMT
+      - Tue, 07 Sep 2021 06:37:32 GMT
       expires:
       - '-1'
       p3p:
@@ -627,13 +367,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 9D9AA78C8835479AA38FED6A7BD3315B Ref B: BOM01EDGE1114 Ref C: 2021-09-07T06:01:31Z'
+      - 'Ref A: 224FEFA468AB478AA4B9B07C60B37632 Ref B: BOM02EDGE0421 Ref C: 2021-09-07T06:37:33Z'
       x-tfs-processid:
-      - f7afd371-b23f-4a8f-a619-d7d6e89e611a
+      - 029bd02a-2f25-4065-b2f9-3c2a0e59e02b
       x-tfs-session:
-      - cdbe336f-a607-4493-8568-5d6cf1512d88
+      - f6f6553f-1cea-471b-b8f8-d556bd7237cf
       x-vss-e2eid:
-      - 3d22effa-bd59-40e0-9763-5ee2f7c5e960
+      - 6a0b24fa-dbeb-4244-9aab-6f6306445144
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
