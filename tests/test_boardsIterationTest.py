@@ -9,7 +9,7 @@ from knack.util import CLIError
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/devops-cli-test-org'
 
 class BoardsIterationsTest(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -129,6 +129,8 @@ class BoardsIterationsTest(DevopsScenarioTest):
             default_team_iteration_set = self.cmd(default_team_iteration_set_cmd).get_output_in_json()
             assert default_team_iteration_set['defaultIteration']['id'] == root_project_iteration_identifier
             assert default_team_iteration_set['defaultIteration']['name'] == root_iteration_name
+
+            self.sleep_in_live_run(30)
 
             default_team_iteration_show_cmd = 'az boards iteration team show-default-iteration --team ' + team_name + ' --project ' + random_project_name + ' --output json --detect false'
             default_team_iteration_show = self.cmd(default_team_iteration_show_cmd).get_output_in_json()
