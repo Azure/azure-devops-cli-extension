@@ -16,7 +16,7 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
@@ -35,7 +35,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 154094f9-665a-4322-9abc-e21a86f8ec81
+      - a0d069f1-ca55-4c36-acd9-fe4127ecc212
       cache-control:
       - no-cache
       content-length:
@@ -43,7 +43,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:15 GMT
+      - Thu, 09 Sep 2021 07:30:44 GMT
       expires:
       - '-1'
       p3p:
@@ -64,13 +64,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 32AE1D149E644E82BEDDF03213002BB2 Ref B: BOM02EDGE0519 Ref C: 2021-09-09T04:28:15Z'
+      - 'Ref A: 9D3873654DB54F898B3A8A3AB07FDFB6 Ref B: BOM01EDGE0909 Ref C: 2021-09-09T07:30:44Z'
       x-tfs-processid:
-      - 941cc183-64de-4533-bcfa-ba2bd28f4428
+      - 5bd856eb-22ea-4804-88e7-36853aa59833
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 154094f9-665a-4322-9abc-e21a86f8ec81
+      - a0d069f1-ca55-4c36-acd9-fe4127ecc212
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -99,19 +99,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/_apis/projects
   response:
     body:
-      string: '{"id":"38a5de12-b309-4bac-96f3-1a9b4c4fea1e","status":"notSet","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e"}'
+      string: '{"id":"61755059-ee41-40ec-8520-f3ec1cd8c157","status":"notSet","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b4945896-44a3-44d6-80db-de41fd5be992
+      - b3914e6b-5f8a-4cb0-8465-759723e30f1d
       cache-control:
       - no-cache
       content-length:
@@ -119,7 +119,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:15 GMT
+      - Thu, 09 Sep 2021 07:30:46 GMT
       expires:
       - '-1'
       p3p:
@@ -138,13 +138,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 1F5130C09F1948079DFBDCB6FACCD771 Ref B: BOM02EDGE0519 Ref C: 2021-09-09T04:28:15Z'
+      - 'Ref A: 4CA0334177DE4B22A5C770428D5621BD Ref B: BOM01EDGE0909 Ref C: 2021-09-09T07:30:46Z'
       x-tfs-processid:
-      - 3d9ec238-8908-4813-9e7e-86b2694df50f
+      - 84373e50-5864-4c02-895e-649ca385f1e9
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b4945896-44a3-44d6-80db-de41fd5be992
+      - b3914e6b-5f8a-4cb0-8465-759723e30f1d
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -169,19 +169,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157
   response:
     body:
-      string: '{"id":"38a5de12-b309-4bac-96f3-1a9b4c4fea1e","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e"}}}'
+      string: '{"id":"61755059-ee41-40ec-8520-f3ec1cd8c157","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 864e7f16-6e5f-46b1-aa12-cd362323d3bc
+      - 18ccc573-13e2-4a77-bef2-2e5ed4c6fe95
       cache-control:
       - no-cache
       content-length:
@@ -189,7 +189,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:15 GMT
+      - Thu, 09 Sep 2021 07:30:48 GMT
       expires:
       - '-1'
       p3p:
@@ -210,13 +210,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 1ED16D7F623A4FAA998FD76CEA54CB03 Ref B: BOM02EDGE0420 Ref C: 2021-09-09T04:28:15Z'
+      - 'Ref A: 63F95E1787924DD4854DBF79DED2E1D0 Ref B: BOM01EDGE1106 Ref C: 2021-09-09T07:30:48Z'
       x-tfs-processid:
-      - c21016d3-410a-42b5-b41c-3fa10a9788cd
+      - 2a65b83b-eae8-4e12-82b9-5e357b48db16
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 864e7f16-6e5f-46b1-aa12-cd362323d3bc
+      - 18ccc573-13e2-4a77-bef2-2e5ed4c6fe95
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -241,19 +241,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157
   response:
     body:
-      string: '{"id":"38a5de12-b309-4bac-96f3-1a9b4c4fea1e","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e"}}}'
+      string: '{"id":"61755059-ee41-40ec-8520-f3ec1cd8c157","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b38aaad7-5f8a-4cb0-8465-759723e30f1d
+      - 1f6b6e0c-fca8-4988-925d-d72838ee5988
       cache-control:
       - no-cache
       content-length:
@@ -261,7 +261,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:16 GMT
+      - Thu, 09 Sep 2021 07:30:51 GMT
       expires:
       - '-1'
       p3p:
@@ -282,13 +282,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: A33062B503B44A65976832D9C2F2AB0C Ref B: BOM02EDGE0420 Ref C: 2021-09-09T04:28:16Z'
+      - 'Ref A: EE75805A4D47485F8B012D5C8C614383 Ref B: BOM01EDGE1106 Ref C: 2021-09-09T07:30:50Z'
       x-tfs-processid:
-      - 84373e50-5864-4c02-895e-649ca385f1e9
+      - e9069ff6-34e3-48cd-b4db-2c2e7158f939
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b38aaad7-5f8a-4cb0-8465-759723e30f1d
+      - 1f6b6e0c-fca8-4988-925d-d72838ee5988
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -313,19 +313,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157
   response:
     body:
-      string: '{"id":"38a5de12-b309-4bac-96f3-1a9b4c4fea1e","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e"}}}'
+      string: '{"id":"61755059-ee41-40ec-8520-f3ec1cd8c157","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 864e7dc5-6e5f-46b1-aa12-cd362323d3bc
+      - b48302e4-44a3-44d6-80db-de41fd5be992
       cache-control:
       - no-cache
       content-length:
@@ -333,7 +333,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:17 GMT
+      - Thu, 09 Sep 2021 07:30:53 GMT
       expires:
       - '-1'
       p3p:
@@ -354,13 +354,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 60AD9F56C0F64A118EF5668610CD47AB Ref B: BOM02EDGE0420 Ref C: 2021-09-09T04:28:17Z'
+      - 'Ref A: F3FC494EAFC842C396DAD3B298537B60 Ref B: BOM01EDGE1106 Ref C: 2021-09-09T07:30:53Z'
       x-tfs-processid:
-      - c21016d3-410a-42b5-b41c-3fa10a9788cd
+      - 3d9ec238-8908-4813-9e7e-86b2694df50f
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 864e7dc5-6e5f-46b1-aa12-cd362323d3bc
+      - b48302e4-44a3-44d6-80db-de41fd5be992
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -385,19 +385,163 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157
   response:
     body:
-      string: '{"id":"38a5de12-b309-4bac-96f3-1a9b4c4fea1e","status":"succeeded","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/38a5de12-b309-4bac-96f3-1a9b4c4fea1e"}}}'
+      string: '{"id":"61755059-ee41-40ec-8520-f3ec1cd8c157","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b38aab20-5f8a-4cb0-8465-759723e30f1d
+      - 18ccc2ac-13e2-4a77-bef2-2e5ed4c6fe95
+      cache-control:
+      - no-cache
+      content-length:
+      - '296'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Thu, 09 Sep 2021 07:30:55 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 9675A0C5436B4255B7804FCE9806F7D9 Ref B: BOM01EDGE1106 Ref C: 2021-09-09T07:30:55Z'
+      x-tfs-processid:
+      - 2a65b83b-eae8-4e12-82b9-5e357b48db16
+      x-tfs-session:
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
+      x-vss-e2eid:
+      - 18ccc2ac-13e2-4a77-bef2-2e5ed4c6fe95
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.21.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157
+  response:
+    body:
+      string: '{"id":"61755059-ee41-40ec-8520-f3ec1cd8c157","status":"inProgress","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 1f6b7069-fca8-4988-925d-d72838ee5988
+      cache-control:
+      - no-cache
+      content-length:
+      - '296'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Thu, 09 Sep 2021 07:30:57 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 7C436C8A88E445ACB2C9423AE0650B5E Ref B: BOM01EDGE1106 Ref C: 2021-09-09T07:30:57Z'
+      x-tfs-processid:
+      - e9069ff6-34e3-48cd-b4db-2c2e7158f939
+      x-tfs-session:
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
+      x-vss-e2eid:
+      - 1f6b7069-fca8-4988-925d-d72838ee5988
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.21.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157
+  response:
+    body:
+      string: '{"id":"61755059-ee41-40ec-8520-f3ec1cd8c157","status":"succeeded","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/61755059-ee41-40ec-8520-f3ec1cd8c157"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 1f6b711d-fca8-4988-925d-d72838ee5988
       cache-control:
       - no-cache
       content-length:
@@ -405,7 +549,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:18 GMT
+      - Thu, 09 Sep 2021 07:30:59 GMT
       expires:
       - '-1'
       p3p:
@@ -426,13 +570,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: DC53B079C8094EC19D204EF09F15FB1F Ref B: BOM02EDGE0420 Ref C: 2021-09-09T04:28:18Z'
+      - 'Ref A: 4BFD5D9FFBEC416B9681A0814C7271BF Ref B: BOM01EDGE1106 Ref C: 2021-09-09T07:30:59Z'
       x-tfs-processid:
-      - 84373e50-5864-4c02-895e-649ca385f1e9
+      - e9069ff6-34e3-48cd-b4db-2c2e7158f939
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b38aab20-5f8a-4cb0-8465-759723e30f1d
+      - 1f6b711d-fca8-4988-925d-d72838ee5988
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -457,28 +601,28 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/_apis/projects/IterationProj_000001?includeCapabilities=true
   response:
     body:
-      string: '{"id":"ec735b3e-3c1a-4d64-aad4-077c6017b251","name":"IterationProj_000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251","state":"wellFormed","capabilities":{"processTemplate":{"templateName":"Basic","templateTypeId":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2"},"versioncontrol":{"sourceControlType":"Git","gitEnabled":"True","tfvcEnabled":"False"}},"revision":4296,"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251"},"collection":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projectCollections/8d69f19e-8a61-4566-b826-5482115ce057"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/IterationProj_000001"}},"visibility":"private","defaultTeam":{"id":"d92b07db-cb95-4253-ba72-ad2dc26c5285","name":"IterationProj_000001
-        Team","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251/teams/d92b07db-cb95-4253-ba72-ad2dc26c5285"},"lastUpdateTime":"2021-09-09T04:28:18.45Z"}'
+      string: '{"id":"0cbc40e7-918b-491f-953e-5ed475f430cb","name":"IterationProj_000001","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb","state":"wellFormed","capabilities":{"processTemplate":{"templateName":"Basic","templateTypeId":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2"},"versioncontrol":{"sourceControlType":"Git","gitEnabled":"True","tfvcEnabled":"False"}},"revision":4318,"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb"},"collection":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projectCollections/8d69f19e-8a61-4566-b826-5482115ce057"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/IterationProj_000001"}},"visibility":"private","defaultTeam":{"id":"465bb325-c021-420a-9ea1-e4f89740f2d2","name":"IterationProj_000001
+        Team","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb/teams/465bb325-c021-420a-9ea1-e4f89740f2d2"},"lastUpdateTime":"2021-09-09T07:30:58.627Z"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 15409717-665a-4322-9abc-e21a86f8ec81
+      - 6125214d-304a-45a3-8781-ae7c5637809e
       cache-control:
       - no-cache
       content-length:
-      - '1066'
+      - '1067'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:18 GMT
+      - Thu, 09 Sep 2021 07:31:02 GMT
       expires:
       - '-1'
       p3p:
@@ -499,13 +643,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 9C2ABE8EC1E34C1793CAA5BFB75FBB4F Ref B: BOM02EDGE0519 Ref C: 2021-09-09T04:28:19Z'
+      - 'Ref A: 7FC6D47CDED24F42827B74F1530A9768 Ref B: BOM01EDGE0909 Ref C: 2021-09-09T07:30:59Z'
       x-tfs-processid:
-      - 941cc183-64de-4533-bcfa-ba2bd28f4428
+      - fb22de0d-80c8-4e2f-94b0-df0e06ee5fe9
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 15409717-665a-4322-9abc-e21a86f8ec81
+      - 6125214d-304a-45a3-8781-ae7c5637809e
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -530,21 +674,21 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=1
   response:
     body:
-      string: '{"id":1794,"identifier":"b0498250-9e7c-44c7-ab9b-60ad9259b08d","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":1796,"identifier":"611ae8ea-426a-4e27-afba-a874a2996598","name":"Sprint
+      string: '{"id":1808,"identifier":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":1810,"identifier":"36c6d842-ab61-4e8d-988e-3836a940c0f3","name":"Sprint
         1","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\Sprint
-        1","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/Sprint%201"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}'
+        1","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/Sprint%201"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b38aab4e-5f8a-4cb0-8465-759723e30f1d
+      - 9c81a0dc-9214-4bab-9c13-b3ceb02cd281
       cache-control:
       - no-cache
       content-length:
@@ -552,7 +696,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:19 GMT
+      - Thu, 09 Sep 2021 07:31:06 GMT
       expires:
       - '-1'
       p3p:
@@ -573,13 +717,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 9E81FF5BB9FE4CD79A6E0E0A23EECF79 Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:19Z'
+      - 'Ref A: C7C0A1A28FAD4E3EB751924949329847 Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:05Z'
       x-tfs-processid:
-      - 84373e50-5864-4c02-895e-649ca385f1e9
+      - 90d7f89d-d65c-4009-bde3-905c33a6f70d
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b38aab4e-5f8a-4cb0-8465-759723e30f1d
+      - 9c81a0dc-9214-4bab-9c13-b3ceb02cd281
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -606,27 +750,27 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/_apis/projects/IterationProj_000001/teams
   response:
     body:
-      string: '{"id":"8dbaab0e-13f5-44f6-b555-4831081c949c","name":"teamName1_000002","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251/teams/8dbaab0e-13f5-44f6-b555-4831081c949c","description":"","identityUrl":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/8dbaab0e-13f5-44f6-b555-4831081c949c","projectName":"IterationProj_000001","projectId":"ec735b3e-3c1a-4d64-aad4-077c6017b251","identity":{"id":"8dbaab0e-13f5-44f6-b555-4831081c949c","descriptor":"Microsoft.TeamFoundation.Identity;S-1-9-1551374245-1046180844-440165453-2866022268-1612165713-1-1177903547-3372636998-3028888967-3771786624","subjectDescriptor":"vssgp.Uy0xLTktMTU1MTM3NDI0NS0xMDQ2MTgwODQ0LTQ0MDE2NTQ1My0yODY2MDIyMjY4LTE2MTIxNjU3MTMtMS0xMTc3OTAzNTQ3LTMzNzI2MzY5OTgtMzAyODg4ODk2Ny0zNzcxNzg2NjI0","providerDisplayName":"[IterationProj_000001]\\teamName1_000002","isActive":true,"isContainer":true,"members":[],"memberOf":[],"masterId":"8dbaab0e-13f5-44f6-b555-4831081c949c","properties":{"Microsoft.TeamFoundation.Team":{"$type":"System.Boolean","$value":true},"SchemaClassName":{"$type":"System.String","$value":"Group"},"Description":{"$type":"System.String","$value":""},"Domain":{"$type":"System.String","$value":"vstfs:///Classification/TeamProject/ec735b3e-3c1a-4d64-aad4-077c6017b251"},"Account":{"$type":"System.String","$value":"teamName1_000002"},"SecurityGroup":{"$type":"System.String","$value":"SecurityGroup"},"SpecialType":{"$type":"System.String","$value":"Generic"},"ScopeId":{"$type":"System.String","$value":"08cdcc87-a25b-4a6f-b2cb-2aa3038abe14"},"ScopeType":{"$type":"System.String","$value":"TeamProject"},"LocalScopeId":{"$type":"System.String","$value":"ec735b3e-3c1a-4d64-aad4-077c6017b251"},"SecuringHostId":{"$type":"System.String","$value":"b5db41ca-f3ef-48ce-a8e3-7d282463dbe2"},"ScopeName":{"$type":"System.String","$value":"IterationProj_000001"},"VirtualPlugin":{"$type":"System.String","$value":""}},"resourceVersion":2,"metaTypeId":255}}'
+      string: '{"id":"0f4c9682-a424-4578-9d62-0a8da60dcfeb","name":"teamName1_000002","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb/teams/0f4c9682-a424-4578-9d62-0a8da60dcfeb","description":"","identityUrl":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/0f4c9682-a424-4578-9d62-0a8da60dcfeb","projectName":"IterationProj_000001","projectId":"0cbc40e7-918b-491f-953e-5ed475f430cb","identity":{"id":"0f4c9682-a424-4578-9d62-0a8da60dcfeb","descriptor":"Microsoft.TeamFoundation.Identity;S-1-9-1551374245-3879779340-2341543753-2503892692-1978937547-1-2741682038-2403737676-2838107095-1031468823","subjectDescriptor":"vssgp.Uy0xLTktMTU1MTM3NDI0NS0zODc5Nzc5MzQwLTIzNDE1NDM3NTMtMjUwMzg5MjY5Mi0xOTc4OTM3NTQ3LTEtMjc0MTY4MjAzOC0yNDAzNzM3Njc2LTI4MzgxMDcwOTUtMTAzMTQ2ODgyMw","providerDisplayName":"[IterationProj_000001]\\teamName1_000002","isActive":true,"isContainer":true,"members":[],"memberOf":[],"masterId":"0f4c9682-a424-4578-9d62-0a8da60dcfeb","properties":{"Microsoft.TeamFoundation.Team":{"$type":"System.Boolean","$value":true},"SchemaClassName":{"$type":"System.String","$value":"Group"},"Description":{"$type":"System.String","$value":""},"Domain":{"$type":"System.String","$value":"vstfs:///Classification/TeamProject/0cbc40e7-918b-491f-953e-5ed475f430cb"},"Account":{"$type":"System.String","$value":"teamName1_000002"},"SecurityGroup":{"$type":"System.String","$value":"SecurityGroup"},"SpecialType":{"$type":"System.String","$value":"Generic"},"ScopeId":{"$type":"System.String","$value":"3dd8dc1b-84ef-40a3-a2dc-a426ce141e3b"},"ScopeType":{"$type":"System.String","$value":"TeamProject"},"LocalScopeId":{"$type":"System.String","$value":"0cbc40e7-918b-491f-953e-5ed475f430cb"},"SecuringHostId":{"$type":"System.String","$value":"b5db41ca-f3ef-48ce-a8e3-7d282463dbe2"},"ScopeName":{"$type":"System.String","$value":"IterationProj_000001"},"VirtualPlugin":{"$type":"System.String","$value":""}},"resourceVersion":2,"metaTypeId":255}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 15409724-665a-4322-9abc-e21a86f8ec81
+      - 61252256-304a-45a3-8781-ae7c5637809e
       cache-control:
       - no-cache
       content-length:
-      - '2035'
+      - '2038'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:19 GMT
+      - Thu, 09 Sep 2021 07:31:08 GMT
       expires:
       - '-1'
       p3p:
@@ -645,13 +789,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: F5864861EDCE4CFD82CC0CD8030B991C Ref B: BOM02EDGE0519 Ref C: 2021-09-09T04:28:19Z'
+      - 'Ref A: E93B713B8BDF4D129CC8364C1D2E852D Ref B: BOM01EDGE0909 Ref C: 2021-09-09T07:31:07Z'
       x-tfs-processid:
-      - 941cc183-64de-4533-bcfa-ba2bd28f4428
+      - fb22de0d-80c8-4e2f-94b0-df0e06ee5fe9
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 15409724-665a-4322-9abc-e21a86f8ec81
+      - 61252256-304a-45a3-8781-ae7c5637809e
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -676,19 +820,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=0
   response:
     body:
-      string: '{"id":1794,"identifier":"b0498250-9e7c-44c7-ab9b-60ad9259b08d","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}'
+      string: '{"id":1808,"identifier":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 613d3b7f-304a-45a3-8781-ae7c5637809e
+      - 9c81a26a-9214-4bab-9c13-b3ceb02cd281
       cache-control:
       - no-cache
       content-length:
@@ -696,7 +840,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:19 GMT
+      - Thu, 09 Sep 2021 07:31:09 GMT
       expires:
       - '-1'
       p3p:
@@ -717,13 +861,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 1AECABB04F454839BBE06C6D2F2F09AF Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:19Z'
+      - 'Ref A: F346EC080A0F43188F4436E81B951447 Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:09Z'
       x-tfs-processid:
-      - fb22de0d-80c8-4e2f-94b0-df0e06ee5fe9
+      - 90d7f89d-d65c-4009-bde3-905c33a6f70d
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 613d3b7f-304a-45a3-8781-ae7c5637809e
+      - 9c81a26a-9214-4bab-9c13-b3ceb02cd281
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -750,19 +894,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes/iterations
   response:
     body:
-      string: '{"id":1798,"identifier":"ca6b2ac8-f61c-4c7f-974b-3c9b06ca8092","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}'
+      string: '{"id":1812,"identifier":"9f4a43ec-26a0-4e80-941f-6c439501d7a7","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 613d3b46-304a-45a3-8781-ae7c5637809e
+      - 1f6b7596-fca8-4988-925d-d72838ee5988
       cache-control:
       - no-cache
       content-length:
@@ -770,11 +914,11 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:19 GMT
+      - Thu, 09 Sep 2021 07:31:11 GMT
       expires:
       - '-1'
       location:
-      - https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003
+      - https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
@@ -791,13 +935,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 215264583FDC4D828B95324114E5C39A Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:19Z'
+      - 'Ref A: EF738E5646A2435FAD89FEE9BA1C35EA Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:10Z'
       x-tfs-processid:
-      - fb22de0d-80c8-4e2f-94b0-df0e06ee5fe9
+      - e9069ff6-34e3-48cd-b4db-2c2e7158f939
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 613d3b46-304a-45a3-8781-ae7c5637809e
+      - 1f6b7596-fca8-4988-925d-d72838ee5988
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -822,21 +966,21 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=1
   response:
     body:
-      string: '{"id":1794,"identifier":"b0498250-9e7c-44c7-ab9b-60ad9259b08d","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":1796,"identifier":"611ae8ea-426a-4e27-afba-a874a2996598","name":"Sprint
+      string: '{"id":1808,"identifier":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":1810,"identifier":"36c6d842-ab61-4e8d-988e-3836a940c0f3","name":"Sprint
         1","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\Sprint
-        1","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/Sprint%201"},{"id":1798,"identifier":"ca6b2ac8-f61c-4c7f-974b-3c9b06ca8092","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}'
+        1","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/Sprint%201"},{"id":1812,"identifier":"9f4a43ec-26a0-4e80-941f-6c439501d7a7","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - af7f6b9f-a32f-489e-a0e6-9b7e1da737d7
+      - 9c81a407-9214-4bab-9c13-b3ceb02cd281
       cache-control:
       - no-cache
       content-length:
@@ -844,7 +988,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:19 GMT
+      - Thu, 09 Sep 2021 07:31:13 GMT
       expires:
       - '-1'
       p3p:
@@ -865,13 +1009,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 4EC285DCC83A47918D8A18659B6FCCD7 Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:19Z'
+      - 'Ref A: BEF0229603AE4EED86BAA0C84409A084 Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:13Z'
       x-tfs-processid:
-      - 2d24562a-7891-4683-bcaa-a6235cf5c5b0
+      - 90d7f89d-d65c-4009-bde3-905c33a6f70d
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - af7f6b9f-a32f-489e-a0e6-9b7e1da737d7
+      - 9c81a407-9214-4bab-9c13-b3ceb02cd281
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -896,19 +1040,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes?$depth=0
   response:
     body:
-      string: '{"count":2,"value":[{"id":1797,"identifier":"68dd2431-d422-4c97-a045-a8ed5baa8757","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Areas"},{"id":1794,"identifier":"b0498250-9e7c-44c7-ab9b-60ad9259b08d","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}]}'
+      string: '{"count":2,"value":[{"id":1811,"identifier":"ca1fdb5a-5116-4311-902d-4fca267f2460","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Areas"},{"id":1808,"identifier":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 613d3bb1-304a-45a3-8781-ae7c5637809e
+      - 1f6b770b-fca8-4988-925d-d72838ee5988
       cache-control:
       - no-cache
       content-length:
@@ -916,7 +1060,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:19 GMT
+      - Thu, 09 Sep 2021 07:31:13 GMT
       expires:
       - '-1'
       p3p:
@@ -937,13 +1081,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: E831781D57204F5EBC38ADF8FA683E6D Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:19Z'
+      - 'Ref A: 5315DEDE058A4A149DE31BCC0CFC28D4 Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:13Z'
       x-tfs-processid:
-      - fb22de0d-80c8-4e2f-94b0-df0e06ee5fe9
+      - e9069ff6-34e3-48cd-b4db-2c2e7158f939
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 613d3bb1-304a-45a3-8781-ae7c5637809e
+      - 1f6b770b-fca8-4988-925d-d72838ee5988
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -970,19 +1114,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003
   response:
     body:
-      string: '{"id":1799,"identifier":"7ddfee3a-e51c-44db-9549-52807b14741b","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
+      string: '{"id":1813,"identifier":"75e6e139-5cc1-4363-a223-98c5b70d4846","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b4945bb0-44a3-44d6-80db-de41fd5be992
+      - 9c81a46f-9214-4bab-9c13-b3ceb02cd281
       cache-control:
       - no-cache
       content-length:
@@ -990,11 +1134,11 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:31:14 GMT
       expires:
       - '-1'
       location:
-      - https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004
+      - https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
@@ -1011,13 +1155,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: D2582D7DFBD74BCD92981E4961A575A7 Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:19Z'
+      - 'Ref A: B903B300902C45BE9F31160A2FAB9317 Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:14Z'
       x-tfs-processid:
-      - 3d9ec238-8908-4813-9e7e-86b2694df50f
+      - 90d7f89d-d65c-4009-bde3-905c33a6f70d
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b4945bb0-44a3-44d6-80db-de41fd5be992
+      - 9c81a46f-9214-4bab-9c13-b3ceb02cd281
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1042,19 +1186,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes?$depth=0
   response:
     body:
-      string: '{"count":2,"value":[{"id":1797,"identifier":"68dd2431-d422-4c97-a045-a8ed5baa8757","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Areas"},{"id":1794,"identifier":"b0498250-9e7c-44c7-ab9b-60ad9259b08d","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}]}'
+      string: '{"count":2,"value":[{"id":1811,"identifier":"ca1fdb5a-5116-4311-902d-4fca267f2460","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Areas"},{"id":1808,"identifier":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 864e7c78-6e5f-46b1-aa12-cd362323d3bc
+      - 1f6b7781-fca8-4988-925d-d72838ee5988
       cache-control:
       - no-cache
       content-length:
@@ -1062,7 +1206,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:31:15 GMT
       expires:
       - '-1'
       p3p:
@@ -1083,13 +1227,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 1DE040EFC3164290B0BA714C4A2987AB Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:20Z'
+      - 'Ref A: E4CD116BF91042ACA0DAA8C825CC8766 Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:15Z'
       x-tfs-processid:
-      - c21016d3-410a-42b5-b41c-3fa10a9788cd
+      - e9069ff6-34e3-48cd-b4db-2c2e7158f939
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 864e7c78-6e5f-46b1-aa12-cd362323d3bc
+      - 1f6b7781-fca8-4988-925d-d72838ee5988
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1117,19 +1261,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003
   response:
     body:
-      string: '{"id":1800,"identifier":"52eb408e-f439-4173-9b3e-871594807e80","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"attributes":{"startDate":"2019-06-17T00:00:00Z","finishDate":"2019-06-28T00:00:00Z"},"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000005","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"}'
+      string: '{"id":1814,"identifier":"8ec850d3-8a38-48ff-bcbc-cc7066deacb3","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"attributes":{"startDate":"2019-06-17T00:00:00Z","finishDate":"2019-06-28T00:00:00Z"},"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000005","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b38aac11-5f8a-4cb0-8465-759723e30f1d
+      - 9c81a50f-9214-4bab-9c13-b3ceb02cd281
       cache-control:
       - no-cache
       content-length:
@@ -1137,11 +1281,11 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:31:15 GMT
       expires:
       - '-1'
       location:
-      - https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005
+      - https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
@@ -1158,13 +1302,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 86D9F3B118A84A09A6AC89241F65F430 Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:20Z'
+      - 'Ref A: 2134930084434875B0B752217756E0F9 Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:15Z'
       x-tfs-processid:
-      - 84373e50-5864-4c02-895e-649ca385f1e9
+      - 90d7f89d-d65c-4009-bde3-905c33a6f70d
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b38aac11-5f8a-4cb0-8465-759723e30f1d
+      - 9c81a50f-9214-4bab-9c13-b3ceb02cd281
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1189,21 +1333,21 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=2
   response:
     body:
-      string: '{"id":1794,"identifier":"b0498250-9e7c-44c7-ab9b-60ad9259b08d","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":1796,"identifier":"611ae8ea-426a-4e27-afba-a874a2996598","name":"Sprint
+      string: '{"id":1808,"identifier":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":1810,"identifier":"36c6d842-ab61-4e8d-988e-3836a940c0f3","name":"Sprint
         1","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\Sprint
-        1","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/Sprint%201"},{"id":1798,"identifier":"ca6b2ac8-f61c-4c7f-974b-3c9b06ca8092","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":true,"children":[{"id":1799,"identifier":"7ddfee3a-e51c-44db-9549-52807b14741b","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},{"id":1800,"identifier":"52eb408e-f439-4173-9b3e-871594807e80","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"attributes":{"startDate":"2019-06-17T00:00:00Z","finishDate":"2019-06-28T00:00:00Z"},"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000005","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"}],"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}'
+        1","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/Sprint%201"},{"id":1812,"identifier":"9f4a43ec-26a0-4e80-941f-6c439501d7a7","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":true,"children":[{"id":1813,"identifier":"75e6e139-5cc1-4363-a223-98c5b70d4846","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},{"id":1814,"identifier":"8ec850d3-8a38-48ff-bcbc-cc7066deacb3","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"attributes":{"startDate":"2019-06-17T00:00:00Z","finishDate":"2019-06-28T00:00:00Z"},"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000005","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"}],"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 613d3a29-304a-45a3-8781-ae7c5637809e
+      - 1f6b7830-fca8-4988-925d-d72838ee5988
       cache-control:
       - no-cache
       content-length:
@@ -1211,7 +1355,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:31:16 GMT
       expires:
       - '-1'
       p3p:
@@ -1232,13 +1376,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 8589FA575CA541A0A86D50FB807C096F Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:20Z'
+      - 'Ref A: 7F100FB1B79B474F81C948756A54C062 Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:16Z'
       x-tfs-processid:
-      - fb22de0d-80c8-4e2f-94b0-df0e06ee5fe9
+      - e9069ff6-34e3-48cd-b4db-2c2e7158f939
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 613d3a29-304a-45a3-8781-ae7c5637809e
+      - 1f6b7830-fca8-4988-925d-d72838ee5988
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1263,19 +1407,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes?ids=1799
+    uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes?ids=1813
   response:
     body:
-      string: '{"count":1,"value":[{"id":1799,"identifier":"7ddfee3a-e51c-44db-9549-52807b14741b","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}]}'
+      string: '{"count":1,"value":[{"id":1813,"identifier":"75e6e139-5cc1-4363-a223-98c5b70d4846","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 864e7c56-6e5f-46b1-aa12-cd362323d3bc
+      - 9c81a89a-9214-4bab-9c13-b3ceb02cd281
       cache-control:
       - no-cache
       content-length:
@@ -1283,7 +1427,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:31:23 GMT
       expires:
       - '-1'
       p3p:
@@ -1304,13 +1448,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: A5EA7C4AC2BF401BA137EB4D23758A8C Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:20Z'
+      - 'Ref A: 93D2CEEF12D94A18AB7F826570C317EC Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:23Z'
       x-tfs-processid:
-      - c21016d3-410a-42b5-b41c-3fa10a9788cd
+      - 90d7f89d-d65c-4009-bde3-905c33a6f70d
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 864e7c56-6e5f-46b1-aa12-cd362323d3bc
+      - 9c81a89a-9214-4bab-9c13-b3ceb02cd281
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1335,19 +1479,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes?$depth=0
   response:
     body:
-      string: '{"count":2,"value":[{"id":1797,"identifier":"68dd2431-d422-4c97-a045-a8ed5baa8757","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Areas"},{"id":1794,"identifier":"b0498250-9e7c-44c7-ab9b-60ad9259b08d","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}]}'
+      string: '{"count":2,"value":[{"id":1811,"identifier":"ca1fdb5a-5116-4311-902d-4fca267f2460","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Areas"},{"id":1808,"identifier":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - af7f6b16-a32f-489e-a0e6-9b7e1da737d7
+      - 1f6b7bf0-fca8-4988-925d-d72838ee5988
       cache-control:
       - no-cache
       content-length:
@@ -1355,7 +1499,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:31:24 GMT
       expires:
       - '-1'
       p3p:
@@ -1376,13 +1520,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 6C73A5D9AC1D400799103AC912E7F66B Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:20Z'
+      - 'Ref A: DF78BDB13C394A31A4EBC50A6C12FFF8 Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:24Z'
       x-tfs-processid:
-      - 2d24562a-7891-4683-bcaa-a6235cf5c5b0
+      - e9069ff6-34e3-48cd-b4db-2c2e7158f939
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - af7f6b16-a32f-489e-a0e6-9b7e1da737d7
+      - 1f6b7bf0-fca8-4988-925d-d72838ee5988
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1391,7 +1535,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"id": 1800}'
+    body: '{"id": 1814}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -1409,19 +1553,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003%5CChild_Itr_000004
   response:
     body:
-      string: '{"id":1800,"identifier":"52eb408e-f439-4173-9b3e-871594807e80","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"}'
+      string: '{"id":1814,"identifier":"8ec850d3-8a38-48ff-bcbc-cc7066deacb3","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 613d3a14-304a-45a3-8781-ae7c5637809e
+      - 9c81aa6f-9214-4bab-9c13-b3ceb02cd281
       cache-control:
       - no-cache
       content-length:
@@ -1429,11 +1573,11 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:31:27 GMT
       expires:
       - '-1'
       location:
-      - https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005
+      - https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
@@ -1452,13 +1596,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 14469D5C3DF6454998C7977F0EA1E6E9 Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:20Z'
+      - 'Ref A: A39F6406ED3F48C8BA6B4BB6B6C8766E Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:27Z'
       x-tfs-processid:
-      - fb22de0d-80c8-4e2f-94b0-df0e06ee5fe9
+      - 90d7f89d-d65c-4009-bde3-905c33a6f70d
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 613d3a14-304a-45a3-8781-ae7c5637809e
+      - 9c81aa6f-9214-4bab-9c13-b3ceb02cd281
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1483,19 +1627,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003%5CChild_Itr_000004
   response:
     body:
-      string: '{"id":1799,"identifier":"7ddfee3a-e51c-44db-9549-52807b14741b","name":"Child_Itr_000004","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
+      string: '{"id":1813,"identifier":"75e6e139-5cc1-4363-a223-98c5b70d4846","name":"Child_Itr_000004","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b4945b26-44a3-44d6-80db-de41fd5be992
+      - 1f6b7dc9-fca8-4988-925d-d72838ee5988
       cache-control:
       - no-cache
       content-length:
@@ -1503,7 +1647,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:31:28 GMT
       expires:
       - '-1'
       p3p:
@@ -1524,13 +1668,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: EC87BFABFF2E46E997C4C2BE01959808 Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:20Z'
+      - 'Ref A: A8A4847A3A0D4027930B86C355245E70 Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:28Z'
       x-tfs-processid:
-      - 3d9ec238-8908-4813-9e7e-86b2694df50f
+      - e9069ff6-34e3-48cd-b4db-2c2e7158f939
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b4945b26-44a3-44d6-80db-de41fd5be992
+      - 1f6b7dc9-fca8-4988-925d-d72838ee5988
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1539,9 +1683,9 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"url": "https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004",
-      "_links": {}, "attributes": {}, "hasChildren": true, "id": 1799, "identifier":
-      "7ddfee3a-e51c-44db-9549-52807b14741b", "name": "Child_Itr_000004", "structureType":
+    body: '{"url": "https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004",
+      "_links": {}, "attributes": {}, "hasChildren": true, "id": 1813, "identifier":
+      "75e6e139-5cc1-4363-a223-98c5b70d4846", "name": "Child_Itr_000004", "structureType":
       "iteration"}'
     headers:
       Accept:
@@ -1560,19 +1704,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003%5CChild_Itr_000004
   response:
     body:
-      string: '{"id":1799,"identifier":"7ddfee3a-e51c-44db-9549-52807b14741b","name":"Child_Itr_000004","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
+      string: '{"id":1813,"identifier":"75e6e139-5cc1-4363-a223-98c5b70d4846","name":"Child_Itr_000004","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 864e7c24-6e5f-46b1-aa12-cd362323d3bc
+      - 9c81ab9f-9214-4bab-9c13-b3ceb02cd281
       cache-control:
       - no-cache
       content-length:
@@ -1580,11 +1724,11 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:31:30 GMT
       expires:
       - '-1'
       location:
-      - https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004
+      - https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
@@ -1603,13 +1747,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 06C2AA5987B44F30A91E14C46B7F663A Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:20Z'
+      - 'Ref A: 1A591693E1834BBAA6F07FFFBF6991EF Ref B: BOM01EDGE0812 Ref C: 2021-09-09T07:31:30Z'
       x-tfs-processid:
-      - c21016d3-410a-42b5-b41c-3fa10a9788cd
+      - 90d7f89d-d65c-4009-bde3-905c33a6f70d
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 864e7c24-6e5f-46b1-aa12-cd362323d3bc
+      - 9c81ab9f-9214-4bab-9c13-b3ceb02cd281
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1634,7 +1778,7 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
@@ -1646,7 +1790,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 613d3a59-304a-45a3-8781-ae7c5637809e
+      - 15596ef8-665a-4322-9abc-e21a86f8ec81
       cache-control:
       - no-cache
       content-length:
@@ -1654,7 +1798,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:31:50 GMT
       expires:
       - '-1'
       p3p:
@@ -1675,13 +1819,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 74CB593619154644A996000151C6926C Ref B: BOM02EDGE0413 Ref C: 2021-09-09T04:28:21Z'
+      - 'Ref A: F5F0BB7E2A054FCFA29E96A41C80E421 Ref B: BOM01EDGE1114 Ref C: 2021-09-09T07:31:48Z'
       x-tfs-processid:
-      - fb22de0d-80c8-4e2f-94b0-df0e06ee5fe9
+      - 941cc183-64de-4533-bcfa-ba2bd28f4428
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 613d3a59-304a-45a3-8781-ae7c5637809e
+      - 15596ef8-665a-4322-9abc-e21a86f8ec81
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1690,7 +1834,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"id": "ca6b2ac8-f61c-4c7f-974b-3c9b06ca8092"}'
+    body: '{"id": "9f4a43ec-26a0-4e80-941f-6c439501d7a7"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -1708,7 +1852,7 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
@@ -1722,7 +1866,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 864e7c09-6e5f-46b1-aa12-cd362323d3bc
+      - b392a949-5f8a-4cb0-8465-759723e30f1d
       cache-control:
       - no-cache
       content-length:
@@ -1730,7 +1874,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:31:54 GMT
       expires:
       - '-1'
       p3p:
@@ -1749,13 +1893,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: F65EDD0CFC1349AF8C565B0329275291 Ref B: BOM02EDGE0413 Ref C: 2021-09-09T04:28:21Z'
+      - 'Ref A: 5A2FC722E8204509AC5B3DD16C134260 Ref B: BOM01EDGE1114 Ref C: 2021-09-09T07:31:51Z'
       x-tfs-processid:
-      - c21016d3-410a-42b5-b41c-3fa10a9788cd
+      - 84373e50-5864-4c02-895e-649ca385f1e9
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 864e7c09-6e5f-46b1-aa12-cd362323d3bc
+      - b392a949-5f8a-4cb0-8465-759723e30f1d
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1780,19 +1924,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
   response:
     body:
-      string: '{"backlogIteration":{"id":"00000000-0000-0000-0000-000000000000"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251/teams/8dbaab0e-13f5-44f6-b555-4831081c949c"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/teamfieldvalues"}}}'
+      string: '{"backlogIteration":{"id":"00000000-0000-0000-0000-000000000000"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb/teams/0f4c9682-a424-4578-9d62-0a8da60dcfeb"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/teamfieldvalues"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 154088b2-665a-4322-9abc-e21a86f8ec81
+      - a0d08c64-ca55-4c36-acd9-fe4127ecc212
       cache-control:
       - no-cache
       content-length:
@@ -1800,7 +1944,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:32:05 GMT
       expires:
       - '-1'
       p3p:
@@ -1821,13 +1965,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: C210D9A4ACB04CF68F1C15B60113BDF4 Ref B: BOM02EDGE0412 Ref C: 2021-09-09T04:28:21Z'
+      - 'Ref A: 9EA82E1675F74D7D9128FE7C030594EF Ref B: BOM01EDGE0720 Ref C: 2021-09-09T07:32:04Z'
       x-tfs-processid:
-      - 941cc183-64de-4533-bcfa-ba2bd28f4428
+      - 5bd856eb-22ea-4804-88e7-36853aa59833
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 154088b2-665a-4322-9abc-e21a86f8ec81
+      - a0d08c64-ca55-4c36-acd9-fe4127ecc212
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1836,7 +1980,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"backlogIteration": "b0498250-9e7c-44c7-ab9b-60ad9259b08d"}'
+    body: '{"backlogIteration": "5dc43093-3d89-4aba-9a23-183697af6516"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -1854,19 +1998,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
   response:
     body:
-      string: '{"backlogIteration":{"id":"b0498250-9e7c-44c7-ab9b-60ad9259b08d","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251/teams/8dbaab0e-13f5-44f6-b555-4831081c949c"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}}}'
+      string: '{"backlogIteration":{"id":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb/teams/0f4c9682-a424-4578-9d62-0a8da60dcfeb"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b38aadb9-5f8a-4cb0-8465-759723e30f1d
+      - a0d08f6a-ca55-4c36-acd9-fe4127ecc212
       cache-control:
       - no-cache
       content-length:
@@ -1874,7 +2018,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:20 GMT
+      - Thu, 09 Sep 2021 07:32:07 GMT
       expires:
       - '-1'
       p3p:
@@ -1895,13 +2039,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: EDCAB2289E28423E87AAFB4498CD5B30 Ref B: BOM02EDGE0412 Ref C: 2021-09-09T04:28:21Z'
+      - 'Ref A: E2135D9192204401A62ACC079EBF45DE Ref B: BOM01EDGE0720 Ref C: 2021-09-09T07:32:06Z'
       x-tfs-processid:
-      - 84373e50-5864-4c02-895e-649ca385f1e9
+      - 5bd856eb-22ea-4804-88e7-36853aa59833
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b38aadb9-5f8a-4cb0-8465-759723e30f1d
+      - a0d08f6a-ca55-4c36-acd9-fe4127ecc212
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1926,27 +2070,27 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
   response:
     body:
-      string: '{"backlogIteration":{"id":"00000000-0000-0000-0000-000000000000"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251/teams/8dbaab0e-13f5-44f6-b555-4831081c949c"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/teamfieldvalues"}}}'
+      string: '{"backlogIteration":{"id":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb/teams/0f4c9682-a424-4578-9d62-0a8da60dcfeb"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 15408947-665a-4322-9abc-e21a86f8ec81
+      - a0d089d2-ca55-4c36-acd9-fe4127ecc212
       cache-control:
       - no-cache
       content-length:
-      - '1264'
+      - '1588'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:21 GMT
+      - Thu, 09 Sep 2021 07:32:09 GMT
       expires:
       - '-1'
       p3p:
@@ -1967,13 +2111,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: A313697B49A848D9A496CD812705F356 Ref B: BOM02EDGE0412 Ref C: 2021-09-09T04:28:21Z'
+      - 'Ref A: 6BD936EC84D94FC7812B873D1CF69793 Ref B: BOM01EDGE0720 Ref C: 2021-09-09T07:32:10Z'
       x-tfs-processid:
-      - 941cc183-64de-4533-bcfa-ba2bd28f4428
+      - 5bd856eb-22ea-4804-88e7-36853aa59833
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 15408947-665a-4322-9abc-e21a86f8ec81
+      - a0d089d2-ca55-4c36-acd9-fe4127ecc212
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1982,7 +2126,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"id": "7ddfee3a-e51c-44db-9549-52807b14741b"}'
+    body: '{"id": "75e6e139-5cc1-4363-a223-98c5b70d4846"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -2000,19 +2144,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
   response:
     body:
-      string: '{"id":"7ddfee3a-e51c-44db-9549-52807b14741b","name":"Child_Itr_000004","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/7ddfee3a-e51c-44db-9549-52807b14741b","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/7ddfee3a-e51c-44db-9549-52807b14741b"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251/teams/8dbaab0e-13f5-44f6-b555-4831081c949c"},"teamSettings":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations"},"capacity":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/7ddfee3a-e51c-44db-9549-52807b14741b/capacities"},"workitems":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/7ddfee3a-e51c-44db-9549-52807b14741b/workitems"},"classificationNode":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"teamDaysOff":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/7ddfee3a-e51c-44db-9549-52807b14741b/teamdaysoff"}}}'
+      string: '{"id":"75e6e139-5cc1-4363-a223-98c5b70d4846","name":"Child_Itr_000004","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/75e6e139-5cc1-4363-a223-98c5b70d4846","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/75e6e139-5cc1-4363-a223-98c5b70d4846"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb/teams/0f4c9682-a424-4578-9d62-0a8da60dcfeb"},"teamSettings":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations"},"capacity":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/75e6e139-5cc1-4363-a223-98c5b70d4846/capacities"},"workitems":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/75e6e139-5cc1-4363-a223-98c5b70d4846/workitems"},"classificationNode":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"teamDaysOff":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/75e6e139-5cc1-4363-a223-98c5b70d4846/teamdaysoff"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b4944489-44a3-44d6-80db-de41fd5be992
+      - 18cce40f-13e2-4a77-bef2-2e5ed4c6fe95
       cache-control:
       - no-cache
       content-length:
@@ -2020,7 +2164,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:21 GMT
+      - Thu, 09 Sep 2021 07:32:16 GMT
       expires:
       - '-1'
       p3p:
@@ -2039,13 +2183,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: DE6E1E1FE7784725983A4867B6AA5697 Ref B: BOM02EDGE0412 Ref C: 2021-09-09T04:28:21Z'
+      - 'Ref A: 7C57BF0EFECE42A0A2765E4F98B5EEB1 Ref B: BOM01EDGE0720 Ref C: 2021-09-09T07:32:11Z'
       x-tfs-processid:
-      - 3d9ec238-8908-4813-9e7e-86b2694df50f
+      - 2a65b83b-eae8-4e12-82b9-5e357b48db16
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b4944489-44a3-44d6-80db-de41fd5be992
+      - 18cce40f-13e2-4a77-bef2-2e5ed4c6fe95
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2054,7 +2198,7 @@ interactions:
       code: 201
       message: Created
 - request:
-    body: '{"id": "52eb408e-f439-4173-9b3e-871594807e80"}'
+    body: '{"id": "8ec850d3-8a38-48ff-bcbc-cc7066deacb3"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -2072,19 +2216,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
   response:
     body:
-      string: '{"id":"52eb408e-f439-4173-9b3e-871594807e80","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"future"},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/52eb408e-f439-4173-9b3e-871594807e80","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/52eb408e-f439-4173-9b3e-871594807e80"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251/teams/8dbaab0e-13f5-44f6-b555-4831081c949c"},"teamSettings":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations"},"capacity":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/52eb408e-f439-4173-9b3e-871594807e80/capacities"},"workitems":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/52eb408e-f439-4173-9b3e-871594807e80/workitems"},"classificationNode":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"},"teamDaysOff":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/52eb408e-f439-4173-9b3e-871594807e80/teamdaysoff"}}}'
+      string: '{"id":"8ec850d3-8a38-48ff-bcbc-cc7066deacb3","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"future"},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/8ec850d3-8a38-48ff-bcbc-cc7066deacb3","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/8ec850d3-8a38-48ff-bcbc-cc7066deacb3"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb/teams/0f4c9682-a424-4578-9d62-0a8da60dcfeb"},"teamSettings":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations"},"capacity":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/8ec850d3-8a38-48ff-bcbc-cc7066deacb3/capacities"},"workitems":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/8ec850d3-8a38-48ff-bcbc-cc7066deacb3/workitems"},"classificationNode":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"},"teamDaysOff":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/8ec850d3-8a38-48ff-bcbc-cc7066deacb3/teamdaysoff"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 15408934-665a-4322-9abc-e21a86f8ec81
+      - 18cce199-13e2-4a77-bef2-2e5ed4c6fe95
       cache-control:
       - no-cache
       content-length:
@@ -2092,7 +2236,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:21 GMT
+      - Thu, 09 Sep 2021 07:32:17 GMT
       expires:
       - '-1'
       p3p:
@@ -2111,13 +2255,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: F4FDB5CA9D8E4E37A47C1E070EA05094 Ref B: BOM02EDGE0412 Ref C: 2021-09-09T04:28:21Z'
+      - 'Ref A: 62B8898893A44F84A2AC8136258DDDF8 Ref B: BOM01EDGE0720 Ref C: 2021-09-09T07:32:17Z'
       x-tfs-processid:
-      - 941cc183-64de-4533-bcfa-ba2bd28f4428
+      - 2a65b83b-eae8-4e12-82b9-5e357b48db16
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 15408934-665a-4322-9abc-e21a86f8ec81
+      - 18cce199-13e2-4a77-bef2-2e5ed4c6fe95
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2126,7 +2270,7 @@ interactions:
       code: 201
       message: Created
 - request:
-    body: '{"defaultIteration": "ca6b2ac8-f61c-4c7f-974b-3c9b06ca8092"}'
+    body: '{"defaultIteration": "9f4a43ec-26a0-4e80-941f-6c439501d7a7"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -2144,19 +2288,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
   response:
     body:
-      string: '{"backlogIteration":{"id":"b0498250-9e7c-44c7-ab9b-60ad9259b08d","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":{"id":"ca6b2ac8-f61c-4c7f-974b-3c9b06ca8092","name":"teamName1_000002_Root_Itr_000003","path":"\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"defaultIterationMacro":null,"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251/teams/8dbaab0e-13f5-44f6-b555-4831081c949c"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":[{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"},{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}]}}'
+      string: '{"backlogIteration":{"id":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":{"id":"9f4a43ec-26a0-4e80-941f-6c439501d7a7","name":"teamName1_000002_Root_Itr_000003","path":"\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"defaultIterationMacro":null,"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb/teams/0f4c9682-a424-4578-9d62-0a8da60dcfeb"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":[{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"},{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}]}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b38aad26-5f8a-4cb0-8465-759723e30f1d
+      - 18cce115-13e2-4a77-bef2-2e5ed4c6fe95
       cache-control:
       - no-cache
       content-length:
@@ -2164,7 +2308,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:21 GMT
+      - Thu, 09 Sep 2021 07:32:18 GMT
       expires:
       - '-1'
       p3p:
@@ -2185,13 +2329,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 5CAE9A7265EB4712B2A250558DFBAF34 Ref B: BOM02EDGE0412 Ref C: 2021-09-09T04:28:22Z'
+      - 'Ref A: 16E4ED074C4842888DA0A2CBD5418778 Ref B: BOM01EDGE0720 Ref C: 2021-09-09T07:32:18Z'
       x-tfs-processid:
-      - 84373e50-5864-4c02-895e-649ca385f1e9
+      - 2a65b83b-eae8-4e12-82b9-5e357b48db16
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b38aad26-5f8a-4cb0-8465-759723e30f1d
+      - 18cce115-13e2-4a77-bef2-2e5ed4c6fe95
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2216,19 +2360,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
   response:
     body:
-      string: '{"backlogIteration":{"id":"b0498250-9e7c-44c7-ab9b-60ad9259b08d","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":{"id":"ca6b2ac8-f61c-4c7f-974b-3c9b06ca8092","name":"teamName1_000002_Root_Itr_000003","path":"\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"defaultIterationMacro":null,"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251/teams/8dbaab0e-13f5-44f6-b555-4831081c949c"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":[{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"},{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}]}}'
+      string: '{"backlogIteration":{"id":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":{"id":"9f4a43ec-26a0-4e80-941f-6c439501d7a7","name":"teamName1_000002_Root_Itr_000003","path":"\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"defaultIterationMacro":null,"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb"},"team":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb/teams/0f4c9682-a424-4578-9d62-0a8da60dcfeb"},"teamIterations":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":[{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"},{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}]}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 1f431ef9-fca8-4988-925d-d72838ee5988
+      - a0d0b47b-ca55-4c36-acd9-fe4127ecc212
       cache-control:
       - no-cache
       content-length:
@@ -2236,7 +2380,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:51 GMT
+      - Thu, 09 Sep 2021 07:32:50 GMT
       expires:
       - '-1'
       p3p:
@@ -2257,13 +2401,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: EF4098FAB4784EF7BBF4A08D3D32675E Ref B: BOM02EDGE0412 Ref C: 2021-09-09T04:28:52Z'
+      - 'Ref A: 76BD9A64E63642FCAF082331466C3FD8 Ref B: BOM01EDGE0720 Ref C: 2021-09-09T07:32:51Z'
       x-tfs-processid:
-      - e9069ff6-34e3-48cd-b4db-2c2e7158f939
+      - 5bd856eb-22ea-4804-88e7-36853aa59833
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 1f431ef9-fca8-4988-925d-d72838ee5988
+      - a0d0b47b-ca55-4c36-acd9-fe4127ecc212
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2288,19 +2432,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
   response:
     body:
-      string: '{"count":2,"value":[{"id":"7ddfee3a-e51c-44db-9549-52807b14741b","name":"Child_Itr_000004","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/7ddfee3a-e51c-44db-9549-52807b14741b"},{"id":"52eb408e-f439-4173-9b3e-871594807e80","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"future"},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/52eb408e-f439-4173-9b3e-871594807e80"}]}'
+      string: '{"count":2,"value":[{"id":"75e6e139-5cc1-4363-a223-98c5b70d4846","name":"Child_Itr_000004","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/75e6e139-5cc1-4363-a223-98c5b70d4846"},{"id":"8ec850d3-8a38-48ff-bcbc-cc7066deacb3","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"future"},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/8ec850d3-8a38-48ff-bcbc-cc7066deacb3"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 613d141f-304a-45a3-8781-ae7c5637809e
+      - a0d0b686-ca55-4c36-acd9-fe4127ecc212
       cache-control:
       - no-cache
       content-length:
@@ -2308,7 +2452,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:51 GMT
+      - Thu, 09 Sep 2021 07:32:53 GMT
       expires:
       - '-1'
       p3p:
@@ -2329,13 +2473,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 8E3AB7FE9B444515AC77614F779D7706 Ref B: BOM02EDGE0412 Ref C: 2021-09-09T04:28:52Z'
+      - 'Ref A: 50693EAB120B4AD4848FC5A255A529C8 Ref B: BOM01EDGE0720 Ref C: 2021-09-09T07:32:54Z'
       x-tfs-processid:
-      - fb22de0d-80c8-4e2f-94b0-df0e06ee5fe9
+      - 5bd856eb-22ea-4804-88e7-36853aa59833
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 613d141f-304a-45a3-8781-ae7c5637809e
+      - a0d0b686-ca55-4c36-acd9-fe4127ecc212
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2362,11 +2506,11 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations/7ddfee3a-e51c-44db-9549-52807b14741b
+    uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations/75e6e139-5cc1-4363-a223-98c5b70d4846
   response:
     body:
       string: ''
@@ -2374,11 +2518,11 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 613d146e-304a-45a3-8781-ae7c5637809e
+      - a0d0b6dc-ca55-4c36-acd9-fe4127ecc212
       cache-control:
       - no-cache
       date:
-      - Thu, 09 Sep 2021 04:28:51 GMT
+      - Thu, 09 Sep 2021 07:32:54 GMT
       expires:
       - '-1'
       p3p:
@@ -2397,13 +2541,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 9AFD9866597C4479B7DE6713EFD8668E Ref B: BOM02EDGE0412 Ref C: 2021-09-09T04:28:52Z'
+      - 'Ref A: D68F7D717C6F4E4AB72F3C7A292B6955 Ref B: BOM01EDGE0720 Ref C: 2021-09-09T07:32:54Z'
       x-tfs-processid:
-      - fb22de0d-80c8-4e2f-94b0-df0e06ee5fe9
+      - 5bd856eb-22ea-4804-88e7-36853aa59833
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 613d146e-304a-45a3-8781-ae7c5637809e
+      - a0d0b6dc-ca55-4c36-acd9-fe4127ecc212
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2428,19 +2572,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
   response:
     body:
-      string: '{"count":1,"value":[{"id":"52eb408e-f439-4173-9b3e-871594807e80","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/8dbaab0e-13f5-44f6-b555-4831081c949c/_apis/work/teamsettings/iterations/52eb408e-f439-4173-9b3e-871594807e80"}]}'
+      string: '{"count":1,"value":[{"id":"8ec850d3-8a38-48ff-bcbc-cc7066deacb3","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/0f4c9682-a424-4578-9d62-0a8da60dcfeb/_apis/work/teamsettings/iterations/8ec850d3-8a38-48ff-bcbc-cc7066deacb3"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 864e6b6d-6e5f-46b1-aa12-cd362323d3bc
+      - b3928724-5f8a-4cb0-8465-759723e30f1d
       cache-control:
       - no-cache
       content-length:
@@ -2448,7 +2592,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:51 GMT
+      - Thu, 09 Sep 2021 07:32:59 GMT
       expires:
       - '-1'
       p3p:
@@ -2469,13 +2613,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: CF2F2CB8CF934489B975A271AD99E731 Ref B: BOM02EDGE0509 Ref C: 2021-09-09T04:28:52Z'
+      - 'Ref A: 0EBB6734980C4C6497CE194E442BD9A2 Ref B: BOM01EDGE0714 Ref C: 2021-09-09T07:32:59Z'
       x-tfs-processid:
-      - c21016d3-410a-42b5-b41c-3fa10a9788cd
+      - 84373e50-5864-4c02-895e-649ca385f1e9
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 864e6b6d-6e5f-46b1-aa12-cd362323d3bc
+      - b3928724-5f8a-4cb0-8465-759723e30f1d
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2502,11 +2646,11 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations/52eb408e-f439-4173-9b3e-871594807e80
+    uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations/8ec850d3-8a38-48ff-bcbc-cc7066deacb3
   response:
     body:
       string: ''
@@ -2514,11 +2658,11 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b38abd69-5f8a-4cb0-8465-759723e30f1d
+      - 1f6ba984-fca8-4988-925d-d72838ee5988
       cache-control:
       - no-cache
       date:
-      - Thu, 09 Sep 2021 04:28:52 GMT
+      - Thu, 09 Sep 2021 07:33:00 GMT
       expires:
       - '-1'
       p3p:
@@ -2537,13 +2681,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: C0E758BCE49449DABA51A71B046EB33D Ref B: BOM02EDGE0509 Ref C: 2021-09-09T04:28:52Z'
+      - 'Ref A: E530F85077244C4B9D87772D7577D03C Ref B: BOM01EDGE0714 Ref C: 2021-09-09T07:33:00Z'
       x-tfs-processid:
-      - 84373e50-5864-4c02-895e-649ca385f1e9
+      - e9069ff6-34e3-48cd-b4db-2c2e7158f939
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b38abd69-5f8a-4cb0-8465-759723e30f1d
+      - 1f6ba984-fca8-4988-925d-d72838ee5988
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2568,7 +2712,7 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
@@ -2580,7 +2724,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b38abd7b-5f8a-4cb0-8465-759723e30f1d
+      - af679465-a32f-489e-a0e6-9b7e1da737d7
       cache-control:
       - no-cache
       content-length:
@@ -2588,7 +2732,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:52 GMT
+      - Thu, 09 Sep 2021 07:33:06 GMT
       expires:
       - '-1'
       p3p:
@@ -2609,13 +2753,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 0BD6D32925C14091B33DA6745C19BD2F Ref B: BOM02EDGE0409 Ref C: 2021-09-09T04:28:52Z'
+      - 'Ref A: EB43724ADB8245CDB65B08FBB46E6653 Ref B: BOM01EDGE0915 Ref C: 2021-09-09T07:33:05Z'
       x-tfs-processid:
-      - 84373e50-5864-4c02-895e-649ca385f1e9
+      - 2d24562a-7891-4683-bcaa-a6235cf5c5b0
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b38abd7b-5f8a-4cb0-8465-759723e30f1d
+      - af679465-a32f-489e-a0e6-9b7e1da737d7
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2640,19 +2784,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes?$depth=0
   response:
     body:
-      string: '{"count":2,"value":[{"id":1797,"identifier":"68dd2431-d422-4c97-a045-a8ed5baa8757","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Areas"},{"id":1794,"identifier":"b0498250-9e7c-44c7-ab9b-60ad9259b08d","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}]}'
+      string: '{"count":2,"value":[{"id":1811,"identifier":"ca1fdb5a-5116-4311-902d-4fca267f2460","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Areas"},{"id":1808,"identifier":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - af7f7fc2-a32f-489e-a0e6-9b7e1da737d7
+      - bf2af230-9f33-4c5f-846c-9d8ef78e45a9
       cache-control:
       - no-cache
       content-length:
@@ -2660,7 +2804,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:53 GMT
+      - Thu, 09 Sep 2021 07:33:10 GMT
       expires:
       - '-1'
       p3p:
@@ -2681,13 +2825,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 947918DA2A9C40B6AB4A955B8EA53B45 Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:52Z'
+      - 'Ref A: E66371B7F2EE4286B92CE2FDC7ED1192 Ref B: BOM01EDGE1119 Ref C: 2021-09-09T07:33:09Z'
       x-tfs-processid:
-      - 2d24562a-7891-4683-bcaa-a6235cf5c5b0
+      - b73b7748-c34f-4542-990e-8a833ba2bec2
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - af7f7fc2-a32f-489e-a0e6-9b7e1da737d7
+      - bf2af230-9f33-4c5f-846c-9d8ef78e45a9
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2714,7 +2858,7 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
@@ -2726,11 +2870,11 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b49435e2-44a3-44d6-80db-de41fd5be992
+      - 2348c028-3feb-4b72-97e1-074bf5689f97
       cache-control:
       - no-cache
       date:
-      - Thu, 09 Sep 2021 04:28:53 GMT
+      - Thu, 09 Sep 2021 07:33:12 GMT
       expires:
       - '-1'
       p3p:
@@ -2749,13 +2893,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: E6A2D79C9F8642B3A2707775F179AE96 Ref B: BOM02EDGE0507 Ref C: 2021-09-09T04:28:53Z'
+      - 'Ref A: B20E6BC1532E4C19AB0CB3EE6CBB8E29 Ref B: BOM01EDGE1119 Ref C: 2021-09-09T07:33:10Z'
       x-tfs-processid:
-      - 3d9ec238-8908-4813-9e7e-86b2694df50f
+      - 31888883-cfd3-4a2a-bc34-aa9efef28da4
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b49435e2-44a3-44d6-80db-de41fd5be992
+      - 2348c028-3feb-4b72-97e1-074bf5689f97
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2780,21 +2924,21 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/devops-cli-test-org/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=2
   response:
     body:
-      string: '{"id":1794,"identifier":"b0498250-9e7c-44c7-ab9b-60ad9259b08d","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":1796,"identifier":"611ae8ea-426a-4e27-afba-a874a2996598","name":"Sprint
+      string: '{"id":1808,"identifier":"5dc43093-3d89-4aba-9a23-183697af6516","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":1810,"identifier":"36c6d842-ab61-4e8d-988e-3836a940c0f3","name":"Sprint
         1","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\Sprint
-        1","url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations/Sprint%201"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/devops-cli-test-org/ec735b3e-3c1a-4d64-aad4-077c6017b251/_apis/wit/classificationNodes/Iterations"}'
+        1","url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations/Sprint%201"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/devops-cli-test-org/0cbc40e7-918b-491f-953e-5ed475f430cb/_apis/wit/classificationNodes/Iterations"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b38abe9c-5f8a-4cb0-8465-759723e30f1d
+      - 8656462f-6e5f-46b1-aa12-cd362323d3bc
       cache-control:
       - no-cache
       content-length:
@@ -2802,7 +2946,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:52 GMT
+      - Thu, 09 Sep 2021 07:33:38 GMT
       expires:
       - '-1'
       p3p:
@@ -2823,13 +2967,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: BB9F0394CA8D444D85DE344508004ECB Ref B: BOM02EDGE0707 Ref C: 2021-09-09T04:28:53Z'
+      - 'Ref A: ACB0816327984CB7BDCBAABB8883BE57 Ref B: BOM01EDGE0907 Ref C: 2021-09-09T07:33:37Z'
       x-tfs-processid:
-      - 84373e50-5864-4c02-895e-649ca385f1e9
+      - c21016d3-410a-42b5-b41c-3fa10a9788cd
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - b38abe9c-5f8a-4cb0-8465-759723e30f1d
+      - 8656462f-6e5f-46b1-aa12-cd362323d3bc
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2856,19 +3000,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/projects/ec735b3e-3c1a-4d64-aad4-077c6017b251
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/projects/0cbc40e7-918b-491f-953e-5ed475f430cb
   response:
     body:
-      string: '{"id":"f77bc5eb-5719-45c4-8f33-91fbf95efb9f","status":"notSet","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/f77bc5eb-5719-45c4-8f33-91fbf95efb9f"}'
+      string: '{"id":"aeb1ce93-018a-4a14-ad98-d75207ceb2bb","status":"notSet","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/aeb1ce93-018a-4a14-ad98-d75207ceb2bb"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 1f431f9f-fca8-4988-925d-d72838ee5988
+      - a0d0dca5-ca55-4c36-acd9-fe4127ecc212
       cache-control:
       - no-cache
       content-length:
@@ -2876,7 +3020,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:53 GMT
+      - Thu, 09 Sep 2021 07:33:39 GMT
       expires:
       - '-1'
       p3p:
@@ -2895,13 +3039,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 99AA235784FB45149D1531A92F2A839D Ref B: BOM02EDGE0519 Ref C: 2021-09-09T04:28:53Z'
+      - 'Ref A: 4C1980429F5E445790B4E416552362F8 Ref B: BOM01EDGE0708 Ref C: 2021-09-09T07:33:39Z'
       x-tfs-processid:
-      - e9069ff6-34e3-48cd-b4db-2c2e7158f939
+      - 5bd856eb-22ea-4804-88e7-36853aa59833
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 1f431f9f-fca8-4988-925d-d72838ee5988
+      - a0d0dca5-ca55-4c36-acd9-fe4127ecc212
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2926,91 +3070,19 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/f77bc5eb-5719-45c4-8f33-91fbf95efb9f
+    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/aeb1ce93-018a-4a14-ad98-d75207ceb2bb
   response:
     body:
-      string: '{"id":"f77bc5eb-5719-45c4-8f33-91fbf95efb9f","status":"queued","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/f77bc5eb-5719-45c4-8f33-91fbf95efb9f","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/f77bc5eb-5719-45c4-8f33-91fbf95efb9f"}}}'
+      string: '{"id":"aeb1ce93-018a-4a14-ad98-d75207ceb2bb","status":"succeeded","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/aeb1ce93-018a-4a14-ad98-d75207ceb2bb","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/aeb1ce93-018a-4a14-ad98-d75207ceb2bb"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 864e6b09-6e5f-46b1-aa12-cd362323d3bc
-      cache-control:
-      - no-cache
-      content-length:
-      - '292'
-      content-type:
-      - application/json; charset=utf-8; api-version=5.0
-      date:
-      - Thu, 09 Sep 2021 04:28:52 GMT
-      expires:
-      - '-1'
-      p3p:
-      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
-        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
-      request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
-      strict-transport-security:
-      - max-age=31536000; includeSubDomains
-      vary:
-      - Accept-Encoding
-      x-cache:
-      - CONFIG_NOCACHE
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - SAMEORIGIN
-      x-msedge-ref:
-      - 'Ref A: F96B4019979148A0983F07A543627818 Ref B: BOM02EDGE0420 Ref C: 2021-09-09T04:28:53Z'
-      x-tfs-processid:
-      - c21016d3-410a-42b5-b41c-3fa10a9788cd
-      x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
-      x-vss-e2eid:
-      - 864e6b09-6e5f-46b1-aa12-cd362323d3bc
-      x-vss-senderdeploymentid:
-      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
-      x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json;api-version=5.0
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
-      X-TFS-FedAuthRedirect:
-      - Suppress
-      X-TFS-Session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
-      X-VSS-ForceMsaPassThrough:
-      - 'true'
-    method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/operations/f77bc5eb-5719-45c4-8f33-91fbf95efb9f
-  response:
-    body:
-      string: '{"id":"f77bc5eb-5719-45c4-8f33-91fbf95efb9f","status":"succeeded","url":"https://dev.azure.com/devops-cli-test-org/_apis/operations/f77bc5eb-5719-45c4-8f33-91fbf95efb9f","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/operations/f77bc5eb-5719-45c4-8f33-91fbf95efb9f"}}}'
-    headers:
-      access-control-expose-headers:
-      - Request-Context
-      activityid:
-      - 613d1754-304a-45a3-8781-ae7c5637809e
+      - a0d0dc9a-ca55-4c36-acd9-fe4127ecc212
       cache-control:
       - no-cache
       content-length:
@@ -3018,7 +3090,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Sep 2021 04:28:54 GMT
+      - Thu, 09 Sep 2021 07:33:40 GMT
       expires:
       - '-1'
       p3p:
@@ -3039,13 +3111,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: FFFA0EAD20EA4CE0865FBE381966010A Ref B: BOM02EDGE0420 Ref C: 2021-09-09T04:28:54Z'
+      - 'Ref A: 4A7337C8C9964436AB09D4C0B722242B Ref B: BOM01EDGE1014 Ref C: 2021-09-09T07:33:40Z'
       x-tfs-processid:
-      - fb22de0d-80c8-4e2f-94b0-df0e06ee5fe9
+      - 5bd856eb-22ea-4804-88e7-36853aa59833
       x-tfs-session:
-      - 3edae3d7-a508-4dde-bdeb-e002e8e1e08c
+      - 0a8267ad-af84-41f5-b767-cce6866ee8e7
       x-vss-e2eid:
-      - 613d1754-304a-45a3-8781-ae7c5637809e
+      - a0d0dc9a-ca55-4c36-acd9-fe4127ecc212
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
