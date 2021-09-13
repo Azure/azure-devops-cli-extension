@@ -115,7 +115,7 @@ class GroupTests(DevopsScenarioTest):
             add_membership = self.cmd('az devops security group membership add --group-id '+ project_group_descriptor +' --member-id '+ _TEST_EMAIL_ID  +' -o json --detect false').get_output_in_json()
 
             attemps = 0
-            while attemps < 5:
+            while attemps < 15:
                 attemps += 1
                 self.sleep_in_live_run(30)
                 list_group_name3_memberof = self.cmd('az devops security group membership list --id '+ project_group_descriptor3 +' --relationship memberof -o json --detect false').get_output_in_json()
@@ -130,7 +130,7 @@ class GroupTests(DevopsScenarioTest):
             remove_membership = self.cmd('az devops security group membership remove --group-id '+ project_group_descriptor +' --member-id '+ project_group_descriptor3 +' -y -o json --detect false')
 
             attemps = 0
-            while attemps < 5:
+            while attemps < 15:
                 attemps += 1
                 self.sleep_in_live_run(30)
                 list_group_name3_memberof = self.cmd('az devops security group membership list --id '+ project_group_descriptor3 +' --relationship memberof -o json --detect false').get_output_in_json()
