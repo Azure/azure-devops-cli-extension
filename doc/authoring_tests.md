@@ -32,6 +32,11 @@
 Make sure your machine python SDK cache is clear. It is located at `%userprofile%\.azure-devops\python-sdk\cache\`
 While running the test localy for first time make sure that the cassest (in the recording folder) gets the resource call as well
 
+## Logout from az cli
+
+Do `az logout` so that PAT token can be used.
+If you don't logout, system will not take PAT for Authentication, which will result into test fail in PR pipeline.
+
 ## Configure PAT for running live tests
 
 Recommended way is to use PAT from environment variable (AZURE_DEVOPS_EXT_PAT) when running a live test, so your PAT in the test file does not accidently get exposed to public in a PR.
