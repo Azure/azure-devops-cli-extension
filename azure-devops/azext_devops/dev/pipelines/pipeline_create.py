@@ -24,7 +24,7 @@ from azext_devops.dev.pipelines.pipeline_create_helpers.pipelines_resource_provi
     get_kubernetes_environment_resource, get_container_registry_service_connection, get_webapp_from_list_selection)
 from azext_devops.dev.pipelines.pipeline_create_helpers.azure_repos_helper import push_files_to_azure_repo
 from azext_devops.devops_sdk.v5_1.build.models import Build, BuildDefinition, BuildRepository, AgentPoolQueue
-from .build_definition import get_definition_id_from_name, fix_path_for_api
+from .build_definition import fix_path_for_api
 
 logger = get_logger(__name__)
 
