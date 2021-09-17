@@ -155,10 +155,10 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
                               project=project)
 
 
-def pipeline_update(id, description=None, new_name=None,  # pylint: disable=redefined-builtin
+def pipeline_update(id=None, description=None, new_name=None,  # pylint: disable=redefined-builtin
                     branch=None, yml_path=None, queue_id=None, organization=None, project=None, detect=None,
                     new_folder_path=None):
-    """ Update a pipeline
+    """Update a pipeline
     :param id: Id of the pipeline to update.
     :type id: str
     :param new_name: New updated name of the pipeline.
