@@ -24,7 +24,7 @@ from azext_devops.dev.pipelines.pipeline_create_helpers.pipelines_resource_provi
     get_kubernetes_environment_resource, get_container_registry_service_connection, get_webapp_from_list_selection)
 from azext_devops.dev.pipelines.pipeline_create_helpers.azure_repos_helper import push_files_to_azure_repo
 from azext_devops.devops_sdk.v5_1.build.models import Build, BuildDefinition, BuildRepository, AgentPoolQueue
-from .build_definition import get_definition_id_from_name, fix_path_for_api
+from .build_definition import fix_path_for_api
 
 logger = get_logger(__name__)
 
@@ -155,12 +155,10 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
                               project=project)
 
 
-def pipeline_update(name=None, id=None, description=None, new_name=None,  # pylint: disable=redefined-builtin
+def pipeline_update(id, description=None, new_name=None,  # pylint: disable=redefined-builtin
                     branch=None, yml_path=None, queue_id=None, organization=None, project=None, detect=None,
                     new_folder_path=None):
-    """ Update a pipeline
-    :param name: Name of the pipeline to update.
-    :type name: str
+    """Update a pipeline
     :param id: Id of the pipeline to update.
     :type id: str
     :param new_name: New updated name of the pipeline.
@@ -181,11 +179,6 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
     pipeline_client = get_new_pipeline_client(organization=organization)
-    if id is None:
-        if name is not None:
-            id = get_definition_id_from_name(name, pipeline_client, project)
-        else:
-            raise CLIError("Either --id or --name argument must be supplied for this command.")
     definition = pipeline_client.get_definition(definition_id=id, project=project)
     if new_name:
         definition.name = new_name
