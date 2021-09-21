@@ -170,6 +170,8 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     if pr.source_ref_name == pr.target_ref_name:
         raise CLIError('The source branch, "{}", can not be the same as the target branch.'.format
                        (pr.source_ref_name))
+    if reviewers is not None:
+        reviewers = list(set(x.lower() for x in reviewers))
     pr.reviewers = _resolve_reviewers_as_refs(reviewers, organization)
     if work_items is not None and work_items:
         resolved_work_items = []
