@@ -158,10 +158,18 @@ def _get_current_release(organization, override_version):
     # Distro returns empty strings on Windows currently, so don't even send
     distro_name = distro.id() or None
     distro_version = distro.version() or None
+    os_name = platform.system()
+    arch = platform.machine()
+
+    # For M1 macs, there is no version of artifact tool. However, the x86_64
+    # version can run under Rosetta, so we use that instead.
+    if os_name == "Darwin" and arch == "amd64":
+        arch = "x86_64"
+
     release = client.get_clienttool_release(
         "ArtifactTool",
-        os_name=platform.system(),
-        arch=platform.machine(),
+        os_name=os_name,
+        arch=arch,
         distro_name=distro_name,
         distro_version=distro_version,
         version=override_version)
