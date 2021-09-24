@@ -161,6 +161,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         self.mock_update_PR.assert_not_called()
         assert len(self.mock_resolve_reviewers_as_refs.call_args_list) == 1
         assert self.mock_resolve_reviewers_as_refs.call_args_list[0][0][0][0] == "a@b.com"
+        
         assert response.id == test_pr_id
 
         #compare the PR objects
