@@ -163,7 +163,7 @@ def _get_current_release(organization, override_version):
 
     # For M1 macs, there is no version of artifact tool. However, the x86_64
     # version can run under Rosetta, so we use that instead.
-    if os_name == "Darwin" and arch == "amd64":
+    if os_name == "Darwin" and arch in ["amd64", "arm64"]:
         arch = "x86_64"
 
     release = client.get_clienttool_release(
