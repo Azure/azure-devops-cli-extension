@@ -14,10 +14,13 @@ from azext_devops.dev.common.uri import uri_quote
 from azext_devops.dev.common.uuid import is_uuid
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.devops_sdk.v5_0.build.models import Build, DefinitionReference
-from azext_devops.devops_sdk.v6_0.pipelines.models import Pipeline, PipelineReference, RunPipelineParameters, RunResourcesParameters, RepositoryResourceParameters
+from azext_devops.devops_sdk.v6_0.pipelines.models import (Pipeline,
+                                                           PipelineReference,
+                                                           RunPipelineParameters,
+                                                           RunResourcesParameters,
+                                                           RepositoryResourceParameters)
 from .build_definition import get_definition_id_from_name, fix_path_for_api
 from .pipeline_run import _open_pipeline_run, _open_pipeline_run6_0
-import json
 import ast
 
 logger = get_logger(__name__)

@@ -13,7 +13,10 @@
                 // "repos", "ref", "create", "--name", "TestRef", "--object-id", "DemoProject", "--project", "DemoProject"
                 //"repos", "ref", "delete", "--name", "tags/TestRef", "--project", "DemoProject", "-r", "dummy.git"
                 //   "pipelines", "run", "--id", "1", "--project", "DemoProject", "--org","https://dev.azure.com/syrentechnologies/", "--parameters", "{'yesNo':'From the Code'}", "--variables", "yesNo=From","the=Code", "--branch", "Test","--debug"
-                  "pipelines", "run", "--id", "1", "--project", "DemoProject", "--org","https://dev.azure.com/syrentechnologies/", "--variables", "yesNo=From","the=Code", "--branch", "Test","--debug"
+                //   "pipelines", "run", "--id", "1", "--project", "DemoProject", "--org","https://dev.azure.com/syrentechnologies/",  "--parameters", "{'yesNo':'From the Code'}","--variables", "yesNo=From","the=Code", "--branch", "Test","--debug"
+                "pipelines", "runs", "show", "--id", "64", "--project", "DemoProject", "--org","https://dev.azure.com/syrentechnologies/","--debug"
+
+                //64
             ],
             "console": "integratedTerminal",
             // "debugOptions": [
