@@ -11,8 +11,9 @@
                 // "devops","project","list"
                 // "pipelines", "run", "--parameters", "{'name':'value'}" ,"--project", "DemoProject", "--name", "DemoProject"
                 // "repos", "ref", "create", "--name", "TestRef", "--object-id", "DemoProject", "--project", "DemoProject"
-                "repos", "ref", "delete", "--name", "tags/TestRef", "--project", "DemoProject", "-r", "dummy.git"
-                // "repos", "ref", "list", "--project", "DemoProject", "-r", "dummy.git"
+                //"repos", "ref", "delete", "--name", "tags/TestRef", "--project", "DemoProject", "-r", "dummy.git"
+                //   "pipelines", "run", "--id", "1", "--project", "DemoProject", "--org","https://dev.azure.com/syrentechnologies/", "--parameters", "{'yesNo':'From the Code'}", "--variables", "yesNo=From","the=Code", "--branch", "Test","--debug"
+                  "pipelines", "run", "--id", "1", "--project", "DemoProject", "--org","https://dev.azure.com/syrentechnologies/", "--variables", "yesNo=From","the=Code", "--branch", "Test","--debug"
             ],
             "console": "integratedTerminal",
             // "debugOptions": [
