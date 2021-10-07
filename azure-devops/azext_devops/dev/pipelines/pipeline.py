@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from webbrowser import open_new
+import ast
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.services import (get_build_client,
@@ -14,14 +15,11 @@ from azext_devops.dev.common.uri import uri_quote
 from azext_devops.dev.common.uuid import is_uuid
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.devops_sdk.v5_0.build.models import Build, DefinitionReference
-from azext_devops.devops_sdk.v6_0.pipelines.models import (Pipeline,
-                                                           PipelineReference,
-                                                           RunPipelineParameters,
+from azext_devops.devops_sdk.v6_0.pipelines.models import (RunPipelineParameters,
                                                            RunResourcesParameters,
                                                            RepositoryResourceParameters)
 from .build_definition import get_definition_id_from_name, fix_path_for_api
 from .pipeline_run import _open_pipeline_run, _open_pipeline_run6_0
-import ast
 
 logger = get_logger(__name__)
 
@@ -162,7 +160,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
 
     definition_reference = DefinitionReference(id=id)
     branch = resolve_git_ref_heads(branch)
-    build = Build(definition=definition_reference,source_branch=branch,source_version=commit_id)
+    build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)
     if variables is not None and variables:
         build.parameters = {}
         for variable in variables:
@@ -173,7 +171,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
                 raise ValueError(
                     'The --variables argument should consist of space separated "name=value" pairs.')
 
-    queued_build = client.queue_build(build=build,project=project)
+    queued_build = client.queue_build(build=build, project=project)
 
     if open:
         _open_pipeline_run(queued_build, organization)
