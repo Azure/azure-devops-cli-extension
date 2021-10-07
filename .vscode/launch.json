@@ -8,7 +8,7 @@
             "pythonPath": "${config:python.pythonPath}",
             "program": "${workspaceRoot}/scripts/run_az.py",
             "cwd": "${workspaceRoot}/azure-devops/",
-            "args": [                
+            "args": [
                 "devops",
                 "project",
                 "list",
@@ -25,7 +25,7 @@
                 "WaitOnNormalExit",
                 "RedirectOutput"
             ],
-            "justMyCode": false,
+            "debugStdLib": true,
             "preLaunchTask": "BuildWheel",
             "env": {
                 "AZURE_EXTENSION_DIR": "${workspaceRoot}"
