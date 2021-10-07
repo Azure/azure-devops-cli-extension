@@ -136,7 +136,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     if id is None:
         id = get_definition_id_from_name(name, client, project, folder_path)
 
-    if parameters :
+    if parameters:
         client = get_new_pipeline_client_v60(organization)
 
         repositories = {"self": RepositoryResourceParameters(ref_name=branch, version=commit_id)}
@@ -147,7 +147,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
             for variable in variables:
                 separator_pos = variable.find('=')
                 if separator_pos >= 0:
-                    param_variables[variable[:separator_pos]] = { "value": variable[separator_pos + 1:] }
+                    param_variables[variable[:separator_pos]] = {"value": variable[separator_pos + 1:]}
                 else:
                     raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
 
@@ -162,7 +162,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
 
     definition_reference = DefinitionReference(id=id)
     branch = resolve_git_ref_heads(branch)
-    build = Build(definition=definition_reference,source_branch=branch, source_version=commit_id)
+    build = Build(definition=definition_reference,source_branch=branch,source_version=commit_id)
     if variables is not None and variables:
         build.parameters = {}
         for variable in variables:
@@ -173,8 +173,8 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
                 raise ValueError(
                     'The --variables argument should consist of space separated "name=value" pairs.')
 
-    queued_build = client.queue_build(build=build, project=project)
-    
+    queued_build = client.queue_build(build=build,project=project)
+
     if open:
         _open_pipeline_run(queued_build, organization)
     return queued_build
