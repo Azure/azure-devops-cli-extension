@@ -5,26 +5,27 @@
             "name": "Azure DevOps CLI Debug (Integrated Console)",
             "type": "python",
             "request": "launch",
+            "pythonPath": "${config:python.pythonPath}",
             "program": "${workspaceRoot}/scripts/run_az.py",
             "cwd": "${workspaceRoot}/azure-devops/",
-            "args": [
-                // "devops","project","list"
-                // "pipelines", "run", "--parameters", "{'name':'value'}" ,"--project", "DemoProject", "--name", "DemoProject"
-                // "repos", "ref", "create", "--name", "TestRef", "--object-id", "DemoProject", "--project", "DemoProject"
-                //"repos", "ref", "delete", "--name", "tags/TestRef", "--project", "DemoProject", "-r", "dummy.git"
-                //   "pipelines", "run", "--id", "1", "--project", "DemoProject", "--org","https://dev.azure.com/syrentechnologies/", "--parameters", "{'yesNo':'From the Code'}", "--variables", "yesNo=From","the=Code", "--branch", "Test","--debug"
-                //   "pipelines", "run", "--id", "1", "--project", "DemoProject", "--org","https://dev.azure.com/syrentechnologies/",  "--parameters", "{'yesNo':'From the Code'}","--variables", "yesNo=From","the=Code", "--branch", "Test","--debug"
-                "pipelines", "runs", "show", "--id", "64", "--project", "DemoProject", "--org","https://dev.azure.com/syrentechnologies/","--debug"
-
-                //64
+            "args": [                
+                "devops",
+                "project",
+                "list",
+                "--org",
+                "https://dev.azure.com/mseng/",
+                "--state-filter",
+                "all",
+                "-o",
+                "json"
             ],
             "console": "integratedTerminal",
-            // "debugOptions": [
-            //     "WaitOnAbnormalExit",
-            //     "WaitOnNormalExit",
-            //     "RedirectOutput"
-            // ],
-            // "justMyCode": false,
+            "debugOptions": [
+                "WaitOnAbnormalExit",
+                "WaitOnNormalExit",
+                "RedirectOutput"
+            ],
+            "justMyCode": false,
             "preLaunchTask": "BuildWheel",
             "env": {
                 "AZURE_EXTENSION_DIR": "${workspaceRoot}"
