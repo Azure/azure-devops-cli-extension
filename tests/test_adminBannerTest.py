@@ -40,7 +40,7 @@ class AdminBannerTests(DevopsScenarioTest):
             assert add_admin_banner_output[admin_banner_id]["expirationDate"] == iso_date
 
             #Test was failing without adding a sleep here. Though the create was successful when queried after few seconds. 
-            self.sleep_in_live_run(30)
+            self.sleep_in_live_run(5)
             
             #update banner 
             update_admin_banner_command = ('az devops admin banner update --id ' + admin_banner_id + ' --message "' + admin_banner_updated_message + 
@@ -53,7 +53,7 @@ class AdminBannerTests(DevopsScenarioTest):
             assert update_admin_banner_output[admin_banner_id]["expirationDate"] == ''
 
             #Test was failing without adding a sleep here. Though the update was successful when queried after few seconds. 
-            self.sleep_in_live_run(30)
+            self.sleep_in_live_run(5)
             
             #list banner command
             list_admin_banner_command = 'az devops admin banner list --output json --detect false'
@@ -77,7 +77,7 @@ class AdminBannerTests(DevopsScenarioTest):
             
             #Verify remove
             #Test was failing without adding a sleep here. Though the remove was successful. 
-            self.sleep_in_live_run(30)
+            self.sleep_in_live_run(5)
             list_admin_banner_command = 'az devops admin banner list --output json --detect false'
             list_admin_banner_output = self.cmd(list_admin_banner_command).get_output_in_json()
             assert admin_banner_id not in list(list_admin_banner_output.keys())

@@ -22,7 +22,7 @@ def get_credential(organization, fall_back_to_default=True):
 
 def _get_credential(organization):
     key = _get_service_name(organization)
-    logger.debug('Getting my credential: %s -----------------', key)
+    logger.debug('Getting credential: %s', key)
     cred_store = CredentialStore()
     return cred_store.get_password(key)
 
