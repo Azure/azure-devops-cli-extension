@@ -3,7 +3,7 @@ steps:
   displayName: 'Upgrade pip'
 - script: pip install wheel==0.30.0
   displayName: 'Install Wheel'
-- script: pip install pytest==4.6.6
+- script: pip install pytest==6.2.5
   displayName: 'Install pytest'
 - script: pip install coverage
   displayName: 'Install coverage'

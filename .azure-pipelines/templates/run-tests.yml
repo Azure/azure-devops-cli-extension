@@ -13,7 +13,7 @@ steps:
     - template: install-azure-cli-edge.yml
 
   - ${{ if eq(parameters.runWithAzureCliReleased, 'true') }}:
-    - template: install-azure-cli-released.yml
+    - template: install-azure-cli-edge.yml
 
   - template: download-install-local-azure-test-sdk.yml
 
