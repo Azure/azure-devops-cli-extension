@@ -142,6 +142,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
 
         template_parameters = ast.literal_eval(parameters)
 
+        param_variables = None
         if variables:
             param_variables = {}
             for variable in variables:
@@ -150,9 +151,9 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
                     param_variables[variable[:separator_pos]] = {"value": variable[separator_pos + 1:]}
                 else:
                     raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
-            run_parameters = RunPipelineParameters(resources=resources, variables=param_variables, template_parameters=template_parameters)
-        else:
-            run_parameters = RunPipelineParameters(resources=resources, template_parameters=template_parameters)
+
+        run_parameters = RunPipelineParameters(
+            resources=resources, variables=param_variables, template_parameters=template_parameters)
 
         queued_pipeline = client.run_pipeline(run_parameters=run_parameters, project=project, pipeline_id=id)
         if open:
