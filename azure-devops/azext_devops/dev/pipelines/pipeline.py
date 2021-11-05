@@ -143,7 +143,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
         template_parameters = ast.literal_eval(parameters)
 
         param_variables = None
-        if variables:
+        if variables is not None and variables:
             param_variables = {}
             for variable in variables:
                 separator_pos = variable.find('=')
@@ -163,15 +163,19 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     definition_reference = DefinitionReference(id=id)
     branch = resolve_git_ref_heads(branch)
     build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)
+
+    param_variables = None
     if variables is not None and variables:
-        build.parameters = {}
+        param_variables = {}
         for variable in variables:
             separator_pos = variable.find('=')
             if separator_pos >= 0:
-                build.parameters[variable[:separator_pos]] = variable[separator_pos + 1:]
+                param_variables[variable[:separator_pos]] = variable[separator_pos + 1:]
             else:
                 raise ValueError(
                     'The --variables argument should consist of space separated "name=value" pairs.')
+
+    build.parameters = param_variables
 
     queued_build = client.queue_build(build=build, project=project)
 
