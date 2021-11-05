@@ -100,6 +100,21 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
         _open_pipeline(build_definition, organization)
     return build_definition
 
+def set_param_variable(variables,dict=False):
+    param_variables = None
+    if variables is not None and variables:
+        param_variables = {}
+        for variable in variables:
+            separator_pos = variable.find('=')
+            if separator_pos >= 0:
+                if dict==True:
+                    param_variables[variable[:separator_pos]] = {"value": variable[separator_pos + 1:]}
+                else:
+                    param_variables[variable[:separator_pos]] = variable[separator_pos + 1:]
+            else:
+                raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
+    return param_variables
+    
 
 def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, variables=None,  # pylint: disable=redefined-builtin
                  folder_path=None, organization=None, project=None, detect=None, parameters=None):
@@ -142,16 +157,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
 
         template_parameters = ast.literal_eval(parameters)
 
-        param_variables = None
-        if variables is not None and variables:
-            param_variables = {}
-            for variable in variables:
-                separator_pos = variable.find('=')
-                if separator_pos >= 0:
-                    param_variables[variable[:separator_pos]] = {"value": variable[separator_pos + 1:]}
-                else:
-                    raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
-
+        param_variables=set_param_variable(variables,dict=True) #set dict as True
         run_parameters = RunPipelineParameters(
             resources=resources, variables=param_variables, template_parameters=template_parameters)
 
@@ -164,17 +170,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     branch = resolve_git_ref_heads(branch)
     build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)
 
-    param_variables = None
-    if variables is not None and variables:
-        param_variables = {}
-        for variable in variables:
-            separator_pos = variable.find('=')
-            if separator_pos >= 0:
-                param_variables[variable[:separator_pos]] = variable[separator_pos + 1:]
-            else:
-                raise ValueError(
-                    'The --variables argument should consist of space separated "name=value" pairs.')
-
+    param_variables=set_param_variable(variables) #set dict as default = False
     build.parameters = param_variables
 
     queued_build = client.queue_build(build=build, project=project)
