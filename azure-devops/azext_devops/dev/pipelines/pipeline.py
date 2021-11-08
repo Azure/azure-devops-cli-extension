@@ -154,7 +154,9 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
 
         repositories = {"self": RepositoryResourceParameters(ref_name=branch, version=commit_id)}
         resources = RunResourcesParameters(repositories=repositories)
-
+        parameters=parameters.replace(' ','","')
+        parameters=parameters.replace('=','":"')
+        parameters='{'+parameters+'}'
         template_parameters = ast.literal_eval(parameters)
 
         param_variables=set_param_variable(variables,dict=True) #set dict as True
