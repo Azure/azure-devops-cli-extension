@@ -154,12 +154,12 @@ def get_token_from_az_logins(organization, pat_token_present):
 
 def get_token_from_az_login(profile, user, tenant):
     try:
-        auth_token = profile.get_access_token_for_resource(user, tenant, '499b84ac-1321-427f-aa17-267ca6975798')
+        creds, subscription, tenant = profile.get_raw_token(
+            resource='499b84ac-1321-427f-aa17-267ca6975798', tenant=tenant)
+        auth_token = creds[1]
         return auth_token
     except BaseException as ex:  # pylint: disable=broad-except
         logger.debug('not able to get token from az login')
-        logger.debug(ex, exc_info=True)
-        return ""
 
 
 def _get_connection(organization, credentials):
