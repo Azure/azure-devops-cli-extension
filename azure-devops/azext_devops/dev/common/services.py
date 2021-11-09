@@ -135,7 +135,7 @@ def get_token_from_az_logins(organization, pat_token_present):
         for key, dummy_value in tenantsDict.items():
             try:
                 logger.debug('trying to get token (temp) for tenant %s and user %s ', key[0], key[1])
-                token = get_token_from_az_login(profile, key[1], key[0])
+                token = get_token_from_az_login(profile, key[0])
                 credentials = BasicAuthentication('', token)
 
                 if skipValidateToken is True:
@@ -152,9 +152,12 @@ def get_token_from_az_logins(organization, pat_token_present):
     return ''
 
 
-def get_token_from_az_login(profile, user, tenant):
+def get_token_from_az_login(profile, tenant):
     try:
-        auth_token = profile.get_access_token_for_resource(user, tenant, '499b84ac-1321-427f-aa17-267ca6975798')
+        raw = profile.get_raw_token(
+            resource='499b84ac-1321-427f-aa17-267ca6975798', tenant=tenant)
+        creds = raw[0]
+        auth_token = creds[1]
         return auth_token
     except BaseException as ex:  # pylint: disable=broad-except
         logger.debug('not able to get token from az login')
