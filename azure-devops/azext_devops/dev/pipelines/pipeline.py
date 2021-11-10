@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from webbrowser import open_new
+import json
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.services import (get_build_client,
@@ -19,7 +20,6 @@ from azext_devops.devops_sdk.v6_0.pipelines.models import (RunPipelineParameters
                                                            RepositoryResourceParameters)
 from .build_definition import get_definition_id_from_name, fix_path_for_api
 from .pipeline_run import _open_pipeline_run, _open_pipeline_run6_0
-import json
 
 logger = get_logger(__name__)
 
@@ -100,14 +100,14 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
         _open_pipeline(build_definition, organization)
     return build_definition
 
-def set_param_variable(variables,dict=False):
+def set_param_variable(variables, as_dict=False):
     param_variables = None
     if variables is not None and variables:
         param_variables = {}
         for variable in variables:
             separator_pos = variable.find('=')
             if separator_pos >= 0:
-                if dict==True:
+                if as_dict:
                     param_variables[variable[:separator_pos]] = {"value": variable[separator_pos + 1:]}
                 else:
                     param_variables[variable[:separator_pos]] = variable[separator_pos + 1:]
@@ -116,11 +116,11 @@ def set_param_variable(variables,dict=False):
     return param_variables
 
 def convert_param(parameters):
-    parameters = parameters.replace(' ','","')
-    parameters = parameters.replace('=','":"')
-    parameters ='{"'+parameters+'"}'
+    parameters = parameters.replace(' ', '","')
+    parameters = parameters.replace('=', '":"')
+    parameters = '{"'+parameters+'"}'
     return json.loads(parameters)
-    
+
 
 def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, variables=None,  # pylint: disable=redefined-builtin
                  folder_path=None, organization=None, project=None, detect=None, parameters=None):
@@ -162,7 +162,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
         resources = RunResourcesParameters(repositories=repositories)
         template_parameters = convert_param(parameters)
 
-        param_variables=set_param_variable(variables,dict=True) #set dict as True
+        param_variables = set_param_variable(variables, as_dict=True)
         run_parameters = RunPipelineParameters(
             resources=resources, variables=param_variables, template_parameters=template_parameters)
 
@@ -175,7 +175,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     branch = resolve_git_ref_heads(branch)
     build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)
 
-    param_variables=set_param_variable(variables) #set dict as default = False
+    param_variables = set_param_variable(variables) #set as_dict as default = False
     build.parameters = param_variables
 
     queued_build = client.queue_build(build=build, project=project)
