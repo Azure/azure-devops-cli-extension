@@ -24,7 +24,7 @@ class TestPipelinesRun(AuthenticatedTests):
 
     _TEST_DEVOPS_ORGANIZATION = 'https://someorganization.visualstudio.com'
     _TEST_DEVOPS_PROJECT = 'MyProject'
-    _PARAMETERS = "{'yesNo':'From the Code'}"
+    _PARAMETERS = 'yesNo=FromtheCode'
 
     def setUp(self):
         self.authentication_setup()

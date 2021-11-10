@@ -4,7 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 from webbrowser import open_new
-import ast
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.services import (get_build_client,
@@ -20,6 +19,7 @@ from azext_devops.devops_sdk.v6_0.pipelines.models import (RunPipelineParameters
                                                            RepositoryResourceParameters)
 from .build_definition import get_definition_id_from_name, fix_path_for_api
 from .pipeline_run import _open_pipeline_run, _open_pipeline_run6_0
+import json
 
 logger = get_logger(__name__)
 
@@ -114,6 +114,12 @@ def set_param_variable(variables,dict=False):
             else:
                 raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
     return param_variables
+
+def convert_param(parameters):
+    parameters = parameters.replace(' ','","')
+    parameters = parameters.replace('=','":"')
+    parameters ='{'+parameters+'}'
+    return json.loads(parameters)
     
 
 def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, variables=None,  # pylint: disable=redefined-builtin
@@ -154,10 +160,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
 
         repositories = {"self": RepositoryResourceParameters(ref_name=branch, version=commit_id)}
         resources = RunResourcesParameters(repositories=repositories)
-        parameters=parameters.replace(' ','","')
-        parameters=parameters.replace('=','":"')
-        parameters='{'+parameters+'}'
-        template_parameters = ast.literal_eval(parameters)
+        template_parameters = convert_param(parameters)
 
         param_variables=set_param_variable(variables,dict=True) #set dict as True
         run_parameters = RunPipelineParameters(
