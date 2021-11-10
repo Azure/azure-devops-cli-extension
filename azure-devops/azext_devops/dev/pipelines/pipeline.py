@@ -118,7 +118,7 @@ def set_param_variable(variables,dict=False):
 def convert_param(parameters):
     parameters = parameters.replace(' ','","')
     parameters = parameters.replace('=','":"')
-    parameters ='{'+parameters+'}'
+    parameters ='{"'+parameters+'"}'
     return json.loads(parameters)
     
 
