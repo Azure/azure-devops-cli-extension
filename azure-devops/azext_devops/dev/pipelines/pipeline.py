@@ -100,6 +100,7 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
         _open_pipeline(build_definition, organization)
     return build_definition
 
+
 def set_param_variable(variables, as_dict=False):
     param_variables = None
     if variables is not None and variables:
@@ -115,10 +116,11 @@ def set_param_variable(variables, as_dict=False):
                 raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
     return param_variables
 
+
 def convert_param(parameters):
     parameters = parameters.replace(' ', '","')
     parameters = parameters.replace('=', '":"')
-    parameters = '{"'+parameters+'"}'
+    parameters = '{"' + parameters + '"}'
     return json.loads(parameters)
 
 
@@ -175,7 +177,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     branch = resolve_git_ref_heads(branch)
     build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)
 
-    param_variables = set_param_variable(variables) #set as_dict as default = False
+    param_variables = set_param_variable(variables)
     build.parameters = param_variables
 
     queued_build = client.queue_build(build=build, project=project)
