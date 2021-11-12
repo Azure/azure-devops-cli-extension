@@ -8,13 +8,17 @@ from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.services import (get_build_client,
                                               get_git_client,
-                                              resolve_instance_and_project)
+                                              resolve_instance_and_project,
+                                              get_new_pipeline_client_v60)
 from azext_devops.dev.common.uri import uri_quote
 from azext_devops.dev.common.uuid import is_uuid
 from azext_devops.dev.common.git import resolve_git_ref_heads
 from azext_devops.devops_sdk.v5_0.build.models import Build, DefinitionReference
+from azext_devops.devops_sdk.v6_0.pipelines.models import (RunPipelineParameters,
+                                                           RunResourcesParameters,
+                                                           RepositoryResourceParameters)
 from .build_definition import get_definition_id_from_name, fix_path_for_api
-from .pipeline_run import _open_pipeline_run
+from .pipeline_run import _open_pipeline_run, _open_pipeline_run6_0
 
 logger = get_logger(__name__)
 
@@ -96,8 +100,25 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
     return build_definition
 
 
+def set_param_variable(variables, as_dict=False, argument='variables'):
+    param_variables = None
+    if variables is not None and variables:
+        param_variables = {}
+        for variable in variables:
+            separator_pos = variable.find('=')
+            if separator_pos >= 0:
+                if as_dict:
+                    param_variables[variable[:separator_pos]] = {"value": variable[separator_pos + 1:]}
+                else:
+                    param_variables[variable[:separator_pos]] = variable[separator_pos + 1:]
+            else:
+                raise ValueError(
+                    f'The --{argument} argument should consist of space separated "name=value" pairs.')
+    return param_variables
+
+
 def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, variables=None,  # pylint: disable=redefined-builtin
-                 folder_path=None, organization=None, project=None, detect=None):
+                 folder_path=None, organization=None, project=None, detect=None, parameters=None):
     """ Queue (run) a pipeline.
     :param id: ID of the pipeline to queue. Required if --name is not supplied.
     :type id: int
@@ -110,6 +131,8 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     :type folder_path: str
     :param variables: Space separated "name=value" pairs for the variables you would like to set.
     :type variables: [str]
+    :param parameters: Space separated "name=value" pairs for the parameters you would like to set.
+    :type parameters: [str]
     :param commit_id: Commit-id on which the pipeline run is to be queued.
     :type commit_id: str
     :param open: Open the pipeline results page in your web browser.
@@ -123,20 +146,36 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
         raise ValueError('Either the --id argument or the --name argument ' +
                          'must be supplied for this command.')
     client = get_build_client(organization)
+
     if id is None:
         id = get_definition_id_from_name(name, client, project, folder_path)
+
+    if parameters:
+        logger.debug('Using "pipelines client v6_0" to include parameters in run')
+        client = get_new_pipeline_client_v60(organization)
+
+        repositories = {"self": RepositoryResourceParameters(ref_name=branch, version=commit_id)}
+        resources = RunResourcesParameters(repositories=repositories)
+        template_parameters = set_param_variable(parameters, argument='parameters')
+
+        param_variables = set_param_variable(variables, as_dict=True)
+        run_parameters = RunPipelineParameters(
+            resources=resources, variables=param_variables, template_parameters=template_parameters)
+
+        queued_pipeline = client.run_pipeline(run_parameters=run_parameters, project=project, pipeline_id=id)
+        if open:
+            _open_pipeline_run6_0(queued_pipeline, project, organization)
+        return queued_pipeline
+
     definition_reference = DefinitionReference(id=id)
     branch = resolve_git_ref_heads(branch)
     build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)
-    if variables is not None and variables:
-        build.parameters = {}
-        for variable in variables:
-            separator_pos = variable.find('=')
-            if separator_pos >= 0:
-                build.parameters[variable[:separator_pos]] = variable[separator_pos + 1:]
-            else:
-                raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
+
+    param_variables = set_param_variable(variables)
+    build.parameters = param_variables
+
     queued_build = client.queue_build(build=build, project=project)
+
     if open:
         _open_pipeline_run(queued_build, organization)
     return queued_build

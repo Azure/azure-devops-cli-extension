@@ -152,3 +152,16 @@ def _open_pipeline_run(run, organization):
         + uri_quote(str(run.id))
     logger.debug('Opening web page: %s', url)
     open_new(url=url)
+
+
+def _open_pipeline_run6_0(run, project, organization):
+    """Open the build results page in your web browser.
+    :param :class:`<Run> <azure.devops.v6_0.pipelines.models.Run>`
+    :param str project:
+    :param str organization:
+    """
+    from webbrowser import open_new
+    from azext_devops.dev.common.uri import uri_quote
+    url = f"{organization.rstrip('/')}/{uri_quote(project)}/_build/results?buildid={uri_quote(str(run.id))}"
+    logger.debug('Opening web page: %s', url)
+    open_new(url=url)
