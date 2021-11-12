@@ -4,7 +4,6 @@
 # --------------------------------------------------------------------------------------------
 
 from webbrowser import open_new
-import json
 from knack.log import get_logger
 from knack.util import CLIError
 from azext_devops.dev.common.services import (get_build_client,
@@ -115,7 +114,7 @@ def set_param_variable(variables, as_dict=False , argument='variables'):
             else:
                 raise ValueError('The --{} argument should consist of space separated "name=value" pairs.'.format(argument))
     return param_variables
-    
+
 
 def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, variables=None,  # pylint: disable=redefined-builtin
                  folder_path=None, organization=None, project=None, detect=None, parameters=None):
