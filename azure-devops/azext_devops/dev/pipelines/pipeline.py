@@ -100,7 +100,7 @@ def pipeline_show(id=None, name=None, open=False, organization=None, project=Non
     return build_definition
 
 
-def set_param_variable(variables, as_dict=False , argument='variables'):
+def set_param_variable(variables, as_dict=False, argument='variables'):
     param_variables = None
     if variables is not None and variables:
         param_variables = {}
@@ -112,7 +112,8 @@ def set_param_variable(variables, as_dict=False , argument='variables'):
                 else:
                     param_variables[variable[:separator_pos]] = variable[separator_pos + 1:]
             else:
-                raise ValueError('The --{} argument should consist of space separated "name=value" pairs.'.format(argument))
+                raise ValueError(
+                    f'The --{argument} argument should consist of space separated "name=value" pairs.')
     return param_variables
 
 
@@ -154,7 +155,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
 
         repositories = {"self": RepositoryResourceParameters(ref_name=branch, version=commit_id)}
         resources = RunResourcesParameters(repositories=repositories)
-        template_parameters = set_param_variable(parameters,argument='parameters')
+        template_parameters = set_param_variable(parameters, argument='parameters')
 
         param_variables = set_param_variable(variables, as_dict=True)
         run_parameters = RunPipelineParameters(
