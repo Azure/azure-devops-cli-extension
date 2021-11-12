@@ -114,12 +114,6 @@ def set_param_variable(variables,dict=False):
             else:
                 raise ValueError('The --variables argument should consist of space separated "name=value" pairs.')
     return param_variables
-
-def convert_param(parameters):
-    parameters = parameters.replace(' ','","')
-    parameters = parameters.replace('=','":"')
-    parameters ='{'+parameters+'}'
-    return json.loads(parameters)
     
 
 def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, variables=None,  # pylint: disable=redefined-builtin
@@ -160,7 +154,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
 
         repositories = {"self": RepositoryResourceParameters(ref_name=branch, version=commit_id)}
         resources = RunResourcesParameters(repositories=repositories)
-        template_parameters = convert_param(parameters)
+        template_parameters = set_param_variable(parameters)
 
         param_variables=set_param_variable(variables,dict=True) #set dict as True
         run_parameters = RunPipelineParameters(
