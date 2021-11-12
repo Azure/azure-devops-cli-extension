@@ -131,7 +131,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     :type folder_path: str
     :param variables: Space separated "name=value" pairs for the variables you would like to set.
     :type variables: [str]
-    :param parameters: Space separated "name=value" pairs for the variables you would like to set.
+    :param parameters: Space separated "name=value" pairs for the parameters you would like to set.
     :type parameters: str
     :param commit_id: Commit-id on which the pipeline run is to be queued.
     :type commit_id: str
@@ -151,6 +151,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
         id = get_definition_id_from_name(name, client, project, folder_path)
 
     if parameters:
+        logger.debug('Using "pipelines client v6_0" to include parameters in run')
         client = get_new_pipeline_client_v60(organization)
 
         repositories = {"self": RepositoryResourceParameters(ref_name=branch, version=commit_id)}
