@@ -68,6 +68,7 @@ def load_build_arguments(self, _):
 
     with self.argument_context('pipelines run') as context:
         context.argument('id', type=int)
+        context.argument('parameters', nargs='*')
         context.argument('variables', nargs='*')
 
     with self.argument_context('pipelines list') as context:

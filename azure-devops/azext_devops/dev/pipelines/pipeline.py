@@ -132,7 +132,7 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     :param variables: Space separated "name=value" pairs for the variables you would like to set.
     :type variables: [str]
     :param parameters: Space separated "name=value" pairs for the parameters you would like to set.
-    :type parameters: str
+    :type parameters: [str]
     :param commit_id: Commit-id on which the pipeline run is to be queued.
     :type commit_id: str
     :param open: Open the pipeline results page in your web browser.
