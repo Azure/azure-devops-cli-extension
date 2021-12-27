@@ -25,7 +25,7 @@ def add_relation(id, relation_type, target_id=None, target_url=None, organizatio
     """ Add relation(s) to work item.
     """
 
-    if target_id == None and target_url == None:
+    if target_id is None and target_url is None:
         raise CLIError('--target-id or --target-url shall be provided')
 
     organization = resolve_instance(detect=detect, organization=organization)
