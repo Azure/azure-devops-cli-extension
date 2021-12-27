@@ -21,9 +21,13 @@ def get_relation_types_show(organization=None, detect=None):
     return client.get_relation_types()
 
 
-def add_relation(id, relation_type, target_id, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def add_relation(id, relation_type, target_id=None, target_url=None, organization=None, detect=None):  # pylint: disable=redefined-builtin
     """ Add relation(s) to work item.
     """
+
+    if target_id == None and target_url == None:
+        raise CLIError('--target-id or --target-url shall be provided')
+
     organization = resolve_instance(detect=detect, organization=organization)
     patch_document = []
     client = get_work_item_tracking_client(organization)
@@ -31,26 +35,33 @@ def add_relation(id, relation_type, target_id, organization=None, detect=None): 
     relation_types_from_service = client.get_relation_types()
     relation_type_system_name = get_system_relation_name(relation_types_from_service, relation_type)
 
-    target_work_item_ids = target_id.split(',')
-    work_item_query_clause = []
-    for target_work_item_id in target_work_item_ids:
-        work_item_query_clause.append('[System.Id] = {}'.format(target_work_item_id))
-
-    wiql_query_format = 'SELECT [System.Id] FROM WorkItems WHERE ({})'
-    wiql_query_to_get_target_work_items = wiql_query_format.format(' OR '.join(work_item_query_clause))
-
-    wiql_object = Wiql()
-    wiql_object.query = wiql_query_to_get_target_work_items
-    target_work_items = client.query_by_wiql(wiql=wiql_object).work_items
-
-    if len(target_work_items) != len(target_work_item_ids):
-        raise CLIError('Id(s) supplied in --target-id is not valid')
-
     patch_document = []
+    if target_id is not None:
+        target_work_item_ids = target_id.split(',')
+        work_item_query_clause = []
+        for target_work_item_id in target_work_item_ids:
+            work_item_query_clause.append('[System.Id] = {}'.format(target_work_item_id))
 
-    for target_work_item in target_work_items:
-        op = _create_patch_operation('add', '/relations/-', relation_type_system_name, target_work_item.url)
-        patch_document.append(op)
+        wiql_query_format = 'SELECT [System.Id] FROM WorkItems WHERE ({})'
+        wiql_query_to_get_target_work_items = wiql_query_format.format(' OR '.join(work_item_query_clause))
+
+        wiql_object = Wiql()
+        wiql_object.query = wiql_query_to_get_target_work_items
+        target_work_items = client.query_by_wiql(wiql=wiql_object).work_items
+
+        if len(target_work_items) != len(target_work_item_ids):
+            raise CLIError('Id(s) supplied in --target-id is not valid')
+
+        for target_work_item in target_work_items:
+            op = _create_patch_operation('add', '/relations/-', relation_type_system_name, target_work_item.url)
+            patch_document.append(op)
+
+    if target_url is not None:
+        target_urls = target_url.split(',')
+
+        for url in target_urls:
+            op = _create_patch_operation('add', '/relations/-', relation_type_system_name, url)
+            patch_document.append(op)
 
     client.update_work_item(document=patch_document, id=id)
     work_item = client.get_work_item(id, expand='All')
