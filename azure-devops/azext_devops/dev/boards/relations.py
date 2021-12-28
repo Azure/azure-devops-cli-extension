@@ -26,7 +26,7 @@ def add_relation(id, relation_type, target_id=None, target_url=None, organizatio
     """
 
     if target_id is None and target_url is None:
-        raise CLIError('--target-id or --target-url shall be provided')
+        raise CLIError('--target-id or --target-url must be provided')
 
     organization = resolve_instance(detect=detect, organization=organization)
     patch_document = []
