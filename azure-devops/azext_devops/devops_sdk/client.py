@@ -102,6 +102,7 @@ class Client(object):
         if Client._session_header_key in Client._session_data and Client._session_header_key not in headers:
             headers[Client._session_header_key] = Client._session_data[Client._session_header_key]
         response = self._send_request(request=request, headers=headers, content=content, media_type=media_type)
+        response.continuation_token = response.headers.get('X-MS-ContinuationToken')
         if Client._session_header_key in response.headers:
             Client._session_data[Client._session_header_key] = response.headers[Client._session_header_key]
         return response
