@@ -117,7 +117,7 @@ def invoke(area=None, resource=None,
         response_dict = response.json()
         response_dict["continuation_token"] = response.continuation_token
 
-        return response_dict;
+        return response_dict
 
     # Only handle out file scenario if the content is available (content-type is not None)
     if is_content_available:
