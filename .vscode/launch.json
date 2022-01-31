@@ -5,19 +5,21 @@
             "name": "Azure DevOps CLI Debug (Integrated Console)",
             "type": "python",
             "request": "launch",
-            "pythonPath": "${config:python.pythonPath}",
+            "python": "${command:python.interpreterPath}",
             "program": "${workspaceRoot}/scripts/run_az.py",
             "cwd": "${workspaceRoot}/azure-devops/",
             "args": [
                 "devops",
-                "project",
-                "list",
-                "--org",
-                "https://dev.azure.com/mseng/",
-                "--state-filter",
-                "all",
-                "-o",
-                "json"
+                "invoke",
+                "--area",
+                "distributedtask",
+                "--resource",
+                "jobrequests",
+                "--route-parameters",
+                "poolId=1",
+                "--organization",
+                "https://dev.azure.com/mseng",
+                "--query-parameters", "$top=1"
             ],
             "console": "integratedTerminal",
             "debugOptions": [
@@ -25,7 +27,7 @@
                 "WaitOnNormalExit",
                 "RedirectOutput"
             ],
-            "debugStdLib": true,
+            "justMyCode": false,
             "preLaunchTask": "BuildWheel",
             "env": {
                 "AZURE_EXTENSION_DIR": "${workspaceRoot}"

@@ -105,7 +105,8 @@ def invoke(area=None, resource=None,
                             route_values=route_values,
                             media_type=media_type,
                             accept_media_type=accept_media_type,
-                            content=request_body)
+                            content=request_body,
+                            continuation_token = "||10/31/2018 8:49:39 PM")
     logger.info('content type header')
     logger.info(response.headers.get("content-type"))
     is_content_available = True

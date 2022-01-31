@@ -1367,7 +1367,8 @@ class TestResultsClient(Client):
         if sub_result_id is not None:
             query_parameters['subResultId'] = self._serialize.query('sub_result_id', sub_result_id, 'int')
         if type is not None:
-            query_parameters['type'] = self._serialize.query('type', type, 'str')
+            query_parameters['type'] = self._seri
+            alize.query('type', type, 'str')
         if directory_path is not None:
             query_parameters['directoryPath'] = self._serialize.query('directory_path', directory_path, 'str')
         if file_name_prefix is not None:

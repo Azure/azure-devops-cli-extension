@@ -70,7 +70,7 @@ class Client(object):
 
     def _send(self, http_method, location_id, version, route_values=None,
               query_parameters=None, content=None, media_type='application/json', accept_media_type='application/json',
-              additional_headers=None):
+              additional_headers=None,continuation_token= None):
         request = self._create_request_message(http_method=http_method,
                                                location_id=location_id,
                                                route_values=route_values,
@@ -96,12 +96,20 @@ class Client(object):
             for key in self.config.additional_headers:
                 headers[key] = self.config.additional_headers[key]
         if self._suppress_fedauth_redirect:
-            headers['X-TFS-FedAuthRedirect'] = 'Suppress'
+            headers['X-TFS-FedAuthRedirect'] = 'Suppress'   
+        additional_headers = {}         
+        if continuation_token is not None:
+            headers['X-MS-ContinuationToken'] = continuation_token
         if self._force_msa_pass_through:
             headers['X-VSS-ForceMsaPassThrough'] = 'true'
         if Client._session_header_key in Client._session_data and Client._session_header_key not in headers:
             headers[Client._session_header_key] = Client._session_data[Client._session_header_key]
-        response = self._send_request(request=request, headers=headers, content=content, media_type=media_type)
+        response = self._send_request(
+            request=request, 
+            headers=headers, 
+            content=content, 
+            media_type=media_type,
+            additional_headers = additional_headers)
         response.continuation_token = response.headers.get('X-MS-ContinuationToken')
         if Client._session_header_key in response.headers:
             Client._session_data[Client._session_header_key] = response.headers[Client._session_header_key]
