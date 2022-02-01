@@ -252,7 +252,7 @@ def _get_repo_name_from_repo_url(repository_url, repo_type):
             if stripped_path.endswith('.git'):
                 stripped_path = stripped_path[:-4]
             return stripped_path
-    if repo_type.lower() == _AZURE_GIT_REPO_TYPE:
+    if repo_type == _AZURE_GIT_REPO_TYPE:
         parsed_list = repository_url.split('/')
         index = 0
         for item in parsed_list:
