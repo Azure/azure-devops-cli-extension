@@ -43,6 +43,7 @@ class YmlOptions:
 
 _GITHUB_REPO_TYPE = 'github'
 _AZURE_GIT_REPO_TYPE = 'TfsGit'
+_GITHUBENTERPRISE_REPO_TYPE = 'githubenterprise'
 
 
 # pylint: disable=too-many-statements
@@ -107,7 +108,10 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
         raise CLIError('The following arguments are required: --branch.')
     # repository, repository-type, branch should be set by now
     if not repository_name and is_valid_url(repository):
-        repository_name = _get_repo_name_from_repo_url(repository)
+        repository_name = _get_repo_name_from_repo_url(repository, repository_type)
+
+    if not repository_name and repository_type.lower() == _GITHUBENTERPRISE_REPO_TYPE:
+        repository_name = _get_repo_name_from_repo_url(repository, repository_type)
     else:
         repository_name = repository
 
@@ -123,6 +127,12 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
         repo_id = repository_name
         repository_url = 'https://github.com/' + repository_name
         api_url = get_github_repos_api_url(repository_name)
+    if repository_type.lower() == _GITHUBENTERPRISE_REPO_TYPE:
+        repo_id = repository_name
+        repository_url = repository
+        ghe_url = uri_parse(repository_url)
+        api_url = ghe_url.scheme + '://' + ghe_url.netloc + '/api/v3/repos/' + repository_name
+
     if repository_type.lower() == _AZURE_GIT_REPO_TYPE.lower():
         repo_id = _get_repository_id_from_name(organization, project, repository_name)
 
@@ -133,6 +143,8 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
     # No yml path => find or recommend yml scenario
     queue_branch = branch
     if not yml_path:
+        if repository_type.lower() == _GITHUBENTERPRISE_REPO_TYPE:
+            raise CLIError('The following arguments are required for GitHub Enterprise: --yaml-path.')
         yml_path, queue_branch = _create_and_get_yml_path(new_cix_client, repository_type, repo_id,
                                                           repository_name, branch, service_connection, project,
                                                           organization)
@@ -226,13 +238,12 @@ def is_valid_url(url):
     return False
 
 
-def _get_repo_name_from_repo_url(repository_url):
+def _get_repo_name_from_repo_url(repository_url, repo_type):
     """
     Should be called with a valid github or azure repo url
     returns owner/reponame for github repos, repo_name for azure repo type
     """
-    repo_type = try_get_repository_type(repository_url)
-    if repo_type == _GITHUB_REPO_TYPE:
+    if repo_type.lower() == _GITHUB_REPO_TYPE:
         parsed_url = uri_parse(repository_url)
         logger.debug('Parsing GitHub url: %s', parsed_url)
         if parsed_url.scheme == 'https' and parsed_url.netloc == 'github.com':
@@ -241,13 +252,22 @@ def _get_repo_name_from_repo_url(repository_url):
             if stripped_path.endswith('.git'):
                 stripped_path = stripped_path[:-4]
             return stripped_path
-    if repo_type == _AZURE_GIT_REPO_TYPE:
+    if repo_type.lower() == _AZURE_GIT_REPO_TYPE:
         parsed_list = repository_url.split('/')
         index = 0
         for item in parsed_list:
             if ('visualstudio.com' in item or 'dev.azure.com' in item) and len(parsed_list) > index + 4:
                 return parsed_list[index + 4]
             index = index + 1
+    if repo_type.lower() == _GITHUBENTERPRISE_REPO_TYPE:
+        parsed_url = uri_parse(repository_url)
+        logger.debug('Parsing GitHubEnterprise url: %s', parsed_url)
+        stripped_path = parsed_url.path.strip('/')
+        if stripped_path.endswith('.git'):
+            stripped_path = stripped_path[:-4]
+        parts = stripped_path.split('/')
+        return parts[-2] + '/' + parts[-1]
+
     raise CLIError('Could not parse repository url.')
 
 
@@ -377,7 +397,7 @@ def push_files_to_repository(organization, project, repo_name, branch, files, re
 
 
 def _get_pipelines_trigger(repo_type):
-    if repo_type.lower() == _GITHUB_REPO_TYPE:
+    if repo_type.lower() == _GITHUB_REPO_TYPE or repo_type.lower() == _GITHUBENTERPRISE_REPO_TYPE:
         return [{"settingsSourceType": 2, "triggerType": 2},
                 {"forks": {"enabled": "true", "allowSecrets": "false"},
                  "settingsSourceType": 2, "triggerType": "pullRequest"}]
