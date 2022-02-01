@@ -5,7 +5,7 @@
             "name": "Azure DevOps CLI Debug (Integrated Console)",
             "type": "python",
             "request": "launch",
-            "pythonPath": "${config:python.pythonPath}",
+            "python": "${command:python.interpreterPath}",
             "program": "${workspaceRoot}/scripts/run_az.py",
             "cwd": "${workspaceRoot}/azure-devops/",
             "args": [
@@ -25,7 +25,7 @@
                 "WaitOnNormalExit",
                 "RedirectOutput"
             ],
-            "debugStdLib": true,
+            "justMyCode": false,
             "preLaunchTask": "BuildWheel",
             "env": {
                 "AZURE_EXTENSION_DIR": "${workspaceRoot}"

@@ -46,7 +46,7 @@ _AZURE_GIT_REPO_TYPE = 'TfsGit'
 _GITHUBENTERPRISE_REPO_TYPE = 'githubenterprise'
 
 
-# pylint: disable=too-many-statements
+# pylint: disable=too-many-statements, disable=too-many-branches
 def pipeline_create(name, description=None, repository=None, branch=None, yml_path=None, repository_type=None,
                     service_connection=None, organization=None, project=None, detect=None, queue_id=None,
                     skip_first_run=None, folder_path=None):
