@@ -87,7 +87,7 @@ jobs:
       pythonVersion: '3.x'
 
 - job: 'Run_Test_Mac_Azure_CLI_Released_Version'
-  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  dependsOn : [ 'Build_Publish_Azure_CLI_Test_SDK', 'Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
     vmImage: 'macOS-10.15'
 
@@ -98,7 +98,7 @@ jobs:
       runWithAzureCliReleased: 'true'
 
 - job: 'Code_Coverage'
-  dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
+  dependsOn: [ 'Build_Publish_Azure_CLI_Test_SDK', 'Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
     vmImage: 'macOS-10.15'
 
@@ -136,6 +136,7 @@ jobs:
       additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/azure-devops/htmlcov/**/*.*'
 
 - job: 'Run_Style_Check'
+  dependsOn: [ 'Build_Publish_Azure_CLI_Test_SDK', 'Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
     vmImage: 'macOS-10.15'
 
@@ -187,7 +188,7 @@ jobs:
       scriptPath: 'scripts/findEmptyHelpTexts.py' 
 
 - job: 'Run_Test_From_Old_Release'
-  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  dependsOn : [ 'Build_Publish_Azure_CLI_Test_SDK', 'Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
     vmImage: 'macOS-10.15'
 
