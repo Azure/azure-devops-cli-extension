@@ -19,7 +19,7 @@
                 "poolId=1",
                 "--organization",
                 "https://dev.azure.com/mseng",
-                "--query-parameters", "$top=1"
+                "--query-parameters", "$top=1&continuationToken=||10/31/2018 8:49:39 PM"
             ],
             "console": "integratedTerminal",
             "debugOptions": [
