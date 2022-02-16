@@ -96,7 +96,7 @@ class Client(object):
             for key in self.config.additional_headers:
                 headers[key] = self.config.additional_headers[key]
         if self._suppress_fedauth_redirect:
-            headers['X-TFS-FedAuthRedirect'] = 'Suppress'    
+            headers['X-TFS-FedAuthRedirect'] = 'Suppress'
         if self._force_msa_pass_through:
             headers['X-VSS-ForceMsaPassThrough'] = 'true'
         if Client._session_header_key in Client._session_data and Client._session_header_key not in headers:
