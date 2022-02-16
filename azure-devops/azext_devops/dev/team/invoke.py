@@ -115,8 +115,7 @@ def invoke(area=None, resource=None,
         is_content_available = False
     elif 'json' in response.headers.get("content-type") and not out_file:
         response_dict = response.json()
-        response_dict["continuation_token"] = response.continuation_token
-
+        response_dict["continuation_token"] = response.headers.get('X-MS-ContinuationToken')
         return response_dict
 
     # Only handle out file scenario if the content is available (content-type is not None)
