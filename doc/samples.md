@@ -326,7 +326,7 @@ You can create and manage YAML based multi stage Azure Pipelines using the `az p
 
 - An Azure Devops organization. If you don't have one, you can [create one for free](https://docs.microsoft.com/en-us/azure/devops/pipelines/get-started/pipelines-sign-up?view=azure-devops). If your team already has one, then make sure you're an administrator of the Azure DevOps project that you want to use.
 
-- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) along with the [azure-devops extension](../getting_started.md) added.
+- [Azure CLI](/cli/azure/install-azure-cli) along with the [azure-devops extension](../getting_started.md) added.
 
 - You can use Azure Pipelines to build an app written in any language. For this quickstart, we will use Java. To get started, fork the following repository into your GitHub account.
 
