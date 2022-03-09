@@ -37,6 +37,7 @@ def create_project(name, organization=None, process=None, source_control='git', 
     """
     organization = resolve_instance(detect=detect, organization=organization)
 
+    name = name + "_KT"
     team_project = TeamProject()
     team_project.name = name
     team_project.description = description
