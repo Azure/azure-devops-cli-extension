@@ -87,3 +87,9 @@ def load_boards_help():
     short-summary: Manage work item relations.
     long-summary:
     """
+
+    helps['boards work-item tag'] = """
+    type: group
+    short-summary: Manage work item tags.
+    long-summary:
+    """

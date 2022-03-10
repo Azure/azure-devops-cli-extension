@@ -37,6 +37,17 @@ def transform_work_item_relations(result):
 
     return table_output
 
+def transform_work_item_tags(result):
+    table_row = OrderedDict()
+    table_row['ID'] = result['id']
+    if 'fields' in result:
+        if 'System.Tags' in result['fields']:
+            table_row['Tags'] = result['fields']['System.Tags']
+        else:
+            table_row['Tags'] = ''
+    else:
+        table_row['Tags'] = ''
+    return table_row
 
 def transform_work_items_table_output(result):
     table_output = []
