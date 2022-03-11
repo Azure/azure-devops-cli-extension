@@ -130,7 +130,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
         expected_system_tags_value = ""
         # set return values
         self.mock_get_WI.return_value.id = test_work_item_id
-        self.mock_get_WI.return_value.fields = { "System.Tags": "mytag" }
+        self.mock_get_WI.return_value.fields = { "System.Tags": test_work_item_tag_to_remove }
         self.mock_update_WI.return_value.id = test_work_item_id
         self.mock_update_WI.return_value.fields = { "System.Id": test_work_item_id }
 
@@ -142,7 +142,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
         self.mock_update_WI.assert_called_once_with(document=ANY, id=test_work_item_id)
         args, kwargs = self.mock_update_WI.call_args
         self.assertEqual(response.id, test_work_item_id)
-        self.assertEqual(response.fields['System.Tags'], None)
+        self.assertEqual('System.Tags' in response.fields, False)
         #assert expected patch document
         actual_patch_document = kwargs.get('document')[0]
         self.assertEqual("replace", actual_patch_document.op)
