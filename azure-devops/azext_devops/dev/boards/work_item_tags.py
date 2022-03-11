@@ -27,8 +27,8 @@ def add_work_item_tags(id, tag, organization=None, detect=None):  # pylint: disa
     if tag is None:
         raise CLIError('--tag must be provided')
 
-    work_item = update_work_item(id, fields=['System.Tags={}'.format(tag)],
-        organization=organization, detect=detect)
+    work_item = update_work_item(
+        id, fields=['System.Tags={}'.format(tag)], organization=organization, detect=detect)
     return work_item
 
 
@@ -42,8 +42,8 @@ def list_work_item_tags(id, organization=None, detect=None):  # pylint: disable=
         raise CLIError('--id must be provided')
 
     organization = resolve_instance(detect=detect, organization=organization)
-    work_item = show_work_item(id, fields='System.Id,System.Tags', expand=None,
-        organization=organization, detect=detect)
+    work_item = show_work_item(
+        id, fields='System.Id,System.Tags', expand=None, organization=organization, detect=detect)
     return work_item
 
 
