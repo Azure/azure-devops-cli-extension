@@ -1,0 +1,759 @@
+interactions:
+- request:
+    body: '[{"op": "add", "path": "/fields/System.Title", "value": "samplebug"}]'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '69'
+      Content-Type:
+      - application/json-patch+json; charset=utf-8
+      User-Agent:
+      - python/3.10.2 (Windows-10-10.0.19044-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.24.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/thomasmoerkerken/WorkItemAddListRemoveTagTests/_apis/wit/workItems/$Bug
+  response:
+    body:
+      string: '{"id":198,"rev":1,"fields":{"System.AreaPath":"WorkItemAddListRemoveTagTests","System.TeamProject":"WorkItemAddListRemoveTagTests","System.IterationPath":"WorkItemAddListRemoveTagTests","System.WorkItemType":"Bug","System.State":"New","System.Reason":"New","System.CreatedDate":"2022-03-11T11:01:10.033Z","System.CreatedBy":{"displayName":"Thomas
+        Moerkerken","url":"https://spsprodeus23.vssps.visualstudio.com/A078987d0-ce38-4051-8a54-7430fe4d0b29/_apis/Identities/988ed8db-d4a7-4ec4-8467-1c863b92af1a","_links":{"avatar":{"href":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"}},"id":"988ed8db-d4a7-4ec4-8467-1c863b92af1a","uniqueName":"1309462+moerketh@users.noreply.github.com","imageUrl":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx","descriptor":"aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"},"System.ChangedDate":"2022-03-11T11:01:10.033Z","System.ChangedBy":{"displayName":"Thomas
+        Moerkerken","url":"https://spsprodeus23.vssps.visualstudio.com/A078987d0-ce38-4051-8a54-7430fe4d0b29/_apis/Identities/988ed8db-d4a7-4ec4-8467-1c863b92af1a","_links":{"avatar":{"href":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"}},"id":"988ed8db-d4a7-4ec4-8467-1c863b92af1a","uniqueName":"1309462+moerketh@users.noreply.github.com","imageUrl":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx","descriptor":"aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"},"System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.Severity":"3
+        - Medium","Microsoft.VSTS.Common.Priority":2,"Microsoft.VSTS.Common.StateChangeDate":"2022-03-11T11:01:10.033Z","Microsoft.VSTS.Common.ValueArea":"Business"},"_links":{"self":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"},"workItemUpdates":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/updates"},"workItemRevisions":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/revisions"},"workItemComments":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/comments"},"html":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_workitems/edit/198"},"workItemType":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/fields"}},"url":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - c8fc83a9-e604-4d79-af45-1024099886a4
+      cache-control:
+      - no-cache
+      content-length:
+      - '2893'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 11 Mar 2022 11:01:09 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:14a064fe-0736-4753-ac67-ec119a6d0dfb
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 2A4B9D962EC74CD99BE8319D2054D4CC Ref B: AMS04EDGE3222 Ref C: 2022-03-11T11:01:09Z'
+      x-tfs-processid:
+      - 1b8e33b0-4ff9-4504-9c9d-d0e04fbf6f2a
+      x-tfs-session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      x-vss-e2eid:
+      - c8fc83a9-e604-4d79-af45-1024099886a4
+      x-vss-senderdeploymentid:
+      - 52b4b0e6-4e32-471a-b490-dba776dd4096
+      x-vss-userdata:
+      - 988ed8db-d4a7-4ec4-8467-1c863b92af1a:1309462+moerketh@users.noreply.github.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"op": "add", "path": "/fields/System.Tags", "value": "my tag"}]'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '65'
+      Content-Type:
+      - application/json-patch+json; charset=utf-8
+      User-Agent:
+      - python/3.10.2 (Windows-10-10.0.19044-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.24.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PATCH
+    uri: https://dev.azure.com/thomasmoerkerken/_apis/wit/workItems/198
+  response:
+    body:
+      string: '{"id":198,"rev":2,"fields":{"System.AreaPath":"WorkItemAddListRemoveTagTests","System.TeamProject":"WorkItemAddListRemoveTagTests","System.IterationPath":"WorkItemAddListRemoveTagTests","System.WorkItemType":"Bug","System.State":"New","System.Reason":"New","System.CreatedDate":"2022-03-11T11:01:10.033Z","System.CreatedBy":{"displayName":"Thomas
+        Moerkerken","url":"https://spsprodeus23.vssps.visualstudio.com/A078987d0-ce38-4051-8a54-7430fe4d0b29/_apis/Identities/988ed8db-d4a7-4ec4-8467-1c863b92af1a","_links":{"avatar":{"href":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"}},"id":"988ed8db-d4a7-4ec4-8467-1c863b92af1a","uniqueName":"1309462+moerketh@users.noreply.github.com","imageUrl":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx","descriptor":"aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"},"System.ChangedDate":"2022-03-11T11:01:10.337Z","System.ChangedBy":{"displayName":"Thomas
+        Moerkerken","url":"https://spsprodeus23.vssps.visualstudio.com/A078987d0-ce38-4051-8a54-7430fe4d0b29/_apis/Identities/988ed8db-d4a7-4ec4-8467-1c863b92af1a","_links":{"avatar":{"href":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"}},"id":"988ed8db-d4a7-4ec4-8467-1c863b92af1a","uniqueName":"1309462+moerketh@users.noreply.github.com","imageUrl":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx","descriptor":"aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"},"System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.Severity":"3
+        - Medium","Microsoft.VSTS.Common.Priority":2,"Microsoft.VSTS.Common.StateChangeDate":"2022-03-11T11:01:10.033Z","Microsoft.VSTS.Common.ValueArea":"Business","System.Tags":"my
+        tag"},"_links":{"self":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"},"workItemUpdates":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/updates"},"workItemRevisions":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/revisions"},"workItemComments":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/comments"},"html":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_workitems/edit/198"},"workItemType":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/fields"}},"url":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - c8fc83ce-e604-4d79-af45-1024099886a4
+      cache-control:
+      - no-cache
+      content-length:
+      - '2916'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 11 Mar 2022 11:01:10 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:14a064fe-0736-4753-ac67-ec119a6d0dfb
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 3F383C7D3D15465D913420D8A1748133 Ref B: AMS04EDGE3222 Ref C: 2022-03-11T11:01:10Z'
+      x-tfs-processid:
+      - 1b8e33b0-4ff9-4504-9c9d-d0e04fbf6f2a
+      x-tfs-session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      x-vss-e2eid:
+      - c8fc83ce-e604-4d79-af45-1024099886a4
+      x-vss-senderdeploymentid:
+      - 52b4b0e6-4e32-471a-b490-dba776dd4096
+      x-vss-userdata:
+      - 988ed8db-d4a7-4ec4-8467-1c863b92af1a:1309462+moerketh@users.noreply.github.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"op": "add", "path": "/fields/System.Tags", "value": "tag2"}]'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '63'
+      Content-Type:
+      - application/json-patch+json; charset=utf-8
+      User-Agent:
+      - python/3.10.2 (Windows-10-10.0.19044-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.24.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PATCH
+    uri: https://dev.azure.com/thomasmoerkerken/_apis/wit/workItems/198
+  response:
+    body:
+      string: '{"id":198,"rev":3,"fields":{"System.AreaPath":"WorkItemAddListRemoveTagTests","System.TeamProject":"WorkItemAddListRemoveTagTests","System.IterationPath":"WorkItemAddListRemoveTagTests","System.WorkItemType":"Bug","System.State":"New","System.Reason":"New","System.CreatedDate":"2022-03-11T11:01:10.033Z","System.CreatedBy":{"displayName":"Thomas
+        Moerkerken","url":"https://spsprodeus23.vssps.visualstudio.com/A078987d0-ce38-4051-8a54-7430fe4d0b29/_apis/Identities/988ed8db-d4a7-4ec4-8467-1c863b92af1a","_links":{"avatar":{"href":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"}},"id":"988ed8db-d4a7-4ec4-8467-1c863b92af1a","uniqueName":"1309462+moerketh@users.noreply.github.com","imageUrl":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx","descriptor":"aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"},"System.ChangedDate":"2022-03-11T11:01:10.71Z","System.ChangedBy":{"displayName":"Thomas
+        Moerkerken","url":"https://spsprodeus23.vssps.visualstudio.com/A078987d0-ce38-4051-8a54-7430fe4d0b29/_apis/Identities/988ed8db-d4a7-4ec4-8467-1c863b92af1a","_links":{"avatar":{"href":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"}},"id":"988ed8db-d4a7-4ec4-8467-1c863b92af1a","uniqueName":"1309462+moerketh@users.noreply.github.com","imageUrl":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx","descriptor":"aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"},"System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.Severity":"3
+        - Medium","Microsoft.VSTS.Common.Priority":2,"Microsoft.VSTS.Common.StateChangeDate":"2022-03-11T11:01:10.033Z","Microsoft.VSTS.Common.ValueArea":"Business","System.Tags":"my
+        tag; tag2"},"_links":{"self":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"},"workItemUpdates":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/updates"},"workItemRevisions":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/revisions"},"workItemComments":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/comments"},"html":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_workitems/edit/198"},"workItemType":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/fields"}},"url":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - c8fc8240-e604-4d79-af45-1024099886a4
+      cache-control:
+      - no-cache
+      content-length:
+      - '2921'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 11 Mar 2022 11:01:10 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:14a064fe-0736-4753-ac67-ec119a6d0dfb
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 1E8352D883CE453C892C76DE822FB820 Ref B: AMS04EDGE3222 Ref C: 2022-03-11T11:01:10Z'
+      x-tfs-processid:
+      - 1b8e33b0-4ff9-4504-9c9d-d0e04fbf6f2a
+      x-tfs-session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      x-vss-e2eid:
+      - c8fc8240-e604-4d79-af45-1024099886a4
+      x-vss-senderdeploymentid:
+      - 52b4b0e6-4e32-471a-b490-dba776dd4096
+      x-vss-userdata:
+      - 988ed8db-d4a7-4ec4-8467-1c863b92af1a:1309462+moerketh@users.noreply.github.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.2 (Windows-10-10.0.19044-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.24.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/thomasmoerkerken/_apis/wit/workItems/198?fields=System.Id%2CSystem.Tags
+  response:
+    body:
+      string: '{"id":198,"rev":3,"fields":{"System.Id":198,"System.Tags":"my tag;
+        tag2"},"_links":{"self":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"},"workItemUpdates":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/updates"},"workItemRevisions":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/revisions"},"workItemComments":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/comments"},"html":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_workitems/edit/198"},"workItemType":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItemTypes"},"fields":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/fields"}},"url":"https://dev.azure.com/thomasmoerkerken/_apis/wit/workItems/198"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - c8fc8538-e604-4d79-af45-1024099886a4
+      cache-control:
+      - no-cache
+      content-length:
+      - '1044'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 11 Mar 2022 11:01:10 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:14a064fe-0736-4753-ac67-ec119a6d0dfb
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: C912E79E79354852AF94C44B991CF518 Ref B: AMS04EDGE3222 Ref C: 2022-03-11T11:01:10Z'
+      x-tfs-processid:
+      - 1b8e33b0-4ff9-4504-9c9d-d0e04fbf6f2a
+      x-tfs-session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      x-vss-e2eid:
+      - c8fc8538-e604-4d79-af45-1024099886a4
+      x-vss-senderdeploymentid:
+      - 52b4b0e6-4e32-471a-b490-dba776dd4096
+      x-vss-userdata:
+      - 988ed8db-d4a7-4ec4-8467-1c863b92af1a:1309462+moerketh@users.noreply.github.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.2 (Windows-10-10.0.19044-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.24.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/thomasmoerkerken/_apis/wit/workItems/198?fields=System.Id%2CSystem.Tags
+  response:
+    body:
+      string: '{"id":198,"rev":3,"fields":{"System.Id":198,"System.Tags":"my tag;
+        tag2"},"_links":{"self":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"},"workItemUpdates":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/updates"},"workItemRevisions":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/revisions"},"workItemComments":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/comments"},"html":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_workitems/edit/198"},"workItemType":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItemTypes"},"fields":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/fields"}},"url":"https://dev.azure.com/thomasmoerkerken/_apis/wit/workItems/198"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - c8fc8564-e604-4d79-af45-1024099886a4
+      cache-control:
+      - no-cache
+      content-length:
+      - '1044'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 11 Mar 2022 11:01:10 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:14a064fe-0736-4753-ac67-ec119a6d0dfb
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 5CB8527F6D124C9EB0E0AACD58223CF4 Ref B: AMS04EDGE3222 Ref C: 2022-03-11T11:01:11Z'
+      x-tfs-processid:
+      - 1b8e33b0-4ff9-4504-9c9d-d0e04fbf6f2a
+      x-tfs-session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      x-vss-e2eid:
+      - c8fc8564-e604-4d79-af45-1024099886a4
+      x-vss-senderdeploymentid:
+      - 52b4b0e6-4e32-471a-b490-dba776dd4096
+      x-vss-userdata:
+      - 988ed8db-d4a7-4ec4-8467-1c863b92af1a:1309462+moerketh@users.noreply.github.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"op": "replace", "path": "/fields/System.Tags", "value": "tag2"}]'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '67'
+      Content-Type:
+      - application/json-patch+json; charset=utf-8
+      User-Agent:
+      - python/3.10.2 (Windows-10-10.0.19044-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.24.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PATCH
+    uri: https://dev.azure.com/thomasmoerkerken/_apis/wit/workItems/198
+  response:
+    body:
+      string: '{"id":198,"rev":4,"fields":{"System.AreaPath":"WorkItemAddListRemoveTagTests","System.TeamProject":"WorkItemAddListRemoveTagTests","System.IterationPath":"WorkItemAddListRemoveTagTests","System.WorkItemType":"Bug","System.State":"New","System.Reason":"New","System.CreatedDate":"2022-03-11T11:01:10.033Z","System.CreatedBy":{"displayName":"Thomas
+        Moerkerken","url":"https://spsprodeus23.vssps.visualstudio.com/A078987d0-ce38-4051-8a54-7430fe4d0b29/_apis/Identities/988ed8db-d4a7-4ec4-8467-1c863b92af1a","_links":{"avatar":{"href":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"}},"id":"988ed8db-d4a7-4ec4-8467-1c863b92af1a","uniqueName":"1309462+moerketh@users.noreply.github.com","imageUrl":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx","descriptor":"aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"},"System.ChangedDate":"2022-03-11T11:01:11.41Z","System.ChangedBy":{"displayName":"Thomas
+        Moerkerken","url":"https://spsprodeus23.vssps.visualstudio.com/A078987d0-ce38-4051-8a54-7430fe4d0b29/_apis/Identities/988ed8db-d4a7-4ec4-8467-1c863b92af1a","_links":{"avatar":{"href":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"}},"id":"988ed8db-d4a7-4ec4-8467-1c863b92af1a","uniqueName":"1309462+moerketh@users.noreply.github.com","imageUrl":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx","descriptor":"aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"},"System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.Severity":"3
+        - Medium","Microsoft.VSTS.Common.Priority":2,"Microsoft.VSTS.Common.StateChangeDate":"2022-03-11T11:01:10.033Z","Microsoft.VSTS.Common.ValueArea":"Business","System.Tags":"tag2"},"_links":{"self":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"},"workItemUpdates":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/updates"},"workItemRevisions":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/revisions"},"workItemComments":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/comments"},"html":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_workitems/edit/198"},"workItemType":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/fields"}},"url":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - c8fc85a9-e604-4d79-af45-1024099886a4
+      cache-control:
+      - no-cache
+      content-length:
+      - '2913'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 11 Mar 2022 11:01:11 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:14a064fe-0736-4753-ac67-ec119a6d0dfb
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: A2B3B0DB706047848B7550C04C3179A0 Ref B: AMS04EDGE3222 Ref C: 2022-03-11T11:01:11Z'
+      x-tfs-processid:
+      - 1b8e33b0-4ff9-4504-9c9d-d0e04fbf6f2a
+      x-tfs-session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      x-vss-e2eid:
+      - c8fc85a9-e604-4d79-af45-1024099886a4
+      x-vss-senderdeploymentid:
+      - 52b4b0e6-4e32-471a-b490-dba776dd4096
+      x-vss-userdata:
+      - 988ed8db-d4a7-4ec4-8467-1c863b92af1a:1309462+moerketh@users.noreply.github.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.2 (Windows-10-10.0.19044-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.24.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/thomasmoerkerken/_apis/wit/workItems/198?fields=System.Id%2CSystem.Tags
+  response:
+    body:
+      string: '{"id":198,"rev":4,"fields":{"System.Id":198,"System.Tags":"tag2"},"_links":{"self":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"},"workItemUpdates":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/updates"},"workItemRevisions":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/revisions"},"workItemComments":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/comments"},"html":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_workitems/edit/198"},"workItemType":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItemTypes"},"fields":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/fields"}},"url":"https://dev.azure.com/thomasmoerkerken/_apis/wit/workItems/198"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - c8fc843c-e604-4d79-af45-1024099886a4
+      cache-control:
+      - no-cache
+      content-length:
+      - '1036'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 11 Mar 2022 11:01:11 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:14a064fe-0736-4753-ac67-ec119a6d0dfb
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: CFFF9E4082DF42AFB89193C9DC083135 Ref B: AMS04EDGE3222 Ref C: 2022-03-11T11:01:11Z'
+      x-tfs-processid:
+      - 1b8e33b0-4ff9-4504-9c9d-d0e04fbf6f2a
+      x-tfs-session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      x-vss-e2eid:
+      - c8fc843c-e604-4d79-af45-1024099886a4
+      x-vss-senderdeploymentid:
+      - 52b4b0e6-4e32-471a-b490-dba776dd4096
+      x-vss-userdata:
+      - 988ed8db-d4a7-4ec4-8467-1c863b92af1a:1309462+moerketh@users.noreply.github.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"op": "replace", "path": "/fields/System.Tags", "value": ""}]'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '63'
+      Content-Type:
+      - application/json-patch+json; charset=utf-8
+      User-Agent:
+      - python/3.10.2 (Windows-10-10.0.19044-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.24.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PATCH
+    uri: https://dev.azure.com/thomasmoerkerken/_apis/wit/workItems/198
+  response:
+    body:
+      string: '{"id":198,"rev":5,"fields":{"System.AreaPath":"WorkItemAddListRemoveTagTests","System.TeamProject":"WorkItemAddListRemoveTagTests","System.IterationPath":"WorkItemAddListRemoveTagTests","System.WorkItemType":"Bug","System.State":"New","System.Reason":"New","System.CreatedDate":"2022-03-11T11:01:10.033Z","System.CreatedBy":{"displayName":"Thomas
+        Moerkerken","url":"https://spsprodeus23.vssps.visualstudio.com/A078987d0-ce38-4051-8a54-7430fe4d0b29/_apis/Identities/988ed8db-d4a7-4ec4-8467-1c863b92af1a","_links":{"avatar":{"href":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"}},"id":"988ed8db-d4a7-4ec4-8467-1c863b92af1a","uniqueName":"1309462+moerketh@users.noreply.github.com","imageUrl":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx","descriptor":"aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"},"System.ChangedDate":"2022-03-11T11:01:12.063Z","System.ChangedBy":{"displayName":"Thomas
+        Moerkerken","url":"https://spsprodeus23.vssps.visualstudio.com/A078987d0-ce38-4051-8a54-7430fe4d0b29/_apis/Identities/988ed8db-d4a7-4ec4-8467-1c863b92af1a","_links":{"avatar":{"href":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"}},"id":"988ed8db-d4a7-4ec4-8467-1c863b92af1a","uniqueName":"1309462+moerketh@users.noreply.github.com","imageUrl":"https://dev.azure.com/thomasmoerkerken/_apis/GraphProfile/MemberAvatars/aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx","descriptor":"aad.YTczNDY4MmItNmZmMy03ZWMwLTkyMmEtZmQ3NDI0NjkyMDAx"},"System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.Severity":"3
+        - Medium","Microsoft.VSTS.Common.Priority":2,"Microsoft.VSTS.Common.StateChangeDate":"2022-03-11T11:01:10.033Z","Microsoft.VSTS.Common.ValueArea":"Business"},"_links":{"self":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"},"workItemUpdates":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/updates"},"workItemRevisions":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/revisions"},"workItemComments":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198/comments"},"html":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_workitems/edit/198"},"workItemType":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/fields"}},"url":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItems/198"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - c8fc8466-e604-4d79-af45-1024099886a4
+      cache-control:
+      - no-cache
+      content-length:
+      - '2893'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 11 Mar 2022 11:01:11 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:14a064fe-0736-4753-ac67-ec119a6d0dfb
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: EE80B80F6B9B4465BFBD9AEA209D92E7 Ref B: AMS04EDGE3222 Ref C: 2022-03-11T11:01:11Z'
+      x-tfs-processid:
+      - 1b8e33b0-4ff9-4504-9c9d-d0e04fbf6f2a
+      x-tfs-session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      x-vss-e2eid:
+      - c8fc8466-e604-4d79-af45-1024099886a4
+      x-vss-senderdeploymentid:
+      - 52b4b0e6-4e32-471a-b490-dba776dd4096
+      x-vss-userdata:
+      - 988ed8db-d4a7-4ec4-8467-1c863b92af1a:1309462+moerketh@users.noreply.github.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.2 (Windows-10-10.0.19044-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.24.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: DELETE
+    uri: https://dev.azure.com/thomasmoerkerken/WorkItemAddListRemoveTagTests/_apis/wit/workItems/198?destroy=false
+  response:
+    body:
+      string: '{"id":198,"type":"Bug","name":"samplebug","project":"WorkItemAddListRemoveTagTests","deletedDate":"3/11/2022
+        11:01:12 AM","deletedBy":"Thomas Moerkerken <1309462+moerketh@users.noreply.github.com>","code":200,"url":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/recyclebin/198","resource":{"id":198,"rev":6,"fields":{"System.AreaPath":"WorkItemAddListRemoveTagTests","System.TeamProject":"WorkItemAddListRemoveTagTests","System.IterationPath":"WorkItemAddListRemoveTagTests","System.WorkItemType":"Bug","System.State":"New","System.Reason":"New","System.CreatedDate":"2022-03-11T11:01:10.033Z","System.CreatedBy":"Thomas
+        Moerkerken <1309462+moerketh@users.noreply.github.com>","System.ChangedDate":"2022-03-11T11:01:12.32Z","System.ChangedBy":"Thomas
+        Moerkerken <1309462+moerketh@users.noreply.github.com>","System.CommentCount":0,"System.Title":"samplebug","Microsoft.VSTS.Common.Severity":"3
+        - Medium","Microsoft.VSTS.Common.Priority":2,"Microsoft.VSTS.Common.StateChangeDate":"2022-03-11T11:01:10.033Z","Microsoft.VSTS.Common.ValueArea":"Business","System.Tags":""},"_links":{"self":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/recyclebin/198"},"workItemType":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/workItemTypes/Bug"},"fields":{"href":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/fields"}},"url":"https://dev.azure.com/thomasmoerkerken/da4e925d-3fd1-41ef-b7b1-33931bbc4193/_apis/wit/recyclebin/198"}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - c8fc84d1-e604-4d79-af45-1024099886a4
+      cache-control:
+      - no-cache
+      content-length:
+      - '1532'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 11 Mar 2022 11:01:12 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:14a064fe-0736-4753-ac67-ec119a6d0dfb
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: F186C905DB4A4C019D1FB11899A9A08F Ref B: AMS04EDGE3222 Ref C: 2022-03-11T11:01:12Z'
+      x-tfs-processid:
+      - 1b8e33b0-4ff9-4504-9c9d-d0e04fbf6f2a
+      x-tfs-session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      x-vss-e2eid:
+      - c8fc84d1-e604-4d79-af45-1024099886a4
+      x-vss-senderdeploymentid:
+      - 52b4b0e6-4e32-471a-b490-dba776dd4096
+      x-vss-userdata:
+      - 988ed8db-d4a7-4ec4-8467-1c863b92af1a:1309462+moerketh@users.noreply.github.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"op": "add", "path": "/fields/System.Tags", "value": "tag2"}]'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '63'
+      Content-Type:
+      - application/json-patch+json; charset=utf-8
+      User-Agent:
+      - python/3.10.2 (Windows-10-10.0.19044-SP0) msrest/0.6.21 azure-devops/5.1.0b4
+        devOpsCli/0.24.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PATCH
+    uri: https://dev.azure.com/thomasmoerkerken/_apis/wit/workItems/198
+  response:
+    body:
+      string: '{"$id":"1","innerException":null,"message":"TF401232: Work item 198
+        does not exist, or you do not have permissions to read it.","typeName":"Microsoft.TeamFoundation.WorkItemTracking.Server.WorkItemUnauthorizedAccessException,
+        Microsoft.TeamFoundation.WorkItemTracking.Server","typeKey":"WorkItemUnauthorizedAccessException","errorCode":0,"eventId":3200}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - c8fc8757-e604-4d79-af45-1024099886a4
+      cache-control:
+      - no-cache
+      content-length:
+      - '353'
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Fri, 11 Mar 2022 11:01:12 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:14a064fe-0736-4753-ac67-ec119a6d0dfb
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 7639ABECA27143A79BF1C9356829D3AA Ref B: AMS04EDGE3222 Ref C: 2022-03-11T11:01:12Z'
+      x-tfs-processid:
+      - 1b8e33b0-4ff9-4504-9c9d-d0e04fbf6f2a
+      x-tfs-session:
+      - 1bd0eb3b-a838-4bed-84f0-04b9679517ec
+      x-vss-e2eid:
+      - c8fc8757-e604-4d79-af45-1024099886a4
+      x-vss-senderdeploymentid:
+      - 52b4b0e6-4e32-471a-b490-dba776dd4096
+      x-vss-userdata:
+      - 988ed8db-d4a7-4ec4-8467-1c863b92af1a:1309462+moerketh@users.noreply.github.com
+    status:
+      code: 404
+      message: Not Found
+version: 1
