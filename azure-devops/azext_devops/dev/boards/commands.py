@@ -46,6 +46,7 @@ tagsOps = CliCommandType(
     exception_handler=azure_devops_exception_handler
 )
 
+
 def load_work_commands(self, _):
     with self.command_group('boards', command_type=workItemOps) as g:
         # basic work item commands
@@ -66,7 +67,7 @@ def load_work_commands(self, _):
         g.command('relation remove', 'remove_relation', table_transformer=transform_work_item_relations,
                   confirmation='Are you sure you want to remove this relation(s)?')
         g.command('relation show', 'show_work_item', table_transformer=transform_work_item_relations)
-    
+
     with self.command_group('boards work-item', command_type=tagsOps) as g:
         # tag commands
         g.command('tag add', 'add_work_item_tags', table_transformer=transform_work_item_tags)
