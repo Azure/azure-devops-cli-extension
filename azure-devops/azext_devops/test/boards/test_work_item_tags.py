@@ -54,6 +54,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
     def tearDown(self):
         patch.stopall()
 
+
     def test_add_work_item_tag_correct_id(self):
 
         test_work_item_id = 1
@@ -75,7 +76,8 @@ class TestWorkItemTagMethods(AuthenticatedTests):
         self.assertEqual("add", actual_patch_document.op)
         self.assertEqual("/fields/System.Tags", actual_patch_document.path)
         self.assertEqual(test_work_item_new_tag, actual_patch_document.value)
-        
+
+
     def test_add_work_item_tag_none_id(self):
 
         test_work_item_id = None
@@ -85,6 +87,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
             add_work_item_tags(id=test_work_item_id, tag=test_work_item_new_tag, organization=self._TEST_DEVOPS_ORGANIZATION)
         self.assertIn('--id must be provided', str(exc.exception))
 
+
     def test_add_work_item_tag_none_tag(self):
 
         test_work_item_id = 1
@@ -93,6 +96,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
         with self.assertRaises(CLIError) as exc:
             add_work_item_tags(id=test_work_item_id, tag=test_work_item_new_tag, organization=self._TEST_DEVOPS_ORGANIZATION)
         self.assertIn('--tag must be provided', str(exc.exception))
+
 
     def test_list_work_item_tag_correct_id(self):
 
@@ -108,7 +112,8 @@ class TestWorkItemTagMethods(AuthenticatedTests):
         self.mock_get_WI.assert_called_once_with(test_work_item_id, as_of=None, fields=['System.Id','System.Tags'], expand=None)
         self.assertEqual(response.id, test_work_item_id)
         self.assertEqual(response.fields['System.Tags'], "mytag")
-    
+
+
     def test_list_work_item_tag_none_id(self):
 
         test_work_item_id = None
@@ -116,6 +121,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
         with self.assertRaises(CLIError) as exc:
             list_work_item_tags(id=test_work_item_id, organization=self._TEST_DEVOPS_ORGANIZATION)
         self.assertIn('--id must be provided', str(exc.exception))
+
 
     def test_remove_work_item_tag(self):
 
@@ -126,7 +132,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
         self.mock_get_WI.return_value.id = test_work_item_id
         self.mock_get_WI.return_value.fields = { "System.Tags": "mytag" }
         self.mock_update_WI.return_value.id = test_work_item_id
-        self.mock_update_WI.return_value.fields = { "System.Tags": "" }
+        self.mock_update_WI.return_value.fields = { "System.Id": test_work_item_id }
 
         response = remove_work_item_tags(id=test_work_item_id, tag=test_work_item_tag_to_remove, organization=self._TEST_DEVOPS_ORGANIZATION)
 
@@ -136,12 +142,45 @@ class TestWorkItemTagMethods(AuthenticatedTests):
         self.mock_update_WI.assert_called_once_with(document=ANY, id=test_work_item_id)
         args, kwargs = self.mock_update_WI.call_args
         self.assertEqual(response.id, test_work_item_id)
-        self.assertEqual(response.fields['System.Tags'], "")
+        self.assertEqual(response.fields['System.Tags'], None)
         #assert expected patch document
         actual_patch_document = kwargs.get('document')[0]
         self.assertEqual("replace", actual_patch_document.op)
         self.assertEqual("/fields/System.Tags", actual_patch_document.path)
         self.assertEqual(expected_system_tags_value, actual_patch_document.value)
+
+
+    def test_remove_work_item_nonexistent_tag_from_workitem_with_tags(self):
+
+        test_work_item_id = 1
+        test_work_item_tag_to_remove = "mytag"
+
+        # set return values
+        self.mock_get_WI.return_value.id = test_work_item_id
+        self.mock_get_WI.return_value.fields = { "System.Tags": "other_tag" }
+        self.mock_update_WI.return_value.id = test_work_item_id
+        self.mock_update_WI.return_value.fields = { "System.Tags": "other_tag" }
+
+        with self.assertRaises(CLIError) as exc:
+            remove_work_item_tags(id=test_work_item_id, tag=test_work_item_tag_to_remove, organization=self._TEST_DEVOPS_ORGANIZATION)
+        self.assertIn(f'Work item tag {test_work_item_tag_to_remove} was not found on work item with id {test_work_item_id}.', str(exc.exception))
+
+
+    def test_remove_work_item_tag_when_no_tags_exist(self):
+
+        test_work_item_id = 1
+        test_work_item_tag_to_remove = "mytag"
+
+        # set return values
+        self.mock_get_WI.return_value.id = test_work_item_id
+        self.mock_get_WI.return_value.fields = { "System.Id": test_work_item_id }
+        self.mock_update_WI.return_value.id = test_work_item_id
+        self.mock_update_WI.return_value.fields = { "System.Id": test_work_item_id }
+
+        with self.assertRaises(CLIError) as exc:
+            remove_work_item_tags(id=test_work_item_id, tag=test_work_item_tag_to_remove, organization=self._TEST_DEVOPS_ORGANIZATION)
+        self.assertIn(f'Work item with id {test_work_item_id} has no tags.', str(exc.exception))
+
 
     def test_remove_work_item_tag_none_id(self):
 
@@ -152,6 +191,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
             remove_work_item_tags(id=test_work_item_id, tag=test_work_item_new_tag, organization=self._TEST_DEVOPS_ORGANIZATION)
         self.assertIn('--id must be provided', str(exc.exception))
 
+
     def test_remove_work_item_tag_none_tag(self):
 
         test_work_item_id = 1
@@ -160,6 +200,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
         with self.assertRaises(CLIError) as exc:
             remove_work_item_tags(id=test_work_item_id, tag=test_work_item_new_tag, organization=self._TEST_DEVOPS_ORGANIZATION)
         self.assertIn('--tag must be provided', str(exc.exception))
+
 
     def test_remove_first_tag_from_tagstring(self):
         current_tags = "tag1; tag2; tag3"
@@ -170,6 +211,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
 
         self.assertEqual(expected_result, actual)
 
+
     def test_remove_last_tag_from_tagstring(self):
         current_tags = "tag1; tag2; tag3"
         tag_to_remove = "tag3"
@@ -178,6 +220,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
         actual = _remove_tag_from_tagstring(current_tags, tag_to_remove)
 
         self.assertEqual(expected_result, actual)
+
 
     def test_remove_only_tag_from_tagstring(self):
         current_tags = "tag1"
@@ -188,6 +231,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
 
         self.assertEqual(expected_result, actual)
 
+
     def test_remove_tag_from_tagstring(self):
         current_tags = "tag1; tag2; tag3"
         tag_to_remove = "tag2"
@@ -196,6 +240,7 @@ class TestWorkItemTagMethods(AuthenticatedTests):
         actual = _remove_tag_from_tagstring(current_tags, tag_to_remove)
 
         self.assertEqual(expected_result, actual)
+
 
 if __name__ == '__main__':
     unittest.main()
