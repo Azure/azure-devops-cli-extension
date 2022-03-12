@@ -4,36 +4,31 @@
 # --------------------------------------------------------------------------------------------
 
 import unittest
-import json
-
 from azext_devops.dev.boards._format import (transform_work_item_tags)
-from azext_devops.test.utils.authentication import AuthenticatedTests
 
 
 class TestTableTransforms(unittest.TestCase):
 
+    _TEST_WORK_ITEM_ID = 1
+    _TEST_WORK_ITEM_TAG = "mytag"
+    _TEST_TABLE_INPUT = {
+        'id': _TEST_WORK_ITEM_ID,
+        'fields': {
+            'System.Id': _TEST_WORK_ITEM_ID,
+            'System.Tags': _TEST_WORK_ITEM_TAG
+        }
+    }
+
     def test_transform_work_item_tags_correct_values(self):
-        expected_id = 176
-        expected_tags = "mytag"
-        test_input = {}
-        test_input['id'] = expected_id
-        test_input['fields'] = {}
-        test_input['fields']['System.Id'] = expected_id
-        test_input['fields']['System.Tags'] = expected_tags
-        actual = transform_work_item_tags(test_input)
-        self.assertEquals(expected_id, actual['ID'])
-        self.assertEquals(expected_tags, actual['Tags'])
+        actual = transform_work_item_tags(self._TEST_TABLE_INPUT)
+        self.assertEquals(self._TEST_WORK_ITEM_ID, actual['ID'])
+        self.assertEquals(self._TEST_WORK_ITEM_TAG, actual['Tags'])
 
     def test_transform_work_item_tags_correct_column_order(self):
-        test_input = {}
-        test_input['id'] = 1
-        test_input['fields'] = {}
-        test_input['fields']['System.Id'] = 1
-        test_input['fields']['System.Tags'] = "tag"
-        actual = transform_work_item_tags(test_input)
+        actual = transform_work_item_tags(self._TEST_TABLE_INPUT)
         self.assertEquals(2, len(actual))
-        self.assertEquals('ID', list(actual.items())[0][0])
-        self.assertEquals('Tags', list(actual.items())[1][0])
+        self.assertEquals('ID', list(actual.keys())[0])
+        self.assertEquals('Tags', list(actual.keys())[1])
 
 if __name__ == '__main__':
     unittest.main()
