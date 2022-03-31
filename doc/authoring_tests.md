@@ -10,6 +10,7 @@
     cd azure-devops
     pytest
     ```
+
 1. run an individual test:
 
     ```bash
