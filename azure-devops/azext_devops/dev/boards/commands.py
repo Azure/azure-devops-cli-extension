@@ -62,7 +62,7 @@ def load_work_commands(self, _):
                   confirmation='Are you sure you want to remove this relation(s)?')
         g.command('relation show', 'show_work_item', table_transformer=transform_work_item_relations)
 
-    with self.command_group('boards iteration', command_type=workProjectAndTeamIterationOps, is_preview=True) as g:
+    with self.command_group('boards iteration', command_type=workProjectAndTeamIterationOps) as g:
         # team iteration commands
         g.command('team list', 'get_team_iterations',
                   table_transformer=transform_work_item_team_iterations_table_output)
@@ -91,7 +91,7 @@ def load_work_commands(self, _):
         g.command('project create', 'create_project_iteration',
                   table_transformer=transform_work_item_project_classification_nodes_table_output)
 
-    with self.command_group('boards area', command_type=workProjectAndTeamAreaOps, is_preview=True) as g:
+    with self.command_group('boards area', command_type=workProjectAndTeamAreaOps) as g:
         # team iteration commands
         g.command('project list', 'get_project_areas',
                   table_transformer=transform_work_item_project_classification_nodes_table_output)

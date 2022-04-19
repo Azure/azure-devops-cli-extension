@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from knack.log import get_logger
+from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.git.models import GitRefUpdate
 from azext_devops.dev.common.git import resolve_git_refs
 from azext_devops.dev.common.services import (get_git_client,
@@ -51,12 +52,15 @@ def create_ref(name, object_id, repository=None, organization=None, project=None
                               name=resolve_git_refs(name),
                               new_object_id=object_id,
                               old_object_id='0000000000000000000000000000000000000000')
-    return client.update_refs(ref_updates=[ref_update],
-                              repository_id=repository,
-                              project=project)[0]
+    response = client.update_refs(ref_updates=[ref_update],
+                                  repository_id=repository,
+                                  project=project)[0]
+    if response.success is False:
+        raise CLIError(response.custom_message)
+    return response
 
 
-def delete_ref(name, object_id, repository=None, organization=None, project=None, detect=None):
+def delete_ref(name, object_id=None, repository=None, organization=None, project=None, detect=None):
     """Delete a reference.
     :param str name: Name of the reference to delete (example: heads/my_branch).
     :param str object_id: Id of the reference to delete.
@@ -70,6 +74,15 @@ def delete_ref(name, object_id, repository=None, organization=None, project=None
         project=project,
         repo=repository)
     client = get_git_client(organization)
+
+    if object_id is None:
+        ref = client.get_refs(repository_id=repository, project=project, filter=name)
+        if not ref or len(ref) != 1:
+            logger.error('ref not found')
+            raise CLIError("Failed to find object_id for ref " + name + ". Please provide object_id.")
+
+        object_id = ref[0].object_id
+
     ref_update = GitRefUpdate(name=resolve_git_refs(name),
                               new_object_id='0000000000000000000000000000000000000000',
                               old_object_id=object_id)

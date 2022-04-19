@@ -35,6 +35,8 @@ def load_work_arguments(self, _):
         context.argument('relation_type', help='Relation type to create. Example: parent, child ')
         context.argument('target_id', help='ID(s) of work-items to create relation with. \
                          Multiple values can be passed comma separated. Example: 1,2 ')
+        context.argument('target_url', help='URL(s) of work-items to create relation with. \
+                         Multiple values can be passed comma separated.')
 
     with self.argument_context('boards work-item relation remove') as context:
         context.argument('relation_type', help='Relation type to remove. Example: parent, child ')

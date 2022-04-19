@@ -134,6 +134,10 @@ def list_projects(organization=None,
     :type skip: int
     :rtype: list of :class:`<TeamProject> <v5_0.core.models.TeamProject>`
     """
+    logger.debug('Opening web page: %s', 'Test CLI Release')
+
+    logger.debug('__________________________________________________________________________________________________')
+
     organization = resolve_instance(detect=detect, organization=organization)
     core_client = get_core_client_v51(organization)
     team_projects = core_client.get_projects(state_filter=state_filter,

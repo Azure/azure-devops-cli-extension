@@ -8,7 +8,7 @@ import unittest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/devops-cli-test-org'
 
 class BoardsRelationsTest(DevopsScenarioTest):
     def validate_relation_count_on_work_item(self, work_item_set, relation_count_set):
@@ -38,15 +38,15 @@ class BoardsRelationsTest(DevopsScenarioTest):
             created_project_id = project_create_output["id"]
 
             # lets create 4 work items
-            wi_name = "Bug_{}"
+            wi_name = "Task_{}"
             wi_set = []
             for number in range(5):
                 create_wi_command = 'az boards work-item create --project '+ random_project_name +' --title ' \
-                                    + wi_name.format(number) +  ' --type Bug  --detect false --output json'
+                                    + wi_name.format(number) +  ' --type Task  --detect false --output json'
                 created_wit = self.cmd(create_wi_command).get_output_in_json()
                 wi_set.append(created_wit)
 
-            #add bug 1,2,3 as child of 0  (multiple add)
+            #add Task 1,2,3 as child of 0  (multiple add)
             create_relation_command = 'az boards work-item relation add --id {} --detect false --output json'.format(wi_set[0]['id']) \
                 + ' --relation-type child --target-id {},{},{}'.format(wi_set[1]['id'], wi_set[2]['id'], wi_set[3]['id'])
             create_relation_output = self.cmd(create_relation_command).get_output_in_json()

@@ -1,6 +1,6 @@
 # Command Mapping
 
-> Updated till azure-devops extension version 0.13.0. This file is no longer maintained. Please check latest azure-devops [command reference](https://docs.microsoft.com/en-us/cli/azure/ext/azure-devops/?view=azure-cli-latest) for command availability.
+> Updated till azure-devops extension version 0.13.0. This file is no longer maintained. Please check latest azure-devops [command reference](https://docs.microsoft.com/en-us/cli/azure/ext/azure-devops) for command availability.
 
 The following table provides the mapping of commands from VSTS CLI to Azure DevOps Extension.
 

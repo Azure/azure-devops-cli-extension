@@ -134,6 +134,42 @@ class TestPullRequestMethods(AuthenticatedTests):
         assert pr_object_from_create_call.target_ref_name == resolve_git_ref_heads(self._TEST_TARGET_BRANCH)
         assert pr_object_from_create_call.work_item_refs == None
 
+
+    def test_create_pull_request_with_duplicate_reviwer(self):
+
+        test_pr_id = 1
+
+        # set return values
+        self.mock_create_PR.return_value.id = test_pr_id
+        self.mock_resolve_reviewers_as_refs.return_value = ['id1']
+
+        response = create_pull_request(project = self._TEST_PROJECT_NAME,
+        repository = self._TEST_REPOSITORY_NAME,
+        source_branch = self._TEST_SOURCE_BRANCH,
+        target_branch = self._TEST_TARGET_BRANCH,
+        title = self._TEST_PR_TITLE,
+        description = self._TEST_PR_DESCRIPTION,    
+        reviewers = ['a@b.com','A@b.com'],
+        organization = self._TEST_DEVOPS_ORGANIZATION)
+
+        # assert
+        self.mock_validate_token.assert_not_called()
+        self.mock_create_PR.assert_called_once()
+        self.mock_update_PR.assert_not_called()
+        assert len(self.mock_resolve_reviewers_as_refs.call_args_list) == 1
+        assert self.mock_resolve_reviewers_as_refs.call_args_list[0][0][0] == ["a@b.com"]
+
+        assert response.id == test_pr_id
+
+        #compare the PR objects
+        pr_object_from_create_call = self.mock_create_PR.call_args_list[0][1]['git_pull_request_to_create']
+        assert pr_object_from_create_call.title == self._TEST_PR_TITLE
+        assert pr_object_from_create_call.description == '\n'.join(self._TEST_PR_DESCRIPTION)
+        assert pr_object_from_create_call.source_ref_name == resolve_git_ref_heads(self._TEST_SOURCE_BRANCH)
+        assert pr_object_from_create_call.target_ref_name == resolve_git_ref_heads(self._TEST_TARGET_BRANCH)
+        assert pr_object_from_create_call.work_item_refs == None
+        assert pr_object_from_create_call.reviewers == ['id1']
+
     def test_create_pull_request_with_auto_complete(self):
 
         test_pr_id = 1

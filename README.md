@@ -4,7 +4,7 @@
 
 The Azure DevOps Extension for Azure CLI adds Pipelines, Boards, Repos, Artifacts and DevOps commands to the Azure CLI 2.0.
 
->The Azure CLI with the Azure DevOps Extension has replaced the VSTS CLI. The VSTS CLI has been deprecated and will no longer be receiving new features. We recommend that users of the VSTS CLI switch to the Azure CLI and add the Azure DevOps extension. See the [Command Mapping](/doc/command_mapping.md) section to view the mapping between VSTS CLI and Azure DevOps Extension commands.
+> The Azure CLI with the Azure DevOps Extension has replaced the VSTS CLI. The VSTS CLI has been deprecated and will no longer be receiving new features. We recommend that users of the VSTS CLI switch to the Azure CLI and add the Azure DevOps extension. See the [Command Mapping](/doc/command_mapping.md) section to view the mapping between VSTS CLI and Azure DevOps Extension commands.
 
 ## Quick start
 
@@ -14,10 +14,10 @@ The Azure DevOps Extension for Azure CLI adds Pipelines, Boards, Repos, Artifact
 
 1. Run the `az login` command.
 
-    If the CLI can open your default browser, it will do so and load a sign-in page. Otherwise, you need to open a
-    browser page and follow the instructions on the command line to enter an authorization code after navigating to
-    [https://aka.ms/devicelogin](https://aka.ms/devicelogin) in your browser. For more information, see the
-    [Azure CLI login page](https://docs.microsoft.com/cli/azure/authenticate-azure-cli?view=azure-cli-latest).
+   If the CLI can open your default browser, it will do so and load a sign-in page. Otherwise, you need to open a
+   browser page and follow the instructions on the command line to enter an authorization code after navigating to
+   [https://aka.ms/devicelogin](https://aka.ms/devicelogin) in your browser. For more information, see the
+   [Azure CLI login page](https://docs.microsoft.com/cli/azure/authenticate-azure-cli).
 
 See the [Get started guide](https://docs.microsoft.com/azure/devops/cli/get-started?view=azure-devops) for detailed setup instructions.
 
@@ -63,11 +63,17 @@ Commands:
 
 - Checkout the CLI docs at [docs.microsoft.com - Azure DevOps CLI](https://docs.microsoft.com/azure/devops/cli/).
 - Check out other examples in the [How-to guides](https://docs.microsoft.com/azure/devops/cli/?view=azure-devops#how-to-guides) section.
-- You can view the various commands and its usage here - [docs.microsoft.com - Azure DevOps Extension Reference](https://docs.microsoft.com/cli/azure/ext/azure-devops/?view=azure-cli-latest)
+- You can view the various commands and its usage here - [docs.microsoft.com - Azure DevOps Extension Reference](https://docs.microsoft.com/en-us/cli/azure/devops?view=azure-cli-latest)
 
 ## Contribute
 
 See our [contribution guidelines](CONTRIBUTING.md) to learn how you can contribute to this project.
+
+TLDR of [contribution guidelines](CONTRIBUTING.md) <br/>
+
+Questions : [Stack Overflow](https://stackoverflow.com/questions/tagged/azure-devops) <br/>
+Bug reports : [Developer Community](https://developercommunity.visualstudio.com/spaces/21/index.html) <br/>
+New Feature request : [Azure DevOps repo](https://github.com/Microsoft/azure-devops-cli-extension/issues/new/choose) <br/>
 
 ## License
 

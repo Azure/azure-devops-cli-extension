@@ -24,7 +24,7 @@ from azext_devops.dev.pipelines.pipeline_create_helpers.pipelines_resource_provi
     get_kubernetes_environment_resource, get_container_registry_service_connection, get_webapp_from_list_selection)
 from azext_devops.dev.pipelines.pipeline_create_helpers.azure_repos_helper import push_files_to_azure_repo
 from azext_devops.devops_sdk.v5_1.build.models import Build, BuildDefinition, BuildRepository, AgentPoolQueue
-from .build_definition import get_definition_id_from_name, fix_path_for_api
+from .build_definition import fix_path_for_api
 
 logger = get_logger(__name__)
 
@@ -42,7 +42,7 @@ class YmlOptions:
 
 
 _GITHUB_REPO_TYPE = 'github'
-_AZURE_GIT_REPO_TYPE = 'tfsgit'
+_AZURE_GIT_REPO_TYPE = 'TfsGit'
 
 
 # pylint: disable=too-many-statements
@@ -123,10 +123,10 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
         repo_id = repository_name
         repository_url = 'https://github.com/' + repository_name
         api_url = get_github_repos_api_url(repository_name)
-    if repository_type.lower() == _AZURE_GIT_REPO_TYPE:
+    if repository_type.lower() == _AZURE_GIT_REPO_TYPE.lower():
         repo_id = _get_repository_id_from_name(organization, project, repository_name)
 
-    if not service_connection and repository_type != _AZURE_GIT_REPO_TYPE:
+    if not service_connection and repository_type.lower() != _AZURE_GIT_REPO_TYPE.lower():
         service_connection = get_github_service_endpoint(organization, project)
 
     new_cix_client = get_new_cix_client(organization=organization)
@@ -155,12 +155,10 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
                               project=project)
 
 
-def pipeline_update(name=None, id=None, description=None, new_name=None,  # pylint: disable=redefined-builtin
+def pipeline_update(id, description=None, new_name=None,  # pylint: disable=redefined-builtin
                     branch=None, yml_path=None, queue_id=None, organization=None, project=None, detect=None,
                     new_folder_path=None):
-    """ Update a pipeline
-    :param name: Name of the pipeline to update.
-    :type name: str
+    """Update a pipeline
     :param id: Id of the pipeline to update.
     :type id: str
     :param new_name: New updated name of the pipeline.
@@ -181,11 +179,6 @@ def pipeline_update(name=None, id=None, description=None, new_name=None,  # pyli
     organization, project = resolve_instance_and_project(
         detect=detect, organization=organization, project=project)
     pipeline_client = get_new_pipeline_client(organization=organization)
-    if id is None:
-        if name is not None:
-            id = get_definition_id_from_name(name, pipeline_client, project)
-        else:
-            raise CLIError("Either --id or --name argument must be supplied for this command.")
     definition = pipeline_client.get_definition(definition_id=id, project=project)
     if new_name:
         definition.name = new_name
@@ -378,7 +371,7 @@ def push_files_to_repository(organization, project, repo_name, branch, files, re
     commit_direct_to_branch = commit_choice == 0
     if repository_type == _GITHUB_REPO_TYPE:
         return push_files_github(files, repo_name, branch, commit_direct_to_branch)
-    if repository_type == _AZURE_GIT_REPO_TYPE:
+    if repository_type.lower() == _AZURE_GIT_REPO_TYPE.lower():
         return push_files_to_azure_repo(files, repo_name, branch, commit_direct_to_branch, organization, project)
     raise CLIError('File push failed: Repository type not supported.')
 

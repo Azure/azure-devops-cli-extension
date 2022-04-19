@@ -11,7 +11,7 @@ from dateutil import parser
 from .utilities.helper import (
     DevopsScenarioTest, get_random_name, disable_telemetry, set_authentication, get_test_org_from_env_variable)
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/devops-cli-test-org'
 
 class AzReposPrTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -31,14 +31,14 @@ class AzReposPrTests(DevopsScenarioTest):
             assert len(created_repo_id) > 0
             
             #Import repo for testing
-            import_repo_command = 'az repos import create --git-source-url https://dev.azure.com/AzureDevOpsCliTest/ImportRepoTest/_git/snakes-and-ladders --repository ' + created_repo_id + ' --project PullRequestLiveTest --detect false --output json'
+            import_repo_command = 'az repos import create --git-source-url https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders --repository ' + created_repo_id + ' --project PullRequestLiveTest --detect false --output json'
             import_repo_output = self.cmd(import_repo_command).get_output_in_json()
             import_repo_status = import_repo_output["status"]
             assert import_repo_status == 'completed'
 
             #Create a PR in imported repo
             pr_title = 'Fixing a bug in cli engine'
-            create_pr_command = 'az repos pr create -p PullRequestLiveTest -r ' + created_repo_id + ' -s testbranch -t master --title "' + pr_title + '" -d "Sample PR description" --detect false --output json'
+            create_pr_command = 'az repos pr create -p PullRequestLiveTest -r ' + created_repo_id + ' -s testbranch -t main --title "' + pr_title + '" -d "Sample PR description" --detect false --output json'
             create_pr_output = self.cmd(create_pr_command).get_output_in_json()
             create_pr_id = create_pr_output["pullRequestId"]
             create_pr_datetime = parser.parse(create_pr_output["creationDate"])
@@ -79,7 +79,7 @@ class AzReposPrTests(DevopsScenarioTest):
             
             #Reviewers test before completing the PR
             #add pr reviewer
-            add_pr_reviewers_command = 'az repos pr reviewer add --id ' + create_pr_id + ' --reviewers atbagga --detect false --output json'
+            add_pr_reviewers_command = 'az repos pr reviewer add --id ' + create_pr_id + ' --reviewers "Devops Cli" --detect false --output json'
             add_pr_reviewers_output = self.cmd(add_pr_reviewers_command).get_output_in_json()
             assert len(add_pr_reviewers_output) > 0
 
@@ -89,7 +89,7 @@ class AzReposPrTests(DevopsScenarioTest):
             assert len(list_pr_reviewers_output) > 0
 
             #Remove pr reviewer
-            remove_pr_reviewers_command = 'az repos pr reviewer remove --id ' + create_pr_id + ' --reviewers atbagga --detect false --output json'
+            remove_pr_reviewers_command = 'az repos pr reviewer remove --id ' + create_pr_id + ' --reviewers "Devops Cli" --detect false --output json'
             self.cmd(remove_pr_reviewers_command).get_output_in_json()
             #verify pr reviewers removed
             list_pr_reviewers_output = self.cmd(list_pr_reviewers_command).get_output_in_json()

@@ -68,6 +68,7 @@ def load_build_arguments(self, _):
 
     with self.argument_context('pipelines run') as context:
         context.argument('id', type=int)
+        context.argument('parameters', nargs='*')
         context.argument('variables', nargs='*')
 
     with self.argument_context('pipelines list') as context:
@@ -85,7 +86,6 @@ def load_build_arguments(self, _):
 
     with self.argument_context('pipelines update') as context:
         context.argument('yml_path', options_list=('--yml-path', '--yaml-path'))
-        context.argument('name', deprecate_info=context.deprecate(redirect='--id', target='--name', hide=True))
 
     with self.argument_context('pipelines pool') as context:
         context.argument('pool_id', options_list=('--pool-id', '--id'))

@@ -12,12 +12,22 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch, ANY
 
+from knack.util import CLIError
+from msrest.serialization import Model
 from azext_devops.devops_sdk.v5_0.git.git_client import GitClient
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.dev.repos.ref import (list_refs, create_ref, delete_ref, lock_ref, unlock_ref)
 from azext_devops.test.utils.authentication import AuthenticatedTests
 from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
 
+class MockRef(object):
+    def __init__(self, object_id):
+        self.object_id = object_id
+        
+class MockRefResponse(Model):
+    def __init__(self, success, custom_message):
+        self.success = success
+        self.custom_message = custom_message
 
 class TestRefMethods(AuthenticatedTests):
 
@@ -62,6 +72,23 @@ class TestRefMethods(AuthenticatedTests):
                                                       ref_updates=ANY,
                                                       repository_id=None)
 
+    def test_create_ref2(self):
+
+        custom_exception = "Mock exception message"
+        mockResponse = []
+        mockResponse.append(MockRefResponse(False,custom_exception))
+
+        self.mock_update_refs.return_value = mockResponse
+
+        try:           
+            response = create_ref(name='sample_ref',
+                                object_id='1234567890',
+                                organization=TEST_DEVOPS_ORG_URL,
+                                project='sample_project')
+            self.fail('we should have received an error')
+        except CLIError as ex:
+            self.assertEqual(str(ex), custom_exception)
+
     def test_lock_ref(self):
 
         response = lock_ref(name='sample_ref',
@@ -94,6 +121,31 @@ class TestRefMethods(AuthenticatedTests):
         self.mock_update_refs.assert_called_once_with(project='sample_project',
                                                       ref_updates=ANY,
                                                       repository_id=None)
+
+    def test_delete_ref_without_obj_id(self):
+
+        refs = []
+        refs.append(MockRef("0"))
+
+        self.mock_get_refs.return_value = refs;
+
+        response = delete_ref(name='sample_ref',
+                              organization=TEST_DEVOPS_ORG_URL,
+                              project='sample_project')
+        # assert
+        self.mock_update_refs.assert_called_once_with(project='sample_project',
+                                                      ref_updates=ANY,
+                                                      repository_id=None)
+
+    def test_delete_ref_without_obj_id_invalid_ref_name(self):
+        sample_invalid_ref = "sample_invalid_ref"
+        try:        
+            response = delete_ref(name=sample_invalid_ref,
+                              organization=TEST_DEVOPS_ORG_URL,
+                              project='sample_project')
+            self.fail('we should have received an error')
+        except CLIError as ex:
+            self.assertEqual(str(ex), f'Failed to find object_id for ref {sample_invalid_ref}. Please provide object_id.')
 
 
 if __name__ == '__main__':

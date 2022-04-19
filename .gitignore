@@ -306,3 +306,4 @@ paket-files/
 # Except for the release folders which contains vsts release code
 !azure-devops/azext_devops/devops_sdk/*/release/
 azure-devops/azext_devops/devops_sdk/*/release/release/__pycache__
+.azure/devcliextensions
