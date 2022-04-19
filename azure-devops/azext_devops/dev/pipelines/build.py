@@ -135,7 +135,7 @@ def build_cancel(id, open=False, organization=None, project=None, detect=None): 
         detect=detect, organization=organization, project=project)
     client = get_build_client(organization)
     build = Build(status="Cancelling")
-    build = client.update_build(build = build, project=project, build_id=id)
+    build = client.update_build(build=build, project=project, build_id=id)
     if open:
         _open_build(build, organization)
     return build
