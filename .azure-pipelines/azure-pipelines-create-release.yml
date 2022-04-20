@@ -65,7 +65,7 @@ jobs:
 - job: 'Calculate_Sha_And_Create_Release'
   dependsOn : Run_Test
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-latest'
   variables:
     CLIVersion: $[dependencies.Run_Test.outputs['setupVersion.CLIVersion']]
     RTitle: $[dependencies.Run_Test.outputs['setupVersion.RTitle']]
