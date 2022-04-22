@@ -123,10 +123,10 @@ def build_list(definition_ids=None, branch=None, organization=None, project=None
     return builds
 
 
-def build_cancel(id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
+def build_cancel(build_id, open=False, organization=None, project=None, detect=None):
     """Cancels if build is running.
-    :param id: ID of the build.
-    :type id: int
+    :param build_id: ID of the build.
+    :type build_id: int
     :param open: Open the build results page in your web browser.
     :type open: bool
     :rtype: :class:`<Build> <v5_0.build.models.Build>`
@@ -135,7 +135,7 @@ def build_cancel(id, open=False, organization=None, project=None, detect=None): 
         detect=detect, organization=organization, project=project)
     client = get_build_client(organization)
     build = Build(status="Cancelling")
-    build = client.update_build(build=build, project=project, build_id=id)
+    build = client.update_build(build=build, project=project, build_id=build_id)
     if open:
         _open_build(build, organization)
     return build
