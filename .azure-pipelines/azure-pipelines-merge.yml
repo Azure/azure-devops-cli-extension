@@ -41,7 +41,7 @@ jobs:
 - job: 'Run_Test_Windows'
   dependsOn : [ 'Build_Publish_Azure_CLI_Test_SDK', 'Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-latest'
 
   steps:
   - task: PowerShell@2
@@ -192,7 +192,7 @@ jobs:
     vmImage: 'macOS-10.15'
 
   steps:
-  - script: git checkout release-0.23.0
+  - script: git checkout release-0.25.0
 
   - template: templates/run-tests.yml
     parameters:
@@ -201,7 +201,7 @@ jobs:
 
 - job: 'Check_Back_Compat_Arguments'
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-latest'
 
   steps:
   - task: UsePythonVersion@0
@@ -225,7 +225,7 @@ jobs:
 
 - job: 'Run_Markdown_Lint_Check'
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-latest'
 
   steps:
   - script: gem install chef-utils -v 16.6.14

@@ -263,7 +263,7 @@ jobs:
 - job:
   displayName: 'Windows'
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-latest'
   steps:
   - template: azure-pipelines-steps-win.yml
 ```
