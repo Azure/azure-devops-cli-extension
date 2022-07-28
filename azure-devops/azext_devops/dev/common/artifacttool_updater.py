@@ -166,6 +166,11 @@ def _get_current_release(organization, override_version):
     if os_name == "Darwin" and arch in ["amd64", "arm64"]:
         arch = "x86_64"
 
+    # Similarly for Windows ARM64 targets there is no version of artifact tool. However, the x86_64
+    # version can run under emulation, so we use that instead.
+    if os_name == "Windows" and arch == "ARM64":
+        arch = "x86_64"
+
     release = client.get_clienttool_release(
         "ArtifactTool",
         os_name=os_name,
