@@ -81,7 +81,7 @@ def normalize_url_for_key(url):
     components = uri_parse(url)
     normalized_url = components.scheme.lower() + '://' + components.netloc.lower()
     organization_name = components.path.lower()
-    if(organization_name and ('visualstudio.com' not in url.lower())):
+    if (organization_name and ('visualstudio.com' not in url.lower())):
         organization_name = organization_name.split('/')[1]
         normalized_url = normalized_url + '/' + organization_name
     return normalized_url
