@@ -45,7 +45,7 @@ def invoke(area=None, resource=None,
 
     resource_areas = connection._get_resource_areas(force=True)
 
-    if(not area and not resource):
+    if (not area and not resource):
         print('Please wait a couple of seconds while we fetch all required information.')
         service_list = []
 
