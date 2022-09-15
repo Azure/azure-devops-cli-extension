@@ -121,7 +121,7 @@ def get_token_from_az_logins(organization, pat_token_present):
 
     # first loop to make sure the first identity we try with is coming from selected subscription
     for subscription in subscriptions:
-        if subscription['isDefault'] == "true":
+        if subscription['isDefault']:
             tenantsDict[(subscription['tenantId'], subscription['user']['name'])] = ''
 
     for subscription in subscriptions:
