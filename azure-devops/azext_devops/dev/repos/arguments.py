@@ -22,7 +22,7 @@ def load_code_arguments(self, _):
     with self.argument_context('repos policy') as context:
         context.argument('policy_configuration', options_list=('--policy-configuration', '--config'),
                          help='Local file path for configuration file. ' +
-                         'Please use / backslash when typing in directory path. ')
+                         'Please use backslash(\) when typing in directory path. ')
         context.argument('policy_id', options_list=('--policy-id', '--id'),
                          help='ID of the policy.')
         context.argument('repository_id', help='Id of the repository on which to apply the policy')
