@@ -116,6 +116,7 @@ def load_build_commands(self, _):
         g.command('list', 'build_list', table_transformer=transform_builds_table_output)
         g.command('queue', 'build_queue', table_transformer=transform_build_table_output)
         g.show_command('show', 'build_show', table_transformer=transform_build_table_output)
+        g.command('cancel', 'build_cancel', table_transformer=transform_build_table_output)
 
     with self.command_group('pipelines build tag', command_type=buildOps) as g:
         # basic build tag commands
