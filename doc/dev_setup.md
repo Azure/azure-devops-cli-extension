@@ -1,4 +1,4 @@
-# Development setup
+# Development Setup
 
 ## Install pre-reqs
 
