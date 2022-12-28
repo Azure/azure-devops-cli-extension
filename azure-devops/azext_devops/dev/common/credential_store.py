@@ -89,7 +89,7 @@ class CredentialStore:
                 file_token = self.get_PAT_from_file(key)
                 if file_token:
                     self.delete_PAT_from_file(key)
-            if (keyring_token is None and file_token is None):
+            if(keyring_token is None and file_token is None):
                 raise CLIError(self._CRDENTIAL_NOT_FOUND_MSG)
         else:
             try:
