@@ -45,7 +45,7 @@ jobs:
   strategy:
     matrix:
       Python36:
-        python.version: '3.6.x'
+        python.version: '3.x'
       Python37:
         python.version: '3.x'
     maxParallel: 3
