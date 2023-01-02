@@ -24,12 +24,11 @@ def get_random_name(length):
 
 
 def disable_telemetry(test_function):
-    def wrapper(*args, **varkw):
+    def wrapper(*args):
         print("Disabling Telemetry.")
         os.environ["AZURE_CORE_COLLECT_TELEMETRY"] = "no"
-        test_function(*args, **varkw)
+        test_function(*args)
         #test_function(*args)
-
     return wrapper
 
 
