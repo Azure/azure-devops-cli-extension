@@ -121,7 +121,7 @@ def build_list(definition_ids=None, branch=None, organization=None, project=None
                                tag_filters=tags,
                                requested_for=resolve_identity_as_id(requested_for, organization))
     return builds
- 
+
 
 def build_cancel(build_id, open=False, organization=None, project=None, detect=None):
     """Cancels if build is running.
