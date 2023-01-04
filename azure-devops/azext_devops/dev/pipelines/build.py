@@ -121,6 +121,24 @@ def build_list(definition_ids=None, branch=None, organization=None, project=None
                                tag_filters=tags,
                                requested_for=resolve_identity_as_id(requested_for, organization))
     return builds
+    
+
+def build_cancel(build_id, open=False, organization=None, project=None, detect=None):
+    """Cancels if build is running.
+    :param build_id: ID of the build.
+    :type build_id: int
+    :param open: Open the build results page in your web browser.
+    :type open: bool
+    :rtype: :class:`<Build> <v5_0.build.models.Build>`
+    """
+    organization, project = resolve_instance_and_project(
+        detect=detect, organization=organization, project=project)
+    client = get_build_client(organization)
+    build = Build(status="Cancelling")
+    build = client.update_build(build=build, project=project, build_id=build_id)
+    if open:
+        _open_build(build, organization)
+    return build
 
 
 def add_build_tags(build_id, tags, organization=None, project=None, detect=None):
