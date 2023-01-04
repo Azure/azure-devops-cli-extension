@@ -55,7 +55,7 @@ jobs:
 
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '$(python.version)'
+      pythonVersion: '3.8'
 
 - job: 'Run_Test_Mac'
   dependsOn : Build_Publish_Azure_CLI_Test_SDK
