@@ -122,6 +122,7 @@ def build_list(definition_ids=None, branch=None, organization=None, project=None
                                requested_for=resolve_identity_as_id(requested_for, organization))
     return builds
 
+
 def add_build_tags(build_id, tags, organization=None, project=None, detect=None):
     """Add tag(s) for a build.
     :param build_id: ID of the build.
