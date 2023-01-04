@@ -4,7 +4,7 @@ Write-Output "Installing pylint"
 pip install pylint==2.5
 
 Write-Output "Installing flake8"
-pip install flake8==5.0
+pip install flake8
 
 Write-Output "Running pylint on all source"
 pylint --rcfile pylintrc ./azure-devops/azext_devops -f colorized
