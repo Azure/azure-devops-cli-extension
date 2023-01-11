@@ -29,4 +29,3 @@ class PipelinesBuildCancelTests(DevopsScenarioTest):
         cancel_running_build_command = 'az pipelines build cancel --id ' + str(queued_build_id) + ' --detect false --output json'
         cancel_running_build_output = self.cmd(cancel_running_build_command).get_output_in_json()
         assert cancel_running_build_output["status"] == "cancelling"
-        
