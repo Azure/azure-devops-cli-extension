@@ -45,9 +45,9 @@ jobs:
   strategy:
     matrix:
       Python36:
-        python.version: '3.6.x'
+        python.version: '3.10'
       Python37:
-        python.version: '3.x'
+        python.version: '3.10'
     maxParallel: 3
 
   steps:
@@ -138,7 +138,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.x'
+      versionSpec: '3.8'
       architecture: 'x64'
 
   - template: templates/install-azure-cli-edge.yml
@@ -154,6 +154,9 @@ jobs:
     inputs:
       targetType: 'filePath'
       filePath: 'scripts/runStyleCheck.ps1'
+
+
+
 
 - job: 'Run_HelpText_Check'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
