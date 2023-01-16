@@ -52,7 +52,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '$(python.version)'
+      versionSpec: '3.10'
 
   - template: templates/install-azure-cli-edge.yml
 
