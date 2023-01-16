@@ -123,7 +123,7 @@ def build_list(definition_ids=None, branch=None, organization=None, project=None
     return builds
 
 
-def build_cancel(build_id, open=False, organization=None, project=None, detect=None):
+def build_cancel(build_id, open=False, organization=None, project=None, detect=None):  # pylint: disable=redefined-builtin
     """Cancels if build is running.
     :param build_id: ID of the build.
     :type build_id: int
