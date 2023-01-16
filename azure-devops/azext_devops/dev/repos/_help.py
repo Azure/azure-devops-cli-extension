@@ -40,7 +40,7 @@ def load_repos_help():
     helps['repos import'] = """
     type: group
     short-summary: Manage Git repositories import
-    long-summary: This command imports the public repo fabrikam-open-source to the empty Git repo fabrikam-open-source for the default configuration 
+    long-summary: This command imports the public repo fabrikam-open-source to the empty Git repo fabrikam-open-source for the default configuration
                   az devops configure --defaults organization=https://dev.azure.com/fabrikamprime project="Fabrikam Fiber".
     examples:
           - name: Manage Git repositories import.
