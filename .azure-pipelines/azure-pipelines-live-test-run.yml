@@ -52,7 +52,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.8'
+      versionSpec: '3.10'
 
   - template: templates/install-azure-cli-edge.yml
 
@@ -69,12 +69,12 @@ jobs:
       scriptPath: 'scripts/prepareLiveRecordingTestsRun.py'
       failOnStderr: true
     env:
-      AZURE_DEVOPS_EXT_PAT: $(pat)
+      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
 
   - script: pytest tests --junitxml "TEST-results.xml"
     displayName: 'Run Live Tests'
     env:
-      AZURE_DEVOPS_EXT_PAT: $(pat)
+      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
