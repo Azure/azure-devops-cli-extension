@@ -69,12 +69,12 @@ jobs:
       scriptPath: 'scripts/prepareLiveRecordingTestsRun.py'
       failOnStderr: true
     env:
-      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
+      AZURE_DEVOPS_EXT_PAT: $(pat)
 
   - script: pytest tests --junitxml "TEST-results.xml"
     displayName: 'Run Live Tests'
     env:
-      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
+      AZURE_DEVOPS_EXT_PAT: $(pat)
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
