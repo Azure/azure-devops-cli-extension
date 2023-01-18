@@ -22,8 +22,9 @@ from azext_devops.test.utils.authentication import AuthenticatedTests
 class TestWorkItemMethods(AuthenticatedTests):
 
     _TEST_DEVOPS_ORGANIZATION = TEST_DEVOPS_ORG_URL
+    print(_TEST_DEVOPS_ORGANIZATION)
     _TEST_PAT_TOKEN = 'somepat'
-
+    print(_TEST_PAT_TOKEN)
     def setUp(self):
         self.authentication_setup()
         self.authenticate()
