@@ -12,6 +12,8 @@ DEVOPS_CLI_TEST_PAT_TOKEN = 'ThisShouldBeAnInvalidPatTokenWhenCheckedIn'
 PAT_ENV_VARIABLE_NAME = 'AZURE_DEVOPS_EXT_PAT'
 _TEST_ORG_ENV_VARIABLE_NAME = 'AZURE_DEVOPS_EXT_TEST_ORG'
 
+print(PAT_ENV_VARIABLE_NAME)
+print(_TEST_ORG_ENV_VARIABLE_NAME)
 class DevopsScenarioTest(ScenarioTest):
     def sleep_in_live_run(self, time_to_sleep):
         if self.in_recording or self.is_live:
