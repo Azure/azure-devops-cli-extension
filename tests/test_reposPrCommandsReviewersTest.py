@@ -6,7 +6,7 @@
 import os
 import unittest
 
-from azure_devtools.scenario_tests import AllowLargeResponse
+from azure.cli.testsdk.scenario_tests import AllowLargeResponse
 from dateutil import parser
 from .utilities.helper import (
     DevopsScenarioTest, get_random_name, disable_telemetry, set_authentication, get_test_org_from_env_variable)
