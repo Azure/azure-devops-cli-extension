@@ -74,7 +74,7 @@ class AdminBannerTests(DevopsScenarioTest):
             #TestCleanup - remove admin banner
             remove_admin_banner_command = 'az devops admin banner remove --id ' + admin_banner_id + ' --output json --detect false'
             self.cmd(remove_admin_banner_command)
-            
+            print(remove_admin_banner_command)
             #Verify remove
             #Test was failing without adding a sleep here. Though the remove was successful. 
             self.sleep_in_live_run(5)
