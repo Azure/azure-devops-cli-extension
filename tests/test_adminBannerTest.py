@@ -7,7 +7,7 @@ import os
 import unittest
 
 from datetime import datetime
-from azure.cli.testsdk.scenario_tests import AllowLargeResponse
+from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
 DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/azuredevopsclitest'
@@ -74,7 +74,7 @@ class AdminBannerTests(DevopsScenarioTest):
             #TestCleanup - remove admin banner
             remove_admin_banner_command = 'az devops admin banner remove --id ' + admin_banner_id + ' --output json --detect false'
             self.cmd(remove_admin_banner_command)
-            print(remove_admin_banner_command)
+            
             #Verify remove
             #Test was failing without adding a sleep here. Though the remove was successful. 
             self.sleep_in_live_run(5)
