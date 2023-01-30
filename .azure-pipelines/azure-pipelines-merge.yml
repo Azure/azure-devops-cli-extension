@@ -192,7 +192,7 @@ jobs:
     vmImage: 'macOS-10.15'
 
   steps:
-  - script: git checkout release-0.26.0
+  - script: git checkout Releases-0.26.0
 
   - template: templates/run-tests.yml
     parameters:
