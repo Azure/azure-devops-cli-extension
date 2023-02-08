@@ -79,15 +79,11 @@ def release_show(id, open=False, organization=None, project=None, detect=None): 
     return release
 
 
-def release_list(definition_id=None, min_created_time=None, max_created_time=None, source_branch=None,
-                 organization=None, project=None, detect=None, top=None, status=None):
+def release_list(definition_id=None, source_branch=None, organization=None, project=None, detect=None, top=None,
+                 status=None):
     """List release results.
     :param definition_id: ID of definition to list releases for.
     :type definition_id: int
-    :param min_created_time: Releases that were created after this time.
-    :type min_created_time: datetime
-    :param max_created_time: Releases that were created before this time.
-    :type max_created_time: datetime
     :param branch: Filter by releases for this branch.
     :type branch: str
     :param top: Maximum number of releases to list. Default is 50.
@@ -103,8 +99,6 @@ def release_list(definition_id=None, min_created_time=None, max_created_time=Non
     client = get_release_client(organization)
 
     releases = client.get_releases(definition_id=definition_id,
-                                   min_created_time=min_created_time,
-                                   max_created_time=max_created_time,
                                    project=project,
                                    source_branch_filter=source_branch,
                                    top=top,
