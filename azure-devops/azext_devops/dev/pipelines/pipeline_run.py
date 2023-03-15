@@ -91,7 +91,7 @@ def pipeline_run_add_tag(run_id, tags, organization=None, project=None, detect=N
     """ Add tag(s) for a pipeline run.
     :param run_id: ID of the pipeline run.
     :type run_id: int
-    :param tags: Tag(s) to be added to the pipeline run. [Comma seperated values]
+    :param tags: Tag(s) to be added to the pipeline run. [Comma separated values]
     :type tags: str
     :rtype: list of str
     """
