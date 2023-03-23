@@ -145,7 +145,7 @@ def add_build_tags(build_id, tags, organization=None, project=None, detect=None)
     """Add tag(s) for a build.
     :param build_id: ID of the build.
     :type build_id: int
-    :param tags: Tag(s) to be added to the build. [Comma seperated values]
+    :param tags: Tag(s) to be added to the build. [Comma separated values]
     :type tags: str
     :rtype: list of str
     """
