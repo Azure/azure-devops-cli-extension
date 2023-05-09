@@ -201,7 +201,7 @@ class TestPlanClient(Client):
                               version='6.0-preview.1',
                               route_values=route_values,
                               query_parameters=query_parameters)
-        return self._deserialize('[TestPlan]', self._unwrap_collection(response))
+        return self._deserialize('[TestPlan]', self._unwrap_collection(response)), response.headers
 
     def update_test_plan(self, test_plan_update_params, project, plan_id):
         """UpdateTestPlan.
@@ -217,7 +217,8 @@ class TestPlanClient(Client):
         if plan_id is not None:
             route_values['planId'] = self._serialize.url('plan_id', plan_id, 'int')
         content = self._serialize.body(test_plan_update_params, 'TestPlanUpdateParams')
-        response = self._send(http_method='PATCH',
+        response = self.
+        (http_method='PATCH',
                               location_id='0e292477-a0c2-47f3-a9b6-34f153d627f4',
                               version='6.0-preview.1',
                               route_values=route_values,
