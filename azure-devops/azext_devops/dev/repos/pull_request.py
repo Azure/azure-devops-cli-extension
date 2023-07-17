@@ -10,7 +10,7 @@ from knack.util import CLIError
 from azext_devops.devops_sdk.exceptions import AzureDevOpsClientRequestError
 from azext_devops.devops_sdk.v5_0.git.models import (GitPullRequest, GitPullRequestCompletionOptions,
                                                      GitPullRequestSearchCriteria, IdentityRef, IdentityRefWithVote,
-                                                     ResourceRef, GitRefFavorite)
+                                                     ResourceRef, GitRefFavorite, WebApiTagDefinition)
 from azext_devops.devops_sdk.v5_0.work_item_tracking.models import JsonPatchOperation, WorkItemRelation
 from azext_devops.dev.common.arguments import should_detect
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads, fetch_remote_and_checkout
@@ -100,7 +100,8 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
                         merge_commit_message=None, reviewers=None, work_items=None, draft=None,
-                        open=False, organization=None, detect=None, transition_work_items=False):  # pylint: disable=redefined-builtin
+                        open=False, organization=None, detect=None, transition_work_items=False,
+                        labels=None):  # pylint: disable=redefined-builtin
     """Create a pull request.
     :param project: Name or ID of the team project.
     :type project: str
@@ -144,6 +145,8 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :param transition_work_items: Transition any work items linked to the pull request into the next logical state.
                    (e.g. Active -> Resolved)
     :type transition_work_items: bool
+    :param labels: The labels associated with the pull request. Space separated.
+    :type labels: list of str
     :rtype: :class:`GitPullRequest <v5_0.git.models.GitPullRequest>`
     """
     organization, project, repository = resolve_instance_project_and_repo(
@@ -157,8 +160,12 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     multi_line_description = None
     if description is not None:
         multi_line_description = '\n'.join(description)
-    pr = GitPullRequest(description=multi_line_description, source_ref_name=source_branch,
-                        target_ref_name=target_branch)
+    if labels is not None:
+        labels = [WebApiTagDefinition(name=label) for label in labels.split(' ')]
+    pr = GitPullRequest(description=multi_line_description,
+                        source_ref_name=source_branch,
+                        target_ref_name=target_branch,
+                        labels=labels)
     if draft is not None:
         pr.is_draft = draft
     if title is not None:
