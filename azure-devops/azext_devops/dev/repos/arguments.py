@@ -127,6 +127,9 @@ def load_code_arguments(self, _):
 
     with self.argument_context('repos pr reviewer') as context:
         context.argument('reviewers', nargs='+')
+        
+    with self.argument_context('repos pr reviewer add') as context:
+        context.argument('required', arg_type=get_three_state_flag())
 
     with self.argument_context('repos pr work-item') as context:
         context.argument('work_items', nargs='+')

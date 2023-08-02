@@ -347,18 +347,25 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     return pr
 
 
-def create_pull_request_reviewers(id, reviewers, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def create_pull_request_reviewers(id, reviewers, organization=None, detect=None, required=None):  # pylint: disable=redefined-builtin
     """Add one or more reviewers to a pull request.
     :param id: ID of the pull request.
     :type id: int
     :param reviewers: Users or groups to include as reviewers on a pull request. Space separated.
     :type reviewers: list of str
+    :param required: Make the reviewers required.
+    :type reviewers: bool
     :rtype: list of :class:`IdentityRefWithVote <v5_0.git.models.IdentityRefWithVote>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_git_client(organization)
     pr = client.get_pull_request_by_id(id)
     resolved_reviewers = _resolve_reviewers_as_refs(reviewers, organization)
+    
+    if required:
+        for reviewer in resolved_reviewers:
+            reviewer.is_required = True
+    
     identities = client.create_pull_request_reviewers(reviewers=resolved_reviewers,
                                                       project=pr.repository.project.id,
                                                       repository_id=pr.repository.id,
