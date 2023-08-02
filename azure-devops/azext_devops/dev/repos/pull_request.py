@@ -99,7 +99,7 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
-                        merge_commit_message=None, reviewers=None, work_items=None, draft=None,
+                        merge_commit_message=None, optional_reviewers=None, required_reviewers=None ,work_items=None, draft=None,
                         open=False, organization=None, detect=None, transition_work_items=False,
                         labels=None):  # pylint: disable=redefined-builtin
     """Create a pull request.
@@ -135,9 +135,12 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type bypass_policy_reason: str
     :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
-    :param reviewers: Additional users or groups to include as reviewers on the new pull request.
+    :param optional_reviewers: Additional users or groups to include as optional reviewers on the new pull request.
                       Space separated.
-    :type reviewers: list of str
+    :type optional_reviewers: list of str
+    :param required_reviewers: Additional users or groups to include as required reviewers on the new pull request.
+                      Space separated.
+    :type required_reviewers: list of str
     :param work_items: IDs of the work items to link to the new pull request. Space separated.
     :type work_items: list of str
     :param open: Open the pull request in your web browser.
@@ -177,9 +180,23 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     if pr.source_ref_name == pr.target_ref_name:
         raise CLIError('The source branch, "{}", can not be the same as the target branch.'.format
                        (pr.source_ref_name))
-    if reviewers is not None:
-        reviewers = list(set(x.lower() for x in reviewers))
-    pr.reviewers = _resolve_reviewers_as_refs(reviewers, organization)
+
+    reviewers = []
+
+    if optional_reviewers is not None:
+        optional_reviewers = list(set(x.lower() for x in optional_reviewers.split(' ')))
+        optional_reviewers = _resolve_reviewers_as_refs(optional_reviewers, organization)
+        reviewers += optional_reviewers
+    if required_reviewers is not None:
+        required_reviewers = list(set(x.lower() for x in required_reviewers.split(' ')))
+        required_reviewers = _resolve_reviewers_as_refs(required_reviewers, organization)
+        for reviewer in required_reviewers:
+            reviewer.is_required = True
+        reviewers += required_reviewers
+
+    if len(reviewers) > 0:
+        pr.reviewers = reviewers
+    
     if work_items is not None and work_items:
         resolved_work_items = []
         for work_item in work_items:

@@ -119,6 +119,8 @@ def load_code_arguments(self, _):
         context.argument('delete_source_branch', arg_type=get_three_state_flag())
         context.argument('bypass_policy', arg_type=get_three_state_flag())
         context.argument('transition_work_items', arg_type=get_three_state_flag())
+        context.argument('optional_reviewers', options_list=('--reviewers', '--optional-reviewers'))
+
 
     with self.argument_context('repos pr list') as context:
         context.argument('status', **enum_choice_list(_PR_STATUS_VALUES))
