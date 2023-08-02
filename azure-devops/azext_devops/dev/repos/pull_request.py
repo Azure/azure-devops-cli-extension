@@ -186,7 +186,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
         optional_reviewers = _resolve_reviewers_as_refs(optional_reviewers, organization)
     else:
         optional_reviewers = []
-        
+
     if required_reviewers is not None:
         required_reviewers = list(set(x.lower() for x in required_reviewers))
         required_reviewers = _resolve_reviewers_as_refs(required_reviewers, organization)
@@ -202,17 +202,6 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                 optional_reviewers.remove(optional_reviewer)
 
     reviewers = [*optional_reviewers, *required_reviewers]
-    
-    # if optional_reviewers is not None:
-    #     optional_reviewers = list(set(x.lower() for x in optional_reviewers))
-    #     optional_reviewers = _resolve_reviewers_as_refs(optional_reviewers, organization)
-    #     reviewers += optional_reviewers
-    # if required_reviewers is not None:
-    #     required_reviewers = list(set(x.lower() for x in required_reviewers))
-    #     required_reviewers = _resolve_reviewers_as_refs(required_reviewers, organization)
-    #     for reviewer in required_reviewers:
-    #         reviewer.is_required = True
-    #     reviewers += required_reviewers
 
     if len(reviewers) > 0:
         pr.reviewers = reviewers
