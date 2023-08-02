@@ -149,7 +149,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         target_branch = self._TEST_TARGET_BRANCH,
         title = self._TEST_PR_TITLE,
         description = self._TEST_PR_DESCRIPTION,    
-        reviewers = ['a@b.com','A@b.com'],
+        optional_reviewers = ['a@b.com','A@b.com'],
         organization = self._TEST_DEVOPS_ORGANIZATION)
 
         # assert
