@@ -12,7 +12,7 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from azext_devops.devops_sdk.v5_0.git.models import GitPullRequest, GitRepository, TeamProjectReference
+from azext_devops.devops_sdk.v5_0.git.models import GitCommit, GitCommitRef, GitPullRequest, GitRepository, TeamProjectReference
 from azext_devops.devops_sdk.v5_0.git.git_client import GitClient
 from azext_devops.dev.repos.pull_request import (create_pull_request,
                                                  show_pull_request,
@@ -28,7 +28,7 @@ from azext_devops.dev.repos.pull_request import (create_pull_request,
                                                  list_pr_policies,
                                                  queue_pr_policy)
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads
-                                            
+
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.test.utils.authentication import AuthenticatedTests
 from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
@@ -43,6 +43,7 @@ class TestPullRequestMethods(AuthenticatedTests):
     _TEST_SOURCE_BRANCH = 'sample_source_branch'
     _TEST_TARGET_BRANCH = 'sample_target_branch'
     _TEST_PR_TITLE = 'sample_pr_title'
+    _TEST_GIT_COMMIT_ID = 5
     _TEST_PR_DESCRIPTION = 'sample_pr_description'
 
     def setUp(self):
@@ -59,7 +60,8 @@ class TestPullRequestMethods(AuthenticatedTests):
         self.delete_PR_reviewers_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.delete_pull_request_reviewer')
         self.get_PR_reviewers_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request_reviewers')
         self.get_PR_WIs_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request_work_item_refs')
-        
+        self.get_PR_commits_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_pull_request_commits')
+        self.get_commit_byId_patcher = patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_commit')
         # patch get client so no network call is made
         self.get_client = patch('azext_devops.devops_sdk.connection.Connection.get_client', new=get_client_mock_helper)
 
@@ -86,6 +88,8 @@ class TestPullRequestMethods(AuthenticatedTests):
         self.mock_delete_PR_reviewer = self.delete_PR_reviewers_patcher.start()
         self.mock_get_PR_reviewer = self.get_PR_reviewers_patcher.start()
         self.mock_get_PR_WIs = self.get_PR_WIs_patcher.start()
+        self.mock_get_PR_commits = self.get_PR_commits_patcher.start()
+        self.mock_get_commit_byId = self.get_commit_byId_patcher.start()
         self.mock_open_browser = self.open_in_browser_patcher.start()
         self.mock_resolve_reviewers_as_refs = self.resolve_reviewers_as_refs_patcher.start()
         self.mock_resolve_reviewers_as_ids = self.resolve_reviewers_as_ids.start()
@@ -96,7 +100,7 @@ class TestPullRequestMethods(AuthenticatedTests):
 
         # Setup mocks for clients
         self.mock_get_client = self.get_client.start()
-        
+
         #clear connection cache before running each test
         clear_connection_cache()
 
@@ -148,7 +152,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         source_branch = self._TEST_SOURCE_BRANCH,
         target_branch = self._TEST_TARGET_BRANCH,
         title = self._TEST_PR_TITLE,
-        description = self._TEST_PR_DESCRIPTION,    
+        description = self._TEST_PR_DESCRIPTION,
         reviewers = ['a@b.com','A@b.com'],
         organization = self._TEST_DEVOPS_ORGANIZATION)
 
@@ -203,6 +207,42 @@ class TestPullRequestMethods(AuthenticatedTests):
         update_object_from_update_call = self.mock_update_PR.call_args_list[0][1]['git_pull_request_to_update']
         assert update_object_from_update_call.completion_options.merge_commit_message == merge_complete_message
 
+    def test_create_pull_request_comment_description_auto_populate(self):
+        test_pr_id = 1
+
+        #big setup because this object is passed around in create with auto complete flow
+        pr_to_return = GitPullRequest()
+        pr_to_return.pull_request_id = test_pr_id
+        pr_to_return.repository = GitRepository()
+        pr_to_return.repository.project = TeamProjectReference()
+        self.mock_create_PR.return_value = pr_to_return
+
+        pr_commits_to_return = [GitCommitRef(commit_id=self._TEST_GIT_COMMIT_ID)]
+        self.mock_get_PR_commits.return_value = pr_commits_to_return
+
+        commit_details_to_return = GitCommit(commit_id=self._TEST_GIT_COMMIT_ID, comment='comment line 1\ncomment line 2')
+        self.mock_get_commit_byId.return_value = commit_details_to_return
+
+        self.mock_resolve_identity.return_value = 'resolved identity'
+
+        # empty title and description so they are auto-populated from the commit
+        response = create_pull_request(project = self._TEST_PROJECT_NAME,
+        repository = self._TEST_REPOSITORY_NAME,
+        source_branch = self._TEST_SOURCE_BRANCH,
+        target_branch = self._TEST_TARGET_BRANCH,
+        organization = self._TEST_DEVOPS_ORGANIZATION,
+        auto_complete = True)
+
+        # assert
+        self.mock_create_PR.assert_called_once()
+        self.mock_update_PR.assert_called_once()
+
+        pr_id_from_udpate_call = self.mock_update_PR.call_args_list[0][1]['pull_request_id']
+        assert pr_id_from_udpate_call == test_pr_id
+        update_object_from_update_call = self.mock_update_PR.call_args_list[0][1]['git_pull_request_to_update']
+        assert update_object_from_update_call.title == 'comment line 1'
+        assert update_object_from_update_call.description == 'comment line 1\ncomment line 2'
+
     def test_show_pull_request(self):
         test_pr_id = 1
         test_project_id = 20
@@ -224,9 +264,9 @@ class TestPullRequestMethods(AuthenticatedTests):
         #assert
         self.mock_get_PR_byId.assert_called_once_with(test_pr_id)
         self.mock_get_PR.assert_called_once_with(project = test_project_id,
-        repository_id = test_repository_id, 
-        pull_request_id = test_pr_id, 
-        include_commits= False, 
+        repository_id = test_repository_id,
+        pull_request_id = test_pr_id,
+        include_commits= False,
         include_work_item_refs=  True)
 
     def test_list_pull_request(self):
@@ -360,7 +400,7 @@ class TestPullRequestMethods(AuthenticatedTests):
         #assert
         assert self.mock_delete_PR_reviewer.call_count == 3
         self.mock_get_PR_reviewer.assert_called_once()
-    
+
     def test_list_pull_request_reviewers(self):
         #setup
         test_pr_id = 1
@@ -394,7 +434,7 @@ class TestPullRequestMethods(AuthenticatedTests):
 
     def test_vote_pull_request(self):
         response = vote_pull_request(id = 1,
-        vote = 'approve', 
+        vote = 'approve',
         organization = self._TEST_DEVOPS_ORGANIZATION)
 
         #assert
