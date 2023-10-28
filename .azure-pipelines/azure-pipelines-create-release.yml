@@ -39,7 +39,7 @@ jobs:
   - template: templates/build-publish-azure-cli-test-sdk.yml
 
 - job: 'Run_Test'
-  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  dependsOn : [ 'Build_Publish_Azure_CLI_Test_SDK', 'Build_Publish_Azure_DevOps_CLI_Extension']
   pool:
     vmImage: 'macOS-10.15'
 
