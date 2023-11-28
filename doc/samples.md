@@ -243,7 +243,7 @@ steps:
 
 ```yaml
 jobs:
-# Running Azure DevOps extension commands on a hosted Mac agent
+# Running Azure DevOps extension commands on a hosted Mac agent latest
 - job:
   displayName: 'macOS'
   pool:
