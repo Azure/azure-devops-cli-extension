@@ -1,7 +1,7 @@
 # This pipeline
 # 1. Runs when a PR is raised against working branch
 # 2. Makes sure working branch is in healthy state (run tests across platforms)
-# 3. Run style check and code coverage test
+# 3. Run style check and code coverage test3
 
 pr:
 - master
