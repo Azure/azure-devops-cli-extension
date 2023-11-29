@@ -20,13 +20,13 @@ jobs:
       versionSpec: '3.x'
       architecture: 'x64'
 
- - powershell: |
-   pip3 install setuptools\
-  displayName: 'setupttool Script'
-
   - template: templates/setup-ci-machine.yml
 
   - template: templates/build-publish-azure-devops-cli-extension.yml
+
+  - script: 'pip3 install setupttools'
+    displayName: 'Install Setupttools'
+    workingDirectory: 'azure-devops/'
 
 - job: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
