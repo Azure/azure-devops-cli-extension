@@ -19,10 +19,11 @@ jobs:
     inputs:
       versionSpec: '3.x'
       architecture: 'x64'
-  - task: CmdLine@2
-      displayName: 'Install Setupttool'
+       - task: CmdLine@2
+      displayName: 'Install SetupTool'
       inputs:
-        script: 'pip3 install setuptools'
+        script: pip3 install setuptools
+
 
   - template: templates/setup-ci-machine.yml
 
