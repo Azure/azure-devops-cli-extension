@@ -22,7 +22,7 @@ jobs:
   - task: CmdLine@2
       displayName: 'Install Setupttool'
       inputs:
-        script: pip3 install setuptools
+        script: 'pip3 install setuptools'
 
   - template: templates/setup-ci-machine.yml
 
