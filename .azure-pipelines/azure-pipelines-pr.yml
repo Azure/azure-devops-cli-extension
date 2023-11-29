@@ -19,7 +19,6 @@ jobs:
     inputs:
       versionSpec: '3.x'
       architecture: 'x64'
-
   - task: CmdLine@2
       displayName: 'Install Setupttool'
       inputs:
