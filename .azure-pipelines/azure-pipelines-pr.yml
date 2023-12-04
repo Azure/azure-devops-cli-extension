@@ -19,6 +19,8 @@ jobs:
     inputs:
       versionSpec: '3.x'
       architecture: 'x64'
+  - script: pip install setuptools
+    displayName: 'install setuptools'
 
   - template: templates/setup-ci-machine.yml
 
@@ -33,6 +35,8 @@ jobs:
     inputs:
       versionSpec: '3.x'
       architecture: 'x64'
+  - script: pip install setuptools
+    displayName: 'install setuptools'
 
   - template: templates/setup-ci-machine.yml
 
@@ -60,7 +64,7 @@ jobs:
 - job: 'Run_Test_Mac'
   dependsOn : Build_Publish_Azure_CLI_Test_SDK
   pool:
-    vmImage: 'macOS-10.15'
+    vmImage: 'macOS-latest'
 
   steps:
   - template: templates/run-tests.yml
@@ -70,7 +74,7 @@ jobs:
 - job: 'Run_Test_Mac_Azure_CLI_Released_Version'
   dependsOn : Build_Publish_Azure_CLI_Test_SDK
   pool:
-    vmImage: 'macOS-10.15'
+    vmImage: 'macOS-latest'
 
   steps:
   - template: templates/run-tests.yml
@@ -96,7 +100,7 @@ jobs:
 - job: 'Code_Coverage'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
-    vmImage: 'macOS-10.15'
+    vmImage: 'macOS-latest'
 
   steps:
   - task: UsePythonVersion@0
@@ -133,13 +137,15 @@ jobs:
 
 - job: 'Run_Style_Check'
   pool:
-    vmImage: 'macOS-10.15'
+    vmImage: 'macOS-latest'
 
   steps:
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '3.8'
       architecture: 'x64'
+  - script: pip install setuptools
+    displayName: 'install setuptools'
 
   - template: templates/install-azure-cli-edge.yml
 
@@ -161,7 +167,7 @@ jobs:
 - job: 'Run_HelpText_Check'
   dependsOn: 'Build_Publish_Azure_CLI_Test_SDK'
   pool:
-    vmImage: 'macOS-10.15'
+    vmImage: 'macOS-latest'
 
   steps:
   - task: UsePythonVersion@0
@@ -188,7 +194,7 @@ jobs:
 - job: 'Run_Test_From_Old_Release'
   dependsOn : Build_Publish_Azure_CLI_Test_SDK
   pool:
-    vmImage: 'macOS-10.15'
+    vmImage: 'macOS-latest'
 
   steps:
   - script: git checkout Releases-0.26.0
