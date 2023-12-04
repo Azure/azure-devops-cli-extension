@@ -41,7 +41,7 @@ jobs:
 - job: 'Run_Test'
   dependsOn : Build_Publish_Azure_CLI_Test_SDK
   pool:
-    vmImage: 'macOS-10.15'
+    vmImage: 'macOS-latest'
 
   steps:
   - template: templates/run-tests.yml
