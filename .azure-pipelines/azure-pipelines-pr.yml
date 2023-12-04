@@ -144,6 +144,8 @@ jobs:
     inputs:
       versionSpec: '3.8'
       architecture: 'x64'
+  - script: pip install mccabe==0.6
+    displayName: 'install mccabe==0.6'
 
   - template: templates/install-azure-cli-edge.yml
 
