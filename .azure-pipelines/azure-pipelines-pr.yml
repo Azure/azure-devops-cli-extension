@@ -137,7 +137,7 @@ jobs:
 
 - job: 'Run_Style_Check'
   pool:
-    vmImage: 'macOS-latest'
+    vmImage: 'macOS-10.15'
 
   steps:
   - task: UsePythonVersion@0
