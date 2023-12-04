@@ -25,7 +25,7 @@ jobs:
     inputs:
       versionSpec: '3.10'
       architecture: 'x64'
-      - script: pip install setuptools
+  - script: pip install setuptools
     displayName: 'install setuptools'
 
   - template: templates/setup-ci-machine.yml
@@ -41,7 +41,7 @@ jobs:
     inputs:
       versionSpec: '3.10'
       architecture: 'x64'
-      - script: pip install setuptools
+  - script: pip install setuptools
     displayName: 'install setuptools'
 
   - template: templates/setup-ci-machine.yml
