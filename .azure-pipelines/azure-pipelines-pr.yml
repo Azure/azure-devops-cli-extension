@@ -80,7 +80,7 @@ jobs:
   steps:
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.x'
+      pythonVersion: '3.10'
       runWithAzureCliReleased: 'true'
  
 - job: 'Run_Test_Windows'
@@ -106,7 +106,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.x'
+      versionSpec: '3.10'
       architecture: 'x64'
  
   - template: templates/install-azure-cli-edge.yml
@@ -172,7 +172,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.x'
+      versionSpec: '3.10'
       architecture: 'x64'
  
   - template: templates/install-azure-cli-edge.yml
@@ -201,7 +201,7 @@ jobs:
  
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.x'
+      pythonVersion: '3.10'
       runOnlyRecordedTests: 'true'
  
 - job: 'Check_Back_Compat_Arguments'
