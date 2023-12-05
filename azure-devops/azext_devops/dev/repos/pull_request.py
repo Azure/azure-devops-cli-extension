@@ -95,7 +95,7 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     return pr_list
 
 
-# pylint: disable=too-many-statements
+# pylint: disable=too-many-statements, too-many-locals, redefined-builtin
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
