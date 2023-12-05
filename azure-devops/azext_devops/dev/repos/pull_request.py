@@ -201,7 +201,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                                                project=project, change_count=0)
             first_commit_comment = commit_details.comment
 
-            if (first_commit_comment):
+            if first_commit_comment:
                 # when title is not specified, use the first line of first commit comment as PR title
                 if title is None:
                     title_from_commit = first_commit_comment.split("\n")[0]
