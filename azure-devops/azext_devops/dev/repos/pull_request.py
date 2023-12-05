@@ -95,7 +95,7 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     return pr_list
 
 
-# pylint: disable=too-many-locals
+# pylint: disable=too-many-statements, too-many-locals, redefined-builtin
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
@@ -201,7 +201,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                                                project=project, change_count=0)
             first_commit_comment = commit_details.comment
 
-            if (first_commit_comment):
+            if first_commit_comment:
                 # when title is not specified, use the first line of first commit comment as PR title
                 if title is None:
                     title_from_commit = first_commit_comment.split("\n")[0]
