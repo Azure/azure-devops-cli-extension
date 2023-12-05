@@ -70,6 +70,8 @@ jobs:
   - template: templates/run-tests.yml
     parameters:
       pythonVersion: '3.x'
+  - script: pip install setuptools
+    displayName: 'install setuptools'
  
 - job: 'Run_Test_Mac_Azure_CLI_Released_Version'
   dependsOn : Build_Publish_Azure_CLI_Test_SDK
