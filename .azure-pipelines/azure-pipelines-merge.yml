@@ -2,6 +2,7 @@
 # 1. Runs when a merge happens to working branch
 # 2. Makes sure working branch is in healthy state (run tests across platforms)
 # 3. Run style check and code coverage
+# 4. Run test from old release
 
 trigger:
 - master
@@ -88,7 +89,7 @@ jobs:
   steps:
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.x'
+      pythonVersion: '3.10'
 
 - job: 'Run_Test_Mac_Azure_CLI_Released_Version'
   dependsOn : Build_Publish_Azure_CLI_Test_SDK
@@ -98,7 +99,7 @@ jobs:
   steps:
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.x'
+      pythonVersion: '3.10'
       runWithAzureCliReleased: 'true'
 
 - job: 'Code_Coverage'
@@ -109,7 +110,7 @@ jobs:
   steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '3.x'
+      versionSpec: '3.10'
       architecture: 'x64'
 
   - template: templates/install-azure-cli-edge.yml
@@ -200,7 +201,7 @@ jobs:
 
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.x'
+      pythonVersion: '3.10'
       runOnlyRecordedTests: 'true'
 
 - job: 'Check_Back_Compat_Arguments'
