@@ -19,6 +19,8 @@ jobs:
     inputs:
       versionSpec: '3.x'
       architecture: 'x64'
+  - script: pip install setuptools
+    displayName: 'install setuptools'
 
   - template: templates/setup-ci-machine.yml
 
@@ -33,6 +35,8 @@ jobs:
     inputs:
       versionSpec: '3.x'
       architecture: 'x64'
+  - script: pip install setuptools
+    displayName: 'install setuptools'
 
   - template: templates/setup-ci-machine.yml
 
@@ -41,7 +45,7 @@ jobs:
 - job: 'Run_Test'
   dependsOn : Build_Publish_Azure_CLI_Test_SDK
   pool:
-    vmImage: 'macOS-10.15'
+    vmImage: 'macOS-latest'
 
   steps:
   - template: templates/run-tests.yml
