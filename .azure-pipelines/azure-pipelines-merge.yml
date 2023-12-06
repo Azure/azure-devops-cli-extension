@@ -2,6 +2,7 @@
 # 1. Runs when a merge happens to working branch
 # 2. Makes sure working branch is in healthy state (run tests across platforms)
 # 3. Run style check and code coverage
+# 4. Run test from old release
 
 trigger:
 - master
