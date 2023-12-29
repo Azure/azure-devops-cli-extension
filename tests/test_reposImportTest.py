@@ -9,7 +9,7 @@ import unittest
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable, get_random_name
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/v-anvashist0376'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/devops-cli-test-org'
 
 class ReposImportTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -29,7 +29,7 @@ class ReposImportTests(DevopsScenarioTest):
             assert len(created_repo_id) > 0
             
             #Import repo
-            import_repo_command = 'az repos import create --git-source-url https://dev.azure.com/v-anvashist0376/TestSupportProject/_git/snakes-and-ladders --repository ' + created_repo_id + ' --project TestSupportProject --detect false --output json'
+            import_repo_command = 'az repos import create --git-source-url https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders --repository ' + created_repo_id + ' --project TestSupportProject --detect false --output json'
             import_repo_output = self.cmd(import_repo_command).get_output_in_json()
             import_repo_status = import_repo_output["status"]
             assert import_repo_status == 'completed'
