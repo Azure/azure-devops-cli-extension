@@ -11,7 +11,7 @@ from datetime import datetime
 from .utilities.helper import (
     DevopsScenarioTest, get_random_name, disable_telemetry, set_authentication, get_test_org_from_env_variable)
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/devops-cli-test-org'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/v-anvashist0376'
 
 class AzReposPrPolicyTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -22,8 +22,8 @@ class AzReposPrPolicyTests(DevopsScenarioTest):
         
         #List PR
         pr_list = self.cmd('az repos pr list --project PullRequestLiveTest --repository PullRequestLiveTest --detect false --output json', checks=[
-            self.check("[2].description", 'Updated README.md'),
-            self.check("[1].description", 'Updated EXAMPLE'),
+            self.check("[0].description", 'Updated README.md'),
+            self.check("[1].description", 'Updated README.md'),
         ]).get_output_in_json()
         assert len(pr_list) > 0
 
