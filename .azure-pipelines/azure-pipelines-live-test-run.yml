@@ -62,7 +62,7 @@ jobs:
 
   - template: templates/download-install-local-azure-devops-cli-extension.yml
 
-  Run a Python script.
+  #Run a Python script.
   - task: PythonScript@0
    inputs:
     scriptSource: 'filePath'
