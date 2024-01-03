@@ -76,10 +76,10 @@ jobs:
     env:
      AZURE_DEVOPS_EXT_PAT: $(pat)
 
- - task: PublishTestResults@2
-   displayName: 'Publish Test Results'
-   inputs:
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
      testResultsFormat: 'JUnit'
      testResultsFiles: '**TEST-*.xml'
      searchFolder: '$(System.DefaultWorkingDirectory)'
-   condition: succeededOrFailed()
+    condition: succeededOrFailed()
