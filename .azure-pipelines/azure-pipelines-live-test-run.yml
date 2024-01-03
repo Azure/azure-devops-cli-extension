@@ -63,12 +63,12 @@ jobs:
   - template: templates/download-install-local-azure-devops-cli-extension.yml
 
   # Run a Python script.
- - task: PythonScript@0
-   inputs:
-    scriptSource: 'filePath'
+  - task: PythonScript@0
+    inputs:
+     scriptSource: 'filePath'
      scriptPath: 'scripts/prepareLiveRecordingTestsRun.py'
      failOnStderr: true
-   env:
+    env:
      AZURE_DEVOPS_EXT_PAT: $(pat)
 
  - script: pytest tests --junitxml "TEST-results.xml"
