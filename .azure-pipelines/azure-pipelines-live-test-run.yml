@@ -62,8 +62,8 @@ jobs:
 
   - template: templates/download-install-local-azure-devops-cli-extension.yml
 
-  #Run a Python script.
-  - task: PythonScript@0
+  # Run a Python script.
+ - task: PythonScript@0
    inputs:
     scriptSource: 'filePath'
      scriptPath: 'scripts/prepareLiveRecordingTestsRun.py'
@@ -76,7 +76,7 @@ jobs:
    env:
      AZURE_DEVOPS_EXT_PAT: $(pat)
 
-  - task: PublishTestResults@2
+ - task: PublishTestResults@2
    displayName: 'Publish Test Results'
    inputs:
      testResultsFormat: 'JUnit'
