@@ -11,40 +11,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_apis/git/repositories/PullRequestLiveTest/pullRequests?searchCriteria.includeLinks=False
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects?stateFilter=all&$top=1&$skip=0
   response:
     body:
-      string: '{"value":[{"repository":{"id":"85b51565-cffa-4a6d-8deb-27af16e453b9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9","project":{"id":"233f184f-32a7-441e-a9c7-48601c38ecb9","name":"PullRequestLiveTest","state":"unchanged","visibility":"unchanged","lastUpdateTime":"0001-01-01T00:00:00"}},"pullRequestId":15,"codeReviewId":15,"status":"active","createdBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"creationDate":"2021-09-06T07:28:17.8495847Z","title":"Updated
-        README.md","description":"Updated README.md","sourceRefName":"refs/heads/policy_check","targetRefName":"refs/heads/main","mergeStatus":"succeeded","isDraft":false,"mergeId":"b9d13979-e387-48f8-9fe3-8ad13fa88671","lastMergeSourceCommit":{"commitId":"10d01c75a3f84453e0cf9fc51b5d2fb6c05d0f8a","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/10d01c75a3f84453e0cf9fc51b5d2fb6c05d0f8a"},"lastMergeTargetCommit":{"commitId":"9f857dc03c6b970a7d9f47d3d7e51b376f72839b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/9f857dc03c6b970a7d9f47d3d7e51b376f72839b"},"lastMergeCommit":{"commitId":"09ddd7d633bc373174dce5473d47fc94fbe518e6","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/09ddd7d633bc373174dce5473d47fc94fbe518e6"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/15/reviewers/60a59117-a1ed-6677-ab04-b3de5aa38954","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954"}],"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/15","supportsIterations":true},{"repository":{"id":"85b51565-cffa-4a6d-8deb-27af16e453b9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9","project":{"id":"233f184f-32a7-441e-a9c7-48601c38ecb9","name":"PullRequestLiveTest","state":"unchanged","visibility":"unchanged","lastUpdateTime":"0001-01-01T00:00:00"}},"pullRequestId":14,"codeReviewId":14,"status":"active","createdBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"creationDate":"2021-09-06T07:10:12.5013319Z","title":"Updated
-        EXAMPLE","description":"Updated EXAMPLE","sourceRefName":"refs/heads/test_pull_request_policies_workitems2","targetRefName":"refs/heads/main","mergeStatus":"succeeded","isDraft":false,"mergeId":"42ac4c23-5adb-491c-aaa0-9d40a503ed15","lastMergeSourceCommit":{"commitId":"beed10075ef0924ef84a9ce72f7c840a94b3011b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/beed10075ef0924ef84a9ce72f7c840a94b3011b"},"lastMergeTargetCommit":{"commitId":"9f857dc03c6b970a7d9f47d3d7e51b376f72839b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/9f857dc03c6b970a7d9f47d3d7e51b376f72839b"},"lastMergeCommit":{"commitId":"112918272dbdcc7b1b90c15ba85ec4222ff9e4c6","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/112918272dbdcc7b1b90c15ba85ec4222ff9e4c6"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14/reviewers/60a59117-a1ed-6677-ab04-b3de5aa38954","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954"}],"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14","supportsIterations":true},{"repository":{"id":"85b51565-cffa-4a6d-8deb-27af16e453b9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9","project":{"id":"233f184f-32a7-441e-a9c7-48601c38ecb9","name":"PullRequestLiveTest","state":"unchanged","visibility":"unchanged","lastUpdateTime":"0001-01-01T00:00:00"}},"pullRequestId":13,"codeReviewId":13,"status":"active","createdBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"creationDate":"2021-09-06T07:07:23.1566228Z","title":"Updated
-        README.md","description":"Updated README.md","sourceRefName":"refs/heads/test_pull_request_policies_workitems","targetRefName":"refs/heads/main","mergeStatus":"succeeded","isDraft":false,"mergeId":"f7592ba0-70eb-48a0-ac29-39b181d6a571","lastMergeSourceCommit":{"commitId":"beed10075ef0924ef84a9ce72f7c840a94b3011b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/beed10075ef0924ef84a9ce72f7c840a94b3011b"},"lastMergeTargetCommit":{"commitId":"9f857dc03c6b970a7d9f47d3d7e51b376f72839b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/9f857dc03c6b970a7d9f47d3d7e51b376f72839b"},"lastMergeCommit":{"commitId":"86e6228256ed42bfd6dfef04caafe4bfa581b1c1","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/86e6228256ed42bfd6dfef04caafe4bfa581b1c1"},"reviewers":[],"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/13","supportsIterations":true}],"count":3}'
+      string: '{"count":1,"value":[{"id":"82f02fb4-752b-49be-a47f-d3f34e01e941","name":"BugBashTesting","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/82f02fb4-752b-49be-a47f-d3f34e01e941","state":"wellFormed","revision":36,"visibility":"organization","lastUpdateTime":"2023-11-28T11:07:03.527Z"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 5b4b650e-bdd1-4fcf-aad3-06a32b378784
+      - 2278e34b-8f56-477b-aa4b-f68d5b989e87
       cache-control:
       - no-cache
       content-length:
-      - '8831'
+      - '296'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:28 GMT
+      - Fri, 29 Dec 2023 13:06:25 GMT
       expires:
       - '-1'
       p3p:
@@ -53,29 +45,31 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
-      transfer-encoding:
-      - chunked
+      vary:
+      - Accept-Encoding
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
       - nosniff
       x-frame-options:
       - SAMEORIGIN
+      x-ms-continuationtoken:
+      - '1'
       x-msedge-ref:
-      - 'Ref A: DB893A3414D14848ACBF4E6D23A45AE8 Ref B: BOM02EDGE0614 Ref C: 2021-09-06T07:37:29Z'
+      - 'Ref A: D3121B5DCE844C88A1269540596B2EC5 Ref B: HYD30EDGE0322 Ref C: 2023-12-29T13:06:26Z'
       x-tfs-processid:
-      - 5812f328-ddd8-4459-88ad-30f2af42ff0c
+      - aa664ff2-ac76-4628-a235-ce4eff449050
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - 5b4b650e-bdd1-4fcf-aad3-06a32b378784
+      - 2278e34b-8f56-477b-aa4b-f68d5b989e87
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -91,38 +85,38 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/git/pullRequests/14
+    uri: https://dev.azure.com/v-anvashist0376/PullRequestLiveTest/_apis/git/repositories/PullRequestLiveTest/pullRequests?searchCriteria.includeLinks=False
   response:
     body:
-      string: '{"repository":{"id":"85b51565-cffa-4a6d-8deb-27af16e453b9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9","project":{"id":"233f184f-32a7-441e-a9c7-48601c38ecb9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/233f184f-32a7-441e-a9c7-48601c38ecb9","state":"wellFormed","revision":1236,"visibility":"public","lastUpdateTime":"2021-08-27T05:34:08.067Z"},"size":725,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_git/PullRequestLiveTest","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/PullRequestLiveTest/PullRequestLiveTest","webUrl":"https://dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_git/PullRequestLiveTest","isDisabled":false},"pullRequestId":14,"codeReviewId":14,"status":"active","createdBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"creationDate":"2021-09-06T07:10:12.5013319Z","title":"Updated
-        EXAMPLE","description":"Updated EXAMPLE","sourceRefName":"refs/heads/test_pull_request_policies_workitems2","targetRefName":"refs/heads/main","mergeStatus":"succeeded","isDraft":false,"mergeId":"42ac4c23-5adb-491c-aaa0-9d40a503ed15","lastMergeSourceCommit":{"commitId":"beed10075ef0924ef84a9ce72f7c840a94b3011b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/beed10075ef0924ef84a9ce72f7c840a94b3011b"},"lastMergeTargetCommit":{"commitId":"9f857dc03c6b970a7d9f47d3d7e51b376f72839b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/9f857dc03c6b970a7d9f47d3d7e51b376f72839b"},"lastMergeCommit":{"commitId":"112918272dbdcc7b1b90c15ba85ec4222ff9e4c6","author":{"name":"Devops
-        Cli","email":"devops-cli@outlook.com","date":"2021-09-06T07:10:12Z"},"committer":{"name":"Devops
-        Cli","email":"devops-cli@outlook.com","date":"2021-09-06T07:10:12Z"},"comment":"Merge
-        pull request 14 from test_pull_request_policies_workitems2 into main","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/112918272dbdcc7b1b90c15ba85ec4222ff9e4c6"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14/reviewers/60a59117-a1ed-6677-ab04-b3de5aa38954","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954"}],"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14","supportsIterations":true,"artifactId":"vstfs:///Git/PullRequestId/233f184f-32a7-441e-a9c7-48601c38ecb9%2f85b51565-cffa-4a6d-8deb-27af16e453b9%2f14"}'
+      string: '{"value":[{"repository":{"id":"ba8a55b2-19ca-4175-bd70-b644be424553","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553","project":{"id":"0cc3421e-eb11-420e-9409-26034420bd47","name":"PullRequestLiveTest","state":"unchanged","visibility":"unchanged","lastUpdateTime":"0001-01-01T00:00:00"}},"pullRequestId":25,"codeReviewId":25,"status":"active","createdBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"creationDate":"2023-12-29T13:01:42.979542Z","title":"Updated
+        README.md","description":"Updated README.md","sourceRefName":"refs/heads/Soujanya_test","targetRefName":"refs/heads/master","mergeStatus":"succeeded","isDraft":false,"mergeId":"8e17501b-24e5-4729-8779-265cd05761af","lastMergeSourceCommit":{"commitId":"5de03fa94ab05adb8db801d47396523d990be6ec","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/5de03fa94ab05adb8db801d47396523d990be6ec"},"lastMergeTargetCommit":{"commitId":"268ebe440d225ffe50d19ed44caf4ddf683b745a","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/268ebe440d225ffe50d19ed44caf4ddf683b745a"},"lastMergeCommit":{"commitId":"4d01896f5faaec6960d211a1e83f0ce271eeed04","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/4d01896f5faaec6960d211a1e83f0ce271eeed04"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/25/reviewers/22157d54-1821-6536-a446-928b06348385","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385"}],"url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/25","supportsIterations":true},{"repository":{"id":"ba8a55b2-19ca-4175-bd70-b644be424553","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553","project":{"id":"0cc3421e-eb11-420e-9409-26034420bd47","name":"PullRequestLiveTest","state":"unchanged","visibility":"unchanged","lastUpdateTime":"0001-01-01T00:00:00"}},"pullRequestId":24,"codeReviewId":24,"status":"active","createdBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"creationDate":"2023-12-29T12:59:43.698129Z","title":"Updated
+        README.md","description":"Updated README.md","sourceRefName":"refs/heads/test","targetRefName":"refs/heads/master","mergeStatus":"succeeded","isDraft":false,"mergeId":"1443f16d-c346-4dcc-a3f1-3fa221b9d637","lastMergeSourceCommit":{"commitId":"cb71d54f4dbd782bc5c7ae40e11d11bf3182e675","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/cb71d54f4dbd782bc5c7ae40e11d11bf3182e675"},"lastMergeTargetCommit":{"commitId":"268ebe440d225ffe50d19ed44caf4ddf683b745a","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/268ebe440d225ffe50d19ed44caf4ddf683b745a"},"lastMergeCommit":{"commitId":"636682ff20433edebc02a53bbb2647ce2259fd1c","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/636682ff20433edebc02a53bbb2647ce2259fd1c"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24/reviewers/22157d54-1821-6536-a446-928b06348385","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385"}],"url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24","supportsIterations":true}],"count":2}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 5b8363cb-9fae-4b0b-9e0f-01aa45c535ee
+      - 8808707e-717c-44c0-9daf-91dc12d61d83
       cache-control:
       - no-cache
       content-length:
-      - '4081'
+      - '6356'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:29 GMT
+      - Fri, 29 Dec 2023 13:06:26 GMT
       expires:
       - '-1'
       p3p:
@@ -131,7 +125,85 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      transfer-encoding:
+      - chunked
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: D81105FBF9774166A42C2EF26C256283 Ref B: MAA01EDGE0518 Ref C: 2023-12-29T13:06:26Z'
+      x-tfs-processid:
+      - 8195bf23-df25-48ae-b8ee-06ec258258b9
+      x-tfs-session:
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
+      x-vss-e2eid:
+      - 8808707e-717c-44c0-9daf-91dc12d61d83
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/git/pullRequests/24
+  response:
+    body:
+      string: '{"repository":{"id":"ba8a55b2-19ca-4175-bd70-b644be424553","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553","project":{"id":"0cc3421e-eb11-420e-9409-26034420bd47","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/0cc3421e-eb11-420e-9409-26034420bd47","state":"wellFormed","revision":478,"visibility":"organization","lastUpdateTime":"2023-12-29T06:11:38.06Z"},"size":20299,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/PullRequestLiveTest/_git/PullRequestLiveTest","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/PullRequestLiveTest/PullRequestLiveTest","webUrl":"https://dev.azure.com/v-anvashist0376/PullRequestLiveTest/_git/PullRequestLiveTest","isDisabled":false,"isInMaintenance":false},"pullRequestId":24,"codeReviewId":24,"status":"active","createdBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"creationDate":"2023-12-29T12:59:43.698129Z","title":"Updated
+        README.md","description":"Updated README.md","sourceRefName":"refs/heads/test","targetRefName":"refs/heads/master","mergeStatus":"succeeded","isDraft":false,"mergeId":"1443f16d-c346-4dcc-a3f1-3fa221b9d637","lastMergeSourceCommit":{"commitId":"cb71d54f4dbd782bc5c7ae40e11d11bf3182e675","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/cb71d54f4dbd782bc5c7ae40e11d11bf3182e675"},"lastMergeTargetCommit":{"commitId":"268ebe440d225ffe50d19ed44caf4ddf683b745a","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/268ebe440d225ffe50d19ed44caf4ddf683b745a"},"lastMergeCommit":{"commitId":"636682ff20433edebc02a53bbb2647ce2259fd1c","author":{"name":"Soujanya
+        Bestala","email":"v-sbestala@microsoft.com","date":"2023-12-29T12:59:43Z"},"committer":{"name":"Soujanya
+        Bestala","email":"v-sbestala@microsoft.com","date":"2023-12-29T12:59:43Z"},"comment":"Merge
+        pull request 24 from test into master","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/636682ff20433edebc02a53bbb2647ce2259fd1c"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24/reviewers/22157d54-1821-6536-a446-928b06348385","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385"}],"url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24","supportsIterations":true,"artifactId":"vstfs:///Git/PullRequestId/0cc3421e-eb11-420e-9409-26034420bd47%2fba8a55b2-19ca-4175-bd70-b644be424553%2f24"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 2278e228-8f56-477b-aa4b-f68d5b989e87
+      cache-control:
+      - no-cache
+      content-length:
+      - '4024'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 29 Dec 2023 13:06:26 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       vary:
@@ -143,17 +215,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 55F3BF357E5346F98B560A42209A2A1D Ref B: BOM02EDGE0614 Ref C: 2021-09-06T07:37:29Z'
+      - 'Ref A: 3C0419DB02EC4BA0AF510E116D1174C1 Ref B: MAA01EDGE1207 Ref C: 2023-12-29T13:06:27Z'
       x-tfs-processid:
-      - ef62538f-27cf-4c25-a11d-5736cfdf7a74
+      - aa664ff2-ac76-4628-a235-ce4eff449050
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - 5b8363cb-9fae-4b0b-9e0f-01aa45c535ee
+      - 2278e228-8f56-477b-aa4b-f68d5b989e87
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -169,33 +241,33 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/policy/evaluations?artifactId=vstfs%3A%2F%2F%2FCodeReview%2FCodeReviewId%2F233f184f-32a7-441e-a9c7-48601c38ecb9%2F14
+    uri: https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/policy/evaluations?artifactId=vstfs%3A%2F%2F%2FCodeReview%2FCodeReviewId%2F0cc3421e-eb11-420e-9409-26034420bd47%2F24
   response:
     body:
-      string: '{"value":[{"configuration":{"createdBy":{"displayName":"Devops Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"createdDate":"2021-09-06T07:22:28.9414143Z","isEnabled":true,"isBlocking":true,"isDeleted":false,"settings":{"minimumApproverCount":2,"creatorVoteCounts":false,"allowDownvotes":false,"resetOnSourcePush":false,"requireVoteOnLastIteration":true,"resetRejectionsOnSourcePush":false,"blockLastPusherVote":false,"scope":[{"refName":"refs/heads/main","matchKind":"Exact","repositoryId":"85b51565-cffa-4a6d-8deb-27af16e453b9"}]},"isEnterpriseManaged":false,"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/policy/configurations/42"},"policyType":{"href":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/policy/types/fa4e907d-c16b-4a4c-9dfa-4906e5d171dd"}},"revision":2,"id":42,"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/policy/configurations/42","type":{"id":"fa4e907d-c16b-4a4c-9dfa-4906e5d171dd","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/policy/types/fa4e907d-c16b-4a4c-9dfa-4906e5d171dd","displayName":"Minimum
-        number of reviewers"}},"artifactId":"vstfs:///CodeReview/CodeReviewId/233f184f-32a7-441e-a9c7-48601c38ecb9%2f14","evaluationId":"1131d605-187c-4b6d-8816-e512c353b76f","startedDate":"2021-09-06T07:23:50.1137433Z","status":"queued"}],"count":1}'
+      string: '{"value":[{"configuration":{"createdBy":{"displayName":"Soujanya Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"createdDate":"2023-12-29T12:57:46.0729677Z","isEnabled":true,"isBlocking":true,"isDeleted":false,"settings":{"minimumApproverCount":3,"creatorVoteCounts":true,"allowDownvotes":false,"resetOnSourcePush":false,"requireVoteOnLastIteration":false,"resetRejectionsOnSourcePush":false,"blockLastPusherVote":false,"requireVoteOnEachIteration":false,"scope":[{"refName":null,"matchKind":"DefaultBranch","repositoryId":null}]},"isEnterpriseManaged":false,"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/policy/configurations/18"},"policyType":{"href":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/policy/types/fa4e907d-c16b-4a4c-9dfa-4906e5d171dd"}},"revision":3,"id":18,"url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/policy/configurations/18","type":{"id":"fa4e907d-c16b-4a4c-9dfa-4906e5d171dd","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/policy/types/fa4e907d-c16b-4a4c-9dfa-4906e5d171dd","displayName":"Minimum
+        number of reviewers"}},"artifactId":"vstfs:///CodeReview/CodeReviewId/0cc3421e-eb11-420e-9409-26034420bd47%2f24","evaluationId":"78e00bd2-3653-4e03-8e66-6007d9a28a4c","startedDate":"2023-12-29T12:59:43.7450045Z","status":"queued"}],"count":1}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - df496a6e-df7d-45de-91c0-3cfeed592fea
+      - cf99e0de-67dc-4a1a-9a14-647ca1869817
       cache-control:
       - no-cache
       content-length:
-      - '1991'
+      - '1971'
       content-type:
       - application/json; charset=utf-8; api-version=5.0-preview.1
       date:
-      - Mon, 06 Sep 2021 07:37:28 GMT
+      - Fri, 29 Dec 2023 13:06:27 GMT
       expires:
       - '-1'
       p3p:
@@ -204,7 +276,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       transfer-encoding:
@@ -216,17 +288,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 19FAA7CC60D44D56AD713935087EE007 Ref B: BOM02EDGE0511 Ref C: 2021-09-06T07:37:29Z'
+      - 'Ref A: 9679BECA67084C108C2E4F585F68B5EE Ref B: HYD30EDGE0120 Ref C: 2023-12-29T13:06:27Z'
       x-tfs-processid:
-      - c945c357-c1ad-4855-bb6d-f9b29f4492d4
+      - 4b9387e7-c630-41bf-b66a-8c948f780b6c
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - df496a6e-df7d-45de-91c0-3cfeed592fea
+      - cf99e0de-67dc-4a1a-9a14-647ca1869817
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -242,38 +314,38 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/git/pullRequests/14
+    uri: https://dev.azure.com/v-anvashist0376/_apis/git/pullRequests/24
   response:
     body:
-      string: '{"repository":{"id":"85b51565-cffa-4a6d-8deb-27af16e453b9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9","project":{"id":"233f184f-32a7-441e-a9c7-48601c38ecb9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/233f184f-32a7-441e-a9c7-48601c38ecb9","state":"wellFormed","revision":1236,"visibility":"public","lastUpdateTime":"2021-08-27T05:34:08.067Z"},"size":725,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_git/PullRequestLiveTest","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/PullRequestLiveTest/PullRequestLiveTest","webUrl":"https://dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_git/PullRequestLiveTest","isDisabled":false},"pullRequestId":14,"codeReviewId":14,"status":"active","createdBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"creationDate":"2021-09-06T07:10:12.5013319Z","title":"Updated
-        EXAMPLE","description":"Updated EXAMPLE","sourceRefName":"refs/heads/test_pull_request_policies_workitems2","targetRefName":"refs/heads/main","mergeStatus":"succeeded","isDraft":false,"mergeId":"42ac4c23-5adb-491c-aaa0-9d40a503ed15","lastMergeSourceCommit":{"commitId":"beed10075ef0924ef84a9ce72f7c840a94b3011b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/beed10075ef0924ef84a9ce72f7c840a94b3011b"},"lastMergeTargetCommit":{"commitId":"9f857dc03c6b970a7d9f47d3d7e51b376f72839b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/9f857dc03c6b970a7d9f47d3d7e51b376f72839b"},"lastMergeCommit":{"commitId":"112918272dbdcc7b1b90c15ba85ec4222ff9e4c6","author":{"name":"Devops
-        Cli","email":"devops-cli@outlook.com","date":"2021-09-06T07:10:12Z"},"committer":{"name":"Devops
-        Cli","email":"devops-cli@outlook.com","date":"2021-09-06T07:10:12Z"},"comment":"Merge
-        pull request 14 from test_pull_request_policies_workitems2 into main","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/112918272dbdcc7b1b90c15ba85ec4222ff9e4c6"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14/reviewers/60a59117-a1ed-6677-ab04-b3de5aa38954","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954"}],"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14","supportsIterations":true,"artifactId":"vstfs:///Git/PullRequestId/233f184f-32a7-441e-a9c7-48601c38ecb9%2f85b51565-cffa-4a6d-8deb-27af16e453b9%2f14"}'
+      string: '{"repository":{"id":"ba8a55b2-19ca-4175-bd70-b644be424553","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553","project":{"id":"0cc3421e-eb11-420e-9409-26034420bd47","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/0cc3421e-eb11-420e-9409-26034420bd47","state":"wellFormed","revision":478,"visibility":"organization","lastUpdateTime":"2023-12-29T06:11:38.06Z"},"size":20299,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/PullRequestLiveTest/_git/PullRequestLiveTest","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/PullRequestLiveTest/PullRequestLiveTest","webUrl":"https://dev.azure.com/v-anvashist0376/PullRequestLiveTest/_git/PullRequestLiveTest","isDisabled":false,"isInMaintenance":false},"pullRequestId":24,"codeReviewId":24,"status":"active","createdBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"creationDate":"2023-12-29T12:59:43.698129Z","title":"Updated
+        README.md","description":"Updated README.md","sourceRefName":"refs/heads/test","targetRefName":"refs/heads/master","mergeStatus":"succeeded","isDraft":false,"mergeId":"1443f16d-c346-4dcc-a3f1-3fa221b9d637","lastMergeSourceCommit":{"commitId":"cb71d54f4dbd782bc5c7ae40e11d11bf3182e675","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/cb71d54f4dbd782bc5c7ae40e11d11bf3182e675"},"lastMergeTargetCommit":{"commitId":"268ebe440d225ffe50d19ed44caf4ddf683b745a","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/268ebe440d225ffe50d19ed44caf4ddf683b745a"},"lastMergeCommit":{"commitId":"636682ff20433edebc02a53bbb2647ce2259fd1c","author":{"name":"Soujanya
+        Bestala","email":"v-sbestala@microsoft.com","date":"2023-12-29T12:59:43Z"},"committer":{"name":"Soujanya
+        Bestala","email":"v-sbestala@microsoft.com","date":"2023-12-29T12:59:43Z"},"comment":"Merge
+        pull request 24 from test into master","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/636682ff20433edebc02a53bbb2647ce2259fd1c"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24/reviewers/22157d54-1821-6536-a446-928b06348385","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385"}],"url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24","supportsIterations":true,"artifactId":"vstfs:///Git/PullRequestId/0cc3421e-eb11-420e-9409-26034420bd47%2fba8a55b2-19ca-4175-bd70-b644be424553%2f24"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b45e1db4-c3b7-4815-a7fe-9b62f574fcca
+      - 88086fbc-717c-44c0-9daf-91dc12d61d83
       cache-control:
       - no-cache
       content-length:
-      - '4081'
+      - '4024'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:29 GMT
+      - Fri, 29 Dec 2023 13:06:27 GMT
       expires:
       - '-1'
       p3p:
@@ -282,9 +354,11 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
@@ -292,17 +366,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 62FA8696DA6A44B09E7487ACB96D10B8 Ref B: BOM02EDGE0614 Ref C: 2021-09-06T07:37:29Z'
+      - 'Ref A: 14E89661B47140E5896A203B127EB17C Ref B: HYD30EDGE0515 Ref C: 2023-12-29T13:06:27Z'
       x-tfs-processid:
-      - e336466b-7694-4ff9-abb1-ab029829fc8d
+      - 8195bf23-df25-48ae-b8ee-06ec258258b9
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - b45e1db4-c3b7-4815-a7fe-9b62f574fcca
+      - 88086fbc-717c-44c0-9daf-91dc12d61d83
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -320,33 +394,33 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
-    uri: https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/policy/evaluations/1131d605-187c-4b6d-8816-e512c353b76f
+    uri: https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/policy/evaluations/78e00bd2-3653-4e03-8e66-6007d9a28a4c
   response:
     body:
-      string: '{"configuration":{"createdBy":{"displayName":"Devops Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"createdDate":"2021-09-06T07:22:28.9414143Z","isEnabled":true,"isBlocking":true,"isDeleted":false,"settings":{"minimumApproverCount":2,"creatorVoteCounts":false,"allowDownvotes":false,"resetOnSourcePush":false,"requireVoteOnLastIteration":true,"resetRejectionsOnSourcePush":false,"blockLastPusherVote":false,"scope":[{"refName":"refs/heads/main","matchKind":"Exact","repositoryId":"85b51565-cffa-4a6d-8deb-27af16e453b9"}]},"isEnterpriseManaged":false,"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/policy/configurations/42"},"policyType":{"href":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/policy/types/fa4e907d-c16b-4a4c-9dfa-4906e5d171dd"}},"revision":2,"id":42,"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/policy/configurations/42","type":{"id":"fa4e907d-c16b-4a4c-9dfa-4906e5d171dd","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/policy/types/fa4e907d-c16b-4a4c-9dfa-4906e5d171dd","displayName":"Minimum
-        number of reviewers"}},"artifactId":"vstfs:///CodeReview/CodeReviewId/233f184f-32a7-441e-a9c7-48601c38ecb9%2f14","evaluationId":"1131d605-187c-4b6d-8816-e512c353b76f","startedDate":"2021-09-06T07:23:50.1137433Z","status":"queued"}'
+      string: '{"configuration":{"createdBy":{"displayName":"Soujanya Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"createdDate":"2023-12-29T12:57:46.0729677Z","isEnabled":true,"isBlocking":true,"isDeleted":false,"settings":{"minimumApproverCount":3,"creatorVoteCounts":true,"allowDownvotes":false,"resetOnSourcePush":false,"requireVoteOnLastIteration":false,"resetRejectionsOnSourcePush":false,"blockLastPusherVote":false,"requireVoteOnEachIteration":false,"scope":[{"refName":null,"matchKind":"DefaultBranch","repositoryId":null}]},"isEnterpriseManaged":false,"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/policy/configurations/18"},"policyType":{"href":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/policy/types/fa4e907d-c16b-4a4c-9dfa-4906e5d171dd"}},"revision":3,"id":18,"url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/policy/configurations/18","type":{"id":"fa4e907d-c16b-4a4c-9dfa-4906e5d171dd","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/policy/types/fa4e907d-c16b-4a4c-9dfa-4906e5d171dd","displayName":"Minimum
+        number of reviewers"}},"artifactId":"vstfs:///CodeReview/CodeReviewId/0cc3421e-eb11-420e-9409-26034420bd47%2f24","evaluationId":"78e00bd2-3653-4e03-8e66-6007d9a28a4c","startedDate":"2023-12-29T12:59:43.7450045Z","status":"queued"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - a47ba97f-92e6-40ad-89fc-b46795949a15
+      - 88086ed6-717c-44c0-9daf-91dc12d61d83
       cache-control:
       - no-cache
       content-length:
-      - '1969'
+      - '1949'
       content-type:
       - application/json; charset=utf-8; api-version=5.0-preview.1
       date:
-      - Mon, 06 Sep 2021 07:37:28 GMT
+      - Fri, 29 Dec 2023 13:06:27 GMT
       expires:
       - '-1'
       p3p:
@@ -355,7 +429,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       vary:
@@ -367,17 +441,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 87AA3E1B15B84F89ACFAB089E8ADAED1 Ref B: BOM02EDGE0511 Ref C: 2021-09-06T07:37:29Z'
+      - 'Ref A: 451084957BF44891BF4C12A2C78A075B Ref B: MAA01EDGE0510 Ref C: 2023-12-29T13:06:27Z'
       x-tfs-processid:
-      - e7a7663f-ccfb-4622-8cc3-ca804bf765f8
+      - 8195bf23-df25-48ae-b8ee-06ec258258b9
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - a47ba97f-92e6-40ad-89fc-b46795949a15
+      - 88086ed6-717c-44c0-9daf-91dc12d61d83
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -393,38 +467,38 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/git/pullRequests/14
+    uri: https://dev.azure.com/v-anvashist0376/_apis/git/pullRequests/24
   response:
     body:
-      string: '{"repository":{"id":"85b51565-cffa-4a6d-8deb-27af16e453b9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9","project":{"id":"233f184f-32a7-441e-a9c7-48601c38ecb9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/233f184f-32a7-441e-a9c7-48601c38ecb9","state":"wellFormed","revision":1236,"visibility":"public","lastUpdateTime":"2021-08-27T05:34:08.067Z"},"size":725,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_git/PullRequestLiveTest","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/PullRequestLiveTest/PullRequestLiveTest","webUrl":"https://dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_git/PullRequestLiveTest","isDisabled":false},"pullRequestId":14,"codeReviewId":14,"status":"active","createdBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"creationDate":"2021-09-06T07:10:12.5013319Z","title":"Updated
-        EXAMPLE","description":"Updated EXAMPLE","sourceRefName":"refs/heads/test_pull_request_policies_workitems2","targetRefName":"refs/heads/main","mergeStatus":"succeeded","isDraft":false,"mergeId":"42ac4c23-5adb-491c-aaa0-9d40a503ed15","lastMergeSourceCommit":{"commitId":"beed10075ef0924ef84a9ce72f7c840a94b3011b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/beed10075ef0924ef84a9ce72f7c840a94b3011b"},"lastMergeTargetCommit":{"commitId":"9f857dc03c6b970a7d9f47d3d7e51b376f72839b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/9f857dc03c6b970a7d9f47d3d7e51b376f72839b"},"lastMergeCommit":{"commitId":"112918272dbdcc7b1b90c15ba85ec4222ff9e4c6","author":{"name":"Devops
-        Cli","email":"devops-cli@outlook.com","date":"2021-09-06T07:10:12Z"},"committer":{"name":"Devops
-        Cli","email":"devops-cli@outlook.com","date":"2021-09-06T07:10:12Z"},"comment":"Merge
-        pull request 14 from test_pull_request_policies_workitems2 into main","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/112918272dbdcc7b1b90c15ba85ec4222ff9e4c6"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14/reviewers/60a59117-a1ed-6677-ab04-b3de5aa38954","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954"}],"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14","supportsIterations":true,"artifactId":"vstfs:///Git/PullRequestId/233f184f-32a7-441e-a9c7-48601c38ecb9%2f85b51565-cffa-4a6d-8deb-27af16e453b9%2f14"}'
+      string: '{"repository":{"id":"ba8a55b2-19ca-4175-bd70-b644be424553","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553","project":{"id":"0cc3421e-eb11-420e-9409-26034420bd47","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/0cc3421e-eb11-420e-9409-26034420bd47","state":"wellFormed","revision":478,"visibility":"organization","lastUpdateTime":"2023-12-29T06:11:38.06Z"},"size":20299,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/PullRequestLiveTest/_git/PullRequestLiveTest","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/PullRequestLiveTest/PullRequestLiveTest","webUrl":"https://dev.azure.com/v-anvashist0376/PullRequestLiveTest/_git/PullRequestLiveTest","isDisabled":false,"isInMaintenance":false},"pullRequestId":24,"codeReviewId":24,"status":"active","createdBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"creationDate":"2023-12-29T12:59:43.698129Z","title":"Updated
+        README.md","description":"Updated README.md","sourceRefName":"refs/heads/test","targetRefName":"refs/heads/master","mergeStatus":"succeeded","isDraft":false,"mergeId":"1443f16d-c346-4dcc-a3f1-3fa221b9d637","lastMergeSourceCommit":{"commitId":"cb71d54f4dbd782bc5c7ae40e11d11bf3182e675","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/cb71d54f4dbd782bc5c7ae40e11d11bf3182e675"},"lastMergeTargetCommit":{"commitId":"268ebe440d225ffe50d19ed44caf4ddf683b745a","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/268ebe440d225ffe50d19ed44caf4ddf683b745a"},"lastMergeCommit":{"commitId":"636682ff20433edebc02a53bbb2647ce2259fd1c","author":{"name":"Soujanya
+        Bestala","email":"v-sbestala@microsoft.com","date":"2023-12-29T12:59:43Z"},"committer":{"name":"Soujanya
+        Bestala","email":"v-sbestala@microsoft.com","date":"2023-12-29T12:59:43Z"},"comment":"Merge
+        pull request 24 from test into master","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/636682ff20433edebc02a53bbb2647ce2259fd1c"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24/reviewers/22157d54-1821-6536-a446-928b06348385","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385"}],"url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24","supportsIterations":true,"artifactId":"vstfs:///Git/PullRequestId/0cc3421e-eb11-420e-9409-26034420bd47%2fba8a55b2-19ca-4175-bd70-b644be424553%2f24"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - a47ba97a-92e6-40ad-89fc-b46795949a15
+      - 2278e014-8f56-477b-aa4b-f68d5b989e87
       cache-control:
       - no-cache
       content-length:
-      - '4081'
+      - '4024'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:29 GMT
+      - Fri, 29 Dec 2023 13:06:27 GMT
       expires:
       - '-1'
       p3p:
@@ -433,7 +507,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       vary:
@@ -445,23 +519,23 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: A042597EED5C4C289E41B757C8893920 Ref B: BOM02EDGE0614 Ref C: 2021-09-06T07:37:29Z'
+      - 'Ref A: 0969110194AC444786AE672AEEF75EC8 Ref B: HYD30EDGE0118 Ref C: 2023-12-29T13:06:28Z'
       x-tfs-processid:
-      - e7a7663f-ccfb-4622-8cc3-ca804bf765f8
+      - aa664ff2-ac76-4628-a235-ce4eff449050
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - a47ba97a-92e6-40ad-89fc-b46795949a15
+      - 2278e014-8f56-477b-aa4b-f68d5b989e87
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
 - request:
     body: '[{"op": 0, "path": "/relations/-", "value": {"attributes": {"name": "Pull
-      Request"}, "rel": "ArtifactLink", "url": "vstfs:///Git/PullRequestId/233f184f-32a7-441e-a9c7-48601c38ecb9%2F85b51565-cffa-4a6d-8deb-27af16e453b9%2F14"}}]'
+      Request"}, "rel": "ArtifactLink", "url": "vstfs:///Git/PullRequestId/0cc3421e-eb11-420e-9409-26034420bd47%2Fba8a55b2-19ca-4175-bd70-b644be424553%2F24"}}]'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -474,33 +548,40 @@ interactions:
       Content-Type:
       - application/json-patch+json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/2
+    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/2
   response:
     body:
-      string: '{"$id":"1","innerException":null,"message":"Relation already exists.","typeName":"Microsoft.Azure.Boards.WebApi.Common.RelationAlreadyExistsException,
-        Microsoft.Azure.Boards.WebApi.Common","typeKey":"RelationAlreadyExistsException","errorCode":0,"eventId":3000}'
+      string: '{"id":2,"rev":10,"fields":{"System.AreaPath":"Chatopsvalidations","System.TeamProject":"Chatopsvalidations","System.IterationPath":"Chatopsvalidations","System.WorkItemType":"Issue","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2023-07-13T09:08:05.283Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2023-12-29T13:06:28.693Z","System.ChangedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":1,"System.Title":"test2","Microsoft.VSTS.Common.StateChangeDate":"2023-07-19T18:17:40.883Z","Microsoft.VSTS.Common.ClosedDate":"2023-07-19T18:17:40.883Z","Microsoft.VSTS.Common.ClosedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.Priority":2},"relations":[{"rel":"ArtifactLink","url":"vstfs:///Git/Commit/038b46ac-29b9-4062-af82-87b52e73d7a9%2f9a83e6d7-9a2e-4376-b737-9f6dbb3f997e%2f9330308bee33ad75eea3bb483850d370fa08fbff","attributes":{"authorizedDate":"2023-07-19T18:17:40.723Z","id":11105839,"resourceCreatedDate":"2023-07-19T18:17:40.723Z","resourceModifiedDate":"2023-07-19T18:17:40.723Z","revisedDate":"9999-01-01T00:00:00Z","name":"Fixed
+        in Commit"}},{"rel":"ArtifactLink","url":"vstfs:///Git/PullRequestId/038b46ac-29b9-4062-af82-87b52e73d7a9%2F9a83e6d7-9a2e-4376-b737-9f6dbb3f997e%2F1","attributes":{"authorizedDate":"2023-07-19T18:17:33.3Z","id":11105838,"resourceCreatedDate":"2023-07-19T18:17:33.3Z","resourceModifiedDate":"2023-07-19T18:17:33.3Z","revisedDate":"9999-01-01T00:00:00Z","name":"Pull
+        Request"}},{"rel":"ArtifactLink","url":"vstfs:///Git/PullRequestId/0cc3421e-eb11-420e-9409-26034420bd47%2Fba8a55b2-19ca-4175-bd70-b644be424553%2F24","attributes":{"authorizedDate":"2023-12-29T13:06:28.693Z","id":23291102,"resourceCreatedDate":"2023-12-29T13:06:28.693Z","resourceModifiedDate":"2023-12-29T13:06:28.693Z","revisedDate":"9999-01-01T00:00:00Z","name":"Pull
+        Request"}},{"rel":"ArtifactLink","url":"vstfs:///Build/Build/19","attributes":{"authorizedDate":"2023-07-19T18:18:31.743Z","id":11105840,"resourceCreatedDate":"2023-07-19T18:18:31.743Z","resourceModifiedDate":"2023-07-19T18:18:31.743Z","revisedDate":"9999-01-01T00:00:00Z","comment":"This
+        build was automatically linked to this work item based on this work item''s
+        linked commits","name":"Integrated in build"}}],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2"},"workItemUpdates":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2/updates"},"workItemRevisions":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2/revisions"},"workItemComments":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2/comments"},"html":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_workitems/edit/2"},"workItemType":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItemTypes/Issue"},"fields":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/fields"}},"url":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 613fb2eb-d01c-4c95-97a8-986b93518cc9
+      - 5e434320-0cf8-4ac7-bb77-3dae3320da5f
       cache-control:
       - no-cache
       content-length:
-      - '261'
+      - '5021'
       content-type:
-      - application/json; charset=utf-8
+      - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:29 GMT
+      - Fri, 29 Dec 2023 13:06:28 GMT
       expires:
       - '-1'
       p3p:
@@ -509,9 +590,11 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
@@ -519,23 +602,23 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: A6356EF17BE8476CA4B1BBAAFDAE520E Ref B: BOM02EDGE0621 Ref C: 2021-09-06T07:37:29Z'
+      - 'Ref A: 8CADB2BC150F4CA4A7209F57A42DACA6 Ref B: MAA01EDGE0814 Ref C: 2023-12-29T13:06:28Z'
       x-tfs-processid:
-      - cfa517c9-ba7f-4db8-b2cb-f76451d1cdb1
+      - 5b5c9c7f-5a69-4acb-b667-c8a35434b042
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - 613fb2eb-d01c-4c95-97a8-986b93518cc9
+      - 5e434320-0cf8-4ac7-bb77-3dae3320da5f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
-      code: 400
-      message: Bad Request
+      code: 200
+      message: OK
 - request:
     body: '[{"op": 0, "path": "/relations/-", "value": {"attributes": {"name": "Pull
-      Request"}, "rel": "ArtifactLink", "url": "vstfs:///Git/PullRequestId/233f184f-32a7-441e-a9c7-48601c38ecb9%2F85b51565-cffa-4a6d-8deb-27af16e453b9%2F14"}}]'
+      Request"}, "rel": "ArtifactLink", "url": "vstfs:///Git/PullRequestId/0cc3421e-eb11-420e-9409-26034420bd47%2Fba8a55b2-19ca-4175-bd70-b644be424553%2F24"}}]'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -548,103 +631,39 @@ interactions:
       Content-Type:
       - application/json-patch+json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/1
+    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/1
   response:
     body:
-      string: '{"$id":"1","innerException":null,"message":"Relation already exists.","typeName":"Microsoft.Azure.Boards.WebApi.Common.RelationAlreadyExistsException,
-        Microsoft.Azure.Boards.WebApi.Common","typeKey":"RelationAlreadyExistsException","errorCode":0,"eventId":3000}'
+      string: '{"id":1,"rev":8,"fields":{"System.AreaPath":"Chatopsvalidations","System.TeamProject":"Chatopsvalidations","System.IterationPath":"Chatopsvalidations","System.WorkItemType":"Epic","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2023-07-13T09:04:34.477Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2023-12-29T13:06:29.017Z","System.ChangedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":2,"System.Title":"test","Microsoft.VSTS.Common.StateChangeDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ActivatedDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ActivatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.ClosedDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ClosedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.Priority":2},"relations":[{"rel":"ArtifactLink","url":"vstfs:///Git/PullRequestId/038b46ac-29b9-4062-af82-87b52e73d7a9%2Fdbc68a67-3c9c-44c5-b501-89f0d06bb4cf%2F2","attributes":{"authorizedDate":"2023-07-19T18:10:09.26Z","id":11105832,"resourceCreatedDate":"2023-07-19T18:10:09.26Z","resourceModifiedDate":"2023-07-19T18:10:09.26Z","revisedDate":"9999-01-01T00:00:00Z","name":"Pull
+        Request"}},{"rel":"ArtifactLink","url":"vstfs:///Git/PullRequestId/0cc3421e-eb11-420e-9409-26034420bd47%2Fba8a55b2-19ca-4175-bd70-b644be424553%2F24","attributes":{"authorizedDate":"2023-12-29T13:06:29.017Z","id":23291103,"resourceCreatedDate":"2023-12-29T13:06:29.017Z","resourceModifiedDate":"2023-12-29T13:06:29.017Z","revisedDate":"9999-01-01T00:00:00Z","name":"Pull
+        Request"}},{"rel":"ArtifactLink","url":"vstfs:///Git/Commit/038b46ac-29b9-4062-af82-87b52e73d7a9%2fdbc68a67-3c9c-44c5-b501-89f0d06bb4cf%2f111e716174dda0569f3f1f0b82e4b83ede474cf8","attributes":{"authorizedDate":"2023-07-19T18:15:16.66Z","id":11105835,"resourceCreatedDate":"2023-07-19T18:15:16.66Z","resourceModifiedDate":"2023-07-19T18:15:16.66Z","revisedDate":"9999-01-01T00:00:00Z","name":"Fixed
+        in Commit"}}],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/1"},"workItemUpdates":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/1/updates"},"workItemRevisions":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/1/revisions"},"workItemComments":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/1/comments"},"html":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_workitems/edit/1"},"workItemType":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItemTypes/Epic"},"fields":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/fields"}},"url":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/1"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - a7c9d4b7-58ee-4ca2-9252-37069d3551c0
+      - 7354b975-676f-4cf1-8186-751e5f5b7309
       cache-control:
       - no-cache
       content-length:
-      - '261'
-      content-type:
-      - application/json; charset=utf-8
-      date:
-      - Mon, 06 Sep 2021 07:37:30 GMT
-      expires:
-      - '-1'
-      p3p:
-      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
-        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
-      request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
-      strict-transport-security:
-      - max-age=31536000; includeSubDomains
-      x-cache:
-      - CONFIG_NOCACHE
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - SAMEORIGIN
-      x-msedge-ref:
-      - 'Ref A: 2E05C40BDE164D43BD7B02F1D6A8A401 Ref B: BOM02EDGE0411 Ref C: 2021-09-06T07:37:30Z'
-      x-tfs-processid:
-      - 2c9cfcb9-b694-4ef9-963c-b0e7377d547c
-      x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
-      x-vss-e2eid:
-      - a7c9d4b7-58ee-4ca2-9252-37069d3551c0
-      x-vss-senderdeploymentid:
-      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
-      x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
-    status:
-      code: 400
-      message: Bad Request
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json;api-version=5.0
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
-      X-TFS-FedAuthRedirect:
-      - Suppress
-      X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
-      X-VSS-ForceMsaPassThrough:
-      - 'true'
-    method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14/workitems
-  response:
-    body:
-      string: '{"count":2,"value":[{"id":"2","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/2"},{"id":"1","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/1"}]}'
-    headers:
-      access-control-expose-headers:
-      - Request-Context
-      activityid:
-      - 5ed7103f-b623-476c-8937-262fc4f3b0ad
-      cache-control:
-      - no-cache
-      content-length:
-      - '187'
+      - '5340'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:30 GMT
+      - Fri, 29 Dec 2023 13:06:28 GMT
       expires:
       - '-1'
       p3p:
@@ -653,87 +672,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
-      strict-transport-security:
-      - max-age=31536000; includeSubDomains
-      x-cache:
-      - CONFIG_NOCACHE
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - SAMEORIGIN
-      x-msedge-ref:
-      - 'Ref A: 0CBD23D61A8C46918AD541A87688C198 Ref B: BOM02EDGE0614 Ref C: 2021-09-06T07:37:30Z'
-      x-tfs-processid:
-      - 13988172-a6c7-4427-b0ed-1a386c2b7e06
-      x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
-      x-vss-e2eid:
-      - 5ed7103f-b623-476c-8937-262fc4f3b0ad
-      x-vss-senderdeploymentid:
-      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
-      x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json;api-version=5.0
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
-      X-TFS-FedAuthRedirect:
-      - Suppress
-      X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
-      X-VSS-ForceMsaPassThrough:
-      - 'true'
-    method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems?ids=2%2C1
-  response:
-    body:
-      string: '{"count":2,"value":[{"id":2,"rev":3,"fields":{"System.AreaPath":"PullRequestLiveTest","System.TeamProject":"PullRequestLiveTest","System.IterationPath":"PullRequestLiveTest","System.WorkItemType":"Task","System.State":"To
-        Do","System.Reason":"Added to backlog","System.CreatedDate":"2021-09-06T07:35:17.013Z","System.CreatedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-06T07:36:23.957Z","System.ChangedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.CommentCount":0,"System.Title":"For
-        test_pull_request_policies_workitems 2","Microsoft.VSTS.Common.StateChangeDate":"2021-09-06T07:35:17.013Z","Microsoft.VSTS.Common.Priority":2,"System.Description":"<div><span
-        style=\"display:inline !important;\">Do not delete</span><br></div>"},"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItems/2"},{"id":1,"rev":3,"fields":{"System.AreaPath":"PullRequestLiveTest","System.TeamProject":"PullRequestLiveTest","System.IterationPath":"PullRequestLiveTest","System.WorkItemType":"Task","System.State":"To
-        Do","System.Reason":"Added to backlog","System.CreatedDate":"2021-09-06T07:35:06.917Z","System.CreatedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-06T07:36:24.41Z","System.ChangedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.CommentCount":0,"System.Title":"For
-        test_pull_request_policies_workitems 1","Microsoft.VSTS.Common.StateChangeDate":"2021-09-06T07:35:06.917Z","Microsoft.VSTS.Common.Priority":2,"System.Description":"<div>Do
-        not delete</div>"},"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItems/1"}]}'
-    headers:
-      access-control-expose-headers:
-      - Request-Context
-      activityid:
-      - df496ae6-df7d-45de-91c0-3cfeed592fea
-      cache-control:
-      - no-cache
-      content-length:
-      - '4002'
-      content-type:
-      - application/json; charset=utf-8; api-version=5.0
-      date:
-      - Mon, 06 Sep 2021 07:37:29 GMT
-      expires:
-      - '-1'
-      p3p:
-      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
-        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
-      request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       vary:
@@ -745,17 +684,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 434868C348314723A808B26D8EE90906 Ref B: BOM02EDGE0406 Ref C: 2021-09-06T07:37:30Z'
+      - 'Ref A: DE42AAC6CD4B4BC2822D77AF3F64FEB7 Ref B: HYD30EDGE0116 Ref C: 2023-12-29T13:06:28Z'
       x-tfs-processid:
-      - c945c357-c1ad-4855-bb6d-f9b29f4492d4
+      - fac43496-6b3e-4e8b-a2a7-d83c4a294ef7
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - df496ae6-df7d-45de-91c0-3cfeed592fea
+      - 7354b975-676f-4cf1-8186-751e5f5b7309
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -771,38 +710,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/git/pullRequests/14
+    uri: https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24/workitems
   response:
     body:
-      string: '{"repository":{"id":"85b51565-cffa-4a6d-8deb-27af16e453b9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9","project":{"id":"233f184f-32a7-441e-a9c7-48601c38ecb9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/233f184f-32a7-441e-a9c7-48601c38ecb9","state":"wellFormed","revision":1236,"visibility":"public","lastUpdateTime":"2021-08-27T05:34:08.067Z"},"size":725,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_git/PullRequestLiveTest","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/PullRequestLiveTest/PullRequestLiveTest","webUrl":"https://dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_git/PullRequestLiveTest","isDisabled":false},"pullRequestId":14,"codeReviewId":14,"status":"active","createdBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"creationDate":"2021-09-06T07:10:12.5013319Z","title":"Updated
-        EXAMPLE","description":"Updated EXAMPLE","sourceRefName":"refs/heads/test_pull_request_policies_workitems2","targetRefName":"refs/heads/main","mergeStatus":"succeeded","isDraft":false,"mergeId":"42ac4c23-5adb-491c-aaa0-9d40a503ed15","lastMergeSourceCommit":{"commitId":"beed10075ef0924ef84a9ce72f7c840a94b3011b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/beed10075ef0924ef84a9ce72f7c840a94b3011b"},"lastMergeTargetCommit":{"commitId":"9f857dc03c6b970a7d9f47d3d7e51b376f72839b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/9f857dc03c6b970a7d9f47d3d7e51b376f72839b"},"lastMergeCommit":{"commitId":"112918272dbdcc7b1b90c15ba85ec4222ff9e4c6","author":{"name":"Devops
-        Cli","email":"devops-cli@outlook.com","date":"2021-09-06T07:10:12Z"},"committer":{"name":"Devops
-        Cli","email":"devops-cli@outlook.com","date":"2021-09-06T07:10:12Z"},"comment":"Merge
-        pull request 14 from test_pull_request_policies_workitems2 into main","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/112918272dbdcc7b1b90c15ba85ec4222ff9e4c6"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14/reviewers/60a59117-a1ed-6677-ab04-b3de5aa38954","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954"}],"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14","supportsIterations":true,"artifactId":"vstfs:///Git/PullRequestId/233f184f-32a7-441e-a9c7-48601c38ecb9%2f85b51565-cffa-4a6d-8deb-27af16e453b9%2f14"}'
+      string: '{"count":2,"value":[{"id":"1","url":"https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/1"},{"id":"2","url":"https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/2"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b45e1e7e-c3b7-4815-a7fe-9b62f574fcca
+      - 2278feca-8f56-477b-aa4b-f68d5b989e87
       cache-control:
       - no-cache
       content-length:
-      - '4081'
+      - '179'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:30 GMT
+      - Fri, 29 Dec 2023 13:06:29 GMT
       expires:
       - '-1'
       p3p:
@@ -811,77 +744,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
-      strict-transport-security:
-      - max-age=31536000; includeSubDomains
-      x-cache:
-      - CONFIG_NOCACHE
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - SAMEORIGIN
-      x-msedge-ref:
-      - 'Ref A: E76A9EE68D5F480CB35AECDDC7E777A2 Ref B: BOM02EDGE0614 Ref C: 2021-09-06T07:37:30Z'
-      x-tfs-processid:
-      - e336466b-7694-4ff9-abb1-ab029829fc8d
-      x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
-      x-vss-e2eid:
-      - b45e1e7e-c3b7-4815-a7fe-9b62f574fcca
-      x-vss-senderdeploymentid:
-      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
-      x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json;api-version=5.0
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
-      X-TFS-FedAuthRedirect:
-      - Suppress
-      X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
-      X-VSS-ForceMsaPassThrough:
-      - 'true'
-    method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14/workitems
-  response:
-    body:
-      string: '{"count":2,"value":[{"id":"2","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/2"},{"id":"1","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/1"}]}'
-    headers:
-      access-control-expose-headers:
-      - Request-Context
-      activityid:
-      - 5b837c4a-9fae-4b0b-9e0f-01aa45c535ee
-      cache-control:
-      - no-cache
-      content-length:
-      - '187'
-      content-type:
-      - application/json; charset=utf-8; api-version=5.0
-      date:
-      - Mon, 06 Sep 2021 07:37:30 GMT
-      expires:
-      - '-1'
-      p3p:
-      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
-        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
-      request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       vary:
@@ -893,17 +756,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 1B4DA9D9EE8E49D0B5C2294A2F13AD6E Ref B: BOM02EDGE0614 Ref C: 2021-09-06T07:37:30Z'
+      - 'Ref A: EFDE3EF8B81746C4BD03C1289D97341D Ref B: HYD30EDGE0515 Ref C: 2023-12-29T13:06:29Z'
       x-tfs-processid:
-      - ef62538f-27cf-4c25-a11d-5736cfdf7a74
+      - aa664ff2-ac76-4628-a235-ce4eff449050
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - 5b837c4a-9fae-4b0b-9e0f-01aa45c535ee
+      - 2278feca-8f56-477b-aa4b-f68d5b989e87
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -919,42 +782,39 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems?ids=2%2C1
+    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems?ids=1%2C2
   response:
     body:
-      string: '{"count":2,"value":[{"id":2,"rev":3,"fields":{"System.AreaPath":"PullRequestLiveTest","System.TeamProject":"PullRequestLiveTest","System.IterationPath":"PullRequestLiveTest","System.WorkItemType":"Task","System.State":"To
-        Do","System.Reason":"Added to backlog","System.CreatedDate":"2021-09-06T07:35:17.013Z","System.CreatedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-06T07:36:23.957Z","System.ChangedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.CommentCount":0,"System.Title":"For
-        test_pull_request_policies_workitems 2","Microsoft.VSTS.Common.StateChangeDate":"2021-09-06T07:35:17.013Z","Microsoft.VSTS.Common.Priority":2,"System.Description":"<div><span
-        style=\"display:inline !important;\">Do not delete</span><br></div>"},"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItems/2"},{"id":1,"rev":3,"fields":{"System.AreaPath":"PullRequestLiveTest","System.TeamProject":"PullRequestLiveTest","System.IterationPath":"PullRequestLiveTest","System.WorkItemType":"Task","System.State":"To
-        Do","System.Reason":"Added to backlog","System.CreatedDate":"2021-09-06T07:35:06.917Z","System.CreatedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-06T07:36:24.41Z","System.ChangedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.CommentCount":0,"System.Title":"For
-        test_pull_request_policies_workitems 1","Microsoft.VSTS.Common.StateChangeDate":"2021-09-06T07:35:06.917Z","Microsoft.VSTS.Common.Priority":2,"System.Description":"<div>Do
-        not delete</div>"},"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItems/1"}]}'
+      string: '{"count":2,"value":[{"id":1,"rev":8,"fields":{"System.AreaPath":"Chatopsvalidations","System.TeamProject":"Chatopsvalidations","System.IterationPath":"Chatopsvalidations","System.WorkItemType":"Epic","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2023-07-13T09:04:34.477Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2023-12-29T13:06:29.017Z","System.ChangedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":2,"System.Title":"test","Microsoft.VSTS.Common.StateChangeDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ActivatedDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ActivatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.ClosedDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ClosedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.Priority":2},"url":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/1"},{"id":2,"rev":10,"fields":{"System.AreaPath":"Chatopsvalidations","System.TeamProject":"Chatopsvalidations","System.IterationPath":"Chatopsvalidations","System.WorkItemType":"Issue","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2023-07-13T09:08:05.283Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2023-12-29T13:06:28.693Z","System.ChangedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":1,"System.Title":"test2","Microsoft.VSTS.Common.StateChangeDate":"2023-07-19T18:17:40.883Z","Microsoft.VSTS.Common.ClosedDate":"2023-07-19T18:17:40.883Z","Microsoft.VSTS.Common.ClosedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.Priority":2},"url":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b0f70ada-9d8d-46cc-87e0-542af244dbb0
+      - 7354bf0b-676f-4cf1-8186-751e5f5b7309
       cache-control:
       - no-cache
       content-length:
-      - '4002'
+      - '5907'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:29 GMT
+      - Fri, 29 Dec 2023 13:06:29 GMT
       expires:
       - '-1'
       p3p:
@@ -963,83 +823,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
-      strict-transport-security:
-      - max-age=31536000; includeSubDomains
-      x-cache:
-      - CONFIG_NOCACHE
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - SAMEORIGIN
-      x-msedge-ref:
-      - 'Ref A: 9C7D3A11643F4F8DAE60F667713C565B Ref B: BOM02EDGE0406 Ref C: 2021-09-06T07:37:30Z'
-      x-tfs-processid:
-      - e999f4ad-fb80-4204-a0b6-37dbd4331c7d
-      x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
-      x-vss-e2eid:
-      - b0f70ada-9d8d-46cc-87e0-542af244dbb0
-      x-vss-senderdeploymentid:
-      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
-      x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json;api-version=5.0
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
-      X-TFS-FedAuthRedirect:
-      - Suppress
-      X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
-      X-VSS-ForceMsaPassThrough:
-      - 'true'
-    method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/git/pullRequests/14
-  response:
-    body:
-      string: '{"repository":{"id":"85b51565-cffa-4a6d-8deb-27af16e453b9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9","project":{"id":"233f184f-32a7-441e-a9c7-48601c38ecb9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/233f184f-32a7-441e-a9c7-48601c38ecb9","state":"wellFormed","revision":1236,"visibility":"public","lastUpdateTime":"2021-08-27T05:34:08.067Z"},"size":725,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_git/PullRequestLiveTest","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/PullRequestLiveTest/PullRequestLiveTest","webUrl":"https://dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_git/PullRequestLiveTest","isDisabled":false},"pullRequestId":14,"codeReviewId":14,"status":"active","createdBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"creationDate":"2021-09-06T07:10:12.5013319Z","title":"Updated
-        EXAMPLE","description":"Updated EXAMPLE","sourceRefName":"refs/heads/test_pull_request_policies_workitems2","targetRefName":"refs/heads/main","mergeStatus":"succeeded","isDraft":false,"mergeId":"42ac4c23-5adb-491c-aaa0-9d40a503ed15","lastMergeSourceCommit":{"commitId":"beed10075ef0924ef84a9ce72f7c840a94b3011b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/beed10075ef0924ef84a9ce72f7c840a94b3011b"},"lastMergeTargetCommit":{"commitId":"9f857dc03c6b970a7d9f47d3d7e51b376f72839b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/9f857dc03c6b970a7d9f47d3d7e51b376f72839b"},"lastMergeCommit":{"commitId":"112918272dbdcc7b1b90c15ba85ec4222ff9e4c6","author":{"name":"Devops
-        Cli","email":"devops-cli@outlook.com","date":"2021-09-06T07:10:12Z"},"committer":{"name":"Devops
-        Cli","email":"devops-cli@outlook.com","date":"2021-09-06T07:10:12Z"},"comment":"Merge
-        pull request 14 from test_pull_request_policies_workitems2 into main","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/112918272dbdcc7b1b90c15ba85ec4222ff9e4c6"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14/reviewers/60a59117-a1ed-6677-ab04-b3de5aa38954","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954"}],"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14","supportsIterations":true,"artifactId":"vstfs:///Git/PullRequestId/233f184f-32a7-441e-a9c7-48601c38ecb9%2f85b51565-cffa-4a6d-8deb-27af16e453b9%2f14"}'
-    headers:
-      access-control-expose-headers:
-      - Request-Context
-      activityid:
-      - 5b837ca4-9fae-4b0b-9e0f-01aa45c535ee
-      cache-control:
-      - no-cache
-      content-length:
-      - '4081'
-      content-type:
-      - application/json; charset=utf-8; api-version=5.0
-      date:
-      - Mon, 06 Sep 2021 07:37:30 GMT
-      expires:
-      - '-1'
-      p3p:
-      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
-        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
-      request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       vary:
@@ -1051,17 +835,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 31893200669E4DA18542490A486F2B8D Ref B: BOM02EDGE0614 Ref C: 2021-09-06T07:37:30Z'
+      - 'Ref A: D8F61A2E234B4A879C84DDC8B47C5014 Ref B: HYD30EDGE0314 Ref C: 2023-12-29T13:06:29Z'
       x-tfs-processid:
-      - ef62538f-27cf-4c25-a11d-5736cfdf7a74
+      - fac43496-6b3e-4e8b-a2a7-d83c4a294ef7
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - 5b837ca4-9fae-4b0b-9e0f-01aa45c535ee
+      - 7354bf0b-676f-4cf1-8186-751e5f5b7309
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -1077,38 +861,38 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems?ids=2&$expand=1
+    uri: https://dev.azure.com/v-anvashist0376/_apis/git/pullRequests/24
   response:
     body:
-      string: '{"count":1,"value":[{"id":2,"rev":3,"fields":{"System.AreaPath":"PullRequestLiveTest","System.TeamProject":"PullRequestLiveTest","System.IterationPath":"PullRequestLiveTest","System.WorkItemType":"Task","System.State":"To
-        Do","System.Reason":"Added to backlog","System.CreatedDate":"2021-09-06T07:35:17.013Z","System.CreatedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-06T07:36:23.957Z","System.ChangedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.CommentCount":0,"System.Title":"For
-        test_pull_request_policies_workitems 2","Microsoft.VSTS.Common.StateChangeDate":"2021-09-06T07:35:17.013Z","Microsoft.VSTS.Common.Priority":2,"System.Description":"<div><span
-        style=\"display:inline !important;\">Do not delete</span><br></div>"},"relations":[{"rel":"ArtifactLink","url":"vstfs:///Git/PullRequestId/233f184f-32a7-441e-a9c7-48601c38ecb9%2F85b51565-cffa-4a6d-8deb-27af16e453b9%2F14","attributes":{"authorizedDate":"2021-09-06T07:36:23.957Z","id":10118499,"resourceCreatedDate":"2021-09-06T07:36:23.957Z","resourceModifiedDate":"2021-09-06T07:36:23.957Z","revisedDate":"9999-01-01T00:00:00Z","name":"Pull
-        Request"}}],"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItems/2"}]}'
+      string: '{"repository":{"id":"ba8a55b2-19ca-4175-bd70-b644be424553","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553","project":{"id":"0cc3421e-eb11-420e-9409-26034420bd47","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/0cc3421e-eb11-420e-9409-26034420bd47","state":"wellFormed","revision":478,"visibility":"organization","lastUpdateTime":"2023-12-29T06:11:38.06Z"},"size":20299,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/PullRequestLiveTest/_git/PullRequestLiveTest","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/PullRequestLiveTest/PullRequestLiveTest","webUrl":"https://dev.azure.com/v-anvashist0376/PullRequestLiveTest/_git/PullRequestLiveTest","isDisabled":false,"isInMaintenance":false},"pullRequestId":24,"codeReviewId":24,"status":"active","createdBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"creationDate":"2023-12-29T12:59:43.698129Z","title":"Updated
+        README.md","description":"Updated README.md","sourceRefName":"refs/heads/test","targetRefName":"refs/heads/master","mergeStatus":"succeeded","isDraft":false,"mergeId":"1443f16d-c346-4dcc-a3f1-3fa221b9d637","lastMergeSourceCommit":{"commitId":"cb71d54f4dbd782bc5c7ae40e11d11bf3182e675","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/cb71d54f4dbd782bc5c7ae40e11d11bf3182e675"},"lastMergeTargetCommit":{"commitId":"268ebe440d225ffe50d19ed44caf4ddf683b745a","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/268ebe440d225ffe50d19ed44caf4ddf683b745a"},"lastMergeCommit":{"commitId":"636682ff20433edebc02a53bbb2647ce2259fd1c","author":{"name":"Soujanya
+        Bestala","email":"v-sbestala@microsoft.com","date":"2023-12-29T12:59:43Z"},"committer":{"name":"Soujanya
+        Bestala","email":"v-sbestala@microsoft.com","date":"2023-12-29T12:59:43Z"},"comment":"Merge
+        pull request 24 from test into master","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/636682ff20433edebc02a53bbb2647ce2259fd1c"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24/reviewers/22157d54-1821-6536-a446-928b06348385","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385"}],"url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24","supportsIterations":true,"artifactId":"vstfs:///Git/PullRequestId/0cc3421e-eb11-420e-9409-26034420bd47%2fba8a55b2-19ca-4175-bd70-b644be424553%2f24"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 613fb345-d01c-4c95-97a8-986b93518cc9
+      - 5e4345be-0cf8-4ac7-bb77-3dae3320da5f
       cache-control:
       - no-cache
       content-length:
-      - '2423'
+      - '4024'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:30 GMT
+      - Fri, 29 Dec 2023 13:06:29 GMT
       expires:
       - '-1'
       p3p:
@@ -1117,9 +901,11 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
@@ -1127,22 +913,331 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 96796CE207D94B118D950E2A2FD5BB18 Ref B: BOM02EDGE0406 Ref C: 2021-09-06T07:37:30Z'
+      - 'Ref A: 0A1D808430EA4ADB891B470C1A17D92F Ref B: MAA01EDGE1414 Ref C: 2023-12-29T13:06:29Z'
       x-tfs-processid:
-      - cfa517c9-ba7f-4db8-b2cb-f76451d1cdb1
+      - 5b5c9c7f-5a69-4acb-b667-c8a35434b042
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - 613fb345-d01c-4c95-97a8-986b93518cc9
+      - 5e4345be-0cf8-4ac7-bb77-3dae3320da5f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
 - request:
-    body: '[{"op": "test", "path": "/rev", "value": 3}, {"op": 1, "path": "/relations/0"}]'
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24/workitems
+  response:
+    body:
+      string: '{"count":2,"value":[{"id":"1","url":"https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/1"},{"id":"2","url":"https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/2"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - cf999a66-67dc-4a1a-9a14-647ca1869817
+      cache-control:
+      - no-cache
+      content-length:
+      - '179'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 29 Dec 2023 13:06:29 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 1B7DA7B3116643C59F156A021FEEA036 Ref B: HYD30EDGE0321 Ref C: 2023-12-29T13:06:30Z'
+      x-tfs-processid:
+      - 4b9387e7-c630-41bf-b66a-8c948f780b6c
+      x-tfs-session:
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
+      x-vss-e2eid:
+      - cf999a66-67dc-4a1a-9a14-647ca1869817
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems?ids=1%2C2
+  response:
+    body:
+      string: '{"count":2,"value":[{"id":1,"rev":8,"fields":{"System.AreaPath":"Chatopsvalidations","System.TeamProject":"Chatopsvalidations","System.IterationPath":"Chatopsvalidations","System.WorkItemType":"Epic","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2023-07-13T09:04:34.477Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2023-12-29T13:06:29.017Z","System.ChangedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":2,"System.Title":"test","Microsoft.VSTS.Common.StateChangeDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ActivatedDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ActivatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.ClosedDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ClosedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.Priority":2},"url":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/1"},{"id":2,"rev":10,"fields":{"System.AreaPath":"Chatopsvalidations","System.TeamProject":"Chatopsvalidations","System.IterationPath":"Chatopsvalidations","System.WorkItemType":"Issue","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2023-07-13T09:08:05.283Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2023-12-29T13:06:28.693Z","System.ChangedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":1,"System.Title":"test2","Microsoft.VSTS.Common.StateChangeDate":"2023-07-19T18:17:40.883Z","Microsoft.VSTS.Common.ClosedDate":"2023-07-19T18:17:40.883Z","Microsoft.VSTS.Common.ClosedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.Priority":2},"url":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7354bded-676f-4cf1-8186-751e5f5b7309
+      cache-control:
+      - no-cache
+      content-length:
+      - '5907'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 29 Dec 2023 13:06:30 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 81326BDFCAA34B4AA6AA42A3B216D4E8 Ref B: HYD30EDGE0222 Ref C: 2023-12-29T13:06:30Z'
+      x-tfs-processid:
+      - fac43496-6b3e-4e8b-a2a7-d83c4a294ef7
+      x-tfs-session:
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
+      x-vss-e2eid:
+      - 7354bded-676f-4cf1-8186-751e5f5b7309
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/git/pullRequests/24
+  response:
+    body:
+      string: '{"repository":{"id":"ba8a55b2-19ca-4175-bd70-b644be424553","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553","project":{"id":"0cc3421e-eb11-420e-9409-26034420bd47","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/0cc3421e-eb11-420e-9409-26034420bd47","state":"wellFormed","revision":478,"visibility":"organization","lastUpdateTime":"2023-12-29T06:11:38.06Z"},"size":20299,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/PullRequestLiveTest/_git/PullRequestLiveTest","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/PullRequestLiveTest/PullRequestLiveTest","webUrl":"https://dev.azure.com/v-anvashist0376/PullRequestLiveTest/_git/PullRequestLiveTest","isDisabled":false,"isInMaintenance":false},"pullRequestId":24,"codeReviewId":24,"status":"active","createdBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"creationDate":"2023-12-29T12:59:43.698129Z","title":"Updated
+        README.md","description":"Updated README.md","sourceRefName":"refs/heads/test","targetRefName":"refs/heads/master","mergeStatus":"succeeded","isDraft":false,"mergeId":"1443f16d-c346-4dcc-a3f1-3fa221b9d637","lastMergeSourceCommit":{"commitId":"cb71d54f4dbd782bc5c7ae40e11d11bf3182e675","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/cb71d54f4dbd782bc5c7ae40e11d11bf3182e675"},"lastMergeTargetCommit":{"commitId":"268ebe440d225ffe50d19ed44caf4ddf683b745a","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/268ebe440d225ffe50d19ed44caf4ddf683b745a"},"lastMergeCommit":{"commitId":"636682ff20433edebc02a53bbb2647ce2259fd1c","author":{"name":"Soujanya
+        Bestala","email":"v-sbestala@microsoft.com","date":"2023-12-29T12:59:43Z"},"committer":{"name":"Soujanya
+        Bestala","email":"v-sbestala@microsoft.com","date":"2023-12-29T12:59:43Z"},"comment":"Merge
+        pull request 24 from test into master","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/636682ff20433edebc02a53bbb2647ce2259fd1c"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24/reviewers/22157d54-1821-6536-a446-928b06348385","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385"}],"url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24","supportsIterations":true,"artifactId":"vstfs:///Git/PullRequestId/0cc3421e-eb11-420e-9409-26034420bd47%2fba8a55b2-19ca-4175-bd70-b644be424553%2f24"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - cf99998e-67dc-4a1a-9a14-647ca1869817
+      cache-control:
+      - no-cache
+      content-length:
+      - '4024'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 29 Dec 2023 13:06:29 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 302DA7F914AF4DCA9A5DF3E7FC67738B Ref B: HYD30EDGE0316 Ref C: 2023-12-29T13:06:30Z'
+      x-tfs-processid:
+      - 4b9387e7-c630-41bf-b66a-8c948f780b6c
+      x-tfs-session:
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
+      x-vss-e2eid:
+      - cf99998e-67dc-4a1a-9a14-647ca1869817
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems?ids=2&$expand=1
+  response:
+    body:
+      string: '{"count":1,"value":[{"id":2,"rev":10,"fields":{"System.AreaPath":"Chatopsvalidations","System.TeamProject":"Chatopsvalidations","System.IterationPath":"Chatopsvalidations","System.WorkItemType":"Issue","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2023-07-13T09:08:05.283Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2023-12-29T13:06:28.693Z","System.ChangedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":1,"System.Title":"test2","Microsoft.VSTS.Common.StateChangeDate":"2023-07-19T18:17:40.883Z","Microsoft.VSTS.Common.ClosedDate":"2023-07-19T18:17:40.883Z","Microsoft.VSTS.Common.ClosedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.Priority":2},"relations":[{"rel":"ArtifactLink","url":"vstfs:///Git/Commit/038b46ac-29b9-4062-af82-87b52e73d7a9%2f9a83e6d7-9a2e-4376-b737-9f6dbb3f997e%2f9330308bee33ad75eea3bb483850d370fa08fbff","attributes":{"authorizedDate":"2023-07-19T18:17:40.723Z","id":11105839,"resourceCreatedDate":"2023-07-19T18:17:40.723Z","resourceModifiedDate":"2023-07-19T18:17:40.723Z","revisedDate":"9999-01-01T00:00:00Z","name":"Fixed
+        in Commit"}},{"rel":"ArtifactLink","url":"vstfs:///Git/PullRequestId/038b46ac-29b9-4062-af82-87b52e73d7a9%2F9a83e6d7-9a2e-4376-b737-9f6dbb3f997e%2F1","attributes":{"authorizedDate":"2023-07-19T18:17:33.3Z","id":11105838,"resourceCreatedDate":"2023-07-19T18:17:33.3Z","resourceModifiedDate":"2023-07-19T18:17:33.3Z","revisedDate":"9999-01-01T00:00:00Z","name":"Pull
+        Request"}},{"rel":"ArtifactLink","url":"vstfs:///Git/PullRequestId/0cc3421e-eb11-420e-9409-26034420bd47%2Fba8a55b2-19ca-4175-bd70-b644be424553%2F24","attributes":{"authorizedDate":"2023-12-29T13:06:28.693Z","id":23291102,"resourceCreatedDate":"2023-12-29T13:06:28.693Z","resourceModifiedDate":"2023-12-29T13:06:28.693Z","revisedDate":"9999-01-01T00:00:00Z","name":"Pull
+        Request"}},{"rel":"ArtifactLink","url":"vstfs:///Build/Build/19","attributes":{"authorizedDate":"2023-07-19T18:18:31.743Z","id":11105840,"resourceCreatedDate":"2023-07-19T18:18:31.743Z","resourceModifiedDate":"2023-07-19T18:18:31.743Z","revisedDate":"9999-01-01T00:00:00Z","comment":"This
+        build was automatically linked to this work item based on this work item''s
+        linked commits","name":"Integrated in build"}}],"url":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7354bc34-676f-4cf1-8186-751e5f5b7309
+      cache-control:
+      - no-cache
+      content-length:
+      - '4155'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 29 Dec 2023 13:06:30 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: AD206CB4C4384D449FA25A7D4F150D81 Ref B: HYD30EDGE0115 Ref C: 2023-12-29T13:06:30Z'
+      x-tfs-processid:
+      - fac43496-6b3e-4e8b-a2a7-d83c4a294ef7
+      x-tfs-session:
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
+      x-vss-e2eid:
+      - 7354bc34-676f-4cf1-8186-751e5f5b7309
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"op": "test", "path": "/rev", "value": 10}, {"op": 1, "path": "/relations/2"}]'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -1151,41 +1246,43 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '79'
+      - '80'
       Content-Type:
       - application/json-patch+json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/2
+    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/2
   response:
     body:
-      string: '{"id":2,"rev":4,"fields":{"System.AreaPath":"PullRequestLiveTest","System.TeamProject":"PullRequestLiveTest","System.IterationPath":"PullRequestLiveTest","System.WorkItemType":"Task","System.State":"To
-        Do","System.Reason":"Added to backlog","System.CreatedDate":"2021-09-06T07:35:17.013Z","System.CreatedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-06T07:37:30.833Z","System.ChangedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.CommentCount":0,"System.Title":"For
-        test_pull_request_policies_workitems 2","Microsoft.VSTS.Common.StateChangeDate":"2021-09-06T07:35:17.013Z","Microsoft.VSTS.Common.Priority":2,"System.Description":"<div><span
-        style=\"display:inline !important;\">Do not delete</span><br></div>"},"_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItems/2"},"workItemUpdates":{"href":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItems/2/updates"},"workItemRevisions":{"href":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItems/2/revisions"},"workItemComments":{"href":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItems/2/comments"},"html":{"href":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_workitems/edit/2"},"workItemType":{"href":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItemTypes/Task"},"fields":{"href":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/fields"}},"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItems/2"}'
+      string: '{"id":2,"rev":11,"fields":{"System.AreaPath":"Chatopsvalidations","System.TeamProject":"Chatopsvalidations","System.IterationPath":"Chatopsvalidations","System.WorkItemType":"Issue","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2023-07-13T09:08:05.283Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2023-12-29T13:06:31.273Z","System.ChangedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":1,"System.Title":"test2","Microsoft.VSTS.Common.StateChangeDate":"2023-07-19T18:17:40.883Z","Microsoft.VSTS.Common.ClosedDate":"2023-07-19T18:17:40.883Z","Microsoft.VSTS.Common.ClosedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.Priority":2},"relations":[{"rel":"ArtifactLink","url":"vstfs:///Git/Commit/038b46ac-29b9-4062-af82-87b52e73d7a9%2f9a83e6d7-9a2e-4376-b737-9f6dbb3f997e%2f9330308bee33ad75eea3bb483850d370fa08fbff","attributes":{"authorizedDate":"2023-07-19T18:17:40.723Z","id":11105839,"resourceCreatedDate":"2023-07-19T18:17:40.723Z","resourceModifiedDate":"2023-07-19T18:17:40.723Z","revisedDate":"9999-01-01T00:00:00Z","name":"Fixed
+        in Commit"}},{"rel":"ArtifactLink","url":"vstfs:///Git/PullRequestId/038b46ac-29b9-4062-af82-87b52e73d7a9%2F9a83e6d7-9a2e-4376-b737-9f6dbb3f997e%2F1","attributes":{"authorizedDate":"2023-07-19T18:17:33.3Z","id":11105838,"resourceCreatedDate":"2023-07-19T18:17:33.3Z","resourceModifiedDate":"2023-07-19T18:17:33.3Z","revisedDate":"9999-01-01T00:00:00Z","name":"Pull
+        Request"}},{"rel":"ArtifactLink","url":"vstfs:///Build/Build/19","attributes":{"authorizedDate":"2023-07-19T18:18:31.743Z","id":11105840,"resourceCreatedDate":"2023-07-19T18:18:31.743Z","resourceModifiedDate":"2023-07-19T18:18:31.743Z","revisedDate":"9999-01-01T00:00:00Z","comment":"This
+        build was automatically linked to this work item based on this work item''s
+        linked commits","name":"Integrated in build"}}],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2"},"workItemUpdates":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2/updates"},"workItemRevisions":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2/revisions"},"workItemComments":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2/comments"},"html":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_workitems/edit/2"},"workItemType":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItemTypes/Issue"},"fields":{"href":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/fields"}},"url":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/2"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b45e1e5e-c3b7-4815-a7fe-9b62f574fcca
+      - 7354b3d8-676f-4cf1-8186-751e5f5b7309
       cache-control:
       - no-cache
       content-length:
-      - '2932'
+      - '4651'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:30 GMT
+      - Fri, 29 Dec 2023 13:06:31 GMT
       expires:
       - '-1'
       p3p:
@@ -1194,77 +1291,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
-      strict-transport-security:
-      - max-age=31536000; includeSubDomains
-      x-cache:
-      - CONFIG_NOCACHE
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - SAMEORIGIN
-      x-msedge-ref:
-      - 'Ref A: 67D0005B73834041A665ECD7053C08F5 Ref B: BOM02EDGE0406 Ref C: 2021-09-06T07:37:30Z'
-      x-tfs-processid:
-      - e336466b-7694-4ff9-abb1-ab029829fc8d
-      x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
-      x-vss-e2eid:
-      - b45e1e5e-c3b7-4815-a7fe-9b62f574fcca
-      x-vss-senderdeploymentid:
-      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
-      x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json;api-version=5.0
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
-      X-TFS-FedAuthRedirect:
-      - Suppress
-      X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
-      X-VSS-ForceMsaPassThrough:
-      - 'true'
-    method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14/workitems
-  response:
-    body:
-      string: '{"count":1,"value":[{"id":"1","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/1"}]}'
-    headers:
-      access-control-expose-headers:
-      - Request-Context
-      activityid:
-      - 5b837cbc-9fae-4b0b-9e0f-01aa45c535ee
-      cache-control:
-      - no-cache
-      content-length:
-      - '104'
-      content-type:
-      - application/json; charset=utf-8; api-version=5.0
-      date:
-      - Mon, 06 Sep 2021 07:37:30 GMT
-      expires:
-      - '-1'
-      p3p:
-      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
-        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
-      request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       vary:
@@ -1276,17 +1303,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 81AA6510B55B4C8D853A93CD4CB33FA1 Ref B: BOM02EDGE0614 Ref C: 2021-09-06T07:37:30Z'
+      - 'Ref A: 8CDEA3C032B2499BA0AE7B89D83B12D2 Ref B: HYD30EDGE0212 Ref C: 2023-12-29T13:06:31Z'
       x-tfs-processid:
-      - ef62538f-27cf-4c25-a11d-5736cfdf7a74
+      - fac43496-6b3e-4e8b-a2a7-d83c4a294ef7
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - 5b837cbc-9fae-4b0b-9e0f-01aa45c535ee
+      - 7354b3d8-676f-4cf1-8186-751e5f5b7309
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -1302,37 +1329,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems?ids=1
+    uri: https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24/workitems
   response:
     body:
-      string: '{"count":1,"value":[{"id":1,"rev":3,"fields":{"System.AreaPath":"PullRequestLiveTest","System.TeamProject":"PullRequestLiveTest","System.IterationPath":"PullRequestLiveTest","System.WorkItemType":"Task","System.State":"To
-        Do","System.Reason":"Added to backlog","System.CreatedDate":"2021-09-06T07:35:06.917Z","System.CreatedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-06T07:36:24.41Z","System.ChangedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.CommentCount":0,"System.Title":"For
-        test_pull_request_policies_workitems 1","Microsoft.VSTS.Common.StateChangeDate":"2021-09-06T07:35:06.917Z","Microsoft.VSTS.Common.Priority":2,"System.Description":"<div>Do
-        not delete</div>"},"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItems/1"}]}'
+      string: '{"count":1,"value":[{"id":"1","url":"https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/1"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - df496aba-df7d-45de-91c0-3cfeed592fea
+      - 2278f9ec-8f56-477b-aa4b-f68d5b989e87
       cache-control:
       - no-cache
       content-length:
-      - '1984'
+      - '100'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:30 GMT
+      - Fri, 29 Dec 2023 13:06:30 GMT
       expires:
       - '-1'
       p3p:
@@ -1341,7 +1363,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       vary:
@@ -1353,17 +1375,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 4F1B9F92743B48E9B6FC2BBC4A81D914 Ref B: BOM02EDGE0406 Ref C: 2021-09-06T07:37:30Z'
+      - 'Ref A: 75C664A3078144739E4DBE5B27751AF9 Ref B: HYD30EDGE0114 Ref C: 2023-12-29T13:06:31Z'
       x-tfs-processid:
-      - c945c357-c1ad-4855-bb6d-f9b29f4492d4
+      - aa664ff2-ac76-4628-a235-ce4eff449050
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - df496aba-df7d-45de-91c0-3cfeed592fea
+      - 2278f9ec-8f56-477b-aa4b-f68d5b989e87
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -1379,38 +1401,36 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/git/pullRequests/14
+    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems?ids=1
   response:
     body:
-      string: '{"repository":{"id":"85b51565-cffa-4a6d-8deb-27af16e453b9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9","project":{"id":"233f184f-32a7-441e-a9c7-48601c38ecb9","name":"PullRequestLiveTest","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/233f184f-32a7-441e-a9c7-48601c38ecb9","state":"wellFormed","revision":1236,"visibility":"public","lastUpdateTime":"2021-08-27T05:34:08.067Z"},"size":725,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_git/PullRequestLiveTest","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/PullRequestLiveTest/PullRequestLiveTest","webUrl":"https://dev.azure.com/devops-cli-test-org/PullRequestLiveTest/_git/PullRequestLiveTest","isDisabled":false},"pullRequestId":14,"codeReviewId":14,"status":"active","createdBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"creationDate":"2021-09-06T07:10:12.5013319Z","title":"Updated
-        EXAMPLE","description":"Updated EXAMPLE","sourceRefName":"refs/heads/test_pull_request_policies_workitems2","targetRefName":"refs/heads/main","mergeStatus":"succeeded","isDraft":false,"mergeId":"42ac4c23-5adb-491c-aaa0-9d40a503ed15","lastMergeSourceCommit":{"commitId":"beed10075ef0924ef84a9ce72f7c840a94b3011b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/beed10075ef0924ef84a9ce72f7c840a94b3011b"},"lastMergeTargetCommit":{"commitId":"9f857dc03c6b970a7d9f47d3d7e51b376f72839b","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/9f857dc03c6b970a7d9f47d3d7e51b376f72839b"},"lastMergeCommit":{"commitId":"112918272dbdcc7b1b90c15ba85ec4222ff9e4c6","author":{"name":"Devops
-        Cli","email":"devops-cli@outlook.com","date":"2021-09-06T07:10:12Z"},"committer":{"name":"Devops
-        Cli","email":"devops-cli@outlook.com","date":"2021-09-06T07:10:12Z"},"comment":"Merge
-        pull request 14 from test_pull_request_policies_workitems2 into main","url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/commits/112918272dbdcc7b1b90c15ba85ec4222ff9e4c6"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14/reviewers/60a59117-a1ed-6677-ab04-b3de5aa38954","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_api/_common/identityImage?id=60a59117-a1ed-6677-ab04-b3de5aa38954"}],"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14","supportsIterations":true,"artifactId":"vstfs:///Git/PullRequestId/233f184f-32a7-441e-a9c7-48601c38ecb9%2f85b51565-cffa-4a6d-8deb-27af16e453b9%2f14"}'
+      string: '{"count":1,"value":[{"id":1,"rev":8,"fields":{"System.AreaPath":"Chatopsvalidations","System.TeamProject":"Chatopsvalidations","System.IterationPath":"Chatopsvalidations","System.WorkItemType":"Epic","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2023-07-13T09:04:34.477Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2023-12-29T13:06:29.017Z","System.ChangedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":2,"System.Title":"test","Microsoft.VSTS.Common.StateChangeDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ActivatedDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ActivatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.ClosedDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ClosedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.Priority":2},"url":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/1"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - a47ba9c6-92e6-40ad-89fc-b46795949a15
+      - 2278f84e-8f56-477b-aa4b-f68d5b989e87
       cache-control:
       - no-cache
       content-length:
-      - '4081'
+      - '3324'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:30 GMT
+      - Fri, 29 Dec 2023 13:06:31 GMT
       expires:
       - '-1'
       p3p:
@@ -1419,7 +1439,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       vary:
@@ -1431,17 +1451,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 5F3BF8DC3DB546DDB4AB58BE75A3DBA8 Ref B: BOM02EDGE0614 Ref C: 2021-09-06T07:37:31Z'
+      - 'Ref A: 9E1BB585C9F341448F628FCEF7FB3EA9 Ref B: HYD30EDGE0212 Ref C: 2023-12-29T13:06:31Z'
       x-tfs-processid:
-      - e7a7663f-ccfb-4622-8cc3-ca804bf765f8
+      - aa664ff2-ac76-4628-a235-ce4eff449050
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - a47ba9c6-92e6-40ad-89fc-b46795949a15
+      - 2278f84e-8f56-477b-aa4b-f68d5b989e87
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -1457,32 +1477,38 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/git/repositories/85b51565-cffa-4a6d-8deb-27af16e453b9/pullRequests/14/workitems
+    uri: https://dev.azure.com/v-anvashist0376/_apis/git/pullRequests/24
   response:
     body:
-      string: '{"count":1,"value":[{"id":"1","url":"https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems/1"}]}'
+      string: '{"repository":{"id":"ba8a55b2-19ca-4175-bd70-b644be424553","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553","project":{"id":"0cc3421e-eb11-420e-9409-26034420bd47","name":"PullRequestLiveTest","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/0cc3421e-eb11-420e-9409-26034420bd47","state":"wellFormed","revision":478,"visibility":"organization","lastUpdateTime":"2023-12-29T06:11:38.06Z"},"size":20299,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/PullRequestLiveTest/_git/PullRequestLiveTest","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/PullRequestLiveTest/PullRequestLiveTest","webUrl":"https://dev.azure.com/v-anvashist0376/PullRequestLiveTest/_git/PullRequestLiveTest","isDisabled":false,"isInMaintenance":false},"pullRequestId":24,"codeReviewId":24,"status":"active","createdBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"creationDate":"2023-12-29T12:59:43.698129Z","title":"Updated
+        README.md","description":"Updated README.md","sourceRefName":"refs/heads/test","targetRefName":"refs/heads/master","mergeStatus":"succeeded","isDraft":false,"mergeId":"1443f16d-c346-4dcc-a3f1-3fa221b9d637","lastMergeSourceCommit":{"commitId":"cb71d54f4dbd782bc5c7ae40e11d11bf3182e675","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/cb71d54f4dbd782bc5c7ae40e11d11bf3182e675"},"lastMergeTargetCommit":{"commitId":"268ebe440d225ffe50d19ed44caf4ddf683b745a","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/268ebe440d225ffe50d19ed44caf4ddf683b745a"},"lastMergeCommit":{"commitId":"636682ff20433edebc02a53bbb2647ce2259fd1c","author":{"name":"Soujanya
+        Bestala","email":"v-sbestala@microsoft.com","date":"2023-12-29T12:59:43Z"},"committer":{"name":"Soujanya
+        Bestala","email":"v-sbestala@microsoft.com","date":"2023-12-29T12:59:43Z"},"comment":"Merge
+        pull request 24 from test into master","url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/commits/636682ff20433edebc02a53bbb2647ce2259fd1c"},"reviewers":[{"reviewerUrl":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24/reviewers/22157d54-1821-6536-a446-928b06348385","vote":0,"hasDeclined":false,"isRequired":true,"isFlagged":false,"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_api/_common/identityImage?id=22157d54-1821-6536-a446-928b06348385"}],"url":"https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24","supportsIterations":true,"artifactId":"vstfs:///Git/PullRequestId/0cc3421e-eb11-420e-9409-26034420bd47%2fba8a55b2-19ca-4175-bd70-b644be424553%2f24"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 5ed710e8-b623-476c-8937-262fc4f3b0ad
+      - 2278f8bc-8f56-477b-aa4b-f68d5b989e87
       cache-control:
       - no-cache
       content-length:
-      - '104'
+      - '4024'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:31 GMT
+      - Fri, 29 Dec 2023 13:06:32 GMT
       expires:
       - '-1'
       p3p:
@@ -1491,9 +1517,11 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
@@ -1501,17 +1529,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 14E8DA67FD924E0D81347FBAB6FF648F Ref B: BOM02EDGE0614 Ref C: 2021-09-06T07:37:31Z'
+      - 'Ref A: 62F69B8C77204CBDBBB1C10DE0754433 Ref B: MAA01EDGE0707 Ref C: 2023-12-29T13:06:32Z'
       x-tfs-processid:
-      - 13988172-a6c7-4427-b0ed-1a386c2b7e06
+      - aa664ff2-ac76-4628-a235-ce4eff449050
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - 5ed710e8-b623-476c-8937-262fc4f3b0ad
+      - 2278f8bc-8f56-477b-aa4b-f68d5b989e87
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -1527,37 +1555,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/_apis/wit/workItems?ids=1
+    uri: https://dev.azure.com/v-anvashist0376/0cc3421e-eb11-420e-9409-26034420bd47/_apis/git/repositories/ba8a55b2-19ca-4175-bd70-b644be424553/pullRequests/24/workitems
   response:
     body:
-      string: '{"count":1,"value":[{"id":1,"rev":3,"fields":{"System.AreaPath":"PullRequestLiveTest","System.TeamProject":"PullRequestLiveTest","System.IterationPath":"PullRequestLiveTest","System.WorkItemType":"Task","System.State":"To
-        Do","System.Reason":"Added to backlog","System.CreatedDate":"2021-09-06T07:35:06.917Z","System.CreatedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.ChangedDate":"2021-09-06T07:36:24.41Z","System.ChangedBy":{"displayName":"Devops
-        Cli","url":"https://spsprodsin2.vssps.visualstudio.com/Ab5db41ca-f3ef-48ce-a8e3-7d282463dbe2/_apis/Identities/60a59117-a1ed-6677-ab04-b3de5aa38954","_links":{"avatar":{"href":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"}},"id":"60a59117-a1ed-6677-ab04-b3de5aa38954","uniqueName":"devops-cli@outlook.com","imageUrl":"https://dev.azure.com/devops-cli-test-org/_apis/GraphProfile/MemberAvatars/msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0","descriptor":"msa.NjBhNTkxMTctYTFlZC03Njc3LWFiMDQtYjNkZTVhYTM4OTU0"},"System.CommentCount":0,"System.Title":"For
-        test_pull_request_policies_workitems 1","Microsoft.VSTS.Common.StateChangeDate":"2021-09-06T07:35:06.917Z","Microsoft.VSTS.Common.Priority":2,"System.Description":"<div>Do
-        not delete</div>"},"url":"https://dev.azure.com/devops-cli-test-org/233f184f-32a7-441e-a9c7-48601c38ecb9/_apis/wit/workItems/1"}]}'
+      string: '{"count":1,"value":[{"id":"1","url":"https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/1"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 613fb380-d01c-4c95-97a8-986b93518cc9
+      - 7354b097-676f-4cf1-8186-751e5f5b7309
       cache-control:
       - no-cache
       content-length:
-      - '1984'
+      - '100'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Mon, 06 Sep 2021 07:37:30 GMT
+      - Fri, 29 Dec 2023 13:06:31 GMT
       expires:
       - '-1'
       p3p:
@@ -1566,9 +1589,11 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
@@ -1576,17 +1601,93 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 58F8DC94EA2140CC910C907231A3BBAD Ref B: BOM02EDGE0406 Ref C: 2021-09-06T07:37:31Z'
+      - 'Ref A: 90FA36A98B334697B0A2962B18C86E66 Ref B: HYD30EDGE0321 Ref C: 2023-12-29T13:06:32Z'
       x-tfs-processid:
-      - cfa517c9-ba7f-4db8-b2cb-f76451d1cdb1
+      - fac43496-6b3e-4e8b-a2a7-d83c4a294ef7
       x-tfs-session:
-      - 113b3d4c-06ad-483c-90c0-ff8a9e5791f7
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
       x-vss-e2eid:
-      - 613fb380-d01c-4c95-97a8-986b93518cc9
+      - 7354b097-676f-4cf1-8186-751e5f5b7309
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems?ids=1
+  response:
+    body:
+      string: '{"count":1,"value":[{"id":1,"rev":8,"fields":{"System.AreaPath":"Chatopsvalidations","System.TeamProject":"Chatopsvalidations","System.IterationPath":"Chatopsvalidations","System.WorkItemType":"Epic","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2023-07-13T09:04:34.477Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2023-12-29T13:06:29.017Z","System.ChangedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":2,"System.Title":"test","Microsoft.VSTS.Common.StateChangeDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ActivatedDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ActivatedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.ClosedDate":"2023-07-19T18:15:16.823Z","Microsoft.VSTS.Common.ClosedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.Priority":2},"url":"https://dev.azure.com/v-anvashist0376/038b46ac-29b9-4062-af82-87b52e73d7a9/_apis/wit/workItems/1"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - cf999dca-67dc-4a1a-9a14-647ca1869817
+      cache-control:
+      - no-cache
+      content-length:
+      - '3324'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 29 Dec 2023 13:06:32 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: CC61831E1B7F42298A6BDD8BDD228AB3 Ref B: HYD30EDGE0314 Ref C: 2023-12-29T13:06:32Z'
+      x-tfs-processid:
+      - 4b9387e7-c630-41bf-b66a-8c948f780b6c
+      x-tfs-session:
+      - 3f99e38f-7e3e-490b-b66b-8dc5b27c4aa3
+      x-vss-e2eid:
+      - cf999dca-67dc-4a1a-9a14-647ca1869817
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK

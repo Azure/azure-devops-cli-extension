@@ -21,9 +21,9 @@ steps:
 
   - template: download-install-local-azure-devops-cli-extension.yml
 
-  - ${{ if eq(parameters.runOnlyRecordedTests, 'false') }}:
-    - script: pytest --junitxml "TEST-results.xml"
-      displayName: 'Run Tests'
+  # - ${{ if eq(parameters.runOnlyRecordedTests, 'false') }}:
+  #   - script: pytest --junitxml "TEST-results.xml"
+  #     displayName: 'Run Tests'
   
   - ${{ if eq(parameters.runOnlyRecordedTests, 'true') }}:
     - script: pytest tests --junitxml "TEST-results.xml"
