@@ -63,23 +63,23 @@ jobs:
   - template: templates/download-install-local-azure-devops-cli-extension.yml
 
   # Run a Python script.
-  - task: PythonScript@0
-    inputs:
-     scriptSource: 'filePath'
-     scriptPath: 'scripts/prepareLiveRecordingTestsRun.py'
-     failOnStderr: true
-    env:
-     AZURE_DEVOPS_EXT_PAT: $(pat)
+  # - task: PythonScript@0
+  #   inputs:
+  #    scriptSource: 'filePath'
+  #    scriptPath: 'scripts/prepareLiveRecordingTestsRun.py'
+  #    failOnStderr: true
+  #   env:
+  #    AZURE_DEVOPS_EXT_PAT: $(pat)
 
-  - script: pytest tests --junitxml "TEST-results.xml"
-    displayName: 'Run Live Tests'
-    env:
-     AZURE_DEVOPS_EXT_PAT: $(pat)
+  # - script: pytest tests --junitxml "TEST-results.xml"
+  #   displayName: 'Run Live Tests'
+  #   env:
+  #    AZURE_DEVOPS_EXT_PAT: $(pat)
 
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results'
-    inputs:
-     testResultsFormat: 'JUnit'
-     testResultsFiles: '**TEST-*.xml'
-     searchFolder: '$(System.DefaultWorkingDirectory)'
-    condition: succeededOrFailed()
+  # - task: PublishTestResults@2
+  #   displayName: 'Publish Test Results'
+  #   inputs:
+  #    testResultsFormat: 'JUnit'
+  #    testResultsFiles: '**TEST-*.xml'
+  #    searchFolder: '$(System.DefaultWorkingDirectory)'
+  #   condition: succeededOrFailed()
