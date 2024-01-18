@@ -50,7 +50,7 @@ jobs:
   steps:
   - template: templates/run-tests.yml
     parameters:
-      pythonVersion: '3.x'
+      pythonVersion: '3.10'
 
   - script: 'pip install .'
     displayName: 'Install the whl locally'
