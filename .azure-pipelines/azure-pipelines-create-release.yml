@@ -2,7 +2,7 @@
 # This
 # 1. Runs test cases
 # 2. Creates a wheel and publishes it as artifact
-# 3. Creates a tag in github
+# 3. Creates a tag in github 
 
 pr: none
 
