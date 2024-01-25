@@ -99,9 +99,9 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
-                        merge_commit_message=None, optional_reviewers=None, required_reviewers=None ,work_items=None, draft=None,
-                        open=False, organization=None, detect=None, transition_work_items=False,
-                        labels=None):  # pylint: disable=redefined-builtin
+                        merge_commit_message=None, optional_reviewers=None, required_reviewers=None,
+                        work_items=None, draft=None, open=False, organization=None, detect=None,
+                        transition_work_items=False, labels=None): # pylint: disable=redefined-builtin
     """Create a pull request.
     :param project: Name or ID of the team project.
     :type project: str
@@ -205,7 +205,7 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
 
     if len(reviewers) > 0:
         pr.reviewers = reviewers
-    
+
     if work_items is not None and work_items:
         resolved_work_items = []
         for work_item in work_items:
@@ -386,11 +386,11 @@ def create_pull_request_reviewers(id, reviewers, organization=None, detect=None,
     client = get_git_client(organization)
     pr = client.get_pull_request_by_id(id)
     resolved_reviewers = _resolve_reviewers_as_refs(reviewers, organization)
-    
+
     if required:
         for reviewer in resolved_reviewers:
             reviewer.is_required = True
-    
+
     identities = client.create_pull_request_reviewers(reviewers=resolved_reviewers,
                                                       project=pr.repository.project.id,
                                                       repository_id=pr.repository.id,
