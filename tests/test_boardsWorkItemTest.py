@@ -11,24 +11,24 @@ from knack.util import CLIError
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/devops-cli-test-org'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/v-anvashist0376'
 
 class BoardsWorkItemTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
     @disable_telemetry
     @set_authentication
     def test_workItemCreateShowUpdateDelete(self):
-        wi_name = 'samplebug'
+        wi_name = 'sampleTask'
         wi_test_project_name = 'WorkItemCreateShowUpdateDeleteTests'
         wi_id =0
         self.cmd('az devops configure --defaults organization=' + DEVOPS_CLI_TEST_ORGANIZATION)
 
         try:
             create_wi_command = 'az boards work-item create --project '+ wi_test_project_name +' --title ' + wi_name \
-                                + ' --type Bug  --detect false --output json'
+                                + ' --type Task  --detect false --output json'
             wi_create = self.cmd(create_wi_command, checks=[
                 self.check('fields."System.AreaPath"', wi_test_project_name),
-                self.check('fields."System.WorkItemType"', 'Bug'),
+                self.check('fields."System.WorkItemType"', 'Task'),
                 self.check('fields."System.Title"', wi_name)
             ]).get_output_in_json()
 
@@ -39,11 +39,11 @@ class BoardsWorkItemTests(DevopsScenarioTest):
                 self.check("id", wi_id)
             ]).get_output_in_json()
 
-            update_wi_command = 'az boards work-item update --org ' + DEVOPS_CLI_TEST_ORGANIZATION + ' --id '+ str(wi_id)+' --state Resolved --detect false --output json'
+            update_wi_command = 'az boards work-item update --org ' + DEVOPS_CLI_TEST_ORGANIZATION + ' --id '+ str(wi_id)+' --state Done --detect false --output json'
             self.cmd(update_wi_command, checks=[
                 self.check("id", wi_id),
                 self.check('fields."System.AreaPath"', wi_test_project_name),
-                self.check('fields."System.State"','Resolved')
+                self.check('fields."System.State"','Done')
             ]).get_output_in_json()
 
         finally:

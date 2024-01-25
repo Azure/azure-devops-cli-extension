@@ -3,268 +3,78 @@ interactions:
     body: null
     headers:
       Accept:
-      - '*/*'
+      - application/json;api-version=5.0
       Accept-Encoding:
       - gzip, deflate
       Connection:
       - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
       User-Agent:
-      - python-requests/2.25.1
-    method: HEAD
-    uri: https://azure.microsoft.com/
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects?stateFilter=all&$top=1&$skip=0
   response:
     body:
-      string: ''
+      string: '{"count":1,"value":[{"id":"82f02fb4-752b-49be-a47f-d3f34e01e941","name":"BugBashTesting","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/82f02fb4-752b-49be-a47f-d3f34e01e941","state":"wellFormed","revision":36,"visibility":"organization","lastUpdateTime":"2023-11-28T11:07:03.527Z"}]}'
     headers:
-      access-control-allow-methods:
-      - GET,HEAD
       access-control-expose-headers:
       - Request-Context
-      arr-disable-session-affinity:
-      - 'true'
-      azure-instanceid:
-      - 596efc26ad4908afe5207029e4894a9fb3ea769d46f856a2131b812aec636b6c
-      azure-regionname:
-      - Southeast Asia
-      azure-sitename:
-      - acom-prod-southeastasia-02
-      azure-slotname:
-      - production
-      azure-version:
-      - 20210902-1500-267842
+      activityid:
+      - 89d22bd3-717c-44c0-9daf-91dc12d61d83
       cache-control:
       - no-cache
       content-length:
-      - '124'
+      - '296'
       content-type:
-      - text/html; charset=utf-8
+      - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 08:23:04 GMT
+      - Fri, 29 Dec 2023 05:48:33 GMT
       expires:
       - '-1'
-      keep-alive:
-      - timeout=10, max=100
-      location:
-      - /en-us/
-      nel:
-      - '{"report_to":"network-errors","max_age":604800,"success_fraction":0.01,"failure_fraction":1.0}'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
       pragma:
       - no-cache
-      report-to:
-      - '{"group":"network-errors","max_age":604800,"endpoints":[{"url":"https://mdec.nelreports.net/api/report?cat=acom"}]}'
       request-context:
-      - appId=cid-v1:271db03b-0de6-4bf7-8ebf-f90dccf4de6b
-      set-cookie:
-      - MC1=GUID=4b764d91876149d6839b2594804f737d&HASH=4b76&LV=202109&V=4&LU=1631002985389;
-        domain=microsoft.com; expires=Wed, 07-Sep-2022 08:23:05 GMT; path=/; secure;
-        SameSite=None
-      - userInfo=%7b%22guid%22%3a%224b764d91876149d6839b2594804f737d%22%2c%22signupDate%22%3a0%2c%22wishlistDate%22%3a0%2c%22checkoutDate%22%3a0%7d;
-        expires=Wed, 07-Sep-2022 08:23:05 GMT; path=/; secure
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
-      - max-age=31536000
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
       - nosniff
       x-frame-options:
-      - sameorigin
-      x-msedge-features:
-      - acom1cf
-      x-msedge-flight:
-      - acom1=acom1cf
+      - SAMEORIGIN
+      x-ms-continuationtoken:
+      - '1'
       x-msedge-ref:
-      - 'Ref A: 5277F57BCD394236879646427A5E05D1 Ref B: BOM02EDGE0721 Ref C: 2021-09-07T08:23:05Z'
-    status:
-      code: 302
-      message: Found
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.25.1
-    method: GET
-    uri: https://raw.githubusercontent.com/Azure/azure-cli/master/src/azure-cli-core/setup.py
-  response:
-    body:
-      string: "#!/usr/bin/env python\n\n# --------------------------------------------------------------------------------------------\n#
-        Copyright (c) Microsoft Corporation. All rights reserved.\n# Licensed under
-        the MIT License. See License.txt in the project root for license information.\n#
-        --------------------------------------------------------------------------------------------\n\nfrom
-        codecs import open\nfrom setuptools import setup, find_packages\n\nVERSION
-        = \"2.27.1\"\n\n# If we have source, validate that our version numbers match\n#
-        This should prevent uploading releases with mismatched versions.\ntry:\n    with
-        open('azure/cli/core/__init__.py', 'r', encoding='utf-8') as f:\n        content
-        = f.read()\nexcept OSError:\n    pass\nelse:\n    import re\n    import sys\n\n
-        \   m = re.search(r'__version__\\s*=\\s*[\\'\"](.+?)[\\'\"]', content)\n    if
-        not m:\n        print('Could not find __version__ in azure/cli/core/__init__.py')\n
-        \       sys.exit(1)\n    if m.group(1) != VERSION:\n        print('Expected
-        __version__ = \"{}\"; found \"{}\"'.format(VERSION, m.group(1)))\n        sys.exit(1)\n\nCLASSIFIERS
-        = [\n    'Development Status :: 5 - Production/Stable',\n    'Intended Audience
-        :: Developers',\n    'Intended Audience :: System Administrators',\n    'Programming
-        Language :: Python',\n    'Programming Language :: Python :: 3',\n    'Programming
-        Language :: Python :: 3.6',\n    'Programming Language :: Python :: 3.7',\n
-        \   'Programming Language :: Python :: 3.8',\n    'Programming Language ::
-        Python :: 3.9',\n    'License :: OSI Approved :: MIT License',\n]\n\nDEPENDENCIES
-        = [\n    'adal~=1.2.7',\n    'argcomplete~=1.8',\n    'azure-cli-telemetry==1.0.6.*',\n
-        \   'azure-common~=1.1',\n    'azure-mgmt-core>=1.2.0,<1.3.0',     # the preview
-        version of azure-mgmt-core is 1.3.0b1, it cannot fit azure-core >=1.14.0\n
-        \   'cryptography>=3.2,<3.4',\n    'humanfriendly>=4.7,<10.0',\n    'jmespath',\n
-        \   'knack~=0.8.2',\n    'msal>=1.10.0,<2.0.0',\n    'paramiko>=2.0.8,<3.0.0',\n
-        \   'pkginfo>=1.5.0.1',\n    'PyJWT>=2.1.0',\n    'pyopenssl>=17.1.0',  #
-        https://github.com/pyca/pyopenssl/pull/612\n    'requests[socks]~=2.25.1',\n
-        \   'six~=1.12',\n    'urllib3[secure]>=1.26.5',\n]\n\n# dependencies for
-        specific OSes\nif not sys.platform.startswith('cygwin'):\n    DEPENDENCIES.append('psutil~=5.8')\n\n\nwith
-        open('README.rst', 'r', encoding='utf-8') as f:\n    README = f.read()\n\nsetup(\n
-        \   name='azure-cli-core',\n    version=VERSION,\n    description='Microsoft
-        Azure Command-Line Tools Core Module',\n    long_description=README,\n    license='MIT',\n
-        \   author='Microsoft Corporation',\n    author_email='azpycli@microsoft.com',\n
-        \   url='https://github.com/Azure/azure-cli',\n    zip_safe=False,\n    classifiers=CLASSIFIERS,\n
-        \   packages=find_packages(exclude=[\"*.tests\", \"*.tests.*\", \"tests.*\",
-        \"tests\", \"azure\", \"azure.cli\"]),\n    install_requires=DEPENDENCIES,\n
-        \   python_requires='>=3.6.0',\n    package_data={'azure.cli.core': ['auth_landing_pages/*.html']}\n)\n"
-    headers:
-      accept-ranges:
-      - bytes
-      access-control-allow-origin:
-      - '*'
-      cache-control:
-      - max-age=300
-      connection:
-      - keep-alive
-      content-length:
-      - '2901'
-      content-security-policy:
-      - default-src 'none'; style-src 'unsafe-inline'; sandbox
-      content-type:
-      - text/plain; charset=utf-8
-      date:
-      - Tue, 07 Sep 2021 08:23:05 GMT
-      etag:
-      - W/"d41a08b7c042bc0b1fc4ed6f1729657cf5f84f05c0361aeeda05454f6209eaaa"
-      expires:
-      - Tue, 07 Sep 2021 08:28:05 GMT
-      source-age:
-      - '205'
-      strict-transport-security:
-      - max-age=31536000
-      vary:
-      - Authorization,Accept-Encoding
-      via:
-      - 1.1 varnish
-      x-cache:
-      - HIT
-      x-cache-hits:
-      - '1'
-      x-content-type-options:
-      - nosniff
-      x-fastly-request-id:
-      - 8d6412ca8aa64379e49daa182a2090a8c5a9529b
-      x-frame-options:
-      - deny
-      x-github-request-id:
-      - 2A90:0388:565031:6F5434:6136E9E0
-      x-served-by:
-      - cache-maa10221-MAA
-      x-timer:
-      - S1631002986.536049,VS0,VE0
-      x-xss-protection:
-      - 1; mode=block
+      - 'Ref A: 66C3D606B05345EBBBD8930C135ACFFD Ref B: HYD30EDGE0522 Ref C: 2023-12-29T05:48:34Z'
+      x-tfs-processid:
+      - 8195bf23-df25-48ae-b8ee-06ec258258b9
+      x-tfs-session:
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      x-vss-e2eid:
+      - 89d22bd3-717c-44c0-9daf-91dc12d61d83
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
 - request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.25.1
-    method: GET
-    uri: https://raw.githubusercontent.com/Azure/azure-cli/master/src/azure-cli-telemetry/setup.py
-  response:
-    body:
-      string: "#!/usr/bin/env python\n\n# --------------------------------------------------------------------------------------------\n#
-        Copyright (c) Microsoft Corporation. All rights reserved.\n# Licensed under
-        the MIT License. See License.txt in the project root for license information.\n#
-        --------------------------------------------------------------------------------------------\n\nfrom
-        codecs import open\nfrom setuptools import setup\n\nVERSION = \"1.0.6\"\n\nCLASSIFIERS
-        = [\n    'Development Status :: 5 - Production/Stable',\n    'Intended Audience
-        :: Developers',\n    'Intended Audience :: System Administrators',\n    'Programming
-        Language :: Python',\n    'Programming Language :: Python :: 3',\n    'Programming
-        Language :: Python :: 3.6',\n    'Programming Language :: Python :: 3.7',\n
-        \   'Programming Language :: Python :: 3.8',\n    'Programming Language ::
-        Python :: 3.9',\n    'License :: OSI Approved :: MIT License',\n]\n\nwith
-        open('README.rst', 'r', encoding='utf-8') as f:\n    README = f.read()\nwith
-        open('HISTORY.rst', 'r', encoding='utf-8') as f:\n    HISTORY = f.read()\n\nsetup(\n
-        \   name='azure-cli-telemetry',\n    version=VERSION,\n    description='Microsoft
-        Azure CLI Telemetry Package',\n    long_description=README + '\\n\\n' + HISTORY,\n
-        \   license='MIT',\n    author='Microsoft Corporation',\n    author_email='azpycli@microsoft.com',\n
-        \   url='https://github.com/Azure/azure-cli',\n    zip_safe=False,\n    classifiers=CLASSIFIERS,\n
-        \   install_requires=[\n        'applicationinsights>=0.11.1,<0.12',\n        'portalocker~=1.6',\n
-        \   ],\n    packages=[\n        'azure.cli.telemetry',\n        'azure.cli.telemetry.components'\n
-        \   ]\n)\n"
-    headers:
-      accept-ranges:
-      - bytes
-      access-control-allow-origin:
-      - '*'
-      cache-control:
-      - max-age=300
-      connection:
-      - keep-alive
-      content-length:
-      - '1616'
-      content-security-policy:
-      - default-src 'none'; style-src 'unsafe-inline'; sandbox
-      content-type:
-      - text/plain; charset=utf-8
-      date:
-      - Tue, 07 Sep 2021 08:23:05 GMT
-      etag:
-      - W/"e3f249876bb1b6fd49bac5b1484f31fc8b13c0bf0fad8b17e7e2e4a403e775dc"
-      expires:
-      - Tue, 07 Sep 2021 08:28:05 GMT
-      source-age:
-      - '205'
-      strict-transport-security:
-      - max-age=31536000
-      vary:
-      - Authorization,Accept-Encoding
-      via:
-      - 1.1 varnish
-      x-cache:
-      - HIT
-      x-cache-hits:
-      - '1'
-      x-content-type-options:
-      - nosniff
-      x-fastly-request-id:
-      - c314573d7b4fd653070b9250776348e505abdcf4
-      x-frame-options:
-      - deny
-      x-github-request-id:
-      - 9AA8:5A2B:1AA308:22921A:6136EBD1
-      x-served-by:
-      - cache-maa10243-MAA
-      x-timer:
-      - S1631002986.663083,VS0,VE0
-      x-xss-protection:
-      - 1; mode=block
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"name": "bWkpvFbo"}'
+    body: '{"name": "HtICckhT"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -277,32 +87,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
-    uri: https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_apis/git/repositories
+    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories
   response:
     body:
-      string: '{"id":"cc2a53b4-21ff-4381-8274-c69d8f984c74","name":"bWkpvFbo","url":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74","project":{"id":"a9c7ac43-1859-4b43-9ae2-005602007655","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/a9c7ac43-1859-4b43-9ae2-005602007655","state":"wellFormed","revision":3139,"visibility":"public","lastUpdateTime":"2021-09-07T08:20:02.7Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFbo","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/RepoCreateListShowDeleteTests/bWkpvFbo","webUrl":"https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFbo","isDisabled":false}'
+      string: '{"id":"3c5396aa-a743-49d1-b8d8-7bd018e76042","name":"HtICckhT","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","isDisabled":false,"isInMaintenance":false}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 45ad6709-15a2-44b2-8dad-05614b013e45
+      - 5fad115e-0cf8-4ac7-bb77-3dae3320da5f
       cache-control:
       - no-cache
       content-length:
-      - '848'
+      - '855'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 08:23:05 GMT
+      - Fri, 29 Dec 2023 05:48:34 GMT
       expires:
       - '-1'
       p3p:
@@ -311,7 +121,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       x-cache:
@@ -321,17 +131,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: D2F503C3A4BD461DAF1FFD83819787A5 Ref B: BOM02EDGE0712 Ref C: 2021-09-07T08:23:05Z'
+      - 'Ref A: 7B3E33358FC545EA9AE36327E559CE5E Ref B: HYD30EDGE0216 Ref C: 2023-12-29T05:48:34Z'
       x-tfs-processid:
-      - f4ba79a6-4d43-4761-86e8-5d13ee0c6926
+      - 5b5c9c7f-5a69-4acb-b667-c8a35434b042
       x-tfs-session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       x-vss-e2eid:
-      - 45ad6709-15a2-44b2-8dad-05614b013e45
+      - 5fad115e-0cf8-4ac7-bb77-3dae3320da5f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 201
       message: Created
@@ -347,32 +157,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_apis/git/repositories
+    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories
   response:
     body:
-      string: '{"value":[{"id":"cc2a53b4-21ff-4381-8274-c69d8f984c74","name":"bWkpvFbo","url":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74","project":{"id":"a9c7ac43-1859-4b43-9ae2-005602007655","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/a9c7ac43-1859-4b43-9ae2-005602007655","state":"wellFormed","revision":3139,"visibility":"public","lastUpdateTime":"2021-09-07T08:20:02.7Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFbo","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/RepoCreateListShowDeleteTests/bWkpvFbo","webUrl":"https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFbo","isDisabled":false},{"id":"f793f7f1-0001-4bcb-8688-f6809237b3e8","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/f793f7f1-0001-4bcb-8688-f6809237b3e8","project":{"id":"a9c7ac43-1859-4b43-9ae2-005602007655","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/a9c7ac43-1859-4b43-9ae2-005602007655","state":"wellFormed","revision":3139,"visibility":"public","lastUpdateTime":"2021-09-07T08:20:02.7Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/RepoCreateListShowDeleteTests/RepoCreateListShowDeleteTests","webUrl":"https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","isDisabled":false}],"count":2}'
+      string: '{"value":[{"id":"8ca4d532-dffd-4ee3-978b-1640af9e163f","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/8ca4d532-dffd-4ee3-978b-1640af9e163f","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/RepoCreateListShowDeleteTests","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","isDisabled":false,"isInMaintenance":false},{"id":"3c5396aa-a743-49d1-b8d8-7bd018e76042","name":"HtICckhT","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","isDisabled":false,"isInMaintenance":false}],"count":2}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 73644d20-0c0c-4f2c-91a3-b4db2d1e8509
+      - 89d2c4e4-717c-44c0-9daf-91dc12d61d83
       cache-control:
       - no-cache
       content-length:
-      - '1803'
+      - '1817'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 08:23:05 GMT
+      - Fri, 29 Dec 2023 05:48:53 GMT
       expires:
       - '-1'
       p3p:
@@ -381,7 +191,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       transfer-encoding:
@@ -393,17 +203,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 05A47EDDA75D43D88C4C55197A1C8AC6 Ref B: BOM02EDGE0712 Ref C: 2021-09-07T08:23:06Z'
+      - 'Ref A: F31726F8D9514E24B35EB93782681D5F Ref B: MAA01EDGE0708 Ref C: 2023-12-29T05:48:53Z'
       x-tfs-processid:
-      - ff10ef99-7c3f-48e9-9ff0-07859f1a4890
+      - 8195bf23-df25-48ae-b8ee-06ec258258b9
       x-tfs-session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       x-vss-e2eid:
-      - 73644d20-0c0c-4f2c-91a3-b4db2d1e8509
+      - 89d2c4e4-717c-44c0-9daf-91dc12d61d83
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -419,32 +229,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74
+    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042
   response:
     body:
-      string: '{"id":"cc2a53b4-21ff-4381-8274-c69d8f984c74","name":"bWkpvFbo","url":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74","project":{"id":"a9c7ac43-1859-4b43-9ae2-005602007655","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/a9c7ac43-1859-4b43-9ae2-005602007655","state":"wellFormed","revision":3139,"visibility":"public","lastUpdateTime":"2021-09-07T08:20:02.7Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFbo","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/RepoCreateListShowDeleteTests/bWkpvFbo","webUrl":"https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFbo","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74"},"project":{"href":"vstfs:///Classification/TeamProject/a9c7ac43-1859-4b43-9ae2-005602007655"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFbo"},"ssh":{"href":"git@ssh.dev.azure.com:v3/devops-cli-test-org/RepoCreateListShowDeleteTests/bWkpvFbo"},"commits":{"href":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74/commits"},"refs":{"href":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74/refs"},"pullRequests":{"href":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74/pullRequests"},"items":{"href":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74/items"},"pushes":{"href":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74/pushes"}},"isDisabled":false}'
+      string: '{"id":"3c5396aa-a743-49d1-b8d8-7bd018e76042","name":"HtICckhT","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042"},"project":{"href":"vstfs:///Classification/TeamProject/b778afa3-eac1-4ff0-92ba-21481d5bfe63"},"web":{"href":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT"},"ssh":{"href":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT"},"commits":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/commits"},"refs":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/refs"},"pullRequests":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/pullRequests"},"items":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/items"},"pushes":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/pushes"}},"isDisabled":false,"isInMaintenance":false}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 45ad675b-15a2-44b2-8dad-05614b013e45
+      - 2382f601-8f56-477b-aa4b-f68d5b989e87
       cache-control:
       - no-cache
       content-length:
-      - '2152'
+      - '2127'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 08:23:05 GMT
+      - Fri, 29 Dec 2023 05:49:04 GMT
       expires:
       - '-1'
       p3p:
@@ -453,7 +263,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       vary:
@@ -465,17 +275,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 27C7A80856ED4CE1966D303FC07F5BAC Ref B: BOM02EDGE0712 Ref C: 2021-09-07T08:23:06Z'
+      - 'Ref A: 3AAE646AD74D4578B6F6A3F5013D0470 Ref B: HYD30EDGE0114 Ref C: 2023-12-29T05:49:04Z'
       x-tfs-processid:
-      - f4ba79a6-4d43-4761-86e8-5d13ee0c6926
+      - aa664ff2-ac76-4628-a235-ce4eff449050
       x-tfs-session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       x-vss-e2eid:
-      - 45ad675b-15a2-44b2-8dad-05614b013e45
+      - 2382f601-8f56-477b-aa4b-f68d5b989e87
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -491,32 +301,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74
+    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042
   response:
     body:
-      string: '{"id":"cc2a53b4-21ff-4381-8274-c69d8f984c74","name":"bWkpvFbo","url":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74","project":{"id":"a9c7ac43-1859-4b43-9ae2-005602007655","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/a9c7ac43-1859-4b43-9ae2-005602007655","state":"wellFormed","revision":3139,"visibility":"public","lastUpdateTime":"2021-09-07T08:20:02.7Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFbo","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/RepoCreateListShowDeleteTests/bWkpvFbo","webUrl":"https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFbo","_links":{"self":{"href":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74"},"project":{"href":"vstfs:///Classification/TeamProject/a9c7ac43-1859-4b43-9ae2-005602007655"},"web":{"href":"https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFbo"},"ssh":{"href":"git@ssh.dev.azure.com:v3/devops-cli-test-org/RepoCreateListShowDeleteTests/bWkpvFbo"},"commits":{"href":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74/commits"},"refs":{"href":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74/refs"},"pullRequests":{"href":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74/pullRequests"},"items":{"href":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74/items"},"pushes":{"href":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74/pushes"}},"isDisabled":false}'
+      string: '{"id":"3c5396aa-a743-49d1-b8d8-7bd018e76042","name":"HtICckhT","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042"},"project":{"href":"vstfs:///Classification/TeamProject/b778afa3-eac1-4ff0-92ba-21481d5bfe63"},"web":{"href":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT"},"ssh":{"href":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT"},"commits":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/commits"},"refs":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/refs"},"pullRequests":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/pullRequests"},"items":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/items"},"pushes":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/pushes"}},"isDisabled":false,"isInMaintenance":false}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 73644d11-0c0c-4f2c-91a3-b4db2d1e8509
+      - 2382cd46-8f56-477b-aa4b-f68d5b989e87
       cache-control:
       - no-cache
       content-length:
-      - '2152'
+      - '2127'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 08:23:05 GMT
+      - Fri, 29 Dec 2023 05:49:08 GMT
       expires:
       - '-1'
       p3p:
@@ -525,7 +335,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       vary:
@@ -537,27 +347,27 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 788574042EA14FFBB67AA8100CF75829 Ref B: BOM02EDGE0712 Ref C: 2021-09-07T08:23:06Z'
+      - 'Ref A: 58FF1A88D3CA40CEA46DFDABA8E60396 Ref B: HYD30EDGE0213 Ref C: 2023-12-29T05:49:08Z'
       x-tfs-processid:
-      - ff10ef99-7c3f-48e9-9ff0-07859f1a4890
+      - aa664ff2-ac76-4628-a235-ce4eff449050
       x-tfs-session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       x-vss-e2eid:
-      - 73644d11-0c0c-4f2c-91a3-b4db2d1e8509
+      - 2382cd46-8f56-477b-aa4b-f68d5b989e87
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
 - request:
-    body: '{"_links": {}, "id": "cc2a53b4-21ff-4381-8274-c69d8f984c74", "name": "bWkpvFboUpdated",
-      "project": {"id": "a9c7ac43-1859-4b43-9ae2-005602007655", "name": "RepoCreateListShowDeleteTests",
-      "revision": 3139, "state": "wellFormed", "url": "https://dev.azure.com/devops-cli-test-org/_apis/projects/a9c7ac43-1859-4b43-9ae2-005602007655",
-      "visibility": "public"}, "remoteUrl": "https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFbo",
-      "size": 0, "sshUrl": "git@ssh.dev.azure.com:v3/devops-cli-test-org/RepoCreateListShowDeleteTests/bWkpvFbo",
-      "url": "https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74"}'
+    body: '{"_links": {}, "id": "3c5396aa-a743-49d1-b8d8-7bd018e76042", "name": "HtICckhTUpdated",
+      "project": {"id": "b778afa3-eac1-4ff0-92ba-21481d5bfe63", "name": "RepoCreateListShowDeleteTests",
+      "revision": 464, "state": "wellFormed", "url": "https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63",
+      "visibility": "organization"}, "remoteUrl": "https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT",
+      "size": 0, "sshUrl": "git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT",
+      "url": "https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -566,36 +376,36 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '735'
+      - '720'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
-    uri: https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74
+    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042
   response:
     body:
-      string: '{"id":"cc2a53b4-21ff-4381-8274-c69d8f984c74","name":"bWkpvFboUpdated","url":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74","project":{"id":"a9c7ac43-1859-4b43-9ae2-005602007655","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/a9c7ac43-1859-4b43-9ae2-005602007655","state":"wellFormed","revision":3139,"visibility":"public","lastUpdateTime":"2021-09-07T08:20:02.7Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFboUpdated","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/RepoCreateListShowDeleteTests/bWkpvFboUpdated","webUrl":"https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/bWkpvFboUpdated","isDisabled":false}'
+      string: '{"id":"3c5396aa-a743-49d1-b8d8-7bd018e76042","name":"HtICckhTUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhTUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhTUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhTUpdated","isDisabled":false,"isInMaintenance":false}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 45ad60ad-15a2-44b2-8dad-05614b013e45
+      - 89d2e5cb-717c-44c0-9daf-91dc12d61d83
       cache-control:
       - no-cache
       content-length:
-      - '876'
+      - '883'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 08:23:05 GMT
+      - Fri, 29 Dec 2023 05:49:08 GMT
       expires:
       - '-1'
       p3p:
@@ -604,7 +414,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       vary:
@@ -616,17 +426,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 1E34742C22674952B834DAF9E6B6902D Ref B: BOM02EDGE0712 Ref C: 2021-09-07T08:23:06Z'
+      - 'Ref A: 89E6612E2EC44C9893892F56139FEE1B Ref B: HYD30EDGE0210 Ref C: 2023-12-29T05:49:08Z'
       x-tfs-processid:
-      - f4ba79a6-4d43-4761-86e8-5d13ee0c6926
+      - 8195bf23-df25-48ae-b8ee-06ec258258b9
       x-tfs-session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       x-vss-e2eid:
-      - 45ad60ad-15a2-44b2-8dad-05614b013e45
+      - 89d2e5cb-717c-44c0-9daf-91dc12d61d83
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -644,16 +454,16 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_apis/git/repositories/cc2a53b4-21ff-4381-8274-c69d8f984c74
+    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042
   response:
     body:
       string: ''
@@ -661,11 +471,11 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 73644d0f-0c0c-4f2c-91a3-b4db2d1e8509
+      - 89d2b3c5-717c-44c0-9daf-91dc12d61d83
       cache-control:
       - no-cache
       date:
-      - Tue, 07 Sep 2021 08:23:06 GMT
+      - Fri, 29 Dec 2023 05:49:32 GMT
       expires:
       - '-1'
       p3p:
@@ -674,7 +484,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       x-cache:
@@ -684,17 +494,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 33E8AF8C4C074F47971A309EC49D21B1 Ref B: BOM02EDGE0712 Ref C: 2021-09-07T08:23:06Z'
+      - 'Ref A: DDDA8DADC41948AFAA93B6DF50DA2BAC Ref B: HYD30EDGE0219 Ref C: 2023-12-29T05:49:33Z'
       x-tfs-processid:
-      - ff10ef99-7c3f-48e9-9ff0-07859f1a4890
+      - 8195bf23-df25-48ae-b8ee-06ec258258b9
       x-tfs-session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       x-vss-e2eid:
-      - 73644d0f-0c0c-4f2c-91a3-b4db2d1e8509
+      - 89d2b3c5-717c-44c0-9daf-91dc12d61d83
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 204
       message: No Content
@@ -710,32 +520,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.9.7 (Windows-10-10.0.19043-SP0) msrest/0.6.21 azure-devops/5.1.0b4
-        devOpsCli/0.21.0
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_apis/git/repositories
+    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories
   response:
     body:
-      string: '{"value":[{"id":"f793f7f1-0001-4bcb-8688-f6809237b3e8","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/devops-cli-test-org/a9c7ac43-1859-4b43-9ae2-005602007655/_apis/git/repositories/f793f7f1-0001-4bcb-8688-f6809237b3e8","project":{"id":"a9c7ac43-1859-4b43-9ae2-005602007655","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/devops-cli-test-org/_apis/projects/a9c7ac43-1859-4b43-9ae2-005602007655","state":"wellFormed","revision":3139,"visibility":"public","lastUpdateTime":"2021-09-07T08:20:02.7Z"},"size":0,"remoteUrl":"https://devops-cli-test-org@dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","sshUrl":"git@ssh.dev.azure.com:v3/devops-cli-test-org/RepoCreateListShowDeleteTests/RepoCreateListShowDeleteTests","webUrl":"https://dev.azure.com/devops-cli-test-org/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","isDisabled":false}],"count":1}'
+      string: '{"value":[{"id":"8ca4d532-dffd-4ee3-978b-1640af9e163f","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/8ca4d532-dffd-4ee3-978b-1640af9e163f","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/RepoCreateListShowDeleteTests","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","isDisabled":false,"isInMaintenance":false}],"count":1}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 5a2e42bb-a1db-4700-ac31-2c02e94a192a
+      - 72b2b9e7-676f-4cf1-8186-751e5f5b7309
       cache-control:
       - no-cache
       content-length:
-      - '954'
+      - '961'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Tue, 07 Sep 2021 08:23:07 GMT
+      - Fri, 29 Dec 2023 05:49:40 GMT
       expires:
       - '-1'
       p3p:
@@ -744,7 +554,7 @@ interactions:
       pragma:
       - no-cache
       request-context:
-      - appId=cid-v1:a892bfef-0287-4640-9f5e-cffc90fbcf94
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       transfer-encoding:
@@ -756,17 +566,17 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 3F8DD2F04712464AA581FEA40A7E7698 Ref B: BOM02EDGE0616 Ref C: 2021-09-07T08:23:07Z'
+      - 'Ref A: 4EFF14B8FBBF4807A861BE82E313F527 Ref B: HYD30EDGE0516 Ref C: 2023-12-29T05:49:40Z'
       x-tfs-processid:
-      - ecab2ef8-a67f-407c-8c0b-38d8d7cfa1de
+      - fac43496-6b3e-4e8b-a2a7-d83c4a294ef7
       x-tfs-session:
-      - 2c05d37d-037f-4cad-bd61-166ac76b8e74
+      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
       x-vss-e2eid:
-      - 5a2e42bb-a1db-4700-ac31-2c02e94a192a
+      - 72b2b9e7-676f-4cf1-8186-751e5f5b7309
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
-      - 60a59117-a1ed-6677-ab04-b3de5aa38954:devops-cli@outlook.com
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK

@@ -8,7 +8,7 @@ from knack.util import CLIError
 from azure_devtools.scenario_tests import AllowLargeResponse
 from .utilities.helper import DevopsScenarioTest, disable_telemetry, set_authentication, get_test_org_from_env_variable
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'https://dev.azure.com/devops-cli-test-org'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'https://dev.azure.com/v-anvashist0376'
 _TEST_EMAIL_ID = 'new_user_test@outlook.com'
 
 
@@ -24,7 +24,6 @@ class PermissionTests(DevopsScenarioTest):
             create_project_command = 'az devops project create --name ' + random_project_name + ' --output json --detect false'
             project_create_output = self.cmd(create_project_command).get_output_in_json()
             created_project_id = project_create_output["id"]
-
             #Permanently delete work items permission
             permission_bit = 32768
             #add user

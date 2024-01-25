@@ -11,7 +11,7 @@ from dateutil import parser
 from .utilities.helper import (
     DevopsScenarioTest, get_random_name, disable_telemetry, set_authentication, get_test_org_from_env_variable)
 
-DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/devops-cli-test-org'
+DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.azure.com/v-anvashist0376'
 
 class AzReposPrTests(DevopsScenarioTest):
     @AllowLargeResponse(size_kb=3072)
@@ -79,7 +79,7 @@ class AzReposPrTests(DevopsScenarioTest):
             
             #Reviewers test before completing the PR
             #add pr reviewer
-            add_pr_reviewers_command = 'az repos pr reviewer add --id ' + create_pr_id + ' --reviewers "Devops Cli" --detect false --output json'
+            add_pr_reviewers_command = 'az repos pr reviewer add --id ' + create_pr_id + ' --reviewers "v-sbestala" --detect false --output json'
             add_pr_reviewers_output = self.cmd(add_pr_reviewers_command).get_output_in_json()
             assert len(add_pr_reviewers_output) > 0
 
@@ -89,7 +89,7 @@ class AzReposPrTests(DevopsScenarioTest):
             assert len(list_pr_reviewers_output) > 0
 
             #Remove pr reviewer
-            remove_pr_reviewers_command = 'az repos pr reviewer remove --id ' + create_pr_id + ' --reviewers "Devops Cli" --detect false --output json'
+            remove_pr_reviewers_command = 'az repos pr reviewer remove --id ' + create_pr_id + ' --reviewers "v-sbestala" --detect false --output json'
             self.cmd(remove_pr_reviewers_command).get_output_in_json()
             #verify pr reviewers removed
             list_pr_reviewers_output = self.cmd(list_pr_reviewers_command).get_output_in_json()

@@ -95,7 +95,7 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
     return pr_list
 
 
-# pylint: disable=too-many-locals
+# pylint: disable=too-many-statements, too-many-locals, redefined-builtin
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
@@ -213,20 +213,34 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
         pr.work_item_refs = resolved_work_items
     pr = client.create_pull_request(git_pull_request_to_create=pr, project=project,
                                     repository_id=repository)
+    # if title or description are not provided and there is a single commit, we will
+    # use the its comment to populate the not-provided field(s).
+    # the first line of the commit comment is used for title and all lines of the
+    # comment are used for description.
     title_from_commit = None
-    if title is None:
-        # if title wasn't specified and only one commit, we will set the PR title to the comment of that commit
+    description_from_commit = None
+    if (title is None) or (description is None):
         commits = client.get_pull_request_commits(repository_id=repository, pull_request_id=pr.pull_request_id,
                                                   project=project)
         if len(commits) == 1:
-            title_from_commit = commits[0].comment
+            commit_details = client.get_commit(commit_id=commits[0].commit_id, repository_id=repository,
+                                               project=project, change_count=0)
+            first_commit_comment = commit_details.comment
+
+            if first_commit_comment:
+                # when title is not specified, use the first line of first commit comment as PR title
+                if title is None:
+                    title_from_commit = first_commit_comment.split("\n")[0]
+                # when description is not specified, use the entire commit comment as PR description
+                if description is None:
+                    description_from_commit = first_commit_comment
     set_completion_options = (bypass_policy or
                               bypass_policy_reason is not None or
                               squash or
                               merge_commit_message is not None or
                               delete_source_branch or
                               transition_work_items)
-    if auto_complete or set_completion_options or title_from_commit is not None:
+    if auto_complete or set_completion_options or title_from_commit is not None or description_from_commit is not None:
         pr_for_update = GitPullRequest()
         if auto_complete:
             # auto-complete will not get set on create, so a subsequent update is required.
@@ -242,6 +256,8 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
             pr_for_update.completion_options = completion_options
         if title_from_commit is not None:
             pr_for_update.title = title_from_commit
+        if description_from_commit is not None:
+            pr_for_update.description = description_from_commit
         pr = client.update_pull_request(git_pull_request_to_update=pr_for_update,
                                         project=pr.repository.project.id,
                                         repository_id=pr.repository.id,
