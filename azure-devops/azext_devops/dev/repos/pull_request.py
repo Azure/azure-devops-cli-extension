@@ -99,9 +99,9 @@ def list_pull_requests(repository=None, creator=None, include_links=False, revie
 def create_pull_request(project=None, repository=None, source_branch=None, target_branch=None,
                         title=None, description=None, auto_complete=False, squash=False,
                         delete_source_branch=False, bypass_policy=False, bypass_policy_reason=None,
-                        merge_commit_message=None, reviewers=None, work_items=None, draft=None,
-                        open=False, organization=None, detect=None, transition_work_items=False,
-                        labels=None):  # pylint: disable=redefined-builtin
+                        merge_commit_message=None, optional_reviewers=None, required_reviewers=None,
+                        work_items=None, draft=None, open=False, organization=None, detect=None,
+                        transition_work_items=False, labels=None):  # pylint: disable=redefined-builtin
     """Create a pull request.
     :param project: Name or ID of the team project.
     :type project: str
@@ -135,9 +135,12 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
     :type bypass_policy_reason: str
     :param merge_commit_message: Message displayed when commits are merged.
     :type merge_commit_message: str
-    :param reviewers: Additional users or groups to include as reviewers on the new pull request.
+    :param optional_reviewers: Additional users or groups to include as optional reviewers on the new pull request.
                       Space separated.
-    :type reviewers: list of str
+    :type optional_reviewers: list of str
+    :param required_reviewers: Additional users or groups to include as required reviewers on the new pull request.
+                      Space separated.
+    :type required_reviewers: list of str
     :param work_items: IDs of the work items to link to the new pull request. Space separated.
     :type work_items: list of str
     :param open: Open the pull request in your web browser.
@@ -168,18 +171,27 @@ def create_pull_request(project=None, repository=None, source_branch=None, targe
                         labels=labels)
     if draft is not None:
         pr.is_draft = draft
+
+    pr.title = 'Merge ' + source_branch + ' to ' + target_branch
     if title is not None:
         pr.title = title
-    else:
-        pr.title = 'Merge ' + source_branch + ' to ' + target_branch
+
     pr.source_ref_name = resolve_git_ref_heads(source_branch)
     pr.target_ref_name = resolve_git_ref_heads(target_branch)
     if pr.source_ref_name == pr.target_ref_name:
         raise CLIError('The source branch, "{}", can not be the same as the target branch.'.format
                        (pr.source_ref_name))
-    if reviewers is not None:
-        reviewers = list(set(x.lower() for x in reviewers))
-    pr.reviewers = _resolve_reviewers_as_refs(reviewers, organization)
+
+    if optional_reviewers is not None:
+        optional_reviewers = list(set(x.lower() for x in optional_reviewers))
+
+    if required_reviewers is not None:
+        required_reviewers = list(set(x.lower() for x in required_reviewers))
+
+    reviewers = _resolve_reviewers_as_refs(optional_reviewers, required_reviewers, organization)
+
+    pr.reviewers = reviewers
+
     if work_items is not None and work_items:
         resolved_work_items = []
         for work_item in work_items:
@@ -346,18 +358,25 @@ def update_pull_request(id, title=None, description=None, auto_complete=None,  #
     return pr
 
 
-def create_pull_request_reviewers(id, reviewers, organization=None, detect=None):  # pylint: disable=redefined-builtin
+def create_pull_request_reviewers(id, reviewers, organization=None, detect=None, required=None):  # pylint: disable=redefined-builtin
     """Add one or more reviewers to a pull request.
     :param id: ID of the pull request.
     :type id: int
     :param reviewers: Users or groups to include as reviewers on a pull request. Space separated.
     :type reviewers: list of str
+    :param required: Make the reviewers required.
+    :type reviewers: bool
     :rtype: list of :class:`IdentityRefWithVote <v5_0.git.models.IdentityRefWithVote>`
     """
     organization = resolve_instance(detect=detect, organization=organization)
     client = get_git_client(organization)
     pr = client.get_pull_request_by_id(id)
-    resolved_reviewers = _resolve_reviewers_as_refs(reviewers, organization)
+    resolved_reviewers = _resolve_reviewers_as_refs(reviewers, None, organization)
+
+    if required:
+        for reviewer in resolved_reviewers:
+            reviewer.is_required = True
+
     identities = client.create_pull_request_reviewers(reviewers=resolved_reviewers,
                                                       project=pr.repository.project.id,
                                                       repository_id=pr.repository.id,
@@ -616,16 +635,34 @@ def queue_pr_policy(id, evaluation_id, organization=None, detect=None):  # pylin
                                                    evaluation_id=evaluation_id)
 
 
-def _resolve_reviewers_as_refs(reviewers, organization):
+def _resolve_reviewers_as_refs(optional_reviewers, required_reviewers, organization):
     """Takes a list containing identity names, emails, and ids,
-    and return a list of IdentityRefWithVote objects.
+    and return a list of IdentityRefWithVote objects. Reviewers found twice will be made required
+    :param optional_reviewers: the list of optional reviewers
+    :param required_reviewers: the list of required reviewers
     :rtype: list of :class:`IdentityRefWithVote <v5_0.git.models.IdentityRefWithVote>`
     """
-    resolved_reviewers = None
-    if reviewers is not None and reviewers:
-        resolved_reviewers = []
-        for reviewer in reviewers:
-            resolved_reviewers.append(IdentityRefWithVote(id=resolve_identity_as_id(reviewer, organization)))
+    if optional_reviewers is None:
+        optional_reviewers = []
+    if required_reviewers is None:
+        required_reviewers = []
+    resolved_reviewers = []
+
+    for reviewer in optional_reviewers:
+        resolved_reviewers.append(IdentityRefWithVote(id=resolve_identity_as_id(reviewer, organization)))
+
+    for reviewer in required_reviewers:
+        resolved_reviewer = IdentityRefWithVote(id=resolve_identity_as_id(reviewer, organization))
+
+        # is this id already in the list (make duplicate required)
+        for optional_reviewer in resolved_reviewers:
+            if optional_reviewer.id == resolved_reviewer.id:
+                optional_reviewer.is_required = True
+                continue
+
+        resolved_reviewer.is_required = True
+        resolved_reviewers.append(resolved_reviewer)
+
     return resolved_reviewers
 
 

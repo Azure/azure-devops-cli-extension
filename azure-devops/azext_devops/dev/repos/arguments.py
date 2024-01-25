@@ -119,12 +119,17 @@ def load_code_arguments(self, _):
         context.argument('delete_source_branch', arg_type=get_three_state_flag())
         context.argument('bypass_policy', arg_type=get_three_state_flag())
         context.argument('transition_work_items', arg_type=get_three_state_flag())
+        context.argument('optional_reviewers', options_list=('--reviewers', '--optional-reviewers'), nargs='+')
+        context.argument('required_reviewers', nargs='+')
 
     with self.argument_context('repos pr list') as context:
         context.argument('status', **enum_choice_list(_PR_STATUS_VALUES))
 
     with self.argument_context('repos pr reviewer') as context:
         context.argument('reviewers', nargs='+')
+
+    with self.argument_context('repos pr reviewer add') as context:
+        context.argument('required', arg_type=get_three_state_flag())
 
     with self.argument_context('repos pr work-item') as context:
         context.argument('work_items', nargs='+')
