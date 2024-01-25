@@ -148,15 +148,15 @@ class TestPullRequestMethods(AuthenticatedTests):
         self.mock_resolve_reviewers_as_refs.return_value = ['id1']
 
         response = create_pull_request(
-			project = self._TEST_PROJECT_NAME,
-			repository = self._TEST_REPOSITORY_NAME,
-			source_branch = self._TEST_SOURCE_BRANCH,
-			target_branch = self._TEST_TARGET_BRANCH,
-			title = self._TEST_PR_TITLE,
-			description = self._TEST_PR_DESCRIPTION,
-			optional_reviewers = ['a@b.com','A@b.com'],
-			organization = self._TEST_DEVOPS_ORGANIZATION
-		)
+            project = self._TEST_PROJECT_NAME,
+            repository = self._TEST_REPOSITORY_NAME,
+            source_branch = self._TEST_SOURCE_BRANCH,
+            target_branch = self._TEST_TARGET_BRANCH,
+            title = self._TEST_PR_TITLE,
+            description = self._TEST_PR_DESCRIPTION,
+            optional_reviewers = ['a@b.com','A@b.com'],
+            organization = self._TEST_DEVOPS_ORGANIZATION
+        )
 
         # assert
         self.mock_validate_token.assert_not_called()
