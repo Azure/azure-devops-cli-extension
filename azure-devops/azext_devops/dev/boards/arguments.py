@@ -15,10 +15,14 @@ def load_work_arguments(self, _):
         context.argument('work_item_type', type=str, options_list='--type')
         context.argument('fields', nargs='*', options_list=('--fields', '-f'))
         context.argument('description', options_list=('--description', '-d'))
+        context.argument('bypass_rules', options_list=['--bypass-rules'], action='store_true',
+                         help='Do not enforce the work item type rules on this update.')
 
     with self.argument_context('boards work-item update') as context:
         context.argument('fields', nargs='*', options_list=('--fields', '-f'))
         context.argument('description', options_list=('--description', '-d'))
+        context.argument('bypass_rules', options_list=['--bypass-rules'], action='store_true',
+                         help='Do not enforce the work item type rules on this update.')
 
     with self.argument_context('boards work-item delete') as context:
         context.argument('yes', options_list=['--yes', '-y'], action='store_true',
