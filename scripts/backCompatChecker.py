@@ -75,7 +75,9 @@ import sys
 from azure.cli.core.extension import get_extension_path
 # Make sure that the extension install directory is on sys.path so that dependencies can be found.
 extensionPath = get_extension_path('azure-devops')
-sys.path.append(extensionPath)
+# Adding None to sys.path breaks numerous libraries, including pkg_resources
+if extensionPath is not None:
+    sys.path.append(extensionPath)
 
 # loading commands from code
 from azure.cli.core.mock import DummyCli
