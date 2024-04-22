@@ -182,7 +182,7 @@ def update_page(wiki, path, version, comment=_DEFAULT_PAGE_UPDATE_MESSAGE, conte
 
 
 def get_page(wiki, path, version=None, open=False,  # pylint: disable=redefined-builtin
-             include_content=False, organization=None, project=None, detect=None):
+             include_content=False, organization=None, project=None, detect=None, recursion_level=None):
     """Get the content of a page or open a page.
     :param wiki: Name or Id of the wiki.
     :type wiki: str
@@ -194,6 +194,8 @@ def get_page(wiki, path, version=None, open=False,  # pylint: disable=redefined-
     :type include_content: str
     :param open: Open the wiki page in your web browser.
     :type open: bool
+    :param recursion_level: Include subpages of the page.
+    :type recursion_level: str
     """
     organization, project = resolve_instance_and_project(detect=detect,
                                                          organization=organization,
@@ -201,7 +203,7 @@ def get_page(wiki, path, version=None, open=False,  # pylint: disable=redefined-
     wiki_client = get_wiki_client(organization)
     page_object = wiki_client.get_page(
         wiki_identifier=wiki, project=project, path=path,
-        recursion_level=None, version_descriptor=version,
+        recursion_level=recursion_level, version_descriptor=version,
         include_content=include_content)
     if open:
         webbrowser.open_new(url=page_object.page.remote_url)
