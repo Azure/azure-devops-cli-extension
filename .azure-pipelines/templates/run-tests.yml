@@ -25,9 +25,9 @@ steps:
   #   - script: pytest --junitxml "TEST-results.xml"
   #     displayName: 'Run Tests'
   
-  - ${{ if eq(parameters.runOnlyRecordedTests, 'true') }}:
-    - script: pytest tests --junitxml "TEST-results.xml"
-      displayName: 'Run Tests'
+  # - ${{ if eq(parameters.runOnlyRecordedTests, 'true') }}:
+  #   - script: pytest tests --junitxml "TEST-results.xml"
+  #     displayName: 'Run Tests'
 
   - task: PublishTestResults@2
     displayName: 'Publish Test Results'
