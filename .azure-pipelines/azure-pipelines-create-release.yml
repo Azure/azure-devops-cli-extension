@@ -99,7 +99,7 @@ jobs:
 
   - task: GitHubRelease@0
     inputs:
-      gitHubConnection: github.com_rohit-batra
+      gitHubConnection: github.com_v-soujanya
       repositoryName: Azure/azure-devops-cli-extension
       action: 'create'
       target: '$(Build.SourceVersion)'
