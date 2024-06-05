@@ -9,6 +9,7 @@ import logging
 import os
 import re
 import uuid
+import urllib.parse
 
 from msrest import Deserializer, Serializer
 from msrest.exceptions import DeserializationError, SerializationError
@@ -122,6 +123,14 @@ class Client(object):
                              + self.config.base_url + '.')
         if route_values is None:
             route_values = {}
+
+        if route_values is not None and 'repositoryId' in route_values is not None:
+            repository = urllib.parse.unquote(route_values['repositoryId'])
+
+            if '/' in repository:
+                route_values['project'] = repository.split("/")[0]
+                route_values['repositoryId'] = repository.split("/")[1]
+
         route_values['area'] = location.area
         route_values['resource'] = location.resource_name
         route_template = self._remove_optional_route_parameters(location.route_template,
