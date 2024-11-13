@@ -9,7 +9,7 @@ from knack.util import CLIError, ensure_dir
 from knack.log import get_logger
 from six.moves import configparser
 from .config import AZ_DEVOPS_GLOBAL_CONFIG_DIR
-from .pip_helper import install_keyring
+import keyring
 
 logger = get_logger(__name__)
 
@@ -19,13 +19,6 @@ class CredentialStore:
         self._initialize_keyring()
 
     def set_password(self, key, token):
-        try:
-            import keyring
-        except ImportError:
-            install_keyring()
-            self._initialize_keyring()
-            import keyring
-
         try:
             # check for and delete existing credential
             old_token = keyring.get_password(key, self._USERNAME)
@@ -51,10 +44,6 @@ class CredentialStore:
                 raise CLIError(ex)
 
     def get_password(self, key):
-        try:
-            import keyring
-        except ImportError:
-            return None
         token = None
         try:
             token = keyring.get_password(key, self._USERNAME)
@@ -70,12 +59,6 @@ class CredentialStore:
         return token
 
     def clear_password(self, key):
-        try:
-            import keyring
-        except ImportError:
-            install_keyring()
-            self._initialize_keyring()
-            import keyring
         if sys.platform.startswith(self._LINUX_PLATFORM):
             keyring_token = None
             file_token = None
@@ -140,10 +123,6 @@ class CredentialStore:
 
     @staticmethod
     def _initialize_keyring():
-        try:
-            import keyring
-        except ImportError:
-            return
 
         def _only_builtin(backend):
             return (
