@@ -1,0 +1,20 @@
+pr:
+- master
+ 
+trigger: none
+ 
+jobs:
+
+ - job: 'Run_Markdown_Lint_Check'
+  pool:
+    vmImage: 'windows-latest'
+ 
+  steps:
+  - script: gem install chef-utils -v 16.6.14
+    displayName: 'Install chef utils'
+ 
+  - script: gem install mdl
+    displayName: 'Install markdown lint'
+ 
+  - script: mdl . -c .mdlrc
+    displayName: 'Run markdown lint'
