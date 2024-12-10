@@ -5,7 +5,7 @@ trigger: none
  
 jobs:
 
- - job: 'Run_Markdown_Lint_Check'
+- job: 'Run_Markdown_Lint_Check'
   pool:
     vmImage: 'windows-latest'
  
