@@ -6,7 +6,6 @@ pr:
 trigger: none
  
 jobs:
-  build:
     runs-on: 'windows-latest'
    steps:
     -name: 'Install chef utils'
