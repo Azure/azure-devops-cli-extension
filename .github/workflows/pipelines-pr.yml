@@ -3,7 +3,7 @@ name: Pull Request Validation
 on:
  pull_request:
    branches:
-     - master
+     - main
     
 jobs:
  Run_Markdown_Lint_Check:
