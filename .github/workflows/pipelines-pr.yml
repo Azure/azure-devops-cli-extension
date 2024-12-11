@@ -1,15 +1,20 @@
 name: Pull Request Validation
+
 on:
  pull_request:
    branches:
      - master
+    
 jobs:
  validate:
    runs-on: windows-latest
+   
    steps:
      - name: 'Install chef utils'
        run: gem install chef-utils -v 16.6.14
+       
      - name: 'Install markdown lint'
        run: gem install mdl
+
      - name: 'Run markdown lint'
        run: mdl . -c .mdlrc
