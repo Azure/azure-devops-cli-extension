@@ -10,8 +10,8 @@ jobs:
     runs-on: 'windows-latest'
  
   steps:
-  - script: gem install chef-utils -v 16.6.14
-    name: 'Install chef utils'
+    -name: 'Install chef utils'
+     run: gem install chef-utils -v 16.6.14
  
   - script: gem install mdl
     name: 'Install markdown lint'
