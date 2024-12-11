@@ -6,9 +6,9 @@ on:
      - master
     
 jobs:
- validate:
+ Run_Markdown_Lint_Check:
    runs-on: windows-latest
-   
+
    steps:
      - name: 'Install chef utils'
        run: gem install chef-utils -v 16.6.14
