@@ -1,0 +1,27 @@
+name: Pull Request Validation
+
+on:
+ pull_request:
+   branches:
+     - master
+    
+jobs:
+ Build_Publish_Azure_DevOps_CLI_Extension:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install setuptools
+        run: pip install setuptools
+
+      - name: Setup CI Machine
+        run: .github/templates/setup-ci-machine.yml
+
+      - name: Build and Publish Azure DevOps CLI Extension
+        run: .github/templates/build-publish-azure-devops-cli-extension.yml
