@@ -1,0 +1,25 @@
+steps:
+ - name: Checkout Repository
+   uses: actions/checkout@v3
+
+ - name: Set up Python 3.x
+   uses: actions/setup-python@v4
+   with:
+     python-version: '3.x'
+
+ - name: Install Azure DevOps CLI Extension
+   run: pip install --upgrade .
+   working-directory: azure-devops/
+
+ - name: Remove Code Comments from SDK Files
+   run: python scripts/removeComments.py
+
+ - name: Build Wheel for Azure DevOps CLI Extension
+   run: python setup.py sdist bdist_wheel
+   working-directory: azure-devops/
+   
+ - name: Publish Azure DevOps CLI Extension as Artifact
+   uses: actions/upload-artifact@v3
+   with:
+     name: azure-devops-cli-extension
+     path: azure-devops/dist
