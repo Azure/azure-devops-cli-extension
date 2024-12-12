@@ -19,9 +19,3 @@ jobs:
 
       - name: Install setuptools
         run: pip install setuptools
-
-      - name: Setup CI Machine
-        run: .github/templates/setup-ci-machine.yml
-
-      - name: Build and Publish Azure DevOps CLI Extension
-        run: .github/templates/build-publish-azure-devops-cli-extension.yml
