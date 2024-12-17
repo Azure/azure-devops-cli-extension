@@ -1,11 +1,8 @@
-on:
-  workflow_call:
+name: 'Setup machine'
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
+runs:
+  using: "composite"
+  steps:
     - name: Checkout Repository
       uses: v-soujanya/checkout@v3
 

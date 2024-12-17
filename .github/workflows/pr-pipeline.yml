@@ -13,10 +13,10 @@ jobs:
 
    steps:
      - name: Checkout Repository
-       uses: v-soujanya/checkout@v3
+       uses: actions/checkout@v3
 
      - name: Set up Python 3.x
-       uses: v-soujanya/setup-python@v4
+       uses: actions/setup-python@v4
        with:
          python-version: '3.x'
 
@@ -24,4 +24,4 @@ jobs:
        run: pip install setuptools
 
      - name: Setup CI Machine
-       uses: ./.github/workflows/setup-ci-machine.yml
+       uses: ./.github/actions/machine-action/setup-ci-machine.yml
