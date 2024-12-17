@@ -24,4 +24,4 @@ jobs:
        run: pip install setuptools
 
      - name: Setup CI Machine
-       uses: ./.github/actions/machine-action/setup-ci-machine.yml
+       uses: ./.github/actions/machine-action
