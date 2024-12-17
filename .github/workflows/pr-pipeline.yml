@@ -23,5 +23,5 @@ jobs:
      - name: Install setuptools
        run: pip install setuptools
 
-     - name: Setup CI Machine:
+     - name: Setup CI Machine
        uses: ./.github/workflows/setup-ci-machine.yml
