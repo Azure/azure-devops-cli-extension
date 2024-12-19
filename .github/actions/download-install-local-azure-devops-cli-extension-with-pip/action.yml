@@ -4,7 +4,7 @@ description: 'Download and install the local Azure DevOps CLI extension using pi
 runs:
   using: 'composite'
   steps:
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v4
       with:
         name: azure-devops-cli-extension
         path: $(System.ArtifactsDirectory)/extension
