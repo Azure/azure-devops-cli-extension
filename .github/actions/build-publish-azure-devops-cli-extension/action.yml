@@ -13,7 +13,7 @@ runs:
     - run: python setup.py sdist bdist_wheel
       shell: bash
       working-directory: azure-devops/
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: azure-devops-cli-extension
         path: azure-devops/dist

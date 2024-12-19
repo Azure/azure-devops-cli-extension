@@ -100,7 +100,7 @@ jobs:
         with:
           script: 'scripts/fixCodeCoverageStyle.py'
       - name: Publish Code Coverage Results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: code-coverage
           path: $(System.DefaultWorkingDirectory)/azure-devops/htmlcov
