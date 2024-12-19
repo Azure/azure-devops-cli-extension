@@ -127,6 +127,7 @@ jobs:
         run: chmod +x scripts/runStyleCheck.ps1
       - name: Run Style Check
         run: scripts/runStyleCheck.ps1
+        shell: pwsh
 
   Run_HelpText_Check:
     needs: Build_Publish_Azure_CLI_Test_SDK
