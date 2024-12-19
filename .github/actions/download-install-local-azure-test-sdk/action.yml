@@ -16,5 +16,5 @@ runs:
             pip install $wheel.FullName
         }
         Write-Host "done"
-      shell: powershell
+      shell: pwsh
       working-directory: ${{ github.workspace }}/wheels
