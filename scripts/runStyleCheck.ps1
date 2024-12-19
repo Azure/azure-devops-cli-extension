@@ -1,7 +1,7 @@
 $failure = $false             
 
 Write-Output "Installing pylint"
-pip install pylint
+pip install pylint==2.5 
 
 Write-Output "Installing flake8"
 pip install flake8
