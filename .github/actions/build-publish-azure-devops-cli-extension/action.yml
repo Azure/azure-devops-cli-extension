@@ -1,0 +1,19 @@
+
+name: 'Build and Publish Azure DevOps CLI Extension'
+description: 'Build and publish the Azure DevOps CLI extension'
+runs:
+  using: 'composite'
+  steps:
+    - run: pip install --upgrade .
+      shell: bash
+      working-directory: azure-devops/
+    - uses: actions/setup-python@v2
+      with:
+        script: 'scripts/removeComments.py'
+    - run: python setup.py sdist bdist_wheel
+      shell: bash
+      working-directory: azure-devops/
+    - uses: actions/upload-artifact@v2
+      with:
+        name: azure-devops-cli-extension
+        path: azure-devops/dist

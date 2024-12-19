@@ -1,0 +1,20 @@
+
+name: 'Download and Install Local Azure Test SDK'
+description: 'Download and install the local Azure Test SDK'
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: azure-cli-test-sdk
+        path: $(System.ArtifactsDirectory)/wheels
+    - run: |
+        $wheels = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
+        Foreach ($wheel in $wheels)
+        {
+            Write-Host "installing" $wheel.FullName
+            pip install $wheel.FullName
+        }
+        Write-Host "done"
+      shell: powershell
+      working-directory: $(System.ArtifactsDirectory)/wheels

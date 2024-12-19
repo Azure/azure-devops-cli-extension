@@ -1,0 +1,20 @@
+
+name: 'Build and Publish Azure CLI Test SDK'
+description: 'Build and publish the Azure CLI Test SDK'
+runs:
+  using: 'composite'
+  steps:
+    - run: rm -rf azure-cli
+      shell: bash
+    - run: git clone https://github.com/Azure/azure-cli.git
+      shell: bash
+    - run: pip install --upgrade .
+      shell: bash
+      working-directory: azure-cli/src/azure-cli-testsdk/
+    - run: python setup.py sdist bdist_wheel
+      shell: bash
+      working-directory: azure-cli/src/azure-cli-testsdk/
+    - uses: actions/upload-artifact@v2
+      with:
+        name: azure-cli-test-sdk
+        path: azure-cli/src/azure-cli-testsdk/dist
