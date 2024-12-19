@@ -5,7 +5,7 @@
 
 import os
 
-from azure_devtools.scenario_tests import AllowLargeResponse
+from azure.cli.testsdk.scenario_tests import AllowLargeResponse
 from .utilities.helper import (DevopsScenarioTest,
                                disable_telemetry,
                                get_random_name,
