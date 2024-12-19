@@ -4,9 +4,9 @@ description: 'Build and publish the Azure DevOps CLI extension'
 runs:
   using: 'composite'
   steps:
-    - run: pip install --upgrade .
-      shell: bash
-      working-directory: azure-devops/
+    # - run: pip install --upgrade .
+    #   shell: bash
+    #   working-directory: azure-devops/
     - uses: actions/setup-python@v2
       with:
         script: 'scripts/removeComments.py'

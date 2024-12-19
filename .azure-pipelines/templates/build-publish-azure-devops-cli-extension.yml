@@ -1,7 +1,7 @@
 steps:
-  # - script: 'pip install --upgrade .'
-  #   displayName: 'Install Azure DevOps CLI extension'
-  #   workingDirectory: 'azure-devops/'
+  - script: 'pip install --upgrade .'
+    displayName: 'Install Azure DevOps CLI extension'
+    workingDirectory: 'azure-devops/'
 
   - task: PythonScript@0
     displayName: 'Remove code comments from SDK files'
