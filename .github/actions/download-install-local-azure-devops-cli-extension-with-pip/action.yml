@@ -7,7 +7,7 @@ runs:
     - uses: actions/download-artifact@v4
       with:
         name: azure-devops-cli-extension
-        path: $(System.ArtifactsDirectory)/extension
+        path: ${{ github.workspace }}/extension
     - run: |
         $extensionUninstall = az extension remove -n azure-devops
         $extensions = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
@@ -18,4 +18,4 @@ runs:
         }
         Write-Host "done"
       shell: powershell
-      working-directory: $(System.ArtifactsDirectory)/extension
+      working-directory: ${{ github.workspace }}/extension

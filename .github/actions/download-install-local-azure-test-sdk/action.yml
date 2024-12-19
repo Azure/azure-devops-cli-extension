@@ -7,7 +7,7 @@ runs:
     - uses: actions/download-artifact@v4
       with:
         name: azure-cli-test-sdk
-        path: $(System.ArtifactsDirectory)/wheels
+        path: ${{ github.workspace }}/wheels
     - run: |
         $wheels = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
         Foreach ($wheel in $wheels)
@@ -17,4 +17,4 @@ runs:
         }
         Write-Host "done"
       shell: powershell
-      working-directory: $(System.ArtifactsDirectory)/wheels
+      working-directory: ${{ github.workspace }}/wheels

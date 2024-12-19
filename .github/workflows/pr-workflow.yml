@@ -106,7 +106,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: code-coverage
-          path: $(System.DefaultWorkingDirectory)/azure-devops/htmlcov
+          path: ${{ github.workspace }}/azure-devops/htmlcov
 
   Run_Style_Check:
     runs-on: macOS-latest
