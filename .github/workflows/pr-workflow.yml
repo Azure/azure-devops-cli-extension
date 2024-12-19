@@ -19,6 +19,10 @@ jobs:
       - name: Install setuptools
         run: pip install setuptools
       - uses: ./.github/actions/setup-ci-machine
+      - name: Build wheel for Azure DevOps CLI extension
+        run: python setup.py sdist bdist_wheel
+        working-directory: 'azure-devops/'
+      working-directory: azure-devops/
       - uses: ./.github/actions/build-publish-azure-devops-cli-extension
 
   Build_Publish_Azure_CLI_Test_SDK:
