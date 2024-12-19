@@ -17,5 +17,5 @@ runs:
             az extension add --source $extension.FullName -y --debug
         }
         Write-Host "done"
-      shell: powershell
+      shell: pwsh
       working-directory: ${{ github.workspace }}/extension

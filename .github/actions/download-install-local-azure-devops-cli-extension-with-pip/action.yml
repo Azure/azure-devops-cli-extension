@@ -17,5 +17,5 @@ runs:
             pip install $extension.FullName
         }
         Write-Host "done"
-      shell: powershell
+      shell: pwsh
       working-directory: ${{ github.workspace }}/extension
