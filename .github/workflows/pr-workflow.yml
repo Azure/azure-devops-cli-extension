@@ -115,7 +115,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: '3.x'
           architecture: x64
       - uses: ./.github/actions/install-azure-cli-edge
       - uses: ./.github/actions/download-install-local-azure-test-sdk
@@ -134,6 +134,8 @@ jobs:
         with:
           python-version: '3.12'
           architecture: x64
+      - name: Install setuptools
+        run: pip install setuptools==70.0.0
       - uses: ./.github/actions/install-azure-cli-edge
       - uses: ./.github/actions/download-install-local-azure-test-sdk
       - uses: ./.github/actions/setup-ci-machine
