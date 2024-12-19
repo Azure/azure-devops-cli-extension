@@ -121,6 +121,8 @@ jobs:
       - uses: ./.github/actions/download-install-local-azure-test-sdk
       - uses: ./.github/actions/setup-ci-machine
       - uses: ./.github/actions/download-install-local-azure-devops-cli-extension-with-pip
+      - name: Grant execute permission for runStyleCheck.ps1
+        run: chmod +x scripts/runStyleCheck.ps1
       - name: Run Style Check
         run: scripts/runStyleCheck.ps1
 
