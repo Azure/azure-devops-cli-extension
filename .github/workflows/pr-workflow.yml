@@ -48,6 +48,8 @@ jobs:
       - uses: ./.github/actions/run-tests
         with:
           python-version: ${{ matrix.python-version }}
+        env:
+          TEST_SECRET: ${{ secrets.TEST_SECRET }}
 
   Run_Test_Mac:
     needs: Build_Publish_Azure_CLI_Test_SDK
