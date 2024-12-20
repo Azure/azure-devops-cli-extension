@@ -14,7 +14,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: '3.12'
           architecture: x64
       - name: Install setuptools
         run: pip install setuptools==70.0.0
@@ -28,7 +28,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: '3.12'
           architecture: x64
       - name: Install setuptools
         run: pip install setuptools==70.0.0
@@ -59,6 +59,8 @@ jobs:
       - uses: ./.github/actions/run-tests
         with:
           python-version: '3.12'
+        env:
+          TEST_SECRET: ${{ secrets.TEST_SECRET }}
 
   Run_Test_Mac_Azure_CLI_Released_Version:
     needs: Build_Publish_Azure_CLI_Test_SDK
@@ -69,6 +71,8 @@ jobs:
         with:
           python-version: '3.12'
           run-with-azure-cli-released: 'true'
+        env:
+          TEST_SECRET: ${{ secrets.TEST_SECRET }}
 
   Run_Test_Windows:
     needs: Build_Publish_Azure_CLI_Test_SDK
@@ -79,7 +83,9 @@ jobs:
         run: ren "C:\Program Files\Common Files\AzureCliExtensionDirectory" "C:\Program Files\Common Files\AzureCliExtensionDirectory1"
       - uses: ./.github/actions/run-tests
         with:
-          python-version: '3.8'
+          python-version: '3.12'
+        env:
+          TEST_SECRET: ${{ secrets.TEST_SECRET }}
 
   Code_Coverage:
     needs: Build_Publish_Azure_CLI_Test_SDK
@@ -165,6 +171,8 @@ jobs:
         with:
           python-version: '3.12'
           run-only-recorded-tests: 'true'
+        env:
+          TEST_SECRET: ${{ secrets.TEST_SECRET }}
 
   Check_Back_Compat_Arguments:
     runs-on: windows-latest
@@ -173,7 +181,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: '3.12'
           architecture: x64
       - uses: ./.github/actions/setup-ci-machine
       - uses: ./.github/actions/install-azure-cli-edge
