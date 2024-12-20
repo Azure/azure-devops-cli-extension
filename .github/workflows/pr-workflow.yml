@@ -185,6 +185,8 @@ jobs:
           architecture: x64
       - uses: ./.github/actions/setup-ci-machine
       - uses: ./.github/actions/install-azure-cli-edge
+      - name: Install setuptools
+        run: pip install setuptools==70.0.0
       - name: Build wheel for Azure DevOps CLI extension
         run: python setup.py sdist bdist_wheel
         working-directory: 'azure-devops/'
