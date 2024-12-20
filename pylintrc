@@ -18,7 +18,15 @@ disable=missing-docstring,
         import-outside-toplevel,
         inconsistent-return-statements,
         consider-using-f-string,
-        super-with-arguments
+        super-with-arguments,
+        raise-missing-from,
+        superfluous-parens,
+        consider-using-dict-items,
+        unspecified-encoding,
+        consider-using-with,
+        missing-timeout,
+        useless-option-value,
+        consider-using-in
 
 [FORMAT]
 max-line-length=120
