@@ -8,7 +8,25 @@ ignore=devops_sdk
 # locally-disabled: Warning locally suppressed using disable-msg
 # cyclic-import: because of https://github.com/PyCQA/pylint/issues/850
 # too-many-arguments: Due to the nature of the CLI many commands have large arguments set which reflect in large arguments set in corresponding methods.
-disable=missing-docstring,locally-disabled,fixme,cyclic-import,too-many-arguments,invalid-name,duplicate-code,import-outside-toplevel
+disable=missing-docstring,
+        locally-disabled,
+        fixme,
+        cyclic-import,
+        too-many-arguments,
+        invalid-name,
+        duplicate-code,
+        import-outside-toplevel,
+        inconsistent-return-statements,
+        consider-using-f-string,
+        super-with-arguments,
+        raise-missing-from,
+        superfluous-parens,
+        consider-using-dict-items,
+        unspecified-encoding,
+        consider-using-with,
+        missing-timeout,
+        useless-option-value,
+        consider-using-in
 
 [FORMAT]
 max-line-length=120
@@ -32,14 +50,3 @@ min-similarity-lines=10
 
 # The invalid-name checker must be **enabled** for these hints to be used.
 include-naming-hint=yes
-
-module-name-hint=lowercase (keep short; underscores are discouraged)
-const-name-hint=UPPER_CASE_WITH_UNDERSCORES
-class-name-hint=CapitalizedWords
-class-attribute-name-hint=lower_case_with_underscores
-attr-name-hint=lower_case_with_underscores
-method-name-hint=lower_case_with_underscores
-function-name-hint=lower_case_with_underscores
-argument-name-hint=lower_case_with_underscores
-variable-name-hint=lower_case_with_underscores
-inlinevar-name-hint=lower_case_with_underscores (short is OK)

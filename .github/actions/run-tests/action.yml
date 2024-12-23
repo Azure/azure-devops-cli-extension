@@ -1,0 +1,36 @@
+
+name: 'Run Tests'
+description: 'Run tests with specified Python version'
+inputs:
+  python-version:
+    description: 'Python version to use'
+    required: true
+  run-only-recorded-tests:
+    description: 'Run only recorded tests'
+    required: false
+    default: 'false'
+  run-with-azure-cli-released:
+    description: 'Run with Azure CLI released version'
+    required: false
+    default: 'false'
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: ${{ inputs.python-version }}
+        architecture: x64
+    - if: ${{ inputs.run-with-azure-cli-released == 'false' }}
+      uses: ./.github/actions/install-azure-cli-edge
+    - if: ${{ inputs.run-with-azure-cli-released == 'true' }}
+      uses: ./.github/actions/install-azure-cli-released
+    - uses: ./.github/actions/download-install-local-azure-test-sdk
+    - uses: ./.github/actions/setup-ci-machine
+    - uses: ./.github/actions/download-install-local-azure-devops-cli-extension
+    - run: pytest --junitxml "TEST-results.xml"
+      if: ${{ inputs.run-only-recorded-tests == 'false' }}
+      shell: bash
+      working-directory: azure-devops
+    - run: pytest tests --junitxml "TEST-results.xml"
+      if: ${{ inputs.run-only-recorded-tests == 'true' }}
+      shell: bash
