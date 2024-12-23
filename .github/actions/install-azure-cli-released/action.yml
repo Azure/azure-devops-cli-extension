@@ -1,0 +1,8 @@
+
+name: 'Install Azure CLI released'
+description: 'Install Azure CLI released version'
+runs:
+  using: 'composite'
+  steps:
+    - run: pip install azure-cli
+      shell: bash

@@ -1,0 +1,21 @@
+
+name: 'Download and Install Local Azure DevOps CLI Extension with pip'
+description: 'Download and install the local Azure DevOps CLI extension using pip'
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: azure-devops-cli-extension
+        path: ${{ github.workspace }}/extension
+    - run: |
+        $extensionUninstall = az extension remove -n azure-devops
+        $extensions = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
+        Foreach ($extension in $extensions)
+        {
+            Write-Host "installing " $extension.FullName
+            pip install $extension.FullName
+        }
+        Write-Host "done"
+      shell: pwsh
+      working-directory: ${{ github.workspace }}/extension

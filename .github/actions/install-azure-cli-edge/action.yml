@@ -1,0 +1,20 @@
+
+name: 'Install Azure CLI Edge'
+description: 'Install the Azure CLI Edge version'
+runs:
+  using: 'composite'
+  steps:
+    - run: python -m pip install --upgrade pip
+      shell: bash
+    - run: python --version
+      shell: bash
+    - run: az --version
+      shell: bash
+    - run: pip uninstall azure-cli -y
+      shell: bash
+    - run: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge --upgrade-strategy eager
+      shell: bash
+    - run: python --version
+      shell: bash
+    - run: az --version
+      shell: bash
