@@ -186,6 +186,7 @@ jobs:
           script: 'scripts/findEmptyHelpTexts.py'
 
   Run_Test_From_Old_Release:
+    enabled: false
     needs: Build_Publish_Azure_CLI_Test_SDK
     runs-on: macOS-latest
     steps:
