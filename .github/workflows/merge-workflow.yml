@@ -1,0 +1,223 @@
+name: Merge Workflow
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  Build_Publish_Azure_DevOps_CLI_Extension:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - name: Install setuptools
+        run: pip install setuptools==70.0.0
+      - uses: ./.github/actions/setup-ci-machine
+      - uses: ./.github/actions/build-publish-azure-devops-cli-extension
+
+  Build_Publish_Azure_CLI_Test_SDK:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - name: Install setuptools
+        run: pip install setuptools==70.0.0
+      - uses: ./.github/actions/setup-ci-machine
+      - uses: ./.github/actions/build-publish-azure-cli-test-sdk
+
+  Run_Test_Windows:
+    needs: 
+      - Build_Publish_Azure_CLI_Test_SDK
+      - Build_Publish_Azure_DevOps_CLI_Extension
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version:
+          - '3.12'
+          - '3.11'
+          - '3.10'
+          - '3.9'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Rename AzureCliExtensionDirectory
+        run: ren "C:\Program Files\Common Files\AzureCliExtensionDirectory" "C:\Program Files\Common Files\AzureCliExtensionDirectory1"
+      - uses: ./.github/actions/run-tests
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Build wheel for Azure DevOps CLI extension
+        run: python setup.py sdist bdist_wheel
+        working-directory: azure-devops/
+        shell: pwsh
+
+  Run_Test_Ubuntu:
+    needs: 
+      - Build_Publish_Azure_CLI_Test_SDK
+      - Build_Publish_Azure_DevOps_CLI_Extension
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+          - '3.12'
+          - '3.11'
+          - '3.10'
+          - '3.9'
+    steps:
+      - uses: actions/checkout@v2
+      - run: sudo rm -R -f /usr/local/lib/azureExtensionDir
+      - uses: ./.github/actions/run-tests
+        with:
+          python-version: ${{ matrix.python-version }}
+
+  Run_Test_Mac:
+    needs: 
+      - Build_Publish_Azure_CLI_Test_SDK
+      - Build_Publish_Azure_DevOps_CLI_Extension
+    runs-on: macos-13
+    strategy:
+      matrix:
+        python-version:
+          - '3.12'
+          - '3.11'
+          - '3.10'
+          - '3.9'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/run-tests
+        with:
+          python-version: ${{ matrix.python-version }}
+
+  Run_Test_Mac_Azure_CLI_Released_Version:
+    needs: Build_Publish_Azure_CLI_Test_SDK
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/run-tests
+        with:
+          python-version: '3.12'
+          run-with-azure-cli-released: 'true'
+
+  Code_Coverage:
+    needs: Build_Publish_Azure_CLI_Test_SDK
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - uses: ./.github/actions/install-azure-cli-edge
+      - uses: ./.github/actions/download-install-local-azure-test-sdk
+      - uses: ./.github/actions/setup-ci-machine
+      - uses: ./.github/actions/download-install-local-azure-devops-cli-extension
+      - name: Run unit tests for code coverage
+        run: pytest --junitxml "TEST-UT-results.xml" --cov=azext_devops/dev --cov-report=xml --cov-report=html
+        working-directory: 'azure-devops'
+      - name: Install beautifulsoup4
+        run: pip install beautifulsoup4
+      - name: Fix Code Coverage Style
+        uses: actions/setup-python@v2
+        with:
+          script: 'scripts/fixCodeCoverageStyle.py'
+      - name: Publish Code Coverage Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage
+          path: ${{ github.workspace }}/azure-devops/htmlcov
+
+  Run_Style_Check:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - name: Install setuptools
+        run: pip install setuptools==70.0.0
+      - uses: ./.github/actions/install-azure-cli-edge
+      - uses: ./.github/actions/download-install-local-azure-test-sdk
+      - uses: ./.github/actions/setup-ci-machine
+      - uses: ./.github/actions/download-install-local-azure-devops-cli-extension-with-pip
+      - name: Grant execute permission for runStyleCheck.ps1
+        run: chmod +x scripts/runStyleCheck.ps1
+      - name: Run Style Check
+        run: scripts/runStyleCheck.ps1
+        shell: pwsh
+
+  Run_HelpText_Check:
+    needs: Build_Publish_Azure_CLI_Test_SDK
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - name: Install setuptools
+        run: pip install setuptools==70.0.0
+      - uses: ./.github/actions/install-azure-cli-edge
+      - uses: ./.github/actions/download-install-local-azure-test-sdk
+      - uses: ./.github/actions/setup-ci-machine
+      - name: Install Azure DevOps CLI extension
+        run: pip install --upgrade .
+        working-directory: 'azure-devops/'
+      - name: Run HelpText Check
+        uses: actions/setup-python@v2
+        with:
+          script: 'scripts/findEmptyHelpTexts.py'
+
+  Run_Test_From_Old_Release:
+    if: false
+    needs: Build_Publish_Azure_CLI_Test_SDK
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: release-1.0.1
+      - uses: ./.github/actions/run-tests
+        with:
+          python-version: '3.12'
+
+  Check_Back_Compat_Arguments:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - uses: ./.github/actions/setup-ci-machine
+      - uses: ./.github/actions/install-azure-cli-edge
+      - name: Install setuptools
+        run: pip install setuptools==70.0.0
+      - name: Build wheel for Azure DevOps CLI extension
+        run: python setup.py sdist bdist_wheel
+        working-directory: 'azure-devops/'
+      - name: Run Back Compat Argument Check
+        uses: actions/setup-python@v2
+        with:
+          script: 'scripts/backCompatChecker.py'
+
+  Run_Markdown_Lint_Check:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install chef utils
+        run: gem install chef-utils -v 16.6.14
+      - name: Install markdown lint
+        run: gem install mdl
+      - name: Run markdown lint
+        run: mdl . -c .mdlrc
