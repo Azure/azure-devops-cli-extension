@@ -14,7 +14,7 @@ except ImportError:
 
 from azext_devops.dev.pipelines.runs_artifacts import run_artifact_download, run_artifact_upload, run_artifact_list
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.authentication import AuthenticatedTests
 from azext_devops.devops_sdk.v5_0.build.build_client import BuildClient
 from azext_devops.dev.common.const import ARTIFACTTOOL_PAT_ENVKEY
 

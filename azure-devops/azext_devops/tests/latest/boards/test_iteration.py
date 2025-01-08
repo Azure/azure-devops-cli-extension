@@ -13,8 +13,8 @@ except ImportError:
     from mock import patch
 
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.authentication import AuthenticatedTests
-from azext_devops.test.utils.helper import get_client_mock_helper
+from azext_devops.tests.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.helper import get_client_mock_helper
 from azext_devops.dev.boards.iteration import (get_project_iterations,
                                                get_project_iteration,
                                                delete_project_iteration,

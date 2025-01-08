@@ -12,7 +12,7 @@ except ImportError:
     from mock import patch
 from azext_devops.dev.common.const import DEFAULTS_SECTION
 from azext_devops.dev.team.configure import print_current_configuration, configure
-from azext_devops.test.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.authentication import AuthenticatedTests
 from azext_devops.dev.common.services import clear_connection_cache
 
 class TestConfigureMethods(AuthenticatedTests):

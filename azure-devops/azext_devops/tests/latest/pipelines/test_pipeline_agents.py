@@ -13,7 +13,7 @@ except ImportError:
     from mock import patch
 
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.authentication import AuthenticatedTests
 from azext_devops.devops_sdk.v5_1.task_agent.task_agent_client import TaskAgentClient
 from azext_devops.dev.pipelines.agent_pool_queue import list_pools, show_pool, list_agents, show_agent, list_queues, show_queue
 

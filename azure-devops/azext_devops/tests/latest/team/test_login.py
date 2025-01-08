@@ -15,7 +15,7 @@ except ImportError:
 from azext_devops.dev.team.credentials import credential_set, credential_clear
 
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.authentication import AuthenticatedTests
 
 class TestLoginLogoutMethods(AuthenticatedTests):
 

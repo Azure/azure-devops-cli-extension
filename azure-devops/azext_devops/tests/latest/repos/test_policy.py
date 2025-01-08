@@ -15,7 +15,7 @@ except ImportError:
 from azext_devops.dev.repos.policy import *
 from azext_devops.devops_sdk.v5_0.policy.models import PolicyConfiguration, PolicyTypeRef
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.authentication import AuthenticatedTests
 from azext_devops.devops_sdk.v5_0.policy.policy_client import PolicyClient
 
 

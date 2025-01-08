@@ -13,7 +13,7 @@ except ImportError:
     from mock import patch
 
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.authentication import AuthenticatedTests
 from azext_devops.dev.pipelines.pipeline_folders import (pipeline_folder_create,
                                                          pipeline_folder_delete,
                                                          pipeline_folder_list,

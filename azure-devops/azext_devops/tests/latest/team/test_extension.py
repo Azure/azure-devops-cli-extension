@@ -21,7 +21,7 @@ from azext_devops.dev.team.extension import  (list_extensions,
                                               disable_extension)
 
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.authentication import AuthenticatedTests
 
 class MockInstalledExtension(object):
     def __init__(self, flags, install_state=None):

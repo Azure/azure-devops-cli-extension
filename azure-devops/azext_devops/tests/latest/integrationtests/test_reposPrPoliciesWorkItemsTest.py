@@ -22,8 +22,8 @@ class AzReposPrPolicyTests(DevopsScenarioTest):
          
         #List PR
         pr_list = self.cmd('az repos pr list --project PullRequestLiveTest --repository PullRequestLiveTest --detect false --output json', checks=[
-            self.check("[0].description", "Updated README.md"),
-            self.check("[1].description", "Updated README.md"),
+            self.check("[0].description", 'Updated README.md'),
+            self.check("[1].description", 'Updated README.md'),
         ]).get_output_in_json()
         assert len(pr_list) > 0
 

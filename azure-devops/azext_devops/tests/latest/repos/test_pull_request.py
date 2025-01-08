@@ -30,8 +30,8 @@ from azext_devops.dev.repos.pull_request import (create_pull_request,
 from azext_devops.dev.common.git import get_current_branch_name, resolve_git_ref_heads
 
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.authentication import AuthenticatedTests
-from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
+from azext_devops.tests.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
 
 
 class TestPullRequestMethods(AuthenticatedTests):

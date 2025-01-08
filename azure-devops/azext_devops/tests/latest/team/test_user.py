@@ -20,7 +20,7 @@ from azext_devops.dev.team.user import (get_user_entitlements,
                                         update_user_entitlement)
 
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.authentication import AuthenticatedTests
 
     
 class TestUserMethods(AuthenticatedTests):

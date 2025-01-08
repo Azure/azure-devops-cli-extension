@@ -13,12 +13,12 @@ except ImportError:
     from mock import patch
 
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.authentication import AuthenticatedTests
 
 from azext_devops.devops_sdk.v5_0.build.build_client import BuildClient
 from azext_devops.devops_sdk.v6_0.pipelines.pipelines_client import PipelinesClient
 from azext_devops.dev.pipelines.pipeline import pipeline_run
-from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
+from azext_devops.tests.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
 
 class TestPipelinesRun(AuthenticatedTests):
 

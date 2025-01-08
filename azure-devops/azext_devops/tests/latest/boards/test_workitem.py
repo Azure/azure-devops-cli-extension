@@ -15,8 +15,8 @@ except ImportError:
 from azext_devops.dev.boards.work_item import (delete_work_item,
                                             show_work_item)
 from azext_devops.dev.common.services import clear_connection_cache
-from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
-from azext_devops.test.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
+from azext_devops.tests.utils.authentication import AuthenticatedTests
 
 
 class TestWorkItemMethods(AuthenticatedTests):

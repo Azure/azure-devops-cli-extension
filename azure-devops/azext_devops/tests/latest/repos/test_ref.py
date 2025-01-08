@@ -17,8 +17,8 @@ from msrest.serialization import Model
 from azext_devops.devops_sdk.v5_0.git.git_client import GitClient
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.dev.repos.ref import (list_refs, create_ref, delete_ref, lock_ref, unlock_ref)
-from azext_devops.test.utils.authentication import AuthenticatedTests
-from azext_devops.test.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
+from azext_devops.tests.utils.authentication import AuthenticatedTests
+from azext_devops.tests.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
 
 class MockRef(object):
     def __init__(self, object_id):
