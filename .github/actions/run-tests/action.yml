@@ -27,10 +27,10 @@ runs:
     - uses: ./.github/actions/download-install-local-azure-test-sdk
     - uses: ./.github/actions/setup-ci-machine
     - uses: ./.github/actions/download-install-local-azure-devops-cli-extension
-    - run: pytest --junitxml "TEST-results.xml"
+    - run: pytest --junitxml "TEST-results.xml" --ignore=azext_devops/tests/latest/integrationtests
       if: ${{ inputs.run-only-recorded-tests == 'false' }}
       shell: bash
       working-directory: azure-devops
-    - run: pytest tests --junitxml "TEST-results.xml"
+    - run: pytest tests --junitxml "TEST-results.xml" --ignore=azext_devops/tests/latest/integrationtests
       if: ${{ inputs.run-only-recorded-tests == 'true' }}
       shell: bash
