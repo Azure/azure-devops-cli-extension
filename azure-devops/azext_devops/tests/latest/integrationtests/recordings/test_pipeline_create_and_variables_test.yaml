@@ -1,0 +1,2497 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects?stateFilter=all&$top=1&$skip=0
+  response:
+    body:
+      string: '{"count":1,"value":[{"id":"70642ceb-5192-4e9e-8ec0-865714dc08b7","name":"buildtests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/70642ceb-5192-4e9e-8ec0-865714dc08b7","state":"wellFormed","revision":73,"visibility":"organization","lastUpdateTime":"2023-12-26T06:21:02.863Z"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 2619b881-44e3-4310-9874-208e53dc100b
+      cache-control:
+      - no-cache
+      content-length:
+      - '292'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:38 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-ms-continuationtoken:
+      - '1'
+      x-msedge-ref:
+      - 'Ref A: 767E64CC2AEC40B0AB831332161C6404 Ref B: HYD30EDGE0115 Ref C: 2024-01-05T12:12:38Z'
+      x-tfs-processid:
+      - b438bf06-f2a7-44e9-b240-1ac4d8d06b55
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 2619b881-44e3-4310-9874-208e53dc100b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/process/processes
+  response:
+    body:
+      string: '{"count":4,"value":[{"id":"6b724908-ef14-45cf-84f8-768b5384da45","description":"This
+        template is for teams who follow the Scrum framework.","isDefault":false,"type":"system","url":"https://dev.azure.com/v-anvashist0376/_apis/process/processes/6b724908-ef14-45cf-84f8-768b5384da45","name":"Scrum"},{"id":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2","description":"This
+        template is flexible for any process and great for teams getting started with
+        Azure DevOps.","isDefault":true,"type":"system","url":"https://dev.azure.com/v-anvashist0376/_apis/process/processes/b8a3a935-7e91-48b8-a94c-606d37c3e9f2","name":"Basic"},{"id":"adcc42ab-9882-485e-a3ed-7678f01f66bc","description":"This
+        template is flexible and will work great for most teams using Agile planning
+        methods, including those practicing Scrum.","isDefault":false,"type":"system","url":"https://dev.azure.com/v-anvashist0376/_apis/process/processes/adcc42ab-9882-485e-a3ed-7678f01f66bc","name":"Agile"},{"id":"27450541-8e31-4150-9947-dc59f998fc01","description":"This
+        template is for more formal projects requiring a framework for process improvement
+        and an auditable record of decisions.","isDefault":false,"type":"system","url":"https://dev.azure.com/v-anvashist0376/_apis/process/processes/27450541-8e31-4150-9947-dc59f998fc01","name":"CMMI"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 20c1af8e-c13d-4490-a080-75f1f51b7f6b
+      cache-control:
+      - no-cache
+      content-length:
+      - '1298'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:37 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: D025511105EA45C5BFEB76F62B83F247 Ref B: HYD30EDGE0514 Ref C: 2024-01-05T12:12:38Z'
+      x-tfs-processid:
+      - 9dc63141-ab4c-494b-9972-1c17514cec2c
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 20c1af8e-c13d-4490-a080-75f1f51b7f6b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"name": "pipelinesTest000001", "visibility": "private", "capabilities":
+      {"versioncontrol": {"sourceControlType": "git"}, "processTemplate": {"templateTypeId":
+      "b8a3a935-7e91-48b8-a94c-606d37c3e9f2"}}}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '201'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects
+  response:
+    body:
+      string: '{"id":"263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f","status":"notSet","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - a746015e-93d6-422b-92df-9564feb8582c
+      cache-control:
+      - no-cache
+      content-length:
+      - '163'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:38 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 551B785649394FFD98B3737C6F467029 Ref B: HYD30EDGE0321 Ref C: 2024-01-05T12:12:38Z'
+      x-tfs-processid:
+      - 389bdeb2-1a80-4c7b-9ba2-cf5acfd33603
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - a746015e-93d6-422b-92df-9564feb8582c
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 202
+      message: Accepted
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f
+  response:
+    body:
+      string: '{"id":"263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - d9dada92-deb5-4d5a-8445-65df24895671
+      cache-control:
+      - no-cache
+      content-length:
+      - '288'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:38 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 6B6F0BB56A6846B6BE5BBDADF2AFE5DA Ref B: HYD30EDGE0114 Ref C: 2024-01-05T12:12:39Z'
+      x-tfs-processid:
+      - cc2a61a7-591a-42c2-8ca4-5e58ec315deb
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - d9dada92-deb5-4d5a-8445-65df24895671
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f
+  response:
+    body:
+      string: '{"id":"263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 67b25875-133e-445c-a63f-05736d5dca67
+      cache-control:
+      - no-cache
+      content-length:
+      - '288'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:40 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: D14C66A2B8C541A898BA97FF510E781F Ref B: HYD30EDGE0120 Ref C: 2024-01-05T12:12:40Z'
+      x-tfs-processid:
+      - 30454ad0-677f-401b-8bab-2649a1b214c3
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 67b25875-133e-445c-a63f-05736d5dca67
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f
+  response:
+    body:
+      string: '{"id":"263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 20c1964e-c13d-4490-a080-75f1f51b7f6b
+      cache-control:
+      - no-cache
+      content-length:
+      - '288'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:41 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 49F4F350CE0E41D9A3205A3D94EC2CDF Ref B: HYD30EDGE0221 Ref C: 2024-01-05T12:12:41Z'
+      x-tfs-processid:
+      - 9dc63141-ab4c-494b-9972-1c17514cec2c
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 20c1964e-c13d-4490-a080-75f1f51b7f6b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f
+  response:
+    body:
+      string: '{"id":"263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f","status":"succeeded","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/263bb4e7-f5ea-4e4a-a4d5-4e0b57ed5b2f"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 20c198b3-c13d-4490-a080-75f1f51b7f6b
+      cache-control:
+      - no-cache
+      content-length:
+      - '287'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:42 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 2F7C2403FA704B57A6808138E9BC6B3E Ref B: HYD30EDGE0306 Ref C: 2024-01-05T12:12:42Z'
+      x-tfs-processid:
+      - 9dc63141-ab4c-494b-9972-1c17514cec2c
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 20c198b3-c13d-4490-a080-75f1f51b7f6b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects/pipelinesTest000001?includeCapabilities=true
+  response:
+    body:
+      string: '{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","capabilities":{"processTemplate":{"templateName":"Basic","templateTypeId":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2"},"versioncontrol":{"sourceControlType":"Git","gitEnabled":"True","tfvcEnabled":"False"}},"revision":679,"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3"},"collection":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projectCollections/2ad38d1e-3eaf-4769-931c-3a2da67bbb01"},"web":{"href":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001"}},"visibility":"private","defaultTeam":{"id":"6f56bd4d-fc98-42ea-ae7b-1b4f3a19fe70","name":"pipelinesTest000001
+        Team","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/teams/6f56bd4d-fc98-42ea-ae7b-1b4f3a19fe70"},"lastUpdateTime":"2024-01-05T12:12:41.813Z"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 2619b6e6-44e3-4310-9874-208e53dc100b
+      cache-control:
+      - no-cache
+      content-length:
+      - '1031'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:42 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 814CA3700DC14CEAAFBE127CF1298897 Ref B: HYD30EDGE0522 Ref C: 2024-01-05T12:12:43Z'
+      x-tfs-processid:
+      - b438bf06-f2a7-44e9-b240-1ac4d8d06b55
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 2619b6e6-44e3-4310-9874-208e53dc100b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories
+  response:
+    body:
+      string: '{"value":[{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","isDisabled":false,"isInMaintenance":false}],"count":1}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 4e7a8ed4-d317-41dc-9e12-a832a709e040
+      cache-control:
+      - no-cache
+      content-length:
+      - '876'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:42 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      transfer-encoding:
+      - chunked
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: B803027024B641B3A4215FA294C1A01A Ref B: HYD30EDGE0316 Ref C: 2024-01-05T12:12:43Z'
+      x-tfs-processid:
+      - 6cf85906-d252-4853-bfd6-206d0b3444a6
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 4e7a8ed4-d317-41dc-9e12-a832a709e040
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"parameters": {"deleteServiceEndpointAfterImportIsDone": false, "gitSource":
+      {"overwrite": false, "url": "https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders"}}}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.1
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '195'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/importRequests
+  response:
+    body:
+      string: '{"importRequestId":18,"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","isDisabled":false,"isInMaintenance":false},"parameters":{"tfvcSource":null,"gitSource":{"url":"https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders","overwrite":false}},"status":"queued","detailedStatus":{"currentStep":1,"allSteps":["Processing
+        request","Analyzing repository objects","Storing objects","Storing index file","Updating
+        references","Import completed successfully"]},"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/importRequests/18"},"repository":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5"}},"url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/importRequests/18"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 20c19a98-c13d-4490-a080-75f1f51b7f6b
+      cache-control:
+      - no-cache
+      content-length:
+      - '1727'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0-preview.1
+      date:
+      - Fri, 05 Jan 2024 12:12:43 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: BE5BC78D39DF43D1BF8706E88587C846 Ref B: HYD30EDGE0220 Ref C: 2024-01-05T12:12:43Z'
+      x-tfs-processid:
+      - 9dc63141-ab4c-494b-9972-1c17514cec2c
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 20c19a98-c13d-4490-a080-75f1f51b7f6b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.1
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/importRequests/18
+  response:
+    body:
+      string: '{"importRequestId":18,"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","isDisabled":false,"isInMaintenance":false},"parameters":{"tfvcSource":null,"gitSource":{"url":"https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders","overwrite":false}},"status":"inProgress","detailedStatus":{"currentStep":1,"allSteps":["Processing
+        request","Analyzing repository objects","Storing objects","Storing index file","Updating
+        references","Import completed successfully"]},"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/importRequests/18"},"repository":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5"}},"url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/importRequests/18"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 4e7a8c89-d317-41dc-9e12-a832a709e040
+      cache-control:
+      - no-cache
+      content-length:
+      - '1731'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0-preview.1
+      date:
+      - Fri, 05 Jan 2024 12:12:44 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: A633F27932FD48AB80A4DE5ABBAE388C Ref B: HYD30EDGE0519 Ref C: 2024-01-05T12:12:44Z'
+      x-tfs-processid:
+      - 6cf85906-d252-4853-bfd6-206d0b3444a6
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 4e7a8c89-d317-41dc-9e12-a832a709e040
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.1
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/importRequests/18
+  response:
+    body:
+      string: '{"importRequestId":18,"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"},"size":1602,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","isDisabled":false,"isInMaintenance":false},"parameters":{"tfvcSource":null,"gitSource":{"url":"https://dev.azure.com/devops-cli-test-org/TestSupportProject/_git/snakes-and-ladders","overwrite":false}},"status":"completed","detailedStatus":{"currentStep":6,"allSteps":["Processing
+        request","Analyzing repository objects","Storing objects","Storing index file","Updating
+        references","Import completed successfully"]},"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/importRequests/18"},"repository":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5"}},"url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/importRequests/18"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - d9dd2492-deb5-4d5a-8445-65df24895671
+      cache-control:
+      - no-cache
+      content-length:
+      - '1733'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0-preview.1
+      date:
+      - Fri, 05 Jan 2024 12:12:49 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 7EC07616F0A2429F854C1416D76B125D Ref B: HYD30EDGE0511 Ref C: 2024-01-05T12:12:49Z'
+      x-tfs-processid:
+      - cc2a61a7-591a-42c2-8ca4-5e58ec315deb
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - d9dd2492-deb5-4d5a-8445-65df24895671
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.1
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions?name=ContosoBuild
+  response:
+    body:
+      string: '{"count":0,"value":[]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 4e7a9a75-d317-41dc-9e12-a832a709e040
+      cache-control:
+      - no-cache
+      content-length:
+      - '22'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.1
+      date:
+      - Fri, 05 Jan 2024 12:12:50 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: F214B5E8E86049B2A22E4580BEB4424C Ref B: HYD30EDGE0117 Ref C: 2024-01-05T12:12:50Z'
+      x-tfs-processid:
+      - 6cf85906-d252-4853-bfd6-206d0b3444a6
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 4e7a9a75-d317-41dc-9e12-a832a709e040
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/git/repositories/pipelinesTest000001
+  response:
+    body:
+      string: '{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"},"defaultBranch":"refs/heads/main","size":1602,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/pipelinesTest000001/pipelinesTest000001","webUrl":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5"},"project":{"href":"vstfs:///Classification/TeamProject/81fa0df5-8ce1-412d-8c6d-a5555d996ac3"},"web":{"href":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001"},"ssh":{"href":"git@ssh.dev.azure.com:v3/v-anvashist0376/pipelinesTest000001/pipelinesTest000001"},"commits":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/commits"},"refs":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/refs"},"pullRequests":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/pullRequests"},"items":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/items"},"pushes":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/git/repositories/0a284cac-7934-4c43-b274-0924236a4ba5/pushes"}},"isDisabled":false,"isInMaintenance":false}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 4e7a99bc-d317-41dc-9e12-a832a709e040
+      cache-control:
+      - no-cache
+      content-length:
+      - '2165'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:50 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: FA5680EBBA534B91959A5A902A8B8541 Ref B: HYD30EDGE0522 Ref C: 2024-01-05T12:12:50Z'
+      x-tfs-processid:
+      - 6cf85906-d252-4853-bfd6-206d0b3444a6
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 4e7a99bc-d317-41dc-9e12-a832a709e040
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.1-preview.1
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/distributedtask/queues
+  response:
+    body:
+      string: '{"count":9,"value":[{"id":613,"projectId":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"Default","pool":{"id":1,"scope":"2ad38d1e-3eaf-4769-931c-3a2da67bbb01","name":"Default","isHosted":false,"poolType":"automation","size":0,"isLegacy":false,"options":"none"}},{"id":614,"projectId":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"Hosted","pool":{"id":2,"scope":"2ad38d1e-3eaf-4769-931c-3a2da67bbb01","name":"Hosted","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":615,"projectId":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"Hosted
+        VS2017","pool":{"id":3,"scope":"2ad38d1e-3eaf-4769-931c-3a2da67bbb01","name":"Hosted
+        VS2017","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":616,"projectId":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"Hosted
+        Windows 2019 with VS2019","pool":{"id":4,"scope":"2ad38d1e-3eaf-4769-931c-3a2da67bbb01","name":"Hosted
+        Windows 2019 with VS2019","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":617,"projectId":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"Hosted
+        Windows Container","pool":{"id":5,"scope":"2ad38d1e-3eaf-4769-931c-3a2da67bbb01","name":"Hosted
+        Windows Container","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":618,"projectId":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"Hosted
+        macOS","pool":{"id":6,"scope":"2ad38d1e-3eaf-4769-931c-3a2da67bbb01","name":"Hosted
+        macOS","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":619,"projectId":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"Hosted
+        macOS High Sierra","pool":{"id":7,"scope":"2ad38d1e-3eaf-4769-931c-3a2da67bbb01","name":"Hosted
+        macOS High Sierra","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":620,"projectId":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"Hosted
+        Ubuntu 1604","pool":{"id":8,"scope":"2ad38d1e-3eaf-4769-931c-3a2da67bbb01","name":"Hosted
+        Ubuntu 1604","isHosted":true,"poolType":"automation","size":1,"isLegacy":true,"options":"none"}},{"id":621,"projectId":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"Azure
+        Pipelines","pool":{"id":9,"scope":"2ad38d1e-3eaf-4769-931c-3a2da67bbb01","name":"Azure
+        Pipelines","isHosted":true,"poolType":"automation","size":1,"isLegacy":false,"options":"none"}}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 67b22a35-133e-445c-a63f-05736d5dca67
+      cache-control:
+      - no-cache
+      content-length:
+      - '2367'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.1-preview.1
+      date:
+      - Fri, 05 Jan 2024 12:12:51 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 0FF81BB129EC408B90C77EDF240B7F0E Ref B: HYD30EDGE0508 Ref C: 2024-01-05T12:12:51Z'
+      x-tfs-processid:
+      - 30454ad0-677f-401b-8bab-2649a1b214c3
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 67b22a35-133e-445c-a63f-05736d5dca67
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"name": "ContosoBuild", "queue": {"id": 620}, "description": "Pipeline
+      for contoso project", "process": {"yamlFilename": "azure-pipelines.yml", "type":
+      2}, "repository": {"defaultBranch": "main", "id": "0a284cac-7934-4c43-b274-0924236a4ba5",
+      "name": "pipelinesTest000001", "type": "tfsgit"}, "triggers": [{"settingsSourceType":
+      2, "triggerType": 2}]}'
+    headers:
+      Accept:
+      - application/json;api-version=5.1
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '351'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions
+  response:
+    body:
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=1"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/definition?definitionId=28"},"editor":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/designer?id=28&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"}},"id":620,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=1","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":1,"createdDate":"2024-01-05T12:12:51.957Z","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 67b22aa0-133e-445c-a63f-05736d5dca67
+      cache-control:
+      - no-cache
+      content-length:
+      - '2639'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.1
+      date:
+      - Fri, 05 Jan 2024 12:12:51 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 5CBFD5F6AB5C4DBD9164F3673ACC418F Ref B: HYD30EDGE0518 Ref C: 2024-01-05T12:12:51Z'
+      x-tfs-processid:
+      - 30454ad0-677f-401b-8bab-2649a1b214c3
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 67b22aa0-133e-445c-a63f-05736d5dca67
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"definition": {"createdDate": "2024-01-05T12:12:51.957Z", "id": 28, "name":
+      "ContosoBuild", "path": "\\", "project": {"id": "81fa0df5-8ce1-412d-8c6d-a5555d996ac3",
+      "lastUpdateTime": "2024-01-05T12:12:41.813Z", "name": "pipelinesTest000001",
+      "revision": 679, "state": "wellFormed", "url": "https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3",
+      "visibility": "private"}, "queueStatus": "enabled", "revision": 1, "type": "build",
+      "uri": "vstfs:///Build/Definition/28", "url": "https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=1",
+      "_links": {}, "authoredBy": {"_links": {}, "descriptor": "aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1",
+      "displayName": "Soujanya Bestala", "url": "https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385",
+      "id": "22157d54-1821-6536-a446-928b06348385", "imageUrl": "https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1",
+      "uniqueName": "v-sbestala@microsoft.com"}, "drafts": [], "quality": "definition",
+      "queue": {"_links": {}, "id": 620, "name": "Hosted Ubuntu 1604", "pool": {"id":
+      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"},
+      "description": "Pipeline for contoso project", "jobAuthorizationScope": "projectCollection",
+      "process": {"yamlFilename": "azure-pipelines.yml", "type": 2}, "properties":
+      {}, "repository": {"checkoutSubmodules": false, "defaultBranch": "main", "id":
+      "0a284cac-7934-4c43-b274-0924236a4ba5", "name": "pipelinesTest000001", "type":
+      "TfsGit", "url": "https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001"},
+      "tags": [], "triggers": [{"branchFilters": [], "pathFilters": [], "settingsSourceType":
+      2, "batchChanges": false, "maxConcurrentBuildsPerBranch": 1, "triggerType":
+      "continuousIntegration"}]}, "sourceBranch": "main"}'
+    headers:
+      Accept:
+      - application/json;api-version=5.1
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2039'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Builds
+  response:
+    body:
+      string: '{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Builds/59"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/results?buildId=59"},"sourceVersionDisplayUri":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/builds/59/sources"},"timeline":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/builds/59/Timeline"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"properties":{},"tags":[],"validationResults":[],"plans":[{"planId":"1d16808d-64be-4e1b-a926-1de24338b823"}],"triggerInfo":{},"id":59,"buildNumber":"20240105.1","status":"notStarted","queueTime":"2024-01-05T12:12:52.4474412Z","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Builds/59","definition":{"drafts":[],"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=1","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":1,"project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}},"buildNumberRevision":1,"project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"},"uri":"vstfs:///Build/Build/59","sourceBranch":"refs/heads/main","sourceVersion":"6c396801caff9a262bdd7e16127365d827811a0f","queue":{"id":621,"name":"Azure
+        Pipelines","pool":{"id":9,"name":"Azure Pipelines","isHosted":true}},"priority":"normal","reason":"manual","requestedFor":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"requestedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"lastChangedDate":"2024-01-05T12:12:52.637Z","lastChangedBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"orchestrationPlan":{"planId":"1d16808d-64be-4e1b-a926-1de24338b823"},"logs":{"id":0,"type":"Container","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/builds/59/logs"},"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","clean":null,"checkoutSubmodules":false},"keepForever":false,"retainedByRelease":false,"triggeredByBuild":null,"appendCommitMessageToRunName":true}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 4e7a9f16-d317-41dc-9e12-a832a709e040
+      cache-control:
+      - no-cache
+      content-length:
+      - '4612'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.1
+      date:
+      - Fri, 05 Jan 2024 12:12:53 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: D6C61B7DF32B405E8A9859B922AA24AF Ref B: HYD30EDGE0208 Ref C: 2024-01-05T12:12:52Z'
+      x-tfs-processid:
+      - 6cf85906-d252-4853-bfd6-206d0b3444a6
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 4e7a9f16-d317-41dc-9e12-a832a709e040
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions/28
+  response:
+    body:
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=1"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/definition?definitionId=28"},"editor":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/designer?id=28&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"}},"id":620,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=1","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":1,"createdDate":"2024-01-05T12:12:51.957Z","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 261959ee-44e3-4310-9874-208e53dc100b
+      cache-control:
+      - no-cache
+      content-length:
+      - '2639'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:54 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 4EF433920BAF464387B1015B75A31894 Ref B: HYD30EDGE0306 Ref C: 2024-01-05T12:12:54Z'
+      x-tfs-processid:
+      - b438bf06-f2a7-44e9-b240-1ac4d8d06b55
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 261959ee-44e3-4310-9874-208e53dc100b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"createdDate": "2024-01-05T12:12:51.957Z", "id": 28, "name": "ContosoBuild",
+      "path": "\\", "project": {"id": "81fa0df5-8ce1-412d-8c6d-a5555d996ac3", "name":
+      "pipelinesTest000001", "revision": 679, "state": "wellFormed", "url": "https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3",
+      "visibility": "private"}, "queueStatus": "enabled", "revision": 1, "type": "build",
+      "uri": "vstfs:///Build/Definition/28", "url": "https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=1",
+      "_links": {}, "authoredBy": {"_links": {}, "descriptor": "aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1",
+      "displayName": "Soujanya Bestala", "url": "https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385",
+      "id": "22157d54-1821-6536-a446-928b06348385", "imageUrl": "https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1",
+      "uniqueName": "v-sbestala@microsoft.com"}, "drafts": [], "quality": "definition",
+      "queue": {"_links": {}, "id": 620, "name": "Hosted Ubuntu 1604", "pool": {"id":
+      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"},
+      "description": "Pipeline for contoso project", "jobAuthorizationScope": "projectCollection",
+      "process": {"yamlFilename": "azure-pipelines.yml", "type": 2}, "properties":
+      {}, "repository": {"checkoutSubmodules": false, "defaultBranch": "main", "id":
+      "0a284cac-7934-4c43-b274-0924236a4ba5", "name": "pipelinesTest000001", "type":
+      "TfsGit", "url": "https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001"},
+      "tags": [], "triggers": [{"branchFilters": [], "pathFilters": [], "settingsSourceType":
+      2, "batchChanges": false, "maxConcurrentBuildsPerBranch": 1, "triggerType":
+      "continuousIntegration"}], "variables": {"var1": {"allowOverride": true, "isSecret":
+      true, "value": "value1"}}}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2038'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PUT
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions/28
+  response:
+    body:
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=2"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/definition?definitionId=28"},"editor":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/designer?id=28&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"refs/heads/main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"}},"id":620,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=2","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":2,"createdDate":"2024-01-05T12:12:55.43Z","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 67b237dd-133e-445c-a63f-05736d5dca67
+      cache-control:
+      - no-cache
+      content-length:
+      - '2722'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:55 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 177FA36772A742D6806223072CFC20E8 Ref B: HYD30EDGE0216 Ref C: 2024-01-05T12:12:54Z'
+      x-tfs-processid:
+      - 30454ad0-677f-401b-8bab-2649a1b214c3
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 67b237dd-133e-445c-a63f-05736d5dca67
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions/28
+  response:
+    body:
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=2"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/definition?definitionId=28"},"editor":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/designer?id=28&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"refs/heads/main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"}},"id":620,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=2","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":2,"createdDate":"2024-01-05T12:12:55.43Z","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - a74621c6-93d6-422b-92df-9564feb8582c
+      cache-control:
+      - no-cache
+      content-length:
+      - '2722'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:55 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 7543C9432F9E4C68BEB9E7FC6B63F281 Ref B: HYD30EDGE0321 Ref C: 2024-01-05T12:12:56Z'
+      x-tfs-processid:
+      - 389bdeb2-1a80-4c7b-9ba2-cf5acfd33603
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - a74621c6-93d6-422b-92df-9564feb8582c
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"createdDate": "2024-01-05T12:12:55.430Z", "id": 28, "name": "ContosoBuild",
+      "path": "\\", "project": {"id": "81fa0df5-8ce1-412d-8c6d-a5555d996ac3", "name":
+      "pipelinesTest000001", "revision": 679, "state": "wellFormed", "url": "https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3",
+      "visibility": "private"}, "queueStatus": "enabled", "revision": 2, "type": "build",
+      "uri": "vstfs:///Build/Definition/28", "url": "https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=2",
+      "_links": {}, "authoredBy": {"_links": {}, "descriptor": "aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1",
+      "displayName": "Soujanya Bestala", "url": "https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385",
+      "id": "22157d54-1821-6536-a446-928b06348385", "imageUrl": "https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1",
+      "uniqueName": "v-sbestala@microsoft.com"}, "drafts": [], "quality": "definition",
+      "queue": {"_links": {}, "id": 620, "name": "Hosted Ubuntu 1604", "pool": {"id":
+      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"},
+      "description": "Pipeline for contoso project", "jobAuthorizationScope": "projectCollection",
+      "process": {"yamlFilename": "azure-pipelines.yml", "type": 2}, "properties":
+      {}, "repository": {"checkoutSubmodules": false, "defaultBranch": "refs/heads/main",
+      "id": "0a284cac-7934-4c43-b274-0924236a4ba5", "name": "pipelinesTest000001",
+      "type": "TfsGit", "url": "https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001"},
+      "tags": [], "triggers": [{"branchFilters": [], "pathFilters": [], "settingsSourceType":
+      2, "batchChanges": false, "maxConcurrentBuildsPerBranch": 1, "triggerType":
+      "continuousIntegration"}], "variables": {"var1": {"allowOverride": true, "isSecret":
+      true}, "var2": {"value": "value2"}}}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2059'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PUT
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions/28
+  response:
+    body:
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true},"var2":{"value":"value2"}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=3"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/definition?definitionId=28"},"editor":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/designer?id=28&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"refs/heads/main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"}},"id":620,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=3","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":3,"createdDate":"2024-01-05T12:12:57.267Z","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 26195caa-44e3-4310-9874-208e53dc100b
+      cache-control:
+      - no-cache
+      content-length:
+      - '2749'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:57 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 27427D9683134CE5985BF03099AB504C Ref B: HYD30EDGE0119 Ref C: 2024-01-05T12:12:56Z'
+      x-tfs-processid:
+      - b438bf06-f2a7-44e9-b240-1ac4d8d06b55
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 26195caa-44e3-4310-9874-208e53dc100b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions/28
+  response:
+    body:
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true},"var2":{"value":"value2"}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=3"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/definition?definitionId=28"},"editor":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/designer?id=28&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"refs/heads/main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"}},"id":620,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=3","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":3,"createdDate":"2024-01-05T12:12:57.267Z","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 2619523c-44e3-4310-9874-208e53dc100b
+      cache-control:
+      - no-cache
+      content-length:
+      - '2749'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:57 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 622D1D0293944152879C6C087A478B24 Ref B: HYD30EDGE0511 Ref C: 2024-01-05T12:12:57Z'
+      x-tfs-processid:
+      - b438bf06-f2a7-44e9-b240-1ac4d8d06b55
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 2619523c-44e3-4310-9874-208e53dc100b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions/28
+  response:
+    body:
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true},"var2":{"value":"value2"}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=3"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/definition?definitionId=28"},"editor":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/designer?id=28&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"refs/heads/main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"}},"id":620,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=3","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":3,"createdDate":"2024-01-05T12:12:57.267Z","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 20c1f478-c13d-4490-a080-75f1f51b7f6b
+      cache-control:
+      - no-cache
+      content-length:
+      - '2749'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:57 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: AF25702AB46649C49B2C52BD3A332537 Ref B: HYD30EDGE0507 Ref C: 2024-01-05T12:12:57Z'
+      x-tfs-processid:
+      - 9dc63141-ab4c-494b-9972-1c17514cec2c
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 20c1f478-c13d-4490-a080-75f1f51b7f6b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"createdDate": "2024-01-05T12:12:57.267Z", "id": 28, "name": "ContosoBuild",
+      "path": "\\", "project": {"id": "81fa0df5-8ce1-412d-8c6d-a5555d996ac3", "name":
+      "pipelinesTest000001", "revision": 679, "state": "wellFormed", "url": "https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3",
+      "visibility": "private"}, "queueStatus": "enabled", "revision": 3, "type": "build",
+      "uri": "vstfs:///Build/Definition/28", "url": "https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=3",
+      "_links": {}, "authoredBy": {"_links": {}, "descriptor": "aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1",
+      "displayName": "Soujanya Bestala", "url": "https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385",
+      "id": "22157d54-1821-6536-a446-928b06348385", "imageUrl": "https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1",
+      "uniqueName": "v-sbestala@microsoft.com"}, "drafts": [], "quality": "definition",
+      "queue": {"_links": {}, "id": 620, "name": "Hosted Ubuntu 1604", "pool": {"id":
+      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"},
+      "description": "Pipeline for contoso project", "jobAuthorizationScope": "projectCollection",
+      "process": {"yamlFilename": "azure-pipelines.yml", "type": 2}, "properties":
+      {}, "repository": {"checkoutSubmodules": false, "defaultBranch": "refs/heads/main",
+      "id": "0a284cac-7934-4c43-b274-0924236a4ba5", "name": "pipelinesTest000001",
+      "type": "TfsGit", "url": "https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001"},
+      "tags": [], "triggers": [{"branchFilters": [], "pathFilters": [], "settingsSourceType":
+      2, "batchChanges": false, "maxConcurrentBuildsPerBranch": 1, "triggerType":
+      "continuousIntegration"}], "variables": {"var1": {"allowOverride": true, "isSecret":
+      true}}}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2030'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PUT
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions/28
+  response:
+    body:
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=4"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/definition?definitionId=28"},"editor":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/designer?id=28&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"refs/heads/main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"}},"id":620,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=4","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":4,"createdDate":"2024-01-05T12:12:58.63Z","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 67b23d9b-133e-445c-a63f-05736d5dca67
+      cache-control:
+      - no-cache
+      content-length:
+      - '2722'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:58 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 020BE7E850B940288E01E97C3F44CB3A Ref B: HYD30EDGE0217 Ref C: 2024-01-05T12:12:58Z'
+      x-tfs-processid:
+      - 30454ad0-677f-401b-8bab-2649a1b214c3
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 67b23d9b-133e-445c-a63f-05736d5dca67
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions/28
+  response:
+    body:
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=4"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/definition?definitionId=28"},"editor":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/designer?id=28&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"refs/heads/main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"}},"id":620,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=4","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":4,"createdDate":"2024-01-05T12:12:58.63Z","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 67b23e4b-133e-445c-a63f-05736d5dca67
+      cache-control:
+      - no-cache
+      content-length:
+      - '2722'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:58 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: DA3426B58AFA4F85A58004B600D5A83C Ref B: HYD30EDGE0312 Ref C: 2024-01-05T12:12:58Z'
+      x-tfs-processid:
+      - 30454ad0-677f-401b-8bab-2649a1b214c3
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 67b23e4b-133e-445c-a63f-05736d5dca67
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions/28
+  response:
+    body:
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1":{"value":null,"allowOverride":true,"isSecret":true}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=4"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/definition?definitionId=28"},"editor":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/designer?id=28&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"refs/heads/main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"}},"id":620,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=4","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":4,"createdDate":"2024-01-05T12:12:58.63Z","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 20c1f6f5-c13d-4490-a080-75f1f51b7f6b
+      cache-control:
+      - no-cache
+      content-length:
+      - '2722'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:59 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: B05C916631CB4CB490C8A674A3DE7F46 Ref B: HYD30EDGE0322 Ref C: 2024-01-05T12:12:59Z'
+      x-tfs-processid:
+      - 9dc63141-ab4c-494b-9972-1c17514cec2c
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 20c1f6f5-c13d-4490-a080-75f1f51b7f6b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"createdDate": "2024-01-05T12:12:58.630Z", "id": 28, "name": "ContosoBuild",
+      "path": "\\", "project": {"id": "81fa0df5-8ce1-412d-8c6d-a5555d996ac3", "name":
+      "pipelinesTest000001", "revision": 679, "state": "wellFormed", "url": "https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3",
+      "visibility": "private"}, "queueStatus": "enabled", "revision": 4, "type": "build",
+      "uri": "vstfs:///Build/Definition/28", "url": "https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=4",
+      "_links": {}, "authoredBy": {"_links": {}, "descriptor": "aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1",
+      "displayName": "Soujanya Bestala", "url": "https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385",
+      "id": "22157d54-1821-6536-a446-928b06348385", "imageUrl": "https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1",
+      "uniqueName": "v-sbestala@microsoft.com"}, "drafts": [], "quality": "definition",
+      "queue": {"_links": {}, "id": 620, "name": "Hosted Ubuntu 1604", "pool": {"id":
+      8, "isHosted": true, "name": "Hosted Ubuntu 1604"}, "url": "https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"},
+      "description": "Pipeline for contoso project", "jobAuthorizationScope": "projectCollection",
+      "process": {"yamlFilename": "azure-pipelines.yml", "type": 2}, "properties":
+      {}, "repository": {"checkoutSubmodules": false, "defaultBranch": "refs/heads/main",
+      "id": "0a284cac-7934-4c43-b274-0924236a4ba5", "name": "pipelinesTest000001",
+      "type": "TfsGit", "url": "https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001"},
+      "tags": [], "triggers": [{"branchFilters": [], "pathFilters": [], "settingsSourceType":
+      2, "batchChanges": false, "maxConcurrentBuildsPerBranch": 1, "triggerType":
+      "continuousIntegration"}], "variables": {"var1Updated": {"allowOverride": false,
+      "isSecret": false, "value": "123"}}}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2055'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PUT
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions/28
+  response:
+    body:
+      string: '{"triggers":[{"branchFilters":[],"pathFilters":[],"settingsSourceType":2,"batchChanges":false,"maxConcurrentBuildsPerBranch":1,"triggerType":"continuousIntegration"}],"variables":{"var1Updated":{"value":"123"}},"properties":{},"tags":[],"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=5"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/definition?definitionId=28"},"editor":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/designer?id=28&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"description":"Pipeline
+        for contoso project","jobAuthorizationScope":"projectCollection","process":{"yamlFilename":"azure-pipelines.yml","type":2},"repository":{"id":"0a284cac-7934-4c43-b274-0924236a4ba5","type":"TfsGit","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_git/pipelinesTest000001","defaultBranch":"refs/heads/main","clean":null,"checkoutSubmodules":false},"quality":"definition","authoredBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"}},"id":620,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=5","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":5,"createdDate":"2024-01-05T12:12:59.66Z","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 67b23fa2-133e-445c-a63f-05736d5dca67
+      cache-control:
+      - no-cache
+      content-length:
+      - '2693'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:58 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: FB6ABD1B6B0B4425B9B48DD30F299E00 Ref B: HYD30EDGE0521 Ref C: 2024-01-05T12:12:59Z'
+      x-tfs-processid:
+      - 30454ad0-677f-401b-8bab-2649a1b214c3
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 67b23fa2-133e-445c-a63f-05736d5dca67
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions?queryOrder=none
+  response:
+    body:
+      string: '{"count":1,"value":[{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=5"},"web":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/definition?definitionId=28"},"editor":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_build/designer?id=28&_a=edit-build-definition"},"badge":{"href":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/status/28"}},"quality":"definition","authoredBy":{"displayName":"Soujanya
+        Bestala","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"drafts":[],"queue":{"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620"}},"id":620,"name":"Hosted
+        Ubuntu 1604","url":"https://dev.azure.com/v-anvashist0376/_apis/build/Queues/620","pool":{"id":8,"name":"Hosted
+        Ubuntu 1604","isHosted":true}},"id":28,"name":"ContosoBuild","url":"https://dev.azure.com/v-anvashist0376/81fa0df5-8ce1-412d-8c6d-a5555d996ac3/_apis/build/Definitions/28?revision=5","uri":"vstfs:///Build/Definition/28","path":"\\","type":"build","queueStatus":"enabled","revision":5,"createdDate":"2024-01-05T12:12:59.66Z","project":{"id":"81fa0df5-8ce1-412d-8c6d-a5555d996ac3","name":"pipelinesTest000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3","state":"wellFormed","revision":679,"visibility":"private","lastUpdateTime":"2024-01-05T12:12:41.813Z"}}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - a7465a35-93d6-422b-92df-9564feb8582c
+      cache-control:
+      - no-cache
+      content-length:
+      - '2063'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:12:59 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 8CC7317263AF46288FE9BD7CCB1933B6 Ref B: HYD30EDGE0112 Ref C: 2024-01-05T12:12:59Z'
+      x-tfs-processid:
+      - 389bdeb2-1a80-4c7b-9ba2-cf5acfd33603
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - a7465a35-93d6-422b-92df-9564feb8582c
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: DELETE
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions/28
+  response:
+    body:
+      string: ''
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 4e7ae916-d317-41dc-9e12-a832a709e040
+      cache-control:
+      - no-cache
+      date:
+      - Fri, 05 Jan 2024 12:12:59 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 45BD7AF5CBAC44E2A6FA9358B1411192 Ref B: HYD30EDGE0520 Ref C: 2024-01-05T12:13:00Z'
+      x-tfs-processid:
+      - 6cf85906-d252-4853-bfd6-206d0b3444a6
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 4e7ae916-d317-41dc-9e12-a832a709e040
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/pipelinesTest000001/_apis/build/Definitions?queryOrder=none
+  response:
+    body:
+      string: '{"count":0,"value":[]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 26195434-44e3-4310-9874-208e53dc100b
+      cache-control:
+      - no-cache
+      content-length:
+      - '22'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:13:00 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: B4B6D6FAB8CD411390BB82A3A6A31539 Ref B: HYD30EDGE0321 Ref C: 2024-01-05T12:13:00Z'
+      x-tfs-processid:
+      - b438bf06-f2a7-44e9-b240-1ac4d8d06b55
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 26195434-44e3-4310-9874-208e53dc100b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: DELETE
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects/81fa0df5-8ce1-412d-8c6d-a5555d996ac3
+  response:
+    body:
+      string: '{"id":"a4825141-d4e4-4f97-9cba-da78cc954638","status":"notSet","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4825141-d4e4-4f97-9cba-da78cc954638"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 20c1fa0d-c13d-4490-a080-75f1f51b7f6b
+      cache-control:
+      - no-cache
+      content-length:
+      - '163'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:13:00 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 1C3E8CA99C1A4F4EADDD5BDBE2233B51 Ref B: HYD30EDGE0210 Ref C: 2024-01-05T12:13:01Z'
+      x-tfs-processid:
+      - 9dc63141-ab4c-494b-9972-1c17514cec2c
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - 20c1fa0d-c13d-4490-a080-75f1f51b7f6b
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 202
+      message: Accepted
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/a4825141-d4e4-4f97-9cba-da78cc954638
+  response:
+    body:
+      string: '{"id":"a4825141-d4e4-4f97-9cba-da78cc954638","status":"succeeded","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4825141-d4e4-4f97-9cba-da78cc954638","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4825141-d4e4-4f97-9cba-da78cc954638"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - d9dd301a-deb5-4d5a-8445-65df24895671
+      cache-control:
+      - no-cache
+      content-length:
+      - '287'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 05 Jan 2024 12:13:01 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 61405EBBFD15495896C0BDED7D4C3604 Ref B: HYD30EDGE0208 Ref C: 2024-01-05T12:13:01Z'
+      x-tfs-processid:
+      - cc2a61a7-591a-42c2-8ca4-5e58ec315deb
+      x-tfs-session:
+      - 310b6a33-ee2a-4d2b-8f18-4016bdae6d6a
+      x-vss-e2eid:
+      - d9dd301a-deb5-4d5a-8445-65df24895671
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+version: 1

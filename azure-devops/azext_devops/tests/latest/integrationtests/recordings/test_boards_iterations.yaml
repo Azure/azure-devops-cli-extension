@@ -1,0 +1,2986 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects?stateFilter=all&$top=1&$skip=0
+  response:
+    body:
+      string: '{"count":1,"value":[{"id":"41b8d8d8-b4a3-479a-8434-bf6e0139ee86","name":"MITesting","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/41b8d8d8-b4a3-479a-8434-bf6e0139ee86","state":"wellFormed","revision":20,"visibility":"organization","lastUpdateTime":"2023-09-12T04:50:28.28Z"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7a23ba6b-b7b1-441b-a58b-7052c1f48cbe
+      cache-control:
+      - no-cache
+      content-length:
+      - '290'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:28 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-ms-continuationtoken:
+      - '1'
+      x-msedge-ref:
+      - 'Ref A: 4F3067EA80EA4BEC9E1B464F6EF86969 Ref B: MAA01EDGE1408 Ref C: 2023-12-22T11:25:29Z'
+      x-tfs-processid:
+      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 7a23ba6b-b7b1-441b-a58b-7052c1f48cbe
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/process/processes
+  response:
+    body:
+      string: '{"count":4,"value":[{"id":"6b724908-ef14-45cf-84f8-768b5384da45","description":"This
+        template is for teams who follow the Scrum framework.","isDefault":false,"type":"system","url":"https://dev.azure.com/v-anvashist0376/_apis/process/processes/6b724908-ef14-45cf-84f8-768b5384da45","name":"Scrum"},{"id":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2","description":"This
+        template is flexible for any process and great for teams getting started with
+        Azure DevOps.","isDefault":true,"type":"system","url":"https://dev.azure.com/v-anvashist0376/_apis/process/processes/b8a3a935-7e91-48b8-a94c-606d37c3e9f2","name":"Basic"},{"id":"adcc42ab-9882-485e-a3ed-7678f01f66bc","description":"This
+        template is flexible and will work great for most teams using Agile planning
+        methods, including those practicing Scrum.","isDefault":false,"type":"system","url":"https://dev.azure.com/v-anvashist0376/_apis/process/processes/adcc42ab-9882-485e-a3ed-7678f01f66bc","name":"Agile"},{"id":"27450541-8e31-4150-9947-dc59f998fc01","description":"This
+        template is for more formal projects requiring a framework for process improvement
+        and an auditable record of decisions.","isDefault":false,"type":"system","url":"https://dev.azure.com/v-anvashist0376/_apis/process/processes/27450541-8e31-4150-9947-dc59f998fc01","name":"CMMI"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - f53e97a4-4dd0-4c6e-848c-432e1034f8d1
+      cache-control:
+      - no-cache
+      content-length:
+      - '1298'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:28 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: CFCAB06C9DFF479F876A8E2228F77770 Ref B: MAA01EDGE1214 Ref C: 2023-12-22T11:25:29Z'
+      x-tfs-processid:
+      - 0c6da6c3-c88f-46e1-a986-517572a7a8ca
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - f53e97a4-4dd0-4c6e-848c-432e1034f8d1
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"name": "IterationProj_000001", "visibility": "private", "capabilities":
+      {"versioncontrol": {"sourceControlType": "git"}, "processTemplate": {"templateTypeId":
+      "b8a3a935-7e91-48b8-a94c-606d37c3e9f2"}}}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '202'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects
+  response:
+    body:
+      string: '{"id":"a4ade841-6e68-4bed-aad7-c3ebc4aa2939","status":"notSet","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7a23bdda-b7b1-441b-a58b-7052c1f48cbe
+      cache-control:
+      - no-cache
+      content-length:
+      - '163'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:29 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 17ABE2F47CE642E68A76768EF61E437E Ref B: MAA01EDGE1009 Ref C: 2023-12-22T11:25:29Z'
+      x-tfs-processid:
+      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 7a23bdda-b7b1-441b-a58b-7052c1f48cbe
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 202
+      message: Accepted
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939
+  response:
+    body:
+      string: '{"id":"a4ade841-6e68-4bed-aad7-c3ebc4aa2939","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7a23bc2e-b7b1-441b-a58b-7052c1f48cbe
+      cache-control:
+      - no-cache
+      content-length:
+      - '288'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:30 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: AF95CD19E3DA4563830B66BA921B35D5 Ref B: MAA01EDGE1508 Ref C: 2023-12-22T11:25:30Z'
+      x-tfs-processid:
+      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 7a23bc2e-b7b1-441b-a58b-7052c1f48cbe
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939
+  response:
+    body:
+      string: '{"id":"a4ade841-6e68-4bed-aad7-c3ebc4aa2939","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 190db52c-3088-4e8e-99fb-81e826079317
+      cache-control:
+      - no-cache
+      content-length:
+      - '288'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:31 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 1AEAB467C1244EEB854CD456222725E2 Ref B: MAA01EDGE1509 Ref C: 2023-12-22T11:25:31Z'
+      x-tfs-processid:
+      - 0de3b1be-f6c9-427b-99f7-962fa8ab8ee7
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 190db52c-3088-4e8e-99fb-81e826079317
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939
+  response:
+    body:
+      string: '{"id":"a4ade841-6e68-4bed-aad7-c3ebc4aa2939","status":"succeeded","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7a23b3d7-b7b1-441b-a58b-7052c1f48cbe
+      cache-control:
+      - no-cache
+      content-length:
+      - '287'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:33 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 19427B27B0854596AD993A270E321BB2 Ref B: MAA01EDGE0412 Ref C: 2023-12-22T11:25:33Z'
+      x-tfs-processid:
+      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 7a23b3d7-b7b1-441b-a58b-7052c1f48cbe
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects/IterationProj_000001?includeCapabilities=true
+  response:
+    body:
+      string: '{"id":"8a03df55-b6ba-4839-80cc-3e3ec0c9aadc","name":"IterationProj_000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc","state":"wellFormed","capabilities":{"processTemplate":{"templateName":"Basic","templateTypeId":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2"},"versioncontrol":{"sourceControlType":"Git","gitEnabled":"True","tfvcEnabled":"False"}},"revision":54,"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"collection":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projectCollections/2ad38d1e-3eaf-4769-931c-3a2da67bbb01"},"web":{"href":"https://dev.azure.com/v-anvashist0376/IterationProj_000001"}},"visibility":"private","defaultTeam":{"id":"48a4425f-2254-464c-b0ee-8776834b4a49","name":"IterationProj_000001
+        Team","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/48a4425f-2254-464c-b0ee-8776834b4a49"},"lastUpdateTime":"2023-12-22T11:25:32.433Z"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - b50bb36d-6804-4274-9026-7a8fb94a0e2f
+      cache-control:
+      - no-cache
+      content-length:
+      - '1033'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:33 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 37545A86D8BC430A8C7B315330A58903 Ref B: MAA01EDGE0715 Ref C: 2023-12-22T11:25:33Z'
+      x-tfs-processid:
+      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - b50bb36d-6804-4274-9026-7a8fb94a0e2f
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=1
+  response:
+    body:
+      string: '{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":24,"identifier":"c2ce962d-4ebc-494c-b3da-d438e48ec151","name":"Sprint
+        1","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\Sprint
+        1","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/Sprint%201"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 190dbe2e-3088-4e8e-99fb-81e826079317
+      cache-control:
+      - no-cache
+      content-length:
+      - '779'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:33 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 83B204B49AD04B0497186AC261C48191 Ref B: MAA01EDGE1422 Ref C: 2023-12-22T11:25:34Z'
+      x-tfs-processid:
+      - 0de3b1be-f6c9-427b-99f7-962fa8ab8ee7
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 190dbe2e-3088-4e8e-99fb-81e826079317
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"name": "teamName1_000002"}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '28'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects/IterationProj_000001/teams
+  response:
+    body:
+      string: '{"id":"0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce","name":"teamName1_000002","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce","description":"","identityUrl":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce","projectName":"IterationProj_000001","projectId":"8a03df55-b6ba-4839-80cc-3e3ec0c9aadc","identity":{"id":"0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce","descriptor":"Microsoft.TeamFoundation.Identity;S-1-9-1551374245-1440678794-3132504392-2160868926-3234441948-1-2927255536-3989704013-3083918934-3900046430","subjectDescriptor":"vssgp.Uy0xLTktMTU1MTM3NDI0NS0xNDQwNjc4Nzk0LTMxMzI1MDQzOTItMjE2MDg2ODkyNi0zMjM0NDQxOTQ4LTEtMjkyNzI1NTUzNi0zOTg5NzA0MDEzLTMwODM5MTg5MzQtMzkwMDA0NjQzMA","providerDisplayName":"[IterationProj_000001]\\teamName1_000002","isActive":true,"isContainer":true,"members":[],"memberOf":[],"masterId":"0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce","properties":{"Microsoft.TeamFoundation.Team":{"$type":"System.Boolean","$value":true},"SchemaClassName":{"$type":"System.String","$value":"Group"},"Description":{"$type":"System.String","$value":""},"Domain":{"$type":"System.String","$value":"vstfs:///Classification/TeamProject/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"Account":{"$type":"System.String","$value":"teamName1_000002"},"SecurityGroup":{"$type":"System.String","$value":"SecurityGroup"},"SpecialType":{"$type":"System.String","$value":"Generic"},"ScopeId":{"$type":"System.String","$value":"6e403ee4-2529-4bd3-98c9-c856a2ca58a0"},"ScopeType":{"$type":"System.String","$value":"TeamProject"},"LocalScopeId":{"$type":"System.String","$value":"8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"SecuringHostId":{"$type":"System.String","$value":"a9bae0de-049f-43b5-a1ff-18f8f805fbe8"},"ScopeName":{"$type":"System.String","$value":"IterationProj_000001"},"VirtualPlugin":{"$type":"System.String","$value":""}},"resourceVersion":2,"metaTypeId":255}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 90ab1f60-f73a-4124-a874-408d2b74caea
+      cache-control:
+      - no-cache
+      content-length:
+      - '2025'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:34 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: F42212BB7DA64336955705A20FE4696E Ref B: MAA01EDGE0820 Ref C: 2023-12-22T11:25:34Z'
+      x-tfs-processid:
+      - 4b55c8de-2551-460b-98bd-bd7952170718
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 90ab1f60-f73a-4124-a874-408d2b74caea
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=0
+  response:
+    body:
+      string: '{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 90ab19cf-f73a-4124-a874-408d2b74caea
+      cache-control:
+      - no-cache
+      content-length:
+      - '450'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:34 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 322558F526714C46BB24DFFB8983B05B Ref B: MAA01EDGE0913 Ref C: 2023-12-22T11:25:35Z'
+      x-tfs-processid:
+      - 4b55c8de-2551-460b-98bd-bd7952170718
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 90ab19cf-f73a-4124-a874-408d2b74caea
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"attributes": {}, "name": "teamName1_000002_Root_Itr_000003"}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '62'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations
+  response:
+    body:
+      string: '{"id":26,"identifier":"6871dc36-b791-4360-a36f-41dfcb7b8d84","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 190dbd86-3088-4e8e-99fb-81e826079317
+      cache-control:
+      - no-cache
+      content-length:
+      - '699'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:35 GMT
+      expires:
+      - '-1'
+      location:
+      - https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 4A88504DA29B4447A081D8E7D0FD4441 Ref B: MAA01EDGE0507 Ref C: 2023-12-22T11:25:35Z'
+      x-tfs-processid:
+      - 0de3b1be-f6c9-427b-99f7-962fa8ab8ee7
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 190dbd86-3088-4e8e-99fb-81e826079317
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=1
+  response:
+    body:
+      string: '{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":24,"identifier":"c2ce962d-4ebc-494c-b3da-d438e48ec151","name":"Sprint
+        1","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\Sprint
+        1","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/Sprint%201"},{"id":26,"identifier":"6871dc36-b791-4360-a36f-41dfcb7b8d84","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - b50bbe1f-6804-4274-9026-7a8fb94a0e2f
+      cache-control:
+      - no-cache
+      content-length:
+      - '1165'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:36 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: EFC020A0968C4F5CAD7B6FEE89A7BB24 Ref B: MAA01EDGE0812 Ref C: 2023-12-22T11:25:36Z'
+      x-tfs-processid:
+      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - b50bbe1f-6804-4274-9026-7a8fb94a0e2f
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes?$depth=0
+  response:
+    body:
+      string: '{"count":2,"value":[{"id":25,"identifier":"10635514-0e39-4d16-acbd-2720cd804834","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Areas"},{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - b50bbda4-6804-4274-9026-7a8fb94a0e2f
+      cache-control:
+      - no-cache
+      content-length:
+      - '619'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:36 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 30F2D3057DA7479190F4AF3D4D1BF985 Ref B: MAA01EDGE1105 Ref C: 2023-12-22T11:25:36Z'
+      x-tfs-processid:
+      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - b50bbda4-6804-4274-9026-7a8fb94a0e2f
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"attributes": {}, "name": "Child_Itr_000004"}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '46'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003
+  response:
+    body:
+      string: '{"id":27,"identifier":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7a23a841-b7b1-441b-a58b-7052c1f48cbe
+      cache-control:
+      - no-cache
+      content-length:
+      - '768'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:36 GMT
+      expires:
+      - '-1'
+      location:
+      - https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 47B729B5AF9A45828DE1854DB59411EB Ref B: MAA01EDGE1216 Ref C: 2023-12-22T11:25:37Z'
+      x-tfs-processid:
+      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 7a23a841-b7b1-441b-a58b-7052c1f48cbe
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes?$depth=0
+  response:
+    body:
+      string: '{"count":2,"value":[{"id":25,"identifier":"10635514-0e39-4d16-acbd-2720cd804834","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Areas"},{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7a23a8f9-b7b1-441b-a58b-7052c1f48cbe
+      cache-control:
+      - no-cache
+      content-length:
+      - '619'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:37 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 68AC7360CB104F5EAEEE454FA2DFAA4D Ref B: MAA01EDGE1419 Ref C: 2023-12-22T11:25:37Z'
+      x-tfs-processid:
+      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 7a23a8f9-b7b1-441b-a58b-7052c1f48cbe
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"attributes": {"startDate": "2019-06-17T00:00:00", "finishDate": "2019-06-28T00:00:00"},
+      "name": "Child_Itr_000005"}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '117'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003
+  response:
+    body:
+      string: '{"id":28,"identifier":"01ba0f14-ea75-45da-becf-84d115ed65ca","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"attributes":{"startDate":"2019-06-17T00:00:00Z","finishDate":"2019-06-28T00:00:00Z"},"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000005","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 90ab042f-f73a-4124-a874-408d2b74caea
+      cache-control:
+      - no-cache
+      content-length:
+      - '854'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:37 GMT
+      expires:
+      - '-1'
+      location:
+      - https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 2E6B19BDCFDE4DEAB165117E3C1AA821 Ref B: MAA01EDGE0417 Ref C: 2023-12-22T11:25:38Z'
+      x-tfs-processid:
+      - 4b55c8de-2551-460b-98bd-bd7952170718
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 90ab042f-f73a-4124-a874-408d2b74caea
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 201
+      message: Created
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=2
+  response:
+    body:
+      string: '{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":24,"identifier":"c2ce962d-4ebc-494c-b3da-d438e48ec151","name":"Sprint
+        1","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\Sprint
+        1","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/Sprint%201"},{"id":26,"identifier":"6871dc36-b791-4360-a36f-41dfcb7b8d84","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":true,"children":[{"id":27,"identifier":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},{"id":28,"identifier":"01ba0f14-ea75-45da-becf-84d115ed65ca","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"attributes":{"startDate":"2019-06-17T00:00:00Z","finishDate":"2019-06-28T00:00:00Z"},"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000005","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"}],"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7a23aa14-b7b1-441b-a58b-7052c1f48cbe
+      cache-control:
+      - no-cache
+      content-length:
+      - '2073'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:37 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: AE8B9D31727742B1B5CD19F6CDBFC23A Ref B: MAA01EDGE1109 Ref C: 2023-12-22T11:25:38Z'
+      x-tfs-processid:
+      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 7a23aa14-b7b1-441b-a58b-7052c1f48cbe
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes?ids=27
+  response:
+    body:
+      string: '{"count":1,"value":[{"id":27,"identifier":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 90ab060d-f73a-4124-a874-408d2b74caea
+      cache-control:
+      - no-cache
+      content-length:
+      - '790'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:39 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: F004C35A6E47403290D1488ADDB7C20F Ref B: MAA01EDGE0511 Ref C: 2023-12-22T11:25:39Z'
+      x-tfs-processid:
+      - 4b55c8de-2551-460b-98bd-bd7952170718
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 90ab060d-f73a-4124-a874-408d2b74caea
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes?$depth=0
+  response:
+    body:
+      string: '{"count":2,"value":[{"id":25,"identifier":"10635514-0e39-4d16-acbd-2720cd804834","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Areas"},{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 90ab0115-f73a-4124-a874-408d2b74caea
+      cache-control:
+      - no-cache
+      content-length:
+      - '619'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:39 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 699126CF81EC4053814D2F778756C6A9 Ref B: MAA01EDGE0819 Ref C: 2023-12-22T11:25:39Z'
+      x-tfs-processid:
+      - 4b55c8de-2551-460b-98bd-bd7952170718
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 90ab0115-f73a-4124-a874-408d2b74caea
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"id": 28}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '10'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003%5CChild_Itr_000004
+  response:
+    body:
+      string: '{"id":28,"identifier":"01ba0f14-ea75-45da-becf-84d115ed65ca","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7a23acd2-b7b1-441b-a58b-7052c1f48cbe
+      cache-control:
+      - no-cache
+      content-length:
+      - '837'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:39 GMT
+      expires:
+      - '-1'
+      location:
+      - https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: A6F6902729AA41C78ADE4729B117E853 Ref B: MAA01EDGE0413 Ref C: 2023-12-22T11:25:39Z'
+      x-tfs-processid:
+      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 7a23acd2-b7b1-441b-a58b-7052c1f48cbe
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003%5CChild_Itr_000004
+  response:
+    body:
+      string: '{"id":27,"identifier":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 90ab03b8-f73a-4124-a874-408d2b74caea
+      cache-control:
+      - no-cache
+      content-length:
+      - '767'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:40 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: BA1E07398FF74F1DA4B0BF16BD64B6D4 Ref B: MAA01EDGE1213 Ref C: 2023-12-22T11:25:40Z'
+      x-tfs-processid:
+      - 4b55c8de-2551-460b-98bd-bd7952170718
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 90ab03b8-f73a-4124-a874-408d2b74caea
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"url": "https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004",
+      "_links": {}, "attributes": {}, "hasChildren": true, "id": 27, "identifier":
+      "6250724f-7e8d-41a9-a7c3-9297aa6c4624", "name": "Child_Itr_000004", "structureType":
+      "iteration"}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '351'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PATCH
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003%5CChild_Itr_000004
+  response:
+    body:
+      string: '{"id":27,"identifier":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 190da41a-3088-4e8e-99fb-81e826079317
+      cache-control:
+      - no-cache
+      content-length:
+      - '767'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:40 GMT
+      expires:
+      - '-1'
+      location:
+      - https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: BD277BBECCFF42A2973DDDF600453BE9 Ref B: MAA01EDGE0909 Ref C: 2023-12-22T11:25:40Z'
+      x-tfs-processid:
+      - 0de3b1be-f6c9-427b-99f7-962fa8ab8ee7
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 190da41a-3088-4e8e-99fb-81e826079317
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
+  response:
+    body:
+      string: '{"count":0,"value":[]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - f53f7c6e-4dd0-4c6e-848c-432e1034f8d1
+      cache-control:
+      - no-cache
+      content-length:
+      - '22'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:41 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 37E27C16A09444FA97FF3BC14B689143 Ref B: MAA01EDGE0419 Ref C: 2023-12-22T11:25:41Z'
+      x-tfs-processid:
+      - 0c6da6c3-c88f-46e1-a986-517572a7a8ca
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - f53f7c6e-4dd0-4c6e-848c-432e1034f8d1
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"id": "6871dc36-b791-4360-a36f-41dfcb7b8d84"}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '46'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
+  response:
+    body:
+      string: '{"$id":"1","innerException":null,"message":"TF400497: The backlog iteration
+        path that you specified is no longer valid.","typeName":"Microsoft.Azure.Boards.Agile.Common.Exceptions.InvalidTeamSettingsException,
+        Microsoft.Azure.Boards.Agile.Common","typeKey":"InvalidTeamSettingsException","errorCode":0,"eventId":3000}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - f53f7f13-4dd0-4c6e-848c-432e1034f8d1
+      cache-control:
+      - no-cache
+      content-length:
+      - '317'
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Fri, 22 Dec 2023 11:25:41 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 527B8B77197044FD84909FC31A382842 Ref B: MAA01EDGE1413 Ref C: 2023-12-22T11:25:41Z'
+      x-tfs-processid:
+      - 0c6da6c3-c88f-46e1-a986-517572a7a8ca
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - f53f7f13-4dd0-4c6e-848c-432e1034f8d1
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 400
+      message: Bad Request
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
+  response:
+    body:
+      string: '{"backlogIteration":{"id":"00000000-0000-0000-0000-000000000000"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/teamfieldvalues"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - b50b83ff-6804-4274-9026-7a8fb94a0e2f
+      cache-control:
+      - no-cache
+      content-length:
+      - '1240'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:42 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: D4A0FBB0C9814BE0AEB2FD88872DA5D5 Ref B: MAA01EDGE1218 Ref C: 2023-12-22T11:25:42Z'
+      x-tfs-processid:
+      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - b50b83ff-6804-4274-9026-7a8fb94a0e2f
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"backlogIteration": "c54785c0-7b74-4526-ab99-60c50710b52c"}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '60'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PATCH
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
+  response:
+    body:
+      string: '{"backlogIteration":{"id":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - b50b820d-6804-4274-9026-7a8fb94a0e2f
+      cache-control:
+      - no-cache
+      content-length:
+      - '1552'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:42 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: DDAE806F7F9C4D9CA9FEF8F09527F550 Ref B: MAA01EDGE1017 Ref C: 2023-12-22T11:25:43Z'
+      x-tfs-processid:
+      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - b50b820d-6804-4274-9026-7a8fb94a0e2f
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
+  response:
+    body:
+      string: '{"backlogIteration":{"id":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7a23a569-b7b1-441b-a58b-7052c1f48cbe
+      cache-control:
+      - no-cache
+      content-length:
+      - '1552'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:42 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 3A4DD1CB86674D3196BD19C45A390127 Ref B: MAA01EDGE1009 Ref C: 2023-12-22T11:25:43Z'
+      x-tfs-processid:
+      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 7a23a569-b7b1-441b-a58b-7052c1f48cbe
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"id": "6250724f-7e8d-41a9-a7c3-9297aa6c4624"}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '46'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
+  response:
+    body:
+      string: '{"id":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamSettings":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"capacity":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624/capacities"},"workitems":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624/workitems"},"classificationNode":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"teamDaysOff":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624/teamdaysoff"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - f53f730f-4dd0-4c6e-848c-432e1034f8d1
+      cache-control:
+      - no-cache
+      content-length:
+      - '2082'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:44 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 3C6BE57457D94D8781A90687FB9BC0D5 Ref B: MAA01EDGE0612 Ref C: 2023-12-22T11:25:44Z'
+      x-tfs-processid:
+      - 0c6da6c3-c88f-46e1-a986-517572a7a8ca
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - f53f730f-4dd0-4c6e-848c-432e1034f8d1
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 201
+      message: Created
+- request:
+    body: '{"id": "01ba0f14-ea75-45da-becf-84d115ed65ca"}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '46'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
+  response:
+    body:
+      string: '{"id":"01ba0f14-ea75-45da-becf-84d115ed65ca","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"future"},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamSettings":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"capacity":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca/capacities"},"workitems":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca/workitems"},"classificationNode":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"},"teamDaysOff":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca/teamdaysoff"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - b50b8fe5-6804-4274-9026-7a8fb94a0e2f
+      cache-control:
+      - no-cache
+      content-length:
+      - '2116'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:44 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 110A4D8EDD4F471EA0C598E315FE445B Ref B: MAA01EDGE0512 Ref C: 2023-12-22T11:25:44Z'
+      x-tfs-processid:
+      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - b50b8fe5-6804-4274-9026-7a8fb94a0e2f
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 201
+      message: Created
+- request:
+    body: '{"defaultIteration": "6871dc36-b791-4360-a36f-41dfcb7b8d84"}'
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '60'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PATCH
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
+  response:
+    body:
+      string: '{"backlogIteration":{"id":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":{"id":"6871dc36-b791-4360-a36f-41dfcb7b8d84","name":"teamName1_000002_Root_Itr_000003","path":"\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"defaultIterationMacro":null,"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":[{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"},{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}]}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 90ab0ae9-f73a-4124-a874-408d2b74caea
+      cache-control:
+      - no-cache
+      content-length:
+      - '1983'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:25:45 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 77E098C2B1254D13B4ACECB11133AFF8 Ref B: MAA01EDGE0912 Ref C: 2023-12-22T11:25:45Z'
+      x-tfs-processid:
+      - 4b55c8de-2551-460b-98bd-bd7952170718
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 90ab0ae9-f73a-4124-a874-408d2b74caea
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
+  response:
+    body:
+      string: '{"backlogIteration":{"id":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":{"id":"6871dc36-b791-4360-a36f-41dfcb7b8d84","name":"teamName1_000002_Root_Itr_000003","path":"\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"defaultIterationMacro":null,"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":[{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"},{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}]}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 90abcec3-f73a-4124-a874-408d2b74caea
+      cache-control:
+      - no-cache
+      content-length:
+      - '1983'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:26:15 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: ECAE6C92E7EB4FABBA6D7FA8D6665F5E Ref B: MAA01EDGE0811 Ref C: 2023-12-22T11:26:15Z'
+      x-tfs-processid:
+      - 4b55c8de-2551-460b-98bd-bd7952170718
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 90abcec3-f73a-4124-a874-408d2b74caea
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
+  response:
+    body:
+      string: '{"count":2,"value":[{"id":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624"},{"id":"01ba0f14-ea75-45da-becf-84d115ed65ca","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"future"},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 90abc98d-f73a-4124-a874-408d2b74caea
+      cache-control:
+      - no-cache
+      content-length:
+      - '874'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:26:15 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 7399FC28A4FD4CC2879CC27B9A1C21C6 Ref B: MAA01EDGE1405 Ref C: 2023-12-22T11:26:16Z'
+      x-tfs-processid:
+      - 4b55c8de-2551-460b-98bd-bd7952170718
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 90abc98d-f73a-4124-a874-408d2b74caea
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: DELETE
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624
+  response:
+    body:
+      string: ''
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 190c6328-3088-4e8e-99fb-81e826079317
+      cache-control:
+      - no-cache
+      date:
+      - Fri, 22 Dec 2023 11:26:15 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: FE772D91688848229C5FCC0ED4385FC5 Ref B: MAA01EDGE1212 Ref C: 2023-12-22T11:26:16Z'
+      x-tfs-processid:
+      - 0de3b1be-f6c9-427b-99f7-962fa8ab8ee7
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 190c6328-3088-4e8e-99fb-81e826079317
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
+  response:
+    body:
+      string: '{"count":1,"value":[{"id":"01ba0f14-ea75-45da-becf-84d115ed65ca","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - b50a4215-6804-4274-9026-7a8fb94a0e2f
+      cache-control:
+      - no-cache
+      content-length:
+      - '457'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:26:16 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 7D993FFA1AB443D6AB5810DC57CBBF76 Ref B: MAA01EDGE1419 Ref C: 2023-12-22T11:26:17Z'
+      x-tfs-processid:
+      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - b50a4215-6804-4274-9026-7a8fb94a0e2f
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: DELETE
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca
+  response:
+    body:
+      string: ''
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 90abcb1d-f73a-4124-a874-408d2b74caea
+      cache-control:
+      - no-cache
+      date:
+      - Fri, 22 Dec 2023 11:26:17 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 0C124AE93FEC41A6A1D4EDA7B0BE53CF Ref B: MAA01EDGE0412 Ref C: 2023-12-22T11:26:17Z'
+      x-tfs-processid:
+      - 4b55c8de-2551-460b-98bd-bd7952170718
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 90abcb1d-f73a-4124-a874-408d2b74caea
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
+  response:
+    body:
+      string: '{"count":0,"value":[]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7a23e565-b7b1-441b-a58b-7052c1f48cbe
+      cache-control:
+      - no-cache
+      content-length:
+      - '22'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:26:18 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 0BB585F7105B4EAABB17622D992E9371 Ref B: MAA01EDGE0816 Ref C: 2023-12-22T11:26:18Z'
+      x-tfs-processid:
+      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 7a23e565-b7b1-441b-a58b-7052c1f48cbe
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes?$depth=0
+  response:
+    body:
+      string: '{"count":2,"value":[{"id":25,"identifier":"10635514-0e39-4d16-acbd-2720cd804834","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Areas"},{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - f53f35ec-4dd0-4c6e-848c-432e1034f8d1
+      cache-control:
+      - no-cache
+      content-length:
+      - '619'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:26:17 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 47F538DCAC4D474ABD9C4DB39D38E7B3 Ref B: MAA01EDGE0907 Ref C: 2023-12-22T11:26:18Z'
+      x-tfs-processid:
+      - 0c6da6c3-c88f-46e1-a986-517572a7a8ca
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - f53f35ec-4dd0-4c6e-848c-432e1034f8d1
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: DELETE
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003
+  response:
+    body:
+      string: ''
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 190c6f07-3088-4e8e-99fb-81e826079317
+      cache-control:
+      - no-cache
+      date:
+      - Fri, 22 Dec 2023 11:26:18 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 7758966BC14247E6BE2E5C80B70D9D02 Ref B: MAA01EDGE1120 Ref C: 2023-12-22T11:26:19Z'
+      x-tfs-processid:
+      - 0de3b1be-f6c9-427b-99f7-962fa8ab8ee7
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 190c6f07-3088-4e8e-99fb-81e826079317
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=2
+  response:
+    body:
+      string: '{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":24,"identifier":"c2ce962d-4ebc-494c-b3da-d438e48ec151","name":"Sprint
+        1","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\Sprint
+        1","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/Sprint%201"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - b50a4e65-6804-4274-9026-7a8fb94a0e2f
+      cache-control:
+      - no-cache
+      content-length:
+      - '779'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:26:19 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 40166BC9F82D435BA23731E41B53E7EC Ref B: MAA01EDGE0514 Ref C: 2023-12-22T11:26:19Z'
+      x-tfs-processid:
+      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - b50a4e65-6804-4274-9026-7a8fb94a0e2f
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: DELETE
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc
+  response:
+    body:
+      string: '{"id":"71be6fb5-913d-4189-b818-4bb83360e33c","status":"notSet","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/71be6fb5-913d-4189-b818-4bb83360e33c"}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - b50a4d23-6804-4274-9026-7a8fb94a0e2f
+      cache-control:
+      - no-cache
+      content-length:
+      - '163'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:26:19 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 2FD584AC19A649A4BE21F9B8CBCE351F Ref B: MAA01EDGE0814 Ref C: 2023-12-22T11:26:20Z'
+      x-tfs-processid:
+      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - b50a4d23-6804-4274-9026-7a8fb94a0e2f
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 202
+      message: Accepted
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
+        devOpsCli/0.26.0
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/71be6fb5-913d-4189-b818-4bb83360e33c
+  response:
+    body:
+      string: '{"id":"71be6fb5-913d-4189-b818-4bb83360e33c","status":"succeeded","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/71be6fb5-913d-4189-b818-4bb83360e33c","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/71be6fb5-913d-4189-b818-4bb83360e33c"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7a2c19ab-b7b1-441b-a58b-7052c1f48cbe
+      cache-control:
+      - no-cache
+      content-length:
+      - '287'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 22 Dec 2023 11:26:20 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 5881982EE89943B2ADFDE88A9D0353C6 Ref B: MAA01EDGE0809 Ref C: 2023-12-22T11:26:20Z'
+      x-tfs-processid:
+      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      x-tfs-session:
+      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      x-vss-e2eid:
+      - 7a2c19ab-b7b1-441b-a58b-7052c1f48cbe
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+version: 1
