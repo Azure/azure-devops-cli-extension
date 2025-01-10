@@ -29,6 +29,6 @@ jobs:
           azdev extension add azure-devops
           azdev test azure-devops --live --no-exitfirst --series
         env:
-          AZURE_DEVOPS_EXT_TEST_ORG: ${{ variables.AZURE_DEVOPS_EXT_TEST_ORG }}
+          AZURE_DEVOPS_EXT_TEST_ORG: ${{ secrets.AZURE_DEVOPS_EXT_TEST_ORG }}
           AZURE_DEVOPS_EXT_PAT: ${{ secrets.AZURE_DEVOPS_EXT_PAT }}
           
