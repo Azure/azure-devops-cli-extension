@@ -1,80 +1,6 @@
 interactions:
 - request:
-    body: null
-    headers:
-      Accept:
-      - application/json;api-version=5.0
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      User-Agent:
-      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
-        devOpsCli/0.26.0
-      X-TFS-FedAuthRedirect:
-      - Suppress
-      X-TFS-Session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
-      X-VSS-ForceMsaPassThrough:
-      - 'true'
-    method: GET
-    uri: https://dev.azure.com/v-anvashist0376/_apis/projects?stateFilter=all&$top=1&$skip=0
-  response:
-    body:
-      string: '{"count":1,"value":[{"id":"82f02fb4-752b-49be-a47f-d3f34e01e941","name":"BugBashTesting","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/82f02fb4-752b-49be-a47f-d3f34e01e941","state":"wellFormed","revision":36,"visibility":"organization","lastUpdateTime":"2023-11-28T11:07:03.527Z"}]}'
-    headers:
-      access-control-expose-headers:
-      - Request-Context
-      activityid:
-      - 89d22bd3-717c-44c0-9daf-91dc12d61d83
-      cache-control:
-      - no-cache
-      content-length:
-      - '296'
-      content-type:
-      - application/json; charset=utf-8; api-version=5.0
-      date:
-      - Fri, 29 Dec 2023 05:48:33 GMT
-      expires:
-      - '-1'
-      p3p:
-      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
-        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
-      request-context:
-      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
-      strict-transport-security:
-      - max-age=31536000; includeSubDomains
-      vary:
-      - Accept-Encoding
-      x-cache:
-      - CONFIG_NOCACHE
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - SAMEORIGIN
-      x-ms-continuationtoken:
-      - '1'
-      x-msedge-ref:
-      - 'Ref A: 66C3D606B05345EBBBD8930C135ACFFD Ref B: HYD30EDGE0522 Ref C: 2023-12-29T05:48:34Z'
-      x-tfs-processid:
-      - 8195bf23-df25-48ae-b8ee-06ec258258b9
-      x-tfs-session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
-      x-vss-e2eid:
-      - 89d22bd3-717c-44c0-9daf-91dc12d61d83
-      x-vss-senderdeploymentid:
-      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
-      x-vss-userdata:
-      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"name": "HtICckhT"}'
+    body: '{"name": "hjLSrqTd"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -87,24 +13,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
-        devOpsCli/0.26.0
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories
   response:
     body:
-      string: '{"id":"3c5396aa-a743-49d1-b8d8-7bd018e76042","name":"HtICckhT","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","isDisabled":false,"isInMaintenance":false}'
+      string: '{"id":"6cf5c87b-7dbb-4e4c-83f8-91e1889f9988","name":"hjLSrqTd","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTd","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/hjLSrqTd","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTd","isDisabled":false,"isInMaintenance":false}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 5fad115e-0cf8-4ac7-bb77-3dae3320da5f
+      - 3f61428c-bc34-4d12-a9b7-5ba1e881c048
       cache-control:
       - no-cache
       content-length:
@@ -112,7 +38,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 29 Dec 2023 05:48:34 GMT
+      - Thu, 09 Jan 2025 12:07:34 GMT
       expires:
       - '-1'
       p3p:
@@ -131,13 +57,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 7B3E33358FC545EA9AE36327E559CE5E Ref B: HYD30EDGE0216 Ref C: 2023-12-29T05:48:34Z'
+      - 'Ref A: D4A9440D2AE0462AB9F0ECE6D8D0D7EB Ref B: BN3EDGE0217 Ref C: 2025-01-09T12:07:34Z'
       x-tfs-processid:
-      - 5b5c9c7f-5a69-4acb-b667-c8a35434b042
+      - 54604b24-217c-446b-9e36-07c1eeb903ba
       x-tfs-session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       x-vss-e2eid:
-      - 5fad115e-0cf8-4ac7-bb77-3dae3320da5f
+      - 3f61428c-bc34-4d12-a9b7-5ba1e881c048
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -157,32 +83,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
-        devOpsCli/0.26.0
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories
   response:
     body:
-      string: '{"value":[{"id":"8ca4d532-dffd-4ee3-978b-1640af9e163f","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/8ca4d532-dffd-4ee3-978b-1640af9e163f","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/RepoCreateListShowDeleteTests","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","isDisabled":false,"isInMaintenance":false},{"id":"3c5396aa-a743-49d1-b8d8-7bd018e76042","name":"HtICckhT","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","isDisabled":false,"isInMaintenance":false}],"count":2}'
+      string: '{"value":[{"id":"152076b6-7532-4668-b51f-808194db358f","name":"ADeNKtPbUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/152076b6-7532-4668-b51f-808194db358f","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/ADeNKtPbUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/ADeNKtPbUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/ADeNKtPbUpdated","isDisabled":true,"isInMaintenance":false},{"id":"6cf5c87b-7dbb-4e4c-83f8-91e1889f9988","name":"hjLSrqTd","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTd","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/hjLSrqTd","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTd","isDisabled":false,"isInMaintenance":false},{"id":"070f919c-fb4c-4079-a0d8-9cfe27bc1baa","name":"iZNkzDzWUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/070f919c-fb4c-4079-a0d8-9cfe27bc1baa","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/iZNkzDzWUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/iZNkzDzWUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/iZNkzDzWUpdated","isDisabled":false,"isInMaintenance":false},{"id":"272346f3-ae58-449e-ad3f-7556876f592b","name":"OYwyWAyTUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/272346f3-ae58-449e-ad3f-7556876f592b","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/OYwyWAyTUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/OYwyWAyTUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/OYwyWAyTUpdated","isDisabled":true,"isInMaintenance":false},{"id":"b87a71dd-df14-4c8d-bb83-efd553bf767b","name":"qMoaaewBUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/b87a71dd-df14-4c8d-bb83-efd553bf767b","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/qMoaaewBUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/qMoaaewBUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/qMoaaewBUpdated","isDisabled":true,"isInMaintenance":false},{"id":"843282c0-f2c0-4a41-804d-d6f4b31f6a22","name":"RcbrcgOeUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/843282c0-f2c0-4a41-804d-d6f4b31f6a22","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RcbrcgOeUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/RcbrcgOeUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RcbrcgOeUpdated","isDisabled":true,"isInMaintenance":false},{"id":"8ca4d532-dffd-4ee3-978b-1640af9e163f","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/8ca4d532-dffd-4ee3-978b-1640af9e163f","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/RepoCreateListShowDeleteTests","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","isDisabled":true,"isInMaintenance":false},{"id":"f8bf2660-aa5b-4cff-8991-e867016eb52c","name":"UeUhfBQRUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/f8bf2660-aa5b-4cff-8991-e867016eb52c","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/UeUhfBQRUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/UeUhfBQRUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/UeUhfBQRUpdated","isDisabled":true,"isInMaintenance":false},{"id":"34269ca2-7622-44d2-a7e3-29a9185e0a9e","name":"ZyGuneSwUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/34269ca2-7622-44d2-a7e3-29a9185e0a9e","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/ZyGuneSwUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/ZyGuneSwUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/ZyGuneSwUpdated","isDisabled":true,"isInMaintenance":false}],"count":9}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 89d2c4e4-717c-44c0-9daf-91dc12d61d83
+      - 212a2555-7fa4-41ab-9115-8f3c610527b6
       cache-control:
       - no-cache
       content-length:
-      - '1817'
+      - '7998'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 29 Dec 2023 05:48:53 GMT
+      - Thu, 09 Jan 2025 12:07:34 GMT
       expires:
       - '-1'
       p3p:
@@ -203,13 +129,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: F31726F8D9514E24B35EB93782681D5F Ref B: MAA01EDGE0708 Ref C: 2023-12-29T05:48:53Z'
+      - 'Ref A: C4FEB5F7EB804FEBA273A0F30C18AF37 Ref B: BN3EDGE0621 Ref C: 2025-01-09T12:07:34Z'
       x-tfs-processid:
-      - 8195bf23-df25-48ae-b8ee-06ec258258b9
+      - 1cd70516-eb82-4b09-bca0-d6986a2d2549
       x-tfs-session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       x-vss-e2eid:
-      - 89d2c4e4-717c-44c0-9daf-91dc12d61d83
+      - 212a2555-7fa4-41ab-9115-8f3c610527b6
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -229,24 +155,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
-        devOpsCli/0.26.0
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042
+    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988
   response:
     body:
-      string: '{"id":"3c5396aa-a743-49d1-b8d8-7bd018e76042","name":"HtICckhT","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042"},"project":{"href":"vstfs:///Classification/TeamProject/b778afa3-eac1-4ff0-92ba-21481d5bfe63"},"web":{"href":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT"},"ssh":{"href":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT"},"commits":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/commits"},"refs":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/refs"},"pullRequests":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/pullRequests"},"items":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/items"},"pushes":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/pushes"}},"isDisabled":false,"isInMaintenance":false}'
+      string: '{"id":"6cf5c87b-7dbb-4e4c-83f8-91e1889f9988","name":"hjLSrqTd","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTd","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/hjLSrqTd","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTd","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988"},"project":{"href":"vstfs:///Classification/TeamProject/b778afa3-eac1-4ff0-92ba-21481d5bfe63"},"web":{"href":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTd"},"ssh":{"href":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/hjLSrqTd"},"commits":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988/commits"},"refs":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988/refs"},"pullRequests":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988/pullRequests"},"items":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988/items"},"pushes":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988/pushes"}},"isDisabled":false,"isInMaintenance":false}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 2382f601-8f56-477b-aa4b-f68d5b989e87
+      - 212a25b5-7fa4-41ab-9115-8f3c610527b6
       cache-control:
       - no-cache
       content-length:
@@ -254,7 +180,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 29 Dec 2023 05:49:04 GMT
+      - Thu, 09 Jan 2025 12:07:34 GMT
       expires:
       - '-1'
       p3p:
@@ -275,13 +201,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 3AAE646AD74D4578B6F6A3F5013D0470 Ref B: HYD30EDGE0114 Ref C: 2023-12-29T05:49:04Z'
+      - 'Ref A: 94912123DAC84BB1A28C9FEF81824D14 Ref B: BN3EDGE0414 Ref C: 2025-01-09T12:07:35Z'
       x-tfs-processid:
-      - aa664ff2-ac76-4628-a235-ce4eff449050
+      - 1cd70516-eb82-4b09-bca0-d6986a2d2549
       x-tfs-session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       x-vss-e2eid:
-      - 2382f601-8f56-477b-aa4b-f68d5b989e87
+      - 212a25b5-7fa4-41ab-9115-8f3c610527b6
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -301,24 +227,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
-        devOpsCli/0.26.0
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042
+    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988
   response:
     body:
-      string: '{"id":"3c5396aa-a743-49d1-b8d8-7bd018e76042","name":"HtICckhT","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042"},"project":{"href":"vstfs:///Classification/TeamProject/b778afa3-eac1-4ff0-92ba-21481d5bfe63"},"web":{"href":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT"},"ssh":{"href":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT"},"commits":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/commits"},"refs":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/refs"},"pullRequests":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/pullRequests"},"items":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/items"},"pushes":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042/pushes"}},"isDisabled":false,"isInMaintenance":false}'
+      string: '{"id":"6cf5c87b-7dbb-4e4c-83f8-91e1889f9988","name":"hjLSrqTd","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTd","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/hjLSrqTd","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTd","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988"},"project":{"href":"vstfs:///Classification/TeamProject/b778afa3-eac1-4ff0-92ba-21481d5bfe63"},"web":{"href":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTd"},"ssh":{"href":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/hjLSrqTd"},"commits":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988/commits"},"refs":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988/refs"},"pullRequests":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988/pullRequests"},"items":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988/items"},"pushes":{"href":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988/pushes"}},"isDisabled":false,"isInMaintenance":false}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 2382cd46-8f56-477b-aa4b-f68d5b989e87
+      - 7737962b-04c5-44b5-988c-fb9642700c8f
       cache-control:
       - no-cache
       content-length:
@@ -326,7 +252,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 29 Dec 2023 05:49:08 GMT
+      - Thu, 09 Jan 2025 12:07:35 GMT
       expires:
       - '-1'
       p3p:
@@ -347,13 +273,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 58FF1A88D3CA40CEA46DFDABA8E60396 Ref B: HYD30EDGE0213 Ref C: 2023-12-29T05:49:08Z'
+      - 'Ref A: 01F94AE3727E477BB930AA73F9B1E0B6 Ref B: BN3EDGE1119 Ref C: 2025-01-09T12:07:35Z'
       x-tfs-processid:
-      - aa664ff2-ac76-4628-a235-ce4eff449050
+      - 69a73b13-8409-40ee-84dc-85191619ffbd
       x-tfs-session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       x-vss-e2eid:
-      - 2382cd46-8f56-477b-aa4b-f68d5b989e87
+      - 7737962b-04c5-44b5-988c-fb9642700c8f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -362,12 +288,12 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"_links": {}, "id": "3c5396aa-a743-49d1-b8d8-7bd018e76042", "name": "HtICckhTUpdated",
+    body: '{"_links": {}, "id": "6cf5c87b-7dbb-4e4c-83f8-91e1889f9988", "name": "hjLSrqTdUpdated",
       "project": {"id": "b778afa3-eac1-4ff0-92ba-21481d5bfe63", "name": "RepoCreateListShowDeleteTests",
       "revision": 464, "state": "wellFormed", "url": "https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63",
-      "visibility": "organization"}, "remoteUrl": "https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhT",
-      "size": 0, "sshUrl": "git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhT",
-      "url": "https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042"}'
+      "visibility": "organization"}, "remoteUrl": "https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTd",
+      "size": 0, "sshUrl": "git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/hjLSrqTd",
+      "url": "https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -380,24 +306,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
-        devOpsCli/0.26.0
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
-    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042
+    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988
   response:
     body:
-      string: '{"id":"3c5396aa-a743-49d1-b8d8-7bd018e76042","name":"HtICckhTUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhTUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/HtICckhTUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/HtICckhTUpdated","isDisabled":false,"isInMaintenance":false}'
+      string: '{"id":"6cf5c87b-7dbb-4e4c-83f8-91e1889f9988","name":"hjLSrqTdUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTdUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/hjLSrqTdUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/hjLSrqTdUpdated","isDisabled":false,"isInMaintenance":false}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 89d2e5cb-717c-44c0-9daf-91dc12d61d83
+      - 212a2493-7fa4-41ab-9115-8f3c610527b6
       cache-control:
       - no-cache
       content-length:
@@ -405,7 +331,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 29 Dec 2023 05:49:08 GMT
+      - Thu, 09 Jan 2025 12:07:36 GMT
       expires:
       - '-1'
       p3p:
@@ -426,13 +352,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 89E6612E2EC44C9893892F56139FEE1B Ref B: HYD30EDGE0210 Ref C: 2023-12-29T05:49:08Z'
+      - 'Ref A: 19CCC3172CAB4E40BEA0BF1CDD5E9C91 Ref B: BN3EDGE0220 Ref C: 2025-01-09T12:07:35Z'
       x-tfs-processid:
-      - 8195bf23-df25-48ae-b8ee-06ec258258b9
+      - 1cd70516-eb82-4b09-bca0-d6986a2d2549
       x-tfs-session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       x-vss-e2eid:
-      - 89d2e5cb-717c-44c0-9daf-91dc12d61d83
+      - 212a2493-7fa4-41ab-9115-8f3c610527b6
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -454,16 +380,16 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
-        devOpsCli/0.26.0
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories/3c5396aa-a743-49d1-b8d8-7bd018e76042
+    uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories/6cf5c87b-7dbb-4e4c-83f8-91e1889f9988
   response:
     body:
       string: ''
@@ -471,11 +397,11 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 89d2b3c5-717c-44c0-9daf-91dc12d61d83
+      - 212a2723-7fa4-41ab-9115-8f3c610527b6
       cache-control:
       - no-cache
       date:
-      - Fri, 29 Dec 2023 05:49:32 GMT
+      - Thu, 09 Jan 2025 12:07:35 GMT
       expires:
       - '-1'
       p3p:
@@ -494,13 +420,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: DDDA8DADC41948AFAA93B6DF50DA2BAC Ref B: HYD30EDGE0219 Ref C: 2023-12-29T05:49:33Z'
+      - 'Ref A: 603850AFFAA14D6DB45EE131CC578E63 Ref B: BN3EDGE0205 Ref C: 2025-01-09T12:07:36Z'
       x-tfs-processid:
-      - 8195bf23-df25-48ae-b8ee-06ec258258b9
+      - 1cd70516-eb82-4b09-bca0-d6986a2d2549
       x-tfs-session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       x-vss-e2eid:
-      - 89d2b3c5-717c-44c0-9daf-91dc12d61d83
+      - 212a2723-7fa4-41ab-9115-8f3c610527b6
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -520,32 +446,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
-        devOpsCli/0.26.0
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_apis/git/repositories
   response:
     body:
-      string: '{"value":[{"id":"8ca4d532-dffd-4ee3-978b-1640af9e163f","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/8ca4d532-dffd-4ee3-978b-1640af9e163f","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/RepoCreateListShowDeleteTests","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","isDisabled":false,"isInMaintenance":false}],"count":1}'
+      string: '{"value":[{"id":"152076b6-7532-4668-b51f-808194db358f","name":"ADeNKtPbUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/152076b6-7532-4668-b51f-808194db358f","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/ADeNKtPbUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/ADeNKtPbUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/ADeNKtPbUpdated","isDisabled":true,"isInMaintenance":false},{"id":"070f919c-fb4c-4079-a0d8-9cfe27bc1baa","name":"iZNkzDzWUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/070f919c-fb4c-4079-a0d8-9cfe27bc1baa","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/iZNkzDzWUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/iZNkzDzWUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/iZNkzDzWUpdated","isDisabled":false,"isInMaintenance":false},{"id":"272346f3-ae58-449e-ad3f-7556876f592b","name":"OYwyWAyTUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/272346f3-ae58-449e-ad3f-7556876f592b","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/OYwyWAyTUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/OYwyWAyTUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/OYwyWAyTUpdated","isDisabled":true,"isInMaintenance":false},{"id":"b87a71dd-df14-4c8d-bb83-efd553bf767b","name":"qMoaaewBUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/b87a71dd-df14-4c8d-bb83-efd553bf767b","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/qMoaaewBUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/qMoaaewBUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/qMoaaewBUpdated","isDisabled":true,"isInMaintenance":false},{"id":"843282c0-f2c0-4a41-804d-d6f4b31f6a22","name":"RcbrcgOeUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/843282c0-f2c0-4a41-804d-d6f4b31f6a22","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RcbrcgOeUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/RcbrcgOeUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RcbrcgOeUpdated","isDisabled":true,"isInMaintenance":false},{"id":"8ca4d532-dffd-4ee3-978b-1640af9e163f","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/8ca4d532-dffd-4ee3-978b-1640af9e163f","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/RepoCreateListShowDeleteTests","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/RepoCreateListShowDeleteTests","isDisabled":true,"isInMaintenance":false},{"id":"f8bf2660-aa5b-4cff-8991-e867016eb52c","name":"UeUhfBQRUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/f8bf2660-aa5b-4cff-8991-e867016eb52c","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/UeUhfBQRUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/UeUhfBQRUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/UeUhfBQRUpdated","isDisabled":true,"isInMaintenance":false},{"id":"34269ca2-7622-44d2-a7e3-29a9185e0a9e","name":"ZyGuneSwUpdated","url":"https://dev.azure.com/v-anvashist0376/b778afa3-eac1-4ff0-92ba-21481d5bfe63/_apis/git/repositories/34269ca2-7622-44d2-a7e3-29a9185e0a9e","project":{"id":"b778afa3-eac1-4ff0-92ba-21481d5bfe63","name":"RepoCreateListShowDeleteTests","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/b778afa3-eac1-4ff0-92ba-21481d5bfe63","state":"wellFormed","revision":464,"visibility":"organization","lastUpdateTime":"2023-12-29T05:41:14.493Z"},"size":0,"remoteUrl":"https://v-anvashist0376@dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/ZyGuneSwUpdated","sshUrl":"git@ssh.dev.azure.com:v3/v-anvashist0376/RepoCreateListShowDeleteTests/ZyGuneSwUpdated","webUrl":"https://dev.azure.com/v-anvashist0376/RepoCreateListShowDeleteTests/_git/ZyGuneSwUpdated","isDisabled":true,"isInMaintenance":false}],"count":8}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 72b2b9e7-676f-4cf1-8186-751e5f5b7309
+      - fd081272-23fc-47ff-a5df-de33f14c77a8
       cache-control:
       - no-cache
       content-length:
-      - '961'
+      - '7142'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 29 Dec 2023 05:49:40 GMT
+      - Thu, 09 Jan 2025 12:07:36 GMT
       expires:
       - '-1'
       p3p:
@@ -566,13 +492,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 4EFF14B8FBBF4807A861BE82E313F527 Ref B: HYD30EDGE0516 Ref C: 2023-12-29T05:49:40Z'
+      - 'Ref A: 9CC1E80C482A4ED29A74E125747AE237 Ref B: BN3EDGE1018 Ref C: 2025-01-09T12:07:36Z'
       x-tfs-processid:
-      - fac43496-6b3e-4e8b-a2a7-d83c4a294ef7
+      - 8a9ff4f6-c8f6-412c-8519-3a3d9d0e7f63
       x-tfs-session:
-      - 96cbd3f5-b923-4d98-a7f2-c3c16ca1adaa
+      - ad3174f2-944f-4bf0-ba38-c46df780a74e
       x-vss-e2eid:
-      - 72b2b9e7-676f-4cf1-8186-751e5f5b7309
+      - fd081272-23fc-47ff-a5df-de33f14c77a8
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
