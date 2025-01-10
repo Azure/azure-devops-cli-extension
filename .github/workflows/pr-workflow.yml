@@ -129,6 +129,8 @@ jobs:
       - name: Run unit tests for code coverage
         run: pytest --junitxml "TEST-UT-results.xml" --cov=azext_devops/dev --cov-report=xml --cov-report=html
         working-directory: 'azure-devops'
+        env:
+          AZURE_DEVOPS_EXT_TEST_ORG: ${{ secrets.AZURE_DEVOPS_EXT_TEST_ORG }}
       - name: Install beautifulsoup4
         run: pip install beautifulsoup4
       - name: Fix Code Coverage Style
