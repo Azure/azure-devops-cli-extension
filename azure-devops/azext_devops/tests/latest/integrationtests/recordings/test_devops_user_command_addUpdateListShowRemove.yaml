@@ -16,11 +16,179 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - ad3174f2-944f-4bf0-ba38-c46df780a74e
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://vsaex.dev.azure.com/v-anvashist0376/_apis/UserEntitlements?top=100
+  response:
+    body:
+      string: '{"members":[{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"v-anvashist","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-anvashist@microsoft.com","mailAddress":"v-anvashist@microsoft.com","origin":"aad","originId":"ae9ada11-e6f0-41ba-8136-a4597491c5a0","displayName":"Anjali
+        Vashist (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0","descriptor":"aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"extensions":[],"id":"907c5f4d-b4f2-6d96-b2fe-312275b55674","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T12:03:33.1089719Z","dateCreated":"2023-07-06T08:54:16.4174545Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","directoryAlias":"v-agadekar","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-agadekar@microsoft.com","mailAddress":"v-agadekar@microsoft.com","origin":"aad","originId":"e8b29432-1973-4e20-aaf8-6163f07aa8bd","displayName":"Arvind
+        Gadekar (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2","descriptor":"aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"extensions":[],"id":"ae0839fe-29e4-6970-b7dd-65fb5cfa81e6","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2024-12-18T06:05:16.3199915Z","dateCreated":"2023-07-06T09:05:06.092934Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"bhatibhavesh","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"bhatibhavesh@microsoft.com","mailAddress":"bhatibhavesh@microsoft.com","origin":"aad","originId":"a3d14903-2fc3-44f7-8b4e-cf2f1556c0ad","displayName":"Bhavesh
+        Bhati","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3","descriptor":"aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"extensions":[],"id":"817c7599-9102-6376-a2e4-f6b33f315b07","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T11:56:16.7592493Z","dateCreated":"2025-01-10T11:55:05.5682537Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"lgtmsvc","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"lgtmsvc@microsoft.com","mailAddress":"lgtmsvc@microsoft.com","origin":"aad","originId":"02c9f59e-68ec-478a-9622-d2b315571a28","displayName":"LGTM
+        service account","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1","descriptor":"aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"extensions":[],"id":"0525d1e8-8fb8-48ee-a37f-3b5ea339479e","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2024-09-07T22:14:04.4128973Z","dateCreated":"2023-09-03T01:40:40.9812649Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","directoryAlias":"new_user_test_outlook.com#EXT#","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"new_user_test@outlook.com","mailAddress":"new_user_test@outlook.com","origin":"aad","originId":"012ed025-5cc0-4f1a-a7da-a98916f8f04f","displayName":"new_user_test@outlook.com","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4","descriptor":"aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"extensions":[],"id":"323989e2-d2d7-4483-9903-d20b58fa7258","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"pending","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"0001-01-01T00:00:00Z","dateCreated":"2025-01-10T12:13:55.7962604Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"v-sbestala","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-sbestala@microsoft.com","mailAddress":"v-sbestala@microsoft.com","origin":"aad","originId":"0cd404e1-d00c-41fe-a96d-63862e46c30b","displayName":"Soujanya
+        Bestala (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"extensions":[],"id":"22157d54-1821-6536-a446-928b06348385","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T11:54:19.284669Z","dateCreated":"2023-07-06T09:05:06.7960802Z","projectEntitlements":[],"groupAssignments":[]}],"continuationToken":"","totalCount":6,"items":[{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"v-anvashist","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-anvashist@microsoft.com","mailAddress":"v-anvashist@microsoft.com","origin":"aad","originId":"ae9ada11-e6f0-41ba-8136-a4597491c5a0","displayName":"Anjali
+        Vashist (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0","descriptor":"aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"extensions":[],"id":"907c5f4d-b4f2-6d96-b2fe-312275b55674","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T12:03:33.1089719Z","dateCreated":"2023-07-06T08:54:16.4174545Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","directoryAlias":"v-agadekar","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-agadekar@microsoft.com","mailAddress":"v-agadekar@microsoft.com","origin":"aad","originId":"e8b29432-1973-4e20-aaf8-6163f07aa8bd","displayName":"Arvind
+        Gadekar (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2","descriptor":"aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"extensions":[],"id":"ae0839fe-29e4-6970-b7dd-65fb5cfa81e6","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2024-12-18T06:05:16.3199915Z","dateCreated":"2023-07-06T09:05:06.092934Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"bhatibhavesh","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"bhatibhavesh@microsoft.com","mailAddress":"bhatibhavesh@microsoft.com","origin":"aad","originId":"a3d14903-2fc3-44f7-8b4e-cf2f1556c0ad","displayName":"Bhavesh
+        Bhati","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3","descriptor":"aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"extensions":[],"id":"817c7599-9102-6376-a2e4-f6b33f315b07","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T11:56:16.7592493Z","dateCreated":"2025-01-10T11:55:05.5682537Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"lgtmsvc","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"lgtmsvc@microsoft.com","mailAddress":"lgtmsvc@microsoft.com","origin":"aad","originId":"02c9f59e-68ec-478a-9622-d2b315571a28","displayName":"LGTM
+        service account","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1","descriptor":"aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"extensions":[],"id":"0525d1e8-8fb8-48ee-a37f-3b5ea339479e","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2024-09-07T22:14:04.4128973Z","dateCreated":"2023-09-03T01:40:40.9812649Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","directoryAlias":"new_user_test_outlook.com#EXT#","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"new_user_test@outlook.com","mailAddress":"new_user_test@outlook.com","origin":"aad","originId":"012ed025-5cc0-4f1a-a7da-a98916f8f04f","displayName":"new_user_test@outlook.com","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4","descriptor":"aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"extensions":[],"id":"323989e2-d2d7-4483-9903-d20b58fa7258","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"pending","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"0001-01-01T00:00:00Z","dateCreated":"2025-01-10T12:13:55.7962604Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"v-sbestala","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-sbestala@microsoft.com","mailAddress":"v-sbestala@microsoft.com","origin":"aad","originId":"0cd404e1-d00c-41fe-a96d-63862e46c30b","displayName":"Soujanya
+        Bestala (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"extensions":[],"id":"22157d54-1821-6536-a446-928b06348385","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T11:54:19.284669Z","dateCreated":"2023-07-06T09:05:06.7960802Z","projectEntitlements":[],"groupAssignments":[]}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - da9bd77e-2c5a-4409-8301-3bc5121a3f00
+      cache-control:
+      - no-cache
+      content-length:
+      - '19897'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0-preview.2
+      date:
+      - Fri, 10 Jan 2025 12:21:36 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:4528831f-a987-409a-8cad-97658fe8417f
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 6843651EEC1A44528D3ADB89965BD2EA Ref B: PHX31EDGE0520 Ref C: 2025-01-10T12:21:35Z'
+      x-tfs-processid:
+      - b1ab394d-c844-4230-bd1d-37c72a01e352
+      x-tfs-session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      x-vss-e2eid:
+      - da9bd77e-2c5a-4409-8301-3bc5121a3f00
+      x-vss-senderdeploymentid:
+      - 60550036-6ed7-6a2e-3bc7-9053b0c2e866
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://vssps.dev.azure.com/v-anvashist0376/_apis/Identities?searchFilter=General&filterValue=new_user_test%40outlook.com
+  response:
+    body:
+      string: '{"count":1,"value":[{"id":"323989e2-d2d7-4483-9903-d20b58fa7258","descriptor":"Microsoft.IdentityModel.Claims.ClaimsIdentity;72f988bf-86f1-41af-91ab-2d7cd011db47\\new_user_test@outlook.com","subjectDescriptor":"aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4","providerDisplayName":"new_user_test@outlook.com","isActive":true,"members":[],"memberOf":[],"memberIds":[],"properties":{"SchemaClassName":{"$type":"System.String","$value":"User"},"Description":{"$type":"System.String","$value":""},"Domain":{"$type":"System.String","$value":"72f988bf-86f1-41af-91ab-2d7cd011db47"},"Account":{"$type":"System.String","$value":"new_user_test@outlook.com"},"DN":{"$type":"System.String","$value":""},"Mail":{"$type":"System.String","$value":"new_user_test@outlook.com"},"SpecialType":{"$type":"System.String","$value":"Generic"},"PUID":{"$type":"System.String","$value":"aad:"},"ComplianceValidated":{"$type":"System.DateTime","$value":"2025-01-10T00:00:00Z"},"http://schemas.microsoft.com/identity/claims/objectidentifier":{"$type":"System.String","$value":"012ed025-5cc0-4f1a-a7da-a98916f8f04f"},"DirectoryAlias":{"$type":"System.String","$value":"new_user_test_outlook.com#EXT#"}},"resourceVersion":2,"metaTypeId":255}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 6a9a579a-6127-41fa-9076-909e50d1b61d
+      cache-control:
+      - no-cache
+      content-length:
+      - '1221'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 10 Jan 2025 12:21:36 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:f4305046-1403-437e-b451-856fed7b0a7d
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 48FEFFA48437489DB2E0FC62C941B7F6 Ref B: PHX31EDGE0509 Ref C: 2025-01-10T12:21:36Z'
+      x-tfs-processid:
+      - 06e56c8e-a863-4e1a-9b99-c98bb7d062f4
+      x-tfs-session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      x-vss-e2eid:
+      - 6a9a579a-6127-41fa-9076-909e50d1b61d
+      x-vss-senderdeploymentid:
+      - 12151c76-78d9-45df-bc19-5b98a8c97843
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.2
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: DELETE
+    uri: https://vsaex.dev.azure.com/v-anvashist0376/_apis/UserEntitlements/323989e2-d2d7-4483-9903-d20b58fa7258
   response:
     body:
       string: ''
@@ -28,35 +196,738 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 82c9d4c6-43ca-4adb-a24f-fe8aeede474c
-      content-length:
-      - '0'
+      - da9bd78c-2c5a-4409-8301-3bc5121a3f00
+      cache-control:
+      - no-cache
       date:
-      - Thu, 09 Jan 2025 12:05:02 GMT
+      - Fri, 10 Jan 2025 12:21:37 GMT
+      expires:
+      - '-1'
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
       request-context:
       - appId=cid-v1:4528831f-a987-409a-8cad-97658fe8417f
       strict-transport-security:
       - max-age=31536000; includeSubDomains
-      www-authenticate:
-      - Basic realm="https://aexprodsin1.vsaex.visualstudio.com/"
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
       - nosniff
+      x-frame-options:
+      - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 9ECBBAD953824A8695DC1150691EB63D Ref B: BN3EDGE0715 Ref C: 2025-01-09T12:05:03Z'
+      - 'Ref A: CCFD83EBE7444C05A328B719A0AF397F Ref B: PHX31EDGE0520 Ref C: 2025-01-10T12:21:37Z'
       x-tfs-processid:
-      - 8dc3c208-83c1-478c-b21a-83b45e1915b9
+      - b1ab394d-c844-4230-bd1d-37c72a01e352
       x-tfs-session:
-      - ad3174f2-944f-4bf0-ba38-c46df780a74e
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
       x-vss-e2eid:
-      - 82c9d4c6-43ca-4adb-a24f-fe8aeede474c
+      - da9bd78c-2c5a-4409-8301-3bc5121a3f00
       x-vss-senderdeploymentid:
       - 60550036-6ed7-6a2e-3bc7-9053b0c2e866
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
-      code: 401
-      message: Unauthorized
+      code: 204
+      message: No Content
+- request:
+    body: '[{"op": "add", "path": "", "value": {"accessLevel": {"accountLicenseType":
+      "stakeholder"}, "extensions": [], "projectEntitlements": [], "user": {"subjectKind":
+      "user", "principalName": "new_user_test@outlook.com"}}}]'
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.2
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '216'
+      Content-Type:
+      - application/json-patch+json; charset=utf-8
+      User-Agent:
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PATCH
+    uri: https://vsaex.dev.azure.com/v-anvashist0376/_apis/UserEntitlements?doNotSendInviteForNewUsers=false
+  response:
+    body:
+      string: '{"id":"4be7506d-1c2a-4884-9cd7-c4e9770ac3d1","status":"succeeded","haveResultsSucceeded":true,"completed":true,"results":[{"userId":"323989e2-d2d7-4483-9903-d20b58fa7258","isSuccess":true,"errors":[],"result":{"user":{"subjectKind":"user","directoryAlias":"new_user_test_outlook.com#EXT#","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"new_user_test@outlook.com","mailAddress":"new_user_test@outlook.com","origin":"aad","originId":"012ed025-5cc0-4f1a-a7da-a98916f8f04f","displayName":"new_user_test@outlook.com","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4","descriptor":"aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"extensions":[],"id":"323989e2-d2d7-4483-9903-d20b58fa7258","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"pending","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"0001-01-01T00:00:00Z","dateCreated":"2025-01-10T12:21:39.2689487Z","projectEntitlements":[],"groupAssignments":[]}}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 3be92071-33b6-48c3-b146-f355a1af6dea
+      cache-control:
+      - no-cache
+      content-length:
+      - '1862'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0-preview.2
+      date:
+      - Fri, 10 Jan 2025 12:21:39 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:4528831f-a987-409a-8cad-97658fe8417f
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 805137E7A0344246ADEC3BEE354373D0 Ref B: PHX31EDGE0618 Ref C: 2025-01-10T12:21:38Z'
+      x-tfs-processid:
+      - 29dc99f5-dd60-4f63-9964-e47b2b533919
+      x-tfs-session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      x-vss-e2eid:
+      - 3be92071-33b6-48c3-b146-f355a1af6dea
+      x-vss-senderdeploymentid:
+      - 60550036-6ed7-6a2e-3bc7-9053b0c2e866
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.2
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://vsaex.dev.azure.com/v-anvashist0376/_apis/UserEntitlements?top=100
+  response:
+    body:
+      string: '{"members":[{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"v-anvashist","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-anvashist@microsoft.com","mailAddress":"v-anvashist@microsoft.com","origin":"aad","originId":"ae9ada11-e6f0-41ba-8136-a4597491c5a0","displayName":"Anjali
+        Vashist (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0","descriptor":"aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"extensions":[],"id":"907c5f4d-b4f2-6d96-b2fe-312275b55674","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T12:03:33.1089719Z","dateCreated":"2023-07-06T08:54:16.4174545Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","directoryAlias":"v-agadekar","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-agadekar@microsoft.com","mailAddress":"v-agadekar@microsoft.com","origin":"aad","originId":"e8b29432-1973-4e20-aaf8-6163f07aa8bd","displayName":"Arvind
+        Gadekar (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2","descriptor":"aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"extensions":[],"id":"ae0839fe-29e4-6970-b7dd-65fb5cfa81e6","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2024-12-18T06:05:16.3199915Z","dateCreated":"2023-07-06T09:05:06.092934Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"bhatibhavesh","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"bhatibhavesh@microsoft.com","mailAddress":"bhatibhavesh@microsoft.com","origin":"aad","originId":"a3d14903-2fc3-44f7-8b4e-cf2f1556c0ad","displayName":"Bhavesh
+        Bhati","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3","descriptor":"aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"extensions":[],"id":"817c7599-9102-6376-a2e4-f6b33f315b07","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T11:56:16.7592493Z","dateCreated":"2025-01-10T11:55:05.5682537Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"lgtmsvc","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"lgtmsvc@microsoft.com","mailAddress":"lgtmsvc@microsoft.com","origin":"aad","originId":"02c9f59e-68ec-478a-9622-d2b315571a28","displayName":"LGTM
+        service account","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1","descriptor":"aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"extensions":[],"id":"0525d1e8-8fb8-48ee-a37f-3b5ea339479e","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2024-09-07T22:14:04.4128973Z","dateCreated":"2023-09-03T01:40:40.9812649Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","directoryAlias":"new_user_test_outlook.com#EXT#","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"new_user_test@outlook.com","mailAddress":"new_user_test@outlook.com","origin":"aad","originId":"012ed025-5cc0-4f1a-a7da-a98916f8f04f","displayName":"new_user_test@outlook.com","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4","descriptor":"aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"extensions":[],"id":"323989e2-d2d7-4483-9903-d20b58fa7258","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"pending","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"0001-01-01T00:00:00Z","dateCreated":"2025-01-10T12:21:39.2689487Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"v-sbestala","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-sbestala@microsoft.com","mailAddress":"v-sbestala@microsoft.com","origin":"aad","originId":"0cd404e1-d00c-41fe-a96d-63862e46c30b","displayName":"Soujanya
+        Bestala (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"extensions":[],"id":"22157d54-1821-6536-a446-928b06348385","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T11:54:19.284669Z","dateCreated":"2023-07-06T09:05:06.7960802Z","projectEntitlements":[],"groupAssignments":[]}],"continuationToken":"","totalCount":6,"items":[{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"v-anvashist","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-anvashist@microsoft.com","mailAddress":"v-anvashist@microsoft.com","origin":"aad","originId":"ae9ada11-e6f0-41ba-8136-a4597491c5a0","displayName":"Anjali
+        Vashist (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0","descriptor":"aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"extensions":[],"id":"907c5f4d-b4f2-6d96-b2fe-312275b55674","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T12:03:33.1089719Z","dateCreated":"2023-07-06T08:54:16.4174545Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","directoryAlias":"v-agadekar","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-agadekar@microsoft.com","mailAddress":"v-agadekar@microsoft.com","origin":"aad","originId":"e8b29432-1973-4e20-aaf8-6163f07aa8bd","displayName":"Arvind
+        Gadekar (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2","descriptor":"aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"extensions":[],"id":"ae0839fe-29e4-6970-b7dd-65fb5cfa81e6","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2024-12-18T06:05:16.3199915Z","dateCreated":"2023-07-06T09:05:06.092934Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"bhatibhavesh","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"bhatibhavesh@microsoft.com","mailAddress":"bhatibhavesh@microsoft.com","origin":"aad","originId":"a3d14903-2fc3-44f7-8b4e-cf2f1556c0ad","displayName":"Bhavesh
+        Bhati","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3","descriptor":"aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"extensions":[],"id":"817c7599-9102-6376-a2e4-f6b33f315b07","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T11:56:16.7592493Z","dateCreated":"2025-01-10T11:55:05.5682537Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"lgtmsvc","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"lgtmsvc@microsoft.com","mailAddress":"lgtmsvc@microsoft.com","origin":"aad","originId":"02c9f59e-68ec-478a-9622-d2b315571a28","displayName":"LGTM
+        service account","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1","descriptor":"aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"extensions":[],"id":"0525d1e8-8fb8-48ee-a37f-3b5ea339479e","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2024-09-07T22:14:04.4128973Z","dateCreated":"2023-09-03T01:40:40.9812649Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","directoryAlias":"new_user_test_outlook.com#EXT#","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"new_user_test@outlook.com","mailAddress":"new_user_test@outlook.com","origin":"aad","originId":"012ed025-5cc0-4f1a-a7da-a98916f8f04f","displayName":"new_user_test@outlook.com","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4","descriptor":"aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"extensions":[],"id":"323989e2-d2d7-4483-9903-d20b58fa7258","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"pending","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"0001-01-01T00:00:00Z","dateCreated":"2025-01-10T12:21:39.2689487Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"v-sbestala","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-sbestala@microsoft.com","mailAddress":"v-sbestala@microsoft.com","origin":"aad","originId":"0cd404e1-d00c-41fe-a96d-63862e46c30b","displayName":"Soujanya
+        Bestala (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"extensions":[],"id":"22157d54-1821-6536-a446-928b06348385","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T11:54:19.284669Z","dateCreated":"2023-07-06T09:05:06.7960802Z","projectEntitlements":[],"groupAssignments":[]}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 9eec304b-6e27-4b0f-99bd-ea04e5c2c6cd
+      cache-control:
+      - no-cache
+      content-length:
+      - '19897'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0-preview.2
+      date:
+      - Fri, 10 Jan 2025 12:21:39 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:4528831f-a987-409a-8cad-97658fe8417f
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: F32EE6780E3E4186937B29ACF0E379AD Ref B: PHX31EDGE0512 Ref C: 2025-01-10T12:21:39Z'
+      x-tfs-processid:
+      - 740b09ce-c148-4029-906f-fb2c4128a19e
+      x-tfs-session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      x-vss-e2eid:
+      - 9eec304b-6e27-4b0f-99bd-ea04e5c2c6cd
+      x-vss-senderdeploymentid:
+      - 60550036-6ed7-6a2e-3bc7-9053b0c2e866
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://vssps.dev.azure.com/v-anvashist0376/_apis/Identities?searchFilter=General&filterValue=new_user_test%40outlook.com
+  response:
+    body:
+      string: '{"count":1,"value":[{"id":"323989e2-d2d7-4483-9903-d20b58fa7258","descriptor":"Microsoft.IdentityModel.Claims.ClaimsIdentity;72f988bf-86f1-41af-91ab-2d7cd011db47\\new_user_test@outlook.com","subjectDescriptor":"aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4","providerDisplayName":"new_user_test@outlook.com","isActive":true,"members":[],"memberOf":[],"memberIds":[],"properties":{"SchemaClassName":{"$type":"System.String","$value":"User"},"Description":{"$type":"System.String","$value":""},"Domain":{"$type":"System.String","$value":"72f988bf-86f1-41af-91ab-2d7cd011db47"},"Account":{"$type":"System.String","$value":"new_user_test@outlook.com"},"DN":{"$type":"System.String","$value":""},"Mail":{"$type":"System.String","$value":"new_user_test@outlook.com"},"SpecialType":{"$type":"System.String","$value":"Generic"},"PUID":{"$type":"System.String","$value":"aad:"},"ComplianceValidated":{"$type":"System.DateTime","$value":"2025-01-10T00:00:00Z"},"http://schemas.microsoft.com/identity/claims/objectidentifier":{"$type":"System.String","$value":"012ed025-5cc0-4f1a-a7da-a98916f8f04f"},"DirectoryAlias":{"$type":"System.String","$value":"new_user_test_outlook.com#EXT#"}},"resourceVersion":2,"metaTypeId":255}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 006ee75c-3e82-4517-a231-36614183154a
+      cache-control:
+      - no-cache
+      content-length:
+      - '1221'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 10 Jan 2025 12:21:40 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:f4305046-1403-437e-b451-856fed7b0a7d
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: D1717A758D4A4C8FA8DBDF9081BCD9BA Ref B: PHX31EDGE0619 Ref C: 2025-01-10T12:21:40Z'
+      x-tfs-processid:
+      - f6aa352d-1efa-4423-9089-50850973afbe
+      x-tfs-session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      x-vss-e2eid:
+      - 006ee75c-3e82-4517-a231-36614183154a
+      x-vss-senderdeploymentid:
+      - 12151c76-78d9-45df-bc19-5b98a8c97843
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.2
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://vsaex.dev.azure.com/v-anvashist0376/_apis/UserEntitlements/323989e2-d2d7-4483-9903-d20b58fa7258
+  response:
+    body:
+      string: '{"user":{"subjectKind":"user","directoryAlias":"new_user_test_outlook.com#EXT#","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"new_user_test@outlook.com","mailAddress":"new_user_test@outlook.com","origin":"aad","originId":"012ed025-5cc0-4f1a-a7da-a98916f8f04f","displayName":"new_user_test@outlook.com","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4","descriptor":"aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"extensions":[],"id":"323989e2-d2d7-4483-9903-d20b58fa7258","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"pending","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"0001-01-01T00:00:00Z","dateCreated":"2025-01-10T12:21:39.2689487Z","projectEntitlements":[],"groupAssignments":[]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - da9bd7ce-2c5a-4409-8301-3bc5121a3f00
+      cache-control:
+      - no-cache
+      content-length:
+      - '1650'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0-preview.2
+      date:
+      - Fri, 10 Jan 2025 12:21:41 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:4528831f-a987-409a-8cad-97658fe8417f
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 531AA6438CCC4AE9801BCB4B4EB262F4 Ref B: PHX31EDGE0209 Ref C: 2025-01-10T12:21:41Z'
+      x-tfs-processid:
+      - b1ab394d-c844-4230-bd1d-37c72a01e352
+      x-tfs-session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      x-vss-e2eid:
+      - da9bd7ce-2c5a-4409-8301-3bc5121a3f00
+      x-vss-senderdeploymentid:
+      - 60550036-6ed7-6a2e-3bc7-9053b0c2e866
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://vssps.dev.azure.com/v-anvashist0376/_apis/Identities?searchFilter=General&filterValue=new_user_test%40outlook.com
+  response:
+    body:
+      string: '{"count":1,"value":[{"id":"323989e2-d2d7-4483-9903-d20b58fa7258","descriptor":"Microsoft.IdentityModel.Claims.ClaimsIdentity;72f988bf-86f1-41af-91ab-2d7cd011db47\\new_user_test@outlook.com","subjectDescriptor":"aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4","providerDisplayName":"new_user_test@outlook.com","isActive":true,"members":[],"memberOf":[],"memberIds":[],"properties":{"SchemaClassName":{"$type":"System.String","$value":"User"},"Description":{"$type":"System.String","$value":""},"Domain":{"$type":"System.String","$value":"72f988bf-86f1-41af-91ab-2d7cd011db47"},"Account":{"$type":"System.String","$value":"new_user_test@outlook.com"},"DN":{"$type":"System.String","$value":""},"Mail":{"$type":"System.String","$value":"new_user_test@outlook.com"},"SpecialType":{"$type":"System.String","$value":"Generic"},"PUID":{"$type":"System.String","$value":"aad:"},"ComplianceValidated":{"$type":"System.DateTime","$value":"2025-01-10T00:00:00Z"},"http://schemas.microsoft.com/identity/claims/objectidentifier":{"$type":"System.String","$value":"012ed025-5cc0-4f1a-a7da-a98916f8f04f"},"DirectoryAlias":{"$type":"System.String","$value":"new_user_test_outlook.com#EXT#"}},"resourceVersion":2,"metaTypeId":255}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 6a9a5b9c-6127-41fa-9076-909e50d1b61d
+      cache-control:
+      - no-cache
+      content-length:
+      - '1221'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 10 Jan 2025 12:21:42 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:f4305046-1403-437e-b451-856fed7b0a7d
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 3058DEBECC4D4A689813E0BE73775F1D Ref B: PHX31EDGE0516 Ref C: 2025-01-10T12:21:42Z'
+      x-tfs-processid:
+      - 06e56c8e-a863-4e1a-9b99-c98bb7d062f4
+      x-tfs-session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      x-vss-e2eid:
+      - 6a9a5b9c-6127-41fa-9076-909e50d1b61d
+      x-vss-senderdeploymentid:
+      - 12151c76-78d9-45df-bc19-5b98a8c97843
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"op": "replace", "path": "/accessLevel", "value": {"accountLicenseType":
+      "express"}}]'
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.2
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '87'
+      Content-Type:
+      - application/json-patch+json; charset=utf-8
+      User-Agent:
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: PATCH
+    uri: https://vsaex.dev.azure.com/v-anvashist0376/_apis/UserEntitlements/323989e2-d2d7-4483-9903-d20b58fa7258
+  response:
+    body:
+      string: '{"operationResults":[{"userId":"323989e2-d2d7-4483-9903-d20b58fa7258","isSuccess":true,"errors":[],"result":{"user":{"subjectKind":"user","directoryAlias":"new_user_test_outlook.com#EXT#","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"new_user_test@outlook.com","mailAddress":"new_user_test@outlook.com","origin":"aad","originId":"012ed025-5cc0-4f1a-a7da-a98916f8f04f","displayName":"new_user_test@outlook.com","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4","descriptor":"aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"extensions":[],"id":"323989e2-d2d7-4483-9903-d20b58fa7258","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"pending","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"0001-01-01T00:00:00","dateCreated":"0001-01-01T00:00:00","projectEntitlements":null,"groupAssignments":null}}],"isSuccess":true,"userEntitlement":{"user":{"subjectKind":"user","directoryAlias":"new_user_test_outlook.com#EXT#","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"new_user_test@outlook.com","mailAddress":"new_user_test@outlook.com","origin":"aad","originId":"012ed025-5cc0-4f1a-a7da-a98916f8f04f","displayName":"new_user_test@outlook.com","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4","descriptor":"aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4"},"extensions":[],"id":"323989e2-d2d7-4483-9903-d20b58fa7258","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"pending","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"0001-01-01T00:00:00Z","dateCreated":"2025-01-10T12:21:39.2689487Z","projectEntitlements":[],"groupAssignments":[]}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - da9bd7f6-2c5a-4409-8301-3bc5121a3f00
+      cache-control:
+      - no-cache
+      content-length:
+      - '3441'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0-preview.2
+      date:
+      - Fri, 10 Jan 2025 12:21:44 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:4528831f-a987-409a-8cad-97658fe8417f
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 80A26F8EE2A448078FE565158874C91F Ref B: PHX31EDGE0615 Ref C: 2025-01-10T12:21:43Z'
+      x-tfs-processid:
+      - b1ab394d-c844-4230-bd1d-37c72a01e352
+      x-tfs-session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      x-vss-e2eid:
+      - da9bd7f6-2c5a-4409-8301-3bc5121a3f00
+      x-vss-senderdeploymentid:
+      - 60550036-6ed7-6a2e-3bc7-9053b0c2e866
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://vssps.dev.azure.com/v-anvashist0376/_apis/Identities?searchFilter=General&filterValue=new_user_test%40outlook.com
+  response:
+    body:
+      string: '{"count":1,"value":[{"id":"323989e2-d2d7-4483-9903-d20b58fa7258","descriptor":"Microsoft.IdentityModel.Claims.ClaimsIdentity;72f988bf-86f1-41af-91ab-2d7cd011db47\\new_user_test@outlook.com","subjectDescriptor":"aad.NjdiY2I3OGMtZTgyYy03OWRmLWJlMmEtZTRmZjBkOTdhMmM4","providerDisplayName":"new_user_test@outlook.com","isActive":true,"members":[],"memberOf":[],"memberIds":[],"properties":{"SchemaClassName":{"$type":"System.String","$value":"User"},"Description":{"$type":"System.String","$value":""},"Domain":{"$type":"System.String","$value":"72f988bf-86f1-41af-91ab-2d7cd011db47"},"Account":{"$type":"System.String","$value":"new_user_test@outlook.com"},"DN":{"$type":"System.String","$value":""},"Mail":{"$type":"System.String","$value":"new_user_test@outlook.com"},"SpecialType":{"$type":"System.String","$value":"Generic"},"PUID":{"$type":"System.String","$value":"aad:"},"ComplianceValidated":{"$type":"System.DateTime","$value":"2025-01-10T00:00:00Z"},"http://schemas.microsoft.com/identity/claims/objectidentifier":{"$type":"System.String","$value":"012ed025-5cc0-4f1a-a7da-a98916f8f04f"},"DirectoryAlias":{"$type":"System.String","$value":"new_user_test_outlook.com#EXT#"}},"resourceVersion":2,"metaTypeId":255}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 01ebb07a-81fe-48cd-95bc-7a90a0fda76c
+      cache-control:
+      - no-cache
+      content-length:
+      - '1221'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Fri, 10 Jan 2025 12:21:44 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:f4305046-1403-437e-b451-856fed7b0a7d
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 55935FC8EB8D40C98D018E86A33A86BD Ref B: PHX31EDGE0209 Ref C: 2025-01-10T12:21:44Z'
+      x-tfs-processid:
+      - 48a6548e-9c5d-4df5-b7d3-b3221725069d
+      x-tfs-session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      x-vss-e2eid:
+      - 01ebb07a-81fe-48cd-95bc-7a90a0fda76c
+      x-vss-senderdeploymentid:
+      - 12151c76-78d9-45df-bc19-5b98a8c97843
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.2
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: DELETE
+    uri: https://vsaex.dev.azure.com/v-anvashist0376/_apis/UserEntitlements/323989e2-d2d7-4483-9903-d20b58fa7258
+  response:
+    body:
+      string: ''
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - da9bd610-2c5a-4409-8301-3bc5121a3f00
+      cache-control:
+      - no-cache
+      date:
+      - Fri, 10 Jan 2025 12:21:45 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:4528831f-a987-409a-8cad-97658fe8417f
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 854F5A06FCA44DC199AF0F89D4F2BAEA Ref B: PHX31EDGE0516 Ref C: 2025-01-10T12:21:45Z'
+      x-tfs-processid:
+      - b1ab394d-c844-4230-bd1d-37c72a01e352
+      x-tfs-session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      x-vss-e2eid:
+      - da9bd610-2c5a-4409-8301-3bc5121a3f00
+      x-vss-senderdeploymentid:
+      - 60550036-6ed7-6a2e-3bc7-9053b0c2e866
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 204
+      message: No Content
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0-preview.2
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://vsaex.dev.azure.com/v-anvashist0376/_apis/UserEntitlements?top=100
+  response:
+    body:
+      string: '{"members":[{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"v-anvashist","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-anvashist@microsoft.com","mailAddress":"v-anvashist@microsoft.com","origin":"aad","originId":"ae9ada11-e6f0-41ba-8136-a4597491c5a0","displayName":"Anjali
+        Vashist (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0","descriptor":"aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"extensions":[],"id":"907c5f4d-b4f2-6d96-b2fe-312275b55674","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T12:03:33.1089719Z","dateCreated":"2023-07-06T08:54:16.4174545Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","directoryAlias":"v-agadekar","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-agadekar@microsoft.com","mailAddress":"v-agadekar@microsoft.com","origin":"aad","originId":"e8b29432-1973-4e20-aaf8-6163f07aa8bd","displayName":"Arvind
+        Gadekar (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2","descriptor":"aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"extensions":[],"id":"ae0839fe-29e4-6970-b7dd-65fb5cfa81e6","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2024-12-18T06:05:16.3199915Z","dateCreated":"2023-07-06T09:05:06.092934Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"bhatibhavesh","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"bhatibhavesh@microsoft.com","mailAddress":"bhatibhavesh@microsoft.com","origin":"aad","originId":"a3d14903-2fc3-44f7-8b4e-cf2f1556c0ad","displayName":"Bhavesh
+        Bhati","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3","descriptor":"aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"extensions":[],"id":"817c7599-9102-6376-a2e4-f6b33f315b07","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T11:56:16.7592493Z","dateCreated":"2025-01-10T11:55:05.5682537Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"lgtmsvc","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"lgtmsvc@microsoft.com","mailAddress":"lgtmsvc@microsoft.com","origin":"aad","originId":"02c9f59e-68ec-478a-9622-d2b315571a28","displayName":"LGTM
+        service account","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1","descriptor":"aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"extensions":[],"id":"0525d1e8-8fb8-48ee-a37f-3b5ea339479e","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2024-09-07T22:14:04.4128973Z","dateCreated":"2023-09-03T01:40:40.9812649Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"v-sbestala","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-sbestala@microsoft.com","mailAddress":"v-sbestala@microsoft.com","origin":"aad","originId":"0cd404e1-d00c-41fe-a96d-63862e46c30b","displayName":"Soujanya
+        Bestala (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"extensions":[],"id":"22157d54-1821-6536-a446-928b06348385","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T11:54:19.284669Z","dateCreated":"2023-07-06T09:05:06.7960802Z","projectEntitlements":[],"groupAssignments":[]}],"continuationToken":"","totalCount":5,"items":[{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"v-anvashist","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-anvashist@microsoft.com","mailAddress":"v-anvashist@microsoft.com","origin":"aad","originId":"ae9ada11-e6f0-41ba-8136-a4597491c5a0","displayName":"Anjali
+        Vashist (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0","descriptor":"aad.OTA3YzVmNGQtYjRmMi03ZDk2LWIyZmUtMzEyMjc1YjU1Njc0"},"extensions":[],"id":"907c5f4d-b4f2-6d96-b2fe-312275b55674","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T12:03:33.1089719Z","dateCreated":"2023-07-06T08:54:16.4174545Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","directoryAlias":"v-agadekar","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-agadekar@microsoft.com","mailAddress":"v-agadekar@microsoft.com","origin":"aad","originId":"e8b29432-1973-4e20-aaf8-6163f07aa8bd","displayName":"Arvind
+        Gadekar (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2","descriptor":"aad.YWUwODM5ZmUtMjllNC03OTcwLWI3ZGQtNjVmYjVjZmE4MWU2"},"extensions":[],"id":"ae0839fe-29e4-6970-b7dd-65fb5cfa81e6","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2024-12-18T06:05:16.3199915Z","dateCreated":"2023-07-06T09:05:06.092934Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"bhatibhavesh","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"bhatibhavesh@microsoft.com","mailAddress":"bhatibhavesh@microsoft.com","origin":"aad","originId":"a3d14903-2fc3-44f7-8b4e-cf2f1556c0ad","displayName":"Bhavesh
+        Bhati","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3","descriptor":"aad.ODE3Yzc1OTktOTEwMi03Mzc2LWEyZTQtZjZiMzNmMzE1YjA3"},"extensions":[],"id":"817c7599-9102-6376-a2e4-f6b33f315b07","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T11:56:16.7592493Z","dateCreated":"2025-01-10T11:55:05.5682537Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"lgtmsvc","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"lgtmsvc@microsoft.com","mailAddress":"lgtmsvc@microsoft.com","origin":"aad","originId":"02c9f59e-68ec-478a-9622-d2b315571a28","displayName":"LGTM
+        service account","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1","descriptor":"aad.ZmJiNjk4MGYtYWY2NS03NmI0LWE2OWYtYTdkNDc3ZmE4ZWY1"},"extensions":[],"id":"0525d1e8-8fb8-48ee-a37f-3b5ea339479e","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2024-09-07T22:14:04.4128973Z","dateCreated":"2023-09-03T01:40:40.9812649Z","projectEntitlements":[],"groupAssignments":[]},{"user":{"subjectKind":"user","metaType":"member","directoryAlias":"v-sbestala","domain":"72f988bf-86f1-41af-91ab-2d7cd011db47","principalName":"v-sbestala@microsoft.com","mailAddress":"v-sbestala@microsoft.com","origin":"aad","originId":"0cd404e1-d00c-41fe-a96d-63862e46c30b","displayName":"Soujanya
+        Bestala (MINDTREE LIMITED)","_links":{"self":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"memberships":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Memberships/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"membershipState":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/MembershipStates/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"storageKey":{"href":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/StorageKeys/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"url":"https://vssps.dev.azure.com/v-anvashist0376/_apis/Graph/Users/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"extensions":[],"id":"22157d54-1821-6536-a446-928b06348385","accessLevel":{"licensingSource":"account","accountLicenseType":"earlyAdopter","msdnLicenseType":"none","licenseDisplayName":"Early
+        Adopter","status":"active","statusMessage":"","assignmentSource":"unknown"},"lastAccessedDate":"2025-01-10T11:54:19.284669Z","dateCreated":"2023-07-06T09:05:06.7960802Z","projectEntitlements":[],"groupAssignments":[]}]}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 3be9208b-33b6-48c3-b146-f355a1af6dea
+      cache-control:
+      - no-cache
+      content-length:
+      - '16595'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0-preview.2
+      date:
+      - Fri, 10 Jan 2025 12:21:47 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:4528831f-a987-409a-8cad-97658fe8417f
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: E04946C26F5C460FAFF645758F004B1E Ref B: PHX31EDGE0519 Ref C: 2025-01-10T12:21:46Z'
+      x-tfs-processid:
+      - 29dc99f5-dd60-4f63-9964-e47b2b533919
+      x-tfs-session:
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
+      x-vss-e2eid:
+      - 3be9208b-33b6-48c3-b146-f355a1af6dea
+      x-vss-senderdeploymentid:
+      - 60550036-6ed7-6a2e-3bc7-9053b0c2e866
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
 version: 1

@@ -18,30 +18,30 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - ad3174f2-944f-4bf0-ba38-c46df780a74e
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/v-anvashist0376/WorkItemCreateShowUpdateDeleteTests/_apis/wit/workItems/$Task
   response:
     body:
-      string: '{"id":166,"rev":1,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Task","System.State":"To
-        Do","System.Reason":"Added to backlog","System.CreatedDate":"2025-01-09T12:04:15.06Z","System.CreatedBy":{"displayName":"Soujanya
-        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2025-01-09T12:04:15.06Z","System.ChangedBy":{"displayName":"Soujanya
-        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":0,"System.Title":"sampleTask","Microsoft.VSTS.Common.StateChangeDate":"2025-01-09T12:04:15.06Z","Microsoft.VSTS.Common.Priority":2},"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166"},"workItemUpdates":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166/updates"},"workItemRevisions":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166/revisions"},"workItemComments":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166/comments"},"html":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_workitems/edit/166"},"workItemType":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItemTypes/Task"},"fields":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/fields"}},"url":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166"}'
+      string: '{"id":191,"rev":1,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Task","System.State":"To
+        Do","System.Reason":"Added to backlog","System.CreatedDate":"2025-01-10T12:13:34.723Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2025-01-10T12:13:34.723Z","System.ChangedBy":{"displayName":"Soujanya
+        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":0,"System.Title":"sampleTask","Microsoft.VSTS.Common.StateChangeDate":"2025-01-10T12:13:34.723Z","Microsoft.VSTS.Common.Priority":2},"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191"},"workItemUpdates":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191/updates"},"workItemRevisions":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191/revisions"},"workItemComments":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191/comments"},"html":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_workitems/edit/191"},"workItemType":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItemTypes/Task"},"fields":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/fields"}},"url":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 79d365f9-b208-4d6b-b865-cfd6b741cd66
+      - a45f15cb-5b17-4d5a-b686-c9991b393abc
       cache-control:
       - no-cache
       content-length:
-      - '2863'
+      - '2866'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Jan 2025 12:04:14 GMT
+      - Fri, 10 Jan 2025 12:13:34 GMT
       expires:
       - '-1'
       p3p:
@@ -62,13 +62,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 8CC160E10C474C8D896102E282D30101 Ref B: BN3EDGE0208 Ref C: 2025-01-09T12:04:14Z'
+      - 'Ref A: 376047C1B8694755A27378078C2166C3 Ref B: PHX31EDGE0611 Ref C: 2025-01-10T12:13:34Z'
       x-tfs-processid:
-      - 12d4d982-4e3b-48b6-ad63-51f90b23fdd7
+      - 8f2b1ae3-e6d9-4a09-8ab2-07c4be4da8e9
       x-tfs-session:
-      - ad3174f2-944f-4bf0-ba38-c46df780a74e
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
       x-vss-e2eid:
-      - 79d365f9-b208-4d6b-b865-cfd6b741cd66
+      - a45f15cb-5b17-4d5a-b686-c9991b393abc
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -93,31 +93,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - ad3174f2-944f-4bf0-ba38-c46df780a74e
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/166?$expand=all
+    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/191?$expand=all
   response:
     body:
-      string: '{"id":166,"rev":1,"fields":{"System.Id":166,"System.AreaId":32,"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.NodeName":"WorkItemCreateShowUpdateDeleteTests","System.AreaLevel1":"WorkItemCreateShowUpdateDeleteTests","System.Rev":1,"System.AuthorizedDate":"2025-01-09T12:04:15.06Z","System.RevisedDate":"9999-01-01T00:00:00Z","System.IterationId":29,"System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.IterationLevel1":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Task","System.State":"To
-        Do","System.Reason":"Added to backlog","System.CreatedDate":"2025-01-09T12:04:15.06Z","System.CreatedBy":{"displayName":"Soujanya
-        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2025-01-09T12:04:15.06Z","System.ChangedBy":{"displayName":"Soujanya
+      string: '{"id":191,"rev":1,"fields":{"System.Id":191,"System.AreaId":32,"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.NodeName":"WorkItemCreateShowUpdateDeleteTests","System.AreaLevel1":"WorkItemCreateShowUpdateDeleteTests","System.Rev":1,"System.AuthorizedDate":"2025-01-10T12:13:34.723Z","System.RevisedDate":"9999-01-01T00:00:00Z","System.IterationId":29,"System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.IterationLevel1":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Task","System.State":"To
+        Do","System.Reason":"Added to backlog","System.CreatedDate":"2025-01-10T12:13:34.723Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2025-01-10T12:13:34.723Z","System.ChangedBy":{"displayName":"Soujanya
         Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.AuthorizedAs":{"displayName":"Soujanya
-        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.PersonId":279163667,"System.Watermark":273,"System.CommentCount":0,"System.Title":"sampleTask","Microsoft.VSTS.Common.StateChangeDate":"2025-01-09T12:04:15.06Z","Microsoft.VSTS.Common.Priority":2},"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166"},"workItemUpdates":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166/updates"},"workItemRevisions":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166/revisions"},"workItemComments":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166/comments"},"html":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_workitems/edit/166"},"workItemType":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItemTypes/Task"},"fields":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/fields"}},"url":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166"}'
+        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.PersonId":279163667,"System.Watermark":308,"System.CommentCount":0,"System.Title":"sampleTask","Microsoft.VSTS.Common.StateChangeDate":"2025-01-10T12:13:34.723Z","Microsoft.VSTS.Common.Priority":2},"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191"},"workItemUpdates":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191/updates"},"workItemRevisions":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191/revisions"},"workItemComments":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191/comments"},"html":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_workitems/edit/191"},"workItemType":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItemTypes/Task"},"fields":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/fields"}},"url":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 4b04af4f-f053-47e2-88c6-c9e400a49ea6
+      - b3b5875d-1a5b-4491-ad34-c80e18b18fdf
       cache-control:
       - no-cache
       content-length:
-      - '3922'
+      - '3926'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Jan 2025 12:04:14 GMT
+      - Fri, 10 Jan 2025 12:13:35 GMT
       expires:
       - '-1'
       p3p:
@@ -138,13 +138,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 15B5DC95DB5C4E089027F59FA62B6362 Ref B: BN3EDGE1112 Ref C: 2025-01-09T12:04:15Z'
+      - 'Ref A: 672418C4D1EE465DB783B410ACD56009 Ref B: PHX31EDGE0513 Ref C: 2025-01-10T12:13:34Z'
       x-tfs-processid:
-      - 2b52a6a4-1674-4b4b-ad2f-8d852d443e9d
+      - e660e7cb-b043-4a5e-b0d7-12df32c018af
       x-tfs-session:
-      - ad3174f2-944f-4bf0-ba38-c46df780a74e
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
       x-vss-e2eid:
-      - 4b04af4f-f053-47e2-88c6-c9e400a49ea6
+      - b3b5875d-1a5b-4491-ad34-c80e18b18fdf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -171,30 +171,30 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - ad3174f2-944f-4bf0-ba38-c46df780a74e
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
-    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/166
+    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/191
   response:
     body:
-      string: '{"id":166,"rev":2,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Task","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2025-01-09T12:04:15.06Z","System.CreatedBy":{"displayName":"Soujanya
-        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2025-01-09T12:04:15.737Z","System.ChangedBy":{"displayName":"Soujanya
-        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":0,"System.Title":"sampleTask","Microsoft.VSTS.Common.StateChangeDate":"2025-01-09T12:04:15.737Z","Microsoft.VSTS.Common.ClosedDate":"2025-01-09T12:04:15.737Z","Microsoft.VSTS.Common.ClosedBy":{"displayName":"Soujanya
-        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.Priority":2},"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166"},"workItemUpdates":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166/updates"},"workItemRevisions":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166/revisions"},"workItemComments":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166/comments"},"html":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_workitems/edit/166"},"workItemType":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItemTypes/Task"},"fields":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/fields"}},"url":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/166"}'
+      string: '{"id":191,"rev":2,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Task","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2025-01-10T12:13:34.723Z","System.CreatedBy":{"displayName":"Soujanya
+        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.ChangedDate":"2025-01-10T12:13:35.527Z","System.ChangedBy":{"displayName":"Soujanya
+        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"System.CommentCount":0,"System.Title":"sampleTask","Microsoft.VSTS.Common.StateChangeDate":"2025-01-10T12:13:35.527Z","Microsoft.VSTS.Common.ClosedDate":"2025-01-10T12:13:35.527Z","Microsoft.VSTS.Common.ClosedBy":{"displayName":"Soujanya
+        Bestala (MINDTREE LIMITED)","url":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/22157d54-1821-6536-a446-928b06348385","_links":{"avatar":{"href":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"}},"id":"22157d54-1821-6536-a446-928b06348385","uniqueName":"v-sbestala@microsoft.com","imageUrl":"https://dev.azure.com/v-anvashist0376/_apis/GraphProfile/MemberAvatars/aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1","descriptor":"aad.MjIxNTdkNTQtMTgyMS03NTM2LWE0NDYtOTI4YjA2MzQ4Mzg1"},"Microsoft.VSTS.Common.Priority":2},"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191"},"workItemUpdates":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191/updates"},"workItemRevisions":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191/revisions"},"workItemComments":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191/comments"},"html":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_workitems/edit/191"},"workItemType":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItemTypes/Task"},"fields":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/fields"}},"url":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItems/191"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - ddbd07c0-9398-44c4-98df-d700ec98e222
+      - 13576c2c-8baf-40d7-932b-d68ed21219c9
       cache-control:
       - no-cache
       content-length:
-      - '3593'
+      - '3594'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Jan 2025 12:04:15 GMT
+      - Fri, 10 Jan 2025 12:13:34 GMT
       expires:
       - '-1'
       p3p:
@@ -215,13 +215,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 78717548E2E94F93A48E2A5A381EE4A4 Ref B: BN3EDGE0919 Ref C: 2025-01-09T12:04:15Z'
+      - 'Ref A: D6F19DDD67874BB2A2BFDFC3BB0C5D1E Ref B: PHX31EDGE0520 Ref C: 2025-01-10T12:13:35Z'
       x-tfs-processid:
-      - 3901d335-29e2-486a-bcde-ee940b508064
+      - 17aa7385-4f16-4de3-9513-425337341e2b
       x-tfs-session:
-      - ad3174f2-944f-4bf0-ba38-c46df780a74e
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
       x-vss-e2eid:
-      - ddbd07c0-9398-44c4-98df-d700ec98e222
+      - 13576c2c-8baf-40d7-932b-d68ed21219c9
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -248,31 +248,31 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - ad3174f2-944f-4bf0-ba38-c46df780a74e
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/v-anvashist0376/WorkItemCreateShowUpdateDeleteTests/_apis/wit/workItems/166?destroy=false
+    uri: https://dev.azure.com/v-anvashist0376/WorkItemCreateShowUpdateDeleteTests/_apis/wit/workItems/191?destroy=false
   response:
     body:
-      string: '{"id":166,"type":"Task","name":"sampleTask","project":"WorkItemCreateShowUpdateDeleteTests","deletedDate":"1/9/2025
-        12:04:16 PM","deletedBy":"Soujanya Bestala (MINDTREE LIMITED) <v-sbestala@microsoft.com>","code":200,"url":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/recyclebin/166","resource":{"id":166,"rev":3,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Task","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2025-01-09T12:04:15.06Z","System.CreatedBy":"Soujanya
-        Bestala (MINDTREE LIMITED) <v-sbestala@microsoft.com>","System.ChangedDate":"2025-01-09T12:04:16.09Z","System.ChangedBy":"Soujanya
-        Bestala (MINDTREE LIMITED) <v-sbestala@microsoft.com>","System.CommentCount":0,"System.Title":"sampleTask","Microsoft.VSTS.Common.StateChangeDate":"2025-01-09T12:04:15.737Z","Microsoft.VSTS.Common.ClosedDate":"2025-01-09T12:04:15.737Z","Microsoft.VSTS.Common.ClosedBy":"Soujanya
-        Bestala (MINDTREE LIMITED) <v-sbestala@microsoft.com>","Microsoft.VSTS.Common.Priority":2},"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/recyclebin/166"},"workItemType":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItemTypes/Task"},"fields":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/fields"}},"url":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/recyclebin/166"}}'
+      string: '{"id":191,"type":"Task","name":"sampleTask","project":"WorkItemCreateShowUpdateDeleteTests","deletedDate":"1/10/2025
+        12:13:35 PM","deletedBy":"Soujanya Bestala (MINDTREE LIMITED) <v-sbestala@microsoft.com>","code":200,"url":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/recyclebin/191","resource":{"id":191,"rev":3,"fields":{"System.AreaPath":"WorkItemCreateShowUpdateDeleteTests","System.TeamProject":"WorkItemCreateShowUpdateDeleteTests","System.IterationPath":"WorkItemCreateShowUpdateDeleteTests","System.WorkItemType":"Task","System.State":"Done","System.Reason":"Completed","System.CreatedDate":"2025-01-10T12:13:34.723Z","System.CreatedBy":"Soujanya
+        Bestala (MINDTREE LIMITED) <v-sbestala@microsoft.com>","System.ChangedDate":"2025-01-10T12:13:35.93Z","System.ChangedBy":"Soujanya
+        Bestala (MINDTREE LIMITED) <v-sbestala@microsoft.com>","System.CommentCount":0,"System.Title":"sampleTask","Microsoft.VSTS.Common.StateChangeDate":"2025-01-10T12:13:35.527Z","Microsoft.VSTS.Common.ClosedDate":"2025-01-10T12:13:35.527Z","Microsoft.VSTS.Common.ClosedBy":"Soujanya
+        Bestala (MINDTREE LIMITED) <v-sbestala@microsoft.com>","Microsoft.VSTS.Common.Priority":2},"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/recyclebin/191"},"workItemType":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/workItemTypes/Task"},"fields":{"href":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/fields"}},"url":"https://dev.azure.com/v-anvashist0376/b023dc57-8bd5-493a-b139-54ae60562ae9/_apis/wit/recyclebin/191"}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f57eb538-9f7a-49db-a131-dab6ac7a4462
+      - cdb040b2-998e-4f88-adb8-ea61b478bf5c
       cache-control:
       - no-cache
       content-length:
-      - '1676'
+      - '1678'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Thu, 09 Jan 2025 12:04:15 GMT
+      - Fri, 10 Jan 2025 12:13:35 GMT
       expires:
       - '-1'
       p3p:
@@ -293,13 +293,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 964FDF1DE89C4E8185F39C90F8FF5E16 Ref B: BN3EDGE0219 Ref C: 2025-01-09T12:04:15Z'
+      - 'Ref A: 426F504123B242C2937CAE9B4AFC8D54 Ref B: PHX31EDGE0619 Ref C: 2025-01-10T12:13:35Z'
       x-tfs-processid:
-      - f67fe30c-390f-4652-b7be-afa958a8a0b7
+      - ad8f91be-e4b4-4b44-909f-0682230b83e4
       x-tfs-session:
-      - ad3174f2-944f-4bf0-ba38-c46df780a74e
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
       x-vss-e2eid:
-      - f57eb538-9f7a-49db-a131-dab6ac7a4462
+      - cdb040b2-998e-4f88-adb8-ea61b478bf5c
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -324,21 +324,21 @@ interactions:
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - ad3174f2-944f-4bf0-ba38-c46df780a74e
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/166?$expand=all
+    uri: https://dev.azure.com/v-anvashist0376/_apis/wit/workItems/191?$expand=all
   response:
     body:
-      string: '{"$id":"1","innerException":null,"message":"TF401232: Work item 166
+      string: '{"$id":"1","innerException":null,"message":"TF401232: Work item 191
         does not exist, or you do not have permissions to read it.","typeName":"Microsoft.TeamFoundation.WorkItemTracking.Server.WorkItemUnauthorizedAccessException,
         Microsoft.TeamFoundation.WorkItemTracking.Server","typeKey":"WorkItemUnauthorizedAccessException","errorCode":0,"eventId":3200}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 79d367eb-b208-4d6b-b865-cfd6b741cd66
+      - 4648f442-8e34-48ce-9a51-1b427f17692d
       cache-control:
       - no-cache
       content-length:
@@ -346,7 +346,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Thu, 09 Jan 2025 12:04:15 GMT
+      - Fri, 10 Jan 2025 12:13:35 GMT
       expires:
       - '-1'
       p3p:
@@ -365,13 +365,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 6C9A75C1DED345B9889672B60730639E Ref B: BN3EDGE0210 Ref C: 2025-01-09T12:04:16Z'
+      - 'Ref A: D2B409FC08AE4DF8BB62743210032CDE Ref B: PHX31EDGE0609 Ref C: 2025-01-10T12:13:36Z'
       x-tfs-processid:
-      - 12d4d982-4e3b-48b6-ad63-51f90b23fdd7
+      - 0204a8f1-e847-4968-9537-5f0925e0c948
       x-tfs-session:
-      - ad3174f2-944f-4bf0-ba38-c46df780a74e
+      - a4d476f9-689c-40c3-b4a9-fee152f3d62f
       x-vss-e2eid:
-      - 79d367eb-b208-4d6b-b865-cfd6b741cd66
+      - 4648f442-8e34-48ce-9a51-1b427f17692d
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
