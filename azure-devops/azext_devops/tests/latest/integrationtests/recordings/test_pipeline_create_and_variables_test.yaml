@@ -2237,9 +2237,7 @@ interactions:
       cache-control:
       - no-cache
       content-length:
-      - '22'
-      content-type:
-      - application/json; charset=utf-8; api-version=5.0
+      - '0'
       date:
       - Fri, 10 Jan 2025 12:22:49 GMT
       expires:
@@ -2247,20 +2245,16 @@ interactions:
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
       request-context:
       - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
-      vary:
-      - Accept-Encoding
+      www-authenticate:
+      - Basic realm="https://tfsprodsin1.app.visualstudio.com/"
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
       - nosniff
-      x-frame-options:
-      - SAMEORIGIN
       x-msedge-ref:
       - 'Ref A: CB9B0307778A4856910D20928F1D8B81 Ref B: PHX31EDGE0616 Ref C: 2025-01-10T12:22:50Z'
       x-tfs-processid:
@@ -2271,11 +2265,9 @@ interactions:
       - c80cdfb5-9ae0-466d-8d66-ba1fb5c3d503
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
-      x-vss-userdata:
-      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
-      code: 200
-      message: OK
+      code: 401
+      message: Unauthorized
 - request:
     body: null
     headers:

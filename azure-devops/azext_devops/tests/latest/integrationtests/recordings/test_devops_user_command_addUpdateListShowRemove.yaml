@@ -811,18 +811,16 @@ interactions:
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
       request-context:
       - appId=cid-v1:4528831f-a987-409a-8cad-97658fe8417f
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      www-authenticate:
+      - Basic realm="https://aexprodsin1.vsaex.visualstudio.com/"
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
       - nosniff
-      x-frame-options:
-      - SAMEORIGIN
       x-msedge-ref:
       - 'Ref A: 854F5A06FCA44DC199AF0F89D4F2BAEA Ref B: PHX31EDGE0516 Ref C: 2025-01-10T12:21:45Z'
       x-tfs-processid:
@@ -833,8 +831,6 @@ interactions:
       - da9bd610-2c5a-4409-8301-3bc5121a3f00
       x-vss-senderdeploymentid:
       - 60550036-6ed7-6a2e-3bc7-9053b0c2e866
-      x-vss-userdata:
-      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 204
       message: No Content

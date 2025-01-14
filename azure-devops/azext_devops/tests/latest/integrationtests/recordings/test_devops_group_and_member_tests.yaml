@@ -474,7 +474,7 @@ interactions:
       cache-control:
       - no-cache
       content-length:
-      - '1025'
+      - '1026'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
@@ -547,7 +547,7 @@ interactions:
       cache-control:
       - no-cache
       content-length:
-      - '822'
+      - '823'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
@@ -3367,20 +3367,16 @@ interactions:
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
       request-context:
       - appId=cid-v1:f4305046-1403-437e-b451-856fed7b0a7d
       strict-transport-security:
       - max-age=31536000; includeSubDomains
       www-authenticate:
-      - Bearer authorization_uri=https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47
+      - Basic realm="https://spsprodcin2.vssps.visualstudio.com/"
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
       - nosniff
-      x-frame-options:
-      - SAMEORIGIN
       x-msedge-ref:
       - 'Ref A: 51457EB3E821439292A52A8C1FA54259 Ref B: PHX31EDGE0520 Ref C: 2025-01-10T12:17:56Z'
       x-tfs-fedauthissuer:
@@ -3399,8 +3395,6 @@ interactions:
       - 72f988bf-86f1-41af-91ab-2d7cd011db47
       x-vss-senderdeploymentid:
       - 12151c76-78d9-45df-bc19-5b98a8c97843
-      x-vss-userdata:
-      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
@@ -4048,7 +4042,7 @@ interactions:
       cache-control:
       - no-cache
       content-length:
-      - '287'
+      - '288'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:

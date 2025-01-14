@@ -658,6 +658,76 @@ interactions:
       code: 200
       message: OK
 - request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: OPTIONS
+    uri: https://vsaex.dev.azure.com/v-anvashist0376/_apis
+  response:
+    body:
+      string: '{"value":[{"id":"06bcc74a-1491-4eb8-a0eb-704778f9d041","area":"ClientTrace","resourceName":"Events","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"4.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"9ada205e-a0d0-4d4b-8e33-9955b724471a","area":"CodeMapper","resourceName":"CodeMapper","routeTemplate":"_apis/{resource}","resourceVersion":1,"minVersion":"5.1","maxVersion":"7.1","releasedVersion":"0.0"},{"id":"3505911e-ead6-431a-8656-b61c5d3b07a3","area":"contentViolation","resourceName":"reports","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"5.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"2648442b-fd63-4b9a-902f-0c913510f139","area":"Contribution","resourceName":"installedApps","routeTemplate":"_apis/{area}/{resource}/{extensionId}","resourceVersion":2,"minVersion":"2.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"3353e165-a11e-43aa-9d88-14f2bb09b6d9","area":"Contribution","resourceName":"HierarchyQuery","routeTemplate":"_apis/{area}/{resource}/{scopeName}/{scopeValue}","resourceVersion":1,"minVersion":"5.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"8ec9f10c-ab9f-4618-8817-48f3125dde6a","area":"Contribution","resourceName":"Hierarchy","routeTemplate":"_apis/{area}/{resource}/{contributionId}/{scopeName}/{scopeValue}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"738368db-35ee-4b85-9f94-77ed34af2b0d","area":"Contribution","resourceName":"dataProvidersQuery","routeTemplate":"_apis/{area}/dataProviders/query/{scopeName}/{scopeValue}","resourceVersion":1,"minVersion":"2.2","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"3e2f6668-0798-4dcb-b592-bfe2fa57fde2","area":"Contribution","resourceName":"installedApps","routeTemplate":"_apis/{area}/{resource}/{publisherName}/{extensionName}","resourceVersion":2,"minVersion":"2.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"db7f2146-2309-4cee-b39c-c767777a1c55","area":"Contribution","resourceName":"ContributionNodeQuery","routeTemplate":"_apis/{area}/nodes/query","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"b5cc35c2-ff2b-491d-a085-24b6e9f396fd","area":"CustomerIntelligence","resourceName":"Events","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"2.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"0cf03c5a-d16d-4297-bfeb-f38a56d86670","area":"CvsFileDownload","resourceName":"CvsFileDownload","routeTemplate":"_apis/public/{resource}","resourceVersion":1,"minVersion":"5.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"01c3d915-4b98-4948-8e16-c8cc68b17afe","area":"Extensions","resourceName":"Assets","routeTemplate":"_apis/public/{area}/{providerName}/{version}/{resource}/{*assetType}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"232b00f3-c6b8-48c6-883f-1a8dc6cbef8a","area":"Fallback","resourceName":"NotFound","routeTemplate":"_apis/{*params}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"3e2b80f8-9e6f-441e-8393-005610692d9c","area":"FeatureAvailability","resourceName":"FeatureFlags","routeTemplate":"_apis/{resource}/{name}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"c4209f25-7a27-41dd-9f04-06080c7b6afd","area":"FeatureManagement","resourceName":"Features","routeTemplate":"_apis/{area}/{resource}/{featureId}","resourceVersion":1,"minVersion":"3.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"2b4486ad-122b-400c-ae65-17b6672c1f9d","area":"FeatureManagement","resourceName":"FeatureStatesQuery","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"f29e997b-c2da-4d15-8380-765788a1a74c","area":"FeatureManagement","resourceName":"FeatureStatesQuery","routeTemplate":"_apis/{area}/{resource}/{userScope}/{scopeName}/{scopeValue}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"3f810f28-03e2-4239-b0bc-788add3005e5","area":"FeatureManagement","resourceName":"FeatureStatesQuery","routeTemplate":"_apis/{area}/{resource}/{userScope}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"98911314-3f9b-4eaf-80e8-83900d8e85d9","area":"FeatureManagement","resourceName":"FeatureStates","routeTemplate":"_apis/{area}/{resource}/{userScope}/{featureId}","resourceVersion":1,"minVersion":"3.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"dd291e43-aa9f-4cee-8465-a93c78e414a4","area":"FeatureManagement","resourceName":"FeatureStates","routeTemplate":"_apis/{area}/{resource}/{userScope}/{scopeName}/{scopeValue}/{featureId}","resourceVersion":1,"minVersion":"3.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"4d9b6936-e96a-4a42-8c3b-81e8337cd010","area":"IdentityPicker","resourceName":"Identities","routeTemplate":"_apis/{area}/{resource}/{objectId}/avatar","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"4102f006-0b23-4b26-bb1b-b661605e6b33","area":"IdentityPicker","resourceName":"Identities","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"839e4258-f559-421b-a38e-b6e691967ab3","area":"IdentityPicker","resourceName":"Identities","routeTemplate":"_apis/{area}/{resource}/{objectId}/mru/{featureId}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"c01af8fd-2a61-4811-a7a3-b85bcec080af","area":"IdentityPicker","resourceName":"Identities","routeTemplate":"_apis/{area}/{resource}/{objectId}/connections","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"9ff633ff-c08d-4c8d-8d32-78025a0d4896","area":"Interaction","resourceName":"Interaction","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"00d9565f-ed9c-4a06-9a50-00e7896ccab4","area":"Location","resourceName":"ConnectionData","routeTemplate":"_apis/{resource}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"e81700f7-3be2-46de-8624-2eb35882fcaa","area":"Location","resourceName":"ResourceAreas","routeTemplate":"_apis/{resource}/{areaId}","resourceVersion":1,"minVersion":"3.2","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"d810a47d-f4f4-4a62-a03f-fa1860585c4c","area":"Location","resourceName":"ServiceDefinitions","routeTemplate":"_apis/{resource}/{serviceType}/{identifier}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"2280bffa-58a2-49da-822e-0764a1bb44f7","area":"MemberEntitlementManagement","resourceName":"GroupEntitlements","routeTemplate":"_apis/{resource}/{groupId}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"45a36e53-5286-4518-aa72-2d29f7acc5d8","area":"MemberEntitlementManagement","resourceName":"Members","routeTemplate":"_apis/GroupEntitlements/{groupId}/{resource}/{memberId}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"f03dbf50-80f8-41b7-8ca2-65b6a178caba","area":"MemberEntitlementManagement","resourceName":"ServicePrincipalEntitlements","routeTemplate":"_apis/{resource}","resourceVersion":1,"minVersion":"7.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"5ae55b13-c9dd-49d1-957e-6e76c152e3d9","area":"MemberEntitlementManagement","resourceName":"UserEntitlementSummary","routeTemplate":"_apis/{resource}","resourceVersion":1,"minVersion":"4.1","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"9bce1f43-2629-419f-8f6c-7503be58a4f3","area":"MemberEntitlementManagement","resourceName":"GroupEntitlements","routeTemplate":"_apis/{resource}/{groupDescriptor}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"1d491a66-190b-43ae-86b8-9c2688c55186","area":"MemberEntitlementManagement","resourceName":"ServicePrincipalEntitlements","routeTemplate":"_apis/{resource}/{servicePrincipalId}","resourceVersion":1,"minVersion":"7.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"387f832c-dbf2-4643-88e9-c1aa94dbb737","area":"MemberEntitlementManagement","resourceName":"UserEntitlements","routeTemplate":"_apis/{resource}/{userDescriptor}","resourceVersion":4,"minVersion":"4.1","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"8480c6eb-ce60-47e9-88df-eca3c801638b","area":"MemberEntitlementManagement","resourceName":"UserEntitlements","routeTemplate":"_apis/{resource}/{userId}","resourceVersion":4,"minVersion":"4.1","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"1e8cabfb-1fda-461e-860f-eeeae54d06bb","area":"MemberEntitlementManagement","resourceName":"MemberEntitlements","routeTemplate":"_apis/{resource}/{memberId}","resourceVersion":2,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"d3f9e094-771b-42db-a97e-2ddd61c1607e","area":"MEMInternal","resourceName":"GetMemberEntitlementsBatch","routeTemplate":"_apis/{resource}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"dd1e0955-72a8-4d73-abb4-30a8110411e0","area":"MEMInternal","resourceName":"GroupEntitlementUserApplication","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"f6a501d2-d3ca-4410-b876-5814c2688a04","area":"MEMInternal","resourceName":"UserManagementSummary","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"ddee2360-aef8-4435-b0a8-92eddbeb85b6","area":"MEMInternal","resourceName":"Export","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"3f6319be-d55a-47ef-bcdd-cf1c98fc6434","area":"MEMInternal","resourceName":"MemberEntitlementsBatch","routeTemplate":"_apis/{resource}","resourceVersion":1,"minVersion":"3.1","maxVersion":"5.1","releasedVersion":"0.0"},{"id":"aa26fb5a-205c-429e-b110-e7b9152d2037","area":"MEMInternal","resourceName":"RemoveExplicitAssignment","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"3.1","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"91cc4dd2-7aad-4182-bb39-940717b86890","area":"NewDomainUrlMigration","resourceName":"Requests","routeTemplate":"_apis/ServicingOrchestration/{area}/{resource}/{requestId}","resourceVersion":1,"minVersion":"3.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"7f82df6d-7d09-46c1-a015-643b556b3a1e","area":"operations","resourceName":"operations","routeTemplate":"_apis/{resource}/{pluginId}/{operationId}","resourceVersion":1,"minVersion":"4.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"9a1b74b4-2ca8-4a9f-8470-c2f2e6fdc949","area":"operations","resourceName":"operations","routeTemplate":"_apis/{resource}/{operationId}","resourceVersion":1,"minVersion":"2.0","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"7ef423e0-59d8-4c00-b951-7143b18bd97b","area":"OrganizationPolicy","resourceName":"PoliciesBatch","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"3.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"d0ab077b-1b97-4f78-984c-cfe2d248fc79","area":"OrganizationPolicy","resourceName":"Policies","routeTemplate":"_apis/{area}/{resource}/{policyName}","resourceVersion":1,"minVersion":"3.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"222af71b-7280-4a95-80e4-dcb0deeac834","area":"OrganizationPolicy","resourceName":"PolicyInformation","routeTemplate":"_apis/{area}/{resource}/{policyName}","resourceVersion":1,"minVersion":"3.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"71bdd232-68d3-49aa-b1f5-63a4bc54fa86","area":"ProofOfPresence","resourceName":"Attestation","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"7.2","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"7ebdc928-e30f-40ca-94ae-c4e35c05ae82","area":"ProofOfPresenceFido2","resourceName":"Attestation","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"7.2","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"d154e65b-6b7a-40d5-9058-50a6fd292b35","area":"Recommendation","resourceName":"RecommendationHistory","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"c8e31be5-c629-4748-a75c-7a1779f1d316","area":"Recommendation","resourceName":"Recommendations","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"25dcffd2-9f2a-4109-b4cc-000f8472107d","area":"SBS","resourceName":"SBSInherit","routeTemplate":"_apis/{area}/{securityNamespaceId}/inherit","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"466ecead-d7f1-447c-8bc1-52c22592b98e","area":"SBS","resourceName":"SBSTokens","routeTemplate":"_apis/{area}/{securityNamespaceId}/tokens","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"3f95720d-2ef6-47cc-b5d7-733561d13eb9","area":"SBS","resourceName":"SBSAcls","routeTemplate":"_apis/{area}/{securityNamespaceId}/acls","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"ab821a2b-f383-4c72-8274-8425ed30835d","area":"SBS","resourceName":"SBSAces","routeTemplate":"_apis/{area}/{securityNamespaceId}/aces","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"049929b0-79e1-4ad5-a548-9e192d5c049e","area":"SBS","resourceName":"SBSNamespace","routeTemplate":"_apis/{area}/{securityNamespaceId}","resourceVersion":3,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"d9da18e4-274b-4dd4-b09d-b8b931af3826","area":"SBS","resourceName":"SBSAclStore","routeTemplate":"_apis/{area}/{securityNamespaceId}/{aclStoreId}","resourceVersion":2,"minVersion":"2.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"18a2ad18-7571-46ae-bec7-0c7da1495885","area":"Security","resourceName":"AccessControlLists","routeTemplate":"_apis/{resource}/{securityNamespaceId}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"cf1faa59-1b63-4448-bf04-13d981a46f5d","area":"Security","resourceName":"PermissionEvaluationBatch","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"3.0","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"ce7b9f95-fde9-4be8-a86d-83b366f0b87a","area":"Security","resourceName":"SecurityNamespaces","routeTemplate":"_apis/{resource}/{securityNamespaceId}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"dd3b8bd6-c7fc-4cbd-929a-933d9c011c9d","area":"Security","resourceName":"Permissions","routeTemplate":"_apis/{resource}/{securityNamespaceId}/{permissions}","resourceVersion":2,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"ac08c8ff-4323-4b08-af90-bcd018d380ce","area":"Security","resourceName":"AccessControlEntries","routeTemplate":"_apis/{resource}/{securityNamespaceId}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"3c4bfe05-aeb6-45f8-93a6-929468401657","area":"Servicing","resourceName":"ServiceLevel","routeTemplate":"_apis/{resource}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"4cbaafaf-e8af-4570-98d1-79ee99c56327","area":"Settings","resourceName":"Entries","routeTemplate":"_apis/{area}/{scopeName}/{scopeValue}/{resource}/{userScope}/{*key}","resourceVersion":1,"minVersion":"3.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"cd006711-163d-4cd4-a597-b05bad2556ff","area":"Settings","resourceName":"Entries","routeTemplate":"_apis/{area}/{resource}/{userScope}/{*key}","resourceVersion":1,"minVersion":"3.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"5f4c431a-4d8f-442d-96e7-1e7522e6eabd","area":"Stats","resourceName":"Activities","routeTemplate":"_apis/{area}/{resource}/{activityId}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"},{"id":"a6dd3765-cde6-4278-a12f-527b2d22fc1d","area":"UserAad","resourceName":"AadMembership","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"4.1","maxVersion":"7.2","releasedVersion":"7.1"},{"id":"9a383f13-77dc-4021-af34-644ea07f1eed","area":"WebPlatformAuth","resourceName":"AadSessionToken","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"7.1","maxVersion":"7.1","releasedVersion":"0.0"},{"id":"11420b6b-3324-490a-848d-b8aafdb906ba","area":"WebPlatformAuth","resourceName":"SessionToken","routeTemplate":"_apis/{area}/{resource}","resourceVersion":1,"minVersion":"1.0","maxVersion":"7.2","releasedVersion":"0.0"}],"count":71}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 82c9d275-43ca-4adb-a24f-fe8aeede474c
+      cache-control:
+      - no-cache
+      content-length:
+      - '16812'
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Thu, 09 Jan 2025 12:04:42 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:4528831f-a987-409a-8cad-97658fe8417f
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 4B8E849ADF35437BBDBFBDEC160BC245 Ref B: BN3EDGE0921 Ref C: 2025-01-09T12:04:41Z'
+      x-tfs-processid:
+      - 8dc3c208-83c1-478c-b21a-83b45e1915b9
+      x-tfs-session:
+      - 82c9d275-43ca-4adb-a24f-fe8aeede474c
+      x-vss-e2eid:
+      - 82c9d275-43ca-4adb-a24f-fe8aeede474c
+      x-vss-senderdeploymentid:
+      - 60550036-6ed7-6a2e-3bc7-9053b0c2e866
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
     body: '[{"op": "add", "path": "", "value": {"accessLevel": {"accountLicenseType":
       "stakeholder"}, "extensions": [], "projectEntitlements": [], "user": {"subjectKind":
       "user", "principalName": "new_user_test@outlook.com"}}}]'
@@ -695,9 +765,7 @@ interactions:
       cache-control:
       - no-cache
       content-length:
-      - '1862'
-      content-type:
-      - application/json; charset=utf-8; api-version=5.0-preview.2
+      - '0'
       date:
       - Fri, 10 Jan 2025 12:20:53 GMT
       expires:
@@ -705,20 +773,16 @@ interactions:
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
       request-context:
       - appId=cid-v1:4528831f-a987-409a-8cad-97658fe8417f
       strict-transport-security:
       - max-age=31536000; includeSubDomains
-      vary:
-      - Accept-Encoding
+      www-authenticate:
+      - Basic realm="https://aexprodsin1.vsaex.visualstudio.com/"
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
       - nosniff
-      x-frame-options:
-      - SAMEORIGIN
       x-msedge-ref:
       - 'Ref A: 7F0FDD2F47DC4009A965BC4E10B08B00 Ref B: PHX31EDGE0516 Ref C: 2025-01-10T12:20:53Z'
       x-tfs-processid:
@@ -729,8 +793,6 @@ interactions:
       - da9bd53a-2c5a-4409-8301-3bc5121a3f00
       x-vss-senderdeploymentid:
       - 60550036-6ed7-6a2e-3bc7-9053b0c2e866
-      x-vss-userdata:
-      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
       code: 200
       message: OK
