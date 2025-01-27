@@ -55,6 +55,10 @@ jobs:
     vmImage: 'macOS-latest'
 
   steps:
+  - script: pip install setuptools
+    displayName: 'Install setuptools'
+
+  steps:
   - script: 'pip install .'
     displayName: 'Install the whl locally'
     workingDirectory: 'azure-devops/'
