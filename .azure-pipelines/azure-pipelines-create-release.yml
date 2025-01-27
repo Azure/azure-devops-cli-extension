@@ -106,12 +106,6 @@ jobs:
     displayName: 'Check for Python vulnerabilities'
     workingDirectory: 'azure-devops/'
 
-  - script: |
-      pip install safety
-      safety check --full-report
-    displayName: 'Check for Python vulnerabilities'
-    workingDirectory: 'azure-devops/'
-
   - task: PythonScript@0
     displayName : 'setupVersion'
     name: 'setupVersion'
