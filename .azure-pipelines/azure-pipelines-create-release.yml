@@ -4,10 +4,10 @@
 # 2. Creates a wheel and publishes it as artifact
 # 3. Creates a tag in github 
 
-on:
-  pull_request:
-    branches:
-      - master
+pr:
+- master
+ 
+trigger: none
 
 jobs:
 
