@@ -12,7 +12,9 @@ runs:
       shell: bash
     - run: pip uninstall azure-cli -y
       shell: bash
-    - run: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge --upgrade-strategy eager
+#   - run: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge --upgrade-strategy eager
+#     shell: bash
+    - run: pip install azure-cli
       shell: bash
     - run: python --version
       shell: bash
