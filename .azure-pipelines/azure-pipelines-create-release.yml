@@ -4,8 +4,7 @@
 # 2. Creates a wheel and publishes it as artifact
 # 3. Creates a tag in github 
 
-pr:
-- master
+pr: none
  
 trigger: none
 
