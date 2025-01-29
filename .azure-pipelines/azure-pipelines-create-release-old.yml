@@ -1,0 +1,113 @@
+# This pipeline is used to do new release of Azure DevOps CLI extension
+# This
+# 1. Runs test cases
+# 2. Creates a wheel and publishes it as artifact
+# 3. Creates a tag in github 
+
+pr: none
+
+trigger: none
+
+jobs:
+
+- job: 'Build_Publish_Azure_DevOps_CLI_Extension'
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      architecture: 'x64'
+  - script: pip install setuptools
+    displayName: 'install setuptools'
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/build-publish-azure-devops-cli-extension.yml
+
+- job: 'Build_Publish_Azure_CLI_Test_SDK'
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      architecture: 'x64'
+  - script: pip install setuptools
+    displayName: 'install setuptools'
+
+  - template: templates/setup-ci-machine.yml
+
+  - template: templates/build-publish-azure-cli-test-sdk.yml
+
+- job: 'Run_Test'
+  dependsOn : Build_Publish_Azure_CLI_Test_SDK
+  pool:
+    vmImage: 'macOS-latest'
+
+  steps:
+  - template: templates/run-tests.yml
+    parameters:
+      pythonVersion: '3.10'
+
+  - script: 'pip install .'
+    displayName: 'Install the whl locally'
+    workingDirectory: 'azure-devops/'
+
+  - task: PythonScript@0
+    displayName : 'setupVersion'
+    name: 'setupVersion'
+    inputs:
+      scriptSource: 'inline'
+      script: |
+        from azext_devops.version import VERSION
+        print("##vso[task.setvariable variable=CLIVersion;isOutput=true]"+VERSION)
+        print("##vso[task.setvariable variable=RTitle;isOutput=true]"+'Azure DevOps CLI extension for Azure CLI ' + VERSION)
+
+- job: 'Calculate_Sha_And_Create_Release'
+  dependsOn : Run_Test
+  pool:
+    vmImage: 'windows-latest'
+  variables:
+    CLIVersion: $[dependencies.Run_Test.outputs['setupVersion.CLIVersion']]
+    RTitle: $[dependencies.Run_Test.outputs['setupVersion.RTitle']]
+
+  steps:
+  - task: DownloadBuildArtifacts@0
+    displayName : 'Download Extension wheel from Build Artifacts'
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'azure-devops-cli-extension'
+      downloadPath: '$(System.ArtifactsDirectory)/extension'
+
+  - task: PowerShell@2
+    displayName: 'Calculate Sha for downloaded extension'
+    inputs:
+      targetType: 'inline'
+      script: |
+        $extensions = Get-ChildItem -Filter "*.whl" -Recurse | Select-Object FullName
+        Foreach ($extension in $extensions)
+        {
+            Write-Host "calculating sha for " $extension.FullName   
+            certutil -hashfile $extension.FullName sha256
+        }
+        Write-Host "done"
+      workingDirectory: '$(System.ArtifactsDirectory)/extension'
+
+  - task: GitHubRelease@0
+    inputs:
+      gitHubConnection: github.com_v-soujanya
+      repositoryName: Azure/azure-devops-cli-extension
+      action: 'create'
+      target: '$(Build.SourceVersion)'
+      tagSource: manual
+      tag: $(Build.BuildNumber)   
+      title: $(RTitle)
+      assets: '$(System.ArtifactsDirectory)/extension/**/*.whl' 
+      assetUploadMode: 'delete'
+      isDraft: true
+      isPreRelease: false
+      addChangeLog: true 
