@@ -5,6 +5,10 @@ on:
     - cron: "0 0 * * *"
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   Run_Test:
     runs-on: ubuntu-latest
@@ -16,6 +20,18 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.12'
+
+      - name: Azure Login using Managed Identity
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          allow-no-subscriptions: true
+
+      - name: Retrieve Azure Access Token
+        id: ado-token
+        run: |
+          echo "token=$(az account get-access-token --resource 499b84ac-1321-427f-aa17-267ca6975798 | jq -r .accessToken)" >> $GITHUB_OUTPUT
 
       - name: Set up virtual environment
         run: |
@@ -30,5 +46,5 @@ jobs:
           azdev test azure-devops --live --no-exitfirst --series
         env:
           AZURE_DEVOPS_EXT_TEST_ORG: ${{ secrets.AZURE_DEVOPS_EXT_TEST_ORG }}
-          AZURE_DEVOPS_EXT_PAT: ${{ secrets.AZURE_DEVOPS_EXT_PAT }}
+          AZURE_DEVOPS_EXT_PAT: ${{ steps.ado-token.outputs.token }}
           
