@@ -133,3 +133,14 @@ If the tokens have variable-length path parts, then a separator character is use
    Token format for project level permissions : 'repoV2/PROJECT_ID/REPO_ID'
 
    For more information on this namespace and its tokens refer this [blog](https://devblogs.microsoft.com/devops/git-repo-tokens-for-the-security-service/)
+
+1. Namespace name :  Library
+
+   Namespace ID : 2c44889b-de0b-4e51-8989-4117ce34cea4
+
+   Token format for library level permissions : 'Library/PROJECT_ID'
+
+   You need to append LibraryName to update repo level permissions
+
+   Token format for library level permissions : 'Library/PROJECT_ID/LIBRARY_NAME'
+   
