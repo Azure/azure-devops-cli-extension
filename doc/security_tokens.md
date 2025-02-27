@@ -140,7 +140,7 @@ If the tokens have variable-length path parts, then a separator character is use
 
    Token format for library level permissions : 'Library/PROJECT_ID'
 
-   You need to append LibraryName to update repo level permissions
+   You need to append LibraryName to update library level permissions
 
    Token format for library level permissions : 'Library/PROJECT_ID/LIBRARY_NAME'
    
