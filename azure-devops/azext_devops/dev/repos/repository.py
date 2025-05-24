@@ -95,7 +95,7 @@ def update_repo(repository, default_branch=None, name=None, organization=None, p
     return repository
 
 
-def show_repo(repository, organization=None, project=None, detect=None, open=False):  # pylint: disable=redefined-builtin
+def show_repo(repository=None, organization=None, project=None, detect=None, open=False):  # pylint: disable=redefined-builtin
     """Get the details of a Git repository.
     :param repository: Name or ID of the repository.
     :type repository: str
@@ -108,7 +108,8 @@ def show_repo(repository, organization=None, project=None, detect=None, open=Fal
         organization=organization,
         project=project,
         project_required=True,
-        repo=repository)
+        repo=repository,
+        repo_required=True)
     git_client = get_git_client(organization)
     repository = git_client.get_repository(project=project, repository_id=repository)
     if open:
