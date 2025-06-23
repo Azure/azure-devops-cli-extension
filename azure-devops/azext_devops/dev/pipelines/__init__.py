@@ -3,9 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import pkg_resources
-from ._help import load_pipelines_help
 
-pkg_resources.declare_namespace(__name__)
+from ._help import load_pipelines_help
 
 load_pipelines_help()
