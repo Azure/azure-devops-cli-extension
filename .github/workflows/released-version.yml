@@ -43,6 +43,7 @@ jobs:
           azdev setup -r ./ -e azure-devops
           azdev extension repo add .
           azdev extension add azure-devops
+          azdev linter azure-devops --min-severity medium
           azdev test azure-devops --live --no-exitfirst --series
         env:
           AZURE_DEVOPS_EXT_TEST_ORG: ${{ secrets.AZURE_DEVOPS_EXT_TEST_ORG }}
