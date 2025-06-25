@@ -40,7 +40,7 @@ def credential_set(organization=None):
 
 def credential_clear(organization=None):
     """Clear the credential for all or a particular organization
-    :param organization: Azure Devops organization URL. Example: https://dev.azure.com/MyOrganizationName/.
+    :param organization: Azure Devops organization URL. Example: `https://dev.azure.com/MyOrganizationName/`.
     If no organization is specified, all organizations will be logged out.
     :type organization: str
     """
