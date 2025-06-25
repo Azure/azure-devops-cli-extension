@@ -28,7 +28,7 @@ def load_global_args(context):
     context.argument('organization', options_list=('--organization', '--org'),
                      help='Azure DevOps organization URL. You can configure the default organization using '
                      'az devops configure -d organization=ORG_URL. Required if not configured as '
-                     'default or picked up via git config. Example: https://dev.azure.com/MyOrganizationName/')
+                     'default or picked up via git config. Example: `https://dev.azure.com/MyOrganizationName/`')
     context.argument('detect', arg_type=get_three_state_flag(),
                      help='Automatically detect organization.')
     context.argument('project', options_list=('--project', '-p'),
@@ -41,11 +41,11 @@ def load_global_args(context):
 def load_team_arguments(self, _):
     with self.argument_context('devops login') as context:
         context.argument('organization',
-                         help='Azure DevOps organization URL. Example: https://dev.azure.com/MyOrganizationName')
+                         help='Azure DevOps organization URL. Example: `https://dev.azure.com/MyOrganizationName`')
 
     with self.argument_context('devops logout') as context:
         context.argument('organization',
-                         help='Azure DevOps organization URL. Example: https://dev.azure.com/MyOrganizationName/. '
+                         help='Azure DevOps organization URL. Example: `https://dev.azure.com/MyOrganizationName/`. '
                          'If no organization is specified, all organizations will be logged out.')
 
     with self.argument_context('devops configure') as context:
