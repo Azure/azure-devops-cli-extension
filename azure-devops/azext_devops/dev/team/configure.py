@@ -26,7 +26,7 @@ CONFIG_VALID_DEFAULT_KEYS_LIST = [DEVOPS_ORGANIZATION_DEFAULT, DEVOPS_TEAM_PROJE
 def configure(defaults=None, use_git_aliases=None, list_config=False):
     """Configure the Azure DevOps CLI or view your configuration.
     :param defaults: Space separated 'name=value' pairs for common arguments defaults,
-        e.g. '--defaults project=my-project-name organization=https://dev.azure.com/organizationName
+        e.g. '--defaults project=my-project-name organization=my-org-url
         arg=value'. Use '' to clear the defaults, e.g. --defaults project=''.
     :type defaults: str
     :param use_git_aliases: Set to 'true' to configure Git aliases global git config file

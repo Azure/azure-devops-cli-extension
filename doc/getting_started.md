@@ -67,7 +67,7 @@ Command
 
  Arguments
   --defaults -d     : Space separated 'name=value' pairs for common arguments defaults, e.g. '--
-                      defaults project=my-project-name organization=https://dev.azure.com/organizationName arg=value' Use '' to
+                      defaults project=my-project-name organization=my-org-url arg=value' Use '' to
                       clear the defaults, e.g. --defaults project=''.
   -- list    -l     : Lists the contents of the config file.
   --use-git-aliases : Set to 'yes' to configure Git aliiases global git config file (to enable
