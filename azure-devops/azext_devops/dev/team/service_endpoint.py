@@ -101,7 +101,7 @@ def create_azurerm_service_endpoint(name, azure_rm_tenant_id, azure_rm_service_p
     :param azure_rm_subscription_id: subscription id for azure rm service endpoint
     :type azure_rm_subscription_id: str
     :param azure_rm_service_principal_certificate_path: Path to (.pem) which is certificate.
-     Create using command "openssl pkcs12 -in file.pfx -out file.pem -nodes -password pass:<password_here>".
+     Create using command "openssl pkcs12 -in file.pfx -out file.pem -nodes -password pass:password_here".
      More details : https://aka.ms/azure-devops-cli-azurerm-service-endpoint
     :type azure_rm_service_principal_certificate_path: str
     :param azure_rm_subscription_name: name of azure subscription for azure rm service endpoint
