@@ -24,9 +24,13 @@ from .const import (DEFAULTS_SECTION,
                     PROJECT_PICKED_FROM_GIT,
                     REPO_PICKED_FROM_GIT,
                     ORG_PICKED_FROM_CONFIG,
+                    ORG_PICKED_FROM_ENV,
                     ORG_IGNORED_FROM_CONFIG,
                     PROJECT_PICKED_FROM_CONFIG,
-                    PROJECT_IGNORED_FROM_CONFIG)
+                    PROJECT_PICKED_FROM_ENV,
+                    PROJECT_IGNORED_FROM_CONFIG,
+                    AZ_DEVOPS_DEFAULT_ORGANIZATION,
+                    AZ_DEVOPS_DEFAULT_PROJECT)
 from ._credentials import get_credential
 from .git import get_remote_url
 from .vsts_git_url_info import VstsGitUrlInfo
@@ -346,17 +350,23 @@ def resolve_instance_project_and_repo(
                     repo = git_info.repo
                     vsts_tracking_data.properties[REPO_PICKED_FROM_GIT] = repo is not None
         if organization is None:
-            organization = _resolve_instance_from_config(organization)
-            vsts_tracking_data.properties[ORG_PICKED_FROM_CONFIG] = organization is not None
-        else:
-            orgFromConfig = _resolve_instance_from_config(organization)
-            vsts_tracking_data.properties[ORG_IGNORED_FROM_CONFIG] = orgFromConfig is not None
+            organization = _resolve_instance_from_env(organization)
+            vsts_tracking_data.properties[ORG_PICKED_FROM_ENV] = organization is not None
+            if organization is None:
+                organization = _resolve_instance_from_config(organization)
+                vsts_tracking_data.properties[ORG_PICKED_FROM_CONFIG] = organization is not None
+            else:
+                orgFromConfig = _resolve_instance_from_config(organization)
+                vsts_tracking_data.properties[ORG_IGNORED_FROM_CONFIG] = orgFromConfig is not None
         if project is None:
-            project = _resolve_project_from_config(project, project_required)
-            vsts_tracking_data.properties[PROJECT_PICKED_FROM_CONFIG] = organization is not None
-        else:
-            projectFromConfig = _resolve_project_from_config(project, False)
-            vsts_tracking_data.properties[PROJECT_IGNORED_FROM_CONFIG] = projectFromConfig is not None
+            project = _resolve_project_from_env(project, project_required)
+            vsts_tracking_data.properties[PROJECT_PICKED_FROM_ENV] = project is not None
+            if project is None:
+                project = _resolve_project_from_config(project, project_required)
+                vsts_tracking_data.properties[PROJECT_PICKED_FROM_CONFIG] = project is not None
+            else:
+                projectFromConfig = _resolve_project_from_config(project, False)
+                vsts_tracking_data.properties[PROJECT_IGNORED_FROM_CONFIG] = projectFromConfig is not None
     if not is_valid_url(organization):
         raise _team_organization_arg_error()
     if project_required and project is None:
@@ -397,6 +407,20 @@ def _resolve_project_from_config(project, project_required=True):
     if project is None:
         if azdevops_config.has_option(DEFAULTS_SECTION, DEVOPS_TEAM_PROJECT_DEFAULT):
             project = azdevops_config.get(DEFAULTS_SECTION, DEVOPS_TEAM_PROJECT_DEFAULT)
+        if project_required and (project is None or project == ''):
+            _raise_team_project_arg_error()
+    return project
+
+
+def _resolve_instance_from_env(organization):
+    if organization is None:
+        organization = os.getenv(AZ_DEVOPS_DEFAULT_ORGANIZATION, None)
+    return organization
+
+
+def _resolve_project_from_env(project, project_required=True):
+    if project is None:
+        project = os.getenv(AZ_DEVOPS_DEFAULT_PROJECT, None)
         if project_required and (project is None or project == ''):
             _raise_team_project_arg_error()
     return project
