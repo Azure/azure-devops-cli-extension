@@ -24,9 +24,11 @@ class ArtifactToolInvoker:
                 "--project", project, "--pipeline-id", run_id, "--artifact-name", artifact_name, "--path", path]
         return self.run_artifacttool(organization, args, "Downloading")
 
-    def upload_pipeline_artifact(self, organization, project, run_id, artifact_name, path):
+    def upload_pipeline_artifact(self, organization, project, run_id, artifact_name, path, properties=None):
         args = ["pipelineartifact", "publish", "--service", organization, "--patvar", ARTIFACTTOOL_PAT_ENVKEY,
                 "--project", project, "--pipeline-id", run_id, "--artifact-name", artifact_name, "--path", path]
+        if properties:
+            args.extend(["--properties", properties])
         return self.run_artifacttool(organization, args, "Uploading")
 
     def download_universal(self, organization, project, feed, package_name, package_version, path, file_filter):
