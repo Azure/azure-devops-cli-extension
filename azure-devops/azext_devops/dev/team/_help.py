@@ -147,9 +147,15 @@ def load_team_help():
                    https://docs.microsoft.com/en-us/rest/api/azure/devops/
     long-summary:
     examples:
-        - name: Discover areas related to 'Wiki'
+        - name: Discover areas related to 'Wiki' (Bash)
           text: |
             az devops invoke --query "[?contains(area,'wiki')]"
+
+        - name: Discover areas related to 'Wiki' (PowerShell)
+          text: |
+            Note:
+            PowerShell requires single-quoted JMESPath queries.
+            az devops invoke --query '[?contains(area, `wiki`)]'
 
         - name: Get all wikis in a project
           text: |
