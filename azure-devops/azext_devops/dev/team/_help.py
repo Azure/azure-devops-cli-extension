@@ -150,7 +150,7 @@ def load_team_help():
         - name: Discover areas related to 'Wiki'
           text: |
             az devops invoke --query "[?contains(area,'wiki')]"
-            
+    
         - name: PowerShell Command to Get all Wikis
           text: |
             az devops invoke --query '[?contains(area, `wiki`)]'
