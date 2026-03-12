@@ -39,6 +39,11 @@ def load_migration_help():
         text: |
           az devops migrations create --org https://codedev.ms/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
             --target-repository https://microsoft.ghe.com/1ES/Gardener --target-owner-user-id GeoffCoxMSFT --validate-only
+      - name: Create a migration with optional validation settings.
+        text: |
+          az devops migrations create --org https://codedev.ms/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
+            --target-repository https://microsoft.ghe.com/1ES/Gardener --target-owner-user-id GeoffCoxMSFT \
+            --agent-pool-name MigrationPool --skip-validation ActivePullRequestCount,PullRequestDeltaSize
     """
 
     helps['devops migrations pause'] = """

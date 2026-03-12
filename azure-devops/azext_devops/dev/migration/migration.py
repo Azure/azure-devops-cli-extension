@@ -30,6 +30,13 @@ def list_migrations(organization=None, detect=None):
     return _send_request(client, 'GET', url)
 
 
+def _normalize_optional_text(value):
+    if value is None:
+        return None
+    normalized = str(value).strip()
+    return normalized if normalized else None
+
+
 def get_migration(repository_id=None, organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
@@ -39,7 +46,10 @@ def get_migration(repository_id=None, organization=None, detect=None):
 
 
 def create_migration(repository_id=None, target_repository=None, target_owner_user_id=None,
-                     validate_only=None, scheduled_cutover_date=None, organization=None, detect=None):
+                     validate_only=None, scheduled_cutover_date=None, agent_pool_name=None,
+                     skip_validation=None, organization=None, detect=None):
+    agent_pool_name = _normalize_optional_text(agent_pool_name)
+    skip_validation = _normalize_optional_text(skip_validation)
     _validate_target_repository(target_repository)
     if not target_owner_user_id:
         raise CLIError('--target-owner-user-id must be specified.')
@@ -57,6 +67,10 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
     }
     if scheduled_cutover_date is not None:
         payload['scheduledCutoverDate'] = scheduled_cutover_date
+    if agent_pool_name is not None:
+        payload['agentPoolName'] = agent_pool_name
+    if skip_validation is not None:
+        payload['skipValidation'] = skip_validation
 
     client = _get_service_client(organization)
     url = _build_migration_url(repository_id)

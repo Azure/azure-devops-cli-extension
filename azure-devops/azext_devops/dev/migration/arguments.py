@@ -26,6 +26,12 @@ def load_migration_arguments(self, _):
         context.argument('scheduled_cutover_date', options_list='--scheduled-cutover-date',
                          type=convert_date_string_to_iso8601,
                          help='Scheduled cutover date/time (ISO 8601).')
+        context.argument('agent_pool_name', options_list='--agent-pool-name',
+                         help='Agent pool name for migration validation.')
+        context.argument('skip_validation', options_list='--skip-validation',
+                         help='Comma-separated list of validation checks to skip. '
+                              'Values: None, ActivePullRequestCount, PullRequestDeltaSize, '
+                              'TargetRepoMigration, All.')
 
     with self.argument_context('devops migrations cutover set') as context:
         context.argument('scheduled_cutover_date', options_list='--scheduled-cutover-date',
