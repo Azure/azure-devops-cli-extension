@@ -183,7 +183,7 @@ def _get_service_client(organization):
     config = Configuration(base_url=None)
     config.add_user_agent('devOpsCli/{}'.format(VERSION))
     connection = get_connection(organization)
-    return ServiceClient(creds=connection._creds, config=config)
+    return ServiceClient(creds=connection._creds, config=config)  # pylint: disable=protected-access
 
 
 def _send_request(client, method, url, content=None):

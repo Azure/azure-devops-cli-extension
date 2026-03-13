@@ -51,8 +51,8 @@ class DevCommandsLoader(AzCommandsLoader):
 
     @staticmethod
     def post_parse_args(_cli_ctx, **kwargs):
-        if (kwargs.get('command', None) and
-            kwargs['command'].startswith(('devops', 'boards', 'artifacts', 'pipelines', 'repos', 'migrations'))):
+        command = kwargs.get('command', None)
+        if command and command.startswith(('devops', 'boards', 'artifacts', 'pipelines', 'repos', 'migrations')):
             from azext_devops.dev.common.telemetry import set_tracking_data
             # we need to set tracking data only after we know that all args are valid,
             # otherwise we may log EUII data that a user inadvertently sent as an argument
