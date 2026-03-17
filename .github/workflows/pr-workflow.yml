@@ -57,14 +57,12 @@ jobs:
 
   Run_Test_Mac:
     needs: Build_Publish_Azure_CLI_Test_SDK
-    runs-on: macOS-latest
+    runs-on: macOS-14
     strategy:
       matrix:
         python-version:
           - '3.12'
           - '3.11'
-          - '3.10'
-          - '3.9'
     steps:
       - uses: actions/checkout@v4
       - name: Install gettext (macOS dependency fix)
@@ -77,7 +75,7 @@ jobs:
 
   Run_Test_Mac_Azure_CLI_Released_Version:
     needs: Build_Publish_Azure_CLI_Test_SDK
-    runs-on: macOS-latest
+    runs-on: macOS-14
     strategy:
       matrix:
         python-version:
