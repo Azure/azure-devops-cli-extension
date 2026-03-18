@@ -49,7 +49,7 @@ class TestMigrationCommands(unittest.TestCase):
 
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
-                target_repository='https://microsoft.ghe.com/1ES/Gardener',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
                 target_owner_user_id='GeoffCoxMSFT',
                 organization=self._TEST_ORG,
                 detect=False
@@ -67,7 +67,7 @@ class TestMigrationCommands(unittest.TestCase):
 
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
-                target_repository='https://microsoft.ghe.com/1ES/Gardener',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
                 target_owner_user_id='GeoffCoxMSFT',
                 validate_only=False,
                 scheduled_cutover_date='2030-12-31T11:59:00Z',
@@ -92,7 +92,7 @@ class TestMigrationCommands(unittest.TestCase):
 
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
-                target_repository='https://microsoft.ghe.com/1ES/Gardener',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
                 target_owner_user_id='GeoffCoxMSFT',
                 agent_pool_name='  ',
                 skip_validation='   ',
@@ -113,7 +113,7 @@ class TestMigrationCommands(unittest.TestCase):
 
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
-                target_repository='https://microsoft.ghe.com/1ES/Gardener',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
                 target_owner_user_id='GeoffCoxMSFT',
                 agent_pool_name='  MigrationPool  ',
                 skip_validation=' ActivePullRequestCount, PullRequestDeltaSize ',
@@ -144,7 +144,32 @@ class TestMigrationCommands(unittest.TestCase):
 
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
-                target_repository='https://microsoft.ghe.com/1ES/Gardener',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+    def test_create_migration_accepts_github_url(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://github.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+    def test_create_migration_rejects_non_ghe_host(self):
+        with self.assertRaises(CLIError):
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.com/OrgName/RepoName',
                 target_owner_user_id='GeoffCoxMSFT',
                 organization=self._TEST_ORG,
                 detect=False

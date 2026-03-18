@@ -10,7 +10,7 @@ def load_migration_help():
     helps['devops migrations'] = """
     type: group
     short-summary: Manage enterprise live migrations.
-    long-summary: This command group is a part of the azure-devops extension. For ELM migrations, --org should be the ELM service base URL (for example: https://elm.contoso.com/elmo1).
+    long-summary: 'This command group is a part of the azure-devops extension. For ELM migrations, --org should be the ELM service base URL (for example: https://elm.contoso.com/elmo1).'
     """
 
     helps['devops migrations list'] = """
@@ -38,11 +38,11 @@ def load_migration_help():
       - name: Create a validation-only migration.
         text: |
           az devops migrations create --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
-            --target-repository https://microsoft.ghe.com/1ES/Gardener --target-owner-user-id GeoffCoxMSFT --validate-only
+            --target-repository https://github.com/OrgName/RepoName --target-owner-user-id GeoffCoxMSFT --validate-only
       - name: Create a migration with optional validation settings.
         text: |
           az devops migrations create --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
-            --target-repository https://microsoft.ghe.com/1ES/Gardener --target-owner-user-id GeoffCoxMSFT \
+            --target-repository https://example.ghe.com/OrgName/RepoName --target-owner-user-id GeoffCoxMSFT \
             --agent-pool-name MigrationPool --skip-validation ActivePullRequestCount,PullRequestDeltaSize
     """
 

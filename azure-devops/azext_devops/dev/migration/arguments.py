@@ -17,7 +17,8 @@ def load_migration_arguments(self, _):
 
     with self.argument_context('devops migrations create') as context:
         context.argument('target_repository', options_list='--target-repository',
-                         help='Target GitHub repository URL. Example: https://microsoft.ghe.com/OrgName/RepoName')
+             help='Target GitHub repository URL. Example: https://github.com/OrgName/RepoName or '
+                  'https://example.ghe.com/OrgName/RepoName')
         context.argument('target_owner_user_id', options_list='--target-owner-user-id',
                          help='Target repository owner user ID.')
         context.argument('validate_only', options_list='--validate-only',

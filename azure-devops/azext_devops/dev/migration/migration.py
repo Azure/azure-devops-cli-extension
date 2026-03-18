@@ -18,7 +18,8 @@ from azext_devops.dev.common.uuid import is_uuid
 
 API_VERSION = '7.2-preview'
 MIGRATIONS_API_PATH = '/_apis/elm/migrations'
-_TARGET_HOST = 'microsoft.ghe.com'
+_GHE_HOST_SUFFIX = '.ghe.com'
+_GITHUB_HOST = 'github.com'
 _REPO_PART_RE = re.compile(r'^[A-Za-z0-9._-]+$')
 
 
@@ -147,13 +148,18 @@ def _validate_target_repository(target_repository):
 
     parsed = urlparse(target_repository)
     if parsed.scheme != 'https':
-        raise CLIError('--target-repository must be a https://microsoft.ghe.com/OrgName/RepoName URL.')
-    if parsed.netloc.lower() != _TARGET_HOST:
-        raise CLIError('--target-repository must be a https://microsoft.ghe.com/OrgName/RepoName URL.')
+        raise CLIError('--target-repository must be a https://github.com/OrgName/RepoName or '
+                       'https://<org>.ghe.com/OrgName/RepoName URL.')
+
+    host = parsed.netloc.lower()
+    if not (host == _GITHUB_HOST or host.endswith(_GHE_HOST_SUFFIX)):
+        raise CLIError('--target-repository must be a https://github.com/OrgName/RepoName or '
+                       'https://<org>.ghe.com/OrgName/RepoName URL.')
 
     repo_path = parsed.path.strip('/')
     if not _is_owner_repo(repo_path):
-        raise CLIError('--target-repository must be a https://microsoft.ghe.com/OrgName/RepoName URL.')
+        raise CLIError('--target-repository must be a https://github.com/OrgName/RepoName or '
+                   'https://<org>.ghe.com/OrgName/RepoName URL.')
 
 
 def _is_owner_repo(value):
