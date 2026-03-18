@@ -63,6 +63,7 @@ jobs:
         python-version:
           - '3.12'
           - '3.11'
+          - '3.10'
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/run-tests
@@ -79,6 +80,7 @@ jobs:
         python-version:
           - '3.12'
           - '3.11'
+          - '3.10'
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/run-tests
