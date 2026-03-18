@@ -23,7 +23,7 @@ from azext_devops.dev.migration.migration import (list_migrations,
 
 class TestMigrationCommands(unittest.TestCase):
 
-    _TEST_ORG = 'https://codedev.ms/elmo1'
+    _TEST_ORG = 'https://elm.contoso.com/elmo1'
 
     def test_list_migrations_calls_get(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -34,8 +34,10 @@ class TestMigrationCommands(unittest.TestCase):
 
             list_migrations(organization=self._TEST_ORG, detect=False)
 
+            mock_resolve.assert_called_once_with(detect=False, organization=self._TEST_ORG)
             args = mock_send.call_args[0]
             self.assertEqual(args[1], 'GET')
+            self.assertTrue(args[2].startswith(self._TEST_ORG.rstrip('/')))
             self.assertIn('/_apis/elm/migrations', args[2])
 
     def test_create_migration_payload_defaults_validate_only_true(self):

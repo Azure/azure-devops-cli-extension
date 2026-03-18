@@ -17,7 +17,6 @@ from azext_devops.dev.common.uuid import is_uuid
 
 
 API_VERSION = '7.2-preview'
-BASE_URL = 'https://codedev.ms/elmo1'
 MIGRATIONS_API_PATH = '/_apis/elm/migrations'
 _TARGET_HOST = 'microsoft.ghe.com'
 _REPO_PART_RE = re.compile(r'^[A-Za-z0-9._-]+$')
@@ -26,7 +25,7 @@ _REPO_PART_RE = re.compile(r'^[A-Za-z0-9._-]+$')
 def list_migrations(organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     client = _get_service_client(organization)
-    url = _build_migration_url()
+    url = _build_migration_url(organization)
     return _send_request(client, 'GET', url)
 
 
@@ -41,7 +40,7 @@ def get_migration(repository_id=None, organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
-    url = _build_migration_url(repository_id)
+    url = _build_migration_url(organization, repository_id)
     return _send_request(client, 'GET', url)
 
 
@@ -73,7 +72,7 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
         payload['skipValidation'] = skip_validation
 
     client = _get_service_client(organization)
-    url = _build_migration_url(repository_id)
+    url = _build_migration_url(organization, repository_id)
     return _send_request(client, 'POST', url, payload)
 
 
@@ -113,7 +112,7 @@ def delete_migration(repository_id=None, organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
-    url = _build_migration_url(repository_id)
+    url = _build_migration_url(organization, repository_id)
     return _send_request(client, 'DELETE', url)
 
 
@@ -122,7 +121,7 @@ def _update_migration(repository_id, organization, detect, validate_only=None,
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
-    url = _build_migration_url(repository_id)
+    url = _build_migration_url(organization, repository_id)
 
     payload = {}
     if validate_only is not None:
@@ -167,13 +166,11 @@ def _is_owner_repo(value):
 
 
 def _resolve_org_for_auth(organization, detect):
-    # For now, base URL is fixed for dev/test, but still validate auth.
-    resolve_instance(detect=detect, organization=organization or BASE_URL)
-    return BASE_URL
+    return resolve_instance(detect=detect, organization=organization)
 
 
-def _build_migration_url(repository_id=None):
-    url = BASE_URL + MIGRATIONS_API_PATH
+def _build_migration_url(base_url, repository_id=None):
+    url = base_url.rstrip('/') + MIGRATIONS_API_PATH
     if repository_id:
         url += '/{}'.format(repository_id)
     return url + '?api-version=' + API_VERSION

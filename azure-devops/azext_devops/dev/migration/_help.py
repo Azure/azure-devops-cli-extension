@@ -10,7 +10,7 @@ def load_migration_help():
     helps['devops migrations'] = """
     type: group
     short-summary: Manage enterprise live migrations.
-    long-summary: This command group is a part of the azure-devops extension.
+    long-summary: This command group is a part of the azure-devops extension. For ELM migrations, --org should be the ELM service base URL (for example: https://elm.contoso.com/elmo1).
     """
 
     helps['devops migrations list'] = """
@@ -19,7 +19,7 @@ def load_migration_help():
     examples:
       - name: List migrations.
         text: |
-          az devops migrations list --org https://codedev.ms/elmo1
+          az devops migrations list --org https://elm.contoso.com/elmo1
     """
 
     helps['devops migrations status'] = """
@@ -28,7 +28,7 @@ def load_migration_help():
     examples:
       - name: Get migration status by repository id.
         text: |
-          az devops migrations status --org https://codedev.ms/elmo1 --repository-id 00000000-0000-0000-0000-000000000000
+          az devops migrations status --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000
     """
 
     helps['devops migrations create'] = """
@@ -37,11 +37,11 @@ def load_migration_help():
     examples:
       - name: Create a validation-only migration.
         text: |
-          az devops migrations create --org https://codedev.ms/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
+          az devops migrations create --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
             --target-repository https://microsoft.ghe.com/1ES/Gardener --target-owner-user-id GeoffCoxMSFT --validate-only
       - name: Create a migration with optional validation settings.
         text: |
-          az devops migrations create --org https://codedev.ms/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
+          az devops migrations create --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
             --target-repository https://microsoft.ghe.com/1ES/Gardener --target-owner-user-id GeoffCoxMSFT \
             --agent-pool-name MigrationPool --skip-validation ActivePullRequestCount,PullRequestDeltaSize
     """
@@ -67,10 +67,10 @@ def load_migration_help():
     examples:
       - name: Turn validate-only on.
         text: |
-          az devops migrations set-validate-only --org https://codedev.ms/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --on
+          az devops migrations set-validate-only --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --on
       - name: Turn validate-only off.
         text: |
-          az devops migrations set-validate-only --org https://codedev.ms/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --off
+          az devops migrations set-validate-only --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --off
     """
 
     helps['devops migrations migrate'] = """
@@ -89,7 +89,7 @@ def load_migration_help():
     examples:
       - name: Schedule cutover.
         text: |
-          az devops migrations cutover set --org https://codedev.ms/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
+          az devops migrations cutover set --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
             --scheduled-cutover-date 2030-12-31T11:59:00Z
     """
 
