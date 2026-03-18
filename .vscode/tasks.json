@@ -3,13 +3,13 @@
     "tasks": [
       {
         "label": "BuildWheel",
+        "type": "process",
         "command": "${command:python.interpreterPath}",
         "args": [
           "setup.py",
           "sdist",
           "bdist_wheel"
         ],
-        "type": "shell",
         "options": {
           "cwd": "${workspaceRoot}/azure-devops/"
         },
