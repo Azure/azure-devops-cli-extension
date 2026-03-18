@@ -16,6 +16,20 @@ The `az devops migrations` command group manages enterprise live migrations for 
 - `--target-owner-user-id` is required for create.
 - `--scheduled-cutover-date` must be ISO 8601, for example: `2030-12-31T11:59:00Z`.
 
+## Command reference
+
+- `list`: List migrations for the ELM org.
+- `status`: Show migration status for a repository GUID.
+- `create`: Create a validation-only migration. `--validate-only false` is not supported.
+  Use `resume --migrate` to move from validation to migration.
+- `pause`: Pause an active migration.
+- `resume`: Resume a non-active migration. Optional flags:
+  - `--validate-only`: Resume and force validate-only.
+  - `--migrate`: Resume and start migration.
+  If a migration is active, pause it before resuming.
+- `cutover set` / `cutover cancel`: Schedule or cancel cutover.
+- `abandon`: Abandon and delete a migration.
+
 ## Common workflows
 
 ### List migrations
