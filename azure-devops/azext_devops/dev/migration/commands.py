@@ -21,8 +21,6 @@ def load_migration_commands(self, _):
         g.command('create', 'create_migration', table_transformer=transform_migration_table_output)
         g.command('pause', 'pause_migration', table_transformer=transform_migration_table_output)
         g.command('resume', 'resume_migration', table_transformer=transform_migration_table_output)
-        g.command('set-validate-only', 'set_validate_only', table_transformer=transform_migration_table_output)
-        g.command('migrate', 'migrate_migration', table_transformer=transform_migration_table_output)
         g.command('abandon', 'delete_migration',
                   confirmation='Are you sure you want to abandon this migration?')
 
