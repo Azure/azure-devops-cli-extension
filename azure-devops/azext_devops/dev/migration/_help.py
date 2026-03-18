@@ -33,7 +33,7 @@ def load_migration_help():
 
     helps['devops migrations create'] = """
     type: command
-    short-summary: Create a migration for a repository.
+    short-summary: Create a validation-only migration for a repository.
     examples:
       - name: Create a validation-only migration.
         text: |
@@ -43,7 +43,7 @@ def load_migration_help():
         text: |
           az devops migrations create --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
             --target-repository https://example.ghe.com/OrgName/RepoName --target-owner-user-id GeoffCoxMSFT \
-            --agent-pool-name MigrationPool --skip-validation ActivePullRequestCount,PullRequestDeltaSize
+            --validate-only --agent-pool-name MigrationPool --skip-validation ActivePullRequestCount,PullRequestDeltaSize
     """
 
     helps['devops migrations pause'] = """
@@ -53,29 +53,22 @@ def load_migration_help():
 
     helps['devops migrations resume'] = """
     type: command
-    short-summary: Resume a paused migration.
+    short-summary: Resume a non-active migration.
+    examples:
+      - name: Resume using the current mode.
+        text: |
+          az devops migrations resume --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000
+      - name: Resume and force validate-only.
+        text: |
+          az devops migrations resume --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --validate-only
+      - name: Resume and start migration.
+        text: |
+          az devops migrations resume --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --migrate
     """
 
     helps['devops migrations abandon'] = """
     type: command
     short-summary: Abandon and delete a migration.
-    """
-
-    helps['devops migrations set-validate-only'] = """
-    type: command
-    short-summary: Set validate-only mode on or off.
-    examples:
-      - name: Turn validate-only on.
-        text: |
-          az devops migrations set-validate-only --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --on
-      - name: Turn validate-only off.
-        text: |
-          az devops migrations set-validate-only --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --off
-    """
-
-    helps['devops migrations migrate'] = """
-    type: command
-    short-summary: Start full migration after validation.
     """
 
     helps['devops migrations cutover'] = """

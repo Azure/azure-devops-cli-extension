@@ -31,10 +31,14 @@ az devops migrations status --org https://<elm-base>/elm --detect false --reposi
 
 4) Start full migration after validation passes:
 ```powershell
-az devops migrations migrate --org https://<elm-base>/elm --detect false --repository-id <GUID_FROM_STEP_1>
+az devops migrations resume --org https://<elm-base>/elm --detect false --repository-id <GUID_FROM_STEP_1> --migrate
 ```
 
-5) Optional cutover:
+5) Re-run validation (optional):
+```powershell
+az devops migrations resume --org https://<elm-base>/elm --detect false --repository-id <GUID_FROM_STEP_1> --validate-only
+```
+6) Optional cutover:
 ```powershell
 az devops migrations cutover set --org https://<elm-base>/elm --detect false \
   --repository-id <GUID_FROM_STEP_1> --scheduled-cutover-date 2030-12-31T11:59:00Z
@@ -46,6 +50,7 @@ az devops migrations cutover set --org https://<elm-base>/elm --detect false \
 - **Wrong org for migrations**: Using `https://dev.azure.com/...` with `az devops migrations` will hit ADO
   instead of ELM and fail.
 - **Too many parallel migrations**: Run one migration at a time unless your service owner says otherwise.
+- **Resume fails while active**: `resume` is meant for non-active states (succeeded, failed, suspended). Pause first if needed.
 
 ## Common errors and fixes
 - **401/403 Unauthorized**: You are not logged in or the token lacks permission.

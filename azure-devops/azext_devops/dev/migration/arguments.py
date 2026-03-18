@@ -17,8 +17,8 @@ def load_migration_arguments(self, _):
 
     with self.argument_context('devops migrations create') as context:
         context.argument('target_repository', options_list='--target-repository',
-             help='Target GitHub repository URL. Example: https://github.com/OrgName/RepoName or '
-                  'https://example.ghe.com/OrgName/RepoName')
+                        help='Target GitHub repository URL. Example: https://github.com/OrgName/RepoName or '
+                            'https://example.ghe.com/OrgName/RepoName')
         context.argument('target_owner_user_id', options_list='--target-owner-user-id',
                          help='Target repository owner user ID.')
         context.argument('validate_only', options_list='--validate-only',
@@ -39,8 +39,8 @@ def load_migration_arguments(self, _):
                          type=convert_date_string_to_iso8601,
                          help='Scheduled cutover date/time (ISO 8601).')
 
-    with self.argument_context('devops migrations set-validate-only') as context:
-        context.argument('on', options_list='--on', action='store_true',
-                         help='Set validate-only to true.')
-        context.argument('off', options_list='--off', action='store_true',
-                         help='Set validate-only to false.')
+    with self.argument_context('devops migrations resume') as context:
+        context.argument('validate_only', options_list='--validate-only', action='store_true',
+                         help='Resume in validate-only mode.')
+        context.argument('migrate', options_list='--migrate', action='store_true',
+                         help='Resume and start migration (validate-only off).')

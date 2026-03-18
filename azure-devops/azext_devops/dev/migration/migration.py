@@ -20,6 +20,26 @@ API_VERSION = '7.2-preview'
 MIGRATIONS_API_PATH = '/_apis/elm/migrations'
 _GHE_HOST_SUFFIX = '.ghe.com'
 _GITHUB_HOST = 'github.com'
+_NON_ACTIVE_STATES = {
+    'abandoned',
+    'canceled',
+    'cancelled',
+    'complete',
+    'completed',
+    'failed',
+    'succeeded',
+    'suspended'
+}
+_ACTIVE_STAGES = {
+    'codesync',
+    'cutover',
+    'migrating',
+    'prsync',
+    'synchronizing',
+    'syncing',
+    'validating',
+    'validation'
+}
 _REPO_PART_RE = re.compile(r'^[A-Za-z0-9._-]+$')
 
 
@@ -59,6 +79,8 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
 
     if validate_only is None:
         validate_only = True
+    if validate_only is False:
+        raise CLIError('Create only supports validate-only migrations. Use resume --migrate to continue.')
 
     payload = {
         'targetRepository': target_repository,
@@ -81,8 +103,25 @@ def pause_migration(repository_id=None, organization=None, detect=None):
     return _update_migration(repository_id, organization, detect, status_requested='suspended')
 
 
-def resume_migration(repository_id=None, organization=None, detect=None):
-    return _update_migration(repository_id, organization, detect, status_requested='active')
+def resume_migration(repository_id=None, validate_only=False, migrate=False, organization=None, detect=None):
+    if validate_only and migrate:
+        raise CLIError('Please specify only one of --validate-only or --migrate.')
+
+    migration = get_migration(repository_id=repository_id, organization=organization, detect=detect)
+    if _is_migration_active(migration):
+        state = migration.get('state')
+        stage = migration.get('stage')
+        raise CLIError('Migration is active (state: {}, stage: {}). Pause it before resuming or changing mode.'
+                       .format(state, stage))
+
+    validate_only_value = None
+    if validate_only:
+        validate_only_value = True
+    elif migrate:
+        validate_only_value = False
+
+    return _update_migration(repository_id, organization, detect,
+                             validate_only=validate_only_value, status_requested='active')
 
 
 def schedule_cutover(repository_id=None, scheduled_cutover_date=None, organization=None, detect=None):
@@ -169,6 +208,28 @@ def _is_owner_repo(value):
     if not all(_REPO_PART_RE.match(part or '') for part in parts):
         return False
     return True
+
+
+def _normalize_state(value):
+    if value is None:
+        return ''
+    normalized = str(value).strip().lower()
+    return normalized.replace(' ', '').replace('-', '').replace('_', '')
+
+
+def _is_migration_active(migration):
+    if not isinstance(migration, dict):
+        return False
+
+    state = _normalize_state(migration.get('state'))
+    if state:
+        return state not in _NON_ACTIVE_STATES
+
+    stage = _normalize_state(migration.get('stage'))
+    if stage:
+        return stage in _ACTIVE_STAGES
+
+    return False
 
 
 def _resolve_org_for_auth(organization, detect):
