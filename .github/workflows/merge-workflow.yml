@@ -81,7 +81,7 @@ jobs:
     needs: 
       - Build_Publish_Azure_CLI_Test_SDK
       - Build_Publish_Azure_DevOps_CLI_Extension
-    runs-on: macos-13
+    runs-on: macOS-latest
     strategy:
       matrix:
         python-version:
