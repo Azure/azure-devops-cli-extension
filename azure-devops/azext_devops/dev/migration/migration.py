@@ -43,10 +43,12 @@ _ACTIVE_STAGES = {
 _REPO_PART_RE = re.compile(r'^[A-Za-z0-9._-]+$')
 
 
-def list_migrations(organization=None, detect=None):
+def list_migrations(include_inactive=False, organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     client = _get_service_client(organization)
     url = _build_migration_url(organization)
+    if include_inactive:
+        url += '&includeInactive=true'
     return _send_request(client, 'GET', url)
 
 
@@ -198,7 +200,7 @@ def _validate_target_repository(target_repository):
     repo_path = parsed.path.strip('/')
     if not _is_owner_repo(repo_path):
         raise CLIError('--target-repository must be a https://github.com/OrgName/RepoName or '
-                   'https://<org>.ghe.com/OrgName/RepoName URL.')
+                       'https://<org>.ghe.com/OrgName/RepoName URL.')
 
 
 def _is_owner_repo(value):
