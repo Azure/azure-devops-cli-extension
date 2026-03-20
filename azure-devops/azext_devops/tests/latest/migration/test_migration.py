@@ -38,6 +38,20 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(args[1], 'GET')
             self.assertTrue(args[2].startswith(self._TEST_ORG.rstrip('/')))
             self.assertIn('/_apis/elm/migrations', args[2])
+            self.assertNotIn('includeInactive', args[2])
+
+    def test_list_migrations_include_inactive(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            list_migrations(include_inactive=True, organization=self._TEST_ORG, detect=False)
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'GET')
+            self.assertIn('includeInactive=true', args[2])
 
     def test_create_migration_payload_defaults_validate_only_true(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
