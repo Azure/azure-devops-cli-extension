@@ -20,6 +20,9 @@ def load_migration_help():
       - name: List migrations.
         text: |
           az devops migrations list --org https://elm.contoso.com/elmo1
+      - name: List all migrations including inactive ones.
+        text: |
+          az devops migrations list --org https://elm.contoso.com/elmo1 --include-inactive
     """
 
     helps['devops migrations status'] = """
