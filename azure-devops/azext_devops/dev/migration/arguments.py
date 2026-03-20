@@ -15,10 +15,14 @@ def load_migration_arguments(self, _):
         context.argument('repository_id', options_list='--repository-id',
                          help='ID of the repository (GUID).')
 
+    with self.argument_context('devops migrations list') as context:
+        context.argument('include_inactive', options_list='--include-inactive', action='store_true',
+                         help='Include inactive (completed, abandoned, failed) migrations in the results.')
+
     with self.argument_context('devops migrations create') as context:
         context.argument('target_repository', options_list='--target-repository',
-                        help='Target GitHub repository URL. Example: https://github.com/OrgName/RepoName or '
-                            'https://example.ghe.com/OrgName/RepoName')
+                         help='Target GitHub repository URL. Example: https://github.com/OrgName/RepoName or '
+                              'https://example.ghe.com/OrgName/RepoName')
         context.argument('target_owner_user_id', options_list='--target-owner-user-id',
                          help='Target repository owner user ID.')
         context.argument('validate_only', options_list='--validate-only',

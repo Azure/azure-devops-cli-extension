@@ -24,8 +24,8 @@ The `az devops migrations` command group manages enterprise live migrations for 
   Use `resume --migrate` to move from validation to migration.
 - `pause`: Pause an active migration.
 - `resume`: Resume a non-active migration. Optional flags:
-    - `--validate-only`: Resume and force validate-only.
-    - `--migrate`: Resume and start migration.
+  - `--validate-only`: Resume and force validate-only.
+  - `--migrate`: Resume and start migration.
   If a migration is active, pause it before resuming.
 - `cutover set` / `cutover cancel`: Schedule or cancel cutover.
 - `abandon`: Abandon and delete a migration.
