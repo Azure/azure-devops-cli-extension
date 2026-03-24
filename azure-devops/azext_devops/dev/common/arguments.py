@@ -25,8 +25,7 @@ def convert_date_string_to_iso8601(value, argument=None):
     if d.tzinfo is None:
         from dateutil.tz import tzlocal
         d = d.replace(tzinfo=tzlocal())
-        d = d.isoformat()
-    return d
+    return d.isoformat()
 
 
 def convert_date_only_string_to_iso8601(value, argument=None):
