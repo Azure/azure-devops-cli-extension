@@ -34,13 +34,13 @@ def _unwrap_migration_list(result):
 
 def _transform_migration_row(row):
     table_row = OrderedDict()
-    table_row['RepositoryId'] = row.get('repositoryId') or row.get('repositoryID') or row.get('repository')
-    table_row['TargetRepository'] = trim_for_display(row.get('targetRepo') or row.get('targetRepository'),
+    table_row['RepositoryId'] = row.get('repositoryId')
+    table_row['TargetRepository'] = trim_for_display(row.get('targetRepository'),
                                                      _TARGET_TRUNCATION_LENGTH)
-    table_row['State'] = row.get('state')
+    table_row['Status'] = row.get('status')
     table_row['Stage'] = row.get('stage')
     table_row['ValidateOnly'] = row.get('validateOnly')
-    table_row['CutoverDate'] = date_time_to_only_date(row.get('cutoverDate') or row.get('scheduledCutoverDate'))
+    table_row['CutoverDate'] = date_time_to_only_date(row.get('scheduledCutoverDate'))
     table_row['CodeSyncDate'] = date_time_to_only_date(row.get('codeSyncDate'))
-    table_row['PrSyncDate'] = date_time_to_only_date(row.get('prSyncDate'))
+    table_row['PrSyncDate'] = date_time_to_only_date(row.get('pullRequestSyncDate'))
     return table_row

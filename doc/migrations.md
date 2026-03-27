@@ -11,21 +11,20 @@ The `az devops migrations` command group manages enterprise live migrations for 
 ## Required inputs
 
 - `--repository-id` is the Azure Repos repository GUID.
-- `--target-repository` must be a GitHub URL in this format:
-  `https://github.com/OrgName/RepoName` or `https://example.ghe.com/OrgName/RepoName`
+- `--target-repository` is the target repository URL.
 - `--target-owner-user-id` is required for create.
-- `--scheduled-cutover-date` must be ISO 8601, for example: `2030-12-31T11:59:00Z`.
+- `--agent-pool` is required for create.
+- `--cutover-date` / `--date` must be ISO 8601, for example: `2030-12-31T11:59:00Z`.
 
 ## Command reference
 
-- `list`: List migrations for the ELM org.
+- `list`: List migrations for the ELM org. Use `--include-inactive` to include completed/failed/suspended migrations.
 - `status`: Show migration status for a repository GUID.
-- `create`: Create a validation-only migration. `--validate-only false` is not supported.
-  Use `resume --migrate` to move from validation to migration.
+- `create`: Create a migration. Use `--validate-only` for pre-migration checks only.
 - `pause`: Pause an active migration.
-- `resume`: Resume a non-active migration. Optional flags:
-  - `--validate-only`: Resume and force validate-only.
-  - `--migrate`: Resume and start migration.
+- `resume`: Resume a stopped (paused, failed) migration. Optional flags:
+  - `--validate-only`: Resume in validate-only mode.
+  - `--migration`: Continue the migration (clears validate-only mode).
   If a migration is active, pause it before resuming.
 - `cutover set` / `cutover cancel`: Schedule or cancel cutover.
 - `abandon`: Abandon and delete a migration.
@@ -38,6 +37,12 @@ The `az devops migrations` command group manages enterprise live migrations for 
 az devops migrations list --org https://elm.contoso.com/elmo1
 ```
 
+### List all migrations including inactive
+
+```bash
+az devops migrations list --org https://elm.contoso.com/elmo1 --include-inactive
+```
+
 ### Check migration status
 
 ```bash
@@ -45,13 +50,24 @@ az devops migrations status --org https://elm.contoso.com/elmo1 \
   --repository-id 00000000-0000-0000-0000-000000000000
 ```
 
-### Create a validation-only migration
+### Create a migration
 
 ```bash
 az devops migrations create --org https://elm.contoso.com/elmo1 \
   --repository-id 00000000-0000-0000-0000-000000000000 \
-  --target-repository https://github.com/OrgName/RepoName \
+  --target-repository https://example.ghe.com/OrgName/RepoName \
   --target-owner-user-id OwnerId \
+  --agent-pool MigrationPool
+```
+
+### Create a validate-only migration
+
+```bash
+az devops migrations create --org https://elm.contoso.com/elmo1 \
+  --repository-id 00000000-0000-0000-0000-000000000000 \
+  --target-repository https://example.ghe.com/OrgName/RepoName \
+  --target-owner-user-id OwnerId \
+  --agent-pool MigrationPool \
   --validate-only
 ```
 
@@ -68,7 +84,7 @@ az devops migrations resume --org https://elm.contoso.com/elmo1 \
   --repository-id 00000000-0000-0000-0000-000000000000 --validate-only
 
 az devops migrations resume --org https://elm.contoso.com/elmo1 \
-  --repository-id 00000000-0000-0000-0000-000000000000 --migrate
+  --repository-id 00000000-0000-0000-0000-000000000000 --migration
 ```
 
 ### Schedule or cancel cutover
@@ -76,7 +92,7 @@ az devops migrations resume --org https://elm.contoso.com/elmo1 \
 ```bash
 az devops migrations cutover set --org https://elm.contoso.com/elmo1 \
   --repository-id 00000000-0000-0000-0000-000000000000 \
-  --scheduled-cutover-date 2030-12-31T11:59:00Z
+  --date 2030-12-31T11:59:00Z
 
 az devops migrations cutover cancel --org https://elm.contoso.com/elmo1 \
   --repository-id 00000000-0000-0000-0000-000000000000
