@@ -3,9 +3,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-import re
-from urllib.parse import urlparse
-
 from msrest import Configuration
 from msrest.service_client import ServiceClient
 from msrest.universal_http import ClientRequest
@@ -18,37 +15,23 @@ from azext_devops.dev.common.uuid import is_uuid
 
 API_VERSION = '7.2-preview'
 MIGRATIONS_API_PATH = '/_apis/elm/migrations'
-_GHE_HOST_SUFFIX = '.ghe.com'
-_GITHUB_HOST = 'github.com'
 _NON_ACTIVE_STATES = {
-    'abandoned',
-    'canceled',
-    'cancelled',
-    'complete',
-    'completed',
-    'failed',
     'succeeded',
+    'failed',
     'suspended'
 }
 _ACTIVE_STAGES = {
-    'codesync',
-    'cutover',
-    'migrating',
-    'prsync',
-    'synchronizing',
-    'syncing',
-    'validating',
-    'validation'
+    'queued',
+    'validation',
+    'synchronization',
+    'cutover'
 }
-_REPO_PART_RE = re.compile(r'^[A-Za-z0-9._-]+$')
-
-
 def list_migrations(include_inactive=False, organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     client = _get_service_client(organization)
     url = _build_migration_url(organization)
     if include_inactive:
-        url += '&includeInactive=true'
+        url += '&includeInactiveMigrations=true'
     return _send_request(client, 'GET', url)
 
 
@@ -68,31 +51,26 @@ def get_migration(repository_id=None, organization=None, detect=None):
 
 
 def create_migration(repository_id=None, target_repository=None, target_owner_user_id=None,
-                     validate_only=None, scheduled_cutover_date=None, agent_pool_name=None,
+                     validate_only=False, cutover_date=None, agent_pool=None,
                      skip_validation=None, organization=None, detect=None):
-    agent_pool_name = _normalize_optional_text(agent_pool_name)
+    agent_pool = _normalize_optional_text(agent_pool)
     skip_validation = _normalize_optional_text(skip_validation)
-    _validate_target_repository(target_repository)
     if not target_owner_user_id:
         raise CLIError('--target-owner-user-id must be specified.')
+    if not agent_pool:
+        raise CLIError('--agent-pool must be specified.')
 
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
 
-    if validate_only is None:
-        validate_only = True
-    if validate_only is False:
-        raise CLIError('Create only supports validate-only migrations. Use resume --migrate to continue.')
-
     payload = {
         'targetRepository': target_repository,
         'targetOwnerUserId': target_owner_user_id,
-        'validateOnly': bool(validate_only)
+        'validateOnly': bool(validate_only),
+        'agentPoolName': agent_pool
     }
-    if scheduled_cutover_date is not None:
-        payload['scheduledCutoverDate'] = scheduled_cutover_date
-    if agent_pool_name is not None:
-        payload['agentPoolName'] = agent_pool_name
+    if cutover_date is not None:
+        payload['scheduledCutoverDate'] = cutover_date
     if skip_validation is not None:
         payload['skipValidation'] = skip_validation
 
@@ -105,49 +83,37 @@ def pause_migration(repository_id=None, organization=None, detect=None):
     return _update_migration(repository_id, organization, detect, status_requested='suspended')
 
 
-def resume_migration(repository_id=None, validate_only=False, migrate=False, organization=None, detect=None):
-    if validate_only and migrate:
-        raise CLIError('Please specify only one of --validate-only or --migrate.')
+def resume_migration(repository_id=None, validate_only=False, migration=False, organization=None, detect=None):
+    if validate_only and migration:
+        raise CLIError('Please specify only one of --validate-only or --migration.')
 
-    migration = get_migration(repository_id=repository_id, organization=organization, detect=detect)
-    if _is_migration_active(migration):
-        state = migration.get('state')
-        stage = migration.get('stage')
-        raise CLIError('Migration is active (state: {}, stage: {}). Pause it before resuming or changing mode.'
-                       .format(state, stage))
+    migration_data = get_migration(repository_id=repository_id, organization=organization, detect=detect)
+    if _is_migration_active(migration_data):
+        status = migration_data.get('status')
+        stage = migration_data.get('stage')
+        raise CLIError('Migration is active (status: {}, stage: {}). Pause it before resuming or changing mode.'
+                       .format(status, stage))
 
     validate_only_value = None
     if validate_only:
         validate_only_value = True
-    elif migrate:
+    elif migration:
         validate_only_value = False
 
     return _update_migration(repository_id, organization, detect,
                              validate_only=validate_only_value, status_requested='active')
 
 
-def schedule_cutover(repository_id=None, scheduled_cutover_date=None, organization=None, detect=None):
-    if not scheduled_cutover_date:
-        raise CLIError('--scheduled-cutover-date must be specified.')
-    return _update_migration(repository_id, organization, detect, scheduled_cutover_date=scheduled_cutover_date,
+def schedule_cutover(repository_id=None, cutover_date=None, organization=None, detect=None):
+    if not cutover_date:
+        raise CLIError('--date must be specified.')
+    return _update_migration(repository_id, organization, detect, scheduled_cutover_date=cutover_date,
                              include_cutover=True)
 
 
 def cancel_cutover(repository_id=None, organization=None, detect=None):
     return _update_migration(repository_id, organization, detect, scheduled_cutover_date=None,
                              include_cutover=True)
-
-
-def set_validate_only(repository_id=None, on=False, off=False, organization=None, detect=None):
-    if on and off:
-        raise CLIError('Please specify only one of --on or --off.')
-    if not on and not off:
-        raise CLIError('Please specify --on or --off.')
-    return _update_migration(repository_id, organization, detect, validate_only=on)
-
-
-def migrate_migration(repository_id=None, organization=None, detect=None):
-    return _update_migration(repository_id, organization, detect, validate_only=False, status_requested='active')
 
 
 def delete_migration(repository_id=None, organization=None, detect=None):
@@ -183,35 +149,6 @@ def _resolve_repository_id(repository_id):
     return repository_id
 
 
-def _validate_target_repository(target_repository):
-    if not target_repository:
-        raise CLIError('--target-repository must be specified.')
-
-    parsed = urlparse(target_repository)
-    if parsed.scheme != 'https':
-        raise CLIError('--target-repository must be a https://github.com/OrgName/RepoName or '
-                       'https://<org>.ghe.com/OrgName/RepoName URL.')
-
-    host = parsed.netloc.lower()
-    if not (host == _GITHUB_HOST or host.endswith(_GHE_HOST_SUFFIX)):
-        raise CLIError('--target-repository must be a https://github.com/OrgName/RepoName or '
-                       'https://<org>.ghe.com/OrgName/RepoName URL.')
-
-    repo_path = parsed.path.strip('/')
-    if not _is_owner_repo(repo_path):
-        raise CLIError('--target-repository must be a https://github.com/OrgName/RepoName or '
-                       'https://<org>.ghe.com/OrgName/RepoName URL.')
-
-
-def _is_owner_repo(value):
-    parts = value.split('/')
-    if len(parts) != 2:
-        return False
-    if not all(_REPO_PART_RE.match(part or '') for part in parts):
-        return False
-    return True
-
-
 def _normalize_state(value):
     if value is None:
         return ''
@@ -223,9 +160,9 @@ def _is_migration_active(migration):
     if not isinstance(migration, dict):
         return False
 
-    state = _normalize_state(migration.get('state'))
-    if state:
-        return state not in _NON_ACTIVE_STATES
+    status = _normalize_state(migration.get('status'))
+    if status:
+        return status not in _NON_ACTIVE_STATES
 
     stage = _normalize_state(migration.get('stage'))
     if stage:

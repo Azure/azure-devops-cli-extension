@@ -3,7 +3,6 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
-from azure.cli.core.commands.parameters import get_three_state_flag
 from azext_devops.dev.common.arguments import convert_date_string_to_iso8601
 from azext_devops.dev.team.arguments import load_global_args
 
@@ -21,30 +20,26 @@ def load_migration_arguments(self, _):
 
     with self.argument_context('devops migrations create') as context:
         context.argument('target_repository', options_list='--target-repository',
-                         help='Target GitHub repository URL. Example: https://github.com/OrgName/RepoName or '
-                              'https://example.ghe.com/OrgName/RepoName')
+                         help='Target repository URL.')
         context.argument('target_owner_user_id', options_list='--target-owner-user-id',
                          help='Target repository owner user ID.')
-        context.argument('validate_only', options_list='--validate-only',
-                         help='Validate only (true/false). Defaults to true.',
-                         arg_type=get_three_state_flag())
-        context.argument('scheduled_cutover_date', options_list='--scheduled-cutover-date',
+        context.argument('validate_only', options_list='--validate-only', action='store_true',
+                         help='Create in validate-only mode (pre-migration checks only).')
+        context.argument('cutover_date', options_list='--cutover-date',
                          type=convert_date_string_to_iso8601,
                          help='Scheduled cutover date/time (ISO 8601).')
-        context.argument('agent_pool_name', options_list='--agent-pool-name',
-                         help='Agent pool name for migration validation.')
+        context.argument('agent_pool', options_list='--agent-pool',
+                         help='Agent pool name to use for migration work.')
         context.argument('skip_validation', options_list='--skip-validation',
-                         help='Comma-separated list of validation checks to skip. '
-                              'Values: None, ActivePullRequestCount, PullRequestDeltaSize, '
-                              'TargetRepoMigration, All.')
+                         help='Comma-separated list of validation policies to skip.')
 
     with self.argument_context('devops migrations cutover set') as context:
-        context.argument('scheduled_cutover_date', options_list='--scheduled-cutover-date',
+        context.argument('cutover_date', options_list='--date',
                          type=convert_date_string_to_iso8601,
-                         help='Scheduled cutover date/time (ISO 8601).')
+                         help='The date and time for cutover (ISO 8601).')
 
     with self.argument_context('devops migrations resume') as context:
         context.argument('validate_only', options_list='--validate-only', action='store_true',
                          help='Resume in validate-only mode.')
-        context.argument('migrate', options_list='--migrate', action='store_true',
-                         help='Resume and start migration (validate-only off).')
+        context.argument('migration', options_list='--migration', action='store_true',
+                         help='Continue the migration (clears any validate-only mode).')

@@ -36,17 +36,14 @@ def load_migration_help():
 
     helps['devops migrations create'] = """
     type: command
-    short-summary: Create a validation-only migration for a repository.
+    short-summary: Create a migration for a repository.
     examples:
-      - name: Create a validation-only migration.
+      - name: Create a migration.
         text: |
-          az devops migrations create --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
-            --target-repository https://github.com/OrgName/RepoName --target-owner-user-id GeoffCoxMSFT --validate-only
-      - name: Create a migration with optional validation settings.
+          az devops migrations create --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://example.ghe.com/OrgName/RepoName --target-owner-user-id GeoffCoxMSFT --agent-pool MigrationPool
+      - name: Create a validate-only migration.
         text: |
-          az devops migrations create --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
-            --target-repository https://example.ghe.com/OrgName/RepoName --target-owner-user-id GeoffCoxMSFT \
-            --validate-only --agent-pool-name MigrationPool --skip-validation ActivePullRequestCount,PullRequestDeltaSize
+          az devops migrations create --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://example.ghe.com/OrgName/RepoName --target-owner-user-id GeoffCoxMSFT --agent-pool MigrationPool --validate-only --skip-validation ActivePullRequestCount,PullRequestDeltaSize
     """
 
     helps['devops migrations pause'] = """
@@ -56,17 +53,17 @@ def load_migration_help():
 
     helps['devops migrations resume'] = """
     type: command
-    short-summary: Resume a non-active migration.
+    short-summary: Resume a stopped (paused, failed) migration.
     examples:
       - name: Resume using the current mode.
         text: |
           az devops migrations resume --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000
-      - name: Resume and force validate-only.
+      - name: Resume in validate-only mode.
         text: |
           az devops migrations resume --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --validate-only
-      - name: Resume and start migration.
+      - name: Continue migration (clears validate-only mode).
         text: |
-          az devops migrations resume --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --migrate
+          az devops migrations resume --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --migration
     """
 
     helps['devops migrations abandon'] = """
@@ -85,8 +82,7 @@ def load_migration_help():
     examples:
       - name: Schedule cutover.
         text: |
-          az devops migrations cutover set --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 \
-            --scheduled-cutover-date 2030-12-31T11:59:00Z
+          az devops migrations cutover set --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --date 2030-12-31T11:59:00Z
     """
 
     helps['devops migrations cutover cancel'] = """
