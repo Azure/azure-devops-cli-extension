@@ -21,6 +21,8 @@ class DevCommandsLoader(AzCommandsLoader):
         load_admin_commands(self, args)
         from azext_devops.dev.boards.commands import load_work_commands
         load_work_commands(self, args)
+        from azext_devops.dev.migration.commands import load_migration_commands
+        load_migration_commands(self, args)
         from azext_devops.dev.pipelines.commands import load_build_commands
         load_build_commands(self, args)
         from azext_devops.dev.repos.commands import load_code_commands
@@ -36,6 +38,8 @@ class DevCommandsLoader(AzCommandsLoader):
         load_admin_arguments(self, command)
         from azext_devops.dev.boards.arguments import load_work_arguments
         load_work_arguments(self, command)
+        from azext_devops.dev.migration.arguments import load_migration_arguments
+        load_migration_arguments(self, command)
         from azext_devops.dev.pipelines.arguments import load_build_arguments
         load_build_arguments(self, command)
         from azext_devops.dev.repos.arguments import load_code_arguments
@@ -47,8 +51,8 @@ class DevCommandsLoader(AzCommandsLoader):
 
     @staticmethod
     def post_parse_args(_cli_ctx, **kwargs):
-        if (kwargs.get('command', None) and
-                kwargs['command'].startswith(('devops', 'boards', 'artifacts', 'pipelines', 'repos'))):
+        command = kwargs.get('command', None)
+        if command and command.startswith(('devops', 'boards', 'artifacts', 'pipelines', 'repos', 'migrations')):
             from azext_devops.dev.common.telemetry import set_tracking_data
             # we need to set tracking data only after we know that all args are valid,
             # otherwise we may log EUII data that a user inadvertently sent as an argument
