@@ -1,87 +1,188 @@
-# ELM migrations troubleshooting guide (TSG)
+# ELM Migrations Troubleshooting Guide (TSG)
 
 ## Scope
 
 - Applies to `az devops migrations` commands in the azure-devops CLI extension.
 - Migration direction: Azure DevOps (source) to GitHub (target) via the ELM service.
 
-## Key concepts
+## Key Concepts
 
-- `--org` for migrations is the ELM service base URL, not the ADO org.
-- The ADO org is only used to look up the source repo GUID (`az repos show`).
-- `--detect` defaults to true. If you run commands inside an ADO git repo, auto-detect can override `--org`.
-  Use `--detect false` or run from a directory that is not inside an ADO repo.
+| Concept | Details |
+|---|---|
+| `--org` | The **ELM service base URL** (e.g., `https://elm.contoso.com/elmo1`). This is NOT your ADO org URL. |
+| `--repository-id` | The Azure Repos repository **GUID**. Get it from `az repos show --query id`. |
+| `--detect` | Defaults to `true`. Auto-detects org from git remote. Use `--detect false` if outside an ADO repo or to avoid override. |
+| Default org | Set with `az devops configure -d organization=<ELM URL>` so you can omit `--org` on every call. |
+| `--validate-only` | Runs pre-migration checks only (no data movement). Default is `false` — omit the flag for a full migration. |
 
-## Quick start
+## Quick Start
 
-1) Get source repo GUID from ADO:
+### Step 1: Get source repo GUID from ADO
 
 ```powershell
 az repos show --org https://dev.azure.com/<ado-org>/ --project <ProjectName> --repository <RepoName> --query id -o tsv
 ```
 
-2) Create a validation-only migration (default is validate-only):
+### Step 2: Create a migration
 
 ```powershell
-az devops migrations create --org https://<elm-base>/elm --detect false \
+az devops migrations create --org https://<elm-base>/elmo1 --detect false \
   --repository-id <GUID_FROM_STEP_1> \
-  --target-repository https://<ghe-host>/<Org>/<Repo> \
-  --target-owner-user-id <GHE_UserId>
+  --target-repository https://<target-host>/<Org>/<Repo> \
+  --target-owner-user-id <OwnerUserId> \
+  --agent-pool <PoolName>
 ```
 
-3) Check status:
+To create in validate-only mode (pre-migration checks only), add `--validate-only`:
 
 ```powershell
-az devops migrations status --org https://<elm-base>/elm --detect false --repository-id <GUID_FROM_STEP_1>
+az devops migrations create --org https://<elm-base>/elmo1 --detect false \
+  --repository-id <GUID_FROM_STEP_1> \
+  --target-repository https://<target-host>/<Org>/<Repo> \
+  --target-owner-user-id <OwnerUserId> \
+  --agent-pool <PoolName> \
+  --validate-only
 ```
 
-4) Start full migration after validation passes:
+### Step 3: Check status
 
 ```powershell
-az devops migrations resume --org https://<elm-base>/elm --detect false --repository-id <GUID_FROM_STEP_1> --migrate
+az devops migrations status --org https://<elm-base>/elmo1 --detect false --repository-id <GUID_FROM_STEP_1>
 ```
 
-5) Re-run validation (optional):
+### Step 4: Pause, resume, or change mode
 
 ```powershell
-az devops migrations resume --org https://<elm-base>/elm --detect false --repository-id <GUID_FROM_STEP_1> --validate-only
+# Pause an active migration
+az devops migrations pause --org https://<elm-base>/elmo1 --detect false --repository-id <GUID>
+
+# Resume (keeps current mode)
+az devops migrations resume --org https://<elm-base>/elmo1 --detect false --repository-id <GUID>
+
+# Resume and switch to validate-only mode
+az devops migrations resume --org https://<elm-base>/elmo1 --detect false --repository-id <GUID> --validate-only
+
+# Resume and switch to full migration mode
+az devops migrations resume --org https://<elm-base>/elmo1 --detect false --repository-id <GUID> --migration
 ```
 
-6) Optional cutover:
+> **Note:** You must pause an active migration before resuming with a different mode.
+
+### Step 5: Schedule cutover
 
 ```powershell
-az devops migrations cutover set --org https://<elm-base>/elm --detect false \
-  --repository-id <GUID_FROM_STEP_1> --scheduled-cutover-date 2030-12-31T11:59:00Z
+az devops migrations cutover set --org https://<elm-base>/elmo1 --detect false \
+  --repository-id <GUID> --date 2030-12-31T11:59:00Z
 ```
 
-## Common pitfalls
+### Step 6: Abandon a migration
 
-- **Auto-detect override**: If you are inside an ADO repo, `--detect` may override your ELM base URL.
-  Use `--detect false`.
-- **Wrong org for migrations**: Using `https://dev.azure.com/...` with `az devops migrations` will hit ADO
-  instead of ELM and fail.
-- **Too many parallel migrations**: Run one migration at a time unless your service owner says otherwise.
-- **Resume fails while active**: `resume` is meant for non-active states (succeeded, failed, suspended). Pause first if needed.
+```powershell
+az devops migrations abandon --org https://<elm-base>/elmo1 --detect false --repository-id <GUID>
+```
 
-## Common errors and fixes
+> **Warning:** This permanently deletes the migration. You will be prompted to confirm.
 
-- **401/403 Unauthorized**: You are not logged in or the token lacks permission.
-  Run `az devops login` (PAT) or `az login` (AAD) as required by your environment.
-- **404 Not Found**: The ELM base URL or repo GUID is incorrect.
-- **406 Not Acceptable**: The ELM service rejected the request. Verify the ELM base URL includes `/elm`,
-  confirm you are using the latest extension, and contact the service owner if it persists.
-- **Warning: Azure DevOps Server not supported**: This can appear when using non-dev.azure.com URLs.
-  It is expected for ELM and can usually be ignored.
-- **Target repo validation error**: The CLI validates that the target host is `github.com` or `*.ghe.com`.
-  If you see an error like `--target-repository must be a https://github.com/OrgName/RepoName or https://<org>.ghe.com/OrgName/RepoName URL`,
-  verify the target URL host or update the validation rule for your environment.
+## Common Pitfalls
 
-## Useful commands
+| Pitfall | Symptom | Fix |
+|---|---|---|
+| **Using ADO org URL instead of ELM URL** | 404 or unexpected errors | Use the ELM service base URL for `--org`, not `https://dev.azure.com/...` |
+| **Auto-detect overrides `--org`** | Requests go to wrong host (e.g., `codedev.ms`) | Add `--detect false` or run from a non-ADO-repo directory |
+| **Stale default org in config** | Requests go to old/dev URL (e.g., `codedev.ms`) | Run `az devops configure -d organization=<correct ELM URL>` to update |
+| **Resume on an active migration** | Error: "Migration is active..." | Pause first with `az devops migrations pause`, then resume |
+| **Both `--validate-only` and `--migration` on resume** | Error: "Please specify only one..." | Use only one flag at a time |
+| **Missing `--agent-pool` on create** | Error: "--agent-pool must be specified." | Always provide `--agent-pool <PoolName>` |
+| **Invalid `--repository-id`** | Error: "--repository-id must be a valid GUID." | Use `az repos show --query id` to get the correct GUID |
+| **Bad date format** | Error: "must be a valid date or datetime string" | Use ISO 8601 format, e.g., `2030-12-31T11:59:00Z` |
+
+## Common Errors and Fixes
+
+### Authentication Errors (401 / 403)
+
+**Symptom:** `Request failed with status 401` or `403`.
+
+**Fix:**
+1. Run `az login` (AAD) or `az devops login` (PAT).
+2. Ensure the token/account has permission to the ELM service.
+3. Verify `--org` points to the correct ELM URL.
+
+### 404 Not Found
+
+**Symptom:** `Request failed with status 404`.
+
+**Fix:**
+1. Verify the ELM base URL is correct (e.g., `https://elm.contoso.com/elmo1`).
+2. Verify the `--repository-id` is a valid GUID that exists in the ELM service.
+
+### 400 Bad Request
+
+**Symptom:** `Request failed with status 400` or `JsonReaderException`.
+
+**Fix:**
+1. Check date values are valid ISO 8601 strings (e.g., `2030-12-31T11:59:00Z`).
+2. Ensure `--target-repository` is a valid URL.
+3. Ensure `--agent-pool` matches a pool name the service recognizes.
+
+### 406 Not Acceptable
+
+**Symptom:** `Request failed with status 406`.
+
+**Fix:**
+1. Verify the ELM base URL is correct.
+2. Confirm you are using the latest CLI extension version.
+3. Contact the service owner if it persists.
+
+### 500 Internal Server Error / Retries Exhausted
+
+**Symptom:** `Max retries exceeded with url: ... (Caused by ResponseError('too many 500 error responses'))`.
+
+**Fix:**
+1. Check if the requests are going to the **wrong host** (e.g., `codedev.ms` instead of your ELM URL).
+   - Run `az devops configure -l` to check your default org.
+   - Fix with `az devops configure -d organization=<correct ELM URL>`.
+   - Or pass `--org <correct URL> --detect false` explicitly.
+2. If the correct host is being used, the ELM service may be down — retry later or contact the service owner.
+
+### "Warning: Azure DevOps Server not supported"
+
+**Symptom:** Warning message appears but command may still work.
+
+**Fix:** This warning is expected when using non-`dev.azure.com` URLs (like ELM URLs). It can be safely ignored.
+
+## Useful Commands
 
 ```powershell
 # Check extension version
 az extension show -n azure-devops --query "{name:name,version:version}" -o json
 
-# Set default org to the ELM base
-az devops configure -d organization=https://<elm-base>/elm
+# Set default org to the ELM base (so you can omit --org)
+az devops configure -d organization=https://<elm-base>/elmo1
+
+# View current defaults
+az devops configure -l
+
+# Install/update the extension from a wheel file
+az extension add --source ./azure_devops-1.0.3-py2.py3-none-any.whl -y
+
+# Uninstall the extension
+az extension remove -n azure-devops
+
+# Get repo GUID from ADO
+az repos show --org https://dev.azure.com/<ado-org>/ --project <ProjectName> --repository <RepoName> --query id -o tsv
+
+# List all migrations (including inactive)
+az devops migrations list --include-inactive
+
+# Get full JSON output (instead of table)
+az devops migrations status --repository-id <GUID> -o json
 ```
+
+## Output Formats
+
+| Flag | Format | Best for |
+|---|---|---|
+| (default / `--output table`) | Table with key columns | Quick overview |
+| `--output json` | Full JSON response from API | Scripting, debugging, seeing all fields |
+| `--output tsv` | Tab-separated values | Piping to other commands |
+| `--query <JMESPath>` | Filtered output | Extracting specific fields (e.g., `--query status`) |
