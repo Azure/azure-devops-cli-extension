@@ -23,7 +23,19 @@
 az repos show --org https://dev.azure.com/<ado-org>/ --project <ProjectName> --repository <RepoName> --query id -o tsv
 ```
 
-### Step 2: Create a migration
+### Step 2: List existing migrations
+
+```powershell
+# List active migrations
+az devops migrations list --org https://<elm-base>/elmo1 --detect false
+
+# List all migrations (including completed, failed, suspended)
+az devops migrations list --org https://<elm-base>/elmo1 --detect false --include-inactive
+```
+
+### Step 3: Create a migration
+
+**Minimum required:**
 
 ```powershell
 az devops migrations create --org https://<elm-base>/elmo1 --detect false \
@@ -33,7 +45,7 @@ az devops migrations create --org https://<elm-base>/elmo1 --detect false \
   --agent-pool <PoolName>
 ```
 
-To create in validate-only mode (pre-migration checks only), add `--validate-only`:
+**With validate-only mode** (pre-migration checks, no data movement):
 
 ```powershell
 az devops migrations create --org https://<elm-base>/elmo1 --detect false \
@@ -44,13 +56,26 @@ az devops migrations create --org https://<elm-base>/elmo1 --detect false \
   --validate-only
 ```
 
-### Step 3: Check status
+**With all optional parameters:**
+
+```powershell
+az devops migrations create --org https://<elm-base>/elmo1 --detect false \
+  --repository-id <GUID_FROM_STEP_1> \
+  --target-repository https://<target-host>/<Org>/<Repo> \
+  --target-owner-user-id <OwnerUserId> \
+  --agent-pool <PoolName> \
+  --validate-only \
+  --cutover-date 2030-12-31T11:59:00Z \
+  --skip-validation ActivePullRequestCount,PullRequestDeltaSize
+```
+
+### Step 4: Check status
 
 ```powershell
 az devops migrations status --org https://<elm-base>/elmo1 --detect false --repository-id <GUID_FROM_STEP_1>
 ```
 
-### Step 4: Pause, resume, or change mode
+### Step 5: Pause, resume, or change mode
 
 ```powershell
 # Pause an active migration
@@ -68,20 +93,55 @@ az devops migrations resume --org https://<elm-base>/elmo1 --detect false --repo
 
 > **Note:** You must pause an active migration before resuming with a different mode.
 
-### Step 5: Schedule cutover
+### Step 6: Schedule or cancel cutover
 
 ```powershell
+# Schedule a cutover date
 az devops migrations cutover set --org https://<elm-base>/elmo1 --detect false \
   --repository-id <GUID> --date 2030-12-31T11:59:00Z
+
+# Cancel a scheduled cutover
+az devops migrations cutover cancel --org https://<elm-base>/elmo1 --detect false \
+  --repository-id <GUID>
 ```
 
-### Step 6: Abandon a migration
+### Step 7: Abandon a migration
 
 ```powershell
 az devops migrations abandon --org https://<elm-base>/elmo1 --detect false --repository-id <GUID>
 ```
 
 > **Warning:** This permanently deletes the migration. You will be prompted to confirm.
+
+## Complete Command & Parameter Reference
+
+| Command | Required Params | Optional Params | HTTP | Description |
+|---|---|---|---|---|
+| `list` | `--org` | `--include-inactive`, `--detect` | GET | List migrations. By default only active ones. |
+| `status` | `--org`, `--repository-id` | `--detect` | GET | Get detailed status for one migration. |
+| `create` | `--org`, `--repository-id`, `--target-repository`, `--target-owner-user-id`, `--agent-pool` | `--validate-only`, `--cutover-date`, `--skip-validation`, `--detect` | POST | Create a new migration. |
+| `pause` | `--org`, `--repository-id` | `--detect` | PUT | Pause an active migration. |
+| `resume` | `--org`, `--repository-id` | `--validate-only`, `--migration`, `--detect` | PUT | Resume a stopped migration. |
+| `cutover set` | `--org`, `--repository-id`, `--date` | `--detect` | PUT | Schedule a cutover date/time. |
+| `cutover cancel` | `--org`, `--repository-id` | `--detect` | PUT | Cancel a scheduled cutover. |
+| `abandon` | `--org`, `--repository-id` | `--detect` | DELETE | Permanently delete a migration (prompts for confirmation). |
+
+### Parameter Details
+
+| Parameter | Type | Used By | Description |
+|---|---|---|---|
+| `--org` | URL | All | ELM service base URL (e.g., `https://elm.contoso.com/elmo1`). Can be set as default. |
+| `--repository-id` | GUID | All except `list` | Azure Repos repository GUID. Get from `az repos show --query id`. |
+| `--target-repository` | URL | `create` | Target repository URL (e.g., `https://example.ghe.com/OrgName/RepoName`). Validated by the server. |
+| `--target-owner-user-id` | string | `create` | Target repository owner user ID. |
+| `--agent-pool` | string | `create` | Agent pool name for migration work. Required. |
+| `--validate-only` | flag | `create`, `resume` | On `create`: run pre-migration checks only. On `resume`: switch to validate-only mode. |
+| `--migration` | flag | `resume` | Switch to full migration mode (clears validate-only). Mutually exclusive with `--validate-only`. |
+| `--cutover-date` | ISO 8601 | `create` | Pre-schedule cutover at creation time. E.g., `2030-12-31T11:59:00Z`. |
+| `--date` | ISO 8601 | `cutover set` | Schedule cutover date/time. E.g., `2030-12-31T11:59:00Z`. |
+| `--skip-validation` | string | `create` | Comma-separated list of validation policies to skip. |
+| `--include-inactive` | flag | `list` | Include completed, failed, and suspended migrations. |
+| `--detect` | flag | All | Auto-detect org from git remote (default: `true`). Use `--detect false` to disable. |
 
 ## Common Pitfalls
 
