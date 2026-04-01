@@ -11,106 +11,39 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/v-anvashist0376/_apis/projects?stateFilter=all&$top=1&$skip=0
+    uri: https://dev.azure.com/v-anvashist0376/_apis/process/processes
   response:
     body:
-      string: '{"count":1,"value":[{"id":"41b8d8d8-b4a3-479a-8434-bf6e0139ee86","name":"MITesting","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/41b8d8d8-b4a3-479a-8434-bf6e0139ee86","state":"wellFormed","revision":20,"visibility":"organization","lastUpdateTime":"2023-09-12T04:50:28.28Z"}]}'
+      string: '{"count":4,"value":[{"id":"6b724908-ef14-45cf-84f8-768b5384da45","description":"This
+        template is for teams who follow the Scrum framework.","isDefault":false,"type":"system","url":"https://dev.azure.com/v-anvashist0376/_apis/process/processes/6b724908-ef14-45cf-84f8-768b5384da45","name":"Scrum"},{"id":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2","description":"This
+        template is flexible for any process and great for teams getting started with
+        Azure DevOps.","isDefault":true,"type":"system","url":"https://dev.azure.com/v-anvashist0376/_apis/process/processes/b8a3a935-7e91-48b8-a94c-606d37c3e9f2","name":"Basic"},{"id":"adcc42ab-9882-485e-a3ed-7678f01f66bc","description":"This
+        template is flexible and will work great for most teams using Agile planning
+        methods, including those practicing Scrum.","isDefault":false,"type":"system","url":"https://dev.azure.com/v-anvashist0376/_apis/process/processes/adcc42ab-9882-485e-a3ed-7678f01f66bc","name":"Agile"},{"id":"27450541-8e31-4150-9947-dc59f998fc01","description":"This
+        template is for more formal projects requiring a framework for process improvement
+        and an auditable record of decisions.","isDefault":false,"type":"system","url":"https://dev.azure.com/v-anvashist0376/_apis/process/processes/27450541-8e31-4150-9947-dc59f998fc01","name":"CMMI"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 7a23ba6b-b7b1-441b-a58b-7052c1f48cbe
+      - 5906fcf7-c35e-4e2c-95ae-c20fc252afe4
       cache-control:
       - no-cache
       content-length:
-      - '290'
+      - '1298'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:28 GMT
-      expires:
-      - '-1'
-      p3p:
-      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
-        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
-      pragma:
-      - no-cache
-      request-context:
-      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
-      strict-transport-security:
-      - max-age=31536000; includeSubDomains
-      vary:
-      - Accept-Encoding
-      x-cache:
-      - CONFIG_NOCACHE
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - SAMEORIGIN
-      x-ms-continuationtoken:
-      - '1'
-      x-msedge-ref:
-      - 'Ref A: 4F3067EA80EA4BEC9E1B464F6EF86969 Ref B: MAA01EDGE1408 Ref C: 2023-12-22T11:25:29Z'
-      x-tfs-processid:
-      - db974dbf-deb3-4e16-a9a2-f638bd661019
-      x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
-      x-vss-e2eid:
-      - 7a23ba6b-b7b1-441b-a58b-7052c1f48cbe
-      x-vss-senderdeploymentid:
-      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
-      x-vss-userdata:
-      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json;api-version=5.0
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json; charset=utf-8
-      User-Agent:
-      - python/3.10.11 (Windows-10-10.0.22621-SP0) msrest/0.7.1 azure-devops/5.1.0b4
-        devOpsCli/0.26.0
-      X-TFS-FedAuthRedirect:
-      - Suppress
-      X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
-      X-VSS-ForceMsaPassThrough:
-      - 'true'
-    method: GET
-    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/006d05ff-c6f8-41fa-b4e0-0bb2bd391f92
-  response:
-    body:
-      string: '{"id":"006d05ff-c6f8-41fa-b4e0-0bb2bd391f92","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/006d05ff-c6f8-41fa-b4e0-0bb2bd391f92","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/006d05ff-c6f8-41fa-b4e0-0bb2bd391f92"}}}'
-    headers:
-      access-control-expose-headers:
-      - Request-Context
-      activityid:
-      - f53e97a4-4dd0-4c6e-848c-432e1034f8d1
-      cache-control:
-      - no-cache
-      content-length:
-      - '288'
-      content-type:
-      - application/json; charset=utf-8; api-version=5.0
-      date:
-      - Fri, 22 Dec 2023 11:25:28 GMT
+      - Tue, 31 Mar 2026 18:17:12 GMT
       expires:
       - '-1'
       p3p:
@@ -131,13 +64,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: CFCAB06C9DFF479F876A8E2228F77770 Ref B: MAA01EDGE1214 Ref C: 2023-12-22T11:25:29Z'
+      - 'Ref A: 4FD12D2975AF45B7B4A8198CBE48AA66 Ref B: PNQ231110907034 Ref C: 2026-03-31T18:17:12Z'
       x-tfs-processid:
-      - 0c6da6c3-c88f-46e1-a986-517572a7a8ca
+      - ef62c8d8-57d0-45d9-9945-591841fe0702
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - f53e97a4-4dd0-4c6e-848c-432e1034f8d1
+      - 5906fcf7-c35e-4e2c-95ae-c20fc252afe4
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -146,7 +79,9 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: null
+    body: '{"name": "IterationProj_000001", "visibility": "private", "capabilities":
+      {"versioncontrol": {"sourceControlType": "git"}, "processTemplate": {"templateTypeId":
+      "b8a3a935-7e91-48b8-a94c-606d37c3e9f2"}}}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -154,35 +89,37 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
+      Content-Length:
+      - '202'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
-    method: GET
-    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/006d05ff-c6f8-41fa-b4e0-0bb2bd391f92
+    method: POST
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects
   response:
     body:
-      string: '{"id":"a4ade841-6e68-4bed-aad7-c3ebc4aa2939","status":"notSet","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939"}'
+      string: '{"id":"47149038-097d-4653-bf3b-5c653ee4f315","status":"notSet","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 7a23bdda-b7b1-441b-a58b-7052c1f48cbe
+      - 6dbb4694-c53b-45b4-97e2-afdc5b940aae
       cache-control:
       - no-cache
       content-length:
-      - '288'
+      - '163'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:29 GMT
+      - Tue, 31 Mar 2026 18:17:12 GMT
       expires:
       - '-1'
       p3p:
@@ -194,8 +131,6 @@ interactions:
       - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
       strict-transport-security:
       - max-age=31536000; includeSubDomains
-      vary:
-      - Accept-Encoding
       x-cache:
       - CONFIG_NOCACHE
       x-content-type-options:
@@ -203,20 +138,20 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 17ABE2F47CE642E68A76768EF61E437E Ref B: MAA01EDGE1009 Ref C: 2023-12-22T11:25:29Z'
+      - 'Ref A: 097C08BE144F4546876617F23F7E19C0 Ref B: PNQ231110908060 Ref C: 2026-03-31T18:17:12Z'
       x-tfs-processid:
-      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      - 6abe9380-b74b-4198-98ac-417b576bd8fc
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 7a23bdda-b7b1-441b-a58b-7052c1f48cbe
+      - 6dbb4694-c53b-45b4-97e2-afdc5b940aae
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
       - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
     status:
-      code: 200
-      message: OK
+      code: 202
+      message: Accepted
 - request:
     body: null
     headers:
@@ -229,24 +164,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315
   response:
     body:
-      string: '{"id":"a4ade841-6e68-4bed-aad7-c3ebc4aa2939","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939"}}}'
+      string: '{"id":"47149038-097d-4653-bf3b-5c653ee4f315","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 7a23bc2e-b7b1-441b-a58b-7052c1f48cbe
+      - 2040e38b-965f-499a-8200-e21653a4341f
       cache-control:
       - no-cache
       content-length:
@@ -254,7 +189,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:30 GMT
+      - Tue, 31 Mar 2026 18:17:12 GMT
       expires:
       - '-1'
       p3p:
@@ -275,13 +210,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: AF95CD19E3DA4563830B66BA921B35D5 Ref B: MAA01EDGE1508 Ref C: 2023-12-22T11:25:30Z'
+      - 'Ref A: 10BD6D41C6FF42A39C6E4A963F30C8A3 Ref B: PNQ231110906062 Ref C: 2026-03-31T18:17:13Z'
       x-tfs-processid:
-      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      - 1fe68555-dd80-40aa-ac4c-54cfc066dccd
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 7a23bc2e-b7b1-441b-a58b-7052c1f48cbe
+      - 2040e38b-965f-499a-8200-e21653a4341f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -301,24 +236,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315
   response:
     body:
-      string: '{"id":"a4ade841-6e68-4bed-aad7-c3ebc4aa2939","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939"}}}'
+      string: '{"id":"47149038-097d-4653-bf3b-5c653ee4f315","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 190db52c-3088-4e8e-99fb-81e826079317
+      - 2040e2a0-965f-499a-8200-e21653a4341f
       cache-control:
       - no-cache
       content-length:
@@ -326,7 +261,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:31 GMT
+      - Tue, 31 Mar 2026 18:17:13 GMT
       expires:
       - '-1'
       p3p:
@@ -347,13 +282,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 1AEAB467C1244EEB854CD456222725E2 Ref B: MAA01EDGE1509 Ref C: 2023-12-22T11:25:31Z'
+      - 'Ref A: 0F4209F493E044BA9C2AE423F235B81A Ref B: PNQ231110907023 Ref C: 2026-03-31T18:17:14Z'
       x-tfs-processid:
-      - 0de3b1be-f6c9-427b-99f7-962fa8ab8ee7
+      - 1fe68555-dd80-40aa-ac4c-54cfc066dccd
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 190db52c-3088-4e8e-99fb-81e826079317
+      - 2040e2a0-965f-499a-8200-e21653a4341f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -373,24 +308,240 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315
   response:
     body:
-      string: '{"id":"a4ade841-6e68-4bed-aad7-c3ebc4aa2939","status":"succeeded","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/a4ade841-6e68-4bed-aad7-c3ebc4aa2939"}}}'
+      string: '{"id":"47149038-097d-4653-bf3b-5c653ee4f315","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 7a23b3d7-b7b1-441b-a58b-7052c1f48cbe
+      - 5906e16c-c35e-4e2c-95ae-c20fc252afe4
+      cache-control:
+      - no-cache
+      content-length:
+      - '288'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Tue, 31 Mar 2026 18:17:14 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 4C2BB82C1EBB42208017DA783B432EED Ref B: PNQ231110909036 Ref C: 2026-03-31T18:17:15Z'
+      x-tfs-processid:
+      - ef62c8d8-57d0-45d9-9945-591841fe0702
+      x-tfs-session:
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
+      x-vss-e2eid:
+      - 5906e16c-c35e-4e2c-95ae-c20fc252afe4
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315
+  response:
+    body:
+      string: '{"id":"47149038-097d-4653-bf3b-5c653ee4f315","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 6dbb42ac-c53b-45b4-97e2-afdc5b940aae
+      cache-control:
+      - no-cache
+      content-length:
+      - '288'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Tue, 31 Mar 2026 18:17:15 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 6AB14F0F7B8F4FBA88D7A8B30BD9A454 Ref B: PNQ231110906023 Ref C: 2026-03-31T18:17:16Z'
+      x-tfs-processid:
+      - 6abe9380-b74b-4198-98ac-417b576bd8fc
+      x-tfs-session:
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
+      x-vss-e2eid:
+      - 6dbb42ac-c53b-45b4-97e2-afdc5b940aae
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315
+  response:
+    body:
+      string: '{"id":"47149038-097d-4653-bf3b-5c653ee4f315","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - f4fb0223-2089-4b0a-8ab6-60f57e515775
+      cache-control:
+      - no-cache
+      content-length:
+      - '288'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Tue, 31 Mar 2026 18:17:17 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 8B7D749D309B4603AAD7E710B6596B79 Ref B: PNQ231110907031 Ref C: 2026-03-31T18:17:17Z'
+      x-tfs-processid:
+      - f295e51c-8c89-41d2-9c33-3459dbe464cd
+      x-tfs-session:
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
+      x-vss-e2eid:
+      - f4fb0223-2089-4b0a-8ab6-60f57e515775
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315
+  response:
+    body:
+      string: '{"id":"47149038-097d-4653-bf3b-5c653ee4f315","status":"succeeded","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/47149038-097d-4653-bf3b-5c653ee4f315"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 87d01a0d-a25d-447b-958a-cb6b0b789adf
       cache-control:
       - no-cache
       content-length:
@@ -398,7 +549,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:33 GMT
+      - Tue, 31 Mar 2026 18:17:17 GMT
       expires:
       - '-1'
       p3p:
@@ -419,13 +570,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 19427B27B0854596AD993A270E321BB2 Ref B: MAA01EDGE0412 Ref C: 2023-12-22T11:25:33Z'
+      - 'Ref A: DEA6732E91734A489EBA8F001732F93F Ref B: PNQ231110906052 Ref C: 2026-03-31T18:17:18Z'
       x-tfs-processid:
-      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      - 80c25b53-e900-455d-b014-2482382944d4
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 7a23b3d7-b7b1-441b-a58b-7052c1f48cbe
+      - 87d01a0d-a25d-447b-958a-cb6b0b789adf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -445,25 +596,25 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/_apis/projects/IterationProj_000001?includeCapabilities=true
   response:
     body:
-      string: '{"id":"8a03df55-b6ba-4839-80cc-3e3ec0c9aadc","name":"IterationProj_000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc","state":"wellFormed","capabilities":{"processTemplate":{"templateName":"Basic","templateTypeId":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2"},"versioncontrol":{"sourceControlType":"Git","gitEnabled":"True","tfvcEnabled":"False"}},"revision":54,"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"collection":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projectCollections/2ad38d1e-3eaf-4769-931c-3a2da67bbb01"},"web":{"href":"https://dev.azure.com/v-anvashist0376/IterationProj_000001"}},"visibility":"private","defaultTeam":{"id":"48a4425f-2254-464c-b0ee-8776834b4a49","name":"IterationProj_000001
-        Team","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/48a4425f-2254-464c-b0ee-8776834b4a49"},"lastUpdateTime":"2023-12-22T11:25:32.433Z"}'
+      string: '{"id":"c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d","name":"IterationProj_000001","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d","state":"wellFormed","capabilities":{"processTemplate":{"templateName":"Basic","templateTypeId":"b8a3a935-7e91-48b8-a94c-606d37c3e9f2"},"versioncontrol":{"sourceControlType":"Git","gitEnabled":"True","tfvcEnabled":"False"}},"revision":30037,"_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d"},"collection":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projectCollections/2ad38d1e-3eaf-4769-931c-3a2da67bbb01"},"web":{"href":"https://dev.azure.com/v-anvashist0376/IterationProj_000001"}},"visibility":"private","defaultTeam":{"id":"21decbcc-df33-4700-a616-0e7af6bf078e","name":"IterationProj_000001
+        Team","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/teams/21decbcc-df33-4700-a616-0e7af6bf078e"},"lastUpdateTime":"2026-03-31T18:17:18.32Z"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b50bb36d-6804-4274-9026-7a8fb94a0e2f
+      - 019387fb-ef3d-4a21-8727-a4c18bb40cf0
       cache-control:
       - no-cache
       content-length:
@@ -471,7 +622,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:33 GMT
+      - Tue, 31 Mar 2026 18:17:18 GMT
       expires:
       - '-1'
       p3p:
@@ -492,13 +643,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 37545A86D8BC430A8C7B315330A58903 Ref B: MAA01EDGE0715 Ref C: 2023-12-22T11:25:33Z'
+      - 'Ref A: 4818E998F7E146C4B89FBF1EE361DC24 Ref B: PNQ231110908036 Ref C: 2026-03-31T18:17:18Z'
       x-tfs-processid:
-      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      - aa47a120-07cc-4130-8312-866d012d5d0c
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - b50bb36d-6804-4274-9026-7a8fb94a0e2f
+      - 019387fb-ef3d-4a21-8727-a4c18bb40cf0
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -518,34 +669,34 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=1
   response:
     body:
-      string: '{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":24,"identifier":"c2ce962d-4ebc-494c-b3da-d438e48ec151","name":"Sprint
+      string: '{"id":10604,"identifier":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":10606,"identifier":"c736c58f-3607-4fa5-bcc8-937b56dbd118","name":"Sprint
         1","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\Sprint
-        1","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/Sprint%201"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}'
+        1","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/Sprint%201"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 190dbe2e-3088-4e8e-99fb-81e826079317
+      - 8690edbe-f76c-4836-b210-7ca8a0b05dcf
       cache-control:
       - no-cache
       content-length:
-      - '783'
+      - '785'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:33 GMT
+      - Tue, 31 Mar 2026 18:17:18 GMT
       expires:
       - '-1'
       p3p:
@@ -566,13 +717,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 83B204B49AD04B0497186AC261C48191 Ref B: MAA01EDGE1422 Ref C: 2023-12-22T11:25:34Z'
+      - 'Ref A: 166E906C40C741A6AE34B1705934F882 Ref B: PNQ231110909029 Ref C: 2026-03-31T18:17:18Z'
       x-tfs-processid:
-      - 0de3b1be-f6c9-427b-99f7-962fa8ab8ee7
+      - 17336af7-6c3b-47da-a16f-940953142346
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 190dbe2e-3088-4e8e-99fb-81e826079317
+      - 8690edbe-f76c-4836-b210-7ca8a0b05dcf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -594,32 +745,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/v-anvashist0376/_apis/projects/IterationProj_000001/teams
   response:
     body:
-      string: '{"id":"0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce","name":"teamName1_000002","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce","description":"","identityUrl":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce","projectName":"IterationProj_000001","projectId":"8a03df55-b6ba-4839-80cc-3e3ec0c9aadc","identity":{"id":"0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce","descriptor":"Microsoft.TeamFoundation.Identity;S-1-9-1551374245-1440678794-3132504392-2160868926-3234441948-1-2927255536-3989704013-3083918934-3900046430","subjectDescriptor":"vssgp.Uy0xLTktMTU1MTM3NDI0NS0xNDQwNjc4Nzk0LTMxMzI1MDQzOTItMjE2MDg2ODkyNi0zMjM0NDQxOTQ4LTEtMjkyNzI1NTUzNi0zOTg5NzA0MDEzLTMwODM5MTg5MzQtMzkwMDA0NjQzMA","providerDisplayName":"[IterationProj_000001]\\teamName1_000002","isActive":true,"isContainer":true,"members":[],"memberOf":[],"masterId":"0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce","properties":{"Microsoft.TeamFoundation.Team":{"$type":"System.Boolean","$value":true},"SchemaClassName":{"$type":"System.String","$value":"Group"},"Description":{"$type":"System.String","$value":""},"Domain":{"$type":"System.String","$value":"vstfs:///Classification/TeamProject/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"Account":{"$type":"System.String","$value":"teamName1_000002"},"SecurityGroup":{"$type":"System.String","$value":"SecurityGroup"},"SpecialType":{"$type":"System.String","$value":"Generic"},"ScopeId":{"$type":"System.String","$value":"6e403ee4-2529-4bd3-98c9-c856a2ca58a0"},"ScopeType":{"$type":"System.String","$value":"TeamProject"},"LocalScopeId":{"$type":"System.String","$value":"8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"SecuringHostId":{"$type":"System.String","$value":"a9bae0de-049f-43b5-a1ff-18f8f805fbe8"},"ScopeName":{"$type":"System.String","$value":"IterationProj_000001"},"VirtualPlugin":{"$type":"System.String","$value":""}},"resourceVersion":2,"metaTypeId":255}}'
+      string: '{"id":"3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd","name":"teamName1_000002","url":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/teams/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd","description":"","identityUrl":"https://spsprodcin2.vssps.visualstudio.com/Aa9bae0de-049f-43b5-a1ff-18f8f805fbe8/_apis/Identities/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd","projectName":"IterationProj_000001","projectId":"c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d","identity":{"id":"3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd","descriptor":"Microsoft.TeamFoundation.Identity;S-1-9-1551374245-2813067207-3364486213-2673614652-2731541133-1-1186030686-2624140359-2291501328-646957615","subjectDescriptor":"vssgp.Uy0xLTktMTU1MTM3NDI0NS0yODEzMDY3MjA3LTMzNjQ0ODYyMTMtMjY3MzYxNDY1Mi0yNzMxNTQxMTMzLTEtMTE4NjAzMDY4Ni0yNjI0MTQwMzU5LTIyOTE1MDEzMjgtNjQ2OTU3NjE1","providerDisplayName":"[IterationProj_000001]\\teamName1_000002","isActive":true,"isContainer":true,"members":[],"memberOf":[],"masterId":"3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd","properties":{"Microsoft.TeamFoundation.Team":{"$type":"System.Boolean","$value":true},"SchemaClassName":{"$type":"System.String","$value":"Group"},"Description":{"$type":"System.String","$value":""},"Domain":{"$type":"System.String","$value":"vstfs:///Classification/TeamProject/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d"},"Account":{"$type":"System.String","$value":"teamName1_000002"},"SecurityGroup":{"$type":"System.String","$value":"SecurityGroup"},"SpecialType":{"$type":"System.String","$value":"Generic"},"ScopeId":{"$type":"System.String","$value":"d0e46a19-69d2-4bf3-ad9d-01f803946bde"},"ScopeType":{"$type":"System.String","$value":"TeamProject"},"LocalScopeId":{"$type":"System.String","$value":"c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d"},"SecuringHostId":{"$type":"System.String","$value":"a9bae0de-049f-43b5-a1ff-18f8f805fbe8"},"ScopeName":{"$type":"System.String","$value":"IterationProj_000001"},"VirtualPlugin":{"$type":"System.String","$value":""}},"resourceVersion":2,"metaTypeId":255}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 90ab1f60-f73a-4124-a874-408d2b74caea
+      - f4fb00bf-2089-4b0a-8ab6-60f57e515775
       cache-control:
       - no-cache
       content-length:
-      - '2025'
+      - '2022'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:34 GMT
+      - Tue, 31 Mar 2026 18:17:18 GMT
       expires:
       - '-1'
       p3p:
@@ -638,13 +789,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: F42212BB7DA64336955705A20FE4696E Ref B: MAA01EDGE0820 Ref C: 2023-12-22T11:25:34Z'
+      - 'Ref A: 5BB29177A1834AD0B0456E05A233F13F Ref B: PNQ231110907036 Ref C: 2026-03-31T18:17:18Z'
       x-tfs-processid:
-      - 4b55c8de-2551-460b-98bd-bd7952170718
+      - f295e51c-8c89-41d2-9c33-3459dbe464cd
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 90ab1f60-f73a-4124-a874-408d2b74caea
+      - f4fb00bf-2089-4b0a-8ab6-60f57e515775
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -664,32 +815,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=0
   response:
     body:
-      string: '{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}'
+      string: '{"id":10604,"identifier":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 90ab19cf-f73a-4124-a874-408d2b74caea
+      - 6dbbbf8b-c53b-45b4-97e2-afdc5b940aae
       cache-control:
       - no-cache
       content-length:
-      - '452'
+      - '453'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:34 GMT
+      - Tue, 31 Mar 2026 18:17:19 GMT
       expires:
       - '-1'
       p3p:
@@ -710,13 +861,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 322558F526714C46BB24DFFB8983B05B Ref B: MAA01EDGE0913 Ref C: 2023-12-22T11:25:35Z'
+      - 'Ref A: D1CC4DA3DD00452C9F38F88307423EB6 Ref B: PNQ231110906025 Ref C: 2026-03-31T18:17:19Z'
       x-tfs-processid:
-      - 4b55c8de-2551-460b-98bd-bd7952170718
+      - 6abe9380-b74b-4198-98ac-417b576bd8fc
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 90ab19cf-f73a-4124-a874-408d2b74caea
+      - 6dbbbf8b-c53b-45b4-97e2-afdc5b940aae
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -738,36 +889,36 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations
   response:
     body:
-      string: '{"id":26,"identifier":"6871dc36-b791-4360-a36f-41dfcb7b8d84","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}'
+      string: '{"id":10608,"identifier":"a384788e-738c-4d8a-85eb-382aae10b905","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 190dbd86-3088-4e8e-99fb-81e826079317
+      - 87d01bd8-a25d-447b-958a-cb6b0b789adf
       cache-control:
       - no-cache
       content-length:
-      - '701'
+      - '702'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:35 GMT
+      - Tue, 31 Mar 2026 18:17:19 GMT
       expires:
       - '-1'
       location:
-      - https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003
+      - https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
@@ -784,13 +935,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 4A88504DA29B4447A081D8E7D0FD4441 Ref B: MAA01EDGE0507 Ref C: 2023-12-22T11:25:35Z'
+      - 'Ref A: 3742F19489274EEFBCB2C15111957CBF Ref B: PNQ231110909062 Ref C: 2026-03-31T18:17:19Z'
       x-tfs-processid:
-      - 0de3b1be-f6c9-427b-99f7-962fa8ab8ee7
+      - 80c25b53-e900-455d-b014-2482382944d4
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 190dbd86-3088-4e8e-99fb-81e826079317
+      - 87d01bd8-a25d-447b-958a-cb6b0b789adf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -810,34 +961,34 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=1
   response:
     body:
-      string: '{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":24,"identifier":"c2ce962d-4ebc-494c-b3da-d438e48ec151","name":"Sprint
+      string: '{"id":10604,"identifier":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":10606,"identifier":"c736c58f-3607-4fa5-bcc8-937b56dbd118","name":"Sprint
         1","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\Sprint
-        1","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/Sprint%201"},{"id":26,"identifier":"6871dc36-b791-4360-a36f-41dfcb7b8d84","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}'
+        1","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/Sprint%201"},{"id":10608,"identifier":"a384788e-738c-4d8a-85eb-382aae10b905","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b50bbe1f-6804-4274-9026-7a8fb94a0e2f
+      - 8690ecae-f76c-4836-b210-7ca8a0b05dcf
       cache-control:
       - no-cache
       content-length:
-      - '1171'
+      - '1174'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:36 GMT
+      - Tue, 31 Mar 2026 18:17:19 GMT
       expires:
       - '-1'
       p3p:
@@ -858,13 +1009,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: EFC020A0968C4F5CAD7B6FEE89A7BB24 Ref B: MAA01EDGE0812 Ref C: 2023-12-22T11:25:36Z'
+      - 'Ref A: 46EC5FB04FE8421AA3DDDB44DE840FB3 Ref B: PNQ231110909062 Ref C: 2026-03-31T18:17:19Z'
       x-tfs-processid:
-      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      - 17336af7-6c3b-47da-a16f-940953142346
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - b50bbe1f-6804-4274-9026-7a8fb94a0e2f
+      - 8690ecae-f76c-4836-b210-7ca8a0b05dcf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -884,32 +1035,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes?$depth=0
   response:
     body:
-      string: '{"count":2,"value":[{"id":25,"identifier":"10635514-0e39-4d16-acbd-2720cd804834","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Areas"},{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}]}'
+      string: '{"count":2,"value":[{"id":10607,"identifier":"089dc4d4-d455-468c-a558-33415ce63938","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Areas"},{"id":10604,"identifier":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b50bbda4-6804-4274-9026-7a8fb94a0e2f
+      - 2040dcd4-965f-499a-8200-e21653a4341f
       cache-control:
       - no-cache
       content-length:
-      - '623'
+      - '625'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:36 GMT
+      - Tue, 31 Mar 2026 18:17:19 GMT
       expires:
       - '-1'
       p3p:
@@ -930,13 +1081,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 30F2D3057DA7479190F4AF3D4D1BF985 Ref B: MAA01EDGE1105 Ref C: 2023-12-22T11:25:36Z'
+      - 'Ref A: 31091F9E9DEA4FF0984AD229E1A08167 Ref B: PNQ231110909025 Ref C: 2026-03-31T18:17:19Z'
       x-tfs-processid:
-      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      - 1fe68555-dd80-40aa-ac4c-54cfc066dccd
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - b50bbda4-6804-4274-9026-7a8fb94a0e2f
+      - 2040dcd4-965f-499a-8200-e21653a4341f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -958,36 +1109,36 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003
   response:
     body:
-      string: '{"id":27,"identifier":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
+      string: '{"id":10609,"identifier":"de824369-0007-47c5-90c3-730f387941d8","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 7a23a841-b7b1-441b-a58b-7052c1f48cbe
+      - 87d01b3e-a25d-447b-958a-cb6b0b789adf
       cache-control:
       - no-cache
       content-length:
-      - '770'
+      - '771'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:36 GMT
+      - Tue, 31 Mar 2026 18:17:19 GMT
       expires:
       - '-1'
       location:
-      - https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004
+      - https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
@@ -1004,13 +1155,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 47B729B5AF9A45828DE1854DB59411EB Ref B: MAA01EDGE1216 Ref C: 2023-12-22T11:25:37Z'
+      - 'Ref A: 813A0BC48FA34985860D285D51021E64 Ref B: PNQ231110906062 Ref C: 2026-03-31T18:17:19Z'
       x-tfs-processid:
-      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      - 80c25b53-e900-455d-b014-2482382944d4
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 7a23a841-b7b1-441b-a58b-7052c1f48cbe
+      - 87d01b3e-a25d-447b-958a-cb6b0b789adf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1030,32 +1181,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes?$depth=0
   response:
     body:
-      string: '{"count":2,"value":[{"id":25,"identifier":"10635514-0e39-4d16-acbd-2720cd804834","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Areas"},{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}]}'
+      string: '{"count":2,"value":[{"id":10607,"identifier":"089dc4d4-d455-468c-a558-33415ce63938","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Areas"},{"id":10604,"identifier":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 7a23a8f9-b7b1-441b-a58b-7052c1f48cbe
+      - cdcd8005-a28f-49c0-b318-3af94c44af4a
       cache-control:
       - no-cache
       content-length:
-      - '623'
+      - '625'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:37 GMT
+      - Tue, 31 Mar 2026 18:17:19 GMT
       expires:
       - '-1'
       p3p:
@@ -1076,13 +1227,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 68AC7360CB104F5EAEEE454FA2DFAA4D Ref B: MAA01EDGE1419 Ref C: 2023-12-22T11:25:37Z'
+      - 'Ref A: C637E010021C40EC8B77C63968878C99 Ref B: PNQ231110906023 Ref C: 2026-03-31T18:17:19Z'
       x-tfs-processid:
-      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      - ca73b85e-7cab-47c0-aac9-794ab250907f
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 7a23a8f9-b7b1-441b-a58b-7052c1f48cbe
+      - cdcd8005-a28f-49c0-b318-3af94c44af4a
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1105,36 +1256,36 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003
   response:
     body:
-      string: '{"id":28,"identifier":"01ba0f14-ea75-45da-becf-84d115ed65ca","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"attributes":{"startDate":"2019-06-17T00:00:00Z","finishDate":"2019-06-28T00:00:00Z"},"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000005","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"}'
+      string: '{"id":10610,"identifier":"98628b35-c51c-4cae-b5b7-38ff1def5d10","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"attributes":{"startDate":"2019-06-17T00:00:00Z","finishDate":"2019-06-28T00:00:00Z"},"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000005","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 90ab042f-f73a-4124-a874-408d2b74caea
+      - 8690ec59-f76c-4836-b210-7ca8a0b05dcf
       cache-control:
       - no-cache
       content-length:
-      - '856'
+      - '857'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:37 GMT
+      - Tue, 31 Mar 2026 18:17:19 GMT
       expires:
       - '-1'
       location:
-      - https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005
+      - https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
@@ -1151,13 +1302,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 2E6B19BDCFDE4DEAB165117E3C1AA821 Ref B: MAA01EDGE0417 Ref C: 2023-12-22T11:25:38Z'
+      - 'Ref A: 52D6C127BA4944479DB175BA6897A0A7 Ref B: PNQ231110909031 Ref C: 2026-03-31T18:17:20Z'
       x-tfs-processid:
-      - 4b55c8de-2551-460b-98bd-bd7952170718
+      - 17336af7-6c3b-47da-a16f-940953142346
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 90ab042f-f73a-4124-a874-408d2b74caea
+      - 8690ec59-f76c-4836-b210-7ca8a0b05dcf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1177,34 +1328,34 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=2
   response:
     body:
-      string: '{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":24,"identifier":"c2ce962d-4ebc-494c-b3da-d438e48ec151","name":"Sprint
+      string: '{"id":10604,"identifier":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":10606,"identifier":"c736c58f-3607-4fa5-bcc8-937b56dbd118","name":"Sprint
         1","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\Sprint
-        1","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/Sprint%201"},{"id":26,"identifier":"6871dc36-b791-4360-a36f-41dfcb7b8d84","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":true,"children":[{"id":27,"identifier":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},{"id":28,"identifier":"01ba0f14-ea75-45da-becf-84d115ed65ca","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"attributes":{"startDate":"2019-06-17T00:00:00Z","finishDate":"2019-06-28T00:00:00Z"},"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000005","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"}],"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}'
+        1","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/Sprint%201"},{"id":10608,"identifier":"a384788e-738c-4d8a-85eb-382aae10b905","name":"teamName1_000002_Root_Itr_000003","structureType":"iteration","hasChildren":true,"children":[{"id":10609,"identifier":"de824369-0007-47c5-90c3-730f387941d8","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},{"id":10610,"identifier":"98628b35-c51c-4cae-b5b7-38ff1def5d10","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"attributes":{"startDate":"2019-06-17T00:00:00Z","finishDate":"2019-06-28T00:00:00Z"},"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000005","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000005"}],"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 7a23aa14-b7b1-441b-a58b-7052c1f48cbe
+      - 5906e465-c35e-4e2c-95ae-c20fc252afe4
       cache-control:
       - no-cache
       content-length:
-      - '2083'
+      - '2088'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:37 GMT
+      - Tue, 31 Mar 2026 18:17:19 GMT
       expires:
       - '-1'
       p3p:
@@ -1225,13 +1376,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: AE8B9D31727742B1B5CD19F6CDBFC23A Ref B: MAA01EDGE1109 Ref C: 2023-12-22T11:25:38Z'
+      - 'Ref A: B10DDC87AC094308B65E6B2A5E3C719D Ref B: PNQ231110908042 Ref C: 2026-03-31T18:17:20Z'
       x-tfs-processid:
-      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      - ef62c8d8-57d0-45d9-9945-591841fe0702
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 7a23aa14-b7b1-441b-a58b-7052c1f48cbe
+      - 5906e465-c35e-4e2c-95ae-c20fc252afe4
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1251,32 +1402,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes?ids=27
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes?ids=10609
   response:
     body:
-      string: '{"count":1,"value":[{"id":27,"identifier":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}]}'
+      string: '{"count":1,"value":[{"id":10609,"identifier":"de824369-0007-47c5-90c3-730f387941d8","name":"Child_Itr_000004","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 90ab060d-f73a-4124-a874-408d2b74caea
+      - 87d01ccb-a25d-447b-958a-cb6b0b789adf
       cache-control:
       - no-cache
       content-length:
-      - '792'
+      - '793'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:39 GMT
+      - Tue, 31 Mar 2026 18:17:20 GMT
       expires:
       - '-1'
       p3p:
@@ -1297,13 +1448,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: F004C35A6E47403290D1488ADDB7C20F Ref B: MAA01EDGE0511 Ref C: 2023-12-22T11:25:39Z'
+      - 'Ref A: 4EE4958B42314D5590C4AEFA0B7E5D26 Ref B: PNQ231110906031 Ref C: 2026-03-31T18:17:20Z'
       x-tfs-processid:
-      - 4b55c8de-2551-460b-98bd-bd7952170718
+      - 80c25b53-e900-455d-b014-2482382944d4
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 90ab060d-f73a-4124-a874-408d2b74caea
+      - 87d01ccb-a25d-447b-958a-cb6b0b789adf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1323,32 +1474,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes?$depth=0
   response:
     body:
-      string: '{"count":2,"value":[{"id":25,"identifier":"10635514-0e39-4d16-acbd-2720cd804834","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Areas"},{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}]}'
+      string: '{"count":2,"value":[{"id":10607,"identifier":"089dc4d4-d455-468c-a558-33415ce63938","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Areas"},{"id":10604,"identifier":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 90ab0115-f73a-4124-a874-408d2b74caea
+      - 8690f3c9-f76c-4836-b210-7ca8a0b05dcf
       cache-control:
       - no-cache
       content-length:
-      - '623'
+      - '625'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:39 GMT
+      - Tue, 31 Mar 2026 18:17:20 GMT
       expires:
       - '-1'
       p3p:
@@ -1369,13 +1520,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 699126CF81EC4053814D2F778756C6A9 Ref B: MAA01EDGE0819 Ref C: 2023-12-22T11:25:39Z'
+      - 'Ref A: 3C1AB1CE28B54AF1B7BE944D823E8950 Ref B: PNQ231110909036 Ref C: 2026-03-31T18:17:20Z'
       x-tfs-processid:
-      - 4b55c8de-2551-460b-98bd-bd7952170718
+      - 17336af7-6c3b-47da-a16f-940953142346
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 90ab0115-f73a-4124-a874-408d2b74caea
+      - 8690f3c9-f76c-4836-b210-7ca8a0b05dcf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1384,7 +1535,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"id": 28}'
+    body: '{"id": 10610}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -1393,40 +1544,40 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '12'
+      - '13'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003%5CChild_Itr_000004
   response:
     body:
-      string: '{"id":28,"identifier":"01ba0f14-ea75-45da-becf-84d115ed65ca","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"}'
+      string: '{"id":10610,"identifier":"98628b35-c51c-4cae-b5b7-38ff1def5d10","name":"Child_Itr_000005","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 7a23acd2-b7b1-441b-a58b-7052c1f48cbe
+      - 87d01cec-a25d-447b-958a-cb6b0b789adf
       cache-control:
       - no-cache
       content-length:
-      - '839'
+      - '840'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:39 GMT
+      - Tue, 31 Mar 2026 18:17:20 GMT
       expires:
       - '-1'
       location:
-      - https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005
+      - https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
@@ -1445,13 +1596,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: A6F6902729AA41C78ADE4729B117E853 Ref B: MAA01EDGE0413 Ref C: 2023-12-22T11:25:39Z'
+      - 'Ref A: 07A0F332D8DB4E909C30F6698DEF01CD Ref B: PNQ231110907029 Ref C: 2026-03-31T18:17:20Z'
       x-tfs-processid:
-      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      - 80c25b53-e900-455d-b014-2482382944d4
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 7a23acd2-b7b1-441b-a58b-7052c1f48cbe
+      - 87d01cec-a25d-447b-958a-cb6b0b789adf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1471,32 +1622,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003%5CChild_Itr_000004
   response:
     body:
-      string: '{"id":27,"identifier":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
+      string: '{"id":10609,"identifier":"de824369-0007-47c5-90c3-730f387941d8","name":"Child_Itr_000004","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 90ab03b8-f73a-4124-a874-408d2b74caea
+      - 5906e4db-c35e-4e2c-95ae-c20fc252afe4
       cache-control:
       - no-cache
       content-length:
-      - '769'
+      - '770'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:40 GMT
+      - Tue, 31 Mar 2026 18:17:20 GMT
       expires:
       - '-1'
       p3p:
@@ -1517,13 +1668,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: BA1E07398FF74F1DA4B0BF16BD64B6D4 Ref B: MAA01EDGE1213 Ref C: 2023-12-22T11:25:40Z'
+      - 'Ref A: 7837813B13A7449280101391B6A9C3AF Ref B: PNQ231110907060 Ref C: 2026-03-31T18:17:20Z'
       x-tfs-processid:
-      - 4b55c8de-2551-460b-98bd-bd7952170718
+      - ef62c8d8-57d0-45d9-9945-591841fe0702
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 90ab03b8-f73a-4124-a874-408d2b74caea
+      - 5906e4db-c35e-4e2c-95ae-c20fc252afe4
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1532,9 +1683,9 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"url": "https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004",
-      "_links": {}, "attributes": {}, "hasChildren": true, "id": 27, "identifier":
-      "6250724f-7e8d-41a9-a7c3-9297aa6c4624", "name": "Child_Itr_000004", "structureType":
+    body: '{"url": "https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004",
+      "_links": {}, "attributes": {}, "hasChildren": true, "id": 10609, "identifier":
+      "de824369-0007-47c5-90c3-730f387941d8", "name": "Child_Itr_000004", "structureType":
       "iteration"}'
     headers:
       Accept:
@@ -1544,40 +1695,40 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '353'
+      - '354'
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations/%5CteamName1_000002_Root_Itr_000003%5CChild_Itr_000004
   response:
     body:
-      string: '{"id":27,"identifier":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
+      string: '{"id":10609,"identifier":"de824369-0007-47c5-90c3-730f387941d8","name":"Child_Itr_000004","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"parent":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 190da41a-3088-4e8e-99fb-81e826079317
+      - cdcd80e7-a28f-49c0-b318-3af94c44af4a
       cache-control:
       - no-cache
       content-length:
-      - '769'
+      - '770'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:40 GMT
+      - Tue, 31 Mar 2026 18:17:20 GMT
       expires:
       - '-1'
       location:
-      - https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004
+      - https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004
       p3p:
       - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
         STA UNI COM INT PHY ONL FIN PUR LOC CNT"
@@ -1596,13 +1747,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: BD277BBECCFF42A2973DDDF600453BE9 Ref B: MAA01EDGE0909 Ref C: 2023-12-22T11:25:40Z'
+      - 'Ref A: C82AA431D192424A8DC726AA8D3FD642 Ref B: PNQ231110909031 Ref C: 2026-03-31T18:17:20Z'
       x-tfs-processid:
-      - 0de3b1be-f6c9-427b-99f7-962fa8ab8ee7
+      - ca73b85e-7cab-47c0-aac9-794ab250907f
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 190da41a-3088-4e8e-99fb-81e826079317
+      - cdcd80e7-a28f-49c0-b318-3af94c44af4a
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1622,12 +1773,12 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
@@ -1639,7 +1790,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f53f7c6e-4dd0-4c6e-848c-432e1034f8d1
+      - 8690f390-f76c-4836-b210-7ca8a0b05dcf
       cache-control:
       - no-cache
       content-length:
@@ -1647,7 +1798,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:41 GMT
+      - Tue, 31 Mar 2026 18:17:20 GMT
       expires:
       - '-1'
       p3p:
@@ -1668,13 +1819,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 37E27C16A09444FA97FF3BC14B689143 Ref B: MAA01EDGE0419 Ref C: 2023-12-22T11:25:41Z'
+      - 'Ref A: 9A9C06130188403883F3803E9CB9FC08 Ref B: PNQ231110909036 Ref C: 2026-03-31T18:17:20Z'
       x-tfs-processid:
-      - 0c6da6c3-c88f-46e1-a986-517572a7a8ca
+      - 17336af7-6c3b-47da-a16f-940953142346
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - f53f7c6e-4dd0-4c6e-848c-432e1034f8d1
+      - 8690f390-f76c-4836-b210-7ca8a0b05dcf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1683,7 +1834,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"id": "6871dc36-b791-4360-a36f-41dfcb7b8d84"}'
+    body: '{"id": "a384788e-738c-4d8a-85eb-382aae10b905"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -1696,12 +1847,12 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
@@ -1715,7 +1866,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f53f7f13-4dd0-4c6e-848c-432e1034f8d1
+      - cdcd8f5d-a28f-49c0-b318-3af94c44af4a
       cache-control:
       - no-cache
       content-length:
@@ -1723,7 +1874,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 22 Dec 2023 11:25:41 GMT
+      - Tue, 31 Mar 2026 18:17:20 GMT
       expires:
       - '-1'
       p3p:
@@ -1742,13 +1893,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 527B8B77197044FD84909FC31A382842 Ref B: MAA01EDGE1413 Ref C: 2023-12-22T11:25:41Z'
+      - 'Ref A: 460D08D6383F4DBAA910D25B188D990C Ref B: PNQ231110906023 Ref C: 2026-03-31T18:17:21Z'
       x-tfs-processid:
-      - 0c6da6c3-c88f-46e1-a986-517572a7a8ca
+      - ca73b85e-7cab-47c0-aac9-794ab250907f
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - f53f7f13-4dd0-4c6e-848c-432e1034f8d1
+      - cdcd8f5d-a28f-49c0-b318-3af94c44af4a
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1768,24 +1919,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
   response:
     body:
-      string: '{"backlogIteration":{"id":"00000000-0000-0000-0000-000000000000"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/teamfieldvalues"}}}'
+      string: '{"backlogIteration":{"id":"00000000-0000-0000-0000-000000000000"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/teams/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/teamfieldvalues"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b50b83ff-6804-4274-9026-7a8fb94a0e2f
+      - f4fb1eae-2089-4b0a-8ab6-60f57e515775
       cache-control:
       - no-cache
       content-length:
@@ -1793,7 +1944,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:42 GMT
+      - Tue, 31 Mar 2026 18:17:20 GMT
       expires:
       - '-1'
       p3p:
@@ -1814,13 +1965,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: D4A0FBB0C9814BE0AEB2FD88872DA5D5 Ref B: MAA01EDGE1218 Ref C: 2023-12-22T11:25:42Z'
+      - 'Ref A: E8B90D6C173A43D1963FC5EA54A3BDC5 Ref B: PNQ231110907025 Ref C: 2026-03-31T18:17:21Z'
       x-tfs-processid:
-      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      - f295e51c-8c89-41d2-9c33-3459dbe464cd
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - b50b83ff-6804-4274-9026-7a8fb94a0e2f
+      - f4fb1eae-2089-4b0a-8ab6-60f57e515775
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1829,7 +1980,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"backlogIteration": "c54785c0-7b74-4526-ab99-60c50710b52c"}'
+    body: '{"backlogIteration": "ceb6d70c-a9b1-486e-921f-844fd47ec3d0"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -1842,24 +1993,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
   response:
     body:
-      string: '{"backlogIteration":{"id":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}}}'
+      string: '{"backlogIteration":{"id":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/teams/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b50b820d-6804-4274-9026-7a8fb94a0e2f
+      - f4fb1e8e-2089-4b0a-8ab6-60f57e515775
       cache-control:
       - no-cache
       content-length:
@@ -1867,7 +2018,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:42 GMT
+      - Tue, 31 Mar 2026 18:17:20 GMT
       expires:
       - '-1'
       p3p:
@@ -1888,13 +2039,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: DDAE806F7F9C4D9CA9FEF8F09527F550 Ref B: MAA01EDGE1017 Ref C: 2023-12-22T11:25:43Z'
+      - 'Ref A: 6E8833DDDC2A4541896EE6006BAE7977 Ref B: PNQ231110907025 Ref C: 2026-03-31T18:17:21Z'
       x-tfs-processid:
-      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      - f295e51c-8c89-41d2-9c33-3459dbe464cd
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - b50b820d-6804-4274-9026-7a8fb94a0e2f
+      - f4fb1e8e-2089-4b0a-8ab6-60f57e515775
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1914,24 +2065,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
   response:
     body:
-      string: '{"backlogIteration":{"id":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}}}'
+      string: '{"backlogIteration":{"id":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":null,"defaultIterationMacro":"@currentIteration","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/teams/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 7a23a569-b7b1-441b-a58b-7052c1f48cbe
+      - 8690f313-f76c-4836-b210-7ca8a0b05dcf
       cache-control:
       - no-cache
       content-length:
@@ -1939,7 +2090,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:42 GMT
+      - Tue, 31 Mar 2026 18:17:21 GMT
       expires:
       - '-1'
       p3p:
@@ -1960,13 +2111,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 3A4DD1CB86674D3196BD19C45A390127 Ref B: MAA01EDGE1009 Ref C: 2023-12-22T11:25:43Z'
+      - 'Ref A: A400BB18E8204FEC90AF71AD1D6FC71D Ref B: PNQ231110908062 Ref C: 2026-03-31T18:17:21Z'
       x-tfs-processid:
-      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      - 17336af7-6c3b-47da-a16f-940953142346
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 7a23a569-b7b1-441b-a58b-7052c1f48cbe
+      - 8690f313-f76c-4836-b210-7ca8a0b05dcf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -1975,7 +2126,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"id": "6250724f-7e8d-41a9-a7c3-9297aa6c4624"}'
+    body: '{"id": "de824369-0007-47c5-90c3-730f387941d8"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -1988,24 +2139,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
   response:
     body:
-      string: '{"id":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamSettings":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"capacity":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624/capacities"},"workitems":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624/workitems"},"classificationNode":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"teamDaysOff":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624/teamdaysoff"}}}'
+      string: '{"id":"de824369-0007-47c5-90c3-730f387941d8","name":"Child_Itr_000004","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/de824369-0007-47c5-90c3-730f387941d8","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/de824369-0007-47c5-90c3-730f387941d8"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/teams/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd"},"teamSettings":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations"},"capacity":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/de824369-0007-47c5-90c3-730f387941d8/capacities"},"workitems":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/de824369-0007-47c5-90c3-730f387941d8/workitems"},"classificationNode":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004"},"teamDaysOff":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/de824369-0007-47c5-90c3-730f387941d8/teamdaysoff"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f53f730f-4dd0-4c6e-848c-432e1034f8d1
+      - 8690f2f7-f76c-4836-b210-7ca8a0b05dcf
       cache-control:
       - no-cache
       content-length:
@@ -2013,7 +2164,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:44 GMT
+      - Tue, 31 Mar 2026 18:17:20 GMT
       expires:
       - '-1'
       p3p:
@@ -2032,13 +2183,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 3C6BE57457D94D8781A90687FB9BC0D5 Ref B: MAA01EDGE0612 Ref C: 2023-12-22T11:25:44Z'
+      - 'Ref A: BDD2039B13384C979BED25C4B209DB03 Ref B: PNQ231110909025 Ref C: 2026-03-31T18:17:21Z'
       x-tfs-processid:
-      - 0c6da6c3-c88f-46e1-a986-517572a7a8ca
+      - 17336af7-6c3b-47da-a16f-940953142346
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - f53f730f-4dd0-4c6e-848c-432e1034f8d1
+      - 8690f2f7-f76c-4836-b210-7ca8a0b05dcf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2047,7 +2198,7 @@ interactions:
       code: 201
       message: Created
 - request:
-    body: '{"id": "01ba0f14-ea75-45da-becf-84d115ed65ca"}'
+    body: '{"id": "98628b35-c51c-4cae-b5b7-38ff1def5d10"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -2060,24 +2211,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: POST
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
   response:
     body:
-      string: '{"id":"01ba0f14-ea75-45da-becf-84d115ed65ca","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"future"},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamSettings":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"capacity":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca/capacities"},"workitems":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca/workitems"},"classificationNode":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"},"teamDaysOff":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca/teamdaysoff"}}}'
+      string: '{"id":"98628b35-c51c-4cae-b5b7-38ff1def5d10","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"future"},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/98628b35-c51c-4cae-b5b7-38ff1def5d10","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/98628b35-c51c-4cae-b5b7-38ff1def5d10"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/teams/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd"},"teamSettings":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations"},"capacity":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/98628b35-c51c-4cae-b5b7-38ff1def5d10/capacities"},"workitems":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/98628b35-c51c-4cae-b5b7-38ff1def5d10/workitems"},"classificationNode":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003/Child_Itr_000004/Child_Itr_000005"},"teamDaysOff":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/98628b35-c51c-4cae-b5b7-38ff1def5d10/teamdaysoff"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b50b8fe5-6804-4274-9026-7a8fb94a0e2f
+      - cdcd8fc4-a28f-49c0-b318-3af94c44af4a
       cache-control:
       - no-cache
       content-length:
@@ -2085,7 +2236,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:44 GMT
+      - Tue, 31 Mar 2026 18:17:21 GMT
       expires:
       - '-1'
       p3p:
@@ -2104,13 +2255,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 110A4D8EDD4F471EA0C598E315FE445B Ref B: MAA01EDGE0512 Ref C: 2023-12-22T11:25:44Z'
+      - 'Ref A: B14A6713D9E54CEBB6D7FC1828FAE009 Ref B: PNQ231110907054 Ref C: 2026-03-31T18:17:21Z'
       x-tfs-processid:
-      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      - ca73b85e-7cab-47c0-aac9-794ab250907f
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - b50b8fe5-6804-4274-9026-7a8fb94a0e2f
+      - cdcd8fc4-a28f-49c0-b318-3af94c44af4a
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2119,7 +2270,7 @@ interactions:
       code: 201
       message: Created
 - request:
-    body: '{"defaultIteration": "6871dc36-b791-4360-a36f-41dfcb7b8d84"}'
+    body: '{"defaultIteration": "a384788e-738c-4d8a-85eb-382aae10b905"}'
     headers:
       Accept:
       - application/json;api-version=5.0
@@ -2132,24 +2283,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: PATCH
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
   response:
     body:
-      string: '{"backlogIteration":{"id":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":{"id":"6871dc36-b791-4360-a36f-41dfcb7b8d84","name":"teamName1_000002_Root_Itr_000003","path":"\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"defaultIterationMacro":null,"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":[{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"},{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}]}}'
+      string: '{"backlogIteration":{"id":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":{"id":"a384788e-738c-4d8a-85eb-382aae10b905","name":"teamName1_000002_Root_Itr_000003","path":"\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"defaultIterationMacro":null,"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/teams/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":[{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"},{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}]}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 90ab0ae9-f73a-4124-a874-408d2b74caea
+      - f4fb1e23-2089-4b0a-8ab6-60f57e515775
       cache-control:
       - no-cache
       content-length:
@@ -2157,7 +2308,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:25:45 GMT
+      - Tue, 31 Mar 2026 18:17:21 GMT
       expires:
       - '-1'
       p3p:
@@ -2178,13 +2329,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 77E098C2B1254D13B4ACECB11133AFF8 Ref B: MAA01EDGE0912 Ref C: 2023-12-22T11:25:45Z'
+      - 'Ref A: FA0989EC5E644A969165A4F7FAB84C54 Ref B: PNQ231110907034 Ref C: 2026-03-31T18:17:21Z'
       x-tfs-processid:
-      - 4b55c8de-2551-460b-98bd-bd7952170718
+      - f295e51c-8c89-41d2-9c33-3459dbe464cd
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 90ab0ae9-f73a-4124-a874-408d2b74caea
+      - f4fb1e23-2089-4b0a-8ab6-60f57e515775
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2204,24 +2355,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings
   response:
     body:
-      string: '{"backlogIteration":{"id":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":{"id":"6871dc36-b791-4360-a36f-41dfcb7b8d84","name":"teamName1_000002_Root_Itr_000003","path":"\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"defaultIterationMacro":null,"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/teams/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":[{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"},{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}]}}'
+      string: '{"backlogIteration":{"id":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","path":"","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"},"bugsBehavior":"off","workingDays":["monday","tuesday","wednesday","thursday","friday"],"backlogVisibilities":{"Microsoft.EpicCategory":true,"Microsoft.RequirementCategory":true},"defaultIteration":{"id":"a384788e-738c-4d8a-85eb-382aae10b905","name":"teamName1_000002_Root_Itr_000003","path":"\\teamName1_000002_Root_Itr_000003","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"},"defaultIterationMacro":null,"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings"},"project":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d"},"team":{"href":"https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/teams/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd"},"teamIterations":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations"},"teamFieldValues":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/teamfieldvalues"},"classificationNode":[{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"},{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/teamName1_000002_Root_Itr_000003"}]}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 90abcec3-f73a-4124-a874-408d2b74caea
+      - f4fb6015-2089-4b0a-8ab6-60f57e515775
       cache-control:
       - no-cache
       content-length:
@@ -2229,7 +2380,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:26:15 GMT
+      - Tue, 31 Mar 2026 18:17:52 GMT
       expires:
       - '-1'
       p3p:
@@ -2250,13 +2401,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: ECAE6C92E7EB4FABBA6D7FA8D6665F5E Ref B: MAA01EDGE0811 Ref C: 2023-12-22T11:26:15Z'
+      - 'Ref A: ADF6C312105F4ED79B2E2092C4CA73D6 Ref B: PNQ231110909042 Ref C: 2026-03-31T18:17:51Z'
       x-tfs-processid:
-      - 4b55c8de-2551-460b-98bd-bd7952170718
+      - f295e51c-8c89-41d2-9c33-3459dbe464cd
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 90abcec3-f73a-4124-a874-408d2b74caea
+      - f4fb6015-2089-4b0a-8ab6-60f57e515775
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2276,24 +2427,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
   response:
     body:
-      string: '{"count":2,"value":[{"id":"6250724f-7e8d-41a9-a7c3-9297aa6c4624","name":"Child_Itr_000004","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624"},{"id":"01ba0f14-ea75-45da-becf-84d115ed65ca","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"future"},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca"}]}'
+      string: '{"count":2,"value":[{"id":"de824369-0007-47c5-90c3-730f387941d8","name":"Child_Itr_000004","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/de824369-0007-47c5-90c3-730f387941d8"},{"id":"98628b35-c51c-4cae-b5b7-38ff1def5d10","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"future"},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/98628b35-c51c-4cae-b5b7-38ff1def5d10"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 90abc98d-f73a-4124-a874-408d2b74caea
+      - 2040bccd-965f-499a-8200-e21653a4341f
       cache-control:
       - no-cache
       content-length:
@@ -2301,7 +2452,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:26:15 GMT
+      - Tue, 31 Mar 2026 18:17:52 GMT
       expires:
       - '-1'
       p3p:
@@ -2322,13 +2473,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 7399FC28A4FD4CC2879CC27B9A1C21C6 Ref B: MAA01EDGE1405 Ref C: 2023-12-22T11:26:16Z'
+      - 'Ref A: 0C66E0408E5748DC88811DBE700E5E20 Ref B: PNQ231110907054 Ref C: 2026-03-31T18:17:52Z'
       x-tfs-processid:
-      - 4b55c8de-2551-460b-98bd-bd7952170718
+      - 1fe68555-dd80-40aa-ac4c-54cfc066dccd
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 90abc98d-f73a-4124-a874-408d2b74caea
+      - 2040bccd-965f-499a-8200-e21653a4341f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2350,16 +2501,16 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations/6250724f-7e8d-41a9-a7c3-9297aa6c4624
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations/de824369-0007-47c5-90c3-730f387941d8
   response:
     body:
       string: ''
@@ -2367,11 +2518,11 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 190c6328-3088-4e8e-99fb-81e826079317
+      - f4fb61d8-2089-4b0a-8ab6-60f57e515775
       cache-control:
       - no-cache
       date:
-      - Fri, 22 Dec 2023 11:26:15 GMT
+      - Tue, 31 Mar 2026 18:17:51 GMT
       expires:
       - '-1'
       p3p:
@@ -2390,13 +2541,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: FE772D91688848229C5FCC0ED4385FC5 Ref B: MAA01EDGE1212 Ref C: 2023-12-22T11:26:16Z'
+      - 'Ref A: 948A1B681E9E4B18B3129276E10BC075 Ref B: PNQ231110908031 Ref C: 2026-03-31T18:17:52Z'
       x-tfs-processid:
-      - 0de3b1be-f6c9-427b-99f7-962fa8ab8ee7
+      - f295e51c-8c89-41d2-9c33-3459dbe464cd
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 190c6328-3088-4e8e-99fb-81e826079317
+      - f4fb61d8-2089-4b0a-8ab6-60f57e515775
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2416,24 +2567,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations
   response:
     body:
-      string: '{"count":1,"value":[{"id":"01ba0f14-ea75-45da-becf-84d115ed65ca","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/0b8b8e57-57a0-479e-8074-fcdfdb9fe8ce/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca"}]}'
+      string: '{"count":1,"value":[{"id":"98628b35-c51c-4cae-b5b7-38ff1def5d10","name":"Child_Itr_000005","path":"IterationProj_000001\\teamName1_000002_Root_Itr_000003\\Child_Itr_000004\\Child_Itr_000005","attributes":{"startDate":null,"finishDate":null,"timeFrame":"current"},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/3f4fedbd-0dd6-4ca3-85f3-842e0ca64fcd/_apis/work/teamsettings/iterations/98628b35-c51c-4cae-b5b7-38ff1def5d10"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b50a4215-6804-4274-9026-7a8fb94a0e2f
+      - 0193a75f-ef3d-4a21-8727-a4c18bb40cf0
       cache-control:
       - no-cache
       content-length:
@@ -2441,7 +2592,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:26:16 GMT
+      - Tue, 31 Mar 2026 18:17:52 GMT
       expires:
       - '-1'
       p3p:
@@ -2462,13 +2613,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 7D993FFA1AB443D6AB5810DC57CBBF76 Ref B: MAA01EDGE1419 Ref C: 2023-12-22T11:26:17Z'
+      - 'Ref A: 124EDE1A97DE4E10B8F69ECA57F0C3BC Ref B: PNQ231110906023 Ref C: 2026-03-31T18:17:52Z'
       x-tfs-processid:
-      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      - aa47a120-07cc-4130-8312-866d012d5d0c
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - b50a4215-6804-4274-9026-7a8fb94a0e2f
+      - 0193a75f-ef3d-4a21-8727-a4c18bb40cf0
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2490,16 +2641,16 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations/01ba0f14-ea75-45da-becf-84d115ed65ca
+    uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/teamName1_000002/_apis/work/teamsettings/iterations/98628b35-c51c-4cae-b5b7-38ff1def5d10
   response:
     body:
       string: ''
@@ -2507,11 +2658,11 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 90abcb1d-f73a-4124-a874-408d2b74caea
+      - 6dbb9c48-c53b-45b4-97e2-afdc5b940aae
       cache-control:
       - no-cache
       date:
-      - Fri, 22 Dec 2023 11:26:17 GMT
+      - Tue, 31 Mar 2026 18:17:51 GMT
       expires:
       - '-1'
       p3p:
@@ -2530,13 +2681,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 0C124AE93FEC41A6A1D4EDA7B0BE53CF Ref B: MAA01EDGE0412 Ref C: 2023-12-22T11:26:17Z'
+      - 'Ref A: 77ACC429A2844F28BD060408CB0FEC2B Ref B: PNQ231110908052 Ref C: 2026-03-31T18:17:52Z'
       x-tfs-processid:
-      - 4b55c8de-2551-460b-98bd-bd7952170718
+      - 6abe9380-b74b-4198-98ac-417b576bd8fc
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 90abcb1d-f73a-4124-a874-408d2b74caea
+      - 6dbb9c48-c53b-45b4-97e2-afdc5b940aae
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2556,12 +2707,12 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
@@ -2573,7 +2724,7 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 7a23e565-b7b1-441b-a58b-7052c1f48cbe
+      - 87d03b37-a25d-447b-958a-cb6b0b789adf
       cache-control:
       - no-cache
       content-length:
@@ -2581,7 +2732,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:26:18 GMT
+      - Tue, 31 Mar 2026 18:17:52 GMT
       expires:
       - '-1'
       p3p:
@@ -2602,13 +2753,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 0BB585F7105B4EAABB17622D992E9371 Ref B: MAA01EDGE0816 Ref C: 2023-12-22T11:26:18Z'
+      - 'Ref A: E5D7DC40A8DD40D7BBF65614986B666B Ref B: PNQ231110909054 Ref C: 2026-03-31T18:17:52Z'
       x-tfs-processid:
-      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      - 80c25b53-e900-455d-b014-2482382944d4
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 7a23e565-b7b1-441b-a58b-7052c1f48cbe
+      - 87d03b37-a25d-447b-958a-cb6b0b789adf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2628,32 +2779,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes?$depth=0
   response:
     body:
-      string: '{"count":2,"value":[{"id":25,"identifier":"10635514-0e39-4d16-acbd-2720cd804834","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Areas"},{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}]}'
+      string: '{"count":2,"value":[{"id":10607,"identifier":"089dc4d4-d455-468c-a558-33415ce63938","name":"IterationProj_000001","structureType":"area","hasChildren":false,"path":"\\IterationProj_000001\\Area","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Areas"},{"id":10604,"identifier":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"path":"\\IterationProj_000001\\Iteration","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}]}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - f53f35ec-4dd0-4c6e-848c-432e1034f8d1
+      - 590600b7-c35e-4e2c-95ae-c20fc252afe4
       cache-control:
       - no-cache
       content-length:
-      - '623'
+      - '625'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:26:17 GMT
+      - Tue, 31 Mar 2026 18:17:52 GMT
       expires:
       - '-1'
       p3p:
@@ -2674,13 +2825,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 47F538DCAC4D474ABD9C4DB39D38E7B3 Ref B: MAA01EDGE0907 Ref C: 2023-12-22T11:26:18Z'
+      - 'Ref A: 0CC572F467B140A1AAC95283838E5913 Ref B: PNQ231110907062 Ref C: 2026-03-31T18:17:52Z'
       x-tfs-processid:
-      - 0c6da6c3-c88f-46e1-a986-517572a7a8ca
+      - ef62c8d8-57d0-45d9-9945-591841fe0702
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - f53f35ec-4dd0-4c6e-848c-432e1034f8d1
+      - 590600b7-c35e-4e2c-95ae-c20fc252afe4
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2702,12 +2853,12 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
@@ -2719,11 +2870,11 @@ interactions:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 190c6f07-3088-4e8e-99fb-81e826079317
+      - 87d03b71-a25d-447b-958a-cb6b0b789adf
       cache-control:
       - no-cache
       date:
-      - Fri, 22 Dec 2023 11:26:18 GMT
+      - Tue, 31 Mar 2026 18:17:52 GMT
       expires:
       - '-1'
       p3p:
@@ -2742,13 +2893,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 7758966BC14247E6BE2E5C80B70D9D02 Ref B: MAA01EDGE1120 Ref C: 2023-12-22T11:26:19Z'
+      - 'Ref A: 72799BE1DCFA4F6A80FF6AE226A3909A Ref B: PNQ231110907034 Ref C: 2026-03-31T18:17:53Z'
       x-tfs-processid:
-      - 0de3b1be-f6c9-427b-99f7-962fa8ab8ee7
+      - 80c25b53-e900-455d-b014-2482382944d4
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 190c6f07-3088-4e8e-99fb-81e826079317
+      - 87d03b71-a25d-447b-958a-cb6b0b789adf
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2768,34 +2919,34 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
     uri: https://dev.azure.com/v-anvashist0376/IterationProj_000001/_apis/wit/classificationNodes/iterations?$depth=2
   response:
     body:
-      string: '{"id":22,"identifier":"c54785c0-7b74-4526-ab99-60c50710b52c","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":24,"identifier":"c2ce962d-4ebc-494c-b3da-d438e48ec151","name":"Sprint
+      string: '{"id":10604,"identifier":"ceb6d70c-a9b1-486e-921f-844fd47ec3d0","name":"IterationProj_000001","structureType":"iteration","hasChildren":true,"children":[{"id":10606,"identifier":"c736c58f-3607-4fa5-bcc8-937b56dbd118","name":"Sprint
         1","structureType":"iteration","hasChildren":false,"path":"\\IterationProj_000001\\Iteration\\Sprint
-        1","url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations/Sprint%201"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc/_apis/wit/classificationNodes/Iterations"}'
+        1","url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations/Sprint%201"}],"path":"\\IterationProj_000001\\Iteration","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}},"url":"https://dev.azure.com/v-anvashist0376/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d/_apis/wit/classificationNodes/Iterations"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b50a4e65-6804-4274-9026-7a8fb94a0e2f
+      - 0193a78f-ef3d-4a21-8727-a4c18bb40cf0
       cache-control:
       - no-cache
       content-length:
-      - '783'
+      - '785'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:26:19 GMT
+      - Tue, 31 Mar 2026 18:17:52 GMT
       expires:
       - '-1'
       p3p:
@@ -2816,13 +2967,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 40166BC9F82D435BA23731E41B53E7EC Ref B: MAA01EDGE0514 Ref C: 2023-12-22T11:26:19Z'
+      - 'Ref A: 0938D1E6B69B4FF2AE66F1446FCF8C38 Ref B: PNQ231110909034 Ref C: 2026-03-31T18:17:53Z'
       x-tfs-processid:
-      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      - aa47a120-07cc-4130-8312-866d012d5d0c
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - b50a4e65-6804-4274-9026-7a8fb94a0e2f
+      - 0193a78f-ef3d-4a21-8727-a4c18bb40cf0
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2844,24 +2995,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: DELETE
-    uri: https://dev.azure.com/v-anvashist0376/_apis/projects/8a03df55-b6ba-4839-80cc-3e3ec0c9aadc
+    uri: https://dev.azure.com/v-anvashist0376/_apis/projects/c7ffaba7-89c8-45fc-9f5c-1f3ca2d0028d
   response:
     body:
-      string: '{"id":"71be6fb5-913d-4189-b818-4bb83360e33c","status":"notSet","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/71be6fb5-913d-4189-b818-4bb83360e33c"}'
+      string: '{"id":"51f02700-7718-43c1-89a6-6aa152fa573e","status":"notSet","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/51f02700-7718-43c1-89a6-6aa152fa573e"}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - b50a4d23-6804-4274-9026-7a8fb94a0e2f
+      - 6dbb9f0a-c53b-45b4-97e2-afdc5b940aae
       cache-control:
       - no-cache
       content-length:
@@ -2869,7 +3020,7 @@ interactions:
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:26:19 GMT
+      - Tue, 31 Mar 2026 18:17:53 GMT
       expires:
       - '-1'
       p3p:
@@ -2888,13 +3039,13 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 2FD584AC19A649A4BE21F9B8CBCE351F Ref B: MAA01EDGE0814 Ref C: 2023-12-22T11:26:20Z'
+      - 'Ref A: 393113532BE949D887DFA1F56BC2FE93 Ref B: PNQ231110907029 Ref C: 2026-03-31T18:17:53Z'
       x-tfs-processid:
-      - 661bfa0e-31ae-4e7b-85cd-e2d380b90803
+      - 6abe9380-b74b-4198-98ac-417b576bd8fc
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - b50a4d23-6804-4274-9026-7a8fb94a0e2f
+      - 6dbb9f0a-c53b-45b4-97e2-afdc5b940aae
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
@@ -2914,32 +3065,32 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       User-Agent:
-      - python/3.12.8 (Linux-6.8.0-1017-azure-x86_64-with-glibc2.39) msrest/0.7.1
-        azure-devops/5.1.0b4 devOpsCli/1.0.2
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
       X-TFS-FedAuthRedirect:
       - Suppress
       X-TFS-Session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       X-VSS-ForceMsaPassThrough:
       - 'true'
     method: GET
-    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/71be6fb5-913d-4189-b818-4bb83360e33c
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/51f02700-7718-43c1-89a6-6aa152fa573e
   response:
     body:
-      string: '{"id":"71be6fb5-913d-4189-b818-4bb83360e33c","status":"succeeded","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/71be6fb5-913d-4189-b818-4bb83360e33c","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/71be6fb5-913d-4189-b818-4bb83360e33c"}}}'
+      string: '{"id":"51f02700-7718-43c1-89a6-6aa152fa573e","status":"inProgress","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/51f02700-7718-43c1-89a6-6aa152fa573e","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/51f02700-7718-43c1-89a6-6aa152fa573e"}}}'
     headers:
       access-control-expose-headers:
       - Request-Context
       activityid:
-      - 7a2c19ab-b7b1-441b-a58b-7052c1f48cbe
+      - 86910d2c-f76c-4836-b210-7ca8a0b05dcf
       cache-control:
       - no-cache
       content-length:
-      - '287'
+      - '288'
       content-type:
       - application/json; charset=utf-8; api-version=5.0
       date:
-      - Fri, 22 Dec 2023 11:26:20 GMT
+      - Tue, 31 Mar 2026 18:17:53 GMT
       expires:
       - '-1'
       p3p:
@@ -2960,13 +3111,85 @@ interactions:
       x-frame-options:
       - SAMEORIGIN
       x-msedge-ref:
-      - 'Ref A: 5881982EE89943B2ADFDE88A9D0353C6 Ref B: MAA01EDGE0809 Ref C: 2023-12-22T11:26:20Z'
+      - 'Ref A: B100D5961EF8471F81AFD9B37D1DEAE3 Ref B: PNQ231110909040 Ref C: 2026-03-31T18:17:53Z'
       x-tfs-processid:
-      - db974dbf-deb3-4e16-a9a2-f638bd661019
+      - 17336af7-6c3b-47da-a16f-940953142346
       x-tfs-session:
-      - 18f35fdf-130f-445a-abc4-aba65a8cf195
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
       x-vss-e2eid:
-      - 7a2c19ab-b7b1-441b-a58b-7052c1f48cbe
+      - 86910d2c-f76c-4836-b210-7ca8a0b05dcf
+      x-vss-senderdeploymentid:
+      - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
+      x-vss-userdata:
+      - 22157d54-1821-6536-a446-928b06348385:v-sbestala@microsoft.com
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json;api-version=5.0
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      User-Agent:
+      - python/3.12.1 (Linux-6.8.0-1044-azure-x86_64-with-glibc2.39) msrest/0.7.1
+        azure-devops/5.1.0b4 devOpsCli/1.0.3
+      X-TFS-FedAuthRedirect:
+      - Suppress
+      X-TFS-Session:
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
+      X-VSS-ForceMsaPassThrough:
+      - 'true'
+    method: GET
+    uri: https://dev.azure.com/v-anvashist0376/_apis/operations/51f02700-7718-43c1-89a6-6aa152fa573e
+  response:
+    body:
+      string: '{"id":"51f02700-7718-43c1-89a6-6aa152fa573e","status":"succeeded","url":"https://dev.azure.com/v-anvashist0376/_apis/operations/51f02700-7718-43c1-89a6-6aa152fa573e","_links":{"self":{"href":"https://dev.azure.com/v-anvashist0376/_apis/operations/51f02700-7718-43c1-89a6-6aa152fa573e"}}}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 2040ba1c-965f-499a-8200-e21653a4341f
+      cache-control:
+      - no-cache
+      content-length:
+      - '287'
+      content-type:
+      - application/json; charset=utf-8; api-version=5.0
+      date:
+      - Tue, 31 Mar 2026 18:17:54 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:0f8b2d32-fdff-4d39-87b8-548fb9450eb7
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - SAMEORIGIN
+      x-msedge-ref:
+      - 'Ref A: 8656CB51529D4492A0DE0E2641530438 Ref B: PNQ231110909036 Ref C: 2026-03-31T18:17:54Z'
+      x-tfs-processid:
+      - 1fe68555-dd80-40aa-ac4c-54cfc066dccd
+      x-tfs-session:
+      - 4283bb55-abe1-4965-bbc2-fa96cdc2f765
+      x-vss-e2eid:
+      - 2040ba1c-965f-499a-8200-e21653a4341f
       x-vss-senderdeploymentid:
       - ed30ce5c-9d0a-f73c-3580-4315c7f84d83
       x-vss-userdata:
