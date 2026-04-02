@@ -6,7 +6,7 @@ The `az devops migrations` command group manages enterprise live migrations for 
 
 - Azure DevOps CLI with the Azure DevOps extension installed.
 - Sign in using `az login` or `az devops login`.
-- Use `--org` to authenticate and resolve credentials. For ELM migrations, `--org` is the ELM service base URL.
+- Use `--org` to specify your Azure DevOps org URL (e.g., `https://dev.azure.com/myorg`).
 
 ## Required inputs
 
@@ -18,7 +18,7 @@ The `az devops migrations` command group manages enterprise live migrations for 
 
 ## Command reference
 
-- `list`: List migrations for the ELM org. Use `--include-inactive` to include completed/failed/suspended migrations.
+- `list`: List migrations for the org. Use `--include-inactive` to include completed/failed/suspended migrations.
 - `status`: Show migration status for a repository GUID.
 - `create`: Create a migration. Use `--validate-only` for pre-migration checks only.
 - `pause`: Pause an active migration.
@@ -34,26 +34,26 @@ The `az devops migrations` command group manages enterprise live migrations for 
 ### List migrations
 
 ```bash
-az devops migrations list --org https://elm.contoso.com/elmo1
+az devops migrations list --org https://dev.azure.com/myorg
 ```
 
 ### List all migrations including inactive
 
 ```bash
-az devops migrations list --org https://elm.contoso.com/elmo1 --include-inactive
+az devops migrations list --org https://dev.azure.com/myorg --include-inactive
 ```
 
 ### Check migration status
 
 ```bash
-az devops migrations status --org https://elm.contoso.com/elmo1 \
+az devops migrations status --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000
 ```
 
 ### Create a migration
 
 ```bash
-az devops migrations create --org https://elm.contoso.com/elmo1 \
+az devops migrations create --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 \
   --target-repository https://example.ghe.com/OrgName/RepoName \
   --target-owner-user-id OwnerId \
@@ -63,7 +63,7 @@ az devops migrations create --org https://elm.contoso.com/elmo1 \
 ### Create a validate-only migration
 
 ```bash
-az devops migrations create --org https://elm.contoso.com/elmo1 \
+az devops migrations create --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 \
   --target-repository https://example.ghe.com/OrgName/RepoName \
   --target-owner-user-id OwnerId \
@@ -74,33 +74,33 @@ az devops migrations create --org https://elm.contoso.com/elmo1 \
 ### Pause and resume
 
 ```bash
-az devops migrations pause --org https://elm.contoso.com/elmo1 \
+az devops migrations pause --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000
 
-az devops migrations resume --org https://elm.contoso.com/elmo1 \
+az devops migrations resume --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000
 
-az devops migrations resume --org https://elm.contoso.com/elmo1 \
+az devops migrations resume --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 --validate-only
 
-az devops migrations resume --org https://elm.contoso.com/elmo1 \
+az devops migrations resume --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 --migration
 ```
 
 ### Schedule or cancel cutover
 
 ```bash
-az devops migrations cutover set --org https://elm.contoso.com/elmo1 \
+az devops migrations cutover set --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 \
   --date 2030-12-31T11:59:00Z
 
-az devops migrations cutover cancel --org https://elm.contoso.com/elmo1 \
+az devops migrations cutover cancel --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000
 ```
 
 ### Abandon a migration
 
 ```bash
-az devops migrations abandon --org https://elm.contoso.com/elmo1 \
+az devops migrations abandon --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000
 ```
