@@ -2,6 +2,8 @@
 
 Migrate Git repositories from Azure DevOps to GitHub using the `az devops migrations` CLI commands.
 
+> **Shell note:** Examples use `\` for line continuation (bash/zsh). In PowerShell, use backtick `` ` `` instead, or put the entire command on one line.
+
 ---
 
 ## 1. Prerequisites & Setup
@@ -10,38 +12,48 @@ Migrate Git repositories from Azure DevOps to GitHub using the `az devops migrat
 
 Follow [Install the Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli).
 
-### 1.2 Install the ELM extension from the wheel file
+Verify it's installed:
 
 ```powershell
-# Remove any existing version first
+az --version
+```
+
+### 1.2 Install the ELM extension from the wheel file
+
+You'll receive a `.whl` file (e.g., `azure_devops-1.0.3-py2.py3-none-any.whl`). This is the Azure DevOps CLI extension package that contains the migration commands.
+
+```powershell
+# Remove any existing version first (ignore errors if not installed)
 az extension remove -n azure-devops
 
-# Install from wheel
+# Install from the wheel file (use the actual path to your .whl file)
 az extension add --source ./azure_devops-1.0.3-py2.py3-none-any.whl -y
 
-# Verify installation
+# Verify installation — you should see name: "azure-devops" and a version
 az extension show -n azure-devops --query "{name:name,version:version}" -o json
 ```
 
 ### 1.3 Sign in
 
 ```powershell
-# Option A: Azure AD (recommended)
+# Option A: Azure AD / Entra ID (recommended)
 az login
 
-# Option B: Personal Access Token
+# Option B: Personal Access Token (needs "Full access" or at minimum Code Read/Write scope)
 az devops login
 ```
 
 ### 1.4 Set your default ELM org (recommended)
 
-This avoids passing `--org` on every command:
+This saves you from typing `--org` on every single command:
 
 ```powershell
 az devops configure -d organization=https://<elm-base>/elmo1
 ```
 
-> **Important:** `--org` is the **ELM service base URL** (e.g., `https://elm.contoso.com/elmo1`), NOT your Azure DevOps org URL (`https://dev.azure.com/...`).
+> **Important:** `--org` is the **ELM service base URL** (e.g., `https://elm.contoso.com/elmo1`).
+> This is **NOT** your Azure DevOps org URL (`https://dev.azure.com/myorg`).
+> Ask your ELM service owner for the correct URL if you don't have it.
 
 ### 1.5 Verify your config
 
@@ -49,7 +61,7 @@ az devops configure -d organization=https://<elm-base>/elmo1
 az devops configure -l
 ```
 
-If you see a stale or wrong URL (e.g., `codedev.ms`), re-run step 1.4 with the correct URL.
+You should see your ELM URL under `organization`. If you see a wrong URL (e.g., `codedev.ms` or `dev.azure.com`), re-run step 1.4 with the correct URL.
 
 ---
 
@@ -86,21 +98,32 @@ Create (validate-only) → Check status → Pause → Resume (--migration) → M
 
 | Item | Example | How to get it |
 |---|---|---|
-| ELM service URL | `https://elm.contoso.com/elmo1` | From your ELM service owner |
-| Source repo GUID | `b3e18946-5b39-40ca-8e2f-d0eb683d8a85` | Step 3.1 below |
-| Target repo URL | `https://example.ghe.com/OrgName/RepoName` | Create the empty target repo in GitHub first |
+| ELM service URL | `https://elm.contoso.com/elmo1` | Ask your ELM service owner |
+| Azure DevOps org URL | `https://dev.azure.com/myorg` | Your ADO org (only needed for step 3.1) |
+| ADO project name | `MyProject` | The project containing the source repo |
+| ADO repo name | `my-repo` | The repo you want to migrate |
+| Target repo URL | `https://example.ghe.com/OrgName/RepoName` | Create the empty target repo in GitHub **before** starting |
 | Target owner user ID | `GeoffCoxMSFT` | The GitHub user ID who owns the target repo |
-| Agent pool name | `MigrationPool` | From your ELM service owner |
+| Agent pool name | `MigrationPool` | Ask your ELM service owner |
 
 ### 3.1 Get the source repository GUID from Azure DevOps
 
+Every migration command uses a repository GUID (not the repo name). Get it from your ADO org:
+
 ```powershell
-az repos show --org https://dev.azure.com/<ado-org>/ --project <ProjectName> --repository <RepoName> --query id -o tsv
+az repos show --org https://dev.azure.com/myorg/ --project MyProject --repository my-repo --query id -o tsv
+```
+
+Example output:
+```
+b3e18946-5b39-40ca-8e2f-d0eb683d8a85
 ```
 
 Save this GUID — you'll use it in every command below.
 
 ### 3.2 (Optional) Check for existing migrations
+
+See if any migrations already exist for your org:
 
 ```powershell
 # Active migrations only
@@ -112,100 +135,109 @@ az devops migrations list --detect false --include-inactive
 
 ### 3.3 Create a validate-only migration
 
-Start with validation to catch any issues before moving data:
+Start with validation to catch any issues **before** moving data. This runs pre-migration checks without transferring any code or PRs:
 
 ```powershell
 az devops migrations create --detect false \
-  --repository-id <GUID> \
-  --target-repository https://<target-host>/<Org>/<Repo> \
-  --target-owner-user-id <OwnerUserId> \
-  --agent-pool <PoolName> \
+  --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85 \
+  --target-repository https://example.ghe.com/OrgName/RepoName \
+  --target-owner-user-id GeoffCoxMSFT \
+  --agent-pool MigrationPool \
   --validate-only
 ```
 
-> **Tip:** If you're confident and want to skip validate-only, omit the `--validate-only` flag to create a full migration directly.
+The command returns the migration details as JSON. The migration begins immediately in the background.
 
-You can also set optional parameters at creation time:
+> **Tip:** If you're confident and want to start a full migration right away (skip validate-only), omit the `--validate-only` flag.
 
-```powershell
-az devops migrations create --detect false \
-  --repository-id <GUID> \
-  --target-repository https://<target-host>/<Org>/<Repo> \
-  --target-owner-user-id <OwnerUserId> \
-  --agent-pool <PoolName> \
-  --validate-only \
-  --cutover-date 2030-12-31T11:59:00Z \
-  --skip-validation ActivePullRequestCount,PullRequestDeltaSize
-```
+**Optional parameters you can add at creation time:**
+
+| Parameter | What it does | Example |
+|---|---|---|
+| `--cutover-date` | Pre-schedule the final cutover date | `--cutover-date 2030-12-31T11:59:00Z` |
+| `--skip-validation` | Skip specific validation checks | `--skip-validation ActivePullRequestCount,PullRequestDeltaSize` |
 
 ### 3.4 Monitor migration status
 
-Check status anytime:
+Check status anytime — run this as often as you need:
 
 ```powershell
-az devops migrations status --detect false --repository-id <GUID>
+az devops migrations status --detect false --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85
 ```
 
-For full details (all fields from the API):
+For the full JSON response (useful for debugging):
 
 ```powershell
-az devops migrations status --detect false --repository-id <GUID> -o json
+az devops migrations status --detect false --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85 -o json
 ```
 
-**What to look for:**
-- `status: Active` + `stage: Validation` → validation is running
-- `status: Active` + `stage: Synchronization` → data is syncing
-- `status: Failed` → check the error, fix the issue, then resume
-- `status: Succeeded` + `stage: Validation` → validation passed, ready to promote to migration
+**How to read the output:**
+
+| You see this | It means | What to do next |
+|---|---|---|
+| `status: Active`, `stage: Validation` | Validation is in progress | Wait, check again later |
+| `status: Active`, `stage: Synchronization` | Code/PRs are syncing | Wait, check again later |
+| `status: Succeeded` | Current phase completed | If validate-only: go to step 3.5. If migration: go to step 3.6 |
+| `status: Failed` | Something went wrong | Check the error in `-o json` output, fix the issue, then resume (step 4) |
+| `status: Suspended` | You paused it | Resume when ready (step 3.5) |
 
 ### 3.5 Promote from validate-only to full migration
 
-Once validation passes, pause and resume with `--migration` to start moving data:
+**When to do this:** After step 3.4 shows `status: Succeeded` (validation passed).
+
+You need to pause first (because the migration may still be active), then resume in migration mode:
 
 ```powershell
-# Step A: Pause the current validation
-az devops migrations pause --detect false --repository-id <GUID>
+# Step A: Pause the current migration
+az devops migrations pause --detect false --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85
 
-# Step B: Resume as a full migration
-az devops migrations resume --detect false --repository-id <GUID> --migration
+# Step B: Resume as a full migration (this starts data movement)
+az devops migrations resume --detect false --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85 --migration
 ```
 
-> **Important:** You **must pause first** if the migration is active. Running `resume` on an active migration gives: `Migration is active (status: ..., stage: ...). Pause it before resuming or changing mode.`
+> **If you get:** `Migration is active (status: ..., stage: ...). Pause it before resuming or changing mode.`
+> Run the pause command first (Step A), then retry Step B.
+
+After this, monitor with step 3.4 until `stage: Synchronization` is running.
 
 ### 3.6 Schedule cutover
 
-Once synchronization is running and you're ready to finalize:
+Once synchronization is running and you're ready to finalize the migration:
 
 ```powershell
 az devops migrations cutover set --detect false \
-  --repository-id <GUID> --date 2030-12-31T11:59:00Z
+  --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85 --date 2030-12-31T11:59:00Z
 ```
 
-Changed your mind? Cancel it:
+> **Date format:** Must be ISO 8601. Examples: `2030-12-31T11:59:00Z`, `2030-06-15T08:00:00-07:00`
+
+Changed your mind? Cancel the scheduled cutover:
 
 ```powershell
-az devops migrations cutover cancel --detect false --repository-id <GUID>
+az devops migrations cutover cancel --detect false --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85
 ```
 
 ### 3.7 Verify completion
 
-After cutover completes, check that the migration reached the `Migrated` stage:
+After cutover completes, confirm the migration finished:
 
 ```powershell
-az devops migrations status --detect false --repository-id <GUID>
+az devops migrations status --detect false --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85
 ```
 
-Expected output: `status: Succeeded`, `stage: Migrated`.
+**Success looks like:** `status: Succeeded`, `stage: Migrated`.
+
+At this point your repository has been fully migrated from Azure DevOps to GitHub. Verify the target repo in GitHub has all your code, branches, and pull requests.
 
 ### 3.8 (If needed) Abandon a migration
 
-If something went wrong and you want to start over:
+If something went wrong and you want to delete the migration entirely and start over:
 
 ```powershell
-az devops migrations abandon --detect false --repository-id <GUID>
+az devops migrations abandon --detect false --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85
 ```
 
-> **Warning:** This permanently deletes the migration. You will be prompted to confirm.
+> **Warning:** This permanently deletes the migration record. You will be prompted to confirm. After abandoning, you can create a new migration for the same repository.
 
 ---
 
@@ -213,15 +245,19 @@ az devops migrations abandon --detect false --repository-id <GUID>
 
 ### Pause and resume without changing mode
 
+If you need to temporarily stop a migration and restart it in the same mode:
+
 ```powershell
 # Pause
 az devops migrations pause --detect false --repository-id <GUID>
 
-# Resume (keeps whatever mode it was in)
+# Resume (keeps whatever mode — validate-only or full migration — it was in)
 az devops migrations resume --detect false --repository-id <GUID>
 ```
 
-### Switch back to validate-only after starting migration
+### Switch back to validate-only after starting full migration
+
+Changed your mind after promoting to full migration? You can go back:
 
 ```powershell
 az devops migrations pause --detect false --repository-id <GUID>
@@ -230,10 +266,15 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 
 ### Resume a failed migration
 
-If a migration fails, you can resume it (no pause needed since it's already stopped):
+If a migration fails (you'll see `status: Failed` in the status output), you can resume it directly — no pause needed since it's already stopped:
 
 ```powershell
+# Resume in the same mode
 az devops migrations resume --detect false --repository-id <GUID>
+
+# Or resume and switch mode at the same time
+az devops migrations resume --detect false --repository-id <GUID> --migration
+az devops migrations resume --detect false --repository-id <GUID> --validate-only
 ```
 
 ---
