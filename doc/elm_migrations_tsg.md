@@ -43,17 +43,13 @@ az login
 az devops login
 ```
 
-### 1.4 Set your default ELM org (recommended)
+### 1.4 Set your default org (recommended)
 
 This saves you from typing `--org` on every single command:
 
 ```powershell
-az devops configure -d organization=https://<elm-base>/elmo1
+az devops configure -d organization=https://dev.azure.com/<your-org>
 ```
-
-> **Important:** `--org` is the **ELM service base URL** (e.g., `https://elm.contoso.com/elmo1`).
-> This is **NOT** your Azure DevOps org URL (`https://dev.azure.com/myorg`).
-> Ask your ELM service owner for the correct URL if you don't have it.
 
 ### 1.5 Verify your config
 
@@ -61,7 +57,7 @@ az devops configure -d organization=https://<elm-base>/elmo1
 az devops configure -l
 ```
 
-You should see your ELM URL under `organization`. If you see a wrong URL (e.g., `codedev.ms` or `dev.azure.com`), re-run step 1.4 with the correct URL.
+You should see your org URL under `organization`. If you see a wrong URL (e.g., `codedev.ms` or an old org URL), re-run step 1.4 with the correct URL.
 
 ---
 
@@ -98,13 +94,12 @@ Create (validate-only) → Check status → Pause → Resume (--migration) → M
 
 | Item | Example | How to get it |
 |---|---|---|
-| ELM service URL | `https://elm.contoso.com/elmo1` | Ask your ELM service owner |
-| Azure DevOps org URL | `https://dev.azure.com/myorg` | Your ADO org (only needed for step 3.1) |
+| Azure DevOps org URL | `https://dev.azure.com/myorg` | Your ADO org URL — used for `--org` and to look up repo GUIDs |
 | ADO project name | `MyProject` | The project containing the source repo |
 | ADO repo name | `my-repo` | The repo you want to migrate |
 | Target repo URL | `https://example.ghe.com/OrgName/RepoName` | Create the empty target repo in GitHub **before** starting |
 | Target owner user ID | `GeoffCoxMSFT` | The GitHub user ID who owns the target repo |
-| Agent pool name | `MigrationPool` | Ask your ELM service owner |
+| Agent pool name | `MigrationPool` | Ask your admin |
 
 ### 3.1 Get the source repository GUID from Azure DevOps
 
@@ -296,7 +291,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 
 | Parameter | Type | Used By | Description |
 |---|---|---|---|
-| `--org` | URL | All | ELM service base URL (e.g., `https://elm.contoso.com/elmo1`). Can be set as default. |
+| `--org` | URL | All | Azure DevOps org URL (e.g., `https://dev.azure.com/myorg`). Can be set as default. |
 | `--repository-id` | GUID | All except `list` | Azure Repos repository GUID. Get from `az repos show --query id`. |
 | `--target-repository` | URL | `create` | Target repository URL (e.g., `https://example.ghe.com/OrgName/RepoName`). Validated by the server. |
 | `--target-owner-user-id` | string | `create` | Target repository owner user ID. |
@@ -313,9 +308,8 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 
 | Pitfall | Symptom | Fix |
 |---|---|---|
-| **Using ADO org URL instead of ELM URL** | 404 or unexpected errors | Use the ELM service base URL for `--org`, not `https://dev.azure.com/...` |
 | **Auto-detect overrides `--org`** | Requests go to wrong host (e.g., `codedev.ms`) | Add `--detect false` or run from a non-ADO-repo directory |
-| **Stale default org in config** | Requests go to old/dev URL (e.g., `codedev.ms`) | Run `az devops configure -d organization=<correct ELM URL>` to update |
+| **Stale default org in config** | Requests go to old/dev URL (e.g., `codedev.ms`) | Run `az devops configure -d organization=https://dev.azure.com/<your-org>` to update |
 | **Resume on an active migration** | Error: "Migration is active..." | Pause first with `az devops migrations pause`, then resume |
 | **Both `--validate-only` and `--migration` on resume** | Error: "Please specify only one..." | Use only one flag at a time |
 | **Missing `--agent-pool` on create** | Error: "--agent-pool must be specified." | Always provide `--agent-pool <PoolName>` |
@@ -330,16 +324,16 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 
 **Fix:**
 1. Run `az login` (AAD) or `az devops login` (PAT).
-2. Ensure the token/account has permission to the ELM service.
-3. Verify `--org` points to the correct ELM URL.
+2. Ensure the token/account has permission to the organization.
+3. Verify `--org` points to the correct Azure DevOps org URL.
 
 ### 404 Not Found
 
 **Symptom:** `Request failed with status 404`.
 
 **Fix:**
-1. Verify the ELM base URL is correct (e.g., `https://elm.contoso.com/elmo1`).
-2. Verify the `--repository-id` is a valid GUID that exists in the ELM service.
+1. Verify `--org` is correct (e.g., `https://dev.azure.com/myorg`).
+2. Verify the `--repository-id` is a valid GUID that exists in the organization.
 
 ### 400 Bad Request
 
@@ -355,26 +349,20 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 **Symptom:** `Request failed with status 406`.
 
 **Fix:**
-1. Verify the ELM base URL is correct.
+1. Verify `--org` is correct.
 2. Confirm you are using the latest CLI extension version.
-3. Contact the service owner if it persists.
+3. Contact your admin if it persists.
 
 ### 500 Internal Server Error / Retries Exhausted
 
 **Symptom:** `Max retries exceeded with url: ... (Caused by ResponseError('too many 500 error responses'))`.
 
 **Fix:**
-1. Check if the requests are going to the **wrong host** (e.g., `codedev.ms` instead of your ELM URL).
+1. Check if the requests are going to the **wrong host** (e.g., `codedev.ms` instead of your org URL).
    - Run `az devops configure -l` to check your default org.
-   - Fix with `az devops configure -d organization=<correct ELM URL>`.
+   - Fix with `az devops configure -d organization=https://dev.azure.com/<your-org>`.
    - Or pass `--org <correct URL> --detect false` explicitly.
-2. If the correct host is being used, the ELM service may be down — retry later or contact the service owner.
-
-### "Warning: Azure DevOps Server not supported"
-
-**Symptom:** Warning message appears but command may still work.
-
-**Fix:** This warning is expected when using non-`dev.azure.com` URLs (like ELM URLs). It can be safely ignored.
+2. If the correct host is being used, the service may be temporarily unavailable — retry later or contact your admin.
 
 ## 8. Useful Commands
 
@@ -382,8 +370,8 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 # Check extension version
 az extension show -n azure-devops --query "{name:name,version:version}" -o json
 
-# Set default org to the ELM base (so you can omit --org)
-az devops configure -d organization=https://<elm-base>/elmo1
+# Set default org (so you can omit --org)
+az devops configure -d organization=https://dev.azure.com/<your-org>
 
 # View current defaults
 az devops configure -l
