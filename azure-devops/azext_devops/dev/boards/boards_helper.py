@@ -23,5 +23,7 @@ def resolve_classification_node_path(client, path, project, structure_group):
 
 def handle_common_boards_errors(ex):
     logger.debug(ex, exc_info=True)
-    raise CLIError(str(ex.message) + "\nPlease see https://aka.ms/azure-devops-cli-troubleshooting " +
+    # Handle both Python 2 and 3 exception message formats
+    error_msg = getattr(ex, 'message', str(ex))
+    raise CLIError(error_msg + "\nPlease see https://aka.ms/azure-devops-cli-troubleshooting " +
                    'for more information on troubleshooting common errors.')
