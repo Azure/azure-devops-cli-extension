@@ -6,10 +6,10 @@ import unittest
 
 try:
     # Attempt to load mock (works on Python 3.3 and above)
-    from unittest.mock import patch, MagicMock
+    from unittest.mock import patch
 except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
-    from mock import patch, MagicMock
+    from mock import patch
 from .helper import UNIT_TEST_PAT_TOKEN
 
 class AuthenticatedTests(unittest.TestCase):
