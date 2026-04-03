@@ -6,10 +6,10 @@ import unittest
 
 try:
     # Attempt to load mock (works on Python 3.3 and above)
-    from unittest.mock import patch
+    from unittest.mock import patch, MagicMock
 except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
-    from mock import patch
+    from mock import patch, MagicMock
 from .helper import UNIT_TEST_PAT_TOKEN
 
 class AuthenticatedTests(unittest.TestCase):
@@ -26,5 +26,6 @@ class AuthenticatedTests(unittest.TestCase):
 
     def authenticate(self):
         # set return values
-        self.mock_validate_token.return_value = True
+        # Return None instead of True to prevent token validation side effects
+        self.mock_validate_token.return_value = None
         self.mock_get_credential.return_value = UNIT_TEST_PAT_TOKEN
