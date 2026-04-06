@@ -89,9 +89,9 @@ def resume_migration(repository_id=None, validate_only=False, migration=False, o
 
     migration_data = get_migration(repository_id=repository_id, organization=organization, detect=detect)
     if _is_migration_active(migration_data):
-        status = migration_data.get('status')
+        status = migration_data.get('statusRequested') or migration_data.get('status')
         stage = migration_data.get('stage')
-        raise CLIError('Migration is active (status: {}, stage: {}). Pause it before resuming or changing mode.'
+        raise CLIError('Migration is active (statusRequested: {}, stage: {}). Pause it before resuming or changing mode.'
                        .format(status, stage))
 
     validate_only_value = None
@@ -160,7 +160,7 @@ def _is_migration_active(migration):
     if not isinstance(migration, dict):
         return False
 
-    status = _normalize_state(migration.get('status'))
+    status = _normalize_state(migration.get('statusRequested') or migration.get('status'))
     if status:
         return status not in _NON_ACTIVE_STATES
 

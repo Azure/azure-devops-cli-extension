@@ -251,6 +251,16 @@ class TestMigrationCommands(unittest.TestCase):
                 resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
                                  organization=self._TEST_ORG, detect=False)
 
+    def test_resume_fails_when_active_via_statusRequested(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve:
+            mock_get.return_value = {'statusRequested': 'Active', 'stage': 'validation'}
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError):
+                resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                                 organization=self._TEST_ORG, detect=False)
+
     def test_resume_sets_validate_only(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
              patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \

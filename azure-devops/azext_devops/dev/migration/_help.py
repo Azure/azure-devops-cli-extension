@@ -10,7 +10,7 @@ def load_migration_help():
     helps['devops migrations'] = """
     type: group
     short-summary: Manage enterprise live migrations.
-    long-summary: 'This command group is a part of the azure-devops extension. For ELM migrations, --org should be the ELM service base URL (for example: https://elm.contoso.com/elmo1).'
+    long-summary: 'This command group is a part of the azure-devops extension. For ELM migrations, --org should be your Azure DevOps organization URL (for example: https://dev.azure.com/myorg).'
     """
 
     helps['devops migrations list'] = """
@@ -19,10 +19,10 @@ def load_migration_help():
     examples:
       - name: List migrations.
         text: |
-          az devops migrations list --org https://elm.contoso.com/elmo1
+          az devops migrations list --org https://dev.azure.com/myorg
       - name: List all migrations including inactive ones.
         text: |
-          az devops migrations list --org https://elm.contoso.com/elmo1 --include-inactive
+          az devops migrations list --org https://dev.azure.com/myorg --include-inactive
     """
 
     helps['devops migrations status'] = """
@@ -31,7 +31,7 @@ def load_migration_help():
     examples:
       - name: Get migration status by repository id.
         text: |
-          az devops migrations status --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000
+          az devops migrations status --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000
     """
 
     helps['devops migrations create'] = """
@@ -40,10 +40,10 @@ def load_migration_help():
     examples:
       - name: Create a migration.
         text: |
-          az devops migrations create --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://example.ghe.com/OrgName/RepoName --target-owner-user-id GeoffCoxMSFT --agent-pool MigrationPool
+          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --target-owner-user-id OwnerUserId --agent-pool MigrationPool
       - name: Create a validate-only migration.
         text: |
-          az devops migrations create --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://example.ghe.com/OrgName/RepoName --target-owner-user-id GeoffCoxMSFT --agent-pool MigrationPool --validate-only --skip-validation ActivePullRequestCount,PullRequestDeltaSize
+          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --target-owner-user-id OwnerUserId --agent-pool MigrationPool --validate-only --skip-validation ActivePullRequestCount,PullRequestDeltaSize
     """
 
     helps['devops migrations pause'] = """
@@ -57,13 +57,13 @@ def load_migration_help():
     examples:
       - name: Resume using the current mode.
         text: |
-          az devops migrations resume --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000
+          az devops migrations resume --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000
       - name: Resume in validate-only mode.
         text: |
-          az devops migrations resume --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --validate-only
+          az devops migrations resume --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --validate-only
       - name: Continue migration (clears validate-only mode).
         text: |
-          az devops migrations resume --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --migration
+          az devops migrations resume --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --migration
     """
 
     helps['devops migrations abandon'] = """
@@ -82,7 +82,7 @@ def load_migration_help():
     examples:
       - name: Schedule cutover.
         text: |
-          az devops migrations cutover set --org https://elm.contoso.com/elmo1 --repository-id 00000000-0000-0000-0000-000000000000 --date 2030-12-31T11:59:00Z
+          az devops migrations cutover set --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --date 2030-12-31T11:59:00Z
     """
 
     helps['devops migrations cutover cancel'] = """
