@@ -57,8 +57,6 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
     skip_validation = _normalize_optional_text(skip_validation)
     if not target_owner_user_id:
         raise CLIError('--target-owner-user-id must be specified.')
-    if not agent_pool:
-        raise CLIError('--agent-pool must be specified.')
 
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
@@ -67,8 +65,9 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
         'targetRepository': target_repository,
         'targetOwnerUserId': target_owner_user_id,
         'validateOnly': bool(validate_only),
-        'agentPoolName': agent_pool
     }
+    if agent_pool:
+        payload['agentPoolName'] = agent_pool
     if cutover_date is not None:
         payload['scheduledCutoverDate'] = cutover_date
     if skip_validation is not None:

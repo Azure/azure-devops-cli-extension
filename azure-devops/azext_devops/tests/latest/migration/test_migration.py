@@ -72,8 +72,13 @@ class TestMigrationCommands(unittest.TestCase):
             payload = mock_send.call_args[0][3]
             self.assertFalse(payload['validateOnly'])
 
-    def test_create_migration_requires_agent_pool(self):
-        with self.assertRaises(CLIError) as ctx:
+    def test_create_migration_without_agent_pool(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
@@ -81,7 +86,9 @@ class TestMigrationCommands(unittest.TestCase):
                 organization=self._TEST_ORG,
                 detect=False
             )
-        self.assertIn('--agent-pool', str(ctx.exception))
+
+            payload = mock_send.call_args[0][3]
+            self.assertNotIn('agentPoolName', payload)
 
     def test_create_migration_payload_includes_optional_fields(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -108,8 +115,13 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(payload['agentPoolName'], 'MigrationPool')
             self.assertEqual(payload['skipValidation'], 'ActivePullRequestCount,PullRequestDeltaSize')
 
-    def test_create_migration_rejects_empty_agent_pool(self):
-        with self.assertRaises(CLIError) as ctx:
+    def test_create_migration_empty_agent_pool_omitted(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
@@ -118,7 +130,9 @@ class TestMigrationCommands(unittest.TestCase):
                 organization=self._TEST_ORG,
                 detect=False
             )
-        self.assertIn('--agent-pool', str(ctx.exception))
+
+            payload = mock_send.call_args[0][3]
+            self.assertNotIn('agentPoolName', payload)
 
     def test_create_migration_omits_empty_skip_validation(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
