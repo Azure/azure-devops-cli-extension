@@ -104,7 +104,7 @@ class TestMigrationCommands(unittest.TestCase):
                 validate_only=True,
                 cutover_date='2030-12-31T11:59:00Z',
                 agent_pool='MigrationPool',
-                skip_validation='ActivePullRequestCount,PullRequestDeltaSize',
+                skip_validation=2147483647,
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -113,7 +113,7 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertTrue(payload['validateOnly'])
             self.assertEqual(payload['scheduledCutoverDate'], '2030-12-31T11:59:00Z')
             self.assertEqual(payload['agentPoolName'], 'MigrationPool')
-            self.assertEqual(payload['skipValidation'], 'ActivePullRequestCount,PullRequestDeltaSize')
+            self.assertEqual(payload['skipValidation'], 2147483647)
 
     def test_create_migration_empty_agent_pool_omitted(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -134,7 +134,7 @@ class TestMigrationCommands(unittest.TestCase):
             payload = mock_send.call_args[0][3]
             self.assertNotIn('agentPoolName', payload)
 
-    def test_create_migration_omits_empty_skip_validation(self):
+    def test_create_migration_omits_none_skip_validation(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._send_request') as mock_send:
@@ -146,7 +146,7 @@ class TestMigrationCommands(unittest.TestCase):
                 target_repository='https://example.ghe.com/OrgName/RepoName',
                 target_owner_user_id='GeoffCoxMSFT',
                 agent_pool='MigrationPool',
-                skip_validation='   ',
+                skip_validation=None,
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -154,7 +154,7 @@ class TestMigrationCommands(unittest.TestCase):
             payload = mock_send.call_args[0][3]
             self.assertNotIn('skipValidation', payload)
 
-    def test_create_migration_trims_optional_fields(self):
+    def test_create_migration_trims_agent_pool(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._send_request') as mock_send:
@@ -166,14 +166,14 @@ class TestMigrationCommands(unittest.TestCase):
                 target_repository='https://example.ghe.com/OrgName/RepoName',
                 target_owner_user_id='GeoffCoxMSFT',
                 agent_pool='  MigrationPool  ',
-                skip_validation=' ActivePullRequestCount, PullRequestDeltaSize ',
+                skip_validation=42,
                 organization=self._TEST_ORG,
                 detect=False
             )
 
             payload = mock_send.call_args[0][3]
             self.assertEqual(payload['agentPoolName'], 'MigrationPool')
-            self.assertEqual(payload['skipValidation'], 'ActivePullRequestCount, PullRequestDeltaSize')
+            self.assertEqual(payload['skipValidation'], 42)
 
     def test_create_migration_passes_target_repository_to_api(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -281,7 +281,7 @@ class TestMigrationCommands(unittest.TestCase):
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._send_request') as mock_send:
             mock_send.return_value = {}
-            mock_get.return_value = {'status': 'succeeded'}
+            mock_get.return_value = {'status': 'suspended'}
             mock_resolve.return_value = self._TEST_ORG
 
             resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
@@ -324,6 +324,80 @@ class TestMigrationCommands(unittest.TestCase):
             payload = mock_send.call_args[0][3]
             self.assertNotIn('validateOnly', payload)
             self.assertEqual(payload['statusRequested'], 'active')
+
+    def test_resume_migration_promotes_validate_only_succeeded(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_get.return_value = {
+                'status': 'succeeded',
+                'validateOnly': True,
+                'targetRepository': 'https://ghe.example.com/org/repo',
+                'targetOwnerUserId': 'testuser',
+                'agentPoolName': 'MyPool',
+                'scheduledCutoverDate': '2030-06-01T00:00:00Z',
+            }
+            mock_resolve.return_value = self._TEST_ORG
+
+            resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                             migration=True,
+                             organization=self._TEST_ORG, detect=False)
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'POST')
+            payload = args[3]
+            self.assertFalse(payload['validateOnly'])
+            self.assertEqual(payload['skipValidation'], 2147483647)
+            self.assertEqual(payload['targetRepository'], 'https://ghe.example.com/org/repo')
+            self.assertEqual(payload['targetOwnerUserId'], 'testuser')
+            self.assertEqual(payload['agentPoolName'], 'MyPool')
+            self.assertEqual(payload['scheduledCutoverDate'], '2030-06-01T00:00:00Z')
+
+    def test_resume_migration_promote_omits_null_optional_fields(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_get.return_value = {
+                'status': 'succeeded',
+                'validateOnly': True,
+                'targetRepository': 'https://ghe.example.com/org/repo',
+                'targetOwnerUserId': 'testuser',
+            }
+            mock_resolve.return_value = self._TEST_ORG
+
+            resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                             migration=True,
+                             organization=self._TEST_ORG, detect=False)
+
+            payload = mock_send.call_args[0][3]
+            self.assertNotIn('agentPoolName', payload)
+            self.assertNotIn('scheduledCutoverDate', payload)
+
+    def test_resume_succeeded_without_migration_flag_errors(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve:
+            mock_get.return_value = {'status': 'succeeded', 'validateOnly': True}
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError) as ctx:
+                resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                                 organization=self._TEST_ORG, detect=False)
+            self.assertIn('--migration', str(ctx.exception))
+
+    def test_resume_succeeded_full_migration_errors(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve:
+            mock_get.return_value = {'status': 'succeeded', 'validateOnly': False}
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError) as ctx:
+                resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                                 organization=self._TEST_ORG, detect=False)
+            self.assertIn('abandon', str(ctx.exception))
 
 
 if __name__ == '__main__':

@@ -54,7 +54,6 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
                      validate_only=False, cutover_date=None, agent_pool=None,
                      skip_validation=None, organization=None, detect=None):
     agent_pool = _normalize_optional_text(agent_pool)
-    skip_validation = _normalize_optional_text(skip_validation)
     if not target_owner_user_id:
         raise CLIError('--target-owner-user-id must be specified.')
 
@@ -86,12 +85,26 @@ def resume_migration(repository_id=None, validate_only=False, migration=False, o
     if validate_only and migration:
         raise CLIError('Please specify only one of --validate-only or --migration.')
 
-    migration_data = get_migration(repository_id=repository_id, organization=organization, detect=detect)
+    organization = _resolve_org_for_auth(organization, detect)
+    migration_data = get_migration(repository_id=repository_id, organization=organization, detect=None)
+
+    if migration and _is_validate_only_succeeded(migration_data):
+        return _promote_to_full_migration(migration_data, repository_id, organization)
+
     if _is_migration_active(migration_data):
         status = migration_data.get('statusRequested') or migration_data.get('status')
         stage = migration_data.get('stage')
         raise CLIError('Migration is active (statusRequested: {}, stage: {}). Pause it before resuming or changing mode.'
                        .format(status, stage))
+
+    if _is_migration_terminal(migration_data):
+        status = _normalize_state(migration_data.get('status'))
+        is_val_only = migration_data.get('validateOnly') is True
+        if status == 'succeeded' and is_val_only:
+            raise CLIError('Validation already succeeded. Use --migration to promote to a full migration, '
+                           'or abandon and create a new one.')
+        if status == 'succeeded':
+            raise CLIError('Migration already succeeded. Use abandon to reset, then create a new migration.')
 
     validate_only_value = None
     if validate_only:
@@ -99,7 +112,7 @@ def resume_migration(repository_id=None, validate_only=False, migration=False, o
     elif migration:
         validate_only_value = False
 
-    return _update_migration(repository_id, organization, detect,
+    return _update_migration(repository_id, organization, None,
                              validate_only=validate_only_value, status_requested='active')
 
 
@@ -170,6 +183,41 @@ def _is_migration_active(migration):
     return False
 
 
+def _is_migration_terminal(migration):
+    if not isinstance(migration, dict):
+        return False
+    status = _normalize_state(migration.get('status'))
+    return status in ('succeeded', 'failed')
+
+
+def _is_validate_only_succeeded(migration):
+    if not isinstance(migration, dict):
+        return False
+    return (migration.get('validateOnly') is True
+            and _normalize_state(migration.get('status')) == 'succeeded')
+
+
+def _promote_to_full_migration(migration_data, repository_id, organization):
+    repository_id = _resolve_repository_id(repository_id)
+    client = _get_service_client(organization)
+    url = _build_migration_url(organization, repository_id)
+
+    payload = {
+        'targetRepository': migration_data.get('targetRepository'),
+        'targetOwnerUserId': migration_data.get('targetOwnerUserId'),
+        'validateOnly': False,
+        'skipValidation': 2147483647,
+    }
+    agent_pool = migration_data.get('agentPoolName')
+    if agent_pool:
+        payload['agentPoolName'] = agent_pool
+    cutover_date = migration_data.get('scheduledCutoverDate')
+    if cutover_date:
+        payload['scheduledCutoverDate'] = cutover_date
+
+    return _send_request(client, 'POST', url, payload)
+
+
 def _resolve_org_for_auth(organization, detect):
     return resolve_instance(detect=detect, organization=organization)
 
@@ -184,6 +232,7 @@ def _build_migration_url(base_url, repository_id=None):
 def _get_service_client(organization):
     config = Configuration(base_url=None)
     config.add_user_agent('devOpsCli/{}'.format(VERSION))
+    config.retry_policy.policy.status_forcelist = []
     connection = get_connection(organization)
     return ServiceClient(creds=connection._creds, config=config)  # pylint: disable=protected-access
 
@@ -196,7 +245,12 @@ def _send_request(client, method, url, content=None):
     }
     response = client.send(request=request, headers=headers, content=content)
     if response.status_code < 200 or response.status_code >= 300:
-        error_detail = getattr(response, 'text', None) or getattr(response, 'content', None) or ''
+        error_detail = ''
+        try:
+            body = response.json()
+            error_detail = body.get('message') or body.get('Message') or str(body)
+        except Exception:  # pylint: disable=broad-except
+            error_detail = getattr(response, 'text', None) or getattr(response, 'content', None) or ''
         raise CLIError('Request failed with status {}. {}'.format(response.status_code, error_detail))
 
     content_type = response.headers.get('Content-Type') if response.headers else None
