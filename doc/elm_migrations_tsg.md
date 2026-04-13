@@ -308,6 +308,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 |---|---|---|---|
 | `--org` | URL | All | Azure DevOps org URL (e.g., `https://dev.azure.com/myorg`). Can be set as default. |
 | `--repository-id` | GUID | All except `list` | Azure Repos repository GUID. Get from `az repos show --query id`. |
+| `--target-repository` | URL | `create` | Target repository URL (e.g., `https://example.ghe.com/OrgName/RepoName`). Validated by the server. |
 | `--target-repository` | URL | `create` | Target repository URL (e.g., `https://example.ghe.com/OrgName/RepoName`). Must start with `http://` or `https://`. |
 | `--target-owner-user-id` | string | `create` | Target repository owner user ID. |
 | `--agent-pool` | string | `create` | Agent pool name for migration work. Optional. |
@@ -315,7 +316,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 | `--migration` | flag | `resume` | Promote succeeded validate-only to full migration (`validateOnly=false`, `statusRequested=active`). Mutually exclusive with `--validate-only`. |
 | `--cutover-date` | ISO 8601 | `create` | Pre-schedule cutover at creation time. E.g., `2030-12-31T11:59:00Z`. |
 | `--date` | ISO 8601 | `cutover set` | Schedule cutover date/time. E.g., `2030-12-31T11:59:00Z`. |
-| `--skip-validation` | string | `create` | Comma-separated list of validation policies to skip. |
+| `--skip-validation` | string or int | `create` | Validation policies to skip. Accepts either comma-separated policy names (recommended) or a non-negative integer bitmask. |
 | `--include-inactive` | flag | `list` | Include completed, failed, and suspended migrations. |
 | `--detect` | flag | All | Auto-detect org from git remote (default: `true`). Use `--detect false` to disable. |
 
@@ -327,7 +328,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 | **Stale default org in config** | Requests go to old/dev URL (e.g., `codedev.ms`) | Run `az devops configure -d organization=https://dev.azure.com/<your-org>` to update |
 | **Resume on an active migration** | Error: "Migration is active..." | Pause first with `az devops migrations pause`, then resume |
 | **Both `--validate-only` and `--migration` on resume** | Error: "Please specify only one..." | Use only one flag at a time |
-| **Missing `--target-repository` on create** | Error: "--target-repository must be specified." | Provide `--target-repository <URL>` |
+| **Missing `--agent-pool` on create** | Error: "--agent-pool must be specified." | Always provide `--agent-pool <PoolName>` |
 | **Invalid `--target-repository` format** | Error: "--target-repository must be a valid URL..." | Use a fully qualified URL starting with `http://` or `https://` |
 | **Invalid `--repository-id`** | Error: "--repository-id must be a valid GUID." | Use `az repos show --query id` to get the correct GUID |
 | **Bad date format** | Error: "must be a valid date or datetime string" | Use ISO 8601 format, e.g., `2030-12-31T11:59:00Z` |
@@ -359,6 +360,34 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 1. Check date values are valid ISO 8601 strings (e.g., `2030-12-31T11:59:00Z`).
 2. Ensure `--target-repository` is a valid URL.
 3. Ensure `--agent-pool` matches a pool name the service recognizes.
+4. Ensure `--skip-validation` uses supported policy names or a non-negative integer bitmask.
+
+### skip-validation examples
+
+Recommended form using policy names:
+
+```powershell
+az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --target-owner-user-id <OWNER> --skip-validation AgentPoolExists,MaxRepoSize
+```
+
+Advanced form using integer bitmask:
+
+```powershell
+az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --target-owner-user-id <OWNER> --skip-validation 132
+```
+
+Supported policy names:
+- `None`
+- `ActivePullRequestCount`
+- `PullRequestDeltaSize`
+- `AgentPoolExists`
+- `MaxFileSize`
+- `MaxPullRequestSize`
+- `MaxPushPackSize`
+- `MaxReferenceNameLength`
+- `MaxRepoSize`
+- `TargetRepositoryDoesNotExist`
+- `All`
 
 ### Promote validate-only does not start
 

@@ -31,7 +31,9 @@ def load_migration_arguments(self, _):
         context.argument('agent_pool', options_list='--agent-pool',
                          help='Agent pool name to use for migration work.')
         context.argument('skip_validation', options_list='--skip-validation',
-                         help='Comma-separated list of validation policies to skip (e.g. MaxFileSize,ActivePullRequestCount).')
+                         help='Validation policies to skip. Accepts either a comma-separated list of '
+                              'policy names (for example, AgentPoolExists,MaxRepoSize) or a non-negative '
+                              'integer bitmask.')
 
     with self.argument_context('devops migrations cutover set') as context:
         context.argument('cutover_date', options_list='--date',

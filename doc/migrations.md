@@ -36,11 +36,13 @@ Use all three fields together when troubleshooting state transitions.
 - `--target-owner-user-id` is required for create.
 - `--agent-pool` is optional for create.
 - `--cutover-date` / `--date` must be ISO 8601, for example: `2030-12-31T11:59:00Z`.
+- `--skip-validation` accepts either comma-separated policy names or a non-negative integer bitmask.
 
 Validation enforced by the CLI:
 
 - `--target-repository` must start with `http://` or `https://`.
 - `--repository-id` must be a valid GUID.
+- `--skip-validation` policy names must be recognized values.
 
 ### How to find `--repository-id`
 
@@ -129,6 +131,28 @@ az devops migrations create --org https://dev.azure.com/myorg \
   --validate-only
 ```
 
+### Create a migration with skip-validation
+
+Recommended form using policy names:
+
+```bash
+az devops migrations create --org https://dev.azure.com/myorg \
+  --repository-id 00000000-0000-0000-0000-000000000000 \
+  --target-repository https://example.ghe.com/OrgName/RepoName \
+  --target-owner-user-id OwnerId \
+  --skip-validation AgentPoolExists,MaxRepoSize
+```
+
+Advanced form using integer bitmask:
+
+```bash
+az devops migrations create --org https://dev.azure.com/myorg \
+  --repository-id 00000000-0000-0000-0000-000000000000 \
+  --target-repository https://example.ghe.com/OrgName/RepoName \
+  --target-owner-user-id OwnerId \
+  --skip-validation 132
+```
+
 ### Pause and resume
 
 ```bash
@@ -196,6 +220,9 @@ az devops migrations pause --org https://dev.azure.com/myorg \
 
 - Error: `--target-repository` must be valid.
   Ensure it is a fully qualified URL starting with `http://` or `https://`.
+
+- Error: `--skip-validation` contains unsupported policy names.
+  Use supported names such as `AgentPoolExists`, `MaxRepoSize`, or pass a non-negative integer bitmask.
 
 - Error: requests are sent to the wrong org.
   Use `--org <url> --detect false`, and verify defaults via `az devops configure -l`.

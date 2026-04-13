@@ -17,6 +17,19 @@ from azext_devops.dev.common.uuid import is_uuid
 
 API_VERSION = '7.2-preview'
 MIGRATIONS_API_PATH = '/_apis/elm/migrations'
+_SKIP_VALIDATION_POLICIES = {
+    'none': 0,
+    'activepullrequestcount': 1,
+    'pullrequestdeltasize': 2,
+    'agentpoolexists': 4,
+    'maxfilesize': 8,
+    'maxpullrequestsize': 16,
+    'maxpushpacksize': 32,
+    'maxreferencenamelength': 64,
+    'maxreposize': 128,
+    'targetrepositorydoesnotexist': 256,
+    'all': 2147483647,
+}
 _NON_ACTIVE_STATES = {
     'succeeded',
     'failed',
@@ -47,6 +60,62 @@ def _normalize_optional_text(value):
     return normalized if normalized else None
 
 
+def _parse_skip_validation(skip_validation):
+    if skip_validation is None:
+        return None
+
+    if isinstance(skip_validation, int):
+        if skip_validation < 0:
+            raise CLIError('--skip-validation must be a non-negative integer or a comma-separated list '
+                           'of policy names.')
+        return skip_validation
+
+    normalized = _normalize_optional_text(skip_validation)
+    if normalized is None:
+        raise CLIError('--skip-validation cannot be empty. Provide a non-negative integer or a '
+                       'comma-separated list of policy names.')
+
+    if normalized.isdigit():
+        return int(normalized)
+
+    policies = [policy.strip() for policy in normalized.split(',')]
+    if any(not policy for policy in policies):
+        raise CLIError('--skip-validation contains an empty policy name. Provide a comma-separated '
+                       'list such as "AgentPoolExists,MaxRepoSize".')
+
+    mask = 0
+    invalid_policies = []
+    for policy in policies:
+        key = _normalize_state(policy)
+        if key not in _SKIP_VALIDATION_POLICIES:
+            invalid_policies.append(policy)
+            continue
+        value = _SKIP_VALIDATION_POLICIES[key]
+        if value == _SKIP_VALIDATION_POLICIES['all']:
+            return value
+        mask |= value
+
+    if invalid_policies:
+        raise CLIError('--skip-validation contains unsupported policy name(s): {}. Supported values: {}. '
+                       'You can also pass a non-negative integer bitmask.'
+                       .format(', '.join(invalid_policies),
+                               ', '.join([
+                                   'None',
+                                   'ActivePullRequestCount',
+                                   'PullRequestDeltaSize',
+                                   'AgentPoolExists',
+                                   'MaxFileSize',
+                                   'MaxPullRequestSize',
+                                   'MaxPushPackSize',
+                                   'MaxReferenceNameLength',
+                                   'MaxRepoSize',
+                                   'TargetRepositoryDoesNotExist',
+                                   'All'
+                               ])))
+
+    return mask
+
+
 def get_migration(repository_id=None, organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
@@ -61,6 +130,7 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
     target_repository = _normalize_optional_text(target_repository)
     target_owner_user_id = _normalize_optional_text(target_owner_user_id)
     agent_pool = _normalize_optional_text(agent_pool)
+    skip_validation = _parse_skip_validation(skip_validation)
 
     if not target_repository:
         raise CLIError('--target-repository must be specified.')

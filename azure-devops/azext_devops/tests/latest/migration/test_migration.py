@@ -138,6 +138,87 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(payload['agentPoolName'], 'MigrationPool')
             self.assertEqual(payload['skipValidation'], 2147483647)
 
+    def test_create_migration_skip_validation_accepts_integer_string(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                skip_validation='2147483647',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['skipValidation'], 2147483647)
+
+    def test_create_migration_skip_validation_accepts_policy_names(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                skip_validation='PullRequestDeltaSize, AgentPoolExists',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['skipValidation'], 6)
+
+    def test_create_migration_skip_validation_accepts_all_name(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                skip_validation='All',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['skipValidation'], 2147483647)
+
+    def test_create_migration_skip_validation_rejects_invalid_policy_name(self):
+        with self.assertRaises(CLIError) as ctx:
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                skip_validation='BogusPolicy',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('unsupported policy name', str(ctx.exception))
+
+    def test_create_migration_skip_validation_rejects_empty_policy_name(self):
+        with self.assertRaises(CLIError) as ctx:
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                skip_validation='AgentPoolExists,,MaxRepoSize',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('contains an empty policy name', str(ctx.exception))
+
     def test_create_migration_empty_agent_pool_omitted(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
