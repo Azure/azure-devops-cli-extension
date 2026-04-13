@@ -198,24 +198,9 @@ def _is_validate_only_succeeded(migration):
 
 
 def _promote_to_full_migration(migration_data, repository_id, organization):
-    repository_id = _resolve_repository_id(repository_id)
-    client = _get_service_client(organization)
-    url = _build_migration_url(organization, repository_id)
-
-    payload = {
-        'targetRepository': migration_data.get('targetRepository'),
-        'targetOwnerUserId': migration_data.get('targetOwnerUserId'),
-        'validateOnly': False,
-        'skipValidation': 2147483647,
-    }
-    agent_pool = migration_data.get('agentPoolName')
-    if agent_pool:
-        payload['agentPoolName'] = agent_pool
-    cutover_date = migration_data.get('scheduledCutoverDate')
-    if cutover_date:
-        payload['scheduledCutoverDate'] = cutover_date
-
-    return _send_request(client, 'POST', url, payload)
+    del migration_data
+    return _update_migration(repository_id, organization, detect=None,
+                             validate_only=False, status_requested='active')
 
 
 def _resolve_org_for_auth(organization, detect):
