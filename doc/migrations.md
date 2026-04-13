@@ -13,6 +13,21 @@ az devops configure --defaults organization=https://dev.azure.com/myorg
 ```
 
 - You can still override per command with `--org`.
+- If your current git remote points to another org, add `--detect false` to avoid auto-detect choosing the wrong organization.
+
+## Migration lifecycle model
+
+Typical active stages:
+
+`queued -> validation -> synchronization -> cutover`
+
+Key fields in `status` output:
+
+- `statusRequested`: Desired state requested by the CLI (for example, `active`, `suspended`).
+- `status`: Service-reported status (for example, `succeeded`, `failed`).
+- `stage`: Current running stage while active.
+
+Use all three fields together when troubleshooting state transitions.
 
 ## Required inputs
 
@@ -21,6 +36,11 @@ az devops configure --defaults organization=https://dev.azure.com/myorg
 - `--target-owner-user-id` is required for create.
 - `--agent-pool` is optional for create.
 - `--cutover-date` / `--date` must be ISO 8601, for example: `2030-12-31T11:59:00Z`.
+
+Validation enforced by the CLI:
+
+- `--target-repository` must start with `http://` or `https://`.
+- `--repository-id` must be a valid GUID.
 
 ### How to find `--repository-id`
 
@@ -38,7 +58,7 @@ az repos show --repository MyRepo --project MyProject --query id -o tsv
   - `--validate-only`: Resume in validate-only mode.
   - `--migration`: Promote a succeeded validate-only migration to full migration.
     This updates the existing migration by setting `validateOnly=false` and `statusRequested=active`.
-  If a migration is active, pause it before resuming.
+  If a migration is currently active, pause it before resuming or switching mode.
 - `cutover set` / `cutover cancel`: Schedule or cancel cutover.
 - `abandon`: Abandon and delete a migration.
 
@@ -49,6 +69,23 @@ az repos show --repository MyRepo --project MyProject --query id -o tsv
 - `stage`: Current active stage (for example, validation, synchronization, cutover).
 
 If a command is blocked, inspect all three fields from `status` output to understand whether the migration is active, terminal, or promotable.
+
+## Promotion semantics
+
+When validation succeeds in validate-only mode, promotion does not create a new migration.
+
+Promotion command:
+
+```bash
+az devops migrations resume --org https://dev.azure.com/myorg \
+  --repository-id 00000000-0000-0000-0000-000000000000 --migration
+```
+
+What this does:
+
+- Sends an update (PUT) to the existing migration.
+- Sets `validateOnly=false`.
+- Sets `statusRequested=active`.
 
 ## Common workflows
 
@@ -119,6 +156,13 @@ az devops migrations resume --org https://dev.azure.com/myorg \
 
 This promotes the same migration record (no new migration is created).
 
+If you receive an active-state error, pause first and retry:
+
+```bash
+az devops migrations pause --org https://dev.azure.com/myorg \
+  --repository-id 00000000-0000-0000-0000-000000000000
+```
+
 ### Schedule or cancel cutover
 
 ```bash
@@ -152,3 +196,9 @@ az devops migrations pause --org https://dev.azure.com/myorg \
 
 - Error: `--target-repository` must be valid.
   Ensure it is a fully qualified URL starting with `http://` or `https://`.
+
+- Error: requests are sent to the wrong org.
+  Use `--org <url> --detect false`, and verify defaults via `az devops configure -l`.
+
+- Error: migration already succeeded.
+  Use `abandon` to reset before creating a new migration.

@@ -51,6 +51,8 @@ This saves you from typing `--org` on every single command:
 az devops configure -d organization=https://dev.azure.com/<your-org>
 ```
 
+If your local git remote points to a different org, add `--detect false` to migration commands to prevent auto-detect from choosing the wrong org.
+
 ### 1.5 Verify your config
 
 ```powershell
@@ -83,7 +85,7 @@ And has one of these **statuses**:
 The safest approach is **validate first, then migrate**:
 
 ```
-Create (validate-only) → Check status → Pause → Resume (--migration) → Monitor → Schedule cutover → Done
+Create (validate-only) → Check status → Resume (--migration) → Monitor → Schedule cutover → Done
 ```
 
 ---
@@ -180,18 +182,31 @@ az devops migrations status --detect false --repository-id b3e18946-5b39-40ca-8e
 
 **When to do this:** After step 3.4 shows `status: Succeeded` (validation passed).
 
-You need to pause first (because the migration may still be active), then resume in migration mode:
+Resume in migration mode:
 
 ```powershell
-# Step A: Pause the current migration
-az devops migrations pause --detect false --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85
-
-# Step B: Resume as a full migration (this starts data movement)
+# Promote validate-only success to full migration (this starts data movement)
 az devops migrations resume --detect false --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85 --migration
 ```
 
-> **If you get:** `Migration is active (status: ..., stage: ...). Pause it before resuming or changing mode.`
-> Run the pause command first (Step A), then retry Step B.
+Under the hood, this updates the existing migration (PUT) with:
+
+- `validateOnly=false`
+- `statusRequested=active`
+
+No new migration is created.
+
+> **If you get an active-state error:**
+>
+> `Migration is currently active (...). Pause it first using "az devops migrations pause --repository-id <guid>" before resuming or changing mode.`
+>
+> run:
+
+```powershell
+az devops migrations pause --detect false --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85
+```
+
+then retry `resume --migration`.
 
 After this, monitor with step 3.4 until `stage: Synchronization` is running.
 
@@ -280,7 +295,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 |---|---|---|---|---|
 | `list` | `--org` | `--include-inactive`, `--detect` | GET | List migrations. By default only active ones. |
 | `status` | `--org`, `--repository-id` | `--detect` | GET | Get detailed status for one migration. |
-| `create` | `--org`, `--repository-id`, `--target-repository`, `--target-owner-user-id`, `--agent-pool` | `--validate-only`, `--cutover-date`, `--skip-validation`, `--detect` | POST | Create a new migration. |
+| `create` | `--org`, `--repository-id`, `--target-repository`, `--target-owner-user-id` | `--agent-pool`, `--validate-only`, `--cutover-date`, `--skip-validation`, `--detect` | POST | Create a new migration. |
 | `pause` | `--org`, `--repository-id` | `--detect` | PUT | Pause an active migration. |
 | `resume` | `--org`, `--repository-id` | `--validate-only`, `--migration`, `--detect` | PUT | Resume a stopped migration. |
 | `cutover set` | `--org`, `--repository-id`, `--date` | `--detect` | PUT | Schedule a cutover date/time. |
@@ -293,11 +308,11 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 |---|---|---|---|
 | `--org` | URL | All | Azure DevOps org URL (e.g., `https://dev.azure.com/myorg`). Can be set as default. |
 | `--repository-id` | GUID | All except `list` | Azure Repos repository GUID. Get from `az repos show --query id`. |
-| `--target-repository` | URL | `create` | Target repository URL (e.g., `https://example.ghe.com/OrgName/RepoName`). Validated by the server. |
+| `--target-repository` | URL | `create` | Target repository URL (e.g., `https://example.ghe.com/OrgName/RepoName`). Must start with `http://` or `https://`. |
 | `--target-owner-user-id` | string | `create` | Target repository owner user ID. |
-| `--agent-pool` | string | `create` | Agent pool name for migration work. Required. |
+| `--agent-pool` | string | `create` | Agent pool name for migration work. Optional. |
 | `--validate-only` | flag | `create`, `resume` | On `create`: run pre-migration checks only. On `resume`: switch to validate-only mode. |
-| `--migration` | flag | `resume` | Switch to full migration mode (clears validate-only). Mutually exclusive with `--validate-only`. |
+| `--migration` | flag | `resume` | Promote succeeded validate-only to full migration (`validateOnly=false`, `statusRequested=active`). Mutually exclusive with `--validate-only`. |
 | `--cutover-date` | ISO 8601 | `create` | Pre-schedule cutover at creation time. E.g., `2030-12-31T11:59:00Z`. |
 | `--date` | ISO 8601 | `cutover set` | Schedule cutover date/time. E.g., `2030-12-31T11:59:00Z`. |
 | `--skip-validation` | string | `create` | Comma-separated list of validation policies to skip. |
@@ -312,7 +327,8 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 | **Stale default org in config** | Requests go to old/dev URL (e.g., `codedev.ms`) | Run `az devops configure -d organization=https://dev.azure.com/<your-org>` to update |
 | **Resume on an active migration** | Error: "Migration is active..." | Pause first with `az devops migrations pause`, then resume |
 | **Both `--validate-only` and `--migration` on resume** | Error: "Please specify only one..." | Use only one flag at a time |
-| **Missing `--agent-pool` on create** | Error: "--agent-pool must be specified." | Always provide `--agent-pool <PoolName>` |
+| **Missing `--target-repository` on create** | Error: "--target-repository must be specified." | Provide `--target-repository <URL>` |
+| **Invalid `--target-repository` format** | Error: "--target-repository must be a valid URL..." | Use a fully qualified URL starting with `http://` or `https://` |
 | **Invalid `--repository-id`** | Error: "--repository-id must be a valid GUID." | Use `az repos show --query id` to get the correct GUID |
 | **Bad date format** | Error: "must be a valid date or datetime string" | Use ISO 8601 format, e.g., `2030-12-31T11:59:00Z` |
 
@@ -343,6 +359,26 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 1. Check date values are valid ISO 8601 strings (e.g., `2030-12-31T11:59:00Z`).
 2. Ensure `--target-repository` is a valid URL.
 3. Ensure `--agent-pool` matches a pool name the service recognizes.
+
+### Promote validate-only does not start
+
+**Symptom:** `resume --migration` does not proceed, or returns a state error.
+
+**Fix:**
+1. Confirm current state first:
+
+```powershell
+az devops migrations status --detect false --repository-id <GUID> -o json
+```
+
+2. If migration is active, pause then retry:
+
+```powershell
+az devops migrations pause --detect false --repository-id <GUID>
+az devops migrations resume --detect false --repository-id <GUID> --migration
+```
+
+3. If migration already succeeded as full migration, abandon and recreate if needed.
 
 ### 406 Not Acceptable
 
