@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 import re
+from urllib.parse import quote_plus
 
 from msrest import Configuration
 from msrest.service_client import ServiceClient
@@ -44,12 +45,15 @@ _ACTIVE_STAGES = {
 _URL_PATTERN = re.compile(r'^https?://[^\s]+$', re.IGNORECASE)
 
 
-def list_migrations(include_inactive=False, organization=None, detect=None):
+def list_migrations(include_inactive=False, project=None, organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     client = _get_service_client(organization)
     url = _build_migration_url(organization)
     if include_inactive:
         url += '&includeInactiveMigrations=true'
+    project = _normalize_optional_text(project)
+    if project:
+        url += '&project={}'.format(quote_plus(project))
     return _send_request(client, 'GET', url)
 
 

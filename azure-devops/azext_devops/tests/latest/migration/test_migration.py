@@ -53,6 +53,32 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(args[1], 'GET')
             self.assertIn('includeInactiveMigrations=true', args[2])
 
+    def test_list_migrations_with_project_filter(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            list_migrations(project='MyProject', organization=self._TEST_ORG, detect=False)
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'GET')
+            self.assertIn('project=MyProject', args[2])
+
+    def test_list_migrations_with_project_filter_url_encoded(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            list_migrations(project='My Project', organization=self._TEST_ORG, detect=False)
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'GET')
+            self.assertIn('project=My+Project', args[2])
+
     def test_create_migration_payload_defaults_validate_only_false(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \

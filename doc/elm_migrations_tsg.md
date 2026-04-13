@@ -126,6 +126,9 @@ See if any migrations already exist for your org:
 # Active migrations only
 az devops migrations list --detect false
 
+# Filter by project name or ID
+az devops migrations list --detect false --project MyProject
+
 # All migrations including completed/failed/suspended
 az devops migrations list --detect false --include-inactive
 ```

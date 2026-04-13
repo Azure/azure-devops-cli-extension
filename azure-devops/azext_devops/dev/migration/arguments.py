@@ -17,6 +17,8 @@ def load_migration_arguments(self, _):
     with self.argument_context('devops migrations list') as context:
         context.argument('include_inactive', options_list='--include-inactive', action='store_true',
                          help='Include inactive (completed, abandoned, failed) migrations in the results.')
+        context.argument('project', options_list='--project',
+                         help='Optional project name or ID to filter migrations.')
 
     with self.argument_context('devops migrations create') as context:
         context.argument('target_repository', options_list='--target-repository',

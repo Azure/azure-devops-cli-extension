@@ -52,7 +52,7 @@ az repos show --repository MyRepo --project MyProject --query id -o tsv
 
 ## Command reference
 
-- `list`: List migrations for the org. Use `--include-inactive` to include completed/failed/suspended migrations.
+- `list`: List migrations for the org. Use `--include-inactive` to include completed/failed/suspended migrations. Use `--project` to filter by project name or ID.
 - `status`: Show migration status for a repository GUID.
 - `create`: Create a migration. Use `--validate-only` for pre-migration checks only.
 - `pause`: Pause an active migration.
@@ -95,6 +95,12 @@ What this does:
 
 ```bash
 az devops migrations list --org https://dev.azure.com/myorg
+```
+
+### List migrations for a project
+
+```bash
+az devops migrations list --org https://dev.azure.com/myorg --project MyProject
 ```
 
 ### List all migrations including inactive
