@@ -12,7 +12,7 @@ def load_migration_arguments(self, _):
     with self.argument_context('devops migrations') as context:
         load_global_args(context)
         context.argument('repository_id', options_list='--repository-id',
-                         help='ID of the repository (GUID).')
+                         help='ID of the Azure Repos repository (GUID).')
 
     with self.argument_context('devops migrations list') as context:
         context.argument('include_inactive', options_list='--include-inactive', action='store_true',
@@ -20,7 +20,7 @@ def load_migration_arguments(self, _):
 
     with self.argument_context('devops migrations create') as context:
         context.argument('target_repository', options_list='--target-repository',
-                         help='Target repository URL.')
+                         help='Target repository URL (must start with http:// or https://).')
         context.argument('target_owner_user_id', options_list='--target-owner-user-id',
                          help='Target repository owner user ID.')
         context.argument('validate_only', options_list='--validate-only', action='store_true',
@@ -42,4 +42,5 @@ def load_migration_arguments(self, _):
         context.argument('validate_only', options_list='--validate-only', action='store_true',
                          help='Resume in validate-only mode.')
         context.argument('migration', options_list='--migration', action='store_true',
-                         help='Continue the migration (clears any validate-only mode).')
+                         help='Promote a succeeded validate-only migration to a full migration '
+                              '(sets validateOnly=false and statusRequested=active).')

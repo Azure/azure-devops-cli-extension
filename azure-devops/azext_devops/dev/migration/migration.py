@@ -3,6 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import re
+
 from msrest import Configuration
 from msrest.service_client import ServiceClient
 from msrest.universal_http import ClientRequest
@@ -26,6 +28,9 @@ _ACTIVE_STAGES = {
     'synchronization',
     'cutover'
 }
+_URL_PATTERN = re.compile(r'^https?://[^\s]+$', re.IGNORECASE)
+
+
 def list_migrations(include_inactive=False, organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     client = _get_service_client(organization)
@@ -53,7 +58,14 @@ def get_migration(repository_id=None, organization=None, detect=None):
 def create_migration(repository_id=None, target_repository=None, target_owner_user_id=None,
                      validate_only=False, cutover_date=None, agent_pool=None,
                      skip_validation=None, organization=None, detect=None):
+    target_repository = _normalize_optional_text(target_repository)
+    target_owner_user_id = _normalize_optional_text(target_owner_user_id)
     agent_pool = _normalize_optional_text(agent_pool)
+
+    if not target_repository:
+        raise CLIError('--target-repository must be specified.')
+    if not _URL_PATTERN.match(target_repository):
+        raise CLIError('--target-repository must be a valid URL starting with http:// or https://.')
     if not target_owner_user_id:
         raise CLIError('--target-owner-user-id must be specified.')
 
@@ -92,19 +104,22 @@ def resume_migration(repository_id=None, validate_only=False, migration=False, o
         return _promote_to_full_migration(migration_data, repository_id, organization)
 
     if _is_migration_active(migration_data):
-        status = migration_data.get('statusRequested') or migration_data.get('status')
-        stage = migration_data.get('stage')
-        raise CLIError('Migration is active (statusRequested: {}, stage: {}). Pause it before resuming or changing mode.'
-                       .format(status, stage))
+        state_text = _get_migration_state_text(migration_data)
+        raise CLIError('Migration is currently active ({}). Pause it first using '
+                       '"az devops migrations pause --repository-id <guid>" before resuming or changing mode.'
+                       .format(state_text))
 
     if _is_migration_terminal(migration_data):
         status = _normalize_state(migration_data.get('status'))
         is_val_only = migration_data.get('validateOnly') is True
         if status == 'succeeded' and is_val_only:
-            raise CLIError('Validation already succeeded. Use --migration to promote to a full migration, '
-                           'or abandon and create a new one.')
+            raise CLIError('Validation already succeeded. Promote it with '
+                           '"az devops migrations resume --repository-id <guid> --migration", '
+                           'or abandon and create a new migration.')
         if status == 'succeeded':
-            raise CLIError('Migration already succeeded. Use abandon to reset, then create a new migration.')
+            raise CLIError('Migration already succeeded. Use '
+                           '"az devops migrations abandon --repository-id <guid>" to reset, '
+                           'then create a new migration.')
 
     validate_only_value = None
     if validate_only:
@@ -166,6 +181,22 @@ def _normalize_state(value):
         return ''
     normalized = str(value).strip().lower()
     return normalized.replace(' ', '').replace('-', '').replace('_', '')
+
+
+def _get_migration_state_text(migration):
+    status_requested = migration.get('statusRequested')
+    status = migration.get('status')
+    stage = migration.get('stage')
+
+    parts = []
+    if status_requested:
+        parts.append('statusRequested: {}'.format(status_requested))
+    if status:
+        parts.append('status: {}'.format(status))
+    if stage:
+        parts.append('stage: {}'.format(stage))
+
+    return ', '.join(parts) if parts else 'state unknown'
 
 
 def _is_migration_active(migration):
