@@ -112,7 +112,8 @@ az repos show --org https://dev.azure.com/myorg/ --project MyProject --repositor
 ```
 
 Example output:
-```
+
+```text
 b3e18946-5b39-40ca-8e2f-d0eb683d8a85
 ```
 
@@ -343,6 +344,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 **Symptom:** `Request failed with status 401` or `403`.
 
 **Fix:**
+
 1. Run `az login` (AAD) or `az devops login` (PAT).
 2. Ensure the token/account has permission to the organization.
 3. Verify `--org` points to the correct Azure DevOps org URL.
@@ -352,6 +354,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 **Symptom:** `Request failed with status 404`.
 
 **Fix:**
+
 1. Verify `--org` is correct (e.g., `https://dev.azure.com/myorg`).
 2. Verify the `--repository-id` is a valid GUID that exists in the organization.
 
@@ -360,6 +363,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 **Symptom:** `Request failed with status 400` or `JsonReaderException`.
 
 **Fix:**
+
 1. Check date values are valid ISO 8601 strings (e.g., `2030-12-31T11:59:00Z`).
 2. Ensure `--target-repository` is a valid URL.
 3. Ensure `--agent-pool` matches a pool name the service recognizes.
@@ -380,6 +384,7 @@ az devops migrations create --detect false --repository-id <GUID> --target-repos
 ```
 
 Supported policy names:
+
 - `None`
 - `ActivePullRequestCount`
 - `PullRequestDeltaSize`
@@ -397,26 +402,28 @@ Supported policy names:
 **Symptom:** `resume --migration` does not proceed, or returns a state error.
 
 **Fix:**
+
 1. Confirm current state first:
 
 ```powershell
 az devops migrations status --detect false --repository-id <GUID> -o json
 ```
 
-2. If migration is active, pause then retry:
+1. If migration is active, pause then retry:
 
 ```powershell
 az devops migrations pause --detect false --repository-id <GUID>
 az devops migrations resume --detect false --repository-id <GUID> --migration
 ```
 
-3. If migration already succeeded as full migration, abandon and recreate if needed.
+1. If migration already succeeded as full migration, abandon and recreate if needed.
 
 ### 406 Not Acceptable
 
 **Symptom:** `Request failed with status 406`.
 
 **Fix:**
+
 1. Verify `--org` is correct.
 2. Confirm you are using the latest CLI extension version.
 3. Contact your admin if it persists.
@@ -426,6 +433,7 @@ az devops migrations resume --detect false --repository-id <GUID> --migration
 **Symptom:** `Max retries exceeded with url: ... (Caused by ResponseError('too many 500 error responses'))`.
 
 **Fix:**
+
 1. Check if the requests are going to the **wrong host** (e.g., `codedev.ms` instead of your org URL).
    - Run `az devops configure -l` to check your default org.
    - Fix with `az devops configure -d organization=https://dev.azure.com/<your-org>`.

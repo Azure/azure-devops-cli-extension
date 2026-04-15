@@ -60,7 +60,7 @@ az repos show --repository MyRepo --project MyProject --query id -o tsv
   - `--validate-only`: Resume in validate-only mode.
   - `--migration`: Promote a succeeded validate-only migration to full migration.
     This updates the existing migration by setting `validateOnly=false` and `statusRequested=active`.
-  If a migration is currently active, pause it before resuming or switching mode.
+  - If a migration is currently active, pause it before resuming or switching mode.
 - `cutover set` / `cutover cancel`: Schedule or cancel cutover.
 - `abandon`: Abandon and delete a migration.
 
