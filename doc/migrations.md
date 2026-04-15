@@ -56,11 +56,7 @@ az repos show --repository MyRepo --project MyProject --query id -o tsv
 - `status`: Show migration status for a repository GUID.
 - `create`: Create a migration. Use `--validate-only` for pre-migration checks only.
 - `pause`: Pause an active migration.
-- `resume`: Resume a stopped (paused, failed) migration. Optional flags:
-  - `--validate-only`: Resume in validate-only mode.
-  - `--migration`: Promote a succeeded validate-only migration to full migration.
-    This updates the existing migration by setting `validateOnly=false` and `statusRequested=active`.
-  - If a migration is currently active, pause it before resuming or switching mode.
+- `resume`: Resume a stopped (paused, failed) migration. Optional flags are `--validate-only` (resume in validate-only mode) and `--migration` (promote a succeeded validate-only migration to full migration by setting `validateOnly=false` and `statusRequested=active`). If a migration is currently active, pause it before resuming or switching mode.
 - `cutover set` / `cutover cancel`: Schedule or cancel cutover.
 - `abandon`: Abandon and delete a migration.
 

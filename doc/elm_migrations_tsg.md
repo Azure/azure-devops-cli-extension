@@ -346,8 +346,8 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 **Fix:**
 
 1. Run `az login` (AAD) or `az devops login` (PAT).
-2. Ensure the token/account has permission to the organization.
-3. Verify `--org` points to the correct Azure DevOps org URL.
+1. Ensure the token/account has permission to the organization.
+1. Verify `--org` points to the correct Azure DevOps org URL.
 
 ### 404 Not Found
 
@@ -356,7 +356,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 **Fix:**
 
 1. Verify `--org` is correct (e.g., `https://dev.azure.com/myorg`).
-2. Verify the `--repository-id` is a valid GUID that exists in the organization.
+1. Verify the `--repository-id` is a valid GUID that exists in the organization.
 
 ### 400 Bad Request
 
@@ -365,9 +365,9 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 **Fix:**
 
 1. Check date values are valid ISO 8601 strings (e.g., `2030-12-31T11:59:00Z`).
-2. Ensure `--target-repository` is a valid URL.
-3. Ensure `--agent-pool` matches a pool name the service recognizes.
-4. Ensure `--skip-validation` uses supported policy names or a non-negative integer bitmask.
+1. Ensure `--target-repository` is a valid URL.
+1. Ensure `--agent-pool` matches a pool name the service recognizes.
+1. Ensure `--skip-validation` uses supported policy names or a non-negative integer bitmask.
 
 ### skip-validation examples
 
@@ -425,8 +425,8 @@ az devops migrations resume --detect false --repository-id <GUID> --migration
 **Fix:**
 
 1. Verify `--org` is correct.
-2. Confirm you are using the latest CLI extension version.
-3. Contact your admin if it persists.
+1. Confirm you are using the latest CLI extension version.
+1. Contact your admin if it persists.
 
 ### 500 Internal Server Error / Retries Exhausted
 
@@ -438,7 +438,7 @@ az devops migrations resume --detect false --repository-id <GUID> --migration
    - Run `az devops configure -l` to check your default org.
    - Fix with `az devops configure -d organization=https://dev.azure.com/<your-org>`.
    - Or pass `--org <correct URL> --detect false` explicitly.
-2. If the correct host is being used, the service may be temporarily unavailable — retry later or contact your admin.
+1. If the correct host is being used, the service may be temporarily unavailable — retry later or contact your admin.
 
 ## 8. Useful Commands
 
