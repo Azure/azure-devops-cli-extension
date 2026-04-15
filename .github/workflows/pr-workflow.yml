@@ -140,6 +140,7 @@ jobs:
           path: ${{ github.workspace }}/azure-devops/htmlcov
 
   Run_Style_Check:
+    needs: Build_Publish_Azure_CLI_Test_SDK
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v4
