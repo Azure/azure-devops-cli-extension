@@ -298,8 +298,8 @@ def _is_migration_terminal(migration):
 def _is_validate_only_succeeded(migration):
     if not isinstance(migration, dict):
         return False
-    return (migration.get('validateOnly') is True
-            and _normalize_state(migration.get('status')) == 'succeeded')
+    return (migration.get('validateOnly') is True and
+            _normalize_state(migration.get('status')) == 'succeeded')
 
 
 def _promote_to_full_migration(migration_data, repository_id, organization):
