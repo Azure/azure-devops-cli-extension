@@ -100,3 +100,7 @@ Global Arguments
     ---  ----------  ---------   ---------  -------------   -----------------------   --------------   --------------------------  -------
     1    20190116.2  completed   succeeded  1               Contoso.CI                master           2019-01-16 17:29:07.497795  manual
     ```
+
+## Enterprise live migrations
+
+If you are using enterprise live migrations, see the guide at [migrations.md](migrations.md).

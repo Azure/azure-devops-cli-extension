@@ -21,5 +21,8 @@ exclude =
     scripts
     doc
     build_scripts
+    env
+    venv
+    .venv
 	*/test/*
     */devops_sdk/*

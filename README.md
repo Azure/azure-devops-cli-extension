@@ -28,6 +28,7 @@ $az [group] [subgroup] [command] {parameters}
 ```
 
 Adding the Azure DevOps Extension adds `devops`, `pipelines`, `artifacts`, `boards` and `repos` groups.
+Enterprise live migrations are available under `az devops migrations`.
 For usage and help content for any command, pass in the -h parameter, for example:
 
 ```bash
@@ -43,6 +44,7 @@ Group
 
 Subgroups:
     admin            : Manage administration operations.
+    migrations       : Manage enterprise live migrations.
     extension        : Manage extensions.
     project          : Manage team projects.
     security         : Manage security related operations.
@@ -64,6 +66,7 @@ Commands:
 - Checkout the CLI docs at [docs.microsoft.com - Azure DevOps CLI](https://docs.microsoft.com/azure/devops/cli/).
 - Check out other examples in the [How-to guides](https://docs.microsoft.com/azure/devops/cli/?view=azure-devops#how-to-guides) section.
 - You can view the various commands and its usage here - [docs.microsoft.com - Azure DevOps Extension Reference](https://docs.microsoft.com/en-us/cli/azure/devops?view=azure-cli-latest)
+- Enterprise live migrations guide: [doc/migrations.md](doc/migrations.md)
 
 ## Contribute
 
