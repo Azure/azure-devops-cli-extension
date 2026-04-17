@@ -1,8 +1,8 @@
 steps:
 - script: python -m pip install --upgrade pip
   displayName: 'Upgrade pip'
-- script: python -m pip install --upgrade setuptools wheel
-  displayName: 'Install setuptools and wheel'
+- script: pip install wheel
+  displayName: 'Install Wheel'
 - script: "pip install 'pytest>=7.0.0'"
   displayName: 'Install pytest'
 - script: pip install coverage
