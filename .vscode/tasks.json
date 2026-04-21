@@ -38,9 +38,9 @@
       {
         "label": "Install extension",
         "type": "shell",
-        "command": "az extension add --source ./dist/azure_devops-1.0.3-py2.py3-none-any.whl -y",
+        "command": "az extension add --source ./dist/azure_devops-1.0.4-py2.py3-none-any.whl -y",
         "windows": {
-            "command": "az extension add --source .\\dist\\azure_devops-1.0.3-py2.py3-none-any.whl -y",
+            "command": "az extension add --source .\\dist\\azure_devops-1.0.4-py2.py3-none-any.whl -y",
         },
         "options": {
           "cwd": "${workspaceRoot}/azure-devops/"
@@ -54,9 +54,9 @@
       {
         "label": "Update extension",
         "type": "shell",
-        "command": "az extension add --source ./dist/azure_devops-1.0.3-py2.py3-none-any.whl -y",
+        "command": "az extension add --source ./dist/azure_devops-1.0.4-py2.py3-none-any.whl -y",
         "windows": {
-            "command": "az extension add --source .\\dist\\azure_devops-1.0.3-py2.py3-none-any.whl -y",
+            "command": "az extension add --source .\\dist\\azure_devops-1.0.4-py2.py3-none-any.whl -y",
         },
         "options": {
           "cwd": "${workspaceRoot}/azure-devops/"
