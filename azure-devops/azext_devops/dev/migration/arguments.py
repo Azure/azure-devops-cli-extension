@@ -24,7 +24,11 @@ def load_migration_arguments(self, _):
         context.argument('target_repository', options_list='--target-repository',
                          help='Target repository URL (must start with http:// or https://).')
         context.argument('target_owner_user_id', options_list='--target-owner-user-id',
-                         help='Target repository owner user ID.')
+                         help='Target repository owner user ID. Deprecated and ignored when server-side '
+                              'token-based owner resolution is enabled.')
+        context.argument('github_token', options_list='--github-token',
+                         help='GitHub token used for migration authorization. If omitted, the CLI first '
+                              'checks ELM_GITHUB_TOKEN and then runs GitHub device flow.')
         context.argument('validate_only', options_list='--validate-only', action='store_true',
                          help='Create in validate-only mode (pre-migration checks only).')
         context.argument('cutover_date', options_list='--cutover-date',

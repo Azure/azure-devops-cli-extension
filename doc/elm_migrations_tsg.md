@@ -100,7 +100,7 @@ Create (validate-only) → Check status → Resume (--migration) → Monitor →
 | ADO project name | `MyProject` | The project containing the source repo |
 | ADO repo name | `my-repo` | The repo you want to migrate |
 | Target repo URL | `https://example.ghe.com/OrgName/RepoName` | Create the empty target repo in GitHub **before** starting |
-| Target owner user ID | `GeoffCoxMSFT` | The GitHub user ID who owns the target repo |
+| GitHub auth token | `<token>` | Optional: pass via `--github-token` or set `ELM_GITHUB_TOKEN` |
 | Agent pool name | `MigrationPool` | Ask your admin |
 
 ### 3.1 Get the source repository GUID from Azure DevOps
@@ -142,7 +142,6 @@ Start with validation to catch any issues **before** moving data. This runs pre-
 az devops migrations create --detect false \
   --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85 \
   --target-repository https://example.ghe.com/OrgName/RepoName \
-  --target-owner-user-id GeoffCoxMSFT \
   --agent-pool MigrationPool \
   --validate-only
 ```
@@ -150,6 +149,17 @@ az devops migrations create --detect false \
 The command returns the migration details as JSON. The migration begins immediately in the background.
 
 > **Tip:** If you're confident and want to start a full migration right away (skip validate-only), omit the `--validate-only` flag.
+
+If `--github-token` is not provided, the CLI checks `ELM_GITHUB_TOKEN` and then runs GitHub device flow to acquire a token.
+
+You can also pass a token or PAT explicitly:
+
+```powershell
+az devops migrations create --detect false \
+  --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85 \
+  --target-repository https://example.ghe.com/OrgName/RepoName \
+  --github-token <token>
+```
 
 **Optional parameters you can add at creation time:**
 
@@ -299,7 +309,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 |---|---|---|---|---|
 | `list` | `--org` | `--include-inactive`, `--detect` | GET | List migrations. By default only active ones. |
 | `status` | `--org`, `--repository-id` | `--detect` | GET | Get detailed status for one migration. |
-| `create` | `--org`, `--repository-id`, `--target-repository`, `--target-owner-user-id` | `--agent-pool`, `--validate-only`, `--cutover-date`, `--skip-validation`, `--detect` | POST | Create a new migration. |
+| `create` | `--org`, `--repository-id`, `--target-repository` | `--github-token`, `--target-owner-user-id` (deprecated), `--agent-pool`, `--validate-only`, `--cutover-date`, `--skip-validation`, `--detect` | POST | Create a new migration. |
 | `pause` | `--org`, `--repository-id` | `--detect` | PUT | Pause an active migration. |
 | `resume` | `--org`, `--repository-id` | `--validate-only`, `--migration`, `--detect` | PUT | Resume a stopped migration. |
 | `cutover set` | `--org`, `--repository-id`, `--date` | `--detect` | PUT | Schedule a cutover date/time. |
@@ -314,7 +324,8 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 | `--repository-id` | GUID | All except `list` | Azure Repos repository GUID. Get from `az repos show --query id`. |
 | `--target-repository` | URL | `create` | Target repository URL (e.g., `https://example.ghe.com/OrgName/RepoName`). Validated by the server. |
 | `--target-repository` | URL | `create` | Target repository URL (e.g., `https://example.ghe.com/OrgName/RepoName`). Must start with `http://` or `https://`. |
-| `--target-owner-user-id` | string | `create` | Target repository owner user ID. |
+| `--github-token` | string | `create` | GitHub token used for migration authorization. If omitted, CLI checks `ELM_GITHUB_TOKEN` and then runs device flow. |
+| `--target-owner-user-id` | string | `create` | Deprecated. Ignored when server-side token ownership resolution is enabled. |
 | `--agent-pool` | string | `create` | Agent pool name for migration work. Optional. |
 | `--validate-only` | flag | `create`, `resume` | On `create`: run pre-migration checks only. On `resume`: switch to validate-only mode. |
 | `--migration` | flag | `resume` | Promote succeeded validate-only to full migration (`validateOnly=false`, `statusRequested=active`). Mutually exclusive with `--validate-only`. |
@@ -332,7 +343,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 | **Stale default org in config** | Requests go to old/dev URL (e.g., `codedev.ms`) | Run `az devops configure -d organization=https://dev.azure.com/<your-org>` to update |
 | **Resume on an active migration** | Error: "Migration is active..." | Pause first with `az devops migrations pause`, then resume |
 | **Both `--validate-only` and `--migration` on resume** | Error: "Please specify only one..." | Use only one flag at a time |
-| **Missing `--agent-pool` on create** | Error: "--agent-pool must be specified." | Always provide `--agent-pool <PoolName>` |
+| **Missing migration auth token** | Device flow prompt appears, or auth error is returned | Provide `--github-token`, set `ELM_GITHUB_TOKEN`, or complete device-flow authorization |
 | **Invalid `--target-repository` format** | Error: "--target-repository must be a valid URL..." | Use a fully qualified URL starting with `http://` or `https://` |
 | **Invalid `--repository-id`** | Error: "--repository-id must be a valid GUID." | Use `az repos show --query id` to get the correct GUID |
 | **Bad date format** | Error: "must be a valid date or datetime string" | Use ISO 8601 format, e.g., `2030-12-31T11:59:00Z` |
@@ -381,6 +392,13 @@ Advanced form using integer bitmask:
 
 ```powershell
 az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --target-owner-user-id <OWNER> --skip-validation 132
+```
+
+Token/PAT-authenticated examples:
+
+```powershell
+az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --github-token <TOKEN_OR_PAT> --skip-validation AgentPoolExists,MaxRepoSize
+az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --github-token <TOKEN_OR_PAT> --skip-validation 132
 ```
 
 Supported policy names:

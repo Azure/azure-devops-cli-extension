@@ -3,8 +3,13 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import json
+import os
 import re
+import time
 from urllib.parse import quote_plus
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
 
 from msrest import Configuration
 from msrest.service_client import ServiceClient
@@ -18,6 +23,9 @@ from azext_devops.dev.common.uuid import is_uuid
 
 API_VERSION = '7.2-preview'
 MIGRATIONS_API_PATH = '/_apis/elm/migrations'
+DEVICE_FLOW_CONFIG_API_PATH = '/_apis/migrations/deviceFlowConfig'
+LEGACY_DEVICE_FLOW_CONFIG_API_PATH = '/_apis/elm/migrations/deviceFlowConfig'
+GITHUB_TOKEN_ENV_VAR = 'ELM_GITHUB_TOKEN'
 _SKIP_VALIDATION_POLICIES = {
     'none': 0,
     'activepullrequestcount': 1,
@@ -130,27 +138,29 @@ def get_migration(repository_id=None, organization=None, detect=None):
 
 def create_migration(repository_id=None, target_repository=None, target_owner_user_id=None,
                      validate_only=False, cutover_date=None, agent_pool=None,
-                     skip_validation=None, organization=None, detect=None):
+                     skip_validation=None, github_token=None, organization=None, detect=None):
     target_repository = _normalize_optional_text(target_repository)
     target_owner_user_id = _normalize_optional_text(target_owner_user_id)
     agent_pool = _normalize_optional_text(agent_pool)
+    github_token = _normalize_optional_text(github_token)
     skip_validation = _parse_skip_validation(skip_validation)
 
     if not target_repository:
         raise CLIError('--target-repository must be specified.')
     if not _URL_PATTERN.match(target_repository):
         raise CLIError('--target-repository must be a valid URL starting with http:// or https://.')
-    if not target_owner_user_id:
-        raise CLIError('--target-owner-user-id must be specified.')
-
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
+    client = _get_service_client(organization)
+    github_token = _resolve_github_user_token(client, organization, target_repository, github_token)
 
     payload = {
         'targetRepository': target_repository,
-        'targetOwnerUserId': target_owner_user_id,
+        'gitHubUserToken': github_token,
         'validateOnly': bool(validate_only),
     }
+    if target_owner_user_id:
+        payload['targetOwnerUserId'] = target_owner_user_id
     if agent_pool:
         payload['agentPoolName'] = agent_pool
     if cutover_date is not None:
@@ -158,9 +168,130 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
     if skip_validation is not None:
         payload['skipValidation'] = skip_validation
 
-    client = _get_service_client(organization)
     url = _build_migration_url(organization, repository_id)
     return _send_request(client, 'POST', url, payload)
+
+
+def _resolve_github_user_token(client, organization, target_repository, github_token=None):
+    token = _normalize_optional_text(github_token)
+    if token:
+        return token
+
+    env_token = _normalize_optional_text(os.getenv(GITHUB_TOKEN_ENV_VAR))
+    if env_token:
+        return env_token
+
+    flow_config = _get_device_flow_config(client, organization, target_repository)
+    client_id = _normalize_optional_text(flow_config.get('clientId'))
+    enterprise_url = _normalize_optional_text(flow_config.get('enterpriseUrl'))
+    if not client_id or not enterprise_url:
+        raise CLIError('Device flow configuration response is missing clientId or enterpriseUrl.')
+
+    return _run_device_flow(client_id, enterprise_url)
+
+
+def _get_device_flow_config(client, organization, target_repository):
+    urls = [
+        _build_device_flow_config_url(organization, target_repository, DEVICE_FLOW_CONFIG_API_PATH),
+        _build_device_flow_config_url(organization, target_repository, LEGACY_DEVICE_FLOW_CONFIG_API_PATH),
+    ]
+
+    first_error = None
+    for index, url in enumerate(urls):
+        try:
+            return _send_request(client, 'GET', url)
+        except CLIError as ex:
+            if index == 0 and 'status 404' in str(ex):
+                first_error = ex
+                continue
+            raise
+
+    if first_error:
+        raise first_error
+    raise CLIError('Unable to retrieve device flow configuration.')
+
+
+def _build_device_flow_config_url(base_url, target_repository, api_path=DEVICE_FLOW_CONFIG_API_PATH):
+    url = base_url.rstrip('/') + api_path
+    return '{}?targetRepository={}&api-version={}'.format(url, quote_plus(target_repository), API_VERSION)
+
+
+def _run_device_flow(client_id, enterprise_url):
+    enterprise_url = enterprise_url.rstrip('/')
+    device_code_response = _post_form('{}{}'.format(enterprise_url, '/login/device/code'), {
+        'client_id': client_id,
+    })
+
+    device_code = device_code_response.get('device_code')
+    user_code = device_code_response.get('user_code')
+    verification_uri = device_code_response.get('verification_uri')
+    interval = int(device_code_response.get('interval', 5))
+    expires_in = int(device_code_response.get('expires_in', 900))
+
+    if not device_code or not user_code or not verification_uri:
+        raise CLIError('Device flow response is missing required fields.')
+
+    print('Open: {}'.format(verification_uri))
+    print('Code: {}'.format(user_code))
+    print('Waiting for authorization...')
+
+    deadline = time.monotonic() + expires_in
+    token_url = '{}{}'.format(enterprise_url, '/login/oauth/access_token')
+    grant_type = 'urn:ietf:params:oauth:grant-type:device_code'
+
+    while time.monotonic() < deadline:
+        time.sleep(interval)
+        poll_response = _post_form(token_url, {
+            'client_id': client_id,
+            'device_code': device_code,
+            'grant_type': grant_type,
+        })
+
+        token = _normalize_optional_text(poll_response.get('access_token'))
+        if token:
+            return token
+
+        error = _normalize_optional_text(poll_response.get('error'))
+        if error == 'authorization_pending':
+            continue
+        if error == 'slow_down':
+            interval += 5
+            continue
+        if error == 'access_denied':
+            raise CLIError('Authorization denied in GitHub device flow.')
+        if error == 'expired_token':
+            raise CLIError('Device code expired. Re-run the command to authorize again.')
+
+        description = _normalize_optional_text(poll_response.get('error_description'))
+        if description:
+            raise CLIError('GitHub device flow failed: {}'.format(description))
+        raise CLIError('GitHub device flow failed: {}'.format(error or 'unknown error'))
+
+    raise CLIError('Timed out waiting for GitHub authorization. Re-run the command and complete login sooner.')
+
+
+def _post_form(url, data):
+    body = '&'.join(['{}={}'.format(quote_plus(str(key)), quote_plus(str(value))) for key, value in data.items()])
+    request = Request(url=url, data=body.encode('utf-8'))
+    request.add_header('Accept', 'application/json')
+    request.add_header('Content-Type', 'application/x-www-form-urlencoded')
+
+    try:
+        with urlopen(request) as response:
+            content = response.read()
+            return json.loads(content.decode('utf-8'))
+    except HTTPError as ex:
+        detail = ''
+        try:
+            content = ex.read()
+            if content:
+                parsed = json.loads(content.decode('utf-8'))
+                detail = parsed.get('error_description') or parsed.get('error') or str(parsed)
+        except Exception:  # pylint: disable=broad-except
+            detail = ''
+        raise CLIError('GitHub device flow request failed with status {}. {}'.format(ex.code, detail))
+    except URLError as ex:
+        raise CLIError('GitHub device flow request failed: {}'.format(ex.reason))
 
 
 def pause_migration(repository_id=None, organization=None, detect=None):

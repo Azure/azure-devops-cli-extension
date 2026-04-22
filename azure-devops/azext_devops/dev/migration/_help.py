@@ -37,13 +37,17 @@ def load_migration_help():
     helps['devops migrations create'] = """
     type: command
     short-summary: Create a migration for a repository.
+    long-summary: 'If --github-token is not provided, the CLI checks ELM_GITHUB_TOKEN and then runs GitHub device flow to acquire a token.'
     examples:
       - name: Create a migration.
         text: |
-          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --target-owner-user-id OwnerUserId --agent-pool MigrationPool
+          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --agent-pool MigrationPool
       - name: Create a validate-only migration.
         text: |
-          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --target-owner-user-id OwnerUserId --agent-pool MigrationPool --validate-only --skip-validation ActivePullRequestCount,PullRequestDeltaSize
+          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --agent-pool MigrationPool --validate-only --skip-validation ActivePullRequestCount,PullRequestDeltaSize
+      - name: Create using a pre-generated GitHub token or PAT.
+        text: |
+          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --github-token <token>
     """
 
     helps['devops migrations pause'] = """

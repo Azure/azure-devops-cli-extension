@@ -33,7 +33,8 @@ Use all three fields together when troubleshooting state transitions.
 
 - `--repository-id` is the Azure Repos repository GUID.
 - `--target-repository` is the target repository URL.
-- `--target-owner-user-id` is required for create.
+- `--github-token` is optional for create. If not provided, the CLI checks `ELM_GITHUB_TOKEN` and then runs GitHub device flow.
+- `--target-owner-user-id` is deprecated and ignored when server-side token ownership resolution is enabled.
 - `--agent-pool` is optional for create.
 - `--cutover-date` / `--date` must be ISO 8601, for example: `2030-12-31T11:59:00Z`.
 - `--skip-validation` accepts either comma-separated policy names or a non-negative integer bitmask.
@@ -118,7 +119,6 @@ az devops migrations status --org https://dev.azure.com/myorg \
 az devops migrations create --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 \
   --target-repository https://example.ghe.com/OrgName/RepoName \
-  --target-owner-user-id OwnerId \
   --agent-pool MigrationPool
 ```
 
@@ -128,9 +128,17 @@ az devops migrations create --org https://dev.azure.com/myorg \
 az devops migrations create --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 \
   --target-repository https://example.ghe.com/OrgName/RepoName \
-  --target-owner-user-id OwnerId \
   --agent-pool MigrationPool \
   --validate-only
+```
+
+### Create a migration using explicit token or PAT
+
+```bash
+az devops migrations create --org https://dev.azure.com/myorg \
+  --repository-id 00000000-0000-0000-0000-000000000000 \
+  --target-repository https://example.ghe.com/OrgName/RepoName \
+  --github-token <token>
 ```
 
 ### Create a migration with skip-validation
@@ -141,7 +149,6 @@ Recommended form using policy names:
 az devops migrations create --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 \
   --target-repository https://example.ghe.com/OrgName/RepoName \
-  --target-owner-user-id OwnerId \
   --skip-validation AgentPoolExists,MaxRepoSize
 ```
 
@@ -151,7 +158,6 @@ Advanced form using integer bitmask:
 az devops migrations create --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 \
   --target-repository https://example.ghe.com/OrgName/RepoName \
-  --target-owner-user-id OwnerId \
   --skip-validation 132
 ```
 
@@ -222,6 +228,9 @@ az devops migrations pause --org https://dev.azure.com/myorg \
 
 - Error: `--target-repository` must be valid.
   Ensure it is a fully qualified URL starting with `http://` or `https://`.
+
+- Error: missing GitHub token or device-flow setup.
+  Pass `--github-token`, set `ELM_GITHUB_TOKEN`, or complete the interactive GitHub device-flow prompt shown by CLI.
 
 - Error: `--skip-validation` contains unsupported policy names.
   Use supported names such as `AgentPoolExists`, `MaxRepoSize`, or pass a non-negative integer bitmask.
