@@ -344,6 +344,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 | **Resume on an active migration** | Error: "Migration is active..." | Pause first with `az devops migrations pause`, then resume |
 | **Both `--validate-only` and `--migration` on resume** | Error: "Please specify only one..." | Use only one flag at a time |
 | **Missing migration auth token** | Device flow prompt appears, or auth error is returned | Provide `--github-token`, set `ELM_GITHUB_TOKEN`, or complete device-flow authorization |
+| **Active migration already exists for repository** | Error: `An active migration already exists for repository <GUID>. Delete (abandon) the existing migration before creating a new one.` | Abandon the existing migration first (`az devops migrations abandon`), then retry `create` |
 | **Invalid `--target-repository` format** | Error: "--target-repository must be a valid URL..." | Use a fully qualified URL starting with `http://` or `https://` |
 | **Invalid `--repository-id`** | Error: "--repository-id must be a valid GUID." | Use `az repos show --query id` to get the correct GUID |
 | **Bad date format** | Error: "must be a valid date or datetime string" | Use ISO 8601 format, e.g., `2030-12-31T11:59:00Z` |
@@ -435,6 +436,37 @@ az devops migrations resume --detect false --repository-id <GUID> --migration
 ```
 
 1. If migration already succeeded as full migration, abandon and recreate if needed.
+
+### 409 Conflict — Active Migration Already Exists
+
+**Symptom:**
+
+```
+An active migration already exists for repository <GUID>. Delete (abandon) the existing migration before creating a new one.
+```
+
+**Cause:** A non-terminal migration already exists for the repository GUID you specified. Only one active migration per repository is allowed at a time.
+
+**Fix:**
+
+1. Check the existing migration:
+
+```powershell
+az devops migrations status --detect false --repository-id <GUID> -o json
+```
+
+1. If it can be reused (e.g., it succeeded validation and you want to promote it), use `resume --migration` instead of creating a new one.
+1. If you want to start fresh, abandon it first and then recreate:
+
+```powershell
+az devops migrations abandon --detect false --repository-id <GUID>
+
+az devops migrations create --detect false \
+  --repository-id <GUID> \
+  --target-repository https://example.ghe.com/OrgName/RepoName
+```
+
+---
 
 ### 406 Not Acceptable
 

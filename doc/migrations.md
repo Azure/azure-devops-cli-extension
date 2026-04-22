@@ -240,3 +240,15 @@ az devops migrations pause --org https://dev.azure.com/myorg \
 
 - Error: migration already succeeded.
   Use `abandon` to reset before creating a new migration.
+
+- Error: active migration already exists for repository.
+  The create command returns: `"An active migration already exists for repository <GUID>. Delete (abandon) the existing migration before creating a new one."` This means a non-terminal migration already exists for that repository GUID. Abandon it first, then retry create.
+
+```bash
+az devops migrations abandon --org https://dev.azure.com/myorg \
+  --repository-id 00000000-0000-0000-0000-000000000000
+
+az devops migrations create --org https://dev.azure.com/myorg \
+  --repository-id 00000000-0000-0000-0000-000000000000 \
+  --target-repository https://example.ghe.com/OrgName/RepoName
+```
