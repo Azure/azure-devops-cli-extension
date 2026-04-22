@@ -196,6 +196,43 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(payload['gitHubUserToken'], 'device-flow-token')
             mock_run_device_flow.assert_called_once_with('client-id-123', 'https://example.ghe.com')
 
+    def test_create_migration_conflict_returns_clear_message(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.side_effect = CLIError('Request failed with status 409. TF400898: An Internal Error Occurred.')
+
+            with self.assertRaises(CLIError) as ctx:
+                create_migration(
+                    repository_id='912d0fd3-9c17-4b35-b67b-91848ce4d6bb',
+                    target_repository='https://example.ghe.com/OrgName/RepoName',
+                    github_token='token',
+                    organization=self._TEST_ORG,
+                    detect=False
+                )
+
+            self.assertIn('An active migration already exists for repository 912d0fd3-9c17-4b35-b67b-91848ce4d6bb',
+                          str(ctx.exception))
+
+    def test_create_migration_non_conflict_error_passes_through(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.side_effect = CLIError('Request failed with status 400. Bad request')
+
+            with self.assertRaises(CLIError) as ctx:
+                create_migration(
+                    repository_id='00000000-0000-0000-0000-000000000000',
+                    target_repository='https://example.ghe.com/OrgName/RepoName',
+                    github_token='token',
+                    organization=self._TEST_ORG,
+                    detect=False
+                )
+
+            self.assertIn('status 400', str(ctx.exception))
+
     def test_create_migration_no_token_and_missing_device_flow_config_fields_fails(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \

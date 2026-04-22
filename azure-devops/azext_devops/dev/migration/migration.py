@@ -169,7 +169,15 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
         payload['skipValidation'] = skip_validation
 
     url = _build_migration_url(organization, repository_id)
-    return _send_request(client, 'POST', url, payload)
+    try:
+        return _send_request(client, 'POST', url, payload)
+    except CLIError as ex:
+        error_text = str(ex)
+        if 'status 409' in error_text and 'TF400898' in error_text:
+            raise CLIError('An active migration already exists for repository {}. '
+                           'Delete (abandon) the existing migration before creating a new one.'
+                           .format(repository_id))
+        raise
 
 
 def _resolve_github_user_token(client, organization, target_repository, github_token=None):
