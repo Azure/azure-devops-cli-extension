@@ -2,10 +2,9 @@
 
 [![Build Status](https://dev.azure.com/ms/azure-devops-cli-extension/_apis/build/status/Azure%20DevOps%20CLI%20-%20Merge%20GitHub?branchName=master)](https://dev.azure.com/ms/azure-devops-cli-extension/_build/latest?definitionId=39&branchName=master)
 
-The Azure DevOps Extension for Azure CLI adds Pipelines, Boards, Repos, Artifacts and DevOps commands to the Azure CLI 2.0. 
+The Azure DevOps Extension for Azure CLI adds Pipelines, Boards, Repos, Artifacts and DevOps commands to the Azure CLI 2.0.
 
 > The Azure CLI with the Azure DevOps Extension has replaced the VSTS CLI. The VSTS CLI has been deprecated and will no longer be receiving new features. We recommend that users of the VSTS CLI switch to the Azure CLI and add the Azure DevOps extension. See the [Command Mapping](/doc/command_mapping.md) section to view the mapping between VSTS CLI and Azure DevOps Extension commands.
-
 
 ## Quick start
 
@@ -73,11 +72,11 @@ Commands:
 
 See our [contribution guidelines](CONTRIBUTING.md) to learn how you can contribute to this project.
 
-TLDR of [contribution guidelines](CONTRIBUTING.md) <br/>
+TLDR of [contribution guidelines](CONTRIBUTING.md)<br/>
 
-Questions : [Stack Overflow](https://stackoverflow.com/questions/tagged/azure-devops) <br/>
-Bug reports : [Developer Community](https://developercommunity.visualstudio.com/spaces/21/index.html) <br/>
-New Feature request : [Azure DevOps repo](https://github.com/Microsoft/azure-devops-cli-extension/issues/new/choose) <br/>
+Questions : [Stack Overflow](https://stackoverflow.com/questions/tagged/azure-devops)<br/>
+Bug reports : [Developer Community](https://developercommunity.visualstudio.com/spaces/21/index.html)<br/>
+New Feature request : [Azure DevOps repo](https://github.com/Microsoft/azure-devops-cli-extension/issues/new/choose)<br/>
 
 ## License
 
