@@ -292,6 +292,10 @@ def _post_form(url, data):
             content = response.read()
             return json.loads(content.decode('utf-8'))
     except HTTPError as ex:
+        if ex.code in (401, 403):
+            raise CLIError('GitHub device flow is unavailable for this organization. '
+                           'This can happen if the GitHub app is not installed or the service is unavailable. '
+                           'Try again later, or provide --github-token (or set ELM_GITHUB_TOKEN).')
         detail = ''
         try:
             content = ex.read()

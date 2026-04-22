@@ -5,6 +5,7 @@
 
 import unittest
 import os
+from urllib.error import HTTPError
 
 try:
     # Attempt to load mock (works on Python 3.3 and above)
@@ -387,6 +388,23 @@ class TestMigrationCommands(unittest.TestCase):
                 migration_module._run_device_flow('client-id', 'https://example.ghe.com')
 
             self.assertIn('Invalid device-flow response: expires_in must be a positive integer.', str(ctx.exception))
+
+    def test_post_form_401_returns_generic_guidance(self):
+        with patch('azext_devops.dev.migration.migration.urlopen') as mock_urlopen:
+            mock_urlopen.side_effect = HTTPError(
+                url='https://example.ghe.com/login/device/code',
+                code=401,
+                msg='Unauthorized',
+                hdrs=None,
+                fp=None
+            )
+
+            with self.assertRaises(CLIError) as ctx:
+                migration_module._post_form('https://example.ghe.com/login/device/code', {
+                    'client_id': 'client-id'
+                })
+
+            self.assertIn('GitHub device flow is unavailable for this organization.', str(ctx.exception))
 
     def test_create_migration_payload_includes_optional_fields(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
