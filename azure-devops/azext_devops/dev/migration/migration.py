@@ -212,6 +212,9 @@ def _get_device_flow_config(client, organization, target_repository):
             if index == 0 and 'status 404' in str(ex):
                 first_error = ex
                 continue
+            if index == 1 and first_error and 'status 404' in str(ex):
+                raise CLIError('GitHub device-flow configuration is unavailable. '
+                               'Provide --github-token or set ELM_GITHUB_TOKEN to continue.')
             raise
 
     if first_error:
@@ -230,14 +233,14 @@ def _run_device_flow(client_id, enterprise_url):
         'client_id': client_id,
     })
 
-    device_code = device_code_response.get('device_code')
-    user_code = device_code_response.get('user_code')
-    verification_uri = device_code_response.get('verification_uri')
-    interval = int(device_code_response.get('interval', 5))
-    expires_in = int(device_code_response.get('expires_in', 900))
+    device_code = _normalize_optional_text(device_code_response.get('device_code'))
+    user_code = _normalize_optional_text(device_code_response.get('user_code'))
+    verification_uri = _normalize_optional_text(device_code_response.get('verification_uri'))
+    interval = _parse_positive_int(device_code_response.get('interval', 5), 'interval')
+    expires_in = _parse_positive_int(device_code_response.get('expires_in', 900), 'expires_in')
 
     if not device_code or not user_code or not verification_uri:
-        raise CLIError('Device flow response is missing required fields.')
+        raise CLIError('Invalid device-flow response: missing required fields.')
 
     print('Open: {}'.format(verification_uri))
     print('Code: {}'.format(user_code))
@@ -300,6 +303,17 @@ def _post_form(url, data):
         raise CLIError('GitHub device flow request failed with status {}. {}'.format(ex.code, detail))
     except URLError as ex:
         raise CLIError('GitHub device flow request failed: {}'.format(ex.reason))
+
+
+def _parse_positive_int(value, field_name):
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError):
+        raise CLIError('Invalid device-flow response: {} must be a positive integer.'.format(field_name))
+
+    if parsed <= 0:
+        raise CLIError('Invalid device-flow response: {} must be a positive integer.'.format(field_name))
+    return parsed
 
 
 def pause_migration(repository_id=None, organization=None, detect=None):

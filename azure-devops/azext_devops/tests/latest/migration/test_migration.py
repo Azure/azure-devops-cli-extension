@@ -277,6 +277,22 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(result['clientId'], 'abc')
             self.assertEqual(mock_send.call_count, 2)
 
+    def test_get_device_flow_config_both_paths_404_shows_pat_guidance(self):
+        with patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.side_effect = [
+                CLIError("Request failed with status 404. The controller for path '/_apis/migrations/deviceFlowConfig' was not found."),
+                CLIError("Request failed with status 404. The controller for path '/_apis/elm/migrations/deviceFlowConfig' was not found."),
+            ]
+
+            with self.assertRaises(CLIError) as ctx:
+                migration_module._get_device_flow_config(
+                    client=object(),
+                    organization=self._TEST_ORG,
+                    target_repository='https://example.ghe.com/org/repo'
+                )
+
+            self.assertIn('Provide --github-token or set ELM_GITHUB_TOKEN', str(ctx.exception))
+
     def test_run_device_flow_handles_access_denied(self):
         with patch('azext_devops.dev.migration.migration._post_form') as mock_post, \
              patch('azext_devops.dev.migration.migration.time.sleep') as mock_sleep, \
@@ -341,6 +357,36 @@ class TestMigrationCommands(unittest.TestCase):
 
             token = migration_module._run_device_flow('client-id', 'https://example.ghe.com')
             self.assertEqual(token, 'token-from-device-flow')
+
+    def test_run_device_flow_fails_for_invalid_interval(self):
+        with patch('azext_devops.dev.migration.migration._post_form') as mock_post:
+            mock_post.return_value = {
+                'device_code': 'devcode',
+                'user_code': 'ABCD-1234',
+                'verification_uri': 'https://example.ghe.com/login/device',
+                'interval': 'abc',
+                'expires_in': 900,
+            }
+
+            with self.assertRaises(CLIError) as ctx:
+                migration_module._run_device_flow('client-id', 'https://example.ghe.com')
+
+            self.assertIn('Invalid device-flow response: interval must be a positive integer.', str(ctx.exception))
+
+    def test_run_device_flow_fails_for_invalid_expires_in(self):
+        with patch('azext_devops.dev.migration.migration._post_form') as mock_post:
+            mock_post.return_value = {
+                'device_code': 'devcode',
+                'user_code': 'ABCD-1234',
+                'verification_uri': 'https://example.ghe.com/login/device',
+                'interval': 5,
+                'expires_in': 0,
+            }
+
+            with self.assertRaises(CLIError) as ctx:
+                migration_module._run_device_flow('client-id', 'https://example.ghe.com')
+
+            self.assertIn('Invalid device-flow response: expires_in must be a positive integer.', str(ctx.exception))
 
     def test_create_migration_payload_includes_optional_fields(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
