@@ -7,7 +7,7 @@ import json
 import os
 import re
 import time
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urlparse
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 
@@ -147,8 +147,7 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
 
     if not target_repository:
         raise CLIError('--target-repository must be specified.')
-    if not _URL_PATTERN.match(target_repository):
-        raise CLIError('--target-repository must be a valid URL starting with http:// or https://.')
+    _validate_target_repository(target_repository)
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
@@ -318,6 +317,22 @@ def _parse_positive_int(value, field_name):
     if parsed <= 0:
         raise CLIError('Invalid device-flow response: {} must be a positive integer.'.format(field_name))
     return parsed
+
+
+def _validate_target_repository(target_repository):
+    if not _URL_PATTERN.match(target_repository):
+        raise CLIError('--target-repository must be a valid URL in the format https://host/org/repo.')
+
+    parsed = urlparse(target_repository)
+    if parsed.scheme != 'https':
+        raise CLIError('--target-repository must be a valid URL in the format https://host/org/repo.')
+
+    if not parsed.netloc or parsed.params or parsed.query or parsed.fragment:
+        raise CLIError('--target-repository must be a valid URL in the format https://host/org/repo.')
+
+    path_parts = [part for part in parsed.path.split('/') if part]
+    if len(path_parts) != 2:
+        raise CLIError('--target-repository must be a valid URL in the format https://host/org/repo.')
 
 
 def pause_migration(repository_id=None, organization=None, detect=None):
@@ -495,7 +510,11 @@ def _send_request(client, method, url, content=None):
         error_detail = ''
         try:
             body = response.json()
-            error_detail = body.get('message') or body.get('Message') or str(body)
+            precheck_detail = _extract_precheck_issue_detail(body)
+            if precheck_detail:
+                error_detail = precheck_detail
+            else:
+                error_detail = body.get('message') or body.get('Message') or str(body)
         except Exception:  # pylint: disable=broad-except
             error_detail = getattr(response, 'text', None) or getattr(response, 'content', None) or ''
         raise CLIError('Request failed with status {}. {}'.format(response.status_code, error_detail))
@@ -504,3 +523,38 @@ def _send_request(client, method, url, content=None):
     if content_type and 'json' in content_type:
         return response.json()
     return {}
+
+
+def _extract_precheck_issue_detail(body):
+    if not isinstance(body, dict):
+        return None
+
+    issue_collections = []
+    for key in ('preCheckIssues', 'PreCheckIssues', 'validationIssues', 'ValidationIssues', 'issues', 'Issues'):
+        value = body.get(key)
+        if isinstance(value, list):
+            issue_collections.extend(value)
+
+    messages = []
+    for issue in issue_collections:
+        if not isinstance(issue, dict):
+            continue
+        issue_type = (issue.get('preCheckIssueType') or issue.get('PreCheckIssueType') or
+                      issue.get('issueType') or issue.get('IssueType'))
+        issue_message = (issue.get('message') or issue.get('Message') or
+                         issue.get('errorMessage') or issue.get('ErrorMessage'))
+
+        issue_type = _normalize_optional_text(issue_type)
+        issue_message = _normalize_optional_text(issue_message)
+
+        if issue_type and issue_message:
+            messages.append('[{}] {}'.format(issue_type, issue_message))
+        elif issue_type:
+            messages.append('[{}]'.format(issue_type))
+        elif issue_message:
+            messages.append(issue_message)
+
+    if messages:
+        return 'Pre-check issues: {}'.format('; '.join(messages))
+
+    return None

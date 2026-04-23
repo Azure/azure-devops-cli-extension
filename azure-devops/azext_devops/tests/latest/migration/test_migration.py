@@ -133,7 +133,31 @@ class TestMigrationCommands(unittest.TestCase):
                 organization=self._TEST_ORG,
                 detect=False
             )
-        self.assertIn('must be a valid URL', str(ctx.exception))
+        self.assertIn('https://host/org/repo', str(ctx.exception))
+
+    def test_create_migration_fails_with_non_https_target_repository(self):
+        with self.assertRaises(CLIError) as ctx:
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='http://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                agent_pool='MigrationPool',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('https://host/org/repo', str(ctx.exception))
+
+    def test_create_migration_fails_when_target_repository_path_is_not_org_repo(self):
+        with self.assertRaises(CLIError) as ctx:
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName',
+                target_owner_user_id='GeoffCoxMSFT',
+                agent_pool='MigrationPool',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('https://host/org/repo', str(ctx.exception))
 
     def test_create_migration_without_agent_pool(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -798,6 +822,38 @@ class TestMigrationCommands(unittest.TestCase):
                 resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
                                  organization=self._TEST_ORG, detect=False)
             self.assertIn('abandon', str(ctx.exception))
+
+    def test_send_request_uses_precheck_issue_detail_from_response_body(self):
+        class MockResponse(object):
+            status_code = 400
+            headers = {'Content-Type': 'application/json'}
+
+            @staticmethod
+            def json():
+                return {
+                    'validationIssues': [
+                        {
+                            'PreCheckIssueType': 'TargetRepositoryDoesNotExist',
+                            'Message': 'Target repository could not be found.'
+                        }
+                    ],
+                    'message': 'Generic server message'
+                }
+
+        class MockClient(object):
+            @staticmethod
+            def send(request, headers, content):
+                del request, headers, content
+                return MockResponse()
+
+        with self.assertRaises(CLIError) as ctx:
+            migration_module._send_request(MockClient(), 'POST', 'https://example.test')
+
+        text = str(ctx.exception)
+        self.assertIn('status 400', text)
+        self.assertIn('Pre-check issues:', text)
+        self.assertIn('TargetRepositoryDoesNotExist', text)
+        self.assertIn('Target repository could not be found.', text)
 
 
 if __name__ == '__main__':
