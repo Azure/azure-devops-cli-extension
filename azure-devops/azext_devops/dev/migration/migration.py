@@ -31,7 +31,12 @@ _SKIP_VALIDATION_POLICIES = {
     'targetrepositorydoesnotexist': 256,
     'all': 2147483647,
 }
+_SUCCESS_TERMINAL_STATES = {
+    'succeeded',
+    'completed'
+}
 _NON_ACTIVE_STATES = {
+    'completed',
     'succeeded',
     'failed',
     'suspended'
@@ -184,14 +189,14 @@ def resume_migration(repository_id=None, validate_only=False, migration=False, o
                        .format(state_text))
 
     if _is_migration_terminal(migration_data):
-        status = _normalize_state(migration_data.get('status'))
+        status = _get_effective_status(migration_data)
         is_val_only = migration_data.get('validateOnly') is True
-        if status == 'succeeded' and is_val_only:
-            raise CLIError('Validation already succeeded. Promote it with '
+        if _is_success_terminal_status(status) and is_val_only:
+            raise CLIError('Validation already completed. Promote it with '
                            '"az devops migrations resume --repository-id <guid> --migration", '
                            'or abandon and create a new migration.')
-        if status == 'succeeded':
-            raise CLIError('Migration already succeeded. Use '
+        if _is_success_terminal_status(status):
+            raise CLIError('Migration already completed. Use '
                            '"az devops migrations abandon --repository-id <guid>" to reset, '
                            'then create a new migration.')
 
@@ -257,6 +262,20 @@ def _normalize_state(value):
     return normalized.replace(' ', '').replace('-', '').replace('_', '')
 
 
+def _is_success_terminal_status(status):
+    return status in _SUCCESS_TERMINAL_STATES
+
+
+def _get_effective_status(migration):
+    if not isinstance(migration, dict):
+        return ''
+    # Prefer actual migration status over requested status when both are present.
+    status = _normalize_state(migration.get('status'))
+    if status:
+        return status
+    return _normalize_state(migration.get('statusRequested'))
+
+
 def _get_migration_state_text(migration):
     status_requested = migration.get('statusRequested')
     status = migration.get('status')
@@ -277,7 +296,7 @@ def _is_migration_active(migration):
     if not isinstance(migration, dict):
         return False
 
-    status = _normalize_state(migration.get('statusRequested') or migration.get('status'))
+    status = _get_effective_status(migration)
     if status:
         return status not in _NON_ACTIVE_STATES
 
@@ -291,15 +310,15 @@ def _is_migration_active(migration):
 def _is_migration_terminal(migration):
     if not isinstance(migration, dict):
         return False
-    status = _normalize_state(migration.get('status'))
-    return status in ('succeeded', 'failed')
+    status = _get_effective_status(migration)
+    return _is_success_terminal_status(status) or status == 'failed'
 
 
 def _is_validate_only_succeeded(migration):
     if not isinstance(migration, dict):
         return False
     return (migration.get('validateOnly') is True and
-            _normalize_state(migration.get('status')) == 'succeeded')
+            _is_success_terminal_status(_get_effective_status(migration)))
 
 
 def _promote_to_full_migration(migration_data, repository_id, organization):

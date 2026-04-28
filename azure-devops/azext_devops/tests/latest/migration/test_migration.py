@@ -479,6 +479,28 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertFalse(payload['validateOnly'])
             self.assertEqual(payload['statusRequested'], 'active')
 
+    def test_resume_migration_promotes_validate_only_completed(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_get.return_value = {
+                'status': 'completed',
+                'validateOnly': True,
+            }
+            mock_resolve.return_value = self._TEST_ORG
+
+            resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                             migration=True,
+                             organization=self._TEST_ORG, detect=False)
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'PUT')
+            payload = args[3]
+            self.assertFalse(payload['validateOnly'])
+            self.assertEqual(payload['statusRequested'], 'active')
+
     def test_resume_migration_promote_uses_only_state_transition_fields(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
              patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -521,10 +543,69 @@ class TestMigrationCommands(unittest.TestCase):
                                  organization=self._TEST_ORG, detect=False)
             self.assertIn('--migration', str(ctx.exception))
 
+    def test_resume_completed_without_migration_flag_errors(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve:
+            mock_get.return_value = {'status': 'completed', 'validateOnly': True}
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError) as ctx:
+                resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                                 organization=self._TEST_ORG, detect=False)
+            self.assertIn('--migration', str(ctx.exception))
+
     def test_resume_succeeded_full_migration_errors(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
              patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve:
             mock_get.return_value = {'status': 'succeeded', 'validateOnly': False}
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError) as ctx:
+                resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                                 organization=self._TEST_ORG, detect=False)
+            self.assertIn('abandon', str(ctx.exception))
+
+    def test_resume_completed_full_migration_errors(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve:
+            mock_get.return_value = {'status': 'completed', 'validateOnly': False}
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError) as ctx:
+                resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                                 organization=self._TEST_ORG, detect=False)
+            self.assertIn('abandon', str(ctx.exception))
+
+    def test_resume_completed_status_takes_precedence_over_active_status_requested(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve:
+            mock_get.return_value = {
+                'status': 'completed',
+                'statusRequested': 'active',
+                'validateOnly': True,
+            }
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError) as ctx:
+                resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                                 organization=self._TEST_ORG, detect=False)
+            self.assertIn('--migration', str(ctx.exception))
+
+    def test_resume_completed_status_requested_without_status_is_terminal(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve:
+            mock_get.return_value = {'statusRequested': 'completed', 'validateOnly': False}
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError) as ctx:
+                resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                                 organization=self._TEST_ORG, detect=False)
+            self.assertIn('abandon', str(ctx.exception))
+
+    def test_resume_completed_case_variants_are_treated_as_terminal(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve:
+            mock_get.return_value = {'status': 'Com_PleTed', 'validateOnly': False}
             mock_resolve.return_value = self._TEST_ORG
 
             with self.assertRaises(CLIError) as ctx:
