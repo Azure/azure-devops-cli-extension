@@ -1,6 +1,7 @@
 # Enterprise live migrations (ELM)
 
-The `az devops migrations` command group manages enterprise live migrations for repositories.
+The `az devops migrations` command group (Preview) manages enterprise live migrations for repositories.
+Availability may be limited (for example, to 1P/allowlisted users).
 
 ## Prerequisites
 

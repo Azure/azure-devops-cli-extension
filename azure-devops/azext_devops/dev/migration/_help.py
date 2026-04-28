@@ -10,7 +10,7 @@ def load_migration_help():
     helps['devops migrations'] = """
     type: group
     short-summary: Manage enterprise live migrations.
-    long-summary: 'This command group is a part of the azure-devops extension. For ELM migrations, --org should be your Azure DevOps organization URL (for example: https://dev.azure.com/myorg).'
+    long-summary: 'This command group is a part of the azure-devops extension and is in preview. Availability may be limited (for example, to 1P/allowlisted users). For ELM migrations, --org should be your Azure DevOps organization URL (for example: https://dev.azure.com/myorg).'
     """
 
     helps['devops migrations list'] = """
