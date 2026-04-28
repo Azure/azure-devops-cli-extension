@@ -18,6 +18,7 @@ from azext_devops.dev.migration.migration import (list_migrations,
                                                   create_migration,
                                                   cancel_cutover,
                                                   delete_migration,
+                                                  pause_migration,
                                                   resume_migration)
 
 
@@ -380,6 +381,94 @@ class TestMigrationCommands(unittest.TestCase):
             payload = mock_send.call_args[0][3]
             self.assertIsNone(payload['scheduledCutoverDate'])
 
+    def test_cancel_cutover_returns_success_message_when_empty_response(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            result = cancel_cutover(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            self.assertIn('message', result)
+            self.assertIn('cancelled', result['message'].lower())
+
+    def test_pause_returns_success_message_when_empty_response(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            result = pause_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            self.assertIn('message', result)
+            self.assertIn('paused', result['message'].lower())
+
+    def test_pause_returns_migration_data_when_service_responds(self):
+        migration_response = {'repositoryId': '00000000-0000-0000-0000-000000000000', 'status': 'suspended'}
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = migration_response
+            mock_resolve.return_value = self._TEST_ORG
+
+            result = pause_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            self.assertEqual(result, migration_response)
+
+    def test_list_migrations_warns_when_empty(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration.logger') as mock_logger:
+            mock_send.return_value = {'value': []}
+            mock_resolve.return_value = self._TEST_ORG
+
+            list_migrations(organization=self._TEST_ORG, detect=False)
+
+            mock_logger.warning.assert_called_once()
+            warning_msg = mock_logger.warning.call_args[0][0]
+            self.assertIn('No migrations found', warning_msg)
+
+    def test_list_migrations_hints_include_inactive_when_not_passed(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration.logger') as mock_logger:
+            mock_send.return_value = {'value': []}
+            mock_resolve.return_value = self._TEST_ORG
+
+            list_migrations(include_inactive=False, organization=self._TEST_ORG, detect=False)
+
+            warning_call = str(mock_logger.warning.call_args)
+            self.assertIn('include-inactive', warning_call)
+
+    def test_list_migrations_no_hint_when_include_inactive_passed(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration.logger') as mock_logger:
+            mock_send.return_value = {'value': []}
+            mock_resolve.return_value = self._TEST_ORG
+
+            list_migrations(include_inactive=True, organization=self._TEST_ORG, detect=False)
+
+            warning_call = str(mock_logger.warning.call_args)
+            self.assertNotIn('include-inactive', warning_call)
+
     def test_resume_rejects_both_flags(self):
         with self.assertRaises(CLIError):
             resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
@@ -543,6 +632,7 @@ class TestMigrationCommands(unittest.TestCase):
                 resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
                                  organization=self._TEST_ORG, detect=False)
             self.assertIn('--migration', str(ctx.exception))
+            self.assertIn('00000000-0000-0000-0000-000000000000', str(ctx.exception))
 
     def test_resume_completed_without_migration_flag_errors(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
@@ -565,6 +655,7 @@ class TestMigrationCommands(unittest.TestCase):
                 resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
                                  organization=self._TEST_ORG, detect=False)
             self.assertIn('abandon', str(ctx.exception))
+            self.assertIn('00000000-0000-0000-0000-000000000000', str(ctx.exception))
 
     def test_resume_completed_full_migration_errors(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \

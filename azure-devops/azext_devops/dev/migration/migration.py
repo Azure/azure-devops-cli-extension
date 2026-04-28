@@ -11,9 +11,13 @@ from msrest.service_client import ServiceClient
 from msrest.universal_http import ClientRequest
 from knack.util import CLIError
 
+from knack.log import get_logger
+
 from azext_devops.version import VERSION
 from azext_devops.dev.common.services import get_connection, resolve_instance
 from azext_devops.dev.common.uuid import is_uuid
+
+logger = get_logger(__name__)
 
 
 API_VERSION = '7.2-preview'
@@ -59,7 +63,12 @@ def list_migrations(include_inactive=False, project=None, organization=None, det
     project = _normalize_optional_text(project)
     if project:
         url += '&project={}'.format(quote_plus(project))
-    return _send_request(client, 'GET', url)
+    result = _send_request(client, 'GET', url)
+    items = result.get('value', result) if isinstance(result, dict) else result
+    if not items:
+        hint = '' if include_inactive else ' Use --include-inactive to include completed or abandoned migrations.'
+        logger.warning('No migrations found.%s', hint)
+    return result
 
 
 def _normalize_optional_text(value):
@@ -169,7 +178,10 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
 
 
 def pause_migration(repository_id=None, organization=None, detect=None):
-    return _update_migration(repository_id, organization, detect, status_requested='suspended')
+    result = _update_migration(repository_id, organization, detect, status_requested='suspended')
+    if not result:
+        return {'message': 'Migration paused successfully.'}
+    return result
 
 
 def resume_migration(repository_id=None, validate_only=False, migration=False, organization=None, detect=None):
@@ -193,12 +205,12 @@ def resume_migration(repository_id=None, validate_only=False, migration=False, o
         is_val_only = migration_data.get('validateOnly') is True
         if _is_success_terminal_status(status) and is_val_only:
             raise CLIError('Validation already completed. Promote it with '
-                           '"az devops migrations resume --repository-id <guid> --migration", '
-                           'or abandon and create a new migration.')
+                           '"az devops migrations resume --repository-id {} --migration", '
+                           'or abandon and create a new migration.'.format(repository_id))
         if _is_success_terminal_status(status):
             raise CLIError('Migration already completed. Use '
-                           '"az devops migrations abandon --repository-id <guid>" to reset, '
-                           'then create a new migration.')
+                           '"az devops migrations abandon --repository-id {}" to reset, '
+                           'then create a new migration.'.format(repository_id))
 
     validate_only_value = None
     if validate_only:
@@ -218,8 +230,11 @@ def schedule_cutover(repository_id=None, cutover_date=None, organization=None, d
 
 
 def cancel_cutover(repository_id=None, organization=None, detect=None):
-    return _update_migration(repository_id, organization, detect, scheduled_cutover_date=None,
-                             include_cutover=True)
+    result = _update_migration(repository_id, organization, detect, scheduled_cutover_date=None,
+                               include_cutover=True)
+    if not result:
+        return {'message': 'Cutover cancelled successfully.'}
+    return result
 
 
 def delete_migration(repository_id=None, organization=None, detect=None):

@@ -10,6 +10,16 @@ from azext_devops.dev.common.format import trim_for_display, date_time_to_only_d
 _TARGET_TRUNCATION_LENGTH = 60
 
 
+def transform_message_output(result):
+    if result is None:
+        return []
+    if isinstance(result, dict) and 'message' in result:
+        row = OrderedDict()
+        row['Message'] = result['message']
+        return [row]
+    return transform_migration_table_output(result)
+
+
 def transform_migrations_table_output(result):
     migrations = _unwrap_migration_list(result)
     table_output = []
