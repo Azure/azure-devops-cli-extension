@@ -227,7 +227,8 @@ def delete_migration(repository_id=None, organization=None, detect=None):
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
     url = _build_migration_url(organization, repository_id)
-    return _send_request(client, 'DELETE', url)
+    _send_request(client, 'DELETE', url)
+    return {'message': 'Migration abandoned successfully.'}
 
 
 def _update_migration(repository_id, organization, detect, validate_only=None,

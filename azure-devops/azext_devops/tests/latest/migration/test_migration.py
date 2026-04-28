@@ -17,6 +17,7 @@ from knack.util import CLIError
 from azext_devops.dev.migration.migration import (list_migrations,
                                                   create_migration,
                                                   cancel_cutover,
+                                                  delete_migration,
                                                   resume_migration)
 
 
@@ -612,6 +613,26 @@ class TestMigrationCommands(unittest.TestCase):
                 resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
                                  organization=self._TEST_ORG, detect=False)
             self.assertIn('abandon', str(ctx.exception))
+
+    def test_abandon_returns_success_message(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            result = delete_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'DELETE')
+            self.assertIn('/_apis/elm/migrations/', args[2])
+            self.assertIsInstance(result, dict)
+            self.assertIn('message', result)
+            self.assertIn('abandoned successfully', result['message'])
 
 
 if __name__ == '__main__':
