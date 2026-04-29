@@ -4,6 +4,8 @@
 # --------------------------------------------------------------------------------------------
 
 import unittest
+import os
+from urllib.error import HTTPError
 
 try:
     # Attempt to load mock (works on Python 3.3 and above)
@@ -13,6 +15,7 @@ except ImportError:
     from mock import patch
 
 from knack.util import CLIError
+import azext_devops.dev.migration.migration as migration_module
 
 from azext_devops.dev.migration.migration import (list_migrations,
                                                   create_migration,
@@ -25,6 +28,16 @@ from azext_devops.dev.migration.migration import (list_migrations,
 class TestMigrationCommands(unittest.TestCase):
 
     _TEST_ORG = 'https://elm.contoso.com/elmo1'
+
+    def setUp(self):
+        self._original_env_token = os.environ.get('ELM_GITHUB_TOKEN')
+        os.environ['ELM_GITHUB_TOKEN'] = 'env-token-for-tests'
+
+    def tearDown(self):
+        if self._original_env_token is None:
+            os.environ.pop('ELM_GITHUB_TOKEN', None)
+        else:
+            os.environ['ELM_GITHUB_TOKEN'] = self._original_env_token
 
     def test_list_migrations_calls_get(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -99,6 +112,7 @@ class TestMigrationCommands(unittest.TestCase):
 
             payload = mock_send.call_args[0][3]
             self.assertFalse(payload['validateOnly'])
+            self.assertEqual(payload['gitHubUserToken'], 'env-token-for-tests')
 
     def test_create_migration_fails_without_target_repository(self):
         with self.assertRaises(CLIError) as ctx:
@@ -121,7 +135,31 @@ class TestMigrationCommands(unittest.TestCase):
                 organization=self._TEST_ORG,
                 detect=False
             )
-        self.assertIn('must be a valid URL', str(ctx.exception))
+        self.assertIn('https://host/org/repo', str(ctx.exception))
+
+    def test_create_migration_fails_with_non_https_target_repository(self):
+        with self.assertRaises(CLIError) as ctx:
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='http://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                agent_pool='MigrationPool',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('https://host/org/repo', str(ctx.exception))
+
+    def test_create_migration_fails_when_target_repository_path_is_not_org_repo(self):
+        with self.assertRaises(CLIError) as ctx:
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName',
+                target_owner_user_id='GeoffCoxMSFT',
+                agent_pool='MigrationPool',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('https://host/org/repo', str(ctx.exception))
 
     def test_create_migration_without_agent_pool(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -140,6 +178,287 @@ class TestMigrationCommands(unittest.TestCase):
 
             payload = mock_send.call_args[0][3]
             self.assertNotIn('agentPoolName', payload)
+
+    def test_create_migration_uses_parameter_token_over_environment(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                github_token='param-token',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['gitHubUserToken'], 'param-token')
+
+    def test_create_migration_uses_device_flow_when_no_token_provided(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration._run_device_flow') as mock_run_device_flow:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.side_effect = [
+                {'clientId': 'client-id-123', 'enterpriseUrl': 'https://example.ghe.com'},
+                {}
+            ]
+            mock_run_device_flow.return_value = 'device-flow-token'
+            os.environ.pop('ELM_GITHUB_TOKEN', None)
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['gitHubUserToken'], 'device-flow-token')
+            mock_run_device_flow.assert_called_once_with('client-id-123', 'https://example.ghe.com')
+
+    def test_create_migration_conflict_returns_clear_message(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.side_effect = CLIError('Request failed with status 409. TF400898: An Internal Error Occurred.')
+
+            with self.assertRaises(CLIError) as ctx:
+                create_migration(
+                    repository_id='912d0fd3-9c17-4b35-b67b-91848ce4d6bb',
+                    target_repository='https://example.ghe.com/OrgName/RepoName',
+                    github_token='token',
+                    organization=self._TEST_ORG,
+                    detect=False
+                )
+
+            self.assertIn('An active migration already exists for repository 912d0fd3-9c17-4b35-b67b-91848ce4d6bb',
+                          str(ctx.exception))
+
+    def test_create_migration_non_conflict_error_passes_through(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.side_effect = CLIError('Request failed with status 400. Bad request')
+
+            with self.assertRaises(CLIError) as ctx:
+                create_migration(
+                    repository_id='00000000-0000-0000-0000-000000000000',
+                    target_repository='https://example.ghe.com/OrgName/RepoName',
+                    github_token='token',
+                    organization=self._TEST_ORG,
+                    detect=False
+                )
+
+            self.assertIn('status 400', str(ctx.exception))
+
+    def test_create_migration_no_token_and_missing_device_flow_config_fields_fails(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = {'clientId': 'client-id-only'}
+            os.environ.pop('ELM_GITHUB_TOKEN', None)
+
+            with self.assertRaises(CLIError) as ctx:
+                create_migration(
+                    repository_id='00000000-0000-0000-0000-000000000000',
+                    target_repository='https://example.ghe.com/OrgName/RepoName',
+                    organization=self._TEST_ORG,
+                    detect=False
+                )
+
+            self.assertIn('missing clientId or enterpriseUrl', str(ctx.exception))
+
+    def test_build_device_flow_config_url_encodes_target_repository(self):
+        url = migration_module._build_device_flow_config_url(
+            self._TEST_ORG,
+            'https://example.ghe.com/org name/repo name'
+        )
+
+        self.assertIn('/_apis/migrations/deviceFlowConfig?', url)
+        self.assertIn('targetRepository=https%3A%2F%2Fexample.ghe.com%2Forg+name%2Frepo+name', url)
+        self.assertIn('api-version=7.2-preview', url)
+
+    def test_get_device_flow_config_falls_back_to_legacy_path_on_404(self):
+        with patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.side_effect = [
+                CLIError("Request failed with status 404. The controller for path '/_apis/migrations/deviceFlowConfig' was not found."),
+                {'clientId': 'abc', 'enterpriseUrl': 'https://example.ghe.com'}
+            ]
+
+            result = migration_module._get_device_flow_config(
+                client=object(),
+                organization=self._TEST_ORG,
+                target_repository='https://example.ghe.com/org/repo'
+            )
+
+            self.assertEqual(result['clientId'], 'abc')
+            self.assertEqual(mock_send.call_count, 2)
+
+    def test_get_device_flow_config_both_paths_404_shows_pat_guidance(self):
+        with patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.side_effect = [
+                CLIError("Request failed with status 404. The controller for path '/_apis/migrations/deviceFlowConfig' was not found."),
+                CLIError("Request failed with status 404. The controller for path '/_apis/elm/migrations/deviceFlowConfig' was not found."),
+            ]
+
+            with self.assertRaises(CLIError) as ctx:
+                migration_module._get_device_flow_config(
+                    client=object(),
+                    organization=self._TEST_ORG,
+                    target_repository='https://example.ghe.com/org/repo'
+                )
+
+            self.assertIn('Provide --github-token or set ELM_GITHUB_TOKEN', str(ctx.exception))
+
+    def test_run_device_flow_handles_access_denied(self):
+        with patch('azext_devops.dev.migration.migration._post_form') as mock_post, \
+             patch('azext_devops.dev.migration.migration.time.sleep') as mock_sleep, \
+             patch('azext_devops.dev.migration.migration.time.monotonic') as mock_monotonic:
+            mock_sleep.return_value = None
+            mock_monotonic.side_effect = [0, 0]
+            mock_post.side_effect = [
+                {
+                    'device_code': 'devcode',
+                    'user_code': 'ABCD-1234',
+                    'verification_uri': 'https://example.ghe.com/login/device',
+                    'interval': 1,
+                    'expires_in': 900,
+                },
+                {'error': 'access_denied'},
+            ]
+
+            with self.assertRaises(CLIError) as ctx:
+                migration_module._run_device_flow('client-id', 'https://example.ghe.com')
+
+            self.assertIn('Authorization denied', str(ctx.exception))
+
+    def test_run_device_flow_handles_expired_token(self):
+        with patch('azext_devops.dev.migration.migration._post_form') as mock_post, \
+             patch('azext_devops.dev.migration.migration.time.sleep') as mock_sleep, \
+             patch('azext_devops.dev.migration.migration.time.monotonic') as mock_monotonic:
+            mock_sleep.return_value = None
+            mock_monotonic.side_effect = [0, 0]
+            mock_post.side_effect = [
+                {
+                    'device_code': 'devcode',
+                    'user_code': 'ABCD-1234',
+                    'verification_uri': 'https://example.ghe.com/login/device',
+                    'interval': 1,
+                    'expires_in': 900,
+                },
+                {'error': 'expired_token'},
+            ]
+
+            with self.assertRaises(CLIError) as ctx:
+                migration_module._run_device_flow('client-id', 'https://example.ghe.com')
+
+            self.assertIn('Device code expired', str(ctx.exception))
+
+    def test_run_device_flow_retries_authorization_pending_and_returns_token(self):
+        with patch('azext_devops.dev.migration.migration._post_form') as mock_post, \
+             patch('azext_devops.dev.migration.migration.time.sleep') as mock_sleep, \
+             patch('azext_devops.dev.migration.migration.time.monotonic') as mock_monotonic, \
+             patch('azext_devops.dev.migration.migration._copy_to_clipboard') as mock_copy:
+            mock_sleep.return_value = None
+            mock_monotonic.side_effect = [0, 0, 1]
+            mock_copy.return_value = False
+            mock_post.side_effect = [
+                {
+                    'device_code': 'devcode',
+                    'user_code': 'ABCD-1234',
+                    'verification_uri': 'https://example.ghe.com/login/device',
+                    'interval': 1,
+                    'expires_in': 900,
+                },
+                {'error': 'authorization_pending'},
+                {'access_token': 'token-from-device-flow'},
+            ]
+
+            token = migration_module._run_device_flow('client-id', 'https://example.ghe.com')
+            self.assertEqual(token, 'token-from-device-flow')
+
+    def test_run_device_flow_copies_user_code_to_clipboard_when_available(self):
+        with patch('azext_devops.dev.migration.migration._post_form') as mock_post, \
+             patch('azext_devops.dev.migration.migration.time.sleep') as mock_sleep, \
+             patch('azext_devops.dev.migration.migration.time.monotonic') as mock_monotonic, \
+             patch('azext_devops.dev.migration.migration._copy_to_clipboard') as mock_copy, \
+             patch('azext_devops.dev.migration.migration.print') as mock_print:
+            mock_sleep.return_value = None
+            mock_monotonic.side_effect = [0, 0]
+            mock_copy.return_value = True
+            mock_post.side_effect = [
+                {
+                    'device_code': 'devcode',
+                    'user_code': 'ABCD-1234',
+                    'verification_uri': 'https://example.ghe.com/login/device',
+                    'interval': 1,
+                    'expires_in': 900,
+                },
+                {'access_token': 'token-from-device-flow'},
+            ]
+
+            token = migration_module._run_device_flow('client-id', 'https://example.ghe.com')
+
+            self.assertEqual(token, 'token-from-device-flow')
+            mock_copy.assert_called_once_with('ABCD-1234')
+            mock_print.assert_any_call('Code copied to clipboard.')
+
+    def test_run_device_flow_fails_for_invalid_interval(self):
+        with patch('azext_devops.dev.migration.migration._post_form') as mock_post:
+            mock_post.return_value = {
+                'device_code': 'devcode',
+                'user_code': 'ABCD-1234',
+                'verification_uri': 'https://example.ghe.com/login/device',
+                'interval': 'abc',
+                'expires_in': 900,
+            }
+
+            with self.assertRaises(CLIError) as ctx:
+                migration_module._run_device_flow('client-id', 'https://example.ghe.com')
+
+            self.assertIn('Invalid device-flow response: interval must be a positive integer.', str(ctx.exception))
+
+    def test_run_device_flow_fails_for_invalid_expires_in(self):
+        with patch('azext_devops.dev.migration.migration._post_form') as mock_post:
+            mock_post.return_value = {
+                'device_code': 'devcode',
+                'user_code': 'ABCD-1234',
+                'verification_uri': 'https://example.ghe.com/login/device',
+                'interval': 5,
+                'expires_in': 0,
+            }
+
+            with self.assertRaises(CLIError) as ctx:
+                migration_module._run_device_flow('client-id', 'https://example.ghe.com')
+
+            self.assertIn('Invalid device-flow response: expires_in must be a positive integer.', str(ctx.exception))
+
+    def test_post_form_401_returns_generic_guidance(self):
+        with patch('azext_devops.dev.migration.migration.urlopen') as mock_urlopen:
+            mock_urlopen.side_effect = HTTPError(
+                url='https://example.ghe.com/login/device/code',
+                code=401,
+                msg='Unauthorized',
+                hdrs=None,
+                fp=None
+            )
+
+            with self.assertRaises(CLIError) as ctx:
+                migration_module._post_form('https://example.ghe.com/login/device/code', {
+                    'client_id': 'client-id'
+                })
+
+            self.assertIn('GitHub device flow is unavailable for this organization.', str(ctx.exception))
 
     def test_create_migration_payload_includes_optional_fields(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -780,6 +1099,38 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertIsInstance(result, dict)
             self.assertIn('message', result)
             self.assertIn('abandoned successfully', result['message'])
+
+    def test_send_request_uses_precheck_issue_detail_from_response_body(self):
+        class MockResponse(object):
+            status_code = 400
+            headers = {'Content-Type': 'application/json'}
+
+            @staticmethod
+            def json():
+                return {
+                    'validationIssues': [
+                        {
+                            'PreCheckIssueType': 'TargetRepositoryDoesNotExist',
+                            'Message': 'Target repository could not be found.'
+                        }
+                    ],
+                    'message': 'Generic server message'
+                }
+
+        class MockClient(object):
+            @staticmethod
+            def send(request, headers, content):
+                del request, headers, content
+                return MockResponse()
+
+        with self.assertRaises(CLIError) as ctx:
+            migration_module._send_request(MockClient(), 'POST', 'https://example.test')
+
+        text = str(ctx.exception)
+        self.assertIn('status 400', text)
+        self.assertIn('Pre-check issues:', text)
+        self.assertIn('TargetRepositoryDoesNotExist', text)
+        self.assertIn('Target repository could not be found.', text)
 
 
 if __name__ == '__main__':
