@@ -365,6 +365,62 @@ class TestMigrationCommands(unittest.TestCase):
             payload = mock_send.call_args[0][3]
             self.assertEqual(payload['agentPoolName'], 'MigrationPool')
 
+    def test_create_migration_service_endpoint_id_included_in_payload(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                service_endpoint_id='12345678-1234-1234-1234-123456789012',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['serviceEndpointId'], '12345678-1234-1234-1234-123456789012')
+
+    def test_create_migration_service_endpoint_id_omitted_when_not_provided(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertNotIn('serviceEndpointId', payload)
+
+    def test_create_migration_empty_service_endpoint_id_omitted(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                service_endpoint_id='   ',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertNotIn('serviceEndpointId', payload)
+
     def test_cancel_cutover_sets_null(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
