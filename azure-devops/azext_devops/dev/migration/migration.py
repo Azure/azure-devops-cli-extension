@@ -144,10 +144,11 @@ def get_migration(repository_id=None, organization=None, detect=None):
 
 def create_migration(repository_id=None, target_repository=None, target_owner_user_id=None,
                      validate_only=False, cutover_date=None, agent_pool=None,
-                     skip_validation=None, organization=None, detect=None):
+                     skip_validation=None, service_endpoint_id=None, organization=None, detect=None):
     target_repository = _normalize_optional_text(target_repository)
     target_owner_user_id = _normalize_optional_text(target_owner_user_id)
     agent_pool = _normalize_optional_text(agent_pool)
+    service_endpoint_id = _normalize_optional_text(service_endpoint_id)
     skip_validation = _parse_skip_validation(skip_validation)
 
     if not target_repository:
@@ -171,6 +172,8 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
         payload['scheduledCutoverDate'] = cutover_date
     if skip_validation is not None:
         payload['skipValidation'] = skip_validation
+    if service_endpoint_id:
+        payload['serviceEndpointId'] = service_endpoint_id
 
     client = _get_service_client(organization)
     url = _build_migration_url(organization, repository_id)

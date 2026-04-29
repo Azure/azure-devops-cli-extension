@@ -36,6 +36,8 @@ def load_migration_arguments(self, _):
                          help='Validation policies to skip. Accepts either a comma-separated list of '
                               'policy names (for example, AgentPoolExists,MaxRepoSize) or a non-negative '
                               'integer bitmask.')
+        context.argument('service_endpoint_id', options_list='--service-endpoint-id',
+                         help='Service endpoint ID (GUID) for GitHub Enterprise Server connection.')
 
     with self.argument_context('devops migrations cutover set') as context:
         context.argument('cutover_date', options_list='--date',
