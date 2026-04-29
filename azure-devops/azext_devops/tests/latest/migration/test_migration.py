@@ -365,9 +365,11 @@ class TestMigrationCommands(unittest.TestCase):
     def test_run_device_flow_retries_authorization_pending_and_returns_token(self):
         with patch('azext_devops.dev.migration.migration._post_form') as mock_post, \
              patch('azext_devops.dev.migration.migration.time.sleep') as mock_sleep, \
-             patch('azext_devops.dev.migration.migration.time.monotonic') as mock_monotonic:
+             patch('azext_devops.dev.migration.migration.time.monotonic') as mock_monotonic, \
+             patch('azext_devops.dev.migration.migration._copy_to_clipboard') as mock_copy:
             mock_sleep.return_value = None
             mock_monotonic.side_effect = [0, 0, 1]
+            mock_copy.return_value = False
             mock_post.side_effect = [
                 {
                     'device_code': 'devcode',
@@ -382,6 +384,32 @@ class TestMigrationCommands(unittest.TestCase):
 
             token = migration_module._run_device_flow('client-id', 'https://example.ghe.com')
             self.assertEqual(token, 'token-from-device-flow')
+
+    def test_run_device_flow_copies_user_code_to_clipboard_when_available(self):
+        with patch('azext_devops.dev.migration.migration._post_form') as mock_post, \
+             patch('azext_devops.dev.migration.migration.time.sleep') as mock_sleep, \
+             patch('azext_devops.dev.migration.migration.time.monotonic') as mock_monotonic, \
+             patch('azext_devops.dev.migration.migration._copy_to_clipboard') as mock_copy, \
+             patch('azext_devops.dev.migration.migration.print') as mock_print:
+            mock_sleep.return_value = None
+            mock_monotonic.side_effect = [0, 0]
+            mock_copy.return_value = True
+            mock_post.side_effect = [
+                {
+                    'device_code': 'devcode',
+                    'user_code': 'ABCD-1234',
+                    'verification_uri': 'https://example.ghe.com/login/device',
+                    'interval': 1,
+                    'expires_in': 900,
+                },
+                {'access_token': 'token-from-device-flow'},
+            ]
+
+            token = migration_module._run_device_flow('client-id', 'https://example.ghe.com')
+
+            self.assertEqual(token, 'token-from-device-flow')
+            mock_copy.assert_called_once_with('ABCD-1234')
+            mock_print.assert_any_call('Code copied to clipboard.')
 
     def test_run_device_flow_fails_for_invalid_interval(self):
         with patch('azext_devops.dev.migration.migration._post_form') as mock_post:

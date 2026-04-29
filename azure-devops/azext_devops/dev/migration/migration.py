@@ -6,7 +6,9 @@
 import json
 import os
 import re
+import subprocess
 import time
+import sys
 from urllib.parse import quote_plus, urlparse
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
@@ -243,6 +245,8 @@ def _run_device_flow(client_id, enterprise_url):
 
     print('Open: {}'.format(verification_uri))
     print('Code: {}'.format(user_code))
+    if _copy_to_clipboard(user_code):
+        print('Code copied to clipboard.')
     print('Waiting for authorization...')
 
     deadline = time.monotonic() + expires_in
@@ -278,6 +282,32 @@ def _run_device_flow(client_id, enterprise_url):
         raise CLIError('GitHub device flow failed: {}'.format(error or 'unknown error'))
 
     raise CLIError('Timed out waiting for GitHub authorization. Re-run the command and complete login sooner.')
+
+
+def _copy_to_clipboard(text):
+    if not text:
+        return False
+
+    commands = []
+    if os.name == 'nt':
+        commands.append(['clip'])
+    elif sys.platform == 'darwin':
+        commands.append(['pbcopy'])
+    else:
+        commands.extend([
+            ['xclip', '-selection', 'clipboard'],
+            ['xsel', '--clipboard', '--input'],
+        ])
+
+    for command in commands:
+        try:
+            subprocess.run(command, input=text.encode('utf-8'), check=True,
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            return True
+        except (OSError, subprocess.SubprocessError):
+            continue
+
+    return False
 
 
 def _post_form(url, data):
