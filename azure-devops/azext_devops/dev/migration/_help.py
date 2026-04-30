@@ -73,6 +73,13 @@ def load_migration_help():
     helps['devops migrations abandon'] = """
     type: command
     short-summary: Abandon and delete a migration.
+    examples:
+      - name: Abandon and keep repository read-only (default).
+        text: |
+          az devops migrations abandon --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000
+      - name: Abandon and set repository back to read-write.
+        text: |
+          az devops migrations abandon --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --remove-read-only
     """
 
     helps['devops migrations cutover'] = """

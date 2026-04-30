@@ -54,3 +54,8 @@ def load_migration_arguments(self, _):
         context.argument('migration', options_list='--migration', action='store_true',
                          help='Promote a succeeded validate-only migration to a full migration '
                               '(sets validateOnly=false and statusRequested=active).')
+
+    with self.argument_context('devops migrations abandon') as context:
+        context.argument('remove_read_only', options_list='--remove-read-only', action='store_true',
+                         help='Also set the Azure Repos repository back to read-write state by '
+                              'sending removeReadOnly=true.')

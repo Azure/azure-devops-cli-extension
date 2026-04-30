@@ -445,11 +445,13 @@ def cancel_cutover(repository_id=None, organization=None, detect=None):
     return result
 
 
-def delete_migration(repository_id=None, organization=None, detect=None):
+def delete_migration(repository_id=None, remove_read_only=False, organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
     url = _build_migration_url(organization, repository_id)
+    if remove_read_only:
+        url += '&removeReadOnly=true'
     _send_request(client, 'DELETE', url)
     return {'message': 'Migration abandoned successfully.'}
 
