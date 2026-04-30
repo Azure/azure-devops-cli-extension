@@ -20,6 +20,8 @@ import azext_devops.dev.migration.migration as migration_module
 from azext_devops.dev.migration.migration import (list_migrations,
                                                   create_migration,
                                                   cancel_cutover,
+                                                  get_cutover_review,
+                                                  approve_cutover,
                                                   delete_migration,
                                                   pause_migration,
                                                   resume_migration)
@@ -792,6 +794,60 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertIn('message', result)
             self.assertIn('cancelled', result['message'].lower())
 
+    def test_get_cutover_review_calls_get(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {'totalUnprocessedCount': 3}
+            mock_resolve.return_value = self._TEST_ORG
+
+            get_cutover_review(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'GET')
+            self.assertIn('/_apis/elm/migrations/00000000-0000-0000-0000-000000000000/cutoverReview', args[2])
+
+    def test_approve_cutover_sends_cutover_failure_accepted_count(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {'stage': 'ReadyForCutover'}
+            mock_resolve.return_value = self._TEST_ORG
+
+            approve_cutover(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                accept_failures=3,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'PUT')
+            self.assertEqual(args[3]['cutoverFailureAcceptedCount'], 3)
+
+    def test_approve_cutover_requires_accept_failures(self):
+        with self.assertRaises(CLIError) as ctx:
+            approve_cutover(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('--accept-failures must be specified', str(ctx.exception))
+
+    def test_approve_cutover_rejects_negative_accept_failures(self):
+        with self.assertRaises(CLIError) as ctx:
+            approve_cutover(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                accept_failures=-1,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('non-negative integer', str(ctx.exception))
+
     def test_pause_returns_success_message_when_empty_response(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
@@ -880,6 +936,18 @@ class TestMigrationCommands(unittest.TestCase):
                 resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
                                  organization=self._TEST_ORG, detect=False)
             self.assertIn('az devops migrations pause', str(ctx.exception))
+
+    def test_resume_fails_when_review_for_cutover(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve:
+            mock_get.return_value = {'status': 'active', 'stage': 'ReviewForCutover'}
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError) as ctx:
+                resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                                 organization=self._TEST_ORG, detect=False)
+            self.assertIn('cutover review', str(ctx.exception))
+            self.assertIn('cutover approve', str(ctx.exception))
 
     def test_resume_fails_when_active_via_statusRequested(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \

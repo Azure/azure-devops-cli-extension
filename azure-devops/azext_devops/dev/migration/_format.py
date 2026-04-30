@@ -34,6 +34,42 @@ def transform_migration_table_output(result):
     return [_transform_migration_row(result)]
 
 
+def transform_cutover_review_table_output(result):
+    if not isinstance(result, dict):
+        return []
+
+    failed_count = result.get('failedCount')
+    blocked_count = result.get('blockedCount')
+    pending_count = result.get('pendingCount')
+    total_unprocessed = result.get('totalUnprocessedCount')
+    failed_items = result.get('failedItems') if isinstance(result.get('failedItems'), list) else []
+
+    if not failed_items:
+        row = OrderedDict()
+        row['FailedCount'] = failed_count
+        row['BlockedCount'] = blocked_count
+        row['PendingCount'] = pending_count
+        row['TotalUnprocessedCount'] = total_unprocessed
+        row['State'] = None
+        row['Type'] = None
+        row['PullRequestUrl'] = None
+        return [row]
+
+    rows = []
+    for index, item in enumerate(failed_items):
+        row = OrderedDict()
+        row['FailedCount'] = failed_count if index == 0 else None
+        row['BlockedCount'] = blocked_count if index == 0 else None
+        row['PendingCount'] = pending_count if index == 0 else None
+        row['TotalUnprocessedCount'] = total_unprocessed if index == 0 else None
+        row['State'] = item.get('state') if isinstance(item, dict) else None
+        row['Type'] = item.get('type') if isinstance(item, dict) else None
+        row['PullRequestUrl'] = item.get('pullRequestUrl') if isinstance(item, dict) else None
+        rows.append(row)
+
+    return rows
+
+
 def _unwrap_migration_list(result):
     if isinstance(result, dict) and 'value' in result:
         return result['value']

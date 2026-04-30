@@ -87,6 +87,24 @@ def load_migration_help():
     short-summary: Manage migration cutover.
     """
 
+    helps['devops migrations cutover review'] = """
+    type: command
+    short-summary: Review unprocessed migration items before cutover.
+    examples:
+      - name: Review failures before approving cutover.
+        text: |
+          az devops migrations cutover review --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000
+    """
+
+    helps['devops migrations cutover approve'] = """
+    type: command
+    short-summary: Approve cutover by accepting a count of unprocessed items.
+    examples:
+      - name: Approve cutover after reviewing failures.
+        text: |
+          az devops migrations cutover approve --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --accept-failures 3
+    """
+
     helps['devops migrations cutover set'] = """
     type: command
     short-summary: Schedule cutover for a migration.

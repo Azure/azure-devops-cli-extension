@@ -29,6 +29,7 @@ logger = get_logger(__name__)
 
 API_VERSION = '7.2-preview'
 MIGRATIONS_API_PATH = '/_apis/elm/migrations'
+CUTOVER_REVIEW_API_PATH_SUFFIX = '/cutoverReview'
 DEVICE_FLOW_CONFIG_API_PATH = '/_apis/migrations/deviceFlowConfig'
 LEGACY_DEVICE_FLOW_CONFIG_API_PATH = '/_apis/elm/migrations/deviceFlowConfig'
 GITHUB_TOKEN_ENV_VAR = 'ELM_GITHUB_TOKEN'
@@ -398,6 +399,15 @@ def resume_migration(repository_id=None, validate_only=False, migration=False, o
 
     organization = _resolve_org_for_auth(organization, detect)
     migration_data = get_migration(repository_id=repository_id, organization=organization, detect=None)
+    current_stage = _normalize_state(migration_data.get('stage')) if isinstance(migration_data, dict) else ''
+
+    if current_stage == 'reviewforcutover':
+        raise CLIError('Migration is waiting for cutover approval (stage: ReviewForCutover). '
+                       'Run "az devops migrations cutover review --repository-id {}" to inspect '
+                       'unprocessed items, then approve with '
+                       '"az devops migrations cutover approve --repository-id {} --accept-failures <count>". '
+                       'You can also cancel/reschedule cutover or abandon the migration.'
+                       .format(repository_id, repository_id))
 
     if migration and _is_validate_only_succeeded(migration_data):
         return _promote_to_full_migration(migration_data, repository_id, organization)
@@ -445,6 +455,22 @@ def cancel_cutover(repository_id=None, organization=None, detect=None):
     return result
 
 
+def get_cutover_review(repository_id=None, organization=None, detect=None):
+    organization = _resolve_org_for_auth(organization, detect)
+    repository_id = _resolve_repository_id(repository_id)
+    client = _get_service_client(organization)
+    url = _build_cutover_review_url(organization, repository_id)
+    return _send_request(client, 'GET', url)
+
+
+def approve_cutover(repository_id=None, accept_failures=None, organization=None, detect=None):
+    accepted_count = _parse_non_negative_int(accept_failures, '--accept-failures')
+    organization = _resolve_org_for_auth(organization, detect)
+    repository_id = _resolve_repository_id(repository_id)
+    return _update_migration(repository_id, organization, detect=None,
+                             cutover_failure_accepted_count=accepted_count)
+
+
 def delete_migration(repository_id=None, remove_read_only=False, organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
@@ -457,7 +483,8 @@ def delete_migration(repository_id=None, remove_read_only=False, organization=No
 
 
 def _update_migration(repository_id, organization, detect, validate_only=None,
-                      status_requested=None, scheduled_cutover_date=None, include_cutover=False):
+                      status_requested=None, scheduled_cutover_date=None, include_cutover=False,
+                      cutover_failure_accepted_count=None):
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
@@ -470,7 +497,23 @@ def _update_migration(repository_id, organization, detect, validate_only=None,
         payload['statusRequested'] = status_requested
     if include_cutover:
         payload['scheduledCutoverDate'] = scheduled_cutover_date
+    if cutover_failure_accepted_count is not None:
+        payload['cutoverFailureAcceptedCount'] = cutover_failure_accepted_count
     return _send_request(client, 'PUT', url, payload)
+
+
+def _parse_non_negative_int(value, option_name):
+    if value is None:
+        raise CLIError('{} must be specified.'.format(option_name))
+
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError):
+        raise CLIError('{} must be a non-negative integer.'.format(option_name))
+
+    if parsed < 0:
+        raise CLIError('{} must be a non-negative integer.'.format(option_name))
+    return parsed
 
 
 def _resolve_repository_id(repository_id):
@@ -561,6 +604,11 @@ def _build_migration_url(base_url, repository_id=None):
     url = base_url.rstrip('/') + MIGRATIONS_API_PATH
     if repository_id:
         url += '/{}'.format(repository_id)
+    return url + '?api-version=' + API_VERSION
+
+
+def _build_cutover_review_url(base_url, repository_id):
+    url = base_url.rstrip('/') + MIGRATIONS_API_PATH + '/{}{}'.format(repository_id, CUTOVER_REVIEW_API_PATH_SUFFIX)
     return url + '?api-version=' + API_VERSION
 
 

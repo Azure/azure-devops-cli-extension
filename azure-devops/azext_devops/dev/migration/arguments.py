@@ -48,6 +48,11 @@ def load_migration_arguments(self, _):
                          type=convert_date_string_to_iso8601,
                          help='The date and time for cutover (ISO 8601).')
 
+    with self.argument_context('devops migrations cutover approve') as context:
+        context.argument('accept_failures', options_list='--accept-failures', type=int,
+                         help='Number of unprocessed migration resources to accept before '
+                              'proceeding with cutover.')
+
     with self.argument_context('devops migrations resume') as context:
         context.argument('validate_only', options_list='--validate-only', action='store_true',
                          help='Resume in validate-only mode.')

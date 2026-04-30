@@ -5,7 +5,10 @@
 
 from azure.cli.core.commands import CliCommandType
 from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
-from ._format import transform_migrations_table_output, transform_migration_table_output, transform_message_output
+from ._format import (transform_migrations_table_output,
+                      transform_migration_table_output,
+                      transform_message_output,
+                      transform_cutover_review_table_output)
 
 
 migrationOps = CliCommandType(
@@ -26,5 +29,7 @@ def load_migration_commands(self, _):
                   table_transformer=transform_message_output)
 
     with self.command_group('devops migrations cutover', command_type=migrationOps, is_preview=True) as g:
+        g.command('review', 'get_cutover_review', table_transformer=transform_cutover_review_table_output)
+        g.command('approve', 'approve_cutover', table_transformer=transform_migration_table_output)
         g.command('set', 'schedule_cutover', table_transformer=transform_migration_table_output)
         g.command('cancel', 'cancel_cutover', table_transformer=transform_message_output)
