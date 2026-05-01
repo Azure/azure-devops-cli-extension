@@ -24,7 +24,11 @@ def load_migration_arguments(self, _):
         context.argument('target_repository', options_list='--target-repository',
                          help='Target repository URL (must start with http:// or https://).')
         context.argument('target_owner_user_id', options_list='--target-owner-user-id',
-                         help='Target repository owner user ID.')
+                         help='Target repository owner user ID. Deprecated and ignored when server-side '
+                              'token-based owner resolution is enabled.')
+        context.argument('github_token', options_list='--github-token',
+                         help='GitHub token used for migration authorization. If omitted, the CLI first '
+                              'checks ELM_GITHUB_TOKEN and then runs GitHub device flow.')
         context.argument('validate_only', options_list='--validate-only', action='store_true',
                          help='Create in validate-only mode (pre-migration checks only).')
         context.argument('cutover_date', options_list='--cutover-date',
@@ -36,11 +40,18 @@ def load_migration_arguments(self, _):
                          help='Validation policies to skip. Accepts either a comma-separated list of '
                               'policy names (for example, AgentPoolExists,MaxRepoSize) or a non-negative '
                               'integer bitmask.')
+        context.argument('service_endpoint_id', options_list='--service-endpoint-id',
+                         help='Service endpoint ID (GUID) for GitHub Enterprise Server connection.')
 
     with self.argument_context('devops migrations cutover set') as context:
         context.argument('cutover_date', options_list='--date',
                          type=convert_date_string_to_iso8601,
                          help='The date and time for cutover (ISO 8601).')
+
+    with self.argument_context('devops migrations cutover approve') as context:
+        context.argument('accept_failures', options_list='--accept-failures', type=int,
+                         help='Number of unprocessed migration resources to accept before '
+                              'proceeding with cutover.')
 
     with self.argument_context('devops migrations resume') as context:
         context.argument('validate_only', options_list='--validate-only', action='store_true',
@@ -48,3 +59,8 @@ def load_migration_arguments(self, _):
         context.argument('migration', options_list='--migration', action='store_true',
                          help='Promote a succeeded validate-only migration to a full migration '
                               '(sets validateOnly=false and statusRequested=active).')
+
+    with self.argument_context('devops migrations abandon') as context:
+        context.argument('remove_read_only', options_list='--remove-read-only', action='store_true',
+                         help='Also set the Azure Repos repository back to read-write state by '
+                              'sending removeReadOnly=true.')

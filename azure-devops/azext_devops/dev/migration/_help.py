@@ -10,7 +10,7 @@ def load_migration_help():
     helps['devops migrations'] = """
     type: group
     short-summary: Manage enterprise live migrations.
-    long-summary: 'This command group is a part of the azure-devops extension. For ELM migrations, --org should be your Azure DevOps organization URL (for example: https://dev.azure.com/myorg).'
+    long-summary: 'This command group is a part of the azure-devops extension and is in preview. Availability may be limited (for example, to 1P/allowlisted users). For ELM migrations, --org should be your Azure DevOps organization URL (for example: https://dev.azure.com/myorg).'
     """
 
     helps['devops migrations list'] = """
@@ -37,13 +37,17 @@ def load_migration_help():
     helps['devops migrations create'] = """
     type: command
     short-summary: Create a migration for a repository.
+    long-summary: 'If --github-token is not provided, the CLI checks ELM_GITHUB_TOKEN and then runs GitHub device flow to acquire a token.'
     examples:
       - name: Create a migration.
         text: |
-          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --target-owner-user-id OwnerUserId --agent-pool MigrationPool
+          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --agent-pool MigrationPool
       - name: Create a validate-only migration.
         text: |
-          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --target-owner-user-id OwnerUserId --agent-pool MigrationPool --validate-only --skip-validation ActivePullRequestCount,PullRequestDeltaSize
+          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --agent-pool MigrationPool --validate-only --skip-validation ActivePullRequestCount,PullRequestDeltaSize
+      - name: Create using a pre-generated GitHub token or PAT.
+        text: |
+          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --github-token <token>
     """
 
     helps['devops migrations pause'] = """
@@ -69,11 +73,36 @@ def load_migration_help():
     helps['devops migrations abandon'] = """
     type: command
     short-summary: Abandon and delete a migration.
+    examples:
+      - name: Abandon and keep repository read-only (default).
+        text: |
+          az devops migrations abandon --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000
+      - name: Abandon and set repository back to read-write.
+        text: |
+          az devops migrations abandon --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --remove-read-only
     """
 
     helps['devops migrations cutover'] = """
     type: group
     short-summary: Manage migration cutover.
+    """
+
+    helps['devops migrations cutover review'] = """
+    type: command
+    short-summary: Review unprocessed migration items before cutover.
+    examples:
+      - name: Review failures before approving cutover.
+        text: |
+          az devops migrations cutover review --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000
+    """
+
+    helps['devops migrations cutover approve'] = """
+    type: command
+    short-summary: Approve cutover by accepting a count of unprocessed items.
+    examples:
+      - name: Approve cutover after reviewing failures.
+        text: |
+          az devops migrations cutover approve --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --accept-failures 3
     """
 
     helps['devops migrations cutover set'] = """

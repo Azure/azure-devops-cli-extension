@@ -5,7 +5,10 @@
 
 from azure.cli.core.commands import CliCommandType
 from azext_devops.dev.common.exception_handler import azure_devops_exception_handler
-from ._format import transform_migrations_table_output, transform_migration_table_output
+from ._format import (transform_migrations_table_output,
+                      transform_migration_table_output,
+                      transform_message_output,
+                      transform_cutover_review_table_output)
 
 
 migrationOps = CliCommandType(
@@ -15,15 +18,18 @@ migrationOps = CliCommandType(
 
 
 def load_migration_commands(self, _):
-    with self.command_group('devops migrations', command_type=migrationOps) as g:
+    with self.command_group('devops migrations', command_type=migrationOps, is_preview=True) as g:
         g.command('list', 'list_migrations', table_transformer=transform_migrations_table_output)
         g.command('status', 'get_migration', table_transformer=transform_migration_table_output)
         g.command('create', 'create_migration', table_transformer=transform_migration_table_output)
-        g.command('pause', 'pause_migration', table_transformer=transform_migration_table_output)
+        g.command('pause', 'pause_migration', table_transformer=transform_message_output)
         g.command('resume', 'resume_migration', table_transformer=transform_migration_table_output)
         g.command('abandon', 'delete_migration',
-                  confirmation='Are you sure you want to abandon this migration?')
+                  confirmation='Are you sure you want to abandon this migration?',
+                  table_transformer=transform_message_output)
 
-    with self.command_group('devops migrations cutover', command_type=migrationOps) as g:
+    with self.command_group('devops migrations cutover', command_type=migrationOps, is_preview=True) as g:
+        g.command('review', 'get_cutover_review', table_transformer=transform_cutover_review_table_output)
+        g.command('approve', 'approve_cutover', table_transformer=transform_migration_table_output)
         g.command('set', 'schedule_cutover', table_transformer=transform_migration_table_output)
-        g.command('cancel', 'cancel_cutover', table_transformer=transform_migration_table_output)
+        g.command('cancel', 'cancel_cutover', table_transformer=transform_message_output)
