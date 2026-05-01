@@ -170,8 +170,7 @@ def create_migration(repository_id=None, target_repository=None, target_owner_us
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
-    if not service_endpoint_id:
-        github_token = _resolve_github_user_token(client, organization, target_repository, github_token)
+    github_token = _resolve_github_user_token(client, organization, target_repository, github_token)
 
     payload = {
         'targetRepository': target_repository,
