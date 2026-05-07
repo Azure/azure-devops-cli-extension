@@ -402,11 +402,13 @@ def resume_migration(repository_id=None, validate_only=False, migration=False, o
 
     if current_stage == 'reviewforcutover':
         raise CLIError('Migration is waiting for cutover approval (stage: ReviewForCutover). '
-                       'Run "az devops migrations cutover review --repository-id {}" to inspect '
+                       'Run "az devops migrations cutover review '
+                       '--repository-id {repository_id}" to inspect '
                        'unprocessed items, then approve with '
-                       '"az devops migrations cutover approve --repository-id {} --accept-failures <count>". '
+                       '"az devops migrations cutover approve '
+                       '--repository-id {repository_id} --accept-failures <count>". '
                        'You can also cancel/reschedule cutover or abandon the migration.'
-                       .format(repository_id, repository_id))
+                       .format(repository_id=repository_id))
 
     if migration and _is_validate_only_succeeded(migration_data):
         return _promote_to_full_migration(migration_data, repository_id, organization)
