@@ -153,7 +153,7 @@ def get_migration(repository_id=None, organization=None, detect=None):
     return _send_request(client, 'GET', url)
 
 
-def create_migration(repository_id=None, target_repository=None, target_owner_user_id=None,
+def create_migration(*, repository_id=None, target_repository=None, target_owner_user_id=None,
                      validate_only=False, cutover_date=None, agent_pool=None,
                      skip_validation=None, service_endpoint_id=None, github_token=None,
                      organization=None, detect=None):
@@ -483,7 +483,7 @@ def delete_migration(repository_id=None, remove_read_only=False, organization=No
     return {'message': 'Migration abandoned successfully.'}
 
 
-def _update_migration(repository_id, organization, detect, validate_only=None,
+def _update_migration(repository_id, organization, detect, *, validate_only=None,
                       status_requested=None, scheduled_cutover_date=None, include_cutover=False,
                       cutover_failure_accepted_count=None):
     organization = _resolve_org_for_auth(organization, detect)
