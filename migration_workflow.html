@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Migration Workflow Matrix</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+            color: white;
+            padding: 25px;
+        }
+        .header h1 { font-size: 24px; margin-bottom: 5px; }
+        .header p { opacity: 0.9; font-size: 14px; }
+        
+        .section-title {
+            padding: 15px 20px;
+            background: #f0f0f0;
+            border-top: 2px solid #0078d4;
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            padding: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        
+        th {
+            background: #f0f0f0;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+        
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            line-height: 1.6;
+        }
+        
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        .step-num {
+            font-weight: 700;
+            color: #0078d4;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .step-name {
+            font-weight: 600;
+            color: #333;
+            min-width: 140px;
+        }
+        
+        .operator {
+            background: #FFF9C4;
+            border-left: 3px solid #F57F17;
+        }
+        
+        .outcome {
+            background: #B3E5FC;
+            border-left: 3px solid #0277BD;
+        }
+        
+        .responsibility {
+            background: #FFE0B2;
+            border-left: 3px solid #F57C00;
+            font-weight: 500;
+        }
+        
+        .gate {
+            background: #FFCDD2;
+            border-left: 3px solid #C62828;
+            font-weight: 600;
+        }
+        
+        .gate::before {
+            content: "⚠️ ";
+            margin-right: 4px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .badge-operator {
+            background: #FFF9C4;
+            color: #F57F17;
+        }
+        
+        .badge-owner {
+            background: #FFE0B2;
+            color: #E65100;
+        }
+
+        .command-inline {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .legend {
+            padding: 20px;
+            background: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            font-size: 13px;
+        }
+        
+        .legend-item {
+            padding: 10px;
+            border-left: 3px solid #ccc;
+            border-radius: 2px;
+        }
+        
+        .legend-item.operator { border-left-color: #F57F17; background: #FFF9C4; }
+        .legend-item.outcome { border-left-color: #0277BD; background: #B3E5FC; }
+        .legend-item.responsibility { border-left-color: #F57C00; background: #FFE0B2; }
+        .legend-item.gate { border-left-color: #C62828; background: #FFCDD2; }
+        
+        .stage-badge {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #0277bd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            font-family: monospace;
+            margin: 2px 2px 2px 0;
+        }
+
+        .mental-model {
+            padding: 20px;
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            margin: 20px;
+            border-radius: 4px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .mental-model h3 {
+            color: #1b5e20;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .mental-model ul {
+            margin-left: 20px;
+        }
+
+        .mental-model li {
+            margin-bottom: 8px;
+        }
+
+        .mental-model strong {
+            color: #1b5e20;
+        }
+
+        .behaviors {
+            padding: 20px;
+            margin: 20px;
+            border-radius: 4px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .behaviors h3 {
+            font-size: 14px;
+            margin-bottom: 14px;
+            color: #333;
+        }
+
+        .behavior-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .behavior-card {
+            padding: 12px 14px;
+            border-radius: 4px;
+            border-left: 4px solid;
+        }
+
+        .behavior-card.operator-card {
+            background: #FFF9C4;
+            border-color: #F57F17;
+        }
+
+        .behavior-card.owner-card {
+            background: #FFE0B2;
+            border-color: #E65100;
+        }
+
+        .behavior-card.both-card {
+            background: #f3e5f5;
+            border-color: #6a1b9a;
+        }
+
+        .behavior-card strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+
+        .behavior-card p {
+            margin: 0;
+            color: #444;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            padding: 0 20px;
+            background: #fafafa;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.15s;
+        }
+
+        .tab-btn:hover { color: #0078d4; }
+
+        .tab-btn.active {
+            color: #0078d4;
+            border-bottom-color: #0078d4;
+        }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Scenario paths */
+        .path-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .path-col {
+            padding: 20px;
+        }
+
+        .path-col:first-child {
+            border-right: 2px solid #e0e0e0;
+        }
+
+        .path-col h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .path-col.happy h4 {
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+
+        .path-col.twisted h4 {
+            background: #fce4ec;
+            color: #880e4f;
+        }
+
+        .path-step {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+
+        .path-num {
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .happy .path-num { background: #c8e6c9; color: #1b5e20; }
+        .twisted .path-num { background: #f8bbd0; color: #880e4f; }
+
+        .path-content {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .path-content strong {
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .path-content span {
+            color: #555;
+        }
+
+        .path-arrow {
+            text-align: center;
+            color: #aaa;
+            font-size: 18px;
+            margin: 4px 0 4px 40px;
+        }
+
+        .path-gate {
+            margin: 8px 0;
+            padding: 6px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .happy .path-gate { background: #e8f5e9; color: #2e7d32; }
+        .twisted .path-gate { background: #fce4ec; color: #c62828; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Migration Workflow Matrix</h1>
+        <p>Complete mental model for operators and repo owners — stages, outcomes, and decision gates</p>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('workflow')">📋 Full Workflow</button>
+        <button class="tab-btn" onclick="switchTab('scenarios')">🔀 Scenarios: Happy vs Twisted Path</button>
+        <button class="tab-btn" onclick="switchTab('behaviors')">📖 Key Behaviors</button>
+    </div>
+
+    <!-- Tab: Full Workflow -->
+    <div id="tab-workflow" class="tab-panel active">
+
+    <div class="mental-model">
+        <h3>🧠 Mental Model: How Migrations Work</h3>
+        <ul>
+            <li><strong>Your job (Operator):</strong> Run the repo through 4 stages: validate → copy code → review issues → execute cutover</li>
+            <li><strong>Repo Owner's job:</strong> Review the code on GitHub (visible during sync) and approve or reject it</li>
+            <li><strong>The simple flow:</strong> Does it look safe to migrate? → Copy to GitHub (owner can see) → Check what broke → Does owner approve? → Make GitHub the authoritative source</li>
+            <li><strong>GitHub goes LIVE:</strong> Only during cutover execution. Before that, Azure DevOps is still the source teams must work in.</li>
+        </ul>
+    </div>
+
+    <div class="section-title">Pre-Migration & Validation</div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40px;">#</th>
+                    <th style="width: 130px;">Step</th>
+                    <th style="width: 28%;">What Operator Does</th>
+                    <th style="width: 22%;">Expected Stage → Status</th>
+                    <th style="width: 25%;">Next Responsibility</th>
+                    <th style="width: 15%;">Gate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="step-num">1</td>
+                    <td class="step-name">Validate</td>
+                    <td class="operator">
+                        <span class="badge badge-operator">Operator</span>
+                        Run a pre-flight check to see if the repo can be migrated safely
+                    </td>
+                    <td class="outcome">
+                        <span class="stage-badge">validation</span><br>
+                        Tells you if migration is possible (pass/fail with reasons)
+                    </td>
+                    <td class="responsibility">
+                        If pass: <span class="badge badge-operator">Operator</span> → start full migration<br><br>
+                        If fail: <span class="badge badge-owner">Repo Owner</span> → fix issues in Azure DevOps repo, then operator retries validation
+                    </td>
+                    <td>—</td>
+                </tr>
+                
+                <tr>
+                    <td class="step-num">2</td>
+                    <td class="step-name">Create Migration</td>
+                    <td class="operator">
+                        <span class="badge badge-operator">Operator</span>
+                        Start the actual migration. The system queues the job and begins copying code to GitHub
+                    </td>
+                    <td class="outcome">
+                        <span class="stage-badge">queued</span> → <span class="stage-badge">synchronization</span><br>
+                        Code copying begins
+                    </td>
+                    <td class="responsibility">
+                        <span class="badge badge-operator">Operator</span>
+                        Monitor progress until all code reaches GitHub
+                    </td>
+                    <td>—</td>
+                </tr>
+                
+                <tr>
+                    <td class="step-num">3</td>
+                    <td class="step-name">Monitor Sync</td>
+                    <td class="operator">
+                        <span class="badge badge-operator">Operator</span>
+                        Check the migration status repeatedly until all code is copied (takes 10 min to hours depending on size)<br><br>
+                        <strong>👀 Owner can see code on GitHub starting now</strong> — Code is continuously synced but ADO is still the source. <strong>Option:</strong> Pause here if you need to schedule cutover for a different time.
+                    </td>
+                    <td class="outcome">
+                        <span class="stage-badge">synchronization</span><br>
+                        Shows <span class="command-inline">succeeded</span> — all code now on GitHub
+                    </td>
+                    <td class="responsibility">
+                        <span class="badge badge-owner">Repo Owner</span>
+                        Review the migrated code on GitHub (can clone, browse, verify). Test it: Does it compile? Do tests pass? Code is visible but NOT live yet.
+                    </td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-title">Cutover & Approval</div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40px;">#</th>
+                    <th style="width: 130px;">Step</th>
+                    <th style="width: 28%;">What Happens</th>
+                    <th style="width: 22%;">Expected Stage → Status</th>
+                    <th style="width: 25%;">Next Action</th>
+                    <th style="width: 15%;">Gate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="step-num">4</td>
+                    <td class="step-name">Owner Approves</td>
+                    <td class="gate">
+                        <span class="badge badge-owner">Repo Owner</span>
+                        After reviewing code on GitHub: Does it look correct? Does it compile? Do tests pass?<br><br>
+                        <strong>Decision:</strong> "Yes, looks good to migrate" OR "No, stop — we have issues"
+                    </td>
+                    <td class="gate">
+                        Code visible on GitHub<br>
+                        ADO still authoritative<br>
+                        Waiting for owner approval
+                    </td>
+                    <td class="gate">
+                        If ✅ Approved: <span class="badge badge-operator">Operator</span> proceeds to Step 5<br><br>
+                        If ❌ Rejected: <span class="badge badge-operator">Operator</span> pauses/resumes migration or fixes issues in ADO
+                    </td>
+                    <td class="gate">⚠️ APPROVAL GATE</td>
+                </tr>
+
+                <tr>
+                    <td class="step-num">5</td>
+                    <td class="step-name">Review Cutover</td>
+                    <td class="operator">
+                        <span class="badge badge-operator">Operator</span>
+                        Pull the list of unprocessed items — PRs, work items, branches that didn't make it to GitHub yet.<br><br>
+                        <strong>Three types:</strong><br>
+                        ❌ <strong>Failed</strong> — tried and couldn't (file too big, name too long)<br>
+                        🚫 <strong>Blocked</strong> — something is stopping it (missing GitHub user, agent pool offline)<br>
+                        ⏳ <strong>Pending</strong> — not yet attempted (should be 0 — if not, something is wrong)<br><br>
+                        Share this list with the Repo Owner — these are their team's items.
+                    </td>
+                    <td class="outcome">
+                        <span class="stage-badge">cutover</span><br>
+                        <span class="stage-badge">ReviewForCutover</span><br>
+                        Shows exact counts: failed, blocked, pending
+                    </td>
+                    <td class="responsibility">
+                        <span class="badge badge-owner">Repo Owner</span>
+                        For each unprocessed item:<br>
+                        — <strong>Blocked?</strong> Fix the blocker in ADO (add user, fix agent pool), operator pauses/resumes, item may sync on retry<br>
+                        — <strong>Failed?</strong> Fix root cause in ADO (close PR, shrink file), pause/resume, retry review<br>
+                        — <strong>Still failing?</strong> Decide if losing those items is acceptable to proceed
+                    </td>
+                    <td>—</td>
+                </tr>
+
+                <tr>
+                    <td class="step-num">6</td>
+                    <td class="step-name">Approve Cutover</td>
+                    <td class="gate">
+                        <span class="badge badge-owner">Repo Owner</span>
+                        After fixing what can be fixed and reviewing what remains: "I accept that X items won't be in GitHub — proceed" OR "Not OK, pause so I can fix more"<br><br>
+                        <strong>Important:</strong> Approving with failures = those items are permanently left behind in ADO. They will NOT retry during cutover.
+                    </td>
+                    <td class="gate">
+                        Owner specifies the number of failures they accept<br>
+                        Operator enters that exact number to confirm
+                    </td>
+                    <td class="gate">
+                        If ✅ Accepted: <span class="badge badge-operator">Operator</span> submits with owner's count → <span class="stage-badge">ReadyForCutover</span><br><br>
+                        If ❌ Not OK: <span class="badge badge-operator">Operator</span> pauses, owner fixes items in ADO, resume sync, retry Step 5
+                    </td>
+                    <td class="gate">⚠️ DATA GATE</td>
+                </tr>
+
+                <tr>
+                    <td class="step-num">7</td>
+                    <td class="step-name">Schedule Cutover</td>
+                    <td class="operator">
+                        <span class="badge badge-operator">Operator</span>
+                        Pick a date and time when GitHub should go live (must be 48+ hours from now). e.g., Friday 5pm or Monday morning. Use ISO 8601 format.
+                    </td>
+                    <td class="outcome">
+                        <span class="stage-badge">cutover</span><br>
+                        Scheduled for future execution<br>
+                        System will execute at specified time
+                    </td>
+                    <td class="responsibility">
+                        <span class="badge badge-operator">Operator</span>
+                        Sit back and wait. System executes automatically at scheduled time (takes 5-10 minutes)
+                    </td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-title">Cutover Execution</div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40px;">#</th>
+                    <th style="width: 130px;">Step</th>
+                    <th style="width: 28%;">What Happens</th>
+                    <th style="width: 22%;">Expected Stage → Status</th>
+                    <th style="width: 25%;">Next Step</th>
+                    <th style="width: 15%;">Gate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="step-num">8</td>
+                    <td class="step-name">Cutover Executes</td>
+                    <td class="operator">
+                        <span class="badge badge-operator">System</span>
+                        At the scheduled date/time, the system automatically: (1) makes Azure DevOps read-only, (2) final sync to GitHub, (3) switches GitHub to be the authoritative source. Takes 5-10 minutes.
+                    </td>
+                    <td class="outcome">
+                        <span class="stage-badge">cutover</span> → completes<br>
+                        Status: <span class="command-inline">succeeded</span> — GitHub now LIVE!
+                    </td>
+                    <td class="responsibility">
+                        <span class="badge badge-operator">Operator</span>
+                        Monitor execution. Verify all is working. Teams can now ONLY work in GitHub.
+                    </td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td class="step-num">9</td>
+                    <td class="step-name">Verify Complete</td>
+                    <td class="operator">
+                        <span class="badge badge-operator">Operator</span>
+                        Run final verification checklist:<br>
+                        ☐ Clone GitHub repo works<br>
+                        ☐ All branches visible<br>
+                        ☐ All tags present<br>
+                        ☐ PR history complete<br>
+                        ☐ Azure DevOps is read-only<br>
+                        ☐ Teams can push to GitHub
+                    </td>
+                    <td class="outcome">
+                        All checks pass<br>
+                        Status: <span class="command-inline">succeeded</span>
+                    </td>
+                    <td class="responsibility">
+                        ✅ Migration complete — GitHub is the new source
+                    </td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+        <div class="legend-item operator">
+            <strong>Operator Does</strong><br>
+            You run the commands and decisions
+        </div>
+        <div class="legend-item outcome">
+            <strong>Expected Outcome</strong><br>
+            What stage/status you should see
+        </div>
+        <div class="legend-item responsibility">
+            <strong>Next Step</strong><br>
+            Who acts next and what happens
+        </div>
+        <div class="legend-item gate">
+            <strong>Approval Gate</strong><br>
+            Human decision or waiting point
+        </div>
+    </div>
+
+    </div> <!-- end tab-workflow -->
+
+    <!-- Tab: Scenarios -->
+    <div id="tab-scenarios" class="tab-panel">
+        <div class="path-grid">
+
+            <div class="path-col happy">
+                <h4>✅ Happy Path — Everything Goes Smoothly</h4>
+
+                <div class="path-step">
+                    <div class="path-num">1</div>
+                    <div class="path-content">
+                        <strong>Validate</strong>
+                        <span>Repo passes all checks: repo size OK, PRs under 500, agent pool online</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">2</div>
+                    <div class="path-content">
+                        <strong>Start Migration</strong>
+                        <span>Migration queues and sync begins immediately</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">3</div>
+                    <div class="path-content">
+                        <strong>Sync Completes</strong>
+                        <span>All code on GitHub. Owner clones, tests build passes, history intact</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-gate">🔑 Owner: "Code looks correct. Proceed."</div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">5</div>
+                    <div class="path-content">
+                        <strong>Cutover Review</strong>
+                        <span>0 failed, 0 blocked, 0 pending items</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-gate">🔑 Owner: "Nothing will be lost. Accept 0 failures."</div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">7</div>
+                    <div class="path-content">
+                        <strong>Cutover Scheduled</strong>
+                        <span>Set for Friday 5pm. Teams notified. Operator waits.</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">8</div>
+                    <div class="path-content">
+                        <strong>Cutover Executes</strong>
+                        <span>5-10 min. GitHub goes live. ADO read-only.</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">9</div>
+                    <div class="path-content">
+                        <strong>All Clear</strong>
+                        <span>Verified: all branches, tags, PRs in GitHub. Migration complete. ✅</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="path-col twisted">
+                <h4>🔀 Twisted Path — Things Get Complicated</h4>
+
+                <div class="path-step">
+                    <div class="path-num">1</div>
+                    <div class="path-content">
+                        <strong>Validation Fails</strong>
+                        <span>620 open PRs (limit is 500). Repo also has a 450 MB binary file.</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-gate">🔑 Owner: closes old PRs, removes the large binary file from history</div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">1b</div>
+                    <div class="path-content">
+                        <strong>Retry Validation</strong>
+                        <span>Still 510 open PRs. Owner can't close 10 more right now — operator skips that check with owner's authorization.</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">2</div>
+                    <div class="path-content">
+                        <strong>Sync Starts but Stalls</strong>
+                        <span>Progress stops mid-sync. Operator pauses and resumes — sync restarts from last point.</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">3</div>
+                    <div class="path-content">
+                        <strong>Sync Completes, Owner Reviews</strong>
+                        <span>Owner finds 2 branches missing. Operator checks status — those branches had non-UTF8 names that couldn't sync.</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-gate">🔑 Owner: "Code mostly correct but wants to fix branches first. Not approving yet."</div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">3b</div>
+                    <div class="path-content">
+                        <strong>Owner renames branches in ADO</strong>
+                        <span>Operator resumes sync. Branches now appear on GitHub.</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-gate">🔑 Owner: "Now looks good. Proceed."</div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">5</div>
+                    <div class="path-content">
+                        <strong>Cutover Review: 8 failed items</strong>
+                        <span>5 old PRs that are too large to migrate, 3 work items with broken links. Owner reviews the list.</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-gate">🔑 Owner: "Those 5 PRs are ancient and abandoned. The 3 work items are duplicates. Accept 8 failures."</div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">7</div>
+                    <div class="path-content">
+                        <strong>Cutover Scheduled, Then Cancelled</strong>
+                        <span>Scheduled for Monday, but team had a production incident. Operator cancels and reschedules for Wednesday.</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">8</div>
+                    <div class="path-content">
+                        <strong>Cutover Executes Wednesday</strong>
+                        <span>GitHub goes live. 8 items as expected are not in GitHub. ADO kept as backup for 30 days.</span>
+                    </div>
+                </div>
+                <div class="path-arrow">↓</div>
+
+                <div class="path-step">
+                    <div class="path-num">9</div>
+                    <div class="path-content">
+                        <strong>Verified with known gaps</strong>
+                        <span>Owner confirms 8 missing items, documents them. Migration complete. ✅</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div> <!-- end tab-scenarios -->
+
+    <!-- Tab: Key Behaviors -->
+    <div id="tab-behaviors" class="tab-panel">
+        <div class="behaviors">
+            <h3>📋 Key Behaviors to Know</h3>
+            <div class="behavior-grid">
+                <div class="behavior-card operator-card">
+                    <strong>Validate without committing <span class="badge badge-operator">Operator</span></strong>
+                    <p>You can run a full pre-flight check before starting any real sync. If it fails, nothing has been started and there's nothing to clean up. If it passes, you decide whether to proceed. Good practice before committing to a migration.</p>
+                </div>
+                <div class="behavior-card operator-card">
+                    <strong>Pausing a migration <span class="badge badge-operator">Operator</span></strong>
+                    <p>Freezes the sync at its current point. Azure DevOps stays fully writable — teams keep working normally. GitHub code is frozen at the last sync point. No data is lost. You can pause at any active stage (sync or cutover prep).</p>
+                </div>
+                <div class="behavior-card operator-card">
+                    <strong>Resuming after a pause <span class="badge badge-operator">Operator</span></strong>
+                    <p>Picks up exactly from where it left off. Any new commits or PRs made in ADO while paused will be picked up automatically and synced to GitHub.</p>
+                </div>
+                <div class="behavior-card operator-card">
+                    <strong>Abandoning a migration <span class="badge badge-operator">Operator</span></strong>
+                    <p>Permanently deletes the migration. Azure DevOps goes back to read-write. GitHub keeps whatever code was copied but it's not live or authoritative. You can start a completely new migration for the same repo afterward.</p>
+                </div>
+                <div class="behavior-card operator-card">
+                    <strong>Cancelling a scheduled cutover <span class="badge badge-operator">Operator</span></strong>
+                    <p>Removes the scheduled date but the migration stays in "approved" state (ReadyForCutover). You don't need to re-approve — just pick a new date and reschedule.</p>
+                </div>
+                <div class="behavior-card both-card">
+                    <strong>Skipping a validation failure <span class="badge badge-operator">Operator</span> + <span class="badge badge-owner">Repo Owner</span></strong>
+                    <p>Some validation failures can be skipped (e.g., too many open PRs, target repo already exists). The repo owner must accept the risk and authorize the skip. Operator then retries with the skip flag set.</p>
+                </div>
+                <div class="behavior-card both-card">
+                    <strong>48-hour notice before cutover <span class="badge badge-owner">Repo Owner</span></strong>
+                    <p>Teams are notified at least 48 hours before GitHub goes live. Owners should use this window to close open work, merge critical PRs, and make sure their team is ready to switch to GitHub.</p>
+                </div>
+                <div class="behavior-card both-card">
+                    <strong>ADO is read-only during cutover execution <span class="badge badge-owner">Repo Owner</span></strong>
+                    <p>The 5-10 minute cutover window is a hard downtime. No one can push code to Azure DevOps during this time. Plan for it — alert your team in advance to avoid lost work during the switch.</p>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end tab-behaviors -->
+
+</div> <!-- end container -->
+
+<script>
+function switchTab(name) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>
