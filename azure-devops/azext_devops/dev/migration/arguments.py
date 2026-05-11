@@ -14,6 +14,47 @@ def load_migration_arguments(self, _):
         context.argument('repository_id', options_list='--repository-id',
                          help='ID of the Azure Repos repository (GUID).')
 
+    with self.argument_context('devops migrations pipelines') as context:
+        context.argument('repository_mapping', options_list='--repository-mapping', action='append',
+                         help='Repository mapping in the format <sourceRepoId>=<targetOwner>/<targetRepo>. '
+                              'Can be provided multiple times.')
+
+    with self.argument_context('devops migrations pipelines submit') as context:
+        context.argument('pipeline_ids', options_list='--pipeline-ids', nargs='+',
+                         help='Pipeline definition IDs. Accepts space-separated values '
+                              '(for example, 42 43 44) or comma-separated values '
+                              '(for example, 42,43,44).')
+        context.argument('service_connection_id', options_list='--service-connection-id',
+                         help='Project-scoped GitHub service connection ID (GUID).')
+
+    with self.argument_context('devops migrations pipelines update') as context:
+        context.argument('add_ids', options_list='--add-ids', nargs='+',
+                         help='Pipeline IDs to add. Accepts space-separated or comma-separated values.')
+        context.argument('remove_ids', options_list='--remove-ids', nargs='+',
+                         help='Pipeline IDs to remove. Accepts space-separated or comma-separated values.')
+        context.argument('retry_ids', options_list='--retry-ids', nargs='+',
+                         help='Failed pipeline IDs to retry. Accepts space-separated or comma-separated values.')
+        context.argument('acknowledge_ids', options_list='--acknowledge-ids', nargs='+',
+                         help='Pipeline IDs to acknowledge. Accepts space-separated or comma-separated values.')
+        context.argument('service_connection_id', options_list='--service-connection-id',
+                         help='Project-scoped GitHub service connection ID (GUID).')
+
+    with self.argument_context('devops migrations pipelines retry') as context:
+        context.argument('pipeline_ids', options_list='--pipeline-ids', nargs='+',
+                         help='Pipeline definition IDs to retry. Accepts space-separated '
+                              'or comma-separated values.')
+
+    with self.argument_context('devops migrations pipelines acknowledge') as context:
+        context.argument('pipeline_ids', options_list='--pipeline-ids', nargs='+',
+                         help='Pipeline definition IDs to acknowledge. Accepts space-separated '
+                              'or comma-separated values.')
+
+    with self.argument_context('devops migrations pipelines delete') as context:
+        context.argument('migration_id', options_list='--migration-id', type=int,
+                         help='Migration ID used for pipeline rewiring cleanup.')
+        context.argument('yes', options_list=['--yes', '-y'], action='store_true',
+                         help='Do not prompt for confirmation.')
+
     with self.argument_context('devops migrations list') as context:
         context.argument('include_inactive', options_list='--include-inactive', action='store_true',
                          help='Include inactive (completed, abandoned, failed) migrations in the results.')

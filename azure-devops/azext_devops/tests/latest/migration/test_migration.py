@@ -24,7 +24,12 @@ from azext_devops.dev.migration.migration import (list_migrations,
                                                   approve_cutover,
                                                   delete_migration,
                                                   pause_migration,
-                                                  resume_migration)
+                                                  resume_migration,
+                                                  submit_pipeline_rewiring,
+                                                  update_pipeline_rewiring,
+                                                  retry_pipeline_rewiring,
+                                                  acknowledge_pipeline_rewiring,
+                                                  delete_pipeline_rewiring)
 
 
 class TestMigrationCommands(unittest.TestCase):
@@ -1473,6 +1478,272 @@ class TestMigrationCommands(unittest.TestCase):
         self.assertIn('Pre-check issues:', text)
         self.assertIn('TargetRepositoryDoesNotExist', text)
         self.assertIn('Target repository could not be found.', text)
+
+    def test_submit_pipeline_rewiring_accepts_space_separated_ids(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = []
+
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42', '43', '44'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['PipelineIds'], [42, 43, 44])
+            self.assertEqual(payload['ServiceConnectionId'], '11111111-1111-1111-1111-111111111111')
+
+    def test_submit_pipeline_rewiring_accepts_comma_separated_ids(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = []
+
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42,43,44'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['PipelineIds'], [42, 43, 44])
+
+    def test_submit_pipeline_rewiring_rejects_invalid_pipeline_id(self):
+        with self.assertRaises(CLIError) as ctx:
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42', 'abc'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('--pipeline-ids', str(ctx.exception))
+
+    def test_submit_pipeline_rewiring_rejects_invalid_service_connection_guid(self):
+        with self.assertRaises(CLIError) as ctx:
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42'],
+                service_connection_id='not-a-guid',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('--service-connection-id must be a valid GUID', str(ctx.exception))
+
+    def test_submit_pipeline_rewiring_rejects_invalid_repository_mapping(self):
+        with self.assertRaises(CLIError) as ctx:
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                repository_mapping=['not-a-guid=myorg/repo'],
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('repository-mapping source repo ID', str(ctx.exception))
+
+    def test_submit_pipeline_rewiring_rejects_repository_mapping_with_extra_slash(self):
+        with self.assertRaises(CLIError) as ctx:
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                repository_mapping=['aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa=myorg/repo/extra'],
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('format <owner>/<repo>', str(ctx.exception))
+
+    def test_submit_pipeline_rewiring_parses_repository_mapping(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = []
+
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                repository_mapping=['aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa=myorg/shared-templates'],
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['RepositoryMappings'][0]['SourceRepositoryId'],
+                             'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa')
+            self.assertEqual(payload['RepositoryMappings'][0]['TargetRepository'],
+                             'myorg/shared-templates')
+
+    def test_update_pipeline_rewiring_rejects_no_flags(self):
+        with self.assertRaises(CLIError) as ctx:
+            update_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('At least one update flag must be provided', str(ctx.exception))
+
+    def test_update_pipeline_rewiring_payload_contains_provided_fields_only(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = []
+
+            update_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                add_ids=['50', '51'],
+                remove_ids=['42'],
+                service_connection_id='22222222-2222-2222-2222-222222222222',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['AddPipelineIds'], [50, 51])
+            self.assertEqual(payload['RemovePipelineIds'], [42])
+            self.assertEqual(payload['ServiceConnectionId'], '22222222-2222-2222-2222-222222222222')
+            self.assertNotIn('RetryFailedPipelineIds', payload)
+            self.assertNotIn('AcknowledgePipelineIds', payload)
+
+    def test_retry_pipeline_rewiring_calls_update_with_retry_ids(self):
+        with patch('azext_devops.dev.migration.migration.update_pipeline_rewiring') as mock_update:
+            mock_update.return_value = []
+
+            retry_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42', '43'],
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            kwargs = mock_update.call_args[1]
+            self.assertEqual(kwargs['retry_ids'], [42, 43])
+
+    def test_acknowledge_pipeline_rewiring_calls_update_with_ack_ids(self):
+        with patch('azext_devops.dev.migration.migration.update_pipeline_rewiring') as mock_update:
+            mock_update.return_value = []
+
+            acknowledge_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['44', '45'],
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            kwargs = mock_update.call_args[1]
+            self.assertEqual(kwargs['acknowledge_ids'], [44, 45])
+
+    def test_submit_pipeline_rewiring_rejects_more_than_200_ids(self):
+        too_many_ids = [str(i) for i in range(1, 202)]
+        with self.assertRaises(CLIError) as ctx:
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=too_many_ids,
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('maximum of 200', str(ctx.exception))
+
+    def test_submit_pipeline_rewiring_rejects_empty_comma_value(self):
+        with self.assertRaises(CLIError) as ctx:
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42,,43'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('contains an empty value', str(ctx.exception))
+
+    def test_delete_pipeline_rewiring_calls_delete_with_migration_id_query(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = {}
+
+            delete_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                migration_id=7,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'DELETE')
+            self.assertIn('migrationId=7', args[2])
+
+    def test_send_request_feature_disabled_message_for_404(self):
+        class MockResponse(object):
+            status_code = 404
+            headers = {'Content-Type': 'application/json'}
+
+            @staticmethod
+            def json():
+                return {'message': "The controller for path '/_apis/elm/migrations/.../pipelines' was not found."}
+
+        class MockClient(object):
+            @staticmethod
+            def send(request, headers, content):
+                del request, headers, content
+                return MockResponse()
+
+        with self.assertRaises(CLIError) as ctx:
+            migration_module._send_request(MockClient(), 'GET', 'https://example.test',
+                                           feature_not_enabled_message='Pipeline rewiring is not enabled for this organization.')
+        self.assertEqual(str(ctx.exception), 'Pipeline rewiring is not enabled for this organization.')
+
+    def test_send_request_404_without_feature_flag_hint_returns_server_message(self):
+        class MockResponse(object):
+            status_code = 404
+            headers = {'Content-Type': 'application/json'}
+
+            @staticmethod
+            def json():
+                return {'message': 'Migration not found'}
+
+        class MockClient(object):
+            @staticmethod
+            def send(request, headers, content):
+                del request, headers, content
+                return MockResponse()
+
+        with self.assertRaises(CLIError) as ctx:
+            migration_module._send_request(MockClient(), 'GET', 'https://example.test',
+                                           feature_not_enabled_message='Pipeline rewiring is not enabled for this organization.')
+        self.assertIn('status 404', str(ctx.exception))
+        self.assertIn('Migration not found', str(ctx.exception))
+
+    def test_send_request_includes_correlation_id_for_server_errors(self):
+        class MockResponse(object):
+            status_code = 500
+            headers = {'Content-Type': 'application/json', 'X-VSS-E2EID': 'abc-123'}
+
+            @staticmethod
+            def json():
+                return {'message': 'Internal server error'}
+
+        class MockClient(object):
+            @staticmethod
+            def send(request, headers, content):
+                del request, headers, content
+                return MockResponse()
+
+        with self.assertRaises(CLIError) as ctx:
+            migration_module._send_request(MockClient(), 'GET', 'https://example.test')
+        self.assertIn('abc-123', str(ctx.exception))
 
 
 if __name__ == '__main__':

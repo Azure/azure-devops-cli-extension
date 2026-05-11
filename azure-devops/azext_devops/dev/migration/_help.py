@@ -118,3 +118,62 @@ def load_migration_help():
     type: command
     short-summary: Cancel a scheduled cutover.
     """
+
+    helps['devops migrations pipelines'] = """
+    type: group
+    short-summary: Manage pipeline rewiring for migrations. (Preview)
+    """
+
+    helps['devops migrations pipelines list'] = """
+    type: command
+    short-summary: List pipeline rewiring configuration and per-pipeline status.
+    examples:
+      - name: List pipeline rewiring status.
+        text: |
+          az devops migrations pipelines list --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000
+    """
+
+    helps['devops migrations pipelines submit'] = """
+    type: command
+    short-summary: Submit pipelines for rewiring. (Preview)
+    examples:
+      - name: Submit pipelines with service connection and repository mappings.
+        text: |
+          az devops migrations pipelines submit --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --pipeline-ids 42 43 44 --service-connection-id 11111111-1111-1111-1111-111111111111 --repository-mapping aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa=myorg/shared-templates
+    """
+
+    helps['devops migrations pipelines update'] = """
+    type: command
+    short-summary: Bulk update pipeline rewiring configuration. (Preview)
+    examples:
+      - name: Add, remove, and update service connection.
+        text: |
+          az devops migrations pipelines update --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --add-ids 50 51 --remove-ids 42 --service-connection-id 22222222-2222-2222-2222-222222222222
+    """
+
+    helps['devops migrations pipelines retry'] = """
+    type: command
+    short-summary: Retry failed pipeline rewiring entries. (Preview)
+    examples:
+      - name: Retry specific failed pipelines.
+        text: |
+          az devops migrations pipelines retry --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --pipeline-ids 42 43
+    """
+
+    helps['devops migrations pipelines acknowledge'] = """
+    type: command
+    short-summary: Acknowledge pipeline rewiring entries. (Preview)
+    examples:
+      - name: Acknowledge complex pipeline entries.
+        text: |
+          az devops migrations pipelines acknowledge --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --pipeline-ids 44 45
+    """
+
+    helps['devops migrations pipelines delete'] = """
+    type: command
+    short-summary: Delete pipeline rewiring data for a migration. (Preview)
+    examples:
+      - name: Delete rewiring config and cloned definitions.
+        text: |
+          az devops migrations pipelines delete --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --migration-id 7 --yes
+    """

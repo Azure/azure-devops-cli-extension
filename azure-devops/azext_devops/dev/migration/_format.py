@@ -70,6 +70,21 @@ def transform_cutover_review_table_output(result):
     return rows
 
 
+def transform_pipelines_list_table_output(result):
+    if not isinstance(result, dict):
+        return []
+    entries = result.get('pipelines') if isinstance(result.get('pipelines'), list) else []
+    return [_transform_pipeline_entry_row(entry) for entry in entries]
+
+
+def transform_pipeline_entries_table_output(result):
+    if isinstance(result, list):
+        return [_transform_pipeline_entry_row(entry) for entry in result]
+    if isinstance(result, dict) and isinstance(result.get('pipelines'), list):
+        return [_transform_pipeline_entry_row(entry) for entry in result.get('pipelines')]
+    return []
+
+
 def _unwrap_migration_list(result):
     if isinstance(result, dict) and 'value' in result:
         return result['value']
@@ -89,4 +104,15 @@ def _transform_migration_row(row):
     table_row['CutoverDate'] = date_time_to_only_date(row.get('scheduledCutoverDate'))
     table_row['CodeSyncDate'] = date_time_to_only_date(row.get('codeSyncDate'))
     table_row['PrSyncDate'] = date_time_to_only_date(row.get('pullRequestSyncDate'))
+    return table_row
+
+
+def _transform_pipeline_entry_row(entry):
+    table_row = OrderedDict()
+    table_row['DefinitionId'] = entry.get('definitionId')
+    table_row['Name'] = trim_for_display(entry.get('name'), _TARGET_TRUNCATION_LENGTH)
+    table_row['Classification'] = entry.get('classification')
+    table_row['Status'] = entry.get('status')
+    table_row['Acknowledged'] = entry.get('acknowledged')
+    table_row['ErrorMessage'] = trim_for_display(entry.get('errorMessage'), _TARGET_TRUNCATION_LENGTH)
     return table_row
