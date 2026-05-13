@@ -917,7 +917,10 @@ class TestMigrationCommands(unittest.TestCase):
             payload = mock_send.call_args[0][3]
             self.assertNotIn('serviceEndpointId', payload)
 
-    def test_cancel_cutover_sets_null(self):
+    def test_cancel_cutover_sends_min_value_sentinel(self):
+        # The ELM service silently ignores `null` for scheduledCutoverDate and only
+        # treats DateTimeOffset.MinValue ("0001-01-01T00:00:00+00:00") as the clear
+        # sentinel. Sending null leaves the field set on the server.
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._send_request') as mock_send:
@@ -931,7 +934,7 @@ class TestMigrationCommands(unittest.TestCase):
             )
 
             payload = mock_send.call_args[0][3]
-            self.assertIsNone(payload['scheduledCutoverDate'])
+            self.assertEqual(payload['scheduledCutoverDate'], '0001-01-01T00:00:00+00:00')
 
     def test_cancel_cutover_returns_success_message_when_empty_response(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \

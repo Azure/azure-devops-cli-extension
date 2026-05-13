@@ -30,6 +30,10 @@ logger = get_logger(__name__)
 API_VERSION = '7.2-preview'
 MIGRATIONS_API_PATH = '/_apis/elm/migrations'
 CUTOVER_REVIEW_API_PATH_SUFFIX = '/cutoverReview'
+# The ELM service treats DateTimeOffset.MinValue as the sentinel for "clear the
+# scheduled cutover date". Sending null is silently ignored by the server, so
+# `cutover cancel` must send this exact value to actually clear the field.
+CUTOVER_DATE_CLEAR_SENTINEL = '0001-01-01T00:00:00+00:00'
 DEVICE_FLOW_CONFIG_API_PATH = '/_apis/migrations/deviceFlowConfig'
 LEGACY_DEVICE_FLOW_CONFIG_API_PATH = '/_apis/elm/migrations/deviceFlowConfig'
 GITHUB_TOKEN_ENV_VAR = 'ELM_GITHUB_TOKEN'
@@ -456,7 +460,8 @@ def schedule_cutover(repository_id=None, cutover_date=None, organization=None, d
 
 
 def cancel_cutover(repository_id=None, organization=None, detect=None):
-    result = _update_migration(repository_id, organization, detect, scheduled_cutover_date=None,
+    result = _update_migration(repository_id, organization, detect,
+                               scheduled_cutover_date=CUTOVER_DATE_CLEAR_SENTINEL,
                                include_cutover=True)
     if not result:
         return {'message': 'Cutover cancelled successfully.'}
