@@ -262,6 +262,153 @@ class TestMigrationCommands(unittest.TestCase):
 
             self.assertIn('status 400', str(ctx.exception))
 
+    def test_create_migration_with_service_endpoint_skips_device_flow(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration._get_device_flow_config') as mock_flow, \
+             patch('azext_devops.dev.migration.migration._run_device_flow') as mock_run_flow:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+            # Even with the env token set in setUp, presence of service-endpoint-id
+            # must short-circuit token resolution entirely.
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            mock_flow.assert_not_called()
+            mock_run_flow.assert_not_called()
+            self.assertEqual(mock_send.call_count, 1)
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
+            self.assertNotIn('gitHubUserToken', payload)
+
+    def test_create_migration_with_service_endpoint_and_token_rejected(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError) as ctx:
+                create_migration(
+                    repository_id='00000000-0000-0000-0000-000000000000',
+                    target_repository='https://example.ghe.com/OrgName/RepoName',
+                    target_owner_user_id='GeoffCoxMSFT',
+                    service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
+                    github_token='param-token',
+                    organization=self._TEST_ORG,
+                    detect=False
+                )
+
+            self.assertIn('Specify either --service-endpoint-id or --github-token', str(ctx.exception))
+            mock_send.assert_not_called()
+
+    def test_create_migration_with_service_endpoint_ignores_env_token(self):
+        # ELM_GITHUB_TOKEN is set in setUp; the service endpoint path must not
+        # pick it up and must not include gitHubUserToken in the payload.
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration._get_device_flow_config') as mock_flow:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
+                validate_only=True,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            mock_flow.assert_not_called()
+            payload = mock_send.call_args[0][3]
+            self.assertNotIn('gitHubUserToken', payload)
+            self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
+            self.assertTrue(payload['validateOnly'])
+
+    def test_create_migration_service_endpoint_with_whitespace_github_token_not_rejected(self):
+        # A whitespace-only --github-token normalizes to None and must not
+        # trigger the mutual-exclusion error when --service-endpoint-id is set.
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration._get_device_flow_config') as mock_flow:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
+                github_token='   ',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            mock_flow.assert_not_called()
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
+            self.assertNotIn('gitHubUserToken', payload)
+
+    def test_create_migration_service_endpoint_conflict_returns_clear_message(self):
+        # Ensure the 409/TF400898 friendly message still surfaces on the
+        # service-endpoint code path (no GitHub token preflight to swallow it).
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.side_effect = CLIError('Request failed with status 409. TF400898: An Internal Error Occurred.')
+
+            with self.assertRaises(CLIError) as ctx:
+                create_migration(
+                    repository_id='912d0fd3-9c17-4b35-b67b-91848ce4d6bb',
+                    target_repository='https://example.ghe.com/OrgName/RepoName',
+                    service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
+                    organization=self._TEST_ORG,
+                    detect=False
+                )
+
+            self.assertIn('An active migration already exists for repository 912d0fd3-9c17-4b35-b67b-91848ce4d6bb',
+                          str(ctx.exception))
+
+    def test_create_migration_service_endpoint_with_all_optional_fields(self):
+        # Service endpoint path must coexist with every other optional field
+        # (agent pool, cutover date, skip validation, target owner).
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration._get_device_flow_config') as mock_flow:
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='GeoffCoxMSFT',
+                service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
+                agent_pool='MigrationPool',
+                cutover_date='2026-06-01T00:00:00Z',
+                skip_validation='AgentPoolExists',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            mock_flow.assert_not_called()
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
+            self.assertEqual(payload['targetOwnerUserId'], 'GeoffCoxMSFT')
+            self.assertEqual(payload['agentPoolName'], 'MigrationPool')
+            self.assertEqual(payload['scheduledCutoverDate'], '2026-06-01T00:00:00Z')
+            self.assertEqual(payload['skipValidation'], 4)
+            self.assertNotIn('gitHubUserToken', payload)
+
     def test_create_migration_no_token_and_missing_device_flow_config_fields_fails(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
@@ -706,10 +853,11 @@ class TestMigrationCommands(unittest.TestCase):
 
             payload = mock_send.call_args[0][3]
             self.assertEqual(payload['serviceEndpointId'], '12345678-1234-1234-1234-123456789012')
-            self.assertIn('gitHubUserToken', payload,
-                          'gitHubUserToken should always be present regardless of service_endpoint_id')
+            # When a service connection is supplied, the server uses it for GitHub auth;
+            # the CLI must not resolve or send a GitHub token.
+            self.assertNotIn('gitHubUserToken', payload)
 
-    def test_create_migration_service_endpoint_id_always_resolves_github_token(self):
+    def test_create_migration_service_endpoint_id_skips_github_token_resolution(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._resolve_github_user_token') as mock_token, \
@@ -726,7 +874,7 @@ class TestMigrationCommands(unittest.TestCase):
                 detect=False
             )
 
-            mock_token.assert_called_once()
+            mock_token.assert_not_called()
 
     def test_create_migration_service_endpoint_id_omitted_when_not_provided(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \

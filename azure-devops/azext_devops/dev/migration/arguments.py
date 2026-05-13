@@ -27,7 +27,8 @@ def load_migration_arguments(self, _):
                          help='Target repository owner user ID. Deprecated and ignored when server-side '
                               'token-based owner resolution is enabled.')
         context.argument('github_token', options_list='--github-token',
-                         help='GitHub token used for migration authorization. If omitted, the CLI first '
+                         help='GitHub token used for migration authorization. Ignored when '
+                              '--service-endpoint-id is specified. If omitted, the CLI first '
                               'checks ELM_GITHUB_TOKEN and then runs GitHub device flow.')
         context.argument('validate_only', options_list='--validate-only', action='store_true',
                          help='Create in validate-only mode (pre-migration checks only).')
@@ -41,7 +42,10 @@ def load_migration_arguments(self, _):
                               'policy names (for example, AgentPoolExists,MaxRepoSize) or a non-negative '
                               'integer bitmask.')
         context.argument('service_endpoint_id', options_list='--service-endpoint-id',
-                         help='Service endpoint ID (GUID) for GitHub Enterprise Server connection.')
+                         help='Service endpoint ID (GUID) for the GitHub Enterprise Server connection. '
+                              'When specified, the server uses the service connection for GitHub '
+                              'authentication and the CLI skips GitHub device flow. Mutually exclusive '
+                              'with --github-token.')
 
     with self.argument_context('devops migrations cutover set') as context:
         context.argument('cutover_date', options_list='--date',
