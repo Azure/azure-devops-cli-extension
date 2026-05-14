@@ -24,5 +24,6 @@ exclude =
     env
     venv
     .venv
+    .venv-disabled
 	*/test/*
     */devops_sdk/*

@@ -103,4 +103,4 @@ Global Arguments
 
 ## Enterprise live migrations
 
-If you are using enterprise live migrations, see the guide at [migrations.md](migrations.md).
+If you are using enterprise live migrations (Preview), see the guide at [migrations.md](migrations.md).
