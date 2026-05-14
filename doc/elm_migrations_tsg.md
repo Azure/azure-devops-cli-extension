@@ -101,7 +101,7 @@ Create (validate-only) → Check status → Resume (--migration) → Monitor →
 | ADO repo name | `my-repo` | The repo you want to migrate |
 | Target repo URL | `https://example.ghe.com/OrgName/RepoName` | Create the empty target repo in GitHub **before** starting |
 | GitHub auth token | `<token>` | Optional: pass via `--github-token` or set `ELM_GITHUB_TOKEN` |
-| Agent pool name | `MigrationPool` | Ask your admin |
+| Agent pool name | `<your-agent-pool>` | Ask your admin |
 
 ### 3.1 Get the source repository GUID from Azure DevOps
 
@@ -142,7 +142,7 @@ Start with validation to catch any issues **before** moving data. This runs pre-
 az devops migrations create --detect false \
   --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85 \
   --target-repository https://example.ghe.com/OrgName/RepoName \
-  --agent-pool MigrationPool \
+  --agent-pool <your-agent-pool> \
   --validate-only
 ```
 

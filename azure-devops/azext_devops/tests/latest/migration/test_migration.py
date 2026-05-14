@@ -106,8 +106,8 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
-                agent_pool='MigrationPool',
+                target_owner_user_id='TestOwner',
+                agent_pool='TestPool',
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -120,8 +120,8 @@ class TestMigrationCommands(unittest.TestCase):
         with self.assertRaises(CLIError) as ctx:
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
-                target_owner_user_id='GeoffCoxMSFT',
-                agent_pool='MigrationPool',
+                target_owner_user_id='TestOwner',
+                agent_pool='TestPool',
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -132,8 +132,8 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='ghe.example.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
-                agent_pool='MigrationPool',
+                target_owner_user_id='TestOwner',
+                agent_pool='TestPool',
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -144,8 +144,8 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='http://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
-                agent_pool='MigrationPool',
+                target_owner_user_id='TestOwner',
+                agent_pool='TestPool',
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -156,8 +156,8 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName',
-                target_owner_user_id='GeoffCoxMSFT',
-                agent_pool='MigrationPool',
+                target_owner_user_id='TestOwner',
+                agent_pool='TestPool',
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -173,7 +173,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -191,7 +191,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 github_token='param-token',
                 organization=self._TEST_ORG,
                 detect=False
@@ -216,7 +216,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -275,7 +275,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
                 organization=self._TEST_ORG,
                 detect=False
@@ -298,7 +298,7 @@ class TestMigrationCommands(unittest.TestCase):
                 create_migration(
                     repository_id='00000000-0000-0000-0000-000000000000',
                     target_repository='https://example.ghe.com/OrgName/RepoName',
-                    target_owner_user_id='GeoffCoxMSFT',
+                    target_owner_user_id='TestOwner',
                     service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
                     github_token='param-token',
                     organization=self._TEST_ORG,
@@ -391,9 +391,9 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
-                agent_pool='MigrationPool',
+                agent_pool='TestPool',
                 cutover_date='2026-06-01T00:00:00Z',
                 skip_validation='AgentPoolExists',
                 organization=self._TEST_ORG,
@@ -403,8 +403,8 @@ class TestMigrationCommands(unittest.TestCase):
             mock_flow.assert_not_called()
             payload = mock_send.call_args[0][3]
             self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
-            self.assertEqual(payload['targetOwnerUserId'], 'GeoffCoxMSFT')
-            self.assertEqual(payload['agentPoolName'], 'MigrationPool')
+            self.assertEqual(payload['targetOwnerUserId'], 'TestOwner')
+            self.assertEqual(payload['agentPoolName'], 'TestPool')
             self.assertEqual(payload['scheduledCutoverDate'], '2026-06-01T00:00:00Z')
             self.assertEqual(payload['skipValidation'], 4)
             self.assertNotIn('gitHubUserToken', payload)
@@ -619,10 +619,10 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 validate_only=True,
                 cutover_date='2030-12-31T11:59:00Z',
-                agent_pool='MigrationPool',
+                agent_pool='TestPool',
                 skip_validation=2147483647,
                 organization=self._TEST_ORG,
                 detect=False
@@ -631,7 +631,7 @@ class TestMigrationCommands(unittest.TestCase):
             payload = mock_send.call_args[0][3]
             self.assertTrue(payload['validateOnly'])
             self.assertEqual(payload['scheduledCutoverDate'], '2030-12-31T11:59:00Z')
-            self.assertEqual(payload['agentPoolName'], 'MigrationPool')
+            self.assertEqual(payload['agentPoolName'], 'TestPool')
             self.assertEqual(payload['skipValidation'], 2147483647)
 
     def test_create_migration_skip_validation_accepts_integer_string(self):
@@ -644,7 +644,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 skip_validation='2147483647',
                 organization=self._TEST_ORG,
                 detect=False
@@ -663,7 +663,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 skip_validation='PullRequestDeltaSize, AgentPoolExists',
                 organization=self._TEST_ORG,
                 detect=False
@@ -682,7 +682,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 skip_validation='All',
                 organization=self._TEST_ORG,
                 detect=False
@@ -696,7 +696,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 skip_validation='BogusPolicy',
                 organization=self._TEST_ORG,
                 detect=False
@@ -708,7 +708,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 skip_validation='AgentPoolExists,,MaxRepoSize',
                 organization=self._TEST_ORG,
                 detect=False
@@ -725,7 +725,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 agent_pool='  ',
                 organization=self._TEST_ORG,
                 detect=False
@@ -744,8 +744,8 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
-                agent_pool='MigrationPool',
+                target_owner_user_id='TestOwner',
+                agent_pool='TestPool',
                 skip_validation=None,
                 organization=self._TEST_ORG,
                 detect=False
@@ -764,15 +764,15 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
-                agent_pool='  MigrationPool  ',
+                target_owner_user_id='TestOwner',
+                agent_pool='  TestPool  ',
                 skip_validation=42,
                 organization=self._TEST_ORG,
                 detect=False
             )
 
             payload = mock_send.call_args[0][3]
-            self.assertEqual(payload['agentPoolName'], 'MigrationPool')
+            self.assertEqual(payload['agentPoolName'], 'TestPool')
             self.assertEqual(payload['skipValidation'], 42)
 
     def test_create_migration_passes_target_repository_to_api(self):
@@ -785,8 +785,8 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
-                agent_pool='MigrationPool',
+                target_owner_user_id='TestOwner',
+                agent_pool='TestPool',
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -804,9 +804,9 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 validate_only=True,
-                agent_pool='MigrationPool',
+                agent_pool='TestPool',
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -824,14 +824,14 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
-                agent_pool='MigrationPool',
+                target_owner_user_id='TestOwner',
+                agent_pool='TestPool',
                 organization=self._TEST_ORG,
                 detect=False
             )
 
             payload = mock_send.call_args[0][3]
-            self.assertEqual(payload['agentPoolName'], 'MigrationPool')
+            self.assertEqual(payload['agentPoolName'], 'TestPool')
 
     def test_create_migration_service_endpoint_id_included_in_payload(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -845,7 +845,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 service_endpoint_id='12345678-1234-1234-1234-123456789012',
                 organization=self._TEST_ORG,
                 detect=False
@@ -888,7 +888,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -908,7 +908,7 @@ class TestMigrationCommands(unittest.TestCase):
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
-                target_owner_user_id='GeoffCoxMSFT',
+                target_owner_user_id='TestOwner',
                 service_endpoint_id='   ',
                 organization=self._TEST_ORG,
                 detect=False

@@ -120,7 +120,7 @@ az devops migrations status --org https://dev.azure.com/myorg \
 az devops migrations create --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 \
   --target-repository https://example.ghe.com/OrgName/RepoName \
-  --agent-pool MigrationPool
+  --agent-pool <your-agent-pool>
 ```
 
 ### Create a validate-only migration
@@ -129,7 +129,7 @@ az devops migrations create --org https://dev.azure.com/myorg \
 az devops migrations create --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 \
   --target-repository https://example.ghe.com/OrgName/RepoName \
-  --agent-pool MigrationPool \
+  --agent-pool <your-agent-pool> \
   --validate-only
 ```
 
