@@ -923,7 +923,9 @@ class TestMigrationCommands(unittest.TestCase):
         # sentinel. Sending null leaves the field set on the server.
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
-             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration.get_migration') as mock_get:
+            mock_get.return_value = {'stage': 'readyForCutover', 'status': 'active'}
             mock_send.return_value = {}
             mock_resolve.return_value = self._TEST_ORG
 
@@ -939,7 +941,9 @@ class TestMigrationCommands(unittest.TestCase):
     def test_cancel_cutover_returns_success_message_when_empty_response(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
-             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration.get_migration') as mock_get:
+            mock_get.return_value = {'stage': 'readyForCutover', 'status': 'active'}
             mock_send.return_value = {}
             mock_resolve.return_value = self._TEST_ORG
 
@@ -951,6 +955,29 @@ class TestMigrationCommands(unittest.TestCase):
 
             self.assertIn('message', result)
             self.assertIn('cancelled', result['message'].lower())
+
+    def test_cancel_cutover_blocked_when_stage_is_cutover(self):
+        # Service-side Bug 2394803: clearing scheduledCutoverDate after the worker
+        # has entered the Cutover stage leaves the migration in a state that
+        # requires server-side recovery. The CLI must block this case until the
+        # service-side guard ships.
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration.get_migration') as mock_get:
+            mock_get.return_value = {'stage': 'cutover', 'status': 'active'}
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError) as ctx:
+                cancel_cutover(
+                    repository_id='00000000-0000-0000-0000-000000000000',
+                    organization=self._TEST_ORG,
+                    detect=False
+                )
+
+            self.assertIn('Cutover stage', str(ctx.exception))
+            # Must not have called PUT against the migration record.
+            mock_send.assert_not_called()
 
     def test_get_cutover_review_calls_get(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \

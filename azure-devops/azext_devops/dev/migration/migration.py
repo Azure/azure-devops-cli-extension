@@ -460,7 +460,20 @@ def schedule_cutover(repository_id=None, cutover_date=None, organization=None, d
 
 
 def cancel_cutover(repository_id=None, organization=None, detect=None):
-    result = _update_migration(repository_id, organization, detect,
+    # The ELM service tracks the post-cutover drain using scheduledCutoverDate as a
+    # timestamp marker; clearing it once the worker has entered the `cutover` stage
+    # puts the migration into a state that requires server-side recovery
+    # (tracked by service team Bug 2394803). Guard against the dangerous case here
+    # until the server-side fix rolls out.
+    organization = _resolve_org_for_auth(organization, detect)
+    migration_data = get_migration(repository_id=repository_id, organization=organization, detect=None)
+    current_stage = _normalize_state(migration_data.get('stage')) if isinstance(migration_data, dict) else ''
+    if current_stage == 'cutover':
+        raise CLIError('Cannot cancel cutover: the migration has already entered the Cutover stage. '
+                       'Cancelling at this point is not safe and requires server-side recovery. '
+                       'If the cutover appears stuck, contact the ELM service team.')
+
+    result = _update_migration(repository_id, organization, detect=None,
                                scheduled_cutover_date=CUTOVER_DATE_CLEAR_SENTINEL,
                                include_cutover=True)
     if not result:
