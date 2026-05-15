@@ -150,7 +150,7 @@ Recommended form using policy names:
 az devops migrations create --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 \
   --target-repository https://example.ghe.com/OrgName/RepoName \
-  --skip-validation AgentPoolExists,MaxRepoSize
+  --skip-validation AgentPoolExists,MaxFileSize
 ```
 
 Advanced form using integer bitmask:
@@ -234,7 +234,7 @@ az devops migrations pause --org https://dev.azure.com/myorg \
   Pass `--github-token`, set `ELM_GITHUB_TOKEN`, or complete the interactive GitHub device-flow prompt shown by CLI.
 
 - Error: `--skip-validation` contains unsupported policy names.
-  Use supported names such as `AgentPoolExists`, `MaxRepoSize`, or pass a non-negative integer bitmask.
+  Use supported names such as `AgentPoolExists`, `MaxFileSize`, or pass a non-negative integer bitmask.
 
 - Error: requests are sent to the wrong org.
   Use `--org <url> --detect false`, and verify defaults via `az devops configure -l`.

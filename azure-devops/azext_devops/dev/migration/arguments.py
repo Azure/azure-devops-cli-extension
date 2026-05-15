@@ -39,7 +39,7 @@ def load_migration_arguments(self, _):
                          help='Agent pool name to use for migration work.')
         context.argument('skip_validation', options_list='--skip-validation',
                          help='Validation policies to skip. Accepts either a comma-separated list of '
-                              'policy names (for example, AgentPoolExists,MaxRepoSize) or a non-negative '
+                              'policy names (for example, AgentPoolExists,MaxFileSize) or a non-negative '
                               'integer bitmask.')
         context.argument('service_endpoint_id', options_list='--service-endpoint-id',
                          help='Service endpoint ID (GUID) for the GitHub Enterprise Server connection. '

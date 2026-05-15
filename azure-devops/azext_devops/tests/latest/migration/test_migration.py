@@ -709,7 +709,7 @@ class TestMigrationCommands(unittest.TestCase):
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
                 target_owner_user_id='TestOwner',
-                skip_validation='AgentPoolExists,,MaxRepoSize',
+                skip_validation='AgentPoolExists,,MaxFileSize',
                 organization=self._TEST_ORG,
                 detect=False
             )
@@ -1065,6 +1065,22 @@ class TestMigrationCommands(unittest.TestCase):
 
             self.assertEqual(result, migration_response)
 
+    def test_pause_returns_migration_data_when_service_responds_paused(self):
+        migration_response = {'repositoryId': '00000000-0000-0000-0000-000000000000', 'status': 'paused'}
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = migration_response
+            mock_resolve.return_value = self._TEST_ORG
+
+            result = pause_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            self.assertEqual(result, migration_response)
+
     def test_list_migrations_warns_when_empty(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
@@ -1160,7 +1176,7 @@ class TestMigrationCommands(unittest.TestCase):
 
             payload = mock_send.call_args[0][3]
             self.assertTrue(payload['validateOnly'])
-            self.assertEqual(payload['statusRequested'], 'active')
+            self.assertEqual(payload['statusRequested'], migration_module._MIGRATION_STATUS_VALUES['active'])
 
     def test_resume_sets_migration(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
@@ -1177,7 +1193,41 @@ class TestMigrationCommands(unittest.TestCase):
 
             payload = mock_send.call_args[0][3]
             self.assertFalse(payload['validateOnly'])
-            self.assertEqual(payload['statusRequested'], 'active')
+            self.assertEqual(payload['statusRequested'], migration_module._MIGRATION_STATUS_VALUES['active'])
+
+    def test_resume_sets_validate_only_when_status_paused(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_get.return_value = {'status': 'paused'}
+            mock_resolve.return_value = self._TEST_ORG
+
+            resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                             validate_only=True,
+                             organization=self._TEST_ORG, detect=False)
+
+            payload = mock_send.call_args[0][3]
+            self.assertTrue(payload['validateOnly'])
+            self.assertEqual(payload['statusRequested'], migration_module._MIGRATION_STATUS_VALUES['active'])
+
+    def test_resume_sets_migration_when_status_paused(self):
+        with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
+             patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {}
+            mock_get.return_value = {'status': 'paused'}
+            mock_resolve.return_value = self._TEST_ORG
+
+            resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
+                             migration=True,
+                             organization=self._TEST_ORG, detect=False)
+
+            payload = mock_send.call_args[0][3]
+            self.assertFalse(payload['validateOnly'])
+            self.assertEqual(payload['statusRequested'], migration_module._MIGRATION_STATUS_VALUES['active'])
 
     def test_resume_without_flags_preserves_mode(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
@@ -1193,7 +1243,7 @@ class TestMigrationCommands(unittest.TestCase):
 
             payload = mock_send.call_args[0][3]
             self.assertNotIn('validateOnly', payload)
-            self.assertEqual(payload['statusRequested'], 'active')
+            self.assertEqual(payload['statusRequested'], migration_module._MIGRATION_STATUS_VALUES['active'])
 
     def test_resume_migration_promotes_validate_only_succeeded(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
@@ -1215,7 +1265,7 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(args[1], 'PUT')
             payload = args[3]
             self.assertFalse(payload['validateOnly'])
-            self.assertEqual(payload['statusRequested'], 'active')
+            self.assertEqual(payload['statusRequested'], migration_module._MIGRATION_STATUS_VALUES['active'])
 
     def test_resume_migration_promotes_validate_only_completed(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
@@ -1237,7 +1287,7 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(args[1], 'PUT')
             payload = args[3]
             self.assertFalse(payload['validateOnly'])
-            self.assertEqual(payload['statusRequested'], 'active')
+            self.assertEqual(payload['statusRequested'], migration_module._MIGRATION_STATUS_VALUES['active'])
 
     def test_resume_migration_promote_uses_only_state_transition_fields(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
@@ -1262,7 +1312,7 @@ class TestMigrationCommands(unittest.TestCase):
 
             payload = mock_send.call_args[0][3]
             self.assertEqual(payload['validateOnly'], False)
-            self.assertEqual(payload['statusRequested'], 'active')
+            self.assertEqual(payload['statusRequested'], migration_module._MIGRATION_STATUS_VALUES['active'])
             self.assertEqual(set(payload.keys()), {'validateOnly', 'statusRequested'})
             self.assertNotIn('agentPoolName', payload)
             self.assertNotIn('scheduledCutoverDate', payload)
