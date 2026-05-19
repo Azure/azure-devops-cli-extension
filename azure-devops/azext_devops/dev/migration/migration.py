@@ -176,6 +176,7 @@ def get_migration(repository_id=None, organization=None, detect=None):
 def create_migration(*, repository_id=None, target_repository=None, target_owner_user_id=None,
                      validate_only=False, cutover_date=None, agent_pool=None,
                      skip_validation=None, service_endpoint_id=None, github_token=None,
+                     enable_boards_github_connection=False,
                      organization=None, detect=None):
     target_repository = _normalize_optional_text(target_repository)
     target_owner_user_id = _normalize_optional_text(target_owner_user_id)
@@ -215,6 +216,8 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
         payload['skipValidation'] = skip_validation
     if service_endpoint_id:
         payload['serviceEndpointId'] = service_endpoint_id
+    if enable_boards_github_connection:
+        payload['configOptions'] = {'enableBoardsGitHubConnection': True}
 
     url = _build_migration_url(organization, repository_id)
     try:

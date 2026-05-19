@@ -87,6 +87,12 @@ def load_migration_arguments(self, _):
                               'When specified, the server uses the service connection for GitHub '
                               'authentication and the CLI skips GitHub device flow. Mutually exclusive '
                               'with --github-token.')
+        context.argument('enable_boards_github_connection',
+                         options_list='--enable-boards-github-connection', action='store_true',
+                         help='Opt in to provisioning the Azure Boards GitHub connection at '
+                              'cutover. Off by default. Requires the Azure Boards GitHub App '
+                              'to be installed on the target GitHub Enterprise organization '
+                              'before the migration runs.')
 
     with self.argument_context('devops migrations cutover set') as context:
         context.argument('cutover_date', options_list='--date',

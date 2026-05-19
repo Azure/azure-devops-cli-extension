@@ -1787,5 +1787,43 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertIn('pipelines delete', str(ctx.exception))
 
 
+    def test_create_migration_includes_enable_boards_github_connection_when_requested(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            del mock_client
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                enable_boards_github_connection=True,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['configOptions'], {'enableBoardsGitHubConnection': True})
+
+    def test_create_migration_omits_enable_boards_github_connection_by_default(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            del mock_client
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertNotIn('configOptions', payload)
+
+
 if __name__ == '__main__':
     unittest.main()
