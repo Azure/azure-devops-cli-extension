@@ -46,8 +46,10 @@ _SKIP_VALIDATION_POLICIES = {
     'maxpullrequestsize': 16,
     'maxpushpacksize': 32,
     'maxreferencenamelength': 64,
-    'maxreposize': 128,
     'targetrepositorydoesnotexist': 256,
+    'sourcerepositorycontainslfsobjects': 512,
+    'sourcerepositorynotreadonly': 1024,
+    'boardsgithubconnectionprovisioning': 2048,
     'all': 2147483647,
 }
 _SUCCESS_TERMINAL_STATES = {
@@ -58,13 +60,21 @@ _NON_ACTIVE_STATES = {
     'completed',
     'succeeded',
     'failed',
-    'suspended'
+    'suspended',
+    'paused'
 }
 _ACTIVE_STAGES = {
     'queued',
     'validation',
     'synchronization',
     'cutover'
+}
+
+_MIGRATION_STATUS_VALUES = {
+    'active': 0,
+    'completed': 1,
+    'failed': 2,
+    'paused': 3,
 }
 _URL_PATTERN = re.compile(r'^https?://[^\s]+$', re.IGNORECASE)
 
@@ -114,7 +124,7 @@ def _parse_skip_validation(skip_validation):
     policies = [policy.strip() for policy in normalized.split(',')]
     if any(not policy for policy in policies):
         raise CLIError('--skip-validation contains an empty policy name. Provide a comma-separated '
-                       'list such as "AgentPoolExists,MaxRepoSize".')
+                       'list such as "AgentPoolExists,MaxFileSize".')
 
     mask = 0
     invalid_policies = []
@@ -141,8 +151,10 @@ def _parse_skip_validation(skip_validation):
                                    'MaxPullRequestSize',
                                    'MaxPushPackSize',
                                    'MaxReferenceNameLength',
-                                   'MaxRepoSize',
                                    'TargetRepositoryDoesNotExist',
+                                   'SourceRepositoryContainsLfsObjects',
+                                   'SourceRepositoryNotReadOnly',
+                                   'BoardsGitHubConnectionProvisioning',
                                    'All'
                                ])))
 
@@ -397,7 +409,8 @@ def _validate_target_repository(target_repository):
 
 
 def pause_migration(repository_id=None, organization=None, detect=None):
-    result = _update_migration(repository_id, organization, detect, status_requested='suspended')
+    result = _update_migration(repository_id, organization, detect,
+                               status_requested=_MIGRATION_STATUS_VALUES['paused'])
     if not result:
         return {'message': 'Migration paused successfully.'}
     return result
@@ -449,7 +462,8 @@ def resume_migration(repository_id=None, validate_only=False, migration=False, o
         validate_only_value = False
 
     return _update_migration(repository_id, organization, None,
-                             validate_only=validate_only_value, status_requested='active')
+                             validate_only=validate_only_value,
+                             status_requested=_MIGRATION_STATUS_VALUES['active'])
 
 
 def schedule_cutover(repository_id=None, cutover_date=None, organization=None, detect=None):
@@ -619,7 +633,8 @@ def _is_validate_only_succeeded(migration):
 def _promote_to_full_migration(migration_data, repository_id, organization):
     del migration_data
     return _update_migration(repository_id, organization, detect=None,
-                             validate_only=False, status_requested='active')
+                             validate_only=False,
+                             status_requested=_MIGRATION_STATUS_VALUES['active'])
 
 
 def _resolve_org_for_auth(organization, detect):
