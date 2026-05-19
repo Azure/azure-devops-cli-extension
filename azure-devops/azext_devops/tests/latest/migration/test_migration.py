@@ -1725,5 +1725,67 @@ class TestMigrationCommands(unittest.TestCase):
         self.assertIn('abc-123', str(ctx.exception))
 
 
+    def test_send_request_404_raises_resource_not_found_error(self):
+        from azure.cli.core.azclierror import ResourceNotFoundError
+
+        class MockResponse(object):
+            status_code = 404
+            headers = {'Content-Type': 'application/json'}
+
+            @staticmethod
+            def json():
+                return {'message': 'Migration not found'}
+
+        class MockClient(object):
+            @staticmethod
+            def send(request, headers, content):
+                del request, headers, content
+                return MockResponse()
+
+        with self.assertRaises(ResourceNotFoundError) as ctx:
+            migration_module._send_request(MockClient(), 'GET', 'https://example.test')
+        self.assertIn('status 404', str(ctx.exception))
+
+    def test_send_request_403_raises_forbidden_error(self):
+        from azure.cli.core.azclierror import ForbiddenError
+
+        class MockResponse(object):
+            status_code = 403
+            headers = {'Content-Type': 'application/json'}
+
+            @staticmethod
+            def json():
+                return {'message': 'Access denied'}
+
+        class MockClient(object):
+            @staticmethod
+            def send(request, headers, content):
+                del request, headers, content
+                return MockResponse()
+
+        with self.assertRaises(ForbiddenError) as ctx:
+            migration_module._send_request(MockClient(), 'GET', 'https://example.test')
+        self.assertIn('status 403', str(ctx.exception))
+        self.assertIn('Access denied', str(ctx.exception))
+
+    def test_list_pipeline_rewiring_appends_hint_on_failed_migration(self):
+        with patch('azext_devops.dev.migration.migration._resolve_org_for_auth') as mock_org, \
+                patch('azext_devops.dev.migration.migration._resolve_repository_id') as mock_repo, \
+                patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+                patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_org.return_value = 'https://dev.azure.com/contoso'
+            mock_repo.return_value = '11111111-1111-1111-1111-111111111111'
+            mock_client.return_value = object()
+            mock_send.side_effect = CLIError(
+                'Request failed with status 400. Pipeline information is not available '
+                'for failed migrations.')
+
+            with self.assertRaises(CLIError) as ctx:
+                migration_module.list_pipeline_rewiring(
+                    repository_id='11111111-1111-1111-1111-111111111111',
+                    organization='https://dev.azure.com/contoso')
+            self.assertIn('pipelines delete', str(ctx.exception))
+
+
 if __name__ == '__main__':
     unittest.main()

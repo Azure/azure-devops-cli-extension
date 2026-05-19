@@ -18,6 +18,7 @@ from msrest import Configuration
 from msrest.service_client import ServiceClient
 from msrest.universal_http import ClientRequest
 from knack.util import CLIError
+from azure.cli.core.azclierror import ResourceNotFoundError, ForbiddenError
 
 from knack.log import get_logger
 
@@ -28,7 +29,7 @@ from azext_devops.dev.common.uuid import is_uuid
 logger = get_logger(__name__)
 
 
-API_VERSION = '7.2-preview'
+API_VERSION = '7.2-preview.1'
 PIPELINES_API_VERSION = '7.2-preview.1'
 MIGRATIONS_API_PATH = '/_apis/elm/migrations'
 CUTOVER_REVIEW_API_PATH_SUFFIX = '/cutoverReview'
@@ -530,7 +531,16 @@ def list_pipeline_rewiring(repository_id=None, organization=None, detect=None):
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
     url = _build_pipelines_url(organization, repository_id)
-    return _send_request(client, 'GET', url, api_version=PIPELINES_API_VERSION)
+    try:
+        return _send_request(client, 'GET', url, api_version=PIPELINES_API_VERSION)
+    except CLIError as ex:
+        message = str(ex)
+        if 'not available for failed migrations' in message.lower() \
+                or 'failed migration' in message.lower():
+            raise CLIError(message + ' Use "az devops migrations pipelines delete '
+                           '--repository-id <id> --migration-id <id>" to abandon the '
+                           'failed migration before retrying.')
+        raise
 
 
 def submit_pipeline_rewiring(repository_id=None, pipeline_ids=None, service_connection_id=None,
@@ -880,7 +890,12 @@ def _send_request(client, method, url, content=None, api_version=API_VERSION):
                     error_detail = '{} CorrelationId: {}'.format(error_detail, correlation_id)
                 else:
                     error_detail = 'CorrelationId: {}'.format(correlation_id)
-        raise CLIError('Request failed with status {}. {}'.format(response.status_code, error_detail))
+        message = 'Request failed with status {}. {}'.format(response.status_code, error_detail)
+        if response.status_code == 404:
+            raise ResourceNotFoundError(message)
+        if response.status_code == 403:
+            raise ForbiddenError(message)
+        raise CLIError(message)
 
     content_type = response.headers.get('Content-Type') if response.headers else None
     if content_type and 'json' in content_type:
