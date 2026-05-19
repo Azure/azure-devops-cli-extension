@@ -386,7 +386,7 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 Recommended form using policy names:
 
 ```powershell
-az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --target-owner-user-id <OWNER> --skip-validation AgentPoolExists,MaxRepoSize
+az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --target-owner-user-id <OWNER> --skip-validation AgentPoolExists,MaxFileSize
 ```
 
 Advanced form using integer bitmask:
@@ -398,7 +398,7 @@ az devops migrations create --detect false --repository-id <GUID> --target-repos
 Token/PAT-authenticated examples:
 
 ```powershell
-az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --github-token <TOKEN_OR_PAT> --skip-validation AgentPoolExists,MaxRepoSize
+az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --github-token <TOKEN_OR_PAT> --skip-validation AgentPoolExists,MaxFileSize
 az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --github-token <TOKEN_OR_PAT> --skip-validation 132
 ```
 
@@ -412,8 +412,10 @@ Supported policy names:
 - `MaxPullRequestSize`
 - `MaxPushPackSize`
 - `MaxReferenceNameLength`
-- `MaxRepoSize`
 - `TargetRepositoryDoesNotExist`
+- `SourceRepositoryContainsLfsObjects`
+- `SourceRepositoryNotReadOnly`
+- `BoardsGitHubConnectionProvisioning`
 - `All`
 
 ### Promote validate-only does not start
