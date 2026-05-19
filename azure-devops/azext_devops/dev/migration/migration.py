@@ -547,11 +547,11 @@ def submit_pipeline_rewiring(repository_id=None, pipeline_ids=None, service_conn
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
     payload = {
-        'PipelineIds': parsed_pipeline_ids,
-        'ServiceConnectionId': parsed_service_connection_id,
+        'pipelineIds': parsed_pipeline_ids,
+        'serviceConnectionId': parsed_service_connection_id,
     }
     if parsed_mappings is not None:
-        payload['RepositoryMappings'] = parsed_mappings
+        payload['repositoryMappings'] = parsed_mappings
 
     url = _build_pipelines_url(organization, repository_id)
     return _send_request(client, 'POST', url, payload, api_version=PIPELINES_API_VERSION)
@@ -569,17 +569,17 @@ def update_pipeline_rewiring(repository_id=None, add_ids=None, remove_ids=None, 
 
     payload = {}
     if parsed_add_ids is not None:
-        payload['AddPipelineIds'] = parsed_add_ids
+        payload['addPipelineIds'] = parsed_add_ids
     if parsed_remove_ids is not None:
-        payload['RemovePipelineIds'] = parsed_remove_ids
+        payload['removePipelineIds'] = parsed_remove_ids
     if parsed_retry_ids is not None:
-        payload['RetryFailedPipelineIds'] = parsed_retry_ids
+        payload['retryFailedPipelineIds'] = parsed_retry_ids
     if parsed_acknowledge_ids is not None:
-        payload['AcknowledgePipelineIds'] = parsed_acknowledge_ids
+        payload['acknowledgePipelineIds'] = parsed_acknowledge_ids
     if parsed_service_connection_id is not None:
-        payload['ServiceConnectionId'] = parsed_service_connection_id
+        payload['serviceConnectionId'] = parsed_service_connection_id
     if parsed_mappings is not None:
-        payload['RepositoryMappings'] = parsed_mappings
+        payload['repositoryMappings'] = parsed_mappings
 
     if not payload:
         raise CLIError('At least one update flag must be provided. Use one or more of '

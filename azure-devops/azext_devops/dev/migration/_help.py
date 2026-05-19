@@ -164,7 +164,7 @@ def load_migration_help():
     type: command
     short-summary: Acknowledge pipeline rewiring entries. (Preview)
     examples:
-      - name: Acknowledge complex pipeline entries.
+      - name: Acknowledge specific pipeline entries.
         text: |
           az devops migrations pipelines acknowledge --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --pipeline-ids 44 45
     """

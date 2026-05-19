@@ -1495,8 +1495,8 @@ class TestMigrationCommands(unittest.TestCase):
             )
 
             payload = mock_send.call_args[0][3]
-            self.assertEqual(payload['PipelineIds'], [42, 43, 44])
-            self.assertEqual(payload['ServiceConnectionId'], '11111111-1111-1111-1111-111111111111')
+            self.assertEqual(payload['pipelineIds'], [42, 43, 44])
+            self.assertEqual(payload['serviceConnectionId'], '11111111-1111-1111-1111-111111111111')
 
     def test_submit_pipeline_rewiring_accepts_comma_separated_ids(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -1514,7 +1514,7 @@ class TestMigrationCommands(unittest.TestCase):
             )
 
             payload = mock_send.call_args[0][3]
-            self.assertEqual(payload['PipelineIds'], [42, 43, 44])
+            self.assertEqual(payload['pipelineIds'], [42, 43, 44])
 
     def test_submit_pipeline_rewiring_rejects_invalid_pipeline_id(self):
         with self.assertRaises(CLIError) as ctx:
@@ -1579,9 +1579,9 @@ class TestMigrationCommands(unittest.TestCase):
             )
 
             payload = mock_send.call_args[0][3]
-            self.assertEqual(payload['RepositoryMappings'][0]['sourceRepositoryId'],
+            self.assertEqual(payload['repositoryMappings'][0]['sourceRepositoryId'],
                              'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa')
-            self.assertEqual(payload['RepositoryMappings'][0]['targetRepository'],
+            self.assertEqual(payload['repositoryMappings'][0]['targetRepository'],
                              'myorg/shared-templates')
 
     def test_update_pipeline_rewiring_rejects_no_flags(self):
@@ -1610,11 +1610,11 @@ class TestMigrationCommands(unittest.TestCase):
             )
 
             payload = mock_send.call_args[0][3]
-            self.assertEqual(payload['AddPipelineIds'], [50, 51])
-            self.assertEqual(payload['RemovePipelineIds'], [42])
-            self.assertEqual(payload['ServiceConnectionId'], '22222222-2222-2222-2222-222222222222')
-            self.assertNotIn('RetryFailedPipelineIds', payload)
-            self.assertNotIn('AcknowledgePipelineIds', payload)
+            self.assertEqual(payload['addPipelineIds'], [50, 51])
+            self.assertEqual(payload['removePipelineIds'], [42])
+            self.assertEqual(payload['serviceConnectionId'], '22222222-2222-2222-2222-222222222222')
+            self.assertNotIn('retryFailedPipelineIds', payload)
+            self.assertNotIn('acknowledgePipelineIds', payload)
 
     def test_retry_pipeline_rewiring_calls_update_with_retry_ids(self):
         with patch('azext_devops.dev.migration.migration.update_pipeline_rewiring') as mock_update:
