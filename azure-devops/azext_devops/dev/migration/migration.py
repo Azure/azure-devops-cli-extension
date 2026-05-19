@@ -40,7 +40,6 @@ PIPELINES_API_PATH_SUFFIX = '/pipelines'
 DEVICE_FLOW_CONFIG_API_PATH = '/_apis/migrations/deviceFlowConfig'
 LEGACY_DEVICE_FLOW_CONFIG_API_PATH = '/_apis/elm/migrations/deviceFlowConfig'
 GITHUB_TOKEN_ENV_VAR = 'ELM_GITHUB_TOKEN'
-PIPELINES_FEATURE_DISABLED_MESSAGE = 'Pipeline rewiring is not enabled for this organization.'
 _SKIP_VALIDATION_POLICIES = {
     'none': 0,
     'activepullrequestcount': 1,
@@ -531,8 +530,7 @@ def list_pipeline_rewiring(repository_id=None, organization=None, detect=None):
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
     url = _build_pipelines_url(organization, repository_id)
-    return _send_request(client, 'GET', url, api_version=PIPELINES_API_VERSION,
-                         feature_not_enabled_message=PIPELINES_FEATURE_DISABLED_MESSAGE)
+    return _send_request(client, 'GET', url, api_version=PIPELINES_API_VERSION)
 
 
 def submit_pipeline_rewiring(repository_id=None, pipeline_ids=None, service_connection_id=None,
@@ -556,8 +554,7 @@ def submit_pipeline_rewiring(repository_id=None, pipeline_ids=None, service_conn
         payload['RepositoryMappings'] = parsed_mappings
 
     url = _build_pipelines_url(organization, repository_id)
-    return _send_request(client, 'POST', url, payload, api_version=PIPELINES_API_VERSION,
-                         feature_not_enabled_message=PIPELINES_FEATURE_DISABLED_MESSAGE)
+    return _send_request(client, 'POST', url, payload, api_version=PIPELINES_API_VERSION)
 
 
 def update_pipeline_rewiring(repository_id=None, add_ids=None, remove_ids=None, retry_ids=None,
@@ -593,8 +590,7 @@ def update_pipeline_rewiring(repository_id=None, add_ids=None, remove_ids=None, 
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
     url = _build_pipelines_url(organization, repository_id)
-    return _send_request(client, 'PUT', url, payload, api_version=PIPELINES_API_VERSION,
-                         feature_not_enabled_message=PIPELINES_FEATURE_DISABLED_MESSAGE)
+    return _send_request(client, 'PUT', url, payload, api_version=PIPELINES_API_VERSION)
 
 
 def retry_pipeline_rewiring(repository_id=None, pipeline_ids=None, organization=None, detect=None):
@@ -622,8 +618,7 @@ def delete_pipeline_rewiring(repository_id=None, migration_id=None, yes=False,
 
     client = _get_service_client(organization)
     url = _build_pipelines_url(organization, repository_id, migration_id=migration_id)
-    _send_request(client, 'DELETE', url, api_version=PIPELINES_API_VERSION,
-                  feature_not_enabled_message=PIPELINES_FEATURE_DISABLED_MESSAGE)
+    _send_request(client, 'DELETE', url, api_version=PIPELINES_API_VERSION)
     return {'message': 'Pipeline rewiring data deleted successfully.'}
 
 
@@ -738,8 +733,8 @@ def _parse_repository_mappings(values):
         if not owner.strip() or not repo.strip():
             raise CLIError('--repository-mapping target must be in the format <owner>/<repo>.')
         parsed_mappings.append({
-            'SourceRepositoryId': source_repo_id,
-            'TargetRepository': '{}/{}'.format(owner.strip(), repo.strip())
+            'sourceRepositoryId': source_repo_id,
+            'targetRepository': '{}/{}'.format(owner.strip(), repo.strip())
         })
 
     return parsed_mappings
@@ -858,8 +853,7 @@ def _get_service_client(organization):
     return ServiceClient(creds=connection._creds, config=config)  # pylint: disable=protected-access
 
 
-def _send_request(client, method, url, content=None, api_version=API_VERSION,
-                  feature_not_enabled_message=None):
+def _send_request(client, method, url, content=None, api_version=API_VERSION):
     request = ClientRequest(method=method, url=url)
     headers = {
         'Content-Type': 'application/json; charset=utf-8',
@@ -867,19 +861,6 @@ def _send_request(client, method, url, content=None, api_version=API_VERSION,
     }
     response = client.send(request=request, headers=headers, content=content)
     if response.status_code < 200 or response.status_code >= 300:
-        if response.status_code == 404 and feature_not_enabled_message:
-            feature_flag_hint = False
-            try:
-                body = response.json()
-                message = (body.get('message') or body.get('Message') or '').lower()
-                feature_flag_hint = ('controller for path' in message or
-                                     'feature not enabled' in message or
-                                     'enterpriselivemigrationenablepipelinerewiring' in message)
-            except Exception:  # pylint: disable=broad-except
-                feature_flag_hint = False
-            if feature_flag_hint:
-                raise CLIError(feature_not_enabled_message)
-
         error_detail = ''
         try:
             body = response.json()

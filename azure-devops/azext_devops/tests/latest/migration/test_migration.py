@@ -1579,9 +1579,9 @@ class TestMigrationCommands(unittest.TestCase):
             )
 
             payload = mock_send.call_args[0][3]
-            self.assertEqual(payload['RepositoryMappings'][0]['SourceRepositoryId'],
+            self.assertEqual(payload['RepositoryMappings'][0]['sourceRepositoryId'],
                              'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa')
-            self.assertEqual(payload['RepositoryMappings'][0]['TargetRepository'],
+            self.assertEqual(payload['RepositoryMappings'][0]['targetRepository'],
                              'myorg/shared-templates')
 
     def test_update_pipeline_rewiring_rejects_no_flags(self):
@@ -1685,27 +1685,7 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(args[1], 'DELETE')
             self.assertIn('migrationId=7', args[2])
 
-    def test_send_request_feature_disabled_message_for_404(self):
-        class MockResponse(object):
-            status_code = 404
-            headers = {'Content-Type': 'application/json'}
-
-            @staticmethod
-            def json():
-                return {'message': "The controller for path '/_apis/elm/migrations/.../pipelines' was not found."}
-
-        class MockClient(object):
-            @staticmethod
-            def send(request, headers, content):
-                del request, headers, content
-                return MockResponse()
-
-        with self.assertRaises(CLIError) as ctx:
-            migration_module._send_request(MockClient(), 'GET', 'https://example.test',
-                                           feature_not_enabled_message='Pipeline rewiring is not enabled for this organization.')
-        self.assertEqual(str(ctx.exception), 'Pipeline rewiring is not enabled for this organization.')
-
-    def test_send_request_404_without_feature_flag_hint_returns_server_message(self):
+    def test_send_request_404_returns_server_message(self):
         class MockResponse(object):
             status_code = 404
             headers = {'Content-Type': 'application/json'}
@@ -1721,8 +1701,7 @@ class TestMigrationCommands(unittest.TestCase):
                 return MockResponse()
 
         with self.assertRaises(CLIError) as ctx:
-            migration_module._send_request(MockClient(), 'GET', 'https://example.test',
-                                           feature_not_enabled_message='Pipeline rewiring is not enabled for this organization.')
+            migration_module._send_request(MockClient(), 'GET', 'https://example.test')
         self.assertIn('status 404', str(ctx.exception))
         self.assertIn('Migration not found', str(ctx.exception))
 
