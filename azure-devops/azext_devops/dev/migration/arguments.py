@@ -25,7 +25,10 @@ def load_migration_arguments(self, _):
                               '(for example, 42 43 44) or comma-separated values '
                               '(for example, 42,43,44).')
         context.argument('service_connection_id', options_list='--service-connection-id',
-                         help='Project-scoped GitHub service connection ID (GUID).')
+                         help='Project-scoped GitHub service connection ID (GUID). '
+                              'Optional if a connection was already attached via '
+                              'migrations create --pipeline-service-connection-id or '
+                              'pipelines update --service-connection-id.')
 
     with self.argument_context('devops migrations pipelines update') as context:
         context.argument('add_ids', options_list='--add-ids', nargs='+',

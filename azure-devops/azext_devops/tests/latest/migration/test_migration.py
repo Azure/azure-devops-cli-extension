@@ -1479,6 +1479,42 @@ class TestMigrationCommands(unittest.TestCase):
         self.assertIn('TargetRepositoryDoesNotExist', text)
         self.assertIn('Target repository could not be found.', text)
 
+    def test_submit_pipeline_rewiring_omits_service_connection_when_not_provided(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = []
+
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42'],
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['pipelineIds'], [42])
+            self.assertNotIn('serviceConnectionId', payload)
+
+    def test_submit_pipeline_rewiring_omits_service_connection_when_empty_string(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = []
+
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42'],
+                service_connection_id='   ',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertNotIn('serviceConnectionId', payload)
+
     def test_submit_pipeline_rewiring_accepts_space_separated_ids(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \

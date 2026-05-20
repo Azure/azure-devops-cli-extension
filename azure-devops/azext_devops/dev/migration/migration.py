@@ -562,8 +562,6 @@ def submit_pipeline_rewiring(repository_id=None, pipeline_ids=None, service_conn
     if len(parsed_pipeline_ids) > 200:
         raise CLIError('--pipeline-ids supports a maximum of 200 IDs per request.')
     parsed_service_connection_id = _validate_guid(service_connection_id, '--service-connection-id')
-    if parsed_service_connection_id is None:
-        raise CLIError('--service-connection-id must be specified.')
     parsed_mappings = _parse_repository_mappings(repository_mapping)
 
     organization = _resolve_org_for_auth(organization, detect)
@@ -571,8 +569,9 @@ def submit_pipeline_rewiring(repository_id=None, pipeline_ids=None, service_conn
     client = _get_service_client(organization)
     payload = {
         'pipelineIds': parsed_pipeline_ids,
-        'serviceConnectionId': parsed_service_connection_id,
     }
+    if parsed_service_connection_id is not None:
+        payload['serviceConnectionId'] = parsed_service_connection_id
     if parsed_mappings is not None:
         payload['repositoryMappings'] = parsed_mappings
 
