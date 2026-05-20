@@ -268,6 +268,8 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertIn('status 400', str(ctx.exception))
 
     def test_create_migration_with_service_endpoint_skips_device_flow(self):
+        # SE present + env var set: env var IS used for user-identity verification,
+        # but device flow MUST NOT run (would break non-interactive SE flows).
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
@@ -275,8 +277,6 @@ class TestMigrationCommands(unittest.TestCase):
              patch('azext_devops.dev.migration.migration._run_device_flow') as mock_run_flow:
             mock_send.return_value = {}
             mock_resolve.return_value = self._TEST_ORG
-            # Even with the env token set in setUp, presence of service-endpoint-id
-            # must short-circuit token resolution entirely.
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
@@ -291,31 +291,38 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(mock_send.call_count, 1)
             payload = mock_send.call_args[0][3]
             self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
-            self.assertNotIn('gitHubUserToken', payload)
+            self.assertEqual(payload['gitHubUserToken'], 'env-token-for-tests')
 
-    def test_create_migration_with_service_endpoint_and_token_rejected(self):
+    def test_create_migration_with_service_endpoint_and_token_both_sent(self):
+        # SE and user PAT are independent. The CLI must forward both to the server:
+        # SE for sync, user token for identity verification.
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
-             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration._get_device_flow_config') as mock_flow, \
+             patch('azext_devops.dev.migration.migration._run_device_flow') as mock_run_flow:
+            mock_send.return_value = {}
             mock_resolve.return_value = self._TEST_ORG
 
-            with self.assertRaises(CLIError) as ctx:
-                create_migration(
-                    repository_id='00000000-0000-0000-0000-000000000000',
-                    target_repository='https://example.ghe.com/OrgName/RepoName',
-                    target_owner_user_id='TestOwner',
-                    service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
-                    github_token='param-token',
-                    organization=self._TEST_ORG,
-                    detect=False
-                )
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='TestOwner',
+                service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
+                github_token='param-token',
+                organization=self._TEST_ORG,
+                detect=False
+            )
 
-            self.assertIn('Specify either --service-endpoint-id or --github-token', str(ctx.exception))
-            mock_send.assert_not_called()
+            mock_flow.assert_not_called()
+            mock_run_flow.assert_not_called()
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
+            self.assertEqual(payload['gitHubUserToken'], 'param-token')
 
-    def test_create_migration_with_service_endpoint_ignores_env_token(self):
-        # ELM_GITHUB_TOKEN is set in setUp; the service endpoint path must not
-        # pick it up and must not include gitHubUserToken in the payload.
+    def test_create_migration_with_service_endpoint_uses_env_token(self):
+        # ELM_GITHUB_TOKEN is set in setUp; with SE provided and no explicit
+        # --github-token, the env var is picked up for identity verification.
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
@@ -334,7 +341,7 @@ class TestMigrationCommands(unittest.TestCase):
 
             mock_flow.assert_not_called()
             payload = mock_send.call_args[0][3]
-            self.assertNotIn('gitHubUserToken', payload)
+            self.assertEqual(payload['gitHubUserToken'], 'env-token-for-tests')
             self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
             self.assertTrue(payload['validateOnly'])
 
@@ -360,7 +367,7 @@ class TestMigrationCommands(unittest.TestCase):
             mock_flow.assert_not_called()
             payload = mock_send.call_args[0][3]
             self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
-            self.assertNotIn('gitHubUserToken', payload)
+            self.assertEqual(payload['gitHubUserToken'], 'env-token-for-tests')
 
     def test_create_migration_service_endpoint_conflict_returns_clear_message(self):
         # Ensure the 409/TF400898 friendly message still surfaces on the
@@ -412,7 +419,7 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(payload['agentPoolName'], 'TestPool')
             self.assertEqual(payload['scheduledCutoverDate'], '2026-06-01T00:00:00Z')
             self.assertEqual(payload['skipValidation'], 4)
-            self.assertNotIn('gitHubUserToken', payload)
+            self.assertEqual(payload['gitHubUserToken'], 'env-token-for-tests')
 
     def test_create_migration_no_token_and_missing_device_flow_config_fields_fails(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -860,7 +867,7 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(payload['serviceEndpointId'], '12345678-1234-1234-1234-123456789012')
             # When a service connection is supplied, the server uses it for GitHub auth;
             # the CLI must not resolve or send a GitHub token.
-            self.assertNotIn('gitHubUserToken', payload)
+            self.assertEqual(payload['gitHubUserToken'], 'env-token-for-tests')
 
     def test_create_migration_service_endpoint_id_skips_github_token_resolution(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \

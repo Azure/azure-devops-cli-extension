@@ -189,17 +189,17 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
     if not target_repository:
         raise CLIError('--target-repository must be specified.')
     _validate_target_repository(target_repository)
-    if service_endpoint_id and github_token:
-        raise CLIError('Specify either --service-endpoint-id or --github-token, not both. '
-                       'When --service-endpoint-id is provided, GitHub authentication is handled '
-                       'by the service connection.')
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
     if not service_endpoint_id:
         github_token = _resolve_github_user_token(client, organization, target_repository, github_token)
     else:
-        github_token = None
+        # SE supplies the GitHub credential used to sync commits. User-identity
+        # verification (gitHubUserToken) is independent: accept an explicit
+        # --github-token or ELM_GITHUB_TOKEN env var, but do not trigger device
+        # flow here so non-interactive SE-based flows aren't broken.
+        github_token = github_token or _normalize_optional_text(os.getenv(GITHUB_TOKEN_ENV_VAR))
 
     payload = {
         'targetRepository': target_repository,

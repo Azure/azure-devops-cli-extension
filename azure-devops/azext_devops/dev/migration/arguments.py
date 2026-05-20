@@ -71,9 +71,12 @@ def load_migration_arguments(self, _):
                          help='Target repository owner user ID. Deprecated and ignored when server-side '
                               'token-based owner resolution is enabled.')
         context.argument('github_token', options_list='--github-token',
-                         help='GitHub token used for migration authorization. Ignored when '
-                              '--service-endpoint-id is specified. If omitted, the CLI first '
-                              'checks ELM_GITHUB_TOKEN and then runs GitHub device flow.')
+                         help='GitHub user token used for user-identity verification on the target '
+                              'host. Independent of --service-endpoint-id. If omitted and '
+                              '--service-endpoint-id is not provided, the CLI checks ELM_GITHUB_TOKEN '
+                              'and then runs GitHub device flow. When --service-endpoint-id is '
+                              'provided, device flow is skipped; pass --github-token or set '
+                              'ELM_GITHUB_TOKEN to supply the user token.')
         context.argument('validate_only', options_list='--validate-only', action='store_true',
                          help='Create in validate-only mode (pre-migration checks only).')
         context.argument('cutover_date', options_list='--cutover-date',
@@ -86,10 +89,10 @@ def load_migration_arguments(self, _):
                               'policy names (for example, AgentPoolExists,MaxFileSize) or a non-negative '
                               'integer bitmask.')
         context.argument('service_endpoint_id', options_list='--service-endpoint-id',
-                         help='Service endpoint ID (GUID) for the GitHub Enterprise Server connection. '
-                              'When specified, the server uses the service connection for GitHub '
-                              'authentication and the CLI skips GitHub device flow. Mutually exclusive '
-                              'with --github-token.')
+                         help='Service endpoint ID (GUID) for the GitHub Enterprise Server connection '
+                              'used to sync commits to the target. Independent of user-identity '
+                              'verification: --github-token / ELM_GITHUB_TOKEN can be supplied '
+                              'alongside this flag. Device flow is skipped when this flag is set.')
         context.argument('enable_boards_github_connection',
                          options_list='--enable-boards-github-connection', action='store_true',
                          help='Opt in to provisioning the Azure Boards GitHub connection at '
