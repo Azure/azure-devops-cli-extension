@@ -93,6 +93,20 @@ def load_migration_arguments(self, _):
                               'cutover. Off by default. Requires the Azure Boards GitHub App '
                               'to be installed on the target GitHub Enterprise organization '
                               'before the migration runs.')
+        context.argument('enable_auto_discover_pipelines',
+                         options_list='--enable-auto-discover-pipelines', action='store_true',
+                         help='Opt in to automatic pipeline discovery at cutover. Off by default. '
+                              'When enabled, the ELM sync job walks the source repository and '
+                              'creates clone definitions for every pipeline that references it. '
+                              'Pipeline rewiring itself is always available via '
+                              'az devops migrations pipelines submit / update.')
+        context.argument('pipeline_service_connection_id',
+                         options_list='--pipeline-service-connection-id',
+                         help='Project-scoped GitHub service connection ID (GUID) attached at '
+                              'create time for pipeline rewiring. Required for full auto-discovery '
+                              'when combined with --enable-auto-discover-pipelines; optional in '
+                              'manual mode (pre-attaches the connection so subsequent '
+                              'pipelines submit calls only need --pipeline-ids).')
 
     with self.argument_context('devops migrations cutover set') as context:
         context.argument('cutover_date', options_list='--date',

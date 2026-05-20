@@ -176,7 +176,8 @@ def get_migration(repository_id=None, organization=None, detect=None):
 def create_migration(*, repository_id=None, target_repository=None, target_owner_user_id=None,
                      validate_only=False, cutover_date=None, agent_pool=None,
                      skip_validation=None, service_endpoint_id=None, github_token=None,
-                     enable_boards_github_connection=False,
+                     enable_boards_github_connection=False, enable_auto_discover_pipelines=False,
+                     pipeline_service_connection_id=None,
                      organization=None, detect=None):
     target_repository = _normalize_optional_text(target_repository)
     target_owner_user_id = _normalize_optional_text(target_owner_user_id)
@@ -216,8 +217,17 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
         payload['skipValidation'] = skip_validation
     if service_endpoint_id:
         payload['serviceEndpointId'] = service_endpoint_id
+    config_options = {}
     if enable_boards_github_connection:
-        payload['configOptions'] = {'enableBoardsGitHubConnection': True}
+        config_options['enableBoardsGitHubConnection'] = True
+    if enable_auto_discover_pipelines:
+        config_options['enableAutoDiscoverPipelines'] = True
+    if config_options:
+        payload['configOptions'] = config_options
+    pipeline_service_connection_id = _validate_guid(
+        pipeline_service_connection_id, '--pipeline-service-connection-id')
+    if pipeline_service_connection_id is not None:
+        payload['pipelineServiceConnectionId'] = pipeline_service_connection_id
 
     url = _build_migration_url(organization, repository_id)
     try:
