@@ -307,3 +307,19 @@ paket-files/
 !azure-devops/azext_devops/devops_sdk/*/release/
 azure-devops/azext_devops/devops_sdk/*/release/release/__pycache__
 .azure/devcliextensions
+# ELM dev session scratch (untracked helpers, fixtures, transcripts)
+scripts/.*
+scripts/add-*.py
+scripts/append-*.py
+scripts/apply-*.py
+scripts/camelcase-*.py
+scripts/drop-*.py
+scripts/edge-case-sweep.ps1
+scripts/fix-*.py
+scripts/live-matrix-real-ids.ps1
+scripts/relax-*.py
+scripts/rename-*.py
+ado-pr-work/
+
+scripts/update-*.py
+
