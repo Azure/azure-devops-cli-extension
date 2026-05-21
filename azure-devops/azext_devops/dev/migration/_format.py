@@ -110,7 +110,10 @@ def _transform_migration_row(row):
 def _transform_pipeline_entry_row(entry):
     table_row = OrderedDict()
     table_row['DefinitionId'] = entry.get('definitionId')
-    table_row['Name'] = trim_for_display(entry.get('name'), _TARGET_TRUNCATION_LENGTH)
+    # Server may return name=null until pipeline-name hydration ships; fall back to yamlFilename
+    # so operators can still identify the row.
+    display_name = entry.get('name') or entry.get('yamlFilename')
+    table_row['Name'] = trim_for_display(display_name, _TARGET_TRUNCATION_LENGTH)
     table_row['Classification'] = entry.get('classification')
     table_row['Status'] = entry.get('status')
     table_row['Acknowledged'] = entry.get('acknowledged')

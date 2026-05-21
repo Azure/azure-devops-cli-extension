@@ -38,7 +38,9 @@ def load_migration_arguments(self, _):
         context.argument('retry_ids', options_list='--retry-ids', nargs='+',
                          help='Failed pipeline IDs to retry. Accepts space-separated or comma-separated values.')
         context.argument('acknowledge_ids', options_list='--acknowledge-ids', nargs='+',
-                         help='Pipeline IDs to acknowledge. Accepts space-separated or comma-separated values.')
+                         help='Pipeline IDs to acknowledge. Acknowledgement cannot be revoked; '
+                              'to revert, abandon and recreate the migration. Accepts '
+                              'space-separated or comma-separated values.')
         context.argument('service_connection_id', options_list='--service-connection-id',
                          help='Project-scoped GitHub service connection ID (GUID).')
 
@@ -49,8 +51,9 @@ def load_migration_arguments(self, _):
 
     with self.argument_context('devops migrations pipelines acknowledge') as context:
         context.argument('pipeline_ids', options_list='--pipeline-ids', nargs='+',
-                         help='Pipeline definition IDs to acknowledge. Accepts space-separated '
-                              'or comma-separated values.')
+                         help='Pipeline definition IDs to acknowledge. Acknowledgement cannot be '
+                              'revoked; to revert, abandon and recreate the migration. Accepts '
+                              'space-separated or comma-separated values.')
 
     with self.argument_context('devops migrations pipelines delete') as context:
         context.argument('migration_id', options_list='--migration-id', type=int,
