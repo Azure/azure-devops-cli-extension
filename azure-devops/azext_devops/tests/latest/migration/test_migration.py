@@ -1891,11 +1891,10 @@ class TestMigrationCommands(unittest.TestCase):
                 'enableAutoDiscoverPipelines': True,
             })
 
-    def test_create_migration_drops_pipeline_service_connection_id_with_warning(self):
+    def test_create_migration_includes_pipeline_service_connection_id_at_top_level(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
-             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
-             patch('azext_devops.dev.migration.migration.logger') as mock_logger:
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
             del mock_client
             mock_send.return_value = {}
             mock_resolve.return_value = self._TEST_ORG
@@ -1909,11 +1908,9 @@ class TestMigrationCommands(unittest.TestCase):
             )
 
             payload = mock_send.call_args[0][3]
-            self.assertNotIn('pipelineServiceConnectionId', payload)
+            self.assertEqual(payload['pipelineServiceConnectionId'],
+                             '11111111-1111-1111-1111-111111111111')
             self.assertNotIn('configOptions', payload)
-            mock_logger.warning.assert_called_once()
-            warning_text = mock_logger.warning.call_args[0][0]
-            self.assertIn('ignored at create time', warning_text)
 
     def test_create_migration_omits_enable_boards_github_connection_by_default(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \

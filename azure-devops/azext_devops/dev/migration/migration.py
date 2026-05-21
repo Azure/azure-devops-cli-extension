@@ -227,10 +227,7 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
     pipeline_service_connection_id = _validate_guid(
         pipeline_service_connection_id, '--pipeline-service-connection-id')
     if pipeline_service_connection_id is not None:
-        # Server does not persist a service connection at create time; it is a
-        # submit-time concept on the pipelines subgroup. Warn and drop.
-        logger.warning("--pipeline-service-connection-id is ignored at create time; "
-                       "pass it to 'az devops migrations pipelines submit' instead.")
+        payload['pipelineServiceConnectionId'] = pipeline_service_connection_id
 
     url = _build_migration_url(organization, repository_id)
     try:
