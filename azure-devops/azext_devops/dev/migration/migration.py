@@ -227,7 +227,10 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
     pipeline_service_connection_id = _validate_guid(
         pipeline_service_connection_id, '--pipeline-service-connection-id')
     if pipeline_service_connection_id is not None:
-        payload['pipelineServiceConnectionId'] = pipeline_service_connection_id
+        # Server does not persist a service connection at create time; it is a
+        # submit-time concept on the pipelines subgroup. Warn and drop.
+        logger.warning("--pipeline-service-connection-id is ignored at create time; "
+                       "pass it to 'az devops migrations pipelines submit' instead.")
 
     url = _build_migration_url(organization, repository_id)
     try:
@@ -640,7 +643,14 @@ def delete_pipeline_rewiring(repository_id=None, migration_id=None, yes=False,
 
     client = _get_service_client(organization)
     url = _build_pipelines_url(organization, repository_id, migration_id=migration_id)
-    _send_request(client, 'DELETE', url, api_version=PIPELINES_API_VERSION)
+    try:
+        _send_request(client, 'DELETE', url, api_version=PIPELINES_API_VERSION)
+    except CLIError as ex:
+        if 'status 409' in str(ex):
+            raise CLIError('Cannot delete pipeline rewiring data for migration {}: the '
+                           'migration is not in a terminal stage. Complete or abandon '
+                           'the migration first.'.format(migration_id))
+        raise
     return {'message': 'Pipeline rewiring data deleted successfully.'}
 
 
@@ -902,6 +912,9 @@ def _send_request(client, method, url, content=None, api_version=API_VERSION):
                     error_detail = '{} CorrelationId: {}'.format(error_detail, correlation_id)
                 else:
                     error_detail = 'CorrelationId: {}'.format(correlation_id)
+        if response.status_code == 400 and 'EnsureBranchExists' in (error_detail or ''):
+            raise CLIError("No pipeline rewiring data exists for this migration yet. "
+                           "Run 'az devops migrations pipelines submit' first.")
         message = 'Request failed with status {}. {}'.format(response.status_code, error_detail)
         if response.status_code == 404:
             raise ResourceNotFoundError(message)
