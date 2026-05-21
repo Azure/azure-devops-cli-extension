@@ -323,3 +323,7 @@ ado-pr-work/
 
 scripts/update-*.py
 
+# Proxima docs tree (belongs to a separate docs repo, not the CLI extension)
+docs/
+
+
