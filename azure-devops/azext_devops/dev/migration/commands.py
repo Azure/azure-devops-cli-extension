@@ -41,10 +41,6 @@ def load_migration_commands(self, _):
         g.command('submit', 'submit_pipeline_rewiring', table_transformer=transform_pipeline_entries_table_output)
         g.command('update', 'update_pipeline_rewiring', table_transformer=transform_pipeline_entries_table_output)
         g.command('retry', 'retry_pipeline_rewiring', table_transformer=transform_pipeline_entries_table_output)
-        g.command('acknowledge', 'acknowledge_pipeline_rewiring',
-                  confirmation='Acknowledgement cannot be revoked. To revert, you must abandon the '
-                               'migration and recreate it. Continue?',
-                  table_transformer=transform_pipeline_entries_table_output)
         g.command('delete', 'delete_pipeline_rewiring',
                   confirmation='Are you sure you want to delete pipeline rewiring data for this migration?',
                   table_transformer=transform_message_output)

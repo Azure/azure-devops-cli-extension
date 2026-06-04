@@ -16,13 +16,14 @@ def load_migration_help():
     helps['devops migrations list'] = """
     type: command
     short-summary: List migrations in an organization.
+    long-summary: 'By default the latest migration per repository is returned, regardless of state. Use --include-all to return the full migration history.'
     examples:
-      - name: List migrations.
+      - name: List the latest migration per repository.
         text: |
           az devops migrations list --org https://dev.azure.com/myorg
-      - name: List all migrations including inactive ones.
+      - name: List the full migration history for every repository.
         text: |
-          az devops migrations list --org https://dev.azure.com/myorg --include-inactive
+          az devops migrations list --org https://dev.azure.com/myorg --include-all
     """
 
     helps['devops migrations status'] = """
@@ -90,6 +91,7 @@ def load_migration_help():
     helps['devops migrations cutover review'] = """
     type: command
     short-summary: Review unprocessed migration items before cutover.
+    long-summary: 'The response includes requiresPipelineVerificationAcknowledgment. When true, cutover approve must be re-run with --pipelines-verified before the migration can proceed.'
     examples:
       - name: Review failures before approving cutover.
         text: |
@@ -98,11 +100,18 @@ def load_migration_help():
 
     helps['devops migrations cutover approve'] = """
     type: command
-    short-summary: Approve cutover by accepting a count of unprocessed items.
+    short-summary: Approve cutover by accepting unprocessed items and/or verifying rewired pipelines.
+    long-summary: 'Provide --accept-failures when cutover review surfaces unprocessed items, and/or --pipelines-verified when cutover review reports requiresPipelineVerificationAcknowledgment: true. At least one of the two must be supplied; both may be sent together in a single call.'
     examples:
       - name: Approve cutover after reviewing failures.
         text: |
           az devops migrations cutover approve --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --accept-failures 3
+      - name: Acknowledge pipeline verification only (no unprocessed items).
+        text: |
+          az devops migrations cutover approve --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --pipelines-verified
+      - name: Combine failure acceptance and pipeline verification in one call.
+        text: |
+          az devops migrations cutover approve --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --accept-failures 3 --pipelines-verified
     """
 
     helps['devops migrations cutover set'] = """
@@ -158,15 +167,6 @@ def load_migration_help():
       - name: Retry specific failed pipelines.
         text: |
           az devops migrations pipelines retry --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --pipeline-ids 42 43
-    """
-
-    helps['devops migrations pipelines acknowledge'] = """
-    type: command
-    short-summary: Acknowledge pipeline rewiring entries. (Preview)
-    examples:
-      - name: Acknowledge specific pipeline entries.
-        text: |
-          az devops migrations pipelines acknowledge --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --pipeline-ids 44 45
     """
 
     helps['devops migrations pipelines delete'] = """

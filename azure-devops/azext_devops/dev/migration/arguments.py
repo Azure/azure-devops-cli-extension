@@ -37,10 +37,6 @@ def load_migration_arguments(self, _):
                          help='Pipeline IDs to remove. Accepts space-separated or comma-separated values.')
         context.argument('retry_ids', options_list='--retry-ids', nargs='+',
                          help='Failed pipeline IDs to retry. Accepts space-separated or comma-separated values.')
-        context.argument('acknowledge_ids', options_list='--acknowledge-ids', nargs='+',
-                         help='Pipeline IDs to acknowledge. Acknowledgement cannot be revoked; '
-                              'to revert, abandon and recreate the migration. Accepts '
-                              'space-separated or comma-separated values.')
         context.argument('service_connection_id', options_list='--service-connection-id',
                          help='Project-scoped GitHub service connection ID (GUID).')
 
@@ -49,12 +45,6 @@ def load_migration_arguments(self, _):
                          help='Pipeline definition IDs to retry. Accepts space-separated '
                               'or comma-separated values.')
 
-    with self.argument_context('devops migrations pipelines acknowledge') as context:
-        context.argument('pipeline_ids', options_list='--pipeline-ids', nargs='+',
-                         help='Pipeline definition IDs to acknowledge. Acknowledgement cannot be '
-                              'revoked; to revert, abandon and recreate the migration. Accepts '
-                              'space-separated or comma-separated values.')
-
     with self.argument_context('devops migrations pipelines delete') as context:
         context.argument('migration_id', options_list='--migration-id', type=int,
                          help='Migration ID used for pipeline rewiring cleanup.')
@@ -62,8 +52,14 @@ def load_migration_arguments(self, _):
                          help='Do not prompt for confirmation.')
 
     with self.argument_context('devops migrations list') as context:
+        context.argument('include_all', options_list='--include-all', action='store_true',
+                         help='Return the full migration history (all records per repository). '
+                              'By default only the latest migration per repository is returned, '
+                              'regardless of its state.')
         context.argument('include_inactive', options_list='--include-inactive', action='store_true',
-                         help='Include inactive (completed, abandoned, failed) migrations in the results.')
+                         help='Deprecated. Use --include-all instead.',
+                         deprecate_info=context.deprecate(redirect='--include-all',
+                                                          target='--include-inactive', hide=False))
         context.argument('project', options_list='--project',
                          help='Optional project name or ID to filter migrations.')
 
@@ -126,6 +122,11 @@ def load_migration_arguments(self, _):
         context.argument('accept_failures', options_list='--accept-failures', type=int,
                          help='Number of unprocessed migration resources to accept before '
                               'proceeding with cutover.')
+        context.argument('pipelines_verified', options_list='--pipelines-verified', action='store_true',
+                         help='Acknowledge that all rewired pipelines have been verified. '
+                              'Required when "cutover review" returns '
+                              'requiresPipelineVerificationAcknowledgment: true. Can be combined '
+                              'with --accept-failures in a single approve call.')
 
     with self.argument_context('devops migrations resume') as context:
         context.argument('validate_only', options_list='--validate-only', action='store_true',

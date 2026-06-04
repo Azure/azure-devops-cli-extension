@@ -1033,7 +1033,46 @@ class TestMigrationCommands(unittest.TestCase):
                 organization=self._TEST_ORG,
                 detect=False
             )
-        self.assertIn('--accept-failures must be specified', str(ctx.exception))
+        self.assertIn('--accept-failures and/or --pipelines-verified', str(ctx.exception))
+
+    def test_approve_cutover_sends_pipelines_verified_only(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {'stage': 'ReadyForCutover'}
+            mock_resolve.return_value = self._TEST_ORG
+
+            approve_cutover(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipelines_verified=True,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'PUT')
+            self.assertEqual(args[3]['pipelinesVerified'], True)
+            self.assertNotIn('cutoverFailureAcceptedCount', args[3])
+
+    def test_approve_cutover_sends_pipelines_verified_with_accept_failures(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {'stage': 'ReadyForCutover'}
+            mock_resolve.return_value = self._TEST_ORG
+
+            approve_cutover(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                accept_failures=2,
+                pipelines_verified=True,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'PUT')
+            self.assertEqual(args[3]['cutoverFailureAcceptedCount'], 2)
+            self.assertEqual(args[3]['pipelinesVerified'], True)
 
     def test_approve_cutover_rejects_negative_accept_failures(self):
         with self.assertRaises(CLIError) as ctx:
@@ -1107,7 +1146,7 @@ class TestMigrationCommands(unittest.TestCase):
             warning_msg = mock_logger.warning.call_args[0][0]
             self.assertIn('No migrations found', warning_msg)
 
-    def test_list_migrations_hints_include_inactive_when_not_passed(self):
+    def test_list_migrations_hints_include_all_when_not_passed(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
@@ -1115,12 +1154,12 @@ class TestMigrationCommands(unittest.TestCase):
             mock_send.return_value = {'value': []}
             mock_resolve.return_value = self._TEST_ORG
 
-            list_migrations(include_inactive=False, organization=self._TEST_ORG, detect=False)
+            list_migrations(include_all=False, organization=self._TEST_ORG, detect=False)
 
             warning_call = str(mock_logger.warning.call_args)
-            self.assertIn('include-inactive', warning_call)
+            self.assertIn('include-all', warning_call)
 
-    def test_list_migrations_no_hint_when_include_inactive_passed(self):
+    def test_list_migrations_no_hint_when_include_all_passed(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
@@ -1128,10 +1167,10 @@ class TestMigrationCommands(unittest.TestCase):
             mock_send.return_value = {'value': []}
             mock_resolve.return_value = self._TEST_ORG
 
-            list_migrations(include_inactive=True, organization=self._TEST_ORG, detect=False)
+            list_migrations(include_all=True, organization=self._TEST_ORG, detect=False)
 
             warning_call = str(mock_logger.warning.call_args)
-            self.assertNotIn('include-inactive', warning_call)
+            self.assertNotIn('include-all', warning_call)
 
     def test_resume_rejects_both_flags(self):
         with self.assertRaises(CLIError):

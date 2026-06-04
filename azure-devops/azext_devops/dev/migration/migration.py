@@ -83,11 +83,12 @@ _MIGRATION_STATUS_VALUES = {
 _URL_PATTERN = re.compile(r'^https?://[^\s]+$', re.IGNORECASE)
 
 
-def list_migrations(include_inactive=False, project=None, organization=None, detect=None):
+def list_migrations(include_all=False, include_inactive=False, project=None, organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     client = _get_service_client(organization)
     url = _build_migration_url(organization)
-    if include_inactive:
+    include_all = bool(include_all or include_inactive)
+    if include_all:
         url += '&includeInactiveMigrations=true'
     project = _normalize_optional_text(project)
     if project:
@@ -95,7 +96,7 @@ def list_migrations(include_inactive=False, project=None, organization=None, det
     result = _send_request(client, 'GET', url)
     items = result.get('value', result) if isinstance(result, dict) else result
     if not items:
-        hint = '' if include_inactive else ' Use --include-inactive to include completed or abandoned migrations.'
+        hint = '' if include_all else ' Use --include-all to include completed or abandoned migrations.'
         logger.warning('No migrations found.%s', hint)
     return result
 
@@ -520,12 +521,19 @@ def get_cutover_review(repository_id=None, organization=None, detect=None):
     return _send_request(client, 'GET', url)
 
 
-def approve_cutover(repository_id=None, accept_failures=None, organization=None, detect=None):
-    accepted_count = _parse_non_negative_int(accept_failures, '--accept-failures')
+def approve_cutover(repository_id=None, accept_failures=None, pipelines_verified=False,
+                    organization=None, detect=None):
+    accepted_count = None
+    if accept_failures is not None:
+        accepted_count = _parse_non_negative_int(accept_failures, '--accept-failures')
+    if accepted_count is None and not pipelines_verified:
+        raise CLIError('Specify --accept-failures and/or --pipelines-verified. '
+                       'Run "az devops migrations cutover review" to see which is required.')
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     return _update_migration(repository_id, organization, detect=None,
-                             cutover_failure_accepted_count=accepted_count)
+                             cutover_failure_accepted_count=accepted_count,
+                             pipelines_verified=pipelines_verified)
 
 
 def delete_migration(repository_id=None, remove_read_only=False, organization=None, detect=None):
@@ -653,7 +661,7 @@ def delete_pipeline_rewiring(repository_id=None, migration_id=None, yes=False,
 
 def _update_migration(repository_id, organization, detect, *, validate_only=None,
                       status_requested=None, scheduled_cutover_date=None, include_cutover=False,
-                      cutover_failure_accepted_count=None):
+                      cutover_failure_accepted_count=None, pipelines_verified=False):
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
@@ -668,6 +676,8 @@ def _update_migration(repository_id, organization, detect, *, validate_only=None
         payload['scheduledCutoverDate'] = scheduled_cutover_date
     if cutover_failure_accepted_count is not None:
         payload['cutoverFailureAcceptedCount'] = cutover_failure_accepted_count
+    if pipelines_verified:
+        payload['pipelinesVerified'] = True
     return _send_request(client, 'PUT', url, payload)
 
 
