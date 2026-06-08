@@ -18,9 +18,8 @@ from msrest import Configuration
 from msrest.service_client import ServiceClient
 from msrest.universal_http import ClientRequest
 from knack.util import CLIError
-from azure.cli.core.azclierror import ResourceNotFoundError, ForbiddenError
-
 from knack.log import get_logger
+from azure.cli.core.azclierror import ResourceNotFoundError, ForbiddenError
 
 from azext_devops.version import VERSION
 from azext_devops.dev.common.services import get_connection, resolve_instance
@@ -564,8 +563,9 @@ def list_pipeline_rewiring(repository_id=None, organization=None, detect=None):
         raise
 
 
-def submit_pipeline_rewiring(repository_id=None, pipeline_ids=None, service_connection_id=None,
-                            repository_mapping=None, organization=None, detect=None):
+def submit_pipeline_rewiring(
+        repository_id=None, pipeline_ids=None, service_connection_id=None,
+        repository_mapping=None, organization=None, detect=None):
     parsed_pipeline_ids = _parse_pipeline_id_list(pipeline_ids, '--pipeline-ids', required=True)
     if len(parsed_pipeline_ids) > 200:
         raise CLIError('--pipeline-ids supports a maximum of 200 IDs per request.')
@@ -587,9 +587,10 @@ def submit_pipeline_rewiring(repository_id=None, pipeline_ids=None, service_conn
     return _send_request(client, 'POST', url, payload, api_version=PIPELINES_API_VERSION)
 
 
-def update_pipeline_rewiring(repository_id=None, add_ids=None, remove_ids=None, retry_ids=None,
-                            acknowledge_ids=None, service_connection_id=None,
-                            repository_mapping=None, organization=None, detect=None):
+def update_pipeline_rewiring(
+        repository_id=None, add_ids=None, remove_ids=None, retry_ids=None,
+        acknowledge_ids=None, service_connection_id=None,
+        repository_mapping=None, organization=None, detect=None):
     parsed_add_ids = _parse_pipeline_id_list(add_ids, '--add-ids')
     parsed_remove_ids = _parse_pipeline_id_list(remove_ids, '--remove-ids')
     parsed_retry_ids = _parse_pipeline_id_list(retry_ids, '--retry-ids')
@@ -639,8 +640,9 @@ def acknowledge_pipeline_rewiring(repository_id=None, pipeline_ids=None, organiz
                                     detect=detect)
 
 
-def delete_pipeline_rewiring(repository_id=None, migration_id=None, yes=False,
-                            organization=None, detect=None):
+def delete_pipeline_rewiring(
+        repository_id=None, migration_id=None, yes=False,
+        organization=None, detect=None):
     del yes
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
@@ -761,7 +763,7 @@ def _parse_repository_mappings(values):
         mapping_text = _normalize_optional_text(raw_value)
         if mapping_text is None:
             raise CLIError('--repository-mapping cannot be empty. Expected <sourceRepoId>=<owner>/<repo>.')
-        if '=' not in mapping_text:
+        if '=' not in mapping_text:  # pylint: disable=unsupported-membership-test
             raise CLIError('--repository-mapping must be in the format <sourceRepoId>=<owner>/<repo>.')
         source_repo_id, target_repo = mapping_text.split('=', 1)
         source_repo_id = _validate_guid(source_repo_id, '--repository-mapping source repo ID')
