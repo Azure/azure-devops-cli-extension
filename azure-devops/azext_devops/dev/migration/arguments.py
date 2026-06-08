@@ -86,7 +86,11 @@ def load_migration_arguments(self, _):
         context.argument('skip_validation', options_list='--skip-validation',
                          help='Validation policies to skip. Accepts either a comma-separated list of '
                               'policy names (for example, AgentPoolExists,MaxFileSize) or a non-negative '
-                              'integer bitmask.')
+                              'integer bitmask. Supported policy names (case-insensitive): None, '
+                              'ActivePullRequestCount, PullRequestDeltaSize, AgentPoolExists, MaxFileSize, '
+                              'MaxPullRequestSize, MaxPushPackSize, MaxReferenceNameLength, '
+                              'TargetRepositoryDoesNotExist, SourceRepositoryContainsLfsObjects, '
+                              'SourceRepositoryNotReadOnly, BoardsGitHubConnectionProvisioning, All.')
         context.argument('service_endpoint_id', options_list='--service-endpoint-id',
                          help='Service endpoint ID (GUID) for the GitHub Enterprise Server connection '
                               'used to sync commits to the target. Independent of user-identity '
