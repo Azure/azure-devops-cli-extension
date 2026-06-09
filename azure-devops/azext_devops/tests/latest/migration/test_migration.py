@@ -1211,6 +1211,17 @@ class TestMigrationCommands(unittest.TestCase):
                                  organization=self._TEST_ORG, detect=False)
             self.assertIn('statusRequested: Active', str(ctx.exception))
 
+    def test_is_migration_active_covers_all_in_progress_stages(self):
+        # Stage-only fallback (no status field) must treat every in-progress stage as active,
+        # including the cutover-gate stages readyForCutover / reviewForCutover.
+        for stage in ('queued', 'validation', 'synchronization',
+                      'readyForCutover', 'reviewForCutover', 'cutover'):
+            self.assertTrue(migration_module._is_migration_active({'stage': stage}),
+                            'stage {} should be active'.format(stage))
+        # Terminal/unknown stages are not active.
+        self.assertFalse(migration_module._is_migration_active({'stage': 'migrated'}))
+        self.assertFalse(migration_module._is_migration_active({'stage': 'aborted'}))
+
     def test_resume_sets_validate_only(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
              patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \

@@ -70,6 +70,8 @@ _ACTIVE_STAGES = {
     'queued',
     'validation',
     'synchronization',
+    'readyforcutover',
+    'reviewforcutover',
     'cutover'
 }
 
