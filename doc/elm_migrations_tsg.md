@@ -65,27 +65,38 @@ You should see your org URL under `organization`. If you see a wrong URL (e.g., 
 
 ## 2. Understand the Migration Lifecycle
 
-A migration moves through these **stages**:
+A migration moves through these **stages** (shown in the `stage` field of `status`):
 
 ```
-Queued → Validation → Synchronization → Cutover → Migrated
+Queued → Validation → Synchronization → ReviewForCutover → Cutover → Migrated
 ```
 
-And has one of these **statuses**:
+| Stage | Meaning |
+|---|---|
+| `Queued` | Migration is queued and waiting to start |
+| `Validation` | Pre-migration checks are running |
+| `Synchronization` | Code and pull requests are being copied to the target |
+| `ReviewForCutover` | Sync is done; the migration is waiting for you to review unprocessed items and **approve** cutover (see step 3.7) |
+| `Cutover` | Final cutover is in progress (source repo made read-only, last delta applied) |
+| `Migrated` | Migration finished successfully |
+
+And has one of these **statuses** (the `status` field):
 
 | Status | Meaning |
 |---|---|
 | `Active` | Migration is running (in one of the stages above) |
-| `Succeeded` | Migration completed successfully |
+| `Paused` | Migration was paused with `pause` (resume to continue) |
+| `Suspended` | Migration was suspended by the user/service (can be resumed) |
 | `Failed` | Migration encountered an error (can be resumed) |
-| `Suspended` | Migration was paused by the user (can be resumed) |
+| `Succeeded` / `Completed` | Migration (or validation) completed successfully |
 
 ### Recommended workflow
 
 The safest approach is **validate first, then migrate**:
 
 ```
-Create (validate-only) → Check status → Resume (--migration) → Monitor → Schedule cutover → Done
+Create (validate-only) → Check status → Resume (--migration) → Monitor
+  → Schedule cutover → (at ReviewForCutover) cutover review → cutover approve → Migrated
 ```
 
 ---
@@ -121,18 +132,20 @@ Save this GUID — you'll use it in every command below.
 
 ### 3.2 (Optional) Check for existing migrations
 
-See if any migrations already exist for your org:
+By default, `list` returns the **latest migration per repository** (regardless of state):
 
 ```powershell
-# Active migrations only
+# Latest migration per repository
 az devops migrations list --detect false
 
 # Filter by project name or ID
 az devops migrations list --detect false --project MyProject
 
-# All migrations including completed/failed/suspended
-az devops migrations list --detect false --include-inactive
+# Full migration history (all records per repository)
+az devops migrations list --detect false --include-all
 ```
+
+> `--include-inactive` is deprecated — use `--include-all` instead. It still works but redirects to `--include-all`.
 
 ### 3.3 Create a validate-only migration
 
@@ -150,7 +163,7 @@ The command returns the migration details as JSON. The migration begins immediat
 
 > **Tip:** If you're confident and want to start a full migration right away (skip validate-only), omit the `--validate-only` flag.
 
-If `--github-token` is not provided, the CLI checks `ELM_GITHUB_TOKEN` and then runs GitHub device flow to acquire a token.
+If `--github-token` is not provided, the CLI checks `ELM_GITHUB_TOKEN` and then runs GitHub device flow to acquire a token. If you pass `--service-endpoint-id` (a GitHub Enterprise Server service connection used to sync commits), device flow is skipped — supply `--github-token` or `ELM_GITHUB_TOKEN` only if user-identity verification is also needed.
 
 You can also pass a token or PAT explicitly:
 
@@ -165,8 +178,13 @@ az devops migrations create --detect false \
 
 | Parameter | What it does | Example |
 |---|---|---|
+| `--agent-pool` | Agent pool name used for migration work | `--agent-pool my-pool` |
 | `--cutover-date` | Pre-schedule the final cutover date | `--cutover-date 2030-12-31T11:59:00Z` |
 | `--skip-validation` | Skip specific validation checks | `--skip-validation ActivePullRequestCount,PullRequestDeltaSize` |
+| `--service-endpoint-id` | GitHub Enterprise Server service connection (GUID) used to sync commits; skips device flow | `--service-endpoint-id <guid>` |
+| `--enable-boards-github-connection` | Provision the Azure Boards GitHub connection at cutover (off by default; requires the Boards GitHub App installed on the target org) | `--enable-boards-github-connection` |
+| `--enable-auto-discover-pipelines` | Auto-discover and clone pipelines that reference the source repo at cutover (off by default) | `--enable-auto-discover-pipelines` |
+| `--pipeline-service-connection-id` | Project-scoped GitHub service connection (GUID) attached at create time for pipeline rewiring | `--pipeline-service-connection-id <guid>` |
 
 ### 3.4 Monitor migration status
 
@@ -188,9 +206,10 @@ az devops migrations status --detect false --repository-id b3e18946-5b39-40ca-8e
 |---|---|---|
 | `status: Active`, `stage: Validation` | Validation is in progress | Wait, check again later |
 | `status: Active`, `stage: Synchronization` | Code/PRs are syncing | Wait, check again later |
-| `status: Succeeded` | Current phase completed | If validate-only: go to step 3.5. If migration: go to step 3.6 |
+| `status: Active`, `stage: ReviewForCutover` | Sync finished; waiting for cutover approval | Review and approve (step 3.7) |
+| `status: Succeeded` | Current phase completed | If validate-only: go to step 3.5. If migration: schedule cutover (step 3.6) |
 | `status: Failed` | Something went wrong | Check the error in `-o json` output, fix the issue, then resume (step 4) |
-| `status: Suspended` | You paused it | Resume when ready (step 3.5) |
+| `status: Paused` / `Suspended` | Migration is paused | Resume when ready (step 3.5) |
 
 ### 3.5 Promote from validate-only to full migration
 
@@ -241,7 +260,35 @@ Changed your mind? Cancel the scheduled cutover:
 az devops migrations cutover cancel --detect false --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85
 ```
 
-### 3.7 Verify completion
+> **Note:** You cannot cancel once the migration has entered the `Cutover` stage — cancelling at that point is unsafe and requires server-side recovery. Cancel only while cutover is still *scheduled* (before the `Cutover` stage).
+
+### 3.7 Review and approve cutover
+
+When synchronization finishes, the migration moves to `stage: ReviewForCutover` and waits for your approval. First, review any unprocessed items (failed, blocked, or pending):
+
+```powershell
+az devops migrations cutover review --detect false --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85
+```
+
+The review output reports `FailedCount`, `BlockedCount`, `PendingCount`, `TotalUnprocessedCount`, and `RequiresPipelineVerification`. Then approve to let cutover proceed:
+
+```powershell
+# Accept the unprocessed items reported by review (use the count you're willing to accept)
+az devops migrations cutover approve --detect false \
+  --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85 --accept-failures 3
+```
+
+If review reports `RequiresPipelineVerification: true`, you must also acknowledge that rewired pipelines were verified:
+
+```powershell
+# Acknowledge pipeline verification (can be combined with --accept-failures in one call)
+az devops migrations cutover approve --detect false \
+  --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85 --pipelines-verified
+```
+
+> You must specify `--accept-failures` and/or `--pipelines-verified`. Run `cutover review` first to see which is required.
+
+### 3.8 Verify completion
 
 After cutover completes, confirm the migration finished:
 
@@ -253,7 +300,7 @@ az devops migrations status --detect false --repository-id b3e18946-5b39-40ca-8e
 
 At this point your repository has been fully migrated from Azure DevOps to GitHub. Verify the target repo in GitHub has all your code, branches, and pull requests.
 
-### 3.8 (If needed) Abandon a migration
+### 3.9 (If needed) Abandon a migration
 
 If something went wrong and you want to delete the migration entirely and start over:
 
@@ -262,6 +309,8 @@ az devops migrations abandon --detect false --repository-id b3e18946-5b39-40ca-8
 ```
 
 > **Warning:** This permanently deletes the migration record. You will be prompted to confirm. After abandoning, you can create a new migration for the same repository.
+>
+> By default the source Azure Repos repository stays read-only. Add `--remove-read-only` to set it back to read-write when abandoning.
 
 ---
 
@@ -301,20 +350,61 @@ az devops migrations resume --detect false --repository-id <GUID> --migration
 az devops migrations resume --detect false --repository-id <GUID> --validate-only
 ```
 
+> If the migration is at `stage: ReviewForCutover`, `resume` is blocked — review and approve cutover (step 3.7) instead, or cancel/reschedule cutover or abandon the migration.
+
+### Rewire pipelines (preview)
+
+If pipelines in the source project reference the migrated repository, you can rewire them to the new GitHub repository. This is a preview feature under `az devops migrations pipelines`.
+
+```powershell
+# List pipeline rewiring configuration and per-pipeline status
+az devops migrations pipelines list --detect false --repository-id <GUID>
+
+# Submit pipelines for rewiring (IDs accept space- or comma-separated values)
+az devops migrations pipelines submit --detect false --repository-id <GUID> \
+  --pipeline-ids 42 43 44 \
+  --service-connection-id <github-service-connection-guid> \
+  --repository-mapping <sourceRepoId>=<targetOwner>/<targetRepo>
+
+# Bulk update: add, remove, retry failed, or change the service connection
+az devops migrations pipelines update --detect false --repository-id <GUID> \
+  --add-ids 50 51 --remove-ids 42 --retry-ids 43 \
+  --service-connection-id <github-service-connection-guid>
+
+# Retry specific failed pipelines
+az devops migrations pipelines retry --detect false --repository-id <GUID> --pipeline-ids 42 43
+
+# Delete pipeline rewiring data for a migration (migration must be in a terminal stage)
+az devops migrations pipelines delete --detect false --repository-id <GUID> --migration-id <id> --yes
+```
+
+> **Notes:**
+> - `--service-connection-id` is a project-scoped GitHub service connection GUID. It's optional if a connection was already attached via `migrations create --pipeline-service-connection-id` or a prior `pipelines update`.
+> - `--repository-mapping` can be supplied multiple times. Format: `<sourceRepoId>=<targetOwner>/<targetRepo>`.
+> - `submit` supports up to 200 pipeline IDs per request.
+> - `pipelines list` is not available for failed migrations. Use `pipelines delete --migration-id <id>` to clean up first.
+
 ---
 
 ## 5. Complete Command & Parameter Reference
 
 | Command | Required Params | Optional Params | HTTP | Description |
 |---|---|---|---|---|
-| `list` | `--org` | `--include-inactive`, `--detect` | GET | List migrations. By default only active ones. |
+| `list` | `--org` | `--include-all`, `--include-inactive` (deprecated), `--project`, `--detect` | GET | List migrations. By default the latest per repository. |
 | `status` | `--org`, `--repository-id` | `--detect` | GET | Get detailed status for one migration. |
-| `create` | `--org`, `--repository-id`, `--target-repository` | `--github-token`, `--target-owner-user-id` (deprecated), `--agent-pool`, `--validate-only`, `--cutover-date`, `--skip-validation`, `--detect` | POST | Create a new migration. |
+| `create` | `--org`, `--repository-id`, `--target-repository` | `--github-token`, `--service-endpoint-id`, `--target-owner-user-id` (deprecated), `--agent-pool`, `--validate-only`, `--cutover-date`, `--skip-validation`, `--enable-boards-github-connection`, `--enable-auto-discover-pipelines`, `--pipeline-service-connection-id`, `--detect` | POST | Create a new migration. |
 | `pause` | `--org`, `--repository-id` | `--detect` | PUT | Pause an active migration. |
 | `resume` | `--org`, `--repository-id` | `--validate-only`, `--migration`, `--detect` | PUT | Resume a stopped migration. |
+| `abandon` | `--org`, `--repository-id` | `--remove-read-only`, `--detect` | DELETE | Permanently delete a migration (prompts for confirmation). |
 | `cutover set` | `--org`, `--repository-id`, `--date` | `--detect` | PUT | Schedule a cutover date/time. |
-| `cutover cancel` | `--org`, `--repository-id` | `--detect` | PUT | Cancel a scheduled cutover. |
-| `abandon` | `--org`, `--repository-id` | `--detect` | DELETE | Permanently delete a migration (prompts for confirmation). |
+| `cutover cancel` | `--org`, `--repository-id` | `--detect` | PUT | Cancel a scheduled cutover (not allowed in `Cutover` stage). |
+| `cutover review` | `--org`, `--repository-id` | `--detect` | GET | Review unprocessed items before approving cutover. |
+| `cutover approve` | `--org`, `--repository-id` | `--accept-failures`, `--pipelines-verified`, `--detect` | PUT | Approve cutover (accept unprocessed items and/or verify pipelines). |
+| `pipelines list` | `--org`, `--repository-id` | `--detect` | GET | List pipeline rewiring status. (Preview) |
+| `pipelines submit` | `--org`, `--repository-id`, `--pipeline-ids` | `--service-connection-id`, `--repository-mapping`, `--detect` | POST | Submit pipelines for rewiring. (Preview) |
+| `pipelines update` | `--org`, `--repository-id` | `--add-ids`, `--remove-ids`, `--retry-ids`, `--service-connection-id`, `--repository-mapping`, `--detect` | PUT | Bulk update pipeline rewiring. (Preview) |
+| `pipelines retry` | `--org`, `--repository-id`, `--pipeline-ids` | `--detect` | PUT | Retry failed pipeline rewiring entries. (Preview) |
+| `pipelines delete` | `--org`, `--repository-id`, `--migration-id` | `--yes`, `--detect` | DELETE | Delete pipeline rewiring data. (Preview) |
 
 ### 5.1 Parameter Details
 
@@ -322,9 +412,9 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 |---|---|---|---|
 | `--org` | URL | All | Azure DevOps org URL (e.g., `https://dev.azure.com/myorg`). Can be set as default. |
 | `--repository-id` | GUID | All except `list` | Azure Repos repository GUID. Get from `az repos show --query id`. |
-| `--target-repository` | URL | `create` | Target repository URL (e.g., `https://example.ghe.com/OrgName/RepoName`). Validated by the server. |
-| `--target-repository` | URL | `create` | Target repository URL (e.g., `https://example.ghe.com/OrgName/RepoName`). Must start with `http://` or `https://`. |
-| `--github-token` | string | `create` | GitHub token used for migration authorization. If omitted, CLI checks `ELM_GITHUB_TOKEN` and then runs device flow. |
+| `--target-repository` | URL | `create` | Target repository URL. Must start with `http://` or `https://`. |
+| `--github-token` | string | `create` | GitHub token used for user-identity verification. If omitted (and `--service-endpoint-id` not set), CLI checks `ELM_GITHUB_TOKEN` then runs device flow. |
+| `--service-endpoint-id` | GUID | `create` | GitHub Enterprise Server service connection used to sync commits. When set, device flow is skipped. |
 | `--target-owner-user-id` | string | `create` | Deprecated. Ignored when server-side token ownership resolution is enabled. |
 | `--agent-pool` | string | `create` | Agent pool name for migration work. Optional. |
 | `--validate-only` | flag | `create`, `resume` | On `create`: run pre-migration checks only. On `resume`: switch to validate-only mode. |
@@ -332,7 +422,20 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 | `--cutover-date` | ISO 8601 | `create` | Pre-schedule cutover at creation time. E.g., `2030-12-31T11:59:00Z`. |
 | `--date` | ISO 8601 | `cutover set` | Schedule cutover date/time. E.g., `2030-12-31T11:59:00Z`. |
 | `--skip-validation` | string or int | `create` | Validation policies to skip. Accepts either comma-separated policy names (recommended) or a non-negative integer bitmask. |
-| `--include-inactive` | flag | `list` | Include completed, failed, and suspended migrations. |
+| `--enable-boards-github-connection` | flag | `create` | Provision the Azure Boards GitHub connection at cutover. Off by default. |
+| `--enable-auto-discover-pipelines` | flag | `create` | Auto-discover and clone pipelines referencing the source repo at cutover. Off by default. |
+| `--pipeline-service-connection-id` | GUID | `create` | GitHub service connection attached at create time for pipeline rewiring. |
+| `--accept-failures` | int | `cutover approve` | Number of unprocessed migration resources to accept before proceeding with cutover. |
+| `--pipelines-verified` | flag | `cutover approve` | Acknowledge that rewired pipelines were verified. Required when `cutover review` reports `requiresPipelineVerificationAcknowledgment: true`. |
+| `--pipeline-ids` | int list | `pipelines submit`, `pipelines retry` | Pipeline definition IDs. Space- or comma-separated. |
+| `--add-ids` / `--remove-ids` / `--retry-ids` | int list | `pipelines update` | Pipeline IDs to add, remove, or retry. Space- or comma-separated. |
+| `--service-connection-id` | GUID | `pipelines submit`, `pipelines update` | Project-scoped GitHub service connection. |
+| `--repository-mapping` | string | `pipelines submit`, `pipelines update` | `<sourceRepoId>=<targetOwner>/<targetRepo>`. Repeatable. |
+| `--migration-id` | int | `pipelines delete` | Migration ID used for pipeline rewiring cleanup. |
+| `--remove-read-only` | flag | `abandon` | Set the source Azure Repos repository back to read-write. |
+| `--include-all` | flag | `list` | Return the full migration history (all records per repository). |
+| `--include-inactive` | flag | `list` | Deprecated. Use `--include-all` instead. |
+| `--project` | string | `list` | Filter migrations by project name or ID. |
 | `--detect` | flag | All | Auto-detect org from git remote (default: `true`). Use `--detect false` to disable. |
 
 ## 6. Common Pitfalls
@@ -342,6 +445,8 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 | **Auto-detect overrides `--org`** | Requests go to wrong host (e.g., `codedev.ms`) | Add `--detect false` or run from a non-ADO-repo directory |
 | **Stale default org in config** | Requests go to old/dev URL (e.g., `codedev.ms`) | Run `az devops configure -d organization=https://dev.azure.com/<your-org>` to update |
 | **Resume on an active migration** | Error: "Migration is active..." | Pause first with `az devops migrations pause`, then resume |
+| **Resume while at ReviewForCutover** | Error: "Migration is waiting for cutover approval (stage: ReviewForCutover)" | Run `cutover review`, then `cutover approve`; or cancel/reschedule cutover, or abandon |
+| **Cancel cutover too late** | Error: "Cannot cancel cutover: the migration has already entered the Cutover stage" | Cancel only before the `Cutover` stage; if stuck, contact the ELM service team |
 | **Both `--validate-only` and `--migration` on resume** | Error: "Please specify only one..." | Use only one flag at a time |
 | **Missing migration auth token** | Device flow prompt appears, or auth error is returned | Provide `--github-token`, set `ELM_GITHUB_TOKEN`, or complete device-flow authorization |
 | **Active migration already exists for repository** | Error: `An active migration already exists for repository <GUID>. Delete (abandon) the existing migration before creating a new one.` | Abandon the existing migration first (`az devops migrations abandon`), then retry `create` |
@@ -386,13 +491,13 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 Recommended form using policy names:
 
 ```powershell
-az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --target-owner-user-id <OWNER> --skip-validation AgentPoolExists,MaxFileSize
+az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --skip-validation AgentPoolExists,MaxFileSize
 ```
 
 Advanced form using integer bitmask:
 
 ```powershell
-az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --target-owner-user-id <OWNER> --skip-validation 132
+az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --skip-validation 132
 ```
 
 Token/PAT-authenticated examples:
@@ -513,8 +618,8 @@ az extension remove -n azure-devops
 # Get repo GUID from ADO
 az repos show --org https://dev.azure.com/<ado-org>/ --project <ProjectName> --repository <RepoName> --query id -o tsv
 
-# List all migrations (including inactive)
-az devops migrations list --include-inactive
+# List all migrations (full history)
+az devops migrations list --include-all
 
 # Get full JSON output (instead of table)
 az devops migrations status --repository-id <GUID> -o json
