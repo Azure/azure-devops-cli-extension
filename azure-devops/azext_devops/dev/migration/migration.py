@@ -191,6 +191,14 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
     if not target_repository:
         raise CLIError('--target-repository must be specified.')
     _validate_target_repository(target_repository)
+    if enable_auto_discover_pipelines and not pipeline_service_connection_id:
+        raise CLIError('--enable-auto-discover-pipelines requires '
+                       '--pipeline-service-connection-id. Without a pipeline service '
+                       'connection, auto-discovery runs as a no-op and enrolls 0 pipelines '
+                       'while the migration still reports clean. Provide '
+                       '--pipeline-service-connection-id now, or omit '
+                       '--enable-auto-discover-pipelines and attach a connection later '
+                       '(auto-discovery re-runs on the next sync).')
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)

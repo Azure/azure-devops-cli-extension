@@ -1896,12 +1896,32 @@ class TestMigrationCommands(unittest.TestCase):
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
                 enable_auto_discover_pipelines=True,
+                pipeline_service_connection_id='11111111-1111-1111-1111-111111111111',
                 organization=self._TEST_ORG,
                 detect=False
             )
 
             payload = mock_send.call_args[0][3]
             self.assertEqual(payload['configOptions'], {'enableAutoDiscoverPipelines': True})
+
+    def test_create_migration_blocks_auto_discover_without_service_connection(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            del mock_client
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError) as ctx:
+                create_migration(
+                    repository_id='00000000-0000-0000-0000-000000000000',
+                    target_repository='https://example.ghe.com/OrgName/RepoName',
+                    enable_auto_discover_pipelines=True,
+                    organization=self._TEST_ORG,
+                    detect=False
+                )
+
+            self.assertIn('--pipeline-service-connection-id', str(ctx.exception))
+            mock_send.assert_not_called()
 
     def test_create_migration_includes_both_config_options_when_both_flags_set(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -1916,6 +1936,7 @@ class TestMigrationCommands(unittest.TestCase):
                 target_repository='https://example.ghe.com/OrgName/RepoName',
                 enable_boards_github_connection=True,
                 enable_auto_discover_pipelines=True,
+                pipeline_service_connection_id='11111111-1111-1111-1111-111111111111',
                 organization=self._TEST_ORG,
                 detect=False
             )

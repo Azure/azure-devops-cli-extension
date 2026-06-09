@@ -107,6 +107,8 @@ def load_migration_arguments(self, _):
                          help='Opt in to automatic pipeline discovery at cutover. Off by default. '
                               'When enabled, the ELM sync job walks the source repository and '
                               'creates clone definitions for every pipeline that references it. '
+                              'Requires --pipeline-service-connection-id; without it discovery '
+                              'runs as a no-op and enrolls 0 pipelines. '
                               'Pipeline rewiring itself is always available via '
                               'az devops migrations pipelines submit / update.')
         context.argument('pipeline_service_connection_id',
