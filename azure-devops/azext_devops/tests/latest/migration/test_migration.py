@@ -28,7 +28,6 @@ from azext_devops.dev.migration.migration import (list_migrations,
                                                   submit_pipeline_rewiring,
                                                   update_pipeline_rewiring,
                                                   retry_pipeline_rewiring,
-                                                  acknowledge_pipeline_rewiring,
                                                   delete_pipeline_rewiring)
 
 
@@ -1711,20 +1710,6 @@ class TestMigrationCommands(unittest.TestCase):
 
             kwargs = mock_update.call_args[1]
             self.assertEqual(kwargs['retry_ids'], [42, 43])
-
-    def test_acknowledge_pipeline_rewiring_calls_update_with_ack_ids(self):
-        with patch('azext_devops.dev.migration.migration.update_pipeline_rewiring') as mock_update:
-            mock_update.return_value = []
-
-            acknowledge_pipeline_rewiring(
-                repository_id='00000000-0000-0000-0000-000000000000',
-                pipeline_ids=['44', '45'],
-                organization=self._TEST_ORG,
-                detect=False
-            )
-
-            kwargs = mock_update.call_args[1]
-            self.assertEqual(kwargs['acknowledge_ids'], [44, 45])
 
     def test_submit_pipeline_rewiring_rejects_more_than_200_ids(self):
         too_many_ids = [str(i) for i in range(1, 202)]

@@ -589,12 +589,11 @@ def submit_pipeline_rewiring(
 
 def update_pipeline_rewiring(
         repository_id=None, add_ids=None, remove_ids=None, retry_ids=None,
-        acknowledge_ids=None, service_connection_id=None,
+        service_connection_id=None,
         repository_mapping=None, organization=None, detect=None):
     parsed_add_ids = _parse_pipeline_id_list(add_ids, '--add-ids')
     parsed_remove_ids = _parse_pipeline_id_list(remove_ids, '--remove-ids')
     parsed_retry_ids = _parse_pipeline_id_list(retry_ids, '--retry-ids')
-    parsed_acknowledge_ids = _parse_pipeline_id_list(acknowledge_ids, '--acknowledge-ids')
     parsed_service_connection_id = _validate_guid(service_connection_id, '--service-connection-id')
     parsed_mappings = _parse_repository_mappings(repository_mapping)
 
@@ -605,8 +604,6 @@ def update_pipeline_rewiring(
         payload['removePipelineIds'] = parsed_remove_ids
     if parsed_retry_ids is not None:
         payload['retryFailedPipelineIds'] = parsed_retry_ids
-    if parsed_acknowledge_ids is not None:
-        payload['acknowledgePipelineIds'] = parsed_acknowledge_ids
     if parsed_service_connection_id is not None:
         payload['serviceConnectionId'] = parsed_service_connection_id
     if parsed_mappings is not None:
@@ -614,7 +611,7 @@ def update_pipeline_rewiring(
 
     if not payload:
         raise CLIError('At least one update flag must be provided. Use one or more of '
-                       '--add-ids, --remove-ids, --retry-ids, --acknowledge-ids, '
+                       '--add-ids, --remove-ids, --retry-ids, '
                        '--service-connection-id, or --repository-mapping.')
 
     organization = _resolve_org_for_auth(organization, detect)
@@ -628,14 +625,6 @@ def retry_pipeline_rewiring(repository_id=None, pipeline_ids=None, organization=
     parsed_pipeline_ids = _parse_pipeline_id_list(pipeline_ids, '--pipeline-ids', required=True)
     return update_pipeline_rewiring(repository_id=repository_id,
                                     retry_ids=parsed_pipeline_ids,
-                                    organization=organization,
-                                    detect=detect)
-
-
-def acknowledge_pipeline_rewiring(repository_id=None, pipeline_ids=None, organization=None, detect=None):
-    parsed_pipeline_ids = _parse_pipeline_id_list(pipeline_ids, '--pipeline-ids', required=True)
-    return update_pipeline_rewiring(repository_id=repository_id,
-                                    acknowledge_ids=parsed_pipeline_ids,
                                     organization=organization,
                                     detect=detect)
 
