@@ -20,14 +20,14 @@ az --version
 
 ### 1.2 Install the ELM extension from the wheel file
 
-You'll receive a `.whl` file (e.g., `azure_devops-1.0.3-py2.py3-none-any.whl`). This is the Azure DevOps CLI extension package that contains the migration commands.
+You'll receive a `.whl` file (e.g., `azure_devops-1.0.5-py2.py3-none-any.whl`). This is the Azure DevOps CLI extension package that contains the migration commands.
 
 ```powershell
 # Remove any existing version first (ignore errors if not installed)
 az extension remove -n azure-devops
 
 # Install from the wheel file (use the actual path to your .whl file)
-az extension add --source ./azure_devops-1.0.3-py2.py3-none-any.whl -y
+az extension add --source ./azure_devops-1.0.5-py2.py3-none-any.whl -y
 
 # Verify installation — you should see name: "azure-devops" and a version
 az extension show -n azure-devops --query "{name:name,version:version}" -o json
@@ -505,7 +505,7 @@ az devops configure -d organization=https://dev.azure.com/<your-org>
 az devops configure -l
 
 # Install/update the extension from a wheel file
-az extension add --source ./azure_devops-1.0.3-py2.py3-none-any.whl -y
+az extension add --source ./azure_devops-1.0.5-py2.py3-none-any.whl -y
 
 # Uninstall the extension
 az extension remove -n azure-devops
