@@ -238,7 +238,7 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
         error_text = str(ex)
         if 'status 409' in error_text and 'TF400898' in error_text:
             raise CLIError('An active migration already exists for repository {}. '
-                           'Delete (abandon) the existing migration before creating a new one.'
+                           'Abandon the existing migration before creating a new one.'
                            .format(repository_id))
         raise
 

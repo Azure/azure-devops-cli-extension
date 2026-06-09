@@ -73,7 +73,8 @@ def load_migration_help():
 
     helps['devops migrations abandon'] = """
     type: command
-    short-summary: Abandon and delete a migration.
+    short-summary: Abandon a migration.
+    long-summary: 'Moves the migration to an abandoned/failed state; the migration record is not purged. Pipeline rewiring data is left intact so a subsequent migration can reuse it.'
     examples:
       - name: Abandon and keep repository read-only (default).
         text: |
