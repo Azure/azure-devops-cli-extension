@@ -501,11 +501,10 @@ def schedule_cutover(repository_id=None, cutover_date=None, organization=None, d
 
 
 def cancel_cutover(repository_id=None, organization=None, detect=None):
-    # The ELM service tracks the post-cutover drain using scheduledCutoverDate as a
-    # timestamp marker; clearing it once the worker has entered the `cutover` stage
-    # puts the migration into a state that requires server-side recovery
-    # (tracked by service team Bug 2394803). Guard against the dangerous case here
-    # until the server-side fix rolls out.
+    # Once the migration has entered the `cutover` stage, clearing the scheduled
+    # cutover date can leave it in a state that needs to be recovered on the
+    # service side. Guard against that case here so the operation is rejected
+    # client-side rather than producing an unrecoverable state.
     organization = _resolve_org_for_auth(organization, detect)
     migration_data = get_migration(repository_id=repository_id, organization=organization, detect=None)
     current_stage = _normalize_state(migration_data.get('stage')) if isinstance(migration_data, dict) else ''
