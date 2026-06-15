@@ -9,6 +9,7 @@ import re
 import subprocess
 import time
 import sys
+import uuid
 from urllib.parse import quote_plus, urlparse
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
@@ -17,8 +18,8 @@ from msrest import Configuration
 from msrest.service_client import ServiceClient
 from msrest.universal_http import ClientRequest
 from knack.util import CLIError
-
 from knack.log import get_logger
+from azure.cli.core.azclierror import ResourceNotFoundError, ForbiddenError
 
 from azext_devops.version import VERSION
 from azext_devops.dev.common.services import get_connection, resolve_instance
@@ -27,13 +28,15 @@ from azext_devops.dev.common.uuid import is_uuid
 logger = get_logger(__name__)
 
 
-API_VERSION = '7.2-preview'
+API_VERSION = '7.2-preview.1'
+PIPELINES_API_VERSION = '7.2-preview.1'
 MIGRATIONS_API_PATH = '/_apis/elm/migrations'
 CUTOVER_REVIEW_API_PATH_SUFFIX = '/cutoverReview'
 # The ELM service treats DateTimeOffset.MinValue as the sentinel for "clear the
 # scheduled cutover date". Sending null is silently ignored by the server, so
 # `cutover cancel` must send this exact value to actually clear the field.
 CUTOVER_DATE_CLEAR_SENTINEL = '0001-01-01T00:00:00+00:00'
+PIPELINES_API_PATH_SUFFIX = '/pipelines'
 DEVICE_FLOW_CONFIG_API_PATH = '/_apis/migrations/deviceFlowConfig'
 LEGACY_DEVICE_FLOW_CONFIG_API_PATH = '/_apis/elm/migrations/deviceFlowConfig'
 GITHUB_TOKEN_ENV_VAR = 'ELM_GITHUB_TOKEN'
@@ -67,6 +70,8 @@ _ACTIVE_STAGES = {
     'queued',
     'validation',
     'synchronization',
+    'readyforcutover',
+    'reviewforcutover',
     'cutover'
 }
 
@@ -79,11 +84,12 @@ _MIGRATION_STATUS_VALUES = {
 _URL_PATTERN = re.compile(r'^https?://[^\s]+$', re.IGNORECASE)
 
 
-def list_migrations(include_inactive=False, project=None, organization=None, detect=None):
+def list_migrations(include_all=False, include_inactive=False, project=None, organization=None, detect=None):
     organization = _resolve_org_for_auth(organization, detect)
     client = _get_service_client(organization)
     url = _build_migration_url(organization)
-    if include_inactive:
+    include_all = bool(include_all or include_inactive)
+    if include_all:
         url += '&includeInactiveMigrations=true'
     project = _normalize_optional_text(project)
     if project:
@@ -91,7 +97,7 @@ def list_migrations(include_inactive=False, project=None, organization=None, det
     result = _send_request(client, 'GET', url)
     items = result.get('value', result) if isinstance(result, dict) else result
     if not items:
-        hint = '' if include_inactive else ' Use --include-inactive to include completed or abandoned migrations.'
+        hint = '' if include_all else ' Use --include-all to include completed or abandoned migrations.'
         logger.warning('No migrations found.%s', hint)
     return result
 
@@ -172,6 +178,8 @@ def get_migration(repository_id=None, organization=None, detect=None):
 def create_migration(*, repository_id=None, target_repository=None, target_owner_user_id=None,
                      validate_only=False, cutover_date=None, agent_pool=None,
                      skip_validation=None, service_endpoint_id=None, github_token=None,
+                     enable_boards_github_connection=False, enable_auto_discover_pipelines=False,
+                     pipeline_service_connection_id=None,
                      organization=None, detect=None):
     target_repository = _normalize_optional_text(target_repository)
     target_owner_user_id = _normalize_optional_text(target_owner_user_id)
@@ -183,17 +191,25 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
     if not target_repository:
         raise CLIError('--target-repository must be specified.')
     _validate_target_repository(target_repository)
-    if service_endpoint_id and github_token:
-        raise CLIError('Specify either --service-endpoint-id or --github-token, not both. '
-                       'When --service-endpoint-id is provided, GitHub authentication is handled '
-                       'by the service connection.')
+    if enable_auto_discover_pipelines and not pipeline_service_connection_id:
+        raise CLIError('--enable-auto-discover-pipelines requires '
+                       '--pipeline-service-connection-id. Without a pipeline service '
+                       'connection, auto-discovery runs as a no-op and enrolls 0 pipelines '
+                       'while the migration still reports clean. Provide '
+                       '--pipeline-service-connection-id now, or omit '
+                       '--enable-auto-discover-pipelines and attach a connection later '
+                       '(auto-discovery re-runs on the next sync).')
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
     if not service_endpoint_id:
         github_token = _resolve_github_user_token(client, organization, target_repository, github_token)
     else:
-        github_token = None
+        # SE supplies the GitHub credential used to sync commits. User-identity
+        # verification (gitHubUserToken) is independent: accept an explicit
+        # --github-token or ELM_GITHUB_TOKEN env var, but do not trigger device
+        # flow here so non-interactive SE-based flows aren't broken.
+        github_token = github_token or _normalize_optional_text(os.getenv(GITHUB_TOKEN_ENV_VAR))
 
     payload = {
         'targetRepository': target_repository,
@@ -211,6 +227,17 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
         payload['skipValidation'] = skip_validation
     if service_endpoint_id:
         payload['serviceEndpointId'] = service_endpoint_id
+    config_options = {}
+    if enable_boards_github_connection:
+        config_options['enableBoardsGitHubConnection'] = True
+    if enable_auto_discover_pipelines:
+        config_options['enableAutoDiscoverPipelines'] = True
+    if config_options:
+        payload['configOptions'] = config_options
+    pipeline_service_connection_id = _validate_guid(
+        pipeline_service_connection_id, '--pipeline-service-connection-id')
+    if pipeline_service_connection_id is not None:
+        payload['pipelineServiceConnectionId'] = pipeline_service_connection_id
 
     url = _build_migration_url(organization, repository_id)
     try:
@@ -219,7 +246,7 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
         error_text = str(ex)
         if 'status 409' in error_text and 'TF400898' in error_text:
             raise CLIError('An active migration already exists for repository {}. '
-                           'Delete (abandon) the existing migration before creating a new one.'
+                           'Abandon the existing migration before creating a new one.'
                            .format(repository_id))
         raise
 
@@ -474,11 +501,10 @@ def schedule_cutover(repository_id=None, cutover_date=None, organization=None, d
 
 
 def cancel_cutover(repository_id=None, organization=None, detect=None):
-    # The ELM service tracks the post-cutover drain using scheduledCutoverDate as a
-    # timestamp marker; clearing it once the worker has entered the `cutover` stage
-    # puts the migration into a state that requires server-side recovery
-    # (tracked by service team Bug 2394803). Guard against the dangerous case here
-    # until the server-side fix rolls out.
+    # Once the migration has entered the `cutover` stage, clearing the scheduled
+    # cutover date can leave it in a state that needs to be recovered on the
+    # service side. Guard against that case here so the operation is rejected
+    # client-side rather than producing an unrecoverable state.
     organization = _resolve_org_for_auth(organization, detect)
     migration_data = get_migration(repository_id=repository_id, organization=organization, detect=None)
     current_stage = _normalize_state(migration_data.get('stage')) if isinstance(migration_data, dict) else ''
@@ -503,12 +529,19 @@ def get_cutover_review(repository_id=None, organization=None, detect=None):
     return _send_request(client, 'GET', url)
 
 
-def approve_cutover(repository_id=None, accept_failures=None, organization=None, detect=None):
-    accepted_count = _parse_non_negative_int(accept_failures, '--accept-failures')
+def approve_cutover(repository_id=None, accept_failures=None, pipelines_verified=False,
+                    organization=None, detect=None):
+    accepted_count = None
+    if accept_failures is not None:
+        accepted_count = _parse_non_negative_int(accept_failures, '--accept-failures')
+    if accepted_count is None and not pipelines_verified:
+        raise CLIError('Specify --accept-failures and/or --pipelines-verified. '
+                       'Run "az devops migrations cutover review" to see which is required.')
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     return _update_migration(repository_id, organization, detect=None,
-                             cutover_failure_accepted_count=accepted_count)
+                             cutover_failure_accepted_count=accepted_count,
+                             pipelines_verified=pipelines_verified)
 
 
 def delete_migration(repository_id=None, remove_read_only=False, organization=None, detect=None):
@@ -522,9 +555,113 @@ def delete_migration(repository_id=None, remove_read_only=False, organization=No
     return {'message': 'Migration abandoned successfully.'}
 
 
+def list_pipeline_rewiring(repository_id=None, organization=None, detect=None):
+    organization = _resolve_org_for_auth(organization, detect)
+    repository_id = _resolve_repository_id(repository_id)
+    client = _get_service_client(organization)
+    url = _build_pipelines_url(organization, repository_id)
+    try:
+        return _send_request(client, 'GET', url, api_version=PIPELINES_API_VERSION)
+    except CLIError as ex:
+        message = str(ex)
+        if 'not available for failed migrations' in message.lower() \
+                or 'failed migration' in message.lower():
+            raise CLIError(message + ' Use "az devops migrations pipelines delete '
+                           '--repository-id <id> --migration-id <id>" to abandon the '
+                           'failed migration before retrying.')
+        raise
+
+
+def submit_pipeline_rewiring(
+        repository_id=None, pipeline_ids=None, service_connection_id=None,
+        repository_mapping=None, organization=None, detect=None):
+    parsed_pipeline_ids = _parse_pipeline_id_list(pipeline_ids, '--pipeline-ids', required=True)
+    if len(parsed_pipeline_ids) > 200:
+        raise CLIError('--pipeline-ids supports a maximum of 200 IDs per request.')
+    parsed_service_connection_id = _validate_guid(service_connection_id, '--service-connection-id')
+    parsed_mappings = _parse_repository_mappings(repository_mapping)
+
+    organization = _resolve_org_for_auth(organization, detect)
+    repository_id = _resolve_repository_id(repository_id)
+    client = _get_service_client(organization)
+    payload = {
+        'pipelineIds': parsed_pipeline_ids,
+    }
+    if parsed_service_connection_id is not None:
+        payload['serviceConnectionId'] = parsed_service_connection_id
+    if parsed_mappings is not None:
+        payload['repositoryMappings'] = parsed_mappings
+
+    url = _build_pipelines_url(organization, repository_id)
+    return _send_request(client, 'POST', url, payload, api_version=PIPELINES_API_VERSION)
+
+
+def update_pipeline_rewiring(
+        repository_id=None, add_ids=None, remove_ids=None, retry_ids=None,
+        service_connection_id=None,
+        repository_mapping=None, organization=None, detect=None):
+    parsed_add_ids = _parse_pipeline_id_list(add_ids, '--add-ids')
+    parsed_remove_ids = _parse_pipeline_id_list(remove_ids, '--remove-ids')
+    parsed_retry_ids = _parse_pipeline_id_list(retry_ids, '--retry-ids')
+    parsed_service_connection_id = _validate_guid(service_connection_id, '--service-connection-id')
+    parsed_mappings = _parse_repository_mappings(repository_mapping)
+
+    payload = {}
+    if parsed_add_ids is not None:
+        payload['addPipelineIds'] = parsed_add_ids
+    if parsed_remove_ids is not None:
+        payload['removePipelineIds'] = parsed_remove_ids
+    if parsed_retry_ids is not None:
+        payload['retryFailedPipelineIds'] = parsed_retry_ids
+    if parsed_service_connection_id is not None:
+        payload['serviceConnectionId'] = parsed_service_connection_id
+    if parsed_mappings is not None:
+        payload['repositoryMappings'] = parsed_mappings
+
+    if not payload:
+        raise CLIError('At least one update flag must be provided. Use one or more of '
+                       '--add-ids, --remove-ids, --retry-ids, '
+                       '--service-connection-id, or --repository-mapping.')
+
+    organization = _resolve_org_for_auth(organization, detect)
+    repository_id = _resolve_repository_id(repository_id)
+    client = _get_service_client(organization)
+    url = _build_pipelines_url(organization, repository_id)
+    return _send_request(client, 'PUT', url, payload, api_version=PIPELINES_API_VERSION)
+
+
+def retry_pipeline_rewiring(repository_id=None, pipeline_ids=None, organization=None, detect=None):
+    parsed_pipeline_ids = _parse_pipeline_id_list(pipeline_ids, '--pipeline-ids', required=True)
+    return update_pipeline_rewiring(repository_id=repository_id,
+                                    retry_ids=parsed_pipeline_ids,
+                                    organization=organization,
+                                    detect=detect)
+
+
+def delete_pipeline_rewiring(
+        repository_id=None, migration_id=None, yes=False,
+        organization=None, detect=None):
+    del yes
+    organization = _resolve_org_for_auth(organization, detect)
+    repository_id = _resolve_repository_id(repository_id)
+    migration_id = _parse_positive_int_option(migration_id, '--migration-id')
+
+    client = _get_service_client(organization)
+    url = _build_pipelines_url(organization, repository_id, migration_id=migration_id)
+    try:
+        _send_request(client, 'DELETE', url, api_version=PIPELINES_API_VERSION)
+    except CLIError as ex:
+        if 'status 409' in str(ex):
+            raise CLIError('Cannot delete pipeline rewiring data for migration {}: the '
+                           'migration is not in a terminal stage. Complete or abandon '
+                           'the migration first.'.format(migration_id))
+        raise
+    return {'message': 'Pipeline rewiring data deleted successfully.'}
+
+
 def _update_migration(repository_id, organization, detect, *, validate_only=None,
                       status_requested=None, scheduled_cutover_date=None, include_cutover=False,
-                      cutover_failure_accepted_count=None):
+                      cutover_failure_accepted_count=None, pipelines_verified=False):
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
@@ -539,6 +676,8 @@ def _update_migration(repository_id, organization, detect, *, validate_only=None
         payload['scheduledCutoverDate'] = scheduled_cutover_date
     if cutover_failure_accepted_count is not None:
         payload['cutoverFailureAcceptedCount'] = cutover_failure_accepted_count
+    if pipelines_verified:
+        payload['pipelinesVerified'] = True
     return _send_request(client, 'PUT', url, payload)
 
 
@@ -554,6 +693,90 @@ def _parse_non_negative_int(value, option_name):
     if parsed < 0:
         raise CLIError('{} must be a non-negative integer.'.format(option_name))
     return parsed
+
+
+def _parse_positive_int_option(value, option_name):
+    if value is None:
+        raise CLIError('{} must be specified.'.format(option_name))
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError):
+        raise CLIError('{} must be a positive integer.'.format(option_name))
+    if parsed <= 0:
+        raise CLIError('{} must be a positive integer.'.format(option_name))
+    return parsed
+
+
+def _validate_guid(value, option_name):
+    normalized = _normalize_optional_text(value)
+    if normalized is None:
+        return None
+    try:
+        return str(uuid.UUID(normalized))
+    except (TypeError, ValueError, AttributeError):
+        raise CLIError('{} must be a valid GUID.'.format(option_name))
+
+
+def _parse_pipeline_id_list(values, option_name, required=False):
+    if values is None:
+        if required:
+            raise CLIError('{} must be specified.'.format(option_name))
+        return None
+
+    tokens = values if isinstance(values, list) else [values]
+    parsed_ids = []
+    seen = set()
+    for token in tokens:
+        token_text = _normalize_optional_text(token)
+        if token_text is None:
+            continue
+        split_values = [part.strip() for part in token_text.split(',')]
+        for split_value in split_values:
+            if not split_value:
+                raise CLIError('{} contains an empty value. Use positive integer pipeline IDs only.'
+                               .format(option_name))
+            try:
+                pipeline_id = int(split_value)
+            except (TypeError, ValueError):
+                raise CLIError('{} must contain positive integer pipeline IDs. Invalid value: {}'
+                               .format(option_name, split_value))
+            if pipeline_id <= 0:
+                raise CLIError('{} must contain positive integer pipeline IDs. Invalid value: {}'
+                               .format(option_name, split_value))
+            if pipeline_id not in seen:
+                seen.add(pipeline_id)
+                parsed_ids.append(pipeline_id)
+
+    if required and not parsed_ids:
+        raise CLIError('{} must be specified.'.format(option_name))
+    return parsed_ids if parsed_ids else None
+
+
+def _parse_repository_mappings(values):
+    if values is None:
+        return None
+
+    parsed_mappings = []
+    for raw_value in values:
+        mapping_text = _normalize_optional_text(raw_value)
+        if mapping_text is None:
+            raise CLIError('--repository-mapping cannot be empty. Expected <sourceRepoId>=<owner>/<repo>.')
+        if '=' not in mapping_text:  # pylint: disable=unsupported-membership-test
+            raise CLIError('--repository-mapping must be in the format <sourceRepoId>=<owner>/<repo>.')
+        source_repo_id, target_repo = mapping_text.split('=', 1)
+        source_repo_id = _validate_guid(source_repo_id, '--repository-mapping source repo ID')
+        target_repo = _normalize_optional_text(target_repo)
+        if target_repo is None or target_repo.count('/') != 1:
+            raise CLIError('--repository-mapping target must be in the format <owner>/<repo>.')
+        owner, repo = target_repo.split('/', 1)
+        if not owner.strip() or not repo.strip():
+            raise CLIError('--repository-mapping target must be in the format <owner>/<repo>.')
+        parsed_mappings.append({
+            'sourceRepositoryId': source_repo_id,
+            'targetRepository': '{}/{}'.format(owner.strip(), repo.strip())
+        })
+
+    return parsed_mappings
 
 
 def _resolve_repository_id(repository_id):
@@ -653,6 +876,14 @@ def _build_cutover_review_url(base_url, repository_id):
     return url + '?api-version=' + API_VERSION
 
 
+def _build_pipelines_url(base_url, repository_id, migration_id=None):
+    url = base_url.rstrip('/') + MIGRATIONS_API_PATH + '/{}{}'.format(repository_id, PIPELINES_API_PATH_SUFFIX)
+    query_parts = ['api-version={}'.format(PIPELINES_API_VERSION)]
+    if migration_id is not None:
+        query_parts.append('migrationId={}'.format(migration_id))
+    return '{}?{}'.format(url, '&'.join(query_parts))
+
+
 def _get_service_client(organization):
     config = Configuration(base_url=None)
     config.add_user_agent('devOpsCli/{}'.format(VERSION))
@@ -661,11 +892,11 @@ def _get_service_client(organization):
     return ServiceClient(creds=connection._creds, config=config)  # pylint: disable=protected-access
 
 
-def _send_request(client, method, url, content=None):
+def _send_request(client, method, url, content=None, api_version=API_VERSION):
     request = ClientRequest(method=method, url=url)
     headers = {
         'Content-Type': 'application/json; charset=utf-8',
-        'Accept': 'application/json;api-version=' + API_VERSION
+        'Accept': 'application/json;api-version=' + api_version
     }
     response = client.send(request=request, headers=headers, content=content)
     if response.status_code < 200 or response.status_code >= 300:
@@ -679,7 +910,24 @@ def _send_request(client, method, url, content=None):
                 error_detail = body.get('message') or body.get('Message') or str(body)
         except Exception:  # pylint: disable=broad-except
             error_detail = getattr(response, 'text', None) or getattr(response, 'content', None) or ''
-        raise CLIError('Request failed with status {}. {}'.format(response.status_code, error_detail))
+
+        if response.status_code >= 500:
+            headers_map = response.headers if response.headers else {}
+            correlation_id = headers_map.get('X-VSS-E2EID') or headers_map.get('x-vss-e2eid')
+            if correlation_id:
+                if error_detail:
+                    error_detail = '{} CorrelationId: {}'.format(error_detail, correlation_id)
+                else:
+                    error_detail = 'CorrelationId: {}'.format(correlation_id)
+        if response.status_code == 400 and 'EnsureBranchExists' in (error_detail or ''):
+            raise CLIError("No pipeline rewiring data exists for this migration yet. "
+                           "Run 'az devops migrations pipelines submit' first.")
+        message = 'Request failed with status {}. {}'.format(response.status_code, error_detail)
+        if response.status_code == 404:
+            raise ResourceNotFoundError(message)
+        if response.status_code == 403:
+            raise ForbiddenError(message)
+        raise CLIError(message)
 
     content_type = response.headers.get('Content-Type') if response.headers else None
     if content_type and 'json' in content_type:

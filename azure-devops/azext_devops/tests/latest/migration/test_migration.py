@@ -24,7 +24,11 @@ from azext_devops.dev.migration.migration import (list_migrations,
                                                   approve_cutover,
                                                   delete_migration,
                                                   pause_migration,
-                                                  resume_migration)
+                                                  resume_migration,
+                                                  submit_pipeline_rewiring,
+                                                  update_pipeline_rewiring,
+                                                  retry_pipeline_rewiring,
+                                                  delete_pipeline_rewiring)
 
 
 class TestMigrationCommands(unittest.TestCase):
@@ -263,6 +267,8 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertIn('status 400', str(ctx.exception))
 
     def test_create_migration_with_service_endpoint_skips_device_flow(self):
+        # SE present + env var set: env var IS used for user-identity verification,
+        # but device flow MUST NOT run (would break non-interactive SE flows).
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
@@ -270,8 +276,6 @@ class TestMigrationCommands(unittest.TestCase):
              patch('azext_devops.dev.migration.migration._run_device_flow') as mock_run_flow:
             mock_send.return_value = {}
             mock_resolve.return_value = self._TEST_ORG
-            # Even with the env token set in setUp, presence of service-endpoint-id
-            # must short-circuit token resolution entirely.
             create_migration(
                 repository_id='00000000-0000-0000-0000-000000000000',
                 target_repository='https://example.ghe.com/OrgName/RepoName',
@@ -286,31 +290,38 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(mock_send.call_count, 1)
             payload = mock_send.call_args[0][3]
             self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
-            self.assertNotIn('gitHubUserToken', payload)
+            self.assertEqual(payload['gitHubUserToken'], 'env-token-for-tests')
 
-    def test_create_migration_with_service_endpoint_and_token_rejected(self):
+    def test_create_migration_with_service_endpoint_and_token_both_sent(self):
+        # SE and user PAT are independent. The CLI must forward both to the server:
+        # SE for sync, user token for identity verification.
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
-             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
+             patch('azext_devops.dev.migration.migration._get_device_flow_config') as mock_flow, \
+             patch('azext_devops.dev.migration.migration._run_device_flow') as mock_run_flow:
+            mock_send.return_value = {}
             mock_resolve.return_value = self._TEST_ORG
 
-            with self.assertRaises(CLIError) as ctx:
-                create_migration(
-                    repository_id='00000000-0000-0000-0000-000000000000',
-                    target_repository='https://example.ghe.com/OrgName/RepoName',
-                    target_owner_user_id='TestOwner',
-                    service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
-                    github_token='param-token',
-                    organization=self._TEST_ORG,
-                    detect=False
-                )
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                target_owner_user_id='TestOwner',
+                service_endpoint_id='1df3c9b3-666c-4033-82de-059e7759ddfe',
+                github_token='param-token',
+                organization=self._TEST_ORG,
+                detect=False
+            )
 
-            self.assertIn('Specify either --service-endpoint-id or --github-token', str(ctx.exception))
-            mock_send.assert_not_called()
+            mock_flow.assert_not_called()
+            mock_run_flow.assert_not_called()
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
+            self.assertEqual(payload['gitHubUserToken'], 'param-token')
 
-    def test_create_migration_with_service_endpoint_ignores_env_token(self):
-        # ELM_GITHUB_TOKEN is set in setUp; the service endpoint path must not
-        # pick it up and must not include gitHubUserToken in the payload.
+    def test_create_migration_with_service_endpoint_uses_env_token(self):
+        # ELM_GITHUB_TOKEN is set in setUp; with SE provided and no explicit
+        # --github-token, the env var is picked up for identity verification.
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
@@ -329,7 +340,7 @@ class TestMigrationCommands(unittest.TestCase):
 
             mock_flow.assert_not_called()
             payload = mock_send.call_args[0][3]
-            self.assertNotIn('gitHubUserToken', payload)
+            self.assertEqual(payload['gitHubUserToken'], 'env-token-for-tests')
             self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
             self.assertTrue(payload['validateOnly'])
 
@@ -355,7 +366,7 @@ class TestMigrationCommands(unittest.TestCase):
             mock_flow.assert_not_called()
             payload = mock_send.call_args[0][3]
             self.assertEqual(payload['serviceEndpointId'], '1df3c9b3-666c-4033-82de-059e7759ddfe')
-            self.assertNotIn('gitHubUserToken', payload)
+            self.assertEqual(payload['gitHubUserToken'], 'env-token-for-tests')
 
     def test_create_migration_service_endpoint_conflict_returns_clear_message(self):
         # Ensure the 409/TF400898 friendly message still surfaces on the
@@ -407,7 +418,7 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(payload['agentPoolName'], 'TestPool')
             self.assertEqual(payload['scheduledCutoverDate'], '2026-06-01T00:00:00Z')
             self.assertEqual(payload['skipValidation'], 4)
-            self.assertNotIn('gitHubUserToken', payload)
+            self.assertEqual(payload['gitHubUserToken'], 'env-token-for-tests')
 
     def test_create_migration_no_token_and_missing_device_flow_config_fields_fails(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -855,7 +866,7 @@ class TestMigrationCommands(unittest.TestCase):
             self.assertEqual(payload['serviceEndpointId'], '12345678-1234-1234-1234-123456789012')
             # When a service connection is supplied, the server uses it for GitHub auth;
             # the CLI must not resolve or send a GitHub token.
-            self.assertNotIn('gitHubUserToken', payload)
+            self.assertEqual(payload['gitHubUserToken'], 'env-token-for-tests')
 
     def test_create_migration_service_endpoint_id_skips_github_token_resolution(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
@@ -1021,7 +1032,46 @@ class TestMigrationCommands(unittest.TestCase):
                 organization=self._TEST_ORG,
                 detect=False
             )
-        self.assertIn('--accept-failures must be specified', str(ctx.exception))
+        self.assertIn('--accept-failures and/or --pipelines-verified', str(ctx.exception))
+
+    def test_approve_cutover_sends_pipelines_verified_only(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {'stage': 'ReadyForCutover'}
+            mock_resolve.return_value = self._TEST_ORG
+
+            approve_cutover(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipelines_verified=True,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'PUT')
+            self.assertEqual(args[3]['pipelinesVerified'], True)
+            self.assertNotIn('cutoverFailureAcceptedCount', args[3])
+
+    def test_approve_cutover_sends_pipelines_verified_with_accept_failures(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_send.return_value = {'stage': 'ReadyForCutover'}
+            mock_resolve.return_value = self._TEST_ORG
+
+            approve_cutover(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                accept_failures=2,
+                pipelines_verified=True,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'PUT')
+            self.assertEqual(args[3]['cutoverFailureAcceptedCount'], 2)
+            self.assertEqual(args[3]['pipelinesVerified'], True)
 
     def test_approve_cutover_rejects_negative_accept_failures(self):
         with self.assertRaises(CLIError) as ctx:
@@ -1095,7 +1145,7 @@ class TestMigrationCommands(unittest.TestCase):
             warning_msg = mock_logger.warning.call_args[0][0]
             self.assertIn('No migrations found', warning_msg)
 
-    def test_list_migrations_hints_include_inactive_when_not_passed(self):
+    def test_list_migrations_hints_include_all_when_not_passed(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
@@ -1103,12 +1153,12 @@ class TestMigrationCommands(unittest.TestCase):
             mock_send.return_value = {'value': []}
             mock_resolve.return_value = self._TEST_ORG
 
-            list_migrations(include_inactive=False, organization=self._TEST_ORG, detect=False)
+            list_migrations(include_all=False, organization=self._TEST_ORG, detect=False)
 
             warning_call = str(mock_logger.warning.call_args)
-            self.assertIn('include-inactive', warning_call)
+            self.assertIn('include-all', warning_call)
 
-    def test_list_migrations_no_hint_when_include_inactive_passed(self):
+    def test_list_migrations_no_hint_when_include_all_passed(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
              patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
              patch('azext_devops.dev.migration.migration._send_request') as mock_send, \
@@ -1116,10 +1166,10 @@ class TestMigrationCommands(unittest.TestCase):
             mock_send.return_value = {'value': []}
             mock_resolve.return_value = self._TEST_ORG
 
-            list_migrations(include_inactive=True, organization=self._TEST_ORG, detect=False)
+            list_migrations(include_all=True, organization=self._TEST_ORG, detect=False)
 
             warning_call = str(mock_logger.warning.call_args)
-            self.assertNotIn('include-inactive', warning_call)
+            self.assertNotIn('include-all', warning_call)
 
     def test_resume_rejects_both_flags(self):
         with self.assertRaises(CLIError):
@@ -1160,6 +1210,17 @@ class TestMigrationCommands(unittest.TestCase):
                 resume_migration(repository_id='00000000-0000-0000-0000-000000000000',
                                  organization=self._TEST_ORG, detect=False)
             self.assertIn('statusRequested: Active', str(ctx.exception))
+
+    def test_is_migration_active_covers_all_in_progress_stages(self):
+        # Stage-only fallback (no status field) must treat every in-progress stage as active,
+        # including the cutover-gate stages readyForCutover / reviewForCutover.
+        for stage in ('queued', 'validation', 'synchronization',
+                      'readyForCutover', 'reviewForCutover', 'cutover'):
+            self.assertTrue(migration_module._is_migration_active({'stage': stage}),
+                            'stage {} should be active'.format(stage))
+        # Terminal/unknown stages are not active.
+        self.assertFalse(migration_module._is_migration_active({'stage': 'migrated'}))
+        self.assertFalse(migration_module._is_migration_active({'stage': 'aborted'}))
 
     def test_resume_sets_validate_only(self):
         with patch('azext_devops.dev.migration.migration.get_migration') as mock_get, \
@@ -1473,6 +1534,457 @@ class TestMigrationCommands(unittest.TestCase):
         self.assertIn('Pre-check issues:', text)
         self.assertIn('TargetRepositoryDoesNotExist', text)
         self.assertIn('Target repository could not be found.', text)
+
+    def test_submit_pipeline_rewiring_omits_service_connection_when_not_provided(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = []
+
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42'],
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['pipelineIds'], [42])
+            self.assertNotIn('serviceConnectionId', payload)
+
+    def test_submit_pipeline_rewiring_omits_service_connection_when_empty_string(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = []
+
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42'],
+                service_connection_id='   ',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertNotIn('serviceConnectionId', payload)
+
+    def test_submit_pipeline_rewiring_accepts_space_separated_ids(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = []
+
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42', '43', '44'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['pipelineIds'], [42, 43, 44])
+            self.assertEqual(payload['serviceConnectionId'], '11111111-1111-1111-1111-111111111111')
+
+    def test_submit_pipeline_rewiring_accepts_comma_separated_ids(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = []
+
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42,43,44'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['pipelineIds'], [42, 43, 44])
+
+    def test_submit_pipeline_rewiring_rejects_invalid_pipeline_id(self):
+        with self.assertRaises(CLIError) as ctx:
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42', 'abc'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('--pipeline-ids', str(ctx.exception))
+
+    def test_submit_pipeline_rewiring_rejects_invalid_service_connection_guid(self):
+        with self.assertRaises(CLIError) as ctx:
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42'],
+                service_connection_id='not-a-guid',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('--service-connection-id must be a valid GUID', str(ctx.exception))
+
+    def test_submit_pipeline_rewiring_rejects_invalid_repository_mapping(self):
+        with self.assertRaises(CLIError) as ctx:
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                repository_mapping=['not-a-guid=myorg/repo'],
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('repository-mapping source repo ID', str(ctx.exception))
+
+    def test_submit_pipeline_rewiring_rejects_repository_mapping_with_extra_slash(self):
+        with self.assertRaises(CLIError) as ctx:
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                repository_mapping=['aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa=myorg/repo/extra'],
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('format <owner>/<repo>', str(ctx.exception))
+
+    def test_submit_pipeline_rewiring_parses_repository_mapping(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = []
+
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                repository_mapping=['aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa=myorg/shared-templates'],
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['repositoryMappings'][0]['sourceRepositoryId'],
+                             'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa')
+            self.assertEqual(payload['repositoryMappings'][0]['targetRepository'],
+                             'myorg/shared-templates')
+
+    def test_update_pipeline_rewiring_rejects_no_flags(self):
+        with self.assertRaises(CLIError) as ctx:
+            update_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('At least one update flag must be provided', str(ctx.exception))
+
+    def test_update_pipeline_rewiring_payload_contains_provided_fields_only(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = []
+
+            update_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                add_ids=['50', '51'],
+                remove_ids=['42'],
+                service_connection_id='22222222-2222-2222-2222-222222222222',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['addPipelineIds'], [50, 51])
+            self.assertEqual(payload['removePipelineIds'], [42])
+            self.assertEqual(payload['serviceConnectionId'], '22222222-2222-2222-2222-222222222222')
+            self.assertNotIn('retryFailedPipelineIds', payload)
+            self.assertNotIn('acknowledgePipelineIds', payload)
+
+    def test_retry_pipeline_rewiring_calls_update_with_retry_ids(self):
+        with patch('azext_devops.dev.migration.migration.update_pipeline_rewiring') as mock_update:
+            mock_update.return_value = []
+
+            retry_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42', '43'],
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            kwargs = mock_update.call_args[1]
+            self.assertEqual(kwargs['retry_ids'], [42, 43])
+
+    def test_submit_pipeline_rewiring_rejects_more_than_200_ids(self):
+        too_many_ids = [str(i) for i in range(1, 202)]
+        with self.assertRaises(CLIError) as ctx:
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=too_many_ids,
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('maximum of 200', str(ctx.exception))
+
+    def test_submit_pipeline_rewiring_rejects_empty_comma_value(self):
+        with self.assertRaises(CLIError) as ctx:
+            submit_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                pipeline_ids=['42,,43'],
+                service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+        self.assertIn('contains an empty value', str(ctx.exception))
+
+    def test_delete_pipeline_rewiring_calls_delete_with_migration_id_query(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_send.return_value = {}
+
+            delete_pipeline_rewiring(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                migration_id=7,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            args = mock_send.call_args[0]
+            self.assertEqual(args[1], 'DELETE')
+            self.assertIn('migrationId=7', args[2])
+
+    def test_send_request_404_returns_server_message(self):
+        class MockResponse(object):
+            status_code = 404
+            headers = {'Content-Type': 'application/json'}
+
+            @staticmethod
+            def json():
+                return {'message': 'Migration not found'}
+
+        class MockClient(object):
+            @staticmethod
+            def send(request, headers, content):
+                del request, headers, content
+                return MockResponse()
+
+        with self.assertRaises(CLIError) as ctx:
+            migration_module._send_request(MockClient(), 'GET', 'https://example.test')
+        self.assertIn('status 404', str(ctx.exception))
+        self.assertIn('Migration not found', str(ctx.exception))
+
+    def test_send_request_includes_correlation_id_for_server_errors(self):
+        class MockResponse(object):
+            status_code = 500
+            headers = {'Content-Type': 'application/json', 'X-VSS-E2EID': 'abc-123'}
+
+            @staticmethod
+            def json():
+                return {'message': 'Internal server error'}
+
+        class MockClient(object):
+            @staticmethod
+            def send(request, headers, content):
+                del request, headers, content
+                return MockResponse()
+
+        with self.assertRaises(CLIError) as ctx:
+            migration_module._send_request(MockClient(), 'GET', 'https://example.test')
+        self.assertIn('abc-123', str(ctx.exception))
+
+
+    def test_send_request_404_raises_resource_not_found_error(self):
+        from azure.cli.core.azclierror import ResourceNotFoundError
+
+        class MockResponse(object):
+            status_code = 404
+            headers = {'Content-Type': 'application/json'}
+
+            @staticmethod
+            def json():
+                return {'message': 'Migration not found'}
+
+        class MockClient(object):
+            @staticmethod
+            def send(request, headers, content):
+                del request, headers, content
+                return MockResponse()
+
+        with self.assertRaises(ResourceNotFoundError) as ctx:
+            migration_module._send_request(MockClient(), 'GET', 'https://example.test')
+        self.assertIn('status 404', str(ctx.exception))
+
+    def test_send_request_403_raises_forbidden_error(self):
+        from azure.cli.core.azclierror import ForbiddenError
+
+        class MockResponse(object):
+            status_code = 403
+            headers = {'Content-Type': 'application/json'}
+
+            @staticmethod
+            def json():
+                return {'message': 'Access denied'}
+
+        class MockClient(object):
+            @staticmethod
+            def send(request, headers, content):
+                del request, headers, content
+                return MockResponse()
+
+        with self.assertRaises(ForbiddenError) as ctx:
+            migration_module._send_request(MockClient(), 'GET', 'https://example.test')
+        self.assertIn('status 403', str(ctx.exception))
+        self.assertIn('Access denied', str(ctx.exception))
+
+    def test_list_pipeline_rewiring_appends_hint_on_failed_migration(self):
+        with patch('azext_devops.dev.migration.migration._resolve_org_for_auth') as mock_org, \
+                patch('azext_devops.dev.migration.migration._resolve_repository_id') as mock_repo, \
+                patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+                patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            mock_org.return_value = 'https://dev.azure.com/contoso'
+            mock_repo.return_value = '11111111-1111-1111-1111-111111111111'
+            mock_client.return_value = object()
+            mock_send.side_effect = CLIError(
+                'Request failed with status 400. Pipeline information is not available '
+                'for failed migrations.')
+
+            with self.assertRaises(CLIError) as ctx:
+                migration_module.list_pipeline_rewiring(
+                    repository_id='11111111-1111-1111-1111-111111111111',
+                    organization='https://dev.azure.com/contoso')
+            self.assertIn('pipelines delete', str(ctx.exception))
+
+
+    def test_create_migration_includes_enable_boards_github_connection_when_requested(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            del mock_client
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                enable_boards_github_connection=True,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['configOptions'], {'enableBoardsGitHubConnection': True})
+
+    def test_create_migration_includes_enable_auto_discover_pipelines_when_requested(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            del mock_client
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                enable_auto_discover_pipelines=True,
+                pipeline_service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['configOptions'], {'enableAutoDiscoverPipelines': True})
+
+    def test_create_migration_blocks_auto_discover_without_service_connection(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            del mock_client
+            mock_resolve.return_value = self._TEST_ORG
+
+            with self.assertRaises(CLIError) as ctx:
+                create_migration(
+                    repository_id='00000000-0000-0000-0000-000000000000',
+                    target_repository='https://example.ghe.com/OrgName/RepoName',
+                    enable_auto_discover_pipelines=True,
+                    organization=self._TEST_ORG,
+                    detect=False
+                )
+
+            self.assertIn('--pipeline-service-connection-id', str(ctx.exception))
+            mock_send.assert_not_called()
+
+    def test_create_migration_includes_both_config_options_when_both_flags_set(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            del mock_client
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                enable_boards_github_connection=True,
+                enable_auto_discover_pipelines=True,
+                pipeline_service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['configOptions'], {
+                'enableBoardsGitHubConnection': True,
+                'enableAutoDiscoverPipelines': True,
+            })
+
+    def test_create_migration_includes_pipeline_service_connection_id_at_top_level(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            del mock_client
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                pipeline_service_connection_id='11111111-1111-1111-1111-111111111111',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertEqual(payload['pipelineServiceConnectionId'],
+                             '11111111-1111-1111-1111-111111111111')
+            self.assertNotIn('configOptions', payload)
+
+    def test_create_migration_omits_enable_boards_github_connection_by_default(self):
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration._get_service_client') as mock_client, \
+             patch('azext_devops.dev.migration.migration._send_request') as mock_send:
+            del mock_client
+            mock_send.return_value = {}
+            mock_resolve.return_value = self._TEST_ORG
+
+            create_migration(
+                repository_id='00000000-0000-0000-0000-000000000000',
+                target_repository='https://example.ghe.com/OrgName/RepoName',
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            payload = mock_send.call_args[0][3]
+            self.assertNotIn('configOptions', payload)
 
 
 if __name__ == '__main__':

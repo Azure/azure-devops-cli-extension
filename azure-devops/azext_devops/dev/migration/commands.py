@@ -8,7 +8,9 @@ from azext_devops.dev.common.exception_handler import azure_devops_exception_han
 from ._format import (transform_migrations_table_output,
                       transform_migration_table_output,
                       transform_message_output,
-                      transform_cutover_review_table_output)
+                      transform_cutover_review_table_output,
+                      transform_pipelines_list_table_output,
+                      transform_pipeline_entries_table_output)
 
 
 migrationOps = CliCommandType(
@@ -33,3 +35,12 @@ def load_migration_commands(self, _):
         g.command('approve', 'approve_cutover', table_transformer=transform_migration_table_output)
         g.command('set', 'schedule_cutover', table_transformer=transform_migration_table_output)
         g.command('cancel', 'cancel_cutover', table_transformer=transform_message_output)
+
+    with self.command_group('devops migrations pipelines', command_type=migrationOps, is_preview=True) as g:
+        g.command('list', 'list_pipeline_rewiring', table_transformer=transform_pipelines_list_table_output)
+        g.command('submit', 'submit_pipeline_rewiring', table_transformer=transform_pipeline_entries_table_output)
+        g.command('update', 'update_pipeline_rewiring', table_transformer=transform_pipeline_entries_table_output)
+        g.command('retry', 'retry_pipeline_rewiring', table_transformer=transform_pipeline_entries_table_output)
+        g.command('delete', 'delete_pipeline_rewiring',
+                  confirmation='Are you sure you want to delete pipeline rewiring data for this migration?',
+                  table_transformer=transform_message_output)
