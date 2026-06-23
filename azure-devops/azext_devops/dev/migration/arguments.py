@@ -16,7 +16,7 @@ def load_migration_arguments(self, _):
 
     with self.argument_context('devops migrations pipelines') as context:
         context.argument('repository_mapping', options_list='--repository-mapping', action='append',
-                         help='Repository mapping in the format <sourceRepoId>=<targetOwner>/<targetRepo>. '
+                         help='Repository mapping in the format `<sourceRepoId>=<targetOwner>/<targetRepo>`. '
                               'Can be provided multiple times.')
 
     with self.argument_context('devops migrations pipelines submit') as context:
@@ -65,7 +65,7 @@ def load_migration_arguments(self, _):
 
     with self.argument_context('devops migrations create') as context:
         context.argument('target_repository', options_list='--target-repository',
-                         help='Target repository URL (must start with http:// or https://).')
+                         help='Target repository URL (must start with `http://` or `https://`).')
         context.argument('target_owner_user_id', options_list='--target-owner-user-id',
                          help='Target repository owner user ID. Deprecated and ignored when server-side '
                               'token-based owner resolution is enabled.')
@@ -97,13 +97,15 @@ def load_migration_arguments(self, _):
                               'verification: --github-token / ELM_GITHUB_TOKEN can be supplied '
                               'alongside this flag. Device flow is skipped when this flag is set.')
         context.argument('enable_boards_github_connection',
-                         options_list='--enable-boards-github-connection', action='store_true',
+                         options_list=['--enable-boards-github-connection', '--enable-boards-gh'],
+                         action='store_true',
                          help='Opt in to provisioning the Azure Boards GitHub connection at '
                               'cutover. Off by default. Requires the Azure Boards GitHub App '
                               'to be installed on the target GitHub Enterprise organization '
                               'before the migration runs.')
         context.argument('enable_auto_discover_pipelines',
-                         options_list='--enable-auto-discover-pipelines', action='store_true',
+                         options_list=['--enable-auto-discover-pipelines', '--auto-discover'],
+                         action='store_true',
                          help='Opt in to automatic pipeline discovery at cutover. Off by default. '
                               'When enabled, the ELM sync job walks the source repository and '
                               'creates clone definitions for every pipeline that references it. '
@@ -112,7 +114,7 @@ def load_migration_arguments(self, _):
                               'Pipeline rewiring itself is always available via '
                               'az devops migrations pipelines submit / update.')
         context.argument('pipeline_service_connection_id',
-                         options_list='--pipeline-service-connection-id',
+                         options_list=['--pipeline-service-connection-id', '--pipeline-sc-id'],
                          help='Project-scoped GitHub service connection ID (GUID) attached at '
                               'create time for pipeline rewiring. Required for full auto-discovery '
                               'when combined with --enable-auto-discover-pipelines; optional in '
