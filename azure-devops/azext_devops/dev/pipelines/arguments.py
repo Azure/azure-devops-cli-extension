@@ -119,3 +119,10 @@ def load_build_arguments(self, _):
 
     with self.argument_context('pipelines folder') as context:
         context.argument('query_order', **enum_choice_list(_FOLDERS_QUERY_ORDER))
+
+    with self.argument_context('pipelines runs artifact upload') as context:
+        context.argument(
+            'properties',
+            options_list=['--properties'],
+            help="Optional custom properties for the artifact in 'key1=value1;key2=value2' format."
+        )

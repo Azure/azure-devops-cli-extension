@@ -109,6 +109,17 @@ def load_pipelines_help():
     long-summary:
     """
 
+    helps['pipelines runs artifact upload'] = """
+    type: command
+    short-summary: Upload a pipeline artifact.
+    long-summary: >
+        Upload a pipeline artifact to a specific run. Optionally specify custom properties as metadata.
+    examples:
+      - name: Upload a pipeline artifact with custom properties
+        text: |
+          az pipelines runs artifact upload --artifact-name myArtifact --run-id 123 --path /path/to/artifact --properties "user-key1=value1;user-key2=value2"
+"""
+
     helps['pipelines create'] = """
     type: command
     short-summary: Create a new Azure Pipeline (YAML based).
