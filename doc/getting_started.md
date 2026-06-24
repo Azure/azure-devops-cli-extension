@@ -21,7 +21,7 @@ This ensures that the "contoso" and "PaymentModule" are configured as defaults f
 
 You can view the defaults configured by running the following command:
 
-```bash
+```azurecli
 $az devops configure --list
 
 [defaults]
@@ -43,7 +43,7 @@ Let us look at an example where the Azure DevOps Extension can be used to view a
 
 1. Log in to Azure CLI
 
-    ```bash
+    ```azurecli
     $az login
     Note, we have launched a browser for you to login. For old experience with device code, use "az login --use-device-code"
     You have logged in. Now let us find all the subscriptions to which you have access...
@@ -51,7 +51,7 @@ Let us look at an example where the Azure DevOps Extension can be used to view a
 
 1. Configure defaults
 
-    ```bash
+    ```azurecli
     $az devops configure --defaults organization=https://dev.azure.com/contosoWebApp project=PaymentModule`
     ```
 
@@ -59,7 +59,7 @@ If you want to explore the help document for any command, use the help switch (-
 
 For example, in the above scenario, to see the help documentation, run the following command:
 
-```bash
+```azurecli
 $ az devops configure -h
 
 Command
@@ -85,7 +85,7 @@ Global Arguments
 
 1. List all build pipelines
 
-    ```bash
+    ```azurecli
     $az pipelines build list -o table
     ID   Number      Status      Result     Definition ID   Definition Name           Source Branch    Queued Time                 Reason
     ---  ----------  ---------   ---------  -------------   -----------------------   --------------   --------------------------  -------
@@ -94,7 +94,7 @@ Global Arguments
 
 1. Queue a build pipeline
 
-    ```bash
+    ```azurecli
     $az pipelines build queue --definition-name Contoso.CI -o table
     ID   Number      Status      Result     Definition ID   Definition Name           Source Branch    Queued Time                 Reason
     ---  ----------  ---------   ---------  -------------   -----------------------   --------------   --------------------------  -------
