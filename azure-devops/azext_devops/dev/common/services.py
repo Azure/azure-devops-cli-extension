@@ -307,11 +307,11 @@ def get_base_url(organization):
 
 def _team_organization_arg_error():
     return CLIError('--organization must be specified. The value should be the URI of your Azure DevOps '
-                    'organization, for example: https://dev.azure.com/MyOrganization/ or your Azure DevOps Server '
-                    'organization. You can set a default value by running: az devops configure --defaults '
+                    'organization, for example: https://dev.azure.com/MyOrganization/. '
+                    'You can set a default value by running: az devops configure --defaults '
                     'organization=https://dev.azure.com/MyOrganization/. For auto detection to work '
-                    '(--detect true), you must be in a local Git directory that has a "remote" referencing a '
-                    'Azure DevOps or Azure DevOps Server repository.')
+                    '(--detect true), you must be in a local Git directory that has a "remote" referencing an '
+                    'Azure DevOps repository.')
 
 
 def _raise_team_project_arg_error():
@@ -337,14 +337,20 @@ def resolve_instance_project_and_repo(
     if organization is None:
         if should_detect(detect):
             git_info = get_vsts_info_from_current_remote_url()
-            organization = git_info.uri
-            vsts_tracking_data.properties[ORG_PICKED_FROM_GIT] = organization is not None
-            if project is None:
-                project = git_info.project
-                vsts_tracking_data.properties[PROJECT_PICKED_FROM_GIT] = project is not None
-                if repo is None:
-                    repo = git_info.repo
-                    vsts_tracking_data.properties[REPO_PICKED_FROM_GIT] = repo is not None
+            if git_info is not None and git_info.uri is not None:
+                organization = git_info.uri
+                vsts_tracking_data.properties[ORG_PICKED_FROM_GIT] = True
+                if project is None:
+                    project = git_info.project
+                    vsts_tracking_data.properties[PROJECT_PICKED_FROM_GIT] = project is not None
+                    if repo is None:
+                        repo = git_info.repo
+                        vsts_tracking_data.properties[REPO_PICKED_FROM_GIT] = repo is not None
+            else:
+                vsts_tracking_data.properties[ORG_PICKED_FROM_GIT] = False
+                logger.warning('Auto-detect was enabled but no Azure DevOps remote was found in the '
+                               'current git repository. Ensure your git remote points to an Azure DevOps URL '
+                               '(e.g., https://dev.azure.com/MyOrganization/...).')
         if organization is None:
             organization = _resolve_instance_from_config(organization)
             vsts_tracking_data.properties[ORG_PICKED_FROM_CONFIG] = organization is not None
@@ -359,13 +365,13 @@ def resolve_instance_project_and_repo(
             vsts_tracking_data.properties[PROJECT_IGNORED_FROM_CONFIG] = projectFromConfig is not None
     if not is_valid_url(organization):
         raise _team_organization_arg_error()
+    if not check_organization_in_azure(organization):
+        raise CLIError('The Azure DevOps CLI extension works only with Azure DevOps Services (cloud). '
+                       'It doesn\'t support Azure DevOps Server (on-premises).')
     if project_required and project is None:
         _raise_team_project_arg_error()
     if repo_required and repo is None:
         _raise_repo_requird_arg_error()
-
-    if not check_organization_in_azure(organization):
-        logger.warning("The Azure DevOps Extension for the Azure CLI does not support Azure DevOps Server.")
 
     return organization, project, repo
 
