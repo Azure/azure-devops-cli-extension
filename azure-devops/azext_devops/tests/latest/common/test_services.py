@@ -82,11 +82,11 @@ class TestServicesMethods(unittest.TestCase):
         self.assertEqual(False, showWarning)
 
     ORG_ERROR_STRING = ('--organization must be specified. The value should be the URI of your Azure DevOps '
-                    'organization, for example: https://dev.azure.com/MyOrganization/ or your Azure DevOps Server organization. '
+                    'organization, for example: https://dev.azure.com/MyOrganization/. '
                     'You can set a default value by running: az devops configure --defaults '
                     'organization=https://dev.azure.com/MyOrganization/. For auto detection to work '
-                    '(--detect true), you must be in a local Git directory that has a "remote" referencing a '
-                    'Azure DevOps or Azure DevOps Server repository.')
+                    '(--detect true), you must be in a local Git directory that has a "remote" referencing an '
+                    'Azure DevOps repository.')
 
 if __name__ == '__main__':
     unittest.main()

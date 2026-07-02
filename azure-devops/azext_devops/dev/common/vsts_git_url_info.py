@@ -90,6 +90,11 @@ class VstsGitUrlInfo():
                     uri = uri[:ssh_path_segment_pos] + '_git/' + uri[ssh_path_segment_pos + len(ssh_path_segment):]
         else:
             uri = remote_url
+        # Validate the resolved host before sending any credentials
+        resolved_components = uri_parse(uri.lower())
+        if not _is_azure_devops_host(resolved_components.netloc):
+            logger.warning('Skipping auto-detect: remote URL host is not a known Azure DevOps host.')
+            return None
         credentials = _get_credentials(uri)
         try:
             return GitClient.get_vsts_info_by_remote_url(uri, credentials=credentials)
@@ -127,7 +132,7 @@ class VstsGitUrlInfo():
         if url is None:
             return False
         components = uri_parse(url.lower())
-        if components.netloc == 'github.com':
+        if not _is_azure_devops_host(components.netloc):
             return False
         if components.path is not None \
             and (components.path.find('/_git/') >= 0 or components.path.find('/_ssh/') >= 0 or
@@ -149,6 +154,19 @@ class VstsGitUrlInfo():
             self.project = project
             self.repository = repository
             self.server_url = server_url
+
+
+def _is_azure_devops_host(netloc):
+    """Return True only for known Azure DevOps hosted service hostnames."""
+    if netloc is None:
+        return False
+    # Strip optional user@ prefix (e.g. "org@vs-ssh.visualstudio.com")
+    host = netloc.split('@')[-1].split(':')[0].lower()
+    if host == 'dev.azure.com' or host == 'ssh.dev.azure.com':
+        return True
+    if host.endswith('.visualstudio.com'):
+        return True
+    return False
 
 
 _git_remote_info_cache = get_cli_cache('remotes', 0)
