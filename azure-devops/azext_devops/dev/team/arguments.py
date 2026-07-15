@@ -87,6 +87,17 @@ def load_team_arguments(self, _):
                          help='Allow all pipelines to access this service endpoint.',
                          arg_type=get_three_state_flag())
 
+    with self.argument_context('devops service-endpoint convert') as context:
+        context.argument('azdo_subject',
+                         options_list=['--azdo-subject'],
+                         help="Federated credential subject of the Azure DevOps issuer, in "
+                              "'sc://<organization>/<project>/<serviceConnectionName>' format. "
+                              "The organization URL is derived from --azdo-subject when --organization is not provided.")
+        context.argument('origin',
+                         options_list=['--origin'],
+                         help='Azure DevOps organization URL. If omitted, the organization is derived from '
+                              '--azdo-subject (assumes https://dev.azure.com).')
+
     with self.argument_context('devops invoke') as context:
         context.argument('route_parameters', nargs='*',
                          help='Specifies the list of route parameters')

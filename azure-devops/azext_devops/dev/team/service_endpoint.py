@@ -10,7 +10,8 @@ from knack.log import get_logger
 from knack.prompting import prompt_pass
 from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
-from azext_devops.dev.common.services import get_service_endpoint_client, resolve_instance_and_project
+from azext_devops.dev.common.services import (get_service_endpoint_client,
+                                              resolve_instance, resolve_instance_and_project)
 from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX, AZ_DEVOPS_GITHUB_PAT_ENVKEY
 from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
 
@@ -199,6 +200,72 @@ def create_service_endpoint(service_endpoint_configuration,
     import json
     service_endpoint_to_create = json.loads(in_file_content)
     return client.create_service_endpoint(service_endpoint_to_create, project)
+
+
+def migrate_external_federated_credential(azdo_subject, origin=None, detect=None):
+    """Migrate a service endpoint to use external federated credentials.
+    :param azdo_subject: Service connection in sc://<organization>/<project>/<serviceConnectionName> format.
+    :type azdo_subject: str
+    """
+    import json
+    import re
+    import requests
+
+    match = re.match(r'^sc://([^/]+)/([^/]+)/(.+)$', azdo_subject, re.IGNORECASE)
+    if not match:
+        raise CLIError(
+            "--azdo-subject must be in 'sc://<organization>/<project>/<serviceConnectionName>' format.")
+
+    if origin is None and not detect:
+        # Derive the organization URL from the sc:// input (assumes dev.azure.com)
+        org_name = match.group(1)
+        origin = 'https://dev.azure.com/{0}'.format(org_name)
+        logger.debug("Derived organization URL from --azdo-subject: %s", origin)
+    elif detect:
+        # Only use resolve_instance when auto-detection from git config is requested
+        origin = resolve_instance(detect=detect, organization=origin)
+    # else: --origin explicitly provided, use it directly (supports codedev.ms, etc.)
+
+    # Acquire an Entra Bearer token for Azure DevOps — the public migration
+    # endpoint requires Bearer auth, not the Basic-wrapped token the SDK normally sends.
+    from azure.cli.core._profile import Profile
+    from azext_devops.dev.common.services import get_token_from_az_login
+    profile = Profile()
+    profile.get_current_account_user()  # ensures cache is loaded
+    subscriptions = profile.load_cached_subscriptions(False)
+    tenant_id = next(
+        (s['tenantId'] for s in subscriptions if s.get('isDefault')),
+        next((s['tenantId'] for s in subscriptions), None)
+    )
+    if not tenant_id:
+        raise CLIError("No Azure login found. Run 'az login' and try again.")
+    bearer_token = get_token_from_az_login(profile, tenant_id)
+    if not bearer_token:
+        raise CLIError("Failed to acquire an Entra token. Run 'az login' and try again.")
+
+    api_version = "7.2-preview.1"
+    migrate_url = "{0}/_apis/public/serviceendpoint/externalfederatedcredentialmigration?api-version={1}".format(
+        origin.rstrip('/'), api_version)
+
+    logger.debug("POST %s", migrate_url)
+    response = requests.post(
+        migrate_url,
+        headers={
+            'Authorization': 'Bearer {0}'.format(bearer_token),
+            'Content-Type': 'application/json'
+        },
+        data=json.dumps({'serviceConnectionInput': azdo_subject}),
+        timeout=30
+    )
+
+    if not response.ok:
+        try:
+            error_detail = response.json()
+        except ValueError:
+            error_detail = response.text[:200] if response.text else '(no body)'
+        raise CLIError('Migration request failed ({0}): {1}'.format(
+            response.status_code, error_detail))
+    return response.json()
 
 
 def update_service_endpoint(id, enable_for_all=None, organization=None,  # pylint: disable=redefined-builtin
