@@ -10,7 +10,10 @@ from knack.log import get_logger
 from knack.prompting import prompt_pass
 from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
+import requests
+from azure.cli.core._profile import Profile
 from azext_devops.dev.common.services import (get_service_endpoint_client,
+                                              get_token_from_az_login,
                                               resolve_instance, resolve_instance_and_project)
 from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX, AZ_DEVOPS_GITHUB_PAT_ENVKEY
 from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
@@ -209,7 +212,6 @@ def migrate_external_federated_credential(azdo_subject, origin=None, detect=None
     """
     import json
     import re
-    import requests
 
     match = re.match(r'^sc://([^/]+)/([^/]+)/(.+)$', azdo_subject, re.IGNORECASE)
     if not match:
@@ -228,8 +230,6 @@ def migrate_external_federated_credential(azdo_subject, origin=None, detect=None
 
     # Acquire an Entra Bearer token for Azure DevOps — the public migration
     # endpoint requires Bearer auth, not the Basic-wrapped token the SDK normally sends.
-    from azure.cli.core._profile import Profile
-    from azext_devops.dev.common.services import get_token_from_az_login
     profile = Profile()
     profile.get_current_account_user()  # ensures cache is loaded
     subscriptions = profile.load_cached_subscriptions(False)
