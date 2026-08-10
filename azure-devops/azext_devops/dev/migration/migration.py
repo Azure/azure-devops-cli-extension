@@ -39,7 +39,6 @@ CUTOVER_DATE_CLEAR_SENTINEL = '0001-01-01T00:00:00+00:00'
 PIPELINES_API_PATH_SUFFIX = '/pipelines'
 DEVICE_FLOW_CONFIG_API_PATH = '/_apis/migrations/deviceFlowConfig'
 LEGACY_DEVICE_FLOW_CONFIG_API_PATH = '/_apis/elm/migrations/deviceFlowConfig'
-GITHUB_TOKEN_ENV_VAR = 'ELM_GITHUB_TOKEN'
 _SKIP_VALIDATION_POLICIES = {
     'none': 0,
     'activepullrequestcount': 1,
@@ -177,15 +176,13 @@ def get_migration(repository_id=None, organization=None, detect=None):
 
 def create_migration(*, repository_id=None, target_repository=None, target_owner_user_id=None,
                      validate_only=False, cutover_date=None, agent_pool=None,
-                     skip_validation=None, service_endpoint_id=None, github_token=None,
+                     skip_validation=None,
                      enable_boards_github_connection=False, enable_auto_discover_pipelines=False,
                      pipeline_service_connection_id=None,
                      organization=None, detect=None):
     target_repository = _normalize_optional_text(target_repository)
     target_owner_user_id = _normalize_optional_text(target_owner_user_id)
     agent_pool = _normalize_optional_text(agent_pool)
-    service_endpoint_id = _normalize_optional_text(service_endpoint_id)
-    github_token = _normalize_optional_text(github_token)
     skip_validation = _parse_skip_validation(skip_validation)
 
     if not target_repository:
@@ -202,14 +199,7 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
     organization = _resolve_org_for_auth(organization, detect)
     repository_id = _resolve_repository_id(repository_id)
     client = _get_service_client(organization)
-    if not service_endpoint_id:
-        github_token = _resolve_github_user_token(client, organization, target_repository, github_token)
-    else:
-        # SE supplies the GitHub credential used to sync commits. User-identity
-        # verification (gitHubUserToken) is independent: accept an explicit
-        # --github-token or ELM_GITHUB_TOKEN env var, but do not trigger device
-        # flow here so non-interactive SE-based flows aren't broken.
-        github_token = github_token or _normalize_optional_text(os.getenv(GITHUB_TOKEN_ENV_VAR))
+    github_token = _resolve_github_user_token(client, organization, target_repository)
 
     payload = {
         'targetRepository': target_repository,
@@ -225,8 +215,6 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
         payload['scheduledCutoverDate'] = cutover_date
     if skip_validation is not None:
         payload['skipValidation'] = skip_validation
-    if service_endpoint_id:
-        payload['serviceEndpointId'] = service_endpoint_id
     config_options = {}
     if enable_boards_github_connection:
         config_options['enableBoardsGitHubConnection'] = True
@@ -251,15 +239,7 @@ def create_migration(*, repository_id=None, target_repository=None, target_owner
         raise
 
 
-def _resolve_github_user_token(client, organization, target_repository, github_token=None):
-    token = _normalize_optional_text(github_token)
-    if token:
-        return token
-
-    env_token = _normalize_optional_text(os.getenv(GITHUB_TOKEN_ENV_VAR))
-    if env_token:
-        return env_token
-
+def _resolve_github_user_token(client, organization, target_repository):
     flow_config = _get_device_flow_config(client, organization, target_repository)
     client_id = _normalize_optional_text(flow_config.get('clientId'))
     enterprise_url = _normalize_optional_text(flow_config.get('enterpriseUrl'))
@@ -285,7 +265,8 @@ def _get_device_flow_config(client, organization, target_repository):
                 continue
             if index == 1 and first_error and 'status 404' in str(ex):
                 raise CLIError('GitHub device-flow configuration is unavailable. '
-                               'Provide --github-token or set ELM_GITHUB_TOKEN to continue.')
+                               'Ensure the GitHub app is installed for the target '
+                               'organization, then try again.')
             raise
 
     if first_error:
@@ -394,7 +375,7 @@ def _post_form(url, data):
         if ex.code in (401, 403):
             raise CLIError('GitHub device flow is unavailable for this organization. '
                            'This can happen if the GitHub app is not installed or the service is unavailable. '
-                           'Try again later, or provide --github-token (or set ELM_GITHUB_TOKEN).')
+                           'Try again later.')
         detail = ''
         try:
             content = ex.read()
