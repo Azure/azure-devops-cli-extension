@@ -342,9 +342,9 @@ az devops migrations resume --detect false --repository-id <GUID> --validate-onl
 
 > If the migration is at `stage: ReviewForCutover`, `resume` is blocked — review and approve cutover (step 3.7) instead, or cancel/reschedule cutover or abandon the migration.
 
-### Rewire pipelines
+### Rewire pipelines (preview)
 
-If pipelines in the source project reference the migrated repository, you can rewire them to the new GitHub repository. This is available under `az devops migrations pipelines`.
+If pipelines in the source project reference the migrated repository, you can rewire them to the new GitHub repository. This is a preview feature under `az devops migrations pipelines`.
 
 ```powershell
 # List pipeline rewiring configuration and per-pipeline status
@@ -390,11 +390,11 @@ az devops migrations pipelines delete --detect false --repository-id <GUID> --mi
 | `cutover cancel` | `--org`, `--repository-id` | `--detect` | PUT | Cancel a scheduled cutover (not allowed in `Cutover` stage). |
 | `cutover review` | `--org`, `--repository-id` | `--detect` | GET | Review unprocessed items before approving cutover. |
 | `cutover approve` | `--org`, `--repository-id` | `--accept-failures`, `--pipelines-verified`, `--detect` | PUT | Approve cutover (accept unprocessed items and/or verify pipelines). |
-| `pipelines list` | `--org`, `--repository-id` | `--detect` | GET | List pipeline rewiring status. |
-| `pipelines submit` | `--org`, `--repository-id`, `--pipeline-ids` | `--service-connection-id`, `--repository-mapping`, `--detect` | POST | Submit pipelines for rewiring. |
-| `pipelines update` | `--org`, `--repository-id` | `--add-ids`, `--remove-ids`, `--retry-ids`, `--service-connection-id`, `--repository-mapping`, `--detect` | PUT | Bulk update pipeline rewiring. |
-| `pipelines retry` | `--org`, `--repository-id`, `--pipeline-ids` | `--detect` | PUT | Retry failed pipeline rewiring entries. |
-| `pipelines delete` | `--org`, `--repository-id`, `--migration-id` | `--yes`, `--detect` | DELETE | Delete pipeline rewiring data. |
+| `pipelines list` | `--org`, `--repository-id` | `--detect` | GET | List pipeline rewiring status. (Preview) |
+| `pipelines submit` | `--org`, `--repository-id`, `--pipeline-ids` | `--service-connection-id`, `--repository-mapping`, `--detect` | POST | Submit pipelines for rewiring. (Preview) |
+| `pipelines update` | `--org`, `--repository-id` | `--add-ids`, `--remove-ids`, `--retry-ids`, `--service-connection-id`, `--repository-mapping`, `--detect` | PUT | Bulk update pipeline rewiring. (Preview) |
+| `pipelines retry` | `--org`, `--repository-id`, `--pipeline-ids` | `--detect` | PUT | Retry failed pipeline rewiring entries. (Preview) |
+| `pipelines delete` | `--org`, `--repository-id`, `--migration-id` | `--yes`, `--detect` | DELETE | Delete pipeline rewiring data. (Preview) |
 
 ### 5.1 Parameter Details
 
