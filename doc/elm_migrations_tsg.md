@@ -111,7 +111,7 @@ Create (validate-only) → Check status → Resume (--migration) → Monitor
 | ADO project name | `MyProject` | The project containing the source repo |
 | ADO repo name | `my-repo` | The repo you want to migrate |
 | Target repo URL | `https://example.ghe.com/OrgName/RepoName` | Create the empty target repo in GitHub **before** starting |
-| GitHub auth token | `<token>` | Optional: pass via `--github-token` or set `ELM_GITHUB_TOKEN` |
+| GitHub sign-in | device flow | During `create` the CLI prints a URL + one-time code; complete sign-in interactively (no token needed) |
 | Agent pool name | `<your-agent-pool>` | Ask your admin |
 
 ### 3.1 Get the source repository GUID from Azure DevOps
@@ -163,16 +163,7 @@ The command returns the migration details as JSON. The migration begins immediat
 
 > **Tip:** If you're confident and want to start a full migration right away (skip validate-only), omit the `--validate-only` flag.
 
-If `--github-token` is not provided, the CLI checks `ELM_GITHUB_TOKEN` and then runs GitHub device flow to acquire a token. If you pass `--service-endpoint-id` (a GitHub Enterprise Server service connection used to sync commits), device flow is skipped — supply `--github-token` or `ELM_GITHUB_TOKEN` only if user-identity verification is also needed.
-
-You can also pass a token or PAT explicitly:
-
-```powershell
-az devops migrations create --detect false \
-  --repository-id b3e18946-5b39-40ca-8e2f-d0eb683d8a85 \
-  --target-repository https://example.ghe.com/OrgName/RepoName \
-  --github-token <token>
-```
+GitHub authentication uses device flow: `create` prints a URL and a one-time code. Open the URL, enter the code, and complete sign-in interactively. No GitHub token or service connection is required.
 
 **Optional parameters you can add at creation time:**
 
@@ -181,7 +172,6 @@ az devops migrations create --detect false \
 | `--agent-pool` | Agent pool name used for migration work | `--agent-pool my-pool` |
 | `--cutover-date` | Pre-schedule the final cutover date | `--cutover-date 2030-12-31T11:59:00Z` |
 | `--skip-validation` | Skip specific validation checks | `--skip-validation ActivePullRequestCount,PullRequestDeltaSize` |
-| `--service-endpoint-id` | GitHub Enterprise Server service connection (GUID) used to sync commits; skips device flow | `--service-endpoint-id <guid>` |
 | `--enable-boards-github-connection` | Provision the Azure Boards GitHub connection at cutover (off by default; requires the Boards GitHub App installed on the target org) | `--enable-boards-github-connection` |
 | `--enable-auto-discover-pipelines` | Auto-discover and clone pipelines that reference the source repo at cutover (off by default) | `--enable-auto-discover-pipelines` |
 | `--pipeline-service-connection-id` | Project-scoped GitHub service connection (GUID) attached at create time for pipeline rewiring | `--pipeline-service-connection-id <guid>` |
@@ -392,7 +382,7 @@ az devops migrations pipelines delete --detect false --repository-id <GUID> --mi
 |---|---|---|---|---|
 | `list` | `--org` | `--include-all`, `--include-inactive` (deprecated), `--project`, `--detect` | GET | List migrations. By default the latest per repository. |
 | `status` | `--org`, `--repository-id` | `--detect` | GET | Get detailed status for one migration. |
-| `create` | `--org`, `--repository-id`, `--target-repository` | `--github-token`, `--service-endpoint-id`, `--target-owner-user-id` (deprecated), `--agent-pool`, `--validate-only`, `--cutover-date`, `--skip-validation`, `--enable-boards-github-connection`, `--enable-auto-discover-pipelines`, `--pipeline-service-connection-id`, `--detect` | POST | Create a new migration. |
+| `create` | `--org`, `--repository-id`, `--target-repository` | `--target-owner-user-id` (deprecated), `--agent-pool`, `--validate-only`, `--cutover-date`, `--skip-validation`, `--enable-boards-github-connection`, `--enable-auto-discover-pipelines`, `--pipeline-service-connection-id`, `--detect` | POST | Create a new migration. |
 | `pause` | `--org`, `--repository-id` | `--detect` | PUT | Pause an active migration. |
 | `resume` | `--org`, `--repository-id` | `--validate-only`, `--migration`, `--detect` | PUT | Resume a stopped migration. |
 | `abandon` | `--org`, `--repository-id` | `--remove-read-only`, `--detect` | DELETE | Permanently delete a migration (prompts for confirmation). |
@@ -413,8 +403,6 @@ az devops migrations pipelines delete --detect false --repository-id <GUID> --mi
 | `--org` | URL | All | Azure DevOps org URL (e.g., `https://dev.azure.com/myorg`). Can be set as default. |
 | `--repository-id` | GUID | All except `list` | Azure Repos repository GUID. Get from `az repos show --query id`. |
 | `--target-repository` | URL | `create` | Target repository URL. Must start with `http://` or `https://`. |
-| `--github-token` | string | `create` | GitHub token used for user-identity verification. If omitted (and `--service-endpoint-id` not set), CLI checks `ELM_GITHUB_TOKEN` then runs device flow. |
-| `--service-endpoint-id` | GUID | `create` | GitHub Enterprise Server service connection used to sync commits. When set, device flow is skipped. |
 | `--target-owner-user-id` | string | `create` | Deprecated. Ignored when server-side token ownership resolution is enabled. |
 | `--agent-pool` | string | `create` | Agent pool name for migration work. Optional. |
 | `--validate-only` | flag | `create`, `resume` | On `create`: run pre-migration checks only. On `resume`: switch to validate-only mode. |
@@ -448,7 +436,7 @@ az devops migrations pipelines delete --detect false --repository-id <GUID> --mi
 | **Resume while at ReviewForCutover** | Error: "Migration is waiting for cutover approval (stage: ReviewForCutover)" | Run `cutover review`, then `cutover approve`; or cancel/reschedule cutover, or abandon |
 | **Cancel cutover too late** | Error: "Cannot cancel cutover: the migration has already entered the Cutover stage" | Cancel only before the `Cutover` stage; if stuck, contact the ELM service team |
 | **Both `--validate-only` and `--migration` on resume** | Error: "Please specify only one..." | Use only one flag at a time |
-| **Missing migration auth token** | Device flow prompt appears, or auth error is returned | Provide `--github-token`, set `ELM_GITHUB_TOKEN`, or complete device-flow authorization |
+| **GitHub device-flow prompt appears** | The CLI prints a URL + one-time code during `create` | Expected — open the URL, enter the code, and complete sign-in. If config is unavailable, ensure the GitHub app is installed for the target org |
 | **Active migration already exists for repository** | Error: `An active migration already exists for repository <GUID>. Delete (abandon) the existing migration before creating a new one.` | Abandon the existing migration first (`az devops migrations abandon`), then retry `create` |
 | **Invalid `--target-repository` format** | Error: "--target-repository must be a valid URL..." | Use a fully qualified URL starting with `http://` or `https://` |
 | **Invalid `--repository-id`** | Error: "--repository-id must be a valid GUID." | Use `az repos show --query id` to get the correct GUID |
@@ -498,13 +486,6 @@ Advanced form using integer bitmask:
 
 ```powershell
 az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --skip-validation 132
-```
-
-Token/PAT-authenticated examples:
-
-```powershell
-az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --github-token <TOKEN_OR_PAT> --skip-validation AgentPoolExists,MaxFileSize
-az devops migrations create --detect false --repository-id <GUID> --target-repository <TARGET_URL> --github-token <TOKEN_OR_PAT> --skip-validation 132
 ```
 
 Supported policy names:
