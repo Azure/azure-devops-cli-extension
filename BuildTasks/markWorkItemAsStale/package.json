@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "azure-pipelines-task-lib": "^4.0.1-preview"
+    "azure-pipelines-task-lib": "^5.2.8"
   },
   "devDependencies": {
     "@types/node": "^12.0.0",
