@@ -6,6 +6,7 @@
 from webbrowser import open_new
 from knack.log import get_logger
 from knack.util import CLIError
+import json
 from azext_devops.dev.common.services import (get_build_client,
                                               get_git_client,
                                               resolve_instance_and_project,
@@ -172,7 +173,10 @@ def pipeline_run(id=None, branch=None, commit_id=None, name=None, open=False, va
     build = Build(definition=definition_reference, source_branch=branch, source_version=commit_id)
 
     param_variables = set_param_variable(variables)
-    build.parameters = param_variables
+    if param_variables:
+        build.parameters = json.dumps(param_variables)
+    else:
+        build.parameters = None
 
     queued_build = client.queue_build(build=build, project=project)
 
