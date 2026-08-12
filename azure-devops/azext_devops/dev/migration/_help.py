@@ -38,7 +38,7 @@ def load_migration_help():
     helps['devops migrations create'] = """
     type: command
     short-summary: Create a migration for a repository.
-    long-summary: 'If --github-token is not provided, the CLI checks ELM_GITHUB_TOKEN and then runs GitHub device flow to acquire a token.'
+    long-summary: 'GitHub authentication uses device flow: the CLI prints a URL and a one-time code to complete sign-in interactively. No GitHub token or service connection is required.'
     examples:
       - name: Create a migration.
         text: |
@@ -46,9 +46,6 @@ def load_migration_help():
       - name: Create a validate-only migration.
         text: |
           az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --agent-pool <your-agent-pool> --validate-only --skip-validation ActivePullRequestCount,PullRequestDeltaSize
-      - name: Create using a pre-generated GitHub token or PAT.
-        text: |
-          az devops migrations create --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000 --target-repository https://github.com/OrgName/RepoName --github-token <token>
     """
 
     helps['devops migrations pause'] = """
