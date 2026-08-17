@@ -49,7 +49,7 @@ def parse_azure_devops_git_remote(remote_url):
     return None
 
 
-def canonicalize_azure_devops_organization_url(url):
+def canonicalize_azure_devops_organization_url(url):  # pylint: disable=too-many-return-statements
     if not url or _UNSAFE_URL_CHARACTERS.search(url):
         return None
 
@@ -119,7 +119,7 @@ def is_valid_url(url):
     return True
 
 
-def _parse_azure_devops_https_git_remote(remote_url):
+def _parse_azure_devops_https_git_remote(remote_url):  # pylint: disable=too-many-return-statements
     parsed_url = _parse_safe_https_url(remote_url, allow_userinfo=True)
     if parsed_url is None:
         return None
@@ -148,7 +148,7 @@ def _parse_azure_devops_https_git_remote(remote_url):
     return AzureDevOpsGitRemote(repository_url, organization_url, host)
 
 
-def _parse_azure_devops_ssh_git_remote(remote_url):
+def _parse_azure_devops_ssh_git_remote(remote_url):  # pylint: disable=too-many-return-statements
     parsed_url = None
     lowered_url = remote_url.lower()
     if lowered_url.startswith('ssh://'):
@@ -213,7 +213,7 @@ def _parse_azure_devops_ssh_git_remote(remote_url):
     return AzureDevOpsGitRemote(repository_url, organization_url, https_host)
 
 
-def _parse_safe_https_url(url, allow_userinfo):
+def _parse_safe_https_url(url, allow_userinfo):  # pylint: disable=too-many-return-statements
     if _UNSAFE_URL_CHARACTERS.search(url):
         return None
 
