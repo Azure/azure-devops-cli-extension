@@ -6,11 +6,18 @@
 import unittest
 try:
     # Attempt to load mock (works on Python 3.3 and above)
-    from unittest.mock import patch
+    from unittest.mock import Mock, patch
 except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
-    from mock import patch
+    from mock import Mock, patch
+from azext_devops.devops_sdk.v5_0.git.git_client import GitClient
 from azext_devops.dev.common.vsts_git_url_info import VstsGitUrlInfo, _is_azure_devops_host
+
+
+class FakeCache(dict):
+
+    def __getitem__(self, key):
+        return self.get(key)
 
 
 class Test_VstsGitUrlInfo_Methods(unittest.TestCase):
@@ -71,7 +78,16 @@ class Test_VstsGitUrlInfo_Methods(unittest.TestCase):
                 mock_get_creds.assert_called_once()
                 get_vsts_info_url_param = mock_get_vsts_info.call_args_list[0][0]
                 self.assertEqual(
-                    'https://organization@dev.azure.com/organization/project/_git/repository'.lower(), get_vsts_info_url_param[0])
+                    'https://dev.azure.com/organization/project/_git/repository'.lower(), get_vsts_info_url_param[0])
+
+    def test_get_vsts_info_rejects_cross_parser_authority(self):
+        with patch('azext_devops.devops_sdk.v5_0.git.git_client.GitClient.get_vsts_info_by_remote_url') as mock_get_vsts_info:
+            with patch('azext_devops.dev.common.services._get_credentials') as mock_get_creds:
+                result = VstsGitUrlInfo.get_vsts_info(
+                    'https://attacker.example\\@dev.azure.com/org/project/_git/repo')
+                self.assertIsNone(result)
+                mock_get_creds.assert_not_called()
+                mock_get_vsts_info.assert_not_called()
 
     def test_get_vsts_info_rejects_arbitrary_host_with_git_path(self):
         """Credentials must never be sent to non-Azure DevOps hosts."""
@@ -90,6 +106,44 @@ class Test_VstsGitUrlInfo_Methods(unittest.TestCase):
                 self.assertIsNone(result)
                 mock_get_creds.assert_not_called()
                 mock_get_vsts_info.assert_not_called()
+
+    def test_get_vsts_info_client_rejects_noncanonical_url(self):
+        with self.assertRaises(ValueError):
+            GitClient.get_vsts_info_by_remote_url(
+                'https://organization@dev.azure.com/organization/project/_git/repository',
+                credentials=Mock())
+
+    def test_rejects_untrusted_vsts_info_response_url(self):
+        vsts_info = Mock()
+        vsts_info.repository.url = 'https://attacker.example/org/project/_apis/git/repositories/repository'
+        vsts_info.repository.project.id = 'project'
+        vsts_info.repository.id = 'repository'
+        vsts_info.server_url = 'https://attacker.example/'
+        cache = FakeCache()
+
+        with patch('azext_devops.dev.common.vsts_git_url_info._git_remote_info_cache', cache):
+            with patch.object(VstsGitUrlInfo, 'get_vsts_info', return_value=vsts_info):
+                result = VstsGitUrlInfo('https://dev.azure.com/org/project/_git/repository')
+
+        self.assertIsNone(result.uri)
+        self.assertNotIn('https://dev.azure.com/org/project/_git/repository', cache)
+
+    def test_revalidates_cached_organization_url(self):
+        remote_url = 'https://dev.azure.com/org/project/_git/repository'
+        cache = FakeCache({
+            remote_url: {
+                'project': 'project',
+                'repository': 'repository',
+                'serverUrl': 'https://attacker.example/'
+            }
+        })
+
+        with patch('azext_devops.dev.common.vsts_git_url_info._git_remote_info_cache', cache):
+            with patch.object(VstsGitUrlInfo, 'get_vsts_info', return_value=None) as mock_get_vsts_info:
+                result = VstsGitUrlInfo(remote_url)
+
+        self.assertIsNone(result.uri)
+        mock_get_vsts_info.assert_called_once_with(remote_url)
 
 
 class Test_IsVstsUrlCandidate(unittest.TestCase):
@@ -138,10 +192,10 @@ class Test_IsAzureDevOpsHost(unittest.TestCase):
         self.assertTrue(_is_azure_devops_host('vs-ssh.visualstudio.com'))
 
     def test_user_at_dev_azure_com(self):
-        self.assertTrue(_is_azure_devops_host('org@dev.azure.com'))
+        self.assertFalse(_is_azure_devops_host('org@dev.azure.com'))
 
     def test_git_at_ssh_dev_azure_com(self):
-        self.assertTrue(_is_azure_devops_host('git@ssh.dev.azure.com'))
+        self.assertFalse(_is_azure_devops_host('git@ssh.dev.azure.com'))
 
     def test_rejects_github(self):
         self.assertFalse(_is_azure_devops_host('github.com'))

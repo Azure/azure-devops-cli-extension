@@ -28,6 +28,10 @@ class GitClient(GitClientBase):
     def get_vsts_info_by_remote_url(remote_url, credentials,
                                     suppress_fedauth_redirect=True,
                                     force_msa_pass_through=True):
+        from azext_devops.dev.common.uri import parse_azure_devops_git_remote
+        parsed_remote = parse_azure_devops_git_remote(remote_url)
+        if parsed_remote is None or parsed_remote.repository_url != remote_url:
+            raise ValueError('Refusing to attach credentials to an invalid Azure DevOps repository URL.')
         request = ClientRequest(method='GET', url=remote_url.rstrip('/') + '/vsts/info')
         headers = {'Accept': 'application/json'}
         if suppress_fedauth_redirect:
