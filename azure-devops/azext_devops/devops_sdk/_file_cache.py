@@ -114,7 +114,7 @@ def get_cache_dir():
     azure_devops_cache_dir = os.getenv('AZURE_DEVOPS_CACHE_DIR', None)\
                              or os.path.expanduser(os.path.join('~', '.azure-devops', 'python-sdk', 'cache'))
     if not os.path.exists(azure_devops_cache_dir):
-        os.makedirs(azure_devops_cache_dir)
+        os.makedirs(azure_devops_cache_dir, exist_ok=True)
     return azure_devops_cache_dir
 
 
