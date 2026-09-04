@@ -230,12 +230,19 @@ def migrate_external_federated_credential(azdo_subject, origin=None, detect=None
 
     # Acquire an Entra Bearer token for Azure DevOps — the public migration
     # endpoint requires Bearer auth, not the Basic-wrapped token the SDK normally sends.
+    from azure.cli.core._profile import Profile
+    from azext_devops.dev.common.services import get_token_from_az_login
+
     profile = Profile()
-    profile.get_current_account_user()  # ensures cache is loaded
-    subscriptions = profile.load_cached_subscriptions(False)
+    try:
+        profile.get_current_account_user()  # ensures cache is loaded
+    except Exception:  # pragma: no cover - Azure CLI may not have a cached user
+        pass
+
+    subscriptions = profile.load_cached_subscriptions(False) or []
     tenant_id = next(
-        (s['tenantId'] for s in subscriptions if s.get('isDefault')),
-        next((s['tenantId'] for s in subscriptions), None)
+        (s.get('tenantId') for s in subscriptions if s.get('isDefault')),
+        next((s.get('tenantId') for s in subscriptions), None)
     )
     if not tenant_id:
         raise CLIError("No Azure login found. Run 'az login' and try again.")
