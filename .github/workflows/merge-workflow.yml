@@ -9,9 +9,9 @@ jobs:
   Build_Publish_Azure_DevOps_CLI_Extension:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e # v2.3.4
         with:
           python-version: '3.12'
           architecture: x64
@@ -23,9 +23,9 @@ jobs:
   Build_Publish_Azure_CLI_Test_SDK:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e # v2.3.4
         with:
           python-version: '3.12'
           architecture: x64
@@ -47,7 +47,7 @@ jobs:
           - '3.10'
           - '3.9'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - name: Rename AzureCliExtensionDirectory
         run: ren "C:\Program Files\Common Files\AzureCliExtensionDirectory" "C:\Program Files\Common Files\AzureCliExtensionDirectory1"
       - uses: ./.github/actions/run-tests
@@ -71,7 +71,7 @@ jobs:
           - '3.10'
           - '3.9'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - run: sudo rm -R -f /usr/local/lib/azureExtensionDir
       - uses: ./.github/actions/run-tests
         with:
@@ -88,7 +88,7 @@ jobs:
           - '3.12'
           - '3.11'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - uses: ./.github/actions/run-tests
         with:
           python-version: ${{ matrix.python-version }}
@@ -97,7 +97,7 @@ jobs:
     needs: Build_Publish_Azure_CLI_Test_SDK
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - uses: ./.github/actions/run-tests
         with:
           python-version: '3.12'
@@ -107,9 +107,9 @@ jobs:
     needs: Build_Publish_Azure_CLI_Test_SDK
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e # v2.3.4
         with:
           python-version: '3.12'
           architecture: x64
@@ -123,11 +123,11 @@ jobs:
       - name: Install beautifulsoup4
         run: pip install beautifulsoup4
       - name: Fix Code Coverage Style
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e # v2.3.4
         with:
           script: 'scripts/fixCodeCoverageStyle.py'
       - name: Publish Code Coverage Results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: code-coverage
           path: ${{ github.workspace }}/azure-devops/htmlcov
@@ -135,9 +135,9 @@ jobs:
   Run_Style_Check:
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e # v2.3.4
         with:
           python-version: '3.12'
           architecture: x64
@@ -157,9 +157,9 @@ jobs:
     needs: Build_Publish_Azure_CLI_Test_SDK
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e # v2.3.4
         with:
           python-version: '3.12'
           architecture: x64
@@ -172,7 +172,7 @@ jobs:
         run: pip install --upgrade .
         working-directory: 'azure-devops/'
       - name: Run HelpText Check
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e # v2.3.4
         with:
           script: 'scripts/findEmptyHelpTexts.py'
 
@@ -181,7 +181,7 @@ jobs:
     needs: Build_Publish_Azure_CLI_Test_SDK
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           ref: release-1.0.1
       - uses: ./.github/actions/run-tests
@@ -191,9 +191,9 @@ jobs:
   Check_Back_Compat_Arguments:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e # v2.3.4
         with:
           python-version: '3.12'
           architecture: x64
@@ -205,14 +205,14 @@ jobs:
         run: python setup.py sdist bdist_wheel
         working-directory: 'azure-devops/'
       - name: Run Back Compat Argument Check
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@e9aba2c848f5ebd159c070c61ea2c4e2b122355e # v2.3.4
         with:
           script: 'scripts/backCompatChecker.py'
 
   Run_Markdown_Lint_Check:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
       - name: Install chef utils
         run: gem install chef-utils -v 16.6.14
       - name: Install markdown lint
