@@ -23,8 +23,8 @@ logger = get_logger(__name__)
 
 
 def create_work_item(work_item_type, title, description=None, assigned_to=None, area=None,
-                     iteration=None, reason=None, discussion=None, fields=None, open=False,  # pylint: disable=redefined-builtin
-                     organization=None, project=None, detect=None):
+                      iteration=None, reason=None, discussion=None, fields=None, open=False,  # pylint: disable=redefined-builtin
+                      organization=None, project=None, detect=None, markdown_fields=None):
     r"""Create a work item.
     :param work_item_type: Name of the work item type (e.g. Bug).
     :type work_item_type: str
@@ -46,6 +46,8 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
     In case of multiple fields : "field1=value1" "field2=value2".
     Refer https://aka.ms/azure-devops-cli-field-api for more details on fields.
     :type fields: [str]
+    :param markdown_fields: Space separated list of multiline field reference names to format as Markdown.
+    :type markdown_fields: [str]
     :param open: Open the work item in the default web browser.
     :type open: bool
     :rtype: :class:`<WorkItem> <v5_0.work-item-tracking.models.WorkItem>`
@@ -85,6 +87,9 @@ def create_work_item(work_item_type, title, description=None, assigned_to=None, 
                     patch_document.append(_create_work_item_field_patch_operation('add', kvp[0], kvp[1]))
                 else:
                     raise ValueError('The --fields argument should consist of space separated "field=value" pairs.')
+        if markdown_fields is not None and markdown_fields:
+            for field in markdown_fields:
+                patch_document.append(_create_work_item_markdown_format_patch_operation('add', field))
         client = get_work_item_tracking_client(organization)
         work_item = client.create_work_item(document=patch_document, project=project, type=work_item_type)
         if open:
@@ -365,6 +370,11 @@ def _create_patch_operation(op, path, value):
 def _create_work_item_field_patch_operation(op, field, value):
     path = '/fields/{field}'.format(field=field)
     return _create_patch_operation(op=op, path=path, value=value)
+
+
+def _create_work_item_markdown_format_patch_operation(op, field):
+    path = '/multilineFieldsFormat/{field}'.format(field=field)
+    return _create_patch_operation(op=op, path=path, value='Markdown')
 
 
 def _resolve_identity_as_unique_user_id(identity_filter, organization):
