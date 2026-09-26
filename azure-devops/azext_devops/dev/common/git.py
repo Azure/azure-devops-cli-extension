@@ -21,7 +21,7 @@ def set_config(key, value, local=True):
 
 def unset_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
-    subprocess.check_output(shutil.which("git"), 'config', scope, '--unset', key])
+    subprocess.check_output([shutil.which("git"), 'config', scope, '--unset', key])
 
 
 def get_config(key, local=True):
