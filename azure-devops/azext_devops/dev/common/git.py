@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import shutil
 import subprocess
 import sys
 
@@ -12,22 +13,20 @@ from .uri import uri_parse
 
 logger = get_logger(__name__)
 
-_GIT_EXE = 'git'
-
 
 def set_config(key, value, local=True):
     scope = _get_git_config_scope_arg(local)
-    subprocess.check_output([_GIT_EXE, 'config', scope, key, value])
+    subprocess.check_output([shutil.which("git"), 'config', scope, key, value])
 
 
 def unset_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
-    subprocess.check_output([_GIT_EXE, 'config', scope, '--unset', key])
+    subprocess.check_output(shutil.which("git"), 'config', scope, '--unset', key])
 
 
 def get_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
-    return subprocess.check_output([_GIT_EXE, 'config', scope, key])
+    return subprocess.check_output([shutil.which("git"), 'config', scope, key])
 
 
 def _get_git_config_scope_arg(local):
@@ -37,14 +36,14 @@ def _get_git_config_scope_arg(local):
 
 
 def fetch_remote_and_checkout(refName, remote_name):
-    subprocess.run([_GIT_EXE, 'fetch', remote_name, refName], check=False)
-    subprocess.run([_GIT_EXE, 'checkout', get_branch_name_from_ref(refName)], check=False)
-    subprocess.run([_GIT_EXE, 'pull', remote_name, get_branch_name_from_ref(refName)], check=False)
+    subprocess.run([shutil.which("git"), 'fetch', remote_name, refName], check=False)
+    subprocess.run([shutil.which("git"), 'checkout', get_branch_name_from_ref(refName)], check=False)
+    subprocess.run([shutil.which("git"), 'pull', remote_name, get_branch_name_from_ref(refName)], check=False)
 
 
 def get_current_branch_name():
     try:
-        output = subprocess.check_output([_GIT_EXE, 'symbolic-ref', '--short', '-q', 'HEAD'])
+        output = subprocess.check_output([shutil.which("git"), 'symbolic-ref', '--short', '-q', 'HEAD'])
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect current branch based on current working directory.')
         logger.debug(ex, exc_info=True)
@@ -76,7 +75,7 @@ def get_git_credentials(organization):
     standard_in = bytes('protocol={protocol}\nhost={host}'.format(protocol=protocol, host=host), 'utf-8')
     try:
         # pylint: disable=unexpected-keyword-arg
-        output = subprocess.check_output([_GIT_EXE, 'credential-manager', 'get'], input=standard_in)
+        output = subprocess.check_output([shutil.which("git"), 'credential-manager', 'get'], input=standard_in)
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect git credentials for current working directory.')
         logger.debug(ex, exc_info=True)
@@ -103,7 +102,7 @@ def get_git_remotes():
         # full  https://mseng.visualstudio.com/DefaultCollection/VSOnline/_git/_full/VSO (push)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (fetch)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (push)
-        output = subprocess.check_output([_GIT_EXE, 'remote', '-v'], stderr=subprocess.STDOUT)
+        output = subprocess.check_output([shutil.which("git"), 'remote', '-v'], stderr=subprocess.STDOUT)
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect current remotes based on current working directory.')
         logger.debug(ex, exc_info=True)
