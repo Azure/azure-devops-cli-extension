@@ -16,17 +16,20 @@ logger = get_logger(__name__)
 
 def set_config(key, value, local=True):
     scope = _get_git_config_scope_arg(local)
-    subprocess.check_output([shutil.which("git"), 'config', scope, key, value])
+    git = _get_git()
+    subprocess.check_output([git, 'config', scope, key, value])
 
 
 def unset_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
-    subprocess.check_output([shutil.which("git"), 'config', scope, '--unset', key])
+    git = _get_git()
+    subprocess.check_output([git, 'config', scope, '--unset', key])
 
 
 def get_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
-    return subprocess.check_output([shutil.which("git"), 'config', scope, key])
+    git = _get_git()
+    return subprocess.check_output([git, 'config', scope, key])
 
 
 def _get_git_config_scope_arg(local):
@@ -36,14 +39,16 @@ def _get_git_config_scope_arg(local):
 
 
 def fetch_remote_and_checkout(refName, remote_name):
-    subprocess.run([shutil.which("git"), 'fetch', remote_name, refName], check=False)
-    subprocess.run([shutil.which("git"), 'checkout', get_branch_name_from_ref(refName)], check=False)
-    subprocess.run([shutil.which("git"), 'pull', remote_name, get_branch_name_from_ref(refName)], check=False)
+    git = _get_git()
+    subprocess.run([git, 'fetch', remote_name, refName], check=False)
+    subprocess.run([git, 'checkout', get_branch_name_from_ref(refName)], check=False)
+    subprocess.run([git, 'pull', remote_name, get_branch_name_from_ref(refName)], check=False)
 
 
 def get_current_branch_name():
     try:
-        output = subprocess.check_output([shutil.which("git"), 'symbolic-ref', '--short', '-q', 'HEAD'])
+        git = _get_git()
+        output = subprocess.check_output([git, 'symbolic-ref', '--short', '-q', 'HEAD'])
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect current branch based on current working directory.')
         logger.debug(ex, exc_info=True)
@@ -75,7 +80,8 @@ def get_git_credentials(organization):
     standard_in = bytes('protocol={protocol}\nhost={host}'.format(protocol=protocol, host=host), 'utf-8')
     try:
         # pylint: disable=unexpected-keyword-arg
-        output = subprocess.check_output([shutil.which("git"), 'credential-manager', 'get'], input=standard_in)
+        git = _get_git()
+        output = subprocess.check_output([git, 'credential-manager', 'get'], input=standard_in)
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect git credentials for current working directory.')
         logger.debug(ex, exc_info=True)
@@ -102,7 +108,8 @@ def get_git_remotes():
         # full  https://mseng.visualstudio.com/DefaultCollection/VSOnline/_git/_full/VSO (push)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (fetch)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (push)
-        output = subprocess.check_output([shutil.which("git"), 'remote', '-v'], stderr=subprocess.STDOUT)
+        git = _get_git()
+        output = subprocess.check_output([git, 'remote', '-v'], stderr=subprocess.STDOUT)
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect current remotes based on current working directory.')
         logger.debug(ex, exc_info=True)
@@ -194,6 +201,11 @@ def _get_alias_value(command):
     mime = '.cmd' if sys.platform.lower().startswith('win') else ''
     return '!f() { exec az' + mime + ' ' + command + ' \"$@\"; }; f'
 
+def _get_git():
+    git_exe = shutil.which("git")
+    if git_exe is None:
+        raise FileNotFoundError("Git executable was not found in PATH.")
+    return git_exe
 
 _git_remotes = {}
 _ORIGIN_PUSH_KEY = 'origin(push)'
