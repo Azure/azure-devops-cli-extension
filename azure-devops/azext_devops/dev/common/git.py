@@ -201,11 +201,13 @@ def _get_alias_value(command):
     mime = '.cmd' if sys.platform.lower().startswith('win') else ''
     return '!f() { exec az' + mime + ' ' + command + ' \"$@\"; }; f'
 
+
 def _get_git():
     git_exe = shutil.which("git")
     if git_exe is None:
         raise FileNotFoundError("Git executable was not found in PATH.")
     return git_exe
+
 
 _git_remotes = {}
 _ORIGIN_PUSH_KEY = 'origin(push)'
