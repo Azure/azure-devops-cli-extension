@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import os
 import shutil
 import subprocess
 import sys
@@ -203,7 +204,28 @@ def _get_alias_value(command):
 
 
 def _get_git():
-    git_exe = shutil.which("git")
+    cmd="git"
+    
+    # Save the current working directory
+    original_cwd = os.getcwd()
+    try:
+        # Temporarily switch away from the original CWD
+        if os.name == "nt":
+            # Windows
+            safe_cwd = os.environ.get("SystemRoot", r"C:\Windows")
+        else:
+            # Linux / macOS / Unix
+            safe_cwd = "/"
+ 
+        os.chdir(safe_cwd)
+ 
+        # Resolve git while not running from the original CWD
+        git_exe = shutil.which(cmd)
+ 
+    finally:
+        # Always restore the original working directory
+        os.chdir(original_cwd)
+ 
     if git_exe is None:
         raise FileNotFoundError("Git executable was not found in PATH.")
     return git_exe
