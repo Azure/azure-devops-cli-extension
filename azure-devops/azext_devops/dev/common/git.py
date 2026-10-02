@@ -204,10 +204,12 @@ def _get_alias_value(command):
 
 
 def _get_git():
-    cmd="git"
-    
+    cmd = "git"
+    git_exe = None
+
     # Save the current working directory
     original_cwd = os.getcwd()
+
     try:
         # Temporarily switch away from the original CWD
         if os.name == "nt":
@@ -216,18 +218,19 @@ def _get_git():
         else:
             # Linux / macOS / Unix
             safe_cwd = "/"
- 
+
         os.chdir(safe_cwd)
- 
+
         # Resolve git while not running from the original CWD
         git_exe = shutil.which(cmd)
- 
+
     finally:
         # Always restore the original working directory
         os.chdir(original_cwd)
- 
+
     if git_exe is None:
         raise FileNotFoundError("Git executable was not found in PATH.")
+
     return git_exe
 
 
