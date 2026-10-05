@@ -202,6 +202,7 @@ def _get_alias_value(command):
     mime = '.cmd' if sys.platform.lower().startswith('win') else ''
     return '!f() { exec az' + mime + ' ' + command + ' \"$@\"; }; f'
 
+
 def _get_git():
     cmd = "git"
     git_exe = None
@@ -212,7 +213,7 @@ def _get_git():
     else:
         # Linux / macOS / Unix
         safe_path = "/"
-    
+
     git_exe = shutil.which(cmd, path=safe_path)
 
     if git_exe is None:
