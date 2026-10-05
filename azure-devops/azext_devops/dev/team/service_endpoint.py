@@ -264,6 +264,10 @@ def migrate_external_federated_credential(azdo_subject):
             error_detail = response.json()
         except ValueError:
             error_detail = response.text[:200] if response.text else '(no body)'
+        if response.status_code == 404:
+            raise CLIError('Service connection or migration API not found (404): {0}'.format(error_detail))
+        if response.status_code == 410:
+            raise CLIError('Migration API is no longer available (410 Gone): {0}'.format(error_detail))
         raise CLIError('Migration request failed ({0}): {1}'.format(
             response.status_code, error_detail))
     return response.json()

@@ -289,6 +289,33 @@ class TestMigrateExternalFederatedCredential(unittest.TestCase):
         self.assertIn('400', str(ctx.exception))
         self.assertIn('Bad Request', str(ctx.exception))
 
+    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
+    @patch('azext_devops.dev.team.service_endpoint.Profile')
+    @patch('azext_devops.dev.team.service_endpoint.requests.post')
+    def test_convert_handles_not_found_response(self, mock_post, mock_profile_cls, mock_get_token):
+        self._make_profile_mock(mock_profile_cls)
+        for detail in [{'success': False, 'message': 'Service connection not found.'}, 'Not Found']:
+            with self.subTest(detail=detail):
+                if isinstance(detail, dict):
+                    mock_post.return_value = self._make_response_mock(ok=False, status_code=404, json_data=detail)
+                else:
+                    mock_post.return_value = self._make_response_mock(ok=False, status_code=404, text=detail)
+                with self.assertRaises(CLIError) as ctx:
+                    migrate_external_federated_credential(azdo_subject=self._TEST_AZDO_SUBJECT)
+                self.assertIn('Service connection or migration API not found (404)', str(ctx.exception))
+                self.assertIn(str(detail), str(ctx.exception))
+
+    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
+    @patch('azext_devops.dev.team.service_endpoint.Profile')
+    @patch('azext_devops.dev.team.service_endpoint.requests.post')
+    def test_convert_handles_gone_response(self, mock_post, mock_profile_cls, mock_get_token):
+        self._make_profile_mock(mock_profile_cls)
+        mock_post.return_value = self._make_response_mock(ok=False, status_code=410, text='Endpoint retired')
+        with self.assertRaises(CLIError) as ctx:
+            migrate_external_federated_credential(azdo_subject=self._TEST_AZDO_SUBJECT)
+        self.assertIn('Migration API is no longer available (410 Gone)', str(ctx.exception))
+        self.assertIn('Endpoint retired', str(ctx.exception))
+
     def test_convert_raises_on_invalid_subject_format(self):
         with self.assertRaises(CLIError) as ctx:
             migrate_external_federated_credential(azdo_subject='not-a-valid-subject')
