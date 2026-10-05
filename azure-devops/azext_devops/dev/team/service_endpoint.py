@@ -230,9 +230,6 @@ def migrate_external_federated_credential(azdo_subject, origin=None, detect=None
 
     # Acquire an Entra Bearer token for Azure DevOps — the public migration
     # endpoint requires Bearer auth, not the Basic-wrapped token the SDK normally sends.
-    from azure.cli.core._profile import Profile
-    from azext_devops.dev.common.services import get_token_from_az_login
-
     profile = Profile()
     try:
         profile.get_current_account_user()  # ensures cache is loaded

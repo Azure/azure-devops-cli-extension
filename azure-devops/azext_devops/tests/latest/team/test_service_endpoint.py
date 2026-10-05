@@ -168,7 +168,12 @@ class TestMigrateExternalFederatedCredential(unittest.TestCase):
         mock_resp.ok = ok
         mock_resp.status_code = status_code
         mock_resp.text = text
-        mock_resp.json.return_value = json_data or {'status': 'success'}
+        if json_data is not None:
+            mock_resp.json.return_value = json_data
+        elif not ok and text:
+            mock_resp.json.side_effect = ValueError()
+        else:
+            mock_resp.json.return_value = {'status': 'success'}
         return mock_resp
 
     @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
