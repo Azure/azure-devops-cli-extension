@@ -92,11 +92,8 @@ def load_team_arguments(self, _):
                          options_list=['--azdo-subject'],
                          help="Federated credential subject of the Azure DevOps issuer, in "
                               "'sc://<organization>/<project>/<serviceConnectionName>' format. "
-                              "The organization URL is derived from --azdo-subject when --organization is not provided.")
-        context.argument('origin',
-                         options_list=['--origin'],
-                         help='Azure DevOps organization URL. If omitted, the organization is derived from '
-                              '--azdo-subject (assumes https://dev.azure.com).')
+                              "The organization URL is derived from --azdo-subject using https://dev.azure.com.")
+        context.ignore('detect')
 
     with self.argument_context('devops invoke') as context:
         context.argument('route_parameters', nargs='*',

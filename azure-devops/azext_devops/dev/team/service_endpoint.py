@@ -14,7 +14,7 @@ import requests
 from azure.cli.core._profile import Profile
 from azext_devops.dev.common.services import (get_service_endpoint_client,
                                               get_token_from_az_login,
-                                              resolve_instance, resolve_instance_and_project)
+                                              resolve_instance_and_project)
 from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX, AZ_DEVOPS_GITHUB_PAT_ENVKEY
 from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
 
@@ -205,7 +205,7 @@ def create_service_endpoint(service_endpoint_configuration,
     return client.create_service_endpoint(service_endpoint_to_create, project)
 
 
-def migrate_external_federated_credential(azdo_subject, origin=None, detect=None):
+def migrate_external_federated_credential(azdo_subject):
     """Migrate a service endpoint to use external federated credentials.
     :param azdo_subject: Service connection in sc://<organization>/<project>/<serviceConnectionName> format.
     :type azdo_subject: str
@@ -218,15 +218,11 @@ def migrate_external_federated_credential(azdo_subject, origin=None, detect=None
         raise CLIError(
             "--azdo-subject must be in 'sc://<organization>/<project>/<serviceConnectionName>' format.")
 
-    if origin is None and not detect:
-        # Derive the organization URL from the sc:// input (assumes dev.azure.com)
-        org_name = match.group(1)
-        origin = 'https://dev.azure.com/{0}'.format(org_name)
-        logger.debug("Derived organization URL from --azdo-subject: %s", origin)
-    elif detect:
-        # Only use resolve_instance when auto-detection from git config is requested
-        origin = resolve_instance(detect=detect, organization=origin)
-    # else: --origin explicitly provided, use it directly (supports codedev.ms, etc.)
+    org_name = match.group(1)
+    if re.fullmatch(r'(?=.{1,50}$)[A-Za-z0-9](?:[A-Za-z0-9-]{0,48}[A-Za-z0-9])?', org_name) is None:
+        raise CLIError('Invalid organization name in --azdo-subject.')
+    origin = 'https://dev.azure.com/{0}'.format(org_name)
+    logger.debug("Derived organization URL from --azdo-subject: %s", origin)
 
     # Acquire an Entra Bearer token for Azure DevOps — the public migration
     # endpoint requires Bearer auth, not the Basic-wrapped token the SDK normally sends.
@@ -259,10 +255,11 @@ def migrate_external_federated_credential(azdo_subject, origin=None, detect=None
             'Content-Type': 'application/json'
         },
         data=json.dumps({'serviceConnectionInput': azdo_subject}),
-        timeout=30
+        timeout=30,
+        allow_redirects=False
     )
 
-    if not response.ok:
+    if not response.ok or 300 <= response.status_code < 400:
         try:
             error_detail = response.json()
         except ValueError:

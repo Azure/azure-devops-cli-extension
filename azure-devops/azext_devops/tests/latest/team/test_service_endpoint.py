@@ -194,15 +194,61 @@ class TestMigrateExternalFederatedCredential(unittest.TestCase):
     @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
     @patch('azext_devops.dev.team.service_endpoint.Profile')
     @patch('azext_devops.dev.team.service_endpoint.requests.post')
-    def test_convert_uses_explicit_origin(self, mock_post, mock_profile_cls, mock_get_token):
+    def test_convert_accepts_hyphenated_organization(self, mock_post, mock_profile_cls, mock_get_token):
         self._make_profile_mock(mock_profile_cls)
         mock_post.return_value = self._make_response_mock()
-        explicit_origin = 'https://dev.azure.com/otherorg'
+        subject = 'sc://tfspf-rmpf/Testproj2107/myconnection'
 
-        migrate_external_federated_credential(azdo_subject=self._TEST_AZDO_SUBJECT, origin=explicit_origin)
+        migrate_external_federated_credential(azdo_subject=subject)
 
         url = mock_post.call_args[0][0]
-        self.assertIn('otherorg', url)
+        self.assertEqual(url, 'https://dev.azure.com/tfspf-rmpf/_apis/public/serviceendpoint/'
+                         'externalfederatedcredentialmigration?api-version=7.2-preview.1')
+        self.assertFalse(mock_post.call_args[1]['allow_redirects'])
+
+    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
+    @patch('azext_devops.dev.team.service_endpoint.Profile')
+    @patch('azext_devops.dev.team.service_endpoint.requests.post')
+    def test_convert_accepts_valid_organization_names(self, mock_post, mock_profile_cls, mock_get_token):
+        self._make_profile_mock(mock_profile_cls)
+        mock_post.return_value = self._make_response_mock()
+        for organization in ['a', '0', 'A1', 'org--name', 'a' * 50, 'a' + '-' * 48 + '9']:
+            with self.subTest(organization=organization):
+                subject = 'sc://{0}/project/connection'.format(organization)
+                result = migrate_external_federated_credential(azdo_subject=subject)
+                self.assertEqual(result, {'status': 'success'})
+                self.assertEqual(mock_post.call_args[0][0],
+                                 'https://dev.azure.com/{0}/_apis/public/serviceendpoint/'
+                                 'externalfederatedcredentialmigration?api-version=7.2-preview.1'
+                                 .format(organization))
+
+    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login')
+    @patch('azext_devops.dev.team.service_endpoint.Profile')
+    @patch('azext_devops.dev.team.service_endpoint.requests.post')
+    def test_convert_rejects_invalid_organization_before_authentication(self, mock_post, mock_profile_cls,
+                                                                       mock_get_token):
+        organizations = ['', '-org', 'org-', '-', 'a' * 51, 'org_name', 'org.name',
+                         'org name', 'org?query', 'org#fragment', 'org%2fother',
+                         'org\\other', 'org@host', 'org\n', '\u00e9org']
+        for organization in organizations:
+            with self.subTest(organization=organization):
+                with self.assertRaises(CLIError) as ctx:
+                    migrate_external_federated_credential(
+                        azdo_subject='sc://{0}/project/connection'.format(organization))
+                self.assertIn('--azdo-subject', str(ctx.exception))
+        mock_profile_cls.assert_not_called()
+        mock_get_token.assert_not_called()
+        mock_post.assert_not_called()
+
+    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
+    @patch('azext_devops.dev.team.service_endpoint.Profile')
+    @patch('azext_devops.dev.team.service_endpoint.requests.post')
+    def test_convert_rejects_redirect_response(self, mock_post, mock_profile_cls, mock_get_token):
+        self._make_profile_mock(mock_profile_cls)
+        mock_post.return_value = self._make_response_mock(status_code=302)
+        with self.assertRaises(CLIError) as ctx:
+            migrate_external_federated_credential(azdo_subject=self._TEST_AZDO_SUBJECT)
+        self.assertIn('302', str(ctx.exception))
 
     @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
     @patch('azext_devops.dev.team.service_endpoint.Profile')

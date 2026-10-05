@@ -66,18 +66,12 @@ def load_team_help():
       Sends a migration request to the Azure DevOps external federated credential migration API
       for the service connection specified via --azdo-subject. The --azdo-subject value must be in
       'sc://<organization>/<project>/<serviceConnectionName>' format. The organization URL is
-      automatically derived from --azdo-subject (using https://dev.azure.com) unless
-      --origin is explicitly provided.
+      automatically derived from --azdo-subject using https://dev.azure.com.
     examples:
       - name: Convert using only the service connection (organization derived automatically)
         text: >
           az devops service-endpoint convert
           --azdo-subject "sc://myorg/myproject/myserviceconnection"
-      - name: Convert with an explicit environment URL
-        text: >
-          az devops service-endpoint convert
-          --azdo-subject "sc://myorg/myproject/myserviceconnection"
-          --origin https://dev.azure.com/myorg
     """
 
     helps['devops security'] = """
