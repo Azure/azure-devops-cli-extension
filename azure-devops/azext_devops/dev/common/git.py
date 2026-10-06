@@ -206,24 +206,24 @@ def _get_git():
     executable = 'git.exe' if os.name == 'nt' else 'git'
     current_directory = os.path.normcase(os.path.realpath(os.getcwd()))
     path = os.environ.get('PATH', os.defpath)
- 
+    
     for entry in path.split(os.pathsep):
         entry = os.path.expandvars(entry.strip().strip('"'))
- 
+
         # Empty and relative PATH entries resolve relative to the current
         # directory and must not be considered.
         if not entry or not os.path.isabs(entry):
             continue
- 
+
         directory = os.path.realpath(entry)
         if os.path.normcase(directory) == current_directory:
             continue
- 
+
         candidate = os.path.join(directory, executable)
         if os.path.isfile(candidate):
             if os.name == 'nt' or os.access(candidate, os.X_OK):
                 return candidate
- 
+
     raise FileNotFoundError(
         'Git executable was not found in a trusted PATH directory.'
     )
