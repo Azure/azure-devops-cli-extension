@@ -206,7 +206,7 @@ def _get_git():
     executable = 'git.exe' if os.name == 'nt' else 'git'
     current_directory = os.path.normcase(os.path.realpath(os.getcwd()))
     path = os.environ.get('PATH', os.defpath)
-    
+
     for entry in path.split(os.pathsep):
         entry = os.path.expandvars(entry.strip().strip('"'))
 
