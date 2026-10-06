@@ -257,7 +257,7 @@ def _get_git_executable():
         if os.name != "nt" and not os.access(candidate, os.X_OK):
             continue
 
-    return candidate
+        return candidate
 
     raise FileNotFoundError(
         "Git executable was not found in a trusted PATH directory."
