@@ -1,0 +1,65 @@
+interactions:
+- request:
+    body: '{"serviceConnectionInput": "sc://recordedorg/recordedproject/recordedconnection"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '81'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.34.2
+    method: POST
+    uri: https://dev.azure.com/recordedorg/_apis/public/serviceendpoint/externalfederatedcredentialmigration?api-version=7.2-preview.1
+  response:
+    body:
+      string: '{"success":false,"message":"Service connection not found."}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - 7b2f1c7a-fe5e-4844-a8ae-a1a4a36e06d4
+      cache-control:
+      - no-cache, no-store, must-revalidate
+      content-length:
+      - '59'
+      content-type:
+      - application/json; charset=utf-8; api-version=7.2-preview.1
+      date:
+      - Tue, 06 Oct 2026 11:40:25 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:49730b4d-7fb4-4fa2-a6ab-70644a59d2ba
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-msedge-ref:
+      - 'Ref A: 84ED9C0CD60A4590BECCEE925EF65D9C Ref B: MNZ221060619045 Ref C: 2026-10-06T11:40:13Z'
+      x-ratelimit-cost:
+      - '0.40256'
+      x-tfs-processid:
+      - 74c47ab1-702b-4c5a-90a8-ed5e84f05e37
+      x-tfs-session:
+      - 7b2f1c7a-fe5e-4844-a8ae-a1a4a36e06d4
+      x-vss-e2eid:
+      - 7b2f1c7a-fe5e-4844-a8ae-a1a4a36e06d4
+      x-vss-senderdeploymentid:
+      - ddeec5a2-6f54-9a01-6dc9-bb4c369b913a
+    status:
+      code: 404
+      message: Not Found
+version: 1

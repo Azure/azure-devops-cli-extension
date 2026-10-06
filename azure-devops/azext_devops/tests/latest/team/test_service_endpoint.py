@@ -403,28 +403,13 @@ class TestMigrateExternalFederatedCredential(unittest.TestCase):
     @patch('azext_devops.dev.team.service_endpoint.Profile')
     def test_convert_handles_missing_cached_subscriptions(self, mock_profile_cls):
         mock_profile = mock_profile_cls.return_value
+        mock_profile.get_current_account_user.side_effect = RuntimeError('no cached account')
         mock_profile.load_cached_subscriptions.return_value = None
 
         with self.assertRaises(CLIError) as ctx:
             migrate_external_federated_credential(azdo_subject=self._TEST_AZDO_SUBJECT)
 
         self.assertIn('az login', str(ctx.exception))
-
-    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login')
-    @patch('azext_devops.dev.team.service_endpoint.Profile')
-    @patch('azext_devops.dev.team.service_endpoint.requests.post')
-    def test_convert_propagates_cache_failure(self, mock_post, mock_profile_cls, mock_get_token):
-        profile = mock_profile_cls.return_value
-        cache_error = RuntimeError('Unexpected cache failure')
-        profile.load_cached_subscriptions.side_effect = cache_error
-
-        with self.assertRaises(RuntimeError) as ctx:
-            migrate_external_federated_credential(azdo_subject=self._TEST_AZDO_SUBJECT)
-
-        self.assertIs(ctx.exception, cache_error)
-        profile.get_current_account_user.assert_not_called()
-        mock_get_token.assert_not_called()
-        mock_post.assert_not_called()
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,67 @@
+interactions:
+- request:
+    body: '{"serviceConnectionInput": "sc://recordedorg/recordedproject/recordedconnection"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '81'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.34.2
+    method: POST
+    uri: https://dev.azure.com/recordedorg/_apis/public/serviceendpoint/externalfederatedcredentialmigration?api-version=7.2-preview.1
+  response:
+    body:
+      string: '{"success":true,"message":"Migration initiated."}'
+    headers:
+      access-control-expose-headers:
+      - Request-Context
+      activityid:
+      - b3ccf1bd-0a2f-44bf-80d0-556c70178477
+      cache-control:
+      - no-cache, no-store, must-revalidate
+      content-length:
+      - '49'
+      content-type:
+      - application/json; charset=utf-8; api-version=7.2-preview.1
+      date:
+      - Tue, 06 Oct 2026 13:13:07 GMT
+      expires:
+      - '-1'
+      p3p:
+      - CP="CAO DSP COR ADMa DEV CONo TELo CUR PSA PSD TAI IVDo OUR SAMi BUS DEM NAV
+        STA UNI COM INT PHY ONL FIN PUR LOC CNT"
+      pragma:
+      - no-cache
+      request-context:
+      - appId=cid-v1:49730b4d-7fb4-4fa2-a6ab-70644a59d2ba
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      vary:
+      - Accept-Encoding
+      x-cache:
+      - CONFIG_NOCACHE
+      x-content-type-options:
+      - nosniff
+      x-msedge-ref:
+      - 'Ref A: 571C40507CC24B0BA66A5A8B99E9D16E Ref B: MNZ221060619009 Ref C: 2026-10-06T13:13:05Z'
+      x-ratelimit-cost:
+      - '0.07783'
+      x-tfs-processid:
+      - 20ca9115-f7b8-477e-a1d6-d5540646d143
+      x-tfs-session:
+      - b3ccf1bd-0a2f-44bf-80d0-556c70178477
+      x-vss-e2eid:
+      - b3ccf1bd-0a2f-44bf-80d0-556c70178477
+      x-vss-senderdeploymentid:
+      - ddeec5a2-6f54-9a01-6dc9-bb4c369b913a
+    status:
+      code: 200
+      message: OK
+version: 1
