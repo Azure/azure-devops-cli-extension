@@ -205,61 +205,68 @@ def _get_alias_value(command):
 
 
 def _canonical_path(path):
-    return os.path.normcase(os.path.realpath(os.path.abspath(path)))
- 
- 
+    return os.path.normcase(
+        os.path.realpath(
+            os.path.abspath(path)
+        )
+    )
+
+
 def _paths_overlap(first, second):
     try:
         common = os.path.commonpath([first, second])
     except ValueError:
         # Different drives on Windows cannot overlap.
         return False
- 
+
     return common == first or common == second
- 
- 
+
+
 def _get_git_executable():
     global _GIT_EXE
- 
+
     if _GIT_EXE is not None:
         return _GIT_EXE
- 
-    executable = 'git.exe' if os.name == 'nt' else 'git'
+
+    executable = "git.exe" if os.name == "nt" else "git"
     working_directory = _canonical_path(os.getcwd())
- 
+
     for path_entry in os.get_exec_path():
-        path_entry = os.path.expandvars(path_entry.strip().strip('"'))
- 
+        path_entry = os.path.expandvars(
+            path_entry.strip().strip('"')
+        )
+
         # Empty and relative entries depend on the current directory.
         if not path_entry or not os.path.isabs(path_entry):
             continue
- 
+
         directory = _canonical_path(path_entry)
- 
+
         # Reject the working directory, its parents, and its children.
         # This also handles running the CLI from a repository subdirectory.
         if _paths_overlap(directory, working_directory):
             continue
- 
-        candidate = _canonical_path(os.path.join(directory, executable))
- 
+
+        candidate = _canonical_path(
+            os.path.join(directory, executable)
+        )
+
         # A symlinked executable must not resolve back into the working tree.
         if _paths_overlap(os.path.dirname(candidate), working_directory):
             continue
- 
+
         if not os.path.isfile(candidate):
             continue
- 
-        if os.name != 'nt' and not os.access(candidate, os.X_OK):
+
+        if os.name != "nt" and not os.access(candidate, os.X_OK):
             continue
- 
+
         _GIT_EXE = candidate
         return _GIT_EXE
- 
-    raise FileNotFoundError(
-        'Git executable was not found in a trusted PATH directory.'
-    )
 
+    raise FileNotFoundError(
+        "Git executable was not found in a trusted PATH directory."
+    )
 
 _git_remotes = {}
 _ORIGIN_PUSH_KEY = 'origin(push)'
