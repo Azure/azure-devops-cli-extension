@@ -268,6 +268,7 @@ def _get_git_executable():
         "Git executable was not found in a trusted PATH directory."
     )
 
+
 _git_remotes = {}
 _ORIGIN_PUSH_KEY = 'origin(push)'
 REFS_PREFIX = 'refs/'
