@@ -6,12 +6,12 @@
 from __future__ import print_function
 
 import os
+import requests
+from azure.cli.core._profile import Profile
 from knack.log import get_logger
 from knack.prompting import prompt_pass
 from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
-import requests
-from azure.cli.core._profile import Profile
 from azext_devops.dev.common.services import (get_service_endpoint_client,
                                               get_token_from_az_login,
                                               resolve_instance_and_project)
@@ -205,10 +205,12 @@ def create_service_endpoint(service_endpoint_configuration,
     return client.create_service_endpoint(service_endpoint_to_create, project)
 
 
-def migrate_external_federated_credential(azdo_subject):
+def migrate_external_federated_credential(azdo_subject, tenant_id=None):
     """Migrate a service endpoint to use external federated credentials.
     :param azdo_subject: Service connection in sc://<organization>/<project>/<serviceConnectionName> format.
     :type azdo_subject: str
+    :param tenant_id: Entra tenant used to authenticate to the Azure DevOps organization.
+    :type tenant_id: str
     """
     import json
     import re
@@ -227,16 +229,13 @@ def migrate_external_federated_credential(azdo_subject):
     # Acquire an Entra Bearer token for Azure DevOps — the public migration
     # endpoint requires Bearer auth, not the Basic-wrapped token the SDK normally sends.
     profile = Profile()
-    try:
-        profile.get_current_account_user()  # ensures cache is loaded
-    except Exception:  # pragma: no cover - Azure CLI may not have a cached user
-        pass
 
-    subscriptions = profile.load_cached_subscriptions(False) or []
-    tenant_id = next(
-        (s.get('tenantId') for s in subscriptions if s.get('isDefault')),
-        next((s.get('tenantId') for s in subscriptions), None)
-    )
+    if tenant_id is None:
+        subscriptions = profile.load_cached_subscriptions(False) or []
+        tenant_id = next(
+            (s.get('tenantId') for s in subscriptions if s.get('isDefault')),
+            next((s.get('tenantId') for s in subscriptions), None)
+        )
     if not tenant_id:
         raise CLIError("No Azure login found. Run 'az login' and try again.")
     bearer_token = get_token_from_az_login(profile, tenant_id)

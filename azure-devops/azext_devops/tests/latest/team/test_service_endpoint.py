@@ -316,6 +316,64 @@ class TestMigrateExternalFederatedCredential(unittest.TestCase):
         self.assertIn('Migration API is no longer available (410 Gone)', str(ctx.exception))
         self.assertIn('Endpoint retired', str(ctx.exception))
 
+    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
+    @patch('azext_devops.dev.team.service_endpoint.Profile')
+    @patch('azext_devops.dev.team.service_endpoint.requests.post')
+    def test_convert_explicit_tenant_overrides_cached_tenants(self, mock_post, mock_profile_cls, mock_get_token):
+        profile = self._make_profile_mock(mock_profile_cls)
+        mock_post.return_value = self._make_response_mock()
+        for subscriptions in [[{'tenantId': 'tenant-A', 'isDefault': True},
+                               {'tenantId': 'tenant-B', 'isDefault': False}], []]:
+            with self.subTest(subscriptions=subscriptions):
+                profile.load_cached_subscriptions.return_value = subscriptions
+                mock_get_token.reset_mock()
+                migrate_external_federated_credential(self._TEST_AZDO_SUBJECT, tenant_id='tenant-B')
+                mock_get_token.assert_called_once_with(profile, 'tenant-B')
+        profile.load_cached_subscriptions.assert_not_called()
+
+    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
+    @patch('azext_devops.dev.team.service_endpoint.Profile')
+    @patch('azext_devops.dev.team.service_endpoint.requests.post')
+    def test_convert_omitted_tenant_preserves_cached_selection(self, mock_post, mock_profile_cls, mock_get_token):
+        profile = self._make_profile_mock(mock_profile_cls)
+        mock_post.return_value = self._make_response_mock()
+        for is_default, expected_tenant in [(True, 'tenant-B'), (False, 'tenant-A')]:
+            with self.subTest(is_default=is_default):
+                profile.load_cached_subscriptions.return_value = [
+                    {'tenantId': 'tenant-A', 'isDefault': False},
+                    {'tenantId': 'tenant-B', 'isDefault': is_default}]
+                mock_get_token.reset_mock()
+                migrate_external_federated_credential(self._TEST_AZDO_SUBJECT)
+                mock_get_token.assert_called_once_with(profile, expected_tenant)
+
+    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value='')
+    @patch('azext_devops.dev.team.service_endpoint.Profile')
+    @patch('azext_devops.dev.team.service_endpoint.requests.post')
+    def test_convert_explicit_tenant_token_failure_stops_request(self, mock_post, mock_profile_cls, mock_get_token):
+        profile = self._make_profile_mock(mock_profile_cls)
+        with self.assertRaises(CLIError):
+            migrate_external_federated_credential(self._TEST_AZDO_SUBJECT, tenant_id='tenant-B')
+        mock_get_token.assert_called_once_with(profile, 'tenant-B')
+        mock_post.assert_not_called()
+
+    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
+    @patch('azext_devops.dev.team.service_endpoint.Profile')
+    @patch('azext_devops.dev.team.service_endpoint.requests.post')
+    def test_convert_not_found_does_not_retry_other_tenants(self, mock_post, mock_profile_cls, mock_get_token):
+        profile = self._make_profile_mock(mock_profile_cls)
+        profile.load_cached_subscriptions.return_value = [
+            {'tenantId': 'tenant-A', 'isDefault': True},
+            {'tenantId': 'tenant-B', 'isDefault': False}]
+        mock_post.return_value = self._make_response_mock(ok=False, status_code=404, text='Not Found')
+        for tenant_id, expected_tenant in [(None, 'tenant-A'), ('tenant-B', 'tenant-B')]:
+            with self.subTest(tenant_id=tenant_id):
+                mock_post.reset_mock()
+                mock_get_token.reset_mock()
+                with self.assertRaises(CLIError):
+                    migrate_external_federated_credential(self._TEST_AZDO_SUBJECT, tenant_id=tenant_id)
+                mock_get_token.assert_called_once_with(profile, expected_tenant)
+                mock_post.assert_called_once()
+
     def test_convert_raises_on_invalid_subject_format(self):
         with self.assertRaises(CLIError) as ctx:
             migrate_external_federated_credential(azdo_subject='not-a-valid-subject')
@@ -345,13 +403,28 @@ class TestMigrateExternalFederatedCredential(unittest.TestCase):
     @patch('azext_devops.dev.team.service_endpoint.Profile')
     def test_convert_handles_missing_cached_subscriptions(self, mock_profile_cls):
         mock_profile = mock_profile_cls.return_value
-        mock_profile.get_current_account_user.side_effect = RuntimeError('no cached account')
         mock_profile.load_cached_subscriptions.return_value = None
 
         with self.assertRaises(CLIError) as ctx:
             migrate_external_federated_credential(azdo_subject=self._TEST_AZDO_SUBJECT)
 
         self.assertIn('az login', str(ctx.exception))
+
+    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login')
+    @patch('azext_devops.dev.team.service_endpoint.Profile')
+    @patch('azext_devops.dev.team.service_endpoint.requests.post')
+    def test_convert_propagates_cache_failure(self, mock_post, mock_profile_cls, mock_get_token):
+        profile = mock_profile_cls.return_value
+        cache_error = RuntimeError('Unexpected cache failure')
+        profile.load_cached_subscriptions.side_effect = cache_error
+
+        with self.assertRaises(RuntimeError) as ctx:
+            migrate_external_federated_credential(azdo_subject=self._TEST_AZDO_SUBJECT)
+
+        self.assertIs(ctx.exception, cache_error)
+        profile.get_current_account_user.assert_not_called()
+        mock_get_token.assert_not_called()
+        mock_post.assert_not_called()
 
 if __name__ == '__main__':
     unittest.main()

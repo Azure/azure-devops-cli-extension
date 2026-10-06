@@ -67,11 +67,17 @@ def load_team_help():
       for the service connection specified via --azdo-subject. The --azdo-subject value must be in
       'sc://<organization>/<project>/<serviceConnectionName>' format. The organization URL is
       automatically derived from --azdo-subject using https://dev.azure.com.
+      Use --tenant-id to select the Entra tenant used to authenticate to the Azure DevOps organization.
     examples:
       - name: Convert using only the service connection (organization derived automatically)
         text: >
           az devops service-endpoint convert
           --azdo-subject "sc://myorg/myproject/myserviceconnection"
+      - name: Convert using a specific authentication tenant
+        text: >
+          az devops service-endpoint convert
+          --azdo-subject "sc://myorg/myproject/myserviceconnection"
+          --tenant-id "00000000-0000-0000-0000-000000000000"
     """
 
     helps['devops security'] = """
