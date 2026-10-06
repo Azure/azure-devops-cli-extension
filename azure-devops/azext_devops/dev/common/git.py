@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import functools
 import os
 import subprocess
 import sys
@@ -12,8 +13,6 @@ from knack.util import CLIError
 from .uri import uri_parse
 
 logger = get_logger(__name__)
-
-_GIT_EXE = None
 
 
 def set_config(key, value, local=True):
@@ -222,11 +221,8 @@ def _paths_overlap(first, second):
     return common == first or common == second
 
 
+@functools.lru_cache(maxsize=None)
 def _get_git_executable():
-    global _GIT_EXE
-
-    if _GIT_EXE is not None:
-        return _GIT_EXE
 
     executable = "git.exe" if os.name == "nt" else "git"
     working_directory = _canonical_path(os.getcwd())
@@ -261,8 +257,7 @@ def _get_git_executable():
         if os.name != "nt" and not os.access(candidate, os.X_OK):
             continue
 
-        _GIT_EXE = candidate
-        return _GIT_EXE
+       return candidate
 
     raise FileNotFoundError(
         "Git executable was not found in a trusted PATH directory."
