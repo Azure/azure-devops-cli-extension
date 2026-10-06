@@ -103,7 +103,9 @@ def get_git_remotes():
         # full  https://mseng.visualstudio.com/DefaultCollection/VSOnline/_git/_full/VSO (push)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (fetch)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (push)
+        logger.warning('Hii')
         output = subprocess.check_output([_GIT_EXE, 'remote', '-v'], stderr=subprocess.STDOUT)
+        logger.warning('Hello')
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect current remotes based on current working directory.')
         logger.debug(ex, exc_info=True)
