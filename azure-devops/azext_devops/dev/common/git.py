@@ -13,22 +13,24 @@ from .uri import uri_parse
 
 logger = get_logger(__name__)
 
+_GIT_EXE = None
+
 
 def set_config(key, value, local=True):
     scope = _get_git_config_scope_arg(local)
-    git = _get_git()
+    git = _get_git_executable()
     subprocess.check_output([git, 'config', scope, key, value])
 
 
 def unset_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
-    git = _get_git()
+    git = _get_git_executable()
     subprocess.check_output([git, 'config', scope, '--unset', key])
 
 
 def get_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
-    git = _get_git()
+    git = _get_git_executable()
     return subprocess.check_output([git, 'config', scope, key])
 
 
@@ -39,7 +41,7 @@ def _get_git_config_scope_arg(local):
 
 
 def fetch_remote_and_checkout(refName, remote_name):
-    git = _get_git()
+    git = _get_git_executable()
     subprocess.run([git, 'fetch', remote_name, refName], check=False)
     subprocess.run([git, 'checkout', get_branch_name_from_ref(refName)], check=False)
     subprocess.run([git, 'pull', remote_name, get_branch_name_from_ref(refName)], check=False)
@@ -47,7 +49,7 @@ def fetch_remote_and_checkout(refName, remote_name):
 
 def get_current_branch_name():
     try:
-        git = _get_git()
+        git = _get_git_executable()
         output = subprocess.check_output([git, 'symbolic-ref', '--short', '-q', 'HEAD'])
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect current branch based on current working directory.')
@@ -80,7 +82,7 @@ def get_git_credentials(organization):
     standard_in = bytes('protocol={protocol}\nhost={host}'.format(protocol=protocol, host=host), 'utf-8')
     try:
         # pylint: disable=unexpected-keyword-arg
-        git = _get_git()
+        git = _get_git_executable()
         output = subprocess.check_output([git, 'credential-manager', 'get'], input=standard_in)
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect git credentials for current working directory.')
@@ -102,7 +104,7 @@ def get_git_remotes():
     if _git_remotes:
         return _git_remotes
     try:
-        git = _get_git()
+        git = _get_git_executable()
         # Example output:
         # git remote - v
         # full  https://mseng.visualstudio.com/DefaultCollection/VSOnline/_git/_full/VSO (fetch)
@@ -202,28 +204,58 @@ def _get_alias_value(command):
     return '!f() { exec az' + mime + ' ' + command + ' \"$@\"; }; f'
 
 
-def _get_git():
+def _canonical_path(path):
+    return os.path.normcase(os.path.realpath(os.path.abspath(path)))
+ 
+ 
+def _paths_overlap(first, second):
+    try:
+        common = os.path.commonpath([first, second])
+    except ValueError:
+        # Different drives on Windows cannot overlap.
+        return False
+ 
+    return common == first or common == second
+ 
+ 
+def _get_git_executable():
+    global _GIT_EXE
+ 
+    if _GIT_EXE is not None:
+        return _GIT_EXE
+ 
     executable = 'git.exe' if os.name == 'nt' else 'git'
-    current_directory = os.path.normcase(os.path.realpath(os.getcwd()))
-    path = os.environ.get('PATH', os.defpath)
-
-    for entry in path.split(os.pathsep):
-        entry = os.path.expandvars(entry.strip().strip('"'))
-
-        # Empty and relative PATH entries resolve relative to the current
-        # directory and must not be considered.
-        if not entry or not os.path.isabs(entry):
+    working_directory = _canonical_path(os.getcwd())
+ 
+    for path_entry in os.get_exec_path():
+        path_entry = os.path.expandvars(path_entry.strip().strip('"'))
+ 
+        # Empty and relative entries depend on the current directory.
+        if not path_entry or not os.path.isabs(path_entry):
             continue
-
-        directory = os.path.realpath(entry)
-        if os.path.normcase(directory) == current_directory:
+ 
+        directory = _canonical_path(path_entry)
+ 
+        # Reject the working directory, its parents, and its children.
+        # This also handles running the CLI from a repository subdirectory.
+        if _paths_overlap(directory, working_directory):
             continue
-
-        candidate = os.path.join(directory, executable)
-        if os.path.isfile(candidate):
-            if os.name == 'nt' or os.access(candidate, os.X_OK):
-                return candidate
-
+ 
+        candidate = _canonical_path(os.path.join(directory, executable))
+ 
+        # A symlinked executable must not resolve back into the working tree.
+        if _paths_overlap(os.path.dirname(candidate), working_directory):
+            continue
+ 
+        if not os.path.isfile(candidate):
+            continue
+ 
+        if os.name != 'nt' and not os.access(candidate, os.X_OK):
+            continue
+ 
+        _GIT_EXE = candidate
+        return _GIT_EXE
+ 
     raise FileNotFoundError(
         'Git executable was not found in a trusted PATH directory.'
     )
