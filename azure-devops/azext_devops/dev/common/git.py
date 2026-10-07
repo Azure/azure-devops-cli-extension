@@ -15,24 +15,12 @@ from .uri import uri_parse
 
 logger = get_logger(__name__)
 
-# Defense in depth: even though every Git invocation below always passes an
-# absolute, pre-validated path (so Windows never needs to search PATH for
-# it), also disable the Windows CRT's current-directory executable search
-# at the process level. This protects any future call site that might
-# accidentally launch Git (or another tool) by bare name instead of going
-# through _get_git_executable().
+
 if os.name == 'nt':
     os.environ.setdefault('NoDefaultCurrentDirectoryInExePath', '1')
 
 
 def _sanitized_subprocess_env():
-    """Environment for Git subprocesses: a copy of the current environment
-    with all Azure DevOps CLI credential/config variables removed.
-
-    Git does not need AZURE_DEVOPS_EXT_PAT, AZURE_DEVOPS_EXT_AUTH_TOKEN, or
-    any other azure-devops-specific variable to run config/remote/branch
-    commands, so none of them should be exposed to the child process.
-    """
     env = os.environ.copy()
     for key in list(env):
         if key.startswith(CLI_ENV_VARIABLE_PREFIX):
