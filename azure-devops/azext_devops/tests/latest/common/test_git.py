@@ -23,13 +23,6 @@ def _make_executable(path):
 
 
 class TestGetGitExecutable(unittest.TestCase):
-    """Regression tests for the CWD git-planting vulnerability.
-
-    These tests simulate an attacker committing a canary ``git.exe`` into a
-    checkout (and, in the worst case, temporarily onto PATH) and assert that
-    ``_get_git_executable`` never selects it -- only a git binary that lives
-    outside the current working directory tree is considered trusted.
-    """
 
     def setUp(self):
         # _get_git_executable is memoized; clear the cache so each test is independent.
@@ -38,10 +31,6 @@ class TestGetGitExecutable(unittest.TestCase):
         self.addCleanup(shutil.rmtree, self._tmp_root, ignore_errors=True)
         self.addCleanup(git._get_git_executable.cache_clear)
 
-        # Layout:
-        #   <tmp_root>/checkout            <- simulated attacker-controlled cwd
-        #   <tmp_root>/checkout/sub        <- nested subdirectory of cwd
-        #   <tmp_root>/trusted             <- simulated real Git install location
         self.checkout_dir = os.path.join(self._tmp_root, 'checkout')
         self.checkout_subdir = os.path.join(self.checkout_dir, 'sub')
         self.trusted_dir = os.path.join(self._tmp_root, 'trusted')
@@ -57,8 +46,6 @@ class TestGetGitExecutable(unittest.TestCase):
         return mock.patch('os.getcwd', return_value=self.checkout_dir)
 
     def test_rejects_planted_executable_when_cwd_itself_is_on_path(self):
-        """Canary git.exe sitting directly in the CWD must never be selected,
-        even if the CWD is (incorrectly) present on PATH."""
         _make_executable(self.canary_path)
         _make_executable(self.trusted_path)
 
@@ -82,8 +69,6 @@ class TestGetGitExecutable(unittest.TestCase):
         self.assertEqual(resolved, git._canonical_path(self.trusted_path))
 
     def test_rejects_parent_directory_of_cwd(self):
-        """A PATH entry that is a parent of the CWD must be rejected too,
-        since any ancestor directory overlaps the untrusted working tree."""
         _make_executable(self.canary_path)
         _make_executable(self.trusted_path)
 
@@ -95,8 +80,6 @@ class TestGetGitExecutable(unittest.TestCase):
         self.assertEqual(resolved, git._canonical_path(self.trusted_path))
 
     def test_resolves_trusted_git_outside_working_tree(self):
-        """Normal functionality: with only a trusted PATH entry (no CWD overlap),
-        resolution must succeed and return that trusted binary."""
         _make_executable(self.trusted_path)
 
         with self._patch_cwd(), \
@@ -106,8 +89,6 @@ class TestGetGitExecutable(unittest.TestCase):
         self.assertEqual(resolved, git._canonical_path(self.trusted_path))
 
     def test_raises_file_not_found_when_no_trusted_git_available(self):
-        """If every candidate is rejected (or missing), a clean FileNotFoundError
-        must be raised -- the canary in the CWD must never be used as a fallback."""
         _make_executable(self.canary_path)  # present, but must be ignored
 
         with self._patch_cwd(), \
@@ -116,8 +97,6 @@ class TestGetGitExecutable(unittest.TestCase):
                 git._get_git_executable()
 
     def test_result_is_cached_after_first_successful_resolution(self):
-        """_get_git_executable should only scan PATH once; subsequent calls
-        must reuse the cached result instead of re-invoking os.get_exec_path."""
         _make_executable(self.trusted_path)
 
         with self._patch_cwd(), \
@@ -129,8 +108,6 @@ class TestGetGitExecutable(unittest.TestCase):
         mock_exec_path.assert_called_once()
 
     def test_relative_and_empty_path_entries_are_ignored(self):
-        """Relative or empty PATH entries resolve relative to the CWD and must
-        not be trusted, since that would reintroduce CWD-based lookup."""
         _make_executable(self.trusted_path)
 
         with self._patch_cwd(), \
@@ -141,12 +118,6 @@ class TestGetGitExecutable(unittest.TestCase):
 
 
 class TestPathsOverlap(unittest.TestCase):
-    """Unit tests for the _paths_overlap helper used to detect CWD containment.
-
-    Paths are built with os.sep/os.path.join (rather than hardcoded
-    Windows-style literals) so these assertions hold on every platform that
-    runs the test suite, not just Windows.
-    """
 
     def test_identical_paths_overlap(self):
         same = os.path.join(os.sep, 'foo', 'bar')
@@ -169,17 +140,6 @@ class TestPathsOverlap(unittest.TestCase):
 
 
 class TestGitRemoteDiscoveryIsolation(unittest.TestCase):
-    """End-to-end regression tests for the full auto-detection path
-    (get_git_remotes(), exercised the same way services.py's auto-detect
-    calls it with detect=None -> should_detect(None) == True).
-
-    These cover the two MSRC-requested guarantees that go beyond
-    _get_git_executable() in isolation:
-      1. Default auto-detection must resolve a trusted Git install and must
-         never launch a canary executable planted in the working tree.
-      2. The discovery child process must never receive Azure DevOps
-         credential/config environment variables (AZURE_DEVOPS_EXT_*).
-    """
 
     def setUp(self):
         git._get_git_executable.cache_clear()
@@ -196,17 +156,13 @@ class TestGitRemoteDiscoveryIsolation(unittest.TestCase):
         os.makedirs(self.trusted_dir)
 
         executable_name = 'git.exe' if os.name == 'nt' else 'git'
-        # Canary: simulates an attacker-planted git.exe sitting in the
-        # current working directory (e.g. a cloned repository root).
         self.canary_path = os.path.join(self.checkout_dir, executable_name)
         _make_executable(self.canary_path)
         self.trusted_path = os.path.join(self.trusted_dir, executable_name)
         _make_executable(self.trusted_path)
 
     def test_auto_detection_never_invokes_planted_canary(self):
-        """Default auto-detection (detect=None -> should_detect(None) is
-        True) must resolve the trusted Git install and must never launch
-        the canary planted in the current working directory."""
+
         self.assertTrue(should_detect(None))
 
         fake_remote_output = (
@@ -227,9 +183,7 @@ class TestGitRemoteDiscoveryIsolation(unittest.TestCase):
         self.assertNotEqual(invoked_executable, git._canonical_path(self.canary_path))
 
     def test_discovery_child_receives_no_azure_devops_credentials(self):
-        """The git subprocess spawned for remote discovery must not inherit
-        Azure DevOps credential/config environment variables, even though
-        the parent process (and thus os.environ) has them set."""
+
         leaked_vars = {
             'AZURE_DEVOPS_EXT_PAT': 'super-secret-pat',
             'AZURE_DEVOPS_EXT_AUTH_TOKEN': 'super-secret-token',
