@@ -247,16 +247,32 @@ def migrate_external_federated_credential(azdo_subject, tenant_id=None):
         origin.rstrip('/'), api_version)
 
     logger.debug("POST %s", migrate_url)
-    response = requests.post(
-        migrate_url,
-        headers={
-            'Authorization': 'Bearer {0}'.format(bearer_token),
-            'Content-Type': 'application/json'
-        },
-        data=json.dumps({'serviceConnectionInput': azdo_subject}),
-        timeout=30,
-        allow_redirects=False
-    )
+    try:
+        response = requests.post(
+            migrate_url,
+            headers={
+                'Authorization': 'Bearer {0}'.format(bearer_token),
+                'Content-Type': 'application/json'
+            },
+            data=json.dumps({'serviceConnectionInput': azdo_subject}),
+            timeout=30,
+            allow_redirects=False
+        )
+    except requests.RequestException as ex:
+        if isinstance(ex, requests.exceptions.Timeout):
+            detail = 'The request timed out.'
+        elif isinstance(ex, requests.exceptions.ProxyError):
+            detail = 'Proxy connection failed. Check your proxy configuration.'
+        elif isinstance(ex, requests.exceptions.SSLError):
+            detail = 'TLS verification failed. Check your certificate configuration.'
+        elif isinstance(ex, requests.exceptions.ConnectionError):
+            detail = 'Connection failed. Check network connectivity and DNS.'
+        else:
+            detail = 'The HTTP request could not be completed.'
+        raise CLIError(
+            '{0} Migration status is unknown; verify the service connection '
+            'before retrying.'.format(detail)
+        ) from ex
 
     if not response.ok or 300 <= response.status_code < 400:
         try:

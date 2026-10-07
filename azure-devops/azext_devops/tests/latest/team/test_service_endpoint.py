@@ -5,6 +5,8 @@
 
 import unittest
 
+import requests
+
 try:
     # Attempt to load mock (works on Python 3.3 and above)
     from unittest.mock import patch
@@ -288,6 +290,46 @@ class TestMigrateExternalFederatedCredential(unittest.TestCase):
 
         self.assertIn('400', str(ctx.exception))
         self.assertIn('Bad Request', str(ctx.exception))
+
+    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
+    @patch('azext_devops.dev.team.service_endpoint.Profile')
+    @patch('azext_devops.dev.team.service_endpoint.requests.post')
+    def test_convert_translates_transport_errors_without_retry(self, mock_post, mock_profile_cls, mock_get_token):
+        self._make_profile_mock(mock_profile_cls)
+        failures = [
+            (requests.exceptions.Timeout, 'The request timed out.'),
+            (requests.exceptions.ConnectTimeout, 'The request timed out.'),
+            (requests.exceptions.ReadTimeout, 'The request timed out.'),
+            (requests.exceptions.ProxyError, 'Check your proxy configuration.'),
+            (requests.exceptions.SSLError, 'Check your certificate configuration.'),
+            (requests.exceptions.ConnectionError, 'Check network connectivity and DNS.'),
+            (requests.RequestException, 'The HTTP request could not be completed.')
+        ]
+        for exception_type, expected_message in failures:
+            with self.subTest(exception_type=exception_type.__name__):
+                mock_post.reset_mock()
+                failure = exception_type('simulated transport failure')
+                mock_post.side_effect = failure
+                with self.assertRaises(CLIError) as ctx:
+                    migrate_external_federated_credential(azdo_subject=self._TEST_AZDO_SUBJECT)
+                self.assertIn(expected_message, str(ctx.exception))
+                self.assertIn('Migration status is unknown', str(ctx.exception))
+                self.assertIn('verify the service connection before retrying', str(ctx.exception))
+                self.assertNotIn('simulated transport failure', str(ctx.exception))
+                self.assertIs(ctx.exception.__cause__, failure)
+                mock_post.assert_called_once()
+
+    @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
+    @patch('azext_devops.dev.team.service_endpoint.Profile')
+    @patch('azext_devops.dev.team.service_endpoint.requests.post')
+    def test_convert_propagates_unexpected_request_errors(self, mock_post, mock_profile_cls, mock_get_token):
+        self._make_profile_mock(mock_profile_cls)
+        failure = RuntimeError('Unexpected request failure')
+        mock_post.side_effect = failure
+        with self.assertRaises(RuntimeError) as ctx:
+            migrate_external_federated_credential(azdo_subject=self._TEST_AZDO_SUBJECT)
+        self.assertIs(ctx.exception, failure)
+        mock_post.assert_called_once()
 
     @patch('azext_devops.dev.team.service_endpoint.get_token_from_az_login', return_value=_TEST_BEARER_TOKEN)
     @patch('azext_devops.dev.team.service_endpoint.Profile')
