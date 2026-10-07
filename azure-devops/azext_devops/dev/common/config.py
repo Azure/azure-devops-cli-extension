@@ -6,7 +6,6 @@
 import os
 
 from knack.config import CLIConfig, get_config_parser
-from knack.util import ensure_dir
 from .const import (AZ_DEVOPS_CONFIG_DIR_ENVKEY,
                     AZ_DEVOPS_DEFAULT_CONFIG_DIR,
                     CLI_ENV_VARIABLE_PREFIX,
@@ -16,10 +15,16 @@ from .const import (AZ_DEVOPS_CONFIG_DIR_ENVKEY,
 _UNSET = object()
 
 
+def _ensure_private_config_dir(config_dir):
+    os.makedirs(config_dir, mode=0o700, exist_ok=True)
+    if os.name != 'nt':
+        os.chmod(config_dir, 0o700)
+
+
 def _get_config_dir():
-    azure_devops_config_dir = os.getenv(AZ_DEVOPS_CONFIG_DIR_ENVKEY, None) or AZ_DEVOPS_DEFAULT_CONFIG_DIR
-    # Create a directory if it doesn't exist
-    ensure_dir(azure_devops_config_dir)
+    configured_dir = os.getenv(AZ_DEVOPS_CONFIG_DIR_ENVKEY, None)
+    azure_devops_config_dir = configured_dir or AZ_DEVOPS_DEFAULT_CONFIG_DIR
+    _ensure_private_config_dir(azure_devops_config_dir)
     return azure_devops_config_dir
 
 
