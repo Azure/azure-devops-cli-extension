@@ -10,27 +10,52 @@ import sys
 
 from knack.log import get_logger
 from knack.util import CLIError
+from .const import CLI_ENV_VARIABLE_PREFIX
 from .uri import uri_parse
 
 logger = get_logger(__name__)
+
+# Defense in depth: even though every Git invocation below always passes an
+# absolute, pre-validated path (so Windows never needs to search PATH for
+# it), also disable the Windows CRT's current-directory executable search
+# at the process level. This protects any future call site that might
+# accidentally launch Git (or another tool) by bare name instead of going
+# through _get_git_executable().
+if os.name == 'nt':
+    os.environ.setdefault('NoDefaultCurrentDirectoryInExePath', '1')
+
+
+def _sanitized_subprocess_env():
+    """Environment for Git subprocesses: a copy of the current environment
+    with all Azure DevOps CLI credential/config variables removed.
+
+    Git does not need AZURE_DEVOPS_EXT_PAT, AZURE_DEVOPS_EXT_AUTH_TOKEN, or
+    any other azure-devops-specific variable to run config/remote/branch
+    commands, so none of them should be exposed to the child process.
+    """
+    env = os.environ.copy()
+    for key in list(env):
+        if key.startswith(CLI_ENV_VARIABLE_PREFIX):
+            del env[key]
+    return env
 
 
 def set_config(key, value, local=True):
     scope = _get_git_config_scope_arg(local)
     git = _get_git_executable()
-    subprocess.check_output([git, 'config', scope, key, value])
+    subprocess.check_output([git, 'config', scope, key, value], env=_sanitized_subprocess_env())
 
 
 def unset_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
     git = _get_git_executable()
-    subprocess.check_output([git, 'config', scope, '--unset', key])
+    subprocess.check_output([git, 'config', scope, '--unset', key], env=_sanitized_subprocess_env())
 
 
 def get_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
     git = _get_git_executable()
-    return subprocess.check_output([git, 'config', scope, key])
+    return subprocess.check_output([git, 'config', scope, key], env=_sanitized_subprocess_env())
 
 
 def _get_git_config_scope_arg(local):
@@ -41,15 +66,17 @@ def _get_git_config_scope_arg(local):
 
 def fetch_remote_and_checkout(refName, remote_name):
     git = _get_git_executable()
-    subprocess.run([git, 'fetch', remote_name, refName], check=False)
-    subprocess.run([git, 'checkout', get_branch_name_from_ref(refName)], check=False)
-    subprocess.run([git, 'pull', remote_name, get_branch_name_from_ref(refName)], check=False)
+    env = _sanitized_subprocess_env()
+    subprocess.run([git, 'fetch', remote_name, refName], check=False, env=env)
+    subprocess.run([git, 'checkout', get_branch_name_from_ref(refName)], check=False, env=env)
+    subprocess.run([git, 'pull', remote_name, get_branch_name_from_ref(refName)], check=False, env=env)
 
 
 def get_current_branch_name():
     try:
         git = _get_git_executable()
-        output = subprocess.check_output([git, 'symbolic-ref', '--short', '-q', 'HEAD'])
+        output = subprocess.check_output([git, 'symbolic-ref', '--short', '-q', 'HEAD'],
+                                         env=_sanitized_subprocess_env())
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect current branch based on current working directory.')
         logger.debug(ex, exc_info=True)
@@ -82,7 +109,8 @@ def get_git_credentials(organization):
     try:
         # pylint: disable=unexpected-keyword-arg
         git = _get_git_executable()
-        output = subprocess.check_output([git, 'credential-manager', 'get'], input=standard_in)
+        output = subprocess.check_output([git, 'credential-manager', 'get'], input=standard_in,
+                                         env=_sanitized_subprocess_env())
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect git credentials for current working directory.')
         logger.debug(ex, exc_info=True)
@@ -110,7 +138,8 @@ def get_git_remotes():
         # full  https://mseng.visualstudio.com/DefaultCollection/VSOnline/_git/_full/VSO (push)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (fetch)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (push)
-        output = subprocess.check_output([git, 'remote', '-v'], stderr=subprocess.STDOUT)
+        output = subprocess.check_output([git, 'remote', '-v'], stderr=subprocess.STDOUT,
+                                         env=_sanitized_subprocess_env())
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect current remotes based on current working directory.')
         logger.debug(ex, exc_info=True)
@@ -223,7 +252,6 @@ def _paths_overlap(first, second):
 
 @functools.lru_cache(maxsize=None)
 def _get_git_executable():
-
     executable = "git.exe" if os.name == "nt" else "git"
     working_directory = _canonical_path(os.getcwd())
 
