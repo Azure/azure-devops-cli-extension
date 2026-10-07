@@ -140,18 +140,29 @@ class TestGetGitExecutable(unittest.TestCase):
 
 
 class TestPathsOverlap(unittest.TestCase):
-    """Unit tests for the _paths_overlap helper used to detect CWD containment."""
+    """Unit tests for the _paths_overlap helper used to detect CWD containment.
+
+    Paths are built with os.sep/os.path.join (rather than hardcoded
+    Windows-style literals) so these assertions hold on every platform that
+    runs the test suite, not just Windows.
+    """
 
     def test_identical_paths_overlap(self):
-        self.assertTrue(git._paths_overlap('C:\\foo\\bar', 'C:\\foo\\bar'))
+        same = os.path.join(os.sep, 'foo', 'bar')
+        self.assertTrue(git._paths_overlap(same, same))
 
     def test_parent_and_child_overlap(self):
-        self.assertTrue(git._paths_overlap('C:\\foo', 'C:\\foo\\bar'))
-        self.assertTrue(git._paths_overlap('C:\\foo\\bar', 'C:\\foo'))
+        parent = os.path.join(os.sep, 'foo')
+        child = os.path.join(parent, 'bar')
+        self.assertTrue(git._paths_overlap(parent, child))
+        self.assertTrue(git._paths_overlap(child, parent))
 
     def test_unrelated_siblings_do_not_overlap(self):
-        self.assertFalse(git._paths_overlap('C:\\foo\\bar', 'C:\\foo\\baz'))
+        first = os.path.join(os.sep, 'foo', 'bar')
+        second = os.path.join(os.sep, 'foo', 'baz')
+        self.assertFalse(git._paths_overlap(first, second))
 
+    @unittest.skipUnless(os.name == 'nt', 'drive letters are a Windows-only concept')
     def test_different_drives_do_not_overlap(self):
         self.assertFalse(git._paths_overlap('C:\\foo', 'D:\\foo'))
 
