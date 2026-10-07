@@ -11,6 +11,7 @@ import unittest
 from unittest import mock
 
 from azext_devops.dev.common import git
+from azext_devops.dev.common.arguments import should_detect
 
 
 def _make_executable(path):
@@ -165,6 +166,85 @@ class TestPathsOverlap(unittest.TestCase):
     @unittest.skipUnless(os.name == 'nt', 'drive letters are a Windows-only concept')
     def test_different_drives_do_not_overlap(self):
         self.assertFalse(git._paths_overlap('C:\\foo', 'D:\\foo'))
+
+
+class TestGitRemoteDiscoveryIsolation(unittest.TestCase):
+    """End-to-end regression tests for the full auto-detection path
+    (get_git_remotes(), exercised the same way services.py's auto-detect
+    calls it with detect=None -> should_detect(None) == True).
+
+    These cover the two MSRC-requested guarantees that go beyond
+    _get_git_executable() in isolation:
+      1. Default auto-detection must resolve a trusted Git install and must
+         never launch a canary executable planted in the working tree.
+      2. The discovery child process must never receive Azure DevOps
+         credential/config environment variables (AZURE_DEVOPS_EXT_*).
+    """
+
+    def setUp(self):
+        git._get_git_executable.cache_clear()
+        git._git_remotes.clear()
+        self.addCleanup(git._get_git_executable.cache_clear)
+        self.addCleanup(git._git_remotes.clear)
+
+        self._tmp_root = tempfile.mkdtemp(prefix='azdevops_git_remote_test_')
+        self.addCleanup(shutil.rmtree, self._tmp_root, ignore_errors=True)
+
+        self.checkout_dir = os.path.join(self._tmp_root, 'checkout')
+        self.trusted_dir = os.path.join(self._tmp_root, 'trusted')
+        os.makedirs(self.checkout_dir)
+        os.makedirs(self.trusted_dir)
+
+        executable_name = 'git.exe' if os.name == 'nt' else 'git'
+        # Canary: simulates an attacker-planted git.exe sitting in the
+        # current working directory (e.g. a cloned repository root).
+        self.canary_path = os.path.join(self.checkout_dir, executable_name)
+        _make_executable(self.canary_path)
+        self.trusted_path = os.path.join(self.trusted_dir, executable_name)
+        _make_executable(self.trusted_path)
+
+    def test_auto_detection_never_invokes_planted_canary(self):
+        """Default auto-detection (detect=None -> should_detect(None) is
+        True) must resolve the trusted Git install and must never launch
+        the canary planted in the current working directory."""
+        self.assertTrue(should_detect(None))
+
+        fake_remote_output = (
+            b"origin  https://dev.azure.com/contoso/_git/repo (fetch)\n"
+            b"origin  https://dev.azure.com/contoso/_git/repo (push)\n"
+        )
+
+        with mock.patch('os.getcwd', return_value=self.checkout_dir), \
+                mock.patch('os.get_exec_path', return_value=[self.checkout_dir, self.trusted_dir]), \
+                mock.patch('subprocess.check_output', return_value=fake_remote_output) as mock_check_output:
+            remotes = git.get_git_remotes()
+
+        self.assertIsNotNone(remotes)
+        self.assertEqual(remotes['origin(push)'], 'https://dev.azure.com/contoso/_git/repo')
+
+        invoked_executable = mock_check_output.call_args.args[0][0]
+        self.assertEqual(invoked_executable, git._canonical_path(self.trusted_path))
+        self.assertNotEqual(invoked_executable, git._canonical_path(self.canary_path))
+
+    def test_discovery_child_receives_no_azure_devops_credentials(self):
+        """The git subprocess spawned for remote discovery must not inherit
+        Azure DevOps credential/config environment variables, even though
+        the parent process (and thus os.environ) has them set."""
+        leaked_vars = {
+            'AZURE_DEVOPS_EXT_PAT': 'super-secret-pat',
+            'AZURE_DEVOPS_EXT_AUTH_TOKEN': 'super-secret-token',
+            'AZURE_DEVOPS_EXT_GITHUB_PAT': 'super-secret-github-pat',
+        }
+
+        with mock.patch('os.getcwd', return_value=self.checkout_dir), \
+                mock.patch('os.get_exec_path', return_value=[self.checkout_dir, self.trusted_dir]), \
+                mock.patch.dict(os.environ, leaked_vars), \
+                mock.patch('subprocess.check_output', return_value=b'') as mock_check_output:
+            git.get_git_remotes()
+
+        passed_env = mock_check_output.call_args.kwargs['env']
+        for key in leaked_vars:
+            self.assertNotIn(key, passed_env)
 
 
 if __name__ == '__main__':
