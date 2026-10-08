@@ -1,5 +1,5 @@
 # This is used to test if the released version is in healthy state or not
-# Runs everyday midnight UTC
+# Runs everyday midnight UTC runs
 
 pr: none
 
