@@ -6,11 +6,15 @@
 from __future__ import print_function
 
 import os
+import requests
+from azure.cli.core._profile import Profile
 from knack.log import get_logger
 from knack.prompting import prompt_pass
 from knack.util import CLIError
 from azext_devops.devops_sdk.v5_0.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
-from azext_devops.dev.common.services import get_service_endpoint_client, resolve_instance_and_project
+from azext_devops.dev.common.services import (get_service_endpoint_client,
+                                              get_token_from_az_login,
+                                              resolve_instance_and_project)
 from azext_devops.dev.common.const import CLI_ENV_VARIABLE_PREFIX, AZ_DEVOPS_GITHUB_PAT_ENVKEY
 from azext_devops.dev.common.prompting import verify_is_a_tty_or_raise_error
 
@@ -199,6 +203,89 @@ def create_service_endpoint(service_endpoint_configuration,
     import json
     service_endpoint_to_create = json.loads(in_file_content)
     return client.create_service_endpoint(service_endpoint_to_create, project)
+
+
+def migrate_external_federated_credential(azdo_subject, tenant_id=None):
+    """Migrate a service endpoint to use external federated credentials.
+    :param azdo_subject: Service connection in sc://<organization>/<project>/<serviceConnectionName> format.
+    :type azdo_subject: str
+    :param tenant_id: Entra tenant used to authenticate to the Azure DevOps organization.
+    :type tenant_id: str
+    """
+    import json
+    import re
+
+    match = re.match(r'^sc://([^/]+)/([^/]+)/(.+)$', azdo_subject, re.IGNORECASE)
+    if not match:
+        raise CLIError(
+            "--azdo-subject must be in 'sc://<organization>/<project>/<serviceConnectionName>' format.")
+
+    org_name = match.group(1)
+    if re.fullmatch(r'(?=.{1,50}$)[A-Za-z0-9](?:[A-Za-z0-9-]{0,48}[A-Za-z0-9])?', org_name) is None:
+        raise CLIError('Invalid organization name in --azdo-subject.')
+    origin = 'https://dev.azure.com/{0}'.format(org_name)
+    logger.debug("Derived organization URL from --azdo-subject: %s", origin)
+
+    # Acquire an Entra Bearer token for Azure DevOps — the public migration
+    # endpoint requires Bearer auth, not the Basic-wrapped token the SDK normally sends.
+    profile = Profile()
+
+    if tenant_id is None:
+        subscriptions = profile.load_cached_subscriptions(False) or []
+        tenant_id = next(
+            (s.get('tenantId') for s in subscriptions if s.get('isDefault')),
+            next((s.get('tenantId') for s in subscriptions), None)
+        )
+    if not tenant_id:
+        raise CLIError("No Azure login found. Run 'az login' and try again.")
+    bearer_token = get_token_from_az_login(profile, tenant_id)
+    if not bearer_token:
+        raise CLIError("Failed to acquire an Entra token. Run 'az login' and try again.")
+
+    api_version = "7.2-preview.1"
+    migrate_url = "{0}/_apis/public/serviceendpoint/externalfederatedcredentialmigration?api-version={1}".format(
+        origin.rstrip('/'), api_version)
+
+    logger.debug("POST %s", migrate_url)
+    try:
+        response = requests.post(
+            migrate_url,
+            headers={
+                'Authorization': 'Bearer {0}'.format(bearer_token),
+                'Content-Type': 'application/json'
+            },
+            data=json.dumps({'serviceConnectionInput': azdo_subject}),
+            timeout=30,
+            allow_redirects=False
+        )
+    except requests.RequestException as ex:
+        if isinstance(ex, requests.exceptions.Timeout):
+            detail = 'The request timed out.'
+        elif isinstance(ex, requests.exceptions.ProxyError):
+            detail = 'Proxy connection failed. Check your proxy configuration.'
+        elif isinstance(ex, requests.exceptions.SSLError):
+            detail = 'TLS verification failed. Check your certificate configuration.'
+        elif isinstance(ex, requests.exceptions.ConnectionError):
+            detail = 'Connection failed. Check network connectivity and DNS.'
+        else:
+            detail = 'The HTTP request could not be completed.'
+        raise CLIError(
+            '{0} Migration status is unknown; verify the service connection '
+            'before retrying.'.format(detail)
+        ) from ex
+
+    if not response.ok or 300 <= response.status_code < 400:
+        try:
+            error_detail = response.json()
+        except ValueError:
+            error_detail = response.text[:200] if response.text else '(no body)'
+        if response.status_code == 404:
+            raise CLIError('Service connection or migration API not found (404): {0}'.format(error_detail))
+        if response.status_code == 410:
+            raise CLIError('Migration API is no longer available (410 Gone): {0}'.format(error_detail))
+        raise CLIError('Migration request failed ({0}): {1}'.format(
+            response.status_code, error_detail))
+    return response.json()
 
 
 def update_service_endpoint(id, enable_for_all=None, organization=None,  # pylint: disable=redefined-builtin

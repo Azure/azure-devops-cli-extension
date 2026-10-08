@@ -118,6 +118,7 @@ def load_team_commands(self, _):
         g.command('github create', 'create_github_service_endpoint')
         g.command('delete', 'delete_service_endpoint',
                   confirmation='Are you sure you want to delete this service-endpoint?')
+        g.command('convert', 'migrate_external_federated_credential')
 
     with self.command_group('devops team', command_type=teamOps) as g:
         g.command('create', 'create_team', table_transformer=transform_team_table_output)

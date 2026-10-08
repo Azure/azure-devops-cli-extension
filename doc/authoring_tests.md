@@ -55,6 +55,42 @@ DEVOPS_CLI_TEST_ORGANIZATION = get_test_org_from_env_variable() or 'Https://dev.
 
 The test recording should succeed with the hardcoded organization name.
 
+## Recorded Service Connection Migration Test
+
+The `test_serviceEndpointConvert.py` scenarios invoke the CLI and replay real
+HTTP 404 (`Service connection not found.`) and HTTP 400
+(`The request or token is invalid.`) responses, plus HTTP 200
+(`success: true`, `Migration initiated.`). They cover argument validation,
+API error handling, and successful migration acceptance, not migration completion.
+
+Run playback from the `azure-devops` directory:
+
+```bash
+python -m pytest azext_devops/tests/latest/integrationtests/test_serviceEndpointConvert.py
+```
+
+Playback uses a fake token and the saved HTTP response; no login or live service
+connection is needed. With the older PyPI `azure-cli-testsdk`, `msrestazure` is
+also required for the SDK's replay patches.
+The GitHub Actions test action runs these scenarios in a dedicated playback step
+and writes `TEST-convert-results.xml`. Other integration tests remain excluded
+from the default test command.
+
+Recording requires explicit environment variables:
+
+- `AZURE_DEVOPS_EXT_TEST_CONVERT_SUBJECT`: subject of an approved disposable connection.
+- `AZURE_DEVOPS_EXT_TEST_CONVERT_TENANT`: authentication tenant for the organization.
+- `AZURE_DEVOPS_EXT_TEST_CONVERT_CONNECTION_ID`: optional connection ID to sanitize.
+
+Live recording requires an existing Azure CLI Entra login with migration permissions.
+Do not use a connection consumed by production pipelines. A successful request
+changes the connection; use a fresh eligible connection for another live success
+recording rather than assuming repeated requests are safe. These recorded error
+tests expect failure and must not be re-recorded against an eligible connection;
+record acceptance with the separate `test_service_endpoint_convert_success` scenario.
+Recordings filter credentials and replace fixture identifiers, but must still be
+reviewed before committing.
+
 ## Known issues
 
 ### Response too large issue

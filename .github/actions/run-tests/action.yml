@@ -27,6 +27,12 @@ runs:
     - uses: ./.github/actions/download-install-local-azure-test-sdk
     - uses: ./.github/actions/setup-ci-machine
     - uses: ./.github/actions/download-install-local-azure-devops-cli-extension
+    - name: Replay Service Endpoint Conversion Tests
+      run: >
+        pytest azext_devops/tests/latest/integrationtests/test_serviceEndpointConvert.py
+        --junitxml TEST-convert-results.xml
+      shell: bash
+      working-directory: azure-devops
     - run: pytest --junitxml "TEST-results.xml" --ignore=azext_devops/tests/latest/integrationtests
       if: ${{ inputs.run-only-recorded-tests == 'false' }}
       shell: bash
