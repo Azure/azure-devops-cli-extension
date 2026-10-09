@@ -21,7 +21,8 @@ from azext_devops.dev.common.services import (get_connection,
                                               clear_connection_cache,
                                               resolve_instance,
                                               resolve_instance_project_and_repo,
-                                              check_organization_in_azure)
+                                              check_organization_in_azure,
+                                              validate_token_for_instance)
 
 
 class TestServicesMethods(unittest.TestCase):    
@@ -80,6 +81,27 @@ class TestServicesMethods(unittest.TestCase):
     def test_check_organization_in_azure_with_ado_server_url(self):
         showWarning = check_organization_in_azure(self._TEST_ADO_SERVER_ORGANIZATION)
         self.assertEqual(False, showWarning)
+
+    def test_check_organization_in_azure_with_service_url(self):
+        self.assertTrue(check_organization_in_azure(
+            'https://artifacts.dev.azure.com/MyOrganization'))
+
+    def test_check_organization_in_azure_rejects_ambiguous_authority(self):
+        self.assertFalse(check_organization_in_azure(
+            'https://attacker.example\\@dev.azure.com/MyOrganization'))
+
+    def test_check_organization_in_azure_rejects_extra_path(self):
+        self.assertFalse(check_organization_in_azure(
+            'https://dev.azure.com/MyOrganization/Unexpected'))
+
+    def test_validate_token_rejects_ambiguous_authority_before_connection(self):
+        with patch('azext_devops.dev.common.services._get_connection') as mock_get_connection:
+            result = validate_token_for_instance(
+                'https://attacker.example\\@myorg.visualstudio.com/project/_git/repository',
+                credentials=object())
+
+        self.assertFalse(result)
+        mock_get_connection.assert_not_called()
 
     ORG_ERROR_STRING = ('--organization must be specified. The value should be the URI of your Azure DevOps '
                     'organization, for example: https://dev.azure.com/MyOrganization/. '

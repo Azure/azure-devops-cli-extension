@@ -7,7 +7,9 @@ from msrest.serialization import Model
 from knack.log import get_logger
 
 from .file_cache import get_cli_cache
-from .uri import uri_parse
+from .uri import (is_azure_devops_host,
+                  organization_url_from_azure_devops_url,
+                  parse_azure_devops_git_remote)
 
 logger = get_logger(__name__)
 
@@ -26,7 +28,10 @@ class VstsGitUrlInfo():
             logger.debug("Remote url: %s", remote_url)
             models = {'_RemoteInfo': self._RemoteInfo}
 
-            remote_url = remote_url.lower()
+            parsed_remote = parse_azure_devops_git_remote(remote_url)
+            if parsed_remote is None:
+                return
+            remote_url = parsed_remote.repository_url
             remote_info = None
             if _git_remote_info_cache[remote_url]:
                 deserializer = Deserializer(models)
@@ -35,20 +40,29 @@ class VstsGitUrlInfo():
                 except DeserializationError as ex:
                     logger.debug(ex, exc_info=True)
                 if remote_info is not None:
-                    self.project = remote_info.project
-                    self.repo = remote_info.repository
-                    self.uri = remote_info.server_url
+                    organization_url = organization_url_from_azure_devops_url(remote_info.server_url)
+                    if organization_url is not None:
+                        self.project = remote_info.project
+                        self.repo = remote_info.repository
+                        self.uri = organization_url
+                    else:
+                        remote_info = None
             if remote_info is None:
                 vsts_info = self.get_vsts_info(remote_url)
                 if vsts_info is not None:
-                    self.project = vsts_info.repository.project.id
-                    self.repo = vsts_info.repository.id
                     apis_path_segment = '/_apis/'
                     apis_path_segment_pos = vsts_info.repository.url.find(apis_path_segment)
                     if apis_path_segment_pos >= 0:
-                        self.uri = vsts_info.repository.url[:apis_path_segment_pos]
+                        organization_url = organization_url_from_azure_devops_url(
+                            vsts_info.repository.url[:apis_path_segment_pos])
                     else:
-                        self.uri = vsts_info.server_url
+                        organization_url = organization_url_from_azure_devops_url(vsts_info.server_url)
+                    if organization_url is None:
+                        logger.warning('Auto-detect returned an invalid Azure DevOps organization URL.')
+                        return
+                    self.project = vsts_info.repository.project.id
+                    self.repo = vsts_info.repository.id
+                    self.uri = organization_url
                     serializer = Serializer(models)
                     try:
                         _git_remote_info_cache[remote_url] = \
@@ -61,41 +75,12 @@ class VstsGitUrlInfo():
     def get_vsts_info(remote_url):
         from azext_devops.devops_sdk.v5_0.git.git_client import GitClient
         from .services import _get_credentials
-        components = uri_parse(remote_url.lower())
-        if components.scheme == 'ssh':
-            # Convert to https url.
-            netloc = VstsGitUrlInfo.convert_ssh_netloc_to_https_netloc(components.netloc)
-            if netloc is None:
-                return None
-            # New ssh urls do not have _ssh so path is like org/project/repo
-            # We need to convert it into project/_git/repo/ or org/project/_git/repo for dev.azure.com urls
-            path = components.path
-            ssh_path_segment = '_ssh/'
-            ssh_path_segment_pos = components.path.find(ssh_path_segment)
-            if ssh_path_segment_pos < 0:  # new ssh url
-                path_vals = components.path.strip('/').split('/')
-                if path_vals and len(path_vals) == 3:
-                    if 'visualstudio.com' in netloc:
-                        path = '{proj}/{git}/{repo}'.format(proj=path_vals[1], git='_git', repo=path_vals[2])
-                    elif 'dev.azure.com' in netloc:
-                        path = '{org}/{proj}/{git}/{repo}'.format(
-                            org=path_vals[0], proj=path_vals[1], git='_git', repo=path_vals[2])
-                else:
-                    logger.debug("Unsupported url format encountered in git repo url discovery.")
-                uri = 'https://' + netloc + '/' + path
-            else:  # old ssh urls
-                uri = 'https://' + netloc + '/' + path.strip('/')
-                ssh_path_segment_pos = uri.find(ssh_path_segment)
-                if ssh_path_segment_pos >= 0:
-                    uri = uri[:ssh_path_segment_pos] + '_git/' + uri[ssh_path_segment_pos + len(ssh_path_segment):]
-        else:
-            uri = remote_url
-        # Validate the resolved host before sending any credentials
-        resolved_components = uri_parse(uri.lower())
-        if not _is_azure_devops_host(resolved_components.netloc):
+        parsed_remote = parse_azure_devops_git_remote(remote_url)
+        if parsed_remote is None:
             logger.warning('Skipping auto-detect: remote URL host is not a known Azure DevOps host.')
             return None
-        credentials = _get_credentials(uri)
+        uri = parsed_remote.repository_url
+        credentials = _get_credentials(parsed_remote.organization_url)
         try:
             return GitClient.get_vsts_info_by_remote_url(uri, credentials=credentials)
         except Exception as ex:  # pylint: disable=broad-except
@@ -129,17 +114,7 @@ class VstsGitUrlInfo():
 
     @staticmethod
     def is_vsts_url_candidate(url):
-        if url is None:
-            return False
-        components = uri_parse(url.lower())
-        if not _is_azure_devops_host(components.netloc):
-            return False
-        if components.path is not None \
-            and (components.path.find('/_git/') >= 0 or components.path.find('/_ssh/') >= 0 or
-                 components.scheme == 'ssh'):
-            return True
-
-        return False
+        return parse_azure_devops_git_remote(url) is not None
 
     class _RemoteInfo(Model):
 
@@ -158,15 +133,10 @@ class VstsGitUrlInfo():
 
 def _is_azure_devops_host(netloc):
     """Return True only for known Azure DevOps hosted service hostnames."""
-    if netloc is None:
+    if netloc is None or '@' in netloc or '\\' in netloc:
         return False
-    # Strip optional user@ prefix (e.g. "org@vs-ssh.visualstudio.com")
-    host = netloc.split('@')[-1].split(':')[0].lower()
-    if host == 'dev.azure.com' or host == 'ssh.dev.azure.com':
-        return True
-    if host.endswith('.visualstudio.com'):
-        return True
-    return False
+    host = netloc.rsplit(':', 1)[0].lower()
+    return is_azure_devops_host(host)
 
 
 _git_remote_info_cache = get_cli_cache('remotes', 0)

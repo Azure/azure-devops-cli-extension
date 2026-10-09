@@ -30,7 +30,9 @@ from .const import (DEFAULTS_SECTION,
 from ._credentials import get_credential
 from .git import get_remote_url
 from .vsts_git_url_info import VstsGitUrlInfo
-from .uri import uri_parse_instance_from_git_uri, is_valid_url
+from .uri import (canonicalize_azure_devops_organization_url,
+                  uri_parse_instance_from_git_uri,
+                  is_valid_url)
 from .uuid import is_uuid
 from .telemetry import vsts_tracking_data, init_telemetry
 
@@ -38,6 +40,10 @@ logger = get_logger(__name__)
 
 
 def get_connection(organization):
+    organization = canonicalize_azure_devops_organization_url(organization)
+    if organization is None:
+        raise CLIError('The Azure DevOps CLI extension works only with Azure DevOps Services (cloud). '
+                       'It doesn\'t support Azure DevOps Server (on-premises).')
     organization = organization.lower()
     if organization not in _connection:
         credentials = _get_credentials(organization)
@@ -86,6 +92,10 @@ def _get_credentials(organization):
 def validate_token_for_instance(organization, credentials):
     logger.debug("instance recieved in validate_token_for_instance %s", organization)
     organization = uri_parse_instance_from_git_uri(organization)
+    organization = canonicalize_azure_devops_organization_url(organization)
+    if organization is None:
+        logger.debug("Rejected invalid Azure DevOps organization URL during token validation.")
+        return False
     logger.debug("instance processed in validate_token_for_instance %s", organization)
     connection = _get_connection(organization, credentials)
     core_client = connection.get_client(VSTS_MODULE + 'v5_0.core.core_client.CoreClient')
@@ -166,6 +176,9 @@ def get_token_from_az_login(profile, tenant):
 
 
 def _get_connection(organization, credentials):
+    organization = canonicalize_azure_devops_organization_url(organization)
+    if organization is None:
+        raise CLIError('Refusing to attach credentials to an invalid Azure DevOps organization URL.')
     return Connection(get_base_url(organization), creds=credentials,
                       user_agent='devOpsCli/{}'.format(VERSION))
 
@@ -443,9 +456,7 @@ def get_project_id_from_name(organization, project):
 
 
 def check_organization_in_azure(organization):
-    startsWith = organization.startswith("https://dev.azure.com/")
-    endsWith = organization.rstrip("/").endswith(".visualstudio.com")
-    return startsWith or endsWith
+    return canonicalize_azure_devops_organization_url(organization) is not None
 
 
 _connection_data = {}

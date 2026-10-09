@@ -62,7 +62,7 @@ class TestPipelinesBuildMethods(AuthenticatedTests):
         self.mock_open_browser.assert_called_once_with("dummy_build", self._TEST_DEVOPS_ORGANIZATION)
 
     def test_show_build_with_detected_project_org(self):
-        _DUMMY_INSTANCE = 'dummy_instance'
+        _DUMMY_INSTANCE = 'https://dev.azure.com/dummyorganization'
         _DUMMY_PROJECT = 'dummy_project'
         _DUMMY_BUILD = 'dummy_build'
         _DUMMY_REPO = 'dummy_repo'
