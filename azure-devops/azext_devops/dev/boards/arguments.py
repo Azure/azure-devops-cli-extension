@@ -15,6 +15,8 @@ def load_work_arguments(self, _):
         context.argument('work_item_type', type=str, options_list='--type')
         context.argument('fields', nargs='*', options_list=('--fields', '-f'))
         context.argument('description', options_list=('--description', '-d'))
+        context.argument('markdown_fields', nargs='*', options_list='--markdown-fields',
+                         help='Space separated list of multiline field reference names to format as Markdown.')
 
     with self.argument_context('boards work-item update') as context:
         context.argument('fields', nargs='*', options_list=('--fields', '-f'))
