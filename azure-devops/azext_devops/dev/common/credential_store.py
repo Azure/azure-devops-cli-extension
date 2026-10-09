@@ -37,6 +37,8 @@ class CredentialStore:
             # store credentials in azuredevops config directory if keyring is missing or malfunctioning
             if sys.platform.startswith(self._LINUX_PLATFORM):
                 logger.warning('Failed to store PAT using keyring; falling back to file storage.')
+                logger.warning('The PAT will be stored at %s with access limited to the current user.',
+                               self._PAT_FILE)
                 logger.warning('You can clear the stored credential by running az devops logout.')
                 logger.warning('Refer https://aka.ms/azure-devops-cli-auth to know more on sign in with PAT.')
                 logger.debug('Keyring failed. ERROR :%s', ex)
@@ -135,7 +137,12 @@ class CredentialStore:
 
     @staticmethod
     def _commit_change(credential_list):
-        with open(CredentialStore._PAT_FILE, 'w+') as creds_file:
+        flags = os.O_WRONLY | os.O_CREAT | os.O_TRUNC
+        with os.fdopen(os.open(CredentialStore._PAT_FILE, flags, 0o600), 'w') as creds_file:
+            if hasattr(os, 'fchmod'):
+                os.fchmod(creds_file.fileno(), 0o600)
+            else:
+                os.chmod(CredentialStore._PAT_FILE, 0o600)
             credential_list.write(creds_file)
 
     @staticmethod
