@@ -91,7 +91,7 @@ def load_team_arguments(self, _):
         context.argument(
             'azdo_subject', options_list=['--azdo-subject'],
             help="Federated credential subject of the Azure DevOps issuer, in "
-                 "'sc://<organization>/<project>/<serviceConnectionName>' format. "
+                  "`sc://<organization>/<project>/<serviceConnectionName>` format. "
                  "The organization URL is derived from --azdo-subject using https://dev.azure.com.")
         context.argument(
             'tenant_id', options_list=['--tenant-id'],
