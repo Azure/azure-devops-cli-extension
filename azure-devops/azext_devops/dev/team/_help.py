@@ -65,7 +65,7 @@ def load_team_help():
     long-summary: |
       Sends a migration request to the Azure DevOps external federated credential migration API
       for the service connection specified via --azdo-subject. The --azdo-subject value must be in
-      'sc://<organization>/<project>/<serviceConnectionName>' format. The organization URL is
+      `sc://<organization>/<project>/<serviceConnectionName>` format. The organization URL is
       automatically derived from --azdo-subject using https://dev.azure.com.
       Use --tenant-id to select the Entra tenant used to authenticate to the Azure DevOps organization.
     examples:
