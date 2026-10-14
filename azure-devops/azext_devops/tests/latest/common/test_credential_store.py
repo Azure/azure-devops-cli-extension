@@ -48,6 +48,21 @@ class TestCredentialStore(unittest.TestCase):
 
         self.assertEqual(0o600, stat.S_IMODE(os.stat(self.pat_file).st_mode))
 
+    def test_commit_change_preserves_existing_file_when_hardening_fails(self):
+        if os.name == 'nt' or not hasattr(os, 'fchmod'):
+            self.skipTest('POSIX file permissions are not supported on Windows.')
+
+        existing_content = 'existing content'
+        with open(self.pat_file, 'w') as creds_file:
+            creds_file.write(existing_content)
+
+        with patch.object(os, 'fchmod', side_effect=PermissionError):
+            with self.assertRaises(PermissionError):
+                CredentialStore._commit_change(self._get_credentials())
+
+        with open(self.pat_file, 'r') as creds_file:
+            self.assertEqual(existing_content, creds_file.read())
+
     def test_commit_change_writes_credentials(self):
         CredentialStore._commit_change(self._get_credentials())
 

@@ -137,12 +137,13 @@ class CredentialStore:
 
     @staticmethod
     def _commit_change(credential_list):
-        flags = os.O_WRONLY | os.O_CREAT | os.O_TRUNC
+        flags = os.O_WRONLY | os.O_CREAT
         with os.fdopen(os.open(CredentialStore._PAT_FILE, flags, 0o600), 'w') as creds_file:
             if hasattr(os, 'fchmod'):
                 os.fchmod(creds_file.fileno(), 0o600)
             else:
                 os.chmod(CredentialStore._PAT_FILE, 0o600)
+            creds_file.truncate()
             credential_list.write(creds_file)
 
     @staticmethod

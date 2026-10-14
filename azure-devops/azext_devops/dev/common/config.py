@@ -16,9 +16,14 @@ _UNSET = object()
 
 
 def _ensure_private_config_dir(config_dir):
-    os.makedirs(config_dir, mode=0o700, exist_ok=True)
-    if os.name != 'nt':
-        os.chmod(config_dir, 0o700)
+    try:
+        os.makedirs(config_dir, mode=0o700)
+    except OSError:
+        if not os.path.isdir(config_dir):
+            raise
+    else:
+        if os.name != 'nt':
+            os.chmod(config_dir, 0o700)
 
 
 def _get_config_dir():

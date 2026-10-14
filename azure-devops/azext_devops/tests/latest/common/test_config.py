@@ -18,11 +18,15 @@ class TestConfig(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp_dir:
             config_dir = os.path.join(temp_dir, 'azuredevops')
 
-            _ensure_private_config_dir(config_dir)
+            previous_umask = os.umask(0o777)
+            try:
+                _ensure_private_config_dir(config_dir)
+            finally:
+                os.umask(previous_umask)
 
             self.assertEqual(0o700, stat.S_IMODE(os.stat(config_dir).st_mode))
 
-    def test_ensure_private_config_dir_hardens_existing_directory(self):
+    def test_ensure_private_config_dir_preserves_existing_directory_permissions(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             config_dir = os.path.join(temp_dir, 'azuredevops')
             os.makedirs(config_dir, mode=0o755)
@@ -30,7 +34,7 @@ class TestConfig(unittest.TestCase):
 
             _ensure_private_config_dir(config_dir)
 
-            self.assertEqual(0o700, stat.S_IMODE(os.stat(config_dir).st_mode))
+            self.assertEqual(0o755, stat.S_IMODE(os.stat(config_dir).st_mode))
 
 
 if __name__ == '__main__':
