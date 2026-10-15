@@ -6,6 +6,12 @@
 import os
 import unittest
 import uuid
+
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
+
 from azext_devops.dev.common._credentials import (get_credential,
                                    set_credential,
                                    clear_credential,
@@ -169,6 +175,26 @@ class TestCredentialsMethods(unittest.TestCase):
         self.assertEqual(None, retrieved_token)
         retrieved_token = get_credential(organization3, fall_back_to_default=False)
         self.assertEqual(None, retrieved_token)
+
+    def test_clear_credential_preserves_organization_when_credential_deletion_fails(self):
+        organization = 'https://' + str(uuid.uuid4()) + '.visualstudio.com/'
+        organization_key = 'azdevops-cli:' + normalize_url_for_key(organization)
+        other_organization_key = 'azdevops-cli:https://example.visualstudio.com'
+
+        with open(ORGANIZATION_LIST_FILE, 'w') as org_list:
+            org_list.write(organization_key + '\n')
+            org_list.write(other_organization_key + '\n')
+
+        with patch('azext_devops.dev.common._credentials.CredentialStore') as credential_store:
+            credential_store.return_value.clear_password.side_effect = OSError('permission denied')
+
+            with self.assertRaises(OSError):
+                clear_credential(organization)
+
+        with open(ORGANIZATION_LIST_FILE, 'r') as org_list:
+            self.assertEqual(
+                [organization_key + '\n', other_organization_key + '\n'],
+                org_list.readlines())
 
 if __name__ == '__main__':
     unittest.main()
