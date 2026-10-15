@@ -17,24 +17,24 @@ logger = get_logger(__name__)
 def set_config(key, value, local=True):
     scope = _get_git_config_scope_arg(local)
     git_exec_path = get_safe_executable_path("git")
-        if not git_exec_path:
-            raise CLIError("Git executable could not be found.")
+    if not git_exec_path:
+        raise CLIError("Git executable could not be found.")
     subprocess.check_output([git_exec_path, 'config', scope, key, value])
 
 
 def unset_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
     git_exec_path = get_safe_executable_path("git")
-        if not git_exec_path:
-            raise CLIError("Git executable could not be found.")
+    if not git_exec_path:
+        raise CLIError("Git executable could not be found.")
     subprocess.check_output([git_exec_path, 'config', scope, '--unset', key])
 
 
 def get_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
     git_exec_path = get_safe_executable_path("git")
-        if not git_exec_path:
-            raise CLIError("Git executable could not be found.")
+    if not git_exec_path:
+        raise CLIError("Git executable could not be found.")
     return subprocess.check_output([git_exec_path, 'config', scope, key])
 
 
@@ -46,8 +46,8 @@ def _get_git_config_scope_arg(local):
 
 def fetch_remote_and_checkout(refName, remote_name):
     git_exec_path = get_safe_executable_path("git")
-        if not git_exec_path:
-            raise CLIError("Git executable could not be found.")
+    if not git_exec_path:
+        raise CLIError("Git executable could not be found.")
     subprocess.run([git_exec_path, 'fetch', remote_name, refName], check=False)
     subprocess.run([git_exec_path, 'checkout', get_branch_name_from_ref(refName)], check=False)
     subprocess.run([git_exec_path, 'pull', remote_name, get_branch_name_from_ref(refName)], check=False)
