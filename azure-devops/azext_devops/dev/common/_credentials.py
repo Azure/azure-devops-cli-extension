@@ -60,7 +60,9 @@ def clear_credential(organization):
         else:
             raise CLIError('No credentials were found.')
     else:
-        # delete particular organization from the list
+        cred_store.clear_password(key)
+
+        # delete particular organization from the list after clearing its credential
         if os.path.isfile(ORGANIZATION_LIST_FILE):
             with open(ORGANIZATION_LIST_FILE, "r") as input_file:
                 orgs = input_file.readlines()
@@ -68,7 +70,6 @@ def clear_credential(organization):
                 for line in orgs:
                     if line.rstrip() != key:
                         output_file.write(line)
-        cred_store.clear_password(key)
 
 
 def _get_service_name(organization):
