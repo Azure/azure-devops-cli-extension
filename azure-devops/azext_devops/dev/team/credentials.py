@@ -19,7 +19,9 @@ logger = get_logger(__name__)
 
 
 def credential_set(organization=None):
-    """Set the credential (PAT) to use for a particular organization.
+    """If console is present this will prompt for the credential (PAT) to use for a particular organization.
+    If no console is present the credential must be passed on StdIn.
+    
     Refer https://aka.ms/azure-devops-cli-auth for more information on providing PAT as input.
     """
     token = _get_pat_token()
