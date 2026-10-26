@@ -3,31 +3,47 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+import functools
+import os
 import subprocess
 import sys
 
 from knack.log import get_logger
 from knack.util import CLIError
+from .const import CLI_ENV_VARIABLE_PREFIX
 from .uri import uri_parse
 
 logger = get_logger(__name__)
 
-_GIT_EXE = 'git'
+
+if os.name == 'nt':
+    os.environ.setdefault('NoDefaultCurrentDirectoryInExePath', '1')
+
+
+def _sanitized_subprocess_env():
+    env = os.environ.copy()
+    for key in list(env):
+        if key.startswith(CLI_ENV_VARIABLE_PREFIX):
+            del env[key]
+    return env
 
 
 def set_config(key, value, local=True):
     scope = _get_git_config_scope_arg(local)
-    subprocess.check_output([_GIT_EXE, 'config', scope, key, value])
+    git = _get_git_executable()
+    subprocess.check_output([git, 'config', scope, key, value], env=_sanitized_subprocess_env())
 
 
 def unset_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
-    subprocess.check_output([_GIT_EXE, 'config', scope, '--unset', key])
+    git = _get_git_executable()
+    subprocess.check_output([git, 'config', scope, '--unset', key], env=_sanitized_subprocess_env())
 
 
 def get_config(key, local=True):
     scope = _get_git_config_scope_arg(local)
-    return subprocess.check_output([_GIT_EXE, 'config', scope, key])
+    git = _get_git_executable()
+    return subprocess.check_output([git, 'config', scope, key], env=_sanitized_subprocess_env())
 
 
 def _get_git_config_scope_arg(local):
@@ -37,14 +53,18 @@ def _get_git_config_scope_arg(local):
 
 
 def fetch_remote_and_checkout(refName, remote_name):
-    subprocess.run([_GIT_EXE, 'fetch', remote_name, refName], check=False)
-    subprocess.run([_GIT_EXE, 'checkout', get_branch_name_from_ref(refName)], check=False)
-    subprocess.run([_GIT_EXE, 'pull', remote_name, get_branch_name_from_ref(refName)], check=False)
+    git = _get_git_executable()
+    env = _sanitized_subprocess_env()
+    subprocess.run([git, 'fetch', remote_name, refName], check=False, env=env)
+    subprocess.run([git, 'checkout', get_branch_name_from_ref(refName)], check=False, env=env)
+    subprocess.run([git, 'pull', remote_name, get_branch_name_from_ref(refName)], check=False, env=env)
 
 
 def get_current_branch_name():
     try:
-        output = subprocess.check_output([_GIT_EXE, 'symbolic-ref', '--short', '-q', 'HEAD'])
+        git = _get_git_executable()
+        output = subprocess.check_output([git, 'symbolic-ref', '--short', '-q', 'HEAD'],
+                                         env=_sanitized_subprocess_env())
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect current branch based on current working directory.')
         logger.debug(ex, exc_info=True)
@@ -76,7 +96,9 @@ def get_git_credentials(organization):
     standard_in = bytes('protocol={protocol}\nhost={host}'.format(protocol=protocol, host=host), 'utf-8')
     try:
         # pylint: disable=unexpected-keyword-arg
-        output = subprocess.check_output([_GIT_EXE, 'credential-manager', 'get'], input=standard_in)
+        git = _get_git_executable()
+        output = subprocess.check_output([git, 'credential-manager', 'get'], input=standard_in,
+                                         env=_sanitized_subprocess_env())
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect git credentials for current working directory.')
         logger.debug(ex, exc_info=True)
@@ -97,13 +119,15 @@ def get_git_remotes():
     if _git_remotes:
         return _git_remotes
     try:
+        git = _get_git_executable()
         # Example output:
         # git remote - v
         # full  https://mseng.visualstudio.com/DefaultCollection/VSOnline/_git/_full/VSO (fetch)
         # full  https://mseng.visualstudio.com/DefaultCollection/VSOnline/_git/_full/VSO (push)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (fetch)
         # origin  https://mseng.visualstudio.com/defaultcollection/VSOnline/_git/VSO (push)
-        output = subprocess.check_output([_GIT_EXE, 'remote', '-v'], stderr=subprocess.STDOUT)
+        output = subprocess.check_output([git, 'remote', '-v'], stderr=subprocess.STDOUT,
+                                         env=_sanitized_subprocess_env())
     except BaseException as ex:  # pylint: disable=broad-except
         logger.info('GitDetect: Could not detect current remotes based on current working directory.')
         logger.debug(ex, exc_info=True)
@@ -194,6 +218,66 @@ def _get_alias_key(alias):
 def _get_alias_value(command):
     mime = '.cmd' if sys.platform.lower().startswith('win') else ''
     return '!f() { exec az' + mime + ' ' + command + ' \"$@\"; }; f'
+
+
+def _canonical_path(path):
+    return os.path.normcase(
+        os.path.realpath(
+            os.path.abspath(path)
+        )
+    )
+
+
+def _paths_overlap(first, second):
+    try:
+        common = os.path.commonpath([first, second])
+    except ValueError:
+        # Different drives on Windows cannot overlap.
+        return False
+
+    return common == first or common == second
+
+
+@functools.lru_cache(maxsize=None)
+def _get_git_executable():
+    executable = "git.exe" if os.name == "nt" else "git"
+    working_directory = _canonical_path(os.getcwd())
+
+    for path_entry in os.get_exec_path():
+        path_entry = os.path.expandvars(
+            path_entry.strip().strip('"')
+        )
+
+        # Empty and relative entries depend on the current directory.
+        if not path_entry or not os.path.isabs(path_entry):
+            continue
+
+        directory = _canonical_path(path_entry)
+
+        # Reject the working directory, its parents, and its children.
+        # This also handles running the CLI from a repository subdirectory.
+        if _paths_overlap(directory, working_directory):
+            continue
+
+        candidate = _canonical_path(
+            os.path.join(directory, executable)
+        )
+
+        # A symlinked executable must not resolve back into the working tree.
+        if _paths_overlap(os.path.dirname(candidate), working_directory):
+            continue
+
+        if not os.path.isfile(candidate):
+            continue
+
+        if os.name != "nt" and not os.access(candidate, os.X_OK):
+            continue
+
+        return candidate
+
+    raise FileNotFoundError(
+        "Git executable was not found in a trusted PATH directory."
+    )
 
 
 _git_remotes = {}
