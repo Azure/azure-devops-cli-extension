@@ -135,7 +135,7 @@ def invoke(area=None, resource=None,
 
 
 def apiVersionToFloat(apiVersion):
-    apiVersion = apiVersion.replace('-preview', '')
+    apiVersion = apiVersion.split('-preview')[0]
 
     return float(apiVersion)
 
