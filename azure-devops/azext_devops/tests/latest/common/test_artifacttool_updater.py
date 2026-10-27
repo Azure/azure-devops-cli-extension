@@ -57,6 +57,13 @@ class TestArtifactToolUpdater(unittest.TestCase):
         with patch.object(artifacttool_updater, '_get_current_release', side_effect=Exception('Read timed out')):
             self.assertEqual(ArtifactToolUpdater().get_latest_artifacttool('https://dev.azure.com/org'), release_dir)
 
+    def test_fallback_picks_the_newest_cached_version(self):
+        self._add_release('ArtifactTool_linux-x64_0.2.99')
+        newest = self._add_release('ArtifactTool_linux-x64_0.2.576')
+        os.makedirs(os.path.join(self.root, 'ArtifactTool_linux-x64_0.2.600'))
+        with patch.object(artifacttool_updater, '_get_current_release', side_effect=Exception('Read timed out')):
+            self.assertEqual(ArtifactToolUpdater().get_latest_artifacttool('https://dev.azure.com/org'), newest)
+
     def test_fails_when_lookup_keeps_failing_and_nothing_is_cached(self):
         os.makedirs(os.path.join(self.root, '7b0f3c1e-0000-0000-0000-000000000000'))
         with patch.object(artifacttool_updater, '_get_current_release', side_effect=Exception('Read timed out')):

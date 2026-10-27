@@ -180,12 +180,18 @@ def _find_cached_release_dir():
     root = _compute_artifacttool_root()
     if not os.path.isdir(root):
         return None
-    for item in sorted(os.listdir(root), reverse=True):
+    for item in sorted(os.listdir(root), key=_release_version_key, reverse=True):
         path = os.path.join(root, item)
         if item.startswith('ArtifactTool_') and \
                 any(os.path.isfile(os.path.join(path, name)) for name in ('artifacttool', 'artifacttool.exe')):
             return path
     return None
+
+
+def _release_version_key(release_id):
+    version = release_id.rsplit('_', 1)[-1]
+    return tuple(int(part) if part.isdigit() else 0 for part in version.split('.'))
+
 
 def _get_current_release(organization, override_version):
     connection = get_connection(organization)
