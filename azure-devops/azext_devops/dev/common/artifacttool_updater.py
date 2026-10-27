@@ -56,10 +56,17 @@ class ArtifactToolUpdater:
         else:
             override_version = os.environ.get(ARTIFACTTOOL_OVERRIDE_VERSION_ENVKEY)
             try:
-                release = _get_current_release(organization, override_version)
-            except Exception as ex:
+                release = _get_current_release_with_retries(organization, override_version)
+            except Exception as ex:  # pylint: disable=broad-except
                 logger.debug(ex, exc_info=True)
-                raise CLIError('Failed to update Universal Packages tooling.\n {}'.format(ex))
+                # A transient failure to look up the latest release should not block using tooling that is
+                # already downloaded, unless a specific version was requested.
+                cached_release_dir = None if override_version else _find_cached_release_dir()
+                if cached_release_dir is None:
+                    raise CLIError('Failed to update Universal Packages tooling.\n {}'.format(ex))
+                logger.warning("Could not check for Universal Packages tooling updates (%s). "
+                               "Using the existing tooling at '%s'.", ex, cached_release_dir)
+                return cached_release_dir
             release_uri, release_id = release
 
         # Determine the path for the release, and skip downloading if it already exists
@@ -150,6 +157,35 @@ def _update_artifacttool(uri, release_id):
             logger.debug("Removing temporary directory %s", release_temp_dir)
             shutil.rmtree(release_temp_dir, ignore_errors=True)
 
+
+# Delays, in seconds, before each retry of a failed ArtifactTool release lookup.
+_RELEASE_LOOKUP_RETRY_DELAYS = (2, 5)
+
+
+def _get_current_release_with_retries(organization, override_version, retry_delays=_RELEASE_LOOKUP_RETRY_DELAYS):
+    for attempt in range(len(retry_delays) + 1):
+        try:
+            return _get_current_release(organization, override_version)
+        except Exception as ex:  # pylint: disable=broad-except
+            if attempt == len(retry_delays):
+                raise
+            logger.debug("Looking up the current ArtifactTool release failed (attempt %s): %s. Retrying in %s s.",
+                         attempt + 1, ex, retry_delays[attempt])
+            time.sleep(retry_delays[attempt])
+    return None
+
+
+def _find_cached_release_dir():
+    # Releases are stored as <root>/<name>_<rid>_<version>; temporary extraction folders are UUIDs.
+    root = _compute_artifacttool_root()
+    if not os.path.isdir(root):
+        return None
+    for item in sorted(os.listdir(root), reverse=True):
+        path = os.path.join(root, item)
+        if item.startswith('ArtifactTool_') and \
+                any(os.path.isfile(os.path.join(path, name)) for name in ('artifacttool', 'artifacttool.exe')):
+            return path
+    return None
 
 def _get_current_release(organization, override_version):
     connection = get_connection(organization)
