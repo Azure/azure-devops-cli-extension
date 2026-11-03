@@ -14,7 +14,7 @@ runs:
       shell: bash
 #   - run: pip install --pre azure-cli --extra-index-url https://azurecliprod.blob.core.windows.net/edge --upgrade-strategy eager
 #     shell: bash
-    - run: pip install azure-cli
+    - run: python -m pip install --upgrade "azure-cli>=2.92.0"
       shell: bash
     - run: python --version
       shell: bash
