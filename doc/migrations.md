@@ -190,6 +190,9 @@ az devops migrations pause --org https://dev.azure.com/myorg \
 ### Schedule or cancel cutover
 
 ```bash
+az devops migrations cutover now --org https://dev.azure.com/myorg \
+  --repository-id 00000000-0000-0000-0000-000000000000
+
 az devops migrations cutover set --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000 \
   --date 2030-12-31T11:59:00Z
@@ -197,6 +200,11 @@ az devops migrations cutover set --org https://dev.azure.com/myorg \
 az devops migrations cutover cancel --org https://dev.azure.com/myorg \
   --repository-id 00000000-0000-0000-0000-000000000000
 ```
+
+`cutover now` schedules the cutover immediately and reviews cutover status. If the
+review reports unprocessed items or requires pipeline verification acknowledgment, review the
+returned information and run `az devops migrations cutover approve` with `--accept-failures`,
+`--pipelines-verified`, or both as recommended by the command.
 
 ### Abandon a migration
 
