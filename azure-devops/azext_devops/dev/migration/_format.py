@@ -4,6 +4,7 @@
 # --------------------------------------------------------------------------------------------
 
 from collections import OrderedDict
+from knack.output import CommandResultItem, format_table
 from azext_devops.dev.common.format import trim_for_display, date_time_to_only_date
 
 
@@ -38,39 +39,42 @@ def transform_cutover_review_table_output(result):
     if not isinstance(result, dict):
         return []
 
-    failed_count = result.get('failedCount')
-    blocked_count = result.get('blockedCount')
-    pending_count = result.get('pendingCount')
-    total_unprocessed = result.get('totalUnprocessedCount')
-    requires_pipeline_ack = result.get('requiresPipelineVerificationAcknowledgment')
-    failed_items = result.get('failedItems') if isinstance(result.get('failedItems'), list) else []
+    review = OrderedDict()
+    review['FailedCount'] = result.get('failedCount')
+    review['BlockedCount'] = result.get('blockedCount')
+    review['PendingCount'] = result.get('pendingCount')
+    review['TotalUnprocessedCount'] = result.get('totalUnprocessedCount')
+    review['RequiresPipelineVerification'] = result.get('requiresPipelineVerificationAcknowledgment')
+    unprocessed_items = result.get('unprocessedItems') if isinstance(result.get('unprocessedItems'), list) else []
 
-    if not failed_items:
-        row = OrderedDict()
-        row['FailedCount'] = failed_count
-        row['BlockedCount'] = blocked_count
-        row['PendingCount'] = pending_count
-        row['TotalUnprocessedCount'] = total_unprocessed
-        row['RequiresPipelineVerification'] = requires_pipeline_ack
-        row['State'] = None
-        row['Type'] = None
-        row['PullRequestUrl'] = None
-        return [row]
+    if not unprocessed_items:
+        return [review]
 
+    if any(value is not None for value in review.values()):
+        print('Review:')
+        print(format_table(CommandResultItem([review], table_transformer=lambda data: data)))
+    print('Unprocessed items:')
     rows = []
-    for index, item in enumerate(failed_items):
+    for item in unprocessed_items:
         row = OrderedDict()
-        row['FailedCount'] = failed_count if index == 0 else None
-        row['BlockedCount'] = blocked_count if index == 0 else None
-        row['PendingCount'] = pending_count if index == 0 else None
-        row['TotalUnprocessedCount'] = total_unprocessed if index == 0 else None
-        row['RequiresPipelineVerification'] = requires_pipeline_ack if index == 0 else None
         row['State'] = item.get('state') if isinstance(item, dict) else None
         row['Type'] = item.get('type') if isinstance(item, dict) else None
         row['PullRequestUrl'] = item.get('pullRequestUrl') if isinstance(item, dict) else None
+        row['Error'] = item.get('error') if isinstance(item, dict) else None
         rows.append(row)
 
     return rows
+
+
+def transform_cutover_now_table_output(result):
+    review_fields = (
+        'totalUnprocessedCount',
+        'requiresPipelineVerificationAcknowledgment',
+        'unprocessedItems',
+    )
+    if isinstance(result, dict) and any(field in result for field in review_fields):
+        return transform_cutover_review_table_output(result)
+    return transform_migration_table_output(result)
 
 
 def transform_pipelines_list_table_output(result):

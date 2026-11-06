@@ -96,6 +96,16 @@ def load_migration_help():
           az devops migrations cutover review --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000
     """
 
+    helps['devops migrations cutover now'] = """
+    type: command
+    short-summary: Start migration cutover immediately and review issues requiring approval.
+    long-summary: 'Schedules cutover immediately, then retrieves cutover review information. If unprocessed items or pipeline verification require approval, the review is returned with guidance to run cutover approve. Otherwise, the updated migration is returned.'
+    examples:
+      - name: Start cutover immediately.
+        text: |
+          az devops migrations cutover now --org https://dev.azure.com/myorg --repository-id 00000000-0000-0000-0000-000000000000
+    """
+
     helps['devops migrations cutover approve'] = """
     type: command
     short-summary: Approve cutover by accepting unprocessed items and/or verifying rewired pipelines.
@@ -128,7 +138,7 @@ def load_migration_help():
 
     helps['devops migrations pipelines'] = """
     type: group
-    short-summary: Manage pipeline rewiring for migrations. (Preview)
+    short-summary: Manage pipeline rewiring for migrations.
     """
 
     helps['devops migrations pipelines list'] = """
@@ -142,7 +152,7 @@ def load_migration_help():
 
     helps['devops migrations pipelines submit'] = """
     type: command
-    short-summary: Submit pipelines for rewiring. (Preview)
+    short-summary: Submit pipelines for rewiring.
     examples:
       - name: Submit pipelines with service connection and repository mappings.
         text: |
@@ -151,7 +161,7 @@ def load_migration_help():
 
     helps['devops migrations pipelines update'] = """
     type: command
-    short-summary: Bulk update pipeline rewiring configuration. (Preview)
+    short-summary: Bulk update pipeline rewiring configuration.
     examples:
       - name: Add, remove, and update service connection.
         text: |
@@ -160,7 +170,7 @@ def load_migration_help():
 
     helps['devops migrations pipelines retry'] = """
     type: command
-    short-summary: Retry failed pipeline rewiring entries. (Preview)
+    short-summary: Retry failed pipeline rewiring entries.
     examples:
       - name: Retry specific failed pipelines.
         text: |
@@ -169,7 +179,7 @@ def load_migration_help():
 
     helps['devops migrations pipelines delete'] = """
     type: command
-    short-summary: Delete pipeline rewiring data for a migration. (Preview)
+    short-summary: Delete pipeline rewiring data for a migration.
     examples:
       - name: Delete rewiring config and cloned definitions.
         text: |
