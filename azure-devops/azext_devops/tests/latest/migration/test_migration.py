@@ -4,6 +4,9 @@
 # --------------------------------------------------------------------------------------------
 
 import unittest
+from contextlib import redirect_stdout
+from datetime import datetime, timezone
+from io import StringIO
 from urllib.error import HTTPError
 
 try:
@@ -13,12 +16,14 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
+from knack.output import CommandResultItem, format_table
 from knack.util import CLIError
 import azext_devops.dev.migration.migration as migration_module
 
 from azext_devops.dev.migration.migration import (list_migrations,
                                                   create_migration,
                                                   cancel_cutover,
+                                                  cutover_now,
                                                   get_cutover_review,
                                                   approve_cutover,
                                                   delete_migration,
@@ -28,6 +33,8 @@ from azext_devops.dev.migration.migration import (list_migrations,
                                                   update_pipeline_rewiring,
                                                   retry_pipeline_rewiring,
                                                   delete_pipeline_rewiring)
+from azext_devops.dev.migration._format import (transform_cutover_now_table_output,
+                                              transform_cutover_review_table_output)
 
 
 class TestMigrationCommands(unittest.TestCase):
@@ -797,6 +804,228 @@ class TestMigrationCommands(unittest.TestCase):
             args = mock_send.call_args[0]
             self.assertEqual(args[1], 'GET')
             self.assertIn('/_apis/elm/migrations/00000000-0000-0000-0000-000000000000/cutoverReview', args[2])
+
+    def test_cutover_now_schedules_one_minute_ago_before_review(self):
+        repository_id = '00000000-0000-0000-0000-000000000000'
+        scheduled_result = {'repositoryId': repository_id, 'stage': 'Cutover'}
+        review_result = {
+            'totalUnprocessedCount': 0,
+            'requiresPipelineVerificationAcknowledgment': False
+        }
+        calls = []
+
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration.datetime') as mock_datetime, \
+             patch('azext_devops.dev.migration.migration.schedule_cutover') as mock_schedule, \
+             patch('azext_devops.dev.migration.migration.get_cutover_review') as mock_review:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_datetime.now.return_value = datetime(2026, 9, 24, 18, 19, 3, 210000, tzinfo=timezone.utc)
+            mock_schedule.side_effect = lambda **kwargs: calls.append('schedule') or scheduled_result
+            mock_review.side_effect = lambda **kwargs: calls.append('review') or review_result
+
+            result = cutover_now(
+                repository_id=repository_id,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            self.assertEqual(result, scheduled_result)
+            self.assertEqual(
+                mock_schedule.call_args[1]['cutover_date'],
+                '2026-09-24T18:18:03.210000Z')
+            self.assertEqual(calls, ['schedule', 'review'])
+
+    def test_cutover_now_returns_review_and_recommends_accepting_failures(self):
+        repository_id = '00000000-0000-0000-0000-000000000000'
+        review_result = {
+            'totalUnprocessedCount': 3,
+            'requiresPipelineVerificationAcknowledgment': False
+        }
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration.schedule_cutover') as mock_schedule, \
+             patch('azext_devops.dev.migration.migration.get_cutover_review') as mock_review, \
+             patch('azext_devops.dev.migration.migration.logger') as mock_logger:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_schedule.return_value = {'repositoryId': repository_id}
+            mock_review.return_value = review_result
+
+            result = cutover_now(
+                repository_id=repository_id,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            self.assertEqual(result, review_result)
+            warning_call = str(mock_logger.warning.call_args)
+            self.assertIn('--accept-failures 3', warning_call)
+            self.assertNotIn('--pipelines-verified', warning_call)
+
+    def test_cutover_now_returns_review_and_recommends_pipeline_verification(self):
+        repository_id = '00000000-0000-0000-0000-000000000000'
+        review_result = {
+            'totalUnprocessedCount': 0,
+            'requiresPipelineVerificationAcknowledgment': True
+        }
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration.schedule_cutover') as mock_schedule, \
+             patch('azext_devops.dev.migration.migration.get_cutover_review') as mock_review, \
+             patch('azext_devops.dev.migration.migration.logger') as mock_logger:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_schedule.return_value = {'repositoryId': repository_id}
+            mock_review.return_value = review_result
+
+            result = cutover_now(
+                repository_id=repository_id,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            self.assertEqual(result, review_result)
+            warning_call = str(mock_logger.warning.call_args)
+            self.assertIn('--pipelines-verified', warning_call)
+            self.assertNotIn('--accept-failures', warning_call)
+
+    def test_cutover_now_returns_review_and_recommends_both_approvals(self):
+        repository_id = '00000000-0000-0000-0000-000000000000'
+        review_result = {
+            'totalUnprocessedCount': 3,
+            'requiresPipelineVerificationAcknowledgment': True
+        }
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration.schedule_cutover') as mock_schedule, \
+             patch('azext_devops.dev.migration.migration.get_cutover_review') as mock_review, \
+             patch('azext_devops.dev.migration.migration.logger') as mock_logger:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_schedule.return_value = {'repositoryId': repository_id}
+            mock_review.return_value = review_result
+
+            result = cutover_now(
+                repository_id=repository_id,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            self.assertEqual(result, review_result)
+            mock_logger.warning.assert_called_once()
+            self.assertEqual(
+                mock_logger.warning.call_args[0][1:],
+                (repository_id, '--accept-failures 3 --pipelines-verified'))
+
+    def test_cutover_now_returns_scheduling_result_without_warning_when_review_is_clear(self):
+        repository_id = '00000000-0000-0000-0000-000000000000'
+        scheduled_result = {'repositoryId': repository_id, 'stage': 'Cutover'}
+        review_result = {
+            'totalUnprocessedCount': 0,
+            'requiresPipelineVerificationAcknowledgment': False
+        }
+        with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \
+             patch('azext_devops.dev.migration.migration.schedule_cutover') as mock_schedule, \
+             patch('azext_devops.dev.migration.migration.get_cutover_review') as mock_review, \
+             patch('azext_devops.dev.migration.migration.logger') as mock_logger:
+            mock_resolve.return_value = self._TEST_ORG
+            mock_schedule.return_value = scheduled_result
+            mock_review.return_value = review_result
+
+            result = cutover_now(
+                repository_id=repository_id,
+                organization=self._TEST_ORG,
+                detect=False
+            )
+
+            self.assertEqual(result, scheduled_result)
+            mock_logger.warning.assert_not_called()
+
+    def test_cutover_now_table_output_formats_review_result(self):
+        rows = transform_cutover_now_table_output({
+            'totalUnprocessedCount': 2,
+            'requiresPipelineVerificationAcknowledgment': True
+        })
+
+        self.assertEqual(rows[0]['TotalUnprocessedCount'], 2)
+        self.assertEqual(rows[0]['RequiresPipelineVerification'], True)
+
+    def test_cutover_now_table_output_formats_migration_result(self):
+        rows = transform_cutover_now_table_output({
+            'repositoryId': '00000000-0000-0000-0000-000000000000',
+            'stage': 'Cutover'
+        })
+
+        self.assertEqual(rows[0]['RepositoryId'], '00000000-0000-0000-0000-000000000000')
+        self.assertEqual(rows[0]['Stage'], 'Cutover')
+
+    def test_cutover_table_output_formats_all_unprocessed_states(self):
+        review_result = {
+            'failedCount': 1,
+            'blockedCount': 1,
+            'pendingCount': 1,
+            'totalUnprocessedCount': 3,
+            'requiresPipelineVerificationAcknowledgment': True,
+            'unprocessedItems': [
+                {'state': 'failed', 'type': 'pull_request', 'pullRequestUrl': '/pullrequest/1',
+                 'error': 'Unable to migrate pull request'},
+                {'state': 'blocked', 'type': 'pull_request_comment', 'pullRequestUrl': '/pullrequest/2'},
+                {'state': 'pending', 'type': 'pull_request', 'pullRequestUrl': '/pullrequest/3'}
+            ]
+        }
+
+        for transformer in (transform_cutover_review_table_output, transform_cutover_now_table_output):
+            with self.subTest(transformer=transformer.__name__):
+                output = StringIO()
+                with redirect_stdout(output):
+                    items_output = format_table(CommandResultItem(review_result, table_transformer=transformer))
+
+                self.assertEqual(
+                    [line.split(maxsplit=3) for line in items_output.splitlines()[2:]],
+                    [['failed', 'pull_request', '/pullrequest/1', 'Unable to migrate pull request'],
+                     ['blocked', 'pull_request_comment', '/pullrequest/2'],
+                     ['pending', 'pull_request', '/pullrequest/3']])
+                summary_output, trailing_output = output.getvalue().split('Unprocessed items:\n')
+                self.assertTrue(summary_output.startswith('Review:\n'))
+                self.assertEqual(trailing_output, '')
+                for column in ('FailedCount', 'BlockedCount', 'PendingCount',
+                               'TotalUnprocessedCount', 'RequiresPipelineVerification'):
+                    self.assertEqual(summary_output.count(column), 1)
+                    self.assertNotIn(column, items_output)
+                self.assertEqual(summary_output.splitlines()[-2].split(), ['1', '1', '1', '3', 'True'])
+                self.assertIn('Error', items_output)
+                self.assertIn('Unable to migrate pull request', items_output)
+                for state in ('failed', 'blocked', 'pending'):
+                    self.assertIn(state, items_output)
+
+    def test_cutover_table_output_without_items_only_shows_review(self):
+        for transformer in (transform_cutover_review_table_output, transform_cutover_now_table_output):
+            for items in (None, []):
+                with self.subTest(transformer=transformer.__name__, items=items):
+                    review_result = {
+                        'failedCount': 0,
+                        'blockedCount': 0,
+                        'pendingCount': 0,
+                        'totalUnprocessedCount': 0
+                    }
+                    if items is not None:
+                        review_result['unprocessedItems'] = items
+                    output = StringIO()
+                    with redirect_stdout(output):
+                        rendered = format_table(CommandResultItem(review_result, table_transformer=transformer))
+
+                    self.assertEqual(output.getvalue(), '')
+                    self.assertIn('TotalUnprocessedCount', rendered)
+                    self.assertNotIn('Unprocessed items:', rendered)
+                    for column in ('State', 'Type', 'PullRequestUrl', 'Error'):
+                        self.assertNotIn(column, rendered)
+
+    def test_cutover_now_table_output_detects_unprocessed_items(self):
+        with redirect_stdout(StringIO()):
+            rows = transform_cutover_now_table_output({
+                'unprocessedItems': [
+                    {'state': 'blocked', 'type': 'pull_request', 'pullRequestUrl': '/pullrequest/1'}
+                ]
+            })
+
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]['State'], 'blocked')
+        self.assertEqual(rows[0]['Type'], 'pull_request')
+        self.assertEqual(rows[0]['PullRequestUrl'], '/pullrequest/1')
 
     def test_approve_cutover_sends_cutover_failure_accepted_count(self):
         with patch('azext_devops.dev.migration.migration.resolve_instance') as mock_resolve, \

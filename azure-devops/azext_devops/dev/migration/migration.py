@@ -10,6 +10,7 @@ import subprocess
 import time
 import sys
 import uuid
+from datetime import datetime, timedelta, timezone
 from urllib.parse import quote_plus, urlparse
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
@@ -479,6 +480,45 @@ def schedule_cutover(repository_id=None, cutover_date=None, organization=None, d
         raise CLIError('--date must be specified.')
     return _update_migration(repository_id, organization, detect, scheduled_cutover_date=cutover_date,
                              include_cutover=True)
+
+
+def cutover_now(repository_id=None, organization=None, detect=None):
+    organization = _resolve_org_for_auth(organization, detect)
+    repository_id = _resolve_repository_id(repository_id)
+    cutover_date = (datetime.now(timezone.utc) - timedelta(minutes=1)).isoformat().replace('+00:00', 'Z')
+    schedule_result = schedule_cutover(
+        repository_id=repository_id,
+        cutover_date=cutover_date,
+        organization=organization,
+        detect=None)
+    review = get_cutover_review(
+        repository_id=repository_id,
+        organization=organization,
+        detect=None)
+
+    unprocessed_count = 0
+    if isinstance(review, dict):
+        try:
+            unprocessed_count = max(0, int(review.get('totalUnprocessedCount') or 0))
+        except (TypeError, ValueError):
+            unprocessed_count = 0
+    requires_pipeline_ack = isinstance(review, dict) and (
+        review.get('requiresPipelineVerificationAcknowledgment') is True)
+    if not unprocessed_count and not requires_pipeline_ack:
+        return schedule_result
+
+    approve_options = []
+    if unprocessed_count:
+        approve_options.append('--accept-failures {}'.format(unprocessed_count))
+    if requires_pipeline_ack:
+        approve_options.append('--pipelines-verified')
+    logger.warning(
+        'Cutover review found issues that require approval.'
+        ' Only approve if you accept that some items may not be migrated.'
+        ' Review the cutover information, then run "az devops migrations cutover approve --repository-id %s %s".',
+        repository_id,
+        ' '.join(approve_options))
+    return review
 
 
 def cancel_cutover(repository_id=None, organization=None, detect=None):
