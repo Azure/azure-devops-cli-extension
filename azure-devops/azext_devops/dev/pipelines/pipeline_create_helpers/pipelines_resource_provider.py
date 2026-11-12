@@ -10,6 +10,7 @@ from azext_devops.dev.common.services import (
     get_service_endpoint_client, get_new_cix_client, get_default_subscription_info)
 from azext_devops.dev.pipelines.pipeline_create_helpers.github_api_helper import get_github_pat_token
 from azext_devops.devops_sdk.v5_1.service_endpoint.models import ServiceEndpoint, EndpointAuthorization
+from azure.cli.core.util import get_safe_executable_path
 
 logger = get_logger(__name__)
 
@@ -91,7 +92,10 @@ def get_kubernetes_environment_resource(organization, project, repo_name):
     import json
     subscription_id, subscription_name, tenant_id, environment_name = get_default_subscription_info()
     logger.warning("Using your default Azure subscription %s for fetching AKS clusters.", subscription_name)
-    aks_list = subprocess.check_output('az aks list -o json', shell=True)
+    az_exec_path = get_safe_executable_path("az")
+    if not az_exec_path:
+        raise CLIError("Az executable could not be found.")
+    aks_list = subprocess.check_output([az_exec_path, 'aks', 'list', '-o', 'json'])
     aks_list = json.loads(aks_list)
     if aks_list:
         cluster_choice = 0
@@ -211,7 +215,10 @@ def get_container_registry_service_connection(organization, project):
     subscription_id, subscription_name, tenant_id, _environment_name = get_default_subscription_info()
     logger.warning("Using your default Azure subscription %s for fetching Azure Container Registries.",
                    subscription_name)
-    acr_list = subprocess.check_output('az acr list -o json', shell=True)
+    az_exec_path = get_safe_executable_path("az")
+    if not az_exec_path:
+        raise CLIError("Az executable could not be found.")
+    acr_list = subprocess.check_output([az_exec_path, 'acr', 'list', '-o', 'json'])
     acr_list = json.loads(acr_list)
     if acr_list:
         registry_choice = 0
@@ -244,7 +251,10 @@ def get_webapp_from_list_selection():
     import json
     _subscription_id, subscription_name, _tenant_id, _environment_name = get_default_subscription_info()
     logger.warning("Using your default Azure subscription %s for fetching Web App list.", subscription_name)
-    webapp_list = subprocess.check_output('az webapp list -o json', shell=True)
+    az_exec_path = get_safe_executable_path("az")
+    if not az_exec_path:
+        raise CLIError("Az executable could not be found.")
+    webapp_list = subprocess.check_output([az_exec_path, 'webapp', 'list', '-o', 'json'])
     webapp_list = json.loads(webapp_list)
     if webapp_list:
         app_choice = 0
