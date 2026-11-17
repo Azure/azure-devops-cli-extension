@@ -45,7 +45,6 @@ jobs:
           - '3.12'
           - '3.11'
           - '3.10'
-          - '3.9'
     steps:
       - uses: actions/checkout@v2
       - name: Rename AzureCliExtensionDirectory
@@ -69,7 +68,6 @@ jobs:
           - '3.12'
           - '3.11'
           - '3.10'
-          - '3.9'
     steps:
       - uses: actions/checkout@v2
       - run: sudo rm -R -f /usr/local/lib/azureExtensionDir
