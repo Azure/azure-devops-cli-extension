@@ -18,7 +18,7 @@ You can log in using an Azure DevOps Personal Access Token. See the [create pers
 
 Once you have the PAT Token, run the `az devops login` command. You will be prompted to enter PAT token.
 
-```bash
+```azurecli
 $az devops login --organization https://dev.azure.com/contoso
 Token:
 ```
@@ -62,7 +62,7 @@ If you are working in a local check out of a repository, you can simply run `az 
 
 You can also configure the Azure Devops Extension to add git aliases for common git-based Azure Repos commands like creating or adding reviewers to pull requests. This can be enabled by running the following command:
 
-```bash
+```azurecli
 az devops configure --use-git-alias true
 ```
 
@@ -83,7 +83,7 @@ The output formats are inherited from Azure CLI. The Azure CLI uses JSON as its 
 
 You can use the --query parameter and the JMESPath query syntax to customize your output.
 
-```bash
+```azurecli
 az devops project list --query "[?visibility=='private'].{ProjectName: name, ProjectDescription: description}"
 ```
 
@@ -100,7 +100,7 @@ You can use --open switch to open any artifact in Azure DevOps portal in your de
 
 For example :
 
-```bash
+```azurecli
 az pipelines build show --id 1 --open
 ```
 
@@ -330,7 +330,7 @@ You can create and manage YAML based multi stage Azure Pipelines using the `az p
 
 - You can use Azure Pipelines to build an app written in any language. For this quickstart, we will use Java. To get started, fork the following repository into your GitHub account.
 
-```BASH
+```bash
 https://github.com/MicrosoftDocs/pipelines-java
 ```
 
