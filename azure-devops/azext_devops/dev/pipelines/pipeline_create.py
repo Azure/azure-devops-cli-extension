@@ -55,7 +55,7 @@ def pipeline_create(name, description=None, repository=None, branch=None, yml_pa
     :param description: Description for the new pipeline
     :type description: str
     :param repository: Repository for which the pipeline needs to be configured.
-    Can be clone url of the git repository or name of the repository for a Azure Repos
+    Can be clone url of the git repository or name of the repository for an Azure Repos
     or Owner/RepoName in case of GitHub repository.
     If omitted it will be auto-detected from the remote url of local git repository.
     If name is mentioned instead of url, --repository-type argument is also required.
