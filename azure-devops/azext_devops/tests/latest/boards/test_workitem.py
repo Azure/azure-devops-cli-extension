@@ -12,8 +12,8 @@ except ImportError:
     # Attempt to load mock (works on Python version below 3.3)
     from mock import patch
 
-from azext_devops.dev.boards.work_item import (delete_work_item,
-                                            show_work_item)
+from azext_devops.dev.boards.work_item import (create_work_item, delete_work_item,
+                                                show_work_item)
 from azext_devops.dev.common.services import clear_connection_cache
 from azext_devops.tests.utils.helper import get_client_mock_helper, TEST_DEVOPS_ORG_URL
 from azext_devops.tests.utils.authentication import AuthenticatedTests
@@ -166,6 +166,44 @@ class TestWorkItemMethods(AuthenticatedTests):
 
         self.mock_delete_WI.assert_called_once_with(id=test_work_item_id, project='test', destroy=False)
         self.mock_validate_token.assert_not_called()
+
+
+    def test_create_work_item_formats_specified_multiline_fields_as_markdown(self):
+        self.mock_create_WI.return_value.id = 1
+
+        create_work_item(work_item_type='Task', title='Markdown work item',
+                         description='# Description',
+                         fields=['Custom.Requirements=## Requirements'],
+                         markdown_fields=['System.Description', 'Custom.Requirements'],
+                         project='testproject', organization=self._TEST_DEVOPS_ORGANIZATION)
+
+        self.mock_create_WI.assert_called_once()
+        create_call = self.mock_create_WI.call_args
+        self.assertEqual(create_call.kwargs['project'], 'testproject')
+        self.assertEqual(create_call.kwargs['type'], 'Task')
+        patch_document = create_call.kwargs['document']
+        self.assertEqual(
+            [(operation.op, operation.path, operation.value) for operation in patch_document],
+            [('add', '/fields/System.Title', 'Markdown work item'),
+             ('add', '/fields/System.Description', '# Description'),
+             ('add', '/fields/Custom.Requirements', '## Requirements'),
+             ('add', '/multilineFieldsFormat/System.Description', 'Markdown'),
+             ('add', '/multilineFieldsFormat/Custom.Requirements', 'Markdown')])
+
+
+    def test_create_work_item_does_not_add_markdown_format_without_markdown_fields(self):
+        self.mock_create_WI.return_value.id = 1
+
+        create_work_item(work_item_type='Task', title='Plain work item',
+                         description='Plain description', project='testproject',
+                         organization=self._TEST_DEVOPS_ORGANIZATION)
+
+        self.mock_create_WI.assert_called_once()
+        patch_document = self.mock_create_WI.call_args.kwargs['document']
+        self.assertEqual(
+            [(operation.op, operation.path, operation.value) for operation in patch_document],
+            [('add', '/fields/System.Title', 'Plain work item'),
+             ('add', '/fields/System.Description', 'Plain description')])
 
 
 if __name__ == '__main__':
